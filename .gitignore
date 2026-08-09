@@ -1,0 +1,22 @@
+# User data and downloaded knowledge archives — never in history.
+# content/ holds the reader's real learning database, its backups, and
+# multi-gigabyte Kiwix ZIM archives (re-downloadable via The Shelf).
+content/
+
+# Stray/test databases anywhere in the tree
+*.db
+*.db-shm
+*.db-wal
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# Local-only Claude Code state (launch.json IS tracked — project run config)
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# OS noise
+.DS_Store

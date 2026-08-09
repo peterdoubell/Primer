@@ -1,0 +1,3298 @@
+{
+ "id": "chemistry",
+ "name": "Chemistry",
+ "icon": "⚗",
+ "color": "#8b6a20",
+ "tagline": "What everything is made of, and how it changes.",
+ "nodes": [
+  {
+   "id": "chem.0.materials",
+   "title": "Stuff Around Us",
+   "stage": 0,
+   "goal": "Notice materials: wood, metal, water, air.",
+   "articles": [
+    "Material",
+    "Matter"
+   ],
+   "kid_text": "Everything you can touch is made of some kind of stuff called a material. A wooden chair is made of wood, a spoon can be made of metal, and the rain is made of water. Even the air you can't see is real stuff, because you can feel it push when you wave your hand! Look around and name what each thing is made of.",
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "What is a spoon made of? 🥄",
+     "choices": [
+      "Metal",
+      "Water",
+      "Air"
+     ],
+     "answer": "Metal",
+     "say": "What is a shiny spoon made of? Is it metal, water, or air?",
+     "speak_choices": true,
+     "explain": "Yes! A spoon is made of metal, hard and shiny and cold."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which one is water? 💧 🪵 🔑",
+     "choices": [
+      "💧",
+      "🪵",
+      "🔑"
+     ],
+     "answer": "💧",
+     "say": "Which picture shows water? The drop, the piece of wood, or the key?",
+     "speak_choices": true,
+     "explain": "That's right, the little drop is water, wet and runny."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Wave your hand. What pushes back? 🖐️",
+     "choices": [
+      "Air",
+      "Rock",
+      "Wood"
+     ],
+     "answer": "Air",
+     "say": "When you wave your hand, something you can't see pushes back. Is it air, rock, or wood?",
+     "speak_choices": true,
+     "explain": "Air is real stuff, even though we can't see it!"
+    },
+    {
+     "kind": "choice",
+     "prompt": "A tree trunk is made of... 🌳",
+     "choices": [
+      "Wood",
+      "Metal",
+      "Water"
+     ],
+     "answer": "Wood",
+     "say": "A big tree trunk. Is it made of wood, metal, or water?",
+     "speak_choices": true,
+     "explain": "Trees are made of wood, the same stuff as a wooden chair."
+    },
+    {
+     "kind": "choice",
+     "prompt": "What fills a rainy puddle? 🥾",
+     "choices": [
+      "Water",
+      "Wood",
+      "Metal"
+     ],
+     "answer": "Water",
+     "say": "A puddle after the rain. Is it full of water, wood, or metal?",
+     "speak_choices": true,
+     "explain": "Puddles are made of water, wet and runny and splashy."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which one is metal? 🍃 💧 🔑",
+     "choices": [
+      "🍃",
+      "💧",
+      "🔑"
+     ],
+     "answer": "🔑",
+     "say": "Which picture shows metal? The leaf, the water drop, or the key?",
+     "speak_choices": true,
+     "explain": "The key is metal, hard and shiny and cold to touch."
+    },
+    {
+     "kind": "choice",
+     "prompt": "What do we breathe in? 👃",
+     "choices": [
+      "Sand",
+      "Air",
+      "Milk"
+     ],
+     "answer": "Air",
+     "say": "When you take a big breath, what goes in your nose? Sand, air, or milk?",
+     "speak_choices": true,
+     "explain": "We breathe air! It is real stuff, even though we cannot see it."
+    }
+   ],
+   "prereqs": []
+  },
+  {
+   "id": "chem.0.mixing",
+   "title": "Mixing",
+   "stage": 0,
+   "goal": "See what happens when you mix things.",
+   "articles": [
+    "Mixture"
+   ],
+   "kid_text": "When you put two things together, sometimes they mix and sometimes they don't. Stir sugar into water and it disappears, but the water tastes sweet, so the sugar is still there hiding! Pour oil into water and it floats on top in yellow blobs instead. Try mixing things and watch which ones join up and which stay apart.",
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Stir sugar into water. What happens? 🥄💧",
+     "choices": [
+      "Disappears",
+      "Floats on top",
+      "Sinks as lumps"
+     ],
+     "answer": "Disappears",
+     "say": "You stir sugar into water. Which happens: it disappears, it floats on top, or it sinks as lumps?",
+     "speak_choices": true,
+     "explain": "The sugar disappears into the water, but it's still hiding in there!"
+    },
+    {
+     "kind": "choice",
+     "prompt": "The water tastes sweet. Sugar still there? 😋",
+     "choices": [
+      "Yes",
+      "No"
+     ],
+     "answer": "Yes",
+     "say": "After you stir in the sugar, the water tastes sweet. Is the sugar still there? Yes, or no?",
+     "speak_choices": true,
+     "explain": "Yes! We can't see it, but we can taste it, so it's still there."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Pour oil in water. Oil goes where? 💛💧",
+     "choices": [
+      "Top",
+      "Bottom",
+      "Middle"
+     ],
+     "answer": "Top",
+     "say": "You pour yellow oil into water. Does the oil go to the top, the bottom, or the middle?",
+     "speak_choices": true,
+     "explain": "Oil floats up on top in blobs and never mixes in."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Stir cocoa powder into milk 🍫🥛",
+     "choices": [
+      "Mixes in",
+      "Stays a lump",
+      "Floats on top"
+     ],
+     "answer": "Mixes in",
+     "say": "You stir chocolate powder into milk. Which happens: it mixes in, it stays a lump, or it floats on top?",
+     "speak_choices": true,
+     "explain": "The powder mixes right in and makes the whole drink chocolatey."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Sand in water sinks to the... 🏖️💧",
+     "choices": [
+      "Bottom",
+      "Top",
+      "Middle"
+     ],
+     "answer": "Bottom",
+     "say": "You stir sand into a jar of water. Does the sand go to the bottom, the top, or the middle?",
+     "speak_choices": true,
+     "explain": "Sand does not mix in. It sinks down and sits at the bottom."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Mix red and blue paint. You get... 🎨",
+     "choices": [
+      "Purple",
+      "Green",
+      "Yellow"
+     ],
+     "answer": "Purple",
+     "say": "You mix red paint with blue paint. Do you get purple, green, or yellow?",
+     "speak_choices": true,
+     "explain": "Red and blue mix together to make lovely purple paint."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Shake oil and water. Stay mixed? 🫙",
+     "choices": [
+      "Yes",
+      "No"
+     ],
+     "answer": "No",
+     "say": "You shake oil and water together, then wait. Do they stay mixed? Yes, or no?",
+     "speak_choices": true,
+     "explain": "No! The oil floats back up into blobs on top every time."
+    }
+   ],
+   "prereqs": []
+  },
+  {
+   "id": "chem.0.water-states",
+   "title": "Ice, Water, Steam",
+   "stage": 0,
+   "goal": "Watch water freeze, melt and boil.",
+   "articles": [
+    "Water",
+    "Ice"
+   ],
+   "kid_text": "Water can change its shape when it gets hot or cold. In the freezer it turns hard and cold into ice, and when the ice warms up it melts back into runny water. If you heat water very hot on the stove, it bubbles and turns into steam that floats away like a cloud. Cold makes water hard, and heat makes it melt and then boil!",
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Ice in the warm sun becomes... ☀️🧊",
+     "choices": [
+      "Water",
+      "Steam",
+      "Snow"
+     ],
+     "answer": "Water",
+     "say": "You leave an ice cube in the warm sun. Does it turn into water, into steam, or into snow?",
+     "speak_choices": true,
+     "explain": "Warm sun melts ice into runny water. It needs to be much hotter to make steam."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Where does water turn into ice? 🧊",
+     "choices": [
+      "Freezer",
+      "Oven",
+      "Sunny window"
+     ],
+     "answer": "Freezer",
+     "say": "Where does water get cold and turn hard into ice? In the freezer, in the oven, or on a sunny window?",
+     "speak_choices": true,
+     "explain": "The freezer is very cold, and cold makes water turn into hard ice."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Very hot bubbling water makes... 🫖",
+     "choices": [
+      "Steam",
+      "Ice",
+      "Snow"
+     ],
+     "answer": "Steam",
+     "say": "When water gets very hot and bubbly on the stove, what floats away? Steam, ice, or snow?",
+     "speak_choices": true,
+     "explain": "Hot water boils and turns into steam that floats up like a cloud."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A snowman in warm sun will... ⛄☀️",
+     "choices": [
+      "Melt",
+      "Freeze",
+      "Get bigger"
+     ],
+     "answer": "Melt",
+     "say": "A snowman is standing in the warm sun. Will it melt, freeze, or get bigger?",
+     "speak_choices": true,
+     "explain": "Warm sun makes snow melt into runny water."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Juice left in the freezer gets... 🧃❄️",
+     "choices": [
+      "Hard",
+      "Runny",
+      "Warm"
+     ],
+     "answer": "Hard",
+     "say": "You leave a cup of juice in the freezer all night. Does it get hard, runny, or warm?",
+     "speak_choices": true,
+     "explain": "Cold makes drinks freeze hard, just like water turns to ice."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Steam is water that is very... 🍲",
+     "choices": [
+      "Very hot",
+      "Very cold",
+      "Very hard"
+     ],
+     "answer": "Very hot",
+     "say": "Steam puffs up from a boiling pot. Is that water very hot, very cold, or very hard?",
+     "speak_choices": true,
+     "explain": "Steam comes from very hot water bubbling on the stove."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which one is hard and cold? 🧊 💧 ☁️",
+     "choices": [
+      "🧊",
+      "💧",
+      "☁️"
+     ],
+     "answer": "🧊",
+     "say": "Which one is hard and cold? The ice cube, the water drop, or the puff of steam?",
+     "speak_choices": true,
+     "explain": "Ice is hard and cold. Water is runny, and steam is a warm cloud."
+    }
+   ],
+   "prereqs": []
+  },
+  {
+   "id": "chem.1.matter",
+   "title": "Solids, Liquids, Gases",
+   "stage": 1,
+   "goal": "Sort matter by its state and describe each.",
+   "articles": [
+    "State of matter",
+    "Solid",
+    "Liquid",
+    "Gas"
+   ],
+   "kid_text": "Everything is a solid, a liquid, or a gas. A solid like a block keeps its own shape and you can hold it. A liquid like juice is runny and takes the shape of its cup. A gas like air spreads out everywhere and you usually can't see it. Try sorting your toys, your drink, and a balloon's air into the three groups!",
+   "prereqs": [
+    "chem.0.materials",
+    "chem.0.water-states"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Juice in a cup is a... 🧃",
+     "choices": [
+      "Solid",
+      "Liquid",
+      "Gas"
+     ],
+     "answer": "Liquid",
+     "say": "Runny juice that takes the shape of its cup. Is it a solid, a liquid, or a gas?",
+     "speak_choices": true,
+     "explain": "Juice is a liquid, so it's runny and fits the shape of any cup."
+    },
+    {
+     "kind": "choice",
+     "prompt": "What fills a balloon? 🎈",
+     "choices": [
+      "Gas",
+      "Liquid",
+      "Solid"
+     ],
+     "answer": "Gas",
+     "say": "A puffy balloon is filled with air. Is air a gas, a liquid, or a solid?",
+     "speak_choices": true,
+     "explain": "Air is a gas, and gases spread out to fill up all the space."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A wooden block is a... 🧱",
+     "choices": [
+      "Solid",
+      "Liquid",
+      "Gas"
+     ],
+     "answer": "Solid",
+     "say": "A hard block you can hold in your hand. Is it a solid, a liquid, or a gas?",
+     "speak_choices": true,
+     "explain": "A block is a solid, so it keeps its own shape wherever you put it."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which one keeps its own shape? 🪨🥛💨",
+     "choices": [
+      "Rock",
+      "Milk",
+      "Steam"
+     ],
+     "answer": "Rock",
+     "say": "Which one always keeps its own shape? A rock, some milk, or steam?",
+     "speak_choices": true,
+     "explain": "A rock is a solid, so it keeps its shape wherever you put it."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Steam from a kettle is a... ☕",
+     "choices": [
+      "Solid",
+      "Gas",
+      "Liquid"
+     ],
+     "answer": "Gas",
+     "say": "Steam puffing out of a kettle and spreading around. Is it a solid, a gas, or a liquid?",
+     "speak_choices": true,
+     "explain": "Steam is a gas, so it spreads out into all the room."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Pour milk in a new cup. Its shape... 🥛",
+     "choices": [
+      "Changes to fit it",
+      "Keeps its old shape",
+      "Turns hard"
+     ],
+     "answer": "Changes to fit it",
+     "say": "You pour milk into a different shaped cup. Which happens: it changes to fit it, it keeps its old shape, or it turns hard?",
+     "speak_choices": true,
+     "explain": "Liquids change shape to fit whatever cup they are in."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Solid, liquid, gas. How many states? 🔢",
+     "choices": [
+      "3",
+      "2",
+      "5"
+     ],
+     "answer": "3",
+     "say": "Solid, liquid, and gas. How many states of matter is that? 3, 2, or 5?",
+     "speak_choices": true,
+     "explain": "There are three: solids, liquids, and gases."
+    }
+   ]
+  },
+  {
+   "id": "chem.1.changes",
+   "title": "Changing Matter",
+   "stage": 1,
+   "goal": "Melting, freezing, dissolving and burning.",
+   "articles": [
+    "Phase transition",
+    "Solvation"
+   ],
+   "kid_text": "Stuff can change from one form to another. When ice gets warm it melts into water, and when water gets very cold it freezes back into ice. Stir salt into water and it dissolves, seeming to vanish, but it is still there. When wood burns, it changes into ash and smoke and can never turn back. Watch how heat and mixing make things change!",
+   "prereqs": [
+    "chem.0.materials",
+    "chem.0.water-states",
+    "chem.0.mixing"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Stir salt into water. It... 🧂💧",
+     "choices": [
+      "Dissolves",
+      "Floats",
+      "Bounces"
+     ],
+     "answer": "Dissolves",
+     "say": "You stir salt into water and it seems to vanish. Which happens: it dissolves, it floats, or it bounces?",
+     "speak_choices": true,
+     "explain": "The salt dissolves and hides in the water, but it's still in there."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Burning wood turns into... 🔥🪵",
+     "choices": [
+      "Ash",
+      "Ice",
+      "Juice"
+     ],
+     "answer": "Ash",
+     "say": "When wood burns in a fire, what is left behind? Ash, ice, or juice?",
+     "speak_choices": true,
+     "explain": "Burning wood leaves grey ash and smoke floating away."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Can ash turn back into wood? 🪵",
+     "choices": [
+      "Yes",
+      "No"
+     ],
+     "answer": "No",
+     "say": "Once wood has burned into ash, can the ash turn back into wood? Yes, or no?",
+     "speak_choices": true,
+     "explain": "No, burning is a change that can never go backwards."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Ice cream in the hot sun will... 🍦☀️",
+     "choices": [
+      "Melt",
+      "Freeze",
+      "Get harder"
+     ],
+     "answer": "Melt",
+     "say": "You leave ice cream out in the hot sun. Will it melt, freeze, or get harder?",
+     "speak_choices": true,
+     "explain": "Heat makes ice cream melt into a drippy puddle."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A cup of water left in the ice box all night will… 🌙",
+     "choices": [
+      "Freeze",
+      "Boil",
+      "Stay runny"
+     ],
+     "answer": "Freeze",
+     "say": "You put a cup of water in the ice box overnight. Will it freeze, boil, or stay runny?",
+     "speak_choices": true,
+     "explain": "Cold makes water freeze into hard ice."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which change can go backwards? 🔁",
+     "choices": [
+      "Melting",
+      "Burning",
+      "Toasting bread"
+     ],
+     "answer": "Melting",
+     "say": "Which change can go backwards again? Melting, burning, or toasting bread?",
+     "speak_choices": true,
+     "explain": "Melted ice can freeze again, but burnt and toasted things never come back."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Stir cocoa in warm milk. It... 🍫",
+     "choices": [
+      "Dissolves",
+      "Bounces",
+      "Floats on top"
+     ],
+     "answer": "Dissolves",
+     "say": "You stir cocoa into warm milk and it seems to vanish. Which happens: it dissolves, it bounces, or it floats on top?",
+     "speak_choices": true,
+     "explain": "The cocoa dissolves and hides in the milk, but you can still taste it."
+    }
+   ]
+  },
+  {
+   "id": "chem.1.materials-props",
+   "title": "Properties of Materials",
+   "stage": 1,
+   "goal": "Hard, soft, magnetic, see-through: choose the right stuff.",
+   "articles": [
+    "Physical property",
+    "Material properties"
+   ],
+   "kid_text": "Different materials are good at different jobs. A window is made of glass because you can see through it, and a hammer is made of hard metal so it won't break. A pillow is soft for your head, and a magnet sticks to some metals but not to wood. When you build or fix something, pick the material with the right powers for the job!",
+   "prereqs": [
+    "chem.0.materials",
+    "phys.1.magnets"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Which one can you see through? 🏠",
+     "choices": [
+      "Glass",
+      "Brick",
+      "Wood"
+     ],
+     "answer": "Glass",
+     "say": "Windows let you see outside. Are they made of glass, brick, or wood?",
+     "speak_choices": true,
+     "explain": "Glass is see-through, so it's perfect for a window."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A magnet sticks to... 🧲",
+     "choices": [
+      "Metal",
+      "Wood",
+      "Cloth"
+     ],
+     "answer": "Metal",
+     "say": "A magnet sticks to some things but not others. Does it stick to metal, wood, or cloth?",
+     "speak_choices": true,
+     "explain": "Magnets grab onto some metals, but wood and cloth just slip away."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which is soft for your head? 😴",
+     "choices": [
+      "Pillow",
+      "Wooden board",
+      "Glass plate"
+     ],
+     "answer": "Pillow",
+     "say": "Which one is soft and comfy for your head? A pillow, a wooden board, or a glass plate?",
+     "speak_choices": true,
+     "explain": "A pillow is soft, so it's the right stuff for resting your head."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Best stuff for a raincoat? ☔",
+     "choices": [
+      "Plastic",
+      "Paper",
+      "Wool"
+     ],
+     "answer": "Plastic",
+     "say": "You want a coat that keeps the rain off. Should it be plastic, paper, or wool?",
+     "speak_choices": true,
+     "explain": "Plastic keeps water out. Paper would go soggy and tear, and wool soaks the rain right up."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A magnet will NOT stick to... 🧲",
+     "choices": [
+      "Plastic",
+      "Iron nail",
+      "Steel spoon"
+     ],
+     "answer": "Plastic",
+     "say": "A magnet will not stick to one of these. Is it the plastic, the iron nail, or the steel spoon?",
+     "speak_choices": true,
+     "explain": "Magnets grab iron and steel, but plastic just slides away."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which one is squishy and soft? 🤏",
+     "choices": [
+      "Sponge",
+      "Brick",
+      "Wooden block"
+     ],
+     "answer": "Sponge",
+     "say": "Which one squishes when you press it? A sponge, a brick, or a wooden block?",
+     "speak_choices": true,
+     "explain": "A sponge is soft and squishy, but a brick and a block stay hard."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Best stuff for a warm hat? 🧢",
+     "choices": [
+      "Wool",
+      "Glass",
+      "Ice"
+     ],
+     "answer": "Wool",
+     "say": "You need a cosy hat for a cold day. Should it be wool, glass, or ice?",
+     "speak_choices": true,
+     "explain": "Wool is soft and warm, just right for a hat."
+    }
+   ]
+  },
+  {
+   "id": "chem.2.atoms",
+   "title": "Atoms and Elements",
+   "stage": 2,
+   "goal": "Everything is built from about a hundred elements.",
+   "articles": [
+    "Atom",
+    "Chemical element",
+    "Periodic table"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Gold, oxygen, and iron are all examples of chemical elements. What makes something an element?",
+     "answer": "A substance made of only one kind of atom, not separable by chemistry",
+     "explain": "An element consists of a single type of atom, so ordinary chemical reactions cannot split it into anything simpler. Pure water is a pure substance but not an element.",
+     "choices": [
+      "A substance made of only one kind of atom, not separable by chemistry",
+      "Any pure substance, whether it holds one kind of atom or several",
+      "Any hard, shiny material that conducts both heat and electricity well",
+      "A material holding two or more different substances mixed up together"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Roughly how many different chemical elements are there that everything in the ordinary world is built from?",
+     "answer": "About 100",
+     "explain": "The periodic table holds around 100 naturally occurring and stable elements from which all ordinary matter is assembled.",
+     "choices": [
+      "About 1,000,000",
+      "About 100",
+      "About 1,000",
+      "About 10"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Water is built from hydrogen and oxygen. Air is mostly nitrogen and oxygen. Table salt is built from sodium and chlorine. Counting each element just once, how many different elements are named here?",
+     "answer": "5",
+     "explain": "Hydrogen, oxygen, nitrogen, sodium and chlorine make five. Oxygen is named twice, but it is still one element."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Imagine cutting a bar of pure iron in half, then cutting one half in half, again and again with a perfect blade. What would the smallest piece that is still iron be?",
+     "answer": "One iron atom, the smallest piece still iron",
+     "choices": [
+      "One iron atom, the smallest piece still iron",
+      "A speck of iron dust, just big enough to see",
+      "Half an iron atom, sliced one more time",
+      "There is no smallest piece, because iron goes on forever"
+     ],
+     "explain": "An atom is the smallest piece of an element. Split an iron atom and the bits are protons, neutrons and electrons, which are not iron."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Three jars hold copper, sulfur and table salt. Each looks like one pure substance, but only one of them is a compound rather than an element. Which jar, and how could you tell?",
+     "answer": "The salt, because it is built from sodium and chlorine chemically joined",
+     "choices": [
+      "The copper, because a metal is really several metals mixed together",
+      "The sulfur, because burning it gives off a gas that must have been inside it",
+      "The salt, because it dissolves away to nothing in warm water",
+      "The salt, because it is built from sodium and chlorine chemically joined"
+     ],
+     "explain": "Table salt is sodium chloride, two elements bonded into one new substance. Dissolving is not the test, and burning sulfur takes its oxygen from the air, not from inside the sulfur."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which list contains nothing but chemical elements?",
+     "answer": "Gold, helium and iron",
+     "choices": [
+      "Air, water and fire",
+      "Gold, helium and iron",
+      "Salt, sugar and chalk",
+      "Steel, brass and bronze"
+     ],
+     "explain": "Air is a mixture, water and salt are compounds, and steel and brass are metals blended together. Only gold, helium and iron are single elements."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A water molecule holds 2 hydrogen atoms and 1 oxygen atom. How many atoms are there in 5 water molecules altogether?",
+     "answer": "15",
+     "explain": "Each molecule has 3 atoms, and 5 x 3 = 15."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A carbon atom has 6 protons. How many electrons does a neutral carbon atom hold?",
+     "answer": "6",
+     "explain": "A neutral atom has as many electrons as protons, so 6."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A block of pure copper is heated, hammered flat and then dissolved in acid. What happens to its copper atoms through all of that?",
+     "answer": "They stay copper atoms throughout.",
+     "choices": [
+      "They stay copper atoms throughout.",
+      "They split into smaller pieces when hammered thin.",
+      "They turn into a different element when heated strongly.",
+      "They break down into simpler atoms once dissolved."
+     ],
+     "explain": "Chemical and physical treatments rearrange atoms but do not change what element an atom is."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two jars have lost their labels. One holds an element and the other a compound. Which test tells them apart?",
+     "answer": "See whether the substance can be broken down chemically into simpler substances.",
+     "choices": [
+      "See whether the substance can be broken down chemically into simpler substances.",
+      "See which one dissolves faster in warm water.",
+      "See which one is heavier for the same volume.",
+      "See which one melts at the lower temperature."
+     ],
+     "explain": "An element cannot be split into anything simpler by chemical means; a compound can be broken into its elements."
+    }
+   ],
+   "prereqs": [
+    "chem.1.matter",
+    "chem.1.changes"
+   ]
+  },
+  {
+   "id": "chem.2.molecules",
+   "title": "Molecules and Compounds",
+   "stage": 2,
+   "goal": "How atoms join into molecules.",
+   "articles": [
+    "Molecule",
+    "Chemical compound"
+   ],
+   "prereqs": [
+    "chem.2.atoms",
+    "chem.1.changes"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A water molecule is written H2O. What does this tell you about how it is built?",
+     "answer": "Two hydrogen atoms are joined to one oxygen atom",
+     "explain": "The formula H2O means each molecule has 2 hydrogen atoms bonded to 1 oxygen atom.",
+     "choices": [
+      "One hydrogen atom is joined to two oxygen atoms",
+      "Two hydrogen atoms are joined to one oxygen atom",
+      "It is a mixture of hydrogen gas and oxygen gas",
+      "It contains twenty hydrogen atoms and one oxygen atom"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which statement best describes the difference between a molecule and a compound?",
+     "answer": "A compound needs two or more different elements; a molecule can be just one",
+     "explain": "A molecule such as O2 can be a single element, but a compound like CO2 must combine at least two different elements.",
+     "choices": [
+      "A molecule is held by weak forces, a compound by real chemical bonds",
+      "Every molecule counts as a compound, since any two joined atoms will do",
+      "A compound needs two or more different elements; a molecule can be just one",
+      "There is no real difference at all; the two words mean exactly the same thing"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "One molecule of glucose has the formula C6H12O6. How many atoms are there in a single glucose molecule altogether?",
+     "answer": "24",
+     "explain": "6 carbon + 12 hydrogen + 6 oxygen = 24 atoms in one molecule."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A candle burns away to almost nothing, giving off carbon dioxide and water vapour. What became of the atoms that were in the wax?",
+     "answer": "They were rearranged into new molecules",
+     "choices": [
+      "They were rearranged into new molecules",
+      "They were destroyed, which is why the wax vanished",
+      "New atoms were created to build the two gases",
+      "They shrank until they were light enough to float off"
+     ],
+     "explain": "Burning rearranges atoms; it does not make or destroy them. Weigh the gases and they account for the missing wax."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Carbon monoxide (CO) is a deadly poison, but carbon dioxide (CO2) is the gas that makes drinks fizzy. Both are built from carbon and oxygen alone. Why are they so different?",
+     "answer": "One carbon holds one oxygen, the other holds two",
+     "choices": [
+      "They are really one substance that goes by two different names",
+      "The carbon in the poison came from a more dangerous element",
+      "One of them is a mixture and the other one is a compound",
+      "One carbon holds one oxygen, the other holds two"
+     ],
+     "explain": "The other holds two, so they are different compounds. Change how many atoms of each element join, and you get a different compound. The atoms are the same; the recipe is not."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which of these is a molecule but NOT a compound?",
+     "answer": "O2, two oxygen atoms bonded together",
+     "choices": [
+      "H2O, hydrogen bonded to oxygen",
+      "CO2, carbon bonded to two oxygens",
+      "O2, two oxygen atoms bonded together",
+      "NaCl, sodium bonded tightly to chlorine"
+     ],
+     "explain": "A molecule is two or more atoms bonded together. It only counts as a compound if those atoms come from different elements, and O2 is oxygen twice over."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Sulfuric acid has the formula H2SO4. How many atoms are there in one molecule of it?",
+     "answer": "7",
+     "explain": "2 hydrogen + 1 sulfur + 4 oxygen = 7 atoms."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Ammonia has the formula NH3. How many hydrogen atoms are there in 4 ammonia molecules?",
+     "answer": "12",
+     "explain": "3 hydrogens per molecule, and 4 x 3 = 12."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Hydrogen peroxide (H2O2) bleaches hair, while water (H2O) does not, although both hold only hydrogen and oxygen. What does that show?",
+     "answer": "How many atoms of each element the formula has decides what the substance is.",
+     "choices": [
+      "How many atoms of each element the formula has decides what the substance is.",
+      "Peroxide holds heavier versions of the same two atoms.",
+      "Peroxide is simply water with extra oxygen dissolved into it.",
+      "The two are really the same substance at different strengths."
+     ],
+     "explain": "Change the number of atoms joined together and you have a different compound with different properties."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A student writes that oxygen gas, O2, is a compound. How should you correct that?",
+     "answer": "Both its atoms come from one element, so it is not a compound.",
+     "choices": [
+      "Both its atoms come from one element, so it is not a compound.",
+      "It counts as a compound, since two atoms have joined up.",
+      "It counts as a compound only while it is dissolved in water.",
+      "It is neither a molecule nor a compound, but a mixture."
+     ],
+     "explain": "O2 is a molecule of an element. A compound needs two or more different elements chemically joined."
+    }
+   ]
+  },
+  {
+   "id": "chem.2.mixtures",
+   "title": "Mixtures and Solutions",
+   "stage": 2,
+   "goal": "Separate mixtures; understand solutions.",
+   "articles": [
+    "Mixture",
+    "Solution",
+    "Filtration"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "You have a beaker of salty water and want to get the pure salt back. Which method works best?",
+     "answer": "Evaporate or boil the water away, leaving the salt behind",
+     "explain": "Dissolved salt does not settle out and will not stay behind on a filter, and pouring off the liquid takes the salt with it. Evaporating the water leaves the solid salt.",
+     "choices": [
+      "Pour the clear liquid off the top and keep what is left behind",
+      "Let it stand until the salt sinks back to the bottom of the beaker",
+      "Evaporate or boil the water away, leaving the salt behind",
+      "Pour it through filter paper to catch the grains of salt"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A mixture of sand and water is poured through filter paper. What happens?",
+     "answer": "The sand is trapped on the paper and the water passes through",
+     "explain": "Sand does not dissolve and its grains are too big to pass through the filter, so it stays while water flows through.",
+     "choices": [
+      "The water is trapped on the paper and the sand passes through",
+      "Both the sand and water pass through unchanged",
+      "The sand is trapped on the paper and the water passes through",
+      "The sand dissolves and passes through with the water"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "You stir 5 grams of sugar into 95 grams of water and every grain dissolves. What is the mass of the sugary water, in grams?",
+     "answer": "100",
+     "explain": "Dissolving hides the sugar but does not destroy it: 95 + 5 = 100 g. The balance proves the sugar is still there."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two glasses look identical: one holds salty water, the other pure water. Which test would tell them apart, without tasting either?",
+     "answer": "Boil a spoonful dry and look for white solid",
+     "choices": [
+      "Boil a spoonful dry and look for white solid",
+      "Feel which glass is colder, since dissolving salt cools the water",
+      "Pour each through filter paper and see which one comes through",
+      "Look closely for cloudiness, since dissolved salt turns water milky"
+     ],
+     "explain": "Dissolved salt slips through filter paper, salty water looks perfectly clear, and both glasses have long since come to room temperature. Boiling the water off leaves the salt behind."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A jar holds iron filings mixed into dry sand. Which method separates the two quickest?",
+     "answer": "Run a magnet through it to lift the iron out",
+     "choices": [
+      "Run a magnet through it to lift the iron out",
+      "Add water and pour it all through filter paper",
+      "Sieve the mixture to catch the larger iron filings",
+      "Stir hard so the lighter iron floats up to the top"
+     ],
+     "explain": "Iron is magnetic and sand is not, so a magnet lifts the filings straight out. Filtering catches both, sieving needs a size difference that is not there, and iron is the denser of the two."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Air is a mixture of nitrogen, oxygen and other gases. Water is a compound of hydrogen and oxygen. What is the key difference between a mixture and a compound?",
+     "answer": "In a compound the elements make a new substance; in a mixture they keep their own",
+     "choices": [
+      "In a mixture the ingredients merely touch, while in a compound they dissolve into each other",
+      "A compound can be sieved apart, while a mixture must be boiled",
+      "A mixture holds more than two ingredients, a compound exactly two",
+      "In a compound the elements make a new substance; in a mixture they keep their own"
+     ],
+     "explain": "Oxygen in air still behaves like oxygen. Oxygen locked into water does not: hydrogen and oxygen have made something new."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "You dissolve 12 grams of salt in 188 grams of water and it all disappears. What is the mass of the solution, in grams?",
+     "answer": "200",
+     "explain": "Nothing is lost on dissolving, so 12 + 188 = 200 g."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A solution contains 20 grams of sugar dissolved in 80 grams of water. What percentage of the solution's mass is sugar?",
+     "answer": "20",
+     "explain": "20 out of a total 100 grams is 20 percent."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A muddy river sample is left standing until the silt settles, then the clear water is poured carefully off the top. What is this method called?",
+     "answer": "Decanting.",
+     "choices": [
+      "Decanting.",
+      "Distillation.",
+      "Chromatography.",
+      "Filtration."
+     ],
+     "explain": "Decanting simply pours the liquid off a settled solid; no filter or heating is involved."
+    },
+    {
+     "kind": "choice",
+     "prompt": "You need to recover both the pure water and the salt from a beaker of seawater. Which method gives you both?",
+     "answer": "Distillation, collecting the condensed water and keeping the solid left behind.",
+     "choices": [
+      "Distillation, collecting the condensed water and keeping the solid left behind.",
+      "Boiling in an open pan until all the water has gone.",
+      "Filtering the seawater through fine filter paper.",
+      "Freezing the seawater and pouring the liquid away."
+     ],
+     "explain": "Distillation evaporates the water and then condenses it back, so both parts of the mixture are saved."
+    }
+   ],
+   "prereqs": [
+    "chem.1.matter",
+    "chem.1.changes"
+   ]
+  },
+  {
+   "id": "chem.2.reactions-intro",
+   "title": "Chemical Reactions",
+   "stage": 2,
+   "goal": "Signs that a new substance has formed.",
+   "articles": [
+    "Chemical reaction"
+   ],
+   "prereqs": [
+    "chem.2.molecules",
+    "phys.2.heat"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "You mix two clear liquids and a solid cloudy powder suddenly appears at the bottom, and the beaker gets warm. What is the best conclusion?",
+     "answer": "A chemical reaction happened, forming a new substance",
+     "explain": "A new solid forming plus a temperature change are classic signs that new substances were made in a chemical reaction.",
+     "choices": [
+      "Nothing chemical happened; the liquids just got dirty",
+      "Only a physical change: the powder was there all along and has settled",
+      "The two liquids only changed color but stayed the same substances",
+      "A chemical reaction happened, forming a new substance"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which of these is NOT a reliable sign that a chemical reaction has taken place?",
+     "answer": "An ice cube slowly melting into liquid water",
+     "explain": "Melting is only a physical change of state; the water is still water, so no new substance formed.",
+     "choices": [
+      "Heat or light being given off",
+      "Bubbles of gas fizzing up from a mixture",
+      "An ice cube slowly melting into liquid water",
+      "A permanent color change that will not reverse"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A sealed flask holding 40 grams of vinegar and 5 grams of baking soda is placed on a balance. The mixture fizzes hard inside the sealed flask. What does the balance read afterwards, in grams?",
+     "answer": "45",
+     "explain": "Nothing can leave a sealed flask, so the mass stays 40 + 5 = 45 g. Reactions rearrange atoms; they never lose them."
+    },
+    {
+     "kind": "choice",
+     "prompt": "The same reaction is run in an open cup. 40 grams of vinegar and 5 grams of baking soda fizz away, and afterwards the cup and its contents weigh only 43 grams. Where did the other 2 grams go?",
+     "answer": "It escaped as carbon dioxide gas, which has mass",
+     "choices": [
+      "It escaped as carbon dioxide gas, which has mass",
+      "Some of the liquid turned into energy and left as heat",
+      "The vinegar soaked its way into the sides of the paper cup",
+      "Mass was destroyed by the chemical reaction that took place"
+     ],
+     "explain": "The bubbles carried carbon dioxide out of the open cup. Catch that gas and the missing 2 g turns up again."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which pair contains two chemical changes?",
+     "answer": "Toasting bread and rusting iron",
+     "choices": [
+      "Boiling water and rusting iron",
+      "Toasting bread and rusting iron",
+      "Crushing chalk and freezing juice",
+      "Melting butter and dissolving sugar"
+     ],
+     "explain": "Toast and rust are new substances that will not go back. Boiling, crushing, freezing, melting and dissolving all leave the substance itself unchanged."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Iron wool is weighed, burned in air, and the grey powder left behind weighs MORE than the wool did. A student insists that burning makes things lighter, the way a log turns to ash. What is the best explanation?",
+     "answer": "Oxygen from the air joined the iron, adding its mass to the powder",
+     "choices": [
+      "The balance must be faulty, because burning takes mass away",
+      "Heat has a mass of its own, and the powder soaked some up",
+      "The iron swelled up as it burned, and bigger things weigh more",
+      "Oxygen from the air joined the iron, adding its mass to the powder"
+     ],
+     "explain": "Burning iron is iron combining with oxygen. A log seems to lose mass only because its gases drift away unweighed."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "6 grams of magnesium burns with 4 grams of oxygen and forms magnesium oxide. What mass of magnesium oxide, in grams, is made?",
+     "answer": "10",
+     "explain": "Mass is conserved, so 6 + 4 = 10 grams of product."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "16 grams of methane burns with 64 grams of oxygen, giving 44 grams of carbon dioxide plus water. What mass of water, in grams, is made?",
+     "answer": "36",
+     "explain": "Total mass in is 80 g, and 80 - 44 = 36 g of water."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A cut apple turns brown on the bench over an hour. Which observation best supports calling this a chemical change?",
+     "answer": "A new brown substance has formed and will not turn back.",
+     "choices": [
+      "A new brown substance has formed and will not turn back.",
+      "The apple has gone softer to the touch.",
+      "The apple has lost water and shrunk a little.",
+      "The apple's smell has grown slightly stronger."
+     ],
+     "explain": "The test for a chemical change is a new substance that is not easily reversed; softening and drying are physical changes."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A burning candle is covered with a sealed jar and goes out after a minute. Which explanation fits?",
+     "answer": "The oxygen inside the jar has been used up.",
+     "choices": [
+      "The oxygen inside the jar has been used up.",
+      "The wax has run out of energy to give.",
+      "The glass of the jar has cooled the flame down.",
+      "The wax stopped melting the moment the jar went on."
+     ],
+     "explain": "Burning needs a fuel and oxygen; sealing the jar limits the oxygen, and once it is used up the reaction stops."
+    }
+   ]
+  },
+  {
+   "id": "chem.2.acids",
+   "title": "Acids and Bases",
+   "stage": 2,
+   "goal": "Sour, bitter, and the pH scale.",
+   "articles": [
+    "Acid",
+    "Base (chemistry)",
+    "PH"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "On the pH scale from 0 to 14, lemon juice has a pH of about 2 and soapy water has a pH of about 10. What does this tell you?",
+     "answer": "Lemon juice is acidic and soapy water is basic",
+     "explain": "A pH below 7 is acidic and a pH above 7 is basic, so lemon juice (2) is an acid and soapy water (10) is a base.",
+     "choices": [
+      "Both are neutral because neither is exactly 7",
+      "Lemon juice is acidic and soapy water is basic",
+      "Both are acids because both have a pH below 14",
+      "Lemon juice is basic and soapy water is acidic"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Pure water has a pH of 7. What does a pH of exactly 7 mean?",
+     "answer": "The substance is neutral, neither acidic nor basic",
+     "explain": "pH 7 sits at the middle of the scale and marks a neutral substance like pure water. Neutral does not mean empty: pure water still has acid and base particles, in equal numbers.",
+     "choices": [
+      "The substance is a strong base, like oven cleaner",
+      "The substance holds neither any acid nor any base at all",
+      "The substance is neutral, neither acidic nor basic",
+      "The substance is a strong acid, like stomach acid"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A student measures four liquids and records pH values of 3, 7, 9 and 13. How many of the four are basic?",
+     "answer": "2",
+     "explain": "Basic means above 7, so the pH 9 and pH 13 liquids count. pH 3 is acidic and pH 7 is neutral."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Stomach acid has a pH of about 2; vinegar has a pH of about 3. Which one is the stronger acid?",
+     "answer": "The stomach acid, because a lower pH always means more acidic",
+     "choices": [
+      "They differ by only one pH unit, so the gap is too small to matter",
+      "The stomach acid, because a lower pH always means more acidic",
+      "The vinegar, because the bigger the number, the stronger the acid",
+      "They are equally acidic, since both sit below the neutral point of 7"
+     ],
+     "explain": "The pH scale runs backwards from what you might expect: the smaller the number, the more acidic the liquid. And each unit is a tenfold step, so one unit is a big gap."
+    },
+    {
+     "kind": "choice",
+     "prompt": "You add exactly enough base to an acid to cancel it out. What have you made?",
+     "answer": "A salt and water, sitting close to neutral",
+     "choices": [
+      "A salt and water, sitting close to neutral",
+      "A stronger acid, since two chemicals combined",
+      "Pure water only, since the acid and base cancel out",
+      "A gas that fizzes off, leaving the beaker empty"
+     ],
+     "explain": "Acid plus base gives a salt plus water. The salt stays dissolved, so the beaker does not simply hold water. That is why indigestion tablets, which are bases, settle an acid stomach."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A gardener finds the soil too acidic for the plants to grow. What should be dug into it?",
+     "answer": "Powdered lime, a base that cancels the acid",
+     "choices": [
+      "Powdered lime, a base that cancels the acid",
+      "Vinegar, which is a weak acid",
+      "More fertiliser, since acid soil must be short of nutrients",
+      "Extra rainwater, which is slightly acidic itself"
+     ],
+     "explain": "A base neutralises acid, so lime raises the soil pH. Vinegar and rainwater are acidic and would make matters worse, and fertiliser adds nutrients without touching the pH."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Four liquids are measured and give pH values of 1, 4, 7 and 11. How many of the four are acidic?",
+     "answer": "2",
+     "explain": "Below pH 7 counts as acidic, so pH 1 and pH 4: two of them."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Lemon juice has a pH of about 2 and milk a pH of about 6. By how many pH units do they differ?",
+     "answer": "4",
+     "explain": "6 - 2 = 4 pH units."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Indigestion tablets ease a burning stomach. What are they doing chemically?",
+     "answer": "Neutralising some of the stomach's acid with a base.",
+     "choices": [
+      "Neutralising some of the stomach's acid with a base.",
+      "Diluting the acid by adding water to the stomach.",
+      "Coating the stomach so it stops making any juices.",
+      "Turning the acid into a gas that is carried away."
+     ],
+     "explain": "Antacids contain bases such as carbonates, which react with excess stomach acid and raise the pH towards neutral."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Red cabbage juice turns pink in one liquid and green in another. What is it being used as?",
+     "answer": "An indicator.",
+     "choices": [
+      "An indicator.",
+      "A neutraliser.",
+      "A catalyst.",
+      "A salt."
+     ],
+     "explain": "An indicator is a substance that changes colour with pH; red cabbage juice is a natural one."
+    }
+   ],
+   "prereqs": [
+    "chem.1.matter",
+    "chem.2.mixtures",
+    "chem.2.molecules"
+   ]
+  },
+  {
+   "id": "chem.2.periodic",
+   "title": "Reading the Periodic Table",
+   "stage": 2,
+   "goal": "Groups, periods, metals and non-metals.",
+   "articles": [
+    "Periodic table",
+    "Chemical element"
+   ],
+   "prereqs": [
+    "chem.2.atoms",
+    "chem.1.materials-props",
+    "phys.2.electricity"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "In the periodic table, what do the elements in the same vertical column (group) tend to share?",
+     "answer": "Similar chemical behavior in reactions",
+     "explain": "Elements in a group have the same number of outer electrons, which gives them similar chemical properties.",
+     "choices": [
+      "The same number of protons in every atom",
+      "The same total atomic mass per atom",
+      "The same color, hardness, and texture",
+      "Similar chemical behavior in reactions"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Most elements on the left and center of the periodic table are metals. Which set of properties is typical of a metal?",
+     "answer": "Shiny, conducts electricity, and bends without breaking",
+     "explain": "Metals are typically lustrous, malleable, and good conductors of heat and electricity. Only a few of them are magnetic, and a metal conducts as a solid as well as a liquid.",
+     "choices": [
+      "Shiny and dense, but unable to conduct until it is molten",
+      "Magnetic in every case, and a good conductor of electricity",
+      "Dull, brittle, and a very poor conductor of electricity",
+      "Shiny, conducts electricity, and bends without breaking"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "The elements are lined up in order of how many protons their atoms hold. Chlorine is element number 17. How many protons has an atom of the element sitting immediately before chlorine?",
+     "answer": "16",
+     "explain": "Each step back along the table removes one proton, so the element before chlorine (17) has 16, which is sulfur."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Sodium sits in group 1 and fizzes violently on water. Potassium sits directly below sodium in the same group. What should you predict when potassium meets water?",
+     "answer": "It reacts violently too, since a group behaves alike",
+     "choices": [
+      "It reacts violently too, since a group behaves alike",
+      "It sits there quietly, because it is heavier than sodium",
+      "It reacts the same way, but only if the water is warmed first",
+      "It reacts more gently than sodium, because it sits lower down"
+     ],
+     "explain": "Group members share an outer-electron count, so they react in the same way. Potassium is in fact even more violent than sodium: in group 1 reactivity grows going down."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Helium, neon and argon fill the last column of the table and take almost no part in reactions. What is this family called?",
+     "answer": "The noble gases",
+     "choices": [
+      "The halogens",
+      "The noble gases",
+      "The alkali metals",
+      "The transition metals"
+     ],
+     "explain": "Their outer shells are already full, so they have no reason to swap or share electrons. That is why they sit out of reactions."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A newly made element turns out to be a dull, brittle solid that does not carry electricity. Where in the periodic table would you expect it to sit?",
+     "answer": "On the right, among the non-metals",
+     "choices": [
+      "On the right, among the non-metals",
+      "Right at the bottom, below the main table",
+      "On the far left, among the reactive metals",
+      "In the middle block, among the transition metals"
+     ],
+     "explain": "Dull, brittle and non-conducting are the classic non-metal properties, and the non-metals are gathered on the right of the table."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Potassium is element number 19, and its most common atoms have a mass number of 39. How many neutrons are in one such nucleus?",
+     "answer": "20",
+     "explain": "39 - 19 = 20 neutrons."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Helium, neon, argon, krypton, xenon and radon fill the final column of the table. How many elements is that?",
+     "answer": "6",
+     "explain": "Counting them gives 6 elements in that group."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Fluorine and chlorine both sit in group 7 and both react with sodium to make a white salt. What does that show?",
+     "answer": "Elements in the same group behave alike.",
+     "choices": [
+      "Elements in the same group behave alike.",
+      "Elements react alike when they weigh the same.",
+      "Fluorine and chlorine are really the same element.",
+      "Salt can be made by joining up any two elements."
+     ],
+     "explain": "A group shares an outer-shell arrangement, which is what sets its chemical behaviour."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A new element is made a few atoms at a time and placed at the far right-hand end of the last row. What behaviour would chemists expect from it?",
+     "answer": "Very little reaction, in keeping with the noble gases above it.",
+     "choices": [
+      "Very little reaction, in keeping with the noble gases above it.",
+      "Violent reaction with water, like the metals on the far left.",
+      "Snapping up electrons from metals, like the group 7 elements beside it.",
+      "Strong magnetism, like the metals in the middle block."
+     ],
+     "explain": "Position predicts properties: the far right-hand column is the noble gases, which are famously unreactive. The reactive non-metals sit one column to their left."
+    }
+   ]
+  },
+  {
+   "id": "chem.3.atomic-structure",
+   "title": "Atomic Structure",
+   "stage": 3,
+   "goal": "Protons, neutrons, electrons and electron shells.",
+   "articles": [
+    "Atom",
+    "Electron configuration",
+    "Atomic orbital"
+   ],
+   "prereqs": [
+    "chem.2.atoms",
+    "chem.2.periodic",
+    "phys.3.modern"
+   ],
+   "quiz": [
+    {
+     "kind": "numeric",
+     "prompt": "A neutral atom of aluminum has 13 protons and a mass number of 27. How many neutrons are in its nucleus?",
+     "answer": "14",
+     "explain": "Neutrons = mass number minus protons = 27 - 13 = 14."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two atoms both have 6 protons, but one has 6 neutrons and the other has 8 neutrons. What is their relationship?",
+     "answer": "They are isotopes of the same element, carbon",
+     "explain": "The proton number (6) defines the element as carbon; differing neutron counts make them isotopes. Allotropes differ in how atoms are arranged, not in what the atoms are.",
+     "choices": [
+      "They are isotopes of the same element, carbon",
+      "They are allotropes, two forms of carbon like diamond and graphite",
+      "They are ions of oxygen with different charges",
+      "They are two completely different elements"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A neutral magnesium atom holds twelve electrons. Shells fill in the order two, then eight, then the remainder. How many electrons end up in the outermost occupied shell?",
+     "answer": "2",
+     "explain": "Filling two in the first shell and eight in the second uses ten, leaving two electrons in the third shell.",
+     "choices": [
+      "2",
+      "12",
+      "8",
+      "10"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A chloride ion, Cl-, forms when a neutral chlorine atom of 17 protons gains one electron. How many electrons does the chloride ion carry?",
+     "answer": "18",
+     "explain": "The neutral atom has 17 electrons to match its 17 protons; gaining one more gives 18, which is why the ion carries a single negative charge."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Chlorine's relative atomic mass is quoted as 35.5, yet no single chlorine atom weighs 35.5 units. How can both statements be true?",
+     "answer": "An average over isotopes: about three chlorine-35 atoms for each chlorine-37",
+     "choices": [
+      "It averages masses 35 and 37, which occur in equal numbers of atoms",
+      "The half unit comes from the mass of the orbiting electrons",
+      "An average over isotopes: about three chlorine-35 atoms for each chlorine-37",
+      "Chlorine atoms gain and lose mass constantly as they move about"
+     ],
+     "explain": "A three-to-one mix of masses 35 and 37 averages to 35.5; an equal mix would have averaged 36. Relative atomic mass describes a sample, not any one atom."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Rutherford fired alpha particles at a thin gold foil. Almost all sailed straight through, but roughly one in eight thousand bounced sharply back toward the source. What does that rare bounce show?",
+     "answer": "A tiny, dense, positively charged core sits at the centre",
+     "choices": [
+      "Positive charge is spread evenly through the whole atom",
+      "The nucleus must be big enough to block one alpha in eight thousand",
+      "A tiny, dense, positively charged core sits at the centre",
+      "Electrons in orbit are heavy enough to turn the alphas back"
+     ],
+     "explain": "Only a small, massive, strongly positive target could repel a fast alpha particle straight back. The rarity of the bounce is what shows the core is tiny, not that it is large."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "An Fe3+ ion is formed from an iron atom with 26 protons. How many electrons does the ion hold?",
+     "answer": "23",
+     "explain": "26 protons minus a 3+ charge means 26 - 3 = 23 electrons."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Copper is 69 percent copper-63 and 31 percent copper-65. What is its relative atomic mass, to one decimal place?",
+     "answer": "63.6",
+     "explain": "(63 x 0.69) + (65 x 0.31) = 43.47 + 20.15 = 63.62, which rounds to 63.6."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A neon sample gives mass-spectrometer peaks at 20 and 22 in a ratio of about nine to one. What does that tell you?",
+     "answer": "Neon has two isotopes with different numbers of neutrons.",
+     "choices": [
+      "Neon has two isotopes with different numbers of neutrons.",
+      "Neon atoms gain mass when they are ionised in the machine.",
+      "The sample is contaminated with a heavier element.",
+      "Some of the neon atoms have picked up two extra protons."
+     ],
+     "explain": "Same element, different neutron counts: the peak positions give the mass numbers and the heights give the abundances."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A student pictures electrons orbiting like planets at fixed distances and concludes an atom must be mostly solid. Diagnose the error.",
+     "answer": "An atom is mostly empty space, and electrons occupy fuzzy clouds, not tracks.",
+     "choices": [
+      "An atom is mostly empty space, and electrons occupy fuzzy clouds, not tracks.",
+      "Electrons do orbit like planets, only far more slowly.",
+      "The electrons' orbits are packed so tightly that they fill the atom.",
+      "The nucleus fills the atom and the electrons sit on its surface."
+     ],
+     "explain": "Rutherford's scattering showed the nucleus is tiny compared with the atom, and quantum mechanics replaced orbits with orbitals."
+    }
+   ]
+  },
+  {
+   "id": "chem.3.bonding",
+   "title": "Chemical Bonding",
+   "stage": 3,
+   "goal": "Ionic, covalent and metallic bonds.",
+   "articles": [
+    "Chemical bond",
+    "Covalent bond",
+    "Ionic bonding"
+   ],
+   "prereqs": [
+    "chem.3.atomic-structure",
+    "chem.2.molecules",
+    "phys.2.electricity"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Sodium (a metal) reacts with chlorine (a non-metal) to form table salt. What kind of bond forms and why?",
+     "answer": "Ionic, because sodium transfers an electron to chlorine, forming ions",
+     "explain": "A metal donating electrons to a non-metal produces charged ions held together by ionic attraction.",
+     "choices": [
+      "No bond forms; salt is only a physical mixture of the two elements",
+      "Metallic, because both atoms release their electrons into a shared sea",
+      "Covalent, because the two atoms share a pair of electrons equally",
+      "Ionic, because sodium transfers an electron to chlorine, forming ions"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two chlorine atoms bond to form Cl2 gas. What type of bond holds them together?",
+     "answer": "A covalent bond in which the atoms share electrons",
+     "explain": "Two identical non-metal atoms share electrons equally, which is a covalent bond.",
+     "choices": [
+      "A covalent bond in which the atoms share electrons",
+      "An ionic bond with one atom taking electrons from the other",
+      "A metallic bond with delocalized electrons",
+      "A hydrogen bond between the two atoms"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A shiny piece of copper conducts electricity and can be bent into wire without shattering. Which bonding model best explains these properties?",
+     "answer": "Metallic bonding, with positive ions in a sea of mobile electrons",
+     "explain": "Free-moving delocalized electrons carry current, and the sliding lattice lets metals bend rather than crack.",
+     "choices": [
+      "Metallic bonding, with electrons fixed on each atom and ions free to slide",
+      "Metallic bonding, with positive ions in a sea of mobile electrons",
+      "Covalent bonding, with fixed shared pairs between neighboring atoms",
+      "Ionic bonding, with rigid alternating positive and negative ions"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Magnesium loses two electrons to form Mg(2+), and chlorine gains one to form Cl-. In the compound they build, how many chloride ions balance each magnesium ion?",
+     "answer": "2",
+     "explain": "The charges must cancel: one Mg(2+) needs two Cl- ions, giving MgCl2."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Sodium chloride melts at 801 degrees Celsius; chlorine, Cl2, melts at -101 degrees Celsius. Both contain chlorine. Why is the gap so enormous?",
+     "answer": "Melting NaCl breaks a whole ionic lattice; melting Cl2 only parts molecule from molecule",
+     "choices": [
+      "Sodium chloride molecules are much heavier than chlorine molecules",
+      "Chlorine is a gas, and gases have no bonds holding them together",
+      "The covalent bonds inside Cl2 are weaker than ionic bonds, so they snap at a lower temperature",
+      "Melting NaCl breaks a whole ionic lattice; melting Cl2 only parts molecule from molecule"
+     ],
+     "explain": "Melting Cl2 never breaks the Cl-Cl bond; it only separates one molecule from the next. Melting NaCl has to break up the whole ionic lattice."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Solid sodium chloride will not carry a current, but molten sodium chloride conducts well. What has changed on melting?",
+     "answer": "The ions are freed from the lattice and can drift",
+     "choices": [
+      "The ions are freed from the lattice and can drift",
+      "Melting turns the solid into a solution, and solutions always conduct",
+      "Melting shakes electrons loose from the sodium to carry current",
+      "Charged NaCl molecules form in the liquid and move to the electrodes"
+     ],
+     "explain": "Charge is carried by ions that can move. In the solid they are locked in a lattice; in the melt they are free to travel to the electrodes."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Calcium forms Ca2+ ions and nitrogen forms N3- ions. How many calcium ions are needed to balance two nitride ions?",
+     "answer": "3",
+     "explain": "Two N3- carry 6 negative charges, and 3 Ca2+ carry 6 positive: the formula is Ca3N2."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "In a molecule of methane, CH4, how many bonding pairs of electrons surround the carbon atom?",
+     "answer": "4",
+     "explain": "Carbon forms four single bonds, so four bonding pairs."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Iodine melts at only 114 degrees Celsius and sublimes readily, even though the bond inside each I2 molecule is strong. What explains the low melting point?",
+     "answer": "Only weak forces act between the molecules.",
+     "choices": [
+      "Only weak forces act between the molecules.",
+      "The covalent bonds inside the molecules are being broken.",
+      "Iodine forms a lattice of ions that is held together loosely.",
+      "Iodine molecules repel one another electrically."
+     ],
+     "explain": "Melting a molecular solid separates whole molecules, overcoming weak intermolecular forces, not the strong covalent bonds within them."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Diamond and graphite are both pure carbon, yet graphite conducts electricity along its layers and diamond does not. Explain the difference.",
+     "answer": "One electron per carbon stays free in graphite; in diamond all four are bonded.",
+     "choices": [
+      "Graphite contains metallic impurities that carry the current.",
+      "One electron per carbon stays free in graphite; in diamond all four are bonded.",
+      "Graphite's atoms are ionised, so its ions carry the charge.",
+      "Diamond's bonds are ionic, and a solid ionic lattice cannot carry a current."
+     ],
+     "explain": "Structure decides properties: graphite's delocalised electrons conduct; diamond's fully bonded tetrahedral network has none free."
+    }
+   ]
+  },
+  {
+   "id": "chem.3.stoichiometry",
+   "title": "Moles and Equations",
+   "stage": 3,
+   "goal": "Balance equations; count with the mole.",
+   "articles": [
+    "Stoichiometry",
+    "Mole (unit)",
+    "Chemical equation"
+   ],
+   "prereqs": [
+    "chem.2.reactions-intro",
+    "chem.2.periodic",
+    "math.2.ratio",
+    "math.2.exponents"
+   ],
+   "quiz": [
+    {
+     "kind": "numeric",
+     "prompt": "Balance the equation for the combustion of methane: CH4 + O2 -> CO2 + H2O. What is the coefficient in front of O2 when the equation is correctly balanced with whole numbers?",
+     "answer": "2",
+     "explain": "CH4 + 2 O2 -> CO2 + 2 H2O balances 1 C, 4 H, and 4 O on each side."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "How many moles of water molecules are in a sample containing 3.011 x 10^24 water molecules? (Avogadro's number is 6.022 x 10^23 per mole.)",
+     "answer": "5",
+     "explain": "Moles = (3.011 x 10^24) / (6.022 x 10^23) = 5 moles."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "The molar mass of water (H2O) is 18 g/mol. What is the mass, in grams, of 2 moles of water?",
+     "answer": "36",
+     "explain": "Mass = moles x molar mass = 2 mol x 18 g/mol = 36 g."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Aluminium burns according to 4 Al + 3 O2 -> 2 Al2O3. If 8 moles of aluminium react completely, how many moles of Al2O3 form?",
+     "answer": "4",
+     "explain": "The equation gives 2 Al2O3 for every 4 Al, a 1:2 ratio, so 8 moles of Al yield 4 moles of Al2O3."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Asked to balance H2 + O2 -> H2O, a student writes H2 + O2 -> H2O2 and says the atoms now match. What is wrong with that fix?",
+     "answer": "Changing a formula makes a different substance; only coefficients may change",
+     "choices": [
+      "Nothing is wrong: the atoms do balance now, so the equation is correct",
+      "The formula is fine, since H2O2 and H2O are the same substance",
+      "Changing a formula makes a different substance; only coefficients may change",
+      "Oxygen has to be written as a single O atom inside equations"
+     ],
+     "explain": "H2O2 is hydrogen peroxide, not water. Balance by adjusting coefficients: 2 H2 + O2 -> 2 H2O."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Heating limestone drives off carbon dioxide: CaCO3 -> CaO + CO2. The molar mass of CaCO3 is 100 g/mol. How many moles of CO2 come off 50 grams of calcium carbonate?",
+     "answer": "0.5",
+     "explain": "50 g / 100 g per mol = 0.5 mol of CaCO3, and the 1:1 ratio gives 0.5 mol of CO2."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Carbon dioxide has a molar mass of 44 g/mol. What is the mass, in grams, of 0.25 mol of it?",
+     "answer": "11",
+     "explain": "0.25 x 44 = 11 grams."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "For 2 H2 + O2 -> 2 H2O, how many moles of water form from 5 moles of hydrogen with oxygen in excess?",
+     "answer": "5",
+     "explain": "Hydrogen and water appear in a 2:2 ratio, so 5 mol of H2 gives 5 mol of water."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A reaction should give 8.0 grams of product but only 6.0 grams is collected. What is the percentage yield?",
+     "answer": "75",
+     "explain": "6.0 / 8.0 = 0.75, which is a 75 percent yield."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A plant runs N2 + 3 H2 -> 2 NH3 with 1 mol of nitrogen and 2 mol of hydrogen, and expects 2 mol of ammonia. What actually limits the yield?",
+     "answer": "Hydrogen runs out first, capping the ammonia near 1.33 mol.",
+     "choices": [
+      "Hydrogen runs out first, capping the ammonia near 1.33 mol.",
+      "Nitrogen runs out first, capping the ammonia at 1 mol.",
+      "Neither runs out, so the full 2 mol of ammonia is made.",
+      "Both run out together, giving exactly 2 mol of ammonia."
+     ],
+     "explain": "Three moles of hydrogen are needed per mole of nitrogen; with only 2 mol of hydrogen it is the limiting reactant, giving 2 x 2/3 mol of ammonia."
+    }
+   ]
+  },
+  {
+   "id": "chem.3.reactions",
+   "title": "Types of Reactions",
+   "stage": 3,
+   "goal": "Redox, acid-base, precipitation.",
+   "articles": [
+    "Chemical reaction",
+    "Redox"
+   ],
+   "prereqs": [
+    "chem.3.stoichiometry",
+    "chem.3.bonding",
+    "chem.2.acids"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "In the reaction Zn + Cu(2+) -> Zn(2+) + Cu, what is happening to the zinc atom?",
+     "answer": "It is being oxidized, losing electrons",
+     "explain": "Zinc goes from 0 to +2, losing two electrons, which is oxidation.",
+     "choices": [
+      "It is being oxidized, losing electrons",
+      "It is displacing copper with no change in oxidation state",
+      "It is dissolving physically, with no electrons moving at all",
+      "It is being reduced, gaining electrons"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Mixing solutions of silver nitrate and sodium chloride produces a cloudy white solid of silver chloride. What type of reaction is this?",
+     "answer": "A precipitation reaction",
+     "explain": "Two soluble salts swap partners to form an insoluble solid (a precipitate), the hallmark of a precipitation reaction.",
+     "choices": [
+      "A combustion reaction",
+      "A precipitation reaction",
+      "An acid-base neutralization",
+      "A single-displacement redox reaction"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Hydrochloric acid reacts with sodium hydroxide to give sodium chloride and water. This is best classified as which type of reaction?",
+     "answer": "Acid-base neutralization, giving a salt and water",
+     "explain": "An acid and a base combining to yield a salt plus water is a neutralization reaction, with no change in oxidation states.",
+     "choices": [
+      "Precipitation, because a solid forms",
+      "Combustion, because heat is released",
+      "Redox, because electrons are transferred",
+      "Acid-base neutralization, giving a salt and water"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Balance the displacement reaction 2 Al + 3 CuSO4 -> Al2(SO4)3 + Cu. What coefficient belongs in front of the copper?",
+     "answer": "3",
+     "explain": "Three copper ions are released by 3 CuSO4, so 3 Cu atoms are deposited: 2 Al + 3 CuSO4 -> Al2(SO4)3 + 3 Cu."
+    },
+    {
+     "kind": "short",
+     "prompt": "A zinc strip is dropped into blue copper(II) sulfate solution. The blue fades and a red-brown deposit grows on the strip. Say what is transferred and in which direction, and state which species is reduced.",
+     "answer": "Zinc atoms hand electrons to the copper(II) ions: the zinc is oxidised to Zn2+, and the copper ions are reduced to copper metal that plates onto the strip.",
+     "keywords": [
+      "electrons",
+      "zinc",
+      "copper",
+      "reduced"
+     ],
+     "explain": "Electrons flow from the more reactive metal to the ions of the less reactive one. Losing them is oxidation; the copper(II) ions gain them and are reduced."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Zinc dropped into copper(II) sulfate coats itself in copper. A student tries silver in copper(II) nitrate and sees nothing happen at all. Why not?",
+     "answer": "Silver is less reactive than copper",
+     "choices": [
+      "The solution was too dilute for a reaction to get going",
+      "Silver reacts with acids rather than with dissolved salts",
+      "A reaction did happen, but silver and copper look alike",
+      "Silver is less reactive than copper"
+     ],
+     "explain": "So it cannot displace copper from solution. Displacement runs one way only: a metal pushes out a less reactive one. Silver sits below copper in the reactivity series, so nothing happens."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "In the permanganate ion MnO4-, each oxygen counts as -2. What is the oxidation number of the manganese? Give it as a positive number.",
+     "answer": "7",
+     "explain": "Four oxygens give -8; for an overall -1 the manganese must be +7."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Balance the equation __ Fe + 3 Cl2 -> 2 FeCl3. What coefficient belongs in front of the iron?",
+     "answer": "2",
+     "explain": "Two FeCl3 contain two iron atoms, so 2 Fe are needed."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Adding barium chloride solution to an unknown solution gives a white solid that will not dissolve in dilute acid. Which ion was present?",
+     "answer": "Sulfate.",
+     "choices": [
+      "Sulfate.",
+      "Carbonate.",
+      "Chloride, which gives a white precipitate with barium.",
+      "Hydroxide, which gives a white gel instead."
+     ],
+     "explain": "Barium sulfate is a white precipitate insoluble in acid; barium carbonate would dissolve with fizzing, and barium chloride is itself soluble."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A strip of copper is dropped into silver nitrate solution. The solution turns blue and silvery crystals grow on the copper. What has been oxidised and what reduced?",
+     "answer": "Copper is oxidised and silver ions are reduced.",
+     "choices": [
+      "Copper is oxidised and silver ions are reduced.",
+      "Silver is oxidised and copper ions are reduced.",
+      "Both the copper and the silver are oxidised at once.",
+      "Neither: this is a simple precipitation of silver."
+     ],
+     "explain": "Copper atoms lose electrons to form blue Cu2+ ions, and silver ions gain those electrons to deposit as silver metal."
+    }
+   ]
+  },
+  {
+   "id": "chem.3.gases",
+   "title": "Gas Laws",
+   "stage": 3,
+   "goal": "Pressure, volume, temperature and the ideal gas.",
+   "articles": [
+    "Gas laws",
+    "Ideal gas law"
+   ],
+   "quiz": [
+    {
+     "kind": "numeric",
+     "prompt": "A sealed gas sample occupies 4.0 L at a pressure of 2.0 atm. At constant temperature, what volume in liters will it occupy if the pressure is lowered to 1.0 atm? (Use Boyle's law, P1V1 = P2V2.)",
+     "answer": "8",
+     "explain": "V2 = P1V1 / P2 = (2.0 x 4.0) / 1.0 = 8.0 L."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A balloon is taken from a warm room into a cold freezer at constant pressure. According to the gas laws, what happens to its volume?",
+     "answer": "It shrinks, because volume decreases as temperature falls",
+     "explain": "By Charles's law, at constant pressure gas volume is proportional to absolute temperature, so cooling shrinks the balloon. A rubber balloon cannot hold its size at a lower pressure.",
+     "choices": [
+      "It stays exactly the same, because gas volume ignores temperature",
+      "It expands, because cold gas takes up more space",
+      "It shrinks, because volume decreases as temperature falls",
+      "It keeps its size, but the pressure inside it drops"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Using the ideal gas law PV = nRT with R = 0.0821 L·atm/(mol·K), what is the pressure in atm of 1.0 mol of gas in a 22.4 L container at 273 K? Round to the nearest whole number.",
+     "answer": "1",
+     "explain": "P = nRT/V = (1.0 x 0.0821 x 273) / 22.4 = 1.0 atm, standard conditions."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A gas occupies 300 mL at 27 degrees Celsius. It is warmed to 327 degrees Celsius at constant pressure. Converting to kelvin first, what volume in mL does it now occupy?",
+     "answer": "600",
+     "explain": "27 C = 300 K and 327 C = 600 K, so the absolute temperature doubles and V2 = 300 x (600/300) = 600 mL."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A student predicts that a gas warmed from 20 to 40 degrees Celsius at constant pressure will double in volume, because the temperature doubled. Where does that reasoning fail?",
+     "answer": "Volume tracks absolute temperature",
+     "choices": [
+      "Charles's law holds at constant volume, not at constant pressure",
+      "Doubling the temperature of a gas would halve its volume instead",
+      "Volume responds to pressure alone, so temperature does not matter",
+      "Volume tracks absolute temperature"
+     ],
+     "explain": "So 293 K to 313 K is a rise of only about 7 percent. Celsius has an arbitrary zero, so ratios in Celsius mean nothing. In kelvin the temperature rises by about 7 percent, and so does the volume."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A car tyre is inflated to 2.0 atm at 300 K. After a long drive the air inside reaches 330 K, with the volume unchanged. What is the new pressure, in atm?",
+     "answer": "2.2",
+     "explain": "At constant volume P/T is constant, so P2 = 2.0 x (330/300) = 2.2 atm."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A gas occupies 2.5 L at 1.0 atm. At constant temperature, what volume in litres does it occupy at 0.50 atm?",
+     "answer": "5",
+     "explain": "Boyle's law: halving the pressure doubles the volume, so 5.0 L."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Using PV = nRT with R = 0.0821 L atm per mol K, what volume in litres does 2.0 mol of gas occupy at 1.0 atm and 273 K? Give one decimal place.",
+     "answer": "44.8",
+     "explain": "V = nRT/P = 2.0 x 0.0821 x 273 = 44.8 L."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A sealed rigid vessel of gas at 400 K is at 3.0 atm. It is cooled to 200 K at constant volume. What is the new pressure, in atm?",
+     "answer": "1.5",
+     "explain": "Pressure is proportional to absolute temperature at fixed volume, so halving T halves P: 1.5 atm."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A sealed bag of crisps swells noticeably as it is carried up a mountain, although the temperature hardly changes. Explain what happened.",
+     "answer": "The outside pressure has fallen.",
+     "choices": [
+      "The outside pressure has fallen.",
+      "The gas inside has been warmed by the climb.",
+      "Extra air has leaked into the bag on the way up.",
+      "The colder air outside has made the gas expand."
+     ],
+     "explain": "At altitude the atmosphere pushes in less hard, so the trapped gas expands until the pressures balance again."
+    }
+   ],
+   "prereqs": [
+    "chem.3.stoichiometry",
+    "phys.2.heat",
+    "math.2.ratio",
+    "chem.2.atoms"
+   ]
+  },
+  {
+   "id": "chem.3.energy",
+   "title": "Energy in Reactions",
+   "stage": 3,
+   "goal": "Exothermic, endothermic, and reaction rates.",
+   "articles": [
+    "Thermochemistry",
+    "Chemical kinetics"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "When ammonium nitrate dissolves in water, the beaker feels noticeably colder. How is this reaction classified?",
+     "answer": "Endothermic, because it absorbs heat from the surroundings",
+     "explain": "The cooling shows heat is being drawn in from the water, which is endothermic.",
+     "choices": [
+      "Neither, because dissolving is physical and transfers no heat",
+      "Exothermic, because it releases stored heat to the surroundings",
+      "Endothermic, because it absorbs heat from the surroundings",
+      "Exothermic, because breaking the ionic lattice gives out heat"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "You want a reaction to go faster. Which change will generally INCREASE the reaction rate?",
+     "answer": "Raising the temperature so collisions are more frequent",
+     "explain": "Higher temperature increases both the frequency and energy of collisions, speeding up the reaction.",
+     "choices": [
+      "Diluting the reactants down to lower their concentration",
+      "Cooling the mixture so the molecules move more slowly",
+      "Raising the temperature so collisions are more frequent",
+      "Pressing a powdered solid reactant into one large lump"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "In an exothermic reaction, how does the energy of the products compare to the energy of the reactants?",
+     "answer": "The products have lower energy, and the difference leaves as heat",
+     "explain": "Exothermic reactions drop to lower-energy products, releasing the surplus energy as heat.",
+     "choices": [
+      "The products have lower energy, and the difference leaves as heat",
+      "The products have higher energy, absorbed from the surroundings",
+      "The products have lower energy, but the reaction still absorbs heat",
+      "The products and the reactants end up with exactly equal energy"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Breaking bonds takes energy in and making bonds gives energy out. A reaction absorbs 1500 kJ/mol breaking bonds and releases 1650 kJ/mol forming them. What is the overall energy change, in kJ/mol? Give a negative number if energy is released.",
+     "answer": "-150",
+     "explain": "Overall change = energy in - energy out = 1500 - 1650 = -150 kJ/mol, so the reaction is exothermic."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two 5 gram samples of marble react with excess acid: one is a single chip, the other is ground to fine powder. How do the two runs compare?",
+     "answer": "The powder fizzes faster but gives the same total volume of gas",
+     "choices": [
+      "The powder fizzes faster and gives more gas in total",
+      "The powder reacts more slowly, since its pieces are smaller",
+      "Both react at the same rate, because the two masses are equal",
+      "The powder fizzes faster but gives the same total volume of gas"
+     ],
+     "explain": "Surface area sets the rate, not the amount. Equal masses of marble contain equal amounts of carbonate, so both release the same gas in the end."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Heating a mixture and adding a catalyst both make a reaction go faster. What does the catalyst do that heating does not?",
+     "answer": "It opens a route with a lower activation energy",
+     "choices": [
+      "It opens a route with a lower activation energy",
+      "It makes the reaction release more energy overall",
+      "It gives the colliding molecules more kinetic energy",
+      "It increases the number of reactant molecules present"
+     ],
+     "explain": "Heating pushes more molecules over the barrier; a catalyst lowers the barrier itself, so more collisions succeed even at the old temperature."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A reaction releases 250 kJ per mole. How many kilojoules are released when 0.40 mol reacts?",
+     "answer": "100",
+     "explain": "0.40 x 250 = 100 kJ."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Breaking the bonds in a reaction takes in 2200 kJ/mol and forming the new bonds gives out 2500 kJ/mol. What is the enthalpy change, in kJ/mol?",
+     "answer": "-300",
+     "explain": "2200 - 2500 = -300 kJ/mol: more energy out than in, so the reaction is exothermic."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two identical marble chips react with excess acid, one at 20 degrees Celsius and one at 40 degrees Celsius. How do their graphs of gas volume against time compare?",
+     "answer": "The warmer one climbs more steeply but levels off at the same volume.",
+     "choices": [
+      "The warmer one climbs more steeply but levels off at the same volume.",
+      "The warmer one levels off at a higher final volume.",
+      "The two curves lie exactly on top of one another.",
+      "The warmer one climbs more steeply and never levels off."
+     ],
+     "explain": "Temperature changes the rate, not the amount: the same mass of marble yields the same volume of carbon dioxide in the end."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A catalyst is added to a reversible reaction that has not yet reached equilibrium. What happens to the yield at equilibrium?",
+     "answer": "It is unchanged; equilibrium simply arrives sooner.",
+     "choices": [
+      "It is unchanged; equilibrium simply arrives sooner.",
+      "It rises, because the forward route has been favoured.",
+      "It falls, because the reverse route has sped up more.",
+      "It rises, but only when the reaction gives out heat."
+     ],
+     "explain": "A catalyst lowers the activation energy of both directions equally, so the equilibrium position is untouched and only the approach is faster."
+    }
+   ],
+   "prereqs": [
+    "chem.2.reactions-intro",
+    "chem.3.bonding",
+    "phys.2.heat",
+    "chem.2.atoms"
+   ]
+  },
+  {
+   "id": "chem.3.organic-intro",
+   "title": "Carbon Chemistry",
+   "stage": 3,
+   "goal": "Why carbon builds the molecules of life.",
+   "articles": [
+    "Organic chemistry",
+    "Hydrocarbon"
+   ],
+   "prereqs": [
+    "chem.3.bonding",
+    "bio.2.cells"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Carbon is uniquely able to build the huge variety of molecules found in living things. What property of carbon makes this possible?",
+     "answer": "Each carbon forms four stable bonds, building chains and rings",
+     "explain": "Carbon's four bonds let it link into chains, branches, and rings, generating enormous molecular diversity. Silicon and sulfur also chain up, just far less readily, and carbon is nowhere near the most abundant element.",
+     "choices": [
+      "Carbon is the only element able to bond to itself in long chains",
+      "Each carbon forms four stable bonds, building chains and rings",
+      "Carbon has six electrons, so it can bond to six neighbours at once",
+      "Carbon is the most abundant element on Earth, so there is most of it"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which of the following is a hydrocarbon?",
+     "answer": "Methane, CH4",
+     "explain": "A hydrocarbon contains only carbon and hydrogen, which describes methane (CH4).",
+     "choices": [
+      "Water, H2O",
+      "Carbon dioxide, CO2",
+      "Methane, CH4",
+      "Sodium chloride, NaCl"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "In a molecule of ethane, each of the 2 carbon atoms forms 4 bonds total: one to the other carbon and the rest to hydrogen atoms. How many hydrogen atoms are in one ethane molecule?",
+     "answer": "6",
+     "explain": "Each carbon bonds once to the other carbon and three times to hydrogen, giving 2 x 3 = 6 hydrogens (C2H6)."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Alkanes follow the pattern CnH(2n+2): butane is C4H10 and pentane is C5H12. How many hydrogen atoms are in hexane, which has 6 carbons?",
+     "answer": "14",
+     "explain": "2n + 2 with n = 6 gives 2(6) + 2 = 14, so hexane is C6H14."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Diamond is the hardest natural material; candle wax dents under a fingernail. Both are built mostly from carbon atoms. What accounts for the difference?",
+     "answer": "How the carbon atoms are bonded and arranged, rather than which element they are",
+     "choices": [
+      "Diamond holds a heavier, harder kind of carbon atom",
+      "Wax is mostly hydrogen, and hydrogen makes a substance soft",
+      "Diamond formed under pressure, which hardened every atom permanently",
+      "How the carbon atoms are bonded and arranged, rather than which element they are"
+     ],
+     "explain": "Diamond is one rigid network of covalent bonds; wax is short chains that slide past each other. Same element, different architecture."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Ethene, C2H4, turns orange bromine water colourless within seconds. Ethane, C2H6, leaves it orange. What does the test reveal about ethene?",
+     "answer": "It holds a carbon-carbon double bond",
+     "choices": [
+      "It holds a carbon-carbon double bond",
+      "It bleaches the bromine by giving off a gas that destroys the colour",
+      "It has fewer hydrogen atoms, so the bromine soaks into it",
+      "It simply dissolves the bromine and hides the orange colour"
+     ],
+     "explain": "Bromine adds across a double bond, so the orange colour disappears. Ethane has only single bonds and leaves the bromine untouched."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Propane has the formula C3H8. How many hydrogen atoms are there in 3 molecules of propane?",
+     "answer": "24",
+     "explain": "8 hydrogens per molecule, and 3 x 8 = 24."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Alkenes follow the pattern CnH2n. How many hydrogen atoms does an alkene with 7 carbon atoms hold?",
+     "answer": "14",
+     "explain": "2 x 7 = 14 hydrogen atoms."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two liquids both have the formula C4H10 but boil at different temperatures. What accounts for that?",
+     "answer": "They are isomers whose carbon skeletons are arranged differently.",
+     "choices": [
+      "They are isomers whose carbon skeletons are arranged differently.",
+      "One sample is contaminated with a heavier alkane.",
+      "One contains heavier isotopes of carbon than the other.",
+      "A single formula cannot give two boiling points, so one was misread."
+     ],
+     "explain": "Butane and methylpropane share a formula but differ in shape; the more branched molecule packs less well and boils lower."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A gas decolourises bromine water within seconds and burns with a smoky flame. Which family does it belong to?",
+     "answer": "The alkenes.",
+     "choices": [
+      "The alkenes.",
+      "The alkanes.",
+      "The alcohols, which also burn readily.",
+      "The carboxylic acids, which react with bromine."
+     ],
+     "explain": "Rapid decolourising of bromine water is the standard test for a carbon-carbon double bond."
+    }
+   ]
+  },
+  {
+   "id": "chem.4.physical",
+   "title": "Physical Chemistry",
+   "stage": 4,
+   "goal": "Thermodynamics and kinetics of chemical systems.",
+   "articles": [
+    "Physical chemistry",
+    "Chemical thermodynamics"
+   ],
+   "prereqs": [
+    "chem.3.energy",
+    "chem.3.reactions",
+    "phys.3.thermo",
+    "math.3.expo-logs"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A reaction has a negative enthalpy change (ΔH < 0) and a positive entropy change (ΔS > 0). Using ΔG = ΔH - TΔS, what can you say about its spontaneity?",
+     "answer": "It is spontaneous at all temperatures, since ΔG stays negative",
+     "explain": "With ΔH negative and -TΔS also negative for all positive T, ΔG stays negative everywhere, so the reaction is always spontaneous.",
+     "choices": [
+      "It is spontaneous only above a certain fairly high temperature",
+      "It is never spontaneous, however hot or cold the surroundings get",
+      "It is spontaneous at all temperatures, since ΔG stays negative",
+      "It is spontaneous only below a certain fairly low temperature"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A reaction is endothermic (ΔH > 0) but has a large positive entropy change (ΔS > 0). Under what condition does it become spontaneous?",
+     "answer": "At high temperature, where the TΔS term outweighs ΔH",
+     "explain": "For positive ΔH and positive ΔS, ΔG = ΔH - TΔS turns negative once T is large enough.",
+     "choices": [
+      "At no temperature at all, because ΔH is positive",
+      "At high temperature, where the TΔS term outweighs ΔH",
+      "At all temperatures, because a positive entropy change always wins",
+      "At low temperature, where the TΔS term stays small"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Adding a catalyst to a reaction at equilibrium has what effect?",
+     "answer": "It speeds both directions equally without shifting position",
+     "explain": "A catalyst lowers the activation energy for both directions equally, so equilibrium is reached sooner but K and the position are unchanged.",
+     "choices": [
+      "It speeds both directions equally without shifting position",
+      "It shifts the equilibrium position across towards the products",
+      "It increases the final yield of the products at equilibrium",
+      "It raises the value of the equilibrium constant K itself"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A reaction has ΔH = +40.0 kJ/mol and ΔS = +100 J/(mol·K), both roughly constant over the range of interest. Above what temperature, in kelvin, does it turn spontaneous?",
+     "answer": "400",
+     "explain": "ΔG = 0 when T = ΔH/ΔS = 40000 J/mol ÷ 100 J/(mol·K) = 400 K. Above that, TΔS outweighs ΔH and ΔG goes negative."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A 1.00 L flask at equilibrium for H2 + I2 ⇌ 2 HI contains [H2] = 0.20 M, [I2] = 0.20 M and [HI] = 1.60 M. Calculate Kc.",
+     "answer": "64",
+     "explain": "Kc = [HI]² / ([H2][I2]) = (1.60)² / (0.20 × 0.20) = 2.56 / 0.04 = 64."
+    },
+    {
+     "kind": "choice",
+     "prompt": "The Haber process, N2 + 3 H2 ⇌ 2 NH3, gives out heat. A plant operator raises the temperature to speed things up and finds the equilibrium yield of ammonia has fallen. Choose the best account.",
+     "answer": "Heat is a product here, so heating pushes the balance back and cuts yield",
+     "choices": [
+      "Heating speeds the forward reaction alone, so the yield should have climbed",
+      "The catalyst lost activity at the higher temperature, so less ammonia formed",
+      "Temperature changes the rate but leaves the equilibrium constant fixed",
+      "Heat is a product here, so heating pushes the balance back and cuts yield"
+     ],
+     "explain": "Heat is a product of an exothermic reaction, so adding heat shifts the position back. A catalyst could not have changed the equilibrium yield either way. Industry accepts a lower yield to get a workable rate, then recycles."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A first-order reaction has a half-life of 20 minutes. After how many minutes does 12.5 percent of the reactant remain?",
+     "answer": "60",
+     "explain": "12.5 percent is one eighth, which is three half-lives: 3 x 20 = 60 minutes."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A reaction has enthalpy change -92 kJ/mol and entropy change -198 J/(mol K). Calculate the Gibbs energy change, in kJ/mol, at 298 K, to the nearest whole number.",
+     "answer": "-33",
+     "explain": "dG = dH - T dS = -92 - (298 x -0.198) = -92 + 59.0 = -33 kJ/mol."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A gas-phase equilibrium 2 A(g) is in balance with B(g). The vessel is compressed to half its volume at fixed temperature. Which way does the position shift?",
+     "answer": "Towards B, the side with fewer gas molecules.",
+     "choices": [
+      "Towards B, the side with fewer gas molecules.",
+      "Towards A, since compression favours the reactants.",
+      "Neither way, since both concentrations rise together.",
+      "Towards B, but only if the reaction gives out heat."
+     ],
+     "explain": "Le Chatelier: raising the pressure pushes the system towards the side with the smaller number of gas molecules."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Doubling the concentration of A doubles a reaction's rate, and doubling the concentration of B quadruples it. What overall order does the rate law carry?",
+     "answer": "Third order overall.",
+     "choices": [
+      "Third order overall.",
+      "Second order overall.",
+      "First order in each, so second overall.",
+      "Fourth order, taking the larger of the two effects."
+     ],
+     "explain": "Rate proportional to [A] to the first power and [B] squared gives an overall order of 1 + 2 = 3."
+    }
+   ]
+  },
+  {
+   "id": "chem.4.organic",
+   "title": "Organic Chemistry",
+   "stage": 4,
+   "goal": "Functional groups, mechanisms, synthesis.",
+   "articles": [
+    "Organic chemistry",
+    "Functional group",
+    "Reaction mechanism"
+   ],
+   "prereqs": [
+    "chem.3.organic-intro",
+    "chem.3.reactions",
+    "chem.3.energy"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Ethanoic acid (CH3COOH) and ethanol (CH3CH2OH) are both colourless liquids. Stirring a spoonful of sodium carbonate into each makes only one of them fizz. Which one fizzes, and why?",
+     "answer": "The ethanoic acid, because its -COOH group hands a proton to the carbonate",
+     "explain": "A carboxyl group is acidic enough to protonate carbonate and release carbon dioxide. An alcohol's -OH is far too weak an acid to do that, even though it also carries O-H.",
+     "choices": [
+      "The ethanol, because its -OH group is the more acidic of the two groups",
+      "The ethanoic acid, because its -COOH group hands a proton to the carbonate",
+      "Both of them, since each molecule ends in an oxygen bonded to a hydrogen",
+      "Neither of them, since carbonates fizz only with mineral acids such as HCl"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "An SN2 reaction is a single concerted step: the nucleophile attacks the carbon from the side opposite the leaving group. A chemist runs one on a single enantiomer of 2-bromobutane. Predict what the product looks like.",
+     "answer": "One product, with the configuration at that carbon inverted",
+     "explain": "Backside attack pushes the other three groups through like an umbrella in the wind, so a single enantiomer gives a single inverted product. A racemic mixture would point to a flat carbocation instead.",
+     "choices": [
+      "A 50:50 mixture of the two configurations at that carbon",
+      "One product, with the configuration at that carbon inverted",
+      "One product, with the configuration at that carbon unchanged",
+      "A mixture of alkene and alcohol in roughly equal amounts"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "You need to oxidize a primary alcohol all the way to a carboxylic acid. Which reagent choice is appropriate?",
+     "answer": "Acidified potassium dichromate heated under reflux",
+     "explain": "A strong oxidant under reflux drives a primary alcohol past the aldehyde stage to the carboxylic acid. Distil instead and the aldehyde escapes before it can be oxidised further.",
+     "choices": [
+      "Acidified potassium dichromate heated under reflux",
+      "Acidified dichromate, distilling the product off as it forms",
+      "A mild reducing agent such as sodium borohydride",
+      "Sodium hydroxide solution used on its own as a base"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A hydrocarbon has the molecular formula C6H10. Using degrees of unsaturation = (2n + 2 − H) / 2 for n carbons, calculate its degrees of unsaturation.",
+     "answer": "2",
+     "explain": "(2×6 + 2 − 10)/2 = (14 − 10)/2 = 2, so the molecule carries two rings or double bonds in some combination."
+    },
+    {
+     "kind": "choice",
+     "prompt": "2-bromo-2-methylpropane reacts with water many times faster than 1-bromobutane under identical conditions. Account for the difference.",
+     "answer": "The tertiary halide ionises to a carbocation stabilised by three alkyl groups",
+     "choices": [
+      "The tertiary carbon-bromine bond is weaker, since more carbons pull on it",
+      "The tertiary halide follows SN2, which outruns SN1 in any solvent",
+      "Water reaches the tertiary carbon more easily, being the less crowded of the two",
+      "The tertiary halide ionises to a carbocation stabilised by three alkyl groups"
+     ],
+     "explain": "Rate-determining ionisation is easy for a tertiary substrate because alkyl groups stabilise the carbocation. Steric crowding actually blocks SN2 there."
+    },
+    {
+     "kind": "choice",
+     "prompt": "An unknown liquid of formula C3H6O gives a strong infrared band at 1715 cm-1, no broad absorption near 3300 cm-1, and one single peak in its proton NMR. Identify it, with the reasoning.",
+     "answer": "Propanone: a carbonyl with no O-H, and six equivalent hydrogens",
+     "choices": [
+      "Propanal, since an aldehyde carbonyl absorbs there and would give a single NMR peak",
+      "Prop-2-en-1-ol, since its C=C accounts for the 1715 band and for the single peak",
+      "Propan-2-ol, since a missing broad band rules out acids rather than alcohols",
+      "Propanone: a carbonyl with no O-H, and six equivalent hydrogens"
+     ],
+     "explain": "Propanal would show three proton environments, and both alcohols would show a broad O-H stretch. Only propanone puts all six hydrogens in one environment."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A compound has the molecular formula C7H8. Using degrees of unsaturation = (2n + 2 - H)/2, how many degrees of unsaturation does it have?",
+     "answer": "4",
+     "explain": "(2 x 7 + 2 - 8)/2 = (16 - 8)/2 = 4, consistent with a benzene ring plus its side chain."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "How many structural isomers exist with the molecular formula C5H12?",
+     "answer": "3",
+     "explain": "Pentane, 2-methylbutane and 2,2-dimethylpropane: three isomers."
+    },
+    {
+     "kind": "choice",
+     "prompt": "An unknown liquid shows a broad infrared band near 3000 to 3300 cm-1, a strong band at 1710 cm-1, and a molecular ion at m/z 60. Which compound fits?",
+     "answer": "Ethanoic acid.",
+     "choices": [
+      "Ethanoic acid.",
+      "Propan-1-ol.",
+      "Propanone.",
+      "Methyl methanoate, which also has mass 60."
+     ],
+     "explain": "Mass 60 with both a broad O-H band and a carbonyl band points to a carboxylic acid; the ester and the ketone lack the broad O-H, and the alcohol lacks the 1710 band."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Warming 1-bromopropane with aqueous sodium hydroxide gives an alcohol, but with sodium hydroxide dissolved in ethanol it gives an alkene. What changes between the two?",
+     "answer": "The hydroxide acts as a nucleophile in water and as a base in ethanol.",
+     "choices": [
+      "The hydroxide acts as a nucleophile in water and as a base in ethanol.",
+      "The bromine departs as a radical in ethanol but as an ion in water.",
+      "The ethanol attacks the carbon itself, and the alkene follows from that product.",
+      "Water raises the temperature enough to force substitution instead."
+     ],
+     "explain": "Solvent choice tips the competition between substitution and elimination: aqueous conditions favour attack at carbon, ethanolic conditions favour removal of a proton."
+    }
+   ]
+  },
+  {
+   "id": "chem.4.inorganic",
+   "title": "Inorganic Chemistry",
+   "stage": 4,
+   "goal": "Coordination compounds and the elements in depth.",
+   "articles": [
+    "Inorganic chemistry",
+    "Coordination complex"
+   ],
+   "prereqs": [
+    "chem.3.bonding",
+    "chem.3.reactions"
+   ],
+   "quiz": [
+    {
+     "kind": "numeric",
+     "prompt": "In the coordination complex [Cu(NH3)4](2+), ammonia (NH3) acts as a monodentate ligand. What is the coordination number of the copper center?",
+     "answer": "4",
+     "explain": "Four monodentate NH3 ligands each donate one lone pair, giving copper a coordination number of 4."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Many transition-metal coordination complexes are brightly colored. What is the usual origin of this color?",
+     "answer": "Electrons absorbing light as they jump between split d-orbitals",
+     "explain": "Ligand fields split the metal d-orbitals; d-d transitions absorb certain visible wavelengths, so the complex shows the complementary color, not the absorbed one.",
+     "choices": [
+      "Electrons jumping between the metal's s and p orbitals, far apart in energy",
+      "The metal ion emitting light as its excited electrons fall back down again",
+      "The complex transmitting exactly the wavelengths that its d orbitals absorb",
+      "Electrons absorbing light as they jump between split d-orbitals"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "In the complex ion [Fe(CN)6](3-), each cyanide carries a -1 charge. What is the oxidation state of the iron?",
+     "answer": "+3",
+     "explain": "Six CN- contribute -6; for the overall -3 charge, iron must be +3 (since +3 - 6 = -3).",
+     "choices": [
+      "+3",
+      "-3",
+      "0",
+      "+2"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Ethylenediamine (en) binds a metal through both of its nitrogen atoms. State the coordination number of the cobalt in [Co(en)3](3+).",
+     "answer": "6",
+     "explain": "Each bidentate en ligand donates two lone pairs, so three of them occupy 3 × 2 = 6 coordination sites."
+    },
+    {
+     "kind": "choice",
+     "prompt": "[Ni(H2O)6](2+) is green; adding concentrated ammonia turns the solution blue-violet as [Ni(NH3)6](2+) forms. Explain the colour change in crystal-field terms.",
+     "answer": "Ammonia splits the d orbitals further, so the complex absorbs shorter wavelengths",
+     "choices": [
+      "Ammonia oxidises the nickel, changing how many d electrons are available to jump",
+      "Ammonia splits the d orbitals further, so the complex absorbs shorter wavelengths",
+      "Ammonia lowers the splitting, so the complex absorbs at longer wavelengths",
+      "The blue-violet is the colour absorbed, not the colour transmitted"
+     ],
+     "explain": "Ammonia sits above water in the spectrochemical series, so Δoct grows, the d-d absorption moves to shorter wavelength, and the transmitted colour shifts."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Group 2 sulfates grow less soluble down the group, while group 2 hydroxides grow more soluble. A student concludes that one of the two data sets must be a misprint. Diagnose the error in that reasoning.",
+     "answer": "Lattice and hydration enthalpies fall at different rates down the group",
+     "choices": [
+      "Both anions are the same size, so both trends must move the same way",
+      "Barium compounds weigh more, and heavier salts dissolve less readily",
+      "The hydroxide figures must be wrong, since one trend governs a whole group",
+      "Lattice and hydration enthalpies fall at different rates down the group"
+     ],
+     "explain": "With the large sulfate anion, hydration enthalpy falls faster than lattice enthalpy going down; with the small hydroxide anion the balance tips the other way."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A high-spin octahedral Fe3+ complex has a d5 configuration. How many unpaired d electrons does it carry?",
+     "answer": "5",
+     "explain": "In the high-spin case each of the five d orbitals takes one electron, so all five are unpaired."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "In the complex ion [PtCl4]2-, each chloride carries a charge of -1. What is the oxidation state of the platinum? Give it as a positive number.",
+     "answer": "2",
+     "explain": "Four chlorides give -4; for an overall -2 the platinum must be +2."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Adding excess ammonia to copper(II) sulfate solution first gives a pale blue precipitate, which then dissolves to a deep blue solution. What has happened in the second step?",
+     "answer": "Ligand exchange: ammonia has replaced water around the copper.",
+     "choices": [
+      "Ligand exchange: ammonia has replaced water around the copper.",
+      "The copper has been reduced to copper(I) by the ammonia.",
+      "The hydroxide has redissolved in excess base, as an amphoteric one does.",
+      "Sulfate ions have entered the coordination sphere of the copper."
+     ],
+     "explain": "Excess ammonia substitutes for water ligands to form the deep blue tetraamminediaquacopper(II) ion. Copper(II) hydroxide is not amphoteric, so excess base alone would not redissolve it."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two compounds of formula [Pt(NH3)2Cl2] are isolated; one is a widely used anticancer drug and the other is inactive. What distinguishes them?",
+     "answer": "They are cis and trans geometric isomers.",
+     "choices": [
+      "They are cis and trans geometric isomers.",
+      "One holds platinum in a higher oxidation state.",
+      "They differ in how many chloride ligands are bound.",
+      "They are optical isomers, non-superimposable mirror images."
+     ],
+     "explain": "Square-planar complexes with two pairs of ligands come in cis and trans forms; only the cis isomer binds DNA in the way that gives the drug its activity. A square-planar MA2B2 complex has a mirror plane, so it has no optical isomers."
+    }
+   ]
+  },
+  {
+   "id": "chem.4.analytical",
+   "title": "Analytical Chemistry",
+   "stage": 4,
+   "goal": "How chemists identify and measure substances.",
+   "articles": [
+    "Analytical chemistry",
+    "Spectroscopy",
+    "Chromatography"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Paper chromatography separates a mixture by how strongly each component is held by the stationary phase against how strongly it is carried by the mobile phase. A plant extract is run, and one pigment travels close to the solvent front while another barely leaves the baseline. What does that tell you about the two pigments?",
+     "answer": "The fast one is held less by the paper and carried more by the solvent",
+     "explain": "Rf is a ratio of affinities, not a mass or an amount. A pigment that partitions into the mobile phase spends more time moving and ends up near the front.",
+     "choices": [
+      "The fast one is the lighter molecule, since mass alone sets how far a spot runs",
+      "The fast one is present in the larger amount, so its spot is pushed further along",
+      "The fast one is held less by the paper and carried more by the solvent",
+      "The fast one is the more soluble in water, whatever solvent is actually running"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "An infrared spectrum shows absorption where the light matches a vibrational energy gap of a bond, so each functional group has its own band. Two samples give infrared spectra that overlay exactly, yet they melt at different temperatures. What is the soundest reading of that?",
+     "answer": "They carry the same functional groups, which infrared alone cannot separate",
+     "explain": "Infrared reports which bonds are present, not how the whole molecule is put together. Isomers, or a pure sample against an impure one, can match in the infrared and still melt differently.",
+     "choices": [
+      "One spectrum means one substance, so a spectrum must have been mislabelled",
+      "They carry the same functional groups, which infrared alone cannot separate",
+      "They are the same compound, and one of the melting points was measured badly",
+      "Melting point depends on structure, while infrared reports only the elements"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "In a titration, 25.0 mL of NaOH is exactly neutralized by 25.0 mL of 0.100 M HCl, reacting 1:1. What is the molar concentration of the NaOH solution, in mol/L?",
+     "answer": "0.1",
+     "explain": "Equal volumes react 1:1, so moles of NaOH equal moles of HCl and the NaOH concentration is 0.100 M."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A coloured solution reads an absorbance of 0.60 in a 1.00 cm cell, and its molar absorptivity is 6000 L/(mol·cm). Using A = εcl, calculate the concentration in mol/L.",
+     "answer": "0.0001",
+     "explain": "c = A / (ε l) = 0.60 / (6000 × 1.00) = 1.0 × 10⁻⁴ mol/L."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A mass spectrum shows a molecular ion at m/z 78 together with a peak at m/z 80 about one third as tall. What does that pair of peaks tell you?",
+     "answer": "One chlorine, since chlorine-35 and chlorine-37 run about three to one",
+     "choices": [
+      "One bromine, since bromine also produces a peak two mass units further up",
+      "Two compounds in the sample, one of them two mass units the heavier",
+      "One chlorine, since chlorine-35 and chlorine-37 run about three to one",
+      "A fragment that has picked up two extra hydrogen atoms somewhere along the way"
+     ],
+     "explain": "Bromine would give an M+2 peak of nearly equal height, because its two isotopes are about 1:1. The 3:1 ratio is the signature of a single chlorine."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two analysts measure the same copper solution by colorimetry. One reads it off a calibration curve built from five standards; the other takes a single absorbance and assumes strict proportionality. Their answers differ by 15 percent. Judge whose method is sounder, and why.",
+     "answer": "The curve, because it maps the instrument's real response",
+     "choices": [
+      "The curve, because it maps the instrument's real response",
+      "The single reading, because fewer measurements leave fewer chances to slip",
+      "The single reading, because absorbance stays strictly proportional at any concentration",
+      "Either is fine, since the two must agree to within experimental error"
+     ],
+     "explain": "Beer's law is a limiting law: at higher concentrations the response bends away from a straight line. A curve built from standards captures that; an assumed constant does not."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A 20.0 mL sample of sulfuric acid needs 25.0 mL of 0.200 M sodium hydroxide to reach the end point, with 2 mol of base per mol of acid. What is the acid's concentration, in mol/L?",
+     "answer": "0.125",
+     "explain": "Moles of base = 0.0250 x 0.200 = 0.00500; acid = half that = 0.00250 mol in 0.0200 L, giving 0.125 M."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Beer's law gives A = e c l. With e = 2500 L/(mol cm), l = 1.00 cm and c = 4.0e-4 mol/L, what is the absorbance?",
+     "answer": "1",
+     "explain": "2500 x 4.0e-4 x 1.00 = 1.0."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A polar dye run on a TLC plate with a nonpolar solvent barely leaves the baseline. Which change raises its Rf value?",
+     "answer": "Run the plate in a more polar mobile phase.",
+     "choices": [
+      "Run the plate in a more polar mobile phase.",
+      "Run the plate for longer in the same solvent.",
+      "Use a thicker layer of the same stationary phase.",
+      "Develop the plate at a lower temperature."
+     ],
+     "explain": "A polar solute clings to the polar stationary phase; a more polar eluent competes for it and carries it further up the plate."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A weak acid is titrated with a strong base, and the pH at half-neutralisation is read off the curve. What does that pH give directly?",
+     "answer": "The pKa of the acid.",
+     "choices": [
+      "The pKa of the acid.",
+      "The pH at the equivalence point.",
+      "The concentration of the acid.",
+      "The buffer capacity at the start of the titration."
+     ],
+     "explain": "At half-neutralisation the acid and its conjugate base are equal in concentration, so the Henderson-Hasselbalch equation gives pH = pKa."
+    }
+   ],
+   "prereqs": [
+    "chem.3.stoichiometry",
+    "chem.2.mixtures",
+    "phys.3.modern",
+    "math.3.statistics"
+   ]
+  },
+  {
+   "id": "chem.4.quantum-chem",
+   "title": "Quantum Chemistry",
+   "stage": 4,
+   "goal": "Orbitals from the Schrödinger equation.",
+   "articles": [
+    "Quantum chemistry",
+    "Molecular orbital theory"
+   ],
+   "prereqs": [
+    "chem.3.atomic-structure",
+    "chem.3.bonding",
+    "phys.4.quantum"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "In quantum chemistry, what does the square of a wavefunction (|ψ|^2) at a point in space represent?",
+     "answer": "The probability density for the electron at that point",
+     "explain": "Born's interpretation says |ψ|^2 gives the probability density for locating the electron, not a definite orbit.",
+     "choices": [
+      "The precise path that the electron follows in space",
+      "The exact speed of the electron at that point in space",
+      "The energy the electron has when it is found at that point",
+      "The probability density for the electron at that point"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "When two atomic orbitals combine in molecular orbital theory, they form two molecular orbitals. What are they?",
+     "answer": "A lower-energy bonding and a higher-energy antibonding orbital",
+     "explain": "Combining N atomic orbitals yields N molecular orbitals; two orbitals give a bonding (in-phase) and an antibonding (out-of-phase) pair.",
+     "choices": [
+      "A bonding orbital and a non-bonding one left at the original energy",
+      "A lower-energy bonding and a higher-energy antibonding orbital",
+      "Two identical orbitals of exactly the same energy as before",
+      "Two antibonding orbitals, both above the original atomic energy"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Molecular orbital theory defines bond order as (bonding electrons - antibonding electrons) / 2. For O2, there are 10 electrons in bonding orbitals and 6 in antibonding orbitals. What is the bond order?",
+     "answer": "2",
+     "explain": "Bond order = (10 - 6) / 2 = 2, matching the double bond in O2."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "The n = 3 shell holds 3s, 3p and 3d subshells. Counting all three, how many electrons can this shell hold in total?",
+     "answer": "18",
+     "explain": "2 in the s subshell, 6 in the p and 10 in the d gives 18, which matches the 2n² rule for n = 3."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Hund's rule says that electrons fill degenerate orbitals singly, with parallel spins, before any one orbital takes a second electron. Apply it to a ground-state iron(II) ion, [Ar]3d6, in a weak ligand field: how many unpaired electrons does it carry?",
+     "answer": "Four: one 3d orbital must take a pair, and four stay singly filled",
+     "choices": [
+      "Six, since Hund's rule keeps all six of the d electrons unpaired",
+      "Four: one 3d orbital must take a pair, and four stay singly filled",
+      "Two, since the electrons pair off as soon as an orbital is available",
+      "Zero, since an even number of d electrons must all be paired up"
+     ],
+     "explain": "Six electrons into five orbitals: the first five go in singly and the sixth must double up somewhere, leaving 4 unpaired. That is why high-spin Fe(II) is strongly paramagnetic."
+    },
+    {
+     "kind": "choice",
+     "prompt": "He2 would put two electrons in σ and two in σ*, while He2+ has two in σ and one in σ*. Predict which of the two can exist, and why.",
+     "answer": "He2+, whose bond order of one half leaves net bonding",
+     "choices": [
+      "Neither, since noble gases refuse to bond",
+      "He2+, whose bond order of one half leaves net bonding",
+      "He2, because filling the antibonding orbital adds extra stability",
+      "Both equally, since bond order counts only the electrons that bond"
+     ],
+     "explain": "He2 has bond order (2−2)/2 = 0 and falls apart; He2+ has (2−1)/2 = 0.5 and is observed in discharges. Antibonding electrons subtract, they do not stabilise."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Using molecular orbital theory, what is the bond order of the N2 molecule?",
+     "answer": "3",
+     "explain": "N2 has eight bonding and two antibonding valence electrons, giving (8 - 2)/2 = 3."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "The n = 4 shell contains 4s, 4p, 4d and 4f subshells. How many orbitals is that in total?",
+     "answer": "16",
+     "explain": "1 + 3 + 5 + 7 = 16 orbitals, which is n squared."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Nitrogen has a far higher bond dissociation energy than oxygen, and oxygen is drawn to a magnet while nitrogen is not. Which model accounts for both facts at once?",
+     "answer": "Molecular orbital theory, with two unpaired electrons in oxygen's π* orbitals.",
+     "choices": [
+      "Lewis structures, which give oxygen a double bond with all electrons paired.",
+      "Molecular orbital theory, with two unpaired electrons in oxygen's π* orbitals.",
+      "Resonance between two Lewis structures, one of them with unpaired electrons.",
+      "Valence bond theory using sp hybrid orbitals on both atoms."
+     ],
+     "explain": "Only the MO picture predicts oxygen's two unpaired pi-star electrons, explaining both its paramagnetism and its lower bond order."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A student fills the 4s orbital before the 3d in a neutral scandium atom, then removes 4s electrons first when forming Sc3+. Assess the reasoning.",
+     "answer": "Both steps are right as written.",
+     "choices": [
+      "Both steps are right as written.",
+      "The filling order is right, but 3d electrons should leave first.",
+      "The filling order is wrong: 3d fills before 4s in every atom.",
+      "Neither: scandium's 4s orbital is empty in the neutral atom."
+     ],
+     "explain": "4s fills before 3d in the neutral atom, and once the d orbitals are occupied the 4s electrons become the higher in energy and are lost first."
+    }
+   ]
+  },
+  {
+   "id": "chem.4.electrochem",
+   "title": "Electrochemistry",
+   "stage": 4,
+   "goal": "Batteries, corrosion and electrolysis.",
+   "articles": [
+    "Electrochemistry",
+    "Electrochemical cell"
+   ],
+   "prereqs": [
+    "chem.3.reactions",
+    "chem.3.energy",
+    "phys.2.electricity"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "In any electrochemical cell, which process always occurs at the cathode?",
+     "answer": "Reduction, the gain of electrons",
+     "explain": "By definition, reduction takes place at the cathode in both galvanic and electrolytic cells. Which electrode is the negative one does change between the two, but the definition does not.",
+     "choices": [
+      "Reduction in a galvanic cell, but oxidation in an electrolytic one",
+      "Reduction, the gain of electrons",
+      "Oxidation, the loss of electrons",
+      "Whatever happens at the negative electrode, in either kind of cell"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A galvanic (voltaic) cell produces electricity spontaneously. What does this imply about its overall cell potential and Gibbs energy?",
+     "answer": "The cell potential is positive and ΔG is negative",
+     "explain": "A spontaneous cell has E_cell > 0, and since ΔG = -nFE, ΔG is negative.",
+     "choices": [
+      "The cell potential is positive but ΔG is also positive",
+      "The cell potential is positive and ΔG is negative",
+      "The cell potential is negative and ΔG is positive",
+      "Both the cell potential and ΔG are zero"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Iron rusts faster when in contact with a less reactive metal like copper, but is protected when connected to a more reactive metal like zinc. Why does the zinc protect the iron?",
+     "answer": "Zinc oxidizes more readily and corrodes first, sparing the iron",
+     "explain": "Being more reactive, zinc gives up electrons preferentially and is consumed, protecting the iron by cathodic (sacrificial) protection.",
+     "choices": [
+      "Zinc oxidizes more readily and corrodes first, sparing the iron",
+      "Zinc coats the iron in a layer of its own oxide that seals the surface",
+      "Zinc makes the surrounding iron more easily oxidized than usual",
+      "Zinc conducts the electrons away from the iron so that none are lost"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Standard electrode potentials are Cu2+/Cu = +0.34 V and Zn2+/Zn = −0.76 V. Calculate the standard cell potential, in volts, of a zinc-copper galvanic cell.",
+     "answer": "1.1",
+     "explain": "E°cell = E°(cathode) − E°(anode) = +0.34 − (−0.76) = +1.10 V, and the positive sign confirms the cell runs on its own."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Molten aluminium oxide is electrolysed, and Al(3+) ions are discharged at the cathode. How many moles of electrons must pass to deposit one mole of aluminium?",
+     "answer": "3",
+     "explain": "Al³⁺ + 3 e⁻ → Al, so three moles of electrons deposit one mole of aluminium. That charge cost is why aluminium smelting is so power-hungry."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Electrolysing concentrated brine gives chlorine at the anode, even though the potentials say oxygen should be discharged first. Choose the best explanation.",
+     "answer": "Chloride is concentrated, and oxygen has a large overpotential on the anode",
+     "choices": [
+      "Chloride ions carry their charge to the anode faster than water molecules can",
+      "Sodium ions crowd the anode and keep water away from the surface",
+      "Chloride is oxidised more easily than water, as the standard potentials show",
+      "Chloride is concentrated, and oxygen has a large overpotential on the anode"
+     ],
+     "explain": "Thermodynamics ranks the half-reactions and puts water first; kinetics decides the outcome, because oxygen evolution is slow on most anodes and concentrated chloride tips the balance further."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "How many coulombs of charge pass when a current of 2.00 A flows for 300 s?",
+     "answer": "600",
+     "explain": "Q = I t = 2.00 x 300 = 600 C."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Using the Faraday constant 96500 C/mol, how many moles of electrons does 193000 C correspond to?",
+     "answer": "2",
+     "explain": "193000 / 96500 = 2 mol of electrons."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A steel ship's hull carries bolted-on blocks of magnesium below the waterline. What are they for?",
+     "answer": "To corrode in place of the steel.",
+     "choices": [
+      "To corrode in place of the steel.",
+      "To carry the current that keeps the hull negatively charged.",
+      "To insulate the steel from contact with the seawater.",
+      "To react with the seawater and use up its dissolved oxygen."
+     ],
+     "explain": "Sacrificial protection: magnesium is more readily oxidised, so it supplies the electrons and corrodes while the iron is spared. No external current is involved, which is what separates it from impressed-current protection."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Electrolysing dilute sulfuric acid with inert electrodes gives hydrogen and oxygen in a volume ratio of two to one. What accounts for the ratio?",
+     "answer": "Each mole of oxygen needs four electrons while each mole of hydrogen needs two.",
+     "choices": [
+      "Each mole of oxygen needs four electrons while each mole of hydrogen needs two.",
+      "Hydrogen molecules are lighter, so they take up twice the volume.",
+      "The acid supplies twice as much hydrogen as the water does.",
+      "Oxygen dissolves in the solution, halving the amount collected."
+     ],
+     "explain": "The same charge passes at both electrodes, and the half-equations require twice as many electrons per mole of oxygen as per mole of hydrogen."
+    }
+   ]
+  },
+  {
+   "id": "chem.5.biochem",
+   "title": "Advanced Biochemistry",
+   "stage": 5,
+   "goal": "The chemistry of life's macromolecules.",
+   "articles": [
+    "Biochemistry",
+    "Protein structure",
+    "Enzyme kinetics"
+   ],
+   "prereqs": [
+    "chem.4.organic",
+    "chem.4.physical",
+    "bio.4.biochem"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A protein of a single polypeptide chain is heated until its helices and sheets unravel completely, then cooled slowly, whereupon it recovers full activity. Its peptide bonds were never broken. What does that recovery establish?",
+     "answer": "The amino-acid sequence alone holds enough information to specify the fold",
+     "explain": "Primary structure is the sequence; unfolding and refolding without touching that sequence shows the fold is written into it. The stem rules out peptide-bond breakage, and one chain cannot have quaternary structure.",
+     "choices": [
+      "Secondary structure survived the heating, and only the tertiary fold was lost",
+      "The amino-acid sequence alone holds enough information to specify the fold",
+      "The protein has quaternary structure, and its separate chains reassembled",
+      "Heating broke the peptide bonds, which then reformed in the same order"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "In Michaelis-Menten kinetics Vmax is the rate approached once substrate saturates every active site. A chemist raises the substrate concentration from 10 times Km to 20 times Km and finds the rate barely moves. Why not?",
+     "answer": "At 10 Km the enzyme is already near saturation, so extra substrate finds no free site",
+     "explain": "v = Vmax[S]/(Km+[S]) gives 0.909 Vmax at 10 Km and 0.952 Vmax at 20 Km, a rise of under 5 percent. The hyperbola has flattened; nearly every active site is already occupied.",
+     "choices": [
+      "The extra substrate has started to inhibit the enzyme at that concentration",
+      "Once substrate is in excess the rate is fixed by Km rather than by Vmax",
+      "At 10 Km the enzyme is already near saturation, so extra substrate finds no free site",
+      "Doubling the substrate always doubles the rate, so the measurement must be wrong"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A competitive inhibitor binds the active site of an enzyme. Compared with the uninhibited enzyme, how do the apparent Km and Vmax change?",
+     "answer": "Apparent Km increases while Vmax stays the same",
+     "explain": "A competitive inhibitor can be outcompeted by excess substrate, so Vmax is unchanged but more substrate is needed, raising apparent Km.",
+     "choices": [
+      "Vmax decreases while Km stays the same",
+      "Both Km and Vmax decrease",
+      "Apparent Km increases while Vmax stays the same",
+      "Apparent Km decreases while Vmax stays the same"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "An enzyme obeying Michaelis-Menten kinetics has Km = 2.0 mM and Vmax = 100 µmol/min. Calculate the initial rate, in µmol/min, at a substrate concentration of 2.0 mM.",
+     "answer": "50",
+     "explain": "v = Vmax[S]/(Km + [S]) = 100 × 2.0 / (2.0 + 2.0) = 50 µmol/min. At [S] = Km the enzyme runs at exactly half its maximum rate."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two Lineweaver-Burk plots for one enzyme, with and without an inhibitor, cross exactly on the x-axis but differ in slope and in y-intercept. Identify the inhibition and its effect.",
+     "answer": "Noncompetitive: Vmax falls, Km unchanged",
+     "choices": [
+      "Noncompetitive: Vmax falls, Km unchanged",
+      "Competitive: apparent Km rises while Vmax holds steady",
+      "Uncompetitive: Km and Vmax both fall by the same factor",
+      "Substrate inhibition at high concentration, dragging both parameters down"
+     ],
+     "explain": "The x-intercept is −1/Km, so a shared x-intercept means Km is untouched; the raised y-intercept (1/Vmax) says Vmax has dropped. That is the classic noncompetitive signature."
+    },
+    {
+     "kind": "choice",
+     "prompt": "The hydrophobic effect drives nonpolar side chains out of water and into a protein's core. A folded globular protein is transferred from water into a nonpolar solvent that does not break covalent bonds. Predict what happens to the fold.",
+     "answer": "It turns itself inside out, burying the polar residues that had faced the water",
+     "choices": [
+      "It holds the same fold, since the covalent backbone fixes the shape",
+      "It unravels into a random coil, the driving force having vanished",
+      "It packs tighter still, since a nonpolar solvent squeezes the core harder",
+      "It turns itself inside out, burying the polar residues that had faced the water"
+     ],
+     "explain": "The same rule applies with the phases swapped: whatever the solvent dislikes goes inside. Nonpolar side chains now face out and the polar ones are buried, so the structure inverts rather than unfolding."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "An enzyme with Km = 5.0 mM and Vmax = 200 micromol/min is run at a substrate concentration of 15 mM. Give the initial rate, in micromol/min.",
+     "answer": "150",
+     "explain": "v = Vmax [S]/(Km + [S]) = 200 x 15/20 = 150 micromol/min."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A polypeptide is 120 amino acids long. How many peptide bonds does the chain contain?",
+     "answer": "119",
+     "explain": "Each bond joins two residues, so a chain of 120 residues has 119 bonds."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A protein from a hot-spring organism keeps its fold at 90 degrees Celsius, while its close relative from a temperate organism unfolds at 50. Which difference most plausibly accounts for that?",
+     "answer": "More salt bridges and a tighter hydrophobic core.",
+     "choices": [
+      "More salt bridges and a tighter hydrophobic core.",
+      "A longer chain, since extra length always stabilises a fold.",
+      "More glycine residues, which let the chain flex rather than break.",
+      "Fewer disulfide bonds, leaving the chain usefully looser."
+     ],
+     "explain": "Thermostability comes from accumulated small stabilisations: ion pairs, tighter packing and better-shielded hydrophobic cores. Extra glycine does the opposite, buying flexibility at the cost of rigidity."
+    },
+    {
+     "kind": "choice",
+     "prompt": "An inhibitor is found to lower both the apparent Vmax and the apparent Km of an enzyme by the same factor. Which mode of inhibition fits?",
+     "answer": "Uncompetitive inhibition.",
+     "choices": [
+      "Uncompetitive inhibition.",
+      "Competitive inhibition.",
+      "Noncompetitive inhibition, which leaves Km alone.",
+      "Irreversible covalent modification of the active site."
+     ],
+     "explain": "An uncompetitive inhibitor binds only the enzyme-substrate complex, pulling both Vmax and Km down by the same factor and leaving Vmax/Km unchanged."
+    }
+   ]
+  },
+  {
+   "id": "chem.5.materials",
+   "title": "Materials Chemistry",
+   "stage": 5,
+   "goal": "Polymers, nanomaterials and semiconductors.",
+   "articles": [
+    "Materials science",
+    "Polymer",
+    "Nanomaterials"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Polymerisation joins many small monomer units into long chains. A chemist heats ethene (C2H4, molar mass 28 g/mol) under pressure with an initiator and isolates a waxy solid of average molar mass 30,000 g/mol. Which observation would best confirm the solid really is a polymer?",
+     "answer": "It softens across a range of temperatures rather than melting at one sharp point",
+     "explain": "A polymer sample is a spread of chain lengths, so it softens over a range instead of melting sharply. The average mass need not be an exact multiple of 28 precisely because it is an average.",
+     "choices": [
+      "It burns in air, since only long-chain molecules will burn at all",
+      "It softens across a range of temperatures rather than melting at one sharp point",
+      "It is insoluble in water, which no small molecule ever is",
+      "Its molar mass is not a whole-number multiple of the monomer's 28 g/mol"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Silicon is a semiconductor. Doping pure silicon with a small amount of phosphorus (which has one more valence electron) produces which type of material?",
+     "answer": "An n-type semiconductor carrying extra mobile electrons",
+     "explain": "Phosphorus donates an extra electron per atom, adding negative charge carriers to make n-type silicon. The crystal as a whole stays neutral: each donated electron leaves a fixed positive phosphorus ion behind.",
+     "choices": [
+      "An n-type semiconductor carrying extra mobile electrons",
+      "A p-type semiconductor carrying extra positive holes",
+      "An n-type semiconductor that now carries a net negative charge",
+      "An insulator, since the impurity atoms disrupt the silicon lattice"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Catalysis happens on the atoms at a nanoparticle's surface. A maker halves the diameter of its spherical gold nanoparticles while keeping the total mass of gold the same. Roughly what happens to the surface area available per gram?",
+     "answer": "It doubles, since surface area per gram goes as one over the radius",
+     "explain": "For a sphere, area/mass = 4πr² / (ρ·4/3πr³) = 3/(ρr). Halving r doubles the specific surface area, which is why a nanoscale catalyst offers so much more working surface per gram.",
+     "choices": [
+      "It quadruples, since the surface area of a sphere goes as the radius squared",
+      "It doubles, since surface area per gram goes as one over the radius",
+      "It stays the same, since the total mass of gold has not changed",
+      "It halves, since each particle now carries less surface than before"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A polyethylene sample has chains of average molar mass 28,000 g/mol, built from C2H4 repeat units of molar mass 28 g/mol. Calculate the average number of repeat units per chain.",
+     "answer": "1000",
+     "explain": "28,000 ÷ 28 = 1000 repeat units, which is the average degree of polymerisation."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A cracked part moulded from a thermosetting resin reaches the workshop. An engineer proposes melting the pieces down and re-moulding them, as would work for a thermoplastic. Predict the outcome and give the reason.",
+     "answer": "It fails: cross-links hold the chains, so the resin chars rather than flows",
+     "choices": [
+      "It works, since heating any polymer above its softening point restores flow",
+      "It fails: cross-links hold the chains, so the resin chars rather than flows",
+      "It works, but only once fresh monomer is stirred into the melt",
+      "It fails: the resin has crystallised, and a crystal will not soften again"
+     ],
+     "explain": "A thermoset is one giant cross-linked network, so there are no separate chains to slide. Heat it enough and the covalent bonds decompose instead of melting."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Silicon has a band gap of 1.1 eV. Doping it with boron, which brings three valence electrons, raises its conductivity sharply at room temperature. Explain what boron adds to the band structure.",
+     "answer": "Empty acceptor levels just above the valence band, giving mobile holes",
+     "choices": [
+      "Empty acceptor levels just above the valence band, giving mobile holes",
+      "A narrower band gap, so that ordinary thermal energy carries electrons across",
+      "Spare electrons donated straight into the conduction band, as phosphorus does",
+      "A greater number of silicon atoms taking part in conduction than before"
+     ],
+     "explain": "Boron has one valence electron too few, so it accepts an electron from the valence band and leaves a hole behind. The gap itself is barely changed."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A polymer has a number-average molar mass of 45000 g/mol and is built from repeat units of 90 g/mol. What is the degree of polymerisation?",
+     "answer": "500",
+     "explain": "45000 / 90 = 500 repeat units per chain on average."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A cube of edge 10 nm is cut into cubes of edge 1 nm. By what factor does the total surface area increase?",
+     "answer": "10",
+     "explain": "Cutting to one tenth of the edge length multiplies the total surface area by ten."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A stretched rubber band under a fixed load pulls shorter when it is warmed, while a metal wire under load lengthens. Which explanation fits the rubber?",
+     "answer": "Coiling back regains entropy, and that pull grows with temperature.",
+     "choices": [
+      "Coiling back regains entropy, and that pull grows with temperature.",
+      "The rubber's covalent bonds contract as the temperature rises.",
+      "Heating drives out absorbed water and shrinks the band.",
+      "The cross-links melt and let the chains slide back together."
+     ],
+     "explain": "Rubber elasticity is entropic: the restoring force is proportional to temperature, so a hotter band pulls harder and contracts."
+    },
+    {
+     "kind": "choice",
+     "prompt": "One batch of CdSe quantum dots emits green light and a batch of larger dots of the same material emits red. Explain the shift.",
+     "answer": "Larger dots confine the carriers less, so the gap is smaller.",
+     "choices": [
+      "Larger dots confine the carriers less, so the gap is smaller.",
+      "Larger dots hold more impurity atoms, and those glow red.",
+      "Larger dots scatter the shorter blue wavelengths away, leaving red.",
+      "The larger batch was simply grown at a higher temperature."
+     ],
+     "explain": "Quantum confinement raises the effective band gap as the particle shrinks, so smaller dots emit at shorter wavelengths."
+    }
+   ],
+   "prereqs": [
+    "chem.4.physical",
+    "chem.4.organic",
+    "phys.4.solid-state"
+   ]
+  },
+  {
+   "id": "chem.5.compchem",
+   "title": "Computational Chemistry",
+   "stage": 5,
+   "goal": "Simulating molecules on computers.",
+   "articles": [
+    "Computational chemistry",
+    "Molecular dynamics"
+   ],
+   "prereqs": [
+    "chem.4.quantum-chem",
+    "chem.4.physical",
+    "cs.2.programming",
+    "math.5.pde"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Molecular dynamics integrates Newton's equations for every atom, and the time step has to be short enough to resolve the fastest vibration in the system, which is about a femtosecond. A group wants to watch one millisecond of protein folding. Why is that so hard?",
+     "answer": "A femtosecond step means about 10^12 steps, each recomputing every force",
+     "explain": "1 ms ÷ 1 fs = 10^12 steps. The step is set by bond vibrations, not by the process of interest, and that mismatch of twelve orders of magnitude is the central cost problem in the field.",
+     "choices": [
+      "Newton's equations cannot be integrated beyond a few thousand steps",
+      "A femtosecond step means about 10^12 steps, each recomputing every force",
+      "Proteins fold too slowly for any classical force field to describe them",
+      "The Schrödinger equation has to be solved afresh at every one of the steps"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Ab initio quantum chemistry methods and classical molecular dynamics differ in a key trade-off. What is it?",
+     "answer": "Quantum methods are more accurate but costlier, limiting system size",
+     "explain": "Quantum approaches capture electrons explicitly at high cost, while classical force fields trade electronic detail for the speed to handle large systems.",
+     "choices": [
+      "Force fields treat electrons explicitly, while quantum methods average over them",
+      "Quantum methods are cheaper and handle larger systems than force fields",
+      "Quantum methods are more accurate but costlier, limiting system size",
+      "Classical dynamics reproduces bond breaking, which quantum methods cannot"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A virtual screen docks a library of a million compounds into a target, ranks them, and chemists then make the top few hundred. Most of those turn out inactive. What makes the exercise worth running anyway?",
+     "answer": "Even a few-fold enrichment over random picking saves years of synthesis",
+     "explain": "Screening is a filter, not an oracle. Lifting the hit rate from one in ten thousand to one in a hundred is an enormous saving even though most ranked compounds still fail.",
+     "choices": [
+      "The ranking is accurate enough that the true best binder is always near the top",
+      "Even a few-fold enrichment over random picking saves years of synthesis",
+      "Docking scores are true free energies, so the top of the list needs no testing",
+      "Synthesis is cheap next to computing time, so the order hardly matters"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A molecular dynamics run advances in 2 femtosecond steps. How many steps does 1 nanosecond of simulated motion take?",
+     "answer": "500000",
+     "explain": "1 ns = 10⁶ fs, and 10⁶ ÷ 2 = 500,000 steps. The tiny step is set by the fastest vibrations, which is why long simulations are so costly."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two groups compute the same reaction barrier. One uses DFT with a small basis set and reports 60 kJ/mol; the other uses coupled cluster with a large basis set and reports 85 kJ/mol, matching experiment. Choose the best account of the gap.",
+     "answer": "The DFT number carries error from both the functional and the small basis set",
+     "choices": [
+      "Barrier heights depend on which software package was used to run them",
+      "The DFT number carries error from both the functional and the small basis set",
+      "The experiment must be at fault, since DFT solves the electronic problem exactly",
+      "Coupled cluster overshoots barriers, so the true value sits below 60 kJ/mol"
+     ],
+     "explain": "DFT is exact in principle but approximate in practice, because the exchange-correlation functional is approximate; a small basis set adds a second error on top."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A docking program ranks one molecule as the strongest binder in a library, but the assay shows no measurable affinity. Which limitation most likely explains the miss?",
+     "answer": "Scoring functions treat solvation and entropy far too crudely",
+     "choices": [
+      "Docking returns a real binding constant, so the assay must be at fault",
+      "The rank is only wrong if the pose is wrong, and poses are usually right",
+      "The compound is probably insoluble, which docking is designed to detect",
+      "Scoring functions treat solvation and entropy far too crudely"
+     ],
+     "explain": "Docking scores are fast empirical approximations, not free energies. Desolvation and conformational entropy are exactly where they are weakest, so a correct pose can still carry a badly wrong score."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A molecular dynamics run advances in steps of 1 femtosecond. How many steps are needed to simulate 5 picoseconds?",
+     "answer": "5000",
+     "explain": "1 ps is 1000 fs, so 5 ps is 5000 steps."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A quantum chemistry method scales as the cube of the number of basis functions. By what factor does the cost rise when the basis set is doubled?",
+     "answer": "8",
+     "explain": "2 cubed = 8 times the cost."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A coarse-grained simulation of a lipid bilayer reproduces the membrane thickness well but not the hydrogen-bond network at the surface. What does that show?",
+     "answer": "Coarse graining trades chemical detail for reach in size and time.",
+     "choices": [
+      "Coarse graining trades chemical detail for reach in size and time.",
+      "The force field must contain an arithmetic mistake.",
+      "The simulation was simply run for too short a time.",
+      "Hydrogen bonding cannot be captured by classical force fields of any kind."
+     ],
+     "explain": "Grouping atoms into beads deliberately discards the detail that hydrogen bonding depends on, in exchange for far larger and longer simulations."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two conformers computed in the gas phase differ by 15 kJ/mol, yet experiments in water find them almost equally populated. What has most likely been left out?",
+     "answer": "Solvation was not modelled.",
+     "choices": [
+      "Solvation was not modelled.",
+      "The basis set lacked polarisation functions.",
+      "Zero-point vibrational energy was omitted.",
+      "The geometry optimisation had not converged."
+     ],
+     "explain": "A polar solvent can stabilise one conformer far more than the other, so gas-phase energies can be badly misleading for solution behaviour."
+    }
+   ]
+  },
+  {
+   "id": "chem.5.frontier",
+   "title": "Frontiers of Chemistry",
+   "stage": 5,
+   "goal": "Catalysis, green chemistry and molecular machines.",
+   "articles": [
+    "Catalysis",
+    "Green chemistry",
+    "Molecular machine"
+   ],
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A catalyst opens a route of lower activation energy and is regenerated at the end of each cycle. A student proposes using one to drive a reaction with ΔG > 0 through to completion. What is wrong with the plan?",
+     "answer": "A catalyst changes the rate, not the position: an uphill reaction stays uphill",
+     "explain": "Lowering the barrier speeds both directions equally, so the equilibrium position is untouched. Getting an uphill reaction to run needs coupling to something downhill, not a catalyst.",
+     "choices": [
+      "A catalyst changes the rate, not the position: an uphill reaction stays uphill",
+      "It would work, but only if enough catalyst is added to match the reactant",
+      "Catalysts speed only reactions that are already fast, and this one is not",
+      "The catalyst would be used up, since driving an uphill reaction consumes it"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Green chemistry ranks preventing waste and hazard above cleaning them up afterwards. A plant swaps a route running in dichloromethane at reflux (atom economy 40 percent, 3 steps) for one running in water at 40 degrees Celsius (atom economy 35 percent, 4 steps) at the same yield. Which reading is fairest?",
+     "answer": "A real gain in solvent hazard and energy, paid for in atom economy and steps",
+     "explain": "The twelve principles pull against each other and have to be traded off. Dropping a chlorinated solvent and reflux heating is a genuine gain; losing five points of atom economy and adding a step is a genuine cost.",
+     "choices": [
+      "A clear loss, since atom economy is the measure green chemistry actually uses",
+      "A real gain in solvent hazard and energy, paid for in atom economy and steps",
+      "A clear gain, since a route that runs in water is green whatever else it does",
+      "No change either way, because the yield is what matters and it is unchanged"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A rotaxane motor's ring is driven around its axle by pulses of chemical fuel. Between pulses, thermal motion on its own would let the ring drift either way round. What must the fuel pulses supply for net one-way circulation?",
+     "answer": "Energy that makes the reverse step over one barrier far slower than the forward step",
+     "explain": "Thermal motion alone cannot produce net directed work, or the second law would fall. Directionality comes from spending energy to make one crossing kinetically much cheaper than its reverse.",
+     "choices": [
+      "A steady push in one direction, in the way a current flows through a wire",
+      "Enough heat to lift the ring over every barrier on the axle at once",
+      "Energy that makes the reverse step over one barrier far slower than the forward step",
+      "A magnetic alignment that fixes which end of the axle counts as the front"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Ethanol can be made by fermenting glucose: C6H12O6 -> 2 C2H5OH + 2 CO2. With molar masses C6H12O6 = 180, C2H5OH = 46 and CO2 = 44, calculate the percentage atom economy for ethanol, to one decimal place.",
+     "answer": "51.1",
+     "explain": "Atom economy = mass of wanted product ÷ total mass of reactants × 100 = (2 × 46)/180 × 100 = 51.1 percent. Nearly half the mass of the sugar leaves as carbon dioxide rather than ending up in the ethanol."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A heterogeneous catalyst for ammonia synthesis loses most of its activity after traces of sulfur compounds enter the feed gas. Choose the best account of the poisoning.",
+     "answer": "Sulfur adsorbs strongly on the active sites and blocks them",
+     "choices": [
+      "Sulfur adsorbs strongly on the active sites and blocks them",
+      "Sulfur reacts with the ammonia and destroys the product as it forms",
+      "Sulfur raises the activation energy of the gas-phase reaction itself",
+      "Sulfur shifts the equilibrium constant so that less ammonia can form"
+     ],
+     "explain": "Heterogeneous catalysis happens on a small number of surface sites. Sulfur binds them tightly, so reactant molecules have nowhere to adsorb."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A light-driven molecular motor has to turn in one direction rather than jiggle back and forth at random. What feature makes directional rotation possible?",
+     "answer": "A ratchet of energy-driven steps that blocks off the reverse path",
+     "choices": [
+      "Its large mass, which stops thermal motion from reversing the turn",
+      "A chiral centre, which by itself fixes which way the molecule turns",
+      "A ratchet of energy-driven steps that blocks off the reverse path",
+      "Brownian motion by itself, which happens to favour one direction"
+     ],
+     "explain": "Thermal motion alone cannot produce net directed work, or the second law would fall. Chirality biases the shape of the barriers but cannot by itself drive rotation; directionality needs energy input plus irreversible steps."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A catalyst lowers a barrier from 100 to 75 kJ/mol. Using k proportional to exp(-Ea/RT) with R = 8.314 J/(mol K) and T = 300 K, what is the rate enhancement factor, to the nearest thousand?",
+     "answer": "23000",
+     "explain": "exp(25000/(8.314 x 300)) = exp(10.02) = 2.25e4, which is 23000 to the nearest thousand."
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Atom economy is the mass of the desired product divided by the total mass of the reactants, as a percentage. A reaction uses 40 g and 60 g of two reactants and yields 72 g of the desired product. What is the atom economy, as a percentage?",
+     "answer": "72",
+     "explain": "72 / 100 x 100 = 72 percent."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A pharmaceutical route is redesigned to run in water at 40 degrees Celsius instead of in dichloromethane at reflux, at the same yield. Which green-chemistry gain is the most direct?",
+     "answer": "A safer solvent and less energy used.",
+     "choices": [
+      "A safer solvent and less energy used.",
+      "A higher atom economy for that step.",
+      "Fewer synthetic steps in the whole route.",
+      "A renewable feedstock in place of a petrochemical one."
+     ],
+     "explain": "Solvent choice and energy demand are two of the twelve principles; the atom economy and the step count are unchanged by this switch."
+    },
+    {
+     "kind": "choice",
+     "prompt": "An enzyme achieves in water at 37 degrees Celsius what an industrial catalyst needs 400 degrees Celsius and 200 atm to do. Which feature of enzymes best explains that?",
+     "answer": "An active site shaped precisely to stabilise the transition state.",
+     "choices": [
+      "An active site shaped precisely to stabilise the transition state.",
+      "Enzymes supply extra energy from the cell to the reaction.",
+      "Enzymes shift the equilibrium far over towards the products.",
+      "Enzymes reduce the reaction's enthalpy change towards zero."
+     ],
+     "explain": "Catalysts of any kind leave the thermodynamics alone; enzymes are extraordinary because their binding sites lower the activation barrier so sharply."
+    }
+   ],
+   "prereqs": [
+    "chem.4.physical",
+    "chem.4.organic",
+    "chem.4.inorganic"
+   ]
+  }
+ ]
+}

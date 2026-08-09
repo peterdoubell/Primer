@@ -1,0 +1,1121 @@
+/* The Primer — an illuminated, book-like interface. */
+:root {
+  color-scheme: light;
+  --paper: #f6f0e2;
+  --paper-2: #efe7d4;
+  --paper-edge: #e3d8bd;
+  --ink: #2b2419;
+  --ink-soft: #554b3a;
+  --ink-faint: #6e6350;   /* darkened to pass AA on parchment */
+  --gold: #a9852f;
+  --gold-ink: #7a5d13;    /* darker gold: passes AA at 12-13px */
+  --gold-bright: #c9a227;
+  --accent: #7a3b2e;
+  --accent-2: #3f639a;
+  --green: #337a4b;
+  --green-ink: #24603a;   /* green that passes AA as text on its own tint */
+  --ink-locked: #6a6152;  /* muted but AA: locked tiles are still operable */
+  --rule: #d8cba8;
+  --shadow: rgba(60, 45, 20, 0.18);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: "Optima", "Segoe UI", -apple-system, system-ui, sans-serif;
+  --focus: #1f5fbf;
+  --paper-hi: #fbf6ea;
+  --field: #fffdf6;
+  --field-hi: #ffffff;
+  --ui-scale: 1;          /* bumped up in young-reader stage modes */
+  /* Text that sits on a coloured fill (green tick, selected chip, domain dot).
+     This has to flip with the theme: the fills lighten in dark mode, so text
+     hard-coded to #fff fell to 2.00:1 on the completed-quest tick — the primary
+     completion indicator on the Today screen — and 2.69:1 on the selected
+     onboarding chip, which was *less* readable than the unselected one. */
+  --on-fill: #fffdf6;
+  /* A perceivable boundary for inputs, choices and cards (SC 1.4.11 wants 3:1).
+     --rule and --paper-edge are decorative hairlines at 1.25-1.54:1; they stay
+     for dividers, but anything that is a control's edge uses this. */
+  --edge: #8a7f62;
+  --ink-place: #665c4d;   /* authored placeholder: the UA default fails in dark */
+
+  /* Chrome that differs by theme, declared as values rather than as rules, so
+     the shell can change character without duplicating a single selector. */
+  --shell-bg:
+    radial-gradient(circle at 20% 10%, rgba(120, 90, 40, 0.25), transparent 60%),
+    radial-gradient(circle at 80% 90%, rgba(90, 60, 20, 0.3), transparent 55%),
+    linear-gradient(#2a2214, #1b160d);
+  --page-texture: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(180,150,90,0.05) 28px);
+  --seam: linear-gradient(90deg, rgba(120,90,40,0), rgba(120,90,40,0.18) 45%, rgba(255,255,255,0.4) 50%, rgba(120,90,40,0.18) 55%, rgba(120,90,40,0));
+  --glow-soft: none;
+  /* The travelling highlight on a loading skeleton line. */
+  --sk-sheen: #e9dcbb;
+  --glow-strong: none;
+  --tile-glow: none;
+  /* The always-dark surfaces (spine, tutor, toast, chapter card). In day mode
+     these are the book's tooled-leather cover; at night they are the machine's
+     own housing. They were hardcoded brown, so they went on being brown after
+     the rest of the night palette turned — the single loudest thing left. */
+  /* --accent was doing four unrelated jobs at once: article headings, links,
+     ghost-button outlines, and error/wrong-answer alerts. That was survivable
+     when it was a muted brown-red, but at night it becomes hot magenta, and a
+     page of encyclopedia prose turned into a field of pink. Split by meaning:
+     amber is the book speaking, cyan is information you can follow, magenta is
+     reserved for when something is actually wrong. Light mode keeps its old
+     values, so the paper book is unchanged. */
+  --link: var(--accent);
+  --heading-accent: var(--accent);
+  --btn-fill: linear-gradient(#8a4436, #6d3327);
+  --btn-ink: #fdf3e6;
+  --shell-base: #221c12;
+  --scrim: rgba(30,22,10,0.7);   /* candle-lit by day */
+  --lock-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4.8' y='10.5' width='14.4' height='9.7' rx='2'/><path d='M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7'/></svg>");
+  --chrome-bg: linear-gradient(160deg, #3c2c17, #241a0d);
+  --panel-bg: linear-gradient(170deg, #2f2413, #211809);
+  --chrome-ink: #e9dcc0;
+  --chrome-ink-soft: #d8c9a6;
+  --chrome-ink-dim: #b8a983;
+  --chrome-hi: #f2e6cb;
+  --chrome-rule: rgba(200,170,110,0.25);
+  --chrome-hover: rgba(200,170,110,0.14);
+  --chrome-active: rgba(201,162,39,0.22);
+
+  /* ---- the night palette, written once ----
+     The Primer is a book that is also a machine. By day it is paper. By night
+     the machine shows through: the page goes to the colour of a screen tuned
+     to a dead channel, and the gilding turns to phosphor. Both dark selectors
+     below read from these, so the two can never drift apart — which they
+     already had, silently, on --gold and --gold-bright. */
+  --dk-paper: #0a0e14;
+  --dk-paper-2: #10161f;
+  --dk-paper-edge: #1e2a38;
+  --dk-paper-hi: #0d131b;
+  --dk-ink: #dde8f2;
+  --dk-ink-soft: #a9bed0;
+  --dk-ink-faint: #8aa1b5;
+  --dk-gold: #ffb020;
+  --dk-gold-ink: #ffc65c;
+  --dk-gold-bright: #ffd479;
+  --dk-accent: #ff5c8a;
+  --dk-accent-2: #4fd8e8;
+  --dk-green: #3ce8a9;
+  --dk-green-ink: #5cf0bb;
+  --dk-ink-locked: #8296a8;
+  --dk-rule: #1e2b3a;
+  --dk-shadow: rgba(0, 0, 0, 0.65);
+  --dk-focus: #4fd8e8;
+  --dk-field: #0f1621;
+  --dk-field-hi: #16202c;
+  --dk-on-fill: #06090d;
+  --dk-edge: #4a6580;
+  --dk-ink-place: #869bad;
+  --dk-shell-bg:
+    radial-gradient(circle at 18% 8%, rgba(79, 216, 232, 0.10), transparent 55%),
+    radial-gradient(circle at 82% 88%, rgba(255, 92, 138, 0.09), transparent 55%),
+    linear-gradient(#070c12, #02050a);
+  /* Faint cyan rule-grid instead of paper grain: the page as a lattice. */
+  --dk-page-texture:
+    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(79,216,232,0.045) 28px),
+    repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(79,216,232,0.028) 28px);
+  --dk-seam: linear-gradient(90deg, rgba(79,216,232,0), rgba(79,216,232,0.25) 45%, rgba(160,245,255,0.75) 50%, rgba(79,216,232,0.25) 55%, rgba(79,216,232,0));
+  --dk-glow-soft: 0 0 10px rgba(79, 216, 232, 0.35);
+  --dk-sk-sheen: rgba(79, 216, 232, 0.30);
+  --dk-glow-strong: 0 0 16px rgba(255, 176, 32, 0.45);
+  --dk-tile-glow: 0 0 12px rgba(255, 176, 32, 0.22);
+  --dk-link: var(--dk-accent-2);
+  --dk-heading-accent: var(--dk-gold-ink);
+  /* Chrome, not rust: the default button becomes brushed steel with a cyan
+     edge, so it stops being the one warm object on a cold page. */
+  --dk-btn-fill: linear-gradient(#1b2733, #121b25);
+  --dk-btn-ink: #dff1f7;
+  --dk-shell-base: #03060a;
+  --dk-scrim: rgba(2,6,12,0.74);  /* the room lights off at night */
+  --dk-chrome-bg: linear-gradient(165deg, #0c1420, #04080e);
+  --dk-panel-bg: linear-gradient(170deg, #0e1823, #05090f);
+  --dk-chrome-ink: #cfe0ee;
+  --dk-chrome-ink-soft: #9db3c6;
+  --dk-chrome-ink-dim: #859bae;
+  --dk-chrome-hi: #eaf4fb;
+  --dk-chrome-rule: rgba(79,216,232,0.22);
+  --dk-chrome-hover: rgba(79,216,232,0.12);
+  --dk-chrome-active: rgba(255,176,32,0.18);
+}
+
+
+/* Night-reading (dark) mode — the chrome is already dark, so honor the
+   viewer's preference and recolor the page to match. The theme toggle stamps
+   data-theme on <html> and must win over the media query in both directions. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: var(--dk-paper); --paper-2: var(--dk-paper-2);
+    --paper-edge: var(--dk-paper-edge); --paper-hi: var(--dk-paper-hi);
+    --ink: var(--dk-ink); --ink-soft: var(--dk-ink-soft); --ink-faint: var(--dk-ink-faint);
+    --gold: var(--dk-gold); --gold-ink: var(--dk-gold-ink); --gold-bright: var(--dk-gold-bright);
+    --accent: var(--dk-accent); --accent-2: var(--dk-accent-2);
+    --link: var(--dk-link); --heading-accent: var(--dk-heading-accent);
+    --green: var(--dk-green); --green-ink: var(--dk-green-ink);
+    --ink-locked: var(--dk-ink-locked); --rule: var(--dk-rule); --shadow: var(--dk-shadow);
+    --focus: var(--dk-focus); --field: var(--dk-field); --field-hi: var(--dk-field-hi);
+    --on-fill: var(--dk-on-fill); --edge: var(--dk-edge); --ink-place: var(--dk-ink-place);
+    --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
+    --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
+    --scrim: var(--dk-scrim);
+    --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
+    --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
+    --sk-sheen: var(--dk-sk-sheen);
+    --tile-glow: var(--dk-tile-glow);
+    --chrome-bg: var(--dk-chrome-bg); --panel-bg: var(--dk-panel-bg);
+    --chrome-ink: var(--dk-chrome-ink); --chrome-ink-soft: var(--dk-chrome-ink-soft);
+    --chrome-ink-dim: var(--dk-chrome-ink-dim); --chrome-hi: var(--dk-chrome-hi);
+    --chrome-rule: var(--dk-chrome-rule); --chrome-hover: var(--dk-chrome-hover);
+    --chrome-active: var(--dk-chrome-active);
+  }
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+    --paper: var(--dk-paper); --paper-2: var(--dk-paper-2);
+    --paper-edge: var(--dk-paper-edge); --paper-hi: var(--dk-paper-hi);
+    --ink: var(--dk-ink); --ink-soft: var(--dk-ink-soft); --ink-faint: var(--dk-ink-faint);
+    --gold: var(--dk-gold); --gold-ink: var(--dk-gold-ink); --gold-bright: var(--dk-gold-bright);
+    --accent: var(--dk-accent); --accent-2: var(--dk-accent-2);
+    --link: var(--dk-link); --heading-accent: var(--dk-heading-accent);
+    --green: var(--dk-green); --green-ink: var(--dk-green-ink);
+    --ink-locked: var(--dk-ink-locked); --rule: var(--dk-rule); --shadow: var(--dk-shadow);
+    --focus: var(--dk-focus); --field: var(--dk-field); --field-hi: var(--dk-field-hi);
+    --on-fill: var(--dk-on-fill); --edge: var(--dk-edge); --ink-place: var(--dk-ink-place);
+    --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
+    --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
+    --scrim: var(--dk-scrim);
+    --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
+    --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
+    --sk-sheen: var(--dk-sk-sheen);
+    --tile-glow: var(--dk-tile-glow);
+    --chrome-bg: var(--dk-chrome-bg); --panel-bg: var(--dk-panel-bg);
+    --chrome-ink: var(--dk-chrome-ink); --chrome-ink-soft: var(--dk-chrome-ink-soft);
+    --chrome-ink-dim: var(--dk-chrome-ink-dim); --chrome-hi: var(--dk-chrome-hi);
+    --chrome-rule: var(--dk-chrome-rule); --chrome-hover: var(--dk-chrome-hover);
+    --chrome-active: var(--dk-chrome-active);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  /* The bezel behind the book. Themed, so it does not stay brown around the
+     edges of a page that has otherwise gone to phosphor. */
+  background: var(--shell-base);
+  color: var(--ink);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+}
+body { background-image: var(--shell-bg); background-attachment: fixed; }
+a { color: var(--link); }
+button { font-family: var(--sans); cursor: pointer; }
+.hidden { display: none !important; }
+
+/* ---------- book shell ---------- */
+#book {
+  max-width: 1180px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: var(--paper);
+  background-image: var(--page-texture),
+    radial-gradient(circle at 50% 0%, var(--paper-hi), var(--paper));
+  box-shadow: 0 0 60px rgba(0,0,0,0.55);
+  position: relative;
+}
+#book::before {
+  /* the spine */
+  content: ""; position: absolute; left: 240px; top: 0; bottom: 0; width: 24px;
+  transform: translateX(-12px);
+  background: var(--seam);
+  pointer-events: none; z-index: 5;
+}
+
+/* ---------- sidebar ---------- */
+#sidebar {
+  background: var(--chrome-bg);
+  color: var(--chrome-ink);
+  padding: 22px 16px;
+  display: flex; flex-direction: column; gap: 4px;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+#sidebar .brand {
+  font-family: var(--serif);
+  text-align: center; margin-bottom: 8px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--chrome-rule);
+}
+#sidebar .brand .mark { font-size: 40px; color: var(--gold-bright); line-height: 1; }
+#sidebar .brand h1 { font-size: 21px; margin: 8px 0 2px; letter-spacing: 0.5px; color: var(--chrome-hi); }
+#sidebar .brand .sub { font-size: 11px; color: var(--chrome-ink-dim); font-family: var(--sans); letter-spacing: 1.5px; text-transform: uppercase; }
+/* A column of full-width buttons. The nav used to be bare flex children of
+   #sidebar, which stretched them; once wrapped in .navlist they became
+   buttons in a block box and shrank to fit their labels, so the active pill
+   no longer spanned the rail. The narrow-screen rule flips this to a row. */
+.navlist { display: flex; flex-direction: column; gap: 4px; }
+.navbtn {
+  background: transparent; border: none; color: var(--chrome-ink-soft);
+  text-align: left; padding: 9px 12px; border-radius: 8px;
+  font-size: 15px; font-family: var(--serif); display: flex; align-items: center; gap: 10px;
+  transition: background 0.15s, color 0.15s;
+}
+.navbtn .ic { width: 20px; text-align: center; font-size: 16px; opacity: 0.9; }
+.navbtn:hover { background: var(--chrome-hover); color: var(--chrome-hi); }
+.navbtn.active { background: var(--chrome-active); color: var(--chrome-hi); box-shadow: inset 3px 0 0 var(--gold-bright); }
+#sidebar .spacer { flex: 1; }
+#sidebar .stat {
+  font-family: var(--sans); font-size: 12px; color: var(--chrome-ink-dim);
+  background: rgba(0,0,0,0.2); border-radius: 8px; padding: 8px 10px; margin-top: 6px;
+  display: flex; justify-content: space-between; gap: 10px;
+}
+#sidebar .stat b { color: var(--gold-bright); }
+
+/* ---------- page area ---------- */
+#page {
+  padding: 40px 52px 80px; min-height: 100vh; position: relative;
+  animation: fade 0.4s ease;
+}
+@keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+.pagehead { border-bottom: 2px solid var(--rule); padding-bottom: 12px; margin-bottom: 24px; }
+.pagehead .kicker { font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-ink); font-weight: 700; }
+.pagehead h2 { font-size: 34px; margin: 4px 0 0; font-weight: 500; }
+.pagehead p { color: var(--ink-soft); margin: 6px 0 0; font-size: 15px; }
+.dropcap::first-letter {
+  font-size: 62px; float: left; line-height: 0.72; padding: 6px 10px 0 0;
+  font-family: var(--serif); color: var(--heading-accent);
+}
+
+/* ---------- cards ---------- */
+.card {
+  background: var(--paper-2); border: 1px solid var(--paper-edge);
+  color: var(--ink);            /* buttons must not inherit UA buttontext */
+  border-radius: 10px; padding: 18px 20px; margin-bottom: 16px;
+  box-shadow: 0 2px 5px var(--shadow);
+}
+.card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; }
+.grid { display: grid; gap: 16px; }
+.grid.two { grid-template-columns: 1fr 1fr; }
+.grid.three { grid-template-columns: repeat(3, 1fr); }
+.grid.auto { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+
+.lesson-card { border-color: var(--edge); cursor: pointer; transition: transform 0.12s, box-shadow 0.12s; position: relative; overflow: hidden; }
+.lesson-card:hover { transform: translateY(-3px); box-shadow: 0 8px 18px var(--shadow); }
+/* The press: the page settles back under the finger, ink meeting paper — the
+   tactile half of the hover lift, without which a card feels like glass. */
+.lesson-card:active { transform: translateY(-1px) scale(.995);
+  box-shadow: 0 3px 8px var(--shadow); transition-duration: .06s; }
+.lesson-card .domain-tag { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+.lesson-card .goal { color: var(--ink-soft); font-size: 14px; }
+.lesson-card .stagepill { position: absolute; top: 12px; right: 12px; font-family: var(--sans); font-size: 11px; color: var(--ink-faint); }
+
+.bar { height: 7px; background: var(--paper-edge); border-radius: 4px; overflow: hidden; margin-top: 10px; }
+.bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-ink), var(--gold)); }
+
+/* ---------- buttons ---------- */
+.btn {
+  /* Fixed dark stops in both themes: --accent lightens in dark mode, which put
+     near-white label text on a pale salmon fill (2.46:1). */
+  background: var(--btn-fill); color: var(--btn-ink); border: none;
+  padding: 11px 20px; border-radius: 8px; font-size: 15px; font-weight: 600;
+  box-shadow: 0 2px 4px var(--shadow); transition: filter 0.15s, transform 0.1s;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn:active { transform: translateY(1px); }
+.btn.gold { background: linear-gradient(#dcbe63, #bb9438); color: #241a03; }
+.btn.ghost { background: transparent; color: var(--link); border: 1.5px solid var(--link); box-shadow: none; }
+.btn.small { padding: 6px 12px; font-size: 13px; }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+/* ---------- forms ---------- */
+label.field { display: block; margin-bottom: 16px; font-family: var(--sans); font-size: 13px; color: var(--ink-soft); }
+label.field span { display: block; margin-bottom: 5px; font-weight: 600; letter-spacing: 0.3px; }
+input[type=text], input[type=number], input[type=search], select {
+  width: 100%; padding: 10px 12px; border: 1px solid var(--edge); border-radius: 7px;
+  font-size: 15px; font-family: var(--serif); background: var(--field); color: var(--ink);
+}
+/* Sliders, in the book's own hand. The UA defaults render a grey plastic
+   control at the exact moment the book is asking the reader's age — the
+   first conversation it ever has. Track as a hairline rule, thumb as a
+   gilded point; `accent-color` covers the parts engines refuse to expose. */
+input[type=range] { width: 100%; accent-color: var(--gold); height: 28px;
+  background: transparent; -webkit-appearance: none; appearance: none; }
+input[type=range]::-webkit-slider-runnable-track {
+  height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold) var(--range-fill, 30%), var(--rule) var(--range-fill, 30%));
+}
+input[type=range]::-moz-range-track { height: 3px; border-radius: 2px; background: var(--rule); }
+input[type=range]::-moz-range-progress { height: 3px; border-radius: 2px; background: var(--gold); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 50%; margin-top: -7.5px;
+  background: var(--gold-bright); border: 2px solid var(--paper);
+  box-shadow: 0 1px 4px var(--shadow), var(--glow-strong); cursor: pointer; }
+input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%;
+  background: var(--gold-bright); border: 2px solid var(--paper);
+  box-shadow: 0 1px 4px var(--shadow), var(--glow-strong); cursor: pointer; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: var(--sans); font-size: 13px; padding: 7px 13px; border-radius: 20px;
+  border: 1.5px solid var(--rule); background: var(--field); color: var(--ink-soft);
+  user-select: none; transition: all 0.12s;
+}
+.chip.on { background: var(--link); color: var(--on-fill); border-color: var(--link); }
+
+/* ---------- reader ---------- */
+#reader-layout { display: grid; grid-template-columns: 1fr 340px; gap: 0; }
+#article {
+  font-size: 17px; line-height: 1.72; color: var(--ink);
+  padding-right: 30px; max-width: 72ch;
+}
+#article h1, #article h2, #article h3 { font-weight: 600; line-height: 1.25; }
+#article h1 { font-size: 30px; border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
+#article h2 { font-size: 23px; margin-top: 1.4em; color: var(--heading-accent); }
+#article p { margin: 0.8em 0; }
+#article a.primer-wikilink { color: var(--accent-2); text-decoration: none; border-bottom: 1px dotted var(--accent-2); cursor: pointer; }
+#article a.primer-wikilink:hover { background: rgba(74,111,165,0.12); }
+#article img { max-width: 100%; height: auto; border-radius: 6px; margin: 8px 0; }
+#article table { width: 100%; font-size: 13px; border-collapse: collapse; }
+#article .thumb, #article .infobox { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: 8px; padding: 8px; }
+#article figure { margin: 10px 0; }
+
+/* tutor panel */
+#tutor {
+  position: sticky; top: 20px; align-self: start; height: calc(100vh - 40px);
+  display: flex; flex-direction: column;
+  background: var(--panel-bg);
+  border-radius: 12px; color: var(--chrome-ink); overflow: hidden;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+#tutor .th { padding: 14px 16px; border-bottom: 1px solid var(--chrome-rule); }
+#tutor .th .mark { color: var(--gold-bright); font-size: 22px; }
+#tutor .th b { display: block; font-size: 16px; color: var(--chrome-hi); }
+#tutor .th small { font-family: var(--sans); font-size: 11px; color: var(--chrome-ink-dim); }
+#tutor-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.msg { padding: 10px 13px; border-radius: 12px; font-size: 14.5px; line-height: 1.5; max-width: 92%; }
+.msg.book { background: var(--chrome-active); color: var(--chrome-hi); border-bottom-left-radius: 3px; }
+.msg.me { background: rgba(255,255,255,0.1); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
+.msg.think { opacity: 0.6; font-style: italic; }
+.think-dots { display: inline-flex; gap: 4px; align-items: center; }
+.think-dots i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: ink-think 1.1s ease-in-out infinite; }
+.think-dots i:nth-child(2) { animation-delay: .15s; }
+.think-dots i:nth-child(3) { animation-delay: .3s; }
+@media (prefers-reduced-motion: reduce) { .think-dots i { animation: none; } }
+#tutor .composer { display: flex; gap: 6px; padding: 12px; border-top: 1px solid var(--chrome-rule); }
+#tutor .composer input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid var(--chrome-rule); color: var(--chrome-hi); border-radius: 20px; padding: 9px 14px; font-family: var(--sans); font-size: 14px; }
+/* The UA default placeholder (#757575) measures 3.17:1 on the dark field.
+   Authored once, for every field in the book. */
+input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1; }
+#tutor .composer input::placeholder { color: var(--chrome-ink-dim); }
+#tutor .composer button { background: var(--gold); border: none; color: #2a2008; border-radius: 20px; padding: 0 16px; font-weight: 700; }
+
+/* ---------- quiz / practice ---------- */
+.q-card { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: 12px; padding: 26px; box-shadow: 0 3px 8px var(--shadow); }
+.q-prompt { font-size: 21px; line-height: 1.5; white-space: pre-wrap; margin-bottom: 20px; }
+.q-choices { display: grid; gap: 10px; }
+.choice {
+  text-align: left; padding: 13px 16px; border: 1.5px solid var(--edge); border-radius: 9px;
+  background: var(--field); font-size: 16px; font-family: var(--serif); color: var(--ink); transition: all 0.12s;
+}
+.choice:hover { border-color: var(--link); background: var(--field-hi); }
+.choice.correct { background: rgba(51,122,75,0.12); border-color: var(--green); color: var(--green-ink); font-weight: 600; }
+.choice.wrong { background: rgba(168,68,47,0.14); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.q-numeric { display: flex; gap: 10px; }
+.q-numeric input { font-size: 20px; text-align: center; }
+.q-progress { font-family: var(--sans); font-size: 13px; color: var(--ink-faint); margin-bottom: 8px; letter-spacing: 1px; }
+.q-explain { margin-top: 16px; padding: 12px 14px; background: rgba(74,111,165,0.09); border-left: 3px solid var(--accent-2); border-radius: 4px; font-size: 14.5px; color: var(--ink-soft); }
+
+.result-splash { text-align: center; padding: 40px 20px; }
+.result-splash .score { font-size: 64px; color: var(--gold); }
+.result-splash .stars { font-size: 34px; letter-spacing: 6px; }
+.result-msg { font-weight: 600; color: var(--ink); }
+.result-msg-good { color: var(--green); }
+.result-msg-warn { color: var(--accent); }
+
+/* Text on a coloured fill uses --on-fill, not #fff: the four grade fills
+   lighten to phosphor at night, where white falls to 1.56-2.94:1. */
+.grade-blank { background: var(--accent); color: var(--on-fill); }
+.grade-hard { background: var(--gold-ink); color: var(--on-fill); }
+.grade-good { background: var(--green); color: var(--on-fill); }
+.grade-easy { background: var(--accent-2); color: var(--on-fill); }
+
+/* ---------- atlas ---------- */
+.domain-block { margin-bottom: 26px; }
+.domain-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.domain-head .ic { font-size: 26px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 10px; color: var(--on-fill); }
+.domain-head h3 { margin: 0; font-size: 22px; }
+.domain-head .tag { font-family: var(--sans); font-size: 12px; color: var(--ink-faint); }
+.stage-row { display: grid; grid-template-columns: 90px 1fr; gap: 10px; align-items: center; margin-bottom: 7px; }
+.stage-label { font-family: var(--sans); font-size: 11px; color: var(--ink-faint); text-align: right; }
+.node-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.node-dot {
+  font-family: var(--sans); font-size: 12px; padding: 5px 10px; border-radius: 6px;
+  border: 1px solid var(--rule); background: var(--field); color: var(--ink-soft); cursor: pointer; transition: all 0.12s;
+}
+.node-dot:hover { border-color: var(--link); }
+.node-dot.mastered { background: rgba(51,122,75,0.12); border-color: var(--green); color: var(--green-ink); }
+.node-dot.mastered::before { content: "✓ "; }
+.node-dot.locked { color: var(--ink-locked); border-color: var(--rule);
+  background: var(--paper); cursor: pointer; }   /* a locked tile explains itself */
+/* The padlock, drawn to match the rest and masked so it takes the tile's own
+   colour — an emoji here rendered as a full-colour cartoon padlock at 10px,
+   the one saturated object on a page of engraved type. */
+.node-dot.locked::before { content: ""; display: inline-block; width: 10px; height: 11px;
+  margin-right: 5px; vertical-align: -1px; background-color: currentColor;
+  -webkit-mask: var(--lock-mask) center/contain no-repeat;
+  mask: var(--lock-mask) center/contain no-repeat; }
+.node-dot.available { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(201,162,39,0.3); }
+
+/* ---------- search ---------- */
+#searchbox { position: relative; margin-bottom: 20px; }
+#searchbox input { font-size: 18px; padding-left: 42px; min-height: calc(46px * var(--ui-scale)); }
+#searchbox .mag { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--ink-faint); }
+/* The spoken result count. Sighted readers get it from the list itself, so
+   this stays quiet on the page rather than repeating what is already there. */
+.search-live { font-family: var(--sans); font-size: 13px; color: var(--muted);
+  min-height: 18px; margin: 6px 2px 8px; }
+/* The spoken download progress. Sighted readers already see the percentage
+   badge and bar on each catalog row, so this stays quiet on the page. */
+.lib-live { font-family: var(--sans); font-size: 13px; color: var(--muted);
+  min-height: 18px; margin: 6px 2px 8px; }
+.search-result { padding: 12px 14px 12px 18px; border-bottom: 1px solid var(--rule); cursor: pointer;
+  color: var(--ink); background: transparent; border-right: none; border-top: none;
+  border-left: 3px solid transparent; transition: background .15s ease, border-color .15s ease; }
+.search-result:hover, .search-result:focus-visible { background: var(--paper-2); border-left-color: var(--link); }
+.search-result b { font-size: 16px; }
+.search-result .src { font-family: var(--sans); font-size: 11px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 1px; }
+#searchbox input:focus-visible { box-shadow: var(--glow-soft); }
+
+/* ---------- library ---------- */
+.lib-item { display: flex; align-items: center; gap: 14px; }
+.lib-item .meta { flex: 1; }
+.lib-item .meta b { font-size: 16px; }
+.lib-item .meta p { margin: 3px 0 0; font-size: 13px; color: var(--ink-soft); }
+.badge { font-family: var(--sans); font-size: 11px; padding: 3px 9px; border-radius: 20px; }
+.badge.installed { background: rgba(51,122,75,0.12); color: var(--green-ink); }
+.badge.big { background: rgba(169,133,47,0.22); color: var(--gold-ink); font-weight: 600; }
+
+/* ---------- roadmap ---------- */
+.timeline { position: relative; margin-left: 20px; padding-left: 26px; border-left: 3px solid var(--rule); }
+.tl-year { position: relative; margin-bottom: 22px; }
+.tl-year::before { content: ""; position: absolute; left: -34px; top: 3px; width: 15px; height: 15px; border-radius: 50%; background: var(--gold); border: 3px solid var(--paper); }
+.tl-year .yr { font-family: var(--sans); font-size: 12px; letter-spacing: 1px; color: var(--gold-ink); text-transform: uppercase; }
+.tl-year .ms { margin-top: 3px; }
+
+/* ---------- overlay / toast ---------- */
+#overlay { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 100; backdrop-filter: blur(2px); }
+#overlay .modal { background: var(--paper); border-radius: 14px; padding: 30px; max-width: 560px; width: 92%; max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--panel-bg); color: var(--chrome-hi); padding: 12px 22px; border-radius: 30px; font-family: var(--sans); font-size: 14px; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+.muted { color: var(--ink-faint); font-family: var(--sans); font-size: 13px; }
+.spinner { width: 26px; height: 26px; border: 3px solid var(--rule); border-top-color: var(--link); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 30px auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* The page being written. Ruled lines on the book's own line rhythm, with a
+   sweep travelling down them the way the Primer's silver letters swim up out
+   of the page. Holds the shape of the content, so nothing jumps on arrival. */
+.book-skeleton { margin: 26px 0; display: flex; flex-direction: column; gap: 14px; }
+.book-skeleton i {
+  display: block; height: 12px; border-radius: 3px;
+  background: linear-gradient(90deg, var(--rule) 0%, var(--rule) 40%,
+    var(--sk-sheen) 50%, var(--rule) 60%, var(--rule) 100%);
+  background-size: 220% 100%;
+  animation: sk-write 1.6s ease-in-out infinite;
+}
+.book-skeleton i.sk-head { height: 26px; border-radius: 4px; margin-bottom: 6px; }
+.book-skeleton i:nth-child(2) { animation-delay: .08s; }
+.book-skeleton i:nth-child(3) { animation-delay: .16s; }
+.book-skeleton i:nth-child(4) { animation-delay: .24s; }
+.book-skeleton i:nth-child(5) { animation-delay: .32s; }
+.book-skeleton i:nth-child(6) { animation-delay: .40s; }
+.book-skeleton i:nth-child(7) { animation-delay: .48s; }
+@keyframes sk-write { 0% { background-position: 120% 0; } 100% { background-position: -60% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .book-skeleton i { animation: none; background: var(--rule); }
+}
+
+/* On a narrow screen the spine folds away and the sidebar becomes a control
+   strip across the top: brand, then the nav as one horizontally scrolling
+   row, then the stats. It used to simply `flex-wrap: wrap`, which shuffled
+   the brand, eight nav buttons and six stat chips into a ragged grid roughly
+   850px tall — the reader had to scroll past the furniture to reach the
+   book. */
+@media (max-width: 900px) {
+  #book { grid-template-columns: 1fr; }
+  #book::before { display: none; }
+  #sidebar {
+    position: sticky; top: 0; z-index: 30;
+    height: auto; flex-direction: column; gap: 10px;
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid var(--chrome-rule);
+  }
+  #sidebar .brand {
+    display: flex; align-items: center; gap: 10px;
+    margin: 0; padding: 0 0 8px; text-align: left;
+  }
+  #sidebar .brand .mark { line-height: 0; }
+  #sidebar .brand .mark svg { width: 24px; height: 24px; }
+  #sidebar .brand h1 { font-size: 17px; margin: 0; }
+  #sidebar .brand .sub { font-size: 10px; margin-left: auto; }
+  #sidebar .spacer { display: none; }
+
+  /* One row, scrolled rather than wrapped, so the order stays readable and
+     the strip keeps a predictable height however many entries it holds. */
+  .navlist {
+    display: flex; flex-direction: row; gap: 4px;
+    overflow-x: auto; scrollbar-width: none;
+    margin: 0 -14px; padding: 0 14px 2px;
+  }
+  .navlist::-webkit-scrollbar { display: none; }
+  /* The strip is 992px of nav in a 375px window, and with the scrollbar
+     hidden nothing said so. A fade at the trailing edge is the standard
+     signal that the row continues; `mask` keeps it exact whatever the
+     chrome colour is, rather than faking it with a matching gradient. */
+  .navlist {
+    -webkit-mask: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+    mask: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+  }
+  /* Once the reader has scrolled to the end there is nothing more to hint at,
+     so the fade is dropped — otherwise the last item stays half-faded and
+     looks disabled. */
+  .navlist.at-end { -webkit-mask: none; mask: none; }
+  .navbtn { flex: 0 0 auto; padding: 7px 11px; font-size: 14px; }
+  .navbtn.active { box-shadow: inset 0 -3px 0 var(--gold-bright); }
+
+  .statrow { display: flex; flex-wrap: wrap; gap: 6px; }
+  #sidebar .stat { margin: 0; padding: 6px 10px; gap: 10px; flex: 0 0 auto; }
+
+  #reader-layout { grid-template-columns: 1fr; }
+  #tutor { position: relative; height: 420px; margin-top: 20px; }
+  #page { padding: 24px; }
+  .grid.two, .grid.three { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  #page { padding: 16px; }
+  .pagehead h2 { font-size: 26px; }
+  .grid.auto { grid-template-columns: 1fr; }
+  .quest-item { flex: 1 1 100%; }
+
+  /* The Atlas: the epoch label heads its row instead of sitting beside it.
+     At 90px of a 375px screen the label column was taking a quarter of the
+     width and, because rows of tiles wrap tall, the name floated in the
+     vertical middle of a block it was supposed to be titling. */
+  .stage-row { grid-template-columns: 1fr; gap: 4px; margin-bottom: 14px; }
+  .stage-label { text-align: left; padding: 0; }
+  .stage-label::after { display: none; }
+}
+
+/* ============================================================
+   ACCESSIBILITY, THEME SURFACES, STAGE MODES, NEW COMPONENTS
+   ============================================================ */
+
+/* Keyboard focus — visible on every interactive element. */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
+input:focus-visible, select:focus-visible, .choice:focus-visible,
+.navbtn:focus-visible, .lesson-card:focus-visible, .node-dot:focus-visible,
+.chip:focus-visible, .search-result:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+:focus:not(:focus-visible) { outline: none; }
+/* On the dark chrome the blue ring alone is too low-contrast — pair it with a
+   light halo so it is visible against both surfaces (WCAG 1.4.11). */
+#sidebar :focus-visible, #tutor :focus-visible, .skip-link:focus-visible {
+  outline-color: #ffffff;
+  box-shadow: 0 0 0 5px rgba(31, 95, 191, 0.85);
+}
+.skip-link { position: absolute; left: -999px; top: 8px; background: #5c2a1f; color: #ffffff;
+  padding: 8px 14px; border-radius: 8px; z-index: 500; font-family: var(--sans);
+  border: none; font-size: 14px; }   /* fixed dark text pair: 9.2:1 either theme */
+.skip-link:focus { left: 8px; }
+
+/* Buttons rendered from semantic <button> that must look like plain content. */
+button.unstyled { background: none; border: none; padding: 0; margin: 0; color: inherit;
+  font: inherit; text-align: inherit; cursor: pointer; width: 100%; display: block; }
+
+/* Respect reduced-motion preferences (vestibular safety). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important; scroll-behavior: auto !important;
+  }
+  .lesson-card:hover { transform: none; }
+  .lesson-card:active { transform: none; }
+}
+
+/* Dark/night surfaces for the reading column and cards. */
+:root[data-theme="dark"] body, .theme-dark body { }
+#article :is(.thumb, .infobox), :root[data-theme="dark"] #article table { border-color: var(--paper-edge); }
+
+/* --- Stage-adaptive UI: the same book, sized to the reader. --- */
+body[data-stage="0"] { --ui-scale: 1.34; }
+body[data-stage="1"] { --ui-scale: 1.22; }
+body[data-stage="2"] { --ui-scale: 1.1; }
+body[data-stage="0"] .navbtn, body[data-stage="1"] .navbtn, body[data-stage="2"] .navbtn { font-size: calc(15px * var(--ui-scale)); padding: 12px 12px; }
+body[data-stage="1"] .navbtn .ic, body[data-stage="2"] .navbtn .ic { font-size: 22px; }
+body[data-stage="0"] .btn, body[data-stage="1"] .btn, body[data-stage="2"] .btn { font-size: calc(15px * var(--ui-scale)); padding: 14px 22px; min-height: 52px; }
+body[data-stage="2"] #article { font-size: 18px; }
+body[data-stage="0"] .pagehead h2, body[data-stage="1"] .pagehead h2 { font-size: 38px; }
+body[data-stage="0"] #article, body[data-stage="1"] #article { font-size: 20px; line-height: 1.8; }
+body[data-stage="0"] .choice, body[data-stage="1"] .choice { min-height: 58px; font-size: 20px; display: flex; align-items: center; }
+body[data-stage="0"] .q-prompt, body[data-stage="1"] .q-prompt { font-size: 24px; }
+body[data-stage="0"] .lesson-card h3, body[data-stage="1"] .lesson-card h3 { font-size: 21px; }
+/* Icon-first sidebar for pre-readers: keep labels for screen readers, enlarge icons. */
+/* This read `font-size: 13px` — the smallest nav label in the book, on the
+   youngest reader's screen, while the adult default is 15px. The intent was an
+   icon-first sidebar; the effect was the exact inversion of it. Big icon, big
+   label, and the icon does the work. */
+body[data-stage="0"] .navbtn .label { font-size: calc(15px * var(--ui-scale)); }
+body[data-stage="0"] .navbtn .ic { font-size: 30px; }
+
+body[data-stage="0"] .node-dot, body[data-stage="1"] .node-dot {
+  font-size: 16px; padding: 12px 16px; min-height: 46px;
+}
+body[data-stage="0"] .chip, body[data-stage="1"] .chip,
+body[data-stage="0"] .req-chip, body[data-stage="1"] .req-chip {
+  font-size: 16px; padding: 11px 18px; min-height: 44px;
+}
+body[data-stage="0"] .stage-label, body[data-stage="1"] .stage-label { font-size: 13px; }
+
+/* A spoken choice: the option itself and its speaker sit side by side, so
+   neither button is nested inside the other. */
+.choice-row { display: flex; align-items: stretch; gap: 8px; }
+.choice-row .choice { flex: 1; }
+.choice-row .speak-btn { align-self: center; }
+
+/* Titles that are also links keep their heading semantics. */
+h3 > .card-open { font: inherit; color: inherit; }
+
+/* Read-aloud button (appears throughout in young modes). */
+.speak-btn { background: rgba(201,162,39,0.16); border: 1.5px solid var(--gold-ink); color: var(--gold-ink);
+  border-radius: 50%; width: 40px; height: 40px; font-size: 18px; display: inline-grid; place-items: center;
+  cursor: pointer; flex: none; }
+.speak-btn:hover { background: rgba(201,162,39,0.3); }
+.speak-btn.speaking { animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+.q-card .speak-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+
+/* Daily quest checklist. */
+.quest { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 20px; }
+.quest-item { flex: 1 1 180px; background: var(--paper-2); border: 1.5px solid var(--paper-edge);
+  border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+.quest-item .tick { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--edge);
+  display: grid; place-items: center; font-size: 15px; color: transparent; flex: none; }
+.quest-item.done { border-color: var(--green); background: rgba(51,122,75,0.1); }
+.quest-item.done .tick { background: var(--green); border-color: var(--green); color: var(--on-fill); }
+/* Nothing to do rather than something left undone: settled, not urgent, and
+   visibly not the same state as a step still waiting on the reader. */
+.quest-item.excused { border-style: dashed; }
+.quest-item.excused .tick { color: var(--muted); border-style: dashed; }
+.quest-item .qt { font-family: var(--sans); font-size: 14px; }
+.quest-item .qt b { display: block; font-size: 15px; color: var(--ink); }
+.quest-crown { text-align: center; font-family: var(--sans); color: var(--gold-ink); font-weight: 700; margin-top: 4px; }
+
+/* XP fly-up + ceremonies. */
+.xp-pop { position: fixed; left: 50%; top: 40%; transform: translateX(-50%); z-index: 300;
+  font-family: var(--sans); font-weight: 800; font-size: 22px; color: var(--gold-ink);
+  pointer-events: none; text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  filter: drop-shadow(var(--glow-soft)); animation: flyup 1.4s ease-out forwards; }
+/* The -50% X shift rides inside every frame: an animated transform replaces
+   the base one wholesale, so centring left outside the keyframes is discarded
+   for the animation's whole run. */
+@keyframes flyup {
+  0% { opacity: 0; transform: translate(-50%, 6px) scale(0.9); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -56px) scale(1.1); } }
+/* Same duration, no travel: the reward is still seen, nothing moves. Only
+   opacity animates, so the base centring transform stays in effect. */
+@keyframes xp-fade { 0%, 100% { opacity: 0; } 15%, 85% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .xp-pop { animation: xp-fade 1.4s ease forwards; }
+}
+.ceremony { text-align: center; padding: 20px; }
+.ceremony .seal { font-size: 72px; animation: seal 0.7s cubic-bezier(.2,1.4,.4,1); }
+@keyframes seal { 0% { transform: scale(0) rotate(-25deg); } 100% { transform: scale(1) rotate(0); } }
+.ceremony h2 { margin: 6px 0; }
+.ceremony .sub { color: var(--gold-ink); font-family: var(--sans); font-weight: 700; letter-spacing: 1px; }
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 250; overflow: hidden; }
+.confetti i { position: absolute; width: 9px; height: 14px; top: -20px; animation: fall linear forwards;
+  box-shadow: var(--glow-soft);   /* none by day; a faint spark at night */ }
+@keyframes fall { to { transform: translateY(105vh) rotate(540deg); opacity: 0.85; } }
+
+/* Legible unlock requirements on locked nodes. */
+.unlock-reqs { margin-top: 8px; font-family: var(--sans); font-size: 13px; color: var(--ink-soft); }
+.unlock-reqs li { margin: 3px 0; }
+.req-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--paper-2);
+  border: 1px solid var(--rule); border-radius: 20px; padding: 4px 12px; font-family: var(--sans);
+  font-size: 12.5px; color: var(--ink-soft); margin: 3px 4px 0 0; }
+
+/* Refresh chips (deck-driven). */
+.refresh-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+/* Journey timeline reuses .timeline; add badges. */
+.jbadge { font-size: 20px; margin-right: 6px; }
+
+/* Modal close button + dialog affordances. */
+.modal-close { position: absolute; top: 12px; right: 14px; background: none; border: none;
+  font-size: 26px; line-height: 1; color: var(--ink-faint); cursor: pointer; width: 40px; height: 40px;
+  border-radius: 50%; }
+.modal-close:hover { background: var(--paper-2); color: var(--ink); }
+/* The story ceremony paints itself dark whatever the theme, so the light-theme
+   --ink-faint fell to 2.58:1 on it. */
+.modal.on-dark .modal-close { color: var(--chrome-ink-dim); }
+.modal.on-dark .modal-close:hover { background: rgba(255,255,255,0.12); color: var(--chrome-hi); }
+#overlay .modal { position: relative; color: var(--ink); }
+/* Declared after the plain-modal rule above so it actually wins: the dark
+   ceremony is a chrome surface and turns with the rest of the night palette. */
+#overlay .modal.on-dark { background: var(--panel-bg); color: var(--chrome-ink); }
+
+/* Confidence rating (metacognition). */
+.confidence { display: flex; gap: 8px; justify-content: center; margin: 14px 0 4px; }
+.confidence button { flex: 1; max-width: 130px; }
+.cal-note { text-align: center; font-family: var(--sans); font-size: 13px; margin-top: 8px; }
+
+/* Sidebar chrome toggles (theme, voice). */
+.chrome-toggle { background: rgba(255,255,255,0.08); border: 1px solid var(--chrome-rule);
+  color: var(--chrome-ink-soft); border-radius: 8px; padding: 7px 10px; font-family: var(--sans); font-size: 12px;
+  display: flex; align-items: center; gap: 8px; transition: background .15s ease, color .15s ease; }
+.chrome-toggle:hover { background: var(--chrome-hover); color: var(--chrome-hi); }
+.chrome-toggle:active { transform: translateY(1px); }
+/* A toggle that is on should look lit, not merely labelled: the voice control
+   already tells assistive tech via aria-pressed, and this is the same fact
+   made visible — a filament of gold. */
+.chrome-toggle[aria-pressed="true"] { background: var(--chrome-active); color: var(--chrome-hi);
+  border-color: var(--gold); box-shadow: var(--glow-soft); }
+@media (prefers-reduced-motion: reduce) { .chrome-toggle:active { transform: none; } }
+
+.assumed-tag { font-size: 11px; color: var(--ink-faint); font-family: var(--sans); }
+.node-dot.assumed { border-style: dashed; }
+
+/* Tap-to-order: the second early-stage assessment format. */
+.order-slot { min-height: 58px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 10px 12px; border: 2px dashed var(--edge); border-radius: 10px; margin-bottom: 12px; }
+.order-slot.correct { border-color: var(--green); border-style: solid; }
+.order-slot.wrong { border-color: var(--accent); border-style: solid; }
+.order-tray { display: flex; gap: 10px; flex-wrap: wrap; }
+.order-chip { font-size: 26px; min-width: 58px; min-height: 58px; padding: 6px 14px;
+  border: 1.5px solid var(--edge); border-radius: 10px; background: var(--field); color: var(--ink); }
+.order-chip:hover:not(:disabled) { border-color: var(--link); }
+.order-chip:disabled { opacity: 0.35; }
+.order-chip.placed { border-style: solid; border-color: var(--gold); opacity: 1;
+  display: inline-grid; place-items: center; }
+
+/* A gentle prod when the reader asks for the answer without offering one. */
+.q-nudge { margin-top: .5rem; color: var(--accent); font-size: .95em; }
+
+
+/* ---------------- older readers ----------------
+   Stages 0-2 had 30 rules between them; stages 3, 4 and 5 had none, so a
+   graduate read the same screen as a nine-year-old with the scaling switched
+   off. An adult tool is denser, quieter, and trusts the reader: more on screen,
+   less ceremony, no decorative furniture where information should be. */
+body[data-stage="3"] { --ui-scale: 0.98; }
+/* Stage 3 sits between the two bands and was inheriting no target floor at all.
+   An eleven-year-old on a tablet still deserves a comfortable one. */
+body[data-stage="3"] .btn { min-height: 44px; }
+body[data-stage="4"] .speak-btn, body[data-stage="5"] .speak-btn { width: 28px; height: 28px; font-size: 13px; }
+body[data-stage="4"], body[data-stage="5"] { --ui-scale: 0.94; }
+
+body[data-stage="4"] .pagehead h2 { font-size: 25px; letter-spacing: -0.01em; }
+body[data-stage="4"] .navbtn, body[data-stage="5"] .navbtn { padding: 7px 10px; font-size: 14px; }
+body[data-stage="4"] .navbtn .ic, body[data-stage="5"] .navbtn .ic { font-size: 15px; opacity: 0.75; }
+body[data-stage="4"] .card, body[data-stage="5"] .card { padding: 13px 16px; margin-bottom: 10px; }
+body[data-stage="4"] .lesson-card h3, body[data-stage="5"] .lesson-card h3 { font-size: 17px; }
+body[data-stage="4"] .q-prompt, body[data-stage="5"] .q-prompt { font-size: 18px; line-height: 1.45; }
+body[data-stage="4"] .choice, body[data-stage="5"] .choice { padding: 9px 13px; font-size: 15px; }
+body[data-stage="4"] .btn, body[data-stage="5"] .btn { padding: 9px 16px; min-height: 38px; font-size: 14px; }
+body[data-stage="4"] .badge, body[data-stage="5"] .badge { font-size: 10px; }
+/* The stars and the seal are for children. Adults get the number. */
+body[data-stage="4"] .result-splash .stars, body[data-stage="5"] .result-splash .stars { display: none; }
+body[data-stage="4"] .result-splash .score, body[data-stage="5"] .result-splash .score { font-size: 46px; }
+body[data-stage="4"] .dropcap::first-letter, body[data-stage="5"] .dropcap::first-letter { font-size: 1em; float: none; margin: 0; line-height: inherit; color: inherit; }
+/* Denser reading column: an adult reads longer lines comfortably. */
+body[data-stage="4"] #article, body[data-stage="5"] #article { font-size: 17px; line-height: 1.62; max-width: 74ch; }
+/* Stage 5 was every stage-4 rule plus one line pointing at a `.kbd-hint` class
+   that no template ever emitted — five modes wearing six labels. A graduate
+   reader gets a genuinely quieter surface: no decorative seal, tighter measure,
+   the domain colour reduced to a rule rather than a filled badge. */
+body[data-stage="5"] { --ui-scale: 0.92; }
+body[data-stage="5"] .pagehead h2 { font-size: 23px; letter-spacing: -0.01em; }
+body[data-stage="5"] #article { font-size: 16px; line-height: 1.58; max-width: 78ch; }
+body[data-stage="5"] .card { padding: 11px 14px; margin-bottom: 8px; }
+body[data-stage="5"] .badge { background: none; border: 1px solid currentColor;
+  font-weight: 500; letter-spacing: .06em; }
+/* The domain tag carries its colour as an inline background, so an adult mode
+   that wants a rule rather than a filled block has to say so louder. */
+body[data-stage="5"] .domain-tag {
+  background: none !important; color: var(--ink-soft);
+  border-left: 3px solid; padding-left: 7px; border-radius: 0;
+  font-weight: 600; letter-spacing: .05em;
+}
+body[data-stage="5"] .seal, body[data-stage="5"] .jbadge { display: none; }
+body[data-stage="5"] .kicker { font-size: 10px; letter-spacing: .14em; }
+body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
+
+/* Feedback region: on the page from the start, written into as the reader
+   works, so assistive tech actually announces it. */
+.q-live { margin-top: .6rem; }
+/* NOT `display: none` when empty. A hidden element is absent from the
+   accessibility tree, so revealing it with its text already inside announces
+   exactly as badly as inserting a pre-filled region — which is the defect this
+   region exists to avoid. It stays in the tree and simply takes no space. */
+.q-live:empty { margin: 0; }
+
+/* A chapter that is set aside or not yet earned. This used to be `opacity:.55`
+   / `.7` on the whole card, which multiplies down the text too — the locked
+   chapter's body copy measured 2.20:1 and the set-aside one 2.81:1. Recede the
+   card, not the words. */
+.card-quiet { background: var(--paper-2); border-style: dashed; box-shadow: none; }
+.card-quiet .kicker, .card-quiet h3 { color: var(--ink-soft); }
+.card-quiet .muted { color: var(--ink-faint); }
+
+
+/* A wide table scrolls inside its own container rather than by becoming a
+   block itself: `display: block` on the table strips every row and cell out of
+   the accessibility tree (23 tables on one article, 26 rows and 50 cells gone).
+   The wrapper is focusable so the scroll region is reachable by keyboard. */
+.table-scroll { overflow-x: auto; max-width: 100%; margin: 1em 0; }
+/* Without this the wrapper cannot do its job: `#article` is a grid item, and a
+   grid item's default `min-width: auto` lets its min-content width — the full
+   1399px of the widest table — widen the page past the viewport. Fixing the
+   accessibility tree had traded itself for a Reflow failure (SC 1.4.10). */
+#article, #reader-layout > * { min-width: 0; }
+/* A bare citation URL is one unbreakable 378px word, and there was no
+   overflow-wrap declaration anywhere in this file — so seven of twelve sampled
+   articles pushed the document sideways at the 320px reflow threshold, long
+   after the table fix had made the tables themselves behave. */
+#article, #article :is(p, li, td, th, span, cite, a, code) { overflow-wrap: anywhere; }
+#article :is(pre, code) { white-space: pre-wrap; }
+.table-scroll:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* The results heading exists to be announced and to catch focus; it carries no
+   visual weight of its own. */
+.result-heading { font-size: 15px; font-family: var(--sans); letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink-faint); margin: 0 0 10px; }
+.result-heading:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+/* Shown while an answer is being marked; it also holds focus for that moment. */
+.q-checking { color: var(--ink-faint); font-style: italic; }
+.q-checking:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* ---------------- the Guide's error card ---------------- */
+/* "DON'T PANIC" — inscribed in large, friendly letters. The reassurance IS
+   the design: an error page in a children's book should look calmer than the
+   page that failed. */
+.err-card { text-align: center; padding: 28px 24px; }
+.dont-panic { font-family: var(--sans); font-weight: 800; font-size: 34px;
+  letter-spacing: .12em; color: var(--gold-ink);
+  text-shadow: 0 1px 0 rgba(0,0,0,.15); margin-bottom: 8px; }
+.err-lede { font-size: 16px; margin: 4px 0 2px; }
+.err-note { font-size: 13px; margin-bottom: 14px; }
+
+/* ---------------- illuminated chapter opening ---------------- */
+.story-par { font-size: 16px; line-height: 1.75; color: var(--chrome-ink); }
+/* The chapter's first letter, set as an illuminated initial — three lines
+   tall, gold, serif — the way the Primer's own pages would ink it. */
+.story-first::first-letter { float: left; font-family: var(--serif);
+  font-size: 54px; line-height: .85; padding: 6px 8px 0 0;
+  color: var(--gold-bright); font-weight: 700; }
+.story-fleuron { text-align: center; color: var(--gold-ink); font-size: 18px;
+  margin: 14px 0 2px; user-select: none; }
+.story-prompt { font-style: italic; color: var(--gold-bright); margin-top: 10px;
+  text-align: center; }
+
+/* ---------------- the Plan (Your Path) ---------------- */
+/* An epigraph in the austere register: small caps, wide tracking, centered —
+   the one line on the page allowed to sound like an inscription. */
+.epigraph { text-align: center; font-family: var(--serif); font-style: italic;
+  color: var(--ink-faint); letter-spacing: .04em; margin: -8px 0 22px; }
+/* The Plan's terminus: hollow where the year-dots are solid — the edge of
+   the known, not another milestone on the way to it. */
+.tl-end::before { background: var(--paper); border: 3px solid var(--gold); }
+.tl-end .yr { color: var(--ink-faint); }
+
+/* ---------------- the chronicle (Your Journey) ---------------- */
+/* An ascension is an epoch boundary, not one more entry: the marker doubles
+   in weight, ringed like a seal, and the label is inscribed in gold. */
+.tl-epoch::before { width: 19px; height: 19px; left: -36px; top: 1px;
+  background: var(--gold-bright); border: 3px solid var(--paper);
+  box-shadow: 0 0 0 2px var(--gold); }
+.tl-epoch .yr { color: var(--gold-ink); font-size: 13px; letter-spacing: 2px; }
+.tl-epoch .ms { font-size: 17px; }
+
+/* The book thinking: while an answer is being marked, the "Checking…" line
+   breathes — ink settling, not a spinner. Stilled for reduced motion. */
+@keyframes ink-think { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.q-checking { animation: ink-think 1.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .q-checking { animation: none; }
+}
+
+/* ---------------- the Atlas: strata and frontiers ---------------- */
+/* The stage names are epochs, not row captions: set as strata markers, with
+   a hairline reaching toward the tiles they label. */
+.stage-label { font-variant: small-caps; letter-spacing: .12em;
+  color: var(--ink-soft); position: relative; padding-right: 12px; }
+.stage-label::after { content: ""; position: absolute; right: 0; top: 50%;
+  width: 7px; height: 1px; background: var(--rule); }
+
+/* Where a field stops knowing. Nine of the ten domains end on one of these,
+   and none of them has ever been finished by anyone — so it is drawn as an
+   opening rather than a wall: gold hairline, letterspaced, never quite
+   closed, even while it is still locked. */
+.node-dot.frontier { border-color: var(--gold); border-style: dashed;
+  color: var(--gold-ink); letter-spacing: .06em; font-style: italic; }
+/* Marked AFTER the title, never instead of the padlock: every other locked
+   tile in the Atlas carries 🔒, and a frontier that quietly dropped it would
+   read as "open" to the one reader most likely to try it. */
+.node-dot.frontier::after { content: " ◈"; font-style: normal; font-size: 10px;
+  color: var(--gold); }
+.node-dot.frontier:hover { border-style: solid; background: rgba(201,162,39,.08); }
+
+/* ---------------- phosphor ----------------
+   In day mode every one of these resolves to `none`, so the paper book is
+   untouched; at night the gilding reads as emitted light rather than ink. */
+#sidebar .brand .mark { text-shadow: var(--glow-strong); }
+#sidebar .brand h1 { text-shadow: var(--glow-soft); }
+.pagehead h2 { text-shadow: var(--glow-soft); }
+.navbtn.active { text-shadow: var(--glow-soft); }
+.node-dot.available { box-shadow: 0 0 0 1px rgba(201,162,39,0.3), var(--tile-glow); }
+.dont-panic { text-shadow: var(--glow-strong); }
+.stars { text-shadow: var(--glow-strong); }
+.tl-epoch::before { box-shadow: 0 0 0 2px var(--gold), var(--tile-glow); }
+
+/* Drawn glyphs inherit the text colour, so they gild on parchment and
+   phosphoresce at night without a second set of assets. */
+.glyph { display: inline-flex; align-items: center; justify-content: center; }
+.glyph svg { display: block; overflow: visible; }
+#sidebar .brand .mark { display: flex; justify-content: center; color: var(--gold-bright); }
+.navbtn .ic { opacity: 1; }
+
+/* The chapter card and the story modal: the book's own voice, on the book's
+   own stock. Styled here rather than inline so they follow the palette
+   instead of being permanently the colour of 2024's brown. */
+.chapter-card { background: var(--panel-bg); color: var(--chrome-ink); border: none; }
+.chapter-title { color: var(--chrome-hi); font-size: 24px; margin: 6px 0;
+  text-shadow: var(--glow-soft); }
+.chapter-waiting { color: var(--chrome-ink-dim); font-family: var(--sans);
+  font-size: 13px; margin: 10px 0 0; }
+.chapter-lede { font-size: 16px; line-height: 1.7; color: var(--chrome-ink-soft); }
+
+/* Glyphs sitting inside a run of text need to ride the baseline rather than
+   the line box, or they float a couple of pixels proud of the words. */
+.btn .glyph, .speak-btn .glyph, .tt-icon .glyph { vertical-align: -0.15em; }
+.btn .glyph { margin-right: 2px; }
+
+/* The ceremony seal is now a drawn glyph, so it takes its size from the SVG
+   rather than a font-size; keep the stamp animation and let it glow. */
+.ceremony .seal .glyph { color: var(--gold-bright); filter: drop-shadow(var(--glow-strong)); }
+.jbadge .glyph { vertical-align: -0.2em; }
+
+/* The onboarding mark, now a drawn glyph rather than a 56px emoji. */
+.onboard-mark { text-align: center; color: var(--gold-bright); }
+.onboard-mark .glyph { justify-content: center; }
+
+/* Key hints on the review deck. Drawn like typewriter keys, inherit the
+   button's ink, and vanish on touch screens where there are no keys. */
+kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
+  padding: 1px 5px; border-radius: 4px; border: 1px solid currentColor;
+  opacity: .65; margin-left: 4px; vertical-align: 1px; }
+@media (hover: none) { kbd.key-hint { display: none; } }
+
+/* An unwritten leaf: the empty state as a page waiting to be filled. Dashed
+   like the locked chapters, centred like an inscription, never like an error. */
+.empty-leaf { text-align: center; padding: 44px 28px; border: 1.5px dashed var(--edge);
+  border-radius: 12px; background: transparent; max-width: 560px; margin: 26px auto; }
+.empty-leaf .el-mark { color: var(--gold-ink); opacity: .85; margin-bottom: 10px; }
+.empty-leaf .el-mark .glyph { filter: drop-shadow(var(--glow-soft)); }
+.empty-leaf h3 { margin: 0 0 8px; font-size: 20px; }
+.empty-leaf p { max-width: 40em; margin: 0 auto; line-height: 1.6; }
+
+/* The chapter you are reading now: the book's own dark leaf, set into the
+   page. Uses the shared chrome vars so it turns with the rest of the night
+   palette instead of staying brown. */
+.story-current { background: var(--panel-bg); color: var(--chrome-ink); border: none;
+  box-shadow: 0 4px 16px var(--shadow); }
+.story-current .kicker { color: var(--gold-bright); }
+.story-current h3 { color: var(--chrome-hi); font-size: 22px; margin: 6px 0; }
+.story-current p { color: var(--chrome-ink-soft); }
+.story-current .story-needs { color: var(--chrome-ink-dim); font-family: var(--sans);
+  font-size: 13px; margin: 10px 0 0; }
+
+.onboard-steps { display: flex; justify-content: center; gap: 18px; margin-bottom: 22px; font-family: var(--sans); }
+.onboard-step { font-size: 11px; letter-spacing: .08em; color: var(--ink-place); position: relative; padding-bottom: 8px; }
+.onboard-step::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--ink-place); transform: translateX(-50%); }
+.onboard-step.done { color: var(--ink-soft); }
+.onboard-step.done::after { background: var(--gold-ink); }
+.onboard-step.on { color: var(--gold-bright); font-weight: 700; }
+.onboard-step.on::after { background: var(--gold-bright); box-shadow: var(--glow-soft); width: 6px; height: 6px; }
+
+/* Article links follow the information colour, not the alert colour. The
+   dotted underline stays: colour alone has never been enough to mark a link. */
+#article a { color: var(--link); }
+#article a:not(.primer-wikilink) { border-bottom: 1px dotted var(--link); text-decoration: none; }
+.btn.gold { text-shadow: none; }
+
+/* The Book's own replies. Amber ink on a darker slip of the page — the voice
+   of the book, distinguished from the reader's own words without shouting. */
+.msg.book { border-left: 2px solid var(--gold); }
+
+/* ---------------- the review deck ----------------
+   An empty live region must not draw a box. `.q-explain` carries a tinted
+   panel and a 3px rule, so before the answer is revealed it rendered as a
+   stray filled bar under the button — a UI element made of nothing. */
+.q-explain:empty { display: none; }
+
+/* The deck, as a stack you can see the bottom of. The layers are drawn behind
+   the current card and shed one at a time, so "how much is left" is something
+   you perceive rather than read. */
+.deck { position: relative; max-width: 640px; margin: 0 auto; }
+.deck::before, .deck::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+  border-radius: 10px; background: var(--paper-2);
+  border: 1px solid var(--edge); pointer-events: none; z-index: 0;
+  box-shadow: 0 2px 6px var(--shadow);
+  transition: transform .25s ease, opacity .25s ease;
+}
+/* Offsets sized to actually read: at 7px on a near-black page the lower
+   layers were invisible, which made the whole device pointless. */
+.deck::before { transform: translateY(11px) scale(.975); opacity: .9; }
+.deck::after  { transform: translateY(22px) scale(.95); opacity: .7; }
+.deck[data-depth="0"]::before, .deck[data-depth="0"]::after,
+.deck[data-depth="1"]::after { opacity: 0; transform: none; }
+.deck-card { position: relative; z-index: 1; margin-bottom: 40px; animation: card-settle .32s cubic-bezier(.2,.7,.3,1); }
+@keyframes card-settle { from { transform: translateY(14px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
+.reveal-region:not(:empty) { animation: ink-reveal .28s ease; }
+@keyframes ink-reveal { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .deck::before, .deck::after { transition: none; }
+  .deck-card { animation: none; }
+  .reveal-region:not(:empty) { animation: none; }
+}
+
+/* ---------------- the streak, as a thing you hold ----------------
+   It was a grey line of muted text directly under three bordered tiles, so
+   the number a reader checks every single day read as a footnote to them.
+   Given an edge of its own it sits at the right weight: quieter than the
+   quest, louder than a caption. The flame carries the phosphor. */
+.streak-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin: -6px 0 18px; padding: 6px 14px 6px 11px;
+  border: 1px solid var(--gold); border-radius: 999px;
+  background: color-mix(in srgb, var(--gold) 9%, transparent);
+  font-family: var(--sans); font-size: 13px; color: var(--gold-ink);
+}
+.streak-badge .glyph { color: var(--gold-bright); filter: drop-shadow(var(--glow-strong)); }
+.streak-badge b { font-weight: 700; letter-spacing: .02em; }
+.streak-badge .rests { color: var(--ink-faint); }
+
+/* ---------------- running heads ---------------- */
+.section-label {
+  display: flex; align-items: center; gap: 12px;
+  margin: 30px 0 10px; font-size: 13px; font-family: var(--sans);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--gold-ink);
+  font-weight: 700;
+}
+/* The rule runs to the margin and fades, so it frames the section without
+   boxing it in. */
+.section-label::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--rule), transparent);
+}

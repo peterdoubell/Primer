@@ -1,0 +1,34 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "probe",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8731",
+        "--directory",
+        "/private/tmp/claude-501/-Users-peter-Code-Primer/08eff141-6edd-4c4b-b754-678f1db40420/scratchpad/probe"
+      ],
+      "port": 8731
+    },
+    {
+      "name": "primer",
+      "runtimeExecutable": "./run.sh",
+      "runtimeArgs": [],
+      "port": 8747
+    },
+    {
+      "name": "primer-design",
+      "runtimeExecutable": "./run.sh",
+      "runtimeArgs": [],
+      "port": 8748,
+      "env": {
+        "PORT": "8748",
+        "PRIMER_DB": "/private/tmp/claude-501/-Users-peter-Code-Primer/08eff141-6edd-4c4b-b754-678f1db40420/scratchpad/designdb/primer.db",
+        "PRIMER_BACKUP_DIR": "/private/tmp/claude-501/-Users-peter-Code-Primer/08eff141-6edd-4c4b-b754-678f1db40420/scratchpad/designdb/backups"
+      }
+    }
+  ]
+}
