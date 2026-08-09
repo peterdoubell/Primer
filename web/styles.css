@@ -35,6 +35,7 @@
      for dividers, but anything that is a control's edge uses this. */
   --edge: #8a7f62;
   --ink-place: #665c4d;   /* authored placeholder: the UA default fails in dark */
+  --muted: var(--ink-faint); /* quiet status text; was referenced but never defined */
 
   /* Chrome that differs by theme, declared as values rather than as rules, so
      the shell can change character without duplicating a single selector. */
@@ -640,10 +641,12 @@ button.unstyled { background: none; border: none; padding: 0; margin: 0; color: 
   }
   .lesson-card:hover { transform: none; }
   .lesson-card:active { transform: none; }
+  /* The one animation reduced-motion KEEPS: the +XP badge's opacity-only
+     fade. The global 0.001ms collapse above would end it at its final
+     opacity:0 frame, so the reward would never be seen at all. */
+  .xp-pop { animation-duration: 1.4s !important; }
 }
 
-/* Dark/night surfaces for the reading column and cards. */
-:root[data-theme="dark"] body, .theme-dark body { }
 #article :is(.thumb, .infobox), :root[data-theme="dark"] #article table { border-color: var(--paper-edge); }
 
 /* --- Stage-adaptive UI: the same book, sized to the reader. --- */
@@ -1061,7 +1064,9 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
    An empty live region must not draw a box. `.q-explain` carries a tinted
    panel and a 3px rule, so before the answer is revealed it rendered as a
    stray filled bar under the button — a UI element made of nothing. */
-.q-explain:empty { display: none; }
+/* Collapse the empty explain box visually but keep it in the
+   accessibility tree: display:none would silence the live region. */
+.q-explain:empty { padding: 0; border-width: 0; margin: 0; min-height: 0; }
 
 /* The deck, as a stack you can see the bottom of. The layers are drawn behind
    the current card and shed one at a time, so "how much is left" is something

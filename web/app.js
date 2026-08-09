@@ -482,6 +482,8 @@ function renderShell() {
     navlist.classList.toggle('at-end', atEnd);
   };
   navlist.addEventListener('scroll', syncNavFade, { passive: true });
+  if (window._navFadeResize) window.removeEventListener('resize', window._navFadeResize);
+  window._navFadeResize = syncNavFade;
   window.addEventListener('resize', syncNavFade);
   setTimeout(syncNavFade, 0);
   sidebar.append(navlist);
@@ -559,10 +561,13 @@ async function guard(page, fn) { loading(page); try { const v = await fn(); page
 // book for children should reassure before it explains: nothing the reader
 // did, nothing lost, and a clear way onward.
 function errCard(e, retry) {
+  // The reassuring lede always leads; the backend's terse string ("no such
+  // node", a bare statusText) is demoted to fine print — a raw server error
+  // as the headline undid the whole DON'T PANIC register.
   const c = el('div', { class: 'card err-card', role: 'alert' },
     el('div', { class: 'dont-panic', 'aria-hidden': 'true' }, 'DON’T PANIC'),
-    el('p', { class: 'err-lede' }, (e && e.error) || 'The Book has briefly lost its train of thought — likely the network, never you.'),
-    el('p', { class: 'muted err-note' }, 'Everything you have learned is safely written down.'));
+    el('p', { class: 'err-lede' }, 'The Book has briefly lost its train of thought — likely the network, never you.'),
+    el('p', { class: 'muted err-note' }, 'Everything you have learned is safely written down.' + (e && e.error ? ' (' + e.error + ')' : '')));
   if (retry) c.append(btn({ class: 'btn ghost small', onclick: retry }, 'Try again'));
   return c;
 }
@@ -1260,10 +1265,10 @@ function confetti() {
   // pieces are inked paper and by night they are phosphor sparks — the same
   // ceremony, in whichever light the book is currently being read.
   const cs = getComputedStyle(document.documentElement);
-  const colors = ['--gold-bright', '--accent-2', '--accent', '--green', '--gold']
+  const colors = ['--gold-bright', '--accent-2', '--link', '--green', '--gold']
     .map(v => cs.getPropertyValue(v).trim());
   for (let k = 0; k < 60; k++) box.append(el('i', { style: `left:${Math.random() * 100}%;background:${colors[k % 5]};animation-duration:${1.6 + Math.random() * 1.4}s;animation-delay:${Math.random() * 0.4}s` }));
-  document.body.append(box); setTimeout(() => box.remove(), 3200);
+  document.body.append(box); setTimeout(() => box.remove(), 3600);
 }
 function streakCeremony(days) {
   confetti();
@@ -1400,7 +1405,7 @@ async function renderReview(page) {
     stage.append(promptRow);
     answerRegion.className = 'q-explain reveal-region';
     answerRegion.style.fontSize = '16px';
-    const showBtn = btn({ class: 'btn gold', style: 'width:100%',
+    const showBtn = btn({ class: 'btn gold js-show-answer', style: 'width:100%',
       onclick: () => { showBtn.disabled = true; revealBack(c, answerRegion); } },
       'Show answer ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, 'space'));
     stage.append(showBtn);
@@ -1429,7 +1434,7 @@ async function renderReview(page) {
     const t = e.target;
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
     if (e.key === ' ') {
-      const show = [...stage.querySelectorAll('button')].find(b => !b.disabled && /Show answer/.test(b.textContent));
+      const show = stage.querySelector('.js-show-answer:not([disabled])');
       if (show) { e.preventDefault(); show.click(); }
     } else if (/^[1-4]$/.test(e.key)) {
       const gradeBtns = stage.querySelectorAll('.grade-blank, .grade-hard, .grade-good, .grade-easy');
