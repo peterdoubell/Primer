@@ -73,7 +73,10 @@ def ask_llm(messages: List[Dict], title: str, excerpt: str, stage: int) -> Dict:
     with urllib.request.urlopen(req, timeout=60) as resp:
         data = json.loads(resp.read().decode("utf-8"))
     text = "".join(b.get("text", "") for b in data.get("content", []))
-    return {"reply": text, "engine": "claude"}
+    # `remote`: this reply — and with it the reader's messages and the article
+    # excerpt — went to api.anthropic.com. Machine-readable so the UI can
+    # disclose it rather than the book quietly speaking through a third party.
+    return {"reply": text, "engine": "claude", "remote": True}
 
 
 # ---------------- rule-based fallback ----------------
@@ -115,7 +118,9 @@ def ask_rules(messages: List[Dict], title: str, excerpt: str, stage: int) -> Dic
         reply = "{} {}".format(R.choice(OPENERS), move)
     if stage <= 1:
         reply = reply.replace("puzzle this out", "figure it out like detectives")
-    return {"reply": reply, "engine": "book"}
+    # `remote: False`: nothing left this machine — the rule engine answers
+    # from the local excerpt alone.
+    return {"reply": reply, "engine": "book", "remote": False}
 
 
 def ask(messages: List[Dict], title: str = "", excerpt: str = "", stage: int = 2) -> Dict:

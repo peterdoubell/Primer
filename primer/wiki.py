@@ -188,6 +188,10 @@ class WikiService:
         self.db_path = db_path
         self.archives: List[ZimArchive] = []
         self._live_search_blocked_until = 0.0
+        # Same circuit-breaker idea as _live_search, but for article/summary
+        # fetches: while offline, a reader with no ZIM or cache hit should get
+        # an instant "not available" rather than a 20s timeout per page view.
+        self._live_fetch_blocked_until = 0.0
         self._init_db()
         self.rescan()
 
@@ -292,14 +296,28 @@ class WikiService:
                 }
 
         lang = "simple" if prefer_simple else "en"
-        cached = self._cache_get(title, lang) or self._cache_get(title, "en")
+        # Exact-language cache hit first, so a reader who asked for Simple
+        # English is not silently handed the full-English copy we happen to
+        # have (and vice versa).
+        cached = self._cache_get(title, lang)
         if cached:
+            # Staleness-aware refresh: a cached article older than
+            # CACHE_STALE_SECONDS gets one live re-fetch attempt when we are
+            # online; the stale copy remains the fallback if that fails.
+            if time.time() - cached.get("fetched_at", time.time()) > self.CACHE_STALE_SECONDS:
+                refreshed = self._fetch_live(title, lang)
+                if refreshed:
+                    return refreshed
             return cached
 
         fetched = self._fetch_live(title, lang)
         if fetched is None and lang != "en":
             fetched = self._fetch_live(title, "en")
-        return fetched
+        if fetched:
+            return fetched
+        # Offline and no exact-language copy: any cached language beats
+        # returning nothing at all.
+        return self._cache_get(title, None)
 
     def get_summary(self, title: str, lang: str = "en") -> Optional[Dict]:
         """Plain-text summary — used for quizzes and the tutor."""
@@ -314,6 +332,16 @@ class WikiService:
                 return json.loads(row[0])
             except Exception:
                 pass
+        # Same offline breaker as _fetch_live: with no cached summary, skip
+        # straight to the ZIM/cache HTML fallback instead of waiting on a
+        # timeout for every quiz or tutor call.
+        if time.time() < self._live_fetch_blocked_until:
+            art = self.get_article(title)
+            if art:
+                text = self.article_plaintext(art["html"], max_chars=1200)
+                if text:
+                    return {"title": title, "extract": text, "description": "", "thumbnail": ""}
+            return None
         try:
             url = "https://{}.wikipedia.org/api/rest_v1/page/summary/{}".format(
                 lang, urllib.parse.quote(title.replace(" ", "_"), safe="")
@@ -335,6 +363,7 @@ class WikiService:
             return summary
         except Exception as exc:
             log.info("summary unavailable for %r: %s", title[:60], exc.__class__.__name__)
+            self._note_live_failure(exc)
         # Offline fallback: derive text from whatever article HTML we have.
         art = self.get_article(title)
         if art:
@@ -363,12 +392,25 @@ class WikiService:
     def _norm(title: str) -> str:
         return title.replace("_", " ").strip()
 
-    def _cache_get(self, title: str, lang: str) -> Optional[Dict]:
+    def _cache_get(self, title: str, lang: Optional[str]) -> Optional[Dict]:
+        """Cached copy of an article, filtered by language.
+
+        lang=None means "any language" — the last-resort offline lookup.
+        A concrete lang must match exactly, otherwise prefer_simple would be
+        meaningless for cached articles (the bug this filter fixes)."""
         with _db_lock, self._conn() as c:
-            row = c.execute(
-                "SELECT html, lang FROM article_cache WHERE title=? AND html != ''",
-                (self._norm(title),),
-            ).fetchone()
+            if lang is None:
+                row = c.execute(
+                    "SELECT html, lang, fetched_at FROM article_cache "
+                    "WHERE title=? AND html != ''",
+                    (self._norm(title),),
+                ).fetchone()
+            else:
+                row = c.execute(
+                    "SELECT html, lang, fetched_at FROM article_cache "
+                    "WHERE title=? AND lang=? AND html != ''",
+                    (self._norm(title), lang),
+                ).fetchone()
         if not row:
             return None
         return {
@@ -378,9 +420,30 @@ class WikiService:
             "archive": None,
             "base": "",
             "simple": row[1] == "simple",
+            "fetched_at": row[2] or 0.0,
         }
 
+    # The cache is "keep forever" in spirit, but not unbounded in practice:
+    # CACHE_MAX_ARTICLES caps the article_cache table (newest by fetched_at
+    # win; the sweep runs opportunistically after each live fetch), and
+    # CACHE_STALE_SECONDS is how old a cached copy may grow before we try a
+    # live refresh when online (30 days — Wikipedia articles drift slowly).
+    CACHE_MAX_ARTICLES = 5000
+    CACHE_STALE_SECONDS = 30 * 24 * 3600
+
+    def _note_live_failure(self, exc: Exception):
+        """Trip the offline breaker — but only for network-shaped failures.
+        An HTTP status (404 etc.) proves we reached Wikipedia, so it must not
+        block subsequent fetches of other titles."""
+        if getattr(exc, "code", None) is None:
+            self._live_fetch_blocked_until = time.time() + 60
+            log.info("live fetches unavailable (%s); pausing for 60s",
+                     exc.__class__.__name__)
+
     def _fetch_live(self, title: str, lang: str) -> Optional[Dict]:
+        # Breaker: while offline, don't stack 20s timeouts on every page view.
+        if time.time() < self._live_fetch_blocked_until:
+            return None
         try:
             url = "https://{}.wikipedia.org/api/rest_v1/page/html/{}".format(
                 lang, urllib.parse.quote(title.replace(" ", "_"), safe="")
@@ -393,13 +456,26 @@ class WikiService:
                 log.info("no live article for %r (%s)", title[:60], lang)
             else:
                 log.info("live fetch failed for %r: %s", title[:60], exc.__class__.__name__)
+                self._note_live_failure(exc)
             return None
         with _db_lock, self._conn() as c:
+            # fetched_at must follow the refresh, or the staleness policy in
+            # get_article would re-fetch the same article on every read.
             c.execute(
                 """INSERT INTO article_cache(title, lang, html, summary, fetched_at)
                    VALUES(?,?,?,'',?)
-                   ON CONFLICT(title) DO UPDATE SET html=excluded.html, lang=excluded.lang""",
+                   ON CONFLICT(title) DO UPDATE SET html=excluded.html,
+                       lang=excluded.lang, fetched_at=excluded.fetched_at""",
                 (self._norm(title), lang, html, time.time()),
+            )
+            # Opportunistic eviction: drop everything older than the newest
+            # CACHE_MAX_ARTICLES rows. Piggybacking on the write path keeps the
+            # cap enforced without a background thread.
+            c.execute(
+                """DELETE FROM article_cache WHERE title NOT IN (
+                       SELECT title FROM article_cache
+                       ORDER BY fetched_at DESC LIMIT ?)""",
+                (self.CACHE_MAX_ARTICLES,),
             )
         return {
             "title": self._norm(title),
@@ -535,6 +611,13 @@ class WikiService:
                 mime = resp.headers.get("Content-Type", "image/jpeg")
         except Exception as exc:
             log.info("image fetch failed (%s): %s", exc.__class__.__name__, url[:120])
+            return None
+        # This endpoint exists to serve <img> tags. Refuse anything the
+        # upstream does not declare as image/* — otherwise an error page or
+        # HTML response would be cached forever and served with a live mime
+        # type from our own origin.
+        if not mime.split(";")[0].strip().lower().startswith("image/"):
+            log.warning("non-image content-type %r refused: %s", mime[:40], url[:120])
             return None
         if len(data) < 4 * 1024 * 1024:
             with _db_lock, self._conn() as c:

@@ -17,6 +17,27 @@ from .learner import STAGE_NAMES, STAGE_SPAN
 WEEKS_PER_YEAR = 50
 EFFICIENCY = 0.85  # not every scheduled minute lands
 
+# A node only drops out of the plan when the gates would actually treat it as
+# open. The `mastery` argument must be the learner's decay-aware gate view
+# (`gate_map()`), which emits exactly 1.0 for a node whose mastery is standing
+# (earned or assumed, and not faded) and caps everything else below the 0.8
+# gate. The old `>= 0.8` threshold also accepted `mastery_map()` — the raw EMA,
+# which never decays and never distinguishes assumed from proven — so a node
+# the gates had re-locked (faded, or placement credit since revoked) still
+# shortened the roadmap. Plan and gates must count from the same ledger.
+GATE_OPEN = 0.999
+
+# Learning a node is not the end of paying for it: the SRS keeps billing.
+# Each mastered node mints a handful of cards whose SM-2 intervals grow
+# roughly geometrically, so the *lifetime* review cost per node converges —
+# a saturating series, not a linear one: weekly review load grows with the
+# mastered-node count early on, then flattens as old cards space out to
+# months. We fold that in as a flat per-node maintenance estimate (~a dozen
+# reviews at ~1 minute each over the plan's horizon). Without it, multi-year
+# estimates priced only first-exposure instructional minutes and understated
+# the true cost of *keeping* several thousand nodes known.
+SRS_REVIEW_MIN_PER_NODE = 12.0
+
 BREADTH_PLANS = {
     # domains carried to graduate stage : others carried to secondary stage
     "focused": {"deep_target": 5, "wide_target": 3, "label": "Focused — a few fields, all the way"},
@@ -26,7 +47,11 @@ BREADTH_PLANS = {
 
 
 def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float]) -> Dict:
-    """graph: {domains: [{id,name}], nodes: [node]} — see curriculum.py."""
+    """graph: {domains: [{id,name}], nodes: [node]} — see curriculum.py.
+
+    `mastery` must be the learner's decay-aware gate view (gate_map()), not
+    the raw EMA mastery_map() — see GATE_OPEN above.
+    """
     breadth = profile.get("breadth", "balanced")
     plan = BREADTH_PLANS.get(breadth, BREADTH_PLANS["balanced"])
     deep_domains = set(profile.get("domains") or [])
@@ -42,10 +67,15 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float]) -> Dict:
             else plan["wide_target"]
         if node["stage"] > target:
             continue
-        if mastery.get(node["id"], 0) >= 0.8:
+        # Only a gate-open node (exactly 1.0 from gate_map) leaves the plan —
+        # a faded or merely-high-EMA node is still work to be scheduled.
+        if mastery.get(node["id"], 0) >= GATE_OPEN:
             continue
         b = stage_buckets[node["stage"]]
-        b["minutes"] += node.get("minutes", 40)
+        # Instructional minutes plus the node's lifetime SRS maintenance —
+        # see SRS_REVIEW_MIN_PER_NODE. Folding it in here keeps the years,
+        # the timeline, and the per-stage hours all telling the same story.
+        b["minutes"] += node.get("minutes", 40) + SRS_REVIEW_MIN_PER_NODE
         b["nodes"] += 1
         b["domains"].add(node["domain"])
 
@@ -92,7 +122,9 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float]) -> Dict:
     if year_contents:
         timeline.append({"year": year_index, "milestones": year_contents})
 
-    mastered = sum(1 for v in mastery.values() if v >= 0.8)
+    # Same ledger as the scheduling loop above: gate-open only, so a faded or
+    # revoked node is never headlined as mastered while the gates re-lock it.
+    mastered = sum(1 for v in mastery.values() if v >= GATE_OPEN)
     return {
         "breadth": breadth,
         "breadth_label": plan["label"],

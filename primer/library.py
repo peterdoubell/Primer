@@ -143,12 +143,16 @@ def _download_worker(state: Dict, url: str, dest: str):
             headers["Range"] = "bytes={}-".format(existing)
         req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=60) as resp:
-            total = int(resp.headers.get("Content-Length", 0)) + existing
-            state["total"] = total
-            state["bytes"] = existing
-            mode = "ab" if existing and resp.status == 206 else "wb"
-            if mode == "wb":
-                state["bytes"] = 0
+            # A 206 body is only the remaining bytes, so the file total is
+            # Content-Length plus what we already have. A 200 means the server
+            # ignored our Range: the body is the whole file, the .part restarts
+            # from zero, and the previously downloaded bytes must NOT be added
+            # to the total (they are being discarded, not kept).
+            resumed = bool(existing) and resp.status == 206
+            length = int(resp.headers.get("Content-Length", 0))
+            state["total"] = length + existing if resumed else length
+            state["bytes"] = existing if resumed else 0
+            mode = "ab" if resumed else "wb"
             with open(part, mode) as f:
                 while True:
                     chunk = resp.read(1024 * 512)

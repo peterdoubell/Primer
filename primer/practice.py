@@ -37,7 +37,41 @@ def _mc(prompt: str, answer, distractors: List, explain: str = "", pad: bool = T
                     choices.append(cand)
         except (ValueError, TypeError):
             pass
-        while len(choices) < 4:
+        # Last resort must still look like it belongs beside the key. The old
+        # filler was R.randint(1, 99) — for "364 days" scale questions the two
+        # noise options sat two orders of magnitude off and the answer was the
+        # only plausible number on the card. Scale the filler to the key
+        # itself: percentage and small-integer offsets around the numeric
+        # answer (or, when the answer is not numeric, around whichever numeric
+        # option is already present), deduplicated against everything shown.
+        base = None
+        for source in [str(answer)] + [str(c) for c in choices]:
+            try:
+                base = float(source)
+                break
+            except (ValueError, TypeError):
+                continue
+        guard = 0
+        while len(choices) < 4 and guard < 60:
+            guard += 1
+            if base is not None:
+                mode = R.choice(["pct", "pct", "off"])
+                if mode == "pct" and base != 0:
+                    cand = base * (1 + R.choice([-0.5, -0.25, -0.1, 0.1, 0.25, 0.5, 1.0]))
+                else:
+                    step = max(1, round(abs(base) * 0.05))
+                    cand = base + R.choice([-3, -2, -1, 1, 2, 3]) * step
+                cand = round(cand, 2)
+                cand = str(int(cand)) if cand == int(cand) else str(cand)
+            else:
+                # Nothing numeric anywhere: no scale to honour, so any filler
+                # is equally (im)plausible — small integers at least read as
+                # options rather than debris.
+                cand = str(R.randint(1, 12))
+            if cand not in seen and cand != str(answer):
+                seen.add(cand)
+                choices.append(cand)
+        while len(choices) < 4:   # guard exhausted (tiny option space): pad flat
             cand = str(R.randint(1, 99))
             if cand not in seen:
                 seen.add(cand)

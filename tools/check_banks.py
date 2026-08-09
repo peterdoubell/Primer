@@ -20,6 +20,11 @@ MIN_DEPTH = 10          # a bank must be bigger than the paper drawn from it
 MIN_YOUNG = 5
 MAX_BINARY_SHARE = 0.15
 MAX_LENGTH_EDGE = 0.08   # what picking by length may gain over guessing
+# Below the hard threshold there was silence: banks drifting at +4.8 to
+# +6.1pp all printed "ok" and nobody saw the trend until one crossed the
+# line. The WARN tier names the margin per bank without failing CLEAN —
+# visibility, not a new gate.
+WARN_LENGTH_EDGE = 0.045
 MAX_NAMING_SHARE = 0.25   # stems that demonstrably only ask for a term
 
 ABS = re.compile(r"\b(all|every|never|only|cannot|always|none)\b", re.I)
@@ -135,9 +140,14 @@ def audit(path):
         best = max(rank["shortest"], rank["longest"]) / n
         which = "shortest" if rank["shortest"] >= rank["longest"] else "longest"
         edge = best - chance
+        verdict = ("EXPLOITABLE" if edge > MAX_LENGTH_EDGE
+                   else "WARN (drifting)" if edge > WARN_LENGTH_EDGE else "ok")
         print("  pick-by-length: {} scores {:.1%} vs {:.1%} chance ({:+.1f}pp)  {}".format(
-            which, best, chance, edge * 100,
-            "ok" if edge <= MAX_LENGTH_EDGE else "EXPLOITABLE"))
+            which, best, chance, edge * 100, verdict))
+        if WARN_LENGTH_EDGE < edge <= MAX_LENGTH_EDGE:
+            # Visible margin to the hard limit, but not a problem: stays CLEAN.
+            print("     margin to limit: {:.1f}pp of {:.1f}pp used".format(
+                edge * 100, MAX_LENGTH_EDGE * 100))
         if edge > MAX_LENGTH_EDGE:
             problems.append(("length is a tell", name, "{:+.1f}pp".format(edge * 100)))
     if young_choice:

@@ -1058,7 +1058,9 @@ def test_self_check_is_labelled_as_ungraded():
     client = TestClient(srv.app)
     r = client.get('/api/selfcheck?title=Photosynthesis&n=3')
     if r.status_code != 200:
-        pytest.skip('no local archive')
+        pytest.skip('no local ZIM archive: /api/selfcheck returned {} for a '
+                    'real article; install one under data/library to run '
+                    'this'.format(r.status_code))
     d = r.json()
     assert d['graded'] is False and d['note']
 

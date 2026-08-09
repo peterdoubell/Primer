@@ -36,6 +36,13 @@
   --edge: #8a7f62;
   --ink-place: #665c4d;   /* authored placeholder: the UA default fails in dark */
   --muted: var(--ink-faint); /* quiet status text; was referenced but never defined */
+  /* Translucent state washes. These were hardcoded light-palette RGB
+     (rgba(51,122,75,…), rgba(201,162,39,…)) at every use site, so the green
+     and gold tints stayed daylight-mixed on the night page. Declared as
+     tokens with --dk-* counterparts so they turn with the palette. */
+  --tint-green: rgba(51, 122, 75, 0.12);
+  --tint-gold: rgba(201, 162, 39, 0.16);
+  --tint-gold-strong: rgba(201, 162, 39, 0.3);
 
   /* Chrome that differs by theme, declared as values rather than as rules, so
      the shell can change character without duplicating a single selector. */
@@ -107,6 +114,10 @@
   --dk-on-fill: #06090d;
   --dk-edge: #4a6580;
   --dk-ink-place: #869bad;
+  /* Night washes mixed from the phosphor green and amber, not the day inks. */
+  --dk-tint-green: rgba(60, 232, 169, 0.13);
+  --dk-tint-gold: rgba(255, 176, 32, 0.15);
+  --dk-tint-gold-strong: rgba(255, 176, 32, 0.32);
   --dk-shell-bg:
     radial-gradient(circle at 18% 8%, rgba(79, 216, 232, 0.10), transparent 55%),
     radial-gradient(circle at 82% 88%, rgba(255, 92, 138, 0.09), transparent 55%),
@@ -156,6 +167,8 @@
     --ink-locked: var(--dk-ink-locked); --rule: var(--dk-rule); --shadow: var(--dk-shadow);
     --focus: var(--dk-focus); --field: var(--dk-field); --field-hi: var(--dk-field-hi);
     --on-fill: var(--dk-on-fill); --edge: var(--dk-edge); --ink-place: var(--dk-ink-place);
+    --tint-green: var(--dk-tint-green); --tint-gold: var(--dk-tint-gold);
+    --tint-gold-strong: var(--dk-tint-gold-strong);
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim);
@@ -183,6 +196,8 @@
     --ink-locked: var(--dk-ink-locked); --rule: var(--dk-rule); --shadow: var(--dk-shadow);
     --focus: var(--dk-focus); --field: var(--dk-field); --field-hi: var(--dk-field-hi);
     --on-fill: var(--dk-on-fill); --edge: var(--dk-edge); --ink-place: var(--dk-ink-place);
+    --tint-green: var(--dk-tint-green); --tint-gold: var(--dk-tint-gold);
+    --tint-gold-strong: var(--dk-tint-gold-strong);
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim);
@@ -389,6 +404,10 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #tutor .th .mark { color: var(--gold-bright); font-size: 22px; }
 #tutor .th b { display: block; font-size: 16px; color: var(--chrome-hi); }
 #tutor .th small { font-family: var(--sans); font-size: 11px; color: var(--chrome-ink-dim); }
+/* The remote-tutor disclosure: quiet, chrome-toned, one line under the head.
+   A fact the reader deserves, at the volume of a colophon note. */
+.tutor-disclosure { font-family: var(--sans); font-size: 11px; line-height: 1.45;
+  color: var(--chrome-ink-dim); margin-top: 5px; }
 #tutor-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 .msg { padding: 10px 13px; border-radius: 12px; font-size: 14.5px; line-height: 1.5; max-width: 92%; }
 .msg.book { background: var(--chrome-active); color: var(--chrome-hi); border-bottom-left-radius: 3px; }
@@ -416,7 +435,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
   background: var(--field); font-size: 16px; font-family: var(--serif); color: var(--ink); transition: all 0.12s;
 }
 .choice:hover { border-color: var(--link); background: var(--field-hi); }
-.choice.correct { background: rgba(51,122,75,0.12); border-color: var(--green); color: var(--green-ink); font-weight: 600; }
+.choice.correct { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); font-weight: 600; }
 .choice.wrong { background: rgba(168,68,47,0.14); border-color: var(--accent); color: var(--accent); font-weight: 600; }
 .q-numeric { display: flex; gap: 10px; }
 .q-numeric input { font-size: 20px; text-align: center; }
@@ -451,7 +470,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
   border: 1px solid var(--rule); background: var(--field); color: var(--ink-soft); cursor: pointer; transition: all 0.12s;
 }
 .node-dot:hover { border-color: var(--link); }
-.node-dot.mastered { background: rgba(51,122,75,0.12); border-color: var(--green); color: var(--green-ink); }
+.node-dot.mastered { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); }
 .node-dot.mastered::before { content: "✓ "; }
 .node-dot.locked { color: var(--ink-locked); border-color: var(--rule);
   background: var(--paper); cursor: pointer; }   /* a locked tile explains itself */
@@ -462,7 +481,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
   margin-right: 5px; vertical-align: -1px; background-color: currentColor;
   -webkit-mask: var(--lock-mask) center/contain no-repeat;
   mask: var(--lock-mask) center/contain no-repeat; }
-.node-dot.available { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(201,162,39,0.3); }
+.node-dot.available { border-color: var(--gold); box-shadow: 0 0 0 1px var(--tint-gold-strong); }
 
 /* ---------- search ---------- */
 #searchbox { position: relative; margin-bottom: 20px; }
@@ -490,7 +509,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 .lib-item .meta b { font-size: 16px; }
 .lib-item .meta p { margin: 3px 0 0; font-size: 13px; color: var(--ink-soft); }
 .badge { font-family: var(--sans); font-size: 11px; padding: 3px 9px; border-radius: 20px; }
-.badge.installed { background: rgba(51,122,75,0.12); color: var(--green-ink); }
+.badge.installed { background: var(--tint-green); color: var(--green-ink); }
 .badge.big { background: rgba(169,133,47,0.22); color: var(--gold-ink); font-weight: 600; }
 
 /* ---------- roadmap ---------- */
@@ -689,10 +708,10 @@ body[data-stage="0"] .stage-label, body[data-stage="1"] .stage-label { font-size
 h3 > .card-open { font: inherit; color: inherit; }
 
 /* Read-aloud button (appears throughout in young modes). */
-.speak-btn { background: rgba(201,162,39,0.16); border: 1.5px solid var(--gold-ink); color: var(--gold-ink);
+.speak-btn { background: var(--tint-gold); border: 1.5px solid var(--gold-ink); color: var(--gold-ink);
   border-radius: 50%; width: 40px; height: 40px; font-size: 18px; display: inline-grid; place-items: center;
   cursor: pointer; flex: none; }
-.speak-btn:hover { background: rgba(201,162,39,0.3); }
+.speak-btn:hover { background: var(--tint-gold-strong); }
 .speak-btn.speaking { animation: pulse 1s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
 .q-card .speak-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
@@ -703,7 +722,7 @@ h3 > .card-open { font: inherit; color: inherit; }
   border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
 .quest-item .tick { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--edge);
   display: grid; place-items: center; font-size: 15px; color: transparent; flex: none; }
-.quest-item.done { border-color: var(--green); background: rgba(51,122,75,0.1); }
+.quest-item.done { border-color: var(--green); background: var(--tint-green); }
 .quest-item.done .tick { background: var(--green); border-color: var(--green); color: var(--on-fill); }
 /* Nothing to do rather than something left undone: settled, not urgent, and
    visibly not the same state as a step still waiting on the reader. */
@@ -756,7 +775,7 @@ h3 > .card-open { font: inherit; color: inherit; }
 
 /* Modal close button + dialog affordances. */
 .modal-close { position: absolute; top: 12px; right: 14px; background: none; border: none;
-  font-size: 26px; line-height: 1; color: var(--ink-faint); cursor: pointer; width: 40px; height: 40px;
+  font-size: 26px; line-height: 1; color: var(--ink-faint); cursor: pointer; width: 44px; height: 44px;
   border-radius: 50%; }
 .modal-close:hover { background: var(--paper-2); color: var(--ink); }
 /* The story ceremony paints itself dark whatever the theme, so the light-theme
@@ -815,7 +834,12 @@ body[data-stage="3"] { --ui-scale: 0.98; }
 /* Stage 3 sits between the two bands and was inheriting no target floor at all.
    An eleven-year-old on a tablet still deserves a comfortable one. */
 body[data-stage="3"] .btn { min-height: 44px; }
-body[data-stage="4"] .speak-btn, body[data-stage="5"] .speak-btn { width: 28px; height: 28px; font-size: 13px; }
+body[data-stage="4"] .speak-btn, body[data-stage="5"] .speak-btn { width: 28px; height: 28px; font-size: 13px; position: relative; }
+/* The adult modes may *look* compact, but the pointer target still has to
+   make 44px: an invisible halo extends the hit area without changing the
+   drawn size (the pseudo belongs to the button, so clicks on it land). */
+body[data-stage="4"] .speak-btn::after, body[data-stage="5"] .speak-btn::after {
+  content: ""; position: absolute; inset: -8px; border-radius: 50%; }
 body[data-stage="4"], body[data-stage="5"] { --ui-scale: 0.94; }
 
 body[data-stage="4"] .pagehead h2 { font-size: 25px; letter-spacing: -0.01em; }
@@ -825,7 +849,11 @@ body[data-stage="4"] .card, body[data-stage="5"] .card { padding: 13px 16px; mar
 body[data-stage="4"] .lesson-card h3, body[data-stage="5"] .lesson-card h3 { font-size: 17px; }
 body[data-stage="4"] .q-prompt, body[data-stage="5"] .q-prompt { font-size: 18px; line-height: 1.45; }
 body[data-stage="4"] .choice, body[data-stage="5"] .choice { padding: 9px 13px; font-size: 15px; }
-body[data-stage="4"] .btn, body[data-stage="5"] .btn { padding: 9px 16px; min-height: 38px; font-size: 14px; }
+body[data-stage="4"] .btn, body[data-stage="5"] .btn { padding: 9px 16px; min-height: 38px; font-size: 14px; position: relative; }
+/* Same trick for the compact buttons: 38px drawn + 3px of silent hit area
+   above and below reaches the 44px floor without loosening the layout. */
+body[data-stage="4"] .btn::after, body[data-stage="5"] .btn::after {
+  content: ""; position: absolute; left: 0; right: 0; top: -3px; bottom: -3px; }
 body[data-stage="4"] .badge, body[data-stage="5"] .badge { font-size: 10px; }
 /* The stars and the seal are for children. Adults get the number. */
 body[data-stage="4"] .result-splash .stars, body[data-stage="5"] .result-splash .stars { display: none; }
@@ -969,7 +997,7 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
    read as "open" to the one reader most likely to try it. */
 .node-dot.frontier::after { content: " ◈"; font-style: normal; font-size: 10px;
   color: var(--gold); }
-.node-dot.frontier:hover { border-style: solid; background: rgba(201,162,39,.08); }
+.node-dot.frontier:hover { border-style: solid; background: var(--tint-gold); }
 
 /* ---------------- phosphor ----------------
    In day mode every one of these resolves to `none`, so the paper book is
@@ -978,7 +1006,7 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 #sidebar .brand h1 { text-shadow: var(--glow-soft); }
 .pagehead h2 { text-shadow: var(--glow-soft); }
 .navbtn.active { text-shadow: var(--glow-soft); }
-.node-dot.available { box-shadow: 0 0 0 1px rgba(201,162,39,0.3), var(--tile-glow); }
+.node-dot.available { box-shadow: 0 0 0 1px var(--tint-gold-strong), var(--tile-glow); }
 .dont-panic { text-shadow: var(--glow-strong); }
 .stars { text-shadow: var(--glow-strong); }
 .tl-epoch::before { box-shadow: 0 0 0 2px var(--gold), var(--tile-glow); }

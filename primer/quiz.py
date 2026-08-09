@@ -630,7 +630,33 @@ def score_short_answer(given: str, keywords: List[str]) -> float:
             return digits[0] in nums
         return known(parts[0]) if parts else False
 
-    return sum(1 for k in keywords if hit(k)) / len(keywords)
+    coverage = sum(1 for k in keywords if hit(k)) / len(keywords)
+
+    # Keyword presence is necessary but it is not writing. A bare unordered
+    # dump — "photosynthesis sunlight energy" — hit every key and scored a
+    # clean pass without a single connecting thought. The tell is structural
+    # and conservative: every token in the answer is one of the keys (or a
+    # word built from one) and not one function word joins them. Any real
+    # sentence, however terse — "photosynthesis is from sunlight" — carries a
+    # connective and keeps full fuzzy/near-miss credit; only the naked list
+    # loses half. Single-key answers are exempt: one word can be the whole
+    # legitimate answer ("mitochondria").
+    if coverage > 0 and len(keywords) >= 2:
+        tokens = re.findall(r"[^\W\d_]+", text, re.UNICODE)
+        key_lemmas = {_lemma(w) for k in keywords
+                      for w in re.findall(r"[^\W\d_]+", str(k).lower(), re.UNICODE)}
+
+        def keywordish(tok):
+            t = _lemma(tok)
+            return any(t == k
+                       or (len(t) >= 5 and len(k) >= 5
+                           and (t.startswith(k) or k.startswith(t)))
+                       for k in key_lemmas)
+
+        structural = any(t in STOPWORDS for t in tokens)
+        if tokens and not structural and all(keywordish(t) for t in tokens):
+            coverage *= 0.5
+    return coverage
 
 
 def score_quiz(questions: List[Dict], answers: List[str]) -> Dict:

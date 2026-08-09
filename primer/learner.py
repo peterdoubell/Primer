@@ -225,6 +225,18 @@ class LearnerStore:
                         c.execute(ddl)
                     except sqlite3.OperationalError:
                         pass
+            # When a placement was settled — needed so a settled domain can be
+            # re-opened for re-measurement after a cooling period rather than
+            # one noisy sitting fixing the reader's level forever.
+            pl_cols = {r[1] for r in c.execute("PRAGMA table_info(placement)")}
+            for col, ddl in [
+                ("settled_at", "ALTER TABLE placement ADD COLUMN settled_at REAL"),
+            ]:
+                if col not in pl_cols:
+                    try:
+                        c.execute(ddl)
+                    except sqlite3.OperationalError:
+                        pass
             # Re-read after the migrations above so the backfills can rely on them.
             cols = {r[1] for r in c.execute("PRAGMA table_info(mastery)")}
             for ddl in [
@@ -502,6 +514,15 @@ class LearnerStore:
         row = c.execute("SELECT * FROM mastery WHERE node_id=?", (node_id,)).fetchone()
         if row:
             level = row["level"]
+            # Documented deviation from a symmetric EMA: gains move at 0.4,
+            # losses at 0.25. A passing score is fairly clean evidence of
+            # knowledge, so the level should respond to it quickly; a poor
+            # score is noisier (a bad day, a misread question, guessing costs
+            # on a short paper), so a single one is damped rather than allowed
+            # to erase several sittings' worth of standing. Mastery loss has
+            # its own dedicated, sharper mechanism (the failure branch below
+            # clears mastered_at outright), so the EMA does not need to be the
+            # thing that punishes — it only needs to drift honestly.
             level = (max(level, 0.6 * level + 0.4 * score) if score >= level
                      else 0.75 * level + 0.25 * score)
             attempts = row["attempts"] + 1
@@ -803,6 +824,35 @@ class LearnerStore:
         return row["lapses"] or 0
 
     REVIEW_XP_DAILY_CAP = 120
+    CALIBRATION_WINDOW = 10          # recent quiz sittings considered
+    OVERCONFIDENCE_LIMIT = 1 / 3     # above this, self-grades are discounted
+    OVERCONFIDENT_RESTORE_CAP = 0.85  # capped strength restore for q>=4
+
+    def _overconfidence_rate(self, c, window: int = CALIBRATION_WINDOW) -> float:
+        """Fraction of recent confident quiz answers that were wrong.
+
+        Reads the last `window` 'calibration' events (logged by the quiz
+        route with per-sitting overconfident/underconfident/total counts) and
+        pools them. Takes an open connection: callers already hold `_lock`,
+        which is not reentrant.
+        """
+        rows = c.execute(
+            "SELECT payload FROM events WHERE kind='calibration' "
+            "ORDER BY at DESC LIMIT ?", (window,)).fetchall()
+        over = total = 0
+        for r in rows:
+            try:
+                p = json.loads(r["payload"])
+            except (ValueError, TypeError):
+                continue
+            over += int(p.get("overconfident") or 0)
+            total += int(p.get("total") or 0)
+        return over / total if total else 0.0
+
+    def overconfidence_rate(self, window: int = CALIBRATION_WINDOW) -> float:
+        """Public wrapper for the reader's recent overconfidence rate."""
+        with _lock, self._conn() as c:
+            return self._overconfidence_rate(c, window)
 
     def _review_xp_today(self, c) -> int:
         """XP already paid for reviews since local midnight."""
@@ -836,13 +886,26 @@ class LearnerStore:
                 reps, interval, lapses = 0, 0, lapses + 1
                 # A card you keep failing is a "leech": make it easier (shorter
                 # intervals) rather than letting it return like an easy card.
-                ef = max(1.3, ef - 0.2)
+                # Canonical SM-2 applies the same quality-sensitive polynomial
+                # on failure as on success — a total blank (q=0, -0.8) is much
+                # stronger evidence of difficulty than a near-miss (q=2, -0.32).
+                # The old flat -0.2 treated them identically, so genuinely hard
+                # cards eased off too slowly and near-misses too fast.
+                ef = max(1.3, ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
             else:
                 if reps == 0:
                     interval = 1
                 elif reps == 1:
                     interval = 6
                 else:
+                    # Documented deviation from canonical SM-2: the interval is
+                    # multiplied by the *previous* EF — the EF update for this
+                    # grade happens below, after scheduling. SuperMemo's paper
+                    # applies the freshly-updated EF to the same interval; using
+                    # the prior one (as Anki does) schedules on the difficulty
+                    # the card had demonstrated *up to* this review, which is
+                    # slightly conservative for improving cards and avoids one
+                    # good day instantly stretching the next gap.
                     interval = round(interval * ef, 1)
                 # SM-2's ladder is unbounded, and strength decay is not — a card
                 # scheduled 1,225 days out left its node reading faded for the
@@ -895,7 +958,20 @@ class LearnerStore:
                         # under the 0.35 gate and stayed there forever, so a
                         # node reviewed exactly on schedule for years still
                         # read as faded.
-                        strength = 1.0
+                        #
+                        # Calibration modulation: quality here is *self-graded*,
+                        # and the quiz route measures how trustworthy this
+                        # reader's confidence actually is (miscalibration —
+                        # confident-and-wrong — is well documented; Dunning &
+                        # Kruger 1999; Koriat & Bjork 2005 on foresight bias).
+                        # When more than a third of their recently confident
+                        # quiz answers were wrong, a self-graded 4-5 is weaker
+                        # evidence than it claims, so the restore is capped
+                        # below full rather than taken at face value.
+                        if self._overconfidence_rate(c) > self.OVERCONFIDENCE_LIMIT:
+                            strength = max(strength, self.OVERCONFIDENT_RESTORE_CAP)
+                        else:
+                            strength = 1.0
                         touch_clock = True
                         # Only a *spaced* success builds durability. Without the
                         # gap, minting cards and grading them in one sitting
@@ -905,6 +981,19 @@ class LearnerStore:
                             c.execute("UPDATE mastery SET reinforcements = "
                                       "COALESCE(reinforcements, 1) + 1, reinforced_at=? "
                                       "WHERE node_id=?", (now, node_id))
+                    elif quality == 3 and not reader_card:
+                        # Correct with serious difficulty. This used to leave
+                        # the node untouched entirely — no strength, no clock —
+                        # which threw away the strongest kind of evidence there
+                        # is: effortful successful retrieval (the "desirable
+                        # difficulties" and testing-effect literature — Bjork;
+                        # Roediger & Karpicke 2006 — finds hard-won recall more
+                        # potent for retention than easy recall). Not full
+                        # restoration (that is q>=4's claim), but a partial
+                        # refresh: the decay clock restarts, and strength is
+                        # floored at a modest level above the 0.35 gate.
+                        strength = max(strength, 0.5)
+                        touch_clock = True
                     elif quality < 3 and not reader_card:
                         strength = max(0.0, strength - 0.25)
                         touch_clock = True
@@ -1188,20 +1277,63 @@ class LearnerStore:
 
     # ---------- placement ----------
 
+    PLACEMENT_COOLING = 7 * DAY  # a settled placement can be re-measured after this
+
     def placement_state(self) -> Dict[str, Dict]:
         with _lock, self._conn() as c:
             rows = c.execute("SELECT * FROM placement").fetchall()
         return {r["domain"]: {"stage": r["stage"], "asked": json.loads(r["asked"]),
-                              "done": bool(r["done"])} for r in rows}
+                              "done": bool(r["done"]),
+                              "settled_at": r["settled_at"]} for r in rows}
 
     def placement_update(self, domain: str, stage: int, asked: List[str], done: bool):
+        now = time.time()
         with _lock, self._conn() as c:
+            # settled_at records when the domain settled, so re-measurement can
+            # apply a cooling period; it is kept across further done writes and
+            # cleared if the domain is somehow marked unsettled again.
             c.execute(
-                """INSERT INTO placement(domain, stage, asked, done) VALUES(?,?,?,?)
-                   ON CONFLICT(domain) DO UPDATE SET stage=?, asked=?, done=?""",
+                """INSERT INTO placement(domain, stage, asked, done, settled_at)
+                   VALUES(?,?,?,?,?)
+                   ON CONFLICT(domain) DO UPDATE SET stage=?, asked=?, done=?,
+                     settled_at=CASE WHEN ?
+                                     THEN COALESCE(placement.settled_at, ?)
+                                     ELSE NULL END""",
                 (domain, stage, json.dumps(asked), int(done),
-                 stage, json.dumps(asked), int(done)),
+                 now if done else None,
+                 stage, json.dumps(asked), int(done), int(done), now),
             )
+
+    def reopen_placement(self, domain: str, cooling_days: float = 7.0) -> bool:
+        """Re-open a settled placement for re-measurement after a cooling period.
+
+        A placement check is one sitting on one day — a noisy measurement —
+        and settling a domain on it *forever* means a bad morning fixes the
+        reader's level for good. This lets the server offer a re-measurement:
+        if the domain's placement is settled and at least `cooling_days` have
+        passed since it settled, the `done` flag is cleared (the recorded
+        stage and asked-question history are kept, so the next sitting starts
+        from the same rung and avoids repeating items) and True is returned.
+        Returns False if the domain is not settled, or is still cooling —
+        the 409 the server sends today remains correct in that window.
+
+        Server wiring is one line in the placement route:
+            learner.reopen_placement(domain)
+        Only assumed/placement bookkeeping changes; nothing proven is touched.
+        """
+        now = time.time()
+        with _lock, self._conn() as c:
+            r = c.execute("SELECT done, settled_at FROM placement WHERE domain=?",
+                          (domain,)).fetchone()
+            if not r or not r["done"]:
+                return False
+            # Rows settled before settled_at existed have no timestamp; they
+            # are by definition old enough, so treat them as past cooling.
+            if r["settled_at"] and (now - r["settled_at"]) < cooling_days * DAY:
+                return False
+            c.execute("UPDATE placement SET done=0, settled_at=NULL WHERE domain=?",
+                      (domain,))
+            return True
 
     # ---------- maintenance ----------
 

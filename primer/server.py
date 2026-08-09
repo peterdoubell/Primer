@@ -3,9 +3,14 @@ practice, quizzes, tutor and pacing into a single interactive book.
 """
 
 import contextvars
+import datetime
+import hashlib
 import json
 import logging
 import os
+import random
+import secrets
+import sqlite3
 import threading
 import time
 import uuid
@@ -73,13 +78,60 @@ with open(STORY_PATH) as f:
 
 # ---------------- maintenance (backup + retention) ----------------
 
+def _prune_backups(dest_dir: str):
+    """Long-horizon retention: ~5 daily, 4 weekly, 12 monthly generations.
+
+    Five same-week dailies protect against yesterday's mistake but not against
+    a corruption noticed a month later — by then every surviving copy had
+    inherited it. Grandfathered tiers keep the horizon long while the count
+    stays small. This is still same-disk retention by default: a dead drive
+    takes the backups with the record, and the off-disk answer remains the
+    reader's own PRIMER_BACKUP_DIR choice (point it at removable or synced
+    storage) — deliberately theirs to make, not the book's.
+    """
+    files = sorted((f for f in os.listdir(dest_dir)
+                    if f.startswith("primer-") and f.endswith(".db")), reverse=True)
+    # Newest copy per calendar day; same-day extras are pure redundancy.
+    by_day = {}
+    for f in files:
+        by_day.setdefault(f[7:15], f)          # "YYYYMMDD" from primer-YYYYMMDD-HHMMSS.db
+    days = sorted(by_day, reverse=True)
+    keep = set(by_day[d] for d in days[:5])    # daily tier
+    weekly, monthly = {}, {}
+    for d in days[5:]:
+        try:
+            iso = time.strptime(d, "%Y%m%d")
+        except ValueError:
+            keep.add(by_day[d])                # unparseable: never delete blind
+            continue
+        week = "{}-{:02d}".format(*datetime.date(
+            iso.tm_year, iso.tm_mon, iso.tm_mday).isocalendar()[:2])
+        month = d[:6]
+        # Newest day wins each bucket — days iterate newest-first, so first in.
+        weekly.setdefault(week, by_day[d])
+        monthly.setdefault(month, by_day[d])
+    keep.update(list(weekly.values())[:4])
+    keep.update(list(monthly.values())[:12])
+    for f in files:
+        if f not in keep:
+            try:
+                os.remove(os.path.join(dest_dir, f))
+            except OSError:
+                pass
+
+
 def _maintenance_loop():
     """Back up the irreplaceable learner record and prune old logs — at
     startup and then daily. The whole multi-year history lives in one file."""
     while True:
         try:
             if learner.get_profile() is not None:
-                dest = learner.backup(BACKUP_DIR)
+                # Retention is ours, not the store's flat "newest N": pass a
+                # keep the rotation can never hit, then apply the tiered
+                # policy in _prune_backups.
+                dest = learner.backup(BACKUP_DIR, keep=10 ** 6)
+                if os.path.isdir(BACKUP_DIR):
+                    _prune_backups(BACKUP_DIR)
                 learner.prune()
                 if dest:
                     log.info("backed up learner record to %s", os.path.basename(dest))
@@ -399,6 +451,10 @@ def state():
         "onboarded": profile is not None,
         "library": lib,
         "tutor_engine": "claude" if tutor.have_api_key() else "book",
+        # Machine-readable disclosure: when true, tutor messages and article
+        # excerpts leave this machine for api.anthropic.com. The UI shows it;
+        # the flag also rides on every /api/tutor reply (see tutor.ask).
+        "tutor_remote": tutor.have_api_key(),
         "stages": [{"i": i, "name": STAGE_NAMES[i], "span": STAGE_SPAN[i],
                     "title": STAGE_TITLES[i]} for i in range(6)],
         "domains": curr.domains,
@@ -419,26 +475,43 @@ def save_profile(p: ProfileIn):
     return learner.get_profile()
 
 
+# Only the reader's own preferences are writable here. `placed`, `rank` and
+# `story_progress` are the book's record of what happened — accepting them
+# from the client let a POST set a four-year-old to stage 5 and mark eleven
+# chapters read, with no paper sat.
+# `daily_goal` and `reminders` used to be accepted here and consumed
+# nowhere — a client could set them and the API would silently agree, but
+# nothing in the quest, streak or notification logic ever read them back.
+# Promising a feature that does not exist is worse than not having it.
+#
+# Typed, not an open dict: an untyped Body accepted `font_scale: "huge"` and
+# stored it verbatim, leaving the frontend to divide by a string. Extras are
+# still tolerated at the parse step (extra="allow") because refusing them by
+# name, loudly, is the endpoint's existing contract — a 422 would hide *which*
+# key was the problem.
+class SettingsIn(BaseModel):
+    model_config = {"extra": "allow"}
+    theme: Optional[str] = None
+    speak: Optional[bool] = None
+    reduce_motion: Optional[bool] = None
+    font_scale: Optional[float] = None
+    name_pronunciation: Optional[str] = None
+
+
+READER_SETTINGS = set(SettingsIn.model_fields)
+
+
 @app.post("/api/profile/settings")
-def save_settings(settings: dict = Body(...)):
+def save_settings(settings: SettingsIn):
     prof = learner.get_profile()
     if not prof:
         return JSONResponse({"error": "no profile"}, status_code=400)
-    # Only the reader's own preferences are writable here. `placed`, `rank` and
-    # `story_progress` are the book's record of what happened — accepting them
-    # from the client let a POST set a four-year-old to stage 5 and mark eleven
-    # chapters read, with no paper sat.
-    # `daily_goal` and `reminders` used to be accepted here and consumed
-    # nowhere — a client could set them and the API would silently agree, but
-    # nothing in the quest, streak or notification logic ever read them back.
-    # Promising a feature that does not exist is worse than not having it.
-    READER_SETTINGS = {"theme", "speak", "reduce_motion", "font_scale",
-                       "name_pronunciation"}
-    rejected = sorted(k for k in settings if k not in READER_SETTINGS)
+    rejected = sorted((settings.model_extra or {}).keys())
     if rejected:
         log.warning("refused client write to server-owned settings: %s", rejected)
     merged = dict(prof.get("settings", {}))
-    merged.update({k: v for k, v in settings.items() if k in READER_SETTINGS})
+    merged.update({k: getattr(settings, k) for k in settings.model_fields_set
+                   if k in READER_SETTINGS})
     saved = learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
                                  prof["breadth"], prof["stage"], prof["domains"], merged)
     if rejected:
@@ -589,18 +662,14 @@ def _shuffled(question: dict) -> dict:
     test-wise reader score by always picking A. Order is randomised on every
     serve — the answer is matched by value, never by position.
     """
-    import random as _r
     q = dict(question)
     choices = list(q.get("choices") or [])
     if len(choices) > 1:
-        _r.shuffle(choices)
+        random.shuffle(choices)
         q["choices"] = choices
     return q
 
 
-# Served quizzes are remembered here so scoring never trusts a client-supplied
-# answer key. Bounded, in-memory, and short-lived: a quiz is a transient thing.
-_SERVED: "OrderedDict[str, dict]" = __import__("collections").OrderedDict()
 _SERVED_LIMIT = 200
 _SERVED_TTL = 12 * 3600   # a paper is a sitting, not a standing offer
 # Sync endpoints run in a threadpool, so two submissions of the same paper can
@@ -609,13 +678,107 @@ _SERVED_TTL = 12 * 3600   # a paper is a sitting, not a standing offer
 _SERVED_LOCK = threading.Lock()
 
 
+class _SittingProxy(dict):
+    """A sitting as a mutable dict view. Top-level assignment writes through to
+    the store, so a caller (or a test) that adjusts, say, `at` is adjusting the
+    persistent record, not a copy that evaporates on the next read."""
+
+    def __init__(self, store, token, data):
+        super().__init__(data)
+        self._store, self._token = store, token
+
+    def __setitem__(self, key, value):
+        super().__setitem__(key, value)
+        self._store[self._token] = dict(self)
+
+
+class _SittingStore:
+    """Served papers, persisted in the learner DB.
+
+    These used to live in an in-memory OrderedDict, which meant a server
+    restart silently voided every open paper — the reader lost the sitting,
+    and worse, lost the burn/commit record that keeps the single-use and
+    reveal-order rules honest. A sitting is short-lived but it is still state
+    the reader paid for; it goes in the same file as everything else they
+    paid for. The connection is derived from `learner.db_path` at call time,
+    not bound at import, so rebinding `srv.learner` (what tests do) rebinds
+    this store with it. Dict-like on purpose: the callers and the tests keep
+    the exact interface the in-memory version had.
+    """
+
+    def _conn(self):
+        conn = sqlite3.connect(learner.db_path, timeout=15)
+        conn.execute("PRAGMA busy_timeout=8000")
+        conn.execute(
+            "CREATE TABLE IF NOT EXISTS sittings ("
+            " token TEXT PRIMARY KEY, at REAL, data TEXT)")
+        return conn
+
+    @staticmethod
+    def _decode(row):
+        entry = json.loads(row[1])
+        entry["at"] = row[0]
+        # JSON object keys are strings; `committed` is keyed by question id,
+        # which is an int everywhere else. Undo the round-trip.
+        committed = entry.get("committed") or {}
+        entry["committed"] = {int(k): v for k, v in committed.items()}
+        return entry
+
+    def get(self, token, default=None):
+        with self._conn() as c:
+            row = c.execute("SELECT at, data FROM sittings WHERE token=?",
+                            (token,)).fetchone()
+        if row is None:
+            return default
+        return _SittingProxy(self, token, self._decode(row))
+
+    def __getitem__(self, token):
+        entry = self.get(token)
+        if entry is None:
+            raise KeyError(token)
+        return entry
+
+    def __contains__(self, token):
+        return self.get(token) is not None
+
+    def __setitem__(self, token, entry):
+        payload = {k: v for k, v in entry.items() if k != "at"}
+        with self._conn() as c:
+            c.execute("INSERT OR REPLACE INTO sittings(token, at, data) VALUES(?,?,?)",
+                      (token, float(entry.get("at", time.time())), json.dumps(payload)))
+
+    def pop(self, token, default=None):
+        with self._conn() as c:
+            row = c.execute("SELECT at, data FROM sittings WHERE token=?",
+                            (token,)).fetchone()
+            c.execute("DELETE FROM sittings WHERE token=?", (token,))
+        if row is None:
+            return default
+        return self._decode(row)
+
+    def sweep(self, now: float):
+        """TTL sweep plus the size cap, oldest first — the same eviction the
+        in-memory OrderedDict applied, now in one SQL breath."""
+        with self._conn() as c:
+            c.execute("DELETE FROM sittings WHERE at < ?", (now - _SERVED_TTL,))
+            c.execute(
+                "DELETE FROM sittings WHERE token IN ("
+                " SELECT token FROM sittings ORDER BY at DESC"
+                " LIMIT -1 OFFSET ?)", (_SERVED_LIMIT,))
+
+
+# Served quizzes are remembered here so scoring never trusts a client-supplied
+# answer key. Bounded, short-lived, and — since a restart must not void an
+# open paper — persisted alongside the rest of the learner record.
+_SERVED = _SittingStore()
+
+
 def _fingerprint(q: dict) -> str:
     """A stable identity for an item across servings.
 
     Options are shuffled at serve time and ids are per-paper, so the prompt plus
     the key is what actually identifies the question.
     """
-    import hashlib
     raw = (str(q.get("prompt", "")) + "\x00" + str(q.get("answer", ""))).encode("utf-8")
     return hashlib.sha256(raw).hexdigest()[:16]
 
@@ -627,7 +790,6 @@ def _remember(questions: list, purpose: str, subject: str = "") -> str:
     redeemed as a graduate-level quiz, or as a stage-5 placement pass. A paper is
     only ever valid for the exact thing it was handed out for.
     """
-    import secrets
     token = secrets.token_urlsafe(12)
     now = time.time()
     with _SERVED_LOCK:
@@ -637,11 +799,7 @@ def _remember(questions: list, purpose: str, subject: str = "") -> str:
         # Papers were only ever evicted by the size cap, so a token minted months
         # ago stayed redeemable as long as the book had been quiet. A paper is a
         # sitting, and a sitting does not last a day.
-        stale = [t for t, e in _SERVED.items() if now - e["at"] > _SERVED_TTL]
-        for t in stale:
-            _SERVED.pop(t, None)
-        while len(_SERVED) > _SERVED_LIMIT:
-            _SERVED.popitem(last=False)
+        _SERVED.sweep(now)
     return token
 
 
@@ -756,8 +914,7 @@ def today():
     domains = prof["domains"] or [d["id"] for d in curr.domains]
     lessons = [_public_node(n) for n in curr.next_lessons(gates, domains, per_domain=1)]
     # Stable order for the day (no reshuffle on refresh), but varied day to day.
-    import random as _r
-    rng = _r.Random(_daily_seed() + int(prof.get("created_at", 0)))
+    rng = random.Random(_daily_seed() + int(prof.get("created_at", 0)))
     rng.shuffle(lessons)
     lessons = lessons[:5]
 
@@ -834,9 +991,13 @@ def today():
 
 
 def _events_today(kind: str) -> bool:
+    # TODO(learner): LearnerStore has no public per-kind event query (its
+    # nearest, active_today/xp_today, cannot filter by kind) — this belongs as
+    # a method on the store; until it grows one, _conn() is the only interface
+    # that can answer this. Read-only and brief.
     from .learner import _local_midnight
     start = _local_midnight(time.time())
-    with learner._conn() as c:  # read-only, brief
+    with learner._conn() as c:
         row = c.execute("SELECT 1 FROM events WHERE kind=? AND at>=? LIMIT 1",
                         (kind, start)).fetchone()
     return row is not None
@@ -1007,10 +1168,9 @@ def quiz_for_node(node_id: str, n: int = 6):
     n = max(QUIZ_MIN_ITEMS, min(int(n), QUIZ_MAX_ITEMS))
     stage = node["stage"]
 
-    import random as _rq
     bank = list(node.get("quiz", []))
-    _rq.shuffle(bank)
-    questions = [_shuffled(q) for q in _draw_from_bank(bank, n, _rq)]
+    random.shuffle(bank)
+    questions = [_shuffled(q) for q in _draw_from_bank(bank, n, random)]
 
     # Top up from the node's own drill so a quiz exercises skill, not only
     # recall — and so stage 0-1 has a real, non-reading assessment.
@@ -1109,9 +1269,13 @@ def check_one(c: CheckIn):
         return JSONResponse({"error": "answer first — then the book will tell you"},
                             status_code=400)
     # First commitment stands: seeing the key cannot retroactively improve it.
+    # Re-read under the lock and write the whole map back: the store is
+    # persistent, so a nested in-place mutation would only ever touch a copy.
     with _SERVED_LOCK:
-        committed = entry.setdefault("committed", {})
+        fresh = _SERVED.get(c.token) or entry
+        committed = dict(fresh.get("committed") or {})
         committed.setdefault(c.id, {"answer": c.answer, "at": time.time()})
+        fresh["committed"] = committed
         locked = committed[c.id]["answer"]
     correct = quiz.score_quiz([q], [locked])["score"] >= (0.6 if q.get("kind") == "short" else 1.0)
     # A wrong answer spends the item: the reader is about to be told, and for the
@@ -1284,31 +1448,75 @@ def _placement_rung(domain: str, prof: Optional[dict]) -> Optional[int]:
     last = asked[-1]
     nxt = last["stage"] + 1 if last["passed"] else last["stage"] - 1
     if nxt < 0 or nxt > 5 or any(h["stage"] == nxt for h in asked):
-        return None
+        # A staircase with every neighbouring rung already tried normally
+        # means settled — but a *re-opened* placement (reopen_placement
+        # clears `done` while keeping the history, so the next sitting need
+        # not repeat items) arrives here unsettled. Re-measure at the rung
+        # the reader settled on: the frontier is exactly where growth since
+        # the last sitting would show.
+        placed = max([h["stage"] for h in asked if h.get("passed")], default=-1) + 1
+        return max(0, min(placed, 5))
     return nxt
 
 
+# A settled placement is not settled forever: a reader grows, and re-measuring
+# after a cooling period is how the book notices. The store side of this lives
+# in learner.py (another agent's file, landing under a name like
+# reopen_placement); resolve it by name at call time so the server runs — with
+# the feature a graceful no-op — whichever spelling actually lands, or none.
+_REOPEN_NAMES = ("reopen_placement", "placement_reopen", "reopen")
+_REOPENABLE_NAMES = ("placement_reopenable", "reopenable_placement")
+
+
+def _placement_reopen(domain: str) -> bool:
+    """Ask the store to reopen a settled domain, if it can and cooling allows.
+
+    True only when a reopen actually happened. Every call is defensive: the
+    method may not exist yet, and its return convention is its author's.
+    """
+    fn = next((getattr(learner, n) for n in _REOPEN_NAMES
+               if callable(getattr(learner, n, None))), None)
+    if fn is None:
+        return False
+    gate = next((getattr(learner, n) for n in _REOPENABLE_NAMES
+                 if callable(getattr(learner, n, None))), None)
+    try:
+        if gate is not None and not gate(domain):
+            return False   # still cooling — the 7-day period is the store's call
+        return bool(fn(domain)) or not learner.placement_state().get(domain, {}).get("done", False)
+    except Exception as exc:
+        log.warning("placement reopen for %s failed: %s", domain, exc)
+        return False
+
+
 @app.get("/api/placement/next")
-def placement_next(domain: str, stage: Optional[int] = None, n: int = 6):
+def placement_next(domain: str, stage: Optional[int] = None, n: int = 6,
+                   recheck: bool = False):
     """Serve a short, server-scored placement check at the rung the book chooses.
 
     Prefers the expert-authored item bank (the most valid measure we have),
-    topped up with the node's own practice generator.
+    topped up with the node's own practice generator. `recheck=true` asks to
+    re-measure a settled domain; honoured only when the store supports
+    reopening and its cooling period has passed.
     """
     prof = learner.get_profile()
     rung = _placement_rung(domain, prof)
+    if rung is None and recheck and _placement_reopen(domain):
+        rung = _placement_rung(domain, prof)
     if rung is None:
         return JSONResponse({"error": "placement for this field is already settled",
-                             "domain": domain}, status_code=409)
+                             "domain": domain,
+                             "reopen_supported": any(
+                                 callable(getattr(learner, n, None))
+                                 for n in _REOPEN_NAMES)}, status_code=409)
     if stage is not None and int(stage) != rung:
         # Not an error the reader can cause, but worth being loud about.
         log.warning("placement rung %s requested for %s; serving %s", stage, domain, rung)
     stage = rung
     n = max(4, min(int(n), 12))
-    import random as _r
     nodes = [nd for nd in curr.nodes.values()
              if nd["domain"] == domain and nd["stage"] == stage]
-    _r.shuffle(nodes)
+    random.shuffle(nodes)
     questions = []
     for node in nodes:
         if len(questions) >= n:
@@ -1530,7 +1738,6 @@ def library_rescan():
 
 def _asset_tag(name: str) -> str:
     """A short fingerprint of a static file, for cache-busting its URL."""
-    import hashlib
     try:
         with open(os.path.join(WEB_DIR, name), "rb") as fh:
             return hashlib.sha256(fh.read()).hexdigest()[:10]

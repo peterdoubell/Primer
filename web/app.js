@@ -9,6 +9,10 @@ const api = {
 };
 
 const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null, restoreFocus: null };
+// The review deck's document-level keydown handler, held here so leaving the
+// page can remove it deterministically — its old self-removal only fired on
+// the *next* keypress after the deck was gone.
+let _reviewKeyHandler = null;
 const $ = (s, r = document) => r.querySelector(s);
 const STAGE_NAMES = ['Seedling', 'Sprout', 'Sapling', 'Tree', 'Grove', 'Forest'];
 
@@ -86,7 +90,11 @@ function glyph(name, size) {
         + 'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
         + 'stroke-linejoin="round">' + GLYPHS[name] + '</svg>' });
 }
-const domainById = id => S.domains.find(d => d.id === id) || { name: id, color: '#8a6d3b', icon: '⊕' };
+// The fallback for an unknown domain must not break the two systems every
+// real domain obeys: icons are drawn glyph-adjacent marks (not emoji), and
+// colours come from the theme so the tag stays legible when the night
+// palette turns. '⊕' + hardcoded brown did neither.
+const domainById = id => S.domains.find(d => d.id === id) || { name: id, color: 'var(--edge)', icon: '✦' };
 function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600); }
@@ -162,6 +170,9 @@ function parseHash() {
 function go(view, arg) { location.hash = hashFor(view, arg); } // triggers hashchange → render
 function renderRoute() {
   if (!S.state || !S.state.onboarded) return;
+  // Any navigation unmounts whatever view was up — drop the review deck's
+  // document listener now rather than lazily on the next keypress.
+  if (_reviewKeyHandler) { document.removeEventListener('keydown', _reviewKeyHandler); _reviewKeyHandler = null; }
   const { view, arg, corrected } = parseHash();
   // Falling back to Today while leaving the address bar on a bogus route left
   // no nav item marked current, and a reload landed nowhere.
@@ -374,7 +385,7 @@ async function runPlacement(domain, stage) {
   const ov = spinnerOverlay('Preparing a few questions…');
   let data;
   try { data = await api.get('/api/placement/next?domain=' + encodeURIComponent(domain) + '&stage=' + stage + '&n=5'); }
-  catch (e) { ov.remove(); toast('Placement unavailable right now.'); return; }
+  catch (e) { ov.remove(); toast('The book cannot reach its questions just now — try again in a moment. Nothing is lost.'); return; }
   ov.remove();
   if (!data.questions.length) { toast('No placement questions for that level.'); return; }
   const answers = [];
@@ -772,7 +783,7 @@ async function renderNode(page, nodeId) {
   page.append(pagehead(d.icon + ' ' + d.name + ' · ' + STAGE_NAMES[n.stage], n.title, n.goal || ''));
 
   if (n.proven) {
-    page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:rgba(51,122,75,0.08)' },
+    page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:var(--tint-green)' },
       el('b', { style: 'color:var(--green-ink)' }, '✓ You have proved this one. Revisit it any time, or push further in the Atlas.')));
   } else if (n.mastered) {
     // Placement credit — honest about the difference.
@@ -874,7 +885,12 @@ function buildTutor(title) {
   const messages = [];
   const panel = el('section', { id: 'tutor', 'aria-label': 'Ask the Book' },
     el('div', { class: 'th' }, el('span', { class: 'mark', 'aria-hidden': 'true' }, '✦'), el('b', {}, 'Ask the Book'),
-      el('small', {}, S.state.tutor_engine === 'claude' ? 'Your patient tutor is listening' : 'Your Socratic guide')),
+      el('small', {}, S.state.tutor_engine === 'claude' ? 'Your patient tutor is listening' : 'Your Socratic guide'),
+      // Honest about the wire: when the Claude engine answers, questions
+      // leave the device. Said once, quietly, where the reader asks them.
+      S.state.tutor_engine === 'claude'
+        ? el('div', { class: 'tutor-disclosure' }, 'Questions travel to Claude (Anthropic) to be answered — nothing else leaves the book.')
+        : null),
     log);
   function push(role, text, cls) {
     const wrap = el('div', { class: 'msg ' + (cls || role) }, text);
@@ -905,7 +921,7 @@ async function startPractice(nodeId, gen, stage) {
     const cap = stage <= 1 ? 5 : 6;
     const data = await api.get(`/api/practice/${gen}?n=${cap}&level=${stage || 1}&node_id=${encodeURIComponent(nodeId || '')}`);
     runQuestions({ title: 'Practice', questions: data.questions, nodeId, kind: 'practice', stage, token: data.token || '' });
-  } catch (e) { toast('Practice unavailable right now.'); }
+  } catch (e) { toast('The practice page would not open just now — try once more. Nothing is lost.'); }
 }
 async function startSelfCheck(title) {
   // Machine-made from the article, so it is practice only — it never touches
@@ -940,7 +956,7 @@ async function startQuiz(nodeId) {
       return;
     }
     runQuestions({ title: data.title, questions: data.questions, nodeId, kind: 'quiz', stage: data.stage, token: data.token });
-  } catch (e) { ov.remove(); toast('Quiz unavailable offline for this topic.'); }
+  } catch (e) { ov.remove(); toast('This quiz lives beyond your shelf — the book will fetch it when you are back online.'); }
 }
 function spinnerOverlay(msg) { const ov = el('div', { id: 'overlay' }, el('div', { class: 'modal', role: 'status', style: 'text-align:center' }, el('div', { class: 'spinner' }), el('p', { class: 'muted' }, msg))); document.body.append(ov); return ov; }
 
@@ -1013,9 +1029,30 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // Optional confidence (metacognition) for older learners on quizzes.
     let confidenceRow = null;
     if (kind === 'quiz') {
-      confidenceRow = el('div', { class: 'confidence', role: 'group', 'aria-label': 'How sure are you?' });
-      (young ? [['🤔 Not sure', 1], ['😃 I know it', 3]] : [['Guess', 1], ['Unsure', 2], ['Sure', 3]]).forEach(([lab, v]) =>
-        confidenceRow.append(btn({ class: 'btn ghost small', 'aria-pressed': 'false', onclick: (e) => { confidence = v; confidenceRow.querySelectorAll('button').forEach(b => { b.style.background = ''; b.setAttribute('aria-pressed', 'false'); }); e.currentTarget.style.background = 'var(--paper-edge)'; e.currentTarget.setAttribute('aria-pressed', 'true'); } }, lab)));
+      // Mutually exclusive options are a radiogroup, not a row of toggles:
+      // aria-pressed buttons read as independent switches. Roving tabindex +
+      // arrow keys, mirroring the onboarding breadth chooser.
+      confidenceRow = el('div', { class: 'confidence', role: 'radiogroup', 'aria-label': 'How sure are you?' });
+      (young ? [['🤔 Not sure', 1], ['😃 I know it', 3]] : [['Guess', 1], ['Unsure', 2], ['Sure', 3]]).forEach(([lab, v], k) =>
+        confidenceRow.append(btn({ class: 'btn ghost small', role: 'radio',
+          'aria-checked': 'false', tabindex: k === 0 ? '0' : '-1',
+          onkeydown: e => {
+            if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(e.key)) return;
+            e.preventDefault();
+            const all = [...confidenceRow.querySelectorAll('[role=radio]')];
+            const cur = all.indexOf(e.currentTarget);
+            const dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
+            const nxt = all[(cur + dir + all.length) % all.length];
+            nxt.focus(); nxt.click();
+          },
+          onclick: (e) => {
+            confidence = v;
+            confidenceRow.querySelectorAll('[role=radio]').forEach(b => {
+              b.style.background = ''; b.setAttribute('aria-checked', 'false'); b.setAttribute('tabindex', '-1'); });
+            e.currentTarget.style.background = 'var(--paper-edge)';
+            e.currentTarget.setAttribute('aria-checked', 'true');
+            e.currentTarget.setAttribute('tabindex', '0');
+          } }, lab)));
     }
 
     if (q.kind === 'choice') {
@@ -1086,9 +1123,16 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     boxEl.querySelectorAll('.choice').forEach(x => x.disabled = true);
     holdFocus(card, 'Checking…');
     const m = await mark(q, ch);
+    // The verdict must never be colour-only: mark the buttons with ✓/✗ as
+    // well as tint, and always say the verdict in words in the live region —
+    // even when the question ships no explanation.
     b.classList.add(m.correct ? 'correct' : 'wrong');
+    b.prepend((m.correct ? '✓ ' : '✗ '));
     if (!m.correct && m.answer) boxEl.querySelectorAll('.choice').forEach(x => {
-      if (normalize(x._value) === normalize(m.answer)) x.classList.add('correct'); });
+      if (normalize(x._value) === normalize(m.answer)) { x.classList.add('correct'); x.prepend('✓ '); } });
+    const key = m.answer || q.answer || '';
+    tell(card, m.correct ? '✓ Correct.'
+                         : ('Not quite' + (key ? ' — the answer is ' + key + '.' : '.')));
     reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, ch, card, modal, close);
   }
   async function submitOrder(chosen, q, card, modal, close) {
@@ -1429,7 +1473,9 @@ async function renderReview(page) {
   // Buttons stay the visible truth; the keys are a faster route to them, so
   // focus, announcement and disabled-state all keep working unchanged.
   function onKey(e) {
-    if (!document.contains(stage)) { document.removeEventListener('keydown', onKey); return; }
+    // Belt-and-braces: renderRoute removes this deterministically on any
+    // navigation; this guard covers re-renders that bypass the router.
+    if (!document.contains(stage)) { document.removeEventListener('keydown', onKey); if (_reviewKeyHandler === onKey) _reviewKeyHandler = null; return; }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const t = e.target;
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
@@ -1442,6 +1488,10 @@ async function renderReview(page) {
       if (b) { e.preventDefault(); b.click(); }
     }
   }
+  // One live handler at a time: the end-of-deck path re-enters renderReview
+  // without passing through renderRoute, so clear any predecessor here.
+  if (_reviewKeyHandler) document.removeEventListener('keydown', _reviewKeyHandler);
+  _reviewKeyHandler = onKey;
   document.addEventListener('keydown', onKey);
   async function grade(c, q) {
     let r;
@@ -1732,4 +1782,12 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
   return entry;
 }
 
-boot().catch(e => { $('#root').innerHTML = '<div style="color:#eee;padding:40px;font-family:sans-serif">Failed to open the book: ' + (e.error || e.message || e) + '</div>'; });
+boot().catch(e => {
+  // The very first page a reader might ever meet must keep the DON'T PANIC
+  // register too: reuse the Guide's error card, with the raw error demoted to
+  // fine print rather than shouted as the headline.
+  const root = $('#root');
+  root.innerHTML = '';
+  root.append(el('div', { style: 'max-width:560px;margin:12vh auto 0;padding:0 20px' },
+    errCard({ error: String((e && (e.error || e.message)) || e) }, () => location.reload())));
+});
