@@ -36,7 +36,10 @@ except ImportError:  # pragma: no cover
     HAVE_LIBZIM = False
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CONTENT_DIR = os.path.join(ROOT, "content")
+# Overridable for the same reason as PRIMER_DB: on a host where the code
+# tree is read-only (a serverless bundle), archives and the makedirs below
+# must land on the writable disk instead of beside the source.
+CONTENT_DIR = os.environ.get("PRIMER_CONTENT_DIR") or os.path.join(ROOT, "content")
 USER_AGENT = "ThePrimer/1.0 (offline-first educational reader; local personal use)"
 
 _db_lock = threading.Lock()
