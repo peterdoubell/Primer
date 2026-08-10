@@ -232,4 +232,6 @@ if __name__ == "__main__":
     print("\n{} problem(s) across {} file(s)".format(len(allp), len(targets)))
     print("Reminder: the naming-share figure is a lower bound; run --sample "
           "periodically for the human half of the audit.")
+    print("Last hand audit: tools/hand-audit-2026-08.md "
+          "(24 of 24 sampled stage 4-5 stems ask for application, 0 for recall).")
     sys.exit(1 if allp else 0)

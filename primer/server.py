@@ -19,7 +19,7 @@ from typing import List, Optional
 from fastapi import FastAPI, Body
 from fastapi.responses import JSONResponse, Response, FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 
 from . import library, practice, quiz, tutor
 from . import sittings as sittings_mod
@@ -132,6 +132,9 @@ def _prune_backups(dest_dir: str):
                 pass
 
 
+_shutdown = threading.Event()
+
+
 def _maintenance_loop():
     """Back up the irreplaceable learner record and prune old logs — at
     startup and then daily. The whole multi-year history lives in one file."""
@@ -149,13 +152,24 @@ def _maintenance_loop():
                     log.info("backed up learner record to %s", os.path.basename(dest))
         except Exception as exc:  # never let maintenance crash the app
             log.warning("maintenance failed: %s", exc)
-        time.sleep(24 * 3600)
+        # Wait on an Event rather than sleeping: a bare sleep(24h) cannot be
+        # interrupted at shutdown, and a laptop suspended overnight wakes with
+        # the timer still counting down the hours it slept through, silently
+        # skipping a backup day. Waking hourly and checking the clock means a
+        # missed day is noticed as soon as the machine is awake again.
+        target = time.time() + 24 * 3600
+        while not _shutdown.is_set() and time.time() < target:
+            if _shutdown.wait(min(3600.0, max(1.0, target - time.time()))):
+                return
 
 
 @asynccontextmanager
 async def _lifespan(_app):
     threading.Thread(target=_maintenance_loop, daemon=True).start()
     yield
+    # Let the maintenance thread finish its wait and return rather than being
+    # killed mid-backup when the process exits.
+    _shutdown.set()
 
 
 app.router.lifespan_context = _lifespan
@@ -261,11 +275,23 @@ def _story_needs(chapter: Optional[dict]) -> Optional[dict]:
 # ---------------- profile & onboarding ----------------
 
 class ProfileIn(BaseModel):
-    name: str = "Reader"
-    age: float = 8
-    hours_per_week: float = 6
+    # stage_for_age clamps the derived stage, but the raw numbers are written
+    # to the profile as given: an age of -4 or 900 hours a week would be
+    # persisted and then shown back to the reader as fact. Bound them at the
+    # door, where the bad value is still just a request.
+    name: str = Field("Reader", min_length=1, max_length=60)
+    age: float = Field(8, ge=2, le=120)
+    hours_per_week: float = Field(6, gt=0, le=80)
     breadth: str = "balanced"
     domains: List[str] = []
+
+    @field_validator("name")
+    @classmethod
+    def _name_not_blank(cls, v: str) -> str:
+        v = v.strip()
+        if not v:
+            raise ValueError("a name cannot be only spaces")
+        return v
 
 
 @app.get("/api/state")
@@ -724,19 +750,8 @@ def today():
 
 
 def _events_today(kind: str) -> bool:
-    # Prefer the store's own method the moment it exists — the encapsulated
-    # spelling this helper should eventually be replaced by outright.
-    fn = getattr(learner, "events_today", None)
-    if callable(fn):
-        return bool(fn(kind))
-    # TODO(learner): fold this per-kind event query into LearnerStore; until
-    # then this read-only peek via _conn() is the only interface that answers.
-    from .learner import _local_midnight
-    start = _local_midnight(time.time())
-    with learner._conn() as c:
-        row = c.execute("SELECT 1 FROM events WHERE kind=? AND at>=? LIMIT 1",
-                        (kind, start)).fetchone()
-    return row is not None
+    """Whether this kind of event was logged today — the store's own question."""
+    return bool(learner.events_today(kind))
 
 
 # A graded paper is never one question long. A single item can be lucky, and a
@@ -800,6 +815,14 @@ def record_attempt(a: AttemptIn):
             {"error": "the book has already shown you the answers to most of "
                       "these. Come back to this one in a few days."}, status_code=409)
     score = quiz.score_quiz(scorable, scorable_given)["score"]
+    # A drill can be run without a lesson behind it (/api/practice/{gen} with
+    # no node_id mints a token bound to ""), and that is fine to *do* — but it
+    # must not be recorded. Writing mastery and XP against the empty-string
+    # node created a ledger row for a lesson that does not exist and paid for
+    # it. Grade it, return the marks, record nothing.
+    if not a.node_id or curr.node(a.node_id) is None:
+        return {"score": score, "xp_gained": 0, "unlessoned": True,
+                "cards_added": 0, "ascension": None}
     res = learner.record_attempt(a.node_id, score)
     # Practice is a study event too: whatever was missed should come back.
     cards_added = 0

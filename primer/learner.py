@@ -1428,6 +1428,20 @@ class LearnerStore:
                 pass
         return dest
 
+    def events_today(self, kind: str) -> bool:
+        """Has an event of this kind been logged since local midnight?
+
+        The server asked this by reaching through _conn() into the events
+        table, which made a private cursor part of its interface. The
+        question belongs here, next to the table that answers it.
+        """
+        with self._conn() as c:
+            row = c.execute(
+                "SELECT 1 FROM events WHERE kind=? AND at>=? LIMIT 1",
+                (kind, _local_midnight(time.time())),
+            ).fetchone()
+        return row is not None
+
     def prune(self, keep_days: int = 400):
         """Cap the append-only logs so years of daily use don't grow unbounded.
         Aggregate counts are preserved in mastery/deck; raw rows beyond the

@@ -596,6 +596,12 @@ def _negates(a: str, b: str) -> bool:
                and len(short) >= 4 for p in _NEGATORS)
 
 
+# Words that join a list rather than build a sentence. Held out of the
+# structure test in score_short_answer so a comma-and-conjunction list
+# cannot pose as prose.
+LIST_JOINERS = {"and", "or", "plus", "also", "then", "with"}
+
+
 def score_short_answer(given: str, keywords: List[str]) -> float:
     """Fraction of the expected ideas the reader actually produced.
 
@@ -688,8 +694,22 @@ def score_short_answer(given: str, keywords: List[str]) -> float:
                            and (t.startswith(k) or k.startswith(t)))
                        for k in key_lemmas)
 
-        structural = any(t in STOPWORDS for t in tokens)
-        if tokens and not structural and all(keywordish(t) for t in tokens):
+        # "Any stopword at all" was too weak a test for structure: a list
+        # joined by conjunctions is still a list, so "photosynthesis and
+        # sunlight and energy" satisfied it and kept full coverage — the one
+        # connective escape hatch. Conjunctions and commas are how lists are
+        # written; they are not evidence of a sentence. Any *other* function
+        # word ("is", "from", "the", "because") still is.
+        # Two tests, and joiners must be held out of BOTH. Holding them out
+        # of the structure test alone changed nothing: "and" is not itself
+        # keyword-ish, so all(keywordish) already failed and the penalty was
+        # skipped — which is exactly how "photosynthesis and sunlight and
+        # energy" kept full marks. Strip the joiners, then ask whether what
+        # remains is nothing but keywords with no function word holding them
+        # together.
+        content = [t for t in tokens if t not in LIST_JOINERS]
+        structural = any(t in STOPWORDS and t not in LIST_JOINERS for t in tokens)
+        if content and not structural and all(keywordish(t) for t in content):
             coverage *= 0.5
     return coverage
 
