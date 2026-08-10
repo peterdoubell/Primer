@@ -787,7 +787,6 @@ def test_a_paper_is_only_valid_for_what_it_was_issued_for(client, onboarded):
 
         practice token -> graduate quiz submit: 200 {'score': 1.0}
         practice token -> stage-5 placement:    200 {'credited_through_stage': 5}
-        selfcheck token -> QFT mastery:         200 {'score': 1.0}
     """
     def keys(paper):
         out = []
@@ -808,12 +807,9 @@ def test_a_paper_is_only_valid_for_what_it_was_issued_for(client, onboarded):
         "domain": "math", "stage": 5, "answers": keys(drill2),
         "token": drill2["token"]}).status_code == 409
 
-    check = client.get("/api/selfcheck?title=Photosynthesis&n=2")
-    if check.status_code == 200:      # needs an article; skip when offline
-        sc = check.json()
-        assert client.post("/api/quiz/submit", json={
-            "node_id": "phys.5.qft", "answers": keys(sc),
-            "token": sc["token"]}).status_code == 409
+    # (The third line of the log above, a self-check token spent as QFT
+    # mastery, has no route left to reproduce: /api/selfcheck is retired. The
+    # binding it proved is the same one the two cases above and below cover.)
 
     # ...and a quiz token is not even valid for a different lesson.
     paper = client.get("/api/quiz/math.1.addition?n=2").json()
@@ -2164,46 +2160,22 @@ def test_changing_domains_does_not_wipe_reader_settings(client, onboarded):
                                   prof2["breadth"], prof2["stage"], original_domains, original)
 
 
-def test_selfcheck_is_not_offered_to_pre_readers():
-    """Regression: /api/selfcheck generates fill-in-the-blank cloze
-    questions from raw article prose — a text-reading task by construction.
-    The endpoint had zero stage gating, and the frontend's "Check yourself"
-    button was shown unconditionally on every non-curriculum article page,
-    regardless of the reader's stage — putting a text-only, machine-graded
-    (and by the app's own admission, ~65%-defect-rate) exercise in front of
-    exactly the readers the rest of the app goes out of its way to keep off
-    text entirely: picture-first quizzes, pervasive auto-speak, larger
-    touch targets. Fixed server-side (403 at stage<=1, independent of
-    whatever the frontend does) and client-side (button hidden at stage<=1,
-    since "Read aloud" already covers the same need without requiring
-    reading)."""
-    import tempfile
+def test_selfcheck_route_is_gone():
+    """The self-check is retired, so there is nothing left to stage-gate.
+
+    It used to serve machine-generated fill-in-the-blank over raw article prose
+    — a text-reading task by construction, once offered to pre-readers with no
+    gating at all. The 2026-08 hand audit then measured it 55% defective, and
+    the feature was withdrawn rather than shipped behind a warning label. This
+    test stands guard over the removal: the route must not quietly return.
+    """
     import primer.server as srv
-    from primer.learner import LearnerStore
-    from primer.wiki import WikiService
     from fastapi.testclient import TestClient
 
-    orig_learner, orig_wiki = srv.learner, srv.wiki
-    try:
-        db = tempfile.mktemp(suffix=".db")
-        srv.learner = LearnerStore(db)
-        srv.wiki = WikiService(db)
-        with TestClient(srv.app) as c:
-            c.post("/api/profile", json={
-                "name": "Young", "age": 5, "hours_per_week": 3,
-                "breadth": "balanced", "domains": ["math"]})
-            r = c.get("/api/selfcheck?title=Photosynthesis&n=2")
-            assert r.status_code == 403, \
-                "a pre-reader (stage<=1) must not be offered a text-cloze self-check"
-
-            c.post("/api/profile", json={
-                "name": "Older", "age": 10, "hours_per_week": 3,
-                "breadth": "balanced", "domains": ["math"]})
-            r2 = c.get("/api/selfcheck?title=Photosynthesis&n=2")
-            assert r2.status_code == 200, \
-                "a reader who can actually decode text must still get the feature"
-    finally:
-        srv.learner, srv.wiki = orig_learner, orig_wiki
+    routes = {getattr(r, "path", "") for r in srv.app.routes}
+    assert "/api/selfcheck" not in routes
+    with TestClient(srv.app) as c:
+        assert c.get("/api/selfcheck?title=Photosynthesis&n=2").status_code == 404
 
 
 def test_each_domains_chapters_are_stage_monotonic(client, onboarded):

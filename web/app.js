@@ -244,7 +244,9 @@ function renderOnboarding() {
   const root = $('#root');
   const sel = new Set(['math', 'language', 'biology', 'physics', 'history']);
   let step = 0;
-  const data = { name: '', age: 8, hours_per_week: 6, breadth: 'balanced', domains: [...sel] };
+  // pronouns: the frame story speaks about the reader, so it has to know how.
+  // 'they' is the default because it is the only one that is never wrong.
+  const data = { name: '', age: 8, hours_per_week: 6, breadth: 'balanced', pronouns: 'they', domains: [...sel] };
 
   function draw() {
     root.innerHTML = '';
@@ -282,12 +284,16 @@ function renderOnboarding() {
       card.append(
         el('h2', { style: 'margin-top:0' }, 'Where are you starting?'),
         el('p', { class: 'muted' }, 'The book meets you exactly where you are — there is no wrong answer.'),
-        field2('Age', ageOut, el('input', { type: 'range', min: 3, max: 30, value: data.age, 'aria-label': 'Age',
+        // 3–120: the book is for anyone, and a grandparent reading it beside a
+        // grandchild should not find themselves off the end of the scale. The
+        // fill helper is proportional, so the wider span needs nothing else.
+        field2('Age', ageOut, el('input', { type: 'range', min: 3, max: 120, value: data.age, 'aria-label': 'Age',
           'aria-valuetext': data.age + ' years',
           oninput: e => { syncRangeFill(e.target); data.age = +e.target.value; ageOut.textContent = data.age + ' years'; e.target.setAttribute('aria-valuetext', data.age + ' years'); } })),
         field2('Time to read & learn each week', hrsOut, el('input', { type: 'range', min: 2, max: 30, value: data.hours_per_week, 'aria-label': 'Hours per week',
           'aria-valuetext': data.hours_per_week + ' hours per week',
           oninput: e => { syncRangeFill(e.target); data.hours_per_week = +e.target.value; hrsOut.textContent = data.hours_per_week + ' hrs / week'; e.target.setAttribute('aria-valuetext', data.hours_per_week + ' hours per week'); } })),
+        pronounChoice(),
         navRow(() => { step = 0; draw(); }, () => { step = 2; draw(); }),
       );
     } else if (step === 2) {
@@ -302,7 +308,11 @@ function renderOnboarding() {
         el('h2', { style: 'margin-top:0' }, 'Where shall we go deepest?'),
         el('p', { class: 'muted' }, 'Choose the fields you most want to carry all the way to the frontier. You can still explore everything — these just get priority.'),
         domainPicker(),
-        navRow(() => { step = 2; draw(); }, finish, 'Open the book ✦'),
+        // The typographic '✦' is a character from the running text standing in
+        // among drawn marks; the spark glyph is the same idea in the icon
+        // system's own hand and one stroke weight. (Same swap below on every
+        // other button that carried it.)
+        navRow(() => { step = 2; draw(); }, finish, ['Open the book ', glyph('spark', 15)]),
       );
     }
     wrap.append(card); root.append(wrap);
@@ -320,7 +330,43 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
   function navRow(back, next, nextLabel = 'Continue →') {
     return el('div', { style: 'display:flex;gap:10px;margin-top:20px' },
       btn({ class: 'btn ghost', onclick: back }, '← Back'),
-      btn({ class: 'btn gold', style: 'flex:1', onclick: next }, nextLabel));
+      btn({ class: 'btn gold', style: 'flex:1', onclick: next }, ...[].concat(nextLabel)));
+  }
+  // The frame story is written *about* the reader, so it needs a pronoun for
+  // them. Asked plainly, beside age, in the same radiogroup idiom as the
+  // breadth chooser — roving tabindex, arrows and Home/End, aria-checked, and
+  // a written ✓ mark so the choice reads without relying on the border colour.
+  function pronounChoice() {
+    const opts = [['she', 'she / her'], ['he', 'he / him'], ['they', 'they / them']];
+    const wrap = el('div', { style: 'display:block;margin-bottom:16px;font-family:var(--sans);font-size:13px;color:var(--ink-soft)' },
+      el('span', { style: 'display:block;margin-bottom:5px;font-weight:600;letter-spacing:0.3px' }, 'The book will call you'));
+    const box = el('div', { class: 'pronoun-row', role: 'radiogroup', 'aria-label': 'The book will call you' });
+    opts.forEach(([id, label]) => {
+      box.append(btn({ class: 'card pick' + (data.pronouns === id ? ' picked' : ''), role: 'radio',
+        tabindex: data.pronouns === id ? '0' : '-1',
+        'aria-checked': data.pronouns === id ? 'true' : 'false',
+        onkeydown: e => {
+          if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'].includes(e.key)) return;
+          e.preventDefault();
+          const all = [...box.querySelectorAll('[role=radio]')];
+          const cur = all.indexOf(e.currentTarget);
+          const dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
+          const nxt = e.key === 'Home' ? all[0]
+                    : e.key === 'End' ? all[all.length - 1]
+                    : all[(cur + dir + all.length) % all.length];
+          nxt.focus(); nxt.click();
+        },
+        onclick: () => { data.pronouns = id; box.querySelectorAll('[role=radio]').forEach((n, i) => {
+          const on = opts[i][0] === id;
+          n.setAttribute('aria-checked', on ? 'true' : 'false');
+          n.setAttribute('tabindex', on ? '0' : '-1');
+          n.classList.toggle('picked', on);
+        }); } },
+        el('b', {}, label),
+        el('span', { class: 'pick-mark', 'aria-hidden': 'true' }, '✓ Chosen')));
+    });
+    wrap.append(box);
+    return wrap;
   }
   function breadthChoice() {
     const opts = [['focused', 'Focused', 'A few fields, mastered completely. The shortest path to expertise.'],
@@ -332,13 +378,17 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
       // not inline colour mutation alone: a 1.5px border shift is the kind of
       // colour-only cue SC 1.4.1 exists for, and the mark reads in any palette.
       const c = btn({ class: 'card pick' + (data.breadth === id ? ' picked' : ''), role: 'radio', tabindex: data.breadth === id ? '0' : '-1',
+        // Home/End are part of the ARIA radiogroup pattern, not extras: a
+        // keyboard reader expects the ends of the group to be one key away.
         onkeydown: e => {
-          if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(e.key)) return;
+          if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'].includes(e.key)) return;
           e.preventDefault();
           const all = [...box.querySelectorAll('[role=radio]')];
           const cur = all.indexOf(e.currentTarget);
           const dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
-          const nxt = all[(cur + dir + all.length) % all.length];
+          const nxt = e.key === 'Home' ? all[0]
+                    : e.key === 'End' ? all[all.length - 1]
+                    : all[(cur + dir + all.length) % all.length];
           nxt.focus(); nxt.click();
         },
         'aria-checked': data.breadth === id ? 'true' : 'false',
@@ -469,7 +519,7 @@ async function runPlacement(domain, stage) {
         btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, 'Continue →'));
     } else {
       splash.append(el('p', { class: 'result-msg' }, 'The book has placed you. You can re-check any time.'),
-        btn({ class: 'btn gold', onclick: async () => { close(); S.state = await api.get('/api/state'); S.stage = Number.isFinite(S.state.profile.stage) ? S.state.profile.stage : 2; document.body.dataset.stage = S.stage; renderShell(); renderRoute(); } }, 'Open my book ✦'));
+        btn({ class: 'btn gold', onclick: async () => { close(); S.state = await api.get('/api/state'); S.stage = Number.isFinite(S.state.profile.stage) ? S.state.profile.stage : 2; document.body.dataset.stage = S.stage; renderShell(); renderRoute(); } }, 'Open my book ', glyph('spark', 15)));
     }
     modal.append(splash);
   }
@@ -517,11 +567,18 @@ function renderShell() {
   setTimeout(syncNavFade, 0);
   sidebar.append(navlist);
   sidebar.append(el('div', { class: 'spacer' }));
+  // The foot of the spine holds two different kinds of thing: the record (who
+  // you are, what you have earned) and the chrome (voice, light). They were
+  // one undifferentiated stack, so the toggles read as two more stats and sat
+  // hard against the bottom edge. Separated into their own row, ruled off, and
+  // set side by side — settings look like settings, not like a score.
   sidebar.append(el('div', { class: 'statrow' },
     el('div', { class: 'stat' }, el('span', {}, 'Reader'), el('b', {}, p.name)),
     el('div', { class: 'stat' }, el('span', {}, 'Mastered'), el('b', { id: 'stat-mastered' }, '—')),
     el('div', { class: 'stat' }, el('span', {}, 'XP'), el('b', { id: 'stat-xp' }, p.xp || 0)),
     el('div', { class: 'stat' }, el('span', {}, 'Streak'), el('b', { id: 'stat-streak' }, String(p.streak || 0), glyph('flame', 13))),
+  ));
+  sidebar.append(el('div', { class: 'chrome-row', role: 'group', 'aria-label': 'Reading settings' },
     speakToggle(),
     themeToggle(),
   ));
@@ -585,7 +642,27 @@ function emptyLeaf(glyphName, title, body) {
     el('h3', {}, title),
     el('p', { class: 'muted' }, body));
 }
-async function guard(page, fn) { loading(page); try { const v = await fn(); page.innerHTML = ''; return v; } catch (e) { page.innerHTML = ''; page.append(errCard(e, () => renderRoute())); return null; } }
+// "no profile" is not a failure — it is the book's honest answer when there is
+// nobody in it yet. The demo runs on ephemeral storage, so a reader mid-session
+// can find the record gone; every data endpoint then answers 400 {"no profile"}
+// and the whole app used to meet them with DON'T PANIC. A missing reader is an
+// unwritten first page: go and write it. Genuine network/server trouble is a
+// different animal and keeps the Guide's error card.
+function isNoProfile(e) { return !!e && typeof e.error === 'string' && /no profile/i.test(e.error); }
+function toOnboarding() {
+  if (S.state) S.state.onboarded = false;   // stops renderRoute from repainting behind us
+  renderOnboarding();
+}
+async function guard(page, fn) {
+  loading(page);
+  try { const v = await fn(); page.innerHTML = ''; return v; }
+  catch (e) {
+    page.innerHTML = '';
+    if (isNoProfile(e)) { toOnboarding(); return null; }
+    page.append(errCard(e, () => renderRoute()));
+    return null;
+  }
+}
 // The Guide's first and best advice, in large friendly letters. An error in a
 // book for children should reassure before it explains: nothing the reader
 // did, nothing lost, and a clear way onward.
@@ -795,14 +872,14 @@ function openStory(s, canAdvance, needs) {
             refreshStats();
             renderRoute();
           } catch (e) { close(); toast('The page would not turn just now — nothing is lost, and the chapter is still waiting. Try again in a moment.'); }
-        } }, 'Turn the page ✦'));
+        } }, 'Turn the page ', glyph('spark', 15)));
       } else if (s.leads_to) {
         controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); go('node', s.leads_to); } }, "Let's learn it →"));
         if (needs) modal.append(el('p', { style: 'color:var(--gold-bright);font-family:var(--sans);font-size:13px;margin-top:12px' },
           needs.faded ? storyWaitingText(needs) : 'This page turns when you prove ' + storyWaitingText(needs) + '.'));
       } else {
         // The epilogue: the arc is complete, so there is nothing to learn next.
-        controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: close }, 'Close the book ✦'));
+        controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: close }, 'Close the book ', glyph('spark', 15)));
       }
       modal.append(controls);
       if (S.stage <= 1) maybeSpeak(chapterSay(s));
@@ -882,19 +959,13 @@ async function renderNode(page, nodeId) {
 async function renderReader(page, arg) {
   const title = typeof arg === 'string' ? arg : arg.title;
   const nodeId = typeof arg === 'object' ? arg.node : null;
-  // Self-check is machine-generated text cloze — fill-in-the-blank on raw
-  // article prose. A pre-reader can't decode that prompt in the first
-  // place, so offering the button here (unconditionally, for any article
-  // with no curriculum node) put a text-only feature in front of exactly
-  // the readers the rest of the app goes out of its way to keep off text:
-  // picture-first quizzes, auto-speak, larger targets. "Read aloud" already
-  // covers the same "check what you just read" need without requiring
-  // reading at all.
-  const selfCheckable = !nodeId && S.stage > 1;
+  // "Check yourself" stood here for articles with no curriculum node. It was
+  // machine-made cloze over raw article prose, hand-audited at 55% defective,
+  // and is withdrawn: the book does not ask questions no person wrote. Read
+  // aloud and the tutor already cover "check what I just read".
   const bar = el('div', { style: 'display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap' },
     btn({ class: 'btn ghost small', onclick: () => history.length > 1 ? history.back() : go(nodeId ? 'node' : 'today', nodeId) }, '← Back'),
-    nodeId ? btn({ class: 'btn gold small', onclick: () => startQuiz(nodeId) }, glyph('quill', 14), ' Quiz me on this')
-           : (selfCheckable ? btn({ class: 'btn ghost small', onclick: () => startSelfCheck(title) }, glyph('quill', 15), ' Check yourself') : null),
+    nodeId ? btn({ class: 'btn gold small', onclick: () => startQuiz(nodeId) }, glyph('quill', 14), ' Quiz me on this') : null,
     btn({ class: 'btn small', onclick: () => speakArticle() }, glyph('speak', 16), ' Read aloud'));
   page.append(bar);
   const layout = el('div', { id: 'reader-layout' });
@@ -922,7 +993,7 @@ function buildTutor(title) {
   const messages = [];
   let tutorFails = 0;  // consecutive-failure count drives the escalating reassurance below
   const panel = el('section', { id: 'tutor', 'aria-label': 'Ask the Book' },
-    el('div', { class: 'th' }, el('span', { class: 'mark', 'aria-hidden': 'true' }, '✦'), el('b', {}, 'Ask the Book'),
+    el('div', { class: 'th' }, el('span', { class: 'mark', 'aria-hidden': 'true' }, glyph('spark', 18)), el('b', {}, 'Ask the Book'),
       el('small', {}, S.state.tutor_engine === 'claude' ? 'Your patient tutor is listening' : 'Your Socratic guide'),
       // Honest about the wire: when the Claude engine answers, questions
       // leave the device. Said once, quietly, where the reader asks them.
@@ -980,26 +1051,6 @@ async function startPractice(nodeId, gen, stage) {
     runQuestions({ title: 'Practice', questions: data.questions, nodeId, kind: 'practice', stage, token: data.token || '' });
   } catch (e) { toast('The practice page would not open just now — try once more. Nothing is lost.'); }
 }
-async function startSelfCheck(title) {
-  // Machine-made from the article, so it is practice only — it never touches
-  // mastery, and the book says so.
-  const ov = spinnerOverlay('Reading it back to you…');
-  try {
-    const data = await api.get('/api/selfcheck?title=' + encodeURIComponent(title) + '&n=4');
-    ov.remove();
-    if (!data.questions.length) { toast('This page is too short to ask you about — read on, and the book will have more to work with.'); return; }
-    runQuestions({ title: title + ' · self-check', questions: data.questions,
-                   nodeId: null, kind: 'self-check', stage: S.stage, token: data.token });
-    // Measured, not guessed: hand-audited at 55% defective even after the
-    // tightening (tools/hand-audit-cloze-2026-08.md). These are the only
-    // questions in the book no person wrote, and the reader is told so
-    // rather than left to assume the book vouches for them.
-    toast(data.provisional
-      ? 'The book wrote these itself, not a person — some may be clumsy. Practice only; nothing counts toward mastery.'
-      : 'Practice only — this does not count toward mastery.');
-  } catch (e) { ov.remove(); toast('The book could not compose a self-check just now — nothing is lost, and the article is still yours to read.'); }
-}
-
 async function startQuiz(nodeId) {
   const ov = spinnerOverlay('Composing your quiz…');
   try {
@@ -1021,7 +1072,16 @@ async function startQuiz(nodeId) {
     runQuestions({ title: data.title, questions: data.questions, nodeId, kind: 'quiz', stage: data.stage, token: data.token });
   } catch (e) { ov.remove(); toast('This quiz lives beyond your shelf — the book will fetch it when you are back online.'); }
 }
-function spinnerOverlay(msg) { const ov = el('div', { id: 'overlay' }, el('div', { class: 'modal', role: 'status', style: 'text-align:center' }, el('div', { class: 'spinner' }), el('p', { class: 'muted' }, msg))); document.body.append(ov); return ov; }
+// Mounted empty, filled once it is in the document: a live region that arrives
+// with its text already inside it is announced unreliably or not at all — the
+// same fix every other status node in this file already carries.
+function spinnerOverlay(msg) {
+  const box = el('div', { class: 'modal', role: 'status', style: 'text-align:center' });
+  const ov = el('div', { id: 'overlay' }, box);
+  document.body.append(ov);
+  setTimeout(() => { box.append(el('div', { class: 'spinner' }), el('p', { class: 'muted' }, msg)); }, 30);
+  return ov;
+}
 
 function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, token = '' }) {
   const young = (stage != null ? stage : S.stage) <= 1;
@@ -1100,13 +1160,16 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
              : [['Guess', 1], ['Unsure', 2], ['Sure', 3]]).forEach(([lab, v], k) =>
         confidenceRow.append(btn({ class: 'btn ghost small conf-opt', role: 'radio',
           'aria-checked': 'false', tabindex: k === 0 ? '0' : '-1',
+          // Arrows plus Home/End, the full ARIA radiogroup pattern.
           onkeydown: e => {
-            if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(e.key)) return;
+            if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'].includes(e.key)) return;
             e.preventDefault();
             const all = [...confidenceRow.querySelectorAll('[role=radio]')];
             const cur = all.indexOf(e.currentTarget);
             const dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
-            const nxt = all[(cur + dir + all.length) % all.length];
+            const nxt = e.key === 'Home' ? all[0]
+                      : e.key === 'End' ? all[all.length - 1]
+                      : all[(cur + dir + all.length) % all.length];
             nxt.focus(); nxt.click();
           },
           onclick: (e) => {
@@ -1394,7 +1457,7 @@ function streakCeremony(days) {
       el('div', { class: 'sub' }, 'A HABIT IS FORMING'),
       el('h2', {}, days + ' days in a row'),
       el('p', { class: 'muted' }, 'The book has been open every day. That steadiness, more than any single lesson, is what carries you to the frontier.'),
-      btn({ class: 'btn gold', onclick: close }, 'Keep going ✦')));
+      btn({ class: 'btn gold', onclick: close }, 'Keep going ', glyph('spark', 15))));
     maybeSpeak('Wonderful! You have read for ' + days + ' days in a row.', 2);
   } });
 }
@@ -1405,11 +1468,11 @@ function stageAscension(info) {
     label: 'You have advanced', dismissable: true,
     build: (modal, close) => {
       modal.append(el('div', { class: 'ceremony' },
-        el('div', { class: 'seal', 'aria-hidden': 'true' }, '✦'),
+        el('div', { class: 'seal', 'aria-hidden': 'true' }, glyph('spark', 42)),
         el('div', { class: 'sub' }, 'A NEW STAGE OPENS'),
         el('h2', {}, 'You are now a ' + info.name),
         el('p', { class: 'muted' }, info.title + ' — new lessons across your fields have unlocked. The book has grown with you.'),
-        btn({ class: 'btn gold', onclick: close }, 'Onward ✦')));
+        btn({ class: 'btn gold', onclick: close }, 'Onward ', glyph('spark', 15))));
       maybeSpeak('Congratulations! You are now a ' + info.name + '. New lessons have opened.', 2);
     }
   });
@@ -1517,7 +1580,10 @@ async function renderReview(page) {
     if (stage) stage.replaceWith(fresh); else deck.append(fresh);
     stage = fresh;
     const left = data.cards.length - idx - 1;
-    deck.dataset.depth = left > 4 ? '3' : String(Math.max(0, Math.min(3, left)));
+    // Two drawn layers sit behind the card, so there are exactly three states
+    // to say: none left, one left, more than one. Emitting a 3 as well made
+    // depths 2 and 3 render identically — a level the CSS could not show.
+    deck.dataset.depth = String(Math.max(0, Math.min(2, left)));
     const progress = el('div', { class: 'q-progress', tabindex: '-1',
       role: 'heading', 'aria-level': '2' },
       'Card ' + (idx + 1) + ' of ' + data.cards.length + (c.article ? ' · ' + c.article : ''));
@@ -1637,11 +1703,18 @@ async function renderSearch(page) {
   });
   setTimeout(() => input.focus(), 30);
 }
+// Typing fires one request per 200ms pause, and the shelf answers faster than
+// Wikipedia does — so an earlier, slower query could land after a later one and
+// overwrite fresher results with staler ones. Only the most recent request is
+// allowed to write; the rest are read and dropped.
+let _searchSeq = 0;
 async function runSearch(q, results, live = false, say = null) {
   const tell = msg => { if (say) say.textContent = msg; };
+  const seq = ++_searchSeq;
   q = q.trim(); if (q.length < 2) { results.innerHTML = ''; tell(''); return; }
   try {
     const data = await api.get('/api/search?q=' + encodeURIComponent(q) + (live ? '&live=true' : ''));
+    if (seq !== _searchSeq) return;
     results.innerHTML = '';
     if (!data.results.length) {
       tell('No matches on your shelf.');
@@ -1658,6 +1731,7 @@ async function runSearch(q, results, live = false, say = null) {
         el('b', {}, r.title), ' ', el('span', { class: 'src' }, src)));
     });
   } catch (e) {
+    if (seq !== _searchSeq) return;
     results.innerHTML = '';
     tell('The index has wandered off — likely the network, never you. Ask again in a moment.');
     results.append(el('div', { class: 'search-result' }, el('span', { class: 'muted' }, 'The index has wandered off — likely the network, never you. Ask again in a moment.')));
@@ -1887,6 +1961,10 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 }
 
 boot().catch(e => {
+  // A boot that fails only because there is no reader yet is not an error at
+  // all — send them to the first page instead of the error card. This needs
+  // the domain list to draw its picker, so it only applies once we have one.
+  if (isNoProfile(e) && S.domains.length) return toOnboarding();
   // The very first page a reader might ever meet must keep the DON'T PANIC
   // register too: reuse the Guide's error card, with the raw error demoted to
   // fine print rather than shouted as the headline.

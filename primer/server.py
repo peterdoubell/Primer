@@ -14,7 +14,7 @@ import threading
 import time
 import uuid
 from contextlib import asynccontextmanager
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from fastapi import FastAPI, Body
 from fastapi.responses import JSONResponse, Response, FileResponse, HTMLResponse
@@ -312,8 +312,9 @@ def _book_title(name: str) -> str:
     return story_mod.book_title(STORY, name)
 
 
-def _personalize(chapter: dict, name: str) -> dict:
-    return story_mod.personalize(chapter, name)
+def _personalize(chapter: dict, name: str,
+                 pronouns: str = story_mod.DEFAULT_PRONOUNS) -> dict:
+    return story_mod.personalize(chapter, name, pronouns)
 
 
 def _story_cursor(prof: dict, commit: bool = False):
@@ -335,9 +336,18 @@ class ProfileIn(BaseModel):
     # persisted and then shown back to the reader as fact. Bound them at the
     # door, where the bad value is still just a request.
     name: str = Field("Reader", min_length=1, max_length=60)
-    age: float = Field(8, ge=2, le=120)
+    # 3 is the youngest reader the stage-0 material is written for; 120 is the
+    # far side of plausible. The onboarding slider offers exactly this range.
+    age: float = Field(8, ge=3, le=120)
     hours_per_week: float = Field(6, gt=0, le=80)
-    breadth: str = "balanced"
+    # `breadth` was a free string written straight to the profile and read back
+    # by the pacing code, which understands exactly these three words: anything
+    # else was persisted verbatim and then silently treated as "balanced".
+    breadth: Literal["focused", "balanced", "polymath"] = "balanced"
+    # A name never tells you someone's pronouns, so the story does not guess:
+    # the neutral set is the default, and the reader says otherwise if they
+    # wish. Rendered by primer.story.personalize into every chapter.
+    pronouns: Literal["she", "he", "they"] = story_mod.DEFAULT_PRONOUNS
     domains: List[str] = []
 
     @field_validator("name")
@@ -349,9 +359,24 @@ class ProfileIn(BaseModel):
         return v
 
 
+def _profile_view(prof: Optional[dict]) -> Optional[dict]:
+    """The profile as the client sees it.
+
+    `pronouns` is stored in settings but lifted to the top level here: it is a
+    fact about the reader that the story renders with, not a UI preference the
+    client can take or leave, and every client reads the profile — not the
+    settings blob — to find out who the reader is.
+    """
+    if not prof:
+        return prof
+    out = dict(prof)
+    out["pronouns"] = story_mod.reader_pronouns(prof)
+    return out
+
+
 @app.get("/api/state")
 def state():
-    profile = learner.get_profile()
+    profile = _profile_view(learner.get_profile())
     lib = wiki.library_status()
     tutor_remote = tutor.have_api_key() and _tutor_remote_allowed(profile)
     return {
@@ -378,15 +403,23 @@ def state():
 @app.post("/api/profile")
 def save_profile(p: ProfileIn):
     stage = LearnerStore.stage_for_age(p.age)
-    first_time = learner.get_profile() is None
-    learner.save_profile(p.name, p.age, p.hours_per_week, p.breadth, stage, p.domains)
+    existing = learner.get_profile()
+    first_time = existing is None
+    # Pronouns live in settings (that is where reader preferences live), so
+    # they have to be merged rather than passed positionally — and merged onto
+    # the existing settings, or re-saving a profile would wipe the reader's
+    # theme and story position along with them.
+    settings = dict((existing or {}).get("settings") or {})
+    settings["pronouns"] = p.pronouns
+    learner.save_profile(p.name, p.age, p.hours_per_week, p.breadth, stage,
+                         p.domains, settings)
     # Meet the reader at their age: on first setup, credit the stages below
     # their placement as "assumed known" (not proven) so Today starts at their
     # level. A per-domain placement check can later verify or adjust this.
     if first_time and stage > 0:
         learner.seed_assumed(curr.seed_mastery_for_stage(stage))
     log.info("profile saved: %s age=%s stage=%s breadth=%s", p.name, p.age, stage, p.breadth)
-    return learner.get_profile()
+    return _profile_view(learner.get_profile())
 
 
 # Only the reader's own preferences are writable here — `placed`, `rank` and
@@ -404,6 +437,10 @@ class SettingsIn(BaseModel):
     # Reader-owned privacy switch: False keeps the tutor fully local even
     # when an ANTHROPIC_API_KEY is set (see _tutor_remote_allowed).
     tutor_remote_ok: Optional[bool] = None
+    # Changeable after onboarding: a reader who was mis-set, or who changes
+    # how they are addressed, must not have to rebuild their profile to fix
+    # the story's pronouns.
+    pronouns: Optional[Literal["she", "he", "they"]] = None
 
 
 READER_SETTINGS = set(SettingsIn.model_fields)
@@ -422,6 +459,7 @@ def save_settings(settings: SettingsIn):
                    if k in READER_SETTINGS})
     saved = learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
                                  prof["breadth"], prof["stage"], prof["domains"], merged)
+    saved = _profile_view(saved)
     if rejected:
         saved = dict(saved)
         saved["refused"] = rejected
@@ -984,8 +1022,8 @@ def quiz_for_node(node_id: str, n: int = 6):
     give the youngest an ordering item, then append the unmarked reflection
     item. Auto-generated cloze is deliberately absent — successive hand audits
     put its defect rate at 65%, then 90%, then 55% after the 2026-08 precision
-    pass (tools/hand-audit-cloze-2026-08.md) — and it survives only at
-    /api/selfcheck, labelled `provisional`, unmarked, never touching mastery.
+    pass (tools/hand-audit-cloze-2026-08.md) — and as of that audit it is
+    absent from the whole app: the self-check that served it is withdrawn.
     """
     node = curr.node(node_id)
     if not node:
@@ -1205,48 +1243,15 @@ def submit_quiz(s: QuizSubmitIn):
             "ascension": ascension, "calibration": calibration}
 
 
-@app.get("/api/selfcheck")
-def selfcheck(title: str, n: int = 4):
-    """Practice questions for an article outside the curriculum.
-
-    Explicitly NOT graded: these are machine-generated from prose and are a
-    prompt to re-read, not a measure of anything. Nothing here touches mastery.
-
-    Fill-in-the-blank on raw article prose is a text-reading task by
-    construction — a pre-reader can't decode the prompt, let alone the
-    blank. The frontend already hides the button that reaches this at
-    stage<=1; refusing it here too means a stage-appropriate response even
-    if this URL is ever hit directly.
-    """
-    prof = learner.get_profile()
-    if prof and int(prof.get("stage") or 0) <= 1:
-        return JSONResponse(
-            {"error": "self-check is a text exercise; not offered at this stage"},
-            status_code=403)
-    art = wiki.get_article(title)
-    if not art:
-        return JSONResponse({"error": "not found"}, status_code=404)
-    text = wiki.article_plaintext(art["html"], 6000)
-    questions = quiz.cloze_from_text(text, n, topic=title)
-    for i, q in enumerate(questions):
-        q["id"] = i
-    # `provisional` is a measured claim, not a disclaimer of convenience. The
-    # 2026-08 hand audit puts the defect rate on these items at 22 of 40 (55%,
-    # Wilson 40–69%) after a precision pass that halved it from 90% on the same
-    # seed. Better than it was, nowhere near good: roughly a quarter of items
-    # still have a second defensible answer, and a quarter still carry a
-    # distractor that cannot be the answer. The generator already refuses
-    # everything it can detect as broken — an article that cannot yield three
-    # sound items yields none — so the residue is what no regex over one
-    # article's own text can see, and the only honest thing left is to say so
-    # to the reader rather than to let a machine-made paper wear the same face
-    # as an authored one. Nothing here is graded; this flag governs wording
-    # only. Remove it when a measured rate, not an argument, says the items are
-    # sound. See tools/hand-audit-cloze-2026-08.md.
-    return {"title": title, "graded": False, "provisional": bool(questions),
-            "note": "Generated from the article — a nudge to re-read, not a test.",
-            "token": _remember(questions, "selfcheck", title),
-            "questions": _public(questions)}
+# The self-check that used to live here — machine-generated fill-in-the-blank
+# over raw article prose, at GET /api/selfcheck — is withdrawn. The 2026-08
+# hand audit (tools/hand-audit-cloze-2026-08.md) measured 22 of 40 items
+# defective (55%, Wilson 40-69%) after the precision pass that had already
+# halved it from 90%: roughly a quarter of items had a second defensible
+# answer, and a quarter carried a distractor that could not be the answer. A
+# feature that is wrong half the time teaches the wrong thing half the time,
+# and a "provisional" label is a disclaimer, not a fix. Retired rather than
+# shipped behind a warning.
 
 
 # ---------------- spaced repetition ----------------
@@ -1465,28 +1470,40 @@ def placement_submit(s: PlacementSubmitIn):
 
 # ---------------- tutor ----------------
 
+# A tutor turn is relayed — to the local rule engine, or (once switched on) to
+# api.anthropic.com. Both ends expect a chat transcript, so both fields are
+# bounded at the door: an unconstrained `role` reaches the remote API as an
+# invalid message, and an unconstrained `content` makes POST /api/tutor a relay
+# for arbitrarily large payloads at this machine's expense. 8000 characters is
+# far more than any reader types and far less than a paste of a whole article.
+MAX_TUTOR_CHARS = 8000
+MAX_TUTOR_MESSAGES = 60
+
+
 class TutorMessage(BaseModel):
-    role: str
-    content: str
+    role: Literal["user", "assistant"]
+    content: str = Field(..., max_length=MAX_TUTOR_CHARS)
 
 
 class TutorIn(BaseModel):
-    messages: List[TutorMessage]
-    title: str = ""
-    excerpt: str = ""
+    messages: List[TutorMessage] = Field(..., max_length=MAX_TUTOR_MESSAGES)
+    title: str = Field("", max_length=300)
+    excerpt: str = Field("", max_length=MAX_TUTOR_CHARS)
 
 
 def _tutor_remote_allowed(prof: Optional[dict]) -> bool:
-    """Whether the reader has left the remote (Claude) tutor enabled.
+    """Whether the reader has switched the remote (Claude) tutor ON.
 
-    The API key opts the *installation* in; this setting lets the reader or
-    their parent opt back out from inside the app (POST /api/profile/settings
-    {"tutor_remote_ok": false}) without hunting down an environment variable.
-    Off means the local rule-based engine answers and nothing leaves the
-    machine — the same behaviour as having no key at all.
+    Opt-in, and deliberately so. An API key in the environment says the
+    installation *could* answer remotely; it is not a child's consent to send
+    their questions — and the article excerpt they are reading — to
+    api.anthropic.com. Until someone deliberately turns this on from inside the
+    app (POST /api/profile/settings {"tutor_remote_ok": true}), the local
+    rule-based engine answers and nothing leaves the machine, exactly as if no
+    key were configured. The switch works in both directions.
     """
     settings = (prof or {}).get("settings") or {}
-    return bool(settings.get("tutor_remote_ok", True))
+    return bool(settings.get("tutor_remote_ok", False))
 
 
 @app.post("/api/tutor")
@@ -1539,14 +1556,17 @@ def journal_api():
 def story():
     prof = learner.get_profile()
     if not prof:
+        # Even the un-onboarded preview must be rendered: the source chapters
+        # are tokenised, and raw {SUBJ}/{NAME} on the page is not a story.
         return {"title": STORY["title"], "about": STORY["about"],
-                "chapters": STORY["chapters"], "progress": 0, "can_advance": False}
+                "chapters": [_personalize(ch, "") for ch in STORY["chapters"]],
+                "progress": 0, "can_advance": False}
     cur, progress, can_advance = _story_cursor(prof)
     name = prof["name"]
     domains = prof.get("domains") or [d["id"] for d in curr.domains]
     chapters = []
     for i, ch in enumerate(STORY["chapters"]):
-        c = _personalize(ch, name)
+        c = _personalize(ch, name, story_mod.reader_pronouns(prof))
         node = curr.node(ch.get("leads_to", "") or "")
         # A chapter skipped because its field was never chosen was not "read".
         c["set_aside"] = bool(node) and node["domain"] not in domains

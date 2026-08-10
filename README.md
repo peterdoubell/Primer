@@ -70,9 +70,9 @@ The Primer is three things woven together:
   readers are automatically routed to Simple English.
 - **"Ask the Book."** A Socratic tutor panel sits beside every article. It
   grounds itself in what you're reading and matches its register to your age —
-  guiding you to answers rather than handing them over. Uses Claude when an
-  `ANTHROPIC_API_KEY` is present, and a self-contained rule-based Socratic
-  engine when offline.
+  guiding you to answers rather than handing them over. It answers locally by
+  default; Claude voices it only once remote answering is explicitly switched
+  on (see *Optional: a smarter tutor*).
 - **Assesses honestly.** **3,162 expert-authored questions cover every single
   concept**, weighted toward application and transfer, each with an explanation.
   Papers are sampled at random and options shuffled on every serve, and they are
@@ -97,9 +97,14 @@ The Primer is three things woven together:
   becomes spaced-repetition cards (SM-2) that resurface just as you're about to
   forget. Mastery **decays**: forgotten foundations re-lock what they unlocked,
   the headline count regresses with them, and the book tells you what to refresh.
-- **Tells your story.** A **19-chapter frame story**, personalised to your name,
-  runs the whole length of the journey — from *The Book That Knew Her Name* to
-  *The Edge of the Map* and a closing epilogue. Each chapter turns only when you
+- **Tells your story.** A **19-chapter frame story**, personalised to your name
+  *and your pronouns*, runs the whole length of the journey — from *The Book
+  That Knew Their Name* to *The Edge of the Map* and a closing epilogue. The
+  source text names and genders nobody: it carries `{NAME}` and pronoun tokens
+  which are rendered per reader, so the protagonist is you rather than a girl
+  called Nell with your name pasted over hers. Pronouns default to they/them,
+  because a name never tells you someone's pronouns, and can be set at
+  onboarding or changed afterwards. Each chapter turns only when you
   genuinely earn the lesson it leads to, and the book always tells you what it
   is waiting for.
 - **Shows your path.** A pacing engine turns your age, hours and breadth into a
@@ -161,21 +166,29 @@ Wikiversity and more from the same catalogue.
 
 ## Optional: a smarter tutor
 
-Set an API key to have Claude voice the Primer's tutor:
+Claude can voice the Primer's tutor. This takes **two** deliberate steps, and
+**remote answering is off until both are done**:
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-**Privacy note:** with a key set, the reader's tutor chat messages and short
+...and then switching it on in the app (the `tutor_remote_ok` setting, `POST
+/api/profile/settings {"tutor_remote_ok": true}`). A key on its own changes
+nothing: it says the installation *could* answer remotely, which is not a
+child's consent to send their questions to a third party. Until the switch is
+turned on, the offline engine answers and nothing leaves this machine.
+
+**Privacy note:** once it *is* on, the reader's tutor chat messages and short
 excerpts of the article being read are sent off this machine to
 api.anthropic.com to generate replies. Nothing else (no profile, mastery
-record, or reading history) is sent, the app discloses the remote engine in
-its UI (`tutor_remote`), and the reader can switch the tutor back to fully
-local at any time in-app (the `tutor_remote_ok` setting) without touching the
+record, or reading history) is sent, the app discloses the remote engine in its
+UI and on `/api/state` (`tutor_remote`), every reply carries a `remote` flag,
+and the switch works in both directions at any time without touching the
 environment variable.
 
-Without a key, the tutor uses a fully offline Socratic engine.
+With the switch off, or with no key at all, the tutor uses a fully offline
+Socratic engine.
 
 ---
 
@@ -227,8 +240,12 @@ Requirements: Python 3.9+ and the pinned packages in `requirements.txt`.
   57–84%)**: better than the generator was, still bad, and the reason these
   items stay unmarked. Method, sheet and limits are in
   [tools/hand-audit-cloze-2026-08.md](tools/hand-audit-cloze-2026-08.md); rerun
-  it with `python3 tools/audit_cloze.py`. They survive only as a labelled,
-  unmarked self-check for free reading. Every one of the 343 curriculum
+  it with `python3 tools/audit_cloze.py`. A third pass in 2026-08 measured 55%
+  (22 of 40) after a precision round — better again, still a coin flip — and on
+  that evidence the last place they appeared, the unmarked self-check for free
+  reading, was **retired** rather than shipped behind a warning label. The
+  generator survives only as the audit's measurement apparatus; nothing in the
+  app calls it. Every one of the 343 curriculum
   concepts carries **ten** authored items, so nothing that moves mastery is
   machine-written.
 - **Backups are same-disk until you say otherwise.** The learner record is

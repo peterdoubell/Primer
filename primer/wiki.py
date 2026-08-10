@@ -44,7 +44,6 @@ USER_AGENT = "ThePrimer/1.0 (offline-first educational reader; local personal us
 
 _db_lock = threading.Lock()
 _search_lock = threading.Lock()
-_live_cache: Dict[str, List[str]] = {}
 
 
 def _http_get(url: str, timeout: float = 15.0) -> bytes:
@@ -67,7 +66,6 @@ class ZimArchive:
         self._suggestion = None
         self._searcher = None
         self._lock = threading.Lock()
-        m = self.archive.metadata_keys if hasattr(self.archive, "metadata_keys") else []
         self.meta = {}
         for key in ("Title", "Description", "Language", "Date"):
             try:
@@ -134,7 +132,11 @@ class ZimArchive:
             while entry.is_redirect:
                 entry = entry.get_redirect_entry()
         except Exception as exc:
+            # A dangling redirect leaves `entry` still pointing at a redirect
+            # stub; reading its item is what actually raises. Give up on this
+            # archive so the caller falls through to cache/live.
             log.warning("broken redirect chain for %r in %s: %s", title[:60], self.id, exc)
+            return None
         item = entry.get_item()
         mime = item.mimetype or ""
         if "html" not in mime:
@@ -207,6 +209,7 @@ class WikiService:
         self.db_path = db_path
         self.archives: List[ZimArchive] = []
         self._live_search_blocked_until = 0.0
+        self._live_cache: Dict[str, Tuple[float, List[str]]] = {}
         # Same circuit-breaker idea as _live_search, but for article/summary
         # fetches: while offline, a reader with no ZIM or cache hit should get
         # an instant "not available" rather than a 20s timeout per page view.
@@ -327,7 +330,13 @@ class WikiService:
             key=lambda a: (a.is_simple != prefer_simple, -a.article_count),
         )
         for arc in ordered:
-            got = arc.get_article(title)
+            try:
+                got = arc.get_article(title)
+            except Exception as exc:
+                # A corrupt entry in one archive must not fail the request:
+                # the cache or live Wikipedia may still have this article.
+                log.warning("archive %s failed on %r: %s", arc.id, title[:60], exc)
+                continue
             if got:
                 html, base = got
                 return {
@@ -382,7 +391,9 @@ class WikiService:
         # straight to the ZIM/cache HTML fallback instead of waiting on a
         # timeout for every quiz or tutor call.
         if time.time() < self._live_fetch_blocked_until:
-            art = self.get_article(title)
+            # Thread the language through: without it prefer_simple defaults to
+            # False and a 'simple' summary request gets full-English text.
+            art = self.get_article(title, prefer_simple=(lang == "simple"))
             if art:
                 text = self.article_plaintext(art["html"], max_chars=1200)
                 if text:
@@ -412,8 +423,9 @@ class WikiService:
         except Exception as exc:
             log.info("summary unavailable for %r: %s", title[:60], exc.__class__.__name__)
             self._note_live_failure(exc)
-        # Offline fallback: derive text from whatever article HTML we have.
-        art = self.get_article(title)
+        # Offline fallback: derive text from whatever article HTML we have,
+        # still honouring the requested language.
+        art = self.get_article(title, prefer_simple=(lang == "simple"))
         if art:
             text = self.article_plaintext(art["html"], max_chars=1200)
             if text:
@@ -581,11 +593,21 @@ class WikiService:
                     results.append({"title": t, "path": "", "source": "live"})
         return results[:limit]
 
+    # Live-search memo: per-instance (a module global outlived the service it
+    # belonged to and leaked between tests) and time-bounded, so a result set
+    # from an hour ago cannot pin stale titles in the suggestion list.
+    LIVE_SEARCH_TTL = 15 * 60
+    LIVE_SEARCH_CACHE_MAX = 500
+
     def _live_search(self, query: str, limit: int) -> List[str]:
         key = query.strip().lower()
+        now = time.time()
         with _search_lock:
-            if key in _live_cache:
-                return _live_cache[key]
+            hit = self._live_cache.get(key)
+            if hit is not None:
+                if now - hit[0] < self.LIVE_SEARCH_TTL:
+                    return hit[1]
+                del self._live_cache[key]
             if time.time() < self._live_search_blocked_until:
                 return []
         try:
@@ -601,9 +623,15 @@ class WikiService:
             log.info("live search unavailable (%s); pausing for 60s", exc.__class__.__name__)
             return []
         with _search_lock:
-            if len(_live_cache) > 500:
-                _live_cache.clear()
-            _live_cache[key] = titles
+            if len(self._live_cache) >= self.LIVE_SEARCH_CACHE_MAX:
+                # Drop the oldest half rather than everything: a wholesale
+                # clear threw away the entries a reader was actively typing
+                # against.
+                for old_key in sorted(
+                    self._live_cache, key=lambda k: self._live_cache[k][0]
+                )[: self.LIVE_SEARCH_CACHE_MAX // 2]:
+                    del self._live_cache[old_key]
+            self._live_cache[key] = (time.time(), titles)
         return titles
 
     def random_article(self) -> Optional[str]:

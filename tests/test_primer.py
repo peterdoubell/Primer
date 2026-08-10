@@ -1032,7 +1032,9 @@ def test_generated_questions_never_reach_a_graded_quiz():
     """An independent audit put auto-cloze at ~65% defective — mostly items
     solvable from grammar alone, some with more than one defensible answer.
     Every curriculum node now has authored items, so nothing that moves mastery
-    is allowed to use generated prose. They survive only as a self-check.
+    is allowed to use generated prose — and since the 2026-08 audit put the
+    rate at 55% even after a precision pass, they no longer survive anywhere in
+    the app: the self-check that served them is retired.
     """
     from fastapi.testclient import TestClient
     import primer.server as srv
@@ -1050,19 +1052,6 @@ def test_every_node_can_be_assessed_without_generated_prose(curr):
     orphans = [n['id'] for n in curr.nodes.values()
                if not n.get('quiz') and not n.get('practice')]
     assert not orphans, 'nodes with no authored assessment: {}'.format(orphans[:5])
-
-
-def test_self_check_is_labelled_as_ungraded():
-    from fastapi.testclient import TestClient
-    import primer.server as srv
-    client = TestClient(srv.app)
-    r = client.get('/api/selfcheck?title=Photosynthesis&n=3')
-    if r.status_code != 200:
-        pytest.skip('no local ZIM archive: /api/selfcheck returned {} for a '
-                    'real article; install one under data/library to run '
-                    'this'.format(r.status_code))
-    d = r.json()
-    assert d['graded'] is False and d['note']
 
 
 def test_every_stage_offers_at_least_two_assessment_formats():
@@ -2558,7 +2547,7 @@ def test_cloze_defect_rate_on_real_curriculum_articles_stays_under_5_percent():
         r = wiki.get_article(t)
         if not r or not r.get("html"):
             continue
-        # 6000 chars is what /api/selfcheck actually passes; the 3000 this test
+        # 6000 chars is what the retired /api/selfcheck passed; the 3000 this test
         # used before measured a text the reader never sees, and after the
         # 2026-08 precision pass the difference is no longer cosmetic — half
         # the evidence the generator now needs lives in the second half of the

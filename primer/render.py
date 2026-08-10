@@ -96,7 +96,13 @@ class _Sanitizer(HTMLParser):
         for name, value in attrs:
             name = (name or "").lower()
             if name not in ALLOWED_ATTRS or name.startswith("on") or name in used:
-                continue  # `used` also drops duplicate attributes
+                # `used` also drops duplicate attributes. Note this is also what
+                # keeps `data-primer-title` out of article markup: the client
+                # navigates on that attribute, and since it is not in
+                # ALLOWED_ATTRS an article cannot hang it on a span and turn
+                # arbitrary text into a link to anywhere. The renderer adds it
+                # downstream of sanitize, where it cannot be forged.
+                continue
             value = value or ""
             if name in ("href", "src"):
                 v = value.strip()
@@ -109,11 +115,6 @@ class _Sanitizer(HTMLParser):
                 if not kept:
                     continue
                 value = " ".join(kept)
-            if name == "data-primer-title" and tag != "a":
-                # The client navigates on this attribute. Only the anchors this
-                # renderer rewrote may carry it — an article cannot hang it on a
-                # span and turn arbitrary text into a link to anywhere.
-                continue
             used.add(name)
             clean.append('{}="{}"'.format(name, escape(value, quote=True)))
         attr_str = (" " + " ".join(clean)) if clean else ""

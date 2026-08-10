@@ -309,12 +309,27 @@ button { font-family: var(--sans); cursor: pointer; }
 .navbtn:hover { background: var(--chrome-hover); color: var(--chrome-hi); }
 .navbtn.active { background: var(--chrome-active); color: var(--chrome-hi); box-shadow: inset 3px 0 0 var(--gold-bright); }
 #sidebar .spacer { flex: 1; }
+/* The foot of the spine. The record and the chrome are two different kinds of
+   thing and now read as two: a block of stats, a hairline, then the settings
+   side by side. The old stack ran stats straight into toggles with a 6px gap
+   and left the last control hard against the bottom edge at short heights. */
+.statrow { display: flex; flex-direction: column; gap: 6px; }
 #sidebar .stat {
   font-family: var(--sans); font-size: 12px; color: var(--chrome-ink-dim);
-  background: rgba(0,0,0,0.2); border-radius: 8px; padding: 8px 10px; margin-top: 6px;
+  background: rgba(0,0,0,0.2); border-radius: 8px; padding: 8px 10px;
   display: flex; justify-content: space-between; gap: 10px;
 }
 #sidebar .stat b { color: var(--gold-bright); }
+.chrome-row {
+  display: flex; gap: 8px; margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--chrome-rule);
+}
+/* Equal halves, each centred: two controls sharing the rail rather than two
+   more full-width rows that read as stats. min-width:0 so a long label
+   ("Voice off") shrinks its own box instead of pushing the pair out of the
+   spine. */
+.chrome-row .chrome-toggle { flex: 1 1 0; min-width: 0; justify-content: center; }
+.chrome-row .tt-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* ---------- page area ---------- */
 #page {
@@ -464,7 +479,9 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
    Authored once, for every field in the book. */
 input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1; }
 #tutor .composer input::placeholder { color: var(--chrome-ink-dim); }
-#tutor .composer button { background: var(--gold); border: none; color: #2a2008; border-radius: 20px; padding: 0 16px; font-weight: 700; }
+/* Themed like every other gold button: the hardcoded ink was written for the
+   day palette and stayed put when the night gold brightened underneath it. */
+#tutor .composer button { background: var(--btn-gold-fill); border: none; color: var(--btn-gold-ink); border-radius: 20px; padding: 0 16px; font-weight: 700; }
 
 /* ---------- quiz / practice ---------- */
 .q-card { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: 12px; padding: 26px; box-shadow: 0 3px 8px var(--shadow); }
@@ -645,8 +662,15 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
   .navbtn { flex: 0 0 auto; padding: 7px 11px; font-size: 14px; }
   .navbtn.active { box-shadow: inset 0 -3px 0 var(--gold-bright); }
 
-  .statrow { display: flex; flex-wrap: wrap; gap: 6px; }
+  /* The strip is horizontal here, so the column direction the spine uses has
+     to be undone explicitly — without it the stats stacked four deep and the
+     control strip swallowed half the screen. */
+  .statrow { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; }
   #sidebar .stat { margin: 0; padding: 6px 10px; gap: 10px; flex: 0 0 auto; }
+  /* No rule and no halves across a wide strip: the toggles simply join the
+     end of the same line as the stats, sized to their own labels. */
+  .chrome-row { margin: 0; padding: 0; border-top: none; flex-wrap: wrap; }
+  .chrome-row .chrome-toggle { flex: 0 0 auto; padding: 6px 10px; }
 
   #reader-layout { grid-template-columns: 1fr; }
   #tutor { position: relative; height: 420px; margin-top: 20px; }
@@ -1143,6 +1167,11 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 .pick.picked { border-color: var(--gold); background: var(--paper-hi); }
 .pick .pick-mark { display: none; font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-top: 8px; }
 .pick.picked .pick-mark { display: block; }
+/* The pronoun question is a radiogroup of three short labels, so it reads as
+   a row rather than the breadth chooser's stack of paragraphs. */
+.pronoun-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.pronoun-row .pick { flex: 1 1 130px; text-align: center; padding: 12px 10px; }
+.pronoun-row .pick .pick-mark { margin-top: 4px; }
 
 /* The confidence row. Its picked state was an inline background wash and
    nothing else — aria-checked told a screen reader, but a sighted reader got
@@ -1195,6 +1224,8 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
    layers were invisible, which made the whole device pointless. */
 .deck::before { transform: translateY(11px) scale(.975); opacity: .9; }
 .deck::after  { transform: translateY(22px) scale(.95); opacity: .7; }
+/* Three states, and the JS emits exactly these three: nothing behind the
+   card, one layer, two-or-more. */
 .deck[data-depth="0"]::before, .deck[data-depth="0"]::after,
 .deck[data-depth="1"]::after { opacity: 0; transform: none; }
 .deck-card { position: relative; z-index: 1; margin-bottom: 40px; animation: card-settle .32s cubic-bezier(.2,.7,.3,1); }

@@ -179,13 +179,24 @@ def test_tutor_reply_carries_remote_flag(client, onboarded, monkeypatch):
     assert d["remote"] is False, "offline engine must say nothing left the machine"
 
 
-def test_state_discloses_tutor_remoteness(client, monkeypatch):
+def test_state_discloses_tutor_remoteness(client, onboarded, monkeypatch):
+    """Remote answering is opt-in: a key alone must not switch it on.
+
+    An ANTHROPIC_API_KEY says the installation *could* answer remotely. It is
+    not a child's consent for their questions to leave the machine, so
+    /api/state must keep reporting a local tutor until someone deliberately
+    turns the switch on.
+    """
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     d = client.get("/api/state").json()
     assert d["tutor_remote"] is False
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
     d = client.get("/api/state").json()
-    assert d["tutor_remote"] is True
+    assert d["tutor_remote"] is False, "a key alone must not opt a reader in"
+    assert d["tutor_engine"] == "book"
+    client.post("/api/profile/settings", json={"tutor_remote_ok": True})
+    d = client.get("/api/state").json()
+    assert d["tutor_remote"] is True and d["tutor_engine"] == "claude"
 
 
 def test_llm_path_flags_remote_true():
@@ -373,13 +384,17 @@ def test_shared_prefix_alone_does_not_credit_unrelated_words():
 
 def test_tutor_remote_can_be_disabled_in_app(client, onboarded, monkeypatch):
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
-    # Key set and setting untouched: remote engine advertised.
-    assert client.get("/api/state").json()["tutor_remote"] is True
-    # The reader flips the in-app switch...
-    r = client.post("/api/profile/settings", json={"tutor_remote_ok": False})
+    # Key set, switch at its default: local tutor, because remote is opt-in.
+    client.post("/api/profile/settings", json={"tutor_remote_ok": None})
+    assert client.get("/api/state").json()["tutor_remote"] is False
+    # The reader (or their guardian) turns it on...
+    r = client.post("/api/profile/settings", json={"tutor_remote_ok": True})
     assert r.status_code == 200
+    assert r.json()["settings"]["tutor_remote_ok"] is True
+    assert client.get("/api/state").json()["tutor_remote"] is True
+    # ...and off again: the switch has to work in both directions.
+    r = client.post("/api/profile/settings", json={"tutor_remote_ok": False})
     assert r.json()["settings"]["tutor_remote_ok"] is False
-    # ...and the app now discloses a local tutor even though the key remains.
     d = client.get("/api/state").json()
     assert d["tutor_remote"] is False and d["tutor_engine"] == "book"
     # The tutor route itself answers locally: remote=False on the reply.
@@ -387,7 +402,7 @@ def test_tutor_remote_can_be_disabled_in_app(client, onboarded, monkeypatch):
         "messages": [{"role": "user", "content": "why is the sky blue?"}],
         "title": "", "excerpt": "Light scatters more at short wavelengths."}).json()
     assert a["engine"] == "book" and a["remote"] is False
-    # Switch back on: the choice is the reader's, both ways.
+    # And on again: the choice is the reader's, both ways, any number of times.
     client.post("/api/profile/settings", json={"tutor_remote_ok": True})
     assert client.get("/api/state").json()["tutor_remote"] is True
 
@@ -471,42 +486,139 @@ def test_startup_warns_when_backups_share_the_record_s_disk(caplog):
         assert rec[-1].levelno == logging.WARNING
 
 
-def test_selfcheck_declares_generated_items_provisional():
-    """The reader must be told these questions are the machine's, not the
-    book's. A 2026-08 hand audit measures the defect rate on auto-generated
-    cloze at 22 of 40 (55%, Wilson 40-69%) — half what it was, still bad — and
-    the residue is invisible to any check the generator could run on itself.
-    So the payload says `provisional` and the UI is expected to say it in
-    words. The flag is false when there are no questions at all, because there
-    is then nothing to qualify: the article simply did not clear the floor and
-    the honest empty state applies instead.
+def test_selfcheck_endpoint_is_retired():
+    """The self-check is withdrawn, not merely hidden.
+
+    The 2026-08 hand audit measured 22 of 40 generated cloze items defective
+    (55%, Wilson 40-69%) after the precision pass that had already halved the
+    rate from 90%. A `provisional` label on a paper that is wrong half the time
+    is a disclaimer, not a fix, so the route is gone rather than warned about.
+    See tools/hand-audit-cloze-2026-08.md.
     """
     import primer.server as srv
-    from primer.wiki import WikiService
-    # The module fixture points srv.wiki at an empty throwaway database, so
-    # point it back at the real cache for this one call — otherwise there is
-    # no article to generate from and the test would pass by skipping.
-    real = WikiService("content/primer.db")
-    # Self-check is refused below stage 2 (it is a reading exercise), so the
-    # throwaway reader has to be old enough to be offered one at all.
-    srv.learner.save_profile("Test", 12.0, 5.0, "balanced", 3, ["science"])
-    orig, srv.wiki = srv.wiki, real
-    try:
-        # Most articles now yield nothing (the three-item floor), and a paper
-        # with no questions would satisfy the assertion vacuously — so hunt for
-        # one that actually produces items before asserting anything.
-        papers = [srv.selfcheck(t, 3) for t in
-                  ("Curvature", "Chemical reaction", "Earth science",
-                   "Graph theory", "Motion", "Photosynthesis")]
-        papers = [p for p in papers if isinstance(p, dict)]
-        d = next((p for p in papers if p["questions"]), None)
-    finally:
-        srv.wiki = orig
-    if d is None:
-        pytest.skip("no cached article yields self-check items on this machine")
-    assert d["graded"] is False
-    assert d["provisional"] is True, \
-        "a generated paper must declare itself provisional"
-    empty = [p for p in papers if not p["questions"]]
-    assert all(p["provisional"] is False for p in empty), \
-        "an empty paper has nothing to qualify"
+    assert not hasattr(srv, "selfcheck")
+    routes = {getattr(r, "path", "") for r in srv.app.routes}
+    assert "/api/selfcheck" not in routes
+
+
+# ---------------- the story is told about the reader, not about Nell ----------
+
+
+def _story_source_strings():
+    import primer.server as srv
+    out = []
+    for ch in srv.STORY["chapters"]:
+        out.extend(ch.get("text", []))
+        out.append(ch.get("prompt") or "")
+        out.append(ch.get("title") or "")
+    return [s for s in out if s]
+
+
+def test_story_source_carries_tokens_not_one_reader_s_pronouns():
+    """The source text must not name or gender anybody.
+
+    A story that says "she" cannot be told about a reader who does not, and a
+    post-hoc regex cannot fix it: English "her" is two different words (object
+    "blinked at her", possessive "her own name") and only the source knows
+    which. So the tokens are placed at the source, once, by hand.
+
+    The one deliberate exception is the great-great-grandmother in
+    story.family-story, who is a character in her own right and keeps her own
+    pronouns — that is a story about someone else's ancestor, not about the
+    reader.
+    """
+    import re
+    ancestor = "grandmother"
+    for s in _story_source_strings():
+        if ancestor in s:
+            continue
+        stray = re.findall(r"\b(?:[Ss]he|[Hh]er|[Hh]ers|[Hh]erself|[Hh]im|"
+                           r"[Hh]imself|Nell)\b", s)
+        assert not stray, "un-tokenised gendered text in the story: {} in {!r}".format(
+            stray, s[:90])
+
+
+def test_story_renders_grammatically_for_every_pronoun_setting(client):
+    """All three settings must produce clean prose: no leftover tokens, no
+    "they was", no "she were"."""
+    import re
+    from primer import story as story_mod
+
+    disagreements = {
+        "they": ("they was", "they has", "they is", "they does", "themself "),
+        "she": ("she were", "she have", "she are", "she do "),
+        "he": ("he were", "he have", "he are", "he do "),
+    }
+    for pronouns in ("she", "he", "they"):
+        client.post("/api/profile", json={
+            "name": "Kai", "age": 9, "hours_per_week": 4, "pronouns": pronouns,
+            "breadth": "balanced", "domains": ["math", "physics"]})
+        assert client.get("/api/state").json()["profile"]["pronouns"] == pronouns
+        body = client.get("/api/story").json()
+        blob = "\n".join("\n".join(c["text"] + [c["title"], c["prompt"] or ""])
+                         for c in body["chapters"])
+        assert "Nell" not in blob and "Kai" in blob
+        assert not re.search(r"\{[A-Za-z]+\}", blob), \
+            "unrendered token for pronouns={}".format(pronouns)
+        low = blob.lower()
+        for bad in disagreements[pronouns]:
+            assert bad not in low, \
+                "verb disagreement {!r} for pronouns={}".format(bad, pronouns)
+        # And the pronouns actually asked for are the ones on the page.
+        assert story_mod.PRONOUNS[pronouns]["SUBJ"] + " " in low
+
+
+def test_pronouns_default_to_the_neutral_set(client):
+    """A name is not a pronoun. Onboarding without saying anything gets
+    they/them, not a guess made from the reader's name."""
+    r = client.post("/api/profile", json={
+        "name": "Nell", "age": 8, "hours_per_week": 4,
+        "breadth": "balanced", "domains": ["math"]})
+    assert r.status_code == 200
+    assert r.json()["pronouns"] == "they"
+    first = client.get("/api/story").json()["chapters"][0]
+    assert "a child named Nell" in first["text"][0]
+    assert "a girl named" not in first["text"][0]
+    assert "they had never seen before" in first["text"][0]
+
+
+def test_pronouns_can_be_changed_afterwards_and_are_validated(client, onboarded):
+    r = client.post("/api/profile/settings", json={"pronouns": "he"})
+    assert r.status_code == 200 and r.json()["pronouns"] == "he"
+    assert client.get("/api/story").json()["chapters"][0]["title"] == \
+        "The Book That Knew His Name"
+    assert client.post("/api/profile/settings",
+                       json={"pronouns": "it"}).status_code == 422
+    assert client.post("/api/profile", json={
+        "name": "X", "age": 8, "hours_per_week": 4, "pronouns": "xe",
+        "breadth": "balanced", "domains": ["math"]}).status_code == 422
+
+
+def test_story_preview_before_onboarding_is_rendered(client):
+    """The un-onboarded preview reads the same tokenised source; raw {SUBJ} on
+    the page would not be a story."""
+    import re
+    import primer.server as srv
+    with srv.learner._conn() as c:
+        c.execute("DELETE FROM profile")
+    body = client.get("/api/story").json()
+    blob = "\n".join("\n".join(ch["text"]) for ch in body["chapters"])
+    assert not re.search(r"\{[A-Za-z]+\}", blob)
+
+
+def test_every_verb_that_must_agree_with_the_reader_is_tokenised():
+    """Adjacency checks on rendered prose are not enough — "they themselves
+    was" slipped past one. Check the source instead: a bare was/is/has/does
+    within a few words downstream of {SUBJ} is a verb nobody tokenised, and it
+    will disagree for two of the three settings. (The story contains real
+    plural "they"s of its own — other characters, physical laws — which is
+    exactly why this has to be asked of the source, where the reader's own
+    pronoun is unambiguous.)"""
+    import re
+    must_agree = r"was|were|is|are|has|have|does|do"
+    pat = re.compile(r"\{(?:Subj|SUBJ)\}((?:\s+(?:\{[A-Za-z]+\}|themselves|really|"
+                     r"already|almost|simply|then|now|still))*)\s+(" + must_agree + r")\b")
+    for s in _story_source_strings():
+        m = pat.search(s)
+        assert not m, "untokenised verb after the reader's pronoun: {!r}".format(
+            s[max(0, m.start() - 20):m.end() + 20])

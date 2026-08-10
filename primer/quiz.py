@@ -407,6 +407,14 @@ KEY_CLASSES = ("noun",)
 def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
     """Generate up to n multiple-choice cloze questions from article text.
 
+    No longer reachable from the app. The self-check at /api/selfcheck was its
+    only caller and was retired on the 2026-08 hand audit (55% defective; see
+    tools/hand-audit-cloze-2026-08.md). What is left standing here is the
+    measurement apparatus, not a feature: tools/audit_cloze.py and
+    tools/audit_cloze_defects.py draw and score sheets from it, and the
+    regression tests hold the rate to the 5% bar the feature would have to
+    clear to come back. Delete this only together with those.
+
     Precision over yield, deliberately. The feature has an honest empty state
     ("Not enough prose here to make questions"), so an item the generator
     cannot build well is better dropped than padded: two sound items beat five

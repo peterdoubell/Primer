@@ -242,3 +242,17 @@ grading. At 55% the reader must additionally be *told*, which is what
 re-read, and a re-read is worth something even when the question that provoked
 it was flawed — but that is an argument, not a measurement, and it should not
 be allowed to stand in for one.
+
+## Outcome (2026-08-10): the feature was retired on this evidence
+
+The argument at the end of the section above did not survive its own caveat.
+`/api/selfcheck` and the self-check path in the client are removed. 55%
+defective is a coin flip dressed as a question, `provisional` is a disclaimer
+rather than a fix, and "it prompts a re-read" is exactly the argument this file
+warned should not stand in for a measurement.
+
+The generator (`quiz.cloze_from_text`) stays in the tree as measurement
+apparatus only — nothing in the app calls it — so that this audit remains
+reproducible and so the regression tests can hold the 5% bar the feature would
+have to clear to come back. It comes back on a number, from a fresh seed and a
+classifier who has not seen the code, or not at all.

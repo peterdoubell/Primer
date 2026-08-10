@@ -1,7 +1,9 @@
 """The frame story: personalization, the reader's cursor, and page-turn gates.
 
 The story's invariants, in brief:
-- The reader is the protagonist: "Nell" is replaced by their name everywhere.
+- The reader is the protagonist: the source text names nobody and genders
+  nobody. It carries {NAME} and pronoun tokens, and `personalize` renders
+  them with the reader's own name and pronouns (see PRONOUNS).
 - A chapter position is stored as a stable chapter *id*, never a raw array
   index — an id survives chapters being inserted mid-arc. Legacy profiles
   that predate the id are migrated once (see `resolve_position`).
@@ -17,6 +19,7 @@ Every function takes its collaborators explicitly — the story dict, the
 curriculum and the learner store — so this module holds no state of its own.
 """
 
+import re
 from typing import List, Optional
 
 
@@ -27,14 +30,74 @@ def book_title(story: dict, name: str) -> str:
     return story["title"].replace("Nell", name)
 
 
-def personalize(chapter: dict, name: str) -> dict:
-    """The frame story is written about 'Nell'; swap in the reader's name."""
-    if not name or name.strip().lower() in ("nell", ""):
-        return chapter
+# The reader's pronouns, and the words that have to agree with them. A name
+# never tells you someone's pronouns, so the source text carries tokens rather
+# than one set of pronouns baked in, and every occurrence is rendered per
+# reader. "her" is two different words in English — object ("the fox blinked at
+# her") and possessive determiner ("her own name") — which cannot be told apart
+# by regex after the fact, so data/story/frame.json marks each one at the
+# source as {OBJ} or {POSS}.
+#
+# Verb agreement is part of the pronoun, not an afterthought: they/them takes
+# the plural form. Only forms that actually differ are tokenised — the story is
+# largely past tense, where only "was/were" splits — but the table is complete
+# so new prose has tokens to reach for.
+PRONOUNS = {
+    "she": {"SUBJ": "she", "OBJ": "her", "POSS": "her", "POSSPRON": "hers",
+            "REFL": "herself", "WAS": "was", "IS": "is", "HAS": "has", "DOES": "does"},
+    "he": {"SUBJ": "he", "OBJ": "him", "POSS": "his", "POSSPRON": "his",
+           "REFL": "himself", "WAS": "was", "IS": "is", "HAS": "has", "DOES": "does"},
+    "they": {"SUBJ": "they", "OBJ": "them", "POSS": "their", "POSSPRON": "theirs",
+             "REFL": "themselves", "WAS": "were", "IS": "are", "HAS": "have",
+             "DOES": "do"},
+}
+
+DEFAULT_PRONOUNS = "they"
+
+_TOKEN = re.compile(r"\{([A-Za-z]+)\}")
+
+
+def render(text: str, name: str, pronouns: str = DEFAULT_PRONOUNS) -> str:
+    """Fill the story's {NAME}/{SUBJ}/{POSS}/... tokens for one reader.
+
+    A token written in Title case ({Subj}) renders capitalised, which is how a
+    sentence-initial pronoun stays a sentence-initial pronoun. An unknown token
+    is left alone rather than silently blanked: a typo in the source should be
+    visible in a test, not swallowed into a hole in the prose.
+    """
+    words = PRONOUNS.get(pronouns) or PRONOUNS[DEFAULT_PRONOUNS]
+    reader = (name or "").strip() or "Nell"
+
+    def sub(m):
+        key = m.group(1)
+        if key.upper() == "NAME":
+            return reader
+        word = words.get(key.upper())
+        if word is None:
+            return m.group(0)
+        return word.capitalize() if key[0].isupper() and not key.isupper() else word
+
+    return _TOKEN.sub(sub, text or "")
+
+
+def reader_pronouns(prof: Optional[dict]) -> str:
+    """The reader's pronouns, from the profile, defaulting to the neutral set.
+
+    Lives in `settings` because that is where reader-owned preferences live and
+    where the profile row already has room for them. An unrecognised stored
+    value falls back rather than raising: a story page is the wrong place to
+    discover a bad row.
+    """
+    stored = ((prof or {}).get("settings") or {}).get("pronouns")
+    return stored if stored in PRONOUNS else DEFAULT_PRONOUNS
+
+
+def personalize(chapter: dict, name: str, pronouns: str = DEFAULT_PRONOUNS) -> dict:
+    """Render a chapter for this reader: their name and their pronouns."""
     out = dict(chapter)
-    out["text"] = [t.replace("Nell", name) for t in chapter.get("text", [])]
-    out["prompt"] = (chapter.get("prompt") or "").replace("Nell", name)
-    out["title"] = (chapter.get("title") or "").replace("Nell", name)
+    out["text"] = [render(t, name, pronouns) for t in chapter.get("text", [])]
+    out["prompt"] = render(chapter.get("prompt") or "", name, pronouns)
+    out["title"] = render(chapter.get("title") or "", name, pronouns)
     return out
 
 
@@ -115,14 +178,15 @@ def cursor(story: dict, curr, learner, prof: dict, commit: bool = False):
                              prof["breadth"], prof["stage"], prof["domains"], s)
     if progress >= len(chapters):
         # The arc ends rather than disappearing: hold on the last page.
-        last = personalize(chapters[-1], prof.get("name", ""))
+        last = personalize(chapters[-1], prof.get("name", ""), reader_pronouns(prof))
         return last, len(chapters) - 1, False
     chapter = chapters[progress]
     target = chapter.get("leads_to", "")
     node = curr.node(target)
     # The last chapter is an epilogue: it closes the arc and turns to nothing.
     can_advance = bool(target) and earned(node, target) and progress < len(chapters) - 1
-    return personalize(chapter, prof.get("name", "")), progress, can_advance
+    return (personalize(chapter, prof.get("name", ""), reader_pronouns(prof)),
+            progress, can_advance)
 
 
 def needs(curr, learner, chapter: Optional[dict]) -> Optional[dict]:
