@@ -84,6 +84,10 @@
   --heading-accent: var(--accent);
   --btn-fill: linear-gradient(#8a4436, #6d3327);
   --btn-ink: #fdf3e6;
+  /* The gold CTA, as tokens rather than a literal gradient, so it can turn
+     with the palette like every other fill. */
+  --btn-gold-fill: linear-gradient(#dcbe63, #bb9438);
+  --btn-gold-ink: #241a03;
   --shell-base: #221c12;
   --scrim: rgba(30,22,10,0.7);   /* candle-lit by day */
   --lock-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4.8' y='10.5' width='14.4' height='9.7' rx='2'/><path d='M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7'/></svg>");
@@ -154,6 +158,10 @@
      edge, so it stops being the one warm object on a cold page. */
   --dk-btn-fill: linear-gradient(#1b2733, #121b25);
   --dk-btn-ink: #dff1f7;
+  /* Night gold is phosphor, not leaf: the CTA lights up rather than gilds,
+     and the ink drops to night-paper black to stay readable on it. */
+  --dk-btn-gold-fill: linear-gradient(#ffc65c, #d98f14);
+  --dk-btn-gold-ink: #0a0e14;
   --dk-shell-base: #03060a;
   --dk-scrim: rgba(2,6,12,0.74);  /* the room lights off at night */
   --dk-chrome-bg: linear-gradient(165deg, #0c1420, #04080e);
@@ -189,6 +197,7 @@
     --tint-info: var(--dk-tint-info); --tint-info-soft: var(--dk-tint-info-soft);
     --tint-wrong: var(--dk-tint-wrong); --domain-lift: var(--dk-domain-lift);
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
+    --btn-gold-fill: var(--dk-btn-gold-fill); --btn-gold-ink: var(--dk-btn-gold-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
@@ -220,6 +229,7 @@
     --tint-info: var(--dk-tint-info); --tint-info-soft: var(--dk-tint-info-soft);
     --tint-wrong: var(--dk-tint-wrong); --domain-lift: var(--dk-domain-lift);
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
+    --btn-gold-fill: var(--dk-btn-gold-fill); --btn-gold-ink: var(--dk-btn-gold-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
@@ -357,7 +367,11 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 .btn:hover { filter: brightness(1.08); }
 .btn:active { transform: translateY(1px); }
-.btn.gold { background: linear-gradient(#dcbe63, #bb9438); color: #241a03; }
+/* The primary CTA. Its gradient was a fixed daylight pair, so the loudest
+   gold object on the page stayed leaf-gilt on a page of phosphor; themed like
+   --btn-fill, with near-black ink by day and night-paper ink on the brighter
+   night gold so the label keeps its contrast either way. */
+.btn.gold { background: var(--btn-gold-fill); color: var(--btn-gold-ink); }
 .btn.ghost { background: transparent; color: var(--link); border: 1.5px solid var(--link); box-shadow: none; }
 .btn.small { padding: 6px 12px; font-size: 13px; }
 .btn:disabled { opacity: 0.5; cursor: default; }
@@ -538,7 +552,10 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 .lib-item .meta p { margin: 3px 0 0; font-size: 13px; color: var(--ink-soft); }
 .badge { font-family: var(--sans); font-size: 11px; padding: 3px 9px; border-radius: 20px; }
 .badge.installed { background: var(--tint-green); color: var(--green-ink); }
-.badge.big { background: rgba(169,133,47,0.22); color: var(--gold-ink); font-weight: 600; }
+/* The last daylight-mixed wash in the file: a raw day-gold RGB tint that
+   stayed warm brown while the page around it went to phosphor. It is the
+   same wash --tint-gold-strong already names, so it uses the token. */
+.badge.big { background: var(--tint-gold-strong); color: var(--gold-ink); font-weight: 600; }
 
 /* ---------- roadmap ---------- */
 .timeline { position: relative; margin-left: 20px; padding-left: 26px; border-left: 3px solid var(--rule); }
@@ -862,6 +879,16 @@ body[data-stage="3"] { --ui-scale: 0.98; }
 /* Stage 3 sits between the two bands and was inheriting no target floor at all.
    An eleven-year-old on a tablet still deserves a comfortable one. */
 body[data-stage="3"] .btn { min-height: 44px; }
+/* ...and the floor is a floor for every primary target, not only .btn. The
+   dot, the chip and the requirement chip draw ~26-30px at their defaults, and
+   stage 3 got neither the 0-2 enlargement nor the 4-5 halo, so the one
+   in-between stage was the only one where the policy did not hold. Padding
+   rather than a pseudo-halo here: .node-dot.frontier already owns ::after. */
+body[data-stage="3"] .node-dot,
+body[data-stage="3"] .chip,
+body[data-stage="3"] .req-chip {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 9px 14px;
+}
 body[data-stage="4"] .speak-btn, body[data-stage="5"] .speak-btn { width: 28px; height: 28px; font-size: 13px; position: relative; }
 /* The adult modes may *look* compact, but the pointer target still has to
    make 44px: an invisible halo extends the hit area without changing the
@@ -1116,6 +1143,15 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 .pick.picked { border-color: var(--gold); background: var(--paper-hi); }
 .pick .pick-mark { display: none; font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-top: 8px; }
 .pick.picked .pick-mark { display: block; }
+
+/* The confidence row. Its picked state was an inline background wash and
+   nothing else — aria-checked told a screen reader, but a sighted reader got
+   only a faint fill (SC 1.4.1). It now says which one it is, in the same
+   uppercase pick-mark the breadth chooser uses. */
+.conf-opt.picked { background: var(--paper-edge); border-color: var(--gold); }
+.conf-opt .conf-mark { display: none; font-family: var(--sans); font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-left: 7px; }
+.conf-opt.picked .conf-mark { display: inline; }
 
 .onboard-steps { display: flex; justify-content: center; gap: 18px; margin-bottom: 22px; font-family: var(--sans); }
 .onboard-step { font-size: 11px; letter-spacing: .08em; color: var(--ink-place); position: relative; padding-bottom: 8px; }

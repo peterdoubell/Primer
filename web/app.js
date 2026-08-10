@@ -84,6 +84,10 @@ const GLYPHS = {
   // replaces rendered as a full-colour cartoon amid engraved stroke icons,
   // the same breach the padlock fix removed.
   unsure: '<path d="M8.4 9.2a3.6 3.6 0 1 1 5.4 3.1c-1.1.7-1.8 1.5-1.8 2.9"/><circle cx="12" cy="18.8" r="0.9" fill="currentColor" stroke="none"/>',
+  // A four-point star, drawn. The unknown-domain tag used the typeface's
+  // '✦' — a text character standing in among stroke marks, which is the
+  // same one-geometry breach the emoji purge removed everywhere else.
+  spark: '<path d="M12 3.4c.9 4.1 2.6 5.8 6.7 6.7-4.1.9-5.8 2.6-6.7 6.7-.9-4.1-2.6-5.8-6.7-6.7 4.1-.9 5.8-2.6 6.7-6.7z"/><path d="M18.2 15.4c.4 1.8 1.1 2.5 2.9 2.9-1.8.4-2.5 1.1-2.9 2.9-.4-1.8-1.1-2.5-2.9-2.9 1.8-.4 2.5-1.1 2.9-2.9z"/>',
   // A single stroke of certainty: the check, for "I know it".
   known: '<path d="M4.5 13l5 5L19.5 6.5"/>',
 };
@@ -100,7 +104,10 @@ function glyph(name, size) {
 // real domain obeys: icons are drawn glyph-adjacent marks (not emoji), and
 // colours come from the theme so the tag stays legible when the night
 // palette turns. '⊕' + hardcoded brown did neither.
-const domainById = id => S.domains.find(d => d.id === id) || { name: id, color: 'var(--edge)', icon: '✦' };
+const domainById = id => S.domains.find(d => d.id === id) || { name: id, color: 'var(--edge)', icon: '' };
+// Authored domains ship their own character; the fallback has none, so it is
+// drawn in the book's own hand rather than borrowed from the running text.
+function domainMark(d, size) { return d.icon ? d.icon : glyph('spark', size || 15); }
 function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600); }
@@ -348,7 +355,7 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
     const box = el('div', { class: 'chip-row', role: 'group', 'aria-label': 'Deep domains', style: 'margin-top:12px' });
     S.domains.forEach(d => {
       const chip = btn({ class: 'chip' + (sel.has(d.id) ? ' on' : ''), 'aria-pressed': sel.has(d.id) ? 'true' : 'false',
-        onclick: () => { if (sel.has(d.id)) sel.delete(d.id); else sel.add(d.id); chip.classList.toggle('on'); chip.setAttribute('aria-pressed', sel.has(d.id) ? 'true' : 'false'); data.domains = [...sel]; } }, d.icon + ' ' + d.name);
+        onclick: () => { if (sel.has(d.id)) sel.delete(d.id); else sel.add(d.id); chip.classList.toggle('on'); chip.setAttribute('aria-pressed', sel.has(d.id) ? 'true' : 'false'); data.domains = [...sel]; } }, domainMark(d, 15), ' ' + d.name);
       box.append(chip);
     });
     return box;
@@ -723,7 +730,7 @@ function lessonCard(n) {
     // Domain hexes are authored for daylight in the curriculum JSON. Rather
     // than re-authoring ten files per theme, --domain-lift raises the fill
     // toward white at night (0% by day) so --on-fill keeps its contrast.
-    el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, d.icon + ' ' + d.name),
+    el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
     open,
     el('p', { class: 'goal' }, n.goal || ''));
   if (S.stage <= 1) {
@@ -745,6 +752,20 @@ function lessonCard(n) {
 // A faded node's lifetime pass count is stale evidence — say the true thing
 // ("proved once, needs a refresh") instead of a pass count that implies the
 // page is nearly open when the gate is actually shut.
+// The spoken variant of a chapter. The quiz bank carries q.say for exactly
+// this reason; frame.json's chapters carry nothing, so a five-year-old had a
+// nine-hundred-word chapter (story.friendship among them) read at them whole.
+// For the stages that are actually listening, the spoken take is the opening
+// movement plus the prompt — the part a young listener has to act on — and
+// the printed page is unchanged, still there to be read at leisure.
+function chapterSay(s) {
+  const full = (s.text || []).join(' ');
+  if (S.stage > 1 || full.length <= 420) return full;
+  const opening = [];
+  let n = 0;
+  for (const par of s.text) { opening.push(par); n += par.length; if (n >= 320) break; }
+  return opening.join(' ') + (s.prompt ? ' ' + s.prompt : '');
+}
 function storyWaitingText(n) {
   if (n.faded) return 'You proved “' + n.title + '” once — refresh it and the page turns.';
   return '“' + n.title + '” — ' + n.passes + ' of ' + n.passes_needed + ' passes';
@@ -763,7 +784,7 @@ function openStory(s, canAdvance, needs) {
       modal.append(el('div', { class: 'story-fleuron', 'aria-hidden': 'true' }, '❦'));
       modal.append(el('p', { class: 'story-prompt' }, s.prompt));
       const controls = el('div', { style: 'display:flex;gap:10px;margin-top:18px;flex-wrap:wrap' },
-        btn({ class: 'btn ghost small', style: 'color:var(--gold-bright);border-color:var(--gold)', onclick: () => speakText(s.text.join(' ')) }, glyph('speak', 16), ' Read aloud'));
+        btn({ class: 'btn ghost small', style: 'color:var(--gold-bright);border-color:var(--gold)', onclick: () => speakText(chapterSay(s)) }, glyph('speak', 16), ' Read aloud'));
       if (canAdvance) {
         // The lesson is genuinely mastered — turning the page is earned.
         controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: async () => {
@@ -773,7 +794,7 @@ function openStory(s, canAdvance, needs) {
             if (r.advanced) { confetti(); if (r.xp_gained) flyXP(r.xp_gained); toast('The next chapter has opened ✦'); }
             refreshStats();
             renderRoute();
-          } catch (e) { close(); toast('Could not turn the page just now.'); }
+          } catch (e) { close(); toast('The page would not turn just now — nothing is lost, and the chapter is still waiting. Try again in a moment.'); }
         } }, 'Turn the page ✦'));
       } else if (s.leads_to) {
         controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); go('node', s.leads_to); } }, "Let's learn it →"));
@@ -784,7 +805,7 @@ function openStory(s, canAdvance, needs) {
         controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: close }, 'Close the book ✦'));
       }
       modal.append(controls);
-      if (S.stage <= 1) maybeSpeak(s.text.join(' '));
+      if (S.stage <= 1) maybeSpeak(chapterSay(s));
     }
   });
 }
@@ -794,7 +815,9 @@ async function renderNode(page, nodeId) {
   const n = await guard(page, () => api.get('/api/curriculum/node/' + nodeId));
   if (!n) return;
   const d = domainById(n.domain);
-  page.append(pagehead(d.icon + ' ' + d.name + ' · ' + STAGE_NAMES[n.stage], n.title, n.goal || ''));
+  // pagehead's kicker is also its spoken text, so it stays a string: the
+  // fallback contributes no mark here rather than a character to mispronounce.
+  page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + STAGE_NAMES[n.stage], n.title, n.goal || ''));
 
   if (n.proven) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:var(--tint-green)' },
@@ -913,7 +936,7 @@ function buildTutor(title) {
                 S.state = await api.get('/api/state');
                 toast('Done — the book will answer with its own voice from here on.');
                 renderRoute();
-              } catch (e) { toast('Could not change that just now — try again.'); }
+              } catch (e) { toast('That setting did not take just now — the fault is the wire, never you. Try it once more.'); }
             } }, 'Keep answers in the book'))
         : null),
     log);
@@ -964,11 +987,11 @@ async function startSelfCheck(title) {
   try {
     const data = await api.get('/api/selfcheck?title=' + encodeURIComponent(title) + '&n=4');
     ov.remove();
-    if (!data.questions.length) { toast('Not enough prose here to make questions.'); return; }
+    if (!data.questions.length) { toast('This page is too short to ask you about — read on, and the book will have more to work with.'); return; }
     runQuestions({ title: title + ' · self-check', questions: data.questions,
                    nodeId: null, kind: 'self-check', stage: S.stage, token: data.token });
     toast('Practice only — this does not count toward mastery.');
-  } catch (e) { ov.remove(); toast('Could not build a self-check for this article.'); }
+  } catch (e) { ov.remove(); toast('The book could not compose a self-check just now — nothing is lost, and the article is still yours to read.'); }
 }
 
 async function startQuiz(nodeId) {
@@ -1069,7 +1092,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       confidenceRow = el('div', { class: 'confidence', role: 'radiogroup', 'aria-label': 'How sure are you?' });
       (young ? [[[glyph('unsure', 18), ' Not sure'], 1], [[glyph('known', 18), ' I know it'], 3]]
              : [['Guess', 1], ['Unsure', 2], ['Sure', 3]]).forEach(([lab, v], k) =>
-        confidenceRow.append(btn({ class: 'btn ghost small', role: 'radio',
+        confidenceRow.append(btn({ class: 'btn ghost small conf-opt', role: 'radio',
           'aria-checked': 'false', tabindex: k === 0 ? '0' : '-1',
           onkeydown: e => {
             if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(e.key)) return;
@@ -1083,11 +1106,13 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
           onclick: (e) => {
             confidence = v;
             confidenceRow.querySelectorAll('[role=radio]').forEach(b => {
-              b.style.background = ''; b.setAttribute('aria-checked', 'false'); b.setAttribute('tabindex', '-1'); });
-            e.currentTarget.style.background = 'var(--paper-edge)';
+              b.classList.remove('picked'); b.setAttribute('aria-checked', 'false'); b.setAttribute('tabindex', '-1'); });
+            // The wash alone was a colour-only cue; the class carries a written
+            // mark with it so the choice reads without seeing the fill.
+            e.currentTarget.classList.add('picked');
             e.currentTarget.setAttribute('aria-checked', 'true');
             e.currentTarget.setAttribute('tabindex', '0');
-          } }, ...[].concat(lab))));
+          } }, ...[].concat(lab), el('span', { class: 'conf-mark' }, '✓ Chosen'))));
     }
 
     if (q.kind === 'choice') {
@@ -1203,6 +1228,12 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     holdFocus(card, 'Checking…');
     const m = await mark(q, given);
     inp.style.borderColor = m.correct ? 'var(--green)' : 'var(--accent)';
+    // A green border was the whole verdict here (SC 1.4.1), and with no
+    // explain to reveal the live region stayed on 'Checking…' forever
+    // (SC 4.1.3). The other three answer types all say it in words; so does
+    // this one now.
+    tell(card, m.correct ? '✓ Correct.'
+                         : (m.answer ? 'Not quite — the answer is ' + m.answer + '.' : 'Not quite.'));
     if (!m.correct && m.answer) inp.value = given + '  →  ' + m.answer;
     reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
   }
@@ -1416,7 +1447,7 @@ async function renderAtlas(page) {
     block.append(el('div', { class: 'domain-head' },
       // Same daylight-hex lift as the lesson-card domain tag: themed via
       // --domain-lift so the ten curriculum colours survive the night palette.
-      el('div', { class: 'ic', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))`, 'aria-hidden': 'true' }, d.icon),
+      el('div', { class: 'ic', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))`, 'aria-hidden': 'true' }, domainMark(d, 20)),
       el('div', {}, el('h3', {}, d.name), el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')))));
     for (let s = 0; s < 6; s++) {
       const nodes = g.nodes.filter(n => n.domain === d.id && n.stage === s);
@@ -1551,7 +1582,7 @@ async function renderReview(page) {
     }
     if (r.xp_gained) flyXP(r.xp_gained);
     if (r.next_days >= 1) toast('Back in ' + Math.round(r.next_days) + (r.next_days < 2 ? ' day' : ' days'));
-    else toast('Again in a few minutes');
+    else toast('Back again in a few minutes — this one is still settling.');
     idx++;
     if (idx < data.cards.length) draw();
     else {
@@ -1564,7 +1595,10 @@ async function renderReview(page) {
         if (h) { h.setAttribute('tabindex', '-1'); h.focus(); }
         else { page.setAttribute('tabindex', '-1'); page.focus(); }
       }, 30);
-      toast('Deck reviewed. Well done.');
+      // The empty-deck state gets a whole Guide-flavoured line; the moment
+      // the reader actually earns it was two flat words. It is the end of a
+      // sitting, and the book should sound like it noticed.
+      toast('The deck is closed for now ✦ Every card you turned is a little harder to forget.');
       refreshStats();
     }
   }
@@ -1817,7 +1851,10 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
       // `first`/`last` unfocusable, so preventDefault() would strand Tab.
       const f = [...modal.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')]
-        .filter(x => !x.disabled && x.getAttribute('aria-hidden') !== 'true'
+        // closest(), not the element's own attribute: a control inside an
+        // aria-hidden wrapper is just as invisible to AT as one marked itself,
+        // and counting it as tabbable puts a phantom at either end of the trap.
+        .filter(x => !x.disabled && !x.closest('[aria-hidden="true"]')
                   // Not offsetParent: that is null for any position:fixed
                   // control inside the dialog, which would silently fall out
                   // of the trap and break the first/last wrap. A box on the

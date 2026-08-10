@@ -416,7 +416,11 @@ def test_review_cycle(client, onboarded):
     assert due["cards"]
     cid = due["cards"][0]["id"]
     good = client.post("/api/review", json={"card_id": cid, "quality": 5}).json()
-    assert good["next_days"] >= 1 and good["xp_gained"] > 0
+    # Ada is 8, and SM-2's first learning step is age-scaled (learner
+    # _sm2_first_steps): a full day for a teenager, eight hours for her. What
+    # matters here is that a good grade pushes the card meaningfully out and
+    # pays, not that it lands on any particular adult-shaped number.
+    assert good["next_days"] >= 0.3 and good["xp_gained"] > 0
     with srv.learner._conn() as conn:
         conn.execute("UPDATE srs_cards SET due = ? WHERE id = ?", (time.time() - 1, cid))
     blank = client.post("/api/review", json={"card_id": cid, "quality": 0}).json()

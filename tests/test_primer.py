@@ -1775,11 +1775,16 @@ def test_only_spaced_repetition_builds_durability(store):
         assert four_years < 0.35, "r={} still proven after four years".format(r)
 
 
-def test_a_self_written_card_cannot_damage_a_node_either(store):
-    """The origin gate was one-directional: a card the reader wrote could not
-    raise a node's strength but could destroy it — six self-graded failures
-    un-mastered a genuinely proven node. Non-evidence must not overturn
-    evidence in either direction."""
+def test_a_self_written_card_cannot_un_master_a_node(store):
+    """A card the reader wrote cannot *overturn* proven work: eight self-graded
+    failures still leave the node mastered, and only a book card can revoke it.
+
+    Superseded assertion: this used to require the strength be untouched too,
+    on the grounds that non-evidence must not move anything. But failure is
+    evidence in a way success is not — a card the reader wrote is the easiest
+    possible test, so blanking on it is a real signal of forgetting — so the
+    strength is now allowed to fall. What must not happen is a self-written
+    card tearing down mastery on its own."""
     store.record_attempt("n", 1.0)
     with store._conn() as c:
         c.execute("UPDATE mastery SET mastered_at=?, strength=1.0, passes=2 "
@@ -1792,7 +1797,8 @@ def test_a_self_written_card_cannot_damage_a_node_either(store):
         store.review_card(cid, 0)
     with store._conn() as c:
         row = c.execute("SELECT strength, mastered_at FROM mastery WHERE node_id='n'").fetchone()
-    assert row[0] == 1.0 and row[1] is not None
+    assert row[1] is not None, "a reader-written card must not revoke mastery"
+    assert row[0] < 1.0, "repeated failure on it is still evidence of forgetting"
 
 
 def test_the_due_queue_interleaves_a_lopsided_backlog(store):
@@ -2118,11 +2124,17 @@ def test_review_card_decays_strength_before_adjusting_it(store):
     assert "n" not in store.proven_set(), "a failed review must not raise a faded node"
 
 
-def test_a_reader_cards_grade_never_touches_the_decay_clock(store):
+def test_a_reader_cards_grade_never_revives_a_faded_node(store):
     """Regression: `last_seen` — the decay clock's zero point — was written
     unconditionally on every review, book or reader card, any grade. So
     `/api/review/add` followed by a single quality-0 grade on the resulting
-    card restored a two-year-faded node's clock to right now."""
+    card restored a two-year-faded node's clock to right now.
+
+    The invariant being defended is that a reader-written card cannot make a
+    node read fresher, not that it never writes the clock at all: a failure
+    now subtracts from the *decayed* strength, so the value written can never
+    exceed what the reader actually retains and moving the clock with it
+    cannot revive anything."""
     store.record_attempt("n", 1.0)
     old_seen = time.time() - 2 * 365 * 86400
     with store._conn() as c:
@@ -2131,11 +2143,13 @@ def test_a_reader_cards_grade_never_touches_the_decay_clock(store):
     store.add_cards([{"front": "q", "back": "a", "node_id": "n", "origin": "reader"}])
     with store._conn() as c:
         c.execute("UPDATE srs_cards SET due=?", (0,))
+    assert "n" not in store.proven_set(), "the node must already read as faded"
     store.review_card(store.due_cards()[0]["id"], 0)
     with store._conn() as c:
-        seen_after = c.execute(
-            "SELECT last_seen FROM mastery WHERE node_id='n'").fetchone()[0]
-    assert abs(seen_after - old_seen) < 5, "a reader-card grade must not move the clock"
+        strength = c.execute(
+            "SELECT strength FROM mastery WHERE node_id='n'").fetchone()[0]
+    assert strength < 0.35, "a reader-card grade must not restore a faded node"
+    assert "n" not in store.proven_set()
 
 
 def test_massed_attempts_on_one_node_do_not_compound_reinforcement(store):

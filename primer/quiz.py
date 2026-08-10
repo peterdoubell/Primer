@@ -68,6 +68,11 @@ WEAK_KEYS = set(
     resulting forming causing making using taking giving showing
     longer shorter difficult historically simply merely rather quite""".split()
 )
+# Quantifiers and comparatives read as adjectives to the tagger below but carry
+# no subject knowledge — "languages are ______ focused on control flow" (less)
+# was a hand-audit defect, not a question.
+WEAK_KEYS.update(
+    """less fewer dozens hundreds thousands millions billions numerous""".split())
 # Worked-example scaffolding — arbitrary and unanswerable out of context.
 EXAMPLE_MARKER = re.compile(
     r"(?:\be\.g\.|\bi\.e\.|\b(?:example|suppose|let\s|for instance|imagine|"
@@ -108,13 +113,27 @@ def _sentences(text: str) -> List[str]:
             continue
         if ":" in p:                 # list fragments and section run-ons
             continue
-        # Added after a hand audit put the cloze defect rate at 65%: the
+        # Added after a hand audit put the cloze defect rate at 65% (the
+        # post-filter rate went unmeasured for as long as these filters
+        # existed; it is now measured — 29/40, 72.5%, see
+        # tools/hand-audit-cloze-2026-08.md — and still bad). The
         # remaining bad items were dominated by run-on clauses (semicolons),
         # comma-heavy list fragments, quoted speech torn from its speaker,
         # and copula-free noun piles with nothing assertable to blank.
         if ";" in p or p.count(",") >= 4:
             continue
         if p.count('"') + p.count("“") + p.count("”") > 0:
+            continue
+        # Maths that survived _clean_text still reads as rubble to a learner
+        # ("As Δ t becomes infinitesimally small, the ______ up corresponds…").
+        # Two tells: leftover single-letter variable tokens, and any Greek or
+        # operator glyph. Either one means the sentence is no longer prose.
+        # ("a", "A" and "I" are words, not variables — excluding them is what
+        # keeps this from rejecting ordinary English.)
+        if len(re.findall(r"(?<![A-Za-z])(?![aAI](?![A-Za-z']))[a-zA-Z](?![A-Za-z'])",
+                          p)) >= 2:
+            continue
+        if re.search(r"[Ͱ-Ͽ∀-⋿←-⇿]", p):
             continue
         if not re.search(
                 r"\b(is|are|was|were|has|have|had|can|could|will|would|may|"
@@ -157,6 +176,121 @@ def _keywords(sentence: str, topic_terms: Optional[set] = None) -> List[str]:
     return good
 
 
+# A hand audit of 40 items generated from real cached articles (see
+# tools/hand-audit-cloze-2026-08.md) put the post-filter defect rate at 90%,
+# and one cause dominated: distractors were drawn from anywhere in the article
+# and matched only on surface shape (case, length, suffix), so a noun blank
+# routinely offered "since", "although", "became", "roughly" beside it. Those
+# are not wrong answers, they are impossible ones — the item collapses to a
+# grammar puzzle. The fix below is a coarse, corpus-local word-class tagger:
+# the key must be a noun or an adjective, and every distractor must carry the
+# same class, so replacing the blank with any option yields a sentence that at
+# least parses. It is a heuristic, not a parser; it errs toward "other"
+# (excluded) when the evidence is mixed, which costs us items rather than
+# quality.
+CLOSED_CLASS = set(
+    """although though since because whereas while unless until whether either
+    neither however therefore thus hence moreover furthermore instead rather
+    besides meanwhile nevertheless nonetheless otherwise today yesterday
+    tomorrow many much several enough themselves himself herself itself
+    ourselves yourself myself often always never sometimes usually perhaps
+    maybe indeed almost nearly quite still just even yet ever else likewise
+    accordingly consequently overall""".split()
+)
+_DET = set("""a an the its their his her our your my this that some any each every
+            no another other one two three both all several most many""".split())
+_PREP = set("""of in on at to from by with within without through across during
+             among between into onto for about against under over near""".split())
+_BE = set("""is are was were be been being becomes become became seems seemed
+           appears appeared remains remained looks feels""".split())
+_MODAL = set("""can could will would may might shall should must to""".split())
+
+
+def _tag_classes(sents: List[str]) -> Dict[str, str]:
+    """Assign each word a coarse class from how it is used in THIS article.
+
+    Corpus-local on purpose: a fixed lexicon would mislabel domain words
+    ("transit", "control", "map"), whereas the article itself shows the word in
+    the slots it actually occupies. Evidence is tallied across occurrences and
+    the majority wins; a tie means we do not know, which is "other".
+    """
+    votes: Dict[str, Dict[str, int]] = {}
+
+    def vote(word: str, cls: str):
+        votes.setdefault(word.lower(), {}).setdefault(cls, 0)
+        votes[word.lower()][cls] += 1
+
+    for s in sents:
+        toks = re.findall(r"[A-Za-z][A-Za-z'-]*", s)
+        for i, w in enumerate(toks):
+            lw = w.lower()
+            if len(lw) < 4 or lw in CLOSED_CLASS:
+                continue
+            prev = toks[i - 1].lower() if i else ""
+            nxt = toks[i + 1].lower() if i + 1 < len(toks) else ""
+            nxt_content = bool(nxt) and nxt not in STOPWORDS and nxt not in _PREP
+            if i and w[0].isupper():
+                # Capitalised away from the sentence opening: a name. Kept as
+                # its own class so a name blank is only ever offered names —
+                # "including Dijkstra / Although / Control" was the failure.
+                vote(w, "propn")
+                continue
+            if lw.endswith("ly"):
+                vote(w, "other")
+                continue
+            if prev in _MODAL:
+                vote(w, "verb")
+                continue
+            if prev in _BE:
+                # "is electrolytic" (adj) vs "is decomposed by" (participle verb)
+                vote(w, "verb" if lw.endswith("ing") else "adj")
+                continue
+            if prev in _DET or prev in _PREP:
+                # "the ______ cell" reads as a modifier; "the ______ ." a noun.
+                vote(w, "adj" if nxt_content else "noun")
+                continue
+            if nxt in _BE or nxt == "of":
+                vote(w, "noun")
+                continue
+            if nxt_content and w[0].islower() and lw.endswith(("ic", "al", "ous",
+                                                               "ive", "ary")):
+                vote(w, "adj")
+                continue
+            vote(w, "other")
+
+    classes: Dict[str, str] = {}
+    for word, tally in votes.items():
+        best = max(tally.values())
+        winners = [c for c, v in tally.items() if v == best]
+        cls = winners[0] if len(winners) == 1 else "other"
+        if cls == "other":
+            # Short articles give a word one or two occurrences, often in slots
+            # none of the rules above cover, and an "other" verdict there means
+            # "no evidence" rather than "not a noun". Morphology is a weaker
+            # signal than context, so it is consulted only as the tiebreak —
+            # without it a five-sentence paragraph yields almost no items.
+            cls = _suffix_prior(word)
+        classes[word] = cls
+    return classes
+
+
+_NOUN_SUFFIX = ("tion", "sion", "ment", "ness", "ity", "ance", "ence", "ism",
+                "ist", "ology", "ography", "ure", "age", "ship", "hood", "cy")
+_ADJ_SUFFIX = ("ous", "ive", "ful", "less", "able", "ible", "ical", "ic",
+               "al", "ary", "ish", "ant", "ent")
+
+
+def _suffix_prior(word: str) -> str:
+    w = word.lower()
+    if w.endswith(_NOUN_SUFFIX):
+        return "noun"
+    if w.endswith(_ADJ_SUFFIX):
+        return "adj"
+    if w.endswith("s") and not w.endswith(("ss", "us", "is")):
+        return "noun"
+    return "other"
+
+
 def _numbers(sentence: str) -> List[str]:
     return re.findall(r"\b\d[\d,]*(?:\.\d+)?\b", sentence)
 
@@ -174,8 +308,21 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
     topic_terms = {w.lower() for w in re.findall(r"[A-Za-z]{4,}", topic)}
     all_words, all_nums = set(), set()
     for s in sents:
-        all_words.update(_keywords(s, topic_terms)[:5])
+        all_words.update(_keywords(s, topic_terms)[:8])
         all_nums.update(_numbers(s))
+    word_class = _tag_classes(sents)
+    # Distractors draw from a wider net than keys do. A key has to be worth
+    # asking about, so it comes from the top-ranked keywords; a distractor only
+    # has to be a real word of the right class from this article, and starving
+    # the pool is what forces the generator to reach across classes.
+    weak_lemmas = {_lemma(w) for w in WEAK_KEYS}
+    distractor_pool = {
+        w for s in sents for w in re.findall(r"[A-Za-z][A-Za-z'-]{3,}", s)
+        if w.lower() not in STOPWORDS
+        and w.lower() not in WEAK_KEYS
+        and _lemma(w) not in weak_lemmas
+        and "displaystyle" not in w.lower()
+    }
 
     questions, used, used_keys = [], set(), set()
     order = list(range(len(sents)))
@@ -194,7 +341,23 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
             target = years[0]
             pool = [x for x in _year_like(list(all_nums)) if x != target]
         elif keys:
+            # Only blank something the reader could name: a noun, a name, or a
+            # modifier. Blanking a verb or a connective ("the error ______ in
+            # the logical form") makes a grammar puzzle, not a knowledge check.
+            keys = [k for k in keys
+                    if word_class.get(k.lower()) in ("noun", "propn", "adj")]
+            if not keys:
+                continue
+            # Deliberately still keys[0], with no walk down the ranking. A
+            # variant that tried each candidate in turn raised the item count
+            # by roughly half and hand-audited worse (29/40 defective against
+            # 23/40) — not a controlled comparison, since the distractor pool
+            # widened in the same step, but the direction was clear and the
+            # keys further down the ranking are the ones ranking already
+            # judged weakest. Yield is the cheaper thing to give up: three
+            # sound items beat five of which two are broken.
             target = keys[0]
+            key_class = word_class.get(target.lower())
             same_case = target[0].isupper()
             # Match the key's surface shape so no option stands out: same case,
             # similar length, and the same word-class ending where we can tell.
@@ -206,16 +369,27 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
                 return ""
             tgt_class = suffix_class(target)
             band = max(3, len(target) // 3)
-            pool = [w for w in all_words
+            # Substitutability first: an option that cannot occupy the blank is
+            # not a distractor, it is a hint. Both pools below draw from here.
+            same_class = {w for w in distractor_pool
+                          if word_class.get(w.lower()) == key_class}
+            pool = [w for w in same_class
                     if w.lower() != target.lower()
                     and w[0].isupper() == same_case
                     and abs(len(w) - len(target)) <= band
                     and suffix_class(w) == tgt_class]
             if len(set(pool)) < 3:      # relax the class match before giving up
-                pool = [w for w in all_words
+                # Relax the *suffix* match, never the word class — a wider
+                # length band is a cosmetic loss, a cross-class option is a
+                # broken item.
+                pool = [w for w in same_class
                         if w.lower() != target.lower()
                         and w[0].isupper() == same_case
                         and abs(len(w) - len(target)) <= band]
+            if len(set(pool)) < 3:      # then the length band, class last
+                pool = [w for w in same_class
+                        if w.lower() != target.lower()
+                        and w[0].isupper() == same_case]
             # A key that is the only title word among the options gives itself
             # away — require distractors from the same family or drop the item.
             if topic_terms and target.lower() in topic_terms:

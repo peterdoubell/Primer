@@ -132,6 +132,54 @@ def _prune_backups(dest_dir: str):
                 pass
 
 
+def backup_status() -> dict:
+    """Where the backups are, and whether they would survive this disk dying.
+
+    The retention policy above is careful and the off-disk escape hatch exists,
+    but PRIMER_BACKUP_DIR only helps a reader who already knows to look for it
+    — which is nobody who has not read the source. So the same-disk fact is
+    reported: once in the startup log, and as a field on /api/state that a UI
+    can surface without asking the server anything new.
+
+    "Off-disk" is decided by comparing filesystem device ids, not by whether
+    the env var is set. Pointing PRIMER_BACKUP_DIR at another folder on the
+    same drive is exactly the move that feels like safety and is not, and a
+    check that congratulated it would be worse than no check.
+    """
+    dest = os.path.abspath(BACKUP_DIR)
+    configured = bool(os.environ.get("PRIMER_BACKUP_DIR"))
+    off_disk = None                      # unknown until both paths exist
+    try:
+        db_dev = os.stat(os.path.dirname(os.path.abspath(DB_PATH)) or ".").st_dev
+        probe = dest if os.path.isdir(dest) else (os.path.dirname(dest) or ".")
+        off_disk = os.stat(probe).st_dev != db_dev
+    except OSError:
+        pass
+    try:
+        copies = len([f for f in os.listdir(dest)
+                      if f.startswith("primer-") and f.endswith(".db")])
+    except OSError:
+        copies = 0
+    return {
+        "dir": dest,
+        "copies": copies,
+        "configured_by_env": configured,
+        "off_disk": off_disk,
+        "env_var": "PRIMER_BACKUP_DIR",
+        # Plain sentence, written once, so the log line, the API and any UI
+        # that renders it all say the same thing.
+        "advice": (
+            "Backups are on the same drive as the learner record — a failed "
+            "drive loses both. Set PRIMER_BACKUP_DIR to a path on removable "
+            "or synced storage to keep a copy off this disk."
+            if off_disk is False else
+            "Backups are on a different drive from the learner record."
+            if off_disk else
+            "Backup location could not be checked against the record's drive."
+        ),
+    }
+
+
 _shutdown = threading.Event()
 
 
@@ -165,6 +213,13 @@ def _maintenance_loop():
 
 @asynccontextmanager
 async def _lifespan(_app):
+    # First-run nudge. Logged at startup rather than on the first backup so a
+    # reader who has not onboarded yet — the one who can still choose where the
+    # record will live — sees it too. WARNING when same-disk: this is the one
+    # thing in the maintenance story that the book cannot fix for them.
+    bk = backup_status()
+    (log.warning if bk["off_disk"] is False else log.info)(
+        "backups -> %s (%d kept) | %s", bk["dir"], bk["copies"], bk["advice"])
     threading.Thread(target=_maintenance_loop, daemon=True).start()
     yield
     # Let the maintenance thread finish its wait and return rather than being
@@ -309,6 +364,11 @@ def state():
         # the flag also rides on every /api/tutor reply (see tutor.ask). The
         # reader can turn it off in-app via the tutor_remote_ok setting.
         "tutor_remote": tutor_remote,
+        # Where the record is copied to, and whether those copies would
+        # survive this drive failing. Carried on the state every client
+        # already fetches so surfacing it costs the UI one field, not a round
+        # trip — see backup_status() for why off_disk is a device comparison.
+        "backup": backup_status(),
         "stages": [{"i": i, "name": STAGE_NAMES[i], "span": STAGE_SPAN[i],
                     "title": STAGE_TITLES[i]} for i in range(6)],
         "domains": curr.domains,

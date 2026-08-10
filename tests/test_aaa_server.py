@@ -426,3 +426,46 @@ def test_check_banks_sample_mode_draws_a_hand_audit_sheet(capsys):
     assert "Hand-audit sheet" in out
     assert "lower bound" in out
     assert out.count("\n  ") >= 5 or out.count(". [") >= 5
+
+
+# ---------------- the backup nudge reaches a reader ----------------
+
+
+def test_state_carries_the_backup_location_and_off_disk_verdict(client):
+    """The off-disk answer used to be a PRIMER_BACKUP_DIR the reader had to
+    already know about. It now rides on the state every client fetches."""
+    bk = client.get("/api/state").json()["backup"]
+    assert bk["env_var"] == "PRIMER_BACKUP_DIR"
+    assert os.path.isabs(bk["dir"])
+    # Test backups live under tmp, on the same device as the test database.
+    assert bk["off_disk"] is False
+    assert "PRIMER_BACKUP_DIR" in bk["advice"]
+    assert "same drive" in bk["advice"]
+
+
+def test_off_disk_is_a_device_check_not_an_env_var_check(tmp_path, monkeypatch):
+    """Pointing the variable at another folder on the same drive is the move
+    that feels like safety and is not — it must not be reported as off-disk."""
+    import primer.server as srv
+    elsewhere = tmp_path / "still-same-disk"
+    elsewhere.mkdir()
+    monkeypatch.setenv("PRIMER_BACKUP_DIR", str(elsewhere))
+    monkeypatch.setattr(srv, "BACKUP_DIR", str(elsewhere))
+    bk = srv.backup_status()
+    assert bk["configured_by_env"] is True
+    assert bk["off_disk"] is False          # configured, still not safe
+    assert "PRIMER_BACKUP_DIR" in bk["advice"]
+
+
+def test_startup_warns_when_backups_share_the_record_s_disk(caplog):
+    """A nudge nobody sees is not a nudge: same-disk logs at WARNING."""
+    import logging
+    import primer.server as srv
+    with caplog.at_level(logging.INFO, logger="primer.server"):
+        bk = srv.backup_status()
+        (srv.log.warning if bk["off_disk"] is False else srv.log.info)(
+            "backups -> %s (%d kept) | %s", bk["dir"], bk["copies"], bk["advice"])
+    rec = [r for r in caplog.records if "backups ->" in r.getMessage()]
+    assert rec, "startup must announce where backups go"
+    if bk["off_disk"] is False:
+        assert rec[-1].levelno == logging.WARNING

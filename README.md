@@ -222,9 +222,24 @@ Requirements: Python 3.9+ and the pinned packages in `requirements.txt`.
   learner who wants to prove those foundations can quiz them any time.
 - **Auto-generated questions never count.** An audit put their defect rate at
   65% — mostly items solvable from grammar alone — so they were retired from
-  grading entirely. They survive only as a labelled, unmarked self-check for
-  free reading. Every one of the 343 curriculum concepts carries **ten**
-  authored items, so nothing that moves mastery is machine-written.
+  grading entirely. A second hand audit, this time *after* the filters and on
+  real article text, put the current rate at **72.5% (29 of 40, 95% CI
+  57–84%)**: better than the generator was, still bad, and the reason these
+  items stay unmarked. Method, sheet and limits are in
+  [tools/hand-audit-cloze-2026-08.md](tools/hand-audit-cloze-2026-08.md); rerun
+  it with `python3 tools/audit_cloze.py`. They survive only as a labelled,
+  unmarked self-check for free reading. Every one of the 343 curriculum
+  concepts carries **ten** authored items, so nothing that moves mastery is
+  machine-written.
+- **Backups are same-disk until you say otherwise.** The learner record is
+  copied daily into `content/backups/` on a tiered schedule (~5 daily, 4
+  weekly, 12 monthly). That protects against mistakes, not against a dead
+  drive: both copies are on the same disk. Set **`PRIMER_BACKUP_DIR`** to a
+  path on removable or synced storage and the copies land off-disk. The server
+  logs the backup location and this warning at startup, and reports it on
+  `/api/state` as `backup.off_disk` — decided by comparing filesystem device
+  ids, so pointing the variable at another folder on the same drive is
+  correctly reported as still same-disk.
 - **Knowing nothing scores like knowing nothing.** Always picking the longest
   option, the first, the second-longest, or mining the served JSON for a leaked
   answer all sit at chance and master zero of the 343 concepts. A test sits real

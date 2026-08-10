@@ -38,6 +38,52 @@ GATE_OPEN = 0.999
 # the true cost of *keeping* several thousand nodes known.
 SRS_REVIEW_MIN_PER_NODE = 12.0
 
+# ...but "a dozen reviews" is an average reader's dozen, and the two things
+# that move it are both measured, not guessed. The flat figure assumed the
+# baseline deck shape below; a reader whose nodes mint twice as many cards
+# pays twice as many reviews, and a reader who lapses often pays for the
+# ladder being knocked back down. Both come straight off the deck
+# (learner.deck_stats()), so the estimate can be this reader's instead of the
+# average one's.
+#
+# Baseline: a mastered node mints about three cards, and a healthy deck fails
+# roughly one review in eight. Feeding those exact numbers in reproduces
+# SRS_REVIEW_MIN_PER_NODE, which is the point — the per-reader term is a
+# correction to the flat estimate, not a replacement for it, so an unmeasured
+# or empty deck keeps the old number rather than jumping.
+SRS_BASELINE_CARDS_PER_NODE = 3.0
+SRS_BASELINE_LAPSE_RATE = 0.125
+# Each lapse costs roughly a relearn plus the re-climb of the first steps —
+# call it two extra reviews' worth per lapsed review, over the plan horizon.
+SRS_LAPSE_WEIGHT = 2.0
+# A floor and a ceiling, because this multiplies a whole curriculum. A reader
+# with a tiny, pristine deck should not have maintenance priced near zero (the
+# nodes they have not learned yet will mint cards too), and a reader in a bad
+# patch should not have their roadmap tripled by one rough fortnight.
+SRS_MIN_PER_NODE_FLOOR = 6.0
+SRS_MIN_PER_NODE_CEIL = 36.0
+
+
+def srs_minutes_per_node(deck: "Dict | None") -> float:
+    """Per-node lifetime SRS maintenance in minutes, for this reader's deck.
+
+    `deck` is learner.deck_stats(). Missing, empty, or ungraded decks fall
+    back to the flat SRS_REVIEW_MIN_PER_NODE — "we have not measured this
+    reader yet" must read as the average, never as zero.
+    """
+    if not deck:
+        return SRS_REVIEW_MIN_PER_NODE
+    per_node = float(deck.get("cards_per_node") or 0)
+    graded = float(deck.get("reviews_graded") or 0)
+    if per_node <= 0 and graded <= 0:
+        return SRS_REVIEW_MIN_PER_NODE
+    card_factor = (per_node / SRS_BASELINE_CARDS_PER_NODE) if per_node > 0 else 1.0
+    lapse_rate = float(deck.get("lapse_rate") or 0) if graded > 0 else SRS_BASELINE_LAPSE_RATE
+    lapse_factor = ((1 + SRS_LAPSE_WEIGHT * lapse_rate)
+                    / (1 + SRS_LAPSE_WEIGHT * SRS_BASELINE_LAPSE_RATE))
+    est = SRS_REVIEW_MIN_PER_NODE * card_factor * lapse_factor
+    return max(SRS_MIN_PER_NODE_FLOOR, min(SRS_MIN_PER_NODE_CEIL, est))
+
 BREADTH_PLANS = {
     # domains carried to graduate stage : others carried to secondary stage
     "focused": {"deep_target": 5, "wide_target": 3, "label": "Focused — a few fields, all the way"},
@@ -47,7 +93,7 @@ BREADTH_PLANS = {
 
 
 def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
-            proven: "set | None" = None) -> Dict:
+            proven: "set | None" = None, deck: "Dict | None" = None) -> Dict:
     """graph: {domains: [{id,name}], nodes: [node]} — see curriculum.py.
 
     `mastery` must be the learner's decay-aware gate view (gate_map()), not
@@ -62,12 +108,21 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
     `nodes_proven` / `nodes_assumed` below) without changing anything the
     plan schedules; omitting it keeps the old shape working and leaves the
     split fields None, meaning "caller didn't say", never "zero".
+
+    `deck`, when given, is the learner's deck_stats(): the maintenance term
+    folded into every remaining node is then priced from this reader's own
+    card count per node and observed lapse rate rather than from the flat
+    average (see srs_minutes_per_node). Optional for the same reason `proven`
+    is — omitting it keeps the old numbers exactly, and the figure used is
+    reported as `srs_minutes_per_node` so the estimate can be audited instead
+    of taken on faith.
     """
     breadth = profile.get("breadth", "balanced")
     plan = BREADTH_PLANS.get(breadth, BREADTH_PLANS["balanced"])
     deep_domains = set(profile.get("domains") or [])
     hours = max(float(profile.get("hours_per_week") or 6), 1.0)
     minutes_per_year = hours * 60 * WEEKS_PER_YEAR * EFFICIENCY
+    srs_per_node = srs_minutes_per_node(deck)
 
     # Remaining minutes for every node not yet mastered, bucketed by stage.
     stage_buckets: List[Dict] = [
@@ -86,7 +141,7 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
         # Instructional minutes plus the node's lifetime SRS maintenance —
         # see SRS_REVIEW_MIN_PER_NODE. Folding it in here keeps the years,
         # the timeline, and the per-stage hours all telling the same story.
-        b["minutes"] += node.get("minutes", 40) + SRS_REVIEW_MIN_PER_NODE
+        b["minutes"] += node.get("minutes", 40) + srs_per_node
         b["nodes"] += 1
         b["domains"].add(node["domain"])
 
@@ -173,6 +228,7 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
             }
             for b in stage_buckets if b["nodes"]
         ],
+        "srs_minutes_per_node": round(srs_per_node, 1),
         "nodes_mastered": mastered,
         "nodes_proven": nodes_proven,
         "nodes_assumed": nodes_assumed,

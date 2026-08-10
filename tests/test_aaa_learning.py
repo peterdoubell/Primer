@@ -330,3 +330,179 @@ def test_cross_domain_and_duplicate_prereq_titles_are_qualified():
     # math.3.euclid requires mind.2.logic-intro — a cross-domain prereq.
     reqs = curr.unlock_requirements(curr.nodes['math.3.euclid'], {})
     assert any('(' in r and 'Logic' in r for r in reqs)
+
+
+# ---------------- 11. age-scaled spacing (round 4) --------------------------
+
+
+def _set_age(store, age):
+    store.save_profile(name='R', age=age, hours_per_week=6,
+                       breadth='balanced', domains=['math'], stage=0)
+
+
+def test_proving_window_and_learning_steps_scale_with_age():
+    """The distributed-practice argument REINFORCE_MIN_GAP_BY_AGE already
+    cites applies to the proving window and to SM-2's learning steps too."""
+    from primer.learner import (MASTERY_MIN_INTERVAL, _mastery_min_interval,
+                                _sm2_first_steps)
+    assert _mastery_min_interval(30) == MASTERY_MIN_INTERVAL
+    assert _mastery_min_interval(None) == MASTERY_MIN_INTERVAL
+    assert _mastery_min_interval(5) < _mastery_min_interval(9) < _mastery_min_interval(15)
+    # Still far longer than one sitting: two attempts in an afternoon can
+    # never prove a node, at any age.
+    assert _mastery_min_interval(4) >= 4 * 3600
+    assert _sm2_first_steps(30) == (1.0, 6.0)
+    young_first, young_second = _sm2_first_steps(5)
+    assert 0 < young_first < 1.0 and young_first < young_second < 6.0
+
+
+def test_a_young_reader_can_prove_a_node_across_one_day(store):
+    """A 5-year-old's two spaced passes six hours apart are genuine spaced
+    practice; the adult two-day window silently refused to count them."""
+    _set_age(store, 5)
+    now = time.time()
+    store.record_attempt('n', 1.0)
+    _raw(store, "UPDATE mastery SET first_pass_at=?, last_pass_at=? WHERE node_id='n'",
+         now - 7 * 3600, now - 7 * 3600)
+    r = store.record_attempt('n', 1.0)
+    assert r['mastered'] and r['proven']
+
+
+def test_an_adult_still_needs_two_days(store):
+    _set_age(store, 30)
+    now = time.time()
+    store.record_attempt('n', 1.0)
+    _raw(store, "UPDATE mastery SET first_pass_at=?, last_pass_at=? WHERE node_id='n'",
+         now - 7 * 3600, now - 7 * 3600)
+    assert not store.record_attempt('n', 1.0)['mastered']
+
+
+def test_first_review_step_is_shorter_for_a_small_child(store):
+    _set_age(store, 5)
+    cid = _add_due_card(store, node_id='')
+    assert store.review_card(cid, 5)['next_days'] < 1.0
+
+
+# ---------------- 12. reader-card failure is still evidence ----------------
+
+
+def test_a_failed_reader_card_lowers_node_strength(store):
+    """Failure is evidence even when the test was easy — and a card the reader
+    wrote is the easiest test there is. Previously it moved nothing at all."""
+    _seed_faded_mastered(store, days_ago=0)
+    before = _node_row(store)['strength']
+    cid = _add_due_card(store, origin='reader')
+    store.review_card(cid, 0)
+    assert _node_row(store)['strength'] < before
+
+
+def test_a_passed_reader_card_still_restores_nothing(store):
+    """The asymmetry is the point: self-certification cannot raise a node."""
+    _seed_faded_mastered(store)
+    cid = _add_due_card(store, origin='reader')
+    store.review_card(cid, 5)
+    # Nothing was written at all: the stored strength keeps its old value
+    # *and* its old clock, so the decayed reading is still below the gate.
+    assert _node_row(store)['reinforcements'] == 1
+    assert 'node.a' not in store.proven_set()
+
+
+def test_a_reader_card_failure_cannot_revoke_mastery(store):
+    """It can flag decay; it must not on its own tear down proven work."""
+    _seed_faded_mastered(store, days_ago=0)
+    cid = _add_due_card(store, origin='reader')
+    for _ in range(8):
+        _raw(store, "UPDATE srs_cards SET due=? WHERE id=?", time.time() - 60, cid)
+        store.review_card(cid, 0)
+    assert _node_row(store)['mastered_at'] is not None
+
+
+# ---------------- 13. underconfidence is credited, not just penalised ------
+
+
+def test_underconfident_reader_gets_a_more_generous_q3(store):
+    """The mirror of the overconfidence discount: a reader whose hesitant quiz
+    answers are usually right has their self-graded q=3 credited a notch up."""
+    _seed_faded_mastered(store)
+    for _ in range(3):
+        store.log_event('calibration', {'node': 'n', 'overconfident': 0,
+                                        'underconfident': 2, 'total': 4})
+    assert store.underconfidence_rate() > 1 / 3
+    cid = _add_due_card(store)
+    store.review_card(cid, 3)
+    assert _node_row(store)['strength'] == pytest.approx(0.7)
+
+
+def test_a_calibrated_reader_keeps_the_plain_q3_floor(store):
+    _seed_faded_mastered(store)
+    cid = _add_due_card(store)
+    store.review_card(cid, 3)
+    assert _node_row(store)['strength'] == pytest.approx(0.5)
+
+
+def test_the_generous_q3_still_does_not_buy_the_half_life(store):
+    """A notch up on strength, not the permanent durability payment q>=4 buys."""
+    _seed_faded_mastered(store)
+    for _ in range(3):
+        store.log_event('calibration', {'node': 'n', 'overconfident': 0,
+                                        'underconfident': 2, 'total': 4})
+    cid = _add_due_card(store)
+    store.review_card(cid, 3)
+    assert _node_row(store)['reinforcements'] == 1
+
+
+# ---------------- 14. the freshness gate shows its arithmetic --------------
+
+
+def test_fresh_gate_is_consistent_with_the_interval_cap():
+    """FRESH_GATE and MAX_INTERVAL_DAYS are two views of one number: the
+    longest schedulable interval must still land above the gate at the slowest
+    half-life, or a card can be reviewed exactly on time and read as faded."""
+    import math
+    from primer.learner import (FRESH_GATE, MAX_INTERVAL_DAYS,
+                                STRENGTH_HALF_LIFE_MAX)
+    survives_days = (STRENGTH_HALF_LIFE_MAX / DAY) * math.log(FRESH_GATE, 0.5)
+    assert survives_days > MAX_INTERVAL_DAYS
+
+
+# ---------------- 15. per-reader SRS maintenance in the roadmap ------------
+
+
+def test_roadmap_keeps_its_shape_without_deck_stats():
+    from primer.pacing import srs_minutes_per_node
+    r = roadmap(PROFILE, GRAPH, {})
+    assert r['srs_minutes_per_node'] == pytest.approx(SRS_REVIEW_MIN_PER_NODE)
+    assert r['total_hours'] == roadmap(PROFILE, GRAPH, {}, deck=None)['total_hours']
+    assert srs_minutes_per_node({}) == SRS_REVIEW_MIN_PER_NODE
+
+
+def test_a_lapse_prone_deck_is_priced_higher_than_a_clean_one():
+    clean = {'cards_per_node': 3.0, 'reviews_graded': 200, 'lapse_rate': 0.05}
+    lapsey = {'cards_per_node': 3.0, 'reviews_graded': 200, 'lapse_rate': 0.5}
+    a = roadmap(PROFILE, GRAPH, {}, deck=clean)
+    b = roadmap(PROFILE, GRAPH, {}, deck=lapsey)
+    assert b['srs_minutes_per_node'] > a['srs_minutes_per_node']
+    assert b['total_hours'] >= a['total_hours']
+
+
+def test_a_bigger_deck_per_node_costs_more_maintenance():
+    small = {'cards_per_node': 2.0, 'reviews_graded': 100, 'lapse_rate': 0.125}
+    big = {'cards_per_node': 8.0, 'reviews_graded': 100, 'lapse_rate': 0.125}
+    from primer.pacing import srs_minutes_per_node
+    assert srs_minutes_per_node(big) > srs_minutes_per_node(small)
+    # And it is bounded either way: one rough fortnight must not triple a plan.
+    from primer.pacing import SRS_MIN_PER_NODE_CEIL, SRS_MIN_PER_NODE_FLOOR
+    wild = {'cards_per_node': 40.0, 'reviews_graded': 100, 'lapse_rate': 0.95}
+    assert srs_minutes_per_node(wild) == SRS_MIN_PER_NODE_CEIL
+    tiny = {'cards_per_node': 0.2, 'reviews_graded': 100, 'lapse_rate': 0.0}
+    assert srs_minutes_per_node(tiny) == SRS_MIN_PER_NODE_FLOOR
+
+
+def test_deck_stats_reports_the_shape_pacing_needs(store):
+    store.add_cards([{'front': 'a', 'back': 'b', 'node_id': 'n1'},
+                     {'front': 'c', 'back': 'd', 'node_id': 'n1'}])
+    _raw(store, "UPDATE srs_cards SET reps=7, lapses=1")
+    s = store.deck_stats()
+    assert s['cards_per_node'] == pytest.approx(2.0)
+    assert s['lapse_rate'] == pytest.approx(2 / 16)
+    assert s['total'] == 2
