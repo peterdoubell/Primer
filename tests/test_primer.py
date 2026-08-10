@@ -1765,13 +1765,13 @@ def test_only_spaced_repetition_builds_durability(store):
         store.review_card(card["id"], 5)
     assert reinforcements() <= start + 1, "massed repetition must not compound"
 
-    # ...and the ceiling still lets everything fade eventually.
+    # ...and the ceiling still lets everything fade eventually. Read the law
+    # from `_half_life` rather than restating it: this test used to carry an
+    # algebraic copy of the growth formula, which kept passing unchanged when
+    # the formula it was mirroring was replaced.
     import primer.learner as lm
     for r in (1, 5, 20, 60):
-        half_life = min(
-            lm.STRENGTH_HALF_LIFE * (1 + lm.STRENGTH_HALF_LIFE_STEP * (r - 1)),
-            lm.STRENGTH_HALF_LIFE_MAX)
-        four_years = 0.5 ** ((4 * 365 * 86400) / half_life)
+        four_years = 0.5 ** ((4 * 365 * 86400) / lm._half_life(r))
         assert four_years < 0.35, "r={} still proven after four years".format(r)
 
 

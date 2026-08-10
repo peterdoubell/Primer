@@ -1457,6 +1457,17 @@ def test_every_mastery_word_agrees_across_both_routes(tmp_path):
     The narrow tests written for each of those covered one word in one
     state. This covers the whole matrix, so the next drift in any word is
     caught by construction rather than by an audit noticing.
+
+    Superseded assertion, rewritten rather than dropped: the final case used
+    to require that decayed placement credit is "simply gone" — no word true
+    of it at all. That turned out to be the bug, not the contract. A node the
+    placement interview credited and the reader never returned to went, at
+    around day 36, from `assumed: true` to every word false, indistinguishable
+    from a node never touched: gates below the reader's placed stage silently
+    re-locked and the roadmap re-inflated with nothing said. Credit now holds
+    the gate for ASSUMED_CREDIT_LIFE and then becomes a fifth, named state —
+    `assumed_stale` — which is in WORDS below and must agree across the routes
+    exactly like the other four.
     """
     import time
     import primer.server as srv
@@ -1464,7 +1475,7 @@ def test_every_mastery_word_agrees_across_both_routes(tmp_path):
     from primer.wiki import WikiService
     from fastapi.testclient import TestClient
 
-    WORDS = ("mastered", "proven", "ever_proven", "faded", "assumed")
+    WORDS = ("mastered", "proven", "ever_proven", "faded", "assumed", "assumed_stale")
     orig_learner, orig_wiki, orig_backup_dir = srv.learner, srv.wiki, srv.BACKUP_DIR
     try:
         db = str(tmp_path / "test.db")
@@ -1516,8 +1527,10 @@ def test_every_mastery_word_agrees_across_both_routes(tmp_path):
                 conn.execute("UPDATE mastery SET last_seen=? WHERE node_id=?",
                              (time.time() - 400 * 86400, seeded))
             d = agree(seeded, "placement seed left to decay")
-            assert not d["assumed"] and not d["mastered"], \
-                "credit that no longer stands is not 'assumed' — it is simply gone"
+            assert d["assumed"] and d["assumed_stale"], \
+                "expired credit must still have a name the book can say"
+            assert not d["mastered"] and not d["proven"], \
+                "expired credit no longer stands: it must not read as mastery"
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
 
@@ -1538,26 +1551,47 @@ def test_a_decayed_assumed_node_says_one_thing_too(client, onboarded):
     *fresh* seed and an *earned-then-faded* node, but never a seed that has
     itself decayed — which is the ordinary fate of any age-placement credit
     the reader never returns to.
+
+    Rewritten: the day-37 expectation this test used to encode was itself the
+    defect. Placement credit was decaying on a memory's half-life, so at ~36
+    days a credited node reported mastered/proven/assumed/faded all false and
+    the gates below the reader's placed stage re-locked in silence. Credit is
+    not a memory — only a test can disconfirm it — so it now holds the gate at
+    FRESH_GATE for ASSUMED_CREDIT_LIFE and then expires into a *named* state.
+    What this test still guards is the thing it was written for: whatever the
+    two routes say about a credited node, they must say it identically.
     """
     import time
     import primer.server as srv
+    from primer.learner import ASSUMED_CREDIT_LIFE
 
     srv.learner.seed_assumed(["math.3.polynomials"])
-    # Age the seed past the strength gate without touching anything else.
-    with srv.learner._conn() as conn:
-        conn.execute("""UPDATE mastery SET last_seen=?, mastered_at=?
-                        WHERE node_id='math.3.polynomials'""",
-                     (time.time() - 37 * 86400, time.time() - 37 * 86400))
 
-    node = client.get("/api/curriculum/node/math.3.polynomials").json()
-    detail = node["mastery_detail"]
-    assert detail["mastered"] is False, "37 days untouched decays a seed past the gate"
-    assert detail["assumed"] is False, \
-        "credit that no longer stands is not 'assumed' — it is simply gone"
+    def both():
+        detail = client.get(
+            "/api/curriculum/node/math.3.polynomials").json()["mastery_detail"]
+        graph = {n["id"]: n for n in client.get("/api/curriculum").json()["nodes"]}
+        for word in ("mastered", "assumed", "assumed_stale"):
+            assert graph["math.3.polynomials"][word] == detail[word], \
+                "the two routes must say the same word about one node: " + word
+        return detail
 
-    graph = {n["id"]: n for n in client.get("/api/curriculum").json()["nodes"]}
-    assert graph["math.3.polynomials"]["assumed"] == detail["assumed"], \
-        "/api/curriculum and /api/curriculum/node must say the same word about one node"
+    def age(days):
+        with srv.learner._conn() as conn:
+            conn.execute("""UPDATE mastery SET last_seen=?, mastered_at=?
+                            WHERE node_id='math.3.polynomials'""",
+                         (time.time() - days * 86400,) * 2)
+
+    age(37)
+    d = both()
+    assert d["mastered"] is True, "placement credit must not evaporate in five weeks"
+    assert d["assumed"] is True and d["assumed_stale"] is False
+
+    age(ASSUMED_CREDIT_LIFE / 86400 + 1)
+    d = both()
+    assert d["mastered"] is False, "credit does expire — it is not permanent"
+    assert d["assumed"] is True and d["assumed_stale"] is True, \
+        "expired credit must be nameable, not merely absent"
 
 
 def test_every_paper_the_book_can_draw_is_well_formed(client, onboarded):

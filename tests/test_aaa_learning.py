@@ -26,6 +26,18 @@ def store(tmp_path):
     return LearnerStore(str(tmp_path / 'aaa.db'))
 
 
+_FRESH_N = [0]
+
+
+def _fresh_store():
+    """A second, independent store — for tests that must compare the same
+    action taken by two differently-calibrated readers."""
+    import tempfile
+    _FRESH_N[0] += 1
+    d = tempfile.mkdtemp()
+    return LearnerStore(os.path.join(d, 'fresh%d.db' % _FRESH_N[0]))
+
+
 def _raw(store, sql, *args):
     conn = sqlite3.connect(store.db_path)
     conn.row_factory = sqlite3.Row
@@ -137,18 +149,36 @@ def test_calibrated_reader_still_gets_full_restore(store):
     assert _node_row(store)['strength'] == pytest.approx(1.0)
 
 
-def test_overconfident_reader_gets_capped_restore(store):
-    """A reader whose confident quiz answers are wrong more than a third of
-    the time cannot restore a faded node to full strength on their own say-so;
-    the self-graded q>=4 restore is capped at 0.85."""
-    _seed_faded_mastered(store)
-    for _ in range(3):
-        store.log_event('calibration', {'node': 'n', 'overconfident': 2,
-                                        'underconfident': 0, 'total': 4})
-    assert store.overconfidence_rate() > 1 / 3
-    cid = _add_due_card(store)
-    store.review_card(cid, 5)
-    assert _node_row(store)['strength'] == pytest.approx(0.85)
+def test_overconfident_reader_gets_a_graded_discount_on_the_restore(store):
+    """A reader whose confident quiz answers are often wrong cannot restore a
+    faded node to full strength on their own say-so — but the discount ramps.
+
+    Superseded assertion, rewritten: this used to require exactly 0.85 the
+    instant the rate crossed 1/3. That made 0.333 and 0.334 different kinds of
+    learner over a single answer, and a measured quantity with a cliff in the
+    middle of its plausible range reports the cliff more than it reports the
+    reader. The discount now starts at the limit and reaches the 0.85 cap at
+    CALIBRATION_FULL_DISCOUNT; what must hold is that it is monotone, that a
+    calibrated reader is untouched, and that the cap is a real floor.
+    """
+    def restore(over, total):
+        s = _fresh_store()
+        _seed_faded_mastered(s)
+        for _ in range(3):
+            s.log_event('calibration', {'node': 'n', 'overconfident': over,
+                                        'underconfident': 0,
+                                        'confident_total': total, 'total': total})
+        cid = _add_due_card(s)
+        s.review_card(cid, 5)
+        return _node_row(s)['strength']
+
+    at_limit = restore(1, 3)                 # exactly 1/3 — still calibrated
+    middling = restore(2, 4)                 # 0.5
+    hopeless = restore(4, 4)                 # 1.0
+    assert at_limit == pytest.approx(1.0)
+    assert 0.85 < middling < 1.0, middling
+    assert hopeless == pytest.approx(0.85)
+    assert at_limit > middling > hopeless
 
 
 # ---------------- 3. SM-2 quality-sensitive lapse penalty --------------------
@@ -288,17 +318,32 @@ def test_calibrated_reader_earns_reinforcement(store):
     assert _node_row(store)['reinforcements'] == 2
 
 
-def test_overconfident_reader_earns_no_reinforcement(store):
-    """The same distrusted self-grade that gets its restore capped must not
-    buy a permanent half-life extension either — one discount, applied to
-    everything the grade pays for."""
+def test_overconfident_reader_earns_only_partial_reinforcement(store):
+    """The same distrusted self-grade that gets its restore discounted must not
+    buy a full permanent half-life extension either — one discount, applied to
+    everything the grade pays for.
+
+    Superseded assertion, rewritten alongside the restore cliff it mirrored:
+    the payment used to be switched off entirely past 1/3. It is now scaled by
+    the same ramp, so the durability a grade buys and the strength it restores
+    move together and continuously. A fully-discounted grade still buys
+    nothing; a half-discounted one buys half.
+    """
     _seed_faded_mastered(store)
-    _make_overconfident(store)
+    _make_overconfident(store)          # rate 0.5 — halfway up the ramp
     cid = _add_due_card(store)
     store.review_card(cid, 5)
     row = _node_row(store)
-    assert row['strength'] == pytest.approx(0.85)
-    assert row['reinforcements'] == 1, 'half-life must not lengthen'
+    assert 1 < row['reinforcements'] < 2, 'a discounted grade buys a partial half-life'
+
+    ruined = _fresh_store()
+    _seed_faded_mastered(ruined)
+    for _ in range(3):
+        ruined.log_event('calibration', {'node': 'n', 'overconfident': 4,
+                                         'underconfident': 0,
+                                         'confident_total': 4, 'total': 4})
+    ruined.review_card(_add_due_card(ruined), 5)
+    assert _node_row(ruined)['reinforcements'] == 1, 'half-life must not lengthen at all'
 
 
 # ---------------- 9. roadmap headline: proven vs assumed --------------------
@@ -426,10 +471,15 @@ def test_underconfident_reader_gets_a_more_generous_q3(store):
     _seed_faded_mastered(store)
     for _ in range(3):
         store.log_event('calibration', {'node': 'n', 'overconfident': 0,
-                                        'underconfident': 2, 'total': 4})
+                                        'underconfident': 4,
+                                        'hesitant_total': 4, 'total': 4})
     assert store.underconfidence_rate() > 1 / 3
     cid = _add_due_card(store)
     store.review_card(cid, 3)
+    # Graded on the same ramp as the overconfidence discount it mirrors: a
+    # fully underconfident reader gets the whole 0.7 floor, a borderline one a
+    # fraction of the way up from 0.5. Asserting the endpoint keeps the two
+    # directions symmetric without re-encoding the cliff that was removed.
     assert _node_row(store)['strength'] == pytest.approx(0.7)
 
 
@@ -506,3 +556,263 @@ def test_deck_stats_reports_the_shape_pacing_needs(store):
     assert s['cards_per_node'] == pytest.approx(2.0)
     assert s['lapse_rate'] == pytest.approx(2 / 16)
     assert s['total'] == 2
+
+
+# ---------------- 16. lapse_rate over reviews that were actually taken ------
+
+
+def _drill(store, card_id, qualities):
+    """Grade one card repeatedly, forcing it due before each grade."""
+    for q in qualities:
+        _raw(store, "UPDATE srs_cards SET due=? WHERE id=?", time.time() - 60, card_id)
+        store.review_card(card_id, q)
+
+
+def test_lapse_rate_is_measured_over_every_review_ever_taken(store):
+    """Regression, quantitative and user-visible: `lapse_rate` divided by
+    SUM(reps) + SUM(lapses), and SM-2 resets `reps` to 0 on every lapse.
+
+    So a card with ten clean successes and then one failure reported reps=0,
+    lapses=1 — a lapse rate of 1.0 for a card the reader gets right 91% of the
+    time. That figure is not cosmetic: pacing.srs_minutes_per_node multiplies
+    the entire curriculum by (1 + 2*lapse_rate), so the inflated rate pushed
+    the reader's estimated finish toward the 36 min/node ceiling. `reps` is a
+    ladder position, not a tally; `reviews` is the tally, and nothing resets it.
+    """
+    cid = _add_due_card(store, node_id='n1')
+    _drill(store, cid, [5] * 10 + [0])
+
+    card = _raw(store, "SELECT reps, lapses, reviews FROM srs_cards WHERE id=?", cid)[0]
+    assert card['reps'] == 0 and card['lapses'] == 1, 'SM-2 still resets the ladder'
+    assert card['reviews'] == 11, 'the tally must count every graded review'
+
+    s = store.deck_stats()
+    assert s['reviews_graded'] == 11
+    assert s['lapse_rate'] == pytest.approx(1 / 11), \
+        'one failure in eleven reviews is not a lapse rate of 1.0'
+
+
+def test_the_inflated_lapse_rate_no_longer_inflates_the_plan():
+    """The end of the chain the bug above rode: deck -> lapse_rate -> minutes
+    per node -> estimated_years. Priced honestly, one bad review in eleven must
+    cost the reader far less than being wrong nine times in ten."""
+    from primer.pacing import srs_minutes_per_node
+    s = _fresh_store()
+    for i in range(3):
+        _drill(store=s, card_id=_add_due_card(s, node_id='n1', ef=2.5 + i / 100.0),
+               qualities=[5] * 10 + [0])
+    deck = s.deck_stats()
+    assert deck['lapse_rate'] == pytest.approx(3 / 33)
+    honest = srs_minutes_per_node(deck)
+    inflated = srs_minutes_per_node(dict(deck, lapse_rate=1.0))
+    assert inflated > 2 * honest, \
+        'the old reading priced this deck at {} min/node, not {}'.format(inflated, honest)
+
+
+def test_a_pre_reviews_database_keeps_its_history(tmp_path):
+    """Migration: a card graded before the column existed still has to count.
+
+    reps+lapses is a lower bound (it lost the successes that preceded a lapse),
+    but it is the only record those rows have, and a rate is better served by a
+    stale lower bound than by a denominator of zero.
+    """
+    db = str(tmp_path / 'legacy.db')
+    old = LearnerStore(db)
+    old.add_cards([{'front': 'a', 'back': 'b', 'node_id': 'n1'}])
+    _raw(old, "UPDATE srs_cards SET reps=7, lapses=1")
+    _raw(old, "ALTER TABLE srs_cards DROP COLUMN reviews")
+    assert 'reviews' not in {r['name'] for r in
+                             _raw(old, "SELECT name FROM pragma_table_info('srs_cards')")}
+
+    migrated = LearnerStore(db)          # re-open: migrations run on construction
+    assert _raw(migrated, "SELECT reviews FROM srs_cards")[0]['reviews'] == 8
+    assert migrated.deck_stats()['lapse_rate'] == pytest.approx(1 / 8)
+
+
+# ---------------- 17. each calibration rate over its own population ---------
+
+
+def test_each_calibration_rate_is_over_its_own_direction(store):
+    """Regression: `total` was every rated answer, so both rates shared a
+    denominator neither was a rate over.
+
+    Overconfidence means "of the answers you were sure about, how many were
+    wrong". Counting mid-confidence answers in that denominator diluted it with
+    answers that could not possibly be in the numerator, so a reader who rates
+    most answers a cautious 2 was systematically under-flagged against the 1/3
+    limit — the more honestly they used the middle of the scale, the safer the
+    book thought they were.
+    """
+    store.log_event('calibration', {
+        'node': 'n', 'overconfident': 1, 'underconfident': 2,
+        'confident_total': 3, 'hesitant_total': 2, 'total': 12})
+    assert store.overconfidence_rate() == pytest.approx(1 / 3), 'one wrong of three confident'
+    assert store.underconfidence_rate() == pytest.approx(1.0), 'both hesitant answers right'
+    # The shared denominator would have read 1/12 and 2/12 — both comfortably
+    # inside the limit, for a reader who is wrong a third of the time when sure.
+    assert store.overconfidence_rate() > 1 / 12
+
+
+def test_calibration_events_written_before_the_split_still_read(store):
+    """Old rows carry only `total`. Falling back to it reproduces the old
+    (diluted) reading for that sitting, which is wrong but bounded — better
+    than dividing by zero and calling a miscalibrated reader perfect."""
+    store.log_event('calibration', {'node': 'n', 'overconfident': 2,
+                                    'underconfident': 0, 'total': 8})
+    assert store.overconfidence_rate() == pytest.approx(2 / 8)
+
+
+# ---------------- 18. a rate needs a sample, and a ramp not a cliff ---------
+
+
+def test_one_answer_cannot_declare_a_reader_overconfident(store):
+    """Regression: a single confident-and-wrong answer produced a rate of 1.0,
+    which capped every self-graded restore and froze durability growth on a
+    sample size of one. Below the floor we do not claim to have measured."""
+    store.log_event('calibration', {'node': 'n', 'overconfident': 1,
+                                    'underconfident': 0,
+                                    'confident_total': 1, 'total': 1})
+    assert store.overconfidence_rate() == 0.0
+    assert store.underconfidence_rate() == 0.0
+
+    # ...and once there is a sample, the measurement resumes.
+    store.log_event('calibration', {'node': 'n', 'overconfident': 3,
+                                    'underconfident': 0,
+                                    'confident_total': 5, 'total': 5})
+    assert store.overconfidence_rate() > 1 / 3
+
+
+def test_the_overconfidence_threshold_is_a_ramp_not_a_cliff():
+    """Regression: the limit was a hard binary at exactly 1/3, so a reader at
+    0.333 and one at 0.334 — one answer in three hundred apart — got different
+    kinds of treatment from every path that consults it."""
+    from primer.learner import LearnerStore as L
+    just_under = L._miscalibration(1 / 3 - 1e-4, L.OVERCONFIDENCE_LIMIT)
+    just_over = L._miscalibration(1 / 3 + 1e-4, L.OVERCONFIDENCE_LIMIT)
+    assert just_under == 0.0
+    assert just_over < 0.001, 'crossing the limit must cost almost nothing'
+    ramp = [L._miscalibration(r / 20.0, L.OVERCONFIDENCE_LIMIT) for r in range(21)]
+    assert ramp == sorted(ramp), 'the discount must be monotone in the rate'
+    assert ramp[0] == 0.0 and ramp[-1] == 1.0
+
+
+# ---------------- 19. the half-life ceiling takes tens of reinforcements ----
+
+
+def test_the_half_life_ceiling_is_not_reachable_in_a_week():
+    """Regression: growth was linear at step 2.2, which reached the 365-day
+    ceiling at the 7th reinforcement — one week of daily spaced practice, the
+    exact failure the constant's own comment claimed to have fixed. Growth is
+    sub-linear now (sqrt), so each spaced retrieval buys less than the last and
+    the ceiling is a destination rather than a landing."""
+    import primer.learner as lm
+    ceiling = next(r for r in range(1, 500)
+                   if lm._half_life(r) >= lm.STRENGTH_HALF_LIFE_MAX)
+    assert ceiling >= 30, 'ceiling reached at reinforcement {}'.format(ceiling)
+    # Sub-linear: every step must be smaller than the one before it.
+    steps = [lm._half_life(r + 1) - lm._half_life(r) for r in range(1, 10)]
+    assert steps == sorted(steps, reverse=True), 'growth must have diminishing returns'
+    assert lm._half_life(1) == pytest.approx(lm.STRENGTH_HALF_LIFE)
+
+
+def test_the_interval_cap_still_tracks_the_half_life_the_reader_has_reached():
+    """The cap is tied to the half-life a reader has actually *reached* by the
+    time SM-2 schedules that far out, not to the ceiling they may never see —
+    that distinction was invisible under linear growth and is load-bearing now.
+    """
+    import math
+    import primer.learner as lm
+    interval, reinforcements = 0.0, 1
+    for rep in range(1, 12):
+        interval = (lm.SM2_FIRST_INTERVAL if rep == 1 else
+                    lm.SM2_SECOND_INTERVAL if rep == 2 else interval * 2.5)
+        interval = min(interval, lm.MAX_INTERVAL_DAYS)
+        reinforcements += 1
+        survives = (lm._half_life(reinforcements) / DAY) * math.log(lm.FRESH_GATE, 0.5)
+        assert survives > interval, \
+            'rep {}: scheduled {:.0f}d but only {:.0f}d survive above the gate'.format(
+                rep, interval, survives)
+
+
+# ---------------- 20. placement credit expires by name, not by silence -----
+
+
+def test_placement_credit_does_not_quietly_evaporate(store):
+    """Regression: `seed_assumed` wrote strength 0.8 at one reinforcement, so
+    credit crossed the 0.35 gate at about day 36. Five weeks after a placement
+    interview every credited node re-locked, the roadmap re-inflated, and
+    `mastery_detail` reported mastered/proven/assumed/faded ALL false — the
+    reader could not be told what had happened because nothing recorded it.
+
+    Credit is not a memory. Only a test can disconfirm it, so it holds the gate
+    until it expires, and expiry is a state with a name.
+    """
+    from primer.learner import ASSUMED_CREDIT_LIFE
+    store.seed_assumed(['n'])
+
+    def at(days):
+        _raw(store, "UPDATE mastery SET last_seen=?, mastered_at=? WHERE node_id='n'",
+             time.time() - days * DAY, time.time() - days * DAY)
+        return store.gate_map()['n'], store.mastery_detail('n')
+
+    for days in (0, 37, 100, 179):
+        gate, d = at(days)
+        assert gate == 1.0, 'day {}: placement credit must still open its gate'.format(days)
+        assert d['assumed'] and not d['assumed_stale']
+
+    gate, d = at(ASSUMED_CREDIT_LIFE / DAY + 1)
+    assert gate < 1.0, 'credit is not permanent either'
+    assert d['assumed'] and d['assumed_stale'], \
+        'expired credit must be nameable — silence is what the reader saw before'
+    assert 'n' in store.assumed_stale_set()
+
+
+def test_credit_that_has_been_tested_decays_like_the_evidence_it_now_is(store):
+    """The hold is only for nodes the book has never tested. Once a real pass
+    is on the record, the node has evidence behind it and evidence fades."""
+    store.seed_assumed(['n'])
+    store.record_attempt('n', 1.0)          # one genuine pass: still `assumed`, now tested
+    _raw(store, "UPDATE mastery SET last_seen=? WHERE node_id='n'", time.time() - 400 * DAY)
+    assert store.gate_map()['n'] < 1.0, 'tested nodes are not held open by credit'
+    assert 'n' not in store.assumed_stale_set()
+
+
+# ---------------- 21. a node is not its easiest card -----------------------
+
+
+def test_one_easy_card_cannot_carry_a_lapsed_node(store):
+    """Regression: any single q>=4 review set the node's strength to 1.0
+    outright, so the one card a reader finds trivial kept the whole node
+    reading fully retained while its siblings sat lapsed and overdue."""
+    _seed_faded_mastered(store, node_id='n1')
+    easy = _add_due_card(store, node_id='n1')
+    for i in range(3):
+        sick = _add_due_card(store, node_id='n1', ef=2.5 + (i + 1) / 100.0)
+        _raw(store, "UPDATE srs_cards SET due=?, reps=0, lapses=3 WHERE id=?",
+             time.time() - 10 * DAY, sick)
+    store.review_card(easy, 5)
+    carried = _raw(store, "SELECT strength FROM mastery WHERE node_id='n1'")[0]['strength']
+    assert carried < 1.0, 'three lapsed siblings cannot be worth nothing'
+
+    healthy = _fresh_store()
+    _seed_faded_mastered(healthy, node_id='n1')
+    only = _add_due_card(healthy, node_id='n1')
+    healthy.review_card(only, 5)
+    solo = _raw(healthy, "SELECT strength FROM mastery WHERE node_id='n1'")[0]['strength']
+    assert solo == pytest.approx(1.0), 'a node whose whole deck is healthy still restores fully'
+    assert solo > carried
+
+
+def test_a_readers_own_cards_neither_prop_up_nor_hold_down_a_node(store):
+    """Reader-authored cards are notes, not evidence — they cannot restore a
+    node, and by the same argument a neglected pile of them cannot drag one
+    down when the book's own cards are in good order."""
+    _seed_faded_mastered(store, node_id='n1')
+    book = _add_due_card(store, node_id='n1')
+    for i in range(4):
+        mine = _add_due_card(store, node_id='n1', origin='reader', ef=2.5 + (i + 1) / 100.0)
+        _raw(store, "UPDATE srs_cards SET due=?, reps=0, lapses=3 WHERE id=?",
+             time.time() - 10 * DAY, mine)
+    store.review_card(book, 5)
+    assert _raw(store, "SELECT strength FROM mastery WHERE node_id='n1'")[0]['strength'] \
+        == pytest.approx(1.0)

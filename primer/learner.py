@@ -18,6 +18,7 @@ Design commitments (from the review board):
 
 import datetime
 import json
+import math
 import logging
 import os
 import shutil
@@ -66,27 +67,65 @@ FRESH_GATE = 0.35
 # Growth per reinforcement is the spacing effect, the same principle the review
 # scheduler already runs on: the better you know something, the longer it lasts.
 #
-# It grows *linearly* and caps at a year. Doubling per reinforcement was an
-# over-correction that switched decay off altogether: it saturated after about
-# seven reviews, so a reader who drilled a node daily for three weeks pinned its
-# half-life at the ceiling and it still read as proven four years later. Fixing
-# "everything evaporates" by making nothing evaporate is not a fix.
+# It grows with the SQUARE ROOT of reinforcements and caps at a year.
 #
-# The step is tuned against SM-2's own growth, not chosen freely: SM-2's review
-# interval grows multiplicatively (roughly x2.5 per pass) while a smaller step
-# grew this linearly, so intervals outran the half-life mid-ramp even though
-# both eventually reached their caps — a card reviewed exactly on schedule still
-# read its node as faded partway through. 2.2 keeps strength at or above the
-# gate for every step of that ramp, verified by simulation and by an end-to-end
-# on-schedule review test.
+# Two earlier shapes were both wrong in the same direction. Doubling saturated
+# after about seven reviews. Linear growth at step 2.2 was supposed to fix that
+# and did not: the ladder it actually produced was
+#
+#     r=1..7 -> 30, 96, 162, 228, 294, 360, 365 days
+#
+# so the ceiling still arrived at the seventh reinforcement — one week of daily
+# spaced practice — which is the exact failure the paragraph above rejects.
+# Fixing "everything evaporates" by making nothing evaporate is not a fix, and
+# a linear law with a hard ceiling is only a slower version of doing that.
+#
+# Sub-linear growth is the right shape on its own merits: each additional
+# spaced retrieval should buy less than the one before (diminishing returns are
+# what the spacing literature actually reports), and sqrt is the cheapest law
+# with that property that still rises without bound. STRENGTH_HALF_LIFE_STEP is
+# now the sqrt coefficient, and the ladder it produces is
+#
+#     r    =  1     2     3     4     5     6     8    10    20    30    42
+#     days =  30    82   104   121   135   147   169   188   259   313   365
+#
+# — the ceiling needs 42 spaced reinforcements, not 7, and the last few are
+# worth a fortnight each rather than two months each.
+#
+# The coefficient is not free: it is bounded below by SM-2's own ladder. A card
+# reviewed exactly on schedule must never let its node read as faded, i.e. the
+# scheduled interval must stay under half_life * log(FRESH_GATE, 0.5) = 1.515
+# half-lives at every rung. That is what ties MAX_INTERVAL_DAYS to this law —
+# see the comment there. 1.75 clears every rung with margin, verified by
+# simulation and by an end-to-end on-schedule review test.
 #
 # A reinforcement also has to be *spaced* to count. Massed repetition does not
 # build durable memory, and letting it do so here meant a node could be made
 # permanent in a single sitting.
+# Placement credit is not a memory, so decaying it like one was a category
+# error with a user-visible cost. `seed_assumed` writes strength 0.8 at one
+# reinforcement, which crosses the 0.35 gate at day 36: five weeks after a
+# placement interview, every node it had credited silently re-locked, the
+# roadmap re-inflated, and `mastery_detail` reported mastered/proven/assumed/
+# faded ALL false — a credited node became indistinguishable from one the
+# reader had never touched, with no message to the reader at any point.
+#
+# The credit says "we believe you already know this, and we have not tested
+# you". Nothing about the passage of time makes that belief *less* true; only
+# a test can. So the credit holds the gate open at exactly the gate for this
+# long, and then becomes explicitly STALE rather than quietly vanishing: gates
+# close, but `mastery_detail` names the state (`assumed_stale`) so the book can
+# say "your placement credit has expired — sit the interview again" instead of
+# showing a lesson the reader passed months ago as if it were new.
+#
+# Six months is one school term either side of a holiday: long enough that a
+# reader who steps away over a summer comes back to the level they were placed
+# at, short enough that a two-year-old placement is not still opening doors.
+ASSUMED_CREDIT_LIFE = 180 * DAY
 RELEARN_DELAY = 10 * 60          # a new card waits before it can be cashed
 STRENGTH_HALF_LIFE = 30 * DAY
 STRENGTH_HALF_LIFE_MAX = 365 * DAY
-STRENGTH_HALF_LIFE_STEP = 2.2
+STRENGTH_HALF_LIFE_STEP = 1.75   # coefficient on sqrt(reinforcements - 1)
 REINFORCE_MIN_GAP = DAY
 # Distributed-practice research (e.g. Toppino 1991; Vlach & Sandhofer 2012)
 # finds young children benefit from spacing measured in hours, not days —
@@ -101,6 +140,22 @@ REINFORCE_MIN_GAP_BY_AGE = [
     (12, 8 * 3600),   # 7-11: eight hours
     (99, DAY),        # 12+: a full day
 ]
+
+
+def _half_life(reinforcements: "float | None") -> float:
+    """Decay half-life in seconds for a node with this many reinforcements.
+
+    One function so the law lives in one place: `_strength_now` decides with
+    it, and the tests that assert the ladder read it rather than re-deriving
+    an algebraic copy that can silently drift from the real one.
+
+    `reinforcements` may be fractional — a self-graded success from a reader
+    whose calibration is poor pays a partial reinforcement (see
+    `review_card`), and a partial payment must buy a partial half-life.
+    """
+    r = max(0.0, float(reinforcements if reinforcements else 1) - 1.0)
+    return min(STRENGTH_HALF_LIFE * (1 + STRENGTH_HALF_LIFE_STEP * math.sqrt(r)),
+               STRENGTH_HALF_LIFE_MAX)
 
 
 def _reinforce_min_gap(age: Optional[float]) -> float:
@@ -157,9 +212,19 @@ def _sm2_first_steps(age: Optional[float]) -> "tuple":
 # half-life, so a card scheduled that far out left its node reading unproven
 # for the whole gap between reviews: correct, on time, and still faded. This is
 # the largest gap a card may go, chosen so a fresh strength of 1.0 cannot decay
-# below the 0.35 gate before the next review even at the slowest half-life —
-# 365 * log(0.35, 0.5) ≈ 553 days, with margin for the review itself being late.
-MAX_INTERVAL_DAYS = 500
+# below the 0.35 gate before the next review.
+#
+# The binding constraint is not the ceiling half-life but the half-life the
+# reader has actually *reached* by the time SM-2 first schedules this far out.
+# Under the old linear growth law the two happened to coincide, so the cap was
+# set against the 365-day ceiling (365 * log(0.35, 0.5) ≈ 553 days) and 500 was
+# comfortable. Sub-linear growth breaks that coincidence: a card reaches its
+# 6th review around the 7th reinforcement, where the half-life is 159 days and
+# only 240 days of gap survive above the gate. 200 days clears that rung — and
+# every later one, since the cap holds the interval flat while reinforcements
+# keep lengthening the half-life. Verified by simulation and by the end-to-end
+# on-schedule review test.
+MAX_INTERVAL_DAYS = 200
 STREAK_FREEZES = 2               # single-day gaps auto-bridged in a streak
 # A spent freeze is forgiven this many days later — the budget renews, it is
 # not a lifetime debt. Without this, a reader with a genuinely excellent
@@ -231,6 +296,10 @@ class LearnerStore:
                     front TEXT, back TEXT, node_id TEXT, article TEXT,
                     ef REAL DEFAULT 2.5, interval REAL DEFAULT 0,
                     reps INTEGER DEFAULT 0, lapses INTEGER DEFAULT 0,
+                    -- Cumulative graded reviews. `reps` is SM-2's ladder
+                    -- position and is reset to 0 on every lapse, so it cannot
+                    -- serve as a count of how much reviewing has happened.
+                    reviews INTEGER DEFAULT 0,
                     due REAL, created_at REAL,
                     UNIQUE(front, node_id)
                 );
@@ -276,6 +345,7 @@ class LearnerStore:
                 ("assumed", "ALTER TABLE mastery ADD COLUMN assumed INTEGER DEFAULT 0"),
                 ("lapses", "ALTER TABLE srs_cards ADD COLUMN lapses INTEGER DEFAULT 0"),
                 ("origin", "ALTER TABLE srs_cards ADD COLUMN origin TEXT DEFAULT 'book'"),
+                ("reviews", "ALTER TABLE srs_cards ADD COLUMN reviews INTEGER DEFAULT 0"),
                 ("reinforcements", "ALTER TABLE mastery ADD COLUMN reinforcements INTEGER DEFAULT 1"),
                 ("reinforced_at", "ALTER TABLE mastery ADD COLUMN reinforced_at REAL"),
                 ("first_mastered_at", "ALTER TABLE mastery ADD COLUMN first_mastered_at REAL"),
@@ -319,6 +389,14 @@ class LearnerStore:
                 """UPDATE mastery SET first_mastered_at = mastered_at
                      WHERE first_mastered_at IS NULL AND mastered_at IS NOT NULL
                        AND assumed = 0""",
+                # `reviews` is new; every existing card has a history that
+                # predates it. reps+lapses is the best lower bound available
+                # (it undercounts a card that lapsed and then climbed again,
+                # because the lapse zeroed reps) — but a lower bound on the
+                # denominator of a *rate* is the safe direction only if it is
+                # applied once, at migration, rather than left to compound.
+                """UPDATE srs_cards SET reviews = COALESCE(reps, 0) + COALESCE(lapses, 0)
+                     WHERE COALESCE(reviews, 0) = 0""",
             ]:
                 try:
                     c.execute(ddl)
@@ -395,10 +473,44 @@ class LearnerStore:
                       reinforcements: int = 1) -> float:
         if not last_seen or strength <= 0:
             return strength
-        half_life = min(
-            STRENGTH_HALF_LIFE * (1 + STRENGTH_HALF_LIFE_STEP * max(0, (reinforcements or 1) - 1)),
-            STRENGTH_HALF_LIFE_MAX)
+        half_life = _half_life(reinforcements)
         return strength * (0.5 ** ((now - last_seen) / half_life))
+
+    @classmethod
+    def _standing_strength(cls, r, now: float) -> float:
+        """Decay-aware strength, with untested placement credit held at the gate.
+
+        Every view that *decides* something reads this rather than
+        `_strength_now` directly, so "is this node still standing?" has one
+        answer. The row must carry `assumed`; see ASSUMED_CREDIT_LIFE for why
+        placement credit is held rather than decayed, and `_assumed_stale` for
+        what happens when the holding period runs out.
+        """
+        s = cls._strength_now(r["strength"] or 0, r["last_seen"], now, r["reinforcements"])
+        if cls._on_credit(r) and not cls._assumed_stale(r, now):
+            return max(s, FRESH_GATE)
+        return s
+
+    @staticmethod
+    def _on_credit(r) -> bool:
+        """True for a node standing on placement credit and nothing else.
+
+        `assumed` alone is not enough: a node credited by placement and since
+        passed once (but not yet twice-and-spaced) still carries the flag, and
+        that node has real evidence behind it which must be allowed to fade
+        normally. The hold is for nodes the book has never actually tested.
+        """
+        keys = r.keys()
+        passes = (r["passes"] if "passes" in keys else 0) or 0
+        return bool(r["assumed"]) and passes == 0
+
+    @classmethod
+    def _assumed_stale(cls, r, now: float) -> bool:
+        """True when placement credit has outlived its holding period."""
+        if not cls._on_credit(r):
+            return False
+        seen = r["last_seen"]
+        return bool(seen) and (now - seen) >= ASSUMED_CREDIT_LIFE
 
     def mastery_map(self) -> Dict[str, float]:
         """Raw EMA level per node — a soft *display* signal, and only that.
@@ -432,11 +544,10 @@ class LearnerStore:
         now = time.time()
         with _lock, self._conn() as c:
             rows = c.execute(
-                """SELECT node_id, strength, last_seen, reinforcements FROM mastery
-                   WHERE mastered_at IS NOT NULL""").fetchall()
+                """SELECT node_id, strength, last_seen, reinforcements, assumed, passes
+                   FROM mastery WHERE mastered_at IS NOT NULL""").fetchall()
         return {r["node_id"] for r in rows
-                if self._strength_now(r["strength"] or 0, r["last_seen"], now,
-                                      r["reinforcements"]) >= FRESH_GATE}
+                if self._standing_strength(r, now) >= FRESH_GATE}
 
     def gate_map(self) -> Dict[str, float]:
         """Map for the curriculum's unlock/gate logic: 1.0 for genuinely
@@ -445,17 +556,18 @@ class LearnerStore:
 
         Mastery that has decayed below half strength no longer counts as open —
         forgotten foundations re-lock what they used to unlock, until refreshed.
+        Untested placement credit is held open for ASSUMED_CREDIT_LIFE and then
+        closes as *stale*, which the book reports rather than merely enacting.
         """
         now = time.time()
         with _lock, self._conn() as c:
             rows = c.execute(
-                "SELECT node_id, level, mastered_at, strength, last_seen, reinforcements "
-                "FROM mastery").fetchall()
+                "SELECT node_id, level, mastered_at, strength, last_seen, reinforcements, "
+                "assumed, passes FROM mastery").fetchall()
         out = {}
         for r in rows:
             if r["mastered_at"] is not None:
-                s = self._strength_now(r["strength"] or 0, r["last_seen"], now,
-                                       r["reinforcements"])
+                s = self._standing_strength(r, now)
                 out[r["node_id"]] = 1.0 if s >= FRESH_GATE else min(r["level"], 0.79)
             else:
                 out[r["node_id"]] = min(r["level"], 0.79)
@@ -502,13 +614,14 @@ class LearnerStore:
         if not r:
             return {"passes": 0, "passes_needed": 2, "ready_at": None,
                     "mastered": False, "proven": False, "assumed": False,
-                    "ever_proven": False, "faded": False}
+                    "assumed_stale": False, "ever_proven": False, "faded": False}
         ready_at = None
         if r["first_pass_at"]:
             ready = r["first_pass_at"] + prove_gap
             ready_at = ready if ready > time.time() else None
-        fresh = self._strength_now(r["strength"] or 0, r["last_seen"], time.time(),
-                                   r["reinforcements"]) >= FRESH_GATE
+        now = time.time()
+        fresh = self._standing_strength(r, now) >= FRESH_GATE
+        stale_credit = self._assumed_stale(r, now)
         # Four words, four distinct states, and every route must use them the
         # same way: `proven` is earned and current, `ever_proven` is earned at
         # some point, `faded` is earned but gone quiet, `assumed` is credited by
@@ -540,7 +653,16 @@ class LearnerStore:
             "proven": proven,
             "ever_proven": ever_proven,
             "faded": ever_proven and not proven,
-            "assumed": mastered and not proven and not ever_proven,
+            # `assumed` is now about the credit EXISTING, not about it still
+            # standing. It used to be gated on `mastered`, which is freshness-
+            # gated — so once placement credit decayed past the gate, all four
+            # of these words went false at once and the dict said nothing at
+            # all about a node the placement interview had explicitly credited.
+            # A state that expires needs a name for having expired, or the book
+            # cannot tell the reader why a lesson it had skipped came back.
+            "assumed": (r["mastered_at"] is not None and not proven
+                        and not ever_proven),
+            "assumed_stale": stale_credit,
         }
 
     def proven_count_current(self) -> int:
@@ -572,6 +694,29 @@ class LearnerStore:
         return {r["node_id"] for r in rows
                 if self._strength_now(r["strength"] or 0, r["last_seen"], now,
                                       r["reinforcements"]) >= FRESH_GATE}
+
+    def credited_set(self) -> set:
+        """Nodes the book has ever credited as mastered, freshness aside.
+
+        Deliberately NOT decay-aware, and the one such set that is. It exists
+        so `assumed` can mean "credited and never earned" in both routes at
+        once: `mastered_set` is freshness-gated, so deriving `assumed` from it
+        made placement credit vanish entirely the moment it stopped standing,
+        rather than becoming stale credit the reader can be told about.
+        """
+        with _lock, self._conn() as c:
+            rows = c.execute(
+                "SELECT node_id FROM mastery WHERE mastered_at IS NOT NULL").fetchall()
+        return {r["node_id"] for r in rows}
+
+    def assumed_stale_set(self) -> set:
+        """Nodes whose placement credit has expired — see ASSUMED_CREDIT_LIFE."""
+        now = time.time()
+        with _lock, self._conn() as c:
+            rows = c.execute(
+                """SELECT node_id, last_seen, assumed, passes FROM mastery
+                   WHERE mastered_at IS NOT NULL AND assumed=1""").fetchall()
+        return {r["node_id"] for r in rows if self._assumed_stale(r, now)}
 
     def ever_proven_set(self) -> set:
         """Nodes proven at some point, faded or not — for history and journals,
@@ -909,20 +1054,83 @@ class LearnerStore:
     def _lapses_of(row) -> int:
         return row["lapses"] or 0
 
+    # A card that is overdue, or that is sitting at the bottom of the ladder
+    # after a lapse, is not evidence of current retention. It is not zero
+    # evidence either — the reader did learn the thing once — so an unhealthy
+    # card is worth this much rather than nothing.
+    UNHEALTHY_CARD_WEIGHT = 0.6
+
+    def _deck_health(self, c, node_id: str, now: float) -> float:
+        """0..1 — how well this node's whole deck is currently standing.
+
+        A node is not its easiest card. A single confident review used to set
+        node strength to 1.0 outright, so a reader who kept one trivial card
+        alive kept the node reading fully retained while every other card in it
+        was lapsed and overdue. Averaging over the node's book cards makes the
+        restore a claim about the node, which is what the gates read it as.
+
+        Reader-authored cards are excluded for the same reason they cannot
+        restore strength on their own: they are the reader's notes, and a
+        neglected pile of them should not be able to hold a node down any more
+        than a fresh pile could prop it up.
+        """
+        rows = c.execute(
+            "SELECT due, reps, lapses FROM srs_cards "
+            "WHERE node_id=? AND COALESCE(origin,'book')='book'", (node_id,)).fetchall()
+        if not rows:
+            return 1.0
+        healthy = 0.0
+        for r in rows:
+            ok = (r["due"] or 0) > now and (r["reps"] or 0) > 0
+            healthy += 1.0 if ok else self.UNHEALTHY_CARD_WEIGHT
+        return healthy / len(rows)
+
     REVIEW_XP_DAILY_CAP = 120
     CALIBRATION_WINDOW = 10          # recent quiz sittings considered
-    OVERCONFIDENCE_LIMIT = 1 / 3     # above this, self-grades are discounted
-    OVERCONFIDENT_RESTORE_CAP = 0.85  # capped strength restore for q>=4
-    UNDERCONFIDENCE_LIMIT = 1 / 3     # above this, a hesitant q=3 is credited up
-    UNDERCONFIDENT_Q3_FLOOR = 0.7     # instead of the usual 0.5
+    # Below this many pooled rated answers we do not claim to have measured
+    # anything. Without a floor, one sitting with a single confident-and-wrong
+    # answer produced a rate of 1.0, which capped every self-graded restore and
+    # froze durability growth on a sample size of one. Six is the smallest
+    # sample at which a single miss (1/6 = 0.17) cannot on its own clear the
+    # 1/3 limit — the threshold needs at least two observations to trip.
+    CALIBRATION_MIN_SAMPLE = 6
+    OVERCONFIDENCE_LIMIT = 1 / 3     # beyond this, self-grades are discounted
+    # The discount reaches full force at twice the limit. Between the two the
+    # penalty ramps linearly: 0.333 and 0.334 must not be different kinds of
+    # learner, and a measured quantity with a hard cliff in the middle of its
+    # plausible range reports the cliff more than it reports the reader.
+    CALIBRATION_FULL_DISCOUNT = 2 / 3
+    OVERCONFIDENT_RESTORE_CAP = 0.85  # fully-discounted strength restore for q>=4
+    UNDERCONFIDENCE_LIMIT = 1 / 3     # beyond this, a hesitant q=3 is credited up
+    UNDERCONFIDENT_Q3_FLOOR = 0.7     # fully-credited floor, instead of the usual 0.5
+
+    @classmethod
+    def _miscalibration(cls, rate: float, limit: float) -> float:
+        """How far past `limit` this rate is, as a 0..1 fraction of the ramp.
+
+        0.0 means "calibrated, no adjustment"; 1.0 means "as miscalibrated as
+        we are willing to model". Everything the calibration model does is
+        scaled by this one number, so the two directions and the several
+        things a grade buys all move together and continuously.
+        """
+        span = cls.CALIBRATION_FULL_DISCOUNT - limit
+        if span <= 0:
+            return 1.0 if rate > limit else 0.0
+        return max(0.0, min(1.0, (rate - limit) / span))
 
     def _calibration_rates(self, c, window: int = CALIBRATION_WINDOW) -> "tuple":
-        """(overconfident, underconfident) fractions of recent quiz answers.
+        """(overconfident, underconfident) rates, each over its own population.
 
-        Reads the last `window` 'calibration' events (logged by the quiz
-        route with per-sitting overconfident/underconfident/total counts) and
-        pools them. Takes an open connection: callers already hold `_lock`,
-        which is not reentrant.
+        Overconfidence is the fraction of recent *confident* answers that were
+        wrong; underconfidence is the fraction of recent *hesitant* answers
+        that were right. They are deliberately not two numerators over one
+        shared denominator — that was the previous shape, and it made each
+        figure a rate over a population it was not about, diluted by every
+        mid-confidence answer that could not contribute to either numerator.
+
+        Reads the last `window` 'calibration' events (logged by the quiz route
+        with per-sitting counts) and pools them. Takes an open connection:
+        callers already hold `_lock`, which is not reentrant.
 
         Both directions come out of one query because miscalibration is one
         phenomenon with two signs, and reading only the sign that costs the
@@ -932,18 +1140,30 @@ class LearnerStore:
         rows = c.execute(
             "SELECT payload FROM events WHERE kind='calibration' "
             "ORDER BY at DESC LIMIT ?", (window,)).fetchall()
-        over = under = total = 0
+        over = under = confident = hesitant = sample = 0
         for r in rows:
             try:
                 p = json.loads(r["payload"])
             except (ValueError, TypeError):
                 continue
+            total = int(p.get("total") or 0)
             over += int(p.get("overconfident") or 0)
             under += int(p.get("underconfident") or 0)
-            total += int(p.get("total") or 0)
-        if not total:
+            # Events written before the per-direction counts existed carry only
+            # `total`. Falling back to it reproduces the old (diluted) reading
+            # for that sitting rather than dividing by zero and reporting a
+            # confident reader as perfectly calibrated.
+            confident += int(p.get("confident_total", total) or 0)
+            hesitant += int(p.get("hesitant_total", total) or 0)
+            sample += total
+        # The floor is over the pooled rated answers, not per direction: it is
+        # a statement about how much we have watched this reader do, and a
+        # reader who has answered plenty but rated few of them confidently is
+        # measured, not unmeasured.
+        if sample < self.CALIBRATION_MIN_SAMPLE:
             return 0.0, 0.0
-        return over / total, under / total
+        return (over / confident if confident else 0.0,
+                under / hesitant if hesitant else 0.0)
 
     def _overconfidence_rate(self, c, window: int = CALIBRATION_WINDOW) -> float:
         """Fraction of recent confident quiz answers that were wrong."""
@@ -1010,6 +1230,12 @@ class LearnerStore:
                 return {"id": card_id, "next_days": round(((row["due"] or now) - now) / DAY, 1),
                         "xp_gained": 0, "lapses": self._lapses_of(row), "early": True}
             ef, interval, reps, lapses = row["ef"], row["interval"], row["reps"], row["lapses"] or 0
+            # Every grade that counts increments this, and nothing ever resets
+            # it. `reps` cannot do this job: the lapse branch below sets it to
+            # 0, which is correct for SM-2 (it is a ladder position, not a
+            # tally) and ruinous for any rate computed over it — see deck_stats.
+            reviews = (row["reviews"] if "reviews" in row.keys() else None) or 0
+            reviews += 1
             if quality < 3:
                 reps, interval, lapses = 0, 0, lapses + 1
                 # A card you keep failing is a "leech": make it easier (shorter
@@ -1048,8 +1274,9 @@ class LearnerStore:
                 ef = max(1.3, ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
             due = now + max(interval, 10 / 1440) * DAY
             c.execute(
-                "UPDATE srs_cards SET ef=?, interval=?, reps=?, lapses=?, due=? WHERE id=?",
-                (ef, interval, reps, lapses, due, card_id),
+                "UPDATE srs_cards SET ef=?, interval=?, reps=?, lapses=?, reviews=?, due=? "
+                "WHERE id=?",
+                (ef, interval, reps, lapses, reviews, due, card_id),
             )
             # Feed the outcome back to node mastery strength — the deck is the
             # memory, so repeated lapses can un-master a node entirely.
@@ -1096,14 +1323,22 @@ class LearnerStore:
                         # Kruger 1999; Koriat & Bjork 2005 on foresight bias).
                         # When more than a third of their recently confident
                         # quiz answers were wrong, a self-graded 4-5 is weaker
-                        # evidence than it claims, so the restore is capped
-                        # below full rather than taken at face value.
-                        overconfident = (self._overconfidence_rate(c)
-                                         > self.OVERCONFIDENCE_LIMIT)
-                        if overconfident:
-                            strength = max(strength, self.OVERCONFIDENT_RESTORE_CAP)
-                        else:
-                            strength = 1.0
+                        # evidence than it claims, so the restore is discounted
+                        # rather than taken at face value. The discount is
+                        # graded, not a cliff: it starts at the 1/3 limit and
+                        # reaches the 0.85 cap at 2/3. A reader at 0.334 and a
+                        # reader at 0.333 differ by one answer in three hundred
+                        # and must not be treated as different kinds of learner.
+                        discount = self._miscalibration(self._overconfidence_rate(c),
+                                                        self.OVERCONFIDENCE_LIMIT)
+                        target = 1.0 - discount * (1.0 - self.OVERCONFIDENT_RESTORE_CAP)
+                        # A node is not one card. Setting node strength to the
+                        # target outright let the easiest card in a deck carry
+                        # everything around it: one q>=4 on a card the reader
+                        # finds trivial read the whole node as fully retained
+                        # while its three siblings sat lapsed and overdue.
+                        # Scale by the node's actual deck state instead.
+                        strength = max(strength, target * self._deck_health(c, node_id, now))
                         touch_clock = True
                         # Only a *spaced* success builds durability. Without the
                         # gap, minting cards and grading them in one sitting
@@ -1123,12 +1358,18 @@ class LearnerStore:
                         # reader's confident quiz answers are wrong more than a
                         # third of the time, a self-graded success neither
                         # fully restores nor lengthens the half-life.
+                        #
+                        # Graded here too, and for the same reason: the payment
+                        # is scaled by (1 - discount) rather than switched off
+                        # at a threshold. A fractional reinforcement is a real
+                        # quantity, not a bookkeeping trick — `_half_life` takes
+                        # the square root of it and is defined on the reals.
                         last_r = m["reinforced_at"] if "reinforced_at" in m.keys() else None
-                        if (not overconfident
-                                and (not last_r or (now - last_r) >= min_gap)):
+                        credit = 1.0 - discount
+                        if credit > 0 and (not last_r or (now - last_r) >= min_gap):
                             c.execute("UPDATE mastery SET reinforcements = "
-                                      "COALESCE(reinforcements, 1) + 1, reinforced_at=? "
-                                      "WHERE node_id=?", (now, node_id))
+                                      "COALESCE(reinforcements, 1) + ?, reinforced_at=? "
+                                      "WHERE node_id=?", (credit, now, node_id))
                     elif quality == 3 and not reader_card:
                         # Correct with serious difficulty. This used to leave
                         # the node untouched entirely — no strength, no clock —
@@ -1159,9 +1400,14 @@ class LearnerStore:
                         # the whole way: this is still not q>=4's full restore,
                         # it does not touch reinforcements, and it cannot on
                         # its own carry a node the reader is genuinely losing.
-                        underconfident = (self._underconfidence_rate(c)
-                                          > self.UNDERCONFIDENCE_LIMIT)
-                        floor = self.UNDERCONFIDENT_Q3_FLOOR if underconfident else 0.5
+                        #
+                        # Graded on the same ramp as the overconfidence
+                        # discount, so the credit a careful reader earns and
+                        # the penalty a bold one pays are the same shape read
+                        # in two directions.
+                        credit = self._miscalibration(self._underconfidence_rate(c),
+                                                      self.UNDERCONFIDENCE_LIMIT)
+                        floor = 0.5 + credit * (self.UNDERCONFIDENT_Q3_FLOOR - 0.5)
                         strength = max(strength, floor)
                         touch_clock = True
                     elif quality < 3:
@@ -1236,19 +1482,32 @@ class LearnerStore:
             # its flat per-node review estimate into this reader's own. Kept
             # here rather than in pacing because the deck is this module's
             # business and the schema is private to it.
+            # MAX(reviews, reps+lapses) per row, not plain SUM(reviews): a row
+            # written before the `reviews` column existed and not touched since
+            # the migration backfill still carries its history in reps+lapses,
+            # and `reviews` can never legitimately be the smaller of the two.
             agg = c.execute(
-                "SELECT COALESCE(SUM(reps),0), COALESCE(SUM(lapses),0), "
+                "SELECT COALESCE(SUM(MAX(COALESCE(reviews,0), "
+                "                       COALESCE(reps,0) + COALESCE(lapses,0))), 0), "
+                "COALESCE(SUM(lapses),0), "
                 "COUNT(DISTINCT node_id) FROM srs_cards WHERE node_id IS NOT NULL"
             ).fetchone()
-            reps, lapses, nodes = int(agg[0]), int(agg[1]), int(agg[2])
+            graded, lapses, nodes = int(agg[0]), int(agg[1]), int(agg[2])
             with_node = c.execute(
                 "SELECT COUNT(*) FROM srs_cards WHERE node_id IS NOT NULL").fetchone()[0]
         # A lapse resets a card to the bottom of the ladder, so it is the unit
-        # of *extra* review cost. Denominator is every graded review we can
-        # account for (successes advanced reps, failures incremented lapses),
-        # which makes this the observed failure rate of the deck, not a
+        # of *extra* review cost. The denominator is every graded review ever
+        # taken, which makes this the observed failure rate of the deck, not a
         # per-card average that a few leeches would dominate.
-        graded = reps + lapses
+        #
+        # It used to be SUM(reps) + SUM(lapses), which was wrong in a way that
+        # compounded all the way out to the reader's estimated finish date.
+        # `reps` is reset to 0 by every lapse, so a card with ten successes and
+        # then one failure reported reps=0, lapses=1 — a lapse rate of 1.0 for
+        # a card the reader gets right 91% of the time. pacing's
+        # srs_minutes_per_node multiplies the whole curriculum by
+        # (1 + 2*lapse_rate), so the inflated rate pushed estimated_years
+        # toward its 36 min/node ceiling, roughly tripling the honest figure.
         return {"total": total, "due": due,
                 "cards_with_node": with_node, "nodes_with_cards": nodes,
                 "cards_per_node": (with_node / nodes) if nodes else 0.0,
@@ -1261,11 +1520,11 @@ class LearnerStore:
         now = time.time()
         with _lock, self._conn() as c:
             rows = c.execute(
-                """SELECT node_id, strength, last_seen, reinforcements FROM mastery
-                   WHERE mastered_at IS NOT NULL""").fetchall()
+                """SELECT node_id, strength, last_seen, reinforcements, assumed, passes
+                   FROM mastery WHERE mastered_at IS NOT NULL""").fetchall()
         out = []
         for r in rows:
-            s = self._strength_now(r["strength"] or 0, r["last_seen"], now, r["reinforcements"])
+            s = self._standing_strength(r, now)
             if s < 0.5:
                 out.append((r["node_id"], s))
         out.sort(key=lambda x: x[1])

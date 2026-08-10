@@ -517,6 +517,8 @@ def curriculum():
     graph = curr.annotated_graph(learner.gate_map())
     proven = learner.proven_set()
     ever = learner.ever_proven_set()
+    credited = learner.credited_set()
+    stale = learner.assumed_stale_set()
     for n in graph["nodes"]:
         nid = n["id"]
         n["proven"] = nid in proven
@@ -526,7 +528,13 @@ def curriculum():
         # fade is `faded`, and saying "assumed" about it erased the difference
         # between work they did and a guess about how old they are.
         n["faded"] = n["ever_proven"] and not n["proven"]
-        n["assumed"] = n["mastered"] and not n["proven"] and not n["ever_proven"]
+        # Read from `credited` rather than `mastered`: the latter is freshness-
+        # gated, so expired placement credit stopped being *any* of the four
+        # words instead of becoming the fifth one. `assumed_stale` is what the
+        # book says out loud when it re-locks a lesson the reader was placed
+        # past — "your placement credit has expired", not silence.
+        n["assumed"] = nid in credited and not n["proven"] and not n["ever_proven"]
+        n["assumed_stale"] = nid in stale
     return graph
 
 
@@ -542,6 +550,9 @@ def curriculum_node(node_id: str):
     out["proven"] = node_id in learner.proven_set()
     out["ever_proven"] = node_id in learner.ever_proven_set()
     out["faded"] = out["ever_proven"] and not out["proven"]
+    out["assumed"] = (node_id in learner.credited_set() and not out["proven"]
+                      and not out["ever_proven"])
+    out["assumed_stale"] = node_id in learner.assumed_stale_set()
     out["mastery_detail"] = learner.mastery_detail(node_id)
     out["unlocked"] = curr.unlocked(node, gates)
     if not out["unlocked"] and not out["mastered"]:
@@ -1170,9 +1181,23 @@ def submit_quiz(s: QuizSubmitIn):
             num = quiz._numeric_equal(str(a), expected)
             return num is True or (num is None and str(a).strip().lower() == expected.lower())
         pairs = [(c, q, a) for c, q, a in zip(s.confidence, questions, s.answers) if c]
-        overconfident = sum(1 for c, q, a in pairs if c >= 3 and not _right(q, a))
-        underconfident = sum(1 for c, q, a in pairs if c <= 1 and _right(q, a))
+        # Each direction is counted over its OWN population. Overconfidence is
+        # "of the answers you were confident about, how many were wrong" — so
+        # its denominator is the confident answers, not every rated answer.
+        # Sharing len(pairs) between the two made each figure a rate over a
+        # population neither of them was about: a reader who rates most answers
+        # mid-confidence (c==2, in neither direction) diluted both denominators
+        # with answers that could not contribute to either numerator, and so
+        # was systematically under-flagged against the 1/3 limit.
+        confident = [p for p in pairs if p[0] >= 3]
+        hesitant = [p for p in pairs if p[0] <= 1]
+        overconfident = sum(1 for c, q, a in confident if not _right(q, a))
+        underconfident = sum(1 for c, q, a in hesitant if _right(q, a))
         calibration = {"overconfident": overconfident, "underconfident": underconfident,
+                       "confident_total": len(confident), "hesitant_total": len(hesitant),
+                       # `total` stays: it is the sitting's rated-answer count,
+                       # which is the honest sample size for the minimum-sample
+                       # floor, and older stored events carry only this field.
                        "total": len(pairs)}
         learner.log_event("calibration", {"node": s.node_id, **calibration})
     ascension = _check_ascension(learner.get_profile()) if mastery.get("newly_mastered") else None
