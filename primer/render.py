@@ -61,6 +61,10 @@ ALLOWED_ATTRS = {
 RESERVED_CLASSES = {"table-scroll"}
 _NAV_ATTR_RE = re.compile(r"""\s*data-primer-title\s*=\s*(?:"[^"]*"|'[^']*'|\S+)""",
                           re.IGNORECASE)
+# An inherited class= would win the duplicate-attribute fight against the one
+# this renderer emits (browsers honour the first), so it is stripped first.
+_CLASS_ATTR_RE = re.compile(r"""\sclass\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)""",
+                            re.IGNORECASE)
 _ATTR_VALUE_WHITELIST = {
     "target": {"_blank"},
     "rel": {"noopener noreferrer", "noopener", "noreferrer"},
@@ -253,8 +257,14 @@ def rewrite_article(html: str, base: str = "") -> str:
         post = _NAV_ATTR_RE.sub(" ", post or "")
         title = _wiki_title_from_href(href)
         if title:
+            # The article's own class= would win the duplicate-attribute fight
+            # (browsers honour the first), silently dropping the class the
+            # reader's click handler and the link styling both key on. Strip
+            # any inherited class and re-emit ours as the only one.
+            pre_nc = _CLASS_ATTR_RE.sub(" ", pre)
+            post_nc = _CLASS_ATTR_RE.sub(" ", post)
             return '<a{}href="#" data-primer-title="{}"{} class="primer-wikilink">'.format(
-                pre, escape(title, quote=True), post
+                pre_nc, escape(title, quote=True), post_nc
             )
         if href.startswith("http"):
             return '<a{}href="{}"{} target="_blank" rel="noopener noreferrer">'.format(

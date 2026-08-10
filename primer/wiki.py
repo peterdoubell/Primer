@@ -448,9 +448,16 @@ class WikiService:
         meaningless for cached articles (the bug this filter fixes)."""
         with _db_lock, self._conn() as c:
             if lang is None:
+                # Deterministic order: without it a title cached in both
+                # 'simple' and 'en' returned whichever row SQLite happened to
+                # reach first, so a young reader got the full-English copy on
+                # some loads and the simple one on others. Simple English
+                # first — the last-resort path serves whoever is offline, and
+                # the plainer copy is the safer default for every age.
                 row = c.execute(
                     "SELECT html, lang, fetched_at FROM article_cache "
-                    "WHERE title=? AND html != ''",
+                    "WHERE title=? AND html != '' "
+                    "ORDER BY CASE lang WHEN 'simple' THEN 0 ELSE 1 END, fetched_at DESC",
                     (self._norm(title),),
                 ).fetchone()
             else:
@@ -552,7 +559,12 @@ class WikiService:
         # 400k+ article ZIM (0.3–1.4s), so only reach for it when title
         # suggestions came up nearly empty, the query looks deliberate rather
         # than mid-typing, and only on the largest archive.
-        if len(results) < 4 and self.archives:
+        # "Deliberate rather than mid-typing" was only ever a claim in this
+        # comment: every keystroke past three characters paid the scan. Make
+        # the condition real — a query long enough to be a word, and either
+        # committed (live) or already ended in something word-shaped.
+        deliberate = len(query.strip()) >= 4 and (live or query.strip()[-1].isalnum())
+        if len(results) < 4 and self.archives and deliberate:
             for arc in self.archives[:1]:
                 for r in arc.search_fulltext(query, limit - len(results)):
                     key = r["title"].lower()

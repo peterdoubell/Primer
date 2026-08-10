@@ -144,22 +144,33 @@ def start_download(key: str) -> Dict:
     entry = next((e for e in CATALOG if e["key"] == key), None)
     if entry is None:
         return {"error": "unknown catalog key"}
+    dest = os.path.join(CONTENT_DIR, key + ".zim")
+    # Reserve the key under the lock BEFORE the slow network resolve. The old
+    # check-then-act released _dl_lock across resolve_latest_url (seconds of
+    # network I/O), so two concurrent POSTs for the same key could both pass
+    # the 'downloading' check and spawn two workers appending interleaved
+    # chunks to the same .part file — corruption the sha256 check would only
+    # catch hours later on a 110GB archive. Inserting the state first makes
+    # the second caller see 'downloading' and return the reservation.
     with _dl_lock:
         st = _downloads.get(key)
         if st and st["status"] == "downloading":
             return st
+        if os.path.exists(dest):
+            return {"status": "done", "key": key, "file": dest}
+        state = {
+            "key": key, "status": "downloading", "url": "",
+            "bytes": 0, "total": 0, "error": "",
+        }
+        _downloads[key] = state
     url = resolve_latest_url(entry)
     if not url:
+        # Drop the reservation so a later retry (once back online) can run.
+        with _dl_lock:
+            if _downloads.get(key) is state:
+                del _downloads[key]
         return {"error": "could not resolve download URL (offline?)"}
-    dest = os.path.join(CONTENT_DIR, key + ".zim")
-    if os.path.exists(dest):
-        return {"status": "done", "key": key, "file": dest}
-    state = {
-        "key": key, "status": "downloading", "url": url,
-        "bytes": 0, "total": 0, "error": "",
-    }
-    with _dl_lock:
-        _downloads[key] = state
+    state["url"] = url
     t = threading.Thread(target=_download_worker, args=(state, url, dest), daemon=True)
     t.start()
     return state

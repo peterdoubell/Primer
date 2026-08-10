@@ -1317,6 +1317,12 @@ def test_picking_by_length_still_cannot_pass_a_paper():
     # which items get served for each node was not, so this measurement
     # depended on suite execution order. Seed it too for a reproducible read.
     quiz.R.seed(20260807)
+    # ...and the module-level `random` the server actually draws items with
+    # (_draw_from_bank at server.py:904). Seeding only quiz.R left this
+    # measurement order-dependent: it read differently depending on how much
+    # global randomness earlier tests had consumed, which is how a 1-in-3
+    # flake hid behind a comment claiming reproducibility.
+    random.seed(20260807)
 
     for how in ("shortest", "longest"):
         scores = []
