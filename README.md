@@ -202,6 +202,7 @@ primer/
   render.py      rewrites AND allowlist-sanitizes article HTML for safe in-book display
   curriculum.py  the concept graph; prerequisite, stage-gate and unlock-requirement logic
   learner.py     SQLite profile, mastery (2 spaced passes + decay), SM-2 deck, XP/streaks, backups
+  store.py       the one connection factory: local SQLite files, or Turso (libSQL) in the cloud
   practice.py    50 procedural exercise generators, counting → calculus, phonics → logic gates
   quiz.py        authored banks, filtered cloze, constructed response, cards from misses
   tutor.py       "Ask the Book" — Claude tutor with rule-based Socratic fallback
@@ -223,6 +224,53 @@ Requirements: Python 3.9+ and the pinned packages in `requirements.txt`.
 ```bash
 .venv/bin/python -m pytest tests/ -q
 ```
+
+## Where the record lives
+
+**Locally: nothing to configure.** The reader's whole record is a SQLite file
+under `content/`, and the article cache is another one. One file, no server,
+copyable to a USB stick, readable in twenty years. This is the default and the
+recommended way to run the book; set no environment variables and nothing about
+it has changed.
+
+**In the cloud, that stopped working.** On a serverless host such as Vercel the
+filesystem is read-only apart from `/tmp`, and `/tmp` belongs to one warm
+instance for a few minutes. The hosted demo therefore **forgot its reader
+between requests**: you would answer a placement quiz, the next request would
+land on a different instance with an empty database, and the book would greet
+you as a stranger. Nothing was corrupted — there was simply nowhere durable to
+write.
+
+**The fix is Turso** ([libSQL](https://turso.tech)), which is SQLite over the
+wire: same dialect, same `?` placeholders, same `ON CONFLICT`. Set two
+environment variables and every store — profile, mastery, review deck, served
+papers, article cache — persists in one managed database instead of a
+disposable file:
+
+```bash
+export TURSO_DATABASE_URL="libsql://your-database.turso.io"
+export TURSO_AUTH_TOKEN="..."
+```
+
+On Vercel, adding the `tursocloud/database` Marketplace integration injects
+both. Unset them and the book is local again, immediately: the backend is
+chosen per connection, from the environment as it stands at that moment.
+
+All of this lives in `primer/store.py`. It is a single seam — the learner, wiki
+and sittings stores each call one `connect()` — and it is deliberately
+asymmetric. With no variables set it hands back a genuine `sqlite3.Connection`
+with exactly the PRAGMAs the three call sites used to set for themselves; the
+remote path is an adapter that presents the same interface on top of the libSQL
+client, papering over the places where that client is not a DB-API driver
+(no `executescript`, no `sqlite3.Row`, no cursor, no implicit transaction, its
+own exception classes). Two honest caveats:
+
+- `PRAGMA journal_mode=WAL` and `busy_timeout` are answered locally and never
+  sent. Both describe a local file and a local lock; a managed database over
+  HTTP has neither, and handles concurrency server-side.
+- The daily rotating backups in `content/backups/` are a page-copy of a local
+  file and have no remote equivalent. Against Turso the server logs that
+  backups are unavailable and relies on Turso's own point-in-time backups.
 
 ## Design notes & honest limits
 

@@ -25,5 +25,23 @@ typing_extensions==4.16.0
 typing-inspection==0.4.2
 exceptiongroup==1.3.1
 
+# Cloud persistence. The book runs on local SQLite files and needs none of
+# this to work; it is only used when TURSO_DATABASE_URL is set, which is how
+# the hosted demo stops forgetting its reader between requests. libsql-client
+# is the pure-Python libSQL client: no Rust toolchain, no compiled wheel to
+# find, installs on every Python the rest of this file supports. (0.3.0, not
+# 0.3.1: 0.3.1 declares its docs theme as a runtime dependency and drags
+# Sphinx into every install.)
+libsql-client==0.3.0
+aiohttp==3.13.5
+aiosignal==1.4.0
+aiohappyeyeballs==2.6.1
+attrs==26.1.0
+frozenlist==1.8.0
+multidict==6.7.1
+propcache==0.4.1
+yarl==1.22.0
+async-timeout==5.0.1
+
 # Development / tests
 pytest==8.4.2

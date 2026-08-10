@@ -14,8 +14,9 @@ rebinding the server's learner store rebinds this store with it.
 """
 
 import json
-import sqlite3
 import time
+
+from . import store
 
 SERVED_LIMIT = 200
 SERVED_TTL = 12 * 3600   # a paper is a sitting, not a standing offer
@@ -44,8 +45,10 @@ class SittingStore:
         self._db_path_fn = db_path_fn
 
     def _conn(self):
-        conn = sqlite3.connect(self._db_path_fn(), timeout=15)
-        conn.execute("PRAGMA busy_timeout=8000")
+        # No WAL here, as before: this store has always taken the journal mode
+        # the learner store already set on the same file. Local by default,
+        # Turso when TURSO_DATABASE_URL is set — see primer/store.py.
+        conn = store.connect(self._db_path_fn(), wal=False)
         conn.execute(
             "CREATE TABLE IF NOT EXISTS sittings ("
             " token TEXT PRIMARY KEY, at REAL, data TEXT)")

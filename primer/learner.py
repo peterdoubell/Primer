@@ -27,6 +27,8 @@ import threading
 import time
 from typing import Dict, List, Optional
 
+from . import store
+
 log = logging.getLogger("primer.learner")
 
 _lock = threading.Lock()
@@ -263,11 +265,10 @@ class LearnerStore:
         self._init_db()
 
     def _conn(self):
-        conn = sqlite3.connect(self.db_path, timeout=15)
-        conn.execute("PRAGMA journal_mode=WAL")
-        conn.execute("PRAGMA busy_timeout=8000")
-        conn.row_factory = sqlite3.Row
-        return conn
+        # Local files by default, Turso when TURSO_DATABASE_URL is set. The
+        # PRAGMAs and the by-name row access moved into store.connect() rather
+        # than being dropped — see primer/store.py.
+        return store.connect(self.db_path, named_rows=True)
 
     def _init_db(self):
         with _lock, self._conn() as c:

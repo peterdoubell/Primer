@@ -1,11 +1,17 @@
 """Vercel serverless entry: the whole book as one ASGI function.
 
-The bundle's filesystem is read-only, so everything the book writes — the
-reader's database, its backups, any downloaded archives — is pointed at
-/tmp before the server module computes its paths. /tmp lives only as long
-as the warm instance: this deployment is the demo reading room, not the
-archive. A reader's real, permanent book runs locally with its own
-content/ directory.
+The reader's record lives in Turso (libSQL) whenever TURSO_DATABASE_URL is
+set, which the Vercel marketplace integration provides. That is the whole
+point of it being there: /tmp on a serverless instance is per-instance and
+short-lived, so a profile written by one request was routinely gone by the
+next — the reader met a "no profile" page having onboarded a minute earlier.
+primer/store.py makes the choice per connection, so nothing here has to know
+which backend won.
+
+PRIMER_DB still points somewhere writable because it names the local file
+used when no Turso URL is configured, and because the article cache and any
+downloaded archive need a real directory either way. Neither survives an
+instance; both are caches that rebuild from Wikipedia, unlike the record.
 """
 import os
 import sys

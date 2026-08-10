@@ -18,12 +18,13 @@ import json
 import logging
 import os
 import re
-import sqlite3
 import threading
 import time
 import urllib.parse
 import urllib.request
 from typing import Dict, List, Optional, Tuple
+
+from . import store
 
 log = logging.getLogger("primer.wiki")
 
@@ -226,10 +227,9 @@ class WikiService:
     # ---------- storage ----------
 
     def _conn(self):
-        conn = sqlite3.connect(self.db_path, timeout=15)
-        conn.execute("PRAGMA journal_mode=WAL")
-        conn.execute("PRAGMA busy_timeout=8000")
-        return conn
+        # Article/image cache: local SQLite file by default, the shared Turso
+        # database when TURSO_DATABASE_URL is set. See primer/store.py.
+        return store.connect(self.db_path)
 
     # One cached copy per (title, lang): with title as the sole key, caching
     # the Simple English copy of a title silently overwrote the full-English
