@@ -43,6 +43,18 @@
   --tint-green: rgba(51, 122, 75, 0.12);
   --tint-gold: rgba(201, 162, 39, 0.16);
   --tint-gold-strong: rgba(201, 162, 39, 0.3);
+  /* The last three washes still hiding as raw light-palette RGB: the wikilink
+     hover, the explain panel, and the wrong-answer fill. The wrong fill was
+     the loudest miss — at night its border and text turn magenta while a
+     hardcoded brown-red sat underneath them. */
+  --tint-info: rgba(74, 111, 165, 0.12);
+  --tint-info-soft: rgba(74, 111, 165, 0.09);
+  --tint-wrong: rgba(168, 68, 47, 0.14);
+  /* Domain colours arrive from the curriculum JSON as day hexes. Rather than
+     re-authoring ten files per theme, the fill is lifted toward white at night
+     so the near-black --on-fill keeps its contrast on them; by day the lift is
+     zero and the author's ink is used untouched. */
+  --domain-lift: 0%;
 
   /* Chrome that differs by theme, declared as values rather than as rules, so
      the shell can change character without duplicating a single selector. */
@@ -118,6 +130,11 @@
   --dk-tint-green: rgba(60, 232, 169, 0.13);
   --dk-tint-gold: rgba(255, 176, 32, 0.15);
   --dk-tint-gold-strong: rgba(255, 176, 32, 0.32);
+  --dk-tint-info: rgba(79, 216, 232, 0.12);
+  --dk-tint-info-soft: rgba(79, 216, 232, 0.09);
+  --dk-tint-wrong: rgba(255, 92, 138, 0.14);
+  /* Enough lift that the darkest domain hex clears 4.5:1 under --dk-on-fill. */
+  --dk-domain-lift: 42%;
   --dk-shell-bg:
     radial-gradient(circle at 18% 8%, rgba(79, 216, 232, 0.10), transparent 55%),
     radial-gradient(circle at 82% 88%, rgba(255, 92, 138, 0.09), transparent 55%),
@@ -169,6 +186,8 @@
     --on-fill: var(--dk-on-fill); --edge: var(--dk-edge); --ink-place: var(--dk-ink-place);
     --tint-green: var(--dk-tint-green); --tint-gold: var(--dk-tint-gold);
     --tint-gold-strong: var(--dk-tint-gold-strong);
+    --tint-info: var(--dk-tint-info); --tint-info-soft: var(--dk-tint-info-soft);
+    --tint-wrong: var(--dk-tint-wrong); --domain-lift: var(--dk-domain-lift);
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim);
@@ -198,6 +217,8 @@
     --on-fill: var(--dk-on-fill); --edge: var(--dk-edge); --ink-place: var(--dk-ink-place);
     --tint-green: var(--dk-tint-green); --tint-gold: var(--dk-tint-gold);
     --tint-gold-strong: var(--dk-tint-gold-strong);
+    --tint-info: var(--dk-tint-info); --tint-info-soft: var(--dk-tint-info-soft);
+    --tint-wrong: var(--dk-tint-wrong); --domain-lift: var(--dk-domain-lift);
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim);
@@ -386,7 +407,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #article h2 { font-size: 23px; margin-top: 1.4em; color: var(--heading-accent); }
 #article p { margin: 0.8em 0; }
 #article a.primer-wikilink { color: var(--accent-2); text-decoration: none; border-bottom: 1px dotted var(--accent-2); cursor: pointer; }
-#article a.primer-wikilink:hover { background: rgba(74,111,165,0.12); }
+#article a.primer-wikilink:hover { background: var(--tint-info); }
 #article img { max-width: 100%; height: auto; border-radius: 6px; margin: 8px 0; }
 #article table { width: 100%; font-size: 13px; border-collapse: collapse; }
 #article .thumb, #article .infobox { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: 8px; padding: 8px; }
@@ -406,6 +427,11 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #tutor .th small { font-family: var(--sans); font-size: 11px; color: var(--chrome-ink-dim); }
 /* The remote-tutor disclosure: quiet, chrome-toned, one line under the head.
    A fact the reader deserves, at the volume of a colophon note. */
+/* The opt-out is a quiet dotted link in the disclosure's own ink — an
+   action, so it must read as one, but never louder than the disclosure. */
+.tutor-optout { color: var(--chrome-ink-soft); text-decoration: underline dotted;
+  font-size: 11px; cursor: pointer; }
+.tutor-optout:hover { color: var(--chrome-hi); }
 .tutor-disclosure { font-family: var(--sans); font-size: 11px; line-height: 1.45;
   color: var(--chrome-ink-dim); margin-top: 5px; }
 #tutor-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
@@ -436,11 +462,13 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 }
 .choice:hover { border-color: var(--link); background: var(--field-hi); }
 .choice.correct { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); font-weight: 600; }
-.choice.wrong { background: rgba(168,68,47,0.14); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+/* The wrong fill was the last daylight-mixed wash: at night the border and
+   text turned magenta while a hardcoded brown-red sat underneath them. */
+.choice.wrong { background: var(--tint-wrong); border-color: var(--accent); color: var(--accent); font-weight: 600; }
 .q-numeric { display: flex; gap: 10px; }
 .q-numeric input { font-size: 20px; text-align: center; }
 .q-progress { font-family: var(--sans); font-size: 13px; color: var(--ink-faint); margin-bottom: 8px; letter-spacing: 1px; }
-.q-explain { margin-top: 16px; padding: 12px 14px; background: rgba(74,111,165,0.09); border-left: 3px solid var(--accent-2); border-radius: 4px; font-size: 14.5px; color: var(--ink-soft); }
+.q-explain { margin-top: 16px; padding: 12px 14px; background: var(--tint-info-soft); border-left: 3px solid var(--accent-2); border-radius: 4px; font-size: 14.5px; color: var(--ink-soft); }
 
 .result-splash { text-align: center; padding: 40px 20px; }
 .result-splash .score { font-size: 64px; color: var(--gold); }
@@ -854,6 +882,18 @@ body[data-stage="4"] .btn, body[data-stage="5"] .btn { padding: 9px 16px; min-he
    above and below reaches the 44px floor without loosening the layout. */
 body[data-stage="4"] .btn::after, body[data-stage="5"] .btn::after {
   content: ""; position: absolute; left: 0; right: 0; top: -3px; bottom: -3px; }
+/* The halo policy has to cover *every* primary target, not just .btn: the
+   compact navbtn draws ~30px and the node-dot ~26px, both well under the
+   44px floor the two comments above claim as law. Same silent extension. */
+body[data-stage="4"] .navbtn, body[data-stage="5"] .navbtn { position: relative; }
+body[data-stage="4"] .navbtn::after, body[data-stage="5"] .navbtn::after {
+  content: ""; position: absolute; left: 0; right: 0; top: -7px; bottom: -7px; }
+body[data-stage="4"] .node-dot, body[data-stage="5"] .node-dot { position: relative; padding: 8px 12px; }
+body[data-stage="4"] .node-dot::after, body[data-stage="5"] .node-dot::after {
+  content: ""; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }
+/* Halos on wrapped rows must not annex a neighbour's click: the row gap
+   grows to match the twelve invisible pixels each dot now carries. */
+body[data-stage="4"] .node-row, body[data-stage="5"] .node-row { gap: 12px 8px; }
 body[data-stage="4"] .badge, body[data-stage="5"] .badge { font-size: 10px; }
 /* The stars and the seal are for children. Adults get the number. */
 body[data-stage="4"] .result-splash .stars, body[data-stage="5"] .result-splash .stars { display: none; }
@@ -1068,6 +1108,14 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 .story-current p { color: var(--chrome-ink-soft); }
 .story-current .story-needs { color: var(--chrome-ink-dim); font-family: var(--sans);
   font-size: 13px; margin: 10px 0 0; }
+
+/* The breadth chooser. Its checked state used to be inline colour mutation
+   alone — a 1.5px border shift, exactly the colour-only cue SC 1.4.1 warns
+   about. State now rides a class, and the picked card says so in words. */
+.pick { text-align: left; cursor: pointer; margin: 0; border-width: 2px; }
+.pick.picked { border-color: var(--gold); background: var(--paper-hi); }
+.pick .pick-mark { display: none; font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-top: 8px; }
+.pick.picked .pick-mark { display: block; }
 
 .onboard-steps { display: flex; justify-content: center; gap: 18px; margin-bottom: 22px; font-family: var(--sans); }
 .onboard-step { font-size: 11px; letter-spacing: .08em; color: var(--ink-place); position: relative; padding-bottom: 8px; }

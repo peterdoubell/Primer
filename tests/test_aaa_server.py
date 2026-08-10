@@ -275,24 +275,25 @@ def test_check_banks_warns_between_tiers(tmp_path, capsys):
 
 def test_placement_reopen_is_noop_without_store_support(client, onboarded):
     import primer.server as srv
-    # A domain the store has settled; the stub has no reopen method at all.
+    # A stub store without the feature (e.g. a minimal test double): the
+    # wiring must degrade to a graceful no-op, never an AttributeError.
     class _Stub:
         db_path = srv.learner.db_path
 
         def placement_state(self):
             return {"math": {"done": True, "asked": [{"stage": 1, "passed": True}]}}
 
-    assert srv._placement_reopen.__defaults__ is None  # signature sanity
     orig = srv.learner
-    stub = _Stub()
-    srv.learner = stub
+    srv.learner = _Stub()
     try:
         assert srv._placement_reopen("math") is False
     finally:
         srv.learner = orig
 
 
-def test_placement_reopen_calls_store_when_supported(client, onboarded):
+def test_placement_reopen_uses_the_fixed_store_interface(client, onboarded):
+    """The server calls exactly `reopen_placement` — the one method the store
+    ships — and honours its boolean verdict. No candidate-name guessing."""
     import primer.server as srv
     calls = []
 
@@ -301,10 +302,7 @@ def test_placement_reopen_calls_store_when_supported(client, onboarded):
 
         def reopen_placement(self, domain):
             calls.append(domain)
-            return True
-
-        def placement_reopenable(self, domain):
-            return True
+            return len(calls) == 1   # first call reopens, second is refused
 
         def placement_state(self):
             return {"math": {"done": False, "asked": []}}
@@ -313,16 +311,15 @@ def test_placement_reopen_calls_store_when_supported(client, onboarded):
     srv.learner = _Stub()
     try:
         assert srv._placement_reopen("math") is True
-        assert calls == ["math"]
+        assert srv._placement_reopen("math") is False, \
+            "the store's False (still cooling / not settled) must be final"
+        assert calls == ["math", "math"]
     finally:
         srv.learner = orig
 
 
 def test_settled_placement_can_be_remeasured_after_cooling(client, onboarded):
     import primer.server as srv
-    if not any(callable(getattr(srv.learner, n, None)) for n in srv._REOPEN_NAMES):
-        pytest.skip("LearnerStore has not grown a reopen method; the wiring "
-                    "is a deliberate no-op without it")
     srv.learner.placement_update("math", 1, [{"stage": 1, "passed": True},
                                              {"stage": 2, "passed": False}], True)
     assert client.get("/api/placement/next?domain=math").status_code == 409
@@ -344,13 +341,88 @@ def test_settled_placement_can_be_remeasured_after_cooling(client, onboarded):
 
 def test_placement_next_advertises_reopen_support(client, onboarded):
     import primer.server as srv
-    # Whatever learner.py ends up shipping, the 409 for a settled domain must
-    # say truthfully whether re-measuring is possible.
+    # The 409 for a settled domain must say truthfully whether re-measuring
+    # is possible — i.e. whether the store ships reopen_placement.
     srv.learner.placement_update("physics", 1, [{"stage": 1, "passed": True},
                                                 {"stage": 2, "passed": False}], True)
     r = client.get("/api/placement/next?domain=physics")
     assert r.status_code == 409
     body = r.json()
-    supported = any(callable(getattr(srv.learner, n, None))
-                    for n in srv._REOPEN_NAMES)
+    supported = callable(getattr(srv.learner, "reopen_placement", None))
     assert body["reopen_supported"] is supported
+
+
+# ---------------- short-answer prefix false positives ----------------
+
+
+def test_shared_prefix_alone_does_not_credit_unrelated_words():
+    """A six-letter shared prefix is not word-building: 'transport' must not
+    credit *transform*, 'collection' must not credit *collective* — only a
+    genuine derivational suffix left over after the shared stem may match."""
+    from primer.quiz import score_short_answer
+    assert score_short_answer("we transport goods", ["transform"]) == 0.0
+    assert score_short_answer("a fine collection", ["collective"]) == 0.0
+    assert score_short_answer("great generosity", ["generation"]) == 0.0
+    # Genuine derivation still counts.
+    assert score_short_answer("an anecdotal report", ["anecdote"]) == 1.0
+    assert score_short_answer("it is finitely bounded", ["finite"]) == 1.0
+
+
+# ---------------- reader-owned tutor privacy switch ----------------
+
+
+def test_tutor_remote_can_be_disabled_in_app(client, onboarded, monkeypatch):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
+    # Key set and setting untouched: remote engine advertised.
+    assert client.get("/api/state").json()["tutor_remote"] is True
+    # The reader flips the in-app switch...
+    r = client.post("/api/profile/settings", json={"tutor_remote_ok": False})
+    assert r.status_code == 200
+    assert r.json()["settings"]["tutor_remote_ok"] is False
+    # ...and the app now discloses a local tutor even though the key remains.
+    d = client.get("/api/state").json()
+    assert d["tutor_remote"] is False and d["tutor_engine"] == "book"
+    # The tutor route itself answers locally: remote=False on the reply.
+    a = client.post("/api/tutor", json={
+        "messages": [{"role": "user", "content": "why is the sky blue?"}],
+        "title": "", "excerpt": "Light scatters more at short wavelengths."}).json()
+    assert a["engine"] == "book" and a["remote"] is False
+    # Switch back on: the choice is the reader's, both ways.
+    client.post("/api/profile/settings", json={"tutor_remote_ok": True})
+    assert client.get("/api/state").json()["tutor_remote"] is True
+
+
+def test_tutor_messages_are_typed(client, onboarded):
+    # A malformed message list is refused at the boundary, not deep in ask().
+    r = client.post("/api/tutor", json={"messages": [{"role": "user"}]})
+    assert r.status_code == 422
+    r = client.post("/api/tutor", json={"messages": "hello"})
+    assert r.status_code == 422
+
+
+# ---------------- submit bodies carry no client question bank ----------------
+
+
+def test_quiz_submit_has_no_questions_field(client, onboarded):
+    """The model no longer declares `questions`; a client that still sends one
+    is harmlessly ignored (the server grades from its own copy regardless)."""
+    import primer.server as srv
+    assert "questions" not in srv.QuizSubmitIn.model_fields
+    assert "questions" not in srv.PlacementSubmitIn.model_fields
+
+
+# ---------------- check_banks: the human half of the audit ----------------
+
+
+def test_check_banks_sample_mode_draws_a_hand_audit_sheet(capsys):
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "tools"))
+    import check_banks
+    import glob as _glob
+    paths = sorted(_glob.glob(os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "data", "curriculum", "*.json")))
+    check_banks.sample_for_hand_audit(paths, 5)
+    out = capsys.readouterr().out
+    assert "Hand-audit sheet" in out
+    assert "lower bound" in out
+    assert out.count("\n  ") >= 5 or out.count(". [") >= 5

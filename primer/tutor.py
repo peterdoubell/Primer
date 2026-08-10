@@ -123,8 +123,12 @@ def ask_rules(messages: List[Dict], title: str, excerpt: str, stage: int) -> Dic
     return {"reply": reply, "engine": "book", "remote": False}
 
 
-def ask(messages: List[Dict], title: str = "", excerpt: str = "", stage: int = 2) -> Dict:
-    if have_api_key():
+def ask(messages: List[Dict], title: str = "", excerpt: str = "", stage: int = 2,
+        allow_remote: bool = True) -> Dict:
+    # allow_remote is the reader's in-app privacy switch: when False, nothing
+    # is sent to api.anthropic.com even though a key is configured, and the
+    # local rule engine answers instead.
+    if have_api_key() and allow_remote:
         try:
             return ask_llm(messages, title, excerpt, stage)
         except Exception:

@@ -167,6 +167,14 @@ Set an API key to have Claude voice the Primer's tutor:
 export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
+**Privacy note:** with a key set, the reader's tutor chat messages and short
+excerpts of the article being read are sent off this machine to
+api.anthropic.com to generate replies. Nothing else (no profile, mastery
+record, or reading history) is sent, the app discloses the remote engine in
+its UI (`tutor_remote`), and the reader can switch the tutor back to fully
+local at any time in-app (the `tutor_remote_ok` setting) without touching the
+environment variable.
+
 Without a key, the tutor uses a fully offline Socratic engine.
 
 ---

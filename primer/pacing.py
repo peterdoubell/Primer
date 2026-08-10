@@ -46,11 +46,22 @@ BREADTH_PLANS = {
 }
 
 
-def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float]) -> Dict:
+def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
+            proven: "set | None" = None) -> Dict:
     """graph: {domains: [{id,name}], nodes: [node]} — see curriculum.py.
 
     `mastery` must be the learner's decay-aware gate view (gate_map()), not
     the raw EMA mastery_map() — see GATE_OPEN above.
+
+    `proven`, when given, is the learner's proven_set(): nodes mastered by
+    spaced performance rather than placement credit. gate_map() emits an
+    identical 1.0 for both, so from `mastery` alone this function cannot
+    tell a node the reader demonstrated from one the placement interview
+    merely assumed — and a headline that counts them identically overstates
+    what has been shown. Passing the set splits the headline (see
+    `nodes_proven` / `nodes_assumed` below) without changing anything the
+    plan schedules; omitting it keeps the old shape working and leaves the
+    split fields None, meaning "caller didn't say", never "zero".
     """
     breadth = profile.get("breadth", "balanced")
     plan = BREADTH_PLANS.get(breadth, BREADTH_PLANS["balanced"])
@@ -125,6 +136,19 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float]) -> Dict:
     # Same ledger as the scheduling loop above: gate-open only, so a faded or
     # revoked node is never headlined as mastered while the gates re-lock it.
     mastered = sum(1 for v in mastery.values() if v >= GATE_OPEN)
+    # Split the headline where the caller lets us. A gate-open node is either
+    # proven (spaced performance) or assumed (placement credit not yet
+    # tested); collapsing the two into one number let the roadmap claim
+    # placement guesses as accomplishments. `nodes_mastered` keeps its old
+    # meaning — everything the gates treat as standing — so no consumer
+    # breaks; the new fields carry the honest decomposition.
+    if proven is not None:
+        proven_open = sum(1 for n, v in mastery.items()
+                          if v >= GATE_OPEN and n in proven)
+        nodes_proven: "int | None" = proven_open
+        nodes_assumed: "int | None" = mastered - proven_open
+    else:
+        nodes_proven = nodes_assumed = None
     return {
         "breadth": breadth,
         "breadth_label": plan["label"],
@@ -150,6 +174,8 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float]) -> Dict:
             for b in stage_buckets if b["nodes"]
         ],
         "nodes_mastered": mastered,
+        "nodes_proven": nodes_proven,
+        "nodes_assumed": nodes_assumed,
         "nodes_total": len(graph["nodes"]),
     }
 

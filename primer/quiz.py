@@ -108,6 +108,23 @@ def _sentences(text: str) -> List[str]:
             continue
         if ":" in p:                 # list fragments and section run-ons
             continue
+        # Added after a hand audit put the cloze defect rate at 65%: the
+        # remaining bad items were dominated by run-on clauses (semicolons),
+        # comma-heavy list fragments, quoted speech torn from its speaker,
+        # and copula-free noun piles with nothing assertable to blank.
+        if ";" in p or p.count(",") >= 4:
+            continue
+        if p.count('"') + p.count("“") + p.count("”") > 0:
+            continue
+        if not re.search(
+                r"\b(is|are|was|were|has|have|had|can|could|will|would|may|"
+                r"means|uses|used|makes|made|became|become|becomes|contains?|"
+                r"consists?|forms?|formed|produces?|produced|calls?|called|"
+                r"causes?|caused|allows?|allowed|gives?|gave|takes?|took|"
+                r"holds?|held|shows?|showed|occurs?|occurred|includes?|"
+                r"describes?|described|creates?|created|led|leads?)\b",
+                p, re.IGNORECASE):
+            continue             # no assertion, nothing worth blanking
         good.append(p)
     return good
 
@@ -550,6 +567,16 @@ def short_answer_from_node(title: str, goal: str, articles: List[str]) -> Option
 
 _NEGATORS = ("un", "non", "dis", "ir", "im", "in", "a")
 
+# What may legitimately remain of a word once its shared stem is removed and
+# still count as the same idea: real derivational endings only. "transport" /
+# "transform" (remainders "port"/"form") are different roots and must not
+# match; "anecdote" / "anecdotal" (remainders "e"/"al") are one idea.
+_DERIVATIONAL_SUFFIXES = {
+    "e", "s", "es", "ed", "ing", "ion", "tion", "ation", "al", "ial", "ive",
+    "ity", "ty", "ly", "er", "or", "ist", "ism", "ment", "ness", "ous", "ic",
+    "ical", "ance", "ence", "ant", "ent", "able", "ible", "y",
+}
+
 
 def _common_prefix(a: str, b: str) -> str:
     i = 0
@@ -607,8 +634,16 @@ def score_short_answer(given: str, keywords: List[str]) -> float:
             # *standard* — crediting a key for the word that negates it.
             if other.startswith(w) or w.startswith(other):
                 return True
+            # A long shared prefix alone is not word-building: "transport"
+            # and "transform" share six letters and no meaning. Genuine
+            # derivation leaves only a suffix behind once the shared stem is
+            # removed — so credit the match only when BOTH remainders are
+            # recognisable derivational endings, never when either word
+            # continues with fresh root material.
             stem = _common_prefix(w, other)
-            if len(stem) >= 6 and not _negates(w, other):
+            if (len(stem) >= 6 and not _negates(w, other)
+                    and w[len(stem):] in _DERIVATIONAL_SUFFIXES
+                    and other[len(stem):] in _DERIVATIONAL_SUFFIXES):
                 return True
         return False
 

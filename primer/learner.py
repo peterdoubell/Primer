@@ -339,7 +339,22 @@ class LearnerStore:
         return strength * (0.5 ** ((now - last_seen) / half_life))
 
     def mastery_map(self) -> Dict[str, float]:
-        """Raw EMA level per node — a soft signal for display and pacing."""
+        """Raw EMA level per node — a soft *display* signal, and only that.
+
+        `level` never fades by design: the asymmetric EMA in `_apply_attempt`
+        (0.4 gain / 0.25 loss, plus max() on passes) makes it a ratchet-ish
+        record of the best performance the reader has demonstrated, which is
+        the right thing for a progress bar to remember. But it is therefore
+        NOT a statement of current retention — a node can show level 0.9 here
+        years after its strength decayed to nothing. Anything that *decides*
+        (gates, pacing, headlines, "is this still known?") must read the
+        decay-aware views instead: `gate_map` for unlock logic, `proven_set`/
+        `mastered_set` for standing mastery, `_strength_now` for freshness.
+        Display code that shows this number next to a decayed strength should
+        label it as "best level reached", not "current mastery" — the two
+        diverge on purpose, and presenting the ratchet as current state is
+        exactly the misuse the gates were rebuilt to prevent.
+        """
         with _lock, self._conn() as c:
             rows = c.execute("SELECT node_id, level FROM mastery").fetchall()
         return {r["node_id"]: r["level"] for r in rows}
@@ -872,12 +887,29 @@ class LearnerStore:
                 return {"error": "no such card"}
             prof_row = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
             min_gap = _reinforce_min_gap(prof_row["age"] if prof_row else None)
-            # Reviewing a card that isn't due yet is welcome, but it is practice,
-            # not progress: it moves no schedule, pays no XP, and cannot refresh
-            # a faded node. Otherwise one card can be drilled all afternoon for
-            # unlimited credit, and a card the reader wrote themselves would be
-            # enough to restore mastery the book had let decay.
-            counts = (row["due"] or 0) <= now
+            # Reviewing a card that isn't due yet is welcome, but a *success*
+            # on it is practice, not progress: it moves no schedule, pays no
+            # XP, and cannot refresh a faded node. Otherwise one card can be
+            # drilled all afternoon for unlimited credit, and a card the
+            # reader wrote themselves would be enough to restore mastery the
+            # book had let decay.
+            #
+            # A *failure* on an early card is a different animal, and the
+            # anti-farming argument does not cover it. Blanking on a card a
+            # day before it was due is genuine evidence of forgetting — the
+            # memory did not survive even the scheduled interval — and
+            # discarding it meant a reader could watch themselves fail a card
+            # cold while the book kept its node reading as proven until the
+            # calendar caught up. Evidence is asymmetric here on purpose:
+            # early success proves nothing (the short gap made it easy, and
+            # rewarding it invites drilling), but early failure proves plenty
+            # (the short gap made it *easier*, and they still missed). So a
+            # failed early review flows through the full path — the card
+            # lapses, the node's strength drops, mastery can be revoked —
+            # while a successful early one still returns without effect.
+            # There is no farming route through failure: q<3 pays zero XP and
+            # only ever moves strength downward.
+            counts = (row["due"] or 0) <= now or quality < 3
             if not counts:
                 return {"id": card_id, "next_days": round(((row["due"] or now) - now) / DAY, 1),
                         "xp_gained": 0, "lapses": self._lapses_of(row), "early": True}
@@ -968,7 +1000,9 @@ class LearnerStore:
                         # quiz answers were wrong, a self-graded 4-5 is weaker
                         # evidence than it claims, so the restore is capped
                         # below full rather than taken at face value.
-                        if self._overconfidence_rate(c) > self.OVERCONFIDENCE_LIMIT:
+                        overconfident = (self._overconfidence_rate(c)
+                                         > self.OVERCONFIDENCE_LIMIT)
+                        if overconfident:
                             strength = max(strength, self.OVERCONFIDENT_RESTORE_CAP)
                         else:
                             strength = 1.0
@@ -976,8 +1010,24 @@ class LearnerStore:
                         # Only a *spaced* success builds durability. Without the
                         # gap, minting cards and grading them in one sitting
                         # made a node permanent in zero elapsed time.
+                        #
+                        # And only a *credible* one. The cap above already says
+                        # this self-grade is weaker evidence than it claims —
+                        # but a `reinforcements` bump is the more consequential
+                        # payment of the two: strength resets on the next real
+                        # pass anyway, while the half-life extension is
+                        # permanent. Discounting the restore and then paying
+                        # full durability growth on the same distrusted grade
+                        # let an overconfident reader ratchet a node's half-
+                        # life to the ceiling on evidence the calibration
+                        # model had just declared unreliable. One discount,
+                        # applied to everything the grade buys: while the
+                        # reader's confident quiz answers are wrong more than a
+                        # third of the time, a self-graded success neither
+                        # fully restores nor lengthens the half-life.
                         last_r = m["reinforced_at"] if "reinforced_at" in m.keys() else None
-                        if not last_r or (now - last_r) >= min_gap:
+                        if (not overconfident
+                                and (not last_r or (now - last_r) >= min_gap)):
                             c.execute("UPDATE mastery SET reinforcements = "
                                       "COALESCE(reinforcements, 1) + 1, reinforced_at=? "
                                       "WHERE node_id=?", (now, node_id))

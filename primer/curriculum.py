@@ -3,6 +3,35 @@
 Domain files live in data/curriculum/*.json. Each node maps a concept to
 Wikipedia articles, a practice generator, and optional authored quiz items.
 
+Assessment design — why most nodes have `practice: null`. The authored quiz
+banks are the assessment spine: every node carries human-written items, and
+mastery is earned against those. Procedural generators (practice.py) exist
+only where a concept is a *mechanical skill* with a parameterisable item
+space — arithmetic, counting, unit conversion, algebraic manipulation and
+their kin — which is why the ~41 nodes that have one skew heavily toward the
+mechanical strands of math, language and CS. Conceptual nodes
+("Gödel's incompleteness theorems") do not decompose into templates
+a generator could mint honestly; a generated item there would test pattern-
+matching on the template, not the concept. So generators *supplement* the
+spine with unlimited drill where drill is the right instrument, and their
+absence on a node is a design statement, not missing coverage.
+
+Two more deliberate asymmetries in the data files, recorded here because JSON
+cannot carry comments:
+
+- `kid_text` exists only for stage 0-1 nodes. It is the read-aloud lesson
+  voice for pre-readers and early readers (ages 3-9). From stage 2 up the
+  reader works from the linked articles themselves — learning to read the
+  real literature is part of the curriculum, so a simplified shadow text
+  would work against the goal, not toward it.
+- Domain node counts are uneven by design (math 59, arts 25). Node count
+  tracks how much *gated, sequential* structure a field has, not how big or
+  worthy the field is: mathematics is a long dependency chain where each rung
+  must be held before the next, while arts and earth science branch shallow
+  and wide, so fewer spine nodes carry the same breadth — the taglines
+  promise the field, and the Vast Domain (below) supplies its breadth beyond
+  the spine.
+
 Progression rules:
 - Stage-0 nodes are always unlocked.
 - A node is unlocked when its explicit prereqs are mastered AND its stage
@@ -79,7 +108,7 @@ class Curriculum:
             domain_id = data["id"]
             self.domains.append({
                 "id": domain_id, "name": data["name"],
-                "icon": data.get("icon", "📖"), "color": data.get("color", "#8a6d3b"),
+                "icon": data.get("icon", "✦"), "color": data.get("color", "#4a6fa5"),
                 "tagline": data.get("tagline", ""),
                 "node_count": len(data["nodes"]),
             })
@@ -130,6 +159,16 @@ class Curriculum:
             self._by_domain_stage.setdefault(node["domain"], {}).setdefault(
                 node["stage"], []).append(node)
 
+        # Titles are unique within a domain but not across the graph —
+        # math.3.functions and cs.2.functions are both just "Functions".
+        # unlock_requirements() names prereqs by title, so it needs to know
+        # which titles are ambiguous in order to qualify them with a domain.
+        self._title_counts: Dict[str, int] = {}
+        for node in raw_nodes:
+            t = node.get("title", "")
+            self._title_counts[t] = self._title_counts.get(t, 0) + 1
+        self._domain_names = {d["id"]: d["name"] for d in self.domains}
+
     # ---------- queries ----------
 
     def graph(self) -> Dict:
@@ -160,7 +199,23 @@ class Curriculum:
         for p in node["prereqs"]:
             if mastery.get(p, 0) < 0.8:
                 pn = self.nodes.get(p)
-                reqs.append("Master “{}”".format(pn["title"] if pn else p))
+                if pn is None:
+                    reqs.append("Master “{}”".format(p))
+                    continue
+                # A bare title is only a legible quest marker if it points at
+                # exactly one tile the reader can find. Two cases break that:
+                # the prereq lives in another domain (the reader is looking at
+                # a math tile; "Functions" won't be found under math), and a
+                # title that appears on more than one node anywhere in the
+                # graph ("Functions" is both math.3 and cs.2 — the reader can
+                # land on the wrong one and wonder why mastering it changed
+                # nothing). Both get the domain name spelled out.
+                title = pn["title"]
+                if (pn["domain"] != node["domain"]
+                        or self._title_counts.get(title, 0) > 1):
+                    title = "{} ({})".format(
+                        title, self._domain_names.get(pn["domain"], pn["domain"]))
+                reqs.append("Master “{}”".format(title))
         stage = node["stage"]
         if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery):
             prev = self._by_domain_stage.get(node["domain"], {}).get(stage - 1, [])

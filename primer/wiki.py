@@ -83,8 +83,8 @@ class ZimArchive:
         except Exception:
             return self.archive.entry_count
 
-    def _entry_for_title(self, title: str):
-        """Find an entry by article title, tolerating path conventions."""
+    def _lookup_exact(self, title: str):
+        """One case-exact lookup, tolerating path conventions."""
         candidates = [
             title.replace(" ", "_"),
             "A/" + title.replace(" ", "_"),
@@ -100,10 +100,29 @@ class ZimArchive:
         try:
             return self.archive.get_entry_by_title(title)
         except Exception:
-            pass          # not in this archive; the caller falls through
-        # Case-tolerant retry: Wikipedia titles capitalize the first letter.
+            return None          # not in this archive; the caller falls through
+
+    def _entry_for_title(self, title: str):
+        """Find an entry by article title, tolerating case differences.
+
+        ZIM lookups are case-exact, but readers type "albert einstein" and
+        Wikipedia stores "Albert Einstein" — upcasing only the first letter
+        misses every multi-word title, sending the request to live/cache for
+        an article the archive already holds. Try the exact form, the
+        first-letter-capitalized form, and the every-word-capitalized form."""
+        variants = [title]
         if title and title[0].islower():
-            return self._entry_for_title(title[0].upper() + title[1:])
+            variants.append(title[0].upper() + title[1:])
+        capped = "".join(
+            w if w in (" ", "_") else (w[:1].upper() + w[1:])
+            for w in re.split(r"([ _])", title)
+        )
+        if capped not in variants:
+            variants.append(capped)
+        for variant in variants:
+            entry = self._lookup_exact(variant)
+            if entry is not None:
+                return entry
         return None
 
     def get_article(self, title: str) -> Optional[Tuple[str, str]]:
@@ -194,6 +213,12 @@ class WikiService:
         self._live_fetch_blocked_until = 0.0
         self._init_db()
         self.rescan()
+        # A finished Library download should mount immediately, not sit
+        # unusable until someone calls /api/library/rescan by hand — the
+        # downloader fires this hook after renaming a .zim into place.
+        # Deferred import: library imports this module at load time.
+        from . import library
+        library.register_rescan_hook(self.rescan)
 
     # ---------- storage ----------
 
@@ -203,17 +228,36 @@ class WikiService:
         conn.execute("PRAGMA busy_timeout=8000")
         return conn
 
-    def _init_db(self):
-        with _db_lock, self._conn() as c:
-            c.execute(
-                """CREATE TABLE IF NOT EXISTS article_cache (
-                    title TEXT PRIMARY KEY,
+    # One cached copy per (title, lang): with title as the sole key, caching
+    # the Simple English copy of a title silently overwrote the full-English
+    # copy through the upsert in _fetch_live, and the exact-lang filter in
+    # _cache_get then missed — forcing a live re-fetch that fails offline.
+    _ARTICLE_CACHE_DDL = """CREATE TABLE IF NOT EXISTS article_cache (
+                    title TEXT,
                     lang TEXT,
                     html TEXT,
                     summary TEXT,
-                    fetched_at REAL
+                    fetched_at REAL,
+                    PRIMARY KEY (title, lang)
                 )"""
-            )
+
+    def _init_db(self):
+        with _db_lock, self._conn() as c:
+            c.execute(self._ARTICLE_CACHE_DDL)
+            # Migrate databases from before the composite key: rebuild the
+            # table so both language copies of a title can coexist. Old rows
+            # may carry NULL lang (pre-lang schema); coalesce to 'en' so they
+            # satisfy the primary key.
+            pk_cols = [r[1] for r in c.execute("PRAGMA table_info(article_cache)") if r[5]]
+            if pk_cols == ["title"]:
+                c.execute("ALTER TABLE article_cache RENAME TO article_cache_v1")
+                c.execute(self._ARTICLE_CACHE_DDL)
+                c.execute(
+                    """INSERT OR IGNORE INTO article_cache
+                       SELECT title, COALESCE(lang, 'en'), html, summary, fetched_at
+                       FROM article_cache_v1"""
+                )
+                c.execute("DROP TABLE article_cache_v1")
             c.execute(
                 """CREATE TABLE IF NOT EXISTS image_cache (
                     url TEXT PRIMARY KEY,
@@ -322,10 +366,12 @@ class WikiService:
     def get_summary(self, title: str, lang: str = "en") -> Optional[Dict]:
         """Plain-text summary — used for quizzes and the tutor."""
         # Try live/cached summary first (clean plain text), else strip ZIM html.
+        # Lang-exact, same as _cache_get: without the filter a Simple-English
+        # summary could answer an 'en' request (and vice versa).
         with _db_lock, self._conn() as c:
             row = c.execute(
-                "SELECT summary FROM article_cache WHERE title=? AND summary != ''",
-                (self._norm(title),),
+                "SELECT summary FROM article_cache WHERE title=? AND lang=? AND summary != ''",
+                (self._norm(title), lang),
             ).fetchone()
         if row and row[0]:
             try:
@@ -356,9 +402,11 @@ class WikiService:
             with _db_lock, self._conn() as c:
                 c.execute(
                     """INSERT INTO article_cache(title, lang, html, summary, fetched_at)
-                       VALUES(?,?,COALESCE((SELECT html FROM article_cache WHERE title=?),''),?,?)
-                       ON CONFLICT(title) DO UPDATE SET summary=excluded.summary""",
-                    (self._norm(title), lang, self._norm(title), json.dumps(summary), time.time()),
+                       VALUES(?,?,COALESCE((SELECT html FROM article_cache
+                                            WHERE title=? AND lang=?),''),?,?)
+                       ON CONFLICT(title, lang) DO UPDATE SET summary=excluded.summary""",
+                    (self._norm(title), lang, self._norm(title), lang,
+                     json.dumps(summary), time.time()),
                 )
             return summary
         except Exception as exc:
@@ -464,16 +512,17 @@ class WikiService:
             c.execute(
                 """INSERT INTO article_cache(title, lang, html, summary, fetched_at)
                    VALUES(?,?,?,'',?)
-                   ON CONFLICT(title) DO UPDATE SET html=excluded.html,
-                       lang=excluded.lang, fetched_at=excluded.fetched_at""",
+                   ON CONFLICT(title, lang) DO UPDATE SET html=excluded.html,
+                       fetched_at=excluded.fetched_at""",
                 (self._norm(title), lang, html, time.time()),
             )
             # Opportunistic eviction: drop everything older than the newest
             # CACHE_MAX_ARTICLES rows. Piggybacking on the write path keeps the
-            # cap enforced without a background thread.
+            # cap enforced without a background thread. rowid, not title: with
+            # the composite key a title alone no longer identifies a row.
             c.execute(
-                """DELETE FROM article_cache WHERE title NOT IN (
-                       SELECT title FROM article_cache
+                """DELETE FROM article_cache WHERE rowid NOT IN (
+                       SELECT rowid FROM article_cache
                        ORDER BY fetched_at DESC LIMIT ?)""",
                 (self.CACHE_MAX_ARTICLES,),
             )
@@ -590,6 +639,9 @@ class WikiService:
             return super().redirect_request(req, fp, code, msg, headers, newurl)
 
     MAX_IMAGE_BYTES = 8 * 1024 * 1024
+    # Worst case ~2000 × 8MB is bounded; in practice article thumbnails are
+    # tens of KB, so the cap mostly guards against pathological accumulation.
+    CACHE_MAX_IMAGES = 2000
 
     def proxy_image(self, url: str) -> Optional[Tuple[bytes, str]]:
         if not self._image_host_allowed(url):
@@ -619,10 +671,20 @@ class WikiService:
         if not mime.split(";")[0].strip().lower().startswith("image/"):
             log.warning("non-image content-type %r refused: %s", mime[:40], url[:120])
             return None
-        if len(data) < 4 * 1024 * 1024:
-            with _db_lock, self._conn() as c:
-                c.execute(
-                    "INSERT OR REPLACE INTO image_cache(url, data, mime, fetched_at) VALUES(?,?,?,?)",
-                    (url, data, mime, time.time()),
-                )
+        # Cache everything we are willing to serve. The old sub-4MB threshold
+        # left 4–8MB images re-fetched on every view and silently missing
+        # offline — the size bound belongs to the fetch (MAX_IMAGE_BYTES), and
+        # boundedness of the cache comes from the CACHE_MAX_IMAGES eviction
+        # below (article_cache gets the same treatment in _fetch_live).
+        with _db_lock, self._conn() as c:
+            c.execute(
+                "INSERT OR REPLACE INTO image_cache(url, data, mime, fetched_at) VALUES(?,?,?,?)",
+                (url, data, mime, time.time()),
+            )
+            c.execute(
+                """DELETE FROM image_cache WHERE url NOT IN (
+                       SELECT url FROM image_cache
+                       ORDER BY fetched_at DESC LIMIT ?)""",
+                (self.CACHE_MAX_IMAGES,),
+            )
         return data, mime

@@ -5,11 +5,14 @@ filenames carry dates, so we resolve the newest matching file at download time.
 Downloads stream to .part files with resumable byte-ranges and live progress.
 """
 
+import hashlib
 import logging
 import os
 import re
+import shutil
 import threading
 import urllib.request
+import weakref
 from typing import Dict, List, Optional
 
 from .wiki import CONTENT_DIR, USER_AGENT, _http_get
@@ -94,6 +97,34 @@ CATALOG = [
 _downloads: Dict[str, Dict] = {}
 _dl_lock = threading.Lock()
 
+# Rescan hooks: a finished download renames a .zim into CONTENT_DIR, but
+# nothing mounts it until WikiService.rescan runs — without a hook the new
+# archive sat invisible until an external /api/library/rescan. Bound methods
+# are held weakly so short-lived WikiService instances (tests) do not pile up.
+_rescan_hooks: List = []
+
+
+def register_rescan_hook(hook) -> None:
+    if hasattr(hook, "__self__"):
+        hook = weakref.WeakMethod(hook)
+    _rescan_hooks.append(hook)
+
+
+def _fire_rescan_hooks() -> None:
+    for ref in list(_rescan_hooks):
+        fn = ref
+        if isinstance(ref, weakref.WeakMethod):
+            fn = ref()
+            if fn is None:
+                _rescan_hooks.remove(ref)   # its WikiService is gone
+                continue
+        try:
+            fn()
+        except Exception as exc:
+            # The download itself succeeded; a failed mount must not mark it
+            # as an error (a later manual rescan can still pick it up).
+            log.warning("rescan hook failed after download: %s", exc)
+
 
 def resolve_latest_url(entry: Dict) -> Optional[str]:
     """Find the newest dated file for a catalog prefix."""
@@ -134,6 +165,36 @@ def start_download(key: str) -> Dict:
     return state
 
 
+# Keep some slack beyond the archive itself: SQLite caches, logs, and the OS
+# all still need room, and filling the disk to the last byte can wedge the
+# whole Primer, not just the download.
+DISK_HEADROOM_BYTES = 2 * 1024 ** 3
+
+
+def _sidecar_sha256(url: str) -> Optional[str]:
+    """Fetch the Kiwix .sha256 sidecar for a .zim URL, if one exists.
+
+    Kiwix publishes `<file>.zim.sha256` next to every archive. Returning None
+    (sidecar missing, offline, malformed) downgrades verification to the size
+    check only — a missing sidecar must not fail an otherwise good download."""
+    try:
+        text = _http_get(url + ".sha256", timeout=20).decode("ascii", errors="replace")
+        token = text.split()[0].strip().lower() if text.split() else ""
+        if re.fullmatch(r"[0-9a-f]{64}", token):
+            return token
+    except Exception:
+        pass
+    return None
+
+
+def _file_sha256(path: str) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
 def _download_worker(state: Dict, url: str, dest: str):
     part = dest + ".part"
     try:
@@ -152,6 +213,18 @@ def _download_worker(state: Dict, url: str, dest: str):
             length = int(resp.headers.get("Content-Length", 0))
             state["total"] = length + existing if resumed else length
             state["bytes"] = existing if resumed else 0
+            # Free-space preflight, now that the server told us the size:
+            # refusing a 110 GB stream up front beats failing hours in with a
+            # full disk (and taking the rest of the Primer down with it). The
+            # .part survives, so freeing space and retrying resumes cleanly.
+            remaining = max(0, state["total"] - state["bytes"])
+            free = shutil.disk_usage(os.path.dirname(dest) or ".").free
+            if state["total"] and free < remaining + DISK_HEADROOM_BYTES:
+                raise OSError(
+                    "insufficient disk space: need ~{:.1f} GB free, have {:.1f} GB".format(
+                        (remaining + DISK_HEADROOM_BYTES) / 1024 ** 3, free / 1024 ** 3
+                    )
+                )
             mode = "ab" if resumed else "wb"
             with open(part, mode) as f:
                 while True:
@@ -160,8 +233,30 @@ def _download_worker(state: Dict, url: str, dest: str):
                         break
                     f.write(chunk)
                     state["bytes"] += len(chunk)
+        # Integrity before rename: a truncated or corrupt .part must never be
+        # promoted to a .zim, where it would only surface later as a cryptic
+        # rescan open failure on a file that *looks* installed.
+        actual = os.path.getsize(part)
+        if state["total"] and actual != state["total"]:
+            # Short body: the .part is kept — a retry resumes from here.
+            raise OSError(
+                "truncated download: got {} of {} bytes".format(actual, state["total"])
+            )
+        expected = _sidecar_sha256(url)
+        if expected:
+            state["status"] = "verifying"
+            digest = _file_sha256(part)
+            if digest != expected:
+                # Corrupt beyond resuming — appending more bytes can never fix
+                # a bad prefix, so drop the .part and force a clean restart.
+                os.remove(part)
+                raise OSError("sha256 mismatch (expected {}…, got {}…)".format(
+                    expected[:12], digest[:12]))
         os.rename(part, dest)
         state["status"] = "done"
+        # Mount the new archive right away instead of waiting for a manual
+        # /api/library/rescan (audit: finished downloads sat unmounted).
+        _fire_rescan_hooks()
     except Exception as exc:  # keep .part for resume
         state["status"] = "error"
         state["error"] = str(exc)

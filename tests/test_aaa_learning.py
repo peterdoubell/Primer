@@ -229,3 +229,104 @@ def test_legacy_settled_row_without_timestamp_is_reopenable(store):
     store.placement_update('math', 2, [], True)
     _raw(store, "UPDATE placement SET settled_at=NULL WHERE domain=?", 'math')
     assert store.reopen_placement('math') is True
+
+
+# ---------------- 7. early review: failures count, successes don't ----------
+
+
+def _add_early_card(store, node_id='node.a', days_until_due=1.0):
+    now = time.time()
+    _raw(store,
+         """INSERT INTO srs_cards(front, back, node_id, article, ef, interval,
+                                  reps, lapses, due, created_at, origin)
+            VALUES(?,?,?,?,2.5,3.0,2,0,?,?, 'book')""",
+         'early-q-' + node_id, 'a', node_id, '',
+         now + days_until_due * DAY, now - 90 * DAY)
+    return _raw(store, "SELECT id FROM srs_cards ORDER BY id DESC LIMIT 1")[0]['id']
+
+
+def test_early_success_is_still_practice_not_progress(store):
+    """Passing a card before it is due proves nothing (the short gap made it
+    easy) and must stay creditless — the anti-farming rule."""
+    _seed_faded_mastered(store)
+    before = _node_row(store)['strength']
+    cid = _add_early_card(store)
+    res = store.review_card(cid, 5)
+    assert res.get('early') is True and res['xp_gained'] == 0
+    assert _node_row(store)['strength'] == pytest.approx(before)
+
+
+def test_early_failure_is_negative_evidence(store):
+    """Blanking on a card a day before it was due is genuine forgetting: the
+    card must lapse and the node's strength must drop, not be discarded."""
+    _seed_faded_mastered(store)
+    _raw(store, "UPDATE mastery SET strength=1.0, last_seen=? WHERE node_id=?",
+         time.time(), 'node.a')
+    cid = _add_early_card(store)
+    res = store.review_card(cid, 0)
+    assert res.get('early') is not True
+    assert res['xp_gained'] == 0, 'no farming route through failure'
+    card = _raw(store, "SELECT * FROM srs_cards WHERE id=?", cid)[0]
+    assert (card['lapses'] or 0) >= 1
+    assert _node_row(store)['strength'] < 1.0
+
+
+# ---------------- 8. overconfidence discounts durability growth too ---------
+
+
+def _make_overconfident(store):
+    for _ in range(3):
+        store.log_event('calibration', {'node': 'n', 'overconfident': 2,
+                                        'underconfident': 0, 'total': 4})
+    assert store.overconfidence_rate() > 1 / 3
+
+
+def test_calibrated_reader_earns_reinforcement(store):
+    _seed_faded_mastered(store)
+    cid = _add_due_card(store)
+    store.review_card(cid, 5)
+    assert _node_row(store)['reinforcements'] == 2
+
+
+def test_overconfident_reader_earns_no_reinforcement(store):
+    """The same distrusted self-grade that gets its restore capped must not
+    buy a permanent half-life extension either — one discount, applied to
+    everything the grade pays for."""
+    _seed_faded_mastered(store)
+    _make_overconfident(store)
+    cid = _add_due_card(store)
+    store.review_card(cid, 5)
+    row = _node_row(store)
+    assert row['strength'] == pytest.approx(0.85)
+    assert row['reinforcements'] == 1, 'half-life must not lengthen'
+
+
+# ---------------- 9. roadmap headline: proven vs assumed --------------------
+
+
+def test_roadmap_splits_proven_from_assumed_when_told():
+    r = roadmap(PROFILE, GRAPH, {'m1': 1.0, 'm2': 1.0}, proven={'m1'})
+    assert r['nodes_mastered'] == 2
+    assert r['nodes_proven'] == 1
+    assert r['nodes_assumed'] == 1
+
+
+def test_roadmap_without_proven_set_leaves_split_unknown():
+    r = roadmap(PROFILE, GRAPH, {'m1': 1.0})
+    assert r['nodes_mastered'] == 1
+    assert r['nodes_proven'] is None and r['nodes_assumed'] is None
+
+
+# ---------------- 10. ambiguous prereq titles get domain-qualified ----------
+
+
+def test_cross_domain_and_duplicate_prereq_titles_are_qualified():
+    from primer.curriculum import Curriculum
+    curr = Curriculum()
+    # math.3.trig requires math.3.functions — same domain, but "Functions"
+    # also names cs.2.functions, so the title alone is ambiguous.
+    reqs = curr.unlock_requirements(curr.nodes['math.3.trig'], {})
+    assert any('Functions (' in r for r in reqs)
+    # math.3.euclid requires mind.2.logic-intro — a cross-domain prereq.
+    reqs = curr.unlock_requirements(curr.nodes['math.3.euclid'], {})
+    assert any('(' in r and 'Logic' in r for r in reqs)

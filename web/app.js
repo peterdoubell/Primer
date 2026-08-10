@@ -80,6 +80,12 @@ const GLYPHS = {
   crown: '<path d="M4 17.5h16"/><path d="M4 8.5l3.4 3.2L12 5.8l4.6 5.9L20 8.5v6.2H4z"/>',
   // Slabs on a shelf — archives, not paperbacks.
   shelf: '<path d="M3 20h18"/><rect x="4.5" y="7" width="3.6" height="11"/><rect x="9.6" y="4.5" width="3.6" height="13.5"/><rect x="14.7" y="9" width="3.6" height="9"/>',
+  // A question mark, drawn — the young reader's "not sure". The 🤔 it
+  // replaces rendered as a full-colour cartoon amid engraved stroke icons,
+  // the same breach the padlock fix removed.
+  unsure: '<path d="M8.4 9.2a3.6 3.6 0 1 1 5.4 3.1c-1.1.7-1.8 1.5-1.8 2.9"/><circle cx="12" cy="18.8" r="0.9" fill="currentColor" stroke="none"/>',
+  // A single stroke of certainty: the check, for "I know it".
+  known: '<path d="M4.5 13l5 5L19.5 6.5"/>',
 };
 function glyph(name, size) {
   const s = size || 20;
@@ -315,7 +321,10 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
       ['polymath', 'Polymath', 'Everything, everywhere, to the highest level. The longest, richest road.']];
     const box = el('div', { class: 'grid', role: 'radiogroup', 'aria-label': 'Breadth', style: 'gap:10px;margin-top:10px' });
     opts.forEach(([id, name, desc]) => {
-      const c = btn({ class: 'card', role: 'radio', tabindex: data.breadth === id ? '0' : '-1',
+      // Checked state is carried by a class plus a written "✓ Chosen" mark,
+      // not inline colour mutation alone: a 1.5px border shift is the kind of
+      // colour-only cue SC 1.4.1 exists for, and the mark reads in any palette.
+      const c = btn({ class: 'card pick' + (data.breadth === id ? ' picked' : ''), role: 'radio', tabindex: data.breadth === id ? '0' : '-1',
         onkeydown: e => {
           if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(e.key)) return;
           e.preventDefault();
@@ -326,9 +335,11 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
           nxt.focus(); nxt.click();
         },
         'aria-checked': data.breadth === id ? 'true' : 'false',
-        style: `text-align:left;cursor:pointer;margin:0;border-width:2px;${data.breadth === id ? 'border-color:var(--gold);background:var(--paper-hi)' : ''}`,
-        onclick: () => { data.breadth = id; box.querySelectorAll('[role=radio]').forEach((n, i) => { const on = opts[i][0] === id; n.setAttribute('aria-checked', on ? 'true' : 'false'); n.setAttribute('tabindex', on ? '0' : '-1'); n.style.borderColor = on ? 'var(--gold)' : 'var(--paper-edge)'; n.style.background = on ? 'var(--paper-hi)' : 'var(--paper-2)'; }); } },
-        el('b', { style: 'font-size:17px' }, name), el('p', { class: 'muted', style: 'margin:5px 0 0' }, desc));
+        onclick: () => { data.breadth = id; box.querySelectorAll('[role=radio]').forEach((n, i) => { const on = opts[i][0] === id; n.setAttribute('aria-checked', on ? 'true' : 'false'); n.setAttribute('tabindex', on ? '0' : '-1'); n.classList.toggle('picked', on); }); } },
+        el('b', { style: 'font-size:17px' }, name), el('p', { class: 'muted', style: 'margin:5px 0 0' }, desc),
+        // aria-hidden: aria-checked already tells assistive tech; the written
+        // mark is for eyes that would otherwise be squinting at border weight.
+        el('span', { class: 'pick-mark', 'aria-hidden': 'true' }, '✓ Chosen'));
       box.append(c);
     });
     return box;
@@ -387,7 +398,7 @@ async function runPlacement(domain, stage) {
   try { data = await api.get('/api/placement/next?domain=' + encodeURIComponent(domain) + '&stage=' + stage + '&n=5'); }
   catch (e) { ov.remove(); toast('The book cannot reach its questions just now — try again in a moment. Nothing is lost.'); return; }
   ov.remove();
-  if (!data.questions.length) { toast('No placement questions for that level.'); return; }
+  if (!data.questions.length) { toast('The book has no questions at that level yet — nothing to prove today, nothing lost.'); return; }
   const answers = [];
   let i = 0;
   openModal({
@@ -436,9 +447,9 @@ async function runPlacement(domain, stage) {
     status.focus();
     let r;
     try { r = await api.post('/api/placement/submit', { domain, stage, answers, token: data.token || '' }); }
-    catch (e) { close(); toast('Could not score the check.'); return; }
+    catch (e) { close(); toast('The book could not mark this one — likely the network, never you. Your answers are safe; try again in a moment.'); return; }
     modal.innerHTML = ''; modal.append(closeBtn(close));
-    const head = el('h2', { tabindex: '-1', class: 'result-heading' }, 'Placement result');
+    const head = el('h2', { tabindex: '-1', class: 'result-heading' }, 'What the book learned about you');
     modal.append(head);
     setTimeout(() => head.focus(), 30);
     const splash = el('div', { class: 'result-splash' });
@@ -709,7 +720,10 @@ function lessonCard(n) {
     btn({ class: 'unstyled card-open', onclick: () => go('node', n.id) }, n.title));
   c.append(
     el('span', { class: 'stagepill' }, STAGE_NAMES[n.stage]),
-    el('span', { class: 'domain-tag', style: `background:${d.color}` }, d.icon + ' ' + d.name),
+    // Domain hexes are authored for daylight in the curriculum JSON. Rather
+    // than re-authoring ten files per theme, --domain-lift raises the fill
+    // toward white at night (0% by day) so --on-fill keeps its contrast.
+    el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, d.icon + ' ' + d.name),
     open,
     el('p', { class: 'goal' }, n.goal || ''));
   if (S.stage <= 1) {
@@ -883,13 +897,24 @@ function speakArticle() { const t = $('#article'); if (t) speakText(t.textConten
 function buildTutor(title) {
   const log = el('div', { id: 'tutor-log', 'aria-live': 'polite', 'aria-label': 'Conversation with the book' });
   const messages = [];
+  let tutorFails = 0;  // consecutive-failure count drives the escalating reassurance below
   const panel = el('section', { id: 'tutor', 'aria-label': 'Ask the Book' },
     el('div', { class: 'th' }, el('span', { class: 'mark', 'aria-hidden': 'true' }, '✦'), el('b', {}, 'Ask the Book'),
       el('small', {}, S.state.tutor_engine === 'claude' ? 'Your patient tutor is listening' : 'Your Socratic guide'),
       // Honest about the wire: when the Claude engine answers, questions
       // leave the device. Said once, quietly, where the reader asks them.
       S.state.tutor_engine === 'claude'
-        ? el('div', { class: 'tutor-disclosure' }, 'Questions travel to Claude (Anthropic) to be answered — nothing else leaves the book.')
+        ? el('div', { class: 'tutor-disclosure' }, 'Questions travel to Claude (Anthropic) to be answered — nothing else leaves the book. ',
+            btn({ class: 'unstyled tutor-optout', onclick: async function () {
+              // One tap keeps every question local: flips the reader setting
+              // the server honors in tutor.ask(allow_remote=False).
+              try {
+                await api.post('/api/profile/settings', { tutor_remote_ok: false });
+                S.state = await api.get('/api/state');
+                toast('Done — the book will answer with its own voice from here on.');
+                renderRoute();
+              } catch (e) { toast('Could not change that just now — try again.'); }
+            } }, 'Keep answers in the book'))
         : null),
     log);
   function push(role, text, cls) {
@@ -907,9 +932,18 @@ function buildTutor(title) {
     const excerpt = ($('#article') ? $('#article').textContent : '').slice(0, 2400);
     try {
       const r = await api.post('/api/tutor', { messages, title, excerpt });
-      thinking.remove(); push('book', r.reply); messages.push({ role: 'assistant', content: r.reply });
+      thinking.remove(); tutorFails = 0; push('book', r.reply); messages.push({ role: 'assistant', content: r.reply });
       maybeSpeak(r.reply);
-    } catch (e) { thinking.remove(); push('book', 'I lost my thought — ask me again?'); }
+    } catch (e) {
+      thinking.remove();
+      // One dropped thought is a shrug; a dead wire deserves the DON'T PANIC
+      // register — reassure, name the likely cause, and stop looping the
+      // same one-liner at a reader whose tutor is persistently unreachable.
+      tutorFails++;
+      push('book', tutorFails < 2
+        ? 'I lost my thought — ask me again?'
+        : "Don't panic — my voice is not reaching you just now, which is almost certainly the network and never you. Everything you have read and learned is safely written down; keep reading, and ask me again when the book reconnects.");
+    }
   }
   panel.append(el('div', { class: 'composer' }, input, btn({ onclick: send }, 'Ask')));
   return panel;
@@ -1033,7 +1067,8 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       // aria-pressed buttons read as independent switches. Roving tabindex +
       // arrow keys, mirroring the onboarding breadth chooser.
       confidenceRow = el('div', { class: 'confidence', role: 'radiogroup', 'aria-label': 'How sure are you?' });
-      (young ? [['🤔 Not sure', 1], ['😃 I know it', 3]] : [['Guess', 1], ['Unsure', 2], ['Sure', 3]]).forEach(([lab, v], k) =>
+      (young ? [[[glyph('unsure', 18), ' Not sure'], 1], [[glyph('known', 18), ' I know it'], 3]]
+             : [['Guess', 1], ['Unsure', 2], ['Sure', 3]]).forEach(([lab, v], k) =>
         confidenceRow.append(btn({ class: 'btn ghost small', role: 'radio',
           'aria-checked': 'false', tabindex: k === 0 ? '0' : '-1',
           onkeydown: e => {
@@ -1052,7 +1087,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
             e.currentTarget.style.background = 'var(--paper-edge)';
             e.currentTarget.setAttribute('aria-checked', 'true');
             e.currentTarget.setAttribute('tabindex', '0');
-          } }, lab)));
+          } }, ...[].concat(lab))));
     }
 
     if (q.kind === 'choice') {
@@ -1227,7 +1262,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // inside a dialog still claiming aria-modal, so the trap could not even
     // wrap. The results screen was never announced. This is the fix already
     // made for the end of the review deck, in the path readers travel most.
-    const splashHead = el('h2', { tabindex: '-1', class: 'result-heading' }, 'Results');
+    const splashHead = el('h2', { tabindex: '-1', class: 'result-heading' }, 'What the book made of it');
     modal.append(splashHead);
     setTimeout(() => splashHead.focus(), 30);
     const stars = score >= 0.9 ? '★★★' : score >= 0.7 ? '★★☆' : score >= 0.4 ? '★☆☆' : '☆☆☆';
@@ -1255,11 +1290,11 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         } else {
           const r = await api.post('/api/attempt', { node_id: nodeId, answers, token });
           xp = r.xp_gained || 0; ascension = r.ascension;
-          msg = 'Practice recorded.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
+          msg = 'Set down in the Book.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
           if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
         }
       } catch (e) {
-        msg = 'Saved locally — the book could not record this just now.';
+        msg = 'Held in the margin for now — the book will copy it into the record the moment it can. Nothing is lost.';
       }
     } else if (isRetry) {
       msg = 'Good — those are the ones that needed another look.';
@@ -1379,7 +1414,9 @@ async function renderAtlas(page) {
     const block = el('section', { class: 'domain-block', 'aria-label': d.name });
     const total = d.stages.reduce((s, x) => s + x.total, 0);
     block.append(el('div', { class: 'domain-head' },
-      el('div', { class: 'ic', style: `background:${d.color}`, 'aria-hidden': 'true' }, d.icon),
+      // Same daylight-hex lift as the lesson-card domain tag: themed via
+      // --domain-lift so the ten curriculum colours survive the night palette.
+      el('div', { class: 'ic', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))`, 'aria-hidden': 'true' }, d.icon),
       el('div', {}, el('h3', {}, d.name), el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')))));
     for (let s = 0; s < 6; s++) {
       const nodes = g.nodes.filter(n => n.domain === d.id && n.stage === s);
@@ -1429,19 +1466,30 @@ async function renderReview(page) {
   // still to come, and the stack visibly thins as you work through it. "Card
   // 3 of 24" tells you the same fact, but you have to read it.
   const deck = el('div', { class: 'deck' });
-  const stage = el('div', { class: 'card deck-card' });
-  deck.append(stage);
   page.append(deck);
   let idx = 0;
+  let stage = null;
   function draw() {
-    const c = data.cards[idx]; stage.innerHTML = '';
+    const c = data.cards[idx];
+    // A fresh .deck-card per card, never innerHTML into the old node: the
+    // settle animation lives on the element, and CSS only plays it when the
+    // element enters the DOM — mutating children restarts nothing, so the
+    // deck's signature settle used to fire once per session and then go dead
+    // for cards 2..N. Replacing the node makes every card actually land.
+    const fresh = el('div', { class: 'card deck-card' });
+    if (stage) stage.replaceWith(fresh); else deck.append(fresh);
+    stage = fresh;
     const left = data.cards.length - idx - 1;
     deck.dataset.depth = left > 4 ? '3' : String(Math.max(0, Math.min(3, left)));
     const progress = el('div', { class: 'q-progress', tabindex: '-1',
       role: 'heading', 'aria-level': '2' },
       'Card ' + (idx + 1) + ' of ' + data.cards.length + (c.article ? ' · ' + c.article : ''));
     stage.append(progress);
-    if (idx > 0) setTimeout(() => progress.focus(), 20);
+    // Every card announces its own count — including the first, which used
+    // to leave the reader parked on #page hearing only the generic page
+    // label while every later card said "Card N of M". The 20ms delay lands
+    // after renderRoute's own page.focus(), so the specific label wins.
+    setTimeout(() => progress.focus(), 20);
     // Where the answer and the grading buttons will go. Mounted empty and
     // filled later, so assistive tech has a region to announce into.
     var answerRegion = el('div', { class: 'reveal-region', role: 'status', 'aria-live': 'polite' });
@@ -1475,7 +1523,7 @@ async function renderReview(page) {
   function onKey(e) {
     // Belt-and-braces: renderRoute removes this deterministically on any
     // navigation; this guard covers re-renders that bypass the router.
-    if (!document.contains(stage)) { document.removeEventListener('keydown', onKey); if (_reviewKeyHandler === onKey) _reviewKeyHandler = null; return; }
+    if (!stage || !document.contains(stage)) { document.removeEventListener('keydown', onKey); if (_reviewKeyHandler === onKey) _reviewKeyHandler = null; return; }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const t = e.target;
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
@@ -1498,7 +1546,7 @@ async function renderReview(page) {
     try {
       r = await api.post('/api/review', { card_id: c.id, quality: q });
     } catch (e) {
-      toast('Could not save that review — keeping the card.');
+      toast('The book could not file that one — the card stays right where it is. Nothing is lost.');
       return;  // never silently drop the card
     }
     if (r.xp_gained) flyXP(r.xp_gained);
@@ -1571,8 +1619,8 @@ async function runSearch(q, results, live = false, say = null) {
     });
   } catch (e) {
     results.innerHTML = '';
-    tell('Search is unavailable right now.');
-    results.append(el('div', { class: 'search-result' }, el('span', { class: 'muted' }, 'Search is unavailable right now.')));
+    tell('The index has wandered off — likely the network, never you. Ask again in a moment.');
+    results.append(el('div', { class: 'search-result' }, el('span', { class: 'muted' }, 'The index has wandered off — likely the network, never you. Ask again in a moment.')));
   }
 }
 async function surprise() { try { const r = await api.get('/api/random'); if (r.title) go('reader', r.title); } catch (e) { toast('The dice need a shelf to land on — download an archive first.'); } }
@@ -1737,7 +1785,7 @@ async function renderLibrary(page) {
 }
 async function downloadArchive(key) {
   try { const r = await api.post('/api/library/download', { key }); if (r.error) { toast(r.error); return; } toast('Download started — it continues in the background.'); renderRoute(); }
-  catch (e) { toast('Could not start download (offline?).'); }
+  catch (e) { toast('The shelf is out of reach — likely the network, never you. The book will fetch it when you are back online.'); }
 }
 
 /* ---------------- accessible modal ---------------- */
@@ -1770,7 +1818,11 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
       const f = [...modal.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')]
         .filter(x => !x.disabled && x.getAttribute('aria-hidden') !== 'true'
-                  && x.offsetParent !== null);
+                  // Not offsetParent: that is null for any position:fixed
+                  // control inside the dialog, which would silently fall out
+                  // of the trap and break the first/last wrap. A box on the
+                  // page is the actual question being asked.
+                  && x.getClientRects().length > 0);
       if (!f.length) return;
       const first = f[0], last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }

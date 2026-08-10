@@ -7,6 +7,14 @@ Run it from the repo root:
 
     .venv/bin/python tools/check_banks.py            # every domain
     .venv/bin/python tools/check_banks.py data/curriculum/03-physics.json
+    .venv/bin/python tools/check_banks.py --sample 20   # draw a hand-audit sheet
+
+The naming-share check is a LOWER BOUND (a hand audit found 59% recall where
+the regex reported 19% application), so CLEAN never certifies application
+coverage on its own — it certifies that nothing regex-detectable regressed.
+The `--sample` mode exists to keep the human half of the audit cheap: it
+draws a reproducible random sample of stage 4-5 stems for a person to
+classify as recall vs application, which is the only measurement that counts.
 """
 
 import collections
@@ -182,10 +190,46 @@ def audit(path):
     return problems
 
 
+def sample_for_hand_audit(paths, k):
+    """A reproducible random draw of stage 4-5 stems for a human to classify.
+
+    Seeded by the month, not fully random: everyone auditing this month sees
+    the same sheet, so two people's classifications are comparable — and a
+    fresh month draws a fresh sheet, which is what makes the audit periodic
+    rather than one frozen sample going stale.
+    """
+    import datetime
+    import random
+    seed = datetime.date.today().strftime("%Y-%m")
+    rng = random.Random(seed)
+    pool = []
+    for path in paths:
+        d = json.load(open(path))
+        for n in d["nodes"]:
+            if n.get("stage", 0) < 4:
+                continue
+            for q in n.get("quiz") or []:
+                pool.append((os.path.basename(path), n["id"], q.get("prompt", "")))
+    picked = rng.sample(pool, min(k, len(pool)))
+    print("Hand-audit sheet for {} ({} of {} stage 4-5 items).".format(
+        seed, len(picked), len(pool)))
+    print("Mark each stem R (asks to recall/name) or A (asks to apply/transfer);")
+    print("the tool's own naming share is only a lower bound on R.\n")
+    for i, (f, nid, stem) in enumerate(picked, 1):
+        print("{:3}. [{}] {}\n     {}\n".format(i, f, nid, stem.replace("\n", " ")[:160]))
+
+
 if __name__ == "__main__":
-    targets = sys.argv[1:] or sorted(glob.glob("data/curriculum/*.json"))
+    args = sys.argv[1:]
+    if args and args[0] == "--sample":
+        k = int(args[1]) if len(args) > 1 else 20
+        sample_for_hand_audit(sorted(glob.glob("data/curriculum/*.json")), k)
+        sys.exit(0)
+    targets = args or sorted(glob.glob("data/curriculum/*.json"))
     allp = []
     for t in targets:
         allp += audit(t)
     print("\n{} problem(s) across {} file(s)".format(len(allp), len(targets)))
+    print("Reminder: the naming-share figure is a lower bound; run --sample "
+          "periodically for the human half of the audit.")
     sys.exit(1 if allp else 0)

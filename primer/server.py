@@ -10,7 +10,6 @@ import logging
 import os
 import random
 import secrets
-import sqlite3
 import threading
 import time
 import uuid
@@ -23,6 +22,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from . import library, practice, quiz, tutor
+from . import sittings as sittings_mod
+from . import story as story_mod
 from .curriculum import Curriculum
 from .learner import LearnerStore, STAGE_NAMES, STAGE_SPAN, STAGE_TITLES
 from .pacing import roadmap
@@ -53,13 +54,9 @@ for _h in logging.getLogger().handlers:
     _h.addFilter(_RequestIdFilter())
 log = logging.getLogger("primer.server")
 
-# Importing this module attaches to a real reader's record — their mastery,
-# their streak, their story position. A throwaway script written to poke at
-# one endpoint gets the live book unless it knows to rebind srv.learner and
-# srv.wiki by hand (which is what tests/test_api.py does). PRIMER_DB makes
-# isolation the easy thing to ask for instead of the thing you have to know
-# about: set it and the whole process — store, wiki cache, backups — lands
-# somewhere disposable.
+# Importing this module attaches to a real reader's record. PRIMER_DB makes
+# isolation the easy thing to ask for: set it and the whole process — store,
+# wiki cache, backups — lands somewhere disposable.
 DB_PATH = os.environ.get("PRIMER_DB") or os.path.join(ROOT, "content", "primer.db")
 BACKUP_DIR = os.environ.get("PRIMER_BACKUP_DIR") or (
     os.path.join(os.path.dirname(DB_PATH), "backups")
@@ -69,11 +66,26 @@ STORY_PATH = os.path.join(ROOT, "data", "story", "frame.json")
 
 app = FastAPI(title="The Primer")
 
-wiki = WikiService(DB_PATH)
-curr = Curriculum()
-learner = LearnerStore(DB_PATH)
-with open(STORY_PATH) as f:
-    STORY = json.load(f)
+
+def init_services(db_path: str = None):
+    """(Re)build the module's service graph against one database path.
+
+    The factory exists so isolation is structural rather than conventional:
+    tests (and any embedder) call `init_services(tmp_db)` instead of knowing
+    to rebind `srv.learner` and `srv.wiki` by hand. Module-level singletons
+    remain — every route reads them — but they are only ever assigned here.
+    """
+    global wiki, learner, curr, STORY
+    db_path = db_path or DB_PATH
+    wiki = WikiService(db_path)
+    curr = Curriculum()
+    learner = LearnerStore(db_path)
+    with open(STORY_PATH) as f:
+        STORY = json.load(f)
+    return wiki, curr, learner, STORY
+
+
+wiki, curr, learner, STORY = init_services()
 
 
 # ---------------- maintenance (backup + retention) ----------------
@@ -194,14 +206,8 @@ _NODE_PRIVATE = ("quiz",)
 
 
 def _public_node(node: dict) -> dict:
-    """A node as the reader may see it.
-
-    This exists because the bank was stripped route by route as each leak was
-    noticed — `graph()` dropped it, `/api/curriculum/node` did not until it was
-    caught, and `/api/today` still did afterwards, publishing the complete key
-    for every frontier lesson on the endpoint the app fetches on every load.
-    Anything that serialises a node goes through here now.
-    """
+    """A node as the reader may see it. Anything that serialises a node goes
+    through here — stripping the bank route by route is how keys leak."""
     out = {k: v for k, v in node.items() if k not in _NODE_PRIVATE}
     out["question_count"] = len(node.get("quiz") or [])
     return out
@@ -211,19 +217,9 @@ def _check_ascension(prof: dict) -> Optional[dict]:
     """If the reader has newly opened a higher stage in any domain, record a
     stage-ascension ceremony and return it once."""
     gates = learner.gate_map()
-    # The reader's level is what they can do across their fields, not their best
-    # single one: take the lower median so one domain cannot promote them.
-    #
-    # "Their fields" means the ones they chose. Taking the median over all ten
-    # counted seven subjects the reader never opted into as evidence against
-    # them, and onboarding actively encourages choosing a few — so a focused
-    # reader who mastered every node in both their domains, preschool through
-    # graduate, still ranked 1: the median of {5, 5, 1, 1, 1, 1, 1, 1, 1, 1}.
-    # The ceremony could never fire, and because stage drives quiz difficulty,
-    # the story window and the read-aloud UI mode, all of it stayed frozen at
-    # the level they started. The placement path already scopes to the
-    # reader's own domains; this is the same rule, applied in the one place
-    # that had been left global.
+    # The reader's level is the lower median over the domains they CHOSE —
+    # one strong domain cannot promote them, and domains they never opted
+    # into are not evidence against them.
     domains = prof.get("domains") or [d["id"] for d in curr.domains]
     per_domain = sorted(curr.domain_stage_estimate(d, gates) for d in domains)
     rank = per_domain[(len(per_domain) - 1) // 2] if per_domain else 0
@@ -244,192 +240,22 @@ def _check_ascension(prof: dict) -> Optional[dict]:
 
 
 def _book_title(name: str) -> str:
-    """The frame story is titled for its heroine; give it to the reader."""
-    if not name or name.strip().lower() == "nell":
-        return STORY["title"]
-    return STORY["title"].replace("Nell", name)
+    return story_mod.book_title(STORY, name)
 
 
 def _personalize(chapter: dict, name: str) -> dict:
-    """The reader is the protagonist. The frame story is written about 'Nell';
-    swap in the reader's own name so the book is about them."""
-    if not name or name.strip().lower() in ("nell", ""):
-        return chapter
-    out = dict(chapter)
-    out["text"] = [t.replace("Nell", name) for t in chapter.get("text", [])]
-    out["prompt"] = (chapter.get("prompt") or "").replace("Nell", name)
-    out["title"] = (chapter.get("title") or "").replace("Nell", name)
-    return out
-
-
-# The 4 chapters that round added for chemistry, earth-space, arts, and
-# mind-society were inserted right before the epilogue, which used to sit at
-# index 18 in a 19-chapter frame.json. A reader's `story_progress` was a raw
-# array index, so inserting chapters mid-array silently retargeted anyone
-# already sitting at that index onto whatever now occupies it — the one
-# reader on index 18 would have opened a beginner chemistry chapter instead
-# of the finale they had actually earned. `story_chapter_id` fixes the
-# representation going forward (an id survives any future insertion); this
-# constant identifies profiles saved before the fix. (A fixed-offset
-# correction was tried first and rejected: several more chapters were added
-# in the rounds since, each one reintroducing the exact same bug for any
-# still-unmigrated reader — see _resolve_story_position below.)
-_LEGACY_STORY_INSERT_AT = 18
-
-
-def _resolve_story_position(settings: dict, chapters: List[dict]) -> int:
-    """The reader's chapter index, from a stable id when we have one.
-
-    Older profiles only have the pre-fix raw array index; those get the exact
-    arithmetic shift undone once, then are re-saved as an id on the next
-    commit so this branch never has to run for them again.
-    """
-    chapter_id = settings.get("story_chapter_id")
-    if chapter_id:
-        for i, ch in enumerate(chapters):
-            if ch["id"] == chapter_id:
-                return i
-        return 0
-    legacy = int(settings.get("story_progress", 0))
-    if legacy >= _LEGACY_STORY_INSERT_AT:
-        # legacy==18 meant "at the finale" in the original 19-chapter frame —
-        # a fixed +4 offset only located the correct chapter once, right
-        # after that one historical insertion. Every chapter added since
-        # (and several rounds have added many) shifts what sits at index 22
-        # again, silently reintroducing the exact bug this migration exists
-        # to fix. A reader who had reached the end always means the CURRENT
-        # end, not a fixed position that decays with every future edit.
-        return len(chapters) - 1
-    return legacy
+    return story_mod.personalize(chapter, name)
 
 
 def _story_cursor(prof: dict, commit: bool = False):
-    """The chapter the reader is on, whether it may be turned, and what it wants.
-
-    Turning a page requires real evidence for the lesson it leads to. For
-    lessons at or below the reader's placed stage a single genuine pass is
-    enough (the book already assumes that ground); for anything ahead of them it
-    takes full proof — two passes, spaced. Chapters that are already earned, or
-    that point into fields this reader never chose, are skipped rather than
-    becoming dead ends.
-
-    Pass commit=True only from a write endpoint: a GET must not persist.
-    """
-    settings = prof.get("settings", {})
-    chapters = STORY["chapters"]
-    start = _resolve_story_position(settings, chapters)
-    progress = start
-    proven = learner.proven_set()
-    passed = learner.passed_set()
-    standing = learner.mastered_set()
-    domains = prof.get("domains") or [d["id"] for d in curr.domains]
-    stage = int(prof.get("stage") or 0)
-
-    def earned(node, target):
-        if not target:
-            return True
-        if target in proven:
-            return True
-        # A lesson the reader was placed past needs one honest pass, not two —
-        # or the standing credit the book itself gave them for it.
-        #
-        # That last clause is what makes the arc reachable at all. Onboarding
-        # above stage 0 seeds every earlier lesson as `assumed` (level 0.85,
-        # passes 0), and `next_lessons` then skips anything at or above 0.8 —
-        # so the very lessons the early chapters are gated on are the ones the
-        # book has decided never to teach this reader. Requiring a pass on
-        # them left a twelve-year-old frozen on chapter 1 with no route
-        # forward anywhere in the app: the gate node never appears in Today,
-        # and the page never turns. Every other gate in the book already
-        # honours assumed credit — `gate_map` opens successors on it — so the
-        # story was the one place the book refused to stand behind its own
-        # assumption. `mastered_set` is decay-aware and drops revoked credit,
-        # so this accepts only credit that still stands today.
-        return (bool(node) and node["stage"] < stage
-                and (target in passed or target in standing))
-
-    def skippable(ch):
-        """Only a chapter in a field the reader never chose is skipped.
-
-        A chapter that is merely *ahead* of them must wait, not vanish — the
-        upper half of the arc was being silently discarded and, because the
-        cursor is persisted, irreversibly so.
-        """
-        node = curr.node(ch.get("leads_to", "") or "")
-        if node is None:
-            return False
-        return node["domain"] not in domains
-
-    while progress < len(chapters):
-        ch = chapters[progress]
-        # Only a wrong-domain chapter is skipped automatically. A chapter whose
-        # lesson happens to be proven is NOT — that used to auto-advance the
-        # cursor silently, and because `commit=True` is passed from /api/today,
-        # every page load walked the reader past pages they had never turned.
-        # "Turn the page ✦" never fired on the honest path: 18 chapters earned
-        # over an arc, 0 ceremonies, 0 chapter XP paid, 0 journal entries. A
-        # page turns only through the explicit action in /api/story/advance,
-        # which is the only place that logs the event and pays the reward.
-        if skippable(ch):
-            progress += 1
-            continue
-        break
-    # Persist only the legacy-format migration, never the domain-skip walk
-    # itself. Domain selection is not immutable — a reader can revisit
-    # /api/profile and add a domain later — so baking the skip-forward
-    # result into story_chapter_id stranded any chapter skipped for a domain
-    # the reader had not yet chosen: once persisted, the walk never revisits
-    # it even after the domain is added, silently losing its ceremony, its
-    # text, and its XP. Recomputing the skip live on every call (cheap: a
-    # single pass over ~35 chapters) means a domain change takes effect
-    # immediately instead of being permanently foreclosed by an earlier read.
-    stale_format = "story_chapter_id" not in settings
-    if commit and stale_format:
-        s = dict(settings)
-        s["story_chapter_id"] = chapters[progress]["id"] if progress < len(chapters) else chapters[-1]["id"]
-        s.pop("story_progress", None)
-        learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
-                             prof["breadth"], prof["stage"], prof["domains"], s)
-    if progress >= len(chapters):
-        # The arc ends rather than disappearing: hold on the last page.
-        last = _personalize(chapters[-1], prof.get("name", ""))
-        return last, len(chapters) - 1, False
-    chapter = chapters[progress]
-    target = chapter.get("leads_to", "")
-    node = curr.node(target)
-    # The last chapter is an epilogue: it closes the arc and turns to nothing.
-    can_advance = bool(target) and earned(node, target) and progress < len(chapters) - 1
-    return _personalize(chapter, prof.get("name", "")), progress, can_advance
+    """The reader's chapter, whether it may turn, and what it wants — see
+    primer.story for the cursor's invariants. commit=True only from a write
+    endpoint: a GET must not persist."""
+    return story_mod.cursor(STORY, curr, learner, prof, commit)
 
 
 def _story_needs(chapter: Optional[dict]) -> Optional[dict]:
-    """What the current chapter is waiting for, in plain terms."""
-    if not chapter:
-        return None
-    target = chapter.get("leads_to", "")
-    node = curr.node(target)
-    if not node:
-        return None
-    info = learner.mastery_detail(target)
-    # A lesson the reader was placed past opens on one honest pass; anything
-    # ahead of them needs the full two, spaced. Say which.
-    prof = learner.get_profile() or {}
-    placed_past = node["stage"] < int(prof.get("stage") or 0)
-    needed = 1 if placed_past else 2
-    # A faded lesson's lifetime pass count is stale evidence — reporting it
-    # verbatim reads as "2 of 2 passes, almost there" on a page that is in
-    # fact shut until the reader proves it again.
-    faded = info.get("faded", False)
-    passes = 0 if faded else info.get("passes", 0)
-    return {
-        "node_id": target,
-        "title": node["title"],
-        "passes": min(passes, needed),
-        "passes_needed": needed,
-        "ready_at": None if placed_past else info.get("ready_at"),
-        "faded": faded,
-        "ever_proven": info.get("ever_proven", False),
-    }
+    return story_mod.needs(curr, learner, chapter)
 
 
 # ---------------- profile & onboarding ----------------
@@ -446,15 +272,17 @@ class ProfileIn(BaseModel):
 def state():
     profile = learner.get_profile()
     lib = wiki.library_status()
+    tutor_remote = tutor.have_api_key() and _tutor_remote_allowed(profile)
     return {
         "profile": profile,
         "onboarded": profile is not None,
         "library": lib,
-        "tutor_engine": "claude" if tutor.have_api_key() else "book",
+        "tutor_engine": "claude" if tutor_remote else "book",
         # Machine-readable disclosure: when true, tutor messages and article
         # excerpts leave this machine for api.anthropic.com. The UI shows it;
-        # the flag also rides on every /api/tutor reply (see tutor.ask).
-        "tutor_remote": tutor.have_api_key(),
+        # the flag also rides on every /api/tutor reply (see tutor.ask). The
+        # reader can turn it off in-app via the tutor_remote_ok setting.
+        "tutor_remote": tutor_remote,
         "stages": [{"i": i, "name": STAGE_NAMES[i], "span": STAGE_SPAN[i],
                     "title": STAGE_TITLES[i]} for i in range(6)],
         "domains": curr.domains,
@@ -475,20 +303,11 @@ def save_profile(p: ProfileIn):
     return learner.get_profile()
 
 
-# Only the reader's own preferences are writable here. `placed`, `rank` and
-# `story_progress` are the book's record of what happened — accepting them
-# from the client let a POST set a four-year-old to stage 5 and mark eleven
-# chapters read, with no paper sat.
-# `daily_goal` and `reminders` used to be accepted here and consumed
-# nowhere — a client could set them and the API would silently agree, but
-# nothing in the quest, streak or notification logic ever read them back.
-# Promising a feature that does not exist is worse than not having it.
-#
-# Typed, not an open dict: an untyped Body accepted `font_scale: "huge"` and
-# stored it verbatim, leaving the frontend to divide by a string. Extras are
-# still tolerated at the parse step (extra="allow") because refusing them by
-# name, loudly, is the endpoint's existing contract — a 422 would hide *which*
-# key was the problem.
+# Only the reader's own preferences are writable here — `placed`, `rank` and
+# `story_progress` are the book's record of what happened, never client input,
+# and no field is accepted that nothing reads back. Typed values; extras are
+# tolerated at the parse step (extra="allow") only so they can be refused by
+# name in the response — a bare 422 would hide *which* key was the problem.
 class SettingsIn(BaseModel):
     model_config = {"extra": "allow"}
     theme: Optional[str] = None
@@ -496,6 +315,9 @@ class SettingsIn(BaseModel):
     reduce_motion: Optional[bool] = None
     font_scale: Optional[float] = None
     name_pronunciation: Optional[str] = None
+    # Reader-owned privacy switch: False keeps the tutor fully local even
+    # when an ANTHROPIC_API_KEY is set (see _tutor_remote_allowed).
+    tutor_remote_ok: Optional[bool] = None
 
 
 READER_SETTINGS = set(SettingsIn.model_fields)
@@ -670,101 +492,21 @@ def _shuffled(question: dict) -> dict:
     return q
 
 
-_SERVED_LIMIT = 200
-_SERVED_TTL = 12 * 3600   # a paper is a sitting, not a standing offer
+# The sitting store lives in primer.sittings; see that module for the rules a
+# sitting obeys (persistence across restarts, single use, TTL). The aliases
+# keep this module's historical names, which the tests use.
+_SERVED_LIMIT = sittings_mod.SERVED_LIMIT
+_SERVED_TTL = sittings_mod.SERVED_TTL
 # Sync endpoints run in a threadpool, so two submissions of the same paper can
 # be in flight at once. Claiming a paper must be one indivisible step or the
 # single-use rule holds only by luck of scheduling.
 _SERVED_LOCK = threading.Lock()
 
 
-class _SittingProxy(dict):
-    """A sitting as a mutable dict view. Top-level assignment writes through to
-    the store, so a caller (or a test) that adjusts, say, `at` is adjusting the
-    persistent record, not a copy that evaporates on the next read."""
-
-    def __init__(self, store, token, data):
-        super().__init__(data)
-        self._store, self._token = store, token
-
-    def __setitem__(self, key, value):
-        super().__setitem__(key, value)
-        self._store[self._token] = dict(self)
-
-
-class _SittingStore:
-    """Served papers, persisted in the learner DB.
-
-    These used to live in an in-memory OrderedDict, which meant a server
-    restart silently voided every open paper — the reader lost the sitting,
-    and worse, lost the burn/commit record that keeps the single-use and
-    reveal-order rules honest. A sitting is short-lived but it is still state
-    the reader paid for; it goes in the same file as everything else they
-    paid for. The connection is derived from `learner.db_path` at call time,
-    not bound at import, so rebinding `srv.learner` (what tests do) rebinds
-    this store with it. Dict-like on purpose: the callers and the tests keep
-    the exact interface the in-memory version had.
-    """
-
-    def _conn(self):
-        conn = sqlite3.connect(learner.db_path, timeout=15)
-        conn.execute("PRAGMA busy_timeout=8000")
-        conn.execute(
-            "CREATE TABLE IF NOT EXISTS sittings ("
-            " token TEXT PRIMARY KEY, at REAL, data TEXT)")
-        return conn
-
-    @staticmethod
-    def _decode(row):
-        entry = json.loads(row[1])
-        entry["at"] = row[0]
-        # JSON object keys are strings; `committed` is keyed by question id,
-        # which is an int everywhere else. Undo the round-trip.
-        committed = entry.get("committed") or {}
-        entry["committed"] = {int(k): v for k, v in committed.items()}
-        return entry
-
-    def get(self, token, default=None):
-        with self._conn() as c:
-            row = c.execute("SELECT at, data FROM sittings WHERE token=?",
-                            (token,)).fetchone()
-        if row is None:
-            return default
-        return _SittingProxy(self, token, self._decode(row))
-
-    def __getitem__(self, token):
-        entry = self.get(token)
-        if entry is None:
-            raise KeyError(token)
-        return entry
-
-    def __contains__(self, token):
-        return self.get(token) is not None
-
-    def __setitem__(self, token, entry):
-        payload = {k: v for k, v in entry.items() if k != "at"}
-        with self._conn() as c:
-            c.execute("INSERT OR REPLACE INTO sittings(token, at, data) VALUES(?,?,?)",
-                      (token, float(entry.get("at", time.time())), json.dumps(payload)))
-
-    def pop(self, token, default=None):
-        with self._conn() as c:
-            row = c.execute("SELECT at, data FROM sittings WHERE token=?",
-                            (token,)).fetchone()
-            c.execute("DELETE FROM sittings WHERE token=?", (token,))
-        if row is None:
-            return default
-        return self._decode(row)
-
-    def sweep(self, now: float):
-        """TTL sweep plus the size cap, oldest first — the same eviction the
-        in-memory OrderedDict applied, now in one SQL breath."""
-        with self._conn() as c:
-            c.execute("DELETE FROM sittings WHERE at < ?", (now - _SERVED_TTL,))
-            c.execute(
-                "DELETE FROM sittings WHERE token IN ("
-                " SELECT token FROM sittings ORDER BY at DESC"
-                " LIMIT -1 OFFSET ?)", (_SERVED_LIMIT,))
+def _SittingStore():
+    """A sitting store bound to whatever learner store the module holds NOW —
+    rebinding `learner` (init_services, tests) rebinds the sittings with it."""
+    return sittings_mod.SittingStore(lambda: learner.db_path)
 
 
 # Served quizzes are remembered here so scoring never trusts a client-supplied
@@ -924,19 +666,10 @@ def today():
     refresh_titles = [{"id": nid, "title": (curr.node(nid) or {}).get("title", nid)}
                       for nid in refresh]
 
-    # The day's quest — completion reflects work actually done today, never a
-    # merely empty deck.
-    #
-    # Every step is built through one function, deliberately. A step with
-    # nothing to offer is not a task left undone: there is no action available
-    # that could complete it, so it must not be the one thing standing between
-    # the reader and the crown. That was first fixed for `review` alone — the
-    # deck is built from quiz misses, so it is necessarily empty on day one and
-    # empty again on every caught-up day — and `learn`, which has exactly the
-    # same shape and exactly the same failure, was left behind in the same
-    # round: a reader who has mastered their domains' current frontier gets no
-    # lessons offered, and sat at 0/2 with the crown permanently unreachable.
-    # Building all three the same way is what stops the next one diverging.
+    # The day's quest — completion reflects work actually done today. Every
+    # step is built through this one function so the excusal rule cannot
+    # diverge between steps: a step with nothing available to do (empty deck,
+    # exhausted frontier) is excused, never left blocking the crown.
     def step(label, done, count, hint=None):
         return {"label": label, "done": done, "count": count,
                 # Excused only when the reader has not already done it AND
@@ -991,10 +724,13 @@ def today():
 
 
 def _events_today(kind: str) -> bool:
-    # TODO(learner): LearnerStore has no public per-kind event query (its
-    # nearest, active_today/xp_today, cannot filter by kind) — this belongs as
-    # a method on the store; until it grows one, _conn() is the only interface
-    # that can answer this. Read-only and brief.
+    # Prefer the store's own method the moment it exists — the encapsulated
+    # spelling this helper should eventually be replaced by outright.
+    fn = getattr(learner, "events_today", None)
+    if callable(fn):
+        return bool(fn(kind))
+    # TODO(learner): fold this per-kind event query into LearnerStore; until
+    # then this read-only peek via _conn() is the only interface that answers.
     from .learner import _local_midnight
     start = _local_midnight(time.time())
     with learner._conn() as c:
@@ -1147,20 +883,15 @@ def _add_young_ordering(questions, node, n, stage):
 
 @app.get("/api/quiz/{node_id}")
 def quiz_for_node(node_id: str, n: int = 6):
-    """Draw a paper from the node's bank.
-
-    Assembled in one pass. It grew by patching once and the patches began to
-    fight: a slot reserved for an authored produced item sat at index n-1, the
-    generated reflection item then truncated the list to n-1, and a final
-    `questions[:n]` cut the reflection item back off — so authored numeric items
-    were selected and discarded in the same breath, and on one node three of
-    them never once reached a paper.
+    """Draw a paper from the node's bank — assembled in ONE pass, deliberately;
+    layered patches here have fought each other before.
 
     Order of business: draw from the bank, top up from the node's own drill,
     give the youngest an ordering item, then append the unmarked reflection
-    item. Auto-generated cloze is deliberately absent — an audit put its defect
-    rate at 65%, and it survives only at /api/selfcheck, labelled and never
-    touching mastery.
+    item. Auto-generated cloze is deliberately absent — a hand audit put its
+    defect rate at 65% (sentence filters have been tightened since; see
+    quiz._sentences), and it survives only at /api/selfcheck, labelled and
+    never touching mastery.
     """
     node = curr.node(node_id)
     if not node:
@@ -1293,9 +1024,11 @@ def check_one(c: CheckIn):
             "locked": locked}
 
 
+# Deliberately NO `questions` field: the server grades from its own copy of
+# the paper, so a client-supplied bank is never even parsed. (It used to be
+# accepted and ignored, which reads like an input when it is not one.)
 class QuizSubmitIn(BaseModel):
     node_id: str
-    questions: list = []
     answers: List[str]
     make_cards: bool = True
     token: str = ""
@@ -1460,30 +1193,23 @@ def _placement_rung(domain: str, prof: Optional[dict]) -> Optional[int]:
 
 
 # A settled placement is not settled forever: a reader grows, and re-measuring
-# after a cooling period is how the book notices. The store side of this lives
-# in learner.py (another agent's file, landing under a name like
-# reopen_placement); resolve it by name at call time so the server runs — with
-# the feature a graceful no-op — whichever spelling actually lands, or none.
-_REOPEN_NAMES = ("reopen_placement", "placement_reopen", "reopen")
-_REOPENABLE_NAMES = ("placement_reopenable", "reopenable_placement")
+# after a cooling period is how the book notices.
 
 
 def _placement_reopen(domain: str) -> bool:
-    """Ask the store to reopen a settled domain, if it can and cooling allows.
+    """Ask the store to reopen a settled domain; True only when it happened.
 
-    True only when a reopen actually happened. Every call is defensive: the
-    method may not exist yet, and its return convention is its author's.
+    The interface is fixed: `LearnerStore.reopen_placement(domain)` owns the
+    whole decision — settled-or-not and the cooling period alike — and
+    returns True only when the domain actually reopened. (This used to probe
+    a tuple of candidate method names while the store method was still being
+    written; now that it has landed, guessing would only hide a typo.)
     """
-    fn = next((getattr(learner, n) for n in _REOPEN_NAMES
-               if callable(getattr(learner, n, None))), None)
-    if fn is None:
-        return False
-    gate = next((getattr(learner, n) for n in _REOPENABLE_NAMES
-                 if callable(getattr(learner, n, None))), None)
+    fn = getattr(learner, "reopen_placement", None)
+    if not callable(fn):
+        return False   # a stub store without the feature: a graceful no-op
     try:
-        if gate is not None and not gate(domain):
-            return False   # still cooling — the 7-day period is the store's call
-        return bool(fn(domain)) or not learner.placement_state().get(domain, {}).get("done", False)
+        return bool(fn(domain))
     except Exception as exc:
         log.warning("placement reopen for %s failed: %s", domain, exc)
         return False
@@ -1506,9 +1232,9 @@ def placement_next(domain: str, stage: Optional[int] = None, n: int = 6,
     if rung is None:
         return JSONResponse({"error": "placement for this field is already settled",
                              "domain": domain,
-                             "reopen_supported": any(
-                                 callable(getattr(learner, n, None))
-                                 for n in _REOPEN_NAMES)}, status_code=409)
+                             "reopen_supported": callable(
+                                 getattr(learner, "reopen_placement", None))},
+                            status_code=409)
     if stage is not None and int(stage) != rung:
         # Not an error the reader can cause, but worth being loud about.
         log.warning("placement rung %s requested for %s; serving %s", stage, domain, rung)
@@ -1543,7 +1269,7 @@ def placement_next(domain: str, stage: Optional[int] = None, n: int = 6,
 class PlacementSubmitIn(BaseModel):
     domain: str
     stage: int
-    questions: list = []
+    # No `questions` field, same rule as QuizSubmitIn: the server's copy grades.
     answers: List[str]
     token: str = ""
 
@@ -1618,10 +1344,28 @@ def placement_submit(s: PlacementSubmitIn):
 
 # ---------------- tutor ----------------
 
+class TutorMessage(BaseModel):
+    role: str
+    content: str
+
+
 class TutorIn(BaseModel):
-    messages: list
+    messages: List[TutorMessage]
     title: str = ""
     excerpt: str = ""
+
+
+def _tutor_remote_allowed(prof: Optional[dict]) -> bool:
+    """Whether the reader has left the remote (Claude) tutor enabled.
+
+    The API key opts the *installation* in; this setting lets the reader or
+    their parent opt back out from inside the app (POST /api/profile/settings
+    {"tutor_remote_ok": false}) without hunting down an environment variable.
+    Off means the local rule-based engine answers and nothing leaves the
+    machine — the same behaviour as having no key at all.
+    """
+    settings = (prof or {}).get("settings") or {}
+    return bool(settings.get("tutor_remote_ok", True))
 
 
 @app.post("/api/tutor")
@@ -1632,7 +1376,9 @@ def ask_tutor(t: TutorIn):
     if not excerpt and t.title:
         s = wiki.get_summary(t.title)
         excerpt = (s or {}).get("extract", "")
-    return tutor.ask(t.messages, t.title, excerpt, stage)
+    messages = [m.model_dump() for m in t.messages]
+    return tutor.ask(messages, t.title, excerpt, stage,
+                     allow_remote=_tutor_remote_allowed(prof))
 
 
 # ---------------- roadmap & journal ----------------
@@ -1645,7 +1391,7 @@ def roadmap_api():
     # Pace against what the reader can still be expected to need to learn.
     # Placement-assumed nodes are treated as covered for scheduling, but the
     # headline "mastered" count reports only what has actually been proven.
-    r = roadmap(prof, curr.graph(), learner.gate_map())
+    r = roadmap(prof, curr.graph(), learner.gate_map(), proven=learner.proven_set())
     r["nodes_mastered"] = learner.proven_count_current()
     r["nodes_assumed"] = max(0, learner.mastered_count() - learner.proven_count_current())
     return r

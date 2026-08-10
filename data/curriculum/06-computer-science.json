@@ -1230,7 +1230,7 @@
       "It fails at i = 5",
       "It fails at i = 0, since counting starts at 1",
       "It works and prints all five items",
-      "It prints the first item twice"
+      "It loops forever"
      ],
      "explain": "Since the last position is 4. With positions counted from 0, a list of 5 items uses 0 to 4. Asking for position 5 goes past the end."
     },
@@ -1427,7 +1427,7 @@
      "choices": [
       "One extra check",
       "Twice as many checks",
-      "Eight extra checks",
+      "Eight checks",
       "Four times as many checks"
      ],
      "explain": "Each doubling of the pile adds a single halving step: 8 cards need about 3 checks and 16 need about 4."
@@ -1955,7 +1955,7 @@
      "choices": [
       "The content, unstyled",
       "A completely blank page",
-      "An error message in place of the page",
+      "An error message instead",
       "The styling but no text"
      ],
      "explain": "HTML carries the content; CSS only decorates it, so losing the stylesheet leaves plain but readable content."
@@ -2315,7 +2315,7 @@
      "answer": "Binary search the history, about 8 checks",
      "choices": [
       "Binary search the history, about 8 checks",
-      "Check each of the 200 commits from oldest to newest",
+      "Check all 200 commits oldest to newest",
       "Check the 10 most recent commits and guess from there",
       "Revert the whole range and reapply the commits one by one"
      ],
@@ -2865,7 +2865,7 @@
      "answer": "The default gateway",
      "choices": [
       "The default gateway",
-      "The MTU set on the interface",
+      "The interface MTU",
       "The MAC address of the network card",
       "The cable between the machine and the switch"
      ],
@@ -3550,7 +3550,7 @@
      "explain": "The chain rule multiplies the per-layer factors together, so many factors below 1 make the product vanish long before it reaches the first layer - the vanishing-gradient problem. Factors above 1 give the opposite, exploding gradients; the rule itself stays exact either way.",
      "choices": [
       "They shrink towards zero",
-      "They grow at every step back through the stack",
+      "They grow at every step",
       "They become undefined once the factors drop below 1",
       "They stay the same size, since the chain rule is exact"
      ]
@@ -3813,7 +3813,7 @@
      "explain": "A formal semantics fixes the meaning of the language itself, so an implementation can be judged against it rather than being the definition. It settles meaning, not speed; typing is a separate layer; and no semantics decides termination for an arbitrary program.",
      "choices": [
       "Say which compiler is wrong",
-      "Say which compiler is faster on the program",
+      "Time both compilers",
       "Prove that the program itself terminates",
       "Reject the program as ill-typed before either runs"
      ]
