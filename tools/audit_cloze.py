@@ -6,10 +6,11 @@ the defects that matter most — a stem that is unanswerable because the missing
 word was never determined by the sentence, a blank with two defensible answers,
 a distractor that is nonsense in context. Those need a person.
 
-quiz.py's own comment records a 65% hand-audited defect rate *before* the
+quiz.py's own comment recorded a 65% hand-audited defect rate *before* the
 current filters and no number after them, so this tool exists to produce the
 after number, the same way `check_banks.py --sample` produces the human half of
-the item-bank audit. It prints a numbered sheet; a person marks each item OK or
+the item-bank audit. Two sheets have been drawn with it so far; the second, on
+the 2026-08 precision pass, measures 22 of 40 (55%). It prints a numbered sheet; a person marks each item OK or
 names the defect; the tally lands in tools/hand-audit-cloze-2026-08.md.
 
     python3 tools/audit_cloze.py            # month-seeded sheet, 40 items
@@ -64,23 +65,36 @@ def main(argv):
     # inside cloze_from_text pick both the key and the distractors.
     quiz.R.seed("cloze-audit-" + seed)
 
-    articles, src = _load_articles(rng, n_articles=max(12, n_items // 2))
+    # Draw a large pool and walk it until the sheet fills. The generator now
+    # refuses whole articles (fewer than three sound items means none at all),
+    # so a pool sized to the sheet would silently hand back a short sheet and
+    # make two runs incomparable. Sampling more articles does not bias the
+    # sheet: the draw is still uniform over the cache, we simply stop when we
+    # have forty items instead of when we have run out of articles.
+    articles, src = _load_articles(rng, n_articles=max(24, n_items * 4))
     if not articles:
         print("No article cache found; run the app once to populate it.")
         return 2
 
     sheet = []
+    seen_articles = 0          # articles consumed, including the ones that
+    yielding = 0               # yielded nothing — that ratio is the yield cost
     for title, html in articles:
         if len(sheet) >= n_items:
             break
+        seen_articles += 1
         text = WikiService.article_plaintext(html, max_chars=6000)
-        for item in quiz.cloze_from_text(text, n=3, topic=title):
+        items = quiz.cloze_from_text(text, n=3, topic=title)
+        if items:
+            yielding += 1
+        for item in items:
             sheet.append((title, item))
             if len(sheet) >= n_items:
                 break
 
-    print("Cloze hand-audit sheet — seed {}, source {} ({} articles drawn).".format(
-        seed, src, len(articles)))
+    print("Cloze hand-audit sheet — seed {}, source {} "
+          "({} articles consumed, {} of them yielded items).".format(
+              seed, src, seen_articles, yielding))
     print("Mark each item OK, or name the defect: UNANSWERABLE (the stem does "
           "not determine the key), AMBIGUOUS (another option also fits), "
           "LEAK (the stem or option list gives the key away), "

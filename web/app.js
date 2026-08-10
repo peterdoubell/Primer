@@ -990,7 +990,13 @@ async function startSelfCheck(title) {
     if (!data.questions.length) { toast('This page is too short to ask you about — read on, and the book will have more to work with.'); return; }
     runQuestions({ title: title + ' · self-check', questions: data.questions,
                    nodeId: null, kind: 'self-check', stage: S.stage, token: data.token });
-    toast('Practice only — this does not count toward mastery.');
+    // Measured, not guessed: hand-audited at 55% defective even after the
+    // tightening (tools/hand-audit-cloze-2026-08.md). These are the only
+    // questions in the book no person wrote, and the reader is told so
+    // rather than left to assume the book vouches for them.
+    toast(data.provisional
+      ? 'The book wrote these itself, not a person — some may be clumsy. Practice only; nothing counts toward mastery.'
+      : 'Practice only — this does not count toward mastery.');
   } catch (e) { ov.remove(); toast('The book could not compose a self-check just now — nothing is lost, and the article is still yours to read.'); }
 }
 

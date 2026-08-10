@@ -469,3 +469,44 @@ def test_startup_warns_when_backups_share_the_record_s_disk(caplog):
     assert rec, "startup must announce where backups go"
     if bk["off_disk"] is False:
         assert rec[-1].levelno == logging.WARNING
+
+
+def test_selfcheck_declares_generated_items_provisional():
+    """The reader must be told these questions are the machine's, not the
+    book's. A 2026-08 hand audit measures the defect rate on auto-generated
+    cloze at 22 of 40 (55%, Wilson 40-69%) — half what it was, still bad — and
+    the residue is invisible to any check the generator could run on itself.
+    So the payload says `provisional` and the UI is expected to say it in
+    words. The flag is false when there are no questions at all, because there
+    is then nothing to qualify: the article simply did not clear the floor and
+    the honest empty state applies instead.
+    """
+    import primer.server as srv
+    from primer.wiki import WikiService
+    # The module fixture points srv.wiki at an empty throwaway database, so
+    # point it back at the real cache for this one call — otherwise there is
+    # no article to generate from and the test would pass by skipping.
+    real = WikiService("content/primer.db")
+    # Self-check is refused below stage 2 (it is a reading exercise), so the
+    # throwaway reader has to be old enough to be offered one at all.
+    srv.learner.save_profile("Test", 12.0, 5.0, "balanced", 3, ["science"])
+    orig, srv.wiki = srv.wiki, real
+    try:
+        # Most articles now yield nothing (the three-item floor), and a paper
+        # with no questions would satisfy the assertion vacuously — so hunt for
+        # one that actually produces items before asserting anything.
+        papers = [srv.selfcheck(t, 3) for t in
+                  ("Curvature", "Chemical reaction", "Earth science",
+                   "Graph theory", "Motion", "Photosynthesis")]
+        papers = [p for p in papers if isinstance(p, dict)]
+        d = next((p for p in papers if p["questions"]), None)
+    finally:
+        srv.wiki = orig
+    if d is None:
+        pytest.skip("no cached article yields self-check items on this machine")
+    assert d["graded"] is False
+    assert d["provisional"] is True, \
+        "a generated paper must declare itself provisional"
+    empty = [p for p in papers if not p["questions"]]
+    assert all(p["provisional"] is False for p in empty), \
+        "an empty paper has nothing to qualify"

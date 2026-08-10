@@ -73,6 +73,21 @@ WEAK_KEYS = set(
 # was a hand-audit defect, not a question.
 WEAK_KEYS.update(
     """less fewer dozens hundreds thousands millions billions numerous""".split())
+# Container nouns: grammatically perfect keys that name no fact. "Some ______
+# may deal with fully connected graphs" (models) is answerable by *systems*,
+# *methods* or *approaches* just as well, and the 2026-08 sheet's ambiguous
+# items were dominated by exactly this shape — the blank sits on the generic
+# head noun, and every near-synonym in the article is a defensible answer.
+# Refusing them costs items and buys the ambiguity bucket outright.
+WEAK_KEYS.update(
+    """type types kind kinds form forms model models system systems method
+    methods way ways thing things part parts case cases term terms area areas
+    aspect aspects factor factors feature features group groups set sets
+    value values result results effect effects use uses change changes
+    version versions level levels state states point points step steps
+    process processes idea ideas concept concepts item items element elements
+    number numbers amount amounts range ranges series order orders
+    condition conditions property properties problem problems""".split())
 # Worked-example scaffolding — arbitrary and unanswerable out of context.
 EXAMPLE_MARKER = re.compile(
     r"(?:\be\.g\.|\bi\.e\.|\b(?:example|suppose|let\s|for instance|imagine|"
@@ -105,6 +120,12 @@ def _sentences(text: str) -> List[str]:
         p = p.strip()
         if not (40 <= len(p) <= 240):
             continue
+        # The article text arrives truncated at a character budget, so the last
+        # "sentence" is routinely a fragment ("...the most widely used and
+        # internation"). A fragment reads as a question the reader failed to
+        # understand rather than one the generator failed to build.
+        if not p.rstrip().endswith((".", "!", "?", ".”", '."')):
+            continue
         if REFERENT_START.search(p) or REFERENT_ANY.search(p):
             continue
         if EXAMPLE_MARKER.search(p):
@@ -115,8 +136,9 @@ def _sentences(text: str) -> List[str]:
             continue
         # Added after a hand audit put the cloze defect rate at 65% (the
         # post-filter rate went unmeasured for as long as these filters
-        # existed; it is now measured — 29/40, 72.5%, see
-        # tools/hand-audit-cloze-2026-08.md — and still bad). The
+        # existed; it is now measured twice — 29/40, then 22/40 after the
+        # precision pass, see tools/hand-audit-cloze-2026-08.md — and still
+        # bad). The
         # remaining bad items were dominated by run-on clauses (semicolons),
         # comma-heavy list fragments, quoted speech torn from its speaker,
         # and copula-free noun piles with nothing assertable to blank.
@@ -206,13 +228,22 @@ _BE = set("""is are was were be been being becomes become became seems seemed
 _MODAL = set("""can could will would may might shall should must to""".split())
 
 
-def _tag_classes(sents: List[str]) -> Dict[str, str]:
+def _tag_classes(sents: List[str]):
     """Assign each word a coarse class from how it is used in THIS article.
 
     Corpus-local on purpose: a fixed lexicon would mislabel domain words
     ("transit", "control", "map"), whereas the article itself shows the word in
     the slots it actually occupies. Evidence is tallied across occurrences and
     the majority wins; a tie means we do not know, which is "other".
+
+    Returns the classes *and* how much contextual evidence each verdict rests
+    on. The second number matters as much as the first: the 2026-08 hand audit
+    found the residual nonsense distractors were nearly all words the tagger
+    had seen once, in a slot it half-understood, or not at all (decided by
+    suffix alone) — "inward", "equivalent", "gives", "made". A verdict with one
+    vote behind it is a guess, and a guess is exactly what must not become a
+    distractor. Callers demand attested evidence for options; keys may lean on
+    the weaker signal, since a mis-keyed sentence is caught by other filters.
     """
     votes: Dict[str, Dict[str, int]] = {}
 
@@ -259,10 +290,12 @@ def _tag_classes(sents: List[str]) -> Dict[str, str]:
             vote(w, "other")
 
     classes: Dict[str, str] = {}
+    strength: Dict[str, int] = {}
     for word, tally in votes.items():
         best = max(tally.values())
         winners = [c for c, v in tally.items() if v == best]
         cls = winners[0] if len(winners) == 1 else "other"
+        strength[word] = best if len(winners) == 1 and cls != "other" else 0
         if cls == "other":
             # Short articles give a word one or two occurrences, often in slots
             # none of the rules above cover, and an "other" verdict there means
@@ -271,13 +304,38 @@ def _tag_classes(sents: List[str]) -> Dict[str, str]:
             # without it a five-sentence paragraph yields almost no items.
             cls = _suffix_prior(word)
         classes[word] = cls
-    return classes
+    return classes, strength
 
 
 _NOUN_SUFFIX = ("tion", "sion", "ment", "ness", "ity", "ance", "ence", "ism",
                 "ist", "ology", "ography", "ure", "age", "ship", "hood", "cy")
 _ADJ_SUFFIX = ("ous", "ive", "ful", "less", "able", "ible", "ical", "ic",
                "al", "ary", "ish", "ant", "ent")
+
+
+_VERBAL_SUFFIX = ("ed", "ing")
+
+
+def _morph_ok(word: str, cls: str) -> bool:
+    """Whether a word's *shape* agrees with the class its context suggested.
+
+    The corpus tagger reads slots, and slots lie: "a poetic ______ for the
+    planet" was offered *fluid*, *orbital* and *denser*, all three voted noun
+    because the article happened to use them after a determiner. Morphology is
+    the independent second opinion — weaker on its own (that is why it is only
+    the tiebreak inside _tag_classes) but decisive as a veto. Requiring both
+    signals to agree is what stops an adjective being offered for a noun blank
+    and vice versa, and it refuses participles outright: "two other forms
+    ______ themselves" beside *used* and *given* is a verb blank wearing a
+    noun's clothes.
+    """
+    w = word.lower()
+    if w.endswith(_VERBAL_SUFFIX) and len(w) > 5:
+        return False
+    prior = _suffix_prior(word)
+    if prior == "other":
+        return True            # shape says nothing; context stands unopposed
+    return prior == cls
 
 
 def _suffix_prior(word: str) -> str:
@@ -296,11 +354,65 @@ def _numbers(sentence: str) -> List[str]:
 
 
 def _year_like(tokens):
-    return [t for t in tokens if re.fullmatch(r"\d{3,4}", t.replace(",", ""))]
+    """Tokens that are plausibly a year, not merely four digits long.
+
+    "3,629 kilometres" satisfied a bare digit-count test and was then offered
+    as a date; the comma is the tell that the number is a quantity, and a
+    figure past 2100 is not a year anyone is being asked to recall.
+    """
+    return [t for t in tokens
+            if re.fullmatch(r"\d{3,4}", t) and int(t) <= 2100]
+
+
+def _plural(word: str) -> bool:
+    """Surface number, good enough to keep options agreeing with the frame.
+
+    "Often-discussed ______ are inductive, abductive and analogical reasoning"
+    offered *analysis* beside *types*: only one option can follow "are", so the
+    item stops being a knowledge check. Agreement is cheap to enforce and it
+    removes a whole family of give-aways.
+    """
+    w = word.lower()
+    return w.endswith("s") and not w.endswith(("ss", "us", "is", "ics", "ous"))
+
+
+# How many separate times a word must appear in the article before it may be a
+# key or an option. Words the article uses once are the arbitrary ones — the
+# 2026-08 sheet's "Solla", "Nuzi", "inward", "salt" were all singletons — while
+# a word the article returns to is part of its actual subject matter, which is
+# both what is worth asking about and what makes a credible wrong answer.
+MIN_OCCURRENCES = 2
+
+# Contextual votes (not suffix guesses) required before a word may stand as a
+# distractor. See _tag_classes for why one vote is not evidence.
+MIN_CLASS_EVIDENCE = 2
+
+# A blank needs left-hand context to constrain it. "Early ______ were not
+# necessarily precise" leaves the reader guessing between every plural noun in
+# the article; the same sentence with six words of run-up does not.
+MIN_WORDS_BEFORE_BLANK = 4
+
+# Below this many surviving items, an article yields none at all — see the note
+# at the end of cloze_from_text.
+MIN_ITEMS_PER_ARTICLE = 3
+
+# Which blanks may be built at all. Adjective keys are the ambiguity engine —
+# "implemented in ______ form" is answered as well by *conditional* as by
+# *functional*, and nothing here can tell them apart — so a modifier blank is
+# only worth building when the sentence names the thing being modified. Kept
+# separate from the filter so the audit tool can vary it.
+KEY_CLASSES = ("noun",)
 
 
 def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
-    """Generate up to n multiple-choice cloze questions from article text."""
+    """Generate up to n multiple-choice cloze questions from article text.
+
+    Precision over yield, deliberately. The feature has an honest empty state
+    ("Not enough prose here to make questions"), so an item the generator
+    cannot build well is better dropped than padded: two sound items beat five
+    of which three mislead. Every filter below was added because a hand-audited
+    sheet showed it removing broken items, and each one costs yield.
+    """
     sents = _sentences(text)
     if not sents:
         return []
@@ -310,11 +422,28 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
     for s in sents:
         all_words.update(_keywords(s, topic_terms)[:8])
         all_nums.update(_numbers(s))
-    word_class = _tag_classes(sents)
-    # Distractors draw from a wider net than keys do. A key has to be worth
-    # asking about, so it comes from the top-ranked keywords; a distractor only
-    # has to be a real word of the right class from this article, and starving
-    # the pool is what forces the generator to reach across classes.
+    # Evidence comes from the WHOLE article, not just the sentences good enough
+    # to be quizzed on. `sents` is a heavily filtered minority — often five or
+    # six sentences — and asking it how a word behaves, or how often the
+    # article uses it, was answering "once, in a slot I don't recognise" for
+    # almost everything. The rejected sentences are poor questions and perfectly
+    # good evidence.
+    corpus = [p.strip() for p in re.split(r"(?<=[.!?])\s+", _clean_text(text))
+              if p.strip()] or sents
+    word_class, class_evidence = _tag_classes(corpus)
+    # How often the article uses each word. Recurrence is the only cheap signal
+    # we have for "this word belongs to the subject" as against "this word
+    # wandered in once" — see MIN_OCCURRENCES.
+    counts: Dict[str, int] = {}
+    for s in corpus:
+        for w in re.findall(r"[A-Za-z][A-Za-z'-]{3,}", s):
+            counts[w.lower()] = counts.get(w.lower(), 0) + 1
+    # Distractors draw from a wider net than keys do in *what* they may be —
+    # any recurring word of the key's class, not only a rankable keyword — but
+    # a narrower one in evidence: the tagger must have actually seen the word
+    # used that way, twice, in this article. Starving the pool is what used to
+    # force the generator to reach across classes; refusing the item is the
+    # right answer to a starved pool, not a looser bar.
     weak_lemmas = {_lemma(w) for w in WEAK_KEYS}
     distractor_pool = {
         w for s in sents for w in re.findall(r"[A-Za-z][A-Za-z'-]{3,}", s)
@@ -322,6 +451,9 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
         and w.lower() not in WEAK_KEYS
         and _lemma(w) not in weak_lemmas
         and "displaystyle" not in w.lower()
+        and counts.get(w.lower(), 0) >= MIN_OCCURRENCES
+        and class_evidence.get(w.lower(), 0) >= MIN_CLASS_EVIDENCE
+        and _morph_ok(w, word_class.get(w.lower(), "other"))
     }
 
     questions, used, used_keys = [], set(), set()
@@ -336,16 +468,36 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
         keys = [k for k in _keywords(s, topic_terms) if k.lower() != topic.lower()]
         target: Optional[str] = None
         pool: List[str] = []
-        # Prefer blanking a year/date (self-contained) or a proper-noun keyword.
+        # Prefer blanking a year/date (self-contained) or a content keyword.
         if years and R.random() < 0.5:
             target = years[0]
-            pool = [x for x in _year_like(list(all_nums)) if x != target]
+            # Years must be comparable to be wrong answers rather than
+            # impossible ones. "James Gregory (______–1675)" was offered 1716,
+            # which no reader can believe, and 1675, which the stem prints two
+            # characters later. Same digit-count, same century-ish band, and
+            # never a number already visible in the sentence.
+            pool = [x for x in _year_like(list(all_nums))
+                    if x != target and len(x) == len(target)
+                    and abs(int(x) - int(target)) <= 120
+                    and x not in nums]
         elif keys:
-            # Only blank something the reader could name: a noun, a name, or a
-            # modifier. Blanking a verb or a connective ("the error ______ in
-            # the logical form") makes a grammar puzzle, not a knowledge check.
+            # Only blank something the reader could name: a noun or a modifier.
+            # Blanking a verb or a connective ("the error ______ in the logical
+            # form") makes a grammar puzzle, not a knowledge check.
+            #
+            # Names are excluded outright, against the intuition that a name is
+            # the most concrete thing on the page. The 2026-08 sheet says
+            # otherwise: every name item on it was broken, because a credible
+            # wrong name has to be the same *kind* of thing as the right one —
+            # another astronomer, another empire — and nothing in this file
+            # knows that. It produced "Babylonia mechanism", "Solla counting
+            # house", "the Discovery geographer". Class agreement cannot rescue
+            # a name blank, so name blanks are not built.
             keys = [k for k in keys
-                    if word_class.get(k.lower()) in ("noun", "propn", "adj")]
+                    if word_class.get(k.lower()) in KEY_CLASSES
+                    and counts.get(k.lower(), 0) >= MIN_OCCURRENCES
+                    and class_evidence.get(k.lower(), 0) >= MIN_CLASS_EVIDENCE
+                    and _morph_ok(k, word_class.get(k.lower(), "other"))]
             if not keys:
                 continue
             # Deliberately still keys[0], with no walk down the ranking. A
@@ -372,7 +524,8 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
             # Substitutability first: an option that cannot occupy the blank is
             # not a distractor, it is a hint. Both pools below draw from here.
             same_class = {w for w in distractor_pool
-                          if word_class.get(w.lower()) == key_class}
+                          if word_class.get(w.lower()) == key_class
+                          and _plural(w) == _plural(target)}
             pool = [w for w in same_class
                     if w.lower() != target.lower()
                     and w[0].isupper() == same_case
@@ -410,8 +563,12 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
         if len(tgt := target.lower()) >= 5 and any(
                 w.lower()[:5] == tgt[:5] for w in re.findall(r"[A-Za-z]{5,}", blanked)):
             continue
-        # A stem that opens with the blank gives no lead-in context.
-        if blanked.lstrip().startswith("______"):
+        # A stem that opens with the blank gives no lead-in context — and one
+        # that nearly opens with it gives almost none. "Early ______ were not
+        # necessarily precise" is a sound English sentence and a hopeless
+        # question: two words cannot pin down which plural noun belongs there.
+        lead = blanked.split("______")[0]
+        if len(re.findall(r"[A-Za-z]{2,}", lead)) < MIN_WORDS_BEFORE_BLANK:
             continue
         # Reject a distractor that appears in the stem, or that shares a stem
         # with the key ("compose" vs "composition" gives the answer away).
@@ -446,6 +603,13 @@ def cloze_from_text(text: str, n: int = 5, topic: str = "") -> List[Dict]:
             "answer": target,
             "explain": s,
         })
+    # A thin paper is worse than no paper. The UI's empty state ("Not enough
+    # prose here to make questions") is honest and cheap; one or two survivors
+    # from an article that fought every filter are the ones most likely to have
+    # squeaked through them, and they arrive dressed as a real self-check. So
+    # the article clears the floor or it offers nothing.
+    if len(questions) < min(MIN_ITEMS_PER_ARTICLE, n):
+        return []
     return questions
 
 

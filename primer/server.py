@@ -971,10 +971,10 @@ def quiz_for_node(node_id: str, n: int = 6):
 
     Order of business: draw from the bank, top up from the node's own drill,
     give the youngest an ordering item, then append the unmarked reflection
-    item. Auto-generated cloze is deliberately absent — a hand audit put its
-    defect rate at 65% (sentence filters have been tightened since; see
-    quiz._sentences), and it survives only at /api/selfcheck, labelled and
-    never touching mastery.
+    item. Auto-generated cloze is deliberately absent — successive hand audits
+    put its defect rate at 65%, then 90%, then 55% after the 2026-08 precision
+    pass (tools/hand-audit-cloze-2026-08.md) — and it survives only at
+    /api/selfcheck, labelled `provisional`, unmarked, never touching mastery.
     """
     node = curr.node(node_id)
     if not node:
@@ -1205,7 +1205,20 @@ def selfcheck(title: str, n: int = 4):
     questions = quiz.cloze_from_text(text, n, topic=title)
     for i, q in enumerate(questions):
         q["id"] = i
-    return {"title": title, "graded": False,
+    # `provisional` is a measured claim, not a disclaimer of convenience. The
+    # 2026-08 hand audit puts the defect rate on these items at 22 of 40 (55%,
+    # Wilson 40–69%) after a precision pass that halved it from 90% on the same
+    # seed. Better than it was, nowhere near good: roughly a quarter of items
+    # still have a second defensible answer, and a quarter still carry a
+    # distractor that cannot be the answer. The generator already refuses
+    # everything it can detect as broken — an article that cannot yield three
+    # sound items yields none — so the residue is what no regex over one
+    # article's own text can see, and the only honest thing left is to say so
+    # to the reader rather than to let a machine-made paper wear the same face
+    # as an authored one. Nothing here is graded; this flag governs wording
+    # only. Remove it when a measured rate, not an argument, says the items are
+    # sound. See tools/hand-audit-cloze-2026-08.md.
+    return {"title": title, "graded": False, "provisional": bool(questions),
             "note": "Generated from the article — a nudge to re-read, not a test.",
             "token": _remember(questions, "selfcheck", title),
             "questions": _public(questions)}
