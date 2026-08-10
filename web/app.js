@@ -1824,7 +1824,16 @@ async function renderLibrary(page) {
   }
 }
 async function downloadArchive(key) {
-  try { const r = await api.post('/api/library/download', { key }); if (r.error) { toast(r.error); return; } toast('Download started — it continues in the background.'); renderRoute(); }
+  try {
+    const r = await api.post('/api/library/download', { key });
+    // The refusal reason ("unknown catalog key", "not enough room on disk")
+    // is useful, but it is not the sentence a reader should meet first: the
+    // book explains, then quotes itself. Every other failure path in this
+    // file already leads with reassurance; this one printed the backend
+    // string verbatim as the whole message.
+    if (r.error) { toast('The shelf could not start that download — nothing is lost. (' + r.error + ')'); return; }
+    toast('Download started — it continues in the background.'); renderRoute();
+  }
   catch (e) { toast('The shelf is out of reach — likely the network, never you. The book will fetch it when you are back online.'); }
 }
 
