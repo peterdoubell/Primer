@@ -1267,3 +1267,14 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
   content: ""; flex: 1; height: 1px;
   background: linear-gradient(90deg, var(--rule), transparent);
 }
+
+/* Changing how the book speaks about you, kept where it is read rather than
+   buried in a settings page: the frame story uses it on every page. */
+.pronoun-line { font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint);
+  margin: -6px 0 14px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.pronoun-swap { font-family: var(--sans); font-size: 12.5px; padding: 3px 10px;
+  border-radius: 20px; border: 1px solid var(--edge); background: transparent;
+  color: var(--ink-soft); cursor: pointer; }
+.pronoun-swap:hover { border-color: var(--gold); color: var(--ink); }
+.pronoun-swap.on { background: var(--tint-gold); border-color: var(--gold);
+  color: var(--ink); font-weight: 700; }

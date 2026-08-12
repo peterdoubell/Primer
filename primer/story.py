@@ -56,11 +56,13 @@ PRONOUNS = {
 # sentences again if one is ever offered.
 DEFAULT_PRONOUNS = "she"
 
-# Profiles written while a neutral set was offered still carry it. Map it onto
-# a set that exists rather than letting reader_pronouns silently rewrite the
-# reader every page load, and rather than raising on a row that was valid when
-# it was saved.
-_RETIRED_PRONOUNS = {"they": "she"}
+# Profiles written while a neutral set was offered still carry it. It is not a
+# set that can be rendered any more, but the honest response to that is to ASK,
+# not to pick one: mapping it to a fixed set silently re-genders every reader
+# who had it, which is a worse failure than the one it avoids. So the value is
+# reported as unset (see pronouns_are_set) and the reader is asked, while
+# rendering falls back so a story page never breaks in the meantime.
+_RETIRED_PRONOUNS = frozenset({"they"})
 
 _TOKEN = re.compile(r"\{([A-Za-z]+)\}")
 
@@ -97,8 +99,19 @@ def reader_pronouns(prof: Optional[dict]) -> str:
     discover a bad row.
     """
     stored = ((prof or {}).get("settings") or {}).get("pronouns")
-    stored = _RETIRED_PRONOUNS.get(stored, stored)
     return stored if stored in PRONOUNS else DEFAULT_PRONOUNS
+
+
+def pronouns_are_set(prof: Optional[dict]) -> bool:
+    """Whether the reader has actually chosen, as opposed to being defaulted.
+
+    A profile saved before the neutral set was retired carries a value that no
+    longer renders, and a profile saved without the field never chose at all.
+    Both must be treated as "we do not know" so the book can ask, rather than
+    as "she" because that is what the fallback happens to be.
+    """
+    stored = ((prof or {}).get("settings") or {}).get("pronouns")
+    return stored in PRONOUNS and stored not in _RETIRED_PRONOUNS
 
 
 def personalize(chapter: dict, name: str, pronouns: str = DEFAULT_PRONOUNS) -> dict:

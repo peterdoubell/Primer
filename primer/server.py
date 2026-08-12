@@ -372,6 +372,10 @@ def _profile_view(prof: Optional[dict]) -> Optional[dict]:
         return prof
     out = dict(prof)
     out["pronouns"] = story_mod.reader_pronouns(prof)
+    # Renders-with versus chose: a reader carrying a retired set, or none at
+    # all, is rendered with the fallback but must still be asked. Without this
+    # the client cannot tell a deliberate "she" from a defaulted one.
+    out["pronouns_set"] = story_mod.pronouns_are_set(prof)
     return out
 
 

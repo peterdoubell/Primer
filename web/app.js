@@ -233,6 +233,8 @@ async function boot() {
   renderShell();
   if (!location.hash || location.hash === '#') location.hash = '#/today';
   else renderRoute();
+  // Ask once, after the book is on screen, if we do not actually know.
+  setTimeout(askPronounsIfUnknown, 600);
 }
 function applyTheme(theme) {
   if (theme === 'dark' || theme === 'light') document.documentElement.setAttribute('data-theme', theme);
@@ -703,6 +705,51 @@ function pagehead(kicker, title, sub) {
 function sectionLabel(text) { return el('h3', { class: 'section-label' }, el('span', {}, text)); }
 
 /* ---------------- Today ---------------- */
+
+// The book speaks about the reader by name and pronoun all through the frame
+// story, so getting this wrong is not cosmetic — it misgenders someone in
+// their own book, on every page, until they can correct it. Two things follow:
+// the reader is ASKED when the book does not know (a retired or missing
+// value), never defaulted into one silently, and the choice is reachable
+// afterwards from Today rather than being frozen at onboarding.
+async function setPronouns(v) {
+  await api.post('/api/profile/settings', { pronouns: v });
+  S.state = await api.get('/api/state');
+}
+function pronounLine() {
+  const cur = (S.state.profile && S.state.profile.pronouns) || 'she';
+  const row = el('p', { class: 'pronoun-line' },
+    el('span', {}, 'The book calls you '));
+  [['she', 'she / her'], ['he', 'he / him']].forEach(([id, label]) => {
+    const b = btn({ class: 'pronoun-swap' + (cur === id ? ' on' : ''),
+      'aria-pressed': cur === id ? 'true' : 'false',
+      onclick: async () => {
+        try { await setPronouns(id); toast('The book will say ' + label + ' from here on.'); renderRoute(); }
+        catch (e) { toast('Could not change that just now — nothing is lost.'); }
+      } }, label);
+    row.append(b);
+  });
+  return row;
+}
+function askPronounsIfUnknown() {
+  if (!S.state || !S.state.profile || S.state.profile.pronouns_set) return;
+  openModal({ label: 'How should the book speak about you?', build: (modal, close) => {
+    modal.append(el('div', { class: 'ceremony' },
+      el('div', { class: 'seal', 'aria-hidden': 'true' }, glyph('story', 40)),
+      el('div', { class: 'sub' }, 'ONE SMALL THING'),
+      el('h2', {}, 'How should the book speak about you?'),
+      el('p', { class: 'muted' }, 'Your story is written about you by name, so the book needs to know which words to use. You can change this any time from Today.')));
+    const row = el('div', { style: 'display:flex;gap:10px;justify-content:center;margin-top:6px' });
+    [['she', 'she / her'], ['he', 'he / him']].forEach(([id, label]) => {
+      row.append(btn({ class: 'btn gold', onclick: async () => {
+        try { await setPronouns(id); close(); toast('Thank you — the book will say ' + label + '.'); renderRoute(); }
+        catch (e) { toast('Could not save that just now — try once more.'); }
+      } }, label));
+    });
+    modal.append(row);
+  } });
+}
+
 async function renderToday(page) {
   const t = await guard(page, () => api.get('/api/today'));
   if (!t) return;
@@ -711,6 +758,7 @@ async function renderToday(page) {
   const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
   page.append(pagehead(greet + ', ' + p.name, "Today's Reading",
     p.stage_name + ' — ' + p.stage_span + '. ' + (t.mastered ? t.mastered + ' topics mastered so far.' : 'Your journey begins now.')));
+  page.append(pronounLine());
 
   // Daily quest checklist
   const quest = el('div', { class: 'quest', role: 'group', 'aria-label': "Today's quest" });
