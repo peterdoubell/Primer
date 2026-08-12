@@ -47,12 +47,20 @@ PRONOUNS = {
             "REFL": "herself", "WAS": "was", "IS": "is", "HAS": "has", "DOES": "does"},
     "he": {"SUBJ": "he", "OBJ": "him", "POSS": "his", "POSSPRON": "his",
            "REFL": "himself", "WAS": "was", "IS": "is", "HAS": "has", "DOES": "does"},
-    "they": {"SUBJ": "they", "OBJ": "them", "POSS": "their", "POSSPRON": "theirs",
-             "REFL": "themselves", "WAS": "were", "IS": "are", "HAS": "have",
-             "DOES": "do"},
 }
 
-DEFAULT_PRONOUNS = "they"
+# The reader picks one of these two during setup. The agreement tokens
+# (WAS/IS/HAS/DOES) stay in the table and stay in the prose: both sets happen
+# to take singular forms, so nothing in the story changes today, but the
+# tokens are what would make a plural set renderable without rewriting 250
+# sentences again if one is ever offered.
+DEFAULT_PRONOUNS = "she"
+
+# Profiles written while a neutral set was offered still carry it. Map it onto
+# a set that exists rather than letting reader_pronouns silently rewrite the
+# reader every page load, and rather than raising on a row that was valid when
+# it was saved.
+_RETIRED_PRONOUNS = {"they": "she"}
 
 _TOKEN = re.compile(r"\{([A-Za-z]+)\}")
 
@@ -89,6 +97,7 @@ def reader_pronouns(prof: Optional[dict]) -> str:
     discover a bad row.
     """
     stored = ((prof or {}).get("settings") or {}).get("pronouns")
+    stored = _RETIRED_PRONOUNS.get(stored, stored)
     return stored if stored in PRONOUNS else DEFAULT_PRONOUNS
 
 

@@ -77,10 +77,36 @@ def test_state_before_onboarding_is_honest(client):
     assert "onboarded" in d and len(d["domains"]) == 10
 
 
-def test_profile_places_by_age_but_marks_it_assumed(client, onboarded):
-    assert onboarded["stage"] == 1
+
+def _place_reader(srv, stage):
+    """Put the reader where a placement check would have put them.
+
+    Setup no longer infers a stage from age, so a test that needs standing
+    assumed credit has to create it the way the book now does: by placing the
+    reader. This is exactly what _settle does after a placement interview —
+    lift the profile's stage and seed the lessons below it as credited.
+    """
+    srv.learner.seed_assumed(srv.curr.seed_mastery_for_stage(stage))
+    p = srv.learner.get_profile()
+    srv.learner.save_profile(p["name"], p["age"], p["hours_per_week"],
+                             p["breadth"], stage, p["domains"],
+                             p.get("settings"))
+    return srv.learner.get_profile()
+
+def test_a_new_profile_starts_at_the_beginning_and_assumes_nothing(client, onboarded):
+    """Age says how old a reader is, not what they have been taught.
+
+    This test used to assert the opposite — that setup placed the reader by
+    age and credited the stages below as "assumed known". That was the book
+    assuming most of what it promises to prove, and it is gone: setup now
+    starts everyone at stage 0 with an empty ledger. The placement check is
+    what moves a reader up, and it is offered immediately after setup and
+    available afterwards from Your Path.
+    """
+    assert onboarded["stage"] == 0
     t = client.get("/api/today").json()
-    assert t["assumed"] > 0 and t["mastered"] == 0, "placement is credit, not proof"
+    assert t["assumed"] == 0, "nothing has been measured, so nothing is credited"
+    assert t["mastered"] == 0
 
 
 def test_today_returns_a_stable_daily_quest(client, onboarded):
@@ -524,7 +550,10 @@ def test_the_story_arc_is_reachable_by_a_reader_placed_above_stage_zero(tmp_path
             client.post("/api/profile", json={
                 "name": "Nell", "age": 12, "hours_per_week": 6, "breadth": "balanced",
                 "domains": [d["id"] for d in srv.curr.domains]})
-            prof = srv.learner.get_profile()
+            # Placed, not assumed from age: the deadlock this guards against
+            # needs a reader standing above stage 0 with credited lessons
+            # below, which is now placement's doing rather than setup's.
+            prof = _place_reader(srv, 2)
             assert prof["stage"] == 2
 
             chapter, _, can_advance = srv._story_cursor(prof)
@@ -583,11 +612,41 @@ def test_a_true_beginner_is_given_no_chapters_for_free(tmp_path):
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
 
 
-def test_roadmap_reports_proven_not_assumed(client, onboarded):
-    r = client.get("/api/roadmap").json()
-    assert r["nodes_assumed"] > 0
-    assert r["nodes_mastered"] == 0
-    assert 1 <= r["estimated_years"] <= 40, r["estimated_years"]
+def test_roadmap_reports_proven_not_assumed(tmp_path):
+    """The headline must not present a placement guess as an accomplishment.
+
+    Given its own store rather than the shared one: standing assumed credit
+    now comes from placing a reader, and seeding it into the module-scoped
+    client would leak a placed reader into every test that follows.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = (srv.learner, srv.wiki, srv.BACKUP_DIR)
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            c.post("/api/profile", json={
+                "name": "Ro", "age": 12, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["math"]})
+
+            # Before placement there is nothing to report either way.
+            fresh = c.get("/api/roadmap").json()
+            assert fresh["nodes_assumed"] == 0 and fresh["nodes_proven"] == 0
+
+            _place_reader(srv, 2)
+            r = c.get("/api/roadmap").json()
+            assert r["nodes_assumed"] > 0, "placement credit is counted..."
+            assert r["nodes_proven"] == 0, "...but never as proven"
+            assert r["nodes_mastered"] == 0
+            assert 1 <= r["estimated_years"] <= 40, r["estimated_years"]
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
 
 def test_journal_endpoint(client, onboarded):
@@ -1482,6 +1541,8 @@ def test_every_mastery_word_agrees_across_both_routes(tmp_path):
             client.post("/api/profile", json={
                 "name": "Iso", "age": 12, "hours_per_week": 6,
                 "breadth": "balanced", "domains": ["math"]})
+            # Standing assumed credit is placement's doing now, not setup's.
+            _place_reader(srv, 2)
 
             def agree(node_id, label):
                 detail = client.get("/api/curriculum/node/" + node_id).json()["mastery_detail"]

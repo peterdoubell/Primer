@@ -348,7 +348,7 @@ class ProfileIn(BaseModel):
     # A name never tells you someone's pronouns, so the story does not guess:
     # the neutral set is the default, and the reader says otherwise if they
     # wish. Rendered by primer.story.personalize into every chapter.
-    pronouns: Literal["she", "he", "they"] = story_mod.DEFAULT_PRONOUNS
+    pronouns: Literal["she", "he"] = story_mod.DEFAULT_PRONOUNS
     domains: List[str] = []
 
     @field_validator("name")
@@ -403,7 +403,14 @@ def state():
 
 @app.post("/api/profile")
 def save_profile(p: ProfileIn):
-    stage = LearnerStore.stage_for_age(p.age)
+    # Everyone starts at the beginning. Age says how old a reader is, not what
+    # they have been taught: deriving a stage from it opened lessons nobody had
+    # shown them and, worse, credited the stages below as "assumed known", so a
+    # book that promises to prove what it claims began by assuming most of it.
+    # The placement check is how the book learns where a reader actually is —
+    # it is offered right after setup and available any time from Your Path —
+    # and until it is taken, the honest answer is stage 0.
+    stage = 0
     existing = learner.get_profile()
     first_time = existing is None
     # Pronouns live in settings (that is where reader preferences live), so
@@ -414,11 +421,9 @@ def save_profile(p: ProfileIn):
     settings["pronouns"] = p.pronouns
     learner.save_profile(p.name, p.age, p.hours_per_week, p.breadth, stage,
                          p.domains, settings)
-    # Meet the reader at their age: on first setup, credit the stages below
-    # their placement as "assumed known" (not proven) so Today starts at their
-    # level. A per-domain placement check can later verify or adjust this.
-    if first_time and stage > 0:
-        learner.seed_assumed(curr.seed_mastery_for_stage(stage))
+    # No assumed credit is seeded here any more, for the same reason: nothing
+    # has been measured yet. Placement seeds it (see _settle), where there is
+    # evidence behind it.
     log.info("profile saved: %s age=%s stage=%s breadth=%s", p.name, p.age, stage, p.breadth)
     return _profile_view(learner.get_profile())
 
@@ -441,7 +446,7 @@ class SettingsIn(BaseModel):
     # Changeable after onboarding: a reader who was mis-set, or who changes
     # how they are addressed, must not have to rebuild their profile to fix
     # the story's pronouns.
-    pronouns: Optional[Literal["she", "he", "they"]] = None
+    pronouns: Optional[Literal["she", "he"]] = None
 
 
 READER_SETTINGS = set(SettingsIn.model_fields)

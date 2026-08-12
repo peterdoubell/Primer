@@ -245,8 +245,9 @@ function renderOnboarding() {
   const sel = new Set(['math', 'language', 'biology', 'physics', 'history']);
   let step = 0;
   // pronouns: the frame story speaks about the reader, so it has to know how.
-  // 'they' is the default because it is the only one that is never wrong.
-  const data = { name: '', age: 8, hours_per_week: 6, breadth: 'balanced', pronouns: 'they', domains: [...sel] };
+  // Two sets are offered and one has to be pre-selected for the radiogroup to
+  // have a starting point; the reader changes it here, or later from Today.
+  const data = { name: '', age: 8, hours_per_week: 6, breadth: 'balanced', pronouns: 'she', domains: [...sel] };
 
   function draw() {
     root.innerHTML = '';
@@ -337,7 +338,7 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
   // breadth chooser — roving tabindex, arrows and Home/End, aria-checked, and
   // a written ✓ mark so the choice reads without relying on the border colour.
   function pronounChoice() {
-    const opts = [['she', 'she / her'], ['he', 'he / him'], ['they', 'they / them']];
+    const opts = [['she', 'she / her'], ['he', 'he / him']];
     const wrap = el('div', { style: 'display:block;margin-bottom:16px;font-family:var(--sans);font-size:13px;color:var(--ink-soft)' },
       el('span', { style: 'display:block;margin-bottom:5px;font-weight:600;letter-spacing:0.3px' }, 'The book will call you'));
     const box = el('div', { class: 'pronoun-row', role: 'radiogroup', 'aria-label': 'The book will call you' });
@@ -419,8 +420,11 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
       renderShell();
       location.hash = '#/today'; renderRoute();
       toast('Welcome, ' + data.name + '. Your book is open.');
-      // Offer to check the placement rather than merely assuming it from age.
-      if (S.stage > 0) setTimeout(() => offerPlacement(data.domains), 700);
+      // The book now starts everyone at the beginning, so this offer is the
+      // only route to a level that fits — gating it on S.stage would mean it
+      // never appeared at all. Age decides whether to *ask*, never where to
+      // start: someone past the first stages is invited to be measured.
+      if (data.age >= 6) setTimeout(() => offerPlacement(data.domains), 700);
     } catch (e) { toast('The book could not save that just now — try once more.'); }
   }
   draw();

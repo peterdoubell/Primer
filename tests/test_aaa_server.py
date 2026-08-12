@@ -539,17 +539,22 @@ def test_story_source_carries_tokens_not_one_reader_s_pronouns():
 
 
 def test_story_renders_grammatically_for_every_pronoun_setting(client):
-    """All three settings must produce clean prose: no leftover tokens, no
-    "they was", no "she were"."""
+    """Every offered setting must produce clean prose: no leftover tokens and
+    no verb disagreement.
+
+    Narrowed from three settings to the two now offered. The agreement tokens
+    stay in the source and the plural spellings stay in this table, because
+    they are what a plural set would need if one is ever offered again — the
+    check costs nothing while the answer is "no plural set exists".
+    """
     import re
     from primer import story as story_mod
 
     disagreements = {
-        "they": ("they was", "they has", "they is", "they does", "themself "),
         "she": ("she were", "she have", "she are", "she do "),
         "he": ("he were", "he have", "he are", "he do "),
     }
-    for pronouns in ("she", "he", "they"):
+    for pronouns in ("she", "he"):
         client.post("/api/profile", json={
             "name": "Kai", "age": 9, "hours_per_week": 4, "pronouns": pronouns,
             "breadth": "balanced", "domains": ["math", "physics"]})
@@ -568,18 +573,47 @@ def test_story_renders_grammatically_for_every_pronoun_setting(client):
         assert story_mod.PRONOUNS[pronouns]["SUBJ"] + " " in low
 
 
-def test_pronouns_default_to_the_neutral_set(client):
-    """A name is not a pronoun. Onboarding without saying anything gets
-    they/them, not a guess made from the reader's name."""
+def test_the_story_never_assumes_pronouns_from_a_name(client):
+    """A name is not a pronoun.
+
+    Rewritten: the neutral set was retired from the offered choices, so the
+    unstated case now falls to the documented default rather than to they/them.
+    What must still hold is the thing this test was written to guard — the
+    story is rendered for whoever is reading it, and never re-genders anyone
+    on the strength of their name. Onboarding asks; the source text says "a
+    child named", not "a girl named"; and the chosen set is what comes back.
+    """
     r = client.post("/api/profile", json={
-        "name": "Nell", "age": 8, "hours_per_week": 4,
-        "breadth": "balanced", "domains": ["math"]})
+        "name": "Peter", "age": 8, "hours_per_week": 4,
+        "breadth": "balanced", "domains": ["math"], "pronouns": "he"})
     assert r.status_code == 200
-    assert r.json()["pronouns"] == "they"
+    assert r.json()["pronouns"] == "he"
     first = client.get("/api/story").json()["chapters"][0]
-    assert "a child named Nell" in first["text"][0]
+    assert "a child named Peter" in first["text"][0]
     assert "a girl named" not in first["text"][0]
-    assert "they had never seen before" in first["text"][0]
+    assert "he had never seen before" in first["text"][0]
+
+    # Saying nothing lands on the default, and renders grammatically.
+    r2 = client.post("/api/profile", json={
+        "name": "Sam", "age": 8, "hours_per_week": 4,
+        "breadth": "balanced", "domains": ["math"]})
+    assert r2.json()["pronouns"] == "she"
+    again = client.get("/api/story").json()["chapters"][0]
+    assert "a child named Sam" in again["text"][0]
+    assert "she had never seen before" in again["text"][0]
+
+
+def test_a_profile_saved_with_the_retired_neutral_set_still_renders(client):
+    """Rows written while they/them was offered must not break a story page.
+
+    reader_pronouns maps the retired value onto one that exists instead of
+    raising or leaving {SUBJ} tokens in the prose — a story page is the wrong
+    place to discover an old row.
+    """
+    from primer import story as story_mod
+    assert story_mod.reader_pronouns({"settings": {"pronouns": "they"}}) in story_mod.PRONOUNS
+    rendered = story_mod.render("{Subj} {WAS} reading {POSS} book.", "Ada", "they")
+    assert "{" not in rendered and "}" not in rendered
 
 
 def test_pronouns_can_be_changed_afterwards_and_are_validated(client, onboarded):
