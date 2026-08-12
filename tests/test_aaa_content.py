@@ -549,3 +549,30 @@ class TestTitleCaseTolerance:
     def test_missing_title_returns_none(self):
         arc = self._arc(set())
         assert arc._entry_for_title("nothing here") is None
+
+
+def test_rendered_mathematics_is_not_blocked_by_the_image_allowlist():
+    """Wikipedia serves rendered formulas from the APEX domain.
+
+    The allowlist's suffix tests carry a leading dot so that
+    `evilwikimedia.org` cannot match — correct, and the reason this bug was
+    invisible: `wikimedia.org` itself matched neither the dotted suffix nor
+    the one exact host that was listed (`upload.wikimedia.org`). Every
+    equation in every article proxied to a 404, and the reader got a broken
+    image where the mathematics should be.
+    """
+    from primer.wiki import WikiService
+
+    math = ("https://wikimedia.org/api/rest_v1/media/math/render/svg/"
+            "df0284d6d3707f6972edd6b5797aa405b91080ad")
+    assert WikiService._image_host_allowed(math)
+    assert WikiService._image_host_allowed("https://wikipedia.org/x.png")
+    assert WikiService._image_host_allowed("https://upload.wikimedia.org/x.png")
+    assert WikiService._image_host_allowed("https://en.wikipedia.org/x.png")
+
+    # The guard the leading dot exists for must still hold.
+    for blocked in ("https://evilwikimedia.org/x.png",
+                    "https://notwikipedia.org/x.png",
+                    "https://wikimedia.org.evil.com/x.png",
+                    "http://169.254.169.254/latest/meta-data/"):
+        assert not WikiService._image_host_allowed(blocked), blocked

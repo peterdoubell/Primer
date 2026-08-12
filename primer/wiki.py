@@ -662,8 +662,15 @@ class WikiService:
         if parsed.scheme not in ("http", "https"):
             return False
         host = (parsed.hostname or "").lower()
+        # The apex domains must be listed explicitly. The suffix tests below
+        # carry a leading dot on purpose — it is what stops evilwikimedia.org
+        # matching — but that same dot excludes bare `wikimedia.org`, which is
+        # exactly where Wikipedia serves rendered mathematics
+        # (wikimedia.org/api/rest_v1/media/math/render/svg/...). Every formula
+        # in every article was therefore blocked, and the reader saw a broken
+        # image where the equation should be.
         return (
-            host == "upload.wikimedia.org"
+            host in ("wikimedia.org", "wikipedia.org", "upload.wikimedia.org")
             or host.endswith(".wikipedia.org")
             or host.endswith(".wikimedia.org")
         )
