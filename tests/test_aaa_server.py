@@ -622,3 +622,45 @@ def test_every_verb_that_must_agree_with_the_reader_is_tokenised():
         m = pat.search(s)
         assert not m, "untokenised verb after the reader's pronoun: {!r}".format(
             s[max(0, m.start() - 20):m.end() + 20])
+
+
+def test_math_svg_renders_inline_but_uploaded_svg_still_does_not():
+    """Wikipedia draws every equation as an SVG, and refusing all SVG cost the
+    reader every formula in every maths article.
+
+    The exception is granted by SOURCE, not by type, because the original
+    refusal was right about the general case: Commons hosts user-uploaded SVG
+    and an SVG is a document that can carry script. Only the MediaWiki maths
+    renderer's output — generated from the article's own LaTeX, not supplied
+    by a user — is served inline, and it still travels with
+    `default-src 'none'; sandbox` and nosniff, so even a direct visit to the
+    proxy URL cannot run a script.
+    """
+    import primer.server as srv
+
+    math_url = ("https://wikimedia.org/api/rest_v1/media/math/render/svg/"
+                "df0284d6d3707f6972edd6b5797aa405b91080ad")
+    assert srv._is_math_render(math_url)
+    # Anything that is not literally that endpoint is not covered by it.
+    for other in ("https://upload.wikimedia.org/wikipedia/commons/a/ab/User.svg",
+                  "https://wikimedia.org/api/rest_v1/media/math/render/svg/../x",
+                  "https://evil.com/api/rest_v1/media/math/render/svg/abc"):
+        assert not srv._is_math_render(other), other
+
+    r = srv._safe_asset_response(b"<svg xmlns='http://www.w3.org/2000/svg'/>",
+                                 'image/svg+xml; charset=utf-8', allow_svg=True)
+    assert r.media_type == "image/svg+xml"
+    assert "Content-Disposition" not in r.headers
+    csp = r.headers.get("content-security-policy", "")
+    assert "default-src 'none'" in csp and "sandbox" in csp
+    assert r.headers.get("x-content-type-options") == "nosniff"
+
+    # Without the source-based grant, SVG is still refused inline...
+    assert srv._safe_asset_response(b"<svg/>", "image/svg+xml").media_type == \
+        "application/octet-stream"
+    # ...and the grant never extends past SVG.
+    for hostile in ("text/html", "application/javascript"):
+        out = srv._safe_asset_response(b"<script>alert(1)</script>", hostile,
+                                       allow_svg=True)
+        assert out.media_type == "application/octet-stream", hostile
+        assert out.headers.get("Content-Disposition") == "attachment", hostile

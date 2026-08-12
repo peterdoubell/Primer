@@ -9,6 +9,7 @@ import json
 import logging
 import os
 import random
+import re
 import secrets
 import threading
 import time
@@ -507,6 +508,23 @@ SAFE_INLINE_MIME = {
     "image/png", "image/jpeg", "image/gif", "image/webp", "image/avif",
     "image/x-icon", "image/bmp",
 }
+# SVG stays out of the set above on purpose: Commons hosts user-uploaded SVG,
+# and an SVG is a document that can carry script. But Wikipedia also draws
+# every equation as an SVG, from a different place — the MediaWiki maths
+# renderer, whose output is generated from the article's own LaTeX and is not
+# user-supplied markup. Excluding that too cost the reader every formula in
+# every maths article: a column of broken-image boxes.
+#
+# So the exception is granted by SOURCE, not by type. Only this one endpoint
+# path qualifies, and the response still carries `default-src 'none'; sandbox`
+# with nosniff, so even a direct visit to the proxy URL cannot run a script.
+_MATH_RENDER_URL = re.compile(
+    r"^https://wikimedia\.org/api/rest_v1/media/math/render/svg/[0-9a-f]+$",
+    re.IGNORECASE)
+
+
+def _is_math_render(url: str) -> bool:
+    return bool(_MATH_RENDER_URL.match((url or "").strip()))
 ASSET_HEADERS = {
     "Cache-Control": "public, max-age=604800",
     "X-Content-Type-Options": "nosniff",
@@ -514,8 +532,10 @@ ASSET_HEADERS = {
 }
 
 
-def _safe_asset_response(data: bytes, mime: str) -> Response:
+def _safe_asset_response(data: bytes, mime: str, allow_svg: bool = False) -> Response:
     base = (mime or "").split(";")[0].strip().lower()
+    if allow_svg and base == "image/svg+xml":
+        return Response(content=data, media_type=base, headers=ASSET_HEADERS)
     if base in SAFE_INLINE_MIME:
         return Response(content=data, media_type=base, headers=ASSET_HEADERS)
     # Anything else (SVG, HTML, unknown) is never rendered inline on our origin.
@@ -530,7 +550,7 @@ def image(url: str):
     if not got:
         return Response(status_code=404)
     data, mime = got
-    return _safe_asset_response(data, mime)
+    return _safe_asset_response(data, mime, allow_svg=_is_math_render(url))
 
 
 @app.get("/zim/{archive_id}/{path:path}")
