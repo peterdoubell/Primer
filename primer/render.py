@@ -16,7 +16,7 @@ the HTML is untrusted. We therefore do two things:
 import logging
 import re
 import urllib.parse
-from html import escape
+from html import escape, unescape
 from html.parser import HTMLParser
 
 log = logging.getLogger("primer.render")
@@ -58,7 +58,7 @@ ALLOWED_ATTRS = {
 # Class names this renderer emits and gives behaviour to. An article may carry
 # whatever classes it likes except these: it cannot be allowed to dress its own
 # markup as the book's furniture.
-RESERVED_CLASSES = {"table-scroll"}
+RESERVED_CLASSES = {"table-scroll", "primer-navbox"}
 _NAV_ATTR_RE = re.compile(r"""\s*data-primer-title\s*=\s*(?:"[^"]*"|'[^']*'|\S+)""",
                           re.IGNORECASE)
 # An inherited class= would win the duplicate-attribute fight against the one
@@ -272,6 +272,11 @@ def rewrite_article(html: str, base: str = "") -> str:
                 pre, escape(href, quote=True), post)
         return '<a{}href="#"{}>'.format(pre, post)
 
+    # Geometry lifted off the maths images on the way past, keyed by the URL we
+    # rewrite them to, and re-applied once the sanitizer has run. See
+    # _restore_math_metrics.
+    math_metrics = {}
+
     def fix_img(m):
         attrs = m.group(1)
         src_m = re.search(r'src="([^"]*)"', attrs, re.IGNORECASE)
@@ -288,8 +293,27 @@ def rewrite_article(html: str, base: str = "") -> str:
             new = base + src.lstrip("./")
         else:
             new = src
-        return '<img loading="lazy" src="{}" alt="{}">'.format(
-            escape(new, quote=True), escape(alt, quote=True))
+        if _MATH_SRC_RE.search(src):
+            style_m = re.search(r'style="([^"]*)"', attrs, re.IGNORECASE)
+            if style_m:
+                ex = {k.lower(): v for k, v in _EX_METRIC_RE.findall(style_m.group(1))}
+                if ex:
+                    math_metrics[new] = ex
+        # Keep the intrinsic size the encyclopedia states (295 of 416 images in
+        # a seven-article sample carry both). Rebuilding the tag from three
+        # attributes threw them away, so every picture occupied no space until
+        # it had loaded and the article reflowed under the reader once per
+        # image — with figures set beside the prose, a caption appeared first,
+        # alone, and then jumped as its picture arrived. `max-width: 100%` and
+        # `height: auto` in the stylesheet keep these a ratio rather than a
+        # size, so a wide image still fits a narrow column.
+        box = ""
+        for name in ("width", "height"):
+            got = re.search(r'\b%s="(\d{1,5})"' % name, attrs, re.IGNORECASE)
+            if got:
+                box += ' {}="{}"'.format(name, got.group(1))
+        return '<img loading="lazy"{} src="{}" alt="{}">'.format(
+            box, escape(new, quote=True), escape(alt, quote=True))
 
     html = _IMG_RE.sub(fix_img, html)
 
@@ -301,7 +325,53 @@ def rewrite_article(html: str, base: str = "") -> str:
     # simply declare its own destination.
     html = sanitize(html)
     html = _LINK_RE.sub(fix_link, html)
-    return _wrap_tables(html)
+    html = _restore_math_metrics(html, math_metrics)
+    return _fold_navboxes(_wrap_tables(html))
+
+
+# Wikimedia's maths renderer, and the three ex-relative metrics it states.
+_MATH_SRC_RE = re.compile(r"/media/math/render/(?:svg|png)/", re.IGNORECASE)
+_EX_METRIC_RE = re.compile(r"\b(vertical-align|width|height)\s*:\s*(-?\d*\.?\d+)ex",
+                           re.IGNORECASE)
+_IMG_SRC_RE = re.compile(r'(?is)<img\b[^>]*?\ssrc="([^"]*)"[^>]*>')
+
+
+def _restore_math_metrics(html: str, metrics: dict) -> str:
+    """Give each rendered formula back its own size and baseline.
+
+    Wikipedia states a formula's geometry in the image's `style`, in `ex` — not
+    in width/height attributes, which none of them carry. `style` is not an
+    allowed attribute and must never become one, so the values are lifted off
+    before sanitizing and written back here, the way every other marker this
+    renderer owns is applied downstream of it.
+
+    Without them the browser falls back to the SVG's own root dimensions, which
+    resolve against the *SVG's* default font size rather than the reader's. Two
+    things followed from that: every formula sat at one frozen size whatever
+    stage the reader was at, and every one of them sat off the baseline, since
+    the real vertical-align values in these articles run from 0 to -3ex. `ex`
+    resolves against the inherited font-size, so re-emitting the upstream
+    numbers fixes the scale, the baseline, and stage-tracking together.
+
+    Only numeric `ex` values reach this point — the regex that parses them
+    accepts nothing else — and the declaration is rebuilt from those numbers
+    rather than echoed, so no upstream string is ever written into a style.
+    """
+    if not metrics:
+        return html
+
+    def add_style(m):
+        src = unescape(m.group(1))
+        ex = metrics.get(src)
+        if not ex:
+            return m.group(0)
+        decl = ";".join("{}:{}ex".format(k, v) for k, v in sorted(ex.items()))
+        # The sanitizer emits void tags as `<img …>`, but do not depend on it:
+        # a stray `/` carried into the attribute list would break the tag.
+        head = m.group(0)[:-1].rstrip().rstrip("/").rstrip()
+        return head + ' style="{}">'.format(decl)
+
+    return _IMG_SRC_RE.sub(add_style, html)
 
 
 _TABLE_OPEN_RE = re.compile(r"(?is)<table(\s[^>]*)?>")
@@ -347,4 +417,69 @@ def _wrap_tables(html: str) -> str:
     # An unclosed <table> would otherwise leave the wrapper hanging open and
     # swallow the rest of the article.
     out.append("</div>" * max(0, opened))
+    return "".join(out)
+
+
+_DIV_TAG_RE = re.compile(r"(?is)<div(?:\s[^>]*)?>|</div\s*>")
+# The exact class token, not a substring: navbox-styles, navbox-inner and
+# navbox-list are parts of a navigation box, not boxes themselves.
+_NAVBOX_OPEN_RE = re.compile(
+    r'(?is)<div\b[^>]*\sclass="(?:[^"]*\s)?navbox(?:\s[^"]*)?"[^>]*>')
+_NAVBOX_TITLE_RE = re.compile(r'(?is)<t[hd]\b[^>]*\sclass="(?:[^"]*\s)?navbox-title'
+                              r'(?:\s[^"]*)?"[^>]*>(.*?)</t[hd]\s*>')
+_NAVBAR_RE = re.compile(r'(?is)<div\b[^>]*\sclass="(?:[^"]*\s)?navbar(?:\s[^"]*)?".*?</div\s*>')
+_TAGS_RE = re.compile(r"(?s)<[^>]+>")
+
+
+def _navbox_summary(inner: str) -> str:
+    """The navigation box's own title, for the disclosure that now holds it."""
+    m = _NAVBOX_TITLE_RE.search(inner)
+    if not m:
+        return "Related topics"
+    # The title cell leads with the v·t·e template bar, whose three one-letter
+    # links would otherwise turn every summary into "vteSir Isaac Newton".
+    text = _TAGS_RE.sub(" ", _NAVBAR_RE.sub(" ", m.group(1)))
+    text = re.sub(r"\s+", " ", text).strip()
+    return text[:120] or "Related topics"
+
+
+def _fold_navboxes(html: str) -> str:
+    """Fold each navigation box behind a closed disclosure.
+
+    A navbox is the encyclopedia's footer of links to every related article. On
+    Wikipedia most of them arrive collapsed; here they arrived open and stacked,
+    and a long article ended in a wall of them — 12 boxes and about 15 000px of
+    link soup at the foot of Isaac Newton, against 70 000px of article. That is
+    not something a reader scrolls past, it is something a reader stops at.
+
+    `<details>` keeps every link reachable and in the accessibility tree, which
+    is what separates this from hiding the content: the box is closed, not gone.
+
+    Applied after sanitizing, and `primer-navbox` is a reserved class, so an
+    article cannot mint a disclosure of its own or fold the book's furniture
+    away inside one.
+    """
+    if "navbox" not in html:
+        return html
+    out, pos = [], 0
+    while True:
+        m = _NAVBOX_OPEN_RE.search(html, pos)
+        if not m:
+            break
+        # Walk to the matching </div> so nested boxes travel with their parent
+        # rather than being folded a second time inside it.
+        depth, end = 0, None
+        for t in _DIV_TAG_RE.finditer(html, m.start()):
+            depth += -1 if t.group(0).lower().startswith("</") else 1
+            if depth == 0:
+                end = t.end()
+                break
+        if end is None:
+            break          # unclosed box: leave the rest of the article alone
+        inner = html[m.start():end]
+        out.append(html[pos:m.start()])
+        out.append('<details class="primer-navbox"><summary>{}</summary>{}</details>'.format(
+            escape(_navbox_summary(inner), quote=True), inner))
+        pos = end
+    out.append(html[pos:])
     return "".join(out)
