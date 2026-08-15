@@ -1526,6 +1526,161 @@ def test_a_table_keeps_its_rows_and_cells():
     assert "display: block" not in table_rule, table_rule
 
 
+MATH_IMG = (
+    '<span class="mwe-math-element mwe-math-element-inline">'
+    '<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/abc123"'
+    ' class="mwe-math-fallback-image-inline" style="vertical-align: -0.338ex;'
+    ' width:6.685ex; height:2.843ex;" alt="{\\displaystyle e^{-E/kT}}"></span>'
+)
+
+
+def test_a_formula_keeps_its_own_size_and_baseline():
+    """Wikipedia states a formula's geometry in the image's `style`, in ex —
+    none of them carry width/height attributes. `style` is not an allowed
+    attribute and must not become one, so the numbers are lifted off before
+    sanitizing and written back after, like every other marker this renderer
+    owns.
+
+    Without them the browser falls back to the SVG's own root dimensions, which
+    resolve against the SVG's default font size and not the reader's: every
+    formula frozen at one size whatever stage the reader is at, and every one of
+    them off the baseline.
+    """
+    from primer.render import rewrite_article
+
+    out = rewrite_article(MATH_IMG)
+    assert 'style="height:2.843ex;vertical-align:-0.338ex;width:6.685ex"' in out
+
+    # The style is rebuilt from parsed numbers, never echoed: an article cannot
+    # smuggle a declaration through the maths path or any other.
+    for hostile in (
+        '<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/x"'
+        ' style="width:1ex;position:fixed;top:0;left:0;height:100ex">',
+        '<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/y"'
+        ' style="width:expression(alert(1))ex">',
+        '<img src="https://upload.wikimedia.org/x.png" style="width:9ex">',
+        '<p style="position:fixed">x</p>',
+        '<div style="background:url(javascript:alert(1))">y</div>',
+    ):
+        got = rewrite_article(hostile)
+        assert "position" not in got and "expression" not in got, got
+        assert "javascript" not in got, got
+
+    # A non-maths image is left alone entirely.
+    assert "style" not in rewrite_article('<img src="https://upload.wikimedia.org/a.jpg">')
+
+
+def test_a_picture_reserves_its_own_space():
+    """Rebuilding every <img> from src+alt threw away the intrinsic size the
+    encyclopedia states — 295 of 416 images in a seven-article sample carry
+    both. Each picture then occupied no space until it had loaded, so the
+    article reflowed under the reader once per image; with figures set beside
+    the prose, a caption appeared first, alone, and jumped when its picture
+    arrived.
+
+    Only a plain integer is passed through: the value goes straight into an
+    attribute, and `max-width`/`height: auto` in the stylesheet are what keep it
+    a ratio rather than a fixed size.
+    """
+    from primer.render import rewrite_article
+
+    out = rewrite_article(
+        '<img src="https://upload.wikimedia.org/a.png" width="500" height="322">')
+    assert 'width="500"' in out and 'height="322"' in out
+
+    for hostile in ('<img src="https://upload.wikimedia.org/a.png" width="100%">',
+                    '<img src="https://upload.wikimedia.org/a.png" width="1e9">',
+                    '<img src="https://upload.wikimedia.org/a.png" height="-5">',
+                    '<img src="https://upload.wikimedia.org/a.png" width="&quot; onerror=x">'):
+        got = rewrite_article(hostile)
+        assert 'width="' not in got and 'height="' not in got, got
+
+    css = _web("styles.css")
+    assert "height: auto" in css, "a stated width without height:auto distorts"
+
+
+def test_the_two_night_palettes_cannot_drift_apart():
+    """The stylesheet declares the night palette twice — once for the media
+    query, once for the explicit toggle — and both must set the same properties
+    or the book looks different depending on how night arrived. They have
+    drifted before, silently, on --gold and --gold-bright: a variable added to
+    one block and not the other produces a bug that is invisible in whichever
+    theme you happen to be testing.
+
+    Both blocks read from the --dk-* definitions in :root, so this also checks
+    that every night value has a single source rather than a literal.
+    """
+    import re
+
+    css = _web("styles.css")
+    media = re.search(
+        r'@media \(prefers-color-scheme: dark\) \{\s*'
+        r':root:not\(\[data-theme="light"\]\) \{(.*?)\n  \}\n\}', css, re.S)
+    toggle = re.search(r':root\[data-theme="dark"\] \{(.*?)\n\}', css, re.S)
+    assert media and toggle, "both night-palette blocks must exist"
+
+    names = lambda block: set(re.findall(r"(--[a-z0-9-]+)\s*:", block))
+    in_media, in_toggle = names(media.group(1)), names(toggle.group(1))
+    assert in_media == in_toggle, "night palettes drifted: {}".format(
+        sorted(in_media ^ in_toggle))
+
+    root = re.search(r"^:root \{(.*?)\n\}", css, re.S | re.M).group(1)
+    sources = names(root)
+    missing = sorted(v for v in in_media if "--dk-" + v[2:] not in sources)
+    assert not missing, "night values with no --dk-* source: {}".format(missing)
+
+
+NAVBOX = (
+    '<div class="navbox"><table class="navbox-inner"><tbody>'
+    '<tr><th class="navbox-title" colspan="2">'
+    '<div class="navbar plainlinks hlist"><ul><li><a href="/wiki/Template:X">'
+    "<abbr>v</abbr></a></li><li><a href=\"/wiki/Template_talk:X\">"
+    "<abbr>t</abbr></a></li></ul></div>Sir Isaac Newton</th></tr>"
+    '<tr><th class="navbox-group">Publications</th>'
+    '<td class="navbox-list"><ul><li><a href="/wiki/Opticks">Opticks</a></li></ul></td>'
+    "</tr></tbody></table></div>"
+)
+
+
+def test_a_navigation_box_is_folded_but_not_lost():
+    """A navbox is the encyclopedia's footer of links to every related article.
+    They arrived open and stacked: twelve of them and roughly 15 000px of link
+    soup at the foot of Isaac Newton, against 70 000px of article — the reader
+    reaches the end of the prose and hits a wall.
+
+    Folded into a disclosure, the tail is ~760px and every link is still in the
+    document, still reachable by keyboard and screen reader. Closed, not gone —
+    which is the whole difference between this and hiding the content.
+    """
+    from primer.render import rewrite_article
+
+    out = rewrite_article(NAVBOX)
+    assert out.count('<details class="primer-navbox">') == 1
+    assert out.count("</details>") == 1
+    # The summary carries the box's own title, not the v/t/e template bar that
+    # opens the title cell — "vtSir Isaac Newton" would be the giveaway.
+    assert "<summary>Sir Isaac Newton</summary>" in out
+    # Nothing is dropped: the links are inside the fold, not removed from it.
+    assert "Opticks" in out and "Publications" in out
+    # No `open` attribute — the reader opens it, the book does not.
+    assert "<details open" not in out
+
+    # A box that never closes must not swallow the rest of the article.
+    truncated = rewrite_article(NAVBOX.replace("</table></div>", "</table>") + "<p>after</p>")
+    assert "after" in truncated
+
+    # Nested boxes travel inside their parent rather than being folded twice.
+    nested = rewrite_article(
+        '<div class="navbox"><p>outer</p>' + NAVBOX + "</div>")
+    assert nested.count("<details") == 1, "one fold per outermost box"
+    assert "outer" in nested and "Opticks" in nested
+
+    # Classes that merely start with "navbox" are parts of a box, not boxes.
+    for part in ("navbox-styles", "navbox-inner", "navbox-list"):
+        assert "<details" not in rewrite_article(
+            '<div class="%s">x</div>' % part), part
+
+
 def test_showing_an_answer_cannot_be_done_twice():
     """Regression: "Show answer" stayed live, so three clicks appended three
     grading groups with identical labels and twelve live buttons."""
@@ -1927,18 +2082,25 @@ def test_no_two_items_in_a_bank_share_an_answer_and_a_shape():
 
 
 def test_an_article_cannot_mint_the_renderers_own_markers():
-    """The renderer gives behaviour to two markers: `table-scroll`, which the
-    stylesheet turns into a scroll region, and `data-primer-title`, which the
-    client navigates on. Both were reachable from article markup — `class` is
+    """The renderer gives behaviour to three markers: `table-scroll`, which the
+    stylesheet turns into a scroll region, `primer-navbox`, which folds a
+    subtree behind a disclosure, and `data-primer-title`, which the client
+    navigates on. All were reachable from article markup — `class` is
     allowlisted, and an anchor with no `href` never reached the link rewriter at
     all, so it could simply declare its own destination.
 
-    Both are applied downstream of the sanitizer now, so nothing upstream can
-    forge either one.
+    All are applied downstream of the sanitizer now, so nothing upstream can
+    forge one. `primer-navbox` matters most of the three: a forged one would let
+    an article fold arbitrary content — its own retraction, say — out of sight
+    behind a summary of its own choosing.
     """
     from primer.render import rewrite_article
 
     assert "table-scroll" not in rewrite_article('<div class="table-scroll">x</div>')
+    forged_fold = rewrite_article('<div class="primer-navbox">hidden claim</div>')
+    assert "primer-navbox" not in forged_fold
+    assert "<details" not in forged_fold
+    assert "hidden claim" in forged_fold
     for forged in ('<a data-primer-title="Evil">x</a>',
                    "<a data-primer-title='Evil'>x</a>",
                    '<a data-primer-title=Evil>x</a>',

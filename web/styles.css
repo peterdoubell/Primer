@@ -55,6 +55,17 @@
      so the near-black --on-fill keeps its contrast on them; by day the lift is
      zero and the author's ink is used untouched. */
   --domain-lift: 0%;
+  /* Wikipedia ships most of its diagrams as black line-work on a transparent
+     ground and marks them `skin-invert`, leaving the inversion to the skin.
+     With the encyclopedia's stylesheet stripped nothing inverted them, so every
+     such diagram was black ink on a black page — present in the DOM, invisible
+     to the reader. Declared as a filter token rather than a pair of duplicated
+     dark rules, for the same reason the chrome is. */
+  --img-invert: none;
+  /* Photographs and maps arrive with their daylight in them: a full-white map
+     on the night page is a 21:1 hole punched through it. A gentle knock-down
+     at night only — never by day, and never enough to make a photograph lie. */
+  --img-glare: none;
 
   /* Chrome that differs by theme, declared as values rather than as rules, so
      the shell can change character without duplicating a single selector. */
@@ -139,6 +150,11 @@
   --dk-tint-wrong: rgba(255, 92, 138, 0.14);
   /* Enough lift that the darkest domain hex clears 4.5:1 under --dk-on-fill. */
   --dk-domain-lift: 42%;
+  /* hue-rotate follows the invert so that a diagram's coloured strokes come
+     back to roughly their own hue instead of their complement — the same pair
+     the encyclopedia's own night skin uses. */
+  --dk-img-invert: invert(1) hue-rotate(180deg);
+  --dk-img-glare: brightness(0.86) contrast(1.04);
   --dk-shell-bg:
     radial-gradient(circle at 18% 8%, rgba(79, 216, 232, 0.10), transparent 55%),
     radial-gradient(circle at 82% 88%, rgba(255, 92, 138, 0.09), transparent 55%),
@@ -196,6 +212,7 @@
     --tint-gold-strong: var(--dk-tint-gold-strong);
     --tint-info: var(--dk-tint-info); --tint-info-soft: var(--dk-tint-info-soft);
     --tint-wrong: var(--dk-tint-wrong); --domain-lift: var(--dk-domain-lift);
+    --img-invert: var(--dk-img-invert); --img-glare: var(--dk-img-glare);
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --btn-gold-fill: var(--dk-btn-gold-fill); --btn-gold-ink: var(--dk-btn-gold-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
@@ -228,6 +245,7 @@
     --tint-gold-strong: var(--dk-tint-gold-strong);
     --tint-info: var(--dk-tint-info); --tint-info-soft: var(--dk-tint-info-soft);
     --tint-wrong: var(--dk-tint-wrong); --domain-lift: var(--dk-domain-lift);
+    --img-invert: var(--dk-img-invert); --img-glare: var(--dk-img-glare);
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --btn-gold-fill: var(--dk-btn-gold-fill); --btn-gold-ink: var(--dk-btn-gold-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
@@ -426,14 +444,29 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 .chip.on { background: var(--link); color: var(--on-fill); border-color: var(--link); }
 
 /* ---------- reader ---------- */
-#reader-layout { display: grid; grid-template-columns: 1fr 340px; gap: 0; }
+/* Every other page in the book is one column at the book's width. The reader
+   adds a second for the tutor, and at 1180px that left the article about 45
+   characters — narrower than a paperback, for the one view that has to hold an
+   encyclopedia's tables and figures. So the spread widens, but only when the
+   reader is actually open, and the tutor's column flexes instead of holding a
+   fixed 340px, so the measure does not fall off a cliff the moment the second
+   column appears. */
+#reader-layout {
+  display: grid; gap: 30px;
+  grid-template-columns: minmax(0, 1fr) clamp(268px, 24vw, 330px);
+}
+#book:has(#reader-layout) { max-width: 1440px; }
 #article {
   font-size: 17px; line-height: 1.72; color: var(--ink);
-  padding-right: 30px; max-width: 72ch;
+  max-width: 72ch;
 }
 #article h1, #article h2, #article h3 { font-weight: 600; line-height: 1.25; }
 #article h1 { font-size: 30px; border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
+/* Headings clear the floated figures and boxes below, so a section never
+   starts halfway down the side of the previous section's illustration. */
+#article h2, #article h3 { clear: both; }
 #article h2 { font-size: 23px; margin-top: 1.4em; color: var(--heading-accent); }
+#article h3 { font-size: 19px; margin-top: 1.2em; }
 #article p { margin: 0.8em 0; }
 #article a.primer-wikilink { color: var(--accent-2); text-decoration: none; border-bottom: 1px dotted var(--accent-2); cursor: pointer; }
 #article a.primer-wikilink:hover { background: var(--tint-info); }
@@ -441,6 +474,301 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #article table { width: 100%; font-size: 13px; border-collapse: collapse; }
 #article .thumb, #article .infobox { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: 8px; padding: 8px; }
 #article figure { margin: 10px 0; }
+
+/* ---------- the encyclopedia's own markup ----------
+   render.py strips Wikipedia's <style> and <link> tags, so the article HTML
+   arrives carrying every layout class the encyclopedia depends on and none of
+   the CSS that gives them meaning. A navbox became a wall of stacked bullets, a
+   caption became a stray sentence, a fraction became "a/b". What follows is not
+   a copy of Wikipedia's skin — it is the same structures set in the book's own
+   ink, at the book's own scale. */
+
+/* Furniture that belongs to editing an encyclopedia rather than reading one.
+   The v·t·e template bar is the loudest: three one-letter links per navbox,
+   pointing at Template: pages the renderer already refuses to resolve, so they
+   rendered as three stacked dead bullets above every navigation box. */
+#article :is(.navbar, .mw-editsection, .mw-empty-elt, .mw-jump-link) { display: none; }
+/* Screen-reader-only text must stop *showing* without leaving the a11y tree:
+   the slash inside a fraction is spoken, never drawn. display:none would take
+   it from the reader who most needs it. */
+#article .sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* The one-line gloss Wikipedia keeps for search results. It arrived as an
+   unpunctuated first sentence directly under the title; as a standfirst it does
+   the job it was written for. */
+#article .shortdescription {
+  font-family: var(--sans); font-size: 13.5px; line-height: 1.5;
+  color: var(--ink-faint); margin: -4px 0 16px;
+}
+/* "For other uses, see …" — an aside about the page, not a sentence in it. */
+#article .hatnote {
+  font-style: italic; font-size: 0.93em; color: var(--ink-soft);
+  margin: 0.5em 0; padding-left: 0.85em; border-left: 2px solid var(--rule);
+}
+
+/* Figures. The caption was body-sized prose sitting under a picture with
+   nothing to mark it as a caption, and an illustration always broke the column
+   in half because it could not sit beside the text the way it does on paper. */
+#article figure { margin: 1.3em 0; max-width: 100%; }
+#article figure img { display: block; margin: 0; }
+#article figcaption {
+  font-family: var(--sans); font-size: 13px; line-height: 1.5;
+  color: var(--ink-faint); padding: 8px 2px 0;
+}
+/* An image inside a link inherited the dotted underline every article link
+   carries, so each picture sat on a stray dashed rule. The underline marks
+   words as followable; a picture is not a word. */
+#article a:has(img) { border-bottom: 0 none; }
+
+/* Horizontal lists. This one class carries most of the encyclopedia's
+   navigation: unstyled, a fifty-item hlist becomes fifty bulleted lines, which
+   is how a two-line footer turned into a screen and a half of stacked links. */
+#article .hlist :is(ul, ol, dl) { margin: 0; padding: 0; }
+#article .hlist :is(li, dd, dt) { display: inline; margin: 0; padding: 0; }
+/* A nested list is a block by default, which breaks the line either side of it
+   and strands the separator at the head of the next line. */
+#article .hlist :is(li, dd, dt) :is(ul, ol, dl) { display: inline; }
+#article .hlist :is(li, dd)::after { content: " · "; color: var(--ink-faint); }
+#article .hlist :is(li, dd):last-child::after { content: ""; }
+/* Nested lists are parenthesised rather than indented, as upstream does. */
+#article .hlist :is(li, dd) :is(li, dd):first-child::before { content: " ("; }
+#article .hlist :is(li, dd) :is(li, dd):last-child::after { content: ")"; }
+#article .plainlist :is(ul, ol) { list-style: none; margin: 0.4em 0; padding: 0; }
+
+/* The tutor sits beside the article only while both can have a column worth
+   reading. It used to fold away at 900px, along with the rest of the shell —
+   but the shell's breakpoint is about the spine, not about the measure, and
+   between the two the reader came off worst: on a 1024px laptop the tutor took
+   its fixed 320px out of 680px and left the encyclopedia 330px, under forty
+   characters. Below the width where both fit, the conversation goes under the
+   page it is about rather than squeezing it. */
+@media (max-width: 1199px) {
+  #reader-layout { grid-template-columns: 1fr; gap: 0; }
+  #tutor { position: relative; height: 420px; margin-top: 22px; }
+}
+
+/* Each navigation box is folded into a disclosure by render.py, so the foot of
+   an article is a short list of things you may open rather than a wall of every
+   link the encyclopedia holds on the subject. Closed, not gone: the links are
+   still in the document and still reachable by keyboard and screen reader. */
+#article details.primer-navbox {
+  margin: 0.7em 0; border: 1px solid var(--rule); border-radius: 8px;
+  background: var(--paper-hi); overflow: hidden;
+}
+#article details.primer-navbox > summary {
+  display: flex; align-items: center; gap: 9px; list-style: none;
+  padding: 9px 13px; cursor: pointer;
+  font-family: var(--sans); font-size: 0.78em; letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+#article details.primer-navbox > summary::-webkit-details-marker { display: none; }
+/* The marker is drawn rather than typed: the book's faces are Iowan Old Style
+   and Optima, and neither carries ▸, so a character marker fell back to a stray
+   dot at a different size in each theme. */
+#article details.primer-navbox > summary::before {
+  content: ""; flex: none; width: 0; height: 0;
+  border: 5px solid transparent; border-left-color: var(--gold-ink);
+  transition: transform 0.15s ease;
+}
+#article details.primer-navbox[open] > summary::before { transform: rotate(90deg); }
+#article details.primer-navbox > summary:hover { background: var(--tint-gold); color: var(--ink); }
+/* Inside a disclosure the box has already been named by the summary, and its
+   own border would double the one it now sits in. */
+#article details.primer-navbox .navbox {
+  margin: 0; border: 0; border-top: 1px solid var(--rule); border-radius: 0;
+}
+#article details.primer-navbox > .navbox > .table-scroll > table > tbody > tr > .navbox-title { display: none; }
+
+/* Navigation boxes: the footer of related topics at the end of most articles.
+   Set small and banded, they read as an index; set at body size with no table
+   styling at all, they were the longest thing on the page. */
+/* Sized in em, not px: a five-year-old reads this book at 20px body text, and a
+   navigation footer pinned at 12.5px stayed microscopic for exactly the reader
+   least able to cope with it. `#article .navbox table { font-size: inherit }`
+   below stops nested boxes compounding the reduction. */
+#article .navbox {
+  margin: 1.3em 0; border: 1px solid var(--rule); border-radius: 8px;
+  overflow: hidden; font-size: 0.78em; line-height: 1.55;
+}
+#article .navbox table { width: 100%; font-size: inherit; }
+#article .navbox :is(td, th) { padding: 5px 9px; vertical-align: middle; text-align: left; }
+#article .navbox-title {
+  background: var(--paper-2); color: var(--ink);
+  text-align: center; font-weight: 600; font-size: 1.08em;
+}
+#article :is(.navbox-group, .navbox-abovebelow) {
+  background: var(--paper-2); color: var(--ink-soft); font-weight: 600;
+}
+/* The group label is a heading for its row, so it stays on one line and takes
+   only the width it needs. */
+#article .navbox-group { text-align: right; white-space: nowrap; width: 1%; }
+#article .navbox-abovebelow { text-align: center; font-weight: 400; }
+#article .navbox-list { border-top: 1px solid var(--rule); }
+#article .navbox .navbox-subgroup { border: 0; margin: 0; }
+#article .navbox-image { text-align: center; }
+
+/* The sister-project box ("Look up ratio in Wiktionary"), which arrived as a
+   40px logo and a floating sentence. */
+#article .side-box {
+  border: 1px solid var(--rule); border-radius: 8px; background: var(--paper-2);
+  padding: 10px 13px; margin: 1.2em 0; font-size: 14px;
+}
+#article .side-box-flex { display: flex; align-items: center; gap: 13px; }
+#article .side-box-image img { width: 40px; margin: 0; }
+
+/* Tables. Only .wikitable is a table the reader is meant to read across; the
+   rest are layout scaffolding the encyclopedia uses to place images, and ruling
+   those would draw boxes around nothing. */
+#article table :is(td, th) { padding: 3px 6px; vertical-align: top; text-align: left; }
+#article table.wikitable { border: 1px solid var(--rule); font-size: 13.5px; }
+#article table.wikitable :is(td, th) { border: 1px solid var(--rule); padding: 6px 10px; }
+#article table.wikitable th { background: var(--paper-2); font-weight: 600; }
+#article caption {
+  font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint);
+  padding-bottom: 7px; text-align: left;
+}
+
+/* The infobox: a summary card, not a full-width table. `#article table` sets
+   width:100%, which stretched it across the column and pulled its images and
+   captions apart. */
+#article .infobox { width: auto; font-size: 13px; line-height: 1.5; }
+#article .infobox :is(td, th) { padding: 4px 7px; }
+#article :is(.infobox-above, .infobox-title) {
+  font-size: 16px; font-weight: 600; text-align: center; padding: 7px 6px 3px;
+}
+#article .infobox-label { color: var(--ink-soft); font-weight: 600; }
+/* The last-resort break rule further down lets a cell break mid-word so that a
+   wide table cannot push the page sideways, but it also collapses a cell's
+   min-content width to a single character — and the table algorithm then
+   squeezed the infobox's label column until "Resting place" broke as
+   "Resti / ng". Inside a box the table already has a scroll container of its
+   own, so its labels can insist on their own words. */
+#article :is(.infobox, .navbox) :is(th, td) { overflow-wrap: break-word; }
+#article :is(.infobox-image, .infobox-caption, .infobox-full-data) { text-align: center; }
+#article .infobox-caption {
+  font-family: var(--sans); font-size: 12px; color: var(--ink-faint);
+}
+#article .infobox img { margin: 4px auto; }
+#article .infobox-header { background: var(--paper-hi); text-align: center; }
+
+/* References. The list is the smallest sustained text in the book, so it gets
+   the line-height rather than the font size to stay readable. */
+#article ol.references { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+#article ol.references li { margin-bottom: 0.45em; break-inside: avoid; }
+#article .mw-cite-backlink { font-size: 12px; }
+#article sup.reference { font-size: 0.72em; }
+#article .cite-bracket { color: var(--ink-faint); }
+/* Citation templates emit maintenance notes addressed to whoever edits the
+   article — "{{cite book}}: ISBN / Date incompatibility (help)". Upstream ships
+   them as TemplateStyles, which render.py drops along with every other <style>,
+   so they surfaced as literal wiki jargon in the bibliography. This book has no
+   edit path; none of it is addressed to its reader. */
+#article .citation-comment { display: none; }
+
+/* Rendered mathematics. Wikimedia serves each formula as an SVG of black
+   strokes on transparency and leaves the recolouring to the skin, so on the
+   night page every equation in the book was black ink on a black ground —
+   198 of them in the Pythagorean theorem alone, present in the DOM and
+   invisible to the reader. The generic image rules were wrong for them twice
+   over: a rounded corner on an inline formula, and an 8px vertical margin that
+   pushed apart every line of prose containing one. */
+#article .mwe-math-element img {
+  filter: var(--img-invert); border-radius: 0; background: transparent;
+}
+/* No vertical-align here: render.py restores each formula's own value, in ex,
+   from the upstream markup. A single constant put every fraction bar in the
+   wrong place, since the real values across one article span 0 to -3ex. */
+#article .mwe-math-element-inline img { display: inline; margin: 0; }
+/* A display equation is its own line, centred, and scrolls rather than
+   overflows when it is longer than the measure. */
+#article .mwe-math-element-block {
+  display: block; text-align: center; margin: 1.1em 0;
+  overflow-x: auto; overflow-y: hidden;
+}
+#article .mwe-math-element-block img { display: inline-block; margin: 0; }
+
+/* The class the encyclopedia puts around a date, a measurement or a
+   pronunciation to keep it on one line. The last-resort break rule further down
+   names `span`, so with no rule here these were the *most* breakable text on the
+   page rather than the least: "2020-08-" / "22", "/fʁɑ̃" / "s/". The longest
+   such token across seven articles is 32 characters, well inside the width that
+   rule exists to protect. */
+#article :is(.nowrap, .IPA, .rt-commentedText) { white-space: nowrap; }
+
+/* Chemical formulae stack a superscript over a subscript inside an
+   inline-block, with a <br> between them that upstream's stylesheet hides.
+   Without that stylesheet the break fired in running prose — "C" / newline /
+   "3 plants", eighteen times in one article. The <br> has to be taken out
+   explicitly: with `display: block` on the sup and sub it would otherwise
+   generate a third, empty line box and drop the subscript a full line. */
+#article .chemf { white-space: nowrap; }
+#article .chemf > span > span {
+  display: inline-block; margin-bottom: -0.3em; vertical-align: -0.4em;
+  line-height: 1; font-size: 80%; text-align: left;
+}
+#article .chemf > span > span br { display: none; }
+#article .chemf > span > span :is(sup, sub) { display: block; font-size: 100%; line-height: 1; }
+
+/* One location, stated three ways in a row and joined by slashes flanked with
+   zero-width word joiners: 48°51′N 2°21′E / 48.850°N 2.350°E / 48.850; 2.350.
+   Upstream keeps only the first form on screen. */
+#article :is(.geo-nondefault, .geo-multi-punct, .geo-inline-hidden) { display: none; }
+#article :is(.latitude, .longitude) { white-space: nowrap; }
+
+/* Mathematics set in HTML rather than as a rendered image. */
+#article .texhtml { font-family: var(--serif); }
+#article .mvar, #article var { font-style: italic; }
+#article .sfrac { display: inline-block; vertical-align: -0.42em; font-size: 85%; text-align: center; }
+#article .sfrac .tion { display: inline-block; }
+#article .sfrac :is(.num, .den) { display: block; line-height: 1.1; padding: 0 0.14em; }
+#article .sfrac .num { border-bottom: 1px solid currentColor; }
+
+/* Diagrams the encyclopedia marks invertible are black line-work on
+   transparency — at night, black ink on a black page. Photographs and maps are
+   not marked, and are only eased back from full daylight white. */
+#article :is(.skin-invert, .skin-invert-image) img,
+#article img.skin-invert { filter: var(--img-invert); }
+#article img { filter: var(--img-glare); }
+#article :is(.skin-invert, .skin-invert-image) img { background: transparent; }
+
+/* Above the fold-away breakpoint the column is wide enough for illustrations to
+   sit beside the prose, which is where the encyclopedia meant them to be. */
+@media (min-width: 901px) {
+  /* An infobox is a <table>, so _wrap_tables has already put it inside a
+     .table-scroll div — and that div establishes its own formatting context,
+     which swallowed the float whole: the box sat right, and the lead paragraph
+     started underneath it instead of beside it, leaving a column-width hole
+     down the left of every article that has one. The wrapper is what has to
+     float, not the table inside it. */
+  /* Parsoid marks explicit alignment on barely a quarter of the figures in an
+     article; the rest carry only `mw-default-size` and inherit the
+     encyclopedia's default, which is "beside the prose, on the right". Left in
+     flow they each claimed a full-width band, so France read as a
+     thirty-eight-rung ladder of text, picture, text, picture, with the
+     paragraphs chopped into two-sentence fragments and 330px of empty page
+     beside every 250px photograph. */
+  #article :is(figure.mw-default-size:not(.mw-halign-center),
+               figure.mw-halign-right, .side-box-right),
+  #article .table-scroll:has(> :is(.infobox, .sidebar)) {
+    float: right; clear: right;
+    max-width: min(300px, 42%); margin: 0.3em 0 1.1em 1.5em;
+  }
+  #article .table-scroll:has(> :is(.infobox, .sidebar)) > table { width: 100%; }
+  #article figure.mw-halign-left {
+    float: left; clear: left;
+    max-width: min(300px, 42%); margin: 0.3em 1.5em 1.1em 0;
+  }
+  #article figure.mw-halign-center { float: none; margin-left: auto; margin-right: auto; }
+}
+/* The reference list reads well in columns, but only where a column is still
+   wide enough to hold a citation. A count would force two 200px columns that
+   break book titles one word per line; a column *width* lets the browser use
+   two when the measure allows and one when it does not — including when a
+   floated infobox has taken half the column. */
+#article .mw-references-columns { columns: 21em; column-gap: 2.4em; }
 
 /* tutor panel */
 #tutor {
@@ -672,8 +1000,6 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
   .chrome-row { margin: 0; padding: 0; border-top: none; flex-wrap: wrap; }
   .chrome-row .chrome-toggle { flex: 0 0 auto; padding: 6px 10px; }
 
-  #reader-layout { grid-template-columns: 1fr; }
-  #tutor { position: relative; height: 420px; margin-top: 20px; }
   #page { padding: 24px; }
   .grid.two, .grid.three { grid-template-columns: 1fr; }
 }
@@ -698,6 +1024,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 
 /* Keyboard focus — visible on every interactive element. */
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
+summary:focus-visible,
 input:focus-visible, select:focus-visible, .choice:focus-visible,
 .navbtn:focus-visible, .lesson-card:focus-visible, .node-dot:focus-visible,
 .chip:focus-visible, .search-result:focus-visible {
@@ -735,7 +1062,14 @@ button.unstyled { background: none; border: none; padding: 0; margin: 0; color: 
   .xp-pop { animation-duration: 1.4s !important; }
 }
 
-#article :is(.thumb, .infobox), :root[data-theme="dark"] #article table { border-color: var(--paper-edge); }
+/* The rule that stood here set `border-color: var(--paper-edge)` on
+   `.thumb`/`.infobox` — which the reader section already does, in the same
+   token — and on `#article table`, but only under `[data-theme="dark"]` and not
+   under the media query, which is precisely the asymmetry that makes a
+   theme-dependent bug invisible in whichever theme you happen to be testing. It
+   was also inert: table borders come from the cells, and under
+   `border-collapse: collapse` a table-level border differing only in colour
+   loses to them. Both tokens already turn with the palette. */
 
 /* --- Stage-adaptive UI: the same book, sized to the reader. --- */
 body[data-stage="0"] { --ui-scale: 1.34; }
@@ -1192,9 +1526,12 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 .onboard-step.on::after { background: var(--gold-bright); box-shadow: var(--glow-soft); width: 6px; height: 6px; }
 
 /* Article links follow the information colour, not the alert colour. The
-   dotted underline stays: colour alone has never been enough to mark a link. */
+   dotted underline stays: colour alone has never been enough to mark a link.
+   `:not(:has(img))` keeps it off the picture links — an underline under a
+   photograph marks nothing and reads as a stray rule. */
 #article a { color: var(--link); }
-#article a:not(.primer-wikilink) { border-bottom: 1px dotted var(--link); text-decoration: none; }
+#article a:not(.primer-wikilink):not(:has(img)) { border-bottom: 1px dotted var(--link); text-decoration: none; }
+#article a.primer-wikilink:has(img) { border-bottom: 0 none; }
 .btn.gold { text-shadow: none; }
 
 /* The Book's own replies. Amber ink on a darker slip of the page — the voice
