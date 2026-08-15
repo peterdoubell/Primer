@@ -1599,6 +1599,223 @@ def test_a_picture_reserves_its_own_space():
     assert "height: auto" in css, "a stated width without height:auto distorts"
 
 
+def test_an_external_link_is_escaped_exactly_once():
+    """fix_link runs downstream of sanitize(), so the href it captures is
+    already entity-escaped; escaping it again turned every & in a citation URL
+    into &amp;amp;, and the browser then asked Google Books for a page named
+    "amp;pg=PA5" — 328 links across a seven-article sample. fix_img has the
+    mirror-image fault: it runs on raw source, where values are source-escaped,
+    so the image proxy was asked for parameters literally named "amp;utm_…",
+    and a formula's alt text spoke "&amp;=" where its LaTeX says "&=".
+    """
+    import re
+
+    from primer.render import rewrite_article
+
+    out = rewrite_article(
+        '<a href="https://books.google.com/books?id=X&amp;q=ratio&amp;pg=7">b</a>')
+    assert 'href="https://books.google.com/books?id=X&amp;q=ratio&amp;pg=7"' in out
+    assert "&amp;amp;" not in out
+
+    img = rewrite_article(
+        '<img src="https://upload.wikimedia.org/a.png?x=1&amp;y=2" alt="a &amp;= b">')
+    assert "%26y%3D2" in img and "%26amp%3B" not in img
+    assert 'alt="a &amp;= b"' in img
+
+    # A navbox summary is text pulled back out of sanitized markup, so it had
+    # the same fault: no title in the sample corpus contains an ampersand,
+    # which is exactly how it would have shipped unnoticed.
+    navbox = ('<div class="navbox"><table><tbody><tr><th class="navbox-title">'
+              "Rock &amp; roll &amp; Newton&#39;s &quot;laws&quot;</th></tr>"
+              '<tr><td class="navbox-list">x</td></tr></tbody></table></div>')
+    summary = re.search(r"<summary>(.*?)</summary>", rewrite_article(navbox)).group(1)
+    assert summary == "Rock &amp; roll &amp; Newton&#x27;s &quot;laws&quot;", summary
+
+    # Un-escaping must not let an entity-encoded scheme back in: the value that
+    # comes out of unescape is exactly the one sanitize() already approved.
+    for hostile in ('<a href="&#106;avascript:alert(1)">x</a>',
+                    '<a href=" javascript:alert(1)">x</a>',
+                    '<a href="java&#09;script:alert(1)">x</a>',
+                    '<img src="&#106;avascript:alert(1)">'):
+        got = rewrite_article(hostile)
+        assert "alert(1)" not in got, (hostile, got)
+
+    # …nor let a title break out of the summary element it is written into.
+    breakout = rewrite_article(
+        '<div class="navbox"><table><tbody><tr><th class="navbox-title">'
+        "&lt;/summary&gt;&lt;img src=x onerror=alert(1)&gt;</th></tr>"
+        "</tbody></table></div>")
+    assert "</summary><img" not in breakout
+    assert "onerror=alert(1)>" not in breakout
+
+
+def test_parsoid_metadata_cannot_leak_into_the_text():
+    """Parsoid's <link>/<meta> tags carry template JSON in a single-quoted
+    data-mw attribute, and that JSON freely contains `>` — a `<ref ... />`
+    inside a quoted string, for instance. The old `[^>]*` tag-stripping regexes
+    stopped at the first `>` inside the attribute, so the rest of the JSON fell
+    out of the tag and rendered as visible article text: sixteen fragments of
+    `"}},"i":0}}]}' id="mwB6Q"` across a seven-article sample, three of them in
+    the middle of Isaac Newton's blockquotes.
+    """
+    from primer.render import rewrite_article
+
+    poem = (
+        '<link rel="mw-deduplicated-inline-style" about="#mwt862" '
+        'typeof="mw:Extension/templatestyles mw:Transclusion" '
+        'data-mw=\'{"parts":[{"template":{"params":{"1":{"wt":'
+        '"Nature was hid in night. &lt;ref name=\\"x\\" />"}},"i":0}}]}\' '
+        'id="mwB6Q"/><blockquote><p>God said, Let Newton be!</p></blockquote>'
+    )
+    out = rewrite_article(poem)
+    assert "Let Newton be!" in out
+    for fragment in ("data-mw", '"i":0', "}}]}", "mwB6Q", '"wt"'):
+        assert fragment not in out, (fragment, out)
+
+    # Same shape on a meta tag.
+    meta = '<meta property="x" content=\'{"a":"&lt;b />"}\' id="mwF"/><p>after</p>'
+    got = rewrite_article(meta)
+    assert "after" in got and '"a"' not in got
+
+    # A tag whose quotes do not balance is beyond any parser, and the two
+    # failure modes to avoid are opposite ones: showing the raw tag to the
+    # reader, and swallowing prose up to the next matching quote (which is what
+    # a conformant parser does with `data-m='>` before "Newton's laws" — correct
+    # per the spec, and no use at all inside a book).
+    for doc, keep in (
+        ("<p>Intro.</p><link href=x data-m='><p>Newton's laws.</p><p>Kept.</p>",
+         ["Newton's laws", "Kept"]),
+        ('<p>Intro.</p><link href=x data-m="> a sentence <em>emph</em> on.<p>B.</p>',
+         ["a sentence", "emph", "B."]),
+        ("<p>a</p><!-- <link href=x data-m='> --><p>Newton's law.</p><p>b</p>",
+         ["Newton's law", "b"]),
+    ):
+        out = rewrite_article(doc)
+        for text in keep:
+            assert text in out, (text, out)
+        assert "<link" not in out and "&lt;link" not in out, out
+        assert "data-m" not in out, out
+
+
+def test_stripping_an_attribute_cannot_reopen_the_tag():
+    """The renderer strips an article's own class/target/rel before stating its
+    own, because browsers honour the first of a duplicated attribute. The strip
+    patterns ended `[^\\s>]+`, which will happily eat a closing quote: in
+    `class="external target=x" title="onclick=alert(1) zz"` the match ran to
+    ` target=x"`, quote included, leaving class= unterminated — and the rest of
+    the tag re-tokenised into live attributes with onclick among them. Article
+    HTML reaches the page through innerHTML, so that is stored XSS arriving
+    through the one guarantee the sanitizer exists to give.
+
+    An unquoted value may no longer contain a quote, and the match has to land
+    on a real attribute boundary.
+    """
+    from html.parser import HTMLParser
+
+    from primer.render import rewrite_article
+
+    hostile = ('<a href="https://example.com/x" class="external target=x" '
+               'title="onclick=alert(1) zz">read</a>')
+    out = rewrite_article(hostile)
+
+    seen = []
+
+    class _Parse(HTMLParser):
+        def handle_starttag(self, tag, attrs):
+            if tag == "a":
+                seen.extend(attrs)
+
+    _Parse().feed(out)
+    assert seen, out
+    assert not any(name.startswith("on") for name, _ in seen), seen
+    # The text survives where it belongs — inside title, which is inert. So is
+    # the "target=x" the class value happens to contain: counting raw substrings
+    # would find it, which is why the check is on parsed attributes.
+    assert ("title", "onclick=alert(1) zz") in seen, seen
+    assert ("class", "external target=x") in seen, seen
+    # …and the renderer still states its own pair, exactly once each.
+    names = [name for name, _ in seen]
+    assert names.count("target") == 1 and names.count("rel") == 1, names
+
+    # A value that really is target/rel is still stripped.
+    assert rewrite_article(
+        '<a href="https://example.com" target="_blank">x</a>').count("target=") == 1
+
+
+def test_an_unquoted_value_cannot_open_a_quoted_run():
+    """A quote may open an attribute value only directly after `=`. Allowing one
+    anywhere meant a bare apostrophe inside an unquoted value opened a run that
+    paired with the next apostrophe in the English prose: `<meta name=Newton's>`
+    ran past its own `>`, past "Newton's laws say F", and ended at a raw `>` in
+    the body text — taking the sentence with it.
+
+    A tag that cannot be read is declined, which is what hands it to the second
+    pass; it is never guessed at.
+    """
+    from primer.render import rewrite_article
+
+    for doc, keep in (
+        ("<p>Intro.</p><meta name=Newton's> Newton's laws say F > ma.<p>Tail.</p>",
+         "Newton's laws say F"),
+        ("<p>Intro.</p><img src=x alt=Newton's> In 1687 x > y.<p>Tail.</p>",
+         "In 1687 x"),
+        ("<p>Intro.</p><link href=a\"> Newton's 6\" telescope x > y.<p>Tail.</p>",
+         "telescope x"),
+    ):
+        out = rewrite_article(doc)
+        assert keep in out, (keep, out)
+        assert "Intro." in out and "Tail." in out, out
+
+
+def test_a_void_element_never_opens_a_subtree():
+    """link/meta/base/input/area/source/track/embed are void — they are never
+    closed. They sit in DROP_WITH_CONTENT but were missing from VOID_TAGS, so
+    one that was not written self-closing raised the sanitizer's drop depth with
+    nothing to lower it. The unclosed-drop-tag repair then deleted every inline
+    run between that tag and the next block element: a whole sentence of the
+    article replaced by a space.
+    """
+    from primer.render import DROP_WITH_CONTENT, VOID_TAGS, sanitize
+
+    doc = ('<p>one</p><link rel="s" href="/x.css">This sentence sits between '
+           "the link and the next block. <em>Real prose.</em><p>two</p>")
+    out = sanitize(doc)
+    assert "This sentence sits between" in out
+    assert "<em>Real prose.</em>" in out
+    assert "one" in out and "two" in out
+
+    for tag in ("link", "meta", "base", "input", "source", "track", "area"):
+        got = sanitize("<p>one</p><%s><p>two</p>" % tag)
+        assert "one" in got and "two" in got, (tag, got)
+        assert "<%s" % tag not in got, (tag, got)
+
+    # The invariant, so this cannot come back by someone adding a void element
+    # to DROP_WITH_CONTENT alone: every void element that is droppable must also
+    # be known to be void. (source/track are deliberately not droppable — they
+    # only ever occur inside audio/video, which are.)
+    html_void = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+                 "link", "meta", "source", "track", "wbr"}
+    missing = sorted((DROP_WITH_CONTENT & html_void) - VOID_TAGS)
+    assert not missing, "droppable void elements not marked void: {}".format(missing)
+
+    # And on <img>, which is read out of raw source and so is exposed to the
+    # same truncation — an alt of "a > b" lost its text and spilled the rest of
+    # the tag into the page. Nothing in the sample corpus happens to contain
+    # one, so only a written test keeps this fixed.
+    img = rewrite_article(
+        '<p>before</p><img src="https://upload.wikimedia.org/a.png" alt="a > b" '
+        'title="t"><p>after</p>')
+    assert 'alt="a &gt; b"' in img
+    assert "before" in img and "after" in img
+    assert 'title="t"&gt;' not in img, "tag remainder leaked as text"
+
+    # A tag whose quote never closes must not swallow the rest of the article.
+    runaway = rewrite_article(
+        '<p>before</p><img src="https://upload.wikimedia.org/a.png" alt="oops'
+        "<p>after</p>")
+    assert "before" in runaway and "after" in runaway
+
+
 def test_the_two_night_palettes_cannot_drift_apart():
     """The stylesheet declares the night palette twice — once for the media
     query, once for the explicit toggle — and both must set the same properties
@@ -2101,6 +2318,50 @@ def test_an_article_cannot_mint_the_renderers_own_markers():
     assert "primer-navbox" not in forged_fold
     assert "<details" not in forged_fold
     assert "hidden claim" in forged_fold
+
+    # primer-wikilink is the class that makes a link look like part of this
+    # book. Forged onto an external anchor it cannot navigate anywhere — the
+    # client reads data-primer-title, which is unforgeable — but it would still
+    # give the book's own in-book styling to a link that middle-clicks out.
+    forged_link = rewrite_article(
+        '<a class="primer-wikilink" href="https://evil.example.com/x">looks internal</a>')
+    assert "primer-wikilink" not in forged_link
+    assert "looks internal" in forged_link
+    assert "primer-wikilink" not in rewrite_article(
+        '<span class="primer-wikilink">not even a link</span>')
+
+    # An external link states target/rel once, in the renderer's own words: an
+    # article carrying its own produced the attribute twice, and browsers take
+    # the first one.
+    dup = rewrite_article('<a href="https://example.com" target="_blank" rel="noopener">x</a>')
+    assert dup.count("target=") == 1 and dup.count("rel=") == 1, dup
+
+
+def test_no_image_reaches_the_reader_on_an_upstream_url():
+    """Proxying every `src` through /api/image is what makes the book work
+    offline and what stops the reader's browser announcing itself to Wikimedia
+    on every page view. fix_img does it, but fix_img finds tags with a regex on
+    raw markup, and a regex can be handed something it will not match — an
+    <img> with a raw `<` in an attribute value slipped past whole, and sanitize
+    is content to keep an https:// src. The guarantee is restated downstream of
+    the parser so it does not depend on that match succeeding.
+    """
+    from primer.render import rewrite_article
+
+    for hostile in ('<img src="https://upload.wikimedia.org/secret.png" alt="a < b">',
+                    "<img src=\"https://upload.wikimedia.org/x.png\" title='a < b'>",
+                    '<img alt="a < b" src="https://upload.wikimedia.org/z.png">',
+                    # Protocol-relative is the form Wikipedia actually writes,
+                    # and the backstop matched only ^https?:// at first.
+                    '<img src="//upload.wikimedia.org/a.png" alt="a < b">',
+                    '<img src="//upload.wikimedia.org/b.png" alt="a < b" width="220">'):
+        out = rewrite_article(hostile)
+        assert 'src="https://' not in out, out
+        assert 'src="//' not in out, out
+        assert "/api/image?url=https%3A%2F%2F" in out, out
+
+    # Archive-relative sources are served from the ZIM and must not be proxied.
+    assert 'src="/zim/rel/a.png"' in rewrite_article('<img src="/zim/rel/a.png">')
     for forged in ('<a data-primer-title="Evil">x</a>',
                    "<a data-primer-title='Evil'>x</a>",
                    '<a data-primer-title=Evil>x</a>',
