@@ -22,12 +22,52 @@ from html.parser import HTMLParser
 log = logging.getLogger("primer.render")
 
 _LINK_RE = re.compile(r'<a\b([^>]*?)href="([^"]*)"([^>]*)>', re.IGNORECASE)
-_IMG_RE = re.compile(r'<img\b([^>]*?)>', re.IGNORECASE)
+# This runs on RAW upstream markup, where a `>` inside an attribute value is
+# legal and unescaped, so it has to know where a quoted value begins and ends.
+# `<img\b[^>]*>` did not: it stopped at that inner `>`, cut the tag in half and
+# left the rest of the attribute in the document as text — an image whose alt is
+# "a > b" lost its alt and spilled `b" title="x">` into the page.
+#
+# Two rules earn their keep here, and both were learned by breaking this:
+#
+#   A quote opens a value only directly after `=`. Allowed anywhere, a bare
+#   apostrophe inside an *unquoted* value opened a run that paired with the next
+#   apostrophe in the English prose: `<meta name=Newton's>` ran past its own `>`,
+#   past "Newton's laws say F", and ended at a raw `>` in the body text, taking
+#   the sentence with it.
+#
+#   Nothing may cross a `<`. An attribute value has to escape one (Parsoid
+#   writes `&lt;ref />`, and no attribute in a seven-article sample holds a raw
+#   `<`), so this bound stops any runaway at the start of the next tag.
+#
+# A tag that still cannot be read is declined rather than guessed at — the
+# second branch is the plain first-`>` rule, bounded the same way.
+_IMG_RE = re.compile(
+    r'<img\b((?:=\s*"[^"<]*"|=\s*\'[^\'<]*\'|[^<>"\'])*|[^<>]*)>', re.IGNORECASE)
 _SRCSET_RE = re.compile(r'\ssrcset="[^"]*"', re.IGNORECASE)
 _SCRIPT_RE = re.compile(r'(?is)<script\b[^>]*>.*?</script>')
 _STYLE_BLOCK_RE = re.compile(r'(?is)<style\b[^>]*>.*?</style>')
-_STYLE_LINK_RE = re.compile(r'(?is)<link\b[^>]*>')
-_META_RE = re.compile(r'(?is)<meta\b[^>]*>')
+# Parsoid's <link>/<meta> carry template JSON in a single-quoted data-mw
+# attribute holding things like `<ref name="x" />` — so their attribute values
+# contain `>`, and `<link\b[^>]*>` cut the tag at that inner `>` and left the
+# rest of the JSON in the document as text. Sixteen fragments across a
+# seven-article sample, three of them mid-blockquote.
+#
+# Two passes, and the ORDER is the design. The first reads quoted values under
+# the same two rules as _IMG_RE above and takes every well-formed tag. The
+# second is the plain first-`>` rule, so by the time it runs the well-formed
+# tags are already gone and it can only reach one whose quotes do not balance.
+#
+# Both are bounded by `<` as well as `>`, which means a tag whose quote never
+# closes at all is declined by both and reaches the sanitizer, which cannot find
+# its end either and escapes it as text. That is the one shape this leaves
+# visible, and it is the right side of the trade: the alternative bound lets the
+# second pass cut a well-formed tag at a `>` inside its JSON and put the
+# remainder back in the reader's prose, which is the bug all of this is here to
+# remove.
+_VOID_META_RE = re.compile(
+    r'(?i)<(?:link|meta)\b(?:=\s*"[^"<]*"|=\s*\'[^\'<]*\'|[^<>"\'])*>')
+_BROKEN_VOID_META_RE = re.compile(r'(?i)<(?:link|meta)\b[^<>]*>')
 
 # Tags we keep. Everything else is dropped (its text content is kept unless the
 # tag is in DROP_WITH_CONTENT).
@@ -47,7 +87,16 @@ DROP_WITH_CONTENT = {
     "input", "button", "textarea", "select", "option", "noscript", "template",
     "link", "meta", "audio", "video", "canvas", "map", "area", "base",
 }
-VOID_TAGS = {"br", "hr", "img", "col", "wbr"}
+# Every HTML void element, not only the five this renderer emits. This set is
+# what tells the sanitizer a tag will never be closed, and `link`, `meta`,
+# `base`, `input`, `area`, `source`, `track` and `embed` are all in
+# DROP_WITH_CONTENT while being absent from it. A `<link>` not written
+# self-closing therefore raised drop_depth with nothing to lower it, and the
+# unclosed-drop-tag repair below then deleted every inline run between that tag
+# and the next block element — a whole sentence, replaced by a space. Void
+# elements never open a subtree, so they must never raise the depth at all.
+VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+             "link", "meta", "source", "track", "wbr"}
 ALLOWED_ATTRS = {
     "href", "src", "alt", "title", "class", "colspan", "rowspan", "loading",
     "dir", "lang", "width", "height", "scope", "target", "rel",
@@ -58,13 +107,31 @@ ALLOWED_ATTRS = {
 # Class names this renderer emits and gives behaviour to. An article may carry
 # whatever classes it likes except these: it cannot be allowed to dress its own
 # markup as the book's furniture.
-RESERVED_CLASSES = {"table-scroll", "primer-navbox"}
+# `primer-wikilink` belongs here for the same reason the other two do, and was
+# the one that got missed: it is the class that makes a link look like part of
+# this book. Forged onto an external anchor it cannot navigate anywhere — the
+# client's handler reads data-primer-title, which is unforgeable, and calls
+# preventDefault — but the reader still sees the book's own in-book styling on a
+# link that middle-clicks straight out to whatever the article chose.
+RESERVED_CLASSES = {"table-scroll", "primer-navbox", "primer-wikilink"}
 _NAV_ATTR_RE = re.compile(r"""\s*data-primer-title\s*=\s*(?:"[^"]*"|'[^']*'|\S+)""",
                           re.IGNORECASE)
 # An inherited class= would win the duplicate-attribute fight against the one
 # this renderer emits (browsers honour the first), so it is stripped first.
-_CLASS_ATTR_RE = re.compile(r"""\sclass\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)""",
-                            re.IGNORECASE)
+#
+# The unquoted branch must not be able to consume a quote character, and the
+# whole match must land on a real attribute boundary. Without both, this became
+# an injection: in `class="external target=x" title="onclick=alert(1) zz"` the
+# strip matched ` target=x"` — closing quote included — which left `class=`
+# unterminated, and the rest of the tag re-tokenised into live attributes with
+# `onclick` among them. Article HTML goes into the page with innerHTML, so that
+# is stored XSS arriving through the one guarantee the sanitizer exists to give.
+_CLASS_ATTR_RE = re.compile(
+    r"""\sclass\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>"']+)(?=\s|$)""", re.IGNORECASE)
+# …and the same for the pair this renderer states on every external link.
+_TARGET_REL_ATTR_RE = re.compile(
+    r"""\s(?:target|rel)\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>"']+)(?=\s|$)""",
+    re.IGNORECASE)
 _ATTR_VALUE_WHITELIST = {
     "target": {"_blank"},
     "rel": {"noopener noreferrer", "noopener", "noreferrer"},
@@ -242,8 +309,8 @@ def rewrite_article(html: str, base: str = "") -> str:
     """base is the URL prefix for ZIM-relative assets, e.g. /zim/<id>/A/."""
     html = _SCRIPT_RE.sub("", html)
     html = _STYLE_BLOCK_RE.sub("", html)
-    html = _STYLE_LINK_RE.sub("", html)
-    html = _META_RE.sub("", html)
+    html = _VOID_META_RE.sub("", html)
+    html = _BROKEN_VOID_META_RE.sub("", html)
     html = _SRCSET_RE.sub("", html)
 
     body = re.search(r"(?is)<body[^>]*>(.*)</body>", html)
@@ -252,6 +319,14 @@ def rewrite_article(html: str, base: str = "") -> str:
 
     def fix_link(m):
         pre, href, post = m.group(1), m.group(2), m.group(3)
+        # This runs downstream of sanitize(), so the href arrives already
+        # entity-escaped. It has to come back to its real value before being
+        # escaped once on the way out — escaping the escaped form turned every
+        # &amp; in a citation URL into &amp;amp;, and the reader's browser then
+        # asked Google Books for a page named "amp;pg=PA5". 328 links across a
+        # seven-article sample. The escape() below restores exactly the form
+        # sanitize() had already approved.
+        href = unescape(href)
         # Whatever else an anchor carried, it does not get to keep the attribute
         # the client navigates on: this renderer decides where a link goes.
         pre = _NAV_ATTR_RE.sub(" ", pre or "")
@@ -268,8 +343,15 @@ def rewrite_article(html: str, base: str = "") -> str:
                 pre_nc, escape(title, quote=True), post_nc
             )
         if href.startswith("http"):
+            # Same duplicate-attribute problem the class= strip above solves:
+            # an article carrying its own target= produced a tag with the
+            # attribute twice, and browsers honour the first one — the
+            # article's, not ours. Only the values we emit survive sanitize, so
+            # this was untidy rather than dangerous; it is still ours to state.
+            pre_nt = _TARGET_REL_ATTR_RE.sub(" ", pre)
+            post_nt = _TARGET_REL_ATTR_RE.sub(" ", post)
             return '<a{}href="{}"{} target="_blank" rel="noopener noreferrer">'.format(
-                pre, escape(href, quote=True), post)
+                pre_nt, escape(href, quote=True), post_nt)
         return '<a{}href="#"{}>'.format(pre, post)
 
     # Geometry lifted off the maths images on the way past, keyed by the URL we
@@ -281,10 +363,15 @@ def rewrite_article(html: str, base: str = "") -> str:
         attrs = m.group(1)
         src_m = re.search(r'src="([^"]*)"', attrs, re.IGNORECASE)
         alt_m = re.search(r'alt="([^"]*)"', attrs, re.IGNORECASE)
-        alt = alt_m.group(1) if alt_m else ""
+        # These are read out of raw source, where the values are entity-escaped;
+        # they must come back to their real form before being escaped (or
+        # URL-quoted) once on the way out. Without this, every & reached the
+        # image proxy as %26amp%3B — a parameter literally named "amp;…" — and a
+        # formula's alt text spoke "&amp;=" where its LaTeX says "&=".
+        alt = unescape(alt_m.group(1)) if alt_m else ""
         if not src_m:
             return ""
-        src = src_m.group(1)
+        src = unescape(src_m.group(1))
         if src.startswith("//"):
             src = "https:" + src
         if src.startswith("http"):
@@ -325,6 +412,7 @@ def rewrite_article(html: str, base: str = "") -> str:
     # simply declare its own destination.
     html = sanitize(html)
     html = _LINK_RE.sub(fix_link, html)
+    html = _proxy_stray_images(html)
     html = _restore_math_metrics(html, math_metrics)
     return _fold_navboxes(_wrap_tables(html))
 
@@ -334,6 +422,40 @@ _MATH_SRC_RE = re.compile(r"/media/math/render/(?:svg|png)/", re.IGNORECASE)
 _EX_METRIC_RE = re.compile(r"\b(vertical-align|width|height)\s*:\s*(-?\d*\.?\d+)ex",
                            re.IGNORECASE)
 _IMG_SRC_RE = re.compile(r'(?is)<img\b[^>]*?\ssrc="([^"]*)"[^>]*>')
+
+
+# Downstream of sanitize, where every attribute value has been re-escaped and a
+# raw `>` can no longer occur, so `[^>]*` is exact here.
+_SANITIZED_IMG_SRC_RE = re.compile(r'(?i)(<img\b[^>]*\ssrc=")([^"]*)(")')
+
+
+def _proxy_stray_images(html: str) -> str:
+    """Backstop: no image reaches the reader on an upstream URL.
+
+    fix_img rewrites every `src` through /api/image, which is what makes the
+    book work offline and what stops the reader's browser announcing itself to
+    Wikimedia on every page view. But fix_img has to run on raw markup and find
+    tags with a regex, and a regex can always be handed something it will not
+    match — an `<img>` carrying a raw `<` in an attribute slipped past it whole,
+    and sanitize is content to keep an https:// src.
+
+    So the guarantee is restated here, where the markup has been through a real
+    parser and the pattern cannot be fooled. Anything still absolute gets
+    proxied; nothing depends on the earlier match having succeeded.
+    """
+    def sub(m):
+        src = unescape(m.group(2))
+        # Protocol-relative is the form Wikipedia actually writes, so it has to
+        # be caught here too — and normalised the way fix_img does, or the proxy
+        # is handed a URL with no scheme.
+        if src.startswith("//"):
+            src = "https:" + src
+        elif not re.match(r"https?://", src, re.IGNORECASE):
+            return m.group(0)          # archive-relative: served from the ZIM
+        proxied = "/api/image?url=" + urllib.parse.quote(src, safe="")
+        return m.group(1) + escape(proxied, quote=True) + m.group(3)
+
+    return _SANITIZED_IMG_SRC_RE.sub(sub, html)
 
 
 def _restore_math_metrics(html: str, metrics: dict) -> str:
@@ -439,7 +561,11 @@ def _navbox_summary(inner: str) -> str:
     # The title cell leads with the v·t·e template bar, whose three one-letter
     # links would otherwise turn every summary into "vteSir Isaac Newton".
     text = _TAGS_RE.sub(" ", _NAVBAR_RE.sub(" ", m.group(1)))
-    text = re.sub(r"\s+", " ", text).strip()
+    # Sanitized markup in, plain text out: the caller escapes this once for the
+    # <summary> it builds, so leaving entities in would double-escape them and
+    # show a reader "Science &amp; technology". No title in the sample corpus
+    # happens to contain one, which is exactly how this would have survived.
+    text = unescape(re.sub(r"\s+", " ", text)).strip()
     return text[:120] or "Related topics"
 
 
