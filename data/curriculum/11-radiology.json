@@ -1,0 +1,688 @@
+{
+ "id": "radiology",
+ "name": "Radiology",
+ "icon": "◉",
+ "color": "#7b4fa8",
+ "tagline": "Reading the body in section: how the image is made, and what it means.",
+ "entry_stage": 5,
+ "nodes": [
+  {
+   "id": "rad.5.coronary-ct",
+   "title": "Coronary CT Angiography",
+   "stage": 5,
+   "goal": "Plan, acquire and read a coronary CT angiogram, and act on what it shows.",
+   "articles": [
+    "Coronary CT angiography",
+    "Coronary CT calcium scan",
+    "Coronary artery disease",
+    "Radiocontrast agent",
+    "Coronary catheterization"
+   ],
+   "prereqs": [
+    "bio.3.human-anatomy",
+    "bio.4.physiology",
+    "phys.3.nuclear"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "numeric",
+     "prompt": "A single-source scanner runs a gantry rotation time of 0.30 s and reconstructs each image from a half-scan segment. Taking that segment as half a turn, how long is the window during which the coronary must hold still? Answer in milliseconds, as a whole number.",
+     "answer": "150",
+     "explain": "A half-scan reconstruction needs projections over 180 degrees plus the fan angle, so one image is built from a little over half a rotation; taking the segment as half a turn, 0.30 s halved is 0.15 s, which is 150 ms. Everything in the preparation of the patient follows from that number. A coronary that moves appreciably inside that window blurs, and the dependable way to buy a longer motionless interval is to slow the heart, since diastasis lengthens steeply as the rate falls. A dual-source scanner collects the same 180 degrees from two tubes a quarter-turn apart and so halves the requirement again, to about 75 ms here."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Despite oral and intravenous beta-blockade the heart rate stays at 96 bpm through a retrospectively gated helical acquisition. Reconstruction at 75 per cent of the R-R interval shows a doubled, blurred right coronary artery. Which reconstruction gives the best chance of a diagnostic study?",
+     "answer": "End-systole, near 40% of the R-R interval",
+     "explain": "Diastasis, the quiet interval in mid-to-late diastole, is what the standard 70 to 75 per cent reconstruction targets, and it shortens sharply as the rate rises until, past roughly 80 bpm, little of it is left. Systole shortens far less, so at fast rates the most reproducible still point is end-systole, near 40 to 45 per cent, which is why a retrospective study at this rate is reconstructed there. 'Mid-diastole, near 65% of the R-R interval' and 'Late diastole, near 90% of the R-R interval' both sit in a diastole that barely exists at 96 bpm, and 90 per cent lands on atrial contraction, which drags the atrioventricular groove and with it the right coronary, the fastest-moving of the three vessels: that is why the right coronary, not the left anterior descending, is the artery this study lost. 'Early systole, near 15% of the R-R interval' falls in isovolumic contraction, the other peak of cardiac motion.",
+     "choices": [
+      "Mid-diastole, near 65% of the R-R interval",
+      "End-systole, near 40% of the R-R interval",
+      "Late diastole, near 90% of the R-R interval",
+      "Early systole, near 15% of the R-R interval"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A step-and-shoot study is prospectively triggered at 75 per cent of the R-R interval with no padding. A ventricular ectopic falls during one slab and the left anterior descending artery is blurred at that level. The registrar asks for that slab to be reconstructed at 45 per cent instead. Why can that not be done?",
+     "answer": "The tube was off at 45 per cent of the R-R interval",
+     "explain": "Prospective triggering fires the tube inside the programmed window and nowhere else, so the projections a 45 per cent reconstruction would need were simply not collected, and no workstation effort conjures them. Padding, which widens the irradiated window by perhaps 100 ms on either side, buys a little freedom to shift the phase at a dose cost, but even generous padding does not reach from mid-diastole back to end-systole, which is why an ectopic on a single-phase study usually means a repeat rather than a re-reconstruction. 'Tube current modulation lowered the current there' describes retrospective helical scanning instead: modulation reduces the current outside the phase of interest but still leaves noisy, usable data across the cycle, and that is what makes a retrospective study rescuable and this one not. The vessel here is blurred by motion, not by a thin bolus or a soft kernel.",
+     "choices": [
+      "The tube was off at 45 per cent of the R-R interval",
+      "Tube current modulation lowered the current there",
+      "The ectopic beat pushed the bolus past its peak",
+      "The kernel is too smooth to resolve a small vessel"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "On the curved reformat of the left anterior descending artery there is an abrupt sideways step in the vessel contour. Scrolling the axial images, the same step appears in the sternum and the anterior chest wall at that level. What does this appearance point to?",
+     "answer": "Misregistration between adjacent acquisition slabs",
+     "explain": "The discriminator is what else moved. A stair-step displaces the whole block of anatomy acquired in one heartbeat, so ribs and sternum step along with the artery; the heart simply sat in a slightly different place from one gated slab to the next. 'Coronary motion within the reconstruction window' blurs or doubles the coronary while the stationary chest wall stays crisp. Streak radiates from the dense structure that causes it and beam hardening tracks a calcified plaque, and neither respects a slab boundary. The remedy here is rhythm and coverage, not reconstruction: a slower, steadier rate, wider detector coverage, or a high-pitch acquisition that takes the heart in a single beat.",
+     "choices": [
+      "Misregistration between adjacent acquisition slabs",
+      "Coronary motion within the reconstruction window",
+      "Streak from dense contrast in the superior vena cava",
+      "Beam hardening across a densely calcified segment"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 44-year-old with typical exertional chest pain has a calcium score of 0. The referrer proposes stopping the workup there. What is the strongest objection?",
+     "answer": "Non-calcified plaque can obstruct despite a zero score",
+     "explain": "A zero score is a genuinely powerful negative in asymptomatic and low-risk people, where it reclassifies risk downward better than most risk factors. It is weakest in exactly this patient: young, symptomatic, and therefore in the group whose plaque is most likely to be lipid-rich and not yet calcified. Calcium marks the age of plaque rather than its presence, so a zero score does not settle a symptomatic presentation, and contrast CCTA remains the test that answers the question, which is also where the 2021 AHA/ACC chest pain guideline sends this patient. 'A score of zero has poor reproducibility between studies' is the tempting alternative and is untrue: interscan variability bites at low non-zero scores, while zero is highly reproducible. The limitation is what calcium fails to see, not measurement noise.",
+     "choices": [
+      "Non-calcified plaque can obstruct despite a zero score",
+      "The 130 HU threshold understates calcium on new scanners",
+      "A score of zero has poor reproducibility between studies",
+      "Calcium scoring underestimates burden in a small vessel"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 2.75 mm stent in the proximal left anterior descending artery appears to fill most of its own lumen on the routine reconstruction. Which change to the reconstruction most improves assessment of the in-stent lumen?",
+     "answer": "A sharp kernel with thin slices",
+     "explain": "Blooming is a partial-volume and point-spread effect: a dense strut spills into neighbouring voxels, and the smoother the kernel and the thicker the slice, the further it spills, so the lumen it hides grows. A sharp, high-resolution kernel with thin slices shrinks the apparent strut thickness and opens the visible lumen. The cost is noise, and that is precisely where iterative or deep-learning reconstruction earns its keep, restoring the noise the sharp kernel spent. 'A lower tube voltage, same mAs' raises iodine attenuation, which is why it flatters ordinary vessels, but it raises calcium and metal attenuation too, so blooming worsens rather than improves. One caution to carry away: even reconstructed well, stents of about 3 mm and under are often non-diagnostic inside, so a small stent whose lumen still looks filled is reported as unassessable rather than as occluded.",
+     "choices": [
+      "A sharp kernel with thin slices",
+      "A smooth kernel with higher mAs",
+      "A lower tube voltage, same mAs",
+      "A thicker slice with less noise"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Immediately before sublingual glyceryl trinitrate is given for a CCTA, the patient mentions taking tadalafil the previous evening. The list cannot be rearranged and the study is to go ahead today. What is the appropriate course?",
+     "answer": "Withhold the nitrate and scan without it",
+     "explain": "A phosphodiesterase-5 inhibitor and a nitrate act on the same cGMP pathway from opposite ends, and together they produce hypotension that is slow to reverse. 'Give the nitrate as over 12 hours have passed' is the trap, and it is where tadalafil differs from the rest: its half-life of around 17 hours is several times sildenafil's, so an overnight gap that would clear sildenafil leaves tadalafil active, and the published abstinence window for tadalafil is correspondingly the longer one. The previous evening sits inside every version of that window. Halving the dose halves neither the mechanism nor the risk, and a fluid preload is treatment for a complication rather than a licence to cause one. So the study goes ahead without nitrate: the distal vessels are smaller and harder to grade, which degrades the study rather than voiding it. Where distal grading is critical and the list allows, deferring the scan until the drug has cleared is the better answer, and that is why the drug question is asked before the spray is drawn up.",
+     "choices": [
+      "Withhold the nitrate and scan without it",
+      "Give the nitrate as over 12 hours have passed",
+      "Give half the usual sublingual nitrate dose",
+      "Give the nitrate with intravenous fluids"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A patient with severe biventricular failure is scanned at the department's fixed 22-second delay. The coronary arteries opacify weakly while the pulmonary arteries are dense. What change makes the next attempt most likely to succeed?",
+     "answer": "Trigger acquisition from the descending aorta",
+     "explain": "The image describes a bolus caught in transit: in a failing circulation contrast takes far longer to cross the lungs and left heart, so a delay calibrated on ordinary patients samples the pulmonary phase. The variable at fault is circulation time, and the fix is to measure it rather than assume it. Bolus tracking watches an aortic region of interest and fires when enhancement crosses threshold, so it adapts to this patient automatically; a test bolus answers the same question at the cost of an extra injection and a little more contrast. More contrast, faster or denser, delivered at a delay that is wrong for this circulation still arrives after the scan has finished.",
+     "choices": [
+      "Trigger acquisition from the descending aorta",
+      "Increase the injected volume at the same delay",
+      "Raise the injection rate and keep the delay",
+      "Use a more concentrated contrast at that delay"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A patient with typical angina still has limiting symptoms on optimal medical therapy. CCTA shows a smooth 60 per cent stenosis in the mid left anterior descending artery, in a well-opacified segment free of heavy calcium, and CT-derived fractional flow reserve 2 cm distal to the lesion is 0.71. How should this change the plan?",
+     "answer": "Refer for invasive angiography with a view to stenting",
+     "explain": "An intermediate stenosis is the one anatomical finding that settles nothing: in the FAME lesion analysis about a third of 50 to 70 per cent stenoses proved flow-limiting on invasive measurement, so two thirds of them were not, and the eye cannot tell which this is. CT-FFR applies computational fluid dynamics to the same dataset and answers the physiological question instead, and a value at or below 0.80 marks a lesion that restricts flow. Physiology by itself would not send a stable patient to the catheter laboratory, since ISCHEMIA found no reduction in death or infarction from an invasive strategy in stable disease; what earns the referral is angina that persists on optimal medical therapy, for which revascularisation is offered as symptom relief. 'Arrange stress perfusion imaging to confirm ischaemia' repeats a question CT-FFR has already answered. Two cautions travel with the number: CT-FFR inherits the quality of the images it is computed from, so heavy calcium or motion in the segment makes it unreliable, and its agreement with invasive FFR is loose enough that a value sitting near 0.80 deserves an invasive measurement rather than a stent, which is in any case how the lesion is confirmed in the laboratory.",
+     "choices": [
+      "Continue medical therapy and repeat the CCTA in a year",
+      "Refer for invasive angiography with a view to stenting",
+      "Arrange stress perfusion imaging to confirm ischaemia",
+      "Rescan at a sharper kernel to grade the stenosis better"
+     ]
+    },
+    {
+     "kind": "short",
+     "prompt": "In one clinic a CCTA showing unobstructed arteries in a patient with low-to-intermediate pretest probability ends the workup, while a CCTA showing a 60 per cent stenosis is followed by a functional test rather than by a stent. Justify both decisions in terms of test performance.",
+     "answer": "CCTA has very high sensitivity for obstructive stenosis, so where the pretest probability is low the normal study carries a negative predictive value close to certainty and effectively excludes obstructive coronary disease, which is why CCTA is used as a rule-out test. Its specificity is lower, and blooming from calcium, motion and partial volume make the eye overestimate visually graded stenoses, so the positive predictive value is only moderate; an intermediate stenosis is therefore a question rather than an answer, and a physiological measure such as CT-FFR, stress perfusion or invasive FFR must show ischaemia before revascularisation is justified.",
+     "keywords": [
+      "sensitivity",
+      "negative predictive value",
+      "pretest probability",
+      "specificity",
+      "positive predictive value",
+      "overestimate",
+      "ischaemia"
+     ],
+     "explain": "Sensitivity and specificity belong to the test; predictive values also depend on how common disease is among the patients being scanned. CCTA's near-complete sensitivity is what makes a normal study powerful, and it is powerful precisely because the pretest probability was low, since the same normal study in a high-prevalence group leaves more residual risk behind. Running the argument the other way explains the second decision: a modest positive predictive value, inflated further by blooming, means the eye overcalls severity, and anatomy has never been the same thing as ischaemia. The corollary worth carrying into reporting is that a single non-diagnostic segment forfeits the rule-out argument for that vessel, so such a study is flagged as non-diagnostic rather than reported as normal."
+    }
+   ]
+  },
+  {
+   "id": "rad.5.tavi-ct",
+   "title": "TAVI Planning CT",
+   "stage": 5,
+   "goal": "Size the annulus, judge coronary and conduction risk, and choose the access route.",
+   "articles": [
+    "Transcatheter aortic valve replacement",
+    "Aortic stenosis",
+    "Aortic valve",
+    "Computed tomography angiography",
+    "Radiocontrast agent"
+   ],
+   "prereqs": [
+    "rad.5.coronary-ct",
+    "bio.4.physiology"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Two readers measure the same aortic annulus. One takes a 22 mm diameter off a single long-axis view of the root; the other reconstructs the plane through the three leaflet nadirs and reports an area-derived diameter of 25 mm. A valve chosen on the 22 mm figure leaks around its rim afterwards. What went wrong?",
+     "answer": "A single linear diameter is just one chord across an oval ring",
+     "explain": "The annulus is a virtual basal ring - a plane joining the three cusp nadirs, with no anatomical structure lying in it - and it is habitually oval, with a major-to-minor ratio of roughly 1.2 to 1.3. Any single long-axis view cuts that ring along one chord, and which chord it catches depends on how the plane happens to fall through a structure tilted in two directions, so the figure it yields is not the ring's size. Deriving a diameter from the traced area or perimeter uses the whole contour instead of one chord, which is why sizing charts are built on those figures and not on a caliper measurement. Note the direction of the error in 'Area-derived diameter overstates a ring that is not circular': by the isoperimetric inequality the area-derived diameter is the smallest of the conventions, not the largest.",
+     "choices": [
+      "A single linear diameter is just one chord across an oval ring",
+      "An oblique long-axis cut stretches the ring along its long axis",
+      "Area-derived diameter overstates a ring that is not circular",
+      "The annulus shrinks once a stiff wire has crossed the valve"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A planning dataset is reconstructed only in mid-diastole, where the coronary arteries are sharpest, and the annulus is traced there. What does sizing from that phase invite?",
+     "answer": "Undersizing, with a leak around the frame or embolisation",
+     "explain": "The basal ring is distensible and reaches its largest, roundest configuration in systole, when the outflow tract is pressurised; in diastole it is smaller and more oval. Measuring in diastole therefore biases the operator towards a smaller prosthesis, and a frame that fails to seal against the ring leaks around its outside or, if grossly small, embolises. The systolic-to-diastolic difference in annular area averages some 5 to 8%, so it need not cross a size boundary - but it is a one-way bias, and it runs towards the error that leaks. 'Oversizing, with rupture of the annulus during expansion' is the hazard of the opposite mistake, as is conduction block.",
+     "choices": [
+      "Oversizing, with rupture of the annulus during expansion",
+      "Accurate sizing, since the fibrous annulus holds its shape",
+      "Undersizing, with a leak around the frame or embolisation",
+      "Oversizing, with new left bundle branch block after release"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Planning CT shows a bulky shelf of calcium in the outflow tract just below the annulus. The operator intends a balloon-expandable valve at more than 20% area oversizing. What is the particular hazard of that combination, and what does it argue for?",
+     "answer": "Annular rupture; cut the oversizing or use a self-expanding frame",
+     "explain": "A balloon-expandable frame reaches its nominal size whatever is in the way, so the force of expansion is taken by whatever will not move. Rigid subannular calcium does not move: it is levered outward into the aortic root or the anterior mitral leaflet, and rupture there is frequently fatal. The two factors multiply - it was heavy outflow-tract calcification together with area oversizing beyond about a fifth that marked out the ruptures in Barbanti et al. (Circulation 2013), not either feature alone, which is why a modestly oversized frame in the same calcified root is a different proposition. A self-expanding frame applies gentler, sustained radial force and conforms around the calcium instead of displacing it, so it is the usual answer alongside restraint about oversizing and post-dilatation. 'Device migration; raise the oversizing and post-dilate the frame' inverts the remedy: more radial force against immovable calcium is the mechanism of the injury, not the escape from it.",
+     "choices": [
+      "Coronary occlusion; place a protective wire in the left main stem",
+      "Annular rupture; cut the oversizing or use a self-expanding frame",
+      "Device migration; raise the oversizing and post-dilate the frame",
+      "Leaflet thrombosis; extend anticoagulation beyond the usual course"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "The left coronary ostium sits 8 mm above the annular plane, the left sinus measures 27 mm across, and the left cusp is 11 mm long and densely calcified. By what mechanism is that coronary threatened?",
+     "answer": "The swept-aside cusp is longer than the ostium is high, in a sinus too small to hold it",
+     "explain": "TAVI does not remove the native valve; it pins the diseased cusp against the sinus wall. The cusp is a hinged flap, so it sweeps up to a height set by its own length. If that length exceeds the ostial height and the sinus is too shallow to accommodate the displaced tissue, the cusp lies over the ostium like a lid, and a rigid calcified cusp holds that position. Open frame cells are not themselves obstructive, which is why strut position is a much weaker concern than cusp length, ostial height and sinus width taken together.",
+     "choices": [
+      "The metal struts of the frame lie across the ostium and obstruct flow through the cells",
+      "The prosthetic leaflets swing out into the sinus and press on the ostium during systole",
+      "Calcium showers into the coronary as the balloon crushes the native cusp against the wall",
+      "The swept-aside cusp is longer than the ostium is high, in a sinus too small to hold it"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A systolic annular contour is planimetered at 430 square millimetres. Treating that contour as a circle of the same area, what diameter in millimetres does it give? Give it to one decimal place.",
+     "answer": "23.4",
+     "explain": "The area-derived diameter is the diameter of the circle of equal area: d = 2 x sqrt(A / pi) = 2 x sqrt(430 / 3.1416) = 23.3986, so 23.4 mm to one decimal place. For any contour that is not a perfect circle this figure is smaller than the perimeter-derived diameter, and the gap widens as the ring becomes more oval - which is why stating which convention a number came from matters as much as the number itself."
+    },
+    {
+     "kind": "short",
+     "prompt": "Planning CT before TAVI shows a membranous septum only 3 mm long. Identify the structure that measurement locates, say what it predicts about the patient's course, and explain how it should shape the implantation plan.",
+     "answer": "The His bundle penetrates at the inferior border of the membranous septum, so a short septum places the conduction tissue high in the outflow tract, immediately beneath where the frame will sit. If implantation depth exceeds the membranous septal length, the frame presses on the bundle and left bundle branch block or complete heart block may follow, making a permanent pacemaker likely. The plan should therefore aim for a shallow implant, avoid unnecessary oversizing, and provide for prolonged rhythm monitoring afterwards.",
+     "keywords": [
+      "His bundle",
+      "membranous septum",
+      "implantation depth",
+      "conduction",
+      "pacemaker",
+      "heart block"
+     ],
+     "explain": "The membranous septum is the roof of the conduction system's course: the bundle of His emerges at its inferior margin, beneath the commissure between the right and non-coronary cusps. Its length is therefore a direct measure of how much room lies between the annular plane and the conduction tissue. The quantity that matters in practice is the difference between septal length and implantation depth (Hamdan et al., JACC Cardiovascular Interventions 2015) - a depth greater than the septum is the geometry that predicts pacing, and it is one of the few TAVI risks the operator can still change on the table. Block is a strong risk here rather than a certainty, so the honest plan is a shallow implant plus rhythm monitoring, not a pre-emptive pacemaker."
+    },
+    {
+     "kind": "choice",
+     "prompt": "The right external iliac artery has a minimum luminal diameter of 5.0 mm with an unbroken ring of calcium in its wall; the left measures 7.5 mm, is soft-walled, but loops through two tight bends. The delivery sheath is 6.0 mm across. Which route should be taken?",
+     "answer": "The left, since a stiff wire straightens bends that hard calcium would not yield to",
+     "explain": "Two things decide a transfemoral route: the narrowest luminal diameter along the whole path relative to the sheath, and whether the wall can give. A 6.0 mm sheath in a 5.0 mm lumen is a ratio well above the value at which vascular complications climb, and circumferential calcium removes the vessel's capacity to stretch, so the wall dissects or ruptures rather than dilating. Tortuosity in a soft, adequately sized vessel is the far weaker constraint: a stiff wire straightens it. Alternative access is for cases where neither side offers calibre or compliance.",
+     "choices": [
+      "The left, since a stiff wire straightens bends that hard calcium would not yield to",
+      "The right, since a short narrowed segment stretches once the sheath is pushed through",
+      "The left, once the two tight bends have been stented open at an earlier sitting",
+      "Both sides fail here, so the case should go to a transcaval or axillary route"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "An eGFR of 28 forces a reduced-contrast protocol, and the radiographer proposes dropping the aortic run from 120 kVp to 80 kVp. Why does that allow less iodine for the same luminal opacification?",
+     "answer": "Photon energies sit nearer iodine's K-edge, so each gram attenuates more",
+     "explain": "Iodine's K-edge sits at about 33 keV. Lowering the tube potential shifts the spectrum down towards it, photoelectric absorption per gram of iodine rises steeply, and the same milligram of iodine yields a higher CT number - so the injected load can be cut for equal opacification. The price is noise: fewer and softer photons reach the detector, so tube current must rise to compensate, and the trade works best in slimmer patients. 'Beam hardening disappears at low kV, so calcium stops masking the lumen' is the trap and is backwards - beam hardening from calcium is worse at low kVp, not better. 'Low-energy photons slip past iodine, so the lumen is left looking brighter' is self-contradictory: photons that pass through would leave the lumen darker, not brighter.",
+     "choices": [
+      "Fewer photons reach the detector, so the reconstruction lifts image contrast",
+      "Low-energy photons slip past iodine, so the lumen is left looking brighter",
+      "Photon energies sit nearer iodine's K-edge, so each gram attenuates more",
+      "Beam hardening disappears at low kV, so calcium stops masking the lumen"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "The planning CT is used to compute the fluoroscopic angulation that shows the annulus edge-on. The report gives not one gantry position but a curve of paired LAO/RAO and cranial/caudal values. Why is there a curve rather than a single angle, and what does that let the operator do?",
+     "answer": "Any beam lying in the annular plane qualifies, so overlap can be dodged",
+     "explain": "The three cusp nadirs define a plane, and a plane contains not one direction but a whole family of them: any X-ray beam lying in that plane sees the annulus edge-on and projects the three nadirs onto a single line. The angulations that satisfy this therefore trace a continuous curve of paired LAO/RAO and cranial/caudal values rather than one gantry position, and that freedom is the useful part - the operator slides along the curve to a projection that also keeps the spine, the pacing wire and overlapping structures out of the way. Cardiac phase and respiration are separate variables and generate no such curve, and the curve is a property of the patient's root, not of the device. Hunting for the same view in the laboratory instead means repeated aortic root injections, spending contrast and dose on a patient who often has little renal reserve to spare.",
+     "choices": [
+      "Any beam lying in the annular plane qualifies, so overlap can be dodged",
+      "The curve allows for cardiac motion, so a phase can be picked to suit",
+      "Each point on it suits one valve size, so the chart follows the device",
+      "The curve spans the respiratory range, so a breath-hold can be avoided"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A Sievers type 1 bicuspid valve has a heavily calcified raphe between the fused cusps. The annular area points to a 26 mm balloon-expandable valve, but the intercommissural distance a few millimetres above the annulus is appreciably smaller. What follows if the annular figure alone is used?",
+     "answer": "The frame is held at the raphe above the annulus and expands unevenly there",
+     "explain": "In a tricuspid valve the basal ring is the narrowest point the frame must pass, so annular sizing works. In bicuspid disease the constraining level is often supra-annular, at the calcified raphe between the fused cusps, and it can be several millimetres narrower than the annulus. Size to the annulus alone and the frame is effectively oversized where it is actually gripped: it deforms into an ellipse, seals poorly and leaks, and the load falls on a rigid calcified raphe with rupture as the extreme. Note that 'The frame is undersized throughout and drifts up into the ascending aorta' has the geometry backwards - the frame is over-, not undersized at the level that grips it. This is why bicuspid planning adds a measurement at the supra-annular level rather than trusting the basal ring.",
+     "choices": [
+      "The frame seats too low, so that the basal ring carries the whole radial load",
+      "The frame is undersized throughout and drifts up into the ascending aorta",
+      "The frame expands fully but the native raphe covers a coronary ostium",
+      "The frame is held at the raphe above the annulus and expands unevenly there"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "rad.5.congenital-ct",
+   "title": "Congenital Heart CT",
+   "stage": 5,
+   "goal": "Analyse a congenital heart CT segment by segment and pick CT or MRI to fit.",
+   "articles": [
+    "Congenital heart defect",
+    "Situs inversus",
+    "Coarctation of the aorta",
+    "Tetralogy of Fallot",
+    "Fontan procedure"
+   ],
+   "prereqs": [
+    "rad.5.coronary-ct"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "short",
+     "prompt": "A newborn with dextrocardia has the stomach bubble on the right, and the referring team has recorded situs inversus on that basis alone. Working from the same CT, what would you look for at the atrial appendages and at the bronchi to settle atrial situs, and why does the abdominal arrangement not settle it for you?",
+     "answer": "Atrial situs is settled by appendage morphology, and on CT the bronchi are the dependable surrogate for it. A morphologic right appendage is broad and triangular with a wide junction and pectinate muscles running around the vestibule; a morphologic left appendage is narrow and finger-like with a smooth vestibule. A short bronchus passing above its pulmonary artery is right-sided morphology, a long bronchus passing below its pulmonary artery is left-sided, and the systemic venous return helps too, since the inferior caval vein normally enters the morphologic right atrium. Abdominal and atrial arrangement usually agree, but they are separate determinations made on separate evidence, and dextrocardia is the setting in which the liver, stomach and spleen scatter independently. If bronchial and appendage morphology look the same on both sides, the diagnosis is isomerism (heterotaxy) rather than simple inversus.",
+     "keywords": [
+      "appendage",
+      "bronch",
+      "pectinate",
+      "isomerism",
+      "morphology"
+     ],
+     "explain": "Sequential segmental analysis begins with atrial situs because everything downstream is described relative to it. The appendage defines situs, and bronchial morphology is the reliable imaging proxy because broncho-atrial concordance is high. Abdominal situs does agree with atrial situs in the great majority of hearts, which is why the shortcut is tempting - but agreement is not identity, and the hearts in which it fails are the ones that matter. In heterotaxy the viscera arrange themselves independently, so reading situs off the stomach bubble can start the whole segmental analysis from a false premise and mislabel an isomeric heart as mirror-image normal."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A CT in an infant with complex congenital heart disease shows two long bronchi, each passing below its pulmonary artery, with bilobed lungs on both sides. Which further finding would you expect on the same study?",
+     "answer": "Interruption of the inferior vena cava with azygos continuation",
+     "explain": "Bilateral hyparterial bronchi with bilateral bilobed lungs are left isomerism, in which the hepatic segment of the inferior caval vein usually fails to form and lower body blood returns through a dilated azygos vein. Finding that before anyone plans a cannulation or a cavopulmonary connection is the point of the observation. 'Aorta and inferior vena cava on the same side of the spine' is the tempting wrong answer, and 'Pulmonary venous drainage below the diaphragm to the portal vein' the other: both are genuine associations, but of right isomerism, whose bronchi are short and eparterial and whose lungs are trilobed on both sides.",
+     "choices": [
+      "Aorta and inferior vena cava on the same side of the spine",
+      "Pulmonary venous drainage below the diaphragm to the portal vein",
+      "A right aortic arch with mirror-image branching of its vessels",
+      "Interruption of the inferior vena cava with azygos continuation"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 3 kg neonate is ventilated for stridor and recurrent desaturation, and a left pulmonary artery sling is suspected. The team needs the vessels and the trachea in one look. Which approach fits the problem?",
+     "answer": "Non-gated CT angiography, showing vessel and airway together",
+     "explain": "CT takes seconds, needs no transfer to an MR environment and no MR-compatible ventilator, and it resolves the tracheal lumen, the lung parenchyma and the anomalous left pulmonary artery in a single acquisition; the length of airway narrowed by complete tracheal rings, which is what decides the operation, is measured in the same dataset that shows the vessel. Rigid bronchoscopy sees the rings and the absent posterior membrane directly and remains the reference standard for the mucosal side of the airway, so it complements the CT rather than being displaced by it - and the report should state where the tube tip sits, since an endotracheal tube can splint or hide the narrowed segment. 'Cardiac MRI under anaesthesia, resolving airway and vessels' is the tempting wrong answer: it settles the vascular half without ionising radiation, but it demands a long anaesthetic in an unstable infant and depicts the airway poorly. Echocardiography can show the anomalous origin itself and still does not reach the trachea.",
+     "choices": [
+      "Cardiac MRI under anaesthesia, resolving airway and vessels",
+      "Repeat echocardiography with suprasternal and subcostal views",
+      "Non-gated CT angiography, showing vessel and airway together",
+      "Fluoroscopic bronchography, then catheter pulmonary angiography"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 2-month-old with a heart rate of 140 needs the coronary origins shown before surgery, at the lowest dose that will answer the question. Which acquisition strategy would you use?",
+     "answer": "Prospective triggering set to end-systole, the steadier rest",
+     "explain": "As the rate rises the cardiac cycle shortens almost entirely at the expense of diastole, and diastasis is the first thing to vanish; a mid-diastolic target that is quiet at 60 beats per minute lands on a moving vessel at 140, which is what makes 'Prospective triggering at seventy percent of the R-R interval' - the standard adult setting - the tempting wrong answer here. End-systole shortens far less and stays predictable, so paediatric protocols trigger there. 'Retrospective gating across the cycle at full tube current' would freeze the vessel too, and that is precisely why it has to be excluded on dose rather than on motion: it irradiates the whole cycle to get there, which is the wrong trade in an infant. Beta blockade at this age is neither safe nor reliably effective, and the rate is not the thing to change.",
+     "choices": [
+      "Prospective triggering at seventy percent of the R-R interval",
+      "Prospective triggering set to end-systole, the steadier rest",
+      "Retrospective gating across the cycle at full tube current",
+      "Oral beta blockade first, to bring the rate under sixty-five"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A paediatric cardiac CT protocol is changed so that the tube current-time product is halved, with every other parameter held constant. By what factor does the image noise, the standard deviation of attenuation in a uniform region, increase? Give the factor to two decimal places.",
+     "answer": "1.41",
+     "explain": "Image noise varies inversely with the square root of the number of detected photons, and the photon count is proportional to mAs, so noise goes as one over the square root of mAs. Halving the mAs halves the dose and multiplies the noise by the square root of two, which is 1.41 to two decimal places. The trade is therefore cheap in dose and expensive in noise, and in a small patient it is usually worth taking, because the contrast those missing photons cost can be bought back with iodine at a low tube potential rather than with more photons - the effect this domain meets again in the TAVI protocol. Dose discipline counts for more here than in an adult: a small body absorbs a larger share of the beam, the tissues are dividing faster, and decades remain for a stochastic effect to appear."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 15-year-old collapses while running. CT shows the left coronary artery arising from the right sinus and passing between the aorta and the pulmonary trunk, and the surgeon proposes unroofing the proximal vessel. Which CT feature has to be present for unroofing to be the operation that fits?",
+     "answer": "A proximal segment running inside the aortic wall",
+     "explain": "Unroofing is an incision of the wall the coronary shares with the aorta, so it presupposes an intramural segment: divide that wall and the intramural course ceases to exist, the slit-shaped orifice is laid open, and the neo-ostium comes to sit in its own sinus, because those three features are one lesion abolished in one cut. That segment is also the mechanism most consistently tied to ischaemia, since inside the aortic media the lumen is elliptical and is squeezed further as aortic pressure and diameter rise with exercise. Where the interarterial course lies outside the aortic wall there is nothing to unroof, and translocation with reimplantation is the operation instead - which is why the report has to say whether the proximal segment lies inside the aortic wall and for how far, not merely that the vessel passes between the great arteries. 'A myocardial bridge over the mid anterior descending' is the trap, since bridges are unroofed as well, but that is myocardium lifted off a mid-vessel and a different problem from the one that dropped this patient.",
+     "choices": [
+      "A proximal segment running inside the aortic wall",
+      "A myocardial bridge over the mid anterior descending",
+      "A separate circumflex origin from the same sinus",
+      "A dominant right coronary reaching the cardiac crux"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "An adolescent repaired for tetralogy of Fallot is listed for percutaneous pulmonary valve implantation in the right ventricular outflow tract. Which CT finding would most change the plan?",
+     "answer": "A coronary artery crossing the intended landing zone",
+     "explain": "In a small but important minority of these patients the left anterior descending artery arises from the right coronary and crosses the outflow tract. The vessel that forbade a transannular incision at the first operation can be crushed by a stent or a valve expanded in the same place, which is why balloon testing with simultaneous coronary angiography is routine and why the CT is done beforehand. 'A right aortic arch with an aberrant left subclavian' is the tempting wrong answer, because a right arch is the commonest arch anomaly in repaired tetralogy - about a quarter of these patients - but the arch says nothing about what will happen in the outflow tract. Root dilatation and patch calcification belong in the report, and neither of them stops the procedure.",
+     "choices": [
+      "A right aortic arch with an aberrant left subclavian",
+      "A coronary artery crossing the intended landing zone",
+      "Aortic root dilatation measured at the sinuses of Valsalva",
+      "Calcification within the old transannular patch"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Before intervention on a native coarctation, the surgeon wants to know how much of the descending aortic flow is being delivered by collaterals rather than through the narrowing. Which measurement answers that question?",
+     "answer": "Phase-contrast flow beyond the narrowing against flow at the diaphragm",
+     "explain": "Blood that leaves the aorta above the coarctation and re-enters below it through internal mammary and intercostal channels makes the descending aorta carry more flow at the diaphragm than immediately beyond the stenosis, whereas a normal aorta steadily loses flow to its branches on the way down. Phase-contrast MRI measures those two volumes directly, and this is one of the questions CT has no way of answering: it gives exquisite anatomy and stent detail, but no velocity. Diameters and gradients describe the lesion rather than the collateral burden - and rib notching skips the upper two ribs, whose intercostal supply comes from the costocervical trunk.",
+     "choices": [
+      "Aortic diameter at the narrowing against diameter at the diaphragm",
+      "The number of notched ribs graded against the intercostal calibre",
+      "Phase-contrast flow beyond the narrowing against flow at the diaphragm",
+      "Peak systolic gradient across the narrowing taken at echocardiography"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "In an adult repaired by arterial switch, the pulmonary bifurcation sits in front of the neo-aorta with the branches draped around it. Which late problem follows most directly from that geometry?",
+     "answer": "Stenosis of the branch pulmonary arteries",
+     "explain": "The LeCompte manoeuvre carries the pulmonary bifurcation anterior to the aorta, so the branches must stretch around it; supravalvar and branch pulmonary stenosis is the commonest reason these patients come back for reintervention, and echo tends to underestimate it. Neo-aortic regurgitation is frequent too, but it follows from the native pulmonary valve being asked to hold systemic pressure, not from where the branches sit. A systemic venous baffle belongs to the atrial switch operations, which this patient did not have.",
+     "choices": [
+      "Stenosis of the branch pulmonary arteries",
+      "Obstruction within a systemic venous baffle",
+      "Regurgitation through the neo-aortic valve",
+      "Aneurysm at the ascending aortic suture"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A Fontan patient is scanned after a single arm-vein injection at a short delay. The cavopulmonary confluence and the left pulmonary artery contain swirling low-attenuation material that sits in mid-lumen and touches no wall, while the extracardiac conduit is uniformly unopacified. What should happen next?",
+     "answer": "Rescan after a longer delay, letting the streams mix",
+     "explain": "An arm injection opacifies the superior caval stream alone. Hepatic and lower body blood reaches the lungs through the extracardiac conduit having never seen contrast, which is why the conduit is uniformly dark rather than full of defects - itself a finding to recognise, so that nobody reports an occluded conduit. The two streams meet at the cavopulmonary confluence and run side by side into the branch arteries, throwing up swirling defects that float in mid-lumen and shift between phases. 'Report thrombus at the confluence and anticoagulate' is the dangerous wrong answer: a true thrombus is fixed, meets the wall and holds its shape across phases. The remedy is time or a second injection site - a delayed series, or simultaneous upper and lower limb injections, gives a uniformly opacified pathway. Driving the rate up through one arm widens the disparity instead of closing it.",
+     "choices": [
+      "Report thrombus at the confluence and anticoagulate",
+      "Put the appearance down to sternal wire streaking",
+      "Raise the injection rate through the same arm cannula",
+      "Rescan after a longer delay, letting the streams mix"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "rad.5.msk-mri",
+   "title": "Musculoskeletal MRI",
+   "stage": 5,
+   "goal": "Choose the MRI sequence a joint question needs, and tell artefact from disease.",
+   "articles": [
+    "Physics of magnetic resonance imaging",
+    "Anterior cruciate ligament injury",
+    "Meniscus (anatomy)",
+    "Rotator cuff tear",
+    "Bone marrow"
+   ],
+   "prereqs": [
+    "bio.3.human-anatomy",
+    "phys.3.modern"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "On a shoulder study the distal supraspinatus shows intermediate signal on the short-TE proton-density images, in the segment where the tendon curves over the humeral head. That same segment is normal in thickness and contour, and uniformly dark on the long-TE T2 images. What follows?",
+     "answer": "The signal is an orientation effect and the tendon is intact",
+     "explain": "Tendon collagen is dark because tightly bound water dephases fast, and the dipolar term that does the dephasing scales as 3cos-squared(theta) minus 1, which vanishes near 55 degrees to B0. Where the fibres pass through that angle T2 lengthens, so signal appears on sequences whose TE is short compared with the lengthened T2 and fades once TE is long. A tear holds fluid and stays bright as TE lengthens; tendinosis keeps at least intermediate signal at long TE and usually thickens the tendon. A segment that returns to uniform low signal at normal calibre does neither, so 'The finding is tendinosis that needs an arthrogram to grade' fails on both counts, and calling a tear here treats a geometry effect as disease.",
+     "choices": [
+      "An interstitial tear is present and hidden on T2 imaging",
+      "The finding is tendinosis that needs an arthrogram to grade",
+      "The signal is an orientation effect and the tendon is intact",
+      "A partial-thickness bursal-side tear should be reported"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "Take the proton resonant frequency at 1.5 T as exactly 64 MHz, with fat precessing 3.5 ppm below water. A knee sequence is read out at a bandwidth of 100 Hz per pixel. By how many pixels is fat displaced along the frequency-encoding direction? Give the number of pixels to one decimal place.",
+     "answer": "2.2",
+     "explain": "Convert the chemical shift to hertz, then hertz to pixels. 64 MHz times 3.5 ppm is 224 Hz, and frequency encoding turns that offset into a position offset of 224 divided by 100, which is 2.24 pixels, or 2.2 to one decimal place. Using the true 1.5 T frequency of 63.87 MHz gives 2.235 and rounds to the same figure. The same arithmetic governs metal, whose induced off-resonance is far larger, which is why raising the receiver bandwidth is the first move next to a prosthesis; the price is signal-to-noise falling as one over the square root of bandwidth. At 3 T the offset doubles to about 447 Hz, so the same bandwidth buys half as much protection."
+    },
+    {
+     "kind": "short",
+     "prompt": "A patient with a cobalt-chrome hip arthroplasty needs MRI for suspected periprosthetic infection, and both a 1.5 T and a 3 T scanner are free. Give three protocol decisions that shrink the metal artefact, with the physical reason each one works.",
+     "answer": "Scan at 1.5 T rather than 3 T, because the off-resonance spread the metal induces scales with field strength. Raise the receiver bandwidth, because the displacement produced by a given off-resonance equals that offset divided by the bandwidth per pixel. Suppress fat with STIR rather than a spectral pulse, because inversion recovery nulls by T1 and does not need the fat resonance to sit where the scanner expects it. Beyond the three asked for, thin slices, view-angle tilting and SEMAC or MAVRIC correct the residual in-plane and through-plane distortion.",
+     "keywords": [
+      "1.5",
+      "bandwidth",
+      "field",
+      "inversion"
+     ],
+     "explain": "Each decision follows from one fact: metal warps B0, so protons near it precess at the wrong frequency and the scanner mislocates them. Lower field means a smaller absolute frequency spread; higher bandwidth means each hertz of error buys less displacement; STIR nulls by T1 recovery rather than by resonant frequency, so it tolerates a fat peak shifted out of the saturation band. Spin echo with its refocusing pulses is essential and gradient echo is the wrong family here, since gradient echo lets exactly this off-resonance dephasing accumulate."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Sagittal proton-density images show a linear high-signal line separating a small triangular structure from the anterior horn of the lateral meniscus on two adjacent slices. Coronal images show a band running transversely across the front of the joint into that point. What is the appropriate action?",
+     "answer": "Report the meniscus intact; the band explains the cleft",
+     "explain": "The transverse intermeniscal ligament crosses the front of the joint to the anterior horns, and the fat between ligament and meniscus makes a pseudotear line that can be traced onto contiguous coronal or axial images as a discrete band. The two-slice rule bites only on signal that reaches an articular surface; this line lies along the interface between ligament and meniscus and stops there, which is why persisting on adjacent slices does not make it a tear. So 'Report a tear of the anterior horn of the lateral meniscus' misapplies a criterion whose premise is missing, and ordering an arthrogram to confirm a structure the plain study already resolves adds a needle for nothing.",
+     "choices": [
+      "Report the meniscus intact; the band explains the cleft",
+      "Report a tear of the anterior horn of the lateral meniscus",
+      "Recommend MR arthrography to confirm an anterior horn tear",
+      "Report a displaced flap in the anterior joint recess"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Sagittal images through the lateral compartment show fluid signal separating the posterior horn of the lateral meniscus from the capsule, at the level where the popliteus tendon runs obliquely behind it. The meniscal substance is uniformly dark, both popliteomeniscal fascicles are continuous, and the meniscus sits in normal position. How should this be handled?",
+     "answer": "Call it the normal popliteal hiatus and report no tear",
+     "explain": "Over roughly a centimetre the lateral meniscus has no capsular attachment, because the popliteus tendon passes through the hiatus, and fluid or fat there imitates a peripheral detachment. What settles it is that the meniscal substance carries no signal reaching an articular surface, and that the gap follows the tendon's course rather than continuing along the meniscal margin beyond the hiatus. 'Attribute the appearance to a torn popliteomeniscal fascicle' is the real differential and the tempting one, but that diagnosis rests on disrupted fascicles and a hypermobile or displaced meniscus, and this study reports both fascicles continuous and the meniscus sited normally.",
+     "choices": [
+      "Report a peripheral tear detaching the posterior horn",
+      "Describe a bucket-handle tear with the fragment displaced",
+      "Attribute the appearance to a torn popliteomeniscal fascicle",
+      "Call it the normal popliteal hiatus and report no tear"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "After a non-contact twisting injury a knee MRI shows marrow oedema in the lateral femoral condyle at the sulcus terminalis and in the posterior lateral tibial plateau. The cruciate images are degraded by motion. What does the oedema pattern support?",
+     "answer": "Pivot-shift impaction, which places the ACL at high risk",
+     "explain": "In the pivot shift a valgus load with rotation carries the tibia forward, and the lateral femoral condyle strikes the posterior lateral tibial plateau; the paired contusions record that collision and carry a strong association with a torn ACL. The motion-degraded cruciate images should therefore be repeated, or the ACL reported as suspect, rather than passed over. 'Dashboard impaction, which points to a posterior cruciate tear' is the closest rival, but dashboard loading drives the tibia backwards and bruises the anterior tibia instead, which is a different pattern in a different place.",
+     "choices": [
+      "Dashboard impaction, which points to a posterior cruciate tear",
+      "Pivot-shift impaction, which places the ACL at high risk",
+      "Clip injury, which points to a medial collateral tear",
+      "Hyperextension impaction, which spares both cruciate ligaments"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Eighteen months after partial medial meniscectomy a patient has recurrent locking, and conventional MRI shows intermediate signal touching the tibial surface of the small remnant. Why is direct MR arthrography preferred here to an intravenous gadolinium study?",
+     "answer": "Contrast placed in the joint fills a re-tear cleft directly",
+     "explain": "In an operated meniscus the usual criterion fails, because the cut surface and its granulation tissue produce surface-reaching intermediate signal for years; the question becomes whether a cleft is open to the joint. Dilute gadolinium injected into the joint tracks into an open cleft, which answers exactly that. 'Intravenous gadolinium fails to reach the joint space itself' is the tempting distractor and its premise is false: indirect arthrography does opacify the joint by diffusion from synovium, given a delay and some exercise. What it shows, though, is enhancement rather than filling, and enhancing granulation tissue is read as a sign of re-tear by some authors and as a confounder by others, so it settles the question less directly than contrast running into a cleft.",
+     "choices": [
+      "Intravenous gadolinium fails to reach the joint space itself",
+      "Distension of the capsule is what displays the remnant",
+      "Contrast placed in the joint fills a re-tear cleft directly",
+      "Intra-articular injection carries a lower contrast dose"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "In-phase and opposed-phase gradient-echo images of the lumbar spine show a focus that loses more than a fifth of its signal on the opposed-phase image, and on T1 the focus is a little brighter than the adjacent disc. What does the signal drop indicate about the focus?",
+     "answer": "Fat and water share the voxels, favouring a benign focus",
+     "explain": "At the opposed-phase echo time fat and water magnetisation point in opposite directions, so a voxel loses signal in proportion to how much of each it holds, and a drop therefore requires both to be present. Haematopoietic marrow keeps interspersed adipocytes and drops; a marrow-replacing lesion has pushed the fat out and holds its signal, so 'The focus is cellular, so marrow replacement is likely' reads the drop backwards. The T1 comparison with disc and muscle is the independent check. Sclerosis and blood products act through T2-star, which attenuates the longer in-phase echo more than the shorter opposed-phase one, so they shrink or even reverse an apparent drop rather than creating one.",
+     "choices": [
+      "The focus is cellular, so marrow replacement is likely",
+      "Blood products are present and dephase the gradient echo",
+      "The focus is sclerotic, which shortens T2* and darkens it",
+      "Fat and water share the voxels, favouring a benign focus"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "One distance runner with shin pain has periosteal and marrow oedema in the posteromedial tibia on fluid-sensitive images, with normal T1. A second runner has the same oedema plus a dark line crossing the cortex on T1. What separates the two?",
+     "answer": "The second shows a fracture line, so a longer time unloaded",
+     "explain": "Stress injury runs a continuum, and the established MRI grading climbs from periosteal oedema, through marrow oedema visible on fluid-sensitive images alone, to marrow signal change seen on T1, and finally a discrete fracture line, with return to sport lengthening at each step. T1 does the discriminating work because marrow fat, and its displacement, is what T1 shows. 'The two grade alike, because marrow oedema settles the grade' is the trap: fluid-sensitive sequences are sensitive but unspecific, and oedema by itself can follow a change in training load. MRI outperforms radiographs and CT at the early end, so sending the first runner for CT loses information rather than adding it.",
+     "choices": [
+      "The second shows a fracture line, so a longer time unloaded",
+      "The first has the higher grade, since oedema outweighs a line",
+      "The two grade alike, because marrow oedema settles the grade",
+      "The first needs a CT, since MRI misses periosteal reaction"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A suspected soft-tissue sarcoma of the thigh is imaged, and the radiographer, worried that spectral fat saturation will fail at the edge of the field, acquires the post-gadolinium sequence as a STIR. Why is that the wrong choice?",
+     "answer": "STIR nulls by T1, and enhancement drives tumour T1 toward fat",
+     "explain": "Inversion recovery suppresses whatever has recovered to the null point at the chosen inversion time, and that is a statement about T1 rather than about frequency. Gadolinium shortens the T1 of enhancing tissue, so enhancing tumour or granulation can be driven into the nulled band and erased, which defeats the purpose of giving contrast at all. Use spectral fat suppression on the post-contrast T1, or a Dixon water-only reconstruction, which separates fat from water by phase evolution and tolerates far more field inhomogeneity than a single saturation pulse. 'Gadolinium shifts the fat resonance, so the inversion mistimes' is the plausible-sounding rival, but gadolinium at clinical doses does not move the fat resonance, and inversion recovery would not care where that resonance sat even if it did.",
+     "choices": [
+      "Gadolinium shifts the fat resonance, so the inversion mistimes",
+      "STIR nulls by T1, and enhancement drives tumour T1 toward fat",
+      "Inversion recovery images the tumour rim but not its centre",
+      "The inversion pulse breaks down the chelate in the contrast"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "rad.5.prostate-mri",
+   "title": "Prostate MRI",
+   "stage": 5,
+   "goal": "Score a prostate MRI by PI-RADS v2.1 and tell real lesions from benign mimics.",
+   "articles": [
+    "PI-RADS",
+    "Prostate cancer",
+    "Diffusion-weighted magnetic resonance imaging",
+    "Magnetic resonance imaging",
+    "Prostate biopsy"
+   ],
+   "prereqs": [
+    "bio.3.human-anatomy",
+    "phys.3.modern",
+    "rad.5.msk-mri"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A 1.2 cm anterior mid-gland lesion has its epicentre in the transition zone, with one edge abutting the anterior horn of the peripheral zone. It is lens-shaped, its margin fading into the surrounding gland rather than being sharply drawn, and it is uniformly and moderately dark on T2W. On diffusion it is focally hypointense on ADC and mildly hyperintense at b=1500. How should it be assessed?",
+     "answer": "Assess it in the transition zone; T2 governs, giving PI-RADS 4",
+     "explain": "PI-RADS v2.1 assigns a lesion straddling the zones to the zone it appears most likely to have arisen from, and the epicentre is the practical guide to that; the choice then fixes which sequence dominates, T2W in the transition zone and DWI in the peripheral zone. Lenticular or non-circumscribed, homogeneous, moderately hypointense and under 1.5 cm is a transition zone T2W score of 4, which is exactly what the described lens shape, fading margin and uniform moderate darkness amount to, and a transition zone T2W score of 4 is PI-RADS 4 whatever diffusion shows. Diffusion moves a transition zone lesion at two points and no others: a T2W score of 2 with DWI 4 or 5 becomes PI-RADS 3, and a T2W score of 3 with DWI 5 becomes PI-RADS 4. Neither applies here. 'Let DCE break the tie between T2 and DWI, giving PI-RADS 4' arrives at the right number down a road that does not exist, since DCE plays no part in the transition zone whatever it shows.",
+     "choices": [
+      "Assess it in the peripheral zone; DWI governs, giving PI-RADS 3",
+      "Assess it in the transition zone; T2 governs, giving PI-RADS 4",
+      "Take the lower of the two sequence scores, giving PI-RADS 3",
+      "Let DCE break the tie between T2 and DWI, giving PI-RADS 4"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 9 mm posterolateral peripheral zone focus is discretely but not markedly hypointense on ADC and mildly hyperintense at b=1500, giving a DWI score of 3. On DCE there is focal enhancement at that site, appearing before the surrounding normal peripheral zone. What follows for the report?",
+     "answer": "The category becomes 4, so biopsy usually follows",
+     "explain": "DCE has exactly one job in PI-RADS v2.1: a peripheral zone lesion scored 3 on DWI becomes PI-RADS 4 if DCE is positive, meaning focal enhancement that is earlier than or contemporaneous with adjacent normal prostate and corresponds to the T2W or DWI finding. It is a binary read, so 'The category stays 3 unless washout appears later on' fails twice over: v2.1 abandoned curve typing, and the upgrade has already been earned. What DCE cannot buy is a higher ceiling, so 'The category becomes 5, as two sequences are positive' is wrong too; a DWI 4 lesion stays 4 however it enhances, since only a size of 1.5 cm or more, or definite extraprostatic extension, makes 5. The move from 3 to 4 is the one that matters clinically, because 3 is equivocal and may be watched, while v2.1 says biopsy should be considered for 4 or 5.",
+     "choices": [
+      "The category stays 3, since DCE does not alter DWI",
+      "The category becomes 5, as two sequences are positive",
+      "The category becomes 4, so biopsy usually follows",
+      "The category stays 3 unless washout appears later on"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 65-year-old man has a transition zone nodule that is homogeneous and circumscribed but not encapsulated. On diffusion the nodule is discretely, though only mildly, hypointense on ADC and mildly hyperintense at b=1500. A colleague wants to call it PI-RADS 3 on the diffusion finding. Why should you resist?",
+     "answer": "Mild restriction is expected in stromal hyperplasia nodules",
+     "explain": "Score it first. A homogeneous circumscribed nodule without encapsulation is the atypical nodule, a T2W score of 2; a discrete focus that restricts only mildly on both ADC and high b-value is a DWI score of 3. PI-RADS v2.1 blocks precisely that upgrade: mildly or moderately restricted diffusion is common in mostly encapsulated and unencapsulated transition zone lesions, much of it stromal hyperplasia, so a T2W score of 1 or 2 is not raised on a DWI score of 3. The nodule stays PI-RADS 2. 'Diffusion has no bearing whatever on transition zone scores' overshoots: diffusion does count there, but only above that threshold, and v2.1 added exactly that step, a T2W score of 2 with DWI 4 or 5 becoming PI-RADS 3, and a T2W score of 3 with DWI 5 becoming PI-RADS 4.",
+     "choices": [
+      "The nodule must exceed 1.5 cm before diffusion is counted",
+      "Mild restriction is expected in stromal hyperplasia nodules",
+      "Diffusion has no bearing whatever on transition zone scores",
+      "Restriction counts here if the nodule also enhances early on"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "Three weeks after systematic TRUS biopsy, T1W images show diffuse hyperintensity through much of both peripheral zones. Within it, a 14 mm right posterolateral area is conspicuously T1 hypointense, and that same area is T2 hypointense with markedly reduced ADC and marked b=1500 signal. What does the T1-dark area most likely represent?",
+     "answer": "Tumour, spared by the blood and standing out as a T1 defect",
+     "explain": "This is the haemorrhage exclusion sign. The explanation usually offered is that tumour has markedly reduced citrate, and that citrate is anticoagulant, so blood collects in the benign peripheral zone and spares the cancer; that mechanism is a published hypothesis rather than a measured fact, but the pattern it predicts is reliable. Read the T1W series as a map of where cancer is not, and a dark hole in a bright field is the suspicious finding; reading T1 brightness itself as tumour inverts the sign. 'Older blood whose signal has decayed back towards low T1' is the tempting answer, since v2.1 grants that chronic blood products may appear hypointense on all sequences, but the surrounding blood is the same three weeks old and still bright, so blood of that age has no reason to be dark in one 14 mm patch, and marked b=1500 signal with a low ADC indicates restricted diffusion rather than the signal loss susceptibility from old blood would produce. PI-RADS v2.1 does suggest considering a gap of six weeks or more when the study is for staging, but here the haemorrhage has made the lesion more conspicuous, not less.",
+     "choices": [
+      "Older blood whose signal has decayed back towards low T1",
+      "Prostatitis, which tends to bleed less than the normal gland",
+      "Tumour, spared by the blood and standing out as a T1 defect",
+      "Artefact from a needle track running across the posterior zone"
+     ]
+    },
+    {
+     "kind": "choice",
+     "prompt": "At the prostatic base, bands of low T2W and low ADC signal encircle both ejaculatory ducts and converge towards the verumontanum. Bulky transition zone hyperplasia has displaced the left band so that it is visibly larger than the right, but signal is equal on the two sides on T2W, ADC and b=1500, and neither side enhances early. How should this be handled in the report?",
+     "answer": "Report it as the normal central zone, with no lesion score",
+     "explain": "Separate the two asymmetries. What PI-RADS v2.1 treats as suspicious in the central zone is asymmetry of signal between the two sides on T2W, ADC or high b-value images, or focal early enhancement; here the signal is equal on all three and neither side enhances. What is present is asymmetry of size, and v2.1 names that a normal variant, particularly when transition zone hyperplasia deforms or displaces the central zone at the base, which is the described mechanism exactly. Everything else fits the normal central zone as v2.1 describes it: low T2W and ADC signal wrapping the ejaculatory ducts from base to verumontanum, mildly hyperintense at high b-value. 'Score it PI-RADS 4 on the strength of the low ADC signal' is the trap, because it scores a normal structure on one sequence read in isolation and turns it into a biopsy target.",
+     "choices": [
+      "Score it PI-RADS 4 on the strength of the low ADC signal",
+      "Call it bilateral tumour arising at the base, PI-RADS 5",
+      "Score it PI-RADS 3, because the appearance is equivocal",
+      "Report it as the normal central zone, with no lesion score"
+     ]
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A prostate DWI acquires b = 100 and b = 1000 s/mm^2. In a peripheral zone lesion the mean signal falls from 800 to 400 arbitrary units between those two b-values. Fitting a mono-exponential decay through the two points only, what ADC does this give, in units of 10^-3 mm^2/s? Give it to two decimal places.",
+     "answer": "0.77",
+     "explain": "Mono-exponential decay is S(b) = S0 exp(-b x ADC), so ADC = ln(S1/S2) / (b2 - b1) = ln 2 / 900 = 7.70 x 10^-4 mm^2/s, that is 0.77 x 10^-3. Now resist the obvious next step. PI-RADS v2.1 offers 750-900 micrometre^2/s as the range within which a threshold may be set, and says that values below the chosen threshold correlate with clinically significant cancer. 770 sits inside that range, which makes it indeterminate rather than positive: suspicious if your unit has settled on 900, unremarkable if it has settled on 750. That is not a fault in the arithmetic but the reason the number is not a verdict, since ADC depends on which b-values were used and varies between vendors, and it is why v2.1 keeps visual assessment of the ADC map as the primary method rather than a numerical cut-off."
+    },
+    {
+     "kind": "short",
+     "prompt": "Your protocol acquires b = 50 and b = 800 s/mm^2, and the scanner then synthesises a b = 1500 image by extrapolation. A trainee asks why the b = 1500 data is not simply acquired directly and folded into the mono-exponential ADC fit as a third point. Give the two separate reasons, and state the b-values PI-RADS v2.1 requires for the high b-value image set and permits for the ADC calculation.",
+     "answer": "Two reasons of different kinds. The first is practical: a directly acquired b = 1500 series needs strong diffusion gradients and so a longer echo time, and the signal-to-noise ratio falls as b rises, so it costs scan time and image quality and is more prone to artefact, which is why an image calculated from the acquired low and intermediate data is often the cleaner one. The second is about the model: prostate signal decay stops behaving in a mono-exponential way above roughly b = 1000 because of diffusion kurtosis, so folding a b = 1500 point into the fit would bias the calculated ADC and break comparability between studies. PI-RADS v2.1 requires a high b-value image set of at least 1400 s/mm^2, obtained either from a separate acquisition or calculated from the low and intermediate b-value images, and recommends that the maximum b-value used to calculate ADC be no greater than 1000 s/mm^2.",
+     "keywords": [
+      "kurtosis",
+      "mono-exponential",
+      "1400",
+      "1000"
+     ],
+     "explain": "The two reasons are of different kinds, and conflating them is the usual error. One is practical: strong diffusion gradients force a long echo time and the signal-to-noise ratio falls as b rises, so a directly acquired b = 1500 series costs time and quality. PI-RADS v2.1 accepts either route for the high b-value set, acquired separately or calculated, and notes only that calculating it avoids the longer echo times the strong gradient pulses would need. The other reason is about the model: the mono-exponential fit that defines ADC holds to roughly b = 1000 and then departs from the data, because kurtosis flattens the decay curve. A point at b = 1500 sits above the fitted line, drags the fitted slope shallower, and so lowers the reported ADC for reasons that have nothing to do with cellularity, which is why v2.1 recommends 1000 s/mm^2 as the maximum b-value used in the calculation while requiring at least 1400 s/mm^2 for the high b-value images. Those images earn their keep by suppressing signal from benign tissue with high diffusivity, lifting conspicuity at the apex, the base, subcapsular sites and beside the anterior fibromuscular stroma."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 1.1 cm posterolateral peripheral zone lesion is markedly hypointense on ADC and markedly hyperintense at b=1500. It contacts the capsule over 16 mm, the rectoprostatic angle is obliterated, and a small tongue of tumour signal is measurable outside the gland beside the neurovascular bundle. Which category follows, and on what grounds?",
+     "answer": "PI-RADS 5, since definite extraprostatic extension overrides size",
+     "explain": "A DWI score of 4 and a DWI score of 5 are separated by two things, not one: a size of 1.5 cm or more, or definite extraprostatic extension or invasive behaviour. Tumour measurably outside the gland is the second of those, so an 11 mm lesion is PI-RADS 5 and its size never comes into it. The grounds matter as much as the number. PI-RADS v2.1 lists several features used to assess extraprostatic extension, among them a bulging contour, an irregular or spiculated margin, obliteration of the rectoprostatic angle, neurovascular bundle asymmetry or invasion, a tumour-capsule interface over 1 cm, and breach of the capsule with direct tumour extension; it ranks none of them, and only the last is demonstrable extraglandular tumour. 'PI-RADS 5, since the lost rectoprostatic angle settles the point' therefore reaches the right category on the wrong ground: a lost angle, like a long contact length, raises suspicion but occurs in organ-confined disease too, and on its own supports an indeterminate margin rather than a definite one.",
+     "choices": [
+      "PI-RADS 4, since the lesion measures well under 1.5 cm across",
+      "PI-RADS 5, since definite extraprostatic extension overrides size",
+      "PI-RADS 4, with the extraprostatic disease called indeterminate",
+      "PI-RADS 5, since the lost rectoprostatic angle settles the point"
+     ]
+    },
+    {
+     "kind": "short",
+     "prompt": "A 78-year-old man's seminal vesicles are diffusely low in T2W signal on both sides. There is no restricted diffusion and no abnormal enhancement in the walls, the angles with the prostatic base are preserved, and the sole prostatic finding is a small apical PI-RADS 3 focus. How do you report the vesicles, what benign process most likely accounts for the appearance, and what would have changed your mind?",
+     "answer": "Report them as uninvolved. Bilateral symmetric T2W hypointensity with no restricted diffusion, no abnormal enhancement, preserved angles at the base and no contiguous tumour is the picture of senile seminal vesicle amyloidosis, or of age-related atrophy, rather than invasion. Invasion would show some combination of focal or diffuse low T2W signal with restricted diffusion or abnormal enhancement within or along the vesicle, obliteration of the angle between the prostatic base and the vesicle, and tumour continuous with the gland extending along the ejaculatory duct; no single one of those is strictly required, but low T2W signal is the weakest of them and is the only one present here. Geography argues the same way, since an apical lesion is at the wrong end of the gland to reach the vesicles.",
+     "keywords": [
+      "amyloid",
+      "restricted diffusion",
+      "symmetric",
+      "contiguous",
+      "base"
+     ],
+     "explain": "Low T2W signal is the least specific of the seminal vesicle invasion features, and in an elderly man amyloid deposition in the vesicle walls is the commoner cause. The features that carry weight are the ones invasion cannot easily avoid: a diffusion or enhancement abnormality in the vesicle itself, loss of the angle at the base, and physical continuity with tumour extending from the prostate. PI-RADS v2.1 gives these as features of invasion rather than as a checklist every case must complete, so the call is a weighing and not a tally, and real invasion can be diagnosed on two of them. Here bilateral symmetry argues against tumour, three of the four are absent, and a small apical focus is at the wrong end of the gland to reach the vesicles at all."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A staging study at 3T uses an endorectal coil whose balloon has been inflated with air. The T2W images are high in resolution and diagnostic, but DWI shows marked geometric distortion and signal dropout across the posterior gland. What is the most appropriate correction?",
+     "answer": "Re-inflate the balloon with a liquid such as barium suspension",
+     "explain": "Air in the balloon sits in a steep susceptibility gradient right against the posterior peripheral zone, and echo-planar DWI is the sequence least able to tolerate field inhomogeneity, which is why the T2W images survive and the diffusion images do not. The distortion grows with field strength, so 3T is where it bites hardest. PI-RADS v2.1 answers this directly: expel the air and distend the balloon with a liquid such as perfluorocarbon or barium suspension, or use a rigid coil that needs no balloon. 'Rescan at 1.5T, where the same balloon causes less trouble' would indeed shrink the distortion, and dropping field strength is the right move when the source of inhomogeneity cannot be removed, as with a metal prosthesis; here it can be removed, so 1.5T surrenders the signal-to-noise and resolution a staging study was booked for in order to solve a problem a syringe of barium solves. Raising the b-value lowers signal-to-noise without touching the inhomogeneity, and dropping the coil throws away the resolution the staging question depends on.",
+     "choices": [
+      "Repeat the diffusion sequence after raising the b-value further",
+      "Re-inflate the balloon with a liquid such as barium suspension",
+      "Remove the coil and accept the lower-resolution T2W images",
+      "Rescan at 1.5T, where the same balloon causes less trouble"
+     ]
+    }
+   ]
+  }
+ ]
+}

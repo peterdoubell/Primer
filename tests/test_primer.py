@@ -343,10 +343,51 @@ def test_graph_is_acyclic_and_fully_reachable(curr):
 
 
 def test_every_stage_is_populated_in_every_domain(curr):
+    """A domain has no gaps: whatever stage it starts at, it runs to the end.
+
+    The ten general fields start at 0, which is the book's promise that a domain
+    is something a reader travels from preschool to graduate rather than a
+    subject handed to them at a level someone else chose. A domain may instead
+    declare a later `entry_stage` and begin above the general spine — radiology
+    is postgraduate by nature, and inventing preschool radiology to satisfy a
+    structural rule would be dishonest about what the book contains. What is not
+    allowed either way is a hole in the middle.
+    """
     for d in curr.domains:
         stages = {n['stage'] for n in curr.nodes.values() if n['domain'] == d['id']}
-        assert stages == {0, 1, 2, 3, 4, 5}, '{} missing stages {}'.format(
-            d['id'], {0, 1, 2, 3, 4, 5} - stages)
+        expected = set(range(d.get('entry_stage', 0), 6))
+        assert stages == expected, '{} has stages {}, expected {}'.format(
+            d['id'], sorted(stages), sorted(expected))
+
+
+def test_a_specialist_domain_is_still_reachable(curr):
+    """A domain that starts above stage 0 has no earlier stage to gate it, so
+    `stage_gate_open` waves it straight through — which would make it unlocked
+    from the reader's first day if nothing else stood in the way. Its nodes must
+    therefore carry cross-domain prereqs, or a five-year-old is offered TAVI
+    planning on the Today screen.
+    """
+    for d in curr.domains:
+        if d.get('entry_stage', 0) == 0:
+            continue
+        own = [n for n in curr.nodes.values() if n['domain'] == d['id']]
+        assert any(n['stage'] == d['entry_stage'] for n in own), \
+            '{} declares entry_stage {} but has no node there'.format(
+                d['id'], d['entry_stage'])
+        for n in own:
+            assert not curr.unlocked(n, {}), \
+                '{} is unlocked for a reader who has mastered nothing'.format(n['id'])
+        # …and the earning has to come from outside, or the domain is a closed
+        # loop no reader can enter. It need not be every node: a node gated by
+        # a sibling is earned through whatever that sibling required.
+        roots = [n for n in own
+                 if not any(curr.nodes.get(p, {}).get('domain') == d['id']
+                            for p in n['prereqs'])]
+        assert roots, '{} has no node reachable from outside itself'.format(d['id'])
+        for n in roots:
+            assert [p for p in n['prereqs']
+                    if curr.nodes.get(p, {}).get('domain') != d['id']], \
+                '{} is a way in with nothing to earn it'.format(n['id'])
 
 
 def test_advanced_nodes_have_authored_quizzes(curr):

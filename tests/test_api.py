@@ -17,6 +17,20 @@ import pytest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
+def _domain_file_count():
+    """How many domains the book actually ships.
+
+    The curriculum registers a domain by the presence of its file, so the count
+    is a fact about the directory. Two tests used to hardcode it, which meant
+    adding radiology — the eleventh — was a failure in two places that were not
+    about radiology at all.
+    """
+    import glob
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return len(glob.glob(os.path.join(root, "data", "curriculum", "*.json")))
+
+
 @pytest.fixture(scope="module")
 def client(tmp_path_factory):
     """Boot the app against an isolated database."""
@@ -87,7 +101,10 @@ def test_healthz(client):
 
 def test_state_before_onboarding_is_honest(client):
     d = client.get("/api/state").json()
-    assert "onboarded" in d and len(d["domains"]) == 10
+    # Eleven since radiology joined the ten general fields. Counted against the
+    # files rather than a literal, so adding the next specialist domain does not
+    # mean editing a number in two test files to say the same thing twice.
+    assert "onboarded" in d and len(d["domains"]) == _domain_file_count()
 
 
 
@@ -712,7 +729,7 @@ def test_journal_endpoint(client, onboarded):
 
 def test_curriculum_graph_shape(client, onboarded):
     g = client.get("/api/curriculum").json()
-    assert len(g["domains"]) == 10 and len(g["nodes"]) > 300
+    assert len(g["domains"]) == _domain_file_count() and len(g["nodes"]) > 300
     locked = [n for n in g["nodes"] if not n["unlocked"] and not n["mastered"]]
     assert locked and all(n.get("unlock_requirements") for n in locked), \
         "every locked node must explain itself"

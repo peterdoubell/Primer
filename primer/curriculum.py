@@ -111,6 +111,17 @@ class Curriculum:
                 "icon": data.get("icon", "✦"), "color": data.get("color", "#4a6fa5"),
                 "tagline": data.get("tagline", ""),
                 "node_count": len(data["nodes"]),
+                # The stage a domain starts at. The ten general fields start at
+                # 0 and run the whole book, which is what makes them fields a
+                # reader travels rather than subjects they are handed. A
+                # specialist domain declares a later entry and begins where the
+                # general spine ends — radiology is postgraduate by nature, and
+                # preschool radiology is not a thing anyone should invent to
+                # satisfy a structural rule. The stage gate already allows this:
+                # stage_gate_open returns True when the previous stage is empty,
+                # so entry is governed by the cross-domain prereqs the nodes
+                # declare, not by a ladder that does not exist.
+                "entry_stage": int(data.get("entry_stage", 0)),
             })
             for node in data["nodes"]:
                 node = dict(node)
