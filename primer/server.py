@@ -306,7 +306,11 @@ async def _hosted_access_guard(request, call_next):
     password is missing, preventing a configuration mistake from silently
     publishing the shared profile and cost-bearing tutor endpoints.
     """
-    if request.url.path == "/healthz":
+    # Starlette builds ``request.url`` from the untrusted Host header.  On
+    # affected releases, a Host value containing a path can make
+    # ``request.url.path`` differ from the path that ASGI actually routed.
+    # Authorisation exemptions must therefore use the raw ASGI scope path.
+    if request.scope.get("path") == "/healthz":
         return await call_next(request)
 
     password = os.environ.get(ACCESS_PASSWORD_ENV)

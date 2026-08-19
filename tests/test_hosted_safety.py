@@ -39,6 +39,19 @@ def test_vercel_fails_closed_without_an_access_password(monkeypatch):
     assert response.headers["cache-control"] == "no-store"
 
 
+def test_health_exemption_cannot_be_forged_with_host_header(monkeypatch):
+    """CVE-2026-48710 must not turn a protected raw path into /healthz."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.delenv(srv.ACCESS_PASSWORD_ENV, raising=False)
+
+    with TestClient(srv.app) as client:
+        response = client.get(
+            "/api/state", headers={"host": "example.com/healthz?ignored="})
+
+    assert response.status_code == 503
+    assert response.headers["cache-control"] == "no-store"
+
+
 def test_hosted_access_password_protects_html_and_api(monkeypatch):
     monkeypatch.setenv("VERCEL", "1")
     monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
