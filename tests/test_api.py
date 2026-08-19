@@ -43,6 +43,19 @@ def onboarded(client):
     return r.json()
 
 
+@pytest.fixture
+def open_assessment_gate(monkeypatch):
+    """Let tests of paper/grading mechanics reach lessons outside the frontier.
+
+    Those tests predate server-side curriculum enforcement and intentionally
+    exercise arbitrary stages. The dedicated lock regression below uses the
+    real gate; this fixture keeps unrelated assertions about token binding,
+    paper shape, feedback and mastery isolated from prerequisite setup.
+    """
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node: None)
+
+
 def _play(client, path, node_id=None, wrong=False):
     """Sit a paper the way the app does: fetch, mark each item, then submit."""
     paper = client.get(path).json()
@@ -107,6 +120,39 @@ def test_a_new_profile_starts_at_the_beginning_and_assumes_nothing(client, onboa
     t = client.get("/api/today").json()
     assert t["assumed"] == 0, "nothing has been measured, so nothing is credited"
     assert t["mastered"] == 0
+
+
+def test_editing_a_profile_preserves_its_existing_stage(tmp_path):
+    """Profile edits must not erase placement/progression back to stage zero."""
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as isolated:
+            first = isolated.post("/api/profile", json={
+                "name": "Reader", "age": 12, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["math"]})
+            assert first.status_code == 200 and first.json()["stage"] == 0
+
+            prof = srv.learner.get_profile()
+            srv.learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
+                                     prof["breadth"], 3, prof["domains"],
+                                     prof.get("settings"))
+            edited = isolated.post("/api/profile", json={
+                "name": "Reader renamed", "age": 13, "hours_per_week": 8,
+                "breadth": "focused", "domains": ["math", "physics"]})
+            assert edited.status_code == 200
+            assert edited.json()["stage"] == 3
+            assert srv.learner.get_profile()["stage"] == 3
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
 
 def test_today_returns_a_stable_daily_quest(client, onboarded):
@@ -387,7 +433,8 @@ def test_the_first_mastery_bonus_is_paid_once_not_once_per_relapse(tmp_path):
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
 
 
-def test_quiz_endpoint_serves_questions_for_every_stage(client, onboarded):
+def test_quiz_endpoint_serves_questions_for_every_stage(client, onboarded,
+                                                         open_assessment_gate):
     for node in ("math.0.counting", "math.1.addition", "math.2.fractions",
                  "math.3.quadratics", "math.4.linalg", "math.5.topology"):
         d = client.get("/api/quiz/" + node + "?n=3").json()
@@ -409,7 +456,7 @@ def test_unknown_generator_404s_with_help(client):
     assert r.status_code == 404 and r.json()["available"]
 
 
-def test_quiz_submit_records_and_returns_mastery(client, onboarded):
+def test_quiz_submit_records_and_returns_mastery(client, onboarded, open_assessment_gate):
     paper, answers = _play(client, "/api/quiz/math.1.addition?n=4")
     r = client.post("/api/quiz/submit", json={
         "node_id": "math.1.addition", "answers": answers, "token": paper["token"]}).json()
@@ -418,7 +465,7 @@ def test_quiz_submit_records_and_returns_mastery(client, onboarded):
     assert r["mastery"]["xp_gained"] > 0
 
 
-def test_failing_quiz_still_builds_review_cards(client, onboarded):
+def test_failing_quiz_still_builds_review_cards(client, onboarded, open_assessment_gate):
     paper, _ = _play(client, "/api/quiz/math.2.fractions?n=3")
     r = client.post("/api/quiz/submit", json={
         "node_id": "math.2.fractions", "answers": [""] * len(paper["questions"]),
@@ -426,7 +473,7 @@ def test_failing_quiz_still_builds_review_cards(client, onboarded):
     assert r["cards_added"] > 0
 
 
-def test_review_cycle(client, onboarded):
+def test_review_cycle(client, onboarded, open_assessment_gate):
     # Make sure the deck has something in it first.
     paper, _ = _play(client, "/api/quiz/math.2.fractions?n=3")
     client.post("/api/quiz/submit", json={
@@ -460,6 +507,16 @@ def test_review_unknown_card_is_handled(client, onboarded):
 def test_placement_is_scored_server_side(client, onboarded):
     p = client.get("/api/placement/next?domain=math&n=4").json()
     assert p["questions"] and p.get("token")
+    partial = client.post("/api/placement/submit", json={
+        "domain": "math", "stage": p["stage"], "token": p["token"],
+        "answers": answer_key(p)[:1]})
+    assert partial.status_code == 400
+    assert partial.json()["expected"] == len(p["questions"])
+    assert partial.json()["received"] == 1
+
+    # The malformed sitting changed no placement state; a complete paper is
+    # still served at the same rung and marked normally.
+    p = client.get("/api/placement/next?domain=math&n=4").json()
     bad = client.post("/api/placement/submit", json={
         "domain": "math", "stage": p["stage"], "token": p["token"],
         "answers": ["definitely wrong"] * len(p["questions"])}).json()
@@ -661,13 +718,92 @@ def test_curriculum_graph_shape(client, onboarded):
         "every locked node must explain itself"
 
 
-def test_search_and_article(client, onboarded):
+def test_search_and_article(client, onboarded, monkeypatch):
+    """The HTTP contract is testable without an ignored ZIM or live Wikipedia."""
+    import primer.server as srv
+
+    monkeypatch.setattr(
+        srv.wiki, "search",
+        lambda q, limit=14, live=False: [
+            {"title": "Photosynthesis", "snippet": "Plants turn light into stored energy."}
+        ] if q == "photosynthesis" else [])
+    safe_text = "Photosynthesis stores light energy in chemical bonds. " * 16
+    monkeypatch.setattr(
+        srv.wiki, "get_article",
+        lambda title, prefer_simple=False: {
+            "title": title,
+            "html": "<article><p>{}</p><script>alert(1)</script>"
+                    "<iframe src='https://example.test'></iframe></article>".format(safe_text),
+            "base": "https://en.wikipedia.org/wiki/Photosynthesis",
+        })
+
     res = client.get("/api/search?q=photosynthesis").json()
     assert res["results"]
     art = client.get("/api/article?title=Photosynthesis").json()
     assert len(art["rendered"]) > 500
     low = art["rendered"].lower()
     assert not any(b in low for b in ("<script", "onerror=", "javascript:", "<iframe"))
+
+
+def test_locked_lessons_cannot_issue_or_redeem_assessments(tmp_path):
+    """The API enforces the same gates as the Atlas, including at redemption."""
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as isolated:
+            isolated.post("/api/profile", json={
+                "name": "Beginner", "age": 8, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["math"]})
+            node_id = "math.1.multiplication"
+            node = srv.curr.node(node_id)
+
+            locked_quiz = isolated.get("/api/quiz/{}?n=4".format(node_id))
+            assert locked_quiz.status_code == 409
+            assert locked_quiz.json()["unlock_requirements"]
+            locked_practice = isolated.get(
+                "/api/practice/{}?n=4&node_id={}".format(node["practice"], node_id))
+            assert locked_practice.status_code == 409
+
+            # Open the lesson long enough to issue both sittings, then make its
+            # prerequisites stale before either is redeemed. Submit must recheck,
+            # not trust the state that existed when the token was minted.
+            foundations = [nid for nid, item in srv.curr.nodes.items()
+                           if item["domain"] == "math" and item["stage"] == 0]
+            srv.learner.seed_assumed(foundations + list(node["prereqs"]))
+            assert srv.curr.unlocked(node, srv.learner.gate_map())
+            quiz_paper = isolated.get("/api/quiz/{}?n=4".format(node_id)).json()
+            practice_paper = isolated.get(
+                "/api/practice/{}?n=4&node_id={}".format(node["practice"], node_id)).json()
+            quiz_answers = answer_key(quiz_paper)
+            practice_answers = answer_key(practice_paper)
+
+            with srv.learner._conn() as conn:
+                conn.execute("DELETE FROM mastery")
+            assert not srv.curr.unlocked(node, srv.learner.gate_map())
+
+            feedback = isolated.post("/api/quiz/check", json={
+                "token": quiz_paper["token"], "id": quiz_paper["questions"][0]["id"],
+                "answer": quiz_answers[0]})
+            assert feedback.status_code == 409
+            quiz_submit = isolated.post("/api/quiz/submit", json={
+                "node_id": node_id, "token": quiz_paper["token"],
+                "answers": quiz_answers})
+            assert quiz_submit.status_code == 409
+            practice_submit = isolated.post("/api/attempt", json={
+                "node_id": node_id, "token": practice_paper["token"],
+                "answers": practice_answers})
+            assert practice_submit.status_code == 409
+            assert node_id not in srv.learner.mastered_set()
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
 
 # ---------------- security ----------------
@@ -762,7 +898,8 @@ def test_backup_and_prune_run_clean(client, onboarded):
 
 # ---------------- grading integrity (the token path) ----------------
 
-def test_the_answer_key_never_ships_with_the_paper(client, onboarded):
+def test_the_answer_key_never_ships_with_the_paper(client, onboarded,
+                                                   open_assessment_gate):
     """If the marking scheme is on the reader's device, grading is theatre."""
     for path in ("/api/quiz/math.2.fractions?n=3",
                  "/api/practice/times-tables?n=3",
@@ -804,7 +941,7 @@ def test_placement_cannot_be_credited_without_a_served_paper(client, onboarded):
     assert client.get("/api/today").json()["mastered"] == 0
 
 
-def test_a_paper_can_only_be_submitted_once(client, onboarded):
+def test_a_paper_can_only_be_submitted_once(client, onboarded, open_assessment_gate):
     """Tokens are single-use, so a paper cannot be replayed for a better score."""
     paper = client.get("/api/quiz/math.1.addition?n=3").json()
     keys = answer_key(paper)
@@ -816,7 +953,8 @@ def test_a_paper_can_only_be_submitted_once(client, onboarded):
     assert replay.status_code == 409
 
 
-def test_per_item_check_reveals_the_answer_only_on_submission(client, onboarded):
+def test_per_item_check_reveals_the_answer_only_on_submission(client, onboarded,
+                                                              open_assessment_gate):
     paper = client.get("/api/quiz/math.2.fractions?n=2").json()
     q = paper["questions"][0]
     m = client.post("/api/quiz/check",
@@ -839,7 +977,8 @@ def test_one_domain_cannot_promote_the_reader(client, onboarded):
     assert srv.learner.get_profile()["stage"] <= max(prof["stage"], expected)
 
 
-def test_a_paper_is_only_valid_for_what_it_was_issued_for(client, onboarded):
+def test_a_paper_is_only_valid_for_what_it_was_issued_for(client, onboarded,
+                                                          open_assessment_gate):
     """Regression: tokens carried no binding to their purpose or subject, so a
     counting drill's paper could be handed in as a graduate topology quiz, or
     spent as a stage-5 placement pass. Verified live before the fix:
@@ -877,7 +1016,8 @@ def test_a_paper_is_only_valid_for_what_it_was_issued_for(client, onboarded):
         "token": paper["token"]}).status_code == 409
 
 
-def test_the_answer_key_cannot_be_harvested_before_handing_in(client, onboarded):
+def test_the_answer_key_cannot_be_harvested_before_handing_in(client, onboarded,
+                                                              open_assessment_gate):
     """Regression: `/api/quiz/check` returned the key for a *blank* answer and
     recorded nothing, so the whole paper could be walked for its answers and
     then handed in perfect. Feedback now costs a real commitment, and the first
@@ -905,7 +1045,7 @@ def test_the_answer_key_cannot_be_harvested_before_handing_in(client, onboarded)
     assert graded.json()["result"]["score"] == 0.0
 
 
-def test_feedback_still_teaches(client, onboarded):
+def test_feedback_still_teaches(client, onboarded, open_assessment_gate):
     """The lock must not cost the reader the thing feedback is for: a wrong
     answer is still named, explained, and shown against the right one."""
     paper = client.get("/api/quiz/math.2.fractions?n=2").json()
@@ -916,7 +1056,8 @@ def test_feedback_still_teaches(client, onboarded):
     assert m["locked"] == "wrong", "and know which of theirs was recorded"
 
 
-def test_a_paper_cannot_be_claimed_twice_at_once(client, onboarded):
+def test_a_paper_cannot_be_claimed_twice_at_once(client, onboarded,
+                                                 open_assessment_gate):
     """Single-use must not depend on thread scheduling: sync endpoints run in a
     threadpool, so `_recall`'s get-then-pop had a window where two concurrent
     submissions could both walk away with the same paper."""
@@ -943,7 +1084,8 @@ def test_a_paper_cannot_be_claimed_twice_at_once(client, onboarded):
         assert codes.count(200) == 1, "a paper was graded {} times".format(codes.count(200))
 
 
-def test_a_second_look_cannot_improve_a_committed_answer(client, onboarded):
+def test_a_second_look_cannot_improve_a_committed_answer(client, onboarded,
+                                                         open_assessment_gate):
     """The lock is `setdefault`, not assignment: checking an item again after
     seeing the key must not quietly replace what was recorded."""
     paper = client.get("/api/quiz/math.1.addition?n=2").json()
@@ -957,7 +1099,8 @@ def test_a_second_look_cannot_improve_a_committed_answer(client, onboarded):
     assert second["correct"] is False, "the key was seen before this answer was given"
 
 
-def test_placement_and_practice_lock_answers_too(client, onboarded):
+def test_placement_and_practice_lock_answers_too(client, onboarded,
+                                                 open_assessment_gate):
     """The lock has to cover every graded route, not just quizzes — placement
     credits whole stages, and practice moves the same mastery ledger."""
     rung = client.get("/api/placement/next?domain=math&stage=2&n=3").json()
@@ -976,7 +1119,7 @@ def test_placement_and_practice_lock_answers_too(client, onboarded):
         "the wrong answers committed during the sitting are what count"
 
 
-def test_review_cards_follow_the_graded_answer(client, onboarded):
+def test_review_cards_follow_the_graded_answer(client, onboarded, open_assessment_gate):
     """Cards were built from the submitted sheet rather than the graded one, so
     a reader who saw the key and changed their mind got no card for the item
     they actually got wrong — losing exactly the review they most needed."""
@@ -1015,7 +1158,8 @@ def test_a_drill_must_belong_to_the_lesson_it_counts_for(client, onboarded):
     assert own.status_code == 200, "a lesson's own drill must still be servable"
 
 
-def test_a_graded_paper_is_never_one_question_long(client, onboarded):
+def test_a_graded_paper_is_never_one_question_long(client, onboarded,
+                                                   open_assessment_gate):
     """Regression: `n` was caller-chosen, so `?n=1` served the lone constructed
     response — whose key is the node's published `goal`. Pasting one public
     string scored 1.0 on 248 of 254 stage>=2 nodes."""
@@ -1124,7 +1268,8 @@ def test_the_shell_stamps_its_assets(client):
     assert client.get("/app/styles.css").headers["cache-control"] == "no-cache"
 
 
-def test_the_explanation_is_not_shipped_with_the_paper(client, onboarded):
+def test_the_explanation_is_not_shipped_with_the_paper(client, onboarded,
+                                                       open_assessment_gate):
     """Regression: `_public` stripped `answer` and `keywords` but not `explain`,
     which names the answer outright in a third of items ("...divide by 3 to get
     x = 6"). A solver reading only the served JSON scored 63-65% and cleared the
@@ -1141,7 +1286,8 @@ def test_the_explanation_is_not_shipped_with_the_paper(client, onboarded):
     assert fb.get("explain") or fb.get("answer"), "feedback must still teach"
 
 
-def test_a_produced_item_actually_reaches_the_paper(client, onboarded):
+def test_a_produced_item_actually_reaches_the_paper(client, onboarded,
+                                                    open_assessment_gate):
     """Regression: the bank was sorted by option count, which buries numeric and
     short items (no options at all) last — and the paper is then truncated to n,
     so the items that ask the reader to *produce* were authored and never served.
@@ -1236,7 +1382,8 @@ def test_a_guesser_never_masters_anything(client, onboarded):
     assert client.get("/api/today").json()["mastered"] == 0
 
 
-def test_the_answer_key_cannot_be_harvested_by_discarding_papers(client, onboarded):
+def test_the_answer_key_cannot_be_harvested_by_discarding_papers(
+        client, onboarded, open_assessment_gate):
     """Regression: the first-commitment lock bound answers *within* one paper,
     so the paper was simply thrown away. Authored items recur across papers, so
     a few discarded papers enumerated a node's whole bank; a clean sitting then
@@ -1271,7 +1418,8 @@ def test_the_answer_key_cannot_be_harvested_by_discarding_papers(client, onboard
     assert node not in srv.learner.proven_set()
 
 
-def test_a_practice_paper_is_never_one_question_long(client, onboarded):
+def test_a_practice_paper_is_never_one_question_long(client, onboarded,
+                                                     open_assessment_gate):
     """Regression: the four-item floor was applied to quizzes but not practice.
     A one-item paper scores 0 or 1 against a 0.8 pass mark, so a single lucky
     click was a full pass — and retries are unlimited. Guessing alone proved
@@ -1330,7 +1478,7 @@ def test_the_answer_key_is_not_simply_published(client, onboarded):
         assert item.get("explain", "zzz") not in blob
 
 
-def test_a_paper_is_never_graded_on_scraps(client, onboarded):
+def test_a_paper_is_never_graded_on_scraps(client, onboarded, open_assessment_gate):
     """Regression: the four-item floor was enforced on items *served*, and the
     burn then ran afterwards — so a burnt-out bank was graded on whatever one or
     two procedural top-ups survived. A thirteen-item paper came back
@@ -1360,7 +1508,8 @@ def test_a_paper_is_never_graded_on_scraps(client, onboarded):
     assert node not in srv.learner.proven_set()
 
 
-def test_a_reader_who_knows_it_can_still_be_measured(client, onboarded):
+def test_a_reader_who_knows_it_can_still_be_measured(client, onboarded,
+                                                     open_assessment_gate):
     """Regression, and the worst of the three: the app routes *every* answer
     through `/api/quiz/check` for immediate feedback, so burning on any
     commitment meant a reader who answered **correctly** burned their own paper
@@ -1427,7 +1576,8 @@ def test_no_route_publishes_the_answer_key(client, onboarded):
         assert not leaks, "{} exposes {}".format(r, leaks[0][0])
 
 
-def test_asking_for_the_paper_early_does_not_beat_the_burn(client, onboarded):
+def test_asking_for_the_paper_early_does_not_beat_the_burn(client, onboarded,
+                                                          open_assessment_gate):
     """Regression: the burn was keyed to when the *paper* was issued, and papers
     are free. Fetch a clean one, harvest the bank through a second, submit the
     first — every burn postdated the issue, nothing was dropped, and a 0.83 was
@@ -1651,7 +1801,8 @@ def test_a_decayed_assumed_node_says_one_thing_too(client, onboarded):
         "expired credit must be nameable, not merely absent"
 
 
-def test_every_paper_the_book_can_draw_is_well_formed(client, onboarded):
+def test_every_paper_the_book_can_draw_is_well_formed(client, onboarded,
+                                                      open_assessment_gate):
     """`quiz_for_node` was the densest code in the server — five sequential
     mutate-then-truncate phases with nothing pinning what they were supposed to
     preserve, which is how a reserved slot for an authored produced item came to
@@ -1683,7 +1834,8 @@ def test_every_paper_the_book_can_draw_is_well_formed(client, onboarded):
             assert "answer" not in pub and "explain" not in pub and "keywords" not in pub
 
 
-def test_failing_a_re_test_does_not_erase_the_journal(client, onboarded):
+def test_failing_a_re_test_does_not_erase_the_journal(client, onboarded,
+                                                      open_assessment_gate):
     """Regression: `ever_proven_set` and `journal()` both read `mastered_at`
     directly, which the failure path resets to NULL — so a reader who earned a
     node, let it fade, and then failed a refresh check on it saw the Journey
@@ -1717,7 +1869,8 @@ def test_failing_a_re_test_does_not_erase_the_journal(client, onboarded):
     assert node not in srv.learner.proven_set(), "but it must no longer be currently proven"
 
 
-def test_a_faded_chapter_gate_does_not_report_stale_passes(client, onboarded):
+def test_a_faded_chapter_gate_does_not_report_stale_passes(client, onboarded,
+                                                           open_assessment_gate):
     """Regression: `_story_needs` used to report `mastery_detail()['passes']`
     verbatim — a lifetime counter decay never touches. A node proven long ago
     and then left to fade still showed "2 of 2 passes" even though the gate
@@ -1753,32 +1906,50 @@ def test_a_faded_chapter_gate_does_not_report_stale_passes(client, onboarded):
         "a faded gate must not report its stale lifetime pass count as current progress"
 
 
-def test_grading_a_review_card_through_the_real_api_restores_a_faded_node(client, onboarded):
+def test_grading_a_review_card_through_the_real_api_restores_a_faded_node(
+        client, onboarded, open_assessment_gate, monkeypatch):
     """A reviewer asked for proof that 'review outcomes feed back into
     strength decay' is a genuine deck-mastery coupling, not just a claim —
     and specifically that they could not verify it themselves without code
     access. This drives the whole loop through the real HTTP surface, the
     same one a reader's browser uses: master a node with two spaced quiz
-    passes, fail it once to mint a review card, let the node's strength
+    passes, seed a durable review card as test setup, let the node's strength
     decay to faded, then grade that card through POST /api/review and
     confirm GET /api/curriculum/node reports the node proven again — not by
     peeking at internal state, but by reading the same endpoint the app's
     own UI reads."""
     import primer.server as srv
 
+    # Curriculum-node responses decorate articles with optional live summaries;
+    # that presentation detail is outside this mastery/review contract.
+    monkeypatch.setattr(srv.wiki, "get_summary", lambda _title: None)
     node = "math.3.trig"
     for _ in range(2):
         paper = client.get("/api/quiz/{}?n=5".format(node)).json()
         served = srv._SERVED[paper["token"]]["questions"]
         answers = [q.get("answer", "") for q in served]
         client.post("/api/quiz/submit", json={
-            "node_id": node, "answers": answers, "token": paper["token"]})
+            "node_id": node, "answers": answers, "token": paper["token"],
+            "make_cards": False})
         with srv.learner._conn() as conn:
             conn.execute("UPDATE mastery SET last_pass_at=last_pass_at-345600, "
                          "first_pass_at=first_pass_at-345600 WHERE node_id=?", (node,))
 
     before = client.get("/api/curriculum/node/" + node).json()
     assert before["proven"], "the node must be genuinely proven before we fade it"
+
+    # Card creation from missed authored items is covered separately.  This
+    # coupling test used to rely on a live article fetch during the two perfect
+    # papers above to happen to mint a card, so it failed on a clean/offline CI
+    # runner.  Seed the card explicitly; everything being asserted below still
+    # travels through the real review and curriculum HTTP endpoints.
+    card_front = "What does trigonometry relate?"
+    assert srv.learner.add_cards([{
+        "front": card_front,
+        "back": "Angles and side lengths",
+        "node_id": node,
+        "article": "Trigonometry",
+    }]) == 1
 
     with srv.learner._conn() as conn:
         conn.execute("UPDATE mastery SET last_seen=last_seen-100000000 WHERE node_id=?", (node,))
@@ -1788,7 +1959,9 @@ def test_grading_a_review_card_through_the_real_api_restores_a_faded_node(client
     assert faded["faded"] and not faded["proven"], "the node must have decayed to faded first"
 
     with srv.learner._conn() as conn:
-        card_id = conn.execute("SELECT id FROM srs_cards WHERE node_id=? LIMIT 1", (node,)).fetchone()[0]
+        card_id = conn.execute(
+            "SELECT id FROM srs_cards WHERE node_id=? AND front=?",
+            (node, card_front)).fetchone()[0]
     grade = client.post("/api/review", json={"card_id": card_id, "quality": 5}).json()
     assert grade["xp_gained"] > 0, "a confident, on-schedule grade must pay out"
 

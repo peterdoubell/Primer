@@ -143,10 +143,10 @@ def test_selection_defaults_to_local():
     assert store.using_turso() is False
 
 
-def test_selection_reads_the_env_at_call_time(monkeypatch):
+def test_selection_reads_and_normalizes_the_env_at_call_time(monkeypatch):
     monkeypatch.setenv(store.URL_ENV, 'libsql://example.turso.io')
     assert store.using_turso() is True
-    assert store.turso_url() == 'libsql://example.turso.io'
+    assert store.turso_url() == 'https://example.turso.io'
     monkeypatch.delenv(store.URL_ENV)
     assert store.using_turso() is False
 
@@ -172,7 +172,7 @@ def test_turso_env_selects_the_adapter(tmp_path, monkeypatch):
     monkeypatch.setitem(sys.modules, 'libsql_client', _FakeModule)
     conn = store.connect(str(tmp_path / 'ignored.db'))
     assert isinstance(conn, store._LibsqlConnection)
-    assert captured['url'] == 'libsql://example.turso.io'
+    assert captured['url'] == 'https://example.turso.io'
     assert captured['kwargs'] == {'auth_token': 'tok'}
 
 

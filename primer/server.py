@@ -2,6 +2,8 @@
 practice, quizzes, tutor and pacing into a single interactive book.
 """
 
+import base64
+import binascii
 import contextvars
 import datetime
 import hashlib
@@ -22,7 +24,7 @@ from fastapi.responses import JSONResponse, Response, FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator
 
-from . import library, practice, quiz, tutor
+from . import library, practice, quiz, store, tutor
 from . import sittings as sittings_mod
 from . import story as story_mod
 from .curriculum import Curriculum
@@ -147,6 +149,21 @@ def backup_status() -> dict:
     same drive is exactly the move that feels like safety and is not, and a
     check that congratulated it would be worse than no check.
     """
+    if store.using_turso():
+        return {
+            "dir": None,
+            "copies": 0,
+            "configured_by_env": bool(os.environ.get("PRIMER_BACKUP_DIR")),
+            "off_disk": True,
+            "env_var": "PRIMER_BACKUP_DIR",
+            "mode": "managed_remote",
+            "advice": (
+                "The learner record is stored remotely in Turso; local file "
+                "backups do not apply. Use Turso recovery or exports for an "
+                "independent copy."
+            ),
+        }
+
     dest = os.path.abspath(BACKUP_DIR)
     configured = bool(os.environ.get("PRIMER_BACKUP_DIR"))
     off_disk = None                      # unknown until both paths exist
@@ -167,6 +184,7 @@ def backup_status() -> dict:
         "configured_by_env": configured,
         "off_disk": off_disk,
         "env_var": "PRIMER_BACKUP_DIR",
+        "mode": "local_file",
         # Plain sentence, written once, so the log line, the API and any UI
         # that renders it all say the same thing.
         "advice": (
@@ -184,21 +202,30 @@ def backup_status() -> dict:
 _shutdown = threading.Event()
 
 
+def _run_maintenance_once():
+    """Run one retention pass, using only operations the backend supports."""
+    if learner.get_profile() is None:
+        return
+    dest = None
+    if not store.using_turso():
+        # Retention is ours, not the store's flat "newest N": pass a keep the
+        # rotation can never hit, then apply the tiered policy in
+        # _prune_backups. Remote Turso databases cannot use sqlite's local
+        # online-backup API.
+        dest = learner.backup(BACKUP_DIR, keep=10 ** 6)
+        if os.path.isdir(BACKUP_DIR):
+            _prune_backups(BACKUP_DIR)
+    learner.prune()
+    if dest:
+        log.info("backed up learner record to %s", os.path.basename(dest))
+
+
 def _maintenance_loop():
     """Back up the irreplaceable learner record and prune old logs — at
     startup and then daily. The whole multi-year history lives in one file."""
     while True:
         try:
-            if learner.get_profile() is not None:
-                # Retention is ours, not the store's flat "newest N": pass a
-                # keep the rotation can never hit, then apply the tiered
-                # policy in _prune_backups.
-                dest = learner.backup(BACKUP_DIR, keep=10 ** 6)
-                if os.path.isdir(BACKUP_DIR):
-                    _prune_backups(BACKUP_DIR)
-                learner.prune()
-                if dest:
-                    log.info("backed up learner record to %s", os.path.basename(dest))
+            _run_maintenance_once()
         except Exception as exc:  # never let maintenance crash the app
             log.warning("maintenance failed: %s", exc)
         # Wait on an Event rather than sleeping: a bare sleep(24h) cannot be
@@ -219,8 +246,12 @@ async def _lifespan(_app):
     # record will live — sees it too. WARNING when same-disk: this is the one
     # thing in the maintenance story that the book cannot fix for them.
     bk = backup_status()
-    (log.warning if bk["off_disk"] is False else log.info)(
-        "backups -> %s (%d kept) | %s", bk["dir"], bk["copies"], bk["advice"])
+    if bk["mode"] == "managed_remote":
+        log.info("learner record -> Turso | %s", bk["advice"])
+    else:
+        (log.warning if bk["off_disk"] is False else log.info)(
+            "backups -> %s (%d kept) | %s",
+            bk["dir"], bk["copies"], bk["advice"])
     threading.Thread(target=_maintenance_loop, daemon=True).start()
     yield
     # Let the maintenance thread finish its wait and return rather than being
@@ -229,6 +260,31 @@ async def _lifespan(_app):
 
 
 app.router.lifespan_context = _lifespan
+
+
+# The data model is deliberately one-reader: every table belongs to profile
+# id 1. A local process is private by topology, but a hosted deployment is not.
+# Vercel Authentication does not cover production aliases on every plan, so a
+# small application-level boundary protects both the HTML and every API route.
+# Health remains public for deployment monitoring and contains no reader data.
+ACCESS_PASSWORD_ENV = "PRIMER_ACCESS_PASSWORD"
+ACCESS_USERNAME_ENV = "PRIMER_ACCESS_USERNAME"
+
+
+def _access_challenge(status_code: int = 401) -> JSONResponse:
+    headers = {
+        "Cache-Control": "no-store",
+        "Content-Security-Policy": CSP,
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "no-referrer",
+        "Vary": "Authorization",
+    }
+    if status_code == 401:
+        headers["WWW-Authenticate"] = 'Basic realm="The Primer", charset="UTF-8"'
+        detail = "Authentication required"
+    else:
+        detail = "Hosted access is not configured"
+    return JSONResponse({"detail": detail}, status_code=status_code, headers=headers)
 
 
 # Second line of defence behind the HTML sanitizer: even if untrusted article
@@ -240,6 +296,46 @@ CSP = (
     "img-src 'self' data:; connect-src 'self'; object-src 'none'; "
     "base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
 )
+
+
+@app.middleware("http")
+async def _hosted_access_guard(request, call_next):
+    """Keep the single-reader store private whenever the app is hosted.
+
+    Local installs need no password. A Vercel deployment fails closed when its
+    password is missing, preventing a configuration mistake from silently
+    publishing the shared profile and cost-bearing tutor endpoints.
+    """
+    # Starlette builds ``request.url`` from the untrusted Host header.  On
+    # affected releases, a Host value containing a path can make
+    # ``request.url.path`` differ from the path that ASGI actually routed.
+    # Authorisation exemptions must therefore use the raw ASGI scope path.
+    if request.scope.get("path") == "/healthz":
+        return await call_next(request)
+
+    password = os.environ.get(ACCESS_PASSWORD_ENV)
+    hosted = bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV"))
+    if not password:
+        return _access_challenge(503) if hosted else await call_next(request)
+
+    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
+    try:
+        scheme, encoded = request.headers.get("Authorization", "").split(" ", 1)
+        if scheme.lower() != "basic" or len(encoded) > 8192:
+            raise ValueError
+        supplied_user, supplied_password = base64.b64decode(
+            encoded, validate=True).split(b":", 1)
+        expected_user = username.encode("utf-8")
+        expected_password = password.encode("utf-8")
+    except (ValueError, UnicodeEncodeError, binascii.Error):
+        return _access_challenge()
+
+    if not (secrets.compare_digest(supplied_user, expected_user)
+            and secrets.compare_digest(supplied_password, expected_password)):
+        return _access_challenge()
+    response = await call_next(request)
+    response.headers.setdefault("Vary", "Authorization")
+    return response
 
 
 @app.middleware("http")
@@ -407,16 +503,12 @@ def state():
 
 @app.post("/api/profile")
 def save_profile(p: ProfileIn):
-    # Everyone starts at the beginning. Age says how old a reader is, not what
-    # they have been taught: deriving a stage from it opened lessons nobody had
-    # shown them and, worse, credited the stages below as "assumed known", so a
-    # book that promises to prove what it claims began by assuming most of it.
-    # The placement check is how the book learns where a reader actually is —
-    # it is offered right after setup and available any time from Your Path —
-    # and until it is taken, the honest answer is stage 0.
-    stage = 0
     existing = learner.get_profile()
-    first_time = existing is None
+    # A new reader starts at the beginning. Age says how old they are, not what
+    # they have been taught: placement is what moves stage above zero. Re-saving
+    # an existing profile, however, is an edit to name/age/domains — it must not
+    # erase the stage that placement and later progress already established.
+    stage = existing["stage"] if existing else 0
     # Pronouns live in settings (that is where reader preferences live), so
     # they have to be merged rather than passed positionally — and merged onto
     # the existing settings, or re-saving a profile would wipe the reader's
@@ -784,9 +876,11 @@ def _recall(token: str, purpose: str, subject: str = ""):
             log.warning("token issued for %s/%s redeemed as %s/%s — refused",
                         entry["purpose"], entry["subject"][:40], purpose, subject[:40])
             return None
-        # Claim it inside the lock: two threads must not both walk away with it.
-        _SERVED.pop(token, None)
-    return entry
+        # The pop itself is an atomic DELETE ... RETURNING claim. The process
+        # lock covers threads here; its return value is what prevents a second
+        # serverless instance from walking away with the stale pre-delete read.
+        claimed = _SERVED.pop(token, None)
+    return claimed
 
 
 # Which ordering drill suits each domain's early lessons.
@@ -900,6 +994,23 @@ QUIZ_MIN_ITEMS = 4
 QUIZ_MAX_ITEMS = 12
 
 
+def _locked_lesson_response(node: dict) -> Optional[JSONResponse]:
+    """Return a conflict response when this lesson is not currently open.
+
+    Standing mastery remains revisitable even if a prerequisite later fades;
+    that matches the Atlas, which allows both open and mastered tiles. Everything
+    else must satisfy the same decay-aware curriculum gates shown by the UI.
+    """
+    gates = learner.gate_map()
+    if gates.get(node["id"], 0) >= 0.8 or curr.unlocked(node, gates):
+        return None
+    return JSONResponse({
+        "error": "this lesson is still locked",
+        "node_id": node["id"],
+        "unlock_requirements": curr.unlock_requirements(node, gates),
+    }, status_code=409)
+
+
 # ---------------- practice ----------------
 
 @app.get("/api/practice/{gen_key}")
@@ -915,6 +1026,9 @@ def practice_set(gen_key: str, n: int = 6, level: int = 1, node_id: str = ""):
         if node.get("practice") != gen_key:
             return JSONResponse(
                 {"error": "that drill does not belong to that lesson"}, status_code=409)
+        locked = _locked_lesson_response(node)
+        if locked is not None:
+            return locked
         level = node["stage"]
     # The same floor as a quiz. Without it `?n=1` served a single item, and a
     # single item scores 0 or 1 against a 0.8 pass mark — so one lucky click was
@@ -933,8 +1047,15 @@ def practice_set(gen_key: str, n: int = 6, level: int = 1, node_id: str = ""):
 
 class AttemptIn(BaseModel):
     node_id: str
-    answers: List[str] = []
+    answers: List[str] = Field(default_factory=list, max_length=24)
     token: str = ""
+
+    @field_validator("answers")
+    @classmethod
+    def _bounded_answers(cls, values: List[str]) -> List[str]:
+        if any(len(value) > 2000 for value in values):
+            raise ValueError("each answer must be at most 2000 characters")
+        return values
 
 
 @app.post("/api/attempt")
@@ -946,6 +1067,11 @@ def record_attempt(a: AttemptIn):
     if graded is None:
         return JSONResponse({"error": "this practice was not issued for this lesson"},
                             status_code=409)
+    node = curr.node(a.node_id) if a.node_id else None
+    if node is not None:
+        locked = _locked_lesson_response(node)
+        if locked is not None:
+            return locked
     given = _final_answers(entry, a.answers)
     scorable, scorable_given, _spent = _drop_burned(graded, given, a.node_id, entry)
     if len(scorable) < min(QUIZ_MIN_ITEMS, len(graded)):
@@ -958,14 +1084,13 @@ def record_attempt(a: AttemptIn):
     # must not be recorded. Writing mastery and XP against the empty-string
     # node created a ledger row for a lesson that does not exist and paid for
     # it. Grade it, return the marks, record nothing.
-    if not a.node_id or curr.node(a.node_id) is None:
+    if not a.node_id or node is None:
         return {"score": score, "xp_gained": 0, "unlessoned": True,
                 "cards_added": 0, "ascension": None}
     res = learner.record_attempt(a.node_id, score)
     # Practice is a study event too: whatever was missed should come back.
     cards_added = 0
     if graded and given:
-        node = curr.node(a.node_id)
         article = node["articles"][0] if node and node["articles"] else ""
         missed = [q for q in quiz.cards_from_missed(graded, given, a.node_id, article)
                   if not _is_ephemeral(graded, q)]
@@ -1057,6 +1182,9 @@ def quiz_for_node(node_id: str, n: int = 6):
     node = curr.node(node_id)
     if not node:
         return JSONResponse({"error": "no such node"}, status_code=404)
+    locked = _locked_lesson_response(node)
+    if locked is not None:
+        return locked
     n = max(QUIZ_MIN_ITEMS, min(int(n), QUIZ_MAX_ITEMS))
     stage = node["stage"]
 
@@ -1094,7 +1222,7 @@ def quiz_for_node(node_id: str, n: int = 6):
 class CheckIn(BaseModel):
     token: str
     id: int
-    answer: str = ""
+    answer: str = Field("", max_length=2000)
 
 
 def _drop_burned(questions: list, given: list, node_id: str, entry: dict = None):
@@ -1153,6 +1281,12 @@ def check_one(c: CheckIn):
         # a clean pass. Placement is sat once, in the dark.
         return JSONResponse({"error": "a placement check is marked at the end"},
                             status_code=409)
+    if entry["purpose"] in ("quiz", "practice") and entry.get("subject"):
+        node = curr.node(entry["subject"])
+        if node is not None:
+            locked = _locked_lesson_response(node)
+            if locked is not None:
+                return locked
     questions = entry["questions"]
     q = next((x for x in questions if x.get("id") == c.id), None)
     if q is None:
@@ -1161,14 +1295,14 @@ def check_one(c: CheckIn):
         return JSONResponse({"error": "answer first — then the book will tell you"},
                             status_code=400)
     # First commitment stands: seeing the key cannot retroactively improve it.
-    # Re-read under the lock and write the whole map back: the store is
-    # persistent, so a nested in-place mutation would only ever touch a copy.
+    # The store performs a compare-and-swap update, so this remains true across
+    # serverless instances and cannot recreate a token that submit just claimed.
     with _SERVED_LOCK:
-        fresh = _SERVED.get(c.token) or entry
-        committed = dict(fresh.get("committed") or {})
-        committed.setdefault(c.id, {"answer": c.answer, "at": time.time()})
-        fresh["committed"] = committed
-        locked = committed[c.id]["answer"]
+        committed = _SERVED.commit_answer(c.token, c.id, c.answer)
+    if committed is None:
+        return JSONResponse({"error": "this quiz token was already submitted"},
+                            status_code=409)
+    locked = committed["answer"]
     correct = quiz.score_quiz([q], [locked])["score"] >= (0.6 if q.get("kind") == "short" else 1.0)
     # A wrong answer spends the item: the reader is about to be told, and for the
     # next week that item cannot be the evidence they know it — otherwise a paper
@@ -1190,10 +1324,17 @@ def check_one(c: CheckIn):
 # accepted and ignored, which reads like an input when it is not one.)
 class QuizSubmitIn(BaseModel):
     node_id: str
-    answers: List[str]
+    answers: List[str] = Field(..., max_length=24)
     make_cards: bool = True
     token: str = ""
-    confidence: List[int] = []   # per-item self-rating, for calibration
+    confidence: List[int] = Field(default_factory=list, max_length=24)
+
+    @field_validator("answers")
+    @classmethod
+    def _bounded_answers(cls, values: List[str]) -> List[str]:
+        if any(len(value) > 2000 for value in values):
+            raise ValueError("each answer must be at most 2000 characters")
+        return values
 
 
 @app.post("/api/quiz/submit")
@@ -1202,6 +1343,11 @@ def submit_quiz(s: QuizSubmitIn):
     if entry is None:
         return JSONResponse({"error": "this paper was not issued for this lesson"},
                             status_code=409)
+    node = curr.node(s.node_id)
+    if node is not None:
+        locked = _locked_lesson_response(node)
+        if locked is not None:
+            return locked
     questions = entry["questions"]
     given = _final_answers(entry, s.answers)
     # Measurement drops the items whose keys were shown; the deck does not. An
@@ -1221,7 +1367,6 @@ def submit_quiz(s: QuizSubmitIn):
     mastery = learner.record_attempt(s.node_id, result["score"])
     cards_added = 0
     if s.make_cards:
-        node = curr.node(s.node_id)
         article = node["articles"][0] if node and node["articles"] else ""
         # Errors are exactly what should come back tomorrow — always build cards
         # from missed items, regardless of overall score.
@@ -1425,8 +1570,15 @@ class PlacementSubmitIn(BaseModel):
     domain: str
     stage: int
     # No `questions` field, same rule as QuizSubmitIn: the server's copy grades.
-    answers: List[str]
+    answers: List[str] = Field(..., max_length=24)
     token: str = ""
+
+    @field_validator("answers")
+    @classmethod
+    def _bounded_answers(cls, values: List[str]) -> List[str]:
+        if any(len(value) > 2000 for value in values):
+            raise ValueError("each answer must be at most 2000 characters")
+        return values
 
 
 @app.post("/api/placement/submit")
@@ -1444,6 +1596,12 @@ def placement_submit(s: PlacementSubmitIn):
     if questions is None:
         return JSONResponse({"error": "this paper was not issued for this check"},
                             status_code=409)
+    if len(s.answers) != len(questions):
+        return JSONResponse({
+            "error": "answer count does not match the issued paper",
+            "expected": len(questions),
+            "received": len(s.answers),
+        }, status_code=400)
     given = _final_answers(entry, s.answers)
     result = quiz.score_quiz(questions, given)
     passed = result["score"] >= 0.7
@@ -1535,8 +1693,8 @@ def _tutor_remote_allowed(prof: Optional[dict]) -> bool:
     return bool(settings.get("tutor_remote_ok", False))
 
 
-@app.post("/api/tutor")
-def ask_tutor(t: TutorIn):
+@app.post("/api/tutor", response_class=JSONResponse)
+def ask_tutor(t: TutorIn) -> JSONResponse:
     prof = learner.get_profile()
     stage = prof["stage"] if prof else 2
     excerpt = t.excerpt
@@ -1544,8 +1702,13 @@ def ask_tutor(t: TutorIn):
         s = wiki.get_summary(t.title)
         excerpt = (s or {}).get("extract", "")
     messages = [m.model_dump() for m in t.messages]
-    return tutor.ask(messages, t.title, excerpt, stage,
-                     allow_remote=_tutor_remote_allowed(prof))
+    # State the response type explicitly.  Tutor text is untrusted (it may
+    # include user input or a remote model's reply), and must never be inferred
+    # or served as HTML by a framework/analyser.
+    return JSONResponse(tutor.ask(
+        messages, t.title, excerpt, stage,
+        allow_remote=_tutor_remote_allowed(prof),
+    ))
 
 
 # ---------------- roadmap & journal ----------------

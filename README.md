@@ -30,7 +30,7 @@ The Primer is three things woven together:
    completeness as it is used.
 
 2. **A curriculum spine from preschool to the frontier.** A hand-authored graph
-   of **343 concepts across 10 domains**, each mapped to real encyclopedia
+   of **348 concepts across 10 domains**, each mapped to real encyclopedia
    articles, arranged in six stages:
 
    | Stage | Name | Level |
@@ -47,8 +47,9 @@ The Primer is three things woven together:
    Music · Mind, Society & Philosophy.
 
    Concepts unlock as their prerequisites are mastered. The graph is a
-   **lattice, not a chain**: 912 prerequisite edges, 98% of concepts resting on
-   two or more strands, including **218 cross-domain edges** — so quantum
+   **lattice, not a chain**: 926 prerequisite edges, 98% of post-Seedling
+   concepts resting on two or more strands, including **221 cross-domain
+   edges** — so quantum
    mechanics genuinely requires linear algebra *and* differential equations,
    and biochemistry requires organic chemistry.
 
@@ -58,10 +59,9 @@ The Primer is three things woven together:
 ## What it does
 
 - **Onboards and places you.** Tell it your age, weekly hours, breadth of
-  ambition, and favourite fields. It meets you at your level — an eight-year-old
-  starts at primary-school lessons, not counting to ten. Placement credit is
-  marked *assumed*, not *proven*, and a short server-scored placement check can
-  confirm or adjust it per domain.
+  ambition, and favourite fields. Every new reader starts at Stage 0 with no
+  assumed knowledge. A short server-scored placement check can then credit what
+  you demonstrate per domain; placement credit is *assumed*, not *proven*.
 - **Gives you a daily quest.** Review what's due → learn something new → read
   one article, with visible completion. The day's lessons are stable (they don't
   reshuffle when you reload) and drawn from your chosen domains.
@@ -73,7 +73,7 @@ The Primer is three things woven together:
   guiding you to answers rather than handing them over. It answers locally by
   default; Claude voices it only once remote answering is explicitly switched
   on (see *Optional: a smarter tutor*).
-- **Assesses honestly.** **3,162 expert-authored questions cover every single
+- **Assesses honestly.** **3,212 expert-authored questions cover every single
   concept**, weighted toward application and transfer, each with an explanation.
   Papers are sampled at random and options shuffled on every serve, and they are
   length- and position-balanced, so no surface strategy ("pick the longest",
@@ -102,9 +102,9 @@ The Primer is three things woven together:
   That Knew Their Name* to *The Edge of the Map* and a closing epilogue. The
   source text names and genders nobody: it carries `{NAME}` and pronoun tokens
   which are rendered per reader, so the protagonist is you rather than a girl
-  called Nell with your name pasted over hers. Pronouns default to they/them,
-  because a name never tells you someone's pronouns, and can be set at
-  onboarding or changed afterwards. Each chapter turns only when you
+  called Nell with your name pasted over hers. The book offers she/her and
+  he/him, asks rather than guessing when the choice is unknown, and lets you
+  change it afterwards. Each chapter turns only when you
   genuinely earn the lesson it leads to, and the book always tells you what it
   is waiting for.
 - **Shows your path.** A pacing engine turns your age, hours and breadth into a
@@ -210,15 +210,16 @@ primer/
   library.py     Kiwix archive catalogue + background resumable downloader
   server.py      FastAPI app tying it all together
 data/
-  curriculum/    10 domain files · 343 concepts · 912 prerequisite edges
-                 89 child-voiced lessons · 3,162 authored questions
+  curriculum/    10 domain files · 348 concepts · 926 prerequisite edges
+                 89 child-voiced lessons · 3,212 authored questions
   story/         the 19-chapter frame story
 web/             book-styled single-page app (vanilla JS, no build, WCAG-AA, dark mode)
-tests/           219 pytest regression tests (unit + HTTP layer)
+tests/           pytest regression suite (unit + HTTP layer)
 content/         ZIM archives, the learner database and its rotating backups
 ```
 
 Requirements: Python 3.9+ and the pinned packages in `requirements.txt`.
+CI exercises Python 3.9 and the Vercel runtime pinned to Python 3.12.
 `run.sh` sets up a virtualenv on first launch.
 
 ```bash
@@ -256,6 +257,11 @@ On Vercel, adding the `tursocloud/database` Marketplace integration injects
 both. Unset them and the book is local again, immediately: the backend is
 chosen per connection, from the environment as it stands at that moment.
 
+**Hosted access.** A Vercel deployment requires `PRIMER_ACCESS_PASSWORD` and
+accepts an optional `PRIMER_ACCESS_USERNAME` (default: `primer`). Every route
+except public `/healthz` then uses HTTP Basic authentication. If the password is
+missing on Vercel, protected routes fail closed instead of exposing the book.
+
 All of this lives in `primer/store.py`. It is a single seam — the learner, wiki
 and sittings stores each call one `connect()` — and it is deliberately
 asymmetric. With no variables set it hands back a genuine `sqlite3.Connection`
@@ -263,24 +269,28 @@ with exactly the PRAGMAs the three call sites used to set for themselves; the
 remote path is an adapter that presents the same interface on top of the libSQL
 client, papering over the places where that client is not a DB-API driver
 (no `executescript`, no `sqlite3.Row`, no cursor, no implicit transaction, its
-own exception classes). Two honest caveats:
+own exception classes). Three honest caveats:
 
 - `PRAGMA journal_mode=WAL` and `busy_timeout` are answered locally and never
   sent. Both describe a local file and a local lock; a managed database over
   HTTP has neither, and handles concurrency server-side.
-- The daily rotating backups in `content/backups/` are a page-copy of a local
-  file and have no remote equivalent. Against Turso the server logs that
-  backups are unavailable and relies on Turso's own point-in-time backups.
+- The HTTP client autocommits individual statements. Critical shared writes
+  (single-use papers, mastery updates and daily effort XP) therefore use
+  atomic claims or compare-and-swap retries, but a process or network failure
+  can still interrupt a larger multi-statement operation between its writes.
+- `PRIMER_BACKUP_DIR` and the daily rotating backups in `content/backups/` are
+  page-copies of a local file and do not apply to Turso. Turso is
+  provider-managed, so hosted deployments rely on its point-in-time backups.
 
 ## Design notes & honest limits
 
-- The curriculum graph is a **spine, not a cage.** Beyond the 343 authored
+- The curriculum graph is a **spine, not a cage.** Beyond the 348 authored
   concepts, every one of Wikipedia's millions of articles is reachable by search
   and by following links — and reading any of them logs progress and can feed
   your review deck.
-- **Age-based placement** credits stages below the learner's level as *assumed
-  known* so lessons start in the right place. It is flagged as unproven, and a
-  learner who wants to prove those foundations can quiz them any time.
+- **Age never grants placement credit.** Every reader starts at Stage 0. The
+  server-scored placement check credits demonstrated standing as *assumed*, not
+  *proven*, and those foundations can be quizzed at any time.
 - **Auto-generated questions never count.** An audit put their defect rate at
   65% — mostly items solvable from grammar alone — so they were retired from
   grading entirely. A second hand audit, this time *after* the filters and on
@@ -293,9 +303,8 @@ own exception classes). Two honest caveats:
   that evidence the last place they appeared, the unmarked self-check for free
   reading, was **retired** rather than shipped behind a warning label. The
   generator survives only as the audit's measurement apparatus; nothing in the
-  app calls it. Every one of the 343 curriculum
-  concepts carries **ten** authored items, so nothing that moves mastery is
-  machine-written.
+  app calls it. Every one of the 348 curriculum concepts carries its own
+  authored item bank, so nothing that moves mastery is machine-written.
 - **Backups are same-disk until you say otherwise.** The learner record is
   copied daily into `content/backups/` on a tiered schedule (~5 daily, 4
   weekly, 12 monthly). That protects against mistakes, not against a dead
@@ -307,7 +316,7 @@ own exception classes). Two honest caveats:
   correctly reported as still same-disk.
 - **Knowing nothing scores like knowing nothing.** Always picking the longest
   option, the first, the second-longest, or mining the served JSON for a leaked
-  answer all sit at chance and master zero of the 343 concepts. A test sits real
+  answer all sit at chance and master zero of the 348 concepts. A test sits real
   papers with each strategy and fails if any of them beats a guess.
 - The book has been reviewed by a standing **expert board** (educators, a
   learning scientist, a game designer, a UX designer and an engineer) against

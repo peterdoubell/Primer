@@ -856,9 +856,17 @@ def _numeric_equal(given: str, expected: str) -> Optional[bool]:
         try:
             return float(v)
         except ValueError:
-            m = re.fullmatch(r"(-?\d+)\s*/\s*(\d+)", v)
-            if m and float(m.group(2)) != 0:
-                return float(m.group(1)) / float(m.group(2))
+            # Spaces were removed above, so a fraction has exactly two plain
+            # integer parts. Splitting avoids a backtracking numeric regexp on
+            # an answer string supplied by the client.
+            parts = v.split("/")
+            if len(parts) == 2:
+                numerator, denominator = parts
+                numerator_digits = numerator[1:] if numerator.startswith("-") else numerator
+                if (numerator_digits.isascii() and numerator_digits.isdigit()
+                        and denominator.isascii() and denominator.isdigit()
+                        and float(denominator) != 0):
+                    return float(numerator) / float(denominator)
         return None
     g, e = parse(given), parse(expected)
     if g is None or e is None:
