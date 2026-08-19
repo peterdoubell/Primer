@@ -45,6 +45,13 @@ def onboarded(client):
     return r.json()
 
 
+@pytest.fixture
+def open_assessment_gate(monkeypatch):
+    """Keep a sitting-mechanics test independent of curriculum prerequisites."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node: None)
+
+
 # ---------------- 1. short-answer structure requirement ----------------
 
 
@@ -110,7 +117,8 @@ def test_sitting_ttl_still_expires(client, onboarded):
     assert srv._recall(token, "quiz", "math.1.addition") is None
 
 
-def test_committed_answers_persist_across_restart(client, onboarded):
+def test_committed_answers_persist_across_restart(client, onboarded,
+                                                  open_assessment_gate):
     import primer.server as srv
     qs = [{"id": 0, "kind": "numeric", "prompt": "5+5", "answer": "10"}]
     token = srv._remember(qs, "quiz", "math.1.addition")
@@ -346,7 +354,7 @@ def test_settled_placement_can_be_remeasured_after_cooling(client, onboarded):
     # And the submit path accepts the same rung it just served.
     s = client.post("/api/placement/submit", json={
         "domain": "math", "stage": r.json()["stage"],
-        "answers": [""] * 12, "token": r.json()["token"]})
+        "answers": [""] * len(r.json()["questions"]), "token": r.json()["token"]})
     assert s.status_code == 200 and s.json()["settled"] is True
 
 

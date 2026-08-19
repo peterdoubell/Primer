@@ -443,8 +443,8 @@ function offerPlacement(domains) {
       modal.append(
         el('div', { class: 'kicker' }, 'Optional'),
         el('h2', { style: 'margin-top:4px' }, 'Shall the book check your level?'),
-        el('p', { class: 'muted' }, 'The book has placed you by age. A few questions in ' + d.name +
-          ' would let it place you by what you actually know — you can skip this and do it any time.'),
+        el('p', { class: 'muted' }, 'The book starts at the beginning and assumes nothing. A few questions in ' + d.name +
+          ' can place you by what you actually know — you can skip this and do it any time.'),
         el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
           btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Skip for now'),
           btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); runPlacement(domain, S.stage); } }, 'Check my level →')));
@@ -1000,9 +1000,13 @@ async function renderNode(page, nodeId) {
     page.append(el('p', { class: 'muted', style: 'margin-top:14px;color:var(--gold-ink)' },
       glyph('story', 15), ' Proving this opens “' + n.opens_chapter.title + '” — chapter ' + n.opens_chapter.number + ' of your story.'));
   }
+  const canAssess = n.unlocked || n.mastered;
+  const lockedTitle = canAssess ? null : 'Unlock this lesson before taking its quiz or practice.';
   const actions = el('div', { style: 'display:flex;gap:12px;flex-wrap:wrap;margin-top:26px' },
-    btn({ class: 'btn gold', onclick: () => startQuiz(nodeId) }, glyph('quill', 16), ' Take the quiz'),
-    n.practice ? btn({ class: 'btn', onclick: () => startPractice(nodeId, n.practice, n.stage) }, glyph('target', 16), ' Practice') : null,
+    btn({ class: 'btn gold', disabled: canAssess ? null : '', title: lockedTitle,
+      onclick: canAssess ? () => startQuiz(nodeId) : null }, glyph('quill', 16), ' Take the quiz'),
+    n.practice ? btn({ class: 'btn', disabled: canAssess ? null : '', title: lockedTitle,
+      onclick: canAssess ? () => startPractice(nodeId, n.practice, n.stage) : null }, glyph('target', 16), ' Practice') : null,
     n.articles && n.articles.length ? btn({ class: 'btn ghost', onclick: () => go('reader', { title: n.articles[0], node: nodeId }) }, glyph('story', 16), ' Start reading') : null);
   page.append(actions);
 }

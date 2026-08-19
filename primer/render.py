@@ -21,7 +21,6 @@ from html.parser import HTMLParser
 
 log = logging.getLogger("primer.render")
 
-_LINK_RE = re.compile(r'<a\b([^>]*?)href="([^"]*)"([^>]*)>', re.IGNORECASE)
 # This runs on RAW upstream markup, where a `>` inside an attribute value is
 # legal and unescaped, so it has to know where a quoted value begins and ends.
 # `<img\b[^>]*>` did not: it stopped at that inner `>`, cut the tag in half and
@@ -45,8 +44,6 @@ _LINK_RE = re.compile(r'<a\b([^>]*?)href="([^"]*)"([^>]*)>', re.IGNORECASE)
 _IMG_RE = re.compile(
     r'<img\b((?:=\s*"[^"<]*"|=\s*\'[^\'<]*\'|[^<>"\'])*|[^<>]*)>', re.IGNORECASE)
 _SRCSET_RE = re.compile(r'\ssrcset="[^"]*"', re.IGNORECASE)
-_SCRIPT_RE = re.compile(r'(?is)<script\b[^>]*>.*?</script>')
-_STYLE_BLOCK_RE = re.compile(r'(?is)<style\b[^>]*>.*?</style>')
 # Parsoid's <link>/<meta> carry template JSON in a single-quoted data-mw
 # attribute holding things like `<ref name="x" />` — so their attribute values
 # contain `>`, and `<link\b[^>]*>` cut the tag at that inner `>` and left the
@@ -114,24 +111,6 @@ ALLOWED_ATTRS = {
 # preventDefault — but the reader still sees the book's own in-book styling on a
 # link that middle-clicks straight out to whatever the article chose.
 RESERVED_CLASSES = {"table-scroll", "primer-navbox", "primer-wikilink"}
-_NAV_ATTR_RE = re.compile(r"""\s*data-primer-title\s*=\s*(?:"[^"]*"|'[^']*'|\S+)""",
-                          re.IGNORECASE)
-# An inherited class= would win the duplicate-attribute fight against the one
-# this renderer emits (browsers honour the first), so it is stripped first.
-#
-# The unquoted branch must not be able to consume a quote character, and the
-# whole match must land on a real attribute boundary. Without both, this became
-# an injection: in `class="external target=x" title="onclick=alert(1) zz"` the
-# strip matched ` target=x"` — closing quote included — which left `class=`
-# unterminated, and the rest of the tag re-tokenised into live attributes with
-# `onclick` among them. Article HTML goes into the page with innerHTML, so that
-# is stored XSS arriving through the one guarantee the sanitizer exists to give.
-_CLASS_ATTR_RE = re.compile(
-    r"""\sclass\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>"']+)(?=\s|$)""", re.IGNORECASE)
-# …and the same for the pair this renderer states on every external link.
-_TARGET_REL_ATTR_RE = re.compile(
-    r"""\s(?:target|rel)\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>"']+)(?=\s|$)""",
-    re.IGNORECASE)
 _ATTR_VALUE_WHITELIST = {
     "target": {"_blank"},
     "rel": {"noopener noreferrer", "noopener", "noreferrer"},
@@ -241,14 +220,143 @@ def _flush(p):
     return "".join(p.out)
 
 
+_MAX_RAW_TAG_CHARS = 64 * 1024
+
+
+def _looks_like_tag_start(html: str, index: int) -> bool:
+    if index + 1 >= len(html):
+        return False
+    nxt = html[index + 1]
+    return nxt.isascii() and (nxt.isalpha() or nxt in "/!?")
+
+
+def _bound_malformed_markup(html: str) -> str:
+    """Escape incomplete/nested tag starts before ``HTMLParser`` sees them.
+
+    CPython's parser repeatedly rescans an unfinished start tag as more input
+    arrives.  A string such as ``"<table " * n`` is therefore quadratic even
+    though the sanitizer eventually treats it as text.  This linear preflight
+    leaves complete tags byte-for-byte intact, including ``<`` and ``>`` inside
+    a quoted value, while escaping a start that is superseded by another raw
+    ``<`` outside quotes, runs past a generous tag-size ceiling, or is still
+    unfinished at EOF.  When an unfinished quoted value contains further tag
+    starts, every ``<`` in that bounded fragment is escaped together so none is
+    exposed to the parser as a fresh incomplete candidate.
+    """
+    if "<" not in html:
+        return html
+
+    out = []
+    last = 0
+    tag_start = None
+    quote = None
+    after_equal = False
+    i, size = 0, len(html)
+
+    while i < size:
+        char = html[i]
+        if tag_start is None:
+            if char == "<" and html.startswith("<!--", i):
+                end = html.find("-->", i + 4)
+                if end < 0:
+                    out.extend((html[last:i], "&lt;"))
+                    last = i + 1
+                    i += 1
+                else:
+                    i = end + 3
+                continue
+            if char == "<" and _looks_like_tag_start(html, i):
+                tag_start = i
+                quote = None
+                after_equal = False
+            i += 1
+            continue
+
+        if char == "<" and quote is None:
+            # The previous start never closed. Escape only its opening marker;
+            # the remainder stays visible as text and this new start is then
+            # evaluated independently.
+            out.extend((html[last:tag_start], "&lt;"))
+            last = tag_start + 1
+            tag_start = i if _looks_like_tag_start(html, i) else None
+            quote = None
+            after_equal = False
+            i += 1
+            continue
+
+        if quote is not None:
+            if char == quote:
+                quote = None
+        elif after_equal:
+            if char.isspace():
+                pass
+            elif char in "\"'":
+                quote = char
+                after_equal = False
+            else:
+                after_equal = False
+        elif char == "=":
+            after_equal = True
+        elif char == ">":
+            tag_start = None
+
+        if tag_start is not None and i - tag_start >= _MAX_RAW_TAG_CHARS:
+            out.extend((html[last:tag_start],
+                        html[tag_start:i + 1].replace("<", "&lt;")))
+            last = i + 1
+            tag_start = None
+            quote = None
+            after_equal = False
+        i += 1
+
+    if tag_start is not None:
+        out.extend((html[last:tag_start],
+                    html[tag_start:].replace("<", "&lt;")))
+        last = size
+    if not out:
+        return html
+    out.append(html[last:])
+    return "".join(out)
+
+
+def _text_only_fallback(html: str) -> str:
+    """Strip tag-shaped spans in one linear pass, then escape all text.
+
+    This path is only used if ``HTMLParser`` itself fails.  A regex such as
+    ``<[^>]+>`` is both an incomplete HTML parser and vulnerable to excessive
+    backtracking on hostile malformed input; a small state machine is enough
+    for the deliberately conservative text-only fallback.
+    """
+    out = []
+    in_tag = False
+    for char in html:
+        if in_tag:
+            if char == ">":
+                in_tag = False
+                out.append(" ")
+        elif char == "<":
+            in_tag = True
+            out.append(" ")
+        else:
+            out.append(char)
+    return escape("".join(out))
+
+
 def sanitize(html: str) -> str:
+    # Metadata is a void element: even when its quotes are malformed, discard
+    # the opening fragment at the first `>` and keep the prose that follows.
+    # This must precede the generic malformed-tag preflight, which deliberately
+    # escapes unknown incomplete starts as visible text.
+    html = _VOID_META_RE.sub("", html)
+    html = _BROKEN_VOID_META_RE.sub("", html)
+    html = _bound_malformed_markup(html)
     p = _Sanitizer()
     try:
         p.feed(html)
         p.close()
     except Exception:
         # On any parser failure, fall back to a text-only rendering.
-        return escape(re.sub(r"(?s)<[^>]+>", " ", html))
+        return _text_only_fallback(html)
     out = _flush(p)
     if p.drop_depth > 0:
         # An unclosed drop-tag (e.g. a malformed <style>) swallows everything
@@ -266,7 +374,7 @@ def sanitize(html: str) -> str:
             p2.close()
             return _flush(p2)
         except Exception:
-            return escape(re.sub(r"(?s)<[^>]+>", " ", html))
+            return _text_only_fallback(html)
     return out
 
 
@@ -307,52 +415,17 @@ def _wiki_title_from_href(href: str) -> str:
 
 def rewrite_article(html: str, base: str = "") -> str:
     """base is the URL prefix for ZIM-relative assets, e.g. /zim/<id>/A/."""
-    html = _SCRIPT_RE.sub("", html)
-    html = _STYLE_BLOCK_RE.sub("", html)
     html = _VOID_META_RE.sub("", html)
     html = _BROKEN_VOID_META_RE.sub("", html)
     html = _SRCSET_RE.sub("", html)
+    # Metadata has its own conservative malformed-tag rule above. Bound every
+    # other candidate before the raw image rewrite and again inside sanitize()
+    # so neither stage sees a megabyte-long unfinished tag.
+    html = _bound_malformed_markup(html)
 
     body = re.search(r"(?is)<body[^>]*>(.*)</body>", html)
     if body:
         html = body.group(1)
-
-    def fix_link(m):
-        pre, href, post = m.group(1), m.group(2), m.group(3)
-        # This runs downstream of sanitize(), so the href arrives already
-        # entity-escaped. It has to come back to its real value before being
-        # escaped once on the way out — escaping the escaped form turned every
-        # &amp; in a citation URL into &amp;amp;, and the reader's browser then
-        # asked Google Books for a page named "amp;pg=PA5". 328 links across a
-        # seven-article sample. The escape() below restores exactly the form
-        # sanitize() had already approved.
-        href = unescape(href)
-        # Whatever else an anchor carried, it does not get to keep the attribute
-        # the client navigates on: this renderer decides where a link goes.
-        pre = _NAV_ATTR_RE.sub(" ", pre or "")
-        post = _NAV_ATTR_RE.sub(" ", post or "")
-        title = _wiki_title_from_href(href)
-        if title:
-            # The article's own class= would win the duplicate-attribute fight
-            # (browsers honour the first), silently dropping the class the
-            # reader's click handler and the link styling both key on. Strip
-            # any inherited class and re-emit ours as the only one.
-            pre_nc = _CLASS_ATTR_RE.sub(" ", pre)
-            post_nc = _CLASS_ATTR_RE.sub(" ", post)
-            return '<a{}href="#" data-primer-title="{}"{} class="primer-wikilink">'.format(
-                pre_nc, escape(title, quote=True), post_nc
-            )
-        if href.startswith("http"):
-            # Same duplicate-attribute problem the class= strip above solves:
-            # an article carrying its own target= produced a tag with the
-            # attribute twice, and browsers honour the first one — the
-            # article's, not ours. Only the values we emit survive sanitize, so
-            # this was untidy rather than dangerous; it is still ours to state.
-            pre_nt = _TARGET_REL_ATTR_RE.sub(" ", pre)
-            post_nt = _TARGET_REL_ATTR_RE.sub(" ", post)
-            return '<a{}href="{}"{} target="_blank" rel="noopener noreferrer">'.format(
-                pre_nt, escape(href, quote=True), post_nt)
-        return '<a{}href="#"{}>'.format(pre, post)
 
     # Geometry lifted off the maths images on the way past, keyed by the URL we
     # rewrite them to, and re-applied once the sanitizer has run. See
@@ -411,9 +484,7 @@ def rewrite_article(html: str, base: str = "") -> str:
     # anchor with no `href` never reached the link rewriter at all, and could
     # simply declare its own destination.
     html = sanitize(html)
-    html = _LINK_RE.sub(fix_link, html)
-    html = _proxy_stray_images(html)
-    html = _restore_math_metrics(html, math_metrics)
+    html = _rewrite_sanitized_tags(html, math_metrics)
     return _fold_navboxes(_wrap_tables(html))
 
 
@@ -421,83 +492,180 @@ def rewrite_article(html: str, base: str = "") -> str:
 _MATH_SRC_RE = re.compile(r"/media/math/render/(?:svg|png)/", re.IGNORECASE)
 _EX_METRIC_RE = re.compile(r"\b(vertical-align|width|height)\s*:\s*(-?\d*\.?\d+)ex",
                            re.IGNORECASE)
-_IMG_SRC_RE = re.compile(r'(?is)<img\b[^>]*?\ssrc="([^"]*)"[^>]*>')
 
 
-# Downstream of sanitize, where every attribute value has been re-escaped and a
-# raw `>` can no longer occur, so `[^>]*` is exact here.
-_SANITIZED_IMG_SRC_RE = re.compile(r'(?i)(<img\b[^>]*\ssrc=")([^"]*)(")')
+def _has_class(attrs, token: str) -> bool:
+    wanted = token.lower()
+    return any(name.lower() == "class" and wanted in (value or "").lower().split()
+               for name, value in attrs)
 
 
-def _proxy_stray_images(html: str) -> str:
-    """Backstop: no image reaches the reader on an upstream URL.
+def _start_tag(tag: str, attrs) -> str:
+    rendered = "".join(' {}="{}"'.format(name, escape(value or "", quote=True))
+                       for name, value in attrs)
+    return "<{}{}>".format(tag, rendered)
 
-    fix_img rewrites every `src` through /api/image, which is what makes the
-    book work offline and what stops the reader's browser announcing itself to
-    Wikimedia on every page view. But fix_img has to run on raw markup and find
-    tags with a regex, and a regex can always be handed something it will not
-    match — an `<img>` carrying a raw `<` in an attribute slipped past it whole,
-    and sanitize is content to keep an https:// src.
 
-    So the guarantee is restated here, where the markup has been through a real
-    parser and the pattern cannot be fooled. Anything still absolute gets
-    proxied; nothing depends on the earlier match having succeeded.
+class _StreamingHTMLPass(HTMLParser):
+    """Copy normalized markup in one pass, with hooks for structural rewrites.
+
+    These passes run only after ``sanitize``. Using HTMLParser here avoids the
+    overlapping wildcard patterns that made a failed match rescan the same long
+    attribute run from every possible starting point.
     """
-    def sub(m):
-        src = unescape(m.group(2))
-        # Protocol-relative is the form Wikipedia actually writes, so it has to
-        # be caught here too — and normalised the way fix_img does, or the proxy
-        # is handed a URL with no scheme.
-        if src.startswith("//"):
-            src = "https:" + src
-        elif not re.match(r"https?://", src, re.IGNORECASE):
-            return m.group(0)          # archive-relative: served from the ZIM
-        proxied = "/api/image?url=" + urllib.parse.quote(src, safe="")
-        return m.group(1) + escape(proxied, quote=True) + m.group(3)
+    def __init__(self):
+        super().__init__(convert_charrefs=False)
+        self.out = []
 
-    return _SANITIZED_IMG_SRC_RE.sub(sub, html)
+    def _emit(self, text):
+        self.out.append(text)
+
+    def _raw_start(self, tag, attrs):
+        return self.get_starttag_text() or _start_tag(tag, attrs)
+
+    def handle_starttag(self, tag, attrs):
+        self._emit(self._raw_start(tag, attrs))
+
+    def handle_startendtag(self, tag, attrs):
+        self._emit(self._raw_start(tag, attrs))
+
+    def handle_endtag(self, tag):
+        self._emit("</{}>".format(tag))
+
+    def handle_data(self, data):
+        self._emit(data)
+
+    def handle_entityref(self, name):
+        self._emit("&{};".format(name))
+
+    def handle_charref(self, name):
+        self._emit("&#{};".format(name))
+
+    def handle_comment(self, data):
+        self._emit("<!--{}-->".format(data))
+
+    def handle_decl(self, decl):
+        self._emit("<!{}>".format(decl))
+
+    def handle_pi(self, data):
+        self._emit("<?{}>".format(data))
+
+    def result(self):
+        return "".join(self.out)
 
 
-def _restore_math_metrics(html: str, metrics: dict) -> str:
-    """Give each rendered formula back its own size and baseline.
-
-    Wikipedia states a formula's geometry in the image's `style`, in `ex` — not
-    in width/height attributes, which none of them carry. `style` is not an
-    allowed attribute and must never become one, so the values are lifted off
-    before sanitizing and written back here, the way every other marker this
-    renderer owns is applied downstream of it.
-
-    Without them the browser falls back to the SVG's own root dimensions, which
-    resolve against the *SVG's* default font size rather than the reader's. Two
-    things followed from that: every formula sat at one frozen size whatever
-    stage the reader was at, and every one of them sat off the baseline, since
-    the real vertical-align values in these articles run from 0 to -3ex. `ex`
-    resolves against the inherited font-size, so re-emitting the upstream
-    numbers fixes the scale, the baseline, and stage-tracking together.
-
-    Only numeric `ex` values reach this point — the regex that parses them
-    accepts nothing else — and the declaration is rebuilt from those numbers
-    rather than echoed, so no upstream string is ever written into a style.
-    """
-    if not metrics:
+def _run_html_pass(html: str, parser: _StreamingHTMLPass) -> str:
+    """Run a downstream enhancement; on parser failure keep sanitized markup."""
+    try:
+        parser.feed(html)
+        parser.close()
+        return parser.result()
+    except Exception as exc:
+        # Input has already passed the security sanitizer. Losing an enhancement
+        # is safer than losing the article, and returning this string cannot add
+        # anything the allowlist did not approve.
+        log.warning("post-sanitize markup pass failed: %s", exc)
         return html
 
-    def add_style(m):
-        src = unescape(m.group(1))
-        ex = metrics.get(src)
-        if not ex:
-            return m.group(0)
-        decl = ";".join("{}:{}ex".format(k, v) for k, v in sorted(ex.items()))
-        # The sanitizer emits void tags as `<img …>`, but do not depend on it:
-        # a stray `/` carried into the attribute list would break the tag.
-        head = m.group(0)[:-1].rstrip().rstrip("/").rstrip()
-        return head + ' style="{}">'.format(decl)
 
-    return _IMG_SRC_RE.sub(add_style, html)
+class _SanitizedTagPass(_StreamingHTMLPass):
+    """Rewrite links and images without searching tag text with regexes."""
+    def __init__(self, math_metrics):
+        super().__init__()
+        self.math_metrics = math_metrics or {}
+
+    def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
+        if tag == "a":
+            href = next((value or "" for name, value in attrs
+                         if name.lower() == "href"), None)
+            if href is None:
+                return super().handle_starttag(tag, attrs)
+            title = _wiki_title_from_href(href)
+            if title:
+                kept = [(name, value) for name, value in attrs
+                        if name.lower() not in ("href", "class", "data-primer-title")]
+                kept.extend((("href", "#"), ("data-primer-title", title),
+                             ("class", "primer-wikilink")))
+            elif href.lower().startswith(("http://", "https://")):
+                kept = [(name, value) for name, value in attrs
+                        if name.lower() not in ("href", "target", "rel",
+                                                "data-primer-title")]
+                kept.extend((("href", href), ("target", "_blank"),
+                             ("rel", "noopener noreferrer")))
+            else:
+                kept = [(name, value) for name, value in attrs
+                        if name.lower() not in ("href", "data-primer-title")]
+                kept.append(("href", "#"))
+            self._emit(_start_tag("a", kept))
+            return
+
+        if tag == "img":
+            src = next((value or "" for name, value in attrs
+                        if name.lower() == "src"), None)
+            if src is None:
+                return super().handle_starttag(tag, attrs)
+            if src.startswith("//"):
+                src = "https:" + src
+            if src.lower().startswith(("http://", "https://")):
+                src = "/api/image?url=" + urllib.parse.quote(src, safe="")
+
+            kept, wrote_src = [], False
+            for name, value in attrs:
+                lower = name.lower()
+                if lower == "style":
+                    continue             # only the numeric metrics below may return
+                if lower == "src":
+                    if wrote_src:
+                        continue
+                    kept.append(("src", src))
+                    wrote_src = True
+                else:
+                    kept.append((name, value))
+            ex = self.math_metrics.get(src)
+            if ex:
+                decl = ";".join("{}:{}ex".format(k, v) for k, v in sorted(ex.items()))
+                kept.append(("style", decl))
+            self._emit(_start_tag("img", kept))
+            return
+
+        super().handle_starttag(tag, attrs)
 
 
-_TABLE_OPEN_RE = re.compile(r"(?is)<table(\s[^>]*)?>")
-_TABLE_CLOSE_RE = re.compile(r"(?is)</table\s*>")
+def _rewrite_sanitized_tags(html: str, math_metrics: dict) -> str:
+    """Apply link/image behavior in a single linear parser pass."""
+    if "<a" not in html.lower() and "<img" not in html.lower():
+        return html
+    return _run_html_pass(html, _SanitizedTagPass(math_metrics))
+
+
+class _TableWrapperPass(_StreamingHTMLPass):
+    def __init__(self):
+        super().__init__()
+        self.depth = 0
+        self.opened = 0
+        self.sequence = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag.lower() == "table":
+            if self.depth == 0:
+                self.sequence += 1
+                self._emit('<div class="table-scroll" tabindex="0" role="region" '
+                           'aria-label="Table {}">'.format(self.sequence))
+                self.opened += 1
+            self.depth += 1
+        super().handle_starttag(tag, attrs)
+
+    def handle_endtag(self, tag):
+        super().handle_endtag(tag)
+        if tag.lower() == "table" and self.depth > 0:
+            self.depth -= 1
+            if self.depth == 0:
+                self._emit("</div>")
+                self.opened -= 1
+
+    def result(self):
+        return super().result() + "</div>" * max(0, self.opened)
 
 
 def _wrap_tables(html: str) -> str:
@@ -513,60 +681,112 @@ def _wrap_tables(html: str) -> str:
     """
     if "<table" not in html.lower():
         return html
-    out, depth, pos, opened, seq = [], 0, 0, 0, 0
-    for m in re.finditer(r"(?is)<table(?:\s[^>]*)?>|</table\s*>", html):
-        out.append(html[pos:m.start()])
-        tag = m.group(0)
-        if tag.lower().startswith("</"):
-            out.append(tag)
-            # A stray closing tag must not drive the depth negative: doing so
-            # suppressed the wrapper on every table after it in the article.
-            if depth > 0:
-                depth -= 1
-                if depth == 0:
-                    out.append("</div>")
-                    opened -= 1
+    return _run_html_pass(html, _TableWrapperPass())
+
+
+class _NavboxSummaryPass(HTMLParser):
+    """Extract a navbox title while ignoring its v/t/e toolbar."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.capturing = False
+        self.done = False
+        self.depth = 0
+        self.skip_depth = 0
+        self.parts = []
+
+    def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
+        if self.done:
+            return
+        if not self.capturing:
+            if tag in ("th", "td") and _has_class(attrs, "navbox-title"):
+                self.capturing = True
+                self.depth = 1
+            return
+
+        nonvoid = tag not in VOID_TAGS
+        if nonvoid:
+            self.depth += 1
+        if self.skip_depth:
+            if nonvoid:
+                self.skip_depth += 1
+        elif tag == "div" and _has_class(attrs, "navbar"):
+            self.parts.append(" ")
+            self.skip_depth = 1
         else:
-            if depth == 0:
-                seq += 1
-                out.append('<div class="table-scroll" tabindex="0" role="region" '
-                           'aria-label="Table {}">'.format(seq))
-                opened += 1
-            depth += 1
-            out.append(tag)
-        pos = m.end()
-    out.append(html[pos:])
-    # An unclosed <table> would otherwise leave the wrapper hanging open and
-    # swallow the rest of the article.
-    out.append("</div>" * max(0, opened))
-    return "".join(out)
+            self.parts.append(" ")
 
+    def handle_endtag(self, tag):
+        if not self.capturing or self.done:
+            return
+        if self.skip_depth:
+            self.skip_depth -= 1
+        else:
+            self.parts.append(" ")
+        self.depth -= 1
+        if self.depth <= 0:
+            self.capturing = False
+            self.done = True
 
-_DIV_TAG_RE = re.compile(r"(?is)<div(?:\s[^>]*)?>|</div\s*>")
-# The exact class token, not a substring: navbox-styles, navbox-inner and
-# navbox-list are parts of a navigation box, not boxes themselves.
-_NAVBOX_OPEN_RE = re.compile(
-    r'(?is)<div\b[^>]*\sclass="(?:[^"]*\s)?navbox(?:\s[^"]*)?"[^>]*>')
-_NAVBOX_TITLE_RE = re.compile(r'(?is)<t[hd]\b[^>]*\sclass="(?:[^"]*\s)?navbox-title'
-                              r'(?:\s[^"]*)?"[^>]*>(.*?)</t[hd]\s*>')
-_NAVBAR_RE = re.compile(r'(?is)<div\b[^>]*\sclass="(?:[^"]*\s)?navbar(?:\s[^"]*)?".*?</div\s*>')
-_TAGS_RE = re.compile(r"(?s)<[^>]+>")
+    def handle_data(self, data):
+        if self.capturing and not self.skip_depth:
+            self.parts.append(data)
+
+    def result(self):
+        if not self.done:
+            return "Related topics"
+        text = " ".join("".join(self.parts).split()).strip()
+        return text[:120] or "Related topics"
 
 
 def _navbox_summary(inner: str) -> str:
     """The navigation box's own title, for the disclosure that now holds it."""
-    m = _NAVBOX_TITLE_RE.search(inner)
-    if not m:
+    parser = _NavboxSummaryPass()
+    try:
+        parser.feed(inner)
+        parser.close()
+    except Exception:
         return "Related topics"
-    # The title cell leads with the v·t·e template bar, whose three one-letter
-    # links would otherwise turn every summary into "vteSir Isaac Newton".
-    text = _TAGS_RE.sub(" ", _NAVBAR_RE.sub(" ", m.group(1)))
-    # Sanitized markup in, plain text out: the caller escapes this once for the
-    # <summary> it builds, so leaving entities in would double-escape them and
-    # show a reader "Science &amp; technology". No title in the sample corpus
-    # happens to contain one, which is exactly how this would have survived.
-    text = unescape(re.sub(r"\s+", " ", text)).strip()
-    return text[:120] or "Related topics"
+    return parser.result()
+
+
+class _NavboxFolderPass(_StreamingHTMLPass):
+    def __init__(self):
+        super().__init__()
+        self.buffer = None
+        self.div_depth = 0
+
+    def _emit(self, text):
+        (self.buffer if self.buffer is not None else self.out).append(text)
+
+    def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
+        raw = self._raw_start(tag, attrs)
+        if self.buffer is None and tag == "div" and _has_class(attrs, "navbox"):
+            self.buffer = [raw]
+            self.div_depth = 1
+            return
+        self._emit(raw)
+        if self.buffer is not None and tag == "div":
+            self.div_depth += 1
+
+    def handle_endtag(self, tag):
+        tag = tag.lower()
+        self._emit("</{}>".format(tag))
+        if self.buffer is not None and tag == "div":
+            self.div_depth -= 1
+            if self.div_depth == 0:
+                inner = "".join(self.buffer)
+                self.buffer = None
+                self.out.append(
+                    '<details class="primer-navbox"><summary>{}</summary>{}</details>'.format(
+                        escape(_navbox_summary(inner), quote=True), inner))
+
+    def result(self):
+        if self.buffer is not None:
+            self.out.extend(self.buffer)
+            self.buffer = None
+        return super().result()
 
 
 def _fold_navboxes(html: str) -> str:
@@ -585,27 +805,6 @@ def _fold_navboxes(html: str) -> str:
     article cannot mint a disclosure of its own or fold the book's furniture
     away inside one.
     """
-    if "navbox" not in html:
+    if "navbox" not in html.lower():
         return html
-    out, pos = [], 0
-    while True:
-        m = _NAVBOX_OPEN_RE.search(html, pos)
-        if not m:
-            break
-        # Walk to the matching </div> so nested boxes travel with their parent
-        # rather than being folded a second time inside it.
-        depth, end = 0, None
-        for t in _DIV_TAG_RE.finditer(html, m.start()):
-            depth += -1 if t.group(0).lower().startswith("</") else 1
-            if depth == 0:
-                end = t.end()
-                break
-        if end is None:
-            break          # unclosed box: leave the rest of the article alone
-        inner = html[m.start():end]
-        out.append(html[pos:m.start()])
-        out.append('<details class="primer-navbox"><summary>{}</summary>{}</details>'.format(
-            escape(_navbox_summary(inner), quote=True), inner))
-        pos = end
-    out.append(html[pos:])
-    return "".join(out)
+    return _run_html_pass(html, _NavboxFolderPass())

@@ -312,6 +312,12 @@ class LearnerStore:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     kind TEXT, payload TEXT, at REAL, xp INTEGER DEFAULT 0
                 );
+                CREATE TABLE IF NOT EXISTS attempt_effort_claims (
+                    node_id TEXT NOT NULL,
+                    local_day TEXT NOT NULL,
+                    claimed_at REAL NOT NULL,
+                    PRIMARY KEY (node_id, local_day)
+                );
                 CREATE TABLE IF NOT EXISTS placement (
                     domain TEXT PRIMARY KEY,
                     stage INTEGER, asked TEXT DEFAULT '[]', done INTEGER DEFAULT 0
@@ -403,6 +409,23 @@ class LearnerStore:
                     c.execute(ddl)
                 except sqlite3.OperationalError:
                     pass
+            # The reservation table replaces a read-then-insert query over
+            # events.  Preserve today's already-spent slots when an existing
+            # installation first opens this schema, or the first attempt after
+            # an upgrade would be paid twice. Older days can never be claimed
+            # again and need no migration.
+            c.execute(
+                """INSERT OR IGNORE INTO attempt_effort_claims(
+                       node_id, local_day, claimed_at)
+                   SELECT json_extract(payload, '$.node'),
+                          date(at, 'unixepoch', 'localtime'), MIN(at)
+                     FROM events
+                    WHERE kind='attempt' AND at>=?
+                      AND json_extract(payload, '$.node') IS NOT NULL
+                      AND json_extract(payload, '$.score') >= 0.5
+                    GROUP BY json_extract(payload, '$.node'),
+                             date(at, 'unixepoch', 'localtime')""",
+                (_local_midnight(time.time()),))
 
     # ---------- profile ----------
 
@@ -737,7 +760,50 @@ class LearnerStore:
             ).fetchall()
         return {r["node_id"] for r in rows}
 
+    _MASTERY_STATE_COLUMNS = (
+        "level", "attempts", "passes", "first_pass_at", "last_pass_at",
+        "strength", "last_seen", "assumed", "mastered_at", "reinforcements",
+        "reinforced_at", "first_mastered_at",
+    )
+
+    def _cas_mastery(self, c, node_id: str, previous, state) -> bool:
+        """Replace a mastery row iff every field still matches `previous`.
+
+        Both quiz attempts and card reviews use this one compare shape. A
+        partial token such as `attempts` is insufficient because reviews alter
+        strength and durability without incrementing it.
+        """
+        before = tuple(previous[name] for name in self._MASTERY_STATE_COLUMNS)
+        changed = c.execute(
+            """UPDATE mastery SET level=?, attempts=?, passes=?, first_pass_at=?,
+                      last_pass_at=?, strength=?, last_seen=?, assumed=?,
+                      mastered_at=?, reinforcements=?, reinforced_at=?,
+                      first_mastered_at=?
+                 WHERE node_id=?
+                   AND level IS ? AND attempts IS ? AND passes IS ?
+                   AND first_pass_at IS ? AND last_pass_at IS ?
+                   AND strength IS ? AND last_seen IS ? AND assumed IS ?
+                   AND mastered_at IS ? AND reinforcements IS ?
+                   AND reinforced_at IS ? AND first_mastered_at IS ?""",
+            tuple(state) + (node_id,) + before).rowcount
+        return changed == 1
+
     def _apply_attempt(self, c, node_id: str, score: float, assumed: bool, now: float):
+        """Apply one attempt, retrying if another instance changed its row.
+
+        Turso's HTTP transport autocommits each statement, so the process-local
+        lock cannot make the SELECT/calculation/write sequence atomic across
+        serverless instances.  `_apply_attempt_once` uses the row it read as an
+        optimistic compare value; a lost comparison retries from the winner's
+        state instead of overwriting it.
+        """
+        while True:
+            applied = self._apply_attempt_once(c, node_id, score, assumed, now)
+            if applied is not None:
+                return applied
+
+    def _apply_attempt_once(self, c, node_id: str, score: float,
+                            assumed: bool, now: float):
         prof_row = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
         age = prof_row["age"] if prof_row else None
         min_gap = _reinforce_min_gap(age)
@@ -839,20 +905,29 @@ class LearnerStore:
                     first_pass = now  # re-proving starts a fresh spaced window
                 # Forgetting it means it was not as durable as the count claimed.
                 reinforcements = max(1, reinforcements - 1)
-        c.execute(
-            """INSERT INTO mastery(node_id, level, attempts, passes, first_pass_at,
-                                   last_pass_at, strength, last_seen, assumed,
-                                   mastered_at, reinforcements, reinforced_at,
-                                   first_mastered_at)
-               VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-               ON CONFLICT(node_id) DO UPDATE SET level=?, attempts=?, passes=?,
-                 first_pass_at=?, last_pass_at=?, strength=?, last_seen=?, assumed=?,
-                 mastered_at=?, reinforcements=?, reinforced_at=?, first_mastered_at=?""",
-            (node_id, level, attempts, passes, first_pass, last_pass, strength, now,
-             was_assumed, mastered_at, reinforcements, reinforced_at_write, first_mastered_at,
-             level, attempts, passes, first_pass, last_pass, strength, now,
-             was_assumed, mastered_at, reinforcements, reinforced_at_write, first_mastered_at),
-        )
+        state = (level, attempts, passes, first_pass, last_pass, strength, now,
+                 was_assumed, mastered_at, reinforcements,
+                 reinforced_at_write, first_mastered_at)
+        if row:
+            # Compare every mastery field this calculation consumed.  Attempts
+            # alone is not a sufficient revision: a simultaneous card review
+            # can change strength/mastered_at without incrementing it.  `IS`
+            # is SQLite's null-safe equality, so optional timestamps participate
+            # in the same comparison without special cases.
+            changed = 1 if self._cas_mastery(c, node_id, row, state) else 0
+        else:
+            # Two first attempts may both observe no row.  INSERT OR IGNORE is
+            # the creation-side CAS; the loser loops and applies its evidence
+            # to the row the winner just created.
+            changed = c.execute(
+                """INSERT OR IGNORE INTO mastery(
+                       node_id, level, attempts, passes, first_pass_at,
+                       last_pass_at, strength, last_seen, assumed, mastered_at,
+                       reinforcements, reinforced_at, first_mastered_at)
+                   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (node_id,) + state).rowcount
+        if changed != 1:
+            return None
         return level, mastered_at is not None, newly_mastered, lost_mastery
 
     def record_attempt(self, node_id: str, score: float, assumed: bool = False) -> Dict:
@@ -887,18 +962,22 @@ class LearnerStore:
                 # the book paid least, which inverts the whole point of the
                 # schedule. Failing is not farming, and this is the same
                 # `score >= 0.5` line the payment itself uses.
-                day_start = _local_midnight(now)
-                already = c.execute(
-                    """SELECT 1 FROM events WHERE kind='attempt' AND at >= ?
-                       AND json_extract(payload, '$.node') = ?
-                       AND json_extract(payload, '$.score') >= 0.5 LIMIT 1""",
-                    (day_start, node_id)).fetchone()
                 # A floor, not a straight line: below half marks is closer to
                 # guessing than to retrieval, and paying it proportionally
                 # meant 343 randomly-answered papers (mean score 0.198, zero
                 # masteries) still earned 660 XP — 3.6x an honest day's worth.
                 # XP should track successful retrieval, not mere participation.
-                xp = ((0 if already or score < 0.5 else round(score * 12))
+                # INSERT OR IGNORE is the cross-instance decision: unlike the
+                # former events SELECT, exactly one HTTP-autocommit request can
+                # own this node's local-day slot.
+                effort_claimed = False
+                if score >= 0.5:
+                    local_day = datetime.date.fromordinal(_local_day(now)).isoformat()
+                    effort_claimed = c.execute(
+                        """INSERT OR IGNORE INTO attempt_effort_claims(
+                               node_id, local_day, claimed_at) VALUES(?,?,?)""",
+                        (node_id, local_day, now)).rowcount == 1
+                xp = ((round(score * 12) if effort_claimed else 0)
                       + (60 if newly and first_ever else 0))
                 c.execute("INSERT INTO events(kind, payload, at, xp) VALUES('attempt',?,?,?)",
                           (json.dumps({"node": node_id, "score": round(score, 2),
@@ -1191,6 +1270,114 @@ class LearnerStore:
                         "WHERE kind='review' AND at>=?", (start,)).fetchone()
         return int(row[0] or 0)
 
+    def _apply_review_mastery(self, c, node_id: str, card, quality: int,
+                              now: float, min_gap: float):
+        """Apply one card's evidence to mastery with optimistic retry.
+
+        Card scheduling is already complete when this runs. Only the mastery
+        consequence is retried: if a quiz attempt changes the row between read
+        and write, the review is recalculated from that new state rather than
+        overwriting it with the stale strength snapshot.
+        """
+        while True:
+            mastery = c.execute(
+                "SELECT * FROM mastery WHERE node_id=?", (node_id,)).fetchone()
+            if mastery is None:
+                return
+
+            state = {name: mastery[name] for name in self._MASTERY_STATE_COLUMNS}
+            # Start from what the reader retains *now*, not the strength frozen
+            # at the last write. Subtracting a lapse from raw 1.0 could raise a
+            # two-year-decayed memory from near zero back above the proven gate.
+            strength = self._strength_now(
+                mastery["strength"] or 0, mastery["last_seen"], now,
+                mastery["reinforcements"])
+            # A reader-written card is their own note, not independent proof.
+            # Its successes cannot self-certify a node, although failing the
+            # easiest, most familiar wording is still evidence of forgetting.
+            reader_card = (card["origin"] or "book") != "book"
+            # last_seen is the decay clock's zero point. It moves only when the
+            # grade is admissible evidence; merely grading one's own note as
+            # correct must not make an old memory look fresh.
+            touch_clock = False
+
+            if quality >= 4 and not reader_card:
+                # Confident successful recall restores current standing. A
+                # small additive nudge converged below the freshness gate once
+                # SM-2 intervals outgrew it, so an on-schedule learner could be
+                # reported as faded forever.
+                #
+                # This grade is self-reported, however. Recent quiz calibration
+                # discounts both its restore and its durability payment on one
+                # continuous ramp: a reader just over the 1/3 error limit must
+                # not become a different kind of learner at a hard cliff
+                # (Dunning & Kruger 1999; Koriat & Bjork 2005).
+                discount = self._miscalibration(
+                    self._overconfidence_rate(c), self.OVERCONFIDENCE_LIMIT)
+                target = 1.0 - discount * (1.0 - self.OVERCONFIDENT_RESTORE_CAP)
+                # One easy card cannot carry a whole node while sibling cards
+                # are lapsed or overdue. Deck health scales the restore to the
+                # actual state of all cards attached to the node.
+                strength = max(
+                    strength, target * self._deck_health(c, node_id, now))
+                touch_clock = True
+
+                # Only a spaced and credible success extends half-life. Paying
+                # full reinforcement after discounting the same grade's restore
+                # let overconfidence ratchet durability to the ceiling. Credit
+                # remains fractional because _half_life is defined on reals.
+                last_reinforced = mastery["reinforced_at"]
+                credit = 1.0 - discount
+                if (credit > 0 and (not last_reinforced
+                                    or (now - last_reinforced) >= min_gap)):
+                    state["reinforcements"] = (
+                        (mastery["reinforcements"]
+                         if mastery["reinforcements"] is not None else 1)
+                        + credit)
+                    state["reinforced_at"] = now
+            elif quality == 3 and not reader_card:
+                # Effortful successful retrieval is evidence, not a no-op: it
+                # restarts decay and applies a modest floor rather than the full
+                # q>=4 restore. The opposite calibration signal matters too—a
+                # consistently underconfident reader's hesitant-but-correct
+                # recall is stronger than their self-grade claims—so this uses
+                # the same graded ramp without buying reinforcements (Bjork;
+                # Roediger & Karpicke 2006; Koriat, Sheffer & Ma'ayan 2002).
+                credit = self._miscalibration(
+                    self._underconfidence_rate(c), self.UNDERCONFIDENCE_LIMIT)
+                floor = 0.5 + credit * (self.UNDERCONFIDENT_Q3_FLOOR - 0.5)
+                strength = max(strength, floor)
+                touch_clock = True
+            elif quality < 3:
+                # Failure counts even on a reader-authored card, but it can only
+                # move knowledge downward. The gentler 0.15 penalty recognises
+                # that self-written prompts can be ambiguous; only a book card
+                # can revoke mastery outright below. Because the subtraction is
+                # from already-decayed strength, restarting the clock here can
+                # never make the memory look fresher than it was before.
+                strength = max(0.0, strength - (0.15 if reader_card else 0.25))
+                touch_clock = True
+
+            if (quality < 3 and not reader_card
+                    and mastery["mastered_at"] is not None and strength <= 0.2):
+                # A hard miss on independent evidence means the node must be
+                # re-proven. Keep at most one pass and restart its spacing
+                # window, while first_mastered_at still preserves its history.
+                state["strength"] = strength
+                state["last_seen"] = now
+                state["mastered_at"] = None
+                state["passes"] = min(mastery["passes"] or 0, 1)
+                state["first_pass_at"] = now
+            elif touch_clock:
+                state["strength"] = strength
+                state["last_seen"] = now
+
+            desired = tuple(state[name] for name in self._MASTERY_STATE_COLUMNS)
+            previous = tuple(mastery[name] for name in self._MASTERY_STATE_COLUMNS)
+            if desired == previous or self._cas_mastery(
+                    c, node_id, mastery, desired):
+                return
+
     def review_card(self, card_id: int, quality: int) -> Dict:
         """SM-2. quality: 0 (blank) .. 5 (perfect). A lapse also lowers the
         related node's strength and can flag it for refresh."""
@@ -1283,177 +1470,7 @@ class LearnerStore:
             # memory, so repeated lapses can un-master a node entirely.
             node_id = row["node_id"]
             if node_id:
-                m = c.execute("SELECT strength, mastered_at, passes, reinforced_at, "
-                              "last_seen, reinforcements FROM mastery WHERE node_id=?",
-                              (node_id,)).fetchone()
-                if m:
-                    # The adjustment below has to start from what the reader
-                    # actually retains *right now*, not the value frozen at the
-                    # last write. Reading the raw stored strength meant a single
-                    # blank review could raise a node that had decayed to
-                    # near-zero straight back to "proven": strength 1.0 minus
-                    # 0.25 is 0.75, comfortably above the 0.35 gate, even though
-                    # two years untouched had left the true value at 0.001.
-                    strength = self._strength_now(m["strength"] or 0, m["last_seen"],
-                                                  now, m["reinforcements"])
-                    # A card the reader wrote is their own note, not evidence.
-                    # Letting it feed strength meant `front:"q", back:"a"`,
-                    # self-graded 5, fully restored a decayed gate.
-                    reader_card = (row["origin"] or "book") != "book"
-                    # last_seen is the decay clock's zero point, so it may only
-                    # move on real evidence — a reader-card grade, of either
-                    # sign, is not that, and writing it unconditionally let
-                    # `/api/review/add` then a single quality-0 grade restore a
-                    # two-year-faded node to a fresh clock.
-                    touch_clock = False
-                    if quality >= 4 and not reader_card:
-                        # A confident, successful review is full evidence of
-                        # current retention — the same standing a fresh quiz
-                        # pass already gets. A small additive nudge instead
-                        # compounded into a permanent failure mode: once the
-                        # interval between reviews grew faster than the +0.15
-                        # could repay, strength converged to a fixed point
-                        # under the 0.35 gate and stayed there forever, so a
-                        # node reviewed exactly on schedule for years still
-                        # read as faded.
-                        #
-                        # Calibration modulation: quality here is *self-graded*,
-                        # and the quiz route measures how trustworthy this
-                        # reader's confidence actually is (miscalibration —
-                        # confident-and-wrong — is well documented; Dunning &
-                        # Kruger 1999; Koriat & Bjork 2005 on foresight bias).
-                        # When more than a third of their recently confident
-                        # quiz answers were wrong, a self-graded 4-5 is weaker
-                        # evidence than it claims, so the restore is discounted
-                        # rather than taken at face value. The discount is
-                        # graded, not a cliff: it starts at the 1/3 limit and
-                        # reaches the 0.85 cap at 2/3. A reader at 0.334 and a
-                        # reader at 0.333 differ by one answer in three hundred
-                        # and must not be treated as different kinds of learner.
-                        discount = self._miscalibration(self._overconfidence_rate(c),
-                                                        self.OVERCONFIDENCE_LIMIT)
-                        target = 1.0 - discount * (1.0 - self.OVERCONFIDENT_RESTORE_CAP)
-                        # A node is not one card. Setting node strength to the
-                        # target outright let the easiest card in a deck carry
-                        # everything around it: one q>=4 on a card the reader
-                        # finds trivial read the whole node as fully retained
-                        # while its three siblings sat lapsed and overdue.
-                        # Scale by the node's actual deck state instead.
-                        strength = max(strength, target * self._deck_health(c, node_id, now))
-                        touch_clock = True
-                        # Only a *spaced* success builds durability. Without the
-                        # gap, minting cards and grading them in one sitting
-                        # made a node permanent in zero elapsed time.
-                        #
-                        # And only a *credible* one. The cap above already says
-                        # this self-grade is weaker evidence than it claims —
-                        # but a `reinforcements` bump is the more consequential
-                        # payment of the two: strength resets on the next real
-                        # pass anyway, while the half-life extension is
-                        # permanent. Discounting the restore and then paying
-                        # full durability growth on the same distrusted grade
-                        # let an overconfident reader ratchet a node's half-
-                        # life to the ceiling on evidence the calibration
-                        # model had just declared unreliable. One discount,
-                        # applied to everything the grade buys: while the
-                        # reader's confident quiz answers are wrong more than a
-                        # third of the time, a self-graded success neither
-                        # fully restores nor lengthens the half-life.
-                        #
-                        # Graded here too, and for the same reason: the payment
-                        # is scaled by (1 - discount) rather than switched off
-                        # at a threshold. A fractional reinforcement is a real
-                        # quantity, not a bookkeeping trick — `_half_life` takes
-                        # the square root of it and is defined on the reals.
-                        last_r = m["reinforced_at"] if "reinforced_at" in m.keys() else None
-                        credit = 1.0 - discount
-                        if credit > 0 and (not last_r or (now - last_r) >= min_gap):
-                            c.execute("UPDATE mastery SET reinforcements = "
-                                      "COALESCE(reinforcements, 1) + ?, reinforced_at=? "
-                                      "WHERE node_id=?", (credit, now, node_id))
-                    elif quality == 3 and not reader_card:
-                        # Correct with serious difficulty. This used to leave
-                        # the node untouched entirely — no strength, no clock —
-                        # which threw away the strongest kind of evidence there
-                        # is: effortful successful retrieval (the "desirable
-                        # difficulties" and testing-effect literature — Bjork;
-                        # Roediger & Karpicke 2006 — finds hard-won recall more
-                        # potent for retention than easy recall). Not full
-                        # restoration (that is q>=4's claim), but a partial
-                        # refresh: the decay clock restarts, and strength is
-                        # floored at a modest level above the 0.35 gate.
-                        #
-                        # Calibration modulation, the other sign. The q>=4
-                        # path above discounts a reader whose confidence runs
-                        # ahead of their knowledge; the same measurement also
-                        # records the opposite error — hesitating over answers
-                        # that turn out to be right (Koriat & Bjork's foresight
-                        # bias cuts both ways, and underconfidence-with-practice
-                        # is a well-attested pattern in Koriat, Sheffer & Ma'ayan
-                        # 2002). A timid reader grades a recall "3" that a
-                        # calibrated reader would have graded "4", so reading
-                        # only the overconfident direction meant the book
-                        # trusted the bold and quietly under-credited the
-                        # careful, for identical retrieval. When more than a
-                        # third of their hesitant quiz answers were in fact
-                        # correct, a self-graded 3 is stronger evidence than it
-                        # claims and the floor moves up a notch — a notch, not
-                        # the whole way: this is still not q>=4's full restore,
-                        # it does not touch reinforcements, and it cannot on
-                        # its own carry a node the reader is genuinely losing.
-                        #
-                        # Graded on the same ramp as the overconfidence
-                        # discount, so the credit a careful reader earns and
-                        # the penalty a bold one pays are the same shape read
-                        # in two directions.
-                        credit = self._miscalibration(self._underconfidence_rate(c),
-                                                      self.UNDERCONFIDENCE_LIMIT)
-                        floor = 0.5 + credit * (self.UNDERCONFIDENT_Q3_FLOOR - 0.5)
-                        strength = max(strength, floor)
-                        touch_clock = True
-                    elif quality < 3:
-                        # Failure counts on a reader-authored card too. The
-                        # asymmetry argued at the top of this method is about
-                        # *evidence*, not about who wrote the prompt: a card
-                        # the reader wrote themselves is the easiest possible
-                        # test — they know its wording, they chose its cue —
-                        # and blanking on it is therefore a stronger signal of
-                        # forgetting than blanking on the book's version, not a
-                        # weaker one. Discarding it meant a reader could fail
-                        # their own card cold, repeatedly, while the node sat
-                        # there reading proven.
-                        #
-                        # The asymmetry is preserved exactly where it matters:
-                        # a reader-card *success* still restores nothing (that
-                        # is the anti-self-certification rule, and it stands),
-                        # and a reader-card failure moves strength downward
-                        # only. There is no farming route: the arithmetic is
-                        # monotonically decreasing, so the worst a reader can
-                        # do by grading their own cards badly is bury their own
-                        # progress. Slightly gentler than a book card (0.15 vs
-                        # 0.25) because a self-written prompt can be genuinely
-                        # ambiguous a day later, and revoking mastery outright
-                        # (below) still requires a book card — a note the
-                        # reader wrote can flag decay, but should not be the
-                        # sole thing that tears down proven work.
-                        strength = max(0.0, strength - (0.15 if reader_card else 0.25))
-                        # Moving the decay clock is safe in this direction and
-                        # only in this direction: the new value is computed
-                        # from the *decayed* strength and then reduced, so it
-                        # can never exceed what the reader actually retains
-                        # right now. That is precisely the property the q>=4
-                        # reader-card ban exists to protect.
-                        touch_clock = True
-                    if (quality < 3 and (row["origin"] or "book") == "book"
-                            and m["mastered_at"] is not None and strength <= 0.2):
-                        # Forgotten badly enough to need re-proving.
-                        c.execute(
-                            """UPDATE mastery SET strength=?, last_seen=?, mastered_at=NULL,
-                               passes=?, first_pass_at=? WHERE node_id=?""",
-                            (strength, now, min(m["passes"] or 0, 1), now, node_id))
-                    elif touch_clock:
-                        c.execute("UPDATE mastery SET strength=?, last_seen=? WHERE node_id=?",
-                                  (strength, now, node_id))
+                self._apply_review_mastery(c, node_id, row, quality, now, min_gap)
             # Only successful retrieval pays — a blank is practice, not progress.
             if lapses >= 6 and quality < 3:
                 # A card failed this often is badly formed or too hard: park it
@@ -1889,6 +1906,12 @@ class LearnerStore:
         cutoff = time.time() - keep_days * DAY
         with _lock, self._conn() as c:
             c.execute("DELETE FROM reading_log WHERE opened_at < ?", (cutoff,))
+            # Even an aggressive `prune(0)` must not reopen today's unique XP
+            # slot. Claims are tiny; retain the current local day regardless
+            # of the requested history horizon.
+            claim_cutoff = min(cutoff, _local_midnight(time.time()))
+            c.execute("DELETE FROM attempt_effort_claims WHERE claimed_at < ?",
+                      (claim_cutoff,))
             keep_ids = {r[0] for r in c.execute(
                 "SELECT MIN(id) FROM events WHERE at < ? "
                 "GROUP BY date(at, 'unixepoch', 'localtime')", (cutoff,))}

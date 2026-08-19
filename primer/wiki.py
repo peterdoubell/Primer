@@ -46,11 +46,19 @@ USER_AGENT = "ThePrimer/1.0 (offline-first educational reader; local personal us
 _db_lock = threading.Lock()
 _search_lock = threading.Lock()
 
+# A live REST article can be several megabytes after Parsoid expansion, but it
+# must never be allowed to grow without bound in memory.  This cap applies to
+# articles and the much smaller search/summary JSON responses alike.
+MAX_HTTP_BYTES = 16 * 1024 * 1024
+
 
 def _http_get(url: str, timeout: float = 15.0) -> bytes:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.read()
+        data = resp.read(MAX_HTTP_BYTES + 1)
+        if len(data) > MAX_HTTP_BYTES:
+            raise ValueError("remote response exceeds {} bytes".format(MAX_HTTP_BYTES))
+        return data
 
 
 def _http_get_json(url: str, timeout: float = 15.0):
@@ -651,39 +659,74 @@ class WikiService:
     # ---------- images ----------
 
     @staticmethod
-    def _image_host_allowed(url: str) -> bool:
-        """Only fetch images from Wikimedia hosts — parse the host, don't regex
-        the whole URL (which let `evil.com/a.wikipedia.org/` and metadata IPs
-        through). Blocks SSRF to internal/link-local addresses."""
+    def _validated_image_url(url: str) -> Optional[str]:
+        """Return a canonical URL on one exact Wikimedia host, else ``None``.
+
+        Rebuilding the URL matters as much as checking it: ``proxy_image`` is
+        reached from a public query parameter, so the value handed to urllib
+        must take its scheme and authority from server-owned constants rather
+        than merely carrying a tainted URL past a boolean check.  Keeping the
+        host list exact also avoids trusting every present and future Wikimedia
+        subdomain.  These are the hosts used by English/Simple articles, media,
+        maps and rendered mathematics.
+        """
+        if (
+            not isinstance(url, str)
+            or any(ord(ch) < 0x20 or ord(ch) == 0x7f for ch in url)
+        ):
+            return None
         try:
-            parsed = urllib.parse.urlparse(url)
-        except Exception:
-            return False
-        if parsed.scheme not in ("http", "https"):
-            return False
-        host = (parsed.hostname or "").lower()
-        # The apex domains must be listed explicitly. The suffix tests below
-        # carry a leading dot on purpose — it is what stops evilwikimedia.org
-        # matching — but that same dot excludes bare `wikimedia.org`, which is
-        # exactly where Wikipedia serves rendered mathematics
-        # (wikimedia.org/api/rest_v1/media/math/render/svg/...). Every formula
-        # in every article was therefore blocked, and the reader saw a broken
-        # image where the equation should be.
-        return (
-            host in ("wikimedia.org", "wikipedia.org", "upload.wikimedia.org")
-            or host.endswith(".wikipedia.org")
-            or host.endswith(".wikimedia.org")
-        )
+            parsed = urllib.parse.urlsplit(url)
+            if parsed.scheme.lower() != "https":
+                return None
+            if parsed.username is not None or parsed.password is not None:
+                return None
+            if parsed.port not in (None, 443):
+                return None
+            host = (parsed.hostname or "").lower().rstrip(".")
+        except (TypeError, ValueError):
+            return None
+
+        # Spell out the mapping so the authority returned below is always a
+        # literal chosen by this server, never the caller-controlled ``host``.
+        if host == "upload.wikimedia.org":
+            canonical_origin = "https://upload.wikimedia.org"
+        elif host == "wikimedia.org":
+            canonical_origin = "https://wikimedia.org"
+        elif host == "wikipedia.org":
+            canonical_origin = "https://wikipedia.org"
+        elif host == "en.wikipedia.org":
+            canonical_origin = "https://en.wikipedia.org"
+        elif host == "simple.wikipedia.org":
+            canonical_origin = "https://simple.wikipedia.org"
+        elif host == "commons.wikimedia.org":
+            canonical_origin = "https://commons.wikimedia.org"
+        elif host == "maps.wikimedia.org":
+            canonical_origin = "https://maps.wikimedia.org"
+        else:
+            return None
+
+        # Quote raw whitespace/non-ASCII without double-encoding the percent
+        # escapes Wikimedia already supplies.  Fragments are client-side only
+        # and deliberately omitted from both the request and the cache key.
+        path = urllib.parse.quote(parsed.path or "/", safe="/%:@!$&'()*+,;=-._~")
+        query = urllib.parse.quote(parsed.query, safe="=&/:;+,%@!$'()*-._~?")
+        return canonical_origin + path + (("?" + query) if query else "")
+
+    @staticmethod
+    def _image_host_allowed(url: str) -> bool:
+        """Compatibility predicate backed by the canonical URL validator."""
+        return WikiService._validated_image_url(url) is not None
 
     class _StrictRedirect(urllib.request.HTTPRedirectHandler):
-        """Re-validate the host on every redirect hop — otherwise an allowed
-        host could bounce the fetch to an internal address."""
+        """Re-validate and canonicalize the URL on every redirect hop."""
 
         def redirect_request(self, req, fp, code, msg, headers, newurl):
-            if not WikiService._image_host_allowed(newurl):
-                log.warning("blocked redirect to disallowed host: %s", newurl[:120])
+            safe_url = WikiService._validated_image_url(newurl)
+            if safe_url is None:
+                log.warning("blocked redirect to disallowed host: %r", str(newurl)[:120])
                 return None
-            return super().redirect_request(req, fp, code, msg, headers, newurl)
+            return super().redirect_request(req, fp, code, msg, headers, safe_url)
 
     MAX_IMAGE_BYTES = 8 * 1024 * 1024
     # Worst case ~2000 × 8MB is bounded; in practice article thumbnails are
@@ -691,32 +734,35 @@ class WikiService:
     CACHE_MAX_IMAGES = 2000
 
     def proxy_image(self, url: str) -> Optional[Tuple[bytes, str]]:
-        if not self._image_host_allowed(url):
-            log.warning("blocked image fetch to disallowed host: %s", url[:120])
+        safe_url = self._validated_image_url(url)
+        if safe_url is None:
+            log.warning("blocked image fetch to disallowed host: %r", str(url)[:120])
             return None
         with _db_lock, self._conn() as c:
-            row = c.execute("SELECT data, mime FROM image_cache WHERE url=?", (url,)).fetchone()
+            row = c.execute(
+                "SELECT data, mime FROM image_cache WHERE url=?", (safe_url,)
+            ).fetchone()
         if row:
             return row[0], row[1]
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            req = urllib.request.Request(safe_url, headers={"User-Agent": USER_AGENT})
             opener = urllib.request.build_opener(self._StrictRedirect())
             with opener.open(req, timeout=20) as resp:
                 # Bounded read: never buffer an unbounded remote response.
                 data = resp.read(self.MAX_IMAGE_BYTES + 1)
                 if len(data) > self.MAX_IMAGE_BYTES:
-                    log.warning("image too large, refused: %s", url[:120])
+                    log.warning("image too large, refused: %s", safe_url[:120])
                     return None
                 mime = resp.headers.get("Content-Type", "image/jpeg")
         except Exception as exc:
-            log.info("image fetch failed (%s): %s", exc.__class__.__name__, url[:120])
+            log.info("image fetch failed (%s): %s", exc.__class__.__name__, safe_url[:120])
             return None
         # This endpoint exists to serve <img> tags. Refuse anything the
         # upstream does not declare as image/* — otherwise an error page or
         # HTML response would be cached forever and served with a live mime
         # type from our own origin.
         if not mime.split(";")[0].strip().lower().startswith("image/"):
-            log.warning("non-image content-type %r refused: %s", mime[:40], url[:120])
+            log.warning("non-image content-type %r refused: %s", mime[:40], safe_url[:120])
             return None
         # Cache everything we are willing to serve. The old sub-4MB threshold
         # left 4–8MB images re-fetched on every view and silently missing
@@ -726,7 +772,7 @@ class WikiService:
         with _db_lock, self._conn() as c:
             c.execute(
                 "INSERT OR REPLACE INTO image_cache(url, data, mime, fetched_at) VALUES(?,?,?,?)",
-                (url, data, mime, time.time()),
+                (safe_url, data, mime, time.time()),
             )
             c.execute(
                 """DELETE FROM image_cache WHERE url NOT IN (
