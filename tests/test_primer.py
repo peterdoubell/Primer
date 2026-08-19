@@ -2951,7 +2951,7 @@ def test_no_cross_domain_twin_at_the_same_stage():
         "identical items across domains at the same stage: {}".format(cross_domain_twins[:5])
 
 
-def test_cloze_defect_rate_on_real_curriculum_articles_stays_under_5_percent():
+def test_cloze_defect_rate_on_real_curriculum_articles_stays_under_5_percent(tmp_path):
     """The synthetic-corpus audit (above) is fast and reproducible, but it
     only proves the generator behaves on 17 hand-picked paragraphs. The
     reviewer who asked for a 9/10 on assessment validity specifically wanted
@@ -2979,30 +2979,31 @@ def test_cloze_defect_rate_on_real_curriculum_articles_stays_under_5_percent():
         for n in d["nodes"]:
             titles.update(n.get("articles", []))
 
-    wiki = WikiService("content/primer.db")
     # A runtime-created SQLite file is not an article corpus.  The old
     # existence-only decorator treated an empty DB as the full offline shelf,
     # then `get_article` silently fell through to hundreds of live Wikipedia
     # requests.  Run this expensive standing audit only with a real ZIM or the
     # substantial cache the documented measurement was made against.
-    cached = audit.sample_corpus()
-    if not wiki.archives and len(cached) < 500:
+    cached = dict(audit.sample_corpus(max_chars=6000))
+    import primer.wiki as wiki_module
+    has_zim = wiki_module.HAVE_LIBZIM and bool(
+        glob.glob(os.path.join(wiki_module.CONTENT_DIR, "*.zim")))
+    if not has_zim and len(cached) < 500:
         pytest.skip("needs a real offline archive or substantial article cache")
-    # This is specifically an offline-corpus gate.  Missing titles must reduce
-    # the coverage count (and eventually fail its floor), never make the test
-    # depend on the network or mutate the cache while it is being measured.
-    wiki._live_fetch_blocked_until = float("inf")
+    # Use a throwaway cache for ZIM reads.  The audit must never initialise,
+    # migrate, or write the reader's real Primer DB merely because pytest ran.
+    wiki = WikiService(str(tmp_path / "audit.db")) if has_zim else None
+    if wiki:
+        wiki._live_fetch_blocked_until = float("inf")
     total_items, total_defects = 0, 0
     for t in sorted(titles):
-        r = wiki.get_article(t)
-        if not r or not r.get("html"):
-            continue
-        # 6000 chars is what the retired /api/selfcheck passed; the 3000 this test
-        # used before measured a text the reader never sees, and after the
-        # 2026-08 precision pass the difference is no longer cosmetic — half
-        # the evidence the generator now needs lives in the second half of the
-        # article.
-        text = wiki.article_plaintext(r["html"], max_chars=6000)
+        text = cached.get(t)
+        if text is None and wiki:
+            r = wiki.get_article(t)
+            if r and r.get("html"):
+                # 6000 chars is what the retired /api/selfcheck passed; the
+                # second half carries evidence the precision filters need.
+                text = wiki.article_plaintext(r["html"], max_chars=6000)
         if not text or len(text) < 200:
             continue
         for item in quiz.cloze_from_text(text, n=5, topic=t):

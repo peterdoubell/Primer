@@ -48,12 +48,24 @@ def sample_corpus(limit=None, max_chars=6000):
             continue
         conn = sqlite3.connect("file:{}?mode=ro".format(path), uri=True)
         try:
-            rows = conn.execute(
-                "SELECT title, html FROM article_cache "
-                "WHERE html IS NOT NULL AND length(html) > 2000"
-            ).fetchall()
+            has_cache = conn.execute(
+                "SELECT 1 FROM sqlite_master "
+                "WHERE type='table' AND name='article_cache'"
+            ).fetchone()
+            if has_cache:
+                rows = conn.execute(
+                    "SELECT title, html FROM article_cache "
+                    "WHERE html IS NOT NULL AND length(html) > 2000"
+                ).fetchall()
+            else:
+                # A runtime-created Primer DB is not necessarily an article
+                # cache.  Keep looking rather than treating its mere existence
+                # as the real audit corpus.
+                rows = []
         finally:
             conn.close()
+        if not rows:
+            continue
         rows.sort(key=lambda r: r[0])
         out = []
         for title, html in rows:
@@ -62,7 +74,8 @@ def sample_corpus(limit=None, max_chars=6000):
                 out.append((title, text))
             if limit and len(out) >= limit:
                 break
-        return out
+        if out:
+            return out
     return []
 
 

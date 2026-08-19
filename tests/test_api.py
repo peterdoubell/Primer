@@ -1907,32 +1907,49 @@ def test_a_faded_chapter_gate_does_not_report_stale_passes(client, onboarded,
 
 
 def test_grading_a_review_card_through_the_real_api_restores_a_faded_node(
-        client, onboarded, open_assessment_gate):
+        client, onboarded, open_assessment_gate, monkeypatch):
     """A reviewer asked for proof that 'review outcomes feed back into
     strength decay' is a genuine deck-mastery coupling, not just a claim —
     and specifically that they could not verify it themselves without code
     access. This drives the whole loop through the real HTTP surface, the
     same one a reader's browser uses: master a node with two spaced quiz
-    passes, fail it once to mint a review card, let the node's strength
+    passes, seed a durable review card as test setup, let the node's strength
     decay to faded, then grade that card through POST /api/review and
     confirm GET /api/curriculum/node reports the node proven again — not by
     peeking at internal state, but by reading the same endpoint the app's
     own UI reads."""
     import primer.server as srv
 
+    # Curriculum-node responses decorate articles with optional live summaries;
+    # that presentation detail is outside this mastery/review contract.
+    monkeypatch.setattr(srv.wiki, "get_summary", lambda _title: None)
     node = "math.3.trig"
     for _ in range(2):
         paper = client.get("/api/quiz/{}?n=5".format(node)).json()
         served = srv._SERVED[paper["token"]]["questions"]
         answers = [q.get("answer", "") for q in served]
         client.post("/api/quiz/submit", json={
-            "node_id": node, "answers": answers, "token": paper["token"]})
+            "node_id": node, "answers": answers, "token": paper["token"],
+            "make_cards": False})
         with srv.learner._conn() as conn:
             conn.execute("UPDATE mastery SET last_pass_at=last_pass_at-345600, "
                          "first_pass_at=first_pass_at-345600 WHERE node_id=?", (node,))
 
     before = client.get("/api/curriculum/node/" + node).json()
     assert before["proven"], "the node must be genuinely proven before we fade it"
+
+    # Card creation from missed authored items is covered separately.  This
+    # coupling test used to rely on a live article fetch during the two perfect
+    # papers above to happen to mint a card, so it failed on a clean/offline CI
+    # runner.  Seed the card explicitly; everything being asserted below still
+    # travels through the real review and curriculum HTTP endpoints.
+    card_front = "What does trigonometry relate?"
+    assert srv.learner.add_cards([{
+        "front": card_front,
+        "back": "Angles and side lengths",
+        "node_id": node,
+        "article": "Trigonometry",
+    }]) == 1
 
     with srv.learner._conn() as conn:
         conn.execute("UPDATE mastery SET last_seen=last_seen-100000000 WHERE node_id=?", (node,))
@@ -1942,7 +1959,9 @@ def test_grading_a_review_card_through_the_real_api_restores_a_faded_node(
     assert faded["faded"] and not faded["proven"], "the node must have decayed to faded first"
 
     with srv.learner._conn() as conn:
-        card_id = conn.execute("SELECT id FROM srs_cards WHERE node_id=? LIMIT 1", (node,)).fetchone()[0]
+        card_id = conn.execute(
+            "SELECT id FROM srs_cards WHERE node_id=? AND front=?",
+            (node, card_front)).fetchone()[0]
     grade = client.post("/api/review", json={"card_id": card_id, "quality": 5}).json()
     assert grade["xp_gained"] > 0, "a confident, on-schedule grade must pay out"
 
