@@ -13,9 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      PRIMER_DB: ${{ runner.temp }}/primer.db
-      PRIMER_CONTENT_DIR: ${{ runner.temp }}/content
-      PRIMER_BACKUP_DIR: ${{ runner.temp }}/backups
+      # Matrix jobs run on separate ephemeral VMs, so fixed /tmp paths remain
+      # isolated without using the step-only `runner.temp` context here.
+      PRIMER_DB: /tmp/primer-ci.db
+      PRIMER_CONTENT_DIR: /tmp/primer-content
+      PRIMER_BACKUP_DIR: /tmp/primer-backups
       TURSO_DATABASE_URL: ""
       TURSO_AUTH_TOKEN: ""
     strategy:
