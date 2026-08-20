@@ -259,8 +259,18 @@ chosen per connection, from the environment as it stands at that moment.
 
 **Hosted access.** A Vercel deployment requires `PRIMER_ACCESS_PASSWORD` and
 accepts an optional `PRIMER_ACCESS_USERNAME` (default: `primer`). Every route
-except public `/healthz` then uses HTTP Basic authentication. If the password is
+except public `/healthz` is then closed to strangers. If the password is
 missing on Vercel, protected routes fail closed instead of exposing the book.
+
+A reader who is not signed in is sent to `/sign-in` — the book's own page, in
+its own paper and gold — and the credentials they give there set a signed,
+HttpOnly cookie good for a month (`POST /sign-out` ends it early). The cookie
+is an HMAC of the username keyed by the password, so rotating
+`PRIMER_ACCESS_PASSWORD` revokes every session that was ever issued. Nothing
+sends `WWW-Authenticate`: that header is what makes the browser draw its own
+grey credential dialog, which is unstyleable and was the first thing a reader
+met. Basic credentials are still *accepted* on every route, unadvertised, so
+`curl -u` and CI need no cookie jar.
 
 All of this lives in `primer/store.py`. It is a single seam — the learner, wiki
 and sittings stores each call one `connect()` — and it is deliberately

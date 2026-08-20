@@ -7,6 +7,7 @@ import binascii
 import contextvars
 import datetime
 import hashlib
+import hmac
 import json
 import logging
 import os
@@ -15,12 +16,15 @@ import re
 import secrets
 import threading
 import time
+import urllib.parse
 import uuid
 from contextlib import asynccontextmanager
+from html import escape as _escape
 from typing import List, Literal, Optional
 
-from fastapi import FastAPI, Body
-from fastapi.responses import JSONResponse, Response, FileResponse, HTMLResponse
+from fastapi import FastAPI, Body, Request
+from fastapi.responses import (JSONResponse, Response, FileResponse, HTMLResponse,
+                               RedirectResponse)
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator
 
@@ -271,20 +275,66 @@ ACCESS_PASSWORD_ENV = "PRIMER_ACCESS_PASSWORD"
 ACCESS_USERNAME_ENV = "PRIMER_ACCESS_USERNAME"
 
 
-def _access_challenge(status_code: int = 401) -> JSONResponse:
-    headers = {
+ACCESS_COOKIE = "primer_access"
+ACCESS_MAX_AGE = 60 * 60 * 24 * 30       # a month of reading between sign-ins
+SIGN_IN_PATH = "/sign-in"
+
+
+def _access_token(username: str, password: str) -> str:
+    """The cookie's value: an HMAC over the username, keyed by the password.
+
+    No new secret to configure, and no session table to keep — changing
+    PRIMER_ACCESS_PASSWORD invalidates every cookie ever issued, which is
+    exactly what changing the password should mean.
+    """
+    return hmac.new(password.encode("utf-8"),
+                    b"primer-access-v1:" + username.encode("utf-8"),
+                    hashlib.sha256).hexdigest()
+
+
+def _safe_next(raw: Optional[str]) -> str:
+    """Only ever bounce back to a path on this same book.
+
+    A `next` that starts with `//` or carries a scheme is an open redirect
+    dressed as a convenience, and control characters are header smuggling.
+    """
+    if not raw or not raw.startswith("/") or raw.startswith("//"):
+        return "/"
+    if len(raw) > 512 or any(c in raw for c in "\r\n\t") or "\\" in raw:
+        return "/"
+    return raw
+
+
+def _wants_html(request) -> bool:
+    """A person navigating, as opposed to the app's own fetch() calls."""
+    return "text/html" in request.headers.get("accept", "")
+
+
+def _no_store(headers: Optional[dict] = None) -> dict:
+    out = {
         "Cache-Control": "no-store",
         "Content-Security-Policy": CSP,
         "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "no-referrer",
-        "Vary": "Authorization",
+        "Vary": "Authorization, Cookie",
     }
-    if status_code == 401:
-        headers["WWW-Authenticate"] = 'Basic realm="The Primer", charset="UTF-8"'
-        detail = "Authentication required"
-    else:
-        detail = "Hosted access is not configured"
-    return JSONResponse({"detail": detail}, status_code=status_code, headers=headers)
+    out.update(headers or {})
+    return out
+
+
+def _access_challenge(status_code: int = 401) -> JSONResponse:
+    """The answer for a request that is not a person: the app's own fetch().
+
+    Deliberately no WWW-Authenticate. That header is what made the browser
+    draw its own grey credential box over the book — a dialog no stylesheet
+    can reach, naming a host and a port to a reader who came for a book.
+    People are sent to /sign-in instead; scripts still get honest JSON, and
+    a Basic header is still accepted for curl and CI.
+    """
+    detail = ("Authentication required" if status_code == 401
+              else "Hosted access is not configured")
+    return JSONResponse({"detail": detail}, status_code=status_code,
+                        headers=_no_store())
 
 
 # Second line of defence behind the HTML sanitizer: even if untrusted article
@@ -294,7 +344,7 @@ def _access_challenge(status_code: int = 401) -> JSONResponse:
 CSP = (
     "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
     "img-src 'self' data:; connect-src 'self'; object-src 'none'; "
-    "base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+    "base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
 )
 
 
@@ -310,7 +360,8 @@ async def _hosted_access_guard(request, call_next):
     # affected releases, a Host value containing a path can make
     # ``request.url.path`` differ from the path that ASGI actually routed.
     # Authorisation exemptions must therefore use the raw ASGI scope path.
-    if request.scope.get("path") == "/healthz":
+    path = request.scope.get("path")
+    if path == "/healthz":
         return await call_next(request)
 
     password = os.environ.get(ACCESS_PASSWORD_ENV)
@@ -319,6 +370,35 @@ async def _hosted_access_guard(request, call_next):
         return _access_challenge(503) if hosted else await call_next(request)
 
     username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
+    if _is_signed_in(request, username, password):
+        response = await call_next(request)
+        response.headers.setdefault("Vary", "Authorization, Cookie")
+        return response
+    # The sign-in page is the one door that must open while locked out.
+    if path == SIGN_IN_PATH:
+        return await call_next(request)
+    if _wants_html(request) and request.method == "GET":
+        # Carry the whole target across, query and all: a reader deep-linked to
+        # #atlas or /api-less path should land back where they were aiming.
+        query = (request.scope.get("query_string") or b"").decode("latin-1")
+        wanted = path + ("?" + query if query else "")
+        target = SIGN_IN_PATH + "?next=" + urllib.parse.quote(
+            _safe_next(wanted), safe="/")
+        return RedirectResponse(target, status_code=303, headers=_no_store())
+    return _access_challenge()
+
+
+def _is_signed_in(request, username: str, password: str) -> bool:
+    """Either the cookie the sign-in page set, or a Basic header.
+
+    Basic stays accepted — unadvertised — because the deployment's own health
+    checks, curl and CI authenticate that way and should not have to hold a
+    cookie jar to do it.
+    """
+    expected_token = _access_token(username, password)
+    cookie = request.cookies.get(ACCESS_COOKIE, "")
+    if cookie and secrets.compare_digest(cookie, expected_token):
+        return True
     try:
         scheme, encoded = request.headers.get("Authorization", "").split(" ", 1)
         if scheme.lower() != "basic" or len(encoded) > 8192:
@@ -328,14 +408,9 @@ async def _hosted_access_guard(request, call_next):
         expected_user = username.encode("utf-8")
         expected_password = password.encode("utf-8")
     except (ValueError, UnicodeEncodeError, binascii.Error):
-        return _access_challenge()
-
-    if not (secrets.compare_digest(supplied_user, expected_user)
-            and secrets.compare_digest(supplied_password, expected_password)):
-        return _access_challenge()
-    response = await call_next(request)
-    response.headers.setdefault("Vary", "Authorization")
-    return response
+        return False
+    return (secrets.compare_digest(supplied_user, expected_user)
+            and secrets.compare_digest(supplied_password, expected_password))
 
 
 @app.middleware("http")
@@ -1845,6 +1920,81 @@ def app_shell():
 @app.get("/")
 def index():
     return app_shell()
+
+
+# ---------------- the door ----------------
+
+# A hosted book still has to ask who is knocking, but it should ask in its own
+# voice. The browser's Basic-auth dialog is a grey system box that names a host
+# and a port, cannot be styled, cannot be branded, and offers no way back — the
+# first thing a reader met was the least book-like surface in the product. The
+# page below is the same question asked by the book: its paper, its gold, its
+# register. Basic credentials are still accepted on the wire (see
+# _is_signed_in) for curl and CI; they are simply never demanded of a person.
+
+def _sign_in_page(next_path: str, error: str = "", status_code: int = 200):
+    with open(os.path.join(WEB_DIR, "sign-in.html")) as fh:
+        page = fh.read()
+    banner = ('<p class="err" role="alert">' + _escape(error) + "</p>") if error else ""
+    page = page.replace("{{ERROR}}", banner)
+    page = page.replace("{{NEXT}}", _escape(_safe_next(next_path), quote=True))
+    return HTMLResponse(page, status_code=status_code, headers=_no_store())
+
+
+@app.get(SIGN_IN_PATH)
+def sign_in_form(next: str = "/"):
+    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
+    password = os.environ.get(ACCESS_PASSWORD_ENV)
+    if not password:
+        # Nothing to sign in to: locally there is no gate, and a hosted
+        # deployment without a password has already failed closed upstream.
+        return RedirectResponse(_safe_next(next), status_code=303,
+                                headers=_no_store())
+    return _sign_in_page(next)
+
+
+@app.post(SIGN_IN_PATH)
+async def sign_in(request: Request):
+    password = os.environ.get(ACCESS_PASSWORD_ENV)
+    if not password:
+        return RedirectResponse("/", status_code=303, headers=_no_store())
+    # Parsed here rather than through request.form(): the form is urlencoded
+    # and this keeps the multipart parser — and its dependency — out of the
+    # one route an unauthenticated stranger can reach.
+    body = (await request.body())[:8192].decode("utf-8", "replace")
+    form = dict(urllib.parse.parse_qsl(body, keep_blank_values=True))
+    next_path = _safe_next(form.get("next") or "/")
+    supplied_user = (form.get("username") or "")[:512]
+    supplied_password = (form.get("password") or "")[:1024]
+    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
+    ok = (secrets.compare_digest(supplied_user.encode("utf-8"),
+                                 username.encode("utf-8"))
+          and secrets.compare_digest(supplied_password.encode("utf-8"),
+                                     password.encode("utf-8")))
+    if not ok:
+        # One message for a wrong reader and a wrong word alike: naming which
+        # half was wrong tells an intruder which half to keep.
+        log.info("sign-in refused")
+        return _sign_in_page(
+            next_path, "That is not the word this copy knows. Try again.", 401)
+    response = RedirectResponse(next_path, status_code=303, headers=_no_store())
+    response.set_cookie(
+        ACCESS_COOKIE, _access_token(username, password),
+        max_age=ACCESS_MAX_AGE, httponly=True, samesite="lax",
+        # Secure only where there is TLS to be had: a Secure cookie is dropped
+        # silently over plain http, which would lock out a local run behind a
+        # password without ever saying why.
+        secure=bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV")),
+        path="/")
+    return response
+
+
+@app.post("/sign-out")
+def sign_out():
+    response = RedirectResponse(SIGN_IN_PATH, status_code=303,
+                                headers=_no_store())
+    response.delete_cookie(ACCESS_COOKIE, path="/")
+    return response
 
 
 @app.get("/healthz")

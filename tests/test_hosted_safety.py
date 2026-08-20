@@ -64,11 +64,123 @@ def test_hosted_access_password_protects_html_and_api(monkeypatch):
             "/api/state", auth=("reader", "correct horse battery staple"))
 
     assert challenge.status_code == 401
-    assert challenge.headers["www-authenticate"].startswith("Basic ")
-    assert challenge.headers["vary"] == "Authorization"
     assert wrong.status_code == 401
     assert allowed.status_code == 200
-    assert allowed.headers["vary"] == "Authorization"
+    assert allowed.headers["vary"] == "Authorization, Cookie"
+
+
+def test_challenge_never_asks_the_browser_to_draw_its_own_dialog(monkeypatch):
+    """WWW-Authenticate is what summons the unstyleable native credential box."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    with TestClient(srv.app) as client:
+        api = client.get("/api/state")
+        page = client.get("/", headers={"accept": "text/html"},
+                          follow_redirects=False)
+
+    assert "www-authenticate" not in api.headers
+    assert "www-authenticate" not in page.headers
+
+
+def test_a_locked_out_reader_is_sent_to_the_books_own_sign_in(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    with TestClient(srv.app) as client:
+        redirect = client.get("/api/curriculum", headers={"accept": "text/html"},
+                              follow_redirects=False)
+        page = client.get(srv.SIGN_IN_PATH)
+
+    assert redirect.status_code == 303
+    assert redirect.headers["location"] == "/sign-in?next=/api/curriculum"
+    assert page.status_code == 200
+    assert "The Primer" in page.text
+    assert "Open the book" in page.text
+
+
+def test_signing_in_opens_the_book_and_keeps_it_open(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    # https, because the cookie is Secure when hosted — over plain http a real
+    # browser would drop it exactly as this client does.
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        posted = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
+                             data={"username": "reader", "password": "secret",
+                                   "next": "/#atlas"})
+        # The cookie the redirect set is now the only credential in play.
+        after = client.get("/api/state")
+        signed_out = client.post("/sign-out", follow_redirects=False)
+        locked = client.get("/api/state")
+
+    assert posted.status_code == 303
+    assert posted.headers["location"] == "/#atlas"
+    assert posted.cookies[srv.ACCESS_COOKIE]
+    assert after.status_code == 200
+    assert signed_out.status_code == 303
+    assert locked.status_code == 401
+
+
+def test_a_wrong_word_is_refused_without_saying_which_half_was_wrong(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    with TestClient(srv.app) as client:
+        wrong_word = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
+                                 data={"username": "reader", "password": "no"})
+        wrong_reader = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
+                                   data={"username": "nobody", "password": "secret"})
+
+    assert wrong_word.status_code == 401
+    assert srv.ACCESS_COOKIE not in wrong_word.cookies
+    assert wrong_reader.status_code == 401
+    assert wrong_word.text == wrong_reader.text
+
+
+def test_a_forged_cookie_does_not_open_the_book(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    with TestClient(srv.app) as client:
+        client.cookies.set(srv.ACCESS_COOKIE, "0" * 64)
+        response = client.get("/api/state")
+
+    assert response.status_code == 401
+
+
+def test_a_cookie_dies_with_the_password_that_signed_it(monkeypatch):
+    """Rotating the password is the whole session-revocation story."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, follow_redirects=False,
+                    data={"username": "primer", "password": "secret"})
+        still_open = client.get("/api/state")
+        monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "a new secret")
+        rotated = client.get("/api/state")
+
+    assert still_open.status_code == 200
+    assert rotated.status_code == 401
+
+
+@pytest.mark.parametrize("hostile", [
+    "https://evil.example/steal", "//evil.example/steal", "/\\evil.example",
+    "/ok\r\nSet-Cookie: x=1", "not-a-path",
+])
+def test_next_cannot_be_bent_into_an_open_redirect(monkeypatch, hostile):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    with TestClient(srv.app) as client:
+        posted = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
+                             data={"username": "primer", "password": "secret",
+                                   "next": hostile})
+
+    assert posted.headers["location"] == "/"
 
 
 def test_hosted_access_rejects_non_ascii_credentials_without_crashing(monkeypatch):
