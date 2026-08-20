@@ -3,9 +3,20 @@
    hash-routed, and game-like. */
 'use strict';
 
+// A hosted copy keeps its reader for a month, and then the cookie lapses —
+// mid-quiz, as often as not. The server answers 401 rather than summoning the
+// browser's own credential box, so it falls to the app to walk the reader to
+// the book's sign-in page and remember where they were. Anything else shows
+// them the generic "lost its train of thought" card, from which the only
+// escape is a reload they have no reason to try.
+function toSignIn() {
+  const here = location.pathname + location.search + location.hash;
+  location.assign('/sign-in?next=' + encodeURIComponent(here));
+}
+
 const api = {
-  async get(path) { const r = await fetch(path); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
-  async post(path, body) { const r = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) }); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
+  async get(path) { const r = await fetch(path); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
+  async post(path, body) { const r = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) }); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
 };
 
 const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null, restoreFocus: null };

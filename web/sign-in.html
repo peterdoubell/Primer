@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in — The Primer</title>
+  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <!-- Deliberately self-contained: the stylesheet lives behind the same gate
+       this page is the door to, so a locked-out reader could not load it. The
+       tokens below are the book's own, copied rather than imported. -->
+  <style>
+    :root {
+      --paper: #f6f0e2; --paper-2: #efe7d4; --paper-edge: #e3d8bd;
+      --ink: #2b2419; --ink-soft: #554b3a; --ink-faint: #6e6350;
+      --gold: #a9852f; --gold-ink: #7a5d13; --gold-bright: #c9a227;
+      --accent: #7a3b2e; --edge: #8a7f62; --field: #fffdf6;
+      --rule: #d8cba8; --shadow: rgba(60, 45, 20, 0.18); --focus: #1f5fbf;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      --sans: "Optima", "Segoe UI", -apple-system, system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      padding: 32px 20px; font-family: var(--serif); color: var(--ink);
+      /* The book's own binding: the leather ground the shell is bound in,
+         so signing in happens inside the book rather than in front of it. */
+      background:
+        radial-gradient(circle at 20% 10%, rgba(120, 90, 40, 0.25), transparent 60%),
+        radial-gradient(circle at 80% 90%, rgba(90, 60, 20, 0.3), transparent 55%),
+        linear-gradient(#2a2214, #1b160d);
+      background-attachment: fixed;
+    }
+    main {
+      width: 100%; max-width: 420px; background: var(--paper);
+      border: 1px solid var(--paper-edge); border-radius: 14px;
+      padding: 36px 34px 30px;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.45);
+      /* The faint ruled grain of a page, as on every other surface. */
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(180,150,90,0.05) 28px);
+    }
+    .mark { font-size: 30px; text-align: center; line-height: 1; }
+    h1 {
+      font-size: 30px; font-weight: 600; margin: 10px 0 4px;
+      text-align: center; letter-spacing: 0.3px;
+    }
+    .sub {
+      font-family: var(--sans); font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold-ink);
+      text-align: center; margin: 0 0 22px;
+    }
+    .rule {
+      height: 1px; border: 0; margin: 0 0 22px;
+      background: linear-gradient(90deg, transparent, var(--rule), transparent);
+    }
+    .lede { margin: 0 0 22px; font-size: 16px; line-height: 1.6; color: var(--ink-soft); }
+    label {
+      display: block; margin-bottom: 16px; font-family: var(--sans);
+      font-size: 13px; color: var(--ink-soft);
+    }
+    label span { display: block; margin-bottom: 5px; font-weight: 600; letter-spacing: 0.3px; }
+    input {
+      width: 100%; padding: 11px 12px; border: 1px solid var(--edge);
+      border-radius: 7px; font-size: 16px; font-family: var(--serif);
+      background: var(--field); color: var(--ink);
+    }
+    input:focus-visible, button:focus-visible {
+      outline: 3px solid var(--focus); outline-offset: 2px;
+    }
+    button {
+      width: 100%; margin-top: 6px; padding: 12px 20px; border: none;
+      border-radius: 8px; font-family: var(--sans); font-size: 15px;
+      font-weight: 600; color: #241c08; cursor: pointer;
+      background: linear-gradient(#e8c65c, var(--gold-bright));
+      box-shadow: 0 2px 4px var(--shadow); transition: filter 0.15s, transform 0.1s;
+    }
+    button:hover { filter: brightness(1.06); }
+    button:active { transform: translateY(1px); }
+    .err {
+      margin: 0 0 18px; padding: 10px 12px; border-radius: 8px;
+      border: 1px solid var(--accent); background: rgba(168, 68, 47, 0.14);
+      color: var(--accent); font-size: 15px;
+    }
+    .foot {
+      margin: 20px 0 0; text-align: center; font-family: var(--sans);
+      font-size: 12px; color: var(--ink-faint);
+    }
+    /* The book's night skin is a lattice of cyan and gold on near-black, not a
+       dimmed parchment — the same --dk-* values the app's own palette turns to. */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #0a0e14; --paper-edge: #1e2a38; --ink: #dde8f2;
+        --ink-soft: #a9bed0; --ink-faint: #8aa1b5;
+        --gold-ink: #ffc65c; --gold-bright: #ffd479;
+        --accent: #ff5c8a; --edge: #4a6580; --field: #0f1621;
+        --rule: #1e2b3a; --focus: #4fd8e8; --shadow: rgba(0, 0, 0, 0.65);
+      }
+      body {
+        background:
+          radial-gradient(circle at 18% 8%, rgba(79, 216, 232, 0.10), transparent 55%),
+          radial-gradient(circle at 82% 88%, rgba(255, 92, 138, 0.09), transparent 55%),
+          linear-gradient(#070c12, #02050a);
+      }
+      main {
+        background-image:
+          repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(79,216,232,0.045) 28px),
+          repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(79,216,232,0.028) 28px);
+        box-shadow: 0 18px 46px rgba(0, 0, 0, 0.7);
+      }
+      button { color: #1b160d; background: linear-gradient(#ffd479, #ffb020); }
+      .err { background: rgba(255, 92, 138, 0.14); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">📖</div>
+    <h1>The Primer</h1>
+    <p class="sub">A living book of all knowledge</p>
+    <hr class="rule">
+    <p class="lede">This copy is kept for one reader. Give the book your word and it will open where you left it.</p>
+    {{ERROR}}
+    <form method="post" action="/sign-in">
+      <input type="hidden" name="next" value="{{NEXT}}">
+      <label>
+        <span>Reader</span>
+        <input type="text" name="username" autocomplete="username"
+               autocapitalize="none" autocorrect="off" spellcheck="false"
+               required autofocus>
+      </label>
+      <label>
+        <span>Your word</span>
+        <input type="password" name="password" autocomplete="current-password" required>
+      </label>
+      <button type="submit">Open the book →</button>
+    </form>
+    <p class="foot">The book remembers this device for a month.</p>
+  </main>
+</body>
+</html>
