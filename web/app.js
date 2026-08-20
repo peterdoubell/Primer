@@ -1566,6 +1566,7 @@ async function renderAtlas(page) {
   // register: the scale is the point, and it is survivable.
   page.append(el('p', { class: 'epigraph' },
     'Yes, it is an enormous amount. Every reader who ever finished started with exactly one tile.'));
+  quickAccess(page, g);
   g.domains.forEach(d => {
     const block = el('section', { class: 'domain-block', 'aria-label': d.name });
     const total = d.stages.reduce((s, x) => s + x.total, 0);
@@ -1598,6 +1599,44 @@ async function renderAtlas(page) {
     }
     page.append(block);
   });
+}
+// Quick access — every module of the book's specialist domain, in one panel,
+// reachable whatever the gates say. Radiology is postgraduate: its tiles are
+// locked for almost every reader, which makes the ordinary route through the
+// Atlas useless for reviewing or testing the material itself. This panel is
+// that route: lesson, quiz and each source article, one click from the top of
+// the page. It shows the real lock state rather than hiding it, so nobody
+// mistakes it for progress they have made.
+function quickAccess(page, g) {
+  const d = g.domains.find(x => x.id === 'radiology');
+  if (!d) return;
+  const nodes = g.nodes.filter(n => n.domain === 'radiology');
+  if (!nodes.length) return;
+  const box = el('section', { class: 'quick-access', 'aria-label': 'Quick access — ' + d.name });
+  box.append(el('div', { class: 'qa-head' },
+    el('div', { class: 'ic', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))`, 'aria-hidden': 'true' }, domainMark(d, 18)),
+    el('div', {}, el('h3', {}, 'Quick access · ' + d.name),
+      el('div', { class: 'tag' }, nodes.length + ' modules — open any lesson, quiz or article directly, locked or not.'))));
+  nodes.forEach(n => {
+    const state = n.mastered ? ['mastered', '✓ mastered'] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
+    const row = el('div', { class: 'qa-row' });
+    row.append(el('div', { class: 'qa-title' },
+      el('b', {}, n.title), el('span', { class: 'qa-state ' + state[0] }, state[1]),
+      n.goal ? el('p', { class: 'muted' }, n.goal) : null));
+    const acts = el('div', { class: 'qa-acts' },
+      // Five identical "Lesson" buttons in a column read as five identical
+      // buttons to anyone listening; the module name has to travel with each.
+      btn({ class: 'btn small', 'aria-label': 'Lesson — ' + n.title, onclick: () => go('node', n.id) }, 'Lesson'),
+      btn({ class: 'btn ghost small', 'aria-label': 'Quiz — ' + n.title, onclick: () => startQuiz(n.id) }, glyph('quill', 14), ' Quiz'));
+    row.append(acts);
+    const arts = el('div', { class: 'qa-arts' });
+    (n.articles || []).forEach(a => arts.append(btn({ class: 'node-dot',
+      'aria-label': 'Read “' + a + '” — ' + n.title,
+      onclick: () => go('reader', { title: a, node: n.id }) }, a)));
+    if (arts.children.length) row.append(arts);
+    box.append(row);
+  });
+  page.append(box);
 }
 function lockedPeek(n) {
   openModal({ label: n.title + ' locked', dismissable: true, build: (modal, close) => {
