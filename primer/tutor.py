@@ -51,12 +51,14 @@ SYSTEM_TEMPLATE = (
 # The reader's name, and nothing else about them. What the book knows — which
 # nodes they have mastered, where they struggle, how long their streak is —
 # is deliberately NOT in this prompt: on the remote path the system prompt
-# leaves the machine, and the line the reader is shown while they type
-# ("Questions travel to Claude (Anthropic) to be answered — nothing else
-# leaves the book", web/app.js) is a promise about precisely that. A name is
-# the smallest thing that makes the book sound like it is addressing someone;
-# a learning record is a different kind of disclosure and would have to be
-# declared in that string, in the same change, before it travelled.
+# leaves the machine, and the line the reader is shown while they type is a
+# promise about precisely that. It now enumerates what travels — this
+# conversation, the title and a passage of the article, the first name, and
+# the reading level — so the name may ride, and a learning record may not.
+# Anything added here has to be declared in that sentence in the SAME change,
+# which is the rule that kept this parameter inert until the wording caught up
+# (the old wording said "nothing else", while the reading level already
+# travelled as REGISTERS[stage] — the sentence was false before it was late).
 READER_LINE = ("You are speaking with {name}. Use their name naturally and "
                "sparingly — in a greeting, not in every sentence.\n\n")
 

@@ -1967,9 +1967,14 @@ def ask_tutor(t: TutorIn) -> JSONResponse:
     # State the response type explicitly.  Tutor text is untrusted (it may
     # include user input or a remote model's reply), and must never be inferred
     # or served as HTML by a framework/analyser.
+    # The name travels only now that the disclosure the reader is shown says so.
+    # It named the conversation, the passage and the reading level but not the
+    # name, and it could not be wired until that sentence was true — which it
+    # now is (see the tutor-disclosure line in web/app.js).
     return JSONResponse(tutor.ask(
         messages, t.title, excerpt, stage,
         allow_remote=_tutor_remote_allowed(prof),
+        reader=(prof or {}).get("name") or "",
     ))
 
 
