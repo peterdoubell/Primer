@@ -39,6 +39,7 @@ SYSTEM_TEMPLATE = (
     "You are the voice of the Primer, an interactive book of all knowledge, "
     "inspired by the Young Lady's Illustrated Primer. You are a patient, "
     "Socratic tutor. {register}\n\n"
+    "{reader}"
     "Rules: keep replies under 150 words; never just hand over an answer the "
     "reader could reach in one or two steps — guide them; if the reader is "
     "stuck twice, give the answer plainly and kindly; encourage effort, not "
@@ -47,14 +48,45 @@ SYSTEM_TEMPLATE = (
 )
 
 
+# The reader's name, and nothing else about them. What the book knows — which
+# nodes they have mastered, where they struggle, how long their streak is —
+# is deliberately NOT in this prompt: on the remote path the system prompt
+# leaves the machine, and the line the reader is shown while they type
+# ("Questions travel to Claude (Anthropic) to be answered — nothing else
+# leaves the book", web/app.js) is a promise about precisely that. A name is
+# the smallest thing that makes the book sound like it is addressing someone;
+# a learning record is a different kind of disclosure and would have to be
+# declared in that string, in the same change, before it travelled.
+READER_LINE = ("You are speaking with {name}. Use their name naturally and "
+               "sparingly — in a greeting, not in every sentence.\n\n")
+
+
+def _reader_clause(reader: str) -> str:
+    """The reader's name as a prompt clause — bounded, flattened, or absent.
+
+    A name is reader-supplied text being pasted into a system prompt, so it
+    is handled as data rather than instructions: unprintable characters and
+    newlines (which is how a fake instruction block is written into a
+    one-line field) collapse to spaces, and the result is capped at the same
+    60 characters the profile route already allows. An empty or blank name
+    yields an empty clause, so the prompt reads exactly as it did before this
+    slot existed — which is what an unnamed reader, and every caller that
+    never passes a name, must get.
+    """
+    name = "".join(ch if ch.isprintable() else " " for ch in (reader or ""))
+    name = " ".join(name.split())[:60].strip()
+    return READER_LINE.format(name=name) if name else ""
+
+
 def have_api_key() -> bool:
     return bool(os.environ.get("ANTHROPIC_API_KEY"))
 
 
-def ask_llm(messages: List[Dict], title: str, excerpt: str, stage: int) -> Dict:
+def ask_llm(messages: List[Dict], title: str, excerpt: str, stage: int,
+            reader: str = "") -> Dict:
     system = SYSTEM_TEMPLATE.format(
         register=REGISTERS[min(max(stage, 0), 5)], title=title or "(none)",
-        excerpt=(excerpt or "(none)")[:2500],
+        excerpt=(excerpt or "(none)")[:2500], reader=_reader_clause(reader),
     )
     body = json.dumps({
         "model": MODEL,
@@ -124,13 +156,18 @@ def ask_rules(messages: List[Dict], title: str, excerpt: str, stage: int) -> Dic
 
 
 def ask(messages: List[Dict], title: str = "", excerpt: str = "", stage: int = 2,
-        allow_remote: bool = True) -> Dict:
+        allow_remote: bool = True, reader: str = "") -> Dict:
     # allow_remote is the reader's in-app privacy switch: when False, nothing
     # is sent to api.anthropic.com even though a key is configured, and the
     # local rule engine answers instead.
+    #
+    # `reader` is optional on purpose: every existing caller keeps working
+    # unchanged and sends no name at all. It is passed only to the remote
+    # path — the rule engine composes its replies from the excerpt and needs
+    # nothing about who is asking, so there is no reason to hand it one.
     if have_api_key() and allow_remote:
         try:
-            return ask_llm(messages, title, excerpt, stage)
+            return ask_llm(messages, title, excerpt, stage, reader=reader)
         except Exception:
             pass
     return ask_rules(messages, title, excerpt, stage)

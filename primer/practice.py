@@ -1,7 +1,8 @@
 """Procedural practice generators — infinite exercises, no two sessions alike.
 
 Each generator returns question dicts:
-  {kind: 'choice'|'numeric'|'text', prompt, choices?, answer, explain?}
+  {kind: 'choice'|'numeric'|'order'|'tally', prompt, choices?, items?, answer,
+   explain?}
 Generators are keyed; curriculum nodes reference them by key. Levels run from
 preschool counting to undergraduate calculus and linear algebra.
 """
@@ -113,6 +114,66 @@ def g_counting(_):
     q["say"] = "How many do you see? Count them out loud."
     q["speak_choices"] = True
     return q
+
+
+# The same countable objects, each carried with the word for it. A tally token
+# is a real button, and a button whose entire label is an emoji is announced as
+# whatever name the reader's screen reader happens to hold for that glyph — so
+# the noun travels with the item and the renderer can name each token, and the
+# running count, in words a five-year-old already owns. Singular and plural
+# both, because "fish" is not "fishs" and the count line is spoken aloud.
+TALLY_THINGS = [("🍎", "apple", "apples"), ("⭐", "star", "stars"),
+                ("🐟", "fish", "fish"), ("🌸", "flower", "flowers"),
+                ("🎈", "balloon", "balloons"), ("🐞", "ladybird", "ladybirds"),
+                ("🦋", "butterfly", "butterflies"), ("🐚", "shell", "shells"),
+                ("🍄", "mushroom", "mushrooms"), ("☂️", "umbrella", "umbrellas")]
+
+
+def g_count_tally(_=0):
+    """Counting scored as counting.
+
+    Every other item a pre-reader meets is recognition: `g_counting` above
+    draws 🍎🍎🍎 and offers ['2', '3', '4'], so a child who counts the apples
+    perfectly but cannot yet read the numeral 3 is marked wrong. That item
+    measures numeral reading and files the result under counting. Here the
+    objects themselves are the answering surface — one press each, the book
+    counting along, then one button to commit — so nothing on the card has to
+    be read, and what is scored is the act being taught.
+
+    The item ships the objects and NOT a count: the number of things drawn is
+    the key (`len(items) == int(answer)`), so there is no second field for the
+    two to drift apart in. And `answer` stays a plain digit string, which is
+    what makes this a new gesture rather than a new grading path — a committed
+    tally is a number, `_numeric_equal` marks it exactly as it marks a typed
+    one, and quiz.py needs no clause for `tally` at all.
+    """
+    # Three at the floor: one or two are subitised at a glance, so there is no
+    # counting to score. Nine at the ceiling: the tokens are hit targets that
+    # must all fit a phone screen at once, and a child who can hold a stable
+    # count to nine already has the principle the lesson is after.
+    n = R.randint(3, 9)
+    thing, one, many = R.choice(TALLY_THINGS)
+    return {
+        "kind": "tally",
+        "prompt": "Touch each {}, then press the button.".format(one),
+        "items": [thing] * n,
+        "answer": str(n),
+        # Never enumerates — the same rule the ordering sequences follow. It
+        # names the task; saying the count would read the answer aloud.
+        "say": "How many {}? Touch each one.".format(many),
+        "explain": "There are {} — one number word for each one you touched.".format(n),
+        "ephemeral": True,
+        # `generate_set` stamps `gen` on the way out, and it is stamped here as
+        # well so the item can name its origin even when minted directly. That
+        # matters more for this kind than for the others: with no generator
+        # named, `quiz.is_ephemeral_prompt` falls back to reading the prompt,
+        # and this prompt is an instruction rather than a question — no phrase
+        # in it marks the one-off instance it is. An unstamped tally would mint
+        # a permanent card fronted "Touch each apple, then press the button."
+        # and backed by whichever count that single instance happened to draw.
+        "gen": "count-tally",
+    }
+
 
 def g_letters(_):
     letter = R.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -740,7 +801,8 @@ def g_logic_gates(_):
 
 
 GENERATORS: Dict[str, Callable] = {
-    "counting": g_counting, "letters": g_letters, "phonics": g_phonics,
+    "counting": g_counting, "count-tally": g_count_tally,
+    "letters": g_letters, "phonics": g_phonics,
     "order-numbers": g_order_numbers, "order-letters": g_order_letters,
     "order-lifecycle": g_order_lifecycle, "order-time": g_order_time,
     "compare": g_compare, "patterns": g_patterns, "shapes": g_shapes,

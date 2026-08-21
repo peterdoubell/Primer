@@ -19,7 +19,7 @@ const api = {
   async post(path, body) { const r = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) }); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
 };
 
-const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null, restoreFocus: null };
+const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null, restoreFocus: null, readerTitle: null };
 // The review deck's document-level keydown handler, held here so leaving the
 // page can remove it deterministically — its old self-removal only fired on
 // the *next* keypress after the deck was gone.
@@ -230,6 +230,26 @@ function renderRoute() {
   });
 }
 window.addEventListener('hashchange', renderRoute);
+
+/* ---------------- the reader's place ----------------
+   The article view is the only page a reader can be eight thousand words into,
+   and every route change rebuilds #page from nothing. Following a link and
+   coming back therefore landed them at character zero of a page they had
+   already read half of — the cost of curiosity, charged every time.
+
+   Two details this has to get right. First, the window is the scroller on this
+   layout (#page carries no overflow of its own and #sidebar is sticky at
+   100vh), so `page.scrollTop` is a no-op here: the offset has to be taken from
+   and given back to the document. Second, the place is recorded continuously
+   rather than at the moment of leaving — the theme toggle rebuilds #page with
+   no navigation at all, and that collapses the document and takes the scroll
+   offset with it before any teardown hook could read it. */
+const readerScroll = new Map();
+function docScrollTop() { return window.scrollY || document.documentElement.scrollTop || 0; }
+window.addEventListener('scroll', () => {
+  if (S.view !== 'reader' || !S.readerTitle) return;
+  readerScroll.set(S.readerTitle, docScrollTop());
+}, { passive: true });
 
 /* ---------------- bootstrap ---------------- */
 async function boot() {
@@ -1026,6 +1046,10 @@ async function renderNode(page, nodeId) {
 async function renderReader(page, arg) {
   const title = typeof arg === 'string' ? arg : arg.title;
   const nodeId = typeof arg === 'object' ? arg.node : null;
+  // Claim the scroll memory for this article before the first scroll event can
+  // fire, or the outgoing article's remembered place is overwritten with this
+  // one's — which is precisely the case the memory exists to serve.
+  S.readerTitle = title;
   // "Check yourself" stood here for articles with no curriculum node. It was
   // machine-made cloze over raw article prose, hand-audited at 55% defective,
   // and is withdrawn: the book does not ask questions no person wrote. Read
@@ -1049,11 +1073,123 @@ async function renderReader(page, arg) {
       link.addEventListener('click', goLink);
       link.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') goLink(e); });
     });
+    attachPictureHandlers(art);
     const badge = a.source === 'zim' ? 'from your shelf' : a.source === 'cache' ? 'from your library' : 'from Wikipedia (live)';
     art.append(el('p', { class: 'muted', style: 'margin-top:30px;border-top:1px solid var(--rule);padding-top:10px' }, '✦ ' + badge + (a.simple ? ' · Simple English' : '')));
+    // Back to where the eye was, once the article has been laid out. This is
+    // safe to do in a single frame because fix_img stamps an intrinsic width
+    // and height on every image (render.py), so nothing reflows underneath the
+    // reader afterwards. A first visit remembers 0, which is also the right
+    // answer: a hash change to a fragment that names no element leaves the
+    // window scrolled exactly where the previous page left it.
+    const want = readerScroll.get(title) || 0;
+    requestAnimationFrame(() => {
+      const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      window.scrollTo(0, Math.min(want, max));
+    });
   } catch (e) { art.innerHTML = ''; art.append(errCard(e, () => renderReader(page, arg))); }
 }
 function speakArticle() { const t = $('#article'); if (t) speakText(t.textContent.slice(0, 3500)); }
+
+/* ---------------- the picture is not a trap ----------------
+   render.py rewrites every link it cannot resolve to an article — File:,
+   Category:, Special:, citation anchors, and the wrapper around very nearly
+   every image — into a live `<a href="#">` with no handler at all (see its
+   _SanitizedTagPass). Touching one emptied the hash, which parseHash resolves
+   to `today`, which wipes the page. So the most instinctive gesture on the
+   reading page deleted the page: `History of art` alone carries 470 such
+   anchors, 316 of them wrapped around its pictures.
+
+   For a pre-reader the images ARE the article, so the gesture is not a misfire
+   to be swallowed — it is the reader asking for the picture. One delegated
+   listener catches it and answers with the picture at full size and its
+   caption read aloud. The a.primer-wikilink handlers are left exactly as they
+   are; this runs behind them. */
+function attachPictureHandlers(art) {
+  // A "dead" anchor is one that goes nowhere: no href, or a bare fragment.
+  // Real external links (render.py keeps those, with target=_blank) are none
+  // of our business and must keep working.
+  const dead = a => {
+    if (a.classList.contains('primer-wikilink')) return false;
+    const href = a.getAttribute('href') || '';
+    return !href || href.startsWith('#');
+  };
+  const pictureIn = (target, a) =>
+    (target && target.tagName === 'IMG') ? target : (a ? a.querySelector('img') : null);
+  art.addEventListener('click', e => {
+    const a = e.target.closest ? e.target.closest('a') : null;
+    if (a && !dead(a)) return;
+    const img = pictureIn(e.target, a);
+    if (a) e.preventDefault();          // the ejection, stopped
+    if (img) openLightbox(img, a || img);
+  });
+  art.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+    const a = e.target.closest ? e.target.closest('a') : null;
+    if (a && !dead(a)) return;
+    // Enter on an anchor already fires a click, so answering it here as well
+    // would open the picture twice. Space on an anchor scrolls instead of
+    // activating, and a bare <img> answers to neither key on its own, so both
+    // are needed everywhere except that one case.
+    if (a && e.key === 'Enter') return;
+    const img = pictureIn(e.target, a);
+    if (!img) return;
+    e.preventDefault();
+    openLightbox(img, a || img);
+  });
+  // A picture with no anchor around it is not a trap, but a five-year-old will
+  // touch it just the same — and an <img> is not focusable, so without this it
+  // would be reachable by finger and by nothing else.
+  art.querySelectorAll('img').forEach(im => {
+    if (im.closest('a')) return;
+    im.setAttribute('tabindex', '0');
+    im.setAttribute('role', 'button');
+    if (!im.getAttribute('alt')) im.setAttribute('aria-label', 'Picture — open it larger');
+    im.classList.add('tappable');
+  });
+}
+function openLightbox(img, opener) {
+  // The caption a sighted reader can see belongs to the figure, not to the
+  // <img>; alt text is the fallback, and a decorative image may carry neither.
+  const fig = img.closest('figure, .thumb, .thumbinner, .gallerybox, .infobox');
+  const capEl = fig ? fig.querySelector('figcaption, .thumbcaption') : null;
+  const caption = ((capEl ? capEl.textContent : '') || img.getAttribute('alt') || '').trim();
+  // openModal restores focus to whatever held it when the dialog opened, and a
+  // tap leaves that on <body> — which would strand a keyboard reader at the top
+  // of an eight-thousand-word article on Escape. Give the picture focus first
+  // and Escape puts them back on the picture they opened.
+  if (opener && opener.focus) {
+    try { opener.focus({ preventScroll: true }); } catch (e) { opener.focus(); }
+  }
+  openModal({
+    label: caption ? 'Picture — ' + caption : 'Picture',
+    dismissable: true, dismissLabel: 'Close picture',
+    build: (modal, close) => {
+      modal.classList.add('wide');
+      const box = el('div', { class: 'lightbox' });
+      // Wikipedia ships most of its diagrams as black line-work marked
+      // `skin-invert` and leaves the inversion to the skin. Both filter rules
+      // are scoped to #article, so a diagram lifted out of the article and into
+      // the overlay would go back to being black ink on the night page —
+      // present, and invisible. The class travels with the picture.
+      const big = el('img', { src: img.currentSrc || img.getAttribute('src') || '',
+        alt: img.getAttribute('alt') || caption || '' });
+      if (img.classList.contains('skin-invert')) big.classList.add('skin-invert');
+      box.append(big);
+      if (caption) {
+        box.append(el('div', { class: 'cap' },
+          speakBtn(() => caption, 'Read the caption aloud'),
+          el('p', {}, caption)));
+      }
+      box.append(btn({ class: 'btn gold', style: 'margin-top:18px', onclick: close }, 'Close the picture'));
+      modal.append(box);
+      // The pre-reader hears what the picture is without having to find the
+      // speaker first. maybeSpeak, not speakText: a reader who turned the
+      // voice off is not spoken to.
+      if (caption) maybeSpeak(caption);
+    }
+  });
+}
 
 function buildTutor(title) {
   const log = el('div', { id: 'tutor-log', 'aria-live': 'polite', 'aria-label': 'Conversation with the book' });
@@ -1253,8 +1389,43 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
 
     if (q.kind === 'choice') {
       const boxEl = el('div', { class: 'q-choices', role: 'group', 'aria-label': 'Answers' });
+      /* Committing an answer is irreversible and expensive: pick() posts to
+         /api/quiz/check, commit_answer locks the item, and a wrong one calls
+         burn_item, which removes it from this node's mastery evidence for
+         seven days. On a 58px chip under a five-year-old's thumb that was one
+         unconfirmed touch. Below stage 2 the first tap now only *chooses* — it
+         echoes the choice aloud and lights a large Check button — and the
+         reader commits when they mean to. Stage 2 and up keep one-tap, which
+         is the rhythm an older reader already expects. Nothing about scoring,
+         the sitting token, or when the answer is graded changes: only when the
+         POST happens. */
+      const twoBeat = S.stage <= 1;
+      let picked = null, pickedVal = null;
+      const checkIt = twoBeat ? btn({ class: 'btn gold check-it', disabled: '',
+        style: 'width:100%;margin-top:14px',
+        onclick: () => {
+          if (!picked) return;
+          checkIt.disabled = true;
+          // Drop the chosen mark before the verdict marks land, or the button
+          // ends up wearing both "✓ Chosen" and "✗".
+          picked.classList.remove('selected');
+          pick(picked, pickedVal, q, boxEl, card, modal, close);
+        } }, glyph('known', 18), ' Check it') : null;
       q.choices.forEach(ch => {
-        const b = btn({ class: 'choice', onclick: () => { pick(b, ch, q, boxEl, card, modal, close); } }, ch);
+        const b = btn({ class: 'choice', onclick: () => {
+          if (!twoBeat) { pick(b, ch, q, boxEl, card, modal, close); return; }
+          // Choosing another before Check simply moves the selection.
+          boxEl.querySelectorAll('.choice').forEach(x => x.classList.remove('selected'));
+          b.classList.add('selected');
+          picked = b; pickedVal = ch;
+          checkIt.disabled = false;
+          // Deliberately not aria-pressed: mutually exclusive options announce
+          // as independent switches that way. The "✓ Chosen" mark rides inside
+          // the button, so it travels in the accessible name, and the live
+          // region says the same thing out loud for a reader who is listening.
+          maybeSpeak(ch);
+          tell(card, 'You chose ' + ch + '. Press “Check it” when you are ready.');
+        } }, ch, el('span', { class: 'sel-mark' }, '✓ Chosen'));
         b._value = ch;   // never re-read textContent
         if (q.speak_choices) {
           // The speaker sits beside the choice, not inside it: a button may not
@@ -1267,35 +1438,50 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       });
       if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
       card.append(boxEl);
+      if (checkIt) card.append(checkIt);
     } else if (q.kind === 'order') {
-      // Tap the items into sequence — a produced answer, not a recognised one.
+      /* Tap the items into sequence — a produced answer, not a recognised one.
+         Dropping the last chip used to submit the whole arrangement on the
+         spot: posted, locked by commit_answer, and a wrong order burned out of
+         this node's mastery evidence for seven days, all without the reader
+         ever saying they were done. It also left "↺ Start over" dead from the
+         exact moment it could first have been useful. Arranging and committing
+         are two beats now — and this restores a control the card was already
+         drawing rather than inventing one. Universal, every stage: nobody
+         benefits from having their last tap read as a final answer. */
       const chosen = [];
       const tray = el('div', { class: 'order-tray', role: 'group', 'aria-label': 'Tap in order' });
       const slot = el('div', { class: 'order-slot', 'aria-live': 'polite',
         'aria-label': 'Your order so far' });
+      const check = btn({ class: 'btn gold', disabled: '',
+        onclick: () => submitOrder(chosen, q, card, modal, close) }, 'Check');
+      const startOver = btn({ class: 'btn ghost small', onclick: () => {
+        chosen.length = 0; tray.querySelectorAll('button').forEach(b => b.disabled = false); redraw();
+        const first = tray.querySelector('.order-chip:not(:disabled)');
+        if (first) first.focus();
+      } }, '↺ Start over');
       const redraw = () => {
         slot.innerHTML = '';
         chosen.forEach(v => slot.append(el('span', { class: 'order-chip placed' }, v)));
         if (!chosen.length) slot.append(el('span', { class: 'muted' }, 'Tap them in order…'));
+        check.disabled = chosen.length !== q.items.length;
       };
       q.items.forEach(v => {
         const b = btn({ class: 'order-chip', onclick: () => {
           if (b.disabled) return;
           b.disabled = true; chosen.push(v); redraw();
-          if (chosen.length === q.items.length) { submitOrder(chosen, q, card, modal, close); return; }
-          // Disabling the chip we just used must not dump focus to <body>.
+          // Disabling the chip we just used must not dump focus to <body> —
+          // and when it was the last one there is no next chip, so the place
+          // to land is the control that finishes the job.
           const nxt = tray.querySelector('.order-chip:not(:disabled)');
-          if (nxt) nxt.focus();
+          (nxt || check).focus();
         } }, v);
         tray.append(b);
       });
       // Mount the live region first, then fill it. Calling redraw() before the
       // append meant the slot arrived in the document already containing its
       // instruction — announced once on insert, and unreliably thereafter.
-      card.append(slot, tray,
-        btn({ class: 'btn ghost small', style: 'margin-top:10px', onclick: () => {
-          chosen.length = 0; tray.querySelectorAll('button').forEach(b => b.disabled = false); redraw();
-        } }, '↺ Start over'));
+      card.append(slot, tray, el('div', { class: 'order-actions' }, check, startOver));
       redraw();
     } else if (q.kind === 'short') {
       // Constructed response: the reader must produce the idea, not spot it.
@@ -1332,7 +1518,9 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, ch, card, modal, close);
   }
   async function submitOrder(chosen, q, card, modal, close) {
-    card.querySelectorAll('.order-chip').forEach(c => c.disabled = true);
+    // Check and Start over go down with the chips: once the answer is on its
+    // way to be graded, neither of them has anything left to do.
+    card.querySelectorAll('.order-chip, .order-actions button').forEach(c => c.disabled = true);
     holdFocus(card, 'Checking…');
     const m = await mark(q, chosen.join(' '));
     card.querySelector('.order-slot').classList.add(m.correct ? 'correct' : 'wrong');
@@ -1571,45 +1759,183 @@ async function renderAtlas(page) {
   if (!g) return;
   S.curriculum = g;
   page.append(pagehead('The whole journey', 'The Atlas',
-    'Every field, from preschool roots to the graduate frontier. Golden tiles are open to you now; locked tiles show exactly what will unlock them. Click any to begin.'));
+    'Every field, from preschool roots to the graduate frontier. Golden tiles are open to you now and fill as you master them; locked tiles show exactly what will unlock them. Click any to begin.'));
   // The wall of locks is the honest shape of a whole education, and it should
   // read as an invitation rather than a verdict. One line, in the Guide's
   // register: the scale is the point, and it is survivable.
   page.append(el('p', { class: 'epigraph' },
     'Yes, it is an enormous amount. Every reader who ever finished started with exactly one tile.'));
   quickAccess(page, g);
-  g.domains.forEach(d => {
+
+  /* The 250KB the page already fetches carries eight distinct states per node
+     — mastery, proven, ever_proven, faded, assumed, assumed_stale, unlocked,
+     mastered — and this view used to collapse all of them into three tile
+     classes and throw the rest away. So a topic sitting at 0.79 rendered
+     identically to one never opened, and on day one 315 of 353 tiles were an
+     undifferentiated grey wall. Nothing below needs a single server change:
+     it reads what is already on the wire, and gives the reader a way to cut
+     the map down to the handful of tiles that are theirs to work on today. */
+  const mine = new Set((S.state && S.state.profile && S.state.profile.domains) || []);
+  const FILTERS = [
+    ['All fields', () => true],
+    // An empty domains list means "every field" to the server, so this option
+    // is only offered when the reader actually chose a shelf.
+    mine.size ? ['My fields', n => mine.has(n.domain)] : null,
+    ['Open now', n => n.unlocked && !n.mastered],
+    ['Nearly there', n => (n.mastery || 0) >= 0.5 && (n.mastery || 0) < 0.8],
+    ['Faded', n => !!n.faded],
+  ].filter(Boolean);
+
+  // Exactly one filter applies at a time, which makes this a radiogroup with a
+  // roving tabindex — not a row of aria-pressed toggles, which announce as
+  // independent switches. Same pattern, and the same reasoning, as the
+  // confidence row in the quiz.
+  const bar = el('div', { class: 'atlas-filters', role: 'radiogroup', 'aria-label': 'Which tiles to show' });
+  FILTERS.forEach(([label, test], k) => {
+    const b = btn({ class: 'btn ghost small filter-opt' + (k === 0 ? ' picked' : ''),
+      role: 'radio', 'aria-checked': k === 0 ? 'true' : 'false',
+      tabindex: k === 0 ? '0' : '-1',
+      onkeydown: e => {
+        if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'].includes(e.key)) return;
+        e.preventDefault();
+        const all = [...bar.querySelectorAll('[role=radio]')];
+        const cur = all.indexOf(e.currentTarget);
+        const dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
+        const nxt = e.key === 'Home' ? all[0]
+                  : e.key === 'End' ? all[all.length - 1]
+                  : all[(cur + dir + all.length) % all.length];
+        nxt.focus(); nxt.click();
+      },
+      onclick: () => {
+        bar.querySelectorAll('[role=radio]').forEach(x => {
+          x.classList.remove('picked'); x.setAttribute('aria-checked', 'false'); x.setAttribute('tabindex', '-1'); });
+        b.classList.add('picked'); b.setAttribute('aria-checked', 'true'); b.setAttribute('tabindex', '0');
+        paint(test, label);
+      } }, label, el('span', { class: 'filter-mark' }, '✓ Showing'));
+    bar.append(b);
+  });
+  // Mounted empty, filled after it has landed in the document: a live region
+  // that arrives with its text already inside it is announced unreliably or
+  // not at all.
+  const live = el('div', { class: 'atlas-live', role: 'status', 'aria-live': 'polite' });
+  const board = el('div', { class: 'atlas-board' });
+  page.append(bar, live, board);
+
+  function paint(test, label) {
+    board.innerHTML = '';
+    let shown = 0;
+    g.domains.forEach(d => {
+      // Filtering only ever reduces the render — a domain with nothing left in
+      // it drops out rather than standing as an empty heading.
+      const dnodes = g.nodes.filter(n => n.domain === d.id && test(n));
+      if (!dnodes.length) return;
+      shown += dnodes.length;
+      board.append(domainBlock(d, dnodes));
+    });
+    if (!shown) board.append(emptyLeaf('atlas', 'Nothing in that state — yet',
+      'No tile answers to that just now. Choose “All fields” to see the whole map again.'));
+    live.textContent = '';
+    setTimeout(() => { live.textContent = label + ' — showing ' + shown + ' of ' + g.nodes.length + ' topics.'; }, 30);
+  }
+
+  // Six cells, one per stage, from counts the payload already computes and
+  // this page used to reduce to a single total. Progress by stage is the fact
+  // a reader actually wants: which band they are in, and which gate is shut.
+  function stageStrip(d) {
+    const said = d.stages.map(s => STAGE_NAMES[s.stage] + ' ' + s.mastered + ' of ' + s.total
+      + (s.open ? ', open' : ', gate not open yet'));
+    const strip = el('div', { class: 'stage-strip', role: 'img',
+      'aria-label': 'By stage — ' + said.join('; ') });
+    d.stages.forEach(s => {
+      const pct = s.total ? Math.round(100 * s.mastered / s.total) : 0;
+      strip.append(el('span', { class: 'ss-cell' + (s.open ? '' : ' shut'),
+        title: STAGE_NAMES[s.stage] + ' — ' + s.mastered + ' of ' + s.total + ' mastered'
+             + (s.open ? '' : ' · gate not open yet') },
+        el('i', { style: 'width:' + pct + '%' }),
+        el('b', {}, STAGE_NAMES[s.stage].slice(0, 2))));
+    });
+    return strip;
+  }
+
+  function nodeTile(n) {
+    const pct = Math.round((n.mastery || 0) * 100);
+    const cls = n.mastered ? 'mastered' : (n.unlocked ? 'available' : 'locked');
+    // The last node of a field is where the field itself stops knowing —
+    // the one tile on this page that nobody has finished. It should not
+    // look like one more padlock among forty.
+    const frontier = /\.5\.frontier$/.test(n.id);
+    // State is never carried by colour alone: each tile takes a drawn mark and
+    // says the same thing in words in its accessible name.
+    const marks = [];
+    const said = [n.title];
+    said.push(n.mastered ? 'mastered'
+            : !n.unlocked ? 'locked'
+            : pct > 0 ? pct + '% mastered'
+            : 'open, not started');
+    if (n.faded) { marks.push('◐'); said.push('faded — proved once, and it has slipped since'); }
+    if (n.assumed) {
+      marks.push('◇');
+      said.push(n.assumed_stale ? 'assumed from your placement, and that credit has expired'
+                                : 'assumed from your placement, not yet proved');
+    }
+    if (frontier) said.push('the frontier of this field');
+    if (cls === 'locked') said.push('open it to see what unlocks it');
+    return btn({
+      class: 'node-dot ' + cls + (frontier ? ' frontier' : '') + (n.faded ? ' faded' : '')
+             + (n.assumed ? ' assumed' : '') + (n.assumed_stale ? ' assumed-stale' : ''),
+      // Per-element geometry, not a themed token: --m is how far this one tile
+      // has come, and the gold fills to exactly that point.
+      style: '--m:' + pct + '%',
+      title: frontier ? 'The edge of what is known — where learning becomes research.'
+                      : (n.unlock_requirements ? n.unlock_requirements.join('; ') : (n.goal || '')),
+      'aria-label': said.join(' — '),
+      onclick: () => { if (n.unlocked || n.mastered) go('node', n.id); else lockedPeek(n); } },
+      n.title,
+      marks.length ? el('span', { class: 'dot-mark', 'aria-hidden': 'true' }, ' ' + marks.join('')) : null);
+  }
+
+  function domainBlock(d, dnodes) {
     const block = el('section', { class: 'domain-block', 'aria-label': d.name });
     const total = d.stages.reduce((s, x) => s + x.total, 0);
+    // Across 353 tiles the one that matters is the first open, unmastered tile
+    // in the field, and finding it used to be a scan by eye. Focus travels with
+    // the scroll so a keyboard reader arrives on the tile, not merely near it.
+    let frontierTile = null;
+    const jump = btn({ class: 'btn ghost small frontier-jump',
+      'aria-label': 'Jump to your frontier in ' + d.name,
+      onclick: () => {
+        if (!frontierTile) return;
+        frontierTile.focus({ preventScroll: true });
+        frontierTile.scrollIntoView({ block: 'center',
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      } }, '→ My frontier');
     block.append(el('div', { class: 'domain-head' },
       // Same daylight-hex lift as the lesson-card domain tag: themed via
       // --domain-lift so the ten curriculum colours survive the night palette.
       el('div', { class: 'ic', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))`, 'aria-hidden': 'true' }, domainMark(d, 20)),
-      el('div', {}, el('h3', {}, d.name), el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')))));
+      el('div', { class: 'dh-text' }, el('h3', {}, d.name),
+        el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')),
+        stageStrip(d)),
+      jump));
     for (let s = 0; s < 6; s++) {
-      const nodes = g.nodes.filter(n => n.domain === d.id && n.stage === s);
+      const nodes = dnodes.filter(n => n.stage === s);
       if (!nodes.length) continue;
       const row = el('div', { class: 'stage-row' });
       row.append(el('div', { class: 'stage-label' }, STAGE_NAMES[s]));
       const nr = el('div', { class: 'node-row' });
       nodes.forEach(n => {
-        const cls = n.mastered ? 'mastered' : (n.unlocked ? 'available' : 'locked');
-        // The last node of a field is where the field itself stops knowing —
-        // the one tile on this page that nobody has finished. It should not
-        // look like one more padlock among forty.
-        const frontier = /\.5\.frontier$/.test(n.id);
-        const label = n.title + (cls === 'locked' && n.unlock_requirements ? ' — locked' : '')
-                    + (frontier ? ' — the frontier of this field' : '');
-        nr.append(btn({ class: 'node-dot ' + cls + (frontier ? ' frontier' : ''),
-          title: frontier ? 'The edge of what is known — where learning becomes research.'
-                          : (n.unlock_requirements ? n.unlock_requirements.join('; ') : (n.goal || '')),
-          'aria-label': label,
-          onclick: () => { if (n.unlocked || n.mastered) go('node', n.id); else lockedPeek(n); } }, n.title));
+        const tile = nodeTile(n);
+        if (!frontierTile && n.unlocked && !n.mastered) frontierTile = tile;
+        nr.append(tile);
       });
       row.append(nr); block.append(row);
     }
-    page.append(block);
-  });
+    // A field with nothing open in it gets no button rather than a dead one.
+    if (!frontierTile) jump.remove();
+    return block;
+  }
+
+  paint(FILTERS[0][1], FILTERS[0][0]);
 }
 // Quick access — every module of the book's specialist domain, in one panel,
 // reachable whatever the gates say. Radiology is postgraduate: its tiles are
@@ -1654,7 +1980,31 @@ function lockedPeek(n) {
     modal.append(el('h2', { style: 'margin-top:0' }, glyph('lock', 20), ' ' + n.title));
     modal.append(el('p', { class: 'muted' }, n.goal || ''));
     modal.append(el('p', { style: 'font-family:var(--sans);font-weight:600;margin-bottom:6px' }, 'To unlock this:'));
-    const box = el('div', {}); (n.unlock_requirements || ['Keep progressing in this field.']).forEach(r => box.append(el('span', { class: 'req-chip' }, r)));
+    const box = el('div', {});
+    // Every requirement here used to be an inert chip: the reader was told the
+    // name of a lesson and then left to hunt for it by eye across 353 tiles.
+    // The node carries the real prerequisite ids all along (annotated_graph
+    // copies the whole node), so the ones that name a lesson become buttons
+    // that go to it — the pattern the "Worth refreshing" row already uses.
+    const byId = new Map();
+    ((S.curriculum && S.curriculum.nodes) || []).forEach(x => byId.set(x.id, x));
+    const jumps = (n.prereqs || []).filter(p => {
+      const pn = byId.get(p);
+      // A prerequisite already mastered is not what is standing in the way.
+      return pn && !pn.mastered;
+    });
+    jumps.forEach(p => box.append(btn({ class: 'req-chip req-jump',
+      onclick: () => { close(); go('node', p); } },
+      'Master “' + byId.get(p).title + '”',
+      el('span', { class: 'go-mark', 'aria-hidden': 'true' }, '→'))));
+    // Prose requirements with no lesson behind them — "Master 4 more Seedling
+    // topics" is a statement about the stage gate, not a tile — stay inert.
+    // The "Master “X”" strings the server writes are exactly the prereqs
+    // rendered as buttons above, so they are dropped rather than said twice.
+    (n.unlock_requirements || ['Keep progressing in this field.']).forEach(r => {
+      if (jumps.length && /^Master\s+“/.test(r)) return;
+      box.append(el('span', { class: 'req-chip' }, r));
+    });
     modal.append(box, btn({ class: 'btn gold', style: 'margin-top:16px', onclick: close }, 'Got it'));
   } });
 }
