@@ -1944,12 +1944,19 @@ def index():
 # register. Basic credentials are still accepted on the wire (see
 # _is_signed_in) for curl and CI; they are simply never demanded of a person.
 
-def _sign_in_page(next_path: str, error: str = "", status_code: int = 200):
+def _sign_in_page(error: str = "", status_code: int = 200):
+    """The door, rendered without a byte of user input in it.
+
+    The bounce target used to be templated into a hidden field, escaped and
+    allowlisted — defensible, but the stronger property is available for
+    free: the form posts back to its own URL, so ?next= rides the query
+    string and never touches the page. The only slot left is the error
+    banner, which carries the server's own sentence and nothing else.
+    """
     with open(os.path.join(WEB_DIR, "sign-in.html")) as fh:
         page = fh.read()
     banner = ('<p class="err" role="alert">' + _escape(error) + "</p>") if error else ""
     page = page.replace("{{ERROR}}", banner)
-    page = page.replace("{{NEXT}}", _escape(_safe_next(next_path), quote=True))
     return HTMLResponse(page, status_code=status_code, headers=_no_store())
 
 
@@ -1962,7 +1969,7 @@ def sign_in_form(next: str = "/"):
         # deployment without a password has already failed closed upstream.
         return RedirectResponse(_safe_next(next), status_code=303,
                                 headers=_no_store())
-    return _sign_in_page(next)
+    return _sign_in_page()
 
 
 @app.post(SIGN_IN_PATH)
@@ -1975,7 +1982,9 @@ async def sign_in(request: Request):
     # one route an unauthenticated stranger can reach.
     body = (await request.body())[:8192].decode("utf-8", "replace")
     form = dict(urllib.parse.parse_qsl(body, keep_blank_values=True))
-    next_path = _safe_next(form.get("next") or "/")
+    # The target arrives on the query string the form posted back to, not in
+    # the body: the page carries no user data, so there is no hidden field.
+    next_path = _safe_next(request.query_params.get("next") or "/")
     supplied_user = (form.get("username") or "")[:512]
     supplied_password = (form.get("password") or "")[:1024]
     username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
@@ -1988,7 +1997,7 @@ async def sign_in(request: Request):
         # half was wrong tells an intruder which half to keep.
         log.info("sign-in refused")
         return _sign_in_page(
-            next_path, "That is not the word this copy knows. Try again.", 401)
+            "That is not the word this copy knows. Try again.", 401)
     response = RedirectResponse(next_path, status_code=303, headers=_no_store())
     response.set_cookie(
         ACCESS_COOKIE, _access_token(username, password),

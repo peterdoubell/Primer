@@ -107,9 +107,12 @@ def test_signing_in_opens_the_book_and_keeps_it_open(monkeypatch):
     # https, because the cookie is Secure when hosted — over plain http a real
     # browser would drop it exactly as this client does.
     with TestClient(srv.app, base_url="https://testserver") as client:
-        posted = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
-                             data={"username": "reader", "password": "secret",
-                                   "next": "/#atlas"})
+        # The form has no action attribute, so a browser posts back to the
+        # URL the page was served from — ?next= travels in the query string,
+        # never in the page or the body.
+        posted = client.post(srv.SIGN_IN_PATH + "?next=/%23atlas",
+                             follow_redirects=False,
+                             data={"username": "reader", "password": "secret"})
         # The cookie the redirect set is now the only credential in play.
         after = client.get("/api/state")
         signed_out = client.post("/sign-out", follow_redirects=False)
@@ -176,9 +179,14 @@ def test_next_cannot_be_bent_into_an_open_redirect(monkeypatch, hostile):
     monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
 
     with TestClient(srv.app) as client:
-        posted = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
-                             data={"username": "primer", "password": "secret",
-                                   "next": hostile})
+        # On the query string — the channel the handler actually reads now.
+        # A hostile value in the body is simply ignored, which is its own
+        # guarantee, but ignoring it is not what this test is here to prove.
+        import urllib.parse
+        posted = client.post(
+            srv.SIGN_IN_PATH + "?next=" + urllib.parse.quote(hostile, safe=""),
+            follow_redirects=False,
+            data={"username": "primer", "password": "secret"})
 
     assert posted.headers["location"] == "/"
 
