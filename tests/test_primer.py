@@ -2288,8 +2288,8 @@ def test_focus_is_held_across_the_marking_round_trip():
     because with activeElement on body it matches neither first nor last, so Tab
     walks straight out."""
     js = _web("app.js")
-    assert js.count("holdFocus(card, 'Checking…')") == 4, \
-        "all four submit paths must hold focus before awaiting"
+    assert js.count("holdFocus(card, 'Checking…')") == 5, \
+        "all five submit paths must hold focus before awaiting"
     i = js.index("function holdFocus")
     assert "region.focus()" in js[i:i + 900]
 
