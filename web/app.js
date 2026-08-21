@@ -123,18 +123,97 @@ function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<':
 
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600); }
 
-/* ---------------- speech ---------------- */
+/* ---------------- speech ----------------
+   Everything the book says goes through one queue. Long text is cut into
+   sentence-bounded chunks and chained utterance to utterance: the 3,500-
+   character ceiling that used to sit here (and again in speakArticle) stopped
+   the book mid-clause at roughly 5% of a real article, with no way to resume.
+
+   speakSeq is what makes chaining safe. speechSynthesis.cancel() fires `onend`
+   on the utterance it kills, so a naive chain restarts itself the instant it is
+   silenced — navigate away mid-read and the book keeps reading the page you
+   left. Every stop bumps the sequence, and a chunk that finishes under a stale
+   sequence drops the rest of its queue on the floor. */
+const SPEAK_CHUNK = 1200;
+let speakSeq = 0;
+// Whatever the voice leaves lit — a pulsing speaker button, the paragraph it is
+// reading, the article's transport row — is only true while it is talking. The
+// article read registers its own restorer here so that a stop from anywhere
+// (the voice toggle, a navigation, a caption read in the lightbox) puts the
+// page back rather than leaving a dead Pause button behind.
+let _voiceRestore = null;
+
+// Cut text into pieces no longer than SPEAK_CHUNK, never mid-sentence. A
+// boundary inside a clause is exactly what made the old truncation sound like
+// a fault rather than an ending.
+function splitForSpeech(text) {
+  const clean = String(text == null ? '' : text).replace(/\s+/g, ' ').trim();
+  if (!clean) return [];
+  if (clean.length <= SPEAK_CHUNK) return [clean];
+  const sentences = clean.match(/[^.!?\u2026]+(?:[.!?\u2026]+["\')\]]*|$)/g) || [clean];
+  const out = [];
+  let buf = '';
+  for (const s of sentences) {
+    let piece = s.trim();
+    // One "sentence" longer than a whole chunk — a run-on caption, a list of
+    // dates with no full stop in it. Fall back to word boundaries rather than
+    // cutting a word in half.
+    while (piece.length > SPEAK_CHUNK) {
+      let cut = piece.lastIndexOf(' ', SPEAK_CHUNK);
+      if (cut < SPEAK_CHUNK * 0.5) cut = SPEAK_CHUNK;
+      if (buf) { out.push(buf); buf = ''; }
+      out.push(piece.slice(0, cut).trim());
+      piece = piece.slice(cut).trim();
+    }
+    if (!piece) continue;
+    if (buf && buf.length + 1 + piece.length > SPEAK_CHUNK) { out.push(buf); buf = piece; }
+    else buf = buf ? buf + ' ' + piece : piece;
+  }
+  if (buf) out.push(buf);
+  return out;
+}
+
+// The only place an utterance is ever built. `parts` is spoken in order;
+// onChunk(i) fires as each one begins and onEnd() once the last has finished —
+// and neither fires again once a newer read or a stop has taken the voice.
+function speakParts(parts, opts) {
+  const o = opts || {};
+  stopSpeaking();                       // bumps speakSeq, silences the old queue
+  const seq = speakSeq;
+  let i = 0;
+  const next = () => {
+    if (seq !== speakSeq) return;       // superseded: this queue is over
+    if (i >= parts.length) { if (o.onEnd) o.onEnd(); return; }
+    const k = i++;
+    if (o.onChunk) o.onChunk(k);
+    try {
+      const u = new SpeechSynthesisUtterance(parts[k]);
+      u.rate = S.stage <= 1 ? 0.9 : 0.98; u.pitch = 1.04;
+      // onerror as well as onend, or one refused chunk ends the whole article.
+      u.onend = next; u.onerror = next;
+      speechSynthesis.speak(u);
+    } catch (e) { if (o.onEnd) o.onEnd(); }
+  };
+  next();
+}
 function speakText(text, onEnd) {
-  try {
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(String(text).slice(0, 3500));
-    u.rate = S.stage <= 1 ? 0.9 : 0.98; u.pitch = 1.04;
-    if (onEnd) u.onend = onEnd;
-    speechSynthesis.speak(u);
-  } catch (e) { if (onEnd) onEnd(); }
+  const parts = splitForSpeech(text);
+  if (!parts.length) { if (onEnd) onEnd(); return; }
+  speakParts(parts, { onEnd: onEnd });
 }
 function maybeSpeak(text, maxStage = 1) { if (S.speak && S.stage <= maxStage) speakText(text); }
-function stopSpeaking() { try { speechSynthesis.cancel(); } catch (e) {} }
+function stopSpeaking() {
+  speakSeq++;
+  // cancel() on a paused engine leaves Chrome's queue wedged: the next speak()
+  // is accepted and never sounds. Clearing the paused flag afterwards, on an
+  // empty queue, costs nothing and is what makes Pause → Stop → Read work.
+  try { speechSynthesis.cancel(); if (speechSynthesis.paused) speechSynthesis.resume(); } catch (e) {}
+  // A queue that is dropped rather than finished never runs its onEnd, so the
+  // marks it left have to be cleared from here or they stay lit forever.
+  document.querySelectorAll('.speak-btn.speaking').forEach(b => b.classList.remove('speaking'));
+  document.querySelectorAll('.reading-now').forEach(b => b.classList.remove('reading-now'));
+  if (_voiceRestore) { const put = _voiceRestore; _voiceRestore = null; put(); }
+}
 // WCAG 1.4.2: any audio that starts automatically must be stoppable. The
 // reader can silence the book entirely, and a stop button appears while it
 // is speaking.
@@ -161,7 +240,10 @@ function speakToggle() {
 }
 function speakBtn(getText, label) {
   const b = btn({ class: 'speak-btn', 'aria-label': label || 'Read aloud',
-    onclick: () => { const t = typeof getText === 'function' ? getText() : getText; b.classList.add('speaking'); speakText(t, () => b.classList.remove('speaking')); } }, glyph('speak', 16));
+    // The pulse is added *after* the call: speakText stops whatever was
+    // talking first, and stopSpeaking clears every .speaking mark on the page —
+    // including, if it were added first, this one.
+    onclick: () => { const t = typeof getText === 'function' ? getText() : getText; speakText(t, () => b.classList.remove('speaking')); b.classList.add('speaking'); } }, glyph('speak', 16));
   return b;
 }
 
@@ -197,6 +279,11 @@ function renderRoute() {
   // Any navigation unmounts whatever view was up — drop the review deck's
   // document listener now rather than lazily on the next keypress.
   if (_reviewKeyHandler) { document.removeEventListener('keydown', _reviewKeyHandler); _reviewKeyHandler = null; }
+  // And silence the voice. Read-aloud can now run for the length of a whole
+  // article, so leaving the page mid-read used to mean the book carried on
+  // reading a page that no longer existed, marking paragraphs in a detached
+  // DOM. Views that speak on arrival do so after this, from their own render.
+  stopSpeaking();
   const { view, arg, corrected } = parseHash();
   // Falling back to Today while leaving the address bar on a bogus route left
   // no nav item marked current, and a reload landed nowhere.
@@ -462,7 +549,7 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
   }
   draw();
 }
-function speakBtnAlways(getText) { const b = btn({ class: 'speak-btn', 'aria-label': 'Read aloud', onclick: () => { b.classList.add('speaking'); speakText(typeof getText === 'function' ? getText() : getText, () => b.classList.remove('speaking')); } }, glyph('speak', 16)); return b; }
+function speakBtnAlways(getText) { const b = btn({ class: 'speak-btn', 'aria-label': 'Read aloud', onclick: () => { speakText(typeof getText === 'function' ? getText() : getText, () => b.classList.remove('speaking')); b.classList.add('speaking'); } }, glyph('speak', 16)); return b; }
 
 /* ---------------- placement check ---------------- */
 function offerPlacement(domains) {
@@ -1057,7 +1144,7 @@ async function renderReader(page, arg) {
   const bar = el('div', { style: 'display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap' },
     btn({ class: 'btn ghost small', onclick: () => history.length > 1 ? history.back() : go(nodeId ? 'node' : 'today', nodeId) }, '← Back'),
     nodeId ? btn({ class: 'btn gold small', onclick: () => startQuiz(nodeId) }, glyph('quill', 14), ' Quiz me on this') : null,
-    btn({ class: 'btn small', onclick: () => speakArticle() }, glyph('speak', 16), ' Read aloud'));
+    readAloudControls());
   page.append(bar);
   const layout = el('div', { id: 'reader-layout' });
   const art = el('article', { id: 'article', tabindex: '-1' }); art.append(skeleton(7));
@@ -1075,7 +1162,10 @@ async function renderReader(page, arg) {
     });
     attachPictureHandlers(art);
     const badge = a.source === 'zim' ? 'from your shelf' : a.source === 'cache' ? 'from your library' : 'from Wikipedia (live)';
-    art.append(el('p', { class: 'muted', style: 'margin-top:30px;border-top:1px solid var(--rule);padding-top:10px' }, '✦ ' + badge + (a.simple ? ' · Simple English' : '')));
+    // .reader-source: the book's own footnote about where the page came from,
+    // not a sentence of the article. articleBlocks skips it, so read-aloud does
+    // not end a twenty-minute reading with "from your shelf".
+    art.append(el('p', { class: 'muted reader-source', style: 'margin-top:30px;border-top:1px solid var(--rule);padding-top:10px' }, '✦ ' + badge + (a.simple ? ' · Simple English' : '')));
     // Back to where the eye was, once the article has been laid out. This is
     // safe to do in a single frame because fix_img stamps an intrinsic width
     // and height on every image (render.py), so nothing reflows underneath the
@@ -1089,7 +1179,199 @@ async function renderReader(page, arg) {
     });
   } catch (e) { art.innerHTML = ''; art.append(errCard(e, () => renderReader(page, arg))); }
 }
-function speakArticle() { const t = $('#article'); if (t) speakText(t.textContent.slice(0, 3500)); }
+/* ---------------- articleBlocks(): what the article actually says ----------------
+   SHARED HELPER. Written here for read-aloud; its second caller is the tutor's
+   section-grounding, which has to agree with read-aloud about what "the
+   article" is or the panel answers about text the reader was never shown.
+
+   CONTRACT
+     articleBlocks(root)  ->  [{ el: Element, text: string }, ...]
+
+       root    optional Element to read. Defaults to #article; if that is not
+               on the page the result is [] — never null, never a throw.
+       order   document order.
+       el      the live element, so a caller may mark it (read-aloud toggles
+               .reading-now on it), measure it against the viewport, or scroll
+               to it.
+       text    its innerText: whitespace collapsed, citation markers removed,
+               trimmed. Never the empty string — empty blocks are dropped, so
+               `.length` is a true count of how much there is to read.
+
+   WHAT COUNTS AS A BLOCK — h1, h2, h3, p, li: the tags render.py's allowlist
+   leaves running prose in. h1 is the article's own title, which is the right
+   first thing to say aloud.
+
+   WHAT IS DROPPED, and why each one earns its place:
+     - innerText, never textContent. textContent ignores CSS, which is why the
+       old read-aloud spoke everything the rules at styles.css:490 hide.
+     - offsetParent === null: anything not rendered at all, the inside of a
+       folded navbox included.
+     - Navigation dressed as prose — the infobox, the topic sidebar, the footer
+       navboxes, the contents list. This is the ninety seconds of the Classical
+       mechanics sidebar that used to come before the first sentence.
+     - Banners addressed to editors rather than readers: "History of art" opened
+       by announcing "This article may be too long to read and navigate
+       comfortably".
+     - Citation apparatus: the reference list, and the [17] markers inside a
+       sentence, which are read out as bare numbers mid-clause.
+     - Tables. _wrap_tables puts every one inside .table-scroll, and a table
+       read as a flat stream of cells is noise to both callers.
+     - A block containing another block (li > p, nested lists) is kept whole and
+       its descendants dropped, so no sentence is delivered twice. */
+const ARTICLE_BLOCK_TAGS = 'h1, h2, h3, p, li';
+const ARTICLE_SKIP = [
+  '.navbar', '.mw-editsection', '.mw-empty-elt', '.mw-jump-link',
+  '.infobox', '.sidebar', '.vertical-navbox', '.navbox', '.toc', '#toc', '.gallery',
+  '.ambox', '.mbox', '.ombox', '.tmbox', '.metadata', '.noprint', '.hatnote',
+  '.reflist', '.refbegin', '.mw-references-columns', '.citation-comment', 'ol.references',
+  'table', '.table-scroll', 'details.primer-navbox',
+  '.reader-source',   // the book's own "from your shelf" footer, not the article
+].join(',');
+const CITATION_MARK = /\[\s*(?:\d+|[a-z]|note \d+|citation needed|edit|clarify|who\?|when\?)\s*\]/gi;
+function articleBlocks(root) {
+  const host = root || $('#article');
+  if (!host) return [];
+  const out = [];
+  let kept = null;   // candidates arrive in document order, so an ancestor is
+                     // always the most recently kept element
+  host.querySelectorAll(ARTICLE_BLOCK_TAGS).forEach(e => {
+    if (kept && kept.contains(e)) return;
+    if (e.closest(ARTICLE_SKIP)) return;
+    if (e.offsetParent === null) return;
+    const text = String(e.innerText || '').replace(CITATION_MARK, '').replace(/\s+/g, ' ').trim();
+    if (!text) return;
+    kept = e;
+    out.push({ el: e, text: text });
+  });
+  return out;
+}
+
+/* Blocks in, utterances out: about SPEAK_CHUNK characters each, never cut
+   mid-sentence, each carrying the elements it is reading so the page can mark
+   them. Short blocks merge so a bulleted list is not forty separate utterances
+   with a pause between each. */
+function speechChunks(blocks) {
+  const out = [];
+  let cur = null;
+  const flush = () => { if (cur) out.push(cur); cur = null; };
+  for (const b of blocks) {
+    const pieces = splitForSpeech(b.text);
+    if (!pieces.length) continue;
+    if (pieces.length > 1) {   // one block longer than a chunk, split on its own
+      flush();
+      pieces.forEach(t => out.push({ text: t, els: [b.el] }));
+      continue;
+    }
+    const t = pieces[0];
+    if (cur && cur.text.length + 2 + t.length <= SPEAK_CHUNK) {
+      // A heading runs straight into the paragraph beneath it unless the join
+      // closes the clause: "Early life. In 1879…", not "Early life In 1879…".
+      cur.text += (/[.!?…:;,]$/.test(cur.text) ? ' ' : '. ') + t;
+      cur.els.push(b.el);
+    } else { flush(); cur = { text: t, els: [b.el] }; }
+  }
+  flush();
+  return out;
+}
+
+/* ---------------- read-aloud that reads the article ----------------
+   What this was: speakText($('#article').textContent.slice(0, 3500)) —
+   truncated once here and again inside the utterance. textContent ignores CSS,
+   so the book read every maintenance banner, every navbox and the whole topic
+   sidebar before reaching the first sentence, then stopped mid-clause at
+   character 3,500 (about 5% of a real article) with no way to resume.
+
+   For a reader at stage 0-1 this control is not a convenience, it is the only
+   route into the page, so it is now a transport rather than a fire-and-forget
+   button: articleBlocks decides what the article says, the queue in `speech`
+   chains it to the end, the block being read is marked so a finger can follow
+   it down the page, and the row carries Pause/Resume and Stop (WCAG 1.4.2 — a
+   twenty-minute read must be stoppable without leaving the page). */
+function inViewport(e) {
+  const r = e.getBoundingClientRect();
+  return r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight);
+}
+function readAloudControls() {
+  const reduce = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
+  // Mounted empty and written into later: a live region that arrives with its
+  // text already inside it is announced unreliably, or not at all.
+  const status = el('span', { class: 'read-status', role: 'status', 'aria-live': 'polite' });
+  const play = btn({ class: 'btn small' });
+  const stop = btn({ class: 'btn ghost small hidden', onclick: () => { stopSpeaking(); status.textContent = 'Stopped.'; } }, 'Stop');
+  let reading = false, paused = false;
+  let follow = true, autoScrollUntil = 0, onScroll = null, here = null;
+
+  function label(...kids) { play.replaceChildren(...kids.filter(k => k != null)); }
+  function setIdle(msg) {
+    reading = false; paused = false;
+    label(glyph('speak', 16), ' Read aloud');
+    stop.classList.add('hidden');
+    // Stop is about to vanish from under whoever pressed it; hiding a focused
+    // element drops focus to <body>, which on this page is the top of an
+    // eight-thousand-word article.
+    if (document.activeElement === stop) play.focus();
+    if (onScroll) { window.removeEventListener('scroll', onScroll); onScroll = null; }
+    here = null;
+    status.textContent = msg || '';
+  }
+  function unmark() { document.querySelectorAll('#article .reading-now').forEach(e => e.classList.remove('reading-now')); }
+
+  function begin() {
+    const blocks = articleBlocks();
+    if (!blocks.length) { status.textContent = 'There is nothing to read on this page yet.'; return; }
+    // Start where the reader is looking rather than at the title. They may have
+    // scrolled to a section, or been put back at their remembered place by the
+    // scroll memory — either way, jumping to the top of an eight-thousand-word
+    // article to begin reading is not what the button was pressed for.
+    let from = 0;
+    if (docScrollTop() > 40) {
+      const at = blocks.findIndex(b => b.el.getBoundingClientRect().bottom > 0);
+      if (at > 0) from = at;
+    }
+    const parts = speechChunks(blocks.slice(from));
+    follow = true; here = null;
+    speakParts(parts.map(c => c.text), {
+      onChunk: k => {
+        unmark();
+        parts[k].els.forEach(e => e.classList.add('reading-now'));
+        here = parts[k].els[0];
+        if (follow && here) {
+          // Our own smooth scroll fires scroll events for the better part of a
+          // second; without this window every read would decide on its first
+          // chunk that the reader had taken the page.
+          autoScrollUntil = Date.now() + (reduce() ? 150 : 900);
+          try { here.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth', block: 'center' }); }
+          catch (e) { here.scrollIntoView(); }
+        }
+      },
+      onEnd: () => { unmark(); setIdle('Finished reading.'); },
+    });
+    // Registered after speakParts, which cleared the previous read's marks and
+    // with them any restorer left over from it.
+    _voiceRestore = () => { unmark(); setIdle(''); };
+    reading = true; paused = false;
+    label('Pause');
+    stop.classList.remove('hidden');
+    status.textContent = 'Reading aloud.';
+    onScroll = () => {
+      if (Date.now() < autoScrollUntil) return;
+      // The reader has taken the page: stop dragging it out from under them.
+      // And if they scroll back to where the voice is, they have asked to be
+      // followed again.
+      follow = !!(here && inViewport(here));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+  play.addEventListener('click', () => {
+    if (!reading) { begin(); return; }
+    try {
+      if (paused) { speechSynthesis.resume(); paused = false; label('Pause'); status.textContent = 'Reading aloud.'; }
+      else { speechSynthesis.pause(); paused = true; label('Resume'); status.textContent = 'Paused.'; }
+    } catch (e) { stopSpeaking(); }
+  });
+  setIdle('');
+  return el('span', { class: 'read-aloud' }, play, stop, status);
+}
 
 /* ---------------- the picture is not a trap ----------------
    render.py rewrites every link it cannot resolve to an article — File:,
@@ -1491,6 +1773,60 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
       card.append(ta, btn({ class: 'btn gold', style: 'margin-top:10px', onclick: () => submitShort(ta, q, card, modal, close) }, 'Check my answer'));
       setTimeout(() => ta.focus(), 40);
+    } else if (q.kind === 'tally') {
+      /* Count by touching — the fourth answering gesture, and the first new
+         thing the reader's hands have learned to do in the whole assessment
+         path. Every object is a real <button>, so finger and keyboard reach it
+         by the same route and neither needs a special case. Pressing one
+         catches it; the running total goes to a live region of its own — never
+         the buttons re-announcing themselves — and is said aloud for a reader
+         who cannot yet read it. One large button commits the count.
+
+         The committed answer is a number string, so _numeric_equal grades it
+         with no scoring change at all. Until this branch existed a tally item
+         fell through to the numeric text input below: a five-year-old asked to
+         type the numeral she is being tested on recognising. `answer` is
+         String(items.length) — there is no separate count field, and the
+         length must never reach the accessible name of a token or the paper
+         gives itself away. */
+      const items = Array.isArray(q.items) ? q.items : [];
+      const counter = el('div', { class: 'tally-count', role: 'status', 'aria-live': 'polite' });
+      const tray = el('div', { class: 'tally-tray', role: 'group', 'aria-label': 'Touch each one to count it' });
+      const tokens = [];
+      const tallied = () => tokens.filter(t => t.classList.contains('caught')).length;
+      const refresh = spoken => {
+        const n = tallied();
+        counter.textContent = n === 0 ? 'None counted yet' : n + ' counted';
+        // maybeSpeak, not speakText: the book is talking without being asked
+        // to, and a reader who turned the voice off is not spoken to.
+        if (spoken) maybeSpeak(String(n));
+      };
+      items.forEach(it => {
+        const t = btn({ class: 'tally-token', 'aria-pressed': 'false',
+          // Every token carries the same name on purpose. A positional one
+          // ("item 7 of 9") would read the answer out to the reader who most
+          // needs the count to be their own work; aria-pressed is what tells
+          // the caught ones from the rest.
+          'aria-label': 'One to count',
+          onclick: () => {
+            // Pressing a caught one again lets it go. A miscount has to be
+            // undoable, or the only way back is to abandon the question.
+            const on = !t.classList.contains('caught');
+            t.classList.toggle('caught', on);
+            t.setAttribute('aria-pressed', on ? 'true' : 'false');
+            refresh(true);
+          } },
+          el('span', { class: 'tk-face', 'aria-hidden': 'true' }, String(it)),
+          el('span', { class: 'tk-mark', 'aria-hidden': 'true' }, '✓'));
+        tokens.push(t); tray.append(t);
+      });
+      if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
+      // Mount the live region, then fill it: one that arrives with its text
+      // already inside is announced unreliably, or not at all.
+      card.append(counter, tray,
+        btn({ class: 'btn gold tally-commit', onclick: () => submitTally(tokens, q, card, modal, close) },
+            'That is how many'));
+      refresh(false);
     } else {
       const inp = el('input', { type: 'text', inputmode: 'decimal', 'aria-label': 'Your answer', placeholder: 'Your answer', style: 'padding:12px;font-size:20px;text-align:center;width:60%', onkeydown: e => { if (e.key === 'Enter') submitNum(inp, q, card, modal, close); } });
       if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
@@ -1528,6 +1864,28 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     tell(card, m.correct ? '✓ That is the right order.'
                          : 'Not quite — the right order is: ' + m.answer);
     reveal(m.correct, { ...q, answer: m.answer }, chosen.join(' '), card, modal, close);
+  }
+
+  async function submitTally(tokens, q, card, modal, close) {
+    const n = tokens.filter(t => t.classList.contains('caught')).length;
+    // Committing zero is a wrong answer that burns the item out of this node's
+    // mastery evidence for seven days. The other produced-answer types nudge
+    // rather than post an empty one; so does this.
+    if (!n) {
+      nudge(card, 'Touch each one first — then press the button.');
+      if (tokens.length) tokens[0].focus();
+      return;
+    }
+    tokens.forEach(t => t.disabled = true);
+    card.querySelectorAll('.tally-commit').forEach(b => b.disabled = true);
+    holdFocus(card, 'Checking…');
+    const m = await mark(q, String(n));
+    const tray = card.querySelector('.tally-tray');
+    if (tray) tray.classList.add(m.correct ? 'correct' : 'wrong');
+    // Never colour-only: the verdict is always stated in words as well.
+    tell(card, m.correct ? '✓ Correct — there are ' + n + '.'
+                         : (m.answer ? 'Not quite — there are ' + m.answer + '.' : 'Not quite.'));
+    reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, String(n), card, modal, close);
   }
 
   async function submitShort(ta, q, card, modal, close) {
@@ -2052,26 +2410,105 @@ async function renderReview(page) {
     // Where the answer and the grading buttons will go. Mounted empty and
     // filled later, so assistive tech has a region to announce into.
     var answerRegion = el('div', { class: 'reveal-region', role: 'status', 'aria-live': 'polite' });
-    const promptRow = el('div', { class: 'speak-row' }, S.stage <= 2 ? speakBtn(() => c.front, 'Read aloud') : null, el('div', { class: 'q-prompt', style: 'min-height:60px;flex:1' }, c.front));
+    /* Hear the question, hear the answers, touch one. Flip-and-rate-yourself is
+       the weakest retrieval act there is even for an adult, and for a reader at
+       stage 0-1 it is not an act at all: nothing on the card could be read, the
+       back was written and never spoken, and the four grades were English words
+       asking a five-year-old to appraise her own memory. Below stage 2 the card
+       asks her to produce the answer first — every part of it out loud, because
+       this is the surface her whole streak is built on and she has never been
+       able to work it. Stage 2 and up are untouched: SM-2 self-grading is the
+       rhythm an older reader already has.
+
+       The distractor is drawn from the deck in hand, preferring a sibling from
+       the same node or article (due_cards interleaves them, learner.py:1097) —
+       a card from a wildly different topic makes the choice free. */
+    const distractor = S.stage <= 1 && data.cards.length > 1 ? distractorFor(c) : null;
+    const opts = distractor ? (Math.random() < 0.5 ? [c.back, distractor] : [distractor, c.back]) : null;
+    const askAloud = () => opts ? c.front + '. Is it ' + opts[0] + ', or ' + opts[1] + '?' : c.front;
+    const promptRow = el('div', { class: 'speak-row' }, S.stage <= 2 ? speakBtn(askAloud, 'Read the card aloud') : null, el('div', { class: 'q-prompt', style: 'min-height:60px;flex:1' }, c.front));
     stage.append(promptRow);
     answerRegion.className = 'q-explain reveal-region';
     answerRegion.style.fontSize = '16px';
-    const showBtn = btn({ class: 'btn gold js-show-answer', style: 'width:100%',
+    // With two answers on offer the reader's job is to choose one, so the way
+    // out becomes the quiet control and the answers become the loud ones.
+    const showBtn = btn({ class: 'btn js-show-answer ' + (opts ? 'ghost small' : 'gold'), style: opts ? null : 'width:100%',
       onclick: () => { showBtn.disabled = true; revealBack(c, answerRegion); } },
       'Show answer ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, 'space'));
+    if (opts) {
+      const recallRow = el('div', { class: 'recall-row', role: 'group', 'aria-label': 'Which one is it?' });
+      opts.forEach((text, k) => {
+        const b = btn({ class: 'recall-opt',
+          onclick: () => answerRecall(c, b, recallRow, answerRegion, sameText(text, c.back)) },
+          el('span', { class: 'ro-key', 'aria-hidden': 'true' }, String(k + 1)),
+          el('span', { class: 'ro-text' }, text));
+        recallRow.append(b);
+      });
+      stage.append(el('p', { class: 'muted recall-ask' }, 'Which one is it?'), recallRow);
+    }
     stage.append(showBtn);
     stage.append(answerRegion);
-    if (S.stage <= 1) maybeSpeak(c.front);
+    // One utterance, not two: the question and the two answers travel together
+    // so the queue is never cancelled halfway by the second call.
+    if (S.stage <= 1) maybeSpeak(askAloud());
   }
-  function revealBack(c, region) {
+  const sameText = (a, b) => String(a == null ? '' : a).trim().toLowerCase() === String(b == null ? '' : b).trim().toLowerCase();
+  function distractorFor(c) {
+    const others = data.cards.filter(x => x.id !== c.id && !sameText(x.back, c.back));
+    if (!others.length) return null;
+    const kin = others.filter(x => (c.node_id && x.node_id === c.node_id) || (c.article && x.article === c.article));
+    const pool = kin.length ? kin : others;
+    return pool[Math.floor(Math.random() * pool.length)].back;
+  }
+  function answerRecall(c, chosen, row, region, ok) {
+    // Never colour-only: the chosen button takes a ✓ or ✗, and when it is wrong
+    // the right one is marked too, so the card teaches rather than only scores.
+    row.querySelectorAll('.recall-opt').forEach(b => {
+      b.disabled = true;
+      const isKey = sameText(b.querySelector('.ro-text').textContent, c.back);
+      if (b === chosen) { b.classList.add(ok ? 'correct' : 'wrong'); b.prepend(ok ? '✓ ' : '✗ '); }
+      else if (!ok && isKey) { b.classList.add('correct'); b.prepend('✓ '); }
+    });
+    const show = stage.querySelector('.js-show-answer');
+    if (show) show.disabled = true;
+    revealBack(c, region, ok ? 4 : 2);
+  }
+  function revealBack(c, region, decided) {
     // Write into the region that is already on the page rather than inserting a
     // pre-filled one: a live region that arrives with its text already in it is
     // announced unreliably, or not at all.
     region.textContent = c.back;
-    const grades = [[0, 'Blank', 'grade-blank'], [3, 'Hard', 'grade-hard'], [4, 'Good', 'grade-good'], [5, 'Easy', 'grade-easy']];
-    const row = el('div', { style: 'display:flex;gap:8px;margin-top:16px', role: 'group', 'aria-label': 'How well did you recall?' });
-    grades.forEach(([q, label, cls], k) => row.append(btn({ class: 'btn small ' + cls, onclick: () => grade(c, q) },
-      label + ' ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, String(k + 1)))));
+    // Whichever route turned the card — a produced answer or "Show answer" —
+    // the choice is over, so the row goes down here rather than at each caller.
+    if (stage) stage.querySelectorAll('.recall-opt').forEach(b => { b.disabled = true; });
+    // The front is spoken when the card is drawn; the back was written and
+    // never said, which left the flip — the whole point of the deck — silent
+    // for the reader who cannot read it. maybeSpeak, not speakText: this is the
+    // book talking unprompted, and the voice toggle governs it.
+    if (S.stage <= 1) maybeSpeak(decided == null ? c.back
+      : (decided >= 4 ? 'Yes. ' + c.back : 'Not yet. It is ' + c.back));
+    let row;
+    if (decided != null) {
+      // She produced the answer, so the grade is already settled. What is left
+      // is the beat that lets her see and hear it before the deck moves on.
+      row = el('div', { class: 'grade-row', role: 'group', 'aria-label': 'When you are ready' },
+        btn({ class: 'btn gold js-next-card', style: 'width:100%', onclick: () => grade(c, decided) },
+          'Next card ✦ ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, 'space')));
+    } else if (S.stage <= 1) {
+      // The two-glyph pair already written for the quiz confidence row. Four
+      // words rating your own memory is not a judgement a five-year-old can
+      // make, let alone read.
+      row = el('div', { class: 'grade-row', role: 'group', 'aria-label': 'Did you know it?' },
+        btn({ class: 'btn small grade-btn grade-hard', onclick: () => grade(c, 2) },
+          glyph('unsure', 18), ' Not yet ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, '1')),
+        btn({ class: 'btn small grade-btn grade-good', onclick: () => grade(c, 4) },
+          glyph('known', 18), ' I knew it ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, '2')));
+    } else {
+      const grades = [[0, 'Blank', 'grade-blank'], [3, 'Hard', 'grade-hard'], [4, 'Good', 'grade-good'], [5, 'Easy', 'grade-easy']];
+      row = el('div', { class: 'grade-row', role: 'group', 'aria-label': 'How well did you recall?' });
+      grades.forEach(([q, label, cls], k) => row.append(btn({ class: 'btn small grade-btn ' + cls, onclick: () => grade(c, q) },
+        label + ' ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, String(k + 1)))));
+    }
     stage.append(row);
     setTimeout(() => row.querySelector('button').focus(), 20);
   }
@@ -2088,11 +2525,19 @@ async function renderReview(page) {
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
     if (e.key === ' ') {
       const show = stage.querySelector('.js-show-answer:not([disabled])');
-      if (show) { e.preventDefault(); show.click(); }
+      if (show) { e.preventDefault(); show.click(); return; }
+      // Once the card is turned, the same key is the way on to the next one.
+      const nxt = stage.querySelector('.js-next-card:not([disabled])');
+      if (nxt) { e.preventDefault(); nxt.click(); }
     } else if (/^[1-4]$/.test(e.key)) {
-      const gradeBtns = stage.querySelectorAll('.grade-blank, .grade-hard, .grade-good, .grade-easy');
-      const b = gradeBtns[+e.key - 1];
-      if (b) { e.preventDefault(); b.click(); }
+      // There are three layouts now, not one: four self-grades at stage 2 and
+      // up, two glyphed ones below it, and — before the card is turned — the
+      // two produced answers. Indexing the four grade class names positionally
+      // did nothing at all on either of the other two, silently.
+      const graded = stage.querySelectorAll('.grade-btn');
+      const opts = graded.length ? graded : stage.querySelectorAll('.recall-opt');
+      const b = opts[+e.key - 1];
+      if (b && !b.disabled) { e.preventDefault(); b.click(); }
     }
   }
   // One live handler at a time: the end-of-deck path re-enters renderReview
