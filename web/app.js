@@ -822,6 +822,40 @@ function pagehead(kicker, title, sub) {
 // architecture they did not have.
 function sectionLabel(text) { return el('h3', { class: 'section-label' }, el('span', {}, text)); }
 
+/* ---------------- appointments ----------------
+   The engine makes dated appointments with the reader: a lesson proved once
+   cannot be sealed until a spaced window has elapsed, and the deck names the
+   next moment it has anything to say. Every one of those arrives here as a
+   UNIX timestamp from a server that is not in the reader's timezone, so the
+   two rules below hold everywhere one is printed.
+
+   Format through toLocale*, never by hand. And an appointment that has come
+   round is not one that was missed: the book says "ready now", never "ready
+   yesterday", because a reader who arrives late has lost nothing at all. */
+function readyNow(ts) { return ts == null || ts * 1000 <= Date.now(); }
+function dayStart(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
+// Only time components, so toLocaleString renders the clock alone — and the
+// reader's own clock, twelve- or twenty-four-hour as their locale has it.
+function clockTime(d) { return d.toLocaleString(undefined, { hour: 'numeric', minute: '2-digit' }); }
+// A moment, to the minute: this is a gate opening, and the minute is the point.
+function whenReady(ts) {
+  const d = new Date(ts * 1000);
+  const days = Math.round((dayStart(d) - dayStart(new Date())) / 86400000);
+  if (days <= 0) return 'today at ' + clockTime(d);
+  if (days === 1) return 'tomorrow at ' + clockTime(d);
+  if (days < 7) return d.toLocaleDateString(undefined, { weekday: 'long' }) + ' at ' + clockTime(d);
+  return d.toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
+}
+// A day, loosely: for a deck that refills overnight the hour is noise.
+function whenDay(ts) {
+  const d = new Date(ts * 1000);
+  const days = Math.round((dayStart(d) - dayStart(new Date())) / 86400000);
+  if (days <= 0) return 'later today';
+  if (days === 1) return 'tomorrow';
+  if (days < 7) return 'on ' + d.toLocaleDateString(undefined, { weekday: 'long' });
+  return 'on ' + d.toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
+}
+
 /* ---------------- Today ---------------- */
 
 // The book speaks about the reader by name and pronoun all through the frame
@@ -868,33 +902,140 @@ function askPronounsIfUnknown() {
   } });
 }
 
+// A day should end with a tomorrow — but only a truthful one. Every clause is
+// assembled from data that actually exists and a clause with nothing behind it
+// is not written at all, so a reader on their very first evening never meets
+// "Tomorrow: , , and this becomes a 1-day streak". Everything named here is
+// something WAITING; nothing here is a thing lost by not coming back, because
+// a book that bills the reader for their absence is not one they reopen.
+function tomorrowLine(tm) {
+  if (!tm) return '';
+  const parts = [];
+  if (tm.due_tomorrow > 0) {
+    parts.push(tm.due_tomorrow === 1 ? 'one card comes back'
+      : tm.due_tomorrow + ' cards come back');
+  }
+  if (tm.next_ready != null) {
+    // Bounded by the end of tomorrow at source, so it is either later today or
+    // tomorrow — and it may already have elapsed, because pending_proofs never
+    // nulls a past appointment and neither does this. Elapsed means READY, and
+    // the clock is dropped rather than printed as a date that has gone by.
+    const d = new Date(tm.next_ready * 1000);
+    parts.push(readyNow(tm.next_ready) ? 'a lesson is ready to be sealed'
+      : dayStart(d) <= dayStart(new Date())
+        ? 'a lesson can be sealed later today, from ' + clockTime(d)
+        : 'a lesson can be sealed from ' + clockTime(d));
+  }
+  const streak = tm.streak_next | 0;
+  if (streak >= 2) {
+    // "This becomes a 1-day streak" is not news; a milestone one day out is.
+    const ms = tm.milestone;
+    parts.push(ms && ms.away === 1
+      ? 'this becomes a ' + streak + '-day streak — your ' + ms.days + '-day mark'
+      : 'this becomes a ' + streak + '-day streak');
+  }
+  let out = '';
+  if (parts.length) {
+    const last = parts.pop();
+    out = 'Tomorrow: ' + (parts.length ? parts.join(', ') + ', and ' + last : last) + '.';
+  }
+  // A deck whose next card falls further out than tomorrow is still something
+  // waiting — it simply is not waiting TOMORROW, and filing it under a
+  // "Tomorrow:" lead would be the exact kind of untruth this line exists to
+  // avoid. It gets a sentence of its own, or it gets none.
+  if (!(tm.due_tomorrow > 0) && tm.next_due != null) {
+    out += (out ? ' ' : '') + 'The deck opens again ' + whenDay(tm.next_due) + '.';
+  }
+  return out;
+}
+
+// The reader who was gone is welcomed by what still stands, never by what was
+// lost. No broken streak, no "don't let it slip again", no urging of any kind:
+// this is a children's book, the reader may be five, and a book that scolds is
+// a book that is not opened again. Every clause is strictly backward-looking —
+// how long, what is still theirs, where the place was kept — and a clause with
+// no data behind it is simply not written.
+function returnCard(a) {
+  const lines = ['You have been away ' + a.days_away + ' days, and I kept your place.'];
+  if (a.standing) lines.push(a.standing === 1
+    ? 'One topic you proved still stands, exactly as you left it.'
+    : a.standing + ' topics you proved still stand, exactly as you left them.');
+  if (a.chapter_title) lines.push('Your chapter is waiting at “' + a.chapter_title + '”.');
+  if (a.best_streak >= 2) lines.push('Your longest run was ' + a.best_streak + ' days — that record is yours whatever happens next.');
+  const text = lines.join(' ');
+  const card = el('div', { class: 'card return-card' },
+    el('div', { class: 'kicker' }, glyph('story', 15), ' The book kept your place'),
+    el('p', { class: 'return-text' }, text));
+  if (a.last_seen) card.append(el('p', { class: 'muted return-when' },
+    'You were last here on ' + new Date(a.last_seen * 1000).toLocaleDateString(undefined,
+      { weekday: 'long', month: 'long', day: 'numeric' }) + '.'));
+  if (S.stage <= 1) card.append(el('div', { class: 'return-speak' }, speakBtn(() => text, 'Read this aloud')));
+  return card;
+}
+
 async function renderToday(page) {
   const t = await guard(page, () => api.get('/api/today'));
   if (!t) return;
   const p = t.profile;
   const hour = new Date().getHours();
   const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-  page.append(pagehead(greet + ', ' + p.name, "Today's Reading",
+  // The book kept the reader's place. `absence` is null whenever there is
+  // nothing honest to say — a first afternoon, or a gap older than the events
+  // log can vouch for — and a day or two away is not an absence at all.
+  const away = t.absence && t.absence.days_away >= 3 ? t.absence : null;
+  // Once per return, not on every load for a week: the same sessionStorage
+  // guard the milestone ceremony uses, keyed on the reader's own local date.
+  const returnKey = 'return-' + new Date().toLocaleDateString('en-CA');
+  const welcome = !!away && !sessionStorage.getItem(returnKey);
+  if (welcome) sessionStorage.setItem(returnKey, '1');
+  page.append(pagehead(welcome ? 'Welcome back, ' + p.name : greet + ', ' + p.name, "Today's Reading",
     p.stage_name + ' — ' + p.stage_span + '. ' + (t.mastered ? t.mastered + ' topics mastered so far.' : 'Your journey begins now.')));
+  if (welcome) page.append(returnCard(away));
   page.append(pronounLine());
 
   // Daily quest checklist
   const quest = el('div', { class: 'quest', role: 'group', 'aria-label': "Today's quest" });
   Object.values(t.quest).forEach(q => {
-    // The book already explains an empty deck ("Deck is clear — nothing due",
-    // or how to start one). Nothing read that hint, so the step rendered as
-    // "0 waiting" — which reads like a broken counter rather than the good
-    // news it is, on exactly the days a new reader most needs encouraging.
-    const status = q.done ? 'done'
-      : q.hint ? q.hint
-      : q.count != null ? q.count + ' waiting'
-      : 'today';
-    quest.append(el('div', { class: 'quest-item' + (q.done ? ' done' : q.excused ? ' excused' : '') },
+    // A count that fills, not a checkbox that flips. `goal` is what the day
+    // asks for and `done_count` how much of it is behind the reader, so the
+    // widget meant to represent the day's work stops hiding it: a reader who
+    // reviewed 1 of 40 cards was being shown a completed tile and a crown.
+    //
+    // An excused step keeps the hint it always had. The book already explains
+    // an empty deck ("Deck is clear — nothing due", or how to start one), and
+    // rendering that step as "0 of 0" would read like a broken counter rather
+    // than the good news it is, on exactly the days a new reader most needs
+    // encouraging.
+    //
+    // `excused` is the server's word and only the server's: a step can have a
+    // goal of zero and still be DONE (the reader learned the last lesson on the
+    // frontier this morning), and drawing that as "nothing waiting" would take
+    // the day's work back off them. Read the flag, never re-derive it.
+    const goal = q.goal | 0;
+    const dc = Math.min(q.done_count | 0, goal);
+    const counted = !q.excused && goal > 0;
+    const status = q.excused ? (q.hint || 'nothing waiting today')
+      : counted ? dc + ' of ' + goal
+      : q.done ? 'done' : 'today';
+    const item = el('div', { class: 'quest-item' + (q.done ? ' done' : q.excused ? ' excused' : '') },
       el('span', { class: 'tick', 'aria-hidden': 'true' }, q.done ? '✓' : q.excused ? '—' : '✓'),
-      el('span', { class: 'qt' }, el('b', {}, q.label), status)));
+      el('span', { class: 'qt' }, el('b', {}, q.label), status));
+    if (counted) {
+      // The same role="img" + aria-label pattern the mastery bars use: a bar
+      // that is aria-hidden says "58%" only to people who can see it.
+      item.append(el('div', { class: 'bar quest-bar', role: 'img',
+        'aria-label': q.label + ': ' + dc + ' of ' + goal + ' done' },
+        el('span', { style: `width:${Math.round(100 * dc / goal)}%` })));
+    }
+    quest.append(item);
   });
   page.append(quest);
-  if (t.quest_done === t.quest_total) page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' XP earned today. Beautifully done.'));
+  if (t.quest_done === t.quest_total) {
+    page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' XP earned today. Beautifully done.'));
+    // The crown used to end in a full stop. A day should have a tomorrow.
+    const tl = tomorrowLine(t.tomorrow);
+    if (tl) page.append(el('p', { class: 'tomorrow-line' }, tl));
+  }
   if (t.streak_milestone && !sessionStorage.getItem('milestone-' + t.streak_milestone)) {
     sessionStorage.setItem('milestone-' + t.streak_milestone, '1');
     setTimeout(() => streakCeremony(t.streak_milestone), 500);
@@ -935,6 +1076,17 @@ async function renderToday(page) {
   t.lessons.forEach(n => grid.append(lessonCard(n)));
   page.append(grid);
 
+  // The appointments that did not fit today's page. Named rather than dropped:
+  // the cap on resumed lessons protects the shape of the day, and it should not
+  // also cost the reader the knowledge that the work is there and still theirs.
+  if (t.pending && t.pending.length) {
+    page.append(sectionLabel('Waiting to be proved'));
+    const pr = el('div', { class: 'refresh-row' });
+    t.pending.forEach(w => pr.append(btn({ class: 'req-chip pending-chip', onclick: () => go('node', w.id) },
+      '◐ ' + w.title + ' · ' + (readyNow(w.ready_at) ? 'ready now' : 'ready ' + whenReady(w.ready_at)))));
+    page.append(pr);
+  }
+
   // Refresh chips (deck-driven mastery decay)
   if (t.refresh && t.refresh.length) {
     page.append(sectionLabel('Worth refreshing'));
@@ -945,7 +1097,11 @@ async function renderToday(page) {
 
   const row = el('div', { class: 'grid two', style: 'margin-top:20px' });
   row.append(
-    actionCard([glyph('review', 17), ' Review'], t.deck.due ? t.deck.due + ' cards ready to strengthen your memory.' : 'No cards due. Master lessons to build your deck.', () => go('review'),
+    actionCard([glyph('review', 17), ' Review'],
+      t.deck.due ? t.deck.due + ' cards ready to strengthen your memory.'
+        // Not a dead end: an empty deck has a next moment, and the book knows it.
+        : t.deck.next_due != null ? 'Every card is filed. The next one comes back ' + whenDay(t.deck.next_due) + '.'
+        : 'No cards due. Master lessons to build your deck.', () => go('review'),
       (() => {
         const done = t.deck.total ? Math.round(100 * (t.deck.total - t.deck.due) / t.deck.total) : 0;
         return el('div', { class: 'bar', role: 'img',
@@ -980,6 +1136,19 @@ function lessonCard(n) {
     el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
     open,
     el('p', { class: 'goal' }, n.goal || ''));
+  // A lesson standing one earned pass short of mastery already has a dated
+  // appointment, and until now the book never mentioned it — leaving the
+  // reader's own open loop a coin flip to reappear. Only a resumed lesson
+  // carries these keys; a fresh one has none of them at all.
+  if (n.resume) {
+    c.classList.add('resume');
+    const ready = readyNow(n.ready_at);
+    const passes = n.passes | 0;
+    c.append(el('p', { class: 'resume-note' + (ready ? ' ready' : '') },
+      el('b', {}, 'You started this one'),
+      passes > 1 ? 'Proved ' + passes + ' times. ' : 'Proved once. ',
+      ready ? 'Ready to seal now ✦' : 'It can be sealed after ' + whenReady(n.ready_at) + '.'));
+  }
   if (S.stage <= 1) {
     const sp = speakBtn(() => n.title + '. ' + (n.goal || ''), 'Say ' + n.title);
     sp.style.cssText = 'position:absolute;bottom:10px;right:10px';
@@ -1018,9 +1187,18 @@ function storyWaitingText(n) {
   return '“' + n.title + '” — ' + n.passes + ' of ' + n.passes_needed + ' passes';
 }
 
-function openStory(s, canAdvance, needs) {
+// Page turns inside the last minute. Held at module scope so it survives the
+// modal being closed and reopened, which is exactly how the spam happens.
+let _pageTurns = [];
+function pageTurnIsCheap() {
+  const now = Date.now();
+  _pageTurns = _pageTurns.filter(ts => now - ts < 60000);
+  _pageTurns.push(now);
+  return _pageTurns.length > 3;
+}
+function openStory(s, canAdvance, needs, onClose) {
   openModal({
-    label: s.title, dismissable: true, dark: true,
+    label: s.title, dismissable: true, dark: true, onClose: onClose || null,
     build: (modal, close) => {
       modal.append(el('div', { class: 'kicker', style: 'color:var(--gold-bright)' }, 'A Chapter'),
         el('h2', { class: 'chapter-title', style: 'margin-top:4px' }, s.title));
@@ -1038,7 +1216,18 @@ function openStory(s, canAdvance, needs) {
           try {
             const r = await api.post('/api/story/advance', {});
             close();
-            if (r.advanced) { confetti(); if (r.xp_gained) flyXP(r.xp_gained); toast('The next chapter has opened ✦'); }
+            if (r.advanced) {
+              // A reader placed into the middle of the curriculum can have a
+              // dozen chapters standing open at once, and an identical confetti
+              // storm paid out a dozen times in two minutes teaches the hand
+              // that gold is a spam key. Above three page turns in a minute the
+              // XP is still granted and still said out loud; only the animation
+              // stops repeating, so the ceremony keeps meaning something.
+              const cheap = pageTurnIsCheap();
+              if (!cheap) { confetti(); if (r.xp_gained) flyXP(r.xp_gained); }
+              toast('The next chapter has opened ✦'
+                + (cheap && r.xp_gained ? ' +' + r.xp_gained + ' XP' : ''));
+            }
             refreshStats();
             renderRoute();
           } catch (e) { close(); toast('The page would not turn just now — nothing is lost, and the chapter is still waiting. Try again in a moment.'); }
@@ -1085,6 +1274,25 @@ async function renderNode(page, nodeId) {
     const box = el('div', { class: 'card' }, el('b', {}, glyph('lock', 16), ' Not yet open'), el('p', { class: 'muted', style: 'margin:4px 0 6px' }, 'To unlock this lesson:'));
     const reqs = el('div', {}); n.unlock_requirements.forEach(r => reqs.append(el('span', { class: 'req-chip' }, r))); box.append(reqs);
     page.append(box);
+  }
+  // A lesson with one earned pass has mastered_at still NULL, so none of the
+  // three branches above are true and this page used to say nothing whatever
+  // about the most time-sensitive fact the book holds: that this lesson has an
+  // appointment. `faded`/`ever_proven` are excluded deliberately — a lapsed
+  // node's lifetime pass count is stale evidence, and reading it back as
+  // progress toward a seal would promise a gate that has re-shut.
+  else if (n.mastery_detail && !n.faded && !n.ever_proven
+           && (n.mastery_detail.passes | 0) >= 1
+           && (n.mastery_detail.passes | 0) < ((n.opens_chapter && n.passes_needed) || n.mastery_detail.passes_needed || 2)) {
+    const md = n.mastery_detail;
+    const need = (n.opens_chapter && n.passes_needed) || md.passes_needed || 2;
+    // mastery_detail nulls ready_at once it has elapsed, which means ready NOW.
+    const ready = readyNow(md.ready_at);
+    page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
+      el('b', {}, '◐ You started this one — ' + md.passes + ' of ' + need + ' passes'),
+      el('p', { class: 'muted', style: 'margin:6px 0 0' }, ready
+        ? 'The waiting is over: pass it once more and it is sealed.'
+        : 'The two passes have to sit a little apart, so the book can tell it stuck. This one can be sealed after ' + whenReady(md.ready_at) + '.')));
   }
 
   // Child-voiced mini-lesson for the youngest readers.
@@ -1480,10 +1688,15 @@ function buildTutor(title) {
   const panel = el('section', { id: 'tutor', 'aria-label': 'Ask the Book' },
     el('div', { class: 'th' }, el('span', { class: 'mark', 'aria-hidden': 'true' }, glyph('spark', 18)), el('b', {}, 'Ask the Book'),
       el('small', {}, S.state.tutor_engine === 'claude' ? 'Your patient tutor is listening' : 'Your Socratic guide'),
-      // Honest about the wire: when the Claude engine answers, questions
-      // leave the device. Said once, quietly, where the reader asks them.
+      // Honest about the wire: when the Claude engine answers, questions leave
+      // the device. Said once, quietly, where the reader asks them — and said
+      // ITEM BY ITEM, because "nothing else leaves the book" was already not
+      // quite true (the reading level travels, as the tutor's register) and
+      // would become plainly false the moment the reader's name did. A
+      // disclosure is a promise about a wire; it has to name what is on it, or
+      // every later thing put on that wire is a promise quietly broken.
       S.state.tutor_engine === 'claude'
-        ? el('div', { class: 'tutor-disclosure' }, 'Questions travel to Claude (Anthropic) to be answered — nothing else leaves the book. ',
+        ? el('div', { class: 'tutor-disclosure' }, 'Your question travels to Claude (Anthropic) to be answered, and takes with it this conversation, the title and a passage of what you are reading, your first name, and your reading level. Nothing else leaves the book — not your lessons, not your streak, not anything else it has written down about you. ',
             btn({ class: 'unstyled tutor-optout', onclick: async function () {
               // One tap keeps every question local: flips the reader setting
               // the server honors in tutor.ask(allow_remote=False).
@@ -1571,10 +1784,26 @@ function spinnerOverlay(msg) {
 function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, token = '' }) {
   const young = (stage != null ? stage : S.stage) <= 1;
   let i = 0, correct = 0; const answers = [], confidences = [], oks = []; let confidence = null;
+  // Ceremonies queue rather than collide. A stage ascension used to be fired on
+  // a bare 900ms timer; with a page turn now also on offer in the same splash,
+  // that timer could drop a second dialog on top of the chapter the reader had
+  // just opened — and three overlapping animations is the one shape the
+  // reduced-motion path cannot express either. So the ascension is HELD while
+  // the reader takes the page turn, and released when they are done with it —
+  // or when they close the splash having chosen not to.
+  let heldAscension = null, turningPage = false, splashClosed = false;
+  function releaseAscension(delay) {
+    if (!heldAscension) return;
+    const a = heldAscension; heldAscension = null;
+    setTimeout(() => stageAscension(a), delay);
+  }
   openModal({
     label: (String(title).toLowerCase().includes(String(kind).toLowerCase())
             ? title : title + ' ' + kind), dismissable: true, dismissLabel: 'Close quiz',
-    build: (modal, close) => { drawQuestion(modal, close); }
+    build: (modal, close) => { drawQuestion(modal, close); },
+    // Closing the splash without turning the page must not cost the reader the
+    // promotion ceremony altogether — it is a real change to their book.
+    onClose: () => { splashClosed = true; if (!turningPage) releaseAscension(300); },
   });
 
   function normalize(s) { return String(s).trim().toLowerCase().replace(/\s+/g, ''); }
@@ -1983,7 +2212,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, stars));
     if (!young) splash.append(el('div', { class: 'score' }, Math.round(score * 100) + '%'));
     splash.append(el('p', {}, correct + ' of ' + questions.length + ' correct.'));
-    let msg = '', msgTone = 'neutral', ascension = null, xp = 0, calibration = null;
+    let msg = '', msgTone = 'neutral', ascension = null, xp = 0, calibration = null, storyUnlocked = null;
     if (nodeId && !isRetry) {
       // A retry of only the missed items must not be scored as a fresh
       // attempt — otherwise failing then re-answering 5 of 6 posts 100%.
@@ -1991,13 +2220,27 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         if (kind === 'quiz') {
           const r = await api.post('/api/quiz/submit', { node_id: nodeId, answers, make_cards: true, confidence: confidences, token });
           xp = r.mastery.xp_gained || 0; ascension = r.ascension; calibration = r.calibration;
+          // null unless THIS lesson is the one the open chapter was waiting for.
+          storyUnlocked = r.story_unlocked || null;
           if (r.mastery.newly_mastered) { msg = r.mastery.proven
             ? '✦ Mastered! You have proved this one — it is now truly yours.'
             : '✦ Mastered! This lesson is now complete.'; msgTone = 'good'; }
           else if (r.mastery.proven) msg = 'Reviewed — already proved.';
           else if (r.mastery.mastered) msg = 'The book assumed you knew this. Pass it once more, a day or two apart, to prove it.';
           else if (r.mastery.lost_mastery) { msg = 'This one has slipped — master it again to lock it back in.'; msgTone = 'warn'; }
-          else msg = 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery' + (r.mastery.level >= 0.8 ? ' — come back in a day or two to lock it in.' : '.');
+          else {
+            // "Come back in a day or two" was a guess, and on a young reader's
+            // six-hour proving window it was the wrong guess by a day and a
+            // half of credit they had already earned. record_attempt now
+            // returns the exact moment, and — unlike mastery_detail — it does
+            // not null an elapsed one, so a past timestamp means ready NOW and
+            // is never printed as a date that has gone by.
+            msg = 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery';
+            const ra = r.mastery.ready_at;
+            if (ra == null) msg += '.';
+            else if (readyNow(ra)) msg += ' — you have proved it once already, so the next pass seals it.';
+            else msg += ' — you have proved it once. Pass it again after ' + whenReady(ra) + ' and it is sealed.';
+          }
           if (r.cards_added) msg += ' ' + r.cards_added + ' review card' + (r.cards_added > 1 ? 's' : '') + ' added.';
           if (r.mastery.newly_mastered) celebrate();
         } else {
@@ -2028,13 +2271,33 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // (a fuzzy match, not an exact one) as if they'd been missed.
     const missedIdx = oks.map((ok, k) => ok ? -1 : k).filter(k => k >= 0);
     const controls = el('div', { style: 'display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap' });
+    // The page turns where it was earned — but the READER turns it. Advancing
+    // is a write, and a chapter that opens itself is a chapter nobody chose to
+    // read; openStory already owns the POST, the ceremony and the XP fly-up.
+    if (storyUnlocked) {
+      splash.append(el('p', { class: 'page-turned' },
+        '✦ “' + storyUnlocked.title + '” — chapter ' + storyUnlocked.number + ' of your story is open.'));
+      controls.append(btn({ class: 'btn gold page-turn', onclick: () => {
+        turningPage = true;
+        close();
+        openStory(storyUnlocked.chapter, true, null,
+          () => { turningPage = false; releaseAscension(900); });
+      } }, glyph('story', 16), ' The page has turned — read it'));
+    }
     if (missedIdx.length) controls.append(btn({ class: 'btn', onclick: () => { const retry = missedIdx.map(k => questions[k]); close(); runQuestions({ title, questions: retry, nodeId, kind, stage, isRetry: true }); } }, '↻ Retry the ' + missedIdx.length + ' you missed'));
     controls.append(btn({ class: 'btn ghost', onclick: close }, 'Close'));
     if (nodeId) controls.append(btn({ class: 'btn gold', onclick: () => { close(); go('node', nodeId); } }, 'Back to lesson'));
     splash.append(controls);
     modal.append(splash);
     if (young) maybeSpeak('You got ' + correct + ' out of ' + questions.length + '. ' + (score >= 0.7 ? 'Wonderful work!' : 'Good try — let us practice a little more.'));
-    if (ascension) setTimeout(() => stageAscension(ascension), 900);
+    // Strictly sequenced: page turn first, stage ceremony behind it. With no
+    // page turn on offer this is the same 900ms beat it always was.
+    if (ascension) {
+      heldAscension = ascension;
+      // A reader who closed the splash while the submit was still in flight has
+      // no page turn left to wait behind — release rather than swallow it.
+      if (!storyUnlocked || splashClosed) releaseAscension(900);
+    }
     refreshStats();
   }
   function praise() { return ['Well reasoned.', 'Yes!', 'Exactly.', 'Good thinking.', 'That is it.'][Math.floor(Math.random() * 5)]; }
@@ -2052,6 +2315,9 @@ function flyXP(xp) {
 function celebrate() { confetti(); }
 function confetti() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Two ceremonies can now land within a second of each other (mastery, then
+  // the page it turned). One storm is a celebration; two overlaid is noise.
+  if (document.querySelector('.confetti')) return;
   const box = el('div', { class: 'confetti', 'aria-hidden': 'true' });
   // Drawn from the live palette rather than a hardcoded list, so by day the
   // pieces are inked paper and by night they are phosphor sparks — the same
@@ -2371,11 +2637,25 @@ function lockedPeek(n) {
 async function renderReview(page) {
   const data = await guard(page, () => api.get('/api/review/due?limit=30'));
   if (!data) return;
+  // A day with a bottom. `goal` is the day's ask, priced by the same server
+  // function the quest tile is priced by — a deck that stopped at a different
+  // number from the one the tile promised would be worse than one that never
+  // stopped. Zero means the deck is excused, not that the day is done.
+  const goal = data.goal | 0;
+  let bottom = goal > 0 ? Math.min(goal, data.cards.length) : data.cards.length;
   page.append(pagehead('Spaced repetition', 'Strengthen What You Know',
-    'The book brings back what you are about to forget, exactly when you are about to forget it. ' + data.stats.due + ' of ' + data.stats.total + ' cards are due.'));
+    'The book brings back what you are about to forget, exactly when you are about to forget it. ' + data.stats.due + ' of ' + data.stats.total + ' cards are due.'
+    + (bottom < data.cards.length ? ' Today the book asks for ' + bottom + ' of them.' : '')));
   // An empty deck is good news, and the page should sound like it knows that
   // — one Guide-flavored wink, then the honest reason to come back.
-  if (!data.cards.length) { page.append(emptyLeaf('review', 'The deck rests ✦', 'Every card is exactly where it should be — filed, remembered, mostly harmless. Learn something new today and the book will have more to bring back tomorrow.')); return; }
+  if (!data.cards.length) {
+    page.append(emptyLeaf('review', 'The deck rests ✦',
+      'Every card is exactly where it should be — filed, remembered, mostly harmless. '
+      + (data.stats.next_due != null
+        ? 'The next one comes back ' + whenDay(data.stats.next_due) + '.'
+        : 'Learn something new today and the book will have more to bring back tomorrow.')));
+    return;
+  }
   // The deck is a physical thing: the card you are on sits on top of the ones
   // still to come, and the stack visibly thins as you work through it. "Card
   // 3 of 24" tells you the same fact, but you have to read it.
@@ -2400,8 +2680,14 @@ async function renderReview(page) {
     deck.dataset.depth = String(Math.max(0, Math.min(2, left)));
     const progress = el('div', { class: 'q-progress', tabindex: '-1',
       role: 'heading', 'aria-level': '2' },
-      'Card ' + (idx + 1) + ' of ' + data.cards.length + (c.article ? ' · ' + c.article : ''));
+      'Card ' + (idx + 1) + ' of '
+        + (bottom < data.cards.length ? bottom + ' for today' : String(data.cards.length))
+        + (c.article ? ' · ' + c.article : ''));
     stage.append(progress);
+    // The count above says where the bottom is; the bar shows it coming.
+    stage.append(el('div', { class: 'bar deck-bar', role: 'img',
+      'aria-label': idx + ' of ' + bottom + ' turned' },
+      el('span', { style: `width:${Math.round(100 * idx / Math.max(bottom, 1))}%` })));
     // Every card announces its own count — including the first, which used
     // to leave the reader parked on #page hearing only the generic page
     // label while every later card said "Card N of M". The 20ms delay lands
@@ -2451,6 +2737,33 @@ async function renderReview(page) {
     // One utterance, not two: the question and the two answers travel together
     // so the queue is never cancelled halfway by the second call.
     if (S.stage <= 1) maybeSpeak(askAloud());
+  }
+  /* A session that ends because it is FINISHED is the strongest single
+     predictor of the book being opened again tomorrow, and an infinite queue
+     can never end that way — a two-hundred-card backlog just becomes a wall to
+     fail against. So the day has a floor and a ceiling: when the ask is met and
+     cards remain, the deck says so and offers the way out first. */
+  function stopPanel() {
+    // A fresh node, never an innerHTML mutation: the settle animation only
+    // plays for an element ENTERING the DOM, so mutating the card in place
+    // would leave "Keep going" resuming into an animation that never fires.
+    const panel = el('div', { class: 'card deck-card deck-stop' });
+    if (stage) stage.replaceWith(panel); else deck.append(panel);
+    stage = panel;
+    // The stack behind the card still has to show what is genuinely left.
+    deck.dataset.depth = String(Math.max(0, Math.min(2, data.cards.length - idx)));
+    const left = Math.max(0, (data.stats.due || data.cards.length) - idx);
+    const head = el('h3', { class: 'stop-head', tabindex: '-1' }, 'A good place to stop ✦');
+    panel.append(el('div', { class: 'el-mark', 'aria-hidden': 'true' }, glyph('crown', 30)), head,
+      el('p', { class: 'muted stop-body' },
+        'That is ' + idx + (idx === 1 ? ' card' : ' cards') + ' turned — every one of them a little harder to forget.'
+        + (left ? ' ' + left + ' more are waiting, and they will still be here tomorrow.' : '')));
+    const out = btn({ class: 'btn gold', onclick: () => go('today') }, 'Close the deck');
+    // The way out takes focus. Defaulting to "Keep going" would quietly turn a
+    // stopping point into an upsell, which is the opposite of the point.
+    panel.append(el('div', { class: 'stop-row' }, out,
+      btn({ class: 'btn ghost', onclick: () => { bottom = data.cards.length; draw(); } }, 'Keep going')));
+    setTimeout(() => out.focus(), 20);
   }
   const sameText = (a, b) => String(a == null ? '' : a).trim().toLowerCase() === String(b == null ? '' : b).trim().toLowerCase();
   function distractorFor(c) {
@@ -2557,6 +2870,7 @@ async function renderReview(page) {
     if (r.next_days >= 1) toast('Back in ' + Math.round(r.next_days) + (r.next_days < 2 ? ' day' : ' days'));
     else toast('Back again in a few minutes — this one is still settling.');
     idx++;
+    if (idx >= bottom && idx < data.cards.length) { stopPanel(); refreshStats(); return; }
     if (idx < data.cards.length) draw();
     else {
       page.innerHTML = '';
@@ -2815,17 +3129,22 @@ async function downloadArchive(key) {
 /* ---------------- accessible modal ---------------- */
 let _modalStack = [];
 function closeBtn(close) { return btn({ class: 'modal-close', 'aria-label': 'Close', title: 'Close (Esc)', onclick: close }, '×'); }
-function openModal({ label, build, dismissable = false, dismissLabel = 'Close', dark = false }) {
+function openModal({ label, build, dismissable = false, dismissLabel = 'Close', dark = false, onClose = null }) {
   const prevFocus = document.activeElement;
   const ov = el('div', { id: 'overlay' });
   const modal = el('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': label || 'Dialog', tabindex: '-1' });
   // Same story as the chapter card: the dark modal is a chrome surface, and
   // hardcoding its brown left it behind when the night palette turned.
   if (dark) modal.classList.add('on-dark');
+  // Fires once, however the dialog was dismissed — button, Escape, or the
+  // scrim. Ceremonies queue on this: a stage ascension that arrives while the
+  // reader is mid-chapter has to wait for the chapter, not land on top of it.
+  let closed = false;
   function close() {
     ov.remove(); _modalStack = _modalStack.filter(m => m !== entry);
     document.removeEventListener('keydown', onKey);
     if (prevFocus && prevFocus.focus) prevFocus.focus();
+    if (!closed) { closed = true; if (onClose) onClose(); }
   }
   const entry = { ov, close };
   _modalStack.push(entry);

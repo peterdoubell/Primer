@@ -1220,6 +1220,61 @@ h3 > .card-open { font: inherit; color: inherit; }
 .quest-item .qt b { display: block; font-size: 15px; color: var(--ink); }
 .quest-crown { text-align: center; font-family: var(--sans); color: var(--gold-ink); font-weight: 700; margin-top: 4px; }
 
+/* ---------------- a day with a bottom, and a day with a tomorrow ----------
+   Every rule below is written in tokens that already exist, so the two dark
+   blocks stay byte-identical to each other and to what they were. */
+
+/* The quest step is a count that fills, so the tile needs a second row for the
+   bar. Wrapping only ever engages when the bar is there; an excused step draws
+   none and lays out exactly as it always did. */
+.quest-item { flex-wrap: wrap; }
+.quest-item .quest-bar { flex: 1 0 100%; margin-top: 0; }
+.quest-item.done .quest-bar { background: color-mix(in srgb, var(--green) 22%, transparent); }
+.quest-item.done .quest-bar > span { background: var(--green); }
+
+/* The line under the crown. Quieter than the crown, and centred with it. */
+.tomorrow-line { text-align: center; font-family: var(--sans); font-size: 13px;
+  color: var(--ink-soft); margin: 6px 0 0; }
+
+/* A lesson the reader already started. Gold edge and a gold rule above the
+   note, so "you are in the middle of this one" is carried by more than colour:
+   the card is the only one on the page wearing a labelled line of its own. */
+.lesson-card.resume { border-color: var(--gold); background: var(--tint-gold); }
+.resume-note { font-family: var(--sans); font-size: 13px; color: var(--ink-soft);
+  margin: 10px 0 0; padding-top: 8px; border-top: 1px solid var(--gold); }
+.resume-note b { display: block; font-size: 12px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--gold-ink); margin-bottom: 2px; }
+.resume-note.ready { color: var(--gold-ink); font-weight: 600; }
+/* The young reader's speak button is absolutely positioned bottom-right of the
+   card, so the note has to keep clear of it rather than run underneath. */
+body[data-stage="0"] .resume-note, body[data-stage="1"] .resume-note { padding-right: 46px; }
+
+/* Appointments that did not fit the page. A chip that is a real button. */
+.pending-chip { border-color: var(--gold); color: var(--gold-ink); cursor: pointer; }
+.pending-chip:hover { background: var(--tint-gold); }
+
+/* The book kept your place. Set like the chapter card's quieter cousin — an
+   inscription on the page, never an alert: nothing here is a warning. */
+.return-card { border-color: var(--gold); background: var(--tint-gold); }
+.return-card .kicker { color: var(--gold-ink); }
+.return-text { font-size: 17px; line-height: 1.65; margin: 6px 0 0; color: var(--ink); }
+.return-when { font-size: 13px; margin: 8px 0 0; }
+.return-speak { margin-top: 10px; }
+
+/* The end of the day's ask, drawn as a card of its own in the deck. */
+.deck-bar { margin-top: 0; margin-bottom: 12px; }
+.deck-stop { text-align: center; border-color: var(--gold); }
+.deck-stop .el-mark { color: var(--gold-ink); opacity: .85; margin-bottom: 8px; }
+.deck-stop .el-mark .glyph { display: inline-flex; filter: drop-shadow(var(--glow-soft)); }
+.deck-stop .stop-head { margin: 0 0 8px; font-size: 20px; }
+.deck-stop .stop-body { max-width: 34em; margin: 0 auto; line-height: 1.6; }
+.stop-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+
+/* The chapter this very sitting opened, named on the results splash above the
+   gold control that opens it. */
+.page-turned { color: var(--gold-ink); font-family: var(--sans); font-weight: 700;
+  font-size: 15px; margin: 12px 0 0; }
+
 /* XP fly-up + ceremonies. */
 .xp-pop { position: fixed; left: 50%; top: 40%; transform: translateX(-50%); z-index: 300;
   font-family: var(--sans); font-weight: 800; font-size: 22px; color: var(--gold-ink);
