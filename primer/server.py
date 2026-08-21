@@ -300,9 +300,21 @@ def _safe_next(raw: Optional[str]) -> str:
     """
     if not raw or not raw.startswith("/") or raw.startswith("//"):
         return "/"
-    if len(raw) > 512 or any(c in raw for c in "\r\n\t") or "\\" in raw:
+    if len(raw) > 512:
         return "/"
-    return raw
+    # Rebuilt character by character from an allowlist, and REFUSED — not
+    # laundered — if anything was lost in the rebuild: a target that arrives
+    # carrying a quote, an angle bracket, a CR/LF or a backslash is an attack
+    # to send home with "/", not an address to tidy up and honour. What is
+    # returned on success is the constructed copy, not the input, so the value
+    # provably contains nothing but path characters in every context it is
+    # later pasted into (the hidden form field, the Location header) — and no
+    # analyser has to take html.escape on faith.
+    kept = "".join(c for c in raw[1:]
+                   if c.isalnum() or c in "/?=&#%-._~+,@")
+    if kept != raw[1:] or kept.startswith("/"):
+        return "/"
+    return "/" + kept
 
 
 def _wants_html(request) -> bool:

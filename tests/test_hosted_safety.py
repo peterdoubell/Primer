@@ -233,3 +233,35 @@ def test_remote_maintenance_skips_local_online_backup(monkeypatch):
     srv._run_maintenance_once()
 
     assert calls == ["prune"]
+
+
+def test_safe_next_is_constructed_not_checked():
+    """The bounce target is rebuilt from an allowlist, character by character.
+
+    Checking a string and passing the original through leaves everything the
+    check forgot; a constructed value contains nothing but what the allowlist
+    admits, in any context it is later pasted into — the form's hidden field,
+    the redirect header, or anywhere a future refactor moves it. This is also
+    what lets static analysis see the sanitisation instead of being asked to
+    take html.escape on faith (CodeQL flagged both sinks on the checked-and-
+    passed-through version).
+    """
+    from primer.server import _safe_next
+
+    # Hostile shapes are refused outright — never laundered into a cleaned
+    # residue that still half-honours the attacker's aim.
+    assert _safe_next("//evil.com") == "/"
+    assert _safe_next("https://evil.com") == "/"
+    assert _safe_next("/a b\"<script>alert(1)</script>") == "/"
+    assert _safe_next("/x\r\nSet-Cookie: a=b") == "/"
+    assert _safe_next("/\\/evil.com") == "/"
+    assert _safe_next("///nested") == "/"
+    # Everything a legitimate deep link needs survives.
+    assert _safe_next("/#atlas") == "/#atlas"
+    assert _safe_next("/api/today?x=1&y=2") == "/api/today?x=1&y=2"
+    assert _safe_next("/%23atlas") == "/%23atlas"
+    # No output ever carries a quote, an angle bracket, a control character,
+    # a backslash, or a colon — by construction.
+    for raw in ("/'\"<>&;:\\\x00\x1f", "/ok:8080/x", "/java\tscript:alert(1)"):
+        out = _safe_next(raw)
+        assert not any(c in out for c in "'\"<>:\\\r\n\t\x00"), (raw, out)
