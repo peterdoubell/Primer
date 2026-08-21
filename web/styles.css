@@ -1639,3 +1639,120 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 .pronoun-swap:hover { border-color: var(--gold); color: var(--ink); }
 .pronoun-swap.on { background: var(--tint-gold); border-color: var(--gold);
   color: var(--ink); font-weight: 700; }
+
+/* ---------------- the picture, opened ----------------
+   render.py rewrites every link it cannot resolve into `<a href="#">`, and
+   nearly every image in a rendered article arrives wrapped in one. Touching a
+   picture therefore emptied the hash and the router wiped the page — the most
+   instinctive gesture on the reading page deleted the page. The gesture is
+   answered now with the picture at the size it deserves. */
+/* Beats the 560px cap on #overlay .modal, which carries an id and so wins on
+   specificity against a two-class selector. */
+#overlay .modal.wide { max-width: min(94vw, 900px); }
+.lightbox { text-align: center; }
+.lightbox img {
+  width: 100%; height: auto; max-height: 78vh; object-fit: contain;
+  border-radius: 8px; background: var(--paper-2);
+  /* Both #article image filters again, because they are scoped to #article and
+     the overlay is not inside it: without these a night reader gets the map's
+     full daylight punched through the page, and a line diagram turns invisible. */
+  filter: var(--img-glare);
+}
+.lightbox img.skin-invert { filter: var(--img-invert); }
+.lightbox .cap {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin: 16px auto 0; max-width: 60ch; text-align: left;
+}
+.lightbox .cap p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
+/* The affordance the dead anchors never had: this picture answers to a touch. */
+#article a[href="#"] img, #article img.tappable { cursor: zoom-in; }
+
+/* ---------------- the Atlas as an instrument ----------------
+   The payload carries how far every tile has come and the page used to draw
+   three states from it. A tile at 0.79 looked exactly like one never opened,
+   and on day one 315 of 353 tiles were an undifferentiated grey wall. */
+
+/* --m is per-element geometry (how far THIS tile has come), not a themed
+   token — declared here so it is always defined, and overridden by the inline
+   style the renderer writes. The wash is the same translucent --tint-green the
+   mastered tile already wears, laid over the tile's own field rather than
+   replacing it, so the label keeps the contrast it was audited at. */
+.node-dot { --m: 0%; }
+.node-dot.available {
+  background-color: var(--field);
+  background-image: linear-gradient(to right,
+    var(--tint-green) var(--m, 0%), transparent var(--m, 0%));
+}
+/* Proved once and let slip. Marked by a dotted edge AND a ◐ in the tile AND
+   the word "faded" in the accessible name — never by colour alone. */
+.node-dot.faded { border-color: var(--gold-ink); border-style: dotted; }
+/* Credited without ever being earned, and that credit now expired. .assumed
+   already owned a dashed border and had never been given a class to wear. */
+.node-dot.assumed-stale { border-style: dashed; border-color: var(--edge); }
+/* Full contrast, not a faded flourish: this mark is one of the two non-colour
+   carriers of the tile's state (the other is the border style). */
+.dot-mark { font-size: 11px; margin-left: 3px; }
+
+.atlas-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 6px; }
+.filter-opt.picked { background: var(--paper-edge); border-color: var(--gold); }
+.filter-opt .filter-mark { display: none; font-family: var(--sans); font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-left: 7px; }
+.filter-opt.picked .filter-mark { display: inline; }
+/* The spoken count. Sighted readers see the map shrink, so it stays quiet on
+   the page — the same treatment the search and library live regions get. */
+.atlas-live { font-family: var(--sans); font-size: 13px; color: var(--muted);
+  min-height: 18px; margin: 2px 2px 10px; }
+
+.domain-head .dh-text { flex: 1; min-width: 0; }
+.frontier-jump { flex: none; white-space: nowrap; }
+/* Six cells of progress where a single total used to stand. */
+.stage-strip { display: flex; gap: 4px; margin-top: 6px; }
+.ss-cell {
+  position: relative; overflow: hidden; flex: 0 0 44px; height: 16px;
+  border: 1px solid var(--rule); border-radius: 4px; background: var(--paper);
+  display: grid; place-items: center;
+}
+.ss-cell i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--tint-green); }
+/* 10px is the smallest type anywhere in the book (.conf-mark, .qa-state); the
+   strip does not go below its own floor, and role="img" carries the whole
+   sentence for anyone who cannot read it at any size. */
+.ss-cell b { position: relative; font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: .04em; color: var(--ink-soft); }
+/* A shut gate says so with a hatch as well as a paler ground. */
+.ss-cell.shut { border-style: dashed; }
+.ss-cell.shut b { color: var(--ink-locked); }
+
+/* A requirement that names a lesson is now the way there, not a label about
+   it. Same chip, plus the arrow that says it goes somewhere. */
+.req-jump { cursor: pointer; border-color: var(--edge); color: var(--ink); }
+.req-jump:hover { border-color: var(--gold); background: var(--tint-gold); }
+.req-jump .go-mark { color: var(--gold-ink); font-weight: 700; }
+
+@media (max-width: 700px) {
+  .domain-head { flex-wrap: wrap; }
+  .frontier-jump { margin-left: 56px; }
+  .ss-cell { flex: 1 1 0; }
+}
+
+/* ---------------- settle, then commit ----------------
+   Committing an answer posts to /api/quiz/check, where commit_answer locks it
+   and a wrong one burns the item out of this node's mastery evidence for seven
+   days. That was a single unconfirmed tap. Below stage 2 the first tap only
+   chooses; the gold button commits. The selected state is carried by a border
+   weight and a written mark as well as the wash — the verdict marks beside it
+   set the standard. */
+.choice.selected {
+  border-color: var(--gold); background: var(--tint-gold);
+  box-shadow: inset 0 0 0 1.5px var(--gold); font-weight: 600;
+}
+.choice .sel-mark { display: none; font-family: var(--sans); font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-left: 8px; }
+.choice.selected .sel-mark { display: inline; }
+/* Only ever drawn at stage 0-1, so it is sized to the same 58px floor the
+   choices themselves get there — and written with the stage selector, or the
+   stage-0 .btn rule (same specificity, declared earlier) keeps its 52px.
+   Disabled styling is inherited from .btn:disabled and needs nothing here. */
+body[data-stage="0"] .check-it, body[data-stage="1"] .check-it { min-height: 58px; }
+
+/* Arranging and committing, side by side, under the tray. */
+.order-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
