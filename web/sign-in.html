@@ -121,8 +121,11 @@
     <hr class="rule">
     <p class="lede">This copy is kept for one reader. Give the book your word and it will open where you left it.</p>
     {{ERROR}}
-    <form method="post" action="/sign-in">
-      <input type="hidden" name="next" value="{{NEXT}}">
+    <!-- No action attribute: the form posts back to the URL it was served
+         from, so the ?next= query rides along without ever being written
+         into this page. The one templating slot left is {{ERROR}}, which
+         only ever carries the server's own words. -->
+    <form method="post">
       <label>
         <span>Reader</span>
         <input type="text" name="username" autocomplete="username"
