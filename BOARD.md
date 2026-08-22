@@ -10,7 +10,21 @@ A board of six was convened to benchmark the Primer and drive it to excellence.
 - **Sofia Lindqvist** — product/UX designer (IA, WCAG, age-adaptive UI)
 - **Raj Mehta** — staff software engineer (reliability, security, performance)
 
-## The 10 Domain Benchmarks
+Seated later, at the product's request (2026-08-22):
+
+- **Neal Stephenson** — author of *The Diamond Age*; keeper of the source
+  vision. His lens: is this artifact actually the Young Lady's Illustrated
+  Primer — a book with a voice, a bond with one reader, a story that *is* the
+  curriculum — or a courseware app wearing its cover? He judges the design as
+  a fiction made real: register, ritual, the book-as-character, the seams
+  where the metaphor breaks.
+- **Tim Ferriss** — meta-learner and interviewer of world-class performers.
+  His lens: the interactive educational loop itself — DiSSS (Deconstruction,
+  Selection, Sequencing, Stakes), minimum effective dose, time-to-first-win,
+  whether practice is *doing the thing* or reading about the thing, and
+  whether a busy or discouraged learner is re-engaged or quietly lost.
+
+## The Domain Benchmarks
 
 | # | Benchmark | Owner | What 9/10 requires |
 |--:|-----------|-------|--------------------|
@@ -24,6 +38,8 @@ A board of six was convened to benchmark the Primer and drive it to excellence.
 | 8 | **Motivation & Habit Architecture** | Kim/Vasquez | Unfarmable XP tied to successful retrieval; streaks with freeze + local-day boundary; age-tuned reinforcement; visible durable progress. |
 | 9 | **Interface: Age-Adaptivity, UX & Accessibility** | Lindqvist | Stage-adaptive UI modes; WCAG AA (keyboard, focus, ARIA, contrast, reduced motion); hash routing; guarded states; dialog semantics. |
 | 10 | **Engineering: Security, Reliability & Maintainability** | Mehta | HTML sanitized (no XSS); SSRF-safe fetchers; concurrency-safe DB + backups + retention; pinned deps; test suite; logging. |
+| 11 | **The Book as Artifact (Design Fidelity)** | Stephenson | Every surface in the book's own voice and hand — no raw-web or system chrome reaching the reader; ceremonies that feel authored, not gamified; the Guide's register held under error, offline, and edge states; the fiction never broken by a seam the reader can see. |
+| 12 | **Interactive Learning Loops (Meta-Learning)** | Ferriss | A first felt win inside the first session at every stage; practice that is retrieval/production, not recognition-only; minimum-effective-dose sessions honest about time; stakes and recovery loops (lapsed reader, failed quiz, broken streak) that re-engage rather than shame; the learner taught *how* to learn, not only what. |
 
 ## Baseline Scores (Round 0)
 
