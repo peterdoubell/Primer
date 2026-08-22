@@ -1954,7 +1954,12 @@ def test_showing_an_answer_cannot_be_done_twice():
     """Regression: "Show answer" stayed live, so three clicks appended three
     grading groups with identical labels and twelve live buttons."""
     js = _web("app.js")
-    assert "showBtn.disabled = true; revealBack(c, answerRegion)" in js
+    # Asserted on the disabling, not on the whole call: revealBack now also
+    # carries what the reader wrote before turning the card (benchmark 12), and
+    # pinning the exact argument list made this a test of the signature rather
+    # than of the regression it exists for.
+    i = js.index("showBtn.disabled = true;")
+    assert "revealBack(c, answerRegion" in js[i:i + 120]
 
 
 def test_the_end_of_the_deck_keeps_focus():
@@ -2288,8 +2293,8 @@ def test_focus_is_held_across_the_marking_round_trip():
     because with activeElement on body it matches neither first nor last, so Tab
     walks straight out."""
     js = _web("app.js")
-    assert js.count("holdFocus(card, 'Checking…')") == 4, \
-        "all four submit paths must hold focus before awaiting"
+    assert js.count("holdFocus(card, 'Checking…')") == 5, \
+        "all five submit paths must hold focus before awaiting"
     i = js.index("function holdFocus")
     assert "region.focus()" in js[i:i + 900]
 

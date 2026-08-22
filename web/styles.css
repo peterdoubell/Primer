@@ -277,11 +277,18 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- book shell ---------- */
 #book {
-  max-width: 1180px;
+  /* The book used to be a fixed 1180px plank on a dark desk, which on anything
+     larger than a laptop meant the desk got most of the screen: at 2560px the
+     page covered 56% and the reader's own text 43%. The cap is now high enough
+     that only a very wide monitor sees any desk at all, and the rail and the
+     padding scale with the viewport instead of staying laptop-sized on a 27in
+     display. */
+  --rail: clamp(212px, 15vw, 296px);
+  max-width: min(100%, 2400px);
   margin: 0 auto;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: var(--rail) 1fr;
   background: var(--paper);
   background-image: var(--page-texture),
     radial-gradient(circle at 50% 0%, var(--paper-hi), var(--paper));
@@ -290,7 +297,7 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 #book::before {
   /* the spine */
-  content: ""; position: absolute; left: 240px; top: 0; bottom: 0; width: 24px;
+  content: ""; position: absolute; left: var(--rail); top: 0; bottom: 0; width: 24px;
   transform: translateX(-12px);
   background: var(--seam);
   pointer-events: none; z-index: 5;
@@ -351,7 +358,8 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- page area ---------- */
 #page {
-  padding: 40px 52px 80px; min-height: 100vh; position: relative;
+  padding: clamp(22px, 2.1vw, 52px) clamp(18px, 2.4vw, 60px) 80px;
+  min-height: 100vh; position: relative;
   animation: fade 0.4s ease;
 }
 @keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform:none;} }
@@ -453,12 +461,19 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
    column appears. */
 #reader-layout {
   display: grid; gap: 30px;
-  grid-template-columns: minmax(0, 1fr) clamp(268px, 24vw, 330px);
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 24vw, 560px);
 }
-#book:has(#reader-layout) { max-width: 1440px; }
 #article {
-  font-size: 17px; line-height: 1.72; color: var(--ink);
+  /* Filling a wide screen by lengthening the line would be the wrong trade —
+     72ch is a measure, not a shortfall. The type grows instead, so the same
+     count of characters covers more of the display: 17px on a laptop, up to
+     21px on a 27in monitor, and the ch-based measure widens with it. */
+  font-size: clamp(17px, 1.05vw, 21px); line-height: 1.72; color: var(--ink);
   max-width: 72ch;
+  /* Whatever the measure does not use is split either side rather than left as
+     a gap against the tutor: on a wide screen that reads as the margin of a set
+     page, which is what it is, instead of a column that failed to fill. */
+  margin-inline: auto;
 }
 #article h1, #article h2, #article h3 { font-weight: 600; line-height: 1.25; }
 #article h1 { font-size: 30px; border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
@@ -548,6 +563,10 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 @media (max-width: 1199px) {
   #reader-layout { grid-template-columns: 1fr; gap: 0; }
   #tutor { position: relative; height: 420px; margin-top: 22px; }
+  /* Once the tutor is below rather than beside, there is no gap to balance and
+     centring only buys a stray indent: the measure would sit inboard of the
+     page heading above it, which reads as a mistake rather than a margin. */
+  #article { margin-inline: 0; }
 }
 
 /* Each navigation box is folded into a disclosure by render.py, so the foot of
@@ -842,6 +861,42 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 .grade-hard { background: var(--gold-ink); color: var(--on-fill); }
 .grade-good { background: var(--green); color: var(--on-fill); }
 .grade-easy { background: var(--accent-2); color: var(--on-fill); }
+/* The row used to carry its layout inline, which meant the two-button
+   pre-reader layout had nowhere to say it needs room to wrap. */
+.grade-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+/* Two glyphed grades instead of four English ones below stage 2: sized to the
+   same 58px floor the choices take there, and each wide enough to be aimed at
+   rather than tapped between. */
+body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .grade-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: 1 1 150px; min-height: 58px; font-size: 17px;
+}
+
+/* ---------- the deck a five-year-old can work ----------
+   Two produced answers before the card is turned. Modelled on .choice — the
+   same edge, the same verdict marks — but sized for a finger and set in the
+   book's reading face, because the reader is being asked to recognise the
+   words, not to operate a control. */
+.recall-ask { margin: 2px 0 8px; font-family: var(--sans); font-size: 14px; }
+.recall-row { display: grid; gap: 12px; margin-bottom: 14px; }
+.recall-opt {
+  display: flex; align-items: center; gap: 12px; text-align: left;
+  min-height: 64px; padding: 12px 16px; font-size: 19px; font-family: var(--serif);
+  border: 1.5px solid var(--edge); border-radius: 10px;
+  background: var(--field); color: var(--ink); cursor: pointer; transition: all 0.12s;
+}
+.recall-opt:hover:not(:disabled) { border-color: var(--link); background: var(--field-hi); }
+.recall-opt:disabled { cursor: default; }
+.recall-opt .ro-key {
+  flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  border: 1.5px solid var(--edge); font-family: var(--sans); font-size: 13px; font-weight: 700;
+  color: var(--ink-soft);
+}
+/* The ✓ and ✗ are written into the button by the JS, so neither verdict is
+   carried by colour alone. */
+.recall-opt.correct { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); font-weight: 600; }
+.recall-opt.wrong { background: var(--tint-wrong); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .recall-opt { transition: none; } }
 
 /* ---------- atlas ---------- */
 .domain-block { margin-bottom: 26px; }
@@ -893,6 +948,11 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 @media (max-width: 700px) {
   .qa-row { grid-template-columns: 1fr; }
 }
+
+/* The Shelf's colophon — a credit line, set the way a book sets one: small,
+   quiet, and beneath the shelf rather than beside it. */
+.colophon { font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint);
+  margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--rule); }
 
 /* ---------- search ---------- */
 #searchbox { position: relative; margin-bottom: 20px; }
@@ -1028,7 +1088,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
   .grid.two, .grid.three { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
-  #page { padding: 16px; }
+  #page { padding: clamp(11px, 3.2vw, 17px); }
   .pagehead h2 { font-size: 26px; }
   .grid.auto { grid-template-columns: 1fr; }
   .quest-item { flex: 1 1 100%; }
@@ -1141,6 +1201,31 @@ h3 > .card-open { font: inherit; color: inherit; }
 .speak-btn:hover { background: var(--tint-gold-strong); }
 .speak-btn.speaking { animation: pulse 1s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+/* The pulse is the only sign the book is talking; without a reduced-motion
+   path it is also an infinite animation, which is the one kind this preference
+   exists to stop. The button keeps its gold fill, so the state still reads. */
+@media (prefers-reduced-motion: reduce) { .speak-btn.speaking { animation: none; } }
+
+/* ---------- read-aloud: a transport, not a fire-and-forget button ----------
+   Read-aloud now runs to the end of the article rather than stopping at
+   character 3,500, so it needs Pause and Stop beside it (WCAG 1.4.2: audio the
+   reader cannot stop is a failure, and a twenty-minute read is very much audio
+   the reader may want to stop). */
+.read-aloud { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.read-status { font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint); }
+/* The place the voice is at, for a finger to follow. Never colour alone: a
+   rule down the left edge and a weight change carry it as well as the wash.
+   The negative margin cancels the padding exactly, so the content box does not
+   move and the paragraph does not re-wrap as the mark arrives and leaves. */
+#article .reading-now {
+  margin-left: -12px; padding-left: 12px;
+  box-shadow: inset 4px 0 0 0 var(--gold);
+  background: var(--tint-gold);
+  font-weight: 600;
+  border-radius: 3px;
+  transition: background 0.18s ease;
+}
+@media (prefers-reduced-motion: reduce) { #article .reading-now { transition: none; } }
 .q-card .speak-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 
 /* Daily quest checklist. */
@@ -1158,6 +1243,61 @@ h3 > .card-open { font: inherit; color: inherit; }
 .quest-item .qt { font-family: var(--sans); font-size: 14px; }
 .quest-item .qt b { display: block; font-size: 15px; color: var(--ink); }
 .quest-crown { text-align: center; font-family: var(--sans); color: var(--gold-ink); font-weight: 700; margin-top: 4px; }
+
+/* ---------------- a day with a bottom, and a day with a tomorrow ----------
+   Every rule below is written in tokens that already exist, so the two dark
+   blocks stay byte-identical to each other and to what they were. */
+
+/* The quest step is a count that fills, so the tile needs a second row for the
+   bar. Wrapping only ever engages when the bar is there; an excused step draws
+   none and lays out exactly as it always did. */
+.quest-item { flex-wrap: wrap; }
+.quest-item .quest-bar { flex: 1 0 100%; margin-top: 0; }
+.quest-item.done .quest-bar { background: color-mix(in srgb, var(--green) 22%, transparent); }
+.quest-item.done .quest-bar > span { background: var(--green); }
+
+/* The line under the crown. Quieter than the crown, and centred with it. */
+.tomorrow-line { text-align: center; font-family: var(--sans); font-size: 13px;
+  color: var(--ink-soft); margin: 6px 0 0; }
+
+/* A lesson the reader already started. Gold edge and a gold rule above the
+   note, so "you are in the middle of this one" is carried by more than colour:
+   the card is the only one on the page wearing a labelled line of its own. */
+.lesson-card.resume { border-color: var(--gold); background: var(--tint-gold); }
+.resume-note { font-family: var(--sans); font-size: 13px; color: var(--ink-soft);
+  margin: 10px 0 0; padding-top: 8px; border-top: 1px solid var(--gold); }
+.resume-note b { display: block; font-size: 12px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--gold-ink); margin-bottom: 2px; }
+.resume-note.ready { color: var(--gold-ink); font-weight: 600; }
+/* The young reader's speak button is absolutely positioned bottom-right of the
+   card, so the note has to keep clear of it rather than run underneath. */
+body[data-stage="0"] .resume-note, body[data-stage="1"] .resume-note { padding-right: 46px; }
+
+/* Appointments that did not fit the page. A chip that is a real button. */
+.pending-chip { border-color: var(--gold); color: var(--gold-ink); cursor: pointer; }
+.pending-chip:hover { background: var(--tint-gold); }
+
+/* The book kept your place. Set like the chapter card's quieter cousin — an
+   inscription on the page, never an alert: nothing here is a warning. */
+.return-card { border-color: var(--gold); background: var(--tint-gold); }
+.return-card .kicker { color: var(--gold-ink); }
+.return-text { font-size: 17px; line-height: 1.65; margin: 6px 0 0; color: var(--ink); }
+.return-when { font-size: 13px; margin: 8px 0 0; }
+.return-speak { margin-top: 10px; }
+
+/* The end of the day's ask, drawn as a card of its own in the deck. */
+.deck-bar { margin-top: 0; margin-bottom: 12px; }
+.deck-stop { text-align: center; border-color: var(--gold); }
+.deck-stop .el-mark { color: var(--gold-ink); opacity: .85; margin-bottom: 8px; }
+.deck-stop .el-mark .glyph { display: inline-flex; filter: drop-shadow(var(--glow-soft)); }
+.deck-stop .stop-head { margin: 0 0 8px; font-size: 20px; }
+.deck-stop .stop-body { max-width: 34em; margin: 0 auto; line-height: 1.6; }
+.stop-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+
+/* The chapter this very sitting opened, named on the results splash above the
+   gold control that opens it. */
+.page-turned { color: var(--gold-ink); font-family: var(--sans); font-weight: 700;
+  font-size: 15px; margin: 12px 0 0; }
 
 /* XP fly-up + ceremonies. */
 .xp-pop { position: fixed; left: 50%; top: 40%; transform: translateX(-50%); z-index: 300;
@@ -1248,6 +1388,53 @@ h3 > .card-open { font: inherit; color: inherit; }
 .order-chip.placed { border-style: solid; border-color: var(--gold); opacity: 1;
   display: inline-grid; place-items: center; }
 
+/* ---------- count by touching: the tally ----------
+   Modelled on .order-chip, and clearing the same 58px hit target it already
+   sets. A caught token is never told apart by colour alone: it carries a ✓ in
+   its corner and the object itself dims, so the count reads on a monochrome
+   screen and to anyone who cannot separate gold from parchment. */
+.tally-count { font-family: var(--sans); font-size: 20px; font-weight: 700;
+  color: var(--gold-ink); min-height: 28px; margin-bottom: 8px; letter-spacing: .01em; }
+.tally-tray { display: flex; flex-wrap: wrap; gap: 12px; padding: 10px;
+  border-radius: 12px; margin-bottom: 16px; }
+/* The verdict outline, matching .order-slot. --accent is the wrong-answer ink
+   and is used for nothing else. */
+.tally-tray.correct { box-shadow: inset 0 0 0 2px var(--green); }
+.tally-tray.wrong { box-shadow: inset 0 0 0 2px var(--accent); }
+.tally-token {
+  position: relative; min-width: 58px; min-height: 58px; font-size: 30px; line-height: 1;
+  padding: 8px 12px; display: inline-grid; place-items: center;
+  border: 1.5px solid var(--edge); border-radius: 12px;
+  background: var(--field); color: var(--ink); cursor: pointer;
+}
+.tally-token:hover:not(:disabled) { border-color: var(--link); }
+.tally-token:disabled { cursor: default; }
+.tally-token .tk-face { transition: opacity 0.15s ease; }
+.tally-token .tk-mark { display: none; position: absolute; top: 2px; right: 5px;
+  font-size: 15px; font-weight: 700; color: var(--gold-ink); }
+.tally-token.caught { border-color: var(--gold); background: var(--tint-gold); }
+/* The object dims; the mark does not, or the cue would fade with the thing it
+   is marking. */
+.tally-token.caught .tk-face { opacity: 0.4; }
+.tally-token.caught .tk-mark { display: block; }
+/* Lighting up under the finger is an animation, and gets the path every
+   animation in this book gets. Without it the token still changes border,
+   ground, dimming and mark — everything but the movement. */
+.tally-token.caught { animation: tally-catch 0.26s cubic-bezier(.2,.7,.3,1); }
+@keyframes tally-catch { 0% { transform: scale(1); } 45% { transform: scale(1.13); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .tally-token.caught { animation: none; }
+  .tally-token .tk-face { transition: none; }
+}
+.tally-commit { width: 100%; }
+/* The band this question exists for. Same enlargement the choices get at
+   styles.css:1108, and the same 58px floor .check-it takes. */
+body[data-stage="0"] .tally-token, body[data-stage="1"] .tally-token {
+  min-width: 74px; min-height: 74px; font-size: 38px; }
+body[data-stage="0"] .tally-commit, body[data-stage="1"] .tally-commit {
+  min-height: 58px; font-size: 19px; }
+body[data-stage="0"] .tally-count, body[data-stage="1"] .tally-count { font-size: 23px; }
+
 /* A gentle prod when the reader asks for the answer without offering one. */
 .q-nudge { margin-top: .5rem; color: var(--accent); font-size: .95em; }
 
@@ -1309,14 +1496,14 @@ body[data-stage="4"] .result-splash .stars, body[data-stage="5"] .result-splash 
 body[data-stage="4"] .result-splash .score, body[data-stage="5"] .result-splash .score { font-size: 46px; }
 body[data-stage="4"] .dropcap::first-letter, body[data-stage="5"] .dropcap::first-letter { font-size: 1em; float: none; margin: 0; line-height: inherit; color: inherit; }
 /* Denser reading column: an adult reads longer lines comfortably. */
-body[data-stage="4"] #article, body[data-stage="5"] #article { font-size: 17px; line-height: 1.62; max-width: 74ch; }
+body[data-stage="4"] #article, body[data-stage="5"] #article { font-size: clamp(17px, 1.05vw, 21px); line-height: 1.62; max-width: 74ch; }
 /* Stage 5 was every stage-4 rule plus one line pointing at a `.kbd-hint` class
    that no template ever emitted — five modes wearing six labels. A graduate
    reader gets a genuinely quieter surface: no decorative seal, tighter measure,
    the domain colour reduced to a rule rather than a filled badge. */
 body[data-stage="5"] { --ui-scale: 0.92; }
 body[data-stage="5"] .pagehead h2 { font-size: 23px; letter-spacing: -0.01em; }
-body[data-stage="5"] #article { font-size: 16px; line-height: 1.58; max-width: 78ch; }
+body[data-stage="5"] #article { font-size: clamp(16px, 0.98vw, 20px); line-height: 1.58; max-width: 78ch; }
 body[data-stage="5"] .card { padding: 11px 14px; margin-bottom: 8px; }
 body[data-stage="5"] .badge { background: none; border: 1px solid currentColor;
   font-weight: 500; letter-spacing: .06em; }
@@ -1387,6 +1574,44 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
   text-shadow: 0 1px 0 rgba(0,0,0,.15); margin-bottom: 8px; }
 .err-lede { font-size: 16px; margin: 4px 0 2px; }
 .err-note { font-size: 13px; margin-bottom: 14px; }
+
+/* The book explaining its own method. Closed by default; a reader who has
+   read it once should not have to scroll past it every evening. */
+.study-note { font-family: var(--sans); font-size: 13px; line-height: 1.6;
+  border: 1px solid var(--rule); border-radius: 8px; padding: 8px 14px;
+  margin: 0 0 16px; background: var(--paper-2); color: var(--ink-soft); }
+.study-note > summary { cursor: pointer; font-weight: 600; color: var(--gold-ink);
+  padding: 4px 0; list-style-position: outside; }
+.study-note > summary svg { vertical-align: -2px; }
+.study-note > summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.study-note p { margin: 8px 0; max-width: 68ch; }
+.study-note b { color: var(--ink); }
+
+/* Produce the answer before the card turns. */
+.recall-write { display: block; width: 100%; margin: 10px 0; padding: 11px 13px;
+  font-family: var(--sans); font-size: 15px; color: var(--ink);
+  background: var(--field); border: 1px solid var(--rule); border-radius: 7px; }
+.recall-write:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.wrote-line { font-size: 13px; margin: 8px 0 0; }
+.burn-note { font-size: 13px; max-width: 62ch; margin: 10px auto 0; }
+
+.pace-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  margin: 10px 0 4px; font-family: var(--sans); font-size: 13px; }
+.pace-total { color: var(--ink-soft); font-weight: 600; }
+.pace-total svg { vertical-align: -2px; color: var(--gold-ink); }
+.pace-note { font-size: 12px; }
+
+/* ---------------- the world coming and going ---------------- */
+/* Not an alarm. A slip of paper laid across the top of the book saying where
+   it stands. Tokens only, so it turns with the palette like everything else. */
+.offline-band { grid-column: 1 / -1; font-family: var(--sans); font-size: 13px;
+  line-height: 1.5; color: var(--ink-soft); background: var(--paper-2);
+  border-bottom: 1px solid var(--rule); padding: 9px 18px; }
+.offline-band svg { vertical-align: -2px; color: var(--gold-ink); }
+
+/* The sentence that used to live in a tooltip on a disabled button. */
+.locked-why { font-size: 13px; max-width: 62ch; }
+.locked-why svg { vertical-align: -2px; }
 
 /* ---------------- illuminated chapter opening ---------------- */
 .story-par { font-size: 16px; line-height: 1.75; color: var(--chrome-ink); }
@@ -1639,3 +1864,120 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 .pronoun-swap:hover { border-color: var(--gold); color: var(--ink); }
 .pronoun-swap.on { background: var(--tint-gold); border-color: var(--gold);
   color: var(--ink); font-weight: 700; }
+
+/* ---------------- the picture, opened ----------------
+   render.py rewrites every link it cannot resolve into `<a href="#">`, and
+   nearly every image in a rendered article arrives wrapped in one. Touching a
+   picture therefore emptied the hash and the router wiped the page — the most
+   instinctive gesture on the reading page deleted the page. The gesture is
+   answered now with the picture at the size it deserves. */
+/* Beats the 560px cap on #overlay .modal, which carries an id and so wins on
+   specificity against a two-class selector. */
+#overlay .modal.wide { max-width: min(94vw, 900px); }
+.lightbox { text-align: center; }
+.lightbox img {
+  width: 100%; height: auto; max-height: 78vh; object-fit: contain;
+  border-radius: 8px; background: var(--paper-2);
+  /* Both #article image filters again, because they are scoped to #article and
+     the overlay is not inside it: without these a night reader gets the map's
+     full daylight punched through the page, and a line diagram turns invisible. */
+  filter: var(--img-glare);
+}
+.lightbox img.skin-invert { filter: var(--img-invert); }
+.lightbox .cap {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin: 16px auto 0; max-width: 60ch; text-align: left;
+}
+.lightbox .cap p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
+/* The affordance the dead anchors never had: this picture answers to a touch. */
+#article a[href="#"] img, #article img.tappable { cursor: zoom-in; }
+
+/* ---------------- the Atlas as an instrument ----------------
+   The payload carries how far every tile has come and the page used to draw
+   three states from it. A tile at 0.79 looked exactly like one never opened,
+   and on day one 315 of 353 tiles were an undifferentiated grey wall. */
+
+/* --m is per-element geometry (how far THIS tile has come), not a themed
+   token — declared here so it is always defined, and overridden by the inline
+   style the renderer writes. The wash is the same translucent --tint-green the
+   mastered tile already wears, laid over the tile's own field rather than
+   replacing it, so the label keeps the contrast it was audited at. */
+.node-dot { --m: 0%; }
+.node-dot.available {
+  background-color: var(--field);
+  background-image: linear-gradient(to right,
+    var(--tint-green) var(--m, 0%), transparent var(--m, 0%));
+}
+/* Proved once and let slip. Marked by a dotted edge AND a ◐ in the tile AND
+   the word "faded" in the accessible name — never by colour alone. */
+.node-dot.faded { border-color: var(--gold-ink); border-style: dotted; }
+/* Credited without ever being earned, and that credit now expired. .assumed
+   already owned a dashed border and had never been given a class to wear. */
+.node-dot.assumed-stale { border-style: dashed; border-color: var(--edge); }
+/* Full contrast, not a faded flourish: this mark is one of the two non-colour
+   carriers of the tile's state (the other is the border style). */
+.dot-mark { font-size: 11px; margin-left: 3px; }
+
+.atlas-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 6px; }
+.filter-opt.picked { background: var(--paper-edge); border-color: var(--gold); }
+.filter-opt .filter-mark { display: none; font-family: var(--sans); font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-left: 7px; }
+.filter-opt.picked .filter-mark { display: inline; }
+/* The spoken count. Sighted readers see the map shrink, so it stays quiet on
+   the page — the same treatment the search and library live regions get. */
+.atlas-live { font-family: var(--sans); font-size: 13px; color: var(--muted);
+  min-height: 18px; margin: 2px 2px 10px; }
+
+.domain-head .dh-text { flex: 1; min-width: 0; }
+.frontier-jump { flex: none; white-space: nowrap; }
+/* Six cells of progress where a single total used to stand. */
+.stage-strip { display: flex; gap: 4px; margin-top: 6px; }
+.ss-cell {
+  position: relative; overflow: hidden; flex: 0 0 44px; height: 16px;
+  border: 1px solid var(--rule); border-radius: 4px; background: var(--paper);
+  display: grid; place-items: center;
+}
+.ss-cell i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--tint-green); }
+/* 10px is the smallest type anywhere in the book (.conf-mark, .qa-state); the
+   strip does not go below its own floor, and role="img" carries the whole
+   sentence for anyone who cannot read it at any size. */
+.ss-cell b { position: relative; font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: .04em; color: var(--ink-soft); }
+/* A shut gate says so with a hatch as well as a paler ground. */
+.ss-cell.shut { border-style: dashed; }
+.ss-cell.shut b { color: var(--ink-locked); }
+
+/* A requirement that names a lesson is now the way there, not a label about
+   it. Same chip, plus the arrow that says it goes somewhere. */
+.req-jump { cursor: pointer; border-color: var(--edge); color: var(--ink); }
+.req-jump:hover { border-color: var(--gold); background: var(--tint-gold); }
+.req-jump .go-mark { color: var(--gold-ink); font-weight: 700; }
+
+@media (max-width: 700px) {
+  .domain-head { flex-wrap: wrap; }
+  .frontier-jump { margin-left: 56px; }
+  .ss-cell { flex: 1 1 0; }
+}
+
+/* ---------------- settle, then commit ----------------
+   Committing an answer posts to /api/quiz/check, where commit_answer locks it
+   and a wrong one burns the item out of this node's mastery evidence for seven
+   days. That was a single unconfirmed tap. Below stage 2 the first tap only
+   chooses; the gold button commits. The selected state is carried by a border
+   weight and a written mark as well as the wash — the verdict marks beside it
+   set the standard. */
+.choice.selected {
+  border-color: var(--gold); background: var(--tint-gold);
+  box-shadow: inset 0 0 0 1.5px var(--gold); font-weight: 600;
+}
+.choice .sel-mark { display: none; font-family: var(--sans); font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-left: 8px; }
+.choice.selected .sel-mark { display: inline; }
+/* Only ever drawn at stage 0-1, so it is sized to the same 58px floor the
+   choices themselves get there — and written with the stage selector, or the
+   stage-0 .btn rule (same specificity, declared earlier) keeps its 52px.
+   Disabled styling is inherited from .btn:disabled and needs nothing here. */
+body[data-stage="0"] .check-it, body[data-stage="1"] .check-it { min-height: 58px; }
+
+/* Arranging and committing, side by side, under the tray. */
+.order-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }

@@ -160,6 +160,32 @@ def _half_life(reinforcements: "float | None") -> float:
                STRENGTH_HALF_LIFE_MAX)
 
 
+# The clock the reader is timed by is the reader's own browser, which makes it
+# untrusted input twice over: a hostile client can post anything, and an honest
+# one records the twenty minutes a reader spent answering the door mid-quiz.
+# Both are handled the same way — a per-item reading outside this band is not a
+# measurement of anything and is discarded rather than clamped, because
+# clamping a forty-minute interruption to five minutes would still poison the
+# median with a number nobody spent.
+PACE_ITEM_MIN_SECONDS = 2.0
+PACE_ITEM_MAX_SECONDS = 300.0
+
+
+def _per_item_seconds(seconds: Optional[float], items: int) -> Optional[float]:
+    """Seconds per item, or None if the reading is not usable."""
+    try:
+        total = float(seconds)
+    except (TypeError, ValueError):
+        return None
+    n = int(items or 0)
+    if n <= 0 or not math.isfinite(total):
+        return None
+    per = total / n
+    if per < PACE_ITEM_MIN_SECONDS or per > PACE_ITEM_MAX_SECONDS:
+        return None
+    return round(per, 2)
+
+
 def _reinforce_min_gap(age: Optional[float]) -> float:
     if age is None:
         return REINFORCE_MIN_GAP
@@ -689,6 +715,65 @@ class LearnerStore:
             "assumed_stale": stale_credit,
         }
 
+    def pending_proofs(self) -> List[Dict]:
+        """Every node standing one earned pass short of mastery, with the
+        moment its second pass becomes possible.
+
+        The book already makes this appointment — `_apply_attempt` refuses to
+        master a node until `now - first_pass_at >= prove_gap` — and until now
+        it never told the reader when. This is that appointment, in one query.
+        Deliberately not a loop over `mastery_detail`: that opens a connection
+        per node (see `_conn`), and this list is read on every Today.
+
+        Three filters, each of which the book is wrong without:
+
+        - `mastered_at IS NULL` — a node already proven has no appointment
+          left to keep.
+        - `assumed = 0` — placement credit is not a pass. A credited node
+          carries `mastered_at` from the moment `seed_assumed` writes it, so
+          the clause above already covers today's data; it is stated anyway
+          because the cost of it ever not covering it is the book promising
+          the reader a ceremony for work they never did.
+        - the same freshness gate `passed_set()` applies, for the same
+          reason. `passes` never regresses for a node that was never
+          mastered: `_apply_attempt` clamps it back only inside its
+          `mastered_at is not None` branch, so a node passed once and then
+          failed outright keeps `passes = 1` forever. Without this check the
+          book offers a dated appointment for a gate that has re-shut — the
+          exact trap `story.needs()` guards against by zeroing a faded
+          node's pass count (story.py:230-233). `_strength_now` rather than
+          `_standing_strength` because with `assumed = 0` the two agree, and
+          this is the expression `passed_set()` reads.
+
+        Unlike `mastery_detail`, `ready_at` is NOT nulled once it falls into
+        the past: this list is sorted by it, and a caller needs "ready now"
+        to sort ahead of "ready tomorrow" rather than collapsing into a null
+        that cannot be compared to a float. An elapsed `ready_at` means ready
+        now, and must be rendered as an invitation — never as a date in the
+        past the reader appears to have missed.
+        """
+        now = time.time()
+        with _lock, self._conn() as c:
+            rows = c.execute(
+                """SELECT node_id, passes, first_pass_at, strength, last_seen,
+                          reinforcements
+                     FROM mastery
+                    WHERE passes >= 1 AND mastered_at IS NULL AND assumed = 0
+                      AND first_pass_at IS NOT NULL""").fetchall()
+            prof_row = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
+        # The age-scaled window `_apply_attempt` will actually apply, read the
+        # same way `mastery_detail` reads it. Telling a 5-year-old "tomorrow"
+        # when the check opens in six hours costs them a day of credit they
+        # have already earned; the two must never be computed differently.
+        prove_gap = _mastery_min_interval(prof_row["age"] if prof_row else None)
+        out = [{"node_id": r["node_id"], "passes": r["passes"] or 0,
+                "ready_at": r["first_pass_at"] + prove_gap}
+               for r in rows
+               if self._strength_now(r["strength"] or 0, r["last_seen"], now,
+                                     r["reinforcements"]) >= FRESH_GATE]
+        out.sort(key=lambda p: p["ready_at"])
+        return out
+
     def proven_count_current(self) -> int:
         """Proven nodes whose memory has not decayed away — the honest headline
         number, matching what the gates actually treat as open."""
@@ -930,8 +1015,17 @@ class LearnerStore:
             return None
         return level, mastered_at is not None, newly_mastered, lost_mastery
 
-    def record_attempt(self, node_id: str, score: float, assumed: bool = False) -> Dict:
-        """Record a graded attempt (score 0..1). Returns mastery + xp_gained."""
+    def record_attempt(self, node_id: str, score: float, assumed: bool = False,
+                       seconds: Optional[float] = None,
+                       items: int = 0) -> Dict:
+        """Record a graded attempt (score 0..1). Returns mastery + xp_gained.
+
+        `seconds`/`items` are how long this paper took the reader and how many
+        questions were on it. They exist so the book can tell them how long
+        tonight will take *from their own record* rather than from a number
+        somebody guessed — see `pace()`. They are clamped there, not trusted
+        here, and nothing about mastery or XP reads them.
+        """
         now = time.time()
         score = max(0.0, min(1.0, score))
         with _lock, self._conn() as c:
@@ -947,6 +1041,21 @@ class LearnerStore:
                 (node_id,)).fetchone()
             first_ever = not (_prior and _prior["first_mastered_at"])
             level, mastered, newly, lost = self._apply_attempt(c, node_id, score, assumed, now)
+            # The dated appointment this attempt just made, handed back at the
+            # moment it is made instead of left for the next page to discover.
+            # A first pass opens a spaced window (see `pending_proofs`), and
+            # the result splash is the one place the reader is certainly
+            # looking when it opens. None once the node is mastered — there is
+            # nothing left to seal — and None for an attempt that never
+            # passed, which has no window yet.
+            _pend = c.execute(
+                "SELECT first_pass_at, mastered_at FROM mastery WHERE node_id=?",
+                (node_id,)).fetchone()
+            _prof = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
+            ready_at = None
+            if _pend and _pend["first_pass_at"] and _pend["mastered_at"] is None:
+                ready_at = _pend["first_pass_at"] + _mastery_min_interval(
+                    _prof["age"] if _prof else None)
             xp = 0
             if not assumed:
                 # Effort XP is paid once per node per day, so repeating the same
@@ -979,13 +1088,18 @@ class LearnerStore:
                         (node_id, local_day, now)).rowcount == 1
                 xp = ((round(score * 12) if effort_claimed else 0)
                       + (60 if newly and first_ever else 0))
+                payload = {"node": node_id, "score": round(score, 2),
+                           "mastered": newly}
+                per = _per_item_seconds(seconds, items)
+                if per is not None:
+                    payload["per_item"] = per
                 c.execute("INSERT INTO events(kind, payload, at, xp) VALUES('attempt',?,?,?)",
-                          (json.dumps({"node": node_id, "score": round(score, 2),
-                                       "mastered": newly}), now, xp))
+                          (json.dumps(payload), now, xp))
         proven = node_id in self.proven_set()
         return {"node_id": node_id, "level": round(level, 3),
                 "mastered": mastered, "newly_mastered": newly,
-                "proven": proven, "lost_mastery": lost, "xp_gained": xp}
+                "proven": proven, "lost_mastery": lost, "xp_gained": xp,
+                "ready_at": ready_at}
 
     def seed_assumed(self, node_ids: List[str]):
         """Bulk placement credit (assumed known)."""
@@ -1378,7 +1492,8 @@ class LearnerStore:
                     c, node_id, mastery, desired):
                 return
 
-    def review_card(self, card_id: int, quality: int) -> Dict:
+    def review_card(self, card_id: int, quality: int,
+                    seconds: Optional[float] = None) -> Dict:
         """SM-2. quality: 0 (blank) .. 5 (perfect). A lapse also lowers the
         related node's strength and can flag it for refresh."""
         now = time.time()
@@ -1485,8 +1600,12 @@ class LearnerStore:
             # Streaks and levels are built on this number, so it needs a ceiling.
             room = max(0, self.REVIEW_XP_DAILY_CAP - self._review_xp_today(c))
             xp = min(xp, room)
+            payload = {"card": card_id, "q": quality}
+            per = _per_item_seconds(seconds, 1)
+            if per is not None:
+                payload["per_item"] = per
             c.execute("INSERT INTO events(kind, payload, at, xp) VALUES('review',?,?,?)",
-                      (json.dumps({"card": card_id, "q": quality}), now, xp))
+                      (json.dumps(payload), now, xp))
         return {"id": card_id, "next_days": round(max((due - now) / DAY, 0.01), 2),
                 "xp_gained": xp, "lapses": lapses}
 
@@ -1513,6 +1632,18 @@ class LearnerStore:
             graded, lapses, nodes = int(agg[0]), int(agg[1]), int(agg[2])
             with_node = c.execute(
                 "SELECT COUNT(*) FROM srs_cards WHERE node_id IS NOT NULL").fetchone()[0]
+            # A day needs a tomorrow. `next_due` is the next moment the deck
+            # has anything to say (None when nothing at all is scheduled
+            # ahead — an answer in its own right, not a zero); `due_tomorrow`
+            # is everything that will be waiting by the end of tomorrow,
+            # today's unreviewed backlog included, because that is what the
+            # reader will actually meet when they open the book. Both are
+            # served by idx_cards_due.
+            next_due = c.execute(
+                "SELECT MIN(due) FROM srs_cards WHERE due > ?", (now,)).fetchone()[0]
+            due_tomorrow = c.execute(
+                "SELECT COUNT(*) FROM srs_cards WHERE due <= ?",
+                (_end_of_tomorrow(now),)).fetchone()[0]
         # A lapse resets a card to the bottom of the ladder, so it is the unit
         # of *extra* review cost. The denominator is every graded review ever
         # taken, which makes this the observed failure rate of the deck, not a
@@ -1530,7 +1661,8 @@ class LearnerStore:
                 "cards_with_node": with_node, "nodes_with_cards": nodes,
                 "cards_per_node": (with_node / nodes) if nodes else 0.0,
                 "reviews_graded": graded, "lapses": lapses,
-                "lapse_rate": (lapses / graded) if graded else 0.0}
+                "lapse_rate": (lapses / graded) if graded else 0.0,
+                "next_due": next_due, "due_tomorrow": int(due_tomorrow)}
 
     def nodes_needing_refresh(self, limit: int = 8) -> List[str]:
         """Mastered nodes whose strength has decayed or that have a due card —
@@ -1769,6 +1901,41 @@ class LearnerStore:
         items.sort(key=lambda x: x.get("at") or 0, reverse=True)
         return items[:limit]
 
+    # ---------- how long this takes *this* reader ----------
+
+    # Enough samples that one interrupted sitting cannot set the estimate, and
+    # few enough that a reader who has sped up is not held to last spring's
+    # pace. A median, not a mean, for the same reason.
+    PACE_MIN_SAMPLES = 6
+    PACE_WINDOW = 60
+
+    def pace(self, kind: str) -> Optional[float]:
+        """Median seconds per item for this reader on `kind`, or None.
+
+        None means "not measured yet" and callers must say so rather than
+        quietly substituting a default and presenting it as the reader's own
+        number. The book is allowed to estimate; it is not allowed to imply it
+        measured something it did not.
+        """
+        with self._conn() as c:
+            rows = c.execute(
+                "SELECT payload FROM events WHERE kind=? ORDER BY at DESC LIMIT ?",
+                (kind, self.PACE_WINDOW),
+            ).fetchall()
+        vals = []
+        for r in rows:
+            try:
+                v = json.loads(r["payload"] or "{}").get("per_item")
+            except Exception:
+                continue
+            if isinstance(v, (int, float)):
+                vals.append(float(v))
+        if len(vals) < self.PACE_MIN_SAMPLES:
+            return None
+        vals.sort()
+        mid = len(vals) // 2
+        return vals[mid] if len(vals) % 2 else (vals[mid - 1] + vals[mid]) / 2
+
     def log_event(self, kind: str, payload: Dict, xp: int = 0):
         with _lock, self._conn() as c:
             c.execute("INSERT INTO events(kind, payload, at, xp) VALUES(?,?,?,?)",
@@ -1891,6 +2058,43 @@ class LearnerStore:
             ).fetchone()
         return row is not None
 
+    def events_today_count(self, kind: str) -> int:
+        """How many events of this kind since local midnight.
+
+        `events_today` answers yes/no, and a yes/no is exactly why one graded
+        card could stand for a whole day's reviewing: the day's work was
+        described with the only question this table could be asked. Same
+        query, same day boundary, counted instead of existence-checked — so
+        a step can fill rather than merely tick.
+        """
+        with self._conn() as c:
+            row = c.execute(
+                "SELECT COUNT(*) FROM events WHERE kind=? AND at>=?",
+                (kind, _local_midnight(time.time())),
+            ).fetchone()
+        return int(row[0] or 0)
+
+    def last_active_before_today(self) -> Optional[float]:
+        """When the reader was last here before today began, or None.
+
+        None is a real answer with its own meaning — a reader whose entire
+        history is today's — and it must never be read as "long ago": the
+        difference is a fresh profile being greeted as a lapsed one on its
+        first afternoon. Today's own events are excluded on purpose, so the
+        answer does not change under the reader as they work. Served by
+        idx_events_at.
+
+        One caveat, stated where it can be checked: `prune()` keeps a single
+        representative row per calendar day beyond its retention window, so
+        past ~400 days this returns that day's FIRST event rather than its
+        last. The day is right; the hour may not be. Everything downstream
+        measures an absence in whole local days, which that cannot move.
+        """
+        with _lock, self._conn() as c:
+            row = c.execute("SELECT MAX(at) FROM events WHERE at < ?",
+                            (_local_midnight(time.time()),)).fetchone()
+        return row[0] if row and row[0] is not None else None
+
     def prune(self, keep_days: int = 400):
         """Cap the append-only logs so years of daily use don't grow unbounded.
         Aggregate counts are preserved in mastery/deck; raw rows beyond the
@@ -1931,6 +2135,21 @@ def _local_day(ts: float) -> int:
     # transition and epoch division does not know that.
     lt = time.localtime(ts)
     return datetime.date(lt.tm_year, lt.tm_mon, lt.tm_mday).toordinal()
+
+
+def _end_of_tomorrow(ts: float) -> float:
+    """Local midnight at the far end of tomorrow — the horizon for "what is
+    waiting when I open this again".
+
+    Deliberately not `_local_midnight(ts) + 2 * DAY`: that is the "a day is
+    always 86400 seconds" assumption `_local_midnight` exists below to refuse,
+    and across a DST transition it puts the boundary an hour off — counting an
+    hour of the day after tomorrow as tomorrow, or dropping tomorrow's last
+    hour. Two calendar days on, then midnight.
+    """
+    lt = time.localtime(ts)
+    day = datetime.date(lt.tm_year, lt.tm_mon, lt.tm_mday) + datetime.timedelta(days=2)
+    return time.mktime(datetime.datetime(day.year, day.month, day.day).timetuple())
 
 
 def _local_midnight(ts: float) -> float:

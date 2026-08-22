@@ -19,7 +19,7 @@ const api = {
   async post(path, body) { const r = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) }); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
 };
 
-const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null, restoreFocus: null };
+const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null, restoreFocus: null, readerTitle: null };
 // The review deck's document-level keydown handler, held here so leaving the
 // page can remove it deterministically — its old self-removal only fired on
 // the *next* keypress after the deck was gone.
@@ -121,20 +121,119 @@ const domainById = id => S.domains.find(d => d.id === id) || { name: id, color: 
 function domainMark(d, size) { return d.icon ? d.icon : glyph('spark', size || 15); }
 function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
+/* ---------------- haptics ----------------
+   A book you hold should sometimes answer the hand that holds it. On devices
+   with a vibration motor (Android; iOS ignores navigator.vibrate and loses
+   nothing) the book taps back at the moments that already have a voice and a
+   colour: a right answer, a wrong one, a ceremony. Three vocabulary items
+   only — a grammar, not a drum kit — and all of it under prefers-reduced-
+   motion, which is the closest thing the platform has to "please don't". */
+const HAPTICS = {
+  ok: [12],                     // a nod
+  no: [50],                     // a firmer, single "hm"
+  fanfare: [15, 60, 15, 60, 40] // the confetti, felt
+};
+function haptic(kind) {
+  try {
+    if (!navigator.vibrate) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    navigator.vibrate(HAPTICS[kind] || []);
+  } catch (e) { /* a silent motor is never worth an error */ }
+}
+
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600); }
 
-/* ---------------- speech ---------------- */
+/* ---------------- speech ----------------
+   Everything the book says goes through one queue. Long text is cut into
+   sentence-bounded chunks and chained utterance to utterance: the 3,500-
+   character ceiling that used to sit here (and again in speakArticle) stopped
+   the book mid-clause at roughly 5% of a real article, with no way to resume.
+
+   speakSeq is what makes chaining safe. speechSynthesis.cancel() fires `onend`
+   on the utterance it kills, so a naive chain restarts itself the instant it is
+   silenced — navigate away mid-read and the book keeps reading the page you
+   left. Every stop bumps the sequence, and a chunk that finishes under a stale
+   sequence drops the rest of its queue on the floor. */
+const SPEAK_CHUNK = 1200;
+let speakSeq = 0;
+// Whatever the voice leaves lit — a pulsing speaker button, the paragraph it is
+// reading, the article's transport row — is only true while it is talking. The
+// article read registers its own restorer here so that a stop from anywhere
+// (the voice toggle, a navigation, a caption read in the lightbox) puts the
+// page back rather than leaving a dead Pause button behind.
+let _voiceRestore = null;
+
+// Cut text into pieces no longer than SPEAK_CHUNK, never mid-sentence. A
+// boundary inside a clause is exactly what made the old truncation sound like
+// a fault rather than an ending.
+function splitForSpeech(text) {
+  const clean = String(text == null ? '' : text).replace(/\s+/g, ' ').trim();
+  if (!clean) return [];
+  if (clean.length <= SPEAK_CHUNK) return [clean];
+  const sentences = clean.match(/[^.!?\u2026]+(?:[.!?\u2026]+["\')\]]*|$)/g) || [clean];
+  const out = [];
+  let buf = '';
+  for (const s of sentences) {
+    let piece = s.trim();
+    // One "sentence" longer than a whole chunk — a run-on caption, a list of
+    // dates with no full stop in it. Fall back to word boundaries rather than
+    // cutting a word in half.
+    while (piece.length > SPEAK_CHUNK) {
+      let cut = piece.lastIndexOf(' ', SPEAK_CHUNK);
+      if (cut < SPEAK_CHUNK * 0.5) cut = SPEAK_CHUNK;
+      if (buf) { out.push(buf); buf = ''; }
+      out.push(piece.slice(0, cut).trim());
+      piece = piece.slice(cut).trim();
+    }
+    if (!piece) continue;
+    if (buf && buf.length + 1 + piece.length > SPEAK_CHUNK) { out.push(buf); buf = piece; }
+    else buf = buf ? buf + ' ' + piece : piece;
+  }
+  if (buf) out.push(buf);
+  return out;
+}
+
+// The only place an utterance is ever built. `parts` is spoken in order;
+// onChunk(i) fires as each one begins and onEnd() once the last has finished —
+// and neither fires again once a newer read or a stop has taken the voice.
+function speakParts(parts, opts) {
+  const o = opts || {};
+  stopSpeaking();                       // bumps speakSeq, silences the old queue
+  const seq = speakSeq;
+  let i = 0;
+  const next = () => {
+    if (seq !== speakSeq) return;       // superseded: this queue is over
+    if (i >= parts.length) { if (o.onEnd) o.onEnd(); return; }
+    const k = i++;
+    if (o.onChunk) o.onChunk(k);
+    try {
+      const u = new SpeechSynthesisUtterance(parts[k]);
+      u.rate = S.stage <= 1 ? 0.9 : 0.98; u.pitch = 1.04;
+      // onerror as well as onend, or one refused chunk ends the whole article.
+      u.onend = next; u.onerror = next;
+      speechSynthesis.speak(u);
+    } catch (e) { if (o.onEnd) o.onEnd(); }
+  };
+  next();
+}
 function speakText(text, onEnd) {
-  try {
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(String(text).slice(0, 3500));
-    u.rate = S.stage <= 1 ? 0.9 : 0.98; u.pitch = 1.04;
-    if (onEnd) u.onend = onEnd;
-    speechSynthesis.speak(u);
-  } catch (e) { if (onEnd) onEnd(); }
+  const parts = splitForSpeech(text);
+  if (!parts.length) { if (onEnd) onEnd(); return; }
+  speakParts(parts, { onEnd: onEnd });
 }
 function maybeSpeak(text, maxStage = 1) { if (S.speak && S.stage <= maxStage) speakText(text); }
-function stopSpeaking() { try { speechSynthesis.cancel(); } catch (e) {} }
+function stopSpeaking() {
+  speakSeq++;
+  // cancel() on a paused engine leaves Chrome's queue wedged: the next speak()
+  // is accepted and never sounds. Clearing the paused flag afterwards, on an
+  // empty queue, costs nothing and is what makes Pause → Stop → Read work.
+  try { speechSynthesis.cancel(); if (speechSynthesis.paused) speechSynthesis.resume(); } catch (e) {}
+  // A queue that is dropped rather than finished never runs its onEnd, so the
+  // marks it left have to be cleared from here or they stay lit forever.
+  document.querySelectorAll('.speak-btn.speaking').forEach(b => b.classList.remove('speaking'));
+  document.querySelectorAll('.reading-now').forEach(b => b.classList.remove('reading-now'));
+  if (_voiceRestore) { const put = _voiceRestore; _voiceRestore = null; put(); }
+}
 // WCAG 1.4.2: any audio that starts automatically must be stoppable. The
 // reader can silence the book entirely, and a stop button appears while it
 // is speaking.
@@ -161,13 +260,20 @@ function speakToggle() {
 }
 function speakBtn(getText, label) {
   const b = btn({ class: 'speak-btn', 'aria-label': label || 'Read aloud',
-    onclick: () => { const t = typeof getText === 'function' ? getText() : getText; b.classList.add('speaking'); speakText(t, () => b.classList.remove('speaking')); } }, glyph('speak', 16));
+    // The pulse is added *after* the call: speakText stops whatever was
+    // talking first, and stopSpeaking clears every .speaking mark on the page —
+    // including, if it were added first, this one.
+    onclick: () => { const t = typeof getText === 'function' ? getText() : getText; speakText(t, () => b.classList.remove('speaking')); b.classList.add('speaking'); } }, glyph('speak', 16));
   return b;
 }
 
 /* ---------------- routing (hash-based) ---------------- */
 function hashFor(view, arg) {
   if (view === 'node') return '#/node/' + encodeURIComponent(arg);
+  // The short sitting is a route, not a mode flag, so it survives a reload and
+  // can be linked to — a reader who has five minutes on a bus has them again
+  // tomorrow.
+  if (view === 'review' && arg === 'short') return '#/review/short';
   if (view === 'reader') { const a = typeof arg === 'string' ? { title: arg } : (arg || {});
     return '#/read/' + encodeURIComponent(a.title || '') + (a.node ? '/' + encodeURIComponent(a.node) : ''); }
   return '#/' + view;
@@ -183,6 +289,7 @@ function parseHash() {
   const parts = h.split('/').map(decodeURIComponent);
   const view = parts[0] || 'today';
   if (view === 'node') return { view, arg: parts[1] };
+  if (view === 'review') return { view, arg: parts[1] === 'short' ? 'short' : null };
   if (view === 'read') return { view: 'reader', arg: { title: parts[1], node: parts[2] || null } };
   // `reader` is the internal name for the article view and needs a title. Typed
   // on its own it rendered a blank page with no message and focus on an empty
@@ -197,6 +304,11 @@ function renderRoute() {
   // Any navigation unmounts whatever view was up — drop the review deck's
   // document listener now rather than lazily on the next keypress.
   if (_reviewKeyHandler) { document.removeEventListener('keydown', _reviewKeyHandler); _reviewKeyHandler = null; }
+  // And silence the voice. Read-aloud can now run for the length of a whole
+  // article, so leaving the page mid-read used to mean the book carried on
+  // reading a page that no longer existed, marking paragraphs in a detached
+  // DOM. Views that speak on arrival do so after this, from their own render.
+  stopSpeaking();
   const { view, arg, corrected } = parseHash();
   // Falling back to Today while leaving the address bar on a bogus route left
   // no nav item marked current, and a reload landed nowhere.
@@ -219,6 +331,12 @@ function renderRoute() {
     const h1 = page.querySelector('#article h1');
     const h = h1 || page.querySelector('.pagehead h2');
     page.setAttribute('aria-label', h ? h.textContent : view);
+    // The one surface that never turned a page. A reader eight thousand words
+    // into an article, or three questions into a quiz, saw the same masthead in
+    // the tab as on the day they opened the book; with two copies open they had
+    // no way to tell them apart. The heading the view already computed for the
+    // accessible name is exactly the right words, so it does both jobs.
+    setTitle(h ? h.textContent : null);
     // A control that caused this rebuild (the theme toggle) keeps focus, so the
     // reader is not thrown back to the top of the page for changing a setting.
     const restore = S.restoreFocus && $('#' + S.restoreFocus);
@@ -230,6 +348,65 @@ function renderRoute() {
   });
 }
 window.addEventListener('hashchange', renderRoute);
+const TITLE_ROOT = 'The Primer';
+function setTitle(leaf) {
+  const t = (leaf || '').trim();
+  document.title = t && t !== TITLE_ROOT ? t + ' · ' + TITLE_ROOT
+                                         : TITLE_ROOT + ' — A Living Book of All Knowledge';
+}
+
+/* ---------------- the world coming and going ----------------
+   The book's whole premise is that it works with no wire at all, and until now
+   it never once said so: every disconnection was discovered by a failed
+   request and reported as a generic apology, which reads like a fault. Losing
+   the network is not a fault in this artifact. It is a condition, and the book
+   should be the one to mention it first — calmly, and without implying the
+   reader has lost anything, because they have not. */
+function offlineBand() {
+  let band = $('#offline-band');
+  if (navigator.onLine) { if (band) band.remove(); return; }
+  if (band) return;
+  // Mounted empty and filled after it has landed — the same rule every other
+  // live region in this file obeys: a role="status" node inserted with its
+  // text already inside it is announced unreliably, or not at all.
+  band = el('div', { id: 'offline-band', class: 'offline-band', role: 'status' });
+  // Mounted into the shell rather than the page, so a route change does not
+  // take it down while it is still true.
+  const book = $('#book') || $('#root');
+  if (!book) return;
+  book.prepend(band);
+  setTimeout(() => band.append(glyph('shelf', 14),
+    ' The book is on its own for a while — no wire, no signal. Everything already bound in is still here, and it will reach out again when the world comes back.'), 30);
+}
+window.addEventListener('offline', () => { offlineBand(); });
+// And once on arrival: opening the book already off the wire is the commonest
+// case of all, and it fires no event. This early tick alone was not enough —
+// renderShell() rebuilds #root wholesale, so a band mounted before the shell
+// existed was thrown away with the spinner it stood beside; renderShell now
+// re-checks after every rebuild (see its tail), and this tick covers pages
+// that never build a shell at all, like onboarding.
+window.addEventListener('DOMContentLoaded', () => setTimeout(offlineBand, 400));
+window.addEventListener('online', () => { offlineBand(); toast('The world is back. The book will fetch what it was missing.'); });
+
+/* ---------------- the reader's place ----------------
+   The article view is the only page a reader can be eight thousand words into,
+   and every route change rebuilds #page from nothing. Following a link and
+   coming back therefore landed them at character zero of a page they had
+   already read half of — the cost of curiosity, charged every time.
+
+   Two details this has to get right. First, the window is the scroller on this
+   layout (#page carries no overflow of its own and #sidebar is sticky at
+   100vh), so `page.scrollTop` is a no-op here: the offset has to be taken from
+   and given back to the document. Second, the place is recorded continuously
+   rather than at the moment of leaving — the theme toggle rebuilds #page with
+   no navigation at all, and that collapses the document and takes the scroll
+   offset with it before any teardown hook could read it. */
+const readerScroll = new Map();
+function docScrollTop() { return window.scrollY || document.documentElement.scrollTop || 0; }
+window.addEventListener('scroll', () => {
+  if (S.view !== 'reader' || !S.readerTitle) return;
+  readerScroll.set(S.readerTitle, docScrollTop());
+}, { passive: true });
 
 /* ---------------- bootstrap ---------------- */
 async function boot() {
@@ -442,7 +619,7 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
   }
   draw();
 }
-function speakBtnAlways(getText) { const b = btn({ class: 'speak-btn', 'aria-label': 'Read aloud', onclick: () => { b.classList.add('speaking'); speakText(typeof getText === 'function' ? getText() : getText, () => b.classList.remove('speaking')); } }, glyph('speak', 16)); return b; }
+function speakBtnAlways(getText) { const b = btn({ class: 'speak-btn', 'aria-label': 'Read aloud', onclick: () => { speakText(typeof getText === 'function' ? getText() : getText, () => b.classList.remove('speaking')); b.classList.add('speaking'); } }, glyph('speak', 16)); return b; }
 
 /* ---------------- placement check ---------------- */
 function offerPlacement(domains) {
@@ -484,7 +661,7 @@ async function runPlacement(domain, stage) {
     modal.innerHTML = ''; modal.append(closeBtn(close));
     const progress = el('div', { class: 'q-progress', tabindex: '-1',
       role: 'heading', 'aria-level': '2' },
-      'PLACEMENT · ' + domainById(domain).name + ' · ' + STAGE_NAMES[stage] +
+      'FINDING YOUR LEVEL · ' + domainById(domain).name + ' · ' + STAGE_NAMES[stage] +
       ' — ' + (i + 1) + ' of ' + data.questions.length);
     modal.append(progress);
     if (i > 0 && q.kind === 'choice') setTimeout(() => progress.focus(), 20);
@@ -527,10 +704,19 @@ async function runPlacement(domain, stage) {
     modal.append(head);
     setTimeout(() => head.focus(), 30);
     const splash = el('div', { class: 'result-splash' });
-    splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, r.passed ? '★★★' : '★☆☆'),
+    /* This is, for most readers over six, the FIRST thing the book ever does
+       with them — it fires 700ms after onboarding. It used to end on ★☆☆ and
+       "This level is still ahead of you", which makes the opening beat of the
+       whole product a failure verdict on a check the reader cannot fail.
+       A placement is a measurement, not a performance, and a star rating is
+       the wrong instrument for it: three stars for landing high implies one
+       star for landing low, and where a reader starts is not an achievement.
+       The mark is a compass now, and both outcomes are the same good news
+       said twice — the book knows where to open. */
+    splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, glyph('atlas', 38)),
       el('p', {}, r.passed
-        ? 'Comfortable at ' + STAGE_NAMES[stage] + ' level in ' + domainById(domain).name + '.'
-        : 'This level is still ahead of you — the book will start you lower and build up.'));
+        ? 'You are comfortable at ' + STAGE_NAMES[stage] + ' level in ' + domainById(domain).name + '. That is worth knowing, and now the book knows it.'
+        : 'The book has found where to open in ' + domainById(domain).name + ' — a little below ' + STAGE_NAMES[stage] + ', so the ground is solid under you. Nothing here was a check you could fail.'));
     if (r.suggest_stage != null && !r.settled) {
       splash.append(el('p', { class: 'muted' }, r.passed ? 'Let\'s try one level higher.' : 'Let\'s try one level down.'),
         btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, 'Continue →'));
@@ -592,7 +778,12 @@ function renderShell() {
   sidebar.append(el('div', { class: 'statrow' },
     el('div', { class: 'stat' }, el('span', {}, 'Reader'), el('b', {}, p.name)),
     el('div', { class: 'stat' }, el('span', {}, 'Mastered'), el('b', { id: 'stat-mastered' }, '—')),
-    el('div', { class: 'stat' }, el('span', {}, 'XP'), el('b', { id: 'stat-xp' }, p.xp || 0)),
+    // "XP" is a two-letter acronym off an arcade cabinet, pinned over the page
+    // of a three-year-old who cannot read it and a graduate who should not have
+    // to. The mechanic underneath is Kim's and Okafor's and is untouched: only
+    // the word the reader sees changes, to one the rest of this book would use.
+    // Growth, because the ladder the reader climbs is Seedling to Forest.
+    el('div', { class: 'stat' }, el('span', {}, 'Growth'), el('b', { id: 'stat-xp' }, p.xp || 0)),
     el('div', { class: 'stat' }, el('span', {}, 'Streak'), el('b', { id: 'stat-streak' }, String(p.streak || 0), glyph('flame', 13))),
   ));
   sidebar.append(el('div', { class: 'chrome-row', role: 'group', 'aria-label': 'Reading settings' },
@@ -602,6 +793,10 @@ function renderShell() {
   book.append(sidebar, el('main', { id: 'page' }));
   const skip = btn({ class: 'skip-link', onclick: () => { const m = $('#page'); if (m) { m.setAttribute('tabindex', '-1'); m.focus(); } } }, 'Skip to content');
   $('#root').append(skip, book);
+  // The shell was just rebuilt from nothing; if the world is still away, the
+  // band must come back with it — this is the only path that can restore it
+  // for a reader who opened the book already offline.
+  offlineBand();
   refreshStats();
 }
 function effectiveTheme() {
@@ -642,15 +837,21 @@ async function refreshStats() {
 // A spinner says "wait"; ruled lines filling in say "the page is being
 // written." It also holds roughly the shape of what arrives, so the layout
 // does not jump when it does. Announcement is unchanged: one status node.
-function skeleton(lines) {
-  const box = el('div', { class: 'book-skeleton', role: 'status', 'aria-label': 'Loading' });
+// A reader who cannot see the lines fill in hears that node instead, so it
+// speaks in the book's voice and names what is coming: "Loading" told them
+// neither. Callers that know the subject pass it; the rest get the page.
+function skeleton(lines, subject) {
+  const box = el('div', {
+    class: 'book-skeleton', role: 'status',
+    'aria-label': 'The book is writing ' + (subject || 'this page') + '…'
+  });
   const widths = ['62%', '96%', '88%', '94%', '71%'];
   for (let i = 0; i < (lines || 5); i++) {
     box.append(el('i', { class: i === 0 ? 'sk-head' : '', style: 'width:' + widths[i % widths.length] }));
   }
   return box;
 }
-function loading(page) { page.append(skeleton(5)); }
+function loading(page, subject) { page.append(skeleton(5, subject)); }
 // An empty state is an unwritten leaf, not a missing feature: the page that
 // is waiting for the reader gets the same care as the page that has arrived.
 function emptyLeaf(glyphName, title, body) {
@@ -683,14 +884,44 @@ async function guard(page, fn) {
 // The Guide's first and best advice, in large friendly letters. An error in a
 // book for children should reassure before it explains: nothing the reader
 // did, nothing lost, and a clear way onward.
+// What the book says about its own refusals. Round 5 demoted the backend
+// string to fine print, which kept the DON'T PANIC lede intact but still put
+// "no such node" — and, on any non-JSON failure, "Internal Server Error" —
+// on the page in the reader's own hands. A machine tag is not fine print; it
+// is a different book. So the front end keeps the book's half of the
+// vocabulary, and anything it does not recognise is said in the book's words
+// instead of the server's. The diagnosis is not lost: it goes to the console.
+const SAID = {
+  'no such node': 'That lesson is not among these pages.',
+  'not found': 'That page is not on the shelf.',
+  'unknown catalog key': 'That volume is not in the book\u2019s catalogue.',
+  'unknown quiz token': 'That paper has been set aside — ask for a fresh one.',
+  'unknown generator': 'That drill is not one the book knows how to set.',
+};
+function saidFor(e) {
+  const tag = e && typeof e.error === 'string' ? e.error.toLowerCase() : '';
+  if (!tag) return '';
+  // Recognised or not said at all. A rule that tried to *infer* whether a
+  // string was in voice — long enough, has a verb — would let the next
+  // untranslated tag through, and a JS exception message already arrives here
+  // by one path (the boot fallback below passes e.message). An allowlist
+  // cannot be surprised.
+  return SAID[tag] || '';
+}
 function errCard(e, retry) {
-  // The reassuring lede always leads; the backend's terse string ("no such
-  // node", a bare statusText) is demoted to fine print — a raw server error
-  // as the headline undid the whole DON'T PANIC register.
+  // The lede leads, and the second line is the book explaining itself in its
+  // own words or saying nothing at all.
+  if (e && e.error) console.warn('[primer]', e.error);
+  // "Likely the network, never you" is a kind guess. When the book can see for
+  // itself that there is no network, it should stop guessing and say so — and
+  // say the thing that matters, which is that nothing is out of reach that was
+  // ever really in hand.
+  const said = saidFor(e) || (navigator.onLine ? '' :
+    'The book is on its own just now — no wire, no signal. Everything already bound in is still yours to read.');
   const c = el('div', { class: 'card err-card', role: 'alert' },
     el('div', { class: 'dont-panic', 'aria-hidden': 'true' }, 'DON’T PANIC'),
-    el('p', { class: 'err-lede' }, 'The Book has briefly lost its train of thought — likely the network, never you.'),
-    el('p', { class: 'muted err-note' }, 'Everything you have learned is safely written down.' + (e && e.error ? ' (' + e.error + ')' : '')));
+    el('p', { class: 'err-lede' }, said || 'The Book has briefly lost its train of thought — likely the network, never you.'),
+    el('p', { class: 'muted err-note' }, 'Everything you have learned is safely written down.'));
   if (retry) c.append(btn({ class: 'btn ghost small', onclick: retry }, 'Try again'));
   return c;
 }
@@ -714,6 +945,43 @@ function pagehead(kicker, title, sub) {
 // divides a plate. Cheap to draw, and it gives the long scrolling views an
 // architecture they did not have.
 function sectionLabel(text) { return el('h3', { class: 'section-label' }, el('span', {}, text)); }
+
+/* ---------------- appointments ----------------
+   The engine makes dated appointments with the reader: a lesson proved once
+   cannot be sealed until a spaced window has elapsed, and the deck names the
+   next moment it has anything to say. Every one of those arrives here as a
+   UNIX timestamp from a server that is not in the reader's timezone, so the
+   two rules below hold everywhere one is printed.
+
+   Format through toLocale*, never by hand. And an appointment that has come
+   round is not one that was missed: the book says "ready now", never "ready
+   yesterday", because a reader who arrives late has lost nothing at all. */
+// "about 1 minutes" is the sort of sentence that tells a reader a machine
+// wrote the page. One helper, used everywhere a count meets a noun.
+function plural(n, word) { return n + ' ' + word + (Math.abs(n) === 1 ? '' : 's'); }
+function readyNow(ts) { return ts == null || ts * 1000 <= Date.now(); }
+function dayStart(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
+// Only time components, so toLocaleString renders the clock alone — and the
+// reader's own clock, twelve- or twenty-four-hour as their locale has it.
+function clockTime(d) { return d.toLocaleString(undefined, { hour: 'numeric', minute: '2-digit' }); }
+// A moment, to the minute: this is a gate opening, and the minute is the point.
+function whenReady(ts) {
+  const d = new Date(ts * 1000);
+  const days = Math.round((dayStart(d) - dayStart(new Date())) / 86400000);
+  if (days <= 0) return 'today at ' + clockTime(d);
+  if (days === 1) return 'tomorrow at ' + clockTime(d);
+  if (days < 7) return d.toLocaleDateString(undefined, { weekday: 'long' }) + ' at ' + clockTime(d);
+  return d.toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
+}
+// A day, loosely: for a deck that refills overnight the hour is noise.
+function whenDay(ts) {
+  const d = new Date(ts * 1000);
+  const days = Math.round((dayStart(d) - dayStart(new Date())) / 86400000);
+  if (days <= 0) return 'later today';
+  if (days === 1) return 'tomorrow';
+  if (days < 7) return 'on ' + d.toLocaleDateString(undefined, { weekday: 'long' });
+  return 'on ' + d.toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
+}
 
 /* ---------------- Today ---------------- */
 
@@ -761,33 +1029,183 @@ function askPronounsIfUnknown() {
   } });
 }
 
+// A day should end with a tomorrow — but only a truthful one. Every clause is
+// assembled from data that actually exists and a clause with nothing behind it
+// is not written at all, so a reader on their very first evening never meets
+// "Tomorrow: , , and this becomes a 1-day streak". Everything named here is
+// something WAITING; nothing here is a thing lost by not coming back, because
+// a book that bills the reader for their absence is not one they reopen.
+function tomorrowLine(tm) {
+  if (!tm) return '';
+  const parts = [];
+  if (tm.due_tomorrow > 0) {
+    parts.push(tm.due_tomorrow === 1 ? 'one card comes back'
+      : tm.due_tomorrow + ' cards come back');
+  }
+  if (tm.next_ready != null) {
+    // Bounded by the end of tomorrow at source, so it is either later today or
+    // tomorrow — and it may already have elapsed, because pending_proofs never
+    // nulls a past appointment and neither does this. Elapsed means READY, and
+    // the clock is dropped rather than printed as a date that has gone by.
+    const d = new Date(tm.next_ready * 1000);
+    parts.push(readyNow(tm.next_ready) ? 'a lesson is ready to be sealed'
+      : dayStart(d) <= dayStart(new Date())
+        ? 'a lesson can be sealed later today, from ' + clockTime(d)
+        : 'a lesson can be sealed from ' + clockTime(d));
+  }
+  const streak = tm.streak_next | 0;
+  if (streak >= 2) {
+    // "This becomes a 1-day streak" is not news; a milestone one day out is.
+    const ms = tm.milestone;
+    parts.push(ms && ms.away === 1
+      ? 'this becomes a ' + streak + '-day streak — your ' + ms.days + '-day mark'
+      : 'this becomes a ' + streak + '-day streak');
+  }
+  let out = '';
+  if (parts.length) {
+    const last = parts.pop();
+    out = 'Tomorrow: ' + (parts.length ? parts.join(', ') + ', and ' + last : last) + '.';
+  }
+  // A deck whose next card falls further out than tomorrow is still something
+  // waiting — it simply is not waiting TOMORROW, and filing it under a
+  // "Tomorrow:" lead would be the exact kind of untruth this line exists to
+  // avoid. It gets a sentence of its own, or it gets none.
+  if (!(tm.due_tomorrow > 0) && tm.next_due != null) {
+    out += (out ? ' ' : '') + 'The deck opens again ' + whenDay(tm.next_due) + '.';
+  }
+  return out;
+}
+
+// The reader who was gone is welcomed by what still stands, never by what was
+// lost. No broken streak, no "don't let it slip again", no urging of any kind:
+// this is a children's book, the reader may be five, and a book that scolds is
+// a book that is not opened again. Every clause is strictly backward-looking —
+// how long, what is still theirs, where the place was kept — and a clause with
+// no data behind it is simply not written.
+function returnCard(a) {
+  const lines = ['You have been away ' + a.days_away + ' days, and I kept your place.'];
+  if (a.standing) lines.push(a.standing === 1
+    ? 'One topic you proved still stands, exactly as you left it.'
+    : a.standing + ' topics you proved still stand, exactly as you left them.');
+  if (a.chapter_title) lines.push('Your chapter is waiting at “' + a.chapter_title + '”.');
+  if (a.best_streak >= 2) lines.push('Your longest run was ' + a.best_streak + ' days — that record is yours whatever happens next.');
+  const text = lines.join(' ');
+  const card = el('div', { class: 'card return-card' },
+    el('div', { class: 'kicker' }, glyph('story', 15), ' The book kept your place'),
+    el('p', { class: 'return-text' }, text));
+  if (a.last_seen) card.append(el('p', { class: 'muted return-when' },
+    'You were last here on ' + new Date(a.last_seen * 1000).toLocaleDateString(undefined,
+      { weekday: 'long', month: 'long', day: 'numeric' }) + '.'));
+  if (S.stage <= 1) card.append(el('div', { class: 'return-speak' }, speakBtn(() => text, 'Read this aloud')));
+  return card;
+}
+
 async function renderToday(page) {
   const t = await guard(page, () => api.get('/api/today'));
   if (!t) return;
   const p = t.profile;
   const hour = new Date().getHours();
   const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-  page.append(pagehead(greet + ', ' + p.name, "Today's Reading",
+  // The book kept the reader's place. `absence` is null whenever there is
+  // nothing honest to say — a first afternoon, or a gap older than the events
+  // log can vouch for — and a day or two away is not an absence at all.
+  const away = t.absence && t.absence.days_away >= 3 ? t.absence : null;
+  // Once per return, not on every load for a week: the same sessionStorage
+  // guard the milestone ceremony uses, keyed on the reader's own local date.
+  const returnKey = 'return-' + new Date().toLocaleDateString('en-CA');
+  const welcome = !!away && !sessionStorage.getItem(returnKey);
+  if (welcome) sessionStorage.setItem(returnKey, '1');
+  page.append(pagehead(welcome ? 'Welcome back, ' + p.name : greet + ', ' + p.name, "Today's Reading",
     p.stage_name + ' — ' + p.stage_span + '. ' + (t.mastered ? t.mastered + ' topics mastered so far.' : 'Your journey begins now.')));
+  if (welcome) page.append(returnCard(away));
   page.append(pronounLine());
 
   // Daily quest checklist
   const quest = el('div', { class: 'quest', role: 'group', 'aria-label': "Today's quest" });
-  Object.values(t.quest).forEach(q => {
-    // The book already explains an empty deck ("Deck is clear — nothing due",
-    // or how to start one). Nothing read that hint, so the step rendered as
-    // "0 waiting" — which reads like a broken counter rather than the good
-    // news it is, on exactly the days a new reader most needs encouraging.
-    const status = q.done ? 'done'
-      : q.hint ? q.hint
-      : q.count != null ? q.count + ' waiting'
-      : 'today';
-    quest.append(el('div', { class: 'quest-item' + (q.done ? ' done' : q.excused ? ' excused' : '') },
+  Object.entries(t.quest).forEach(([qkey, q]) => {
+    q.key = qkey;
+    // A count that fills, not a checkbox that flips. `goal` is what the day
+    // asks for and `done_count` how much of it is behind the reader, so the
+    // widget meant to represent the day's work stops hiding it: a reader who
+    // reviewed 1 of 40 cards was being shown a completed tile and a crown.
+    //
+    // An excused step keeps the hint it always had. The book already explains
+    // an empty deck ("Deck is clear — nothing due", or how to start one), and
+    // rendering that step as "0 of 0" would read like a broken counter rather
+    // than the good news it is, on exactly the days a new reader most needs
+    // encouraging.
+    //
+    // `excused` is the server's word and only the server's: a step can have a
+    // goal of zero and still be DONE (the reader learned the last lesson on the
+    // frontier this morning), and drawing that as "nothing waiting" would take
+    // the day's work back off them. Read the flag, never re-derive it.
+    const goal = q.goal | 0;
+    const dc = Math.min(q.done_count | 0, goal);
+    const counted = !q.excused && goal > 0;
+    const status = q.excused ? (q.hint || 'nothing waiting today')
+      : counted ? dc + ' of ' + goal
+      : q.done ? 'done' : 'today';
+    // What this step costs, in minutes. The book had never told a reader what
+    // it was asking of them — not for a card, not for a quiz, not for the
+    // evening — which makes every ask an open-ended one, and an open-ended ask
+    // is the easiest thing in the world to put off. Server-priced (see the
+    // pace block in /api/today) so the tile and the deck quote one number.
+    const mins = (t.pace && t.pace.steps && t.pace.steps[q.key]) || 0;
+    const item = el('div', { class: 'quest-item' + (q.done ? ' done' : q.excused ? ' excused' : '') },
       el('span', { class: 'tick', 'aria-hidden': 'true' }, q.done ? '✓' : q.excused ? '—' : '✓'),
-      el('span', { class: 'qt' }, el('b', {}, q.label), status)));
+      el('span', { class: 'qt' }, el('b', {}, q.label), status
+        + (mins ? ' · about ' + mins + ' min' : '')));
+    if (counted) {
+      // The same role="img" + aria-label pattern the mastery bars use: a bar
+      // that is aria-hidden says "58%" only to people who can see it.
+      item.append(el('div', { class: 'bar quest-bar', role: 'img',
+        'aria-label': q.label + ': ' + dc + ' of ' + goal + ' done' },
+        el('span', { style: `width:${Math.round(100 * dc / goal)}%` })));
+    }
+    quest.append(item);
   });
   page.append(quest);
-  if (t.quest_done === t.quest_total) page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' XP earned today. Beautifully done.'));
+  // The evening's whole cost, said once, plus the smallest door into it.
+  // "Minimum effective dose" is a real idea and it needs a real control: a
+  // reader with five minutes previously had to either take on the entire day
+  // or take on nothing, and between those two the honest answer is nothing.
+  if (t.pace && t.quest_done !== t.quest_total) {
+    const row = el('div', { class: 'pace-row' });
+    if (t.pace.minutes_left) {
+      row.append(el('span', { class: 'pace-total' },
+        glyph('target', 14), ' Tonight asks about ' + plural(t.pace.minutes_left, 'minute') + ' of you.'));
+    }
+    // Offering a smaller door when the room is already small is noise, and
+    // "the rest keep" is a promise about cards that do not exist. The short
+    // sitting appears only when it is genuinely shorter than the day.
+    if (t.pace.short_minutes && t.pace.minutes_left > t.pace.short_minutes) {
+      row.append(btn({ class: 'btn ghost small', onclick: () => {
+        if (t.pace.short_kind === 'review') go('review', 'short');
+        else if (t.lessons && t.lessons.length) go('node', t.lessons[0].id);
+        else go('review', 'short');
+      } }, 'I only have a few minutes'));
+      row.append(el('span', { class: 'muted pace-note' },
+        t.pace.short_kind === 'review'
+          ? plural(t.pace.short_cards, 'card') + ', about ' + plural(t.pace.short_minutes, 'minute') + '.'
+            + (t.pace.short_cards < (t.deck && t.deck.due || 0) ? ' The rest keep.' : '')
+          : 'One lesson quiz, about ' + plural(t.pace.short_minutes, 'minute') + '.'));
+    }
+    // The book says which kind of number it just gave. An estimate presented
+    // as a measurement is the sort of small lie this file has twice had to
+    // back out of; it costs one clause to be straight about it.
+    row.append(el('span', { class: 'muted pace-note' }, t.pace.measured
+      ? 'Timed from how long these usually take you.'
+      : t.pace.partly
+        ? 'Partly timed from your own sittings — the rest the book still estimates.'
+        : 'A first estimate — the book will time you and correct itself.'));
+    page.append(row);
+  }
+  if (t.quest_done === t.quest_total) {
+    page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' growth today. Beautifully done.'));
+    // The crown used to end in a full stop. A day should have a tomorrow.
+    const tl = tomorrowLine(t.tomorrow);
+    if (tl) page.append(el('p', { class: 'tomorrow-line' }, tl));
+  }
   if (t.streak_milestone && !sessionStorage.getItem('milestone-' + t.streak_milestone)) {
     sessionStorage.setItem('milestone-' + t.streak_milestone, '1');
     setTimeout(() => streakCeremony(t.streak_milestone), 500);
@@ -828,6 +1246,17 @@ async function renderToday(page) {
   t.lessons.forEach(n => grid.append(lessonCard(n)));
   page.append(grid);
 
+  // The appointments that did not fit today's page. Named rather than dropped:
+  // the cap on resumed lessons protects the shape of the day, and it should not
+  // also cost the reader the knowledge that the work is there and still theirs.
+  if (t.pending && t.pending.length) {
+    page.append(sectionLabel('Waiting to be proved'));
+    const pr = el('div', { class: 'refresh-row' });
+    t.pending.forEach(w => pr.append(btn({ class: 'req-chip pending-chip', onclick: () => go('node', w.id) },
+      '◐ ' + w.title + ' · ' + (readyNow(w.ready_at) ? 'ready now' : 'ready ' + whenReady(w.ready_at)))));
+    page.append(pr);
+  }
+
   // Refresh chips (deck-driven mastery decay)
   if (t.refresh && t.refresh.length) {
     page.append(sectionLabel('Worth refreshing'));
@@ -838,7 +1267,11 @@ async function renderToday(page) {
 
   const row = el('div', { class: 'grid two', style: 'margin-top:20px' });
   row.append(
-    actionCard([glyph('review', 17), ' Review'], t.deck.due ? t.deck.due + ' cards ready to strengthen your memory.' : 'No cards due. Master lessons to build your deck.', () => go('review'),
+    actionCard([glyph('review', 17), ' Review'],
+      t.deck.due ? t.deck.due + ' cards ready to strengthen your memory.'
+        // Not a dead end: an empty deck has a next moment, and the book knows it.
+        : t.deck.next_due != null ? 'Every card is filed. The next one comes back ' + whenDay(t.deck.next_due) + '.'
+        : 'No cards due. Master lessons to build your deck.', () => go('review'),
       (() => {
         const done = t.deck.total ? Math.round(100 * (t.deck.total - t.deck.due) / t.deck.total) : 0;
         return el('div', { class: 'bar', role: 'img',
@@ -873,6 +1306,19 @@ function lessonCard(n) {
     el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
     open,
     el('p', { class: 'goal' }, n.goal || ''));
+  // A lesson standing one earned pass short of mastery already has a dated
+  // appointment, and until now the book never mentioned it — leaving the
+  // reader's own open loop a coin flip to reappear. Only a resumed lesson
+  // carries these keys; a fresh one has none of them at all.
+  if (n.resume) {
+    c.classList.add('resume');
+    const ready = readyNow(n.ready_at);
+    const passes = n.passes | 0;
+    c.append(el('p', { class: 'resume-note' + (ready ? ' ready' : '') },
+      el('b', {}, 'You started this one'),
+      passes > 1 ? 'Proved ' + passes + ' times. ' : 'Proved once. ',
+      ready ? 'Ready to seal now ✦' : 'It can be sealed after ' + whenReady(n.ready_at) + '.'));
+  }
   if (S.stage <= 1) {
     const sp = speakBtn(() => n.title + '. ' + (n.goal || ''), 'Say ' + n.title);
     sp.style.cssText = 'position:absolute;bottom:10px;right:10px';
@@ -911,9 +1357,18 @@ function storyWaitingText(n) {
   return '“' + n.title + '” — ' + n.passes + ' of ' + n.passes_needed + ' passes';
 }
 
-function openStory(s, canAdvance, needs) {
+// Page turns inside the last minute. Held at module scope so it survives the
+// modal being closed and reopened, which is exactly how the spam happens.
+let _pageTurns = [];
+function pageTurnIsCheap() {
+  const now = Date.now();
+  _pageTurns = _pageTurns.filter(ts => now - ts < 60000);
+  _pageTurns.push(now);
+  return _pageTurns.length > 3;
+}
+function openStory(s, canAdvance, needs, onClose) {
   openModal({
-    label: s.title, dismissable: true, dark: true,
+    label: s.title, dismissable: true, dark: true, onClose: onClose || null,
     build: (modal, close) => {
       modal.append(el('div', { class: 'kicker', style: 'color:var(--gold-bright)' }, 'A Chapter'),
         el('h2', { class: 'chapter-title', style: 'margin-top:4px' }, s.title));
@@ -931,7 +1386,18 @@ function openStory(s, canAdvance, needs) {
           try {
             const r = await api.post('/api/story/advance', {});
             close();
-            if (r.advanced) { confetti(); if (r.xp_gained) flyXP(r.xp_gained); toast('The next chapter has opened ✦'); }
+            if (r.advanced) {
+              // A reader placed into the middle of the curriculum can have a
+              // dozen chapters standing open at once, and an identical confetti
+              // storm paid out a dozen times in two minutes teaches the hand
+              // that gold is a spam key. Above three page turns in a minute the
+              // XP is still granted and still said out loud; only the animation
+              // stops repeating, so the ceremony keeps meaning something.
+              const cheap = pageTurnIsCheap();
+              if (!cheap) { confetti(); if (r.xp_gained) flyXP(r.xp_gained); }
+              toast('The next chapter has opened ✦'
+                + (cheap && r.xp_gained ? ' +' + r.xp_gained + ' growth' : ''));
+            }
             refreshStats();
             renderRoute();
           } catch (e) { close(); toast('The page would not turn just now — nothing is lost, and the chapter is still waiting. Try again in a moment.'); }
@@ -979,6 +1445,25 @@ async function renderNode(page, nodeId) {
     const reqs = el('div', {}); n.unlock_requirements.forEach(r => reqs.append(el('span', { class: 'req-chip' }, r))); box.append(reqs);
     page.append(box);
   }
+  // A lesson with one earned pass has mastered_at still NULL, so none of the
+  // three branches above are true and this page used to say nothing whatever
+  // about the most time-sensitive fact the book holds: that this lesson has an
+  // appointment. `faded`/`ever_proven` are excluded deliberately — a lapsed
+  // node's lifetime pass count is stale evidence, and reading it back as
+  // progress toward a seal would promise a gate that has re-shut.
+  else if (n.mastery_detail && !n.faded && !n.ever_proven
+           && (n.mastery_detail.passes | 0) >= 1
+           && (n.mastery_detail.passes | 0) < ((n.opens_chapter && n.passes_needed) || n.mastery_detail.passes_needed || 2)) {
+    const md = n.mastery_detail;
+    const need = (n.opens_chapter && n.passes_needed) || md.passes_needed || 2;
+    // mastery_detail nulls ready_at once it has elapsed, which means ready NOW.
+    const ready = readyNow(md.ready_at);
+    page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
+      el('b', {}, '◐ You started this one — ' + md.passes + ' of ' + need + ' passes'),
+      el('p', { class: 'muted', style: 'margin:6px 0 0' }, ready
+        ? 'The waiting is over: pass it once more and it is sealed.'
+        : 'The two passes have to sit a little apart, so the book can tell it stuck. This one can be sealed after ' + whenReady(md.ready_at) + '.')));
+  }
 
   // Child-voiced mini-lesson for the youngest readers.
   if (n.kid_text && S.stage <= 1) {
@@ -1012,20 +1497,29 @@ async function renderNode(page, nodeId) {
       glyph('story', 15), ' Proving this opens “' + n.opens_chapter.title + '” — chapter ' + n.opens_chapter.number + ' of your story.'));
   }
   const canAssess = n.unlocked || n.mastered;
-  const lockedTitle = canAssess ? null : 'Unlock this lesson before taking its quiz or practice.';
+  // Why the quiz is dead used to live in a native `title=` on a *disabled*
+  // button — which most browsers refuse to show at all, and no touch device
+  // has ever shown. The only explanation the reader could get was one they
+  // could not get. It is a sentence on the page now, in the book's hand.
   const actions = el('div', { style: 'display:flex;gap:12px;flex-wrap:wrap;margin-top:26px' },
-    btn({ class: 'btn gold', disabled: canAssess ? null : '', title: lockedTitle,
+    btn({ class: 'btn gold', disabled: canAssess ? null : '',
       onclick: canAssess ? () => startQuiz(nodeId) : null }, glyph('quill', 16), ' Take the quiz'),
-    n.practice ? btn({ class: 'btn', disabled: canAssess ? null : '', title: lockedTitle,
+    n.practice ? btn({ class: 'btn', disabled: canAssess ? null : '',
       onclick: canAssess ? () => startPractice(nodeId, n.practice, n.stage) : null }, glyph('target', 16), ' Practice') : null,
     n.articles && n.articles.length ? btn({ class: 'btn ghost', onclick: () => go('reader', { title: n.articles[0], node: nodeId }) }, glyph('story', 16), ' Start reading') : null);
   page.append(actions);
+  if (!canAssess) page.append(el('p', { class: 'muted locked-why', style: 'margin-top:10px' },
+    glyph('lock', 14), ' Questions wait until this lesson is open to you. You are welcome to read it meanwhile — the book will not set questions on what it has not yet taught you.'));
 }
 
 /* ---------------- Reader + tutor ---------------- */
 async function renderReader(page, arg) {
   const title = typeof arg === 'string' ? arg : arg.title;
   const nodeId = typeof arg === 'object' ? arg.node : null;
+  // Claim the scroll memory for this article before the first scroll event can
+  // fire, or the outgoing article's remembered place is overwritten with this
+  // one's — which is precisely the case the memory exists to serve.
+  S.readerTitle = title;
   // "Check yourself" stood here for articles with no curriculum node. It was
   // machine-made cloze over raw article prose, hand-audited at 55% defective,
   // and is withdrawn: the book does not ask questions no person wrote. Read
@@ -1033,10 +1527,10 @@ async function renderReader(page, arg) {
   const bar = el('div', { style: 'display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap' },
     btn({ class: 'btn ghost small', onclick: () => history.length > 1 ? history.back() : go(nodeId ? 'node' : 'today', nodeId) }, '← Back'),
     nodeId ? btn({ class: 'btn gold small', onclick: () => startQuiz(nodeId) }, glyph('quill', 14), ' Quiz me on this') : null,
-    btn({ class: 'btn small', onclick: () => speakArticle() }, glyph('speak', 16), ' Read aloud'));
+    readAloudControls());
   page.append(bar);
   const layout = el('div', { id: 'reader-layout' });
-  const art = el('article', { id: 'article', tabindex: '-1' }); art.append(skeleton(7));
+  const art = el('article', { id: 'article', tabindex: '-1' }); art.append(skeleton(7, title));
   layout.append(art, buildTutor(title));
   page.append(layout);
   try {
@@ -1049,11 +1543,321 @@ async function renderReader(page, arg) {
       link.addEventListener('click', goLink);
       link.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') goLink(e); });
     });
-    const badge = a.source === 'zim' ? 'from your shelf' : a.source === 'cache' ? 'from your library' : 'from Wikipedia (live)';
-    art.append(el('p', { class: 'muted', style: 'margin-top:30px;border-top:1px solid var(--rule);padding-top:10px' }, '✦ ' + badge + (a.simple ? ' · Simple English' : '')));
+    attachPictureHandlers(art);
+    // Where the page came from, said as a book says it. "(live)" is a word
+    // about wires; "copied in from Wikipedia as you turned to it" is the same
+    // fact, keeps the attribution Wikipedia is owed, and is a sentence.
+    const badge = a.source === 'zim' ? 'from your shelf' : a.source === 'cache' ? 'from your library' : 'copied in from Wikipedia as you turned to it';
+    // .reader-source: the book's own footnote about where the page came from,
+    // not a sentence of the article. articleBlocks skips it, so read-aloud does
+    // not end a twenty-minute reading with "from your shelf".
+    art.append(el('p', { class: 'muted reader-source', style: 'margin-top:30px;border-top:1px solid var(--rule);padding-top:10px' }, '✦ ' + badge + (a.simple ? ' · Simple English' : '')));
+    // Back to where the eye was, once the article has been laid out. This is
+    // safe to do in a single frame because fix_img stamps an intrinsic width
+    // and height on every image (render.py), so nothing reflows underneath the
+    // reader afterwards. A first visit remembers 0, which is also the right
+    // answer: a hash change to a fragment that names no element leaves the
+    // window scrolled exactly where the previous page left it.
+    const want = readerScroll.get(title) || 0;
+    requestAnimationFrame(() => {
+      const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      window.scrollTo(0, Math.min(want, max));
+    });
   } catch (e) { art.innerHTML = ''; art.append(errCard(e, () => renderReader(page, arg))); }
 }
-function speakArticle() { const t = $('#article'); if (t) speakText(t.textContent.slice(0, 3500)); }
+/* ---------------- articleBlocks(): what the article actually says ----------------
+   SHARED HELPER. Written here for read-aloud; its second caller is the tutor's
+   section-grounding, which has to agree with read-aloud about what "the
+   article" is or the panel answers about text the reader was never shown.
+
+   CONTRACT
+     articleBlocks(root)  ->  [{ el: Element, text: string }, ...]
+
+       root    optional Element to read. Defaults to #article; if that is not
+               on the page the result is [] — never null, never a throw.
+       order   document order.
+       el      the live element, so a caller may mark it (read-aloud toggles
+               .reading-now on it), measure it against the viewport, or scroll
+               to it.
+       text    its innerText: whitespace collapsed, citation markers removed,
+               trimmed. Never the empty string — empty blocks are dropped, so
+               `.length` is a true count of how much there is to read.
+
+   WHAT COUNTS AS A BLOCK — h1, h2, h3, p, li: the tags render.py's allowlist
+   leaves running prose in. h1 is the article's own title, which is the right
+   first thing to say aloud.
+
+   WHAT IS DROPPED, and why each one earns its place:
+     - innerText, never textContent. textContent ignores CSS, which is why the
+       old read-aloud spoke everything the rules at styles.css:490 hide.
+     - offsetParent === null: anything not rendered at all, the inside of a
+       folded navbox included.
+     - Navigation dressed as prose — the infobox, the topic sidebar, the footer
+       navboxes, the contents list. This is the ninety seconds of the Classical
+       mechanics sidebar that used to come before the first sentence.
+     - Banners addressed to editors rather than readers: "History of art" opened
+       by announcing "This article may be too long to read and navigate
+       comfortably".
+     - Citation apparatus: the reference list, and the [17] markers inside a
+       sentence, which are read out as bare numbers mid-clause.
+     - Tables. _wrap_tables puts every one inside .table-scroll, and a table
+       read as a flat stream of cells is noise to both callers.
+     - A block containing another block (li > p, nested lists) is kept whole and
+       its descendants dropped, so no sentence is delivered twice. */
+const ARTICLE_BLOCK_TAGS = 'h1, h2, h3, p, li';
+const ARTICLE_SKIP = [
+  '.navbar', '.mw-editsection', '.mw-empty-elt', '.mw-jump-link',
+  '.infobox', '.sidebar', '.vertical-navbox', '.navbox', '.toc', '#toc', '.gallery',
+  '.ambox', '.mbox', '.ombox', '.tmbox', '.metadata', '.noprint', '.hatnote',
+  '.reflist', '.refbegin', '.mw-references-columns', '.citation-comment', 'ol.references',
+  'table', '.table-scroll', 'details.primer-navbox',
+  '.reader-source',   // the book's own "from your shelf" footer, not the article
+].join(',');
+const CITATION_MARK = /\[\s*(?:\d+|[a-z]|note \d+|citation needed|edit|clarify|who\?|when\?)\s*\]/gi;
+function articleBlocks(root) {
+  const host = root || $('#article');
+  if (!host) return [];
+  const out = [];
+  let kept = null;   // candidates arrive in document order, so an ancestor is
+                     // always the most recently kept element
+  host.querySelectorAll(ARTICLE_BLOCK_TAGS).forEach(e => {
+    if (kept && kept.contains(e)) return;
+    if (e.closest(ARTICLE_SKIP)) return;
+    if (e.offsetParent === null) return;
+    const text = String(e.innerText || '').replace(CITATION_MARK, '').replace(/\s+/g, ' ').trim();
+    if (!text) return;
+    kept = e;
+    out.push({ el: e, text: text });
+  });
+  return out;
+}
+
+/* Blocks in, utterances out: about SPEAK_CHUNK characters each, never cut
+   mid-sentence, each carrying the elements it is reading so the page can mark
+   them. Short blocks merge so a bulleted list is not forty separate utterances
+   with a pause between each. */
+function speechChunks(blocks) {
+  const out = [];
+  let cur = null;
+  const flush = () => { if (cur) out.push(cur); cur = null; };
+  for (const b of blocks) {
+    const pieces = splitForSpeech(b.text);
+    if (!pieces.length) continue;
+    if (pieces.length > 1) {   // one block longer than a chunk, split on its own
+      flush();
+      pieces.forEach(t => out.push({ text: t, els: [b.el] }));
+      continue;
+    }
+    const t = pieces[0];
+    if (cur && cur.text.length + 2 + t.length <= SPEAK_CHUNK) {
+      // A heading runs straight into the paragraph beneath it unless the join
+      // closes the clause: "Early life. In 1879…", not "Early life In 1879…".
+      cur.text += (/[.!?…:;,]$/.test(cur.text) ? ' ' : '. ') + t;
+      cur.els.push(b.el);
+    } else { flush(); cur = { text: t, els: [b.el] }; }
+  }
+  flush();
+  return out;
+}
+
+/* ---------------- read-aloud that reads the article ----------------
+   What this was: speakText($('#article').textContent.slice(0, 3500)) —
+   truncated once here and again inside the utterance. textContent ignores CSS,
+   so the book read every maintenance banner, every navbox and the whole topic
+   sidebar before reaching the first sentence, then stopped mid-clause at
+   character 3,500 (about 5% of a real article) with no way to resume.
+
+   For a reader at stage 0-1 this control is not a convenience, it is the only
+   route into the page, so it is now a transport rather than a fire-and-forget
+   button: articleBlocks decides what the article says, the queue in `speech`
+   chains it to the end, the block being read is marked so a finger can follow
+   it down the page, and the row carries Pause/Resume and Stop (WCAG 1.4.2 — a
+   twenty-minute read must be stoppable without leaving the page). */
+function inViewport(e) {
+  const r = e.getBoundingClientRect();
+  return r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight);
+}
+function readAloudControls() {
+  const reduce = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
+  // Mounted empty and written into later: a live region that arrives with its
+  // text already inside it is announced unreliably, or not at all.
+  const status = el('span', { class: 'read-status', role: 'status', 'aria-live': 'polite' });
+  const play = btn({ class: 'btn small' });
+  const stop = btn({ class: 'btn ghost small hidden', onclick: () => { stopSpeaking(); status.textContent = 'Stopped.'; } }, 'Stop');
+  let reading = false, paused = false;
+  let follow = true, autoScrollUntil = 0, onScroll = null, here = null;
+
+  function label(...kids) { play.replaceChildren(...kids.filter(k => k != null)); }
+  function setIdle(msg) {
+    reading = false; paused = false;
+    label(glyph('speak', 16), ' Read aloud');
+    stop.classList.add('hidden');
+    // Stop is about to vanish from under whoever pressed it; hiding a focused
+    // element drops focus to <body>, which on this page is the top of an
+    // eight-thousand-word article.
+    if (document.activeElement === stop) play.focus();
+    if (onScroll) { window.removeEventListener('scroll', onScroll); onScroll = null; }
+    here = null;
+    status.textContent = msg || '';
+  }
+  function unmark() { document.querySelectorAll('#article .reading-now').forEach(e => e.classList.remove('reading-now')); }
+
+  function begin() {
+    const blocks = articleBlocks();
+    if (!blocks.length) { status.textContent = 'There is nothing to read on this page yet.'; return; }
+    // Start where the reader is looking rather than at the title. They may have
+    // scrolled to a section, or been put back at their remembered place by the
+    // scroll memory — either way, jumping to the top of an eight-thousand-word
+    // article to begin reading is not what the button was pressed for.
+    let from = 0;
+    if (docScrollTop() > 40) {
+      const at = blocks.findIndex(b => b.el.getBoundingClientRect().bottom > 0);
+      if (at > 0) from = at;
+    }
+    const parts = speechChunks(blocks.slice(from));
+    follow = true; here = null;
+    speakParts(parts.map(c => c.text), {
+      onChunk: k => {
+        unmark();
+        parts[k].els.forEach(e => e.classList.add('reading-now'));
+        here = parts[k].els[0];
+        if (follow && here) {
+          // Our own smooth scroll fires scroll events for the better part of a
+          // second; without this window every read would decide on its first
+          // chunk that the reader had taken the page.
+          autoScrollUntil = Date.now() + (reduce() ? 150 : 900);
+          try { here.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth', block: 'center' }); }
+          catch (e) { here.scrollIntoView(); }
+        }
+      },
+      onEnd: () => { unmark(); setIdle('Finished reading.'); },
+    });
+    // Registered after speakParts, which cleared the previous read's marks and
+    // with them any restorer left over from it.
+    _voiceRestore = () => { unmark(); setIdle(''); };
+    reading = true; paused = false;
+    label('Pause');
+    stop.classList.remove('hidden');
+    status.textContent = 'Reading aloud.';
+    onScroll = () => {
+      if (Date.now() < autoScrollUntil) return;
+      // The reader has taken the page: stop dragging it out from under them.
+      // And if they scroll back to where the voice is, they have asked to be
+      // followed again.
+      follow = !!(here && inViewport(here));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+  play.addEventListener('click', () => {
+    if (!reading) { begin(); return; }
+    try {
+      if (paused) { speechSynthesis.resume(); paused = false; label('Pause'); status.textContent = 'Reading aloud.'; }
+      else { speechSynthesis.pause(); paused = true; label('Resume'); status.textContent = 'Paused.'; }
+    } catch (e) { stopSpeaking(); }
+  });
+  setIdle('');
+  return el('span', { class: 'read-aloud' }, play, stop, status);
+}
+
+/* ---------------- the picture is not a trap ----------------
+   render.py rewrites every link it cannot resolve to an article — File:,
+   Category:, Special:, citation anchors, and the wrapper around very nearly
+   every image — into a live `<a href="#">` with no handler at all (see its
+   _SanitizedTagPass). Touching one emptied the hash, which parseHash resolves
+   to `today`, which wipes the page. So the most instinctive gesture on the
+   reading page deleted the page: `History of art` alone carries 470 such
+   anchors, 316 of them wrapped around its pictures.
+
+   For a pre-reader the images ARE the article, so the gesture is not a misfire
+   to be swallowed — it is the reader asking for the picture. One delegated
+   listener catches it and answers with the picture at full size and its
+   caption read aloud. The a.primer-wikilink handlers are left exactly as they
+   are; this runs behind them. */
+function attachPictureHandlers(art) {
+  // A "dead" anchor is one that goes nowhere: no href, or a bare fragment.
+  // Real external links (render.py keeps those, with target=_blank) are none
+  // of our business and must keep working.
+  const dead = a => {
+    if (a.classList.contains('primer-wikilink')) return false;
+    const href = a.getAttribute('href') || '';
+    return !href || href.startsWith('#');
+  };
+  const pictureIn = (target, a) =>
+    (target && target.tagName === 'IMG') ? target : (a ? a.querySelector('img') : null);
+  art.addEventListener('click', e => {
+    const a = e.target.closest ? e.target.closest('a') : null;
+    if (a && !dead(a)) return;
+    const img = pictureIn(e.target, a);
+    if (a) e.preventDefault();          // the ejection, stopped
+    if (img) openLightbox(img, a || img);
+  });
+  art.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+    const a = e.target.closest ? e.target.closest('a') : null;
+    if (a && !dead(a)) return;
+    // Enter on an anchor already fires a click, so answering it here as well
+    // would open the picture twice. Space on an anchor scrolls instead of
+    // activating, and a bare <img> answers to neither key on its own, so both
+    // are needed everywhere except that one case.
+    if (a && e.key === 'Enter') return;
+    const img = pictureIn(e.target, a);
+    if (!img) return;
+    e.preventDefault();
+    openLightbox(img, a || img);
+  });
+  // A picture with no anchor around it is not a trap, but a five-year-old will
+  // touch it just the same — and an <img> is not focusable, so without this it
+  // would be reachable by finger and by nothing else.
+  art.querySelectorAll('img').forEach(im => {
+    if (im.closest('a')) return;
+    im.setAttribute('tabindex', '0');
+    im.setAttribute('role', 'button');
+    if (!im.getAttribute('alt')) im.setAttribute('aria-label', 'Picture — open it larger');
+    im.classList.add('tappable');
+  });
+}
+function openLightbox(img, opener) {
+  // The caption a sighted reader can see belongs to the figure, not to the
+  // <img>; alt text is the fallback, and a decorative image may carry neither.
+  const fig = img.closest('figure, .thumb, .thumbinner, .gallerybox, .infobox');
+  const capEl = fig ? fig.querySelector('figcaption, .thumbcaption') : null;
+  const caption = ((capEl ? capEl.textContent : '') || img.getAttribute('alt') || '').trim();
+  // openModal restores focus to whatever held it when the dialog opened, and a
+  // tap leaves that on <body> — which would strand a keyboard reader at the top
+  // of an eight-thousand-word article on Escape. Give the picture focus first
+  // and Escape puts them back on the picture they opened.
+  if (opener && opener.focus) {
+    try { opener.focus({ preventScroll: true }); } catch (e) { opener.focus(); }
+  }
+  openModal({
+    label: caption ? 'Picture — ' + caption : 'Picture',
+    dismissable: true, dismissLabel: 'Close picture',
+    build: (modal, close) => {
+      modal.classList.add('wide');
+      const box = el('div', { class: 'lightbox' });
+      // Wikipedia ships most of its diagrams as black line-work marked
+      // `skin-invert` and leaves the inversion to the skin. Both filter rules
+      // are scoped to #article, so a diagram lifted out of the article and into
+      // the overlay would go back to being black ink on the night page —
+      // present, and invisible. The class travels with the picture.
+      const big = el('img', { src: img.currentSrc || img.getAttribute('src') || '',
+        alt: img.getAttribute('alt') || caption || '' });
+      if (img.classList.contains('skin-invert')) big.classList.add('skin-invert');
+      box.append(big);
+      if (caption) {
+        box.append(el('div', { class: 'cap' },
+          speakBtn(() => caption, 'Read the caption aloud'),
+          el('p', {}, caption)));
+      }
+      box.append(btn({ class: 'btn gold', style: 'margin-top:18px', onclick: close }, 'Close the picture'));
+      modal.append(box);
+      // The pre-reader hears what the picture is without having to find the
+      // speaker first. maybeSpeak, not speakText: a reader who turned the
+      // voice off is not spoken to.
+      if (caption) maybeSpeak(caption);
+    }
+  });
+}
 
 function buildTutor(title) {
   const log = el('div', { id: 'tutor-log', 'aria-live': 'polite', 'aria-label': 'Conversation with the book' });
@@ -1062,10 +1866,15 @@ function buildTutor(title) {
   const panel = el('section', { id: 'tutor', 'aria-label': 'Ask the Book' },
     el('div', { class: 'th' }, el('span', { class: 'mark', 'aria-hidden': 'true' }, glyph('spark', 18)), el('b', {}, 'Ask the Book'),
       el('small', {}, S.state.tutor_engine === 'claude' ? 'Your patient tutor is listening' : 'Your Socratic guide'),
-      // Honest about the wire: when the Claude engine answers, questions
-      // leave the device. Said once, quietly, where the reader asks them.
+      // Honest about the wire: when the Claude engine answers, questions leave
+      // the device. Said once, quietly, where the reader asks them — and said
+      // ITEM BY ITEM, because "nothing else leaves the book" was already not
+      // quite true (the reading level travels, as the tutor's register) and
+      // would become plainly false the moment the reader's name did. A
+      // disclosure is a promise about a wire; it has to name what is on it, or
+      // every later thing put on that wire is a promise quietly broken.
       S.state.tutor_engine === 'claude'
-        ? el('div', { class: 'tutor-disclosure' }, 'Questions travel to Claude (Anthropic) to be answered — nothing else leaves the book. ',
+        ? el('div', { class: 'tutor-disclosure' }, 'Your question travels to Claude (Anthropic) to be answered, and takes with it this conversation, the title and a passage of what you are reading, your first name, and your reading level. Nothing else leaves the book — not your lessons, not your streak, not anything else it has written down about you. ',
             btn({ class: 'unstyled tutor-optout', onclick: async function () {
               // One tap keeps every question local: flips the reader setting
               // the server honors in tutor.ask(allow_remote=False).
@@ -1152,11 +1961,31 @@ function spinnerOverlay(msg) {
 
 function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, token = '' }) {
   const young = (stage != null ? stage : S.stage) <= 1;
+  // The paper's own clock, started when it is handed over. See the note on
+  // the deck's: untrusted, non-load-bearing, and the only reason the book can
+  // ever say "about four minutes" and mean this reader's four minutes.
+  const startedAt = Date.now();
   let i = 0, correct = 0; const answers = [], confidences = [], oks = []; let confidence = null;
+  // Ceremonies queue rather than collide. A stage ascension used to be fired on
+  // a bare 900ms timer; with a page turn now also on offer in the same splash,
+  // that timer could drop a second dialog on top of the chapter the reader had
+  // just opened — and three overlapping animations is the one shape the
+  // reduced-motion path cannot express either. So the ascension is HELD while
+  // the reader takes the page turn, and released when they are done with it —
+  // or when they close the splash having chosen not to.
+  let heldAscension = null, turningPage = false, splashClosed = false;
+  function releaseAscension(delay) {
+    if (!heldAscension) return;
+    const a = heldAscension; heldAscension = null;
+    setTimeout(() => stageAscension(a), delay);
+  }
   openModal({
     label: (String(title).toLowerCase().includes(String(kind).toLowerCase())
             ? title : title + ' ' + kind), dismissable: true, dismissLabel: 'Close quiz',
-    build: (modal, close) => { drawQuestion(modal, close); }
+    build: (modal, close) => { drawQuestion(modal, close); },
+    // Closing the splash without turning the page must not cost the reader the
+    // promotion ceremony altogether — it is a real change to their book.
+    onClose: () => { splashClosed = true; if (!turningPage) releaseAscension(300); },
   });
 
   function normalize(s) { return String(s).trim().toLowerCase().replace(/\s+/g, ''); }
@@ -1253,8 +2082,43 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
 
     if (q.kind === 'choice') {
       const boxEl = el('div', { class: 'q-choices', role: 'group', 'aria-label': 'Answers' });
+      /* Committing an answer is irreversible and expensive: pick() posts to
+         /api/quiz/check, commit_answer locks the item, and a wrong one calls
+         burn_item, which removes it from this node's mastery evidence for
+         seven days. On a 58px chip under a five-year-old's thumb that was one
+         unconfirmed touch. Below stage 2 the first tap now only *chooses* — it
+         echoes the choice aloud and lights a large Check button — and the
+         reader commits when they mean to. Stage 2 and up keep one-tap, which
+         is the rhythm an older reader already expects. Nothing about scoring,
+         the sitting token, or when the answer is graded changes: only when the
+         POST happens. */
+      const twoBeat = S.stage <= 1;
+      let picked = null, pickedVal = null;
+      const checkIt = twoBeat ? btn({ class: 'btn gold check-it', disabled: '',
+        style: 'width:100%;margin-top:14px',
+        onclick: () => {
+          if (!picked) return;
+          checkIt.disabled = true;
+          // Drop the chosen mark before the verdict marks land, or the button
+          // ends up wearing both "✓ Chosen" and "✗".
+          picked.classList.remove('selected');
+          pick(picked, pickedVal, q, boxEl, card, modal, close);
+        } }, glyph('known', 18), ' Check it') : null;
       q.choices.forEach(ch => {
-        const b = btn({ class: 'choice', onclick: () => { pick(b, ch, q, boxEl, card, modal, close); } }, ch);
+        const b = btn({ class: 'choice', onclick: () => {
+          if (!twoBeat) { pick(b, ch, q, boxEl, card, modal, close); return; }
+          // Choosing another before Check simply moves the selection.
+          boxEl.querySelectorAll('.choice').forEach(x => x.classList.remove('selected'));
+          b.classList.add('selected');
+          picked = b; pickedVal = ch;
+          checkIt.disabled = false;
+          // Deliberately not aria-pressed: mutually exclusive options announce
+          // as independent switches that way. The "✓ Chosen" mark rides inside
+          // the button, so it travels in the accessible name, and the live
+          // region says the same thing out loud for a reader who is listening.
+          maybeSpeak(ch);
+          tell(card, 'You chose ' + ch + '. Press “Check it” when you are ready.');
+        } }, ch, el('span', { class: 'sel-mark' }, '✓ Chosen'));
         b._value = ch;   // never re-read textContent
         if (q.speak_choices) {
           // The speaker sits beside the choice, not inside it: a button may not
@@ -1267,35 +2131,50 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       });
       if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
       card.append(boxEl);
+      if (checkIt) card.append(checkIt);
     } else if (q.kind === 'order') {
-      // Tap the items into sequence — a produced answer, not a recognised one.
+      /* Tap the items into sequence — a produced answer, not a recognised one.
+         Dropping the last chip used to submit the whole arrangement on the
+         spot: posted, locked by commit_answer, and a wrong order burned out of
+         this node's mastery evidence for seven days, all without the reader
+         ever saying they were done. It also left "↺ Start over" dead from the
+         exact moment it could first have been useful. Arranging and committing
+         are two beats now — and this restores a control the card was already
+         drawing rather than inventing one. Universal, every stage: nobody
+         benefits from having their last tap read as a final answer. */
       const chosen = [];
       const tray = el('div', { class: 'order-tray', role: 'group', 'aria-label': 'Tap in order' });
       const slot = el('div', { class: 'order-slot', 'aria-live': 'polite',
         'aria-label': 'Your order so far' });
+      const check = btn({ class: 'btn gold', disabled: '',
+        onclick: () => submitOrder(chosen, q, card, modal, close) }, 'Check');
+      const startOver = btn({ class: 'btn ghost small', onclick: () => {
+        chosen.length = 0; tray.querySelectorAll('button').forEach(b => b.disabled = false); redraw();
+        const first = tray.querySelector('.order-chip:not(:disabled)');
+        if (first) first.focus();
+      } }, '↺ Start over');
       const redraw = () => {
         slot.innerHTML = '';
         chosen.forEach(v => slot.append(el('span', { class: 'order-chip placed' }, v)));
         if (!chosen.length) slot.append(el('span', { class: 'muted' }, 'Tap them in order…'));
+        check.disabled = chosen.length !== q.items.length;
       };
       q.items.forEach(v => {
         const b = btn({ class: 'order-chip', onclick: () => {
           if (b.disabled) return;
           b.disabled = true; chosen.push(v); redraw();
-          if (chosen.length === q.items.length) { submitOrder(chosen, q, card, modal, close); return; }
-          // Disabling the chip we just used must not dump focus to <body>.
+          // Disabling the chip we just used must not dump focus to <body> —
+          // and when it was the last one there is no next chip, so the place
+          // to land is the control that finishes the job.
           const nxt = tray.querySelector('.order-chip:not(:disabled)');
-          if (nxt) nxt.focus();
+          (nxt || check).focus();
         } }, v);
         tray.append(b);
       });
       // Mount the live region first, then fill it. Calling redraw() before the
       // append meant the slot arrived in the document already containing its
       // instruction — announced once on insert, and unreliably thereafter.
-      card.append(slot, tray,
-        btn({ class: 'btn ghost small', style: 'margin-top:10px', onclick: () => {
-          chosen.length = 0; tray.querySelectorAll('button').forEach(b => b.disabled = false); redraw();
-        } }, '↺ Start over'));
+      card.append(slot, tray, el('div', { class: 'order-actions' }, check, startOver));
       redraw();
     } else if (q.kind === 'short') {
       // Constructed response: the reader must produce the idea, not spot it.
@@ -1305,6 +2184,60 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
       card.append(ta, btn({ class: 'btn gold', style: 'margin-top:10px', onclick: () => submitShort(ta, q, card, modal, close) }, 'Check my answer'));
       setTimeout(() => ta.focus(), 40);
+    } else if (q.kind === 'tally') {
+      /* Count by touching — the fourth answering gesture, and the first new
+         thing the reader's hands have learned to do in the whole assessment
+         path. Every object is a real <button>, so finger and keyboard reach it
+         by the same route and neither needs a special case. Pressing one
+         catches it; the running total goes to a live region of its own — never
+         the buttons re-announcing themselves — and is said aloud for a reader
+         who cannot yet read it. One large button commits the count.
+
+         The committed answer is a number string, so _numeric_equal grades it
+         with no scoring change at all. Until this branch existed a tally item
+         fell through to the numeric text input below: a five-year-old asked to
+         type the numeral she is being tested on recognising. `answer` is
+         String(items.length) — there is no separate count field, and the
+         length must never reach the accessible name of a token or the paper
+         gives itself away. */
+      const items = Array.isArray(q.items) ? q.items : [];
+      const counter = el('div', { class: 'tally-count', role: 'status', 'aria-live': 'polite' });
+      const tray = el('div', { class: 'tally-tray', role: 'group', 'aria-label': 'Touch each one to count it' });
+      const tokens = [];
+      const tallied = () => tokens.filter(t => t.classList.contains('caught')).length;
+      const refresh = spoken => {
+        const n = tallied();
+        counter.textContent = n === 0 ? 'None counted yet' : n + ' counted';
+        // maybeSpeak, not speakText: the book is talking without being asked
+        // to, and a reader who turned the voice off is not spoken to.
+        if (spoken) maybeSpeak(String(n));
+      };
+      items.forEach(it => {
+        const t = btn({ class: 'tally-token', 'aria-pressed': 'false',
+          // Every token carries the same name on purpose. A positional one
+          // ("item 7 of 9") would read the answer out to the reader who most
+          // needs the count to be their own work; aria-pressed is what tells
+          // the caught ones from the rest.
+          'aria-label': 'One to count',
+          onclick: () => {
+            // Pressing a caught one again lets it go. A miscount has to be
+            // undoable, or the only way back is to abandon the question.
+            const on = !t.classList.contains('caught');
+            t.classList.toggle('caught', on);
+            t.setAttribute('aria-pressed', on ? 'true' : 'false');
+            refresh(true);
+          } },
+          el('span', { class: 'tk-face', 'aria-hidden': 'true' }, String(it)),
+          el('span', { class: 'tk-mark', 'aria-hidden': 'true' }, '✓'));
+        tokens.push(t); tray.append(t);
+      });
+      if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
+      // Mount the live region, then fill it: one that arrives with its text
+      // already inside is announced unreliably, or not at all.
+      card.append(counter, tray,
+        btn({ class: 'btn gold tally-commit', onclick: () => submitTally(tokens, q, card, modal, close) },
+            'That is how many'));
+      refresh(false);
     } else {
       const inp = el('input', { type: 'text', inputmode: 'decimal', 'aria-label': 'Your answer', placeholder: 'Your answer', style: 'padding:12px;font-size:20px;text-align:center;width:60%', onkeydown: e => { if (e.key === 'Enter') submitNum(inp, q, card, modal, close); } });
       if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
@@ -1332,7 +2265,9 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, ch, card, modal, close);
   }
   async function submitOrder(chosen, q, card, modal, close) {
-    card.querySelectorAll('.order-chip').forEach(c => c.disabled = true);
+    // Check and Start over go down with the chips: once the answer is on its
+    // way to be graded, neither of them has anything left to do.
+    card.querySelectorAll('.order-chip, .order-actions button').forEach(c => c.disabled = true);
     holdFocus(card, 'Checking…');
     const m = await mark(q, chosen.join(' '));
     card.querySelector('.order-slot').classList.add(m.correct ? 'correct' : 'wrong');
@@ -1340,6 +2275,28 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     tell(card, m.correct ? '✓ That is the right order.'
                          : 'Not quite — the right order is: ' + m.answer);
     reveal(m.correct, { ...q, answer: m.answer }, chosen.join(' '), card, modal, close);
+  }
+
+  async function submitTally(tokens, q, card, modal, close) {
+    const n = tokens.filter(t => t.classList.contains('caught')).length;
+    // Committing zero is a wrong answer that burns the item out of this node's
+    // mastery evidence for seven days. The other produced-answer types nudge
+    // rather than post an empty one; so does this.
+    if (!n) {
+      nudge(card, 'Touch each one first — then press the button.');
+      if (tokens.length) tokens[0].focus();
+      return;
+    }
+    tokens.forEach(t => t.disabled = true);
+    card.querySelectorAll('.tally-commit').forEach(b => b.disabled = true);
+    holdFocus(card, 'Checking…');
+    const m = await mark(q, String(n));
+    const tray = card.querySelector('.tally-tray');
+    if (tray) tray.classList.add(m.correct ? 'correct' : 'wrong');
+    // Never colour-only: the verdict is always stated in words as well.
+    tell(card, m.correct ? '✓ Correct — there are ' + n + '.'
+                         : (m.answer ? 'Not quite — there are ' + m.answer + '.' : 'Not quite.'));
+    reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, String(n), card, modal, close);
   }
 
   async function submitShort(ta, q, card, modal, close) {
@@ -1394,6 +2351,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       ? region.textContent + ' ' + msg : msg;
   }
   function reveal(ok, q, given, card, modal, close) {
+    haptic(ok ? 'ok' : 'no');
     if (ok) correct++;
     oks.push(!!ok);
     // Always submit the learner's real response. Echoing the canonical key on a
@@ -1437,25 +2395,56 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, stars));
     if (!young) splash.append(el('div', { class: 'score' }, Math.round(score * 100) + '%'));
     splash.append(el('p', {}, correct + ' of ' + questions.length + ' correct.'));
-    let msg = '', msgTone = 'neutral', ascension = null, xp = 0, calibration = null;
+    let msg = '', msgTone = 'neutral', ascension = null, xp = 0, calibration = null, storyUnlocked = null;
     if (nodeId && !isRetry) {
       // A retry of only the missed items must not be scored as a fresh
       // attempt — otherwise failing then re-answering 5 of 6 posts 100%.
       try {
         if (kind === 'quiz') {
-          const r = await api.post('/api/quiz/submit', { node_id: nodeId, answers, make_cards: true, confidence: confidences, token });
+          const r = await api.post('/api/quiz/submit', { node_id: nodeId, answers, make_cards: true, confidence: confidences, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.mastery.xp_gained || 0; ascension = r.ascension; calibration = r.calibration;
+          // null unless THIS lesson is the one the open chapter was waiting for.
+          storyUnlocked = r.story_unlocked || null;
           if (r.mastery.newly_mastered) { msg = r.mastery.proven
             ? '✦ Mastered! You have proved this one — it is now truly yours.'
             : '✦ Mastered! This lesson is now complete.'; msgTone = 'good'; }
           else if (r.mastery.proven) msg = 'Reviewed — already proved.';
           else if (r.mastery.mastered) msg = 'The book assumed you knew this. Pass it once more, a day or two apart, to prove it.';
-          else if (r.mastery.lost_mastery) { msg = 'This one has slipped — master it again to lock it back in.'; msgTone = 'warn'; }
-          else msg = 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery' + (r.mastery.level >= 0.8 ? ' — come back in a day or two to lock it in.' : '.');
+          // The only loss-framed sentence in the product, and it fires at the
+          // moment a reader is least able to hear it. Slipping is what memory
+          // does; the book knows that and built a whole deck around it.
+          else if (r.mastery.lost_mastery) { msg = 'This one has drifted out of reach for now — which is what memory does, and why the book keeps a deck. One more good pass brings it back.'; msgTone = 'warn'; }
+          else {
+            // "Come back in a day or two" was a guess, and on a young reader's
+            // six-hour proving window it was the wrong guess by a day and a
+            // half of credit they had already earned. record_attempt now
+            // returns the exact moment, and — unlike mastery_detail — it does
+            // not null an elapsed one, so a past timestamp means ready NOW and
+            // is never printed as a date that has gone by.
+            // The splash above correctly hides its percentage from a young
+            // reader (`if (!young)`) and this line, three branches later, printed
+            // one anyway. (Only printed — a verification pass confirmed no speech
+            // path ever carried this string.) A four-year-old still has no use
+            // for eighty per cent on screen.
+            // Deliberately no terminal punctuation on either branch: the
+            // appointment clause below joins onto this with an em dash, and
+            // the first draft of the young wording ended in a full stop, so
+            // the book said "You are getting there. — you have proved it
+            // once." Caught in the browser, on the very first failed quiz.
+            msg = young
+              ? (r.mastery.level >= 0.67 ? 'Nearly there'
+                 : r.mastery.level >= 0.34 ? 'You are getting there'
+                 : 'A good start, and the book has written it down')
+              : 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery';
+            const ra = r.mastery.ready_at;
+            if (ra == null) msg += '.';
+            else if (readyNow(ra)) msg += ' — you have proved it once already, so the next pass seals it.';
+            else msg += ' — you have proved it once. Pass it again after ' + whenReady(ra) + ' and it is sealed.';
+          }
           if (r.cards_added) msg += ' ' + r.cards_added + ' review card' + (r.cards_added > 1 ? 's' : '') + ' added.';
           if (r.mastery.newly_mastered) celebrate();
         } else {
-          const r = await api.post('/api/attempt', { node_id: nodeId, answers, token });
+          const r = await api.post('/api/attempt', { node_id: nodeId, answers, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.xp_gained || 0; ascension = r.ascension;
           msg = 'Set down in the Book.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
           if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
@@ -1466,7 +2455,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     } else if (isRetry) {
       msg = 'Good — those are the ones that needed another look.';
     }
-    if (xp) { splash.append(el('p', { style: 'color:var(--gold-ink);font-weight:700;font-size:18px' }, '+' + xp + ' XP')); flyXP(xp); }
+    if (xp) { splash.append(el('p', { style: 'color:var(--gold-ink);font-weight:700;font-size:18px' }, '+' + xp + ' growth')); flyXP(xp); }
     if (calibration && calibration.total) {
       let cal;
       if (calibration.overconfident > calibration.total / 3) cal = 'You were sure on ' + calibration.overconfident + ' you got wrong — worth a second look.';
@@ -1482,13 +2471,46 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // (a fuzzy match, not an exact one) as if they'd been missed.
     const missedIdx = oks.map((ok, k) => ok ? -1 : k).filter(k => k >= 0);
     const controls = el('div', { style: 'display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap' });
+    // The page turns where it was earned — but the READER turns it. Advancing
+    // is a write, and a chapter that opens itself is a chapter nobody chose to
+    // read; openStory already owns the POST, the ceremony and the XP fly-up.
+    if (storyUnlocked) {
+      splash.append(el('p', { class: 'page-turned' },
+        '✦ “' + storyUnlocked.title + '” — chapter ' + storyUnlocked.number + ' of your story is open.'));
+      controls.append(btn({ class: 'btn gold page-turn', onclick: () => {
+        turningPage = true;
+        close();
+        openStory(storyUnlocked.chapter, true, null,
+          () => { turningPage = false; releaseAscension(900); });
+      } }, glyph('story', 16), ' The page has turned — read it'));
+    }
+    // The stakes were real and undisclosed: a missed question stops being
+    // evidence for this node for seven days. Told plainly, at the only moment
+    // it is true, and framed as what it actually is — the book declining to be
+    // convinced by a question it has just answered for you.
+    // Not for a pre-reader: it is a paragraph about evidence and proof, and
+    // the five-year-old it would be read aloud to has no use for it.
+    // Practice papers burn missed items exactly as quizzes do (the server
+    // spends the item either way) — a disclosure gated on quizzes alone left
+    // practice burning silently, which is the undisclosed-stakes bug again.
+    if (missedIdx.length && !isRetry && (kind === 'quiz' || kind === 'practice') && !young) {
+      splash.append(el('p', { class: 'muted burn-note' },
+        'The ' + plural(missedIdx.length, 'question') + ' you missed stepped aside for a week — once the book has shown you an answer, that question cannot be its proof that you know it. Every other question still counts, and so will that one, later.'));
+    }
     if (missedIdx.length) controls.append(btn({ class: 'btn', onclick: () => { const retry = missedIdx.map(k => questions[k]); close(); runQuestions({ title, questions: retry, nodeId, kind, stage, isRetry: true }); } }, '↻ Retry the ' + missedIdx.length + ' you missed'));
     controls.append(btn({ class: 'btn ghost', onclick: close }, 'Close'));
     if (nodeId) controls.append(btn({ class: 'btn gold', onclick: () => { close(); go('node', nodeId); } }, 'Back to lesson'));
     splash.append(controls);
     modal.append(splash);
     if (young) maybeSpeak('You got ' + correct + ' out of ' + questions.length + '. ' + (score >= 0.7 ? 'Wonderful work!' : 'Good try — let us practice a little more.'));
-    if (ascension) setTimeout(() => stageAscension(ascension), 900);
+    // Strictly sequenced: page turn first, stage ceremony behind it. With no
+    // page turn on offer this is the same 900ms beat it always was.
+    if (ascension) {
+      heldAscension = ascension;
+      // A reader who closed the splash while the submit was still in flight has
+      // no page turn left to wait behind — release rather than swallow it.
+      if (!storyUnlocked || splashClosed) releaseAscension(900);
+    }
     refreshStats();
   }
   function praise() { return ['Well reasoned.', 'Yes!', 'Exactly.', 'Good thinking.', 'That is it.'][Math.floor(Math.random() * 5)]; }
@@ -1500,12 +2522,16 @@ function flyXP(xp) {
   // Centering lives inside the keyframes: an animated transform replaces the
   // inline one wholesale, so an inline translateX(-50%) silently vanished on
   // the first frame and the badge sat half its width right of centre.
-  const p = el('div', { class: 'xp-pop' }, '+' + xp + ' XP');
+  const p = el('div', { class: 'xp-pop' }, '+' + xp + ' growth');
   document.body.append(p); setTimeout(() => p.remove(), 1500);
 }
 function celebrate() { confetti(); }
 function confetti() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Two ceremonies can now land within a second of each other (mastery, then
+  // the page it turned). One storm is a celebration; two overlaid is noise.
+  if (document.querySelector('.confetti')) return;
+  haptic('fanfare');  // behind both guards above: one storm, one shudder
   const box = el('div', { class: 'confetti', 'aria-hidden': 'true' });
   // Drawn from the live palette rather than a hardcoded list, so by day the
   // pieces are inked paper and by night they are phosphor sparks — the same
@@ -1571,45 +2597,183 @@ async function renderAtlas(page) {
   if (!g) return;
   S.curriculum = g;
   page.append(pagehead('The whole journey', 'The Atlas',
-    'Every field, from preschool roots to the graduate frontier. Golden tiles are open to you now; locked tiles show exactly what will unlock them. Click any to begin.'));
+    'Every field, from preschool roots to the graduate frontier. Golden tiles are open to you now and fill as you master them; locked tiles show exactly what will unlock them. Click any to begin.'));
   // The wall of locks is the honest shape of a whole education, and it should
   // read as an invitation rather than a verdict. One line, in the Guide's
   // register: the scale is the point, and it is survivable.
   page.append(el('p', { class: 'epigraph' },
     'Yes, it is an enormous amount. Every reader who ever finished started with exactly one tile.'));
   quickAccess(page, g);
-  g.domains.forEach(d => {
+
+  /* The 250KB the page already fetches carries eight distinct states per node
+     — mastery, proven, ever_proven, faded, assumed, assumed_stale, unlocked,
+     mastered — and this view used to collapse all of them into three tile
+     classes and throw the rest away. So a topic sitting at 0.79 rendered
+     identically to one never opened, and on day one 315 of 353 tiles were an
+     undifferentiated grey wall. Nothing below needs a single server change:
+     it reads what is already on the wire, and gives the reader a way to cut
+     the map down to the handful of tiles that are theirs to work on today. */
+  const mine = new Set((S.state && S.state.profile && S.state.profile.domains) || []);
+  const FILTERS = [
+    ['All fields', () => true],
+    // An empty domains list means "every field" to the server, so this option
+    // is only offered when the reader actually chose a shelf.
+    mine.size ? ['My fields', n => mine.has(n.domain)] : null,
+    ['Open now', n => n.unlocked && !n.mastered],
+    ['Nearly there', n => (n.mastery || 0) >= 0.5 && (n.mastery || 0) < 0.8],
+    ['Faded', n => !!n.faded],
+  ].filter(Boolean);
+
+  // Exactly one filter applies at a time, which makes this a radiogroup with a
+  // roving tabindex — not a row of aria-pressed toggles, which announce as
+  // independent switches. Same pattern, and the same reasoning, as the
+  // confidence row in the quiz.
+  const bar = el('div', { class: 'atlas-filters', role: 'radiogroup', 'aria-label': 'Which tiles to show' });
+  FILTERS.forEach(([label, test], k) => {
+    const b = btn({ class: 'btn ghost small filter-opt' + (k === 0 ? ' picked' : ''),
+      role: 'radio', 'aria-checked': k === 0 ? 'true' : 'false',
+      tabindex: k === 0 ? '0' : '-1',
+      onkeydown: e => {
+        if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'].includes(e.key)) return;
+        e.preventDefault();
+        const all = [...bar.querySelectorAll('[role=radio]')];
+        const cur = all.indexOf(e.currentTarget);
+        const dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
+        const nxt = e.key === 'Home' ? all[0]
+                  : e.key === 'End' ? all[all.length - 1]
+                  : all[(cur + dir + all.length) % all.length];
+        nxt.focus(); nxt.click();
+      },
+      onclick: () => {
+        bar.querySelectorAll('[role=radio]').forEach(x => {
+          x.classList.remove('picked'); x.setAttribute('aria-checked', 'false'); x.setAttribute('tabindex', '-1'); });
+        b.classList.add('picked'); b.setAttribute('aria-checked', 'true'); b.setAttribute('tabindex', '0');
+        paint(test, label);
+      } }, label, el('span', { class: 'filter-mark' }, '✓ Showing'));
+    bar.append(b);
+  });
+  // Mounted empty, filled after it has landed in the document: a live region
+  // that arrives with its text already inside it is announced unreliably or
+  // not at all.
+  const live = el('div', { class: 'atlas-live', role: 'status', 'aria-live': 'polite' });
+  const board = el('div', { class: 'atlas-board' });
+  page.append(bar, live, board);
+
+  function paint(test, label) {
+    board.innerHTML = '';
+    let shown = 0;
+    g.domains.forEach(d => {
+      // Filtering only ever reduces the render — a domain with nothing left in
+      // it drops out rather than standing as an empty heading.
+      const dnodes = g.nodes.filter(n => n.domain === d.id && test(n));
+      if (!dnodes.length) return;
+      shown += dnodes.length;
+      board.append(domainBlock(d, dnodes));
+    });
+    if (!shown) board.append(emptyLeaf('atlas', 'Nothing in that state — yet',
+      'No tile answers to that just now. Choose “All fields” to see the whole map again.'));
+    live.textContent = '';
+    setTimeout(() => { live.textContent = label + ' — showing ' + shown + ' of ' + g.nodes.length + ' topics.'; }, 30);
+  }
+
+  // Six cells, one per stage, from counts the payload already computes and
+  // this page used to reduce to a single total. Progress by stage is the fact
+  // a reader actually wants: which band they are in, and which gate is shut.
+  function stageStrip(d) {
+    const said = d.stages.map(s => STAGE_NAMES[s.stage] + ' ' + s.mastered + ' of ' + s.total
+      + (s.open ? ', open' : ', gate not open yet'));
+    const strip = el('div', { class: 'stage-strip', role: 'img',
+      'aria-label': 'By stage — ' + said.join('; ') });
+    d.stages.forEach(s => {
+      const pct = s.total ? Math.round(100 * s.mastered / s.total) : 0;
+      strip.append(el('span', { class: 'ss-cell' + (s.open ? '' : ' shut'),
+        title: STAGE_NAMES[s.stage] + ' — ' + s.mastered + ' of ' + s.total + ' mastered'
+             + (s.open ? '' : ' · gate not open yet') },
+        el('i', { style: 'width:' + pct + '%' }),
+        el('b', {}, STAGE_NAMES[s.stage].slice(0, 2))));
+    });
+    return strip;
+  }
+
+  function nodeTile(n) {
+    const pct = Math.round((n.mastery || 0) * 100);
+    const cls = n.mastered ? 'mastered' : (n.unlocked ? 'available' : 'locked');
+    // The last node of a field is where the field itself stops knowing —
+    // the one tile on this page that nobody has finished. It should not
+    // look like one more padlock among forty.
+    const frontier = /\.5\.frontier$/.test(n.id);
+    // State is never carried by colour alone: each tile takes a drawn mark and
+    // says the same thing in words in its accessible name.
+    const marks = [];
+    const said = [n.title];
+    said.push(n.mastered ? 'mastered'
+            : !n.unlocked ? 'locked'
+            : pct > 0 ? pct + '% mastered'
+            : 'open, not started');
+    if (n.faded) { marks.push('◐'); said.push('faded — proved once, and it has slipped since'); }
+    if (n.assumed) {
+      marks.push('◇');
+      said.push(n.assumed_stale ? 'assumed from your placement, and that credit has expired'
+                                : 'assumed from your placement, not yet proved');
+    }
+    if (frontier) said.push('the frontier of this field');
+    if (cls === 'locked') said.push('open it to see what unlocks it');
+    return btn({
+      class: 'node-dot ' + cls + (frontier ? ' frontier' : '') + (n.faded ? ' faded' : '')
+             + (n.assumed ? ' assumed' : '') + (n.assumed_stale ? ' assumed-stale' : ''),
+      // Per-element geometry, not a themed token: --m is how far this one tile
+      // has come, and the gold fills to exactly that point.
+      style: '--m:' + pct + '%',
+      title: frontier ? 'The edge of what is known — where learning becomes research.'
+                      : (n.unlock_requirements ? n.unlock_requirements.join('; ') : (n.goal || '')),
+      'aria-label': said.join(' — '),
+      onclick: () => { if (n.unlocked || n.mastered) go('node', n.id); else lockedPeek(n); } },
+      n.title,
+      marks.length ? el('span', { class: 'dot-mark', 'aria-hidden': 'true' }, ' ' + marks.join('')) : null);
+  }
+
+  function domainBlock(d, dnodes) {
     const block = el('section', { class: 'domain-block', 'aria-label': d.name });
     const total = d.stages.reduce((s, x) => s + x.total, 0);
+    // Across 353 tiles the one that matters is the first open, unmastered tile
+    // in the field, and finding it used to be a scan by eye. Focus travels with
+    // the scroll so a keyboard reader arrives on the tile, not merely near it.
+    let frontierTile = null;
+    const jump = btn({ class: 'btn ghost small frontier-jump',
+      'aria-label': 'Jump to your frontier in ' + d.name,
+      onclick: () => {
+        if (!frontierTile) return;
+        frontierTile.focus({ preventScroll: true });
+        frontierTile.scrollIntoView({ block: 'center',
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      } }, '→ My frontier');
     block.append(el('div', { class: 'domain-head' },
       // Same daylight-hex lift as the lesson-card domain tag: themed via
       // --domain-lift so the ten curriculum colours survive the night palette.
       el('div', { class: 'ic', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))`, 'aria-hidden': 'true' }, domainMark(d, 20)),
-      el('div', {}, el('h3', {}, d.name), el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')))));
+      el('div', { class: 'dh-text' }, el('h3', {}, d.name),
+        el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')),
+        stageStrip(d)),
+      jump));
     for (let s = 0; s < 6; s++) {
-      const nodes = g.nodes.filter(n => n.domain === d.id && n.stage === s);
+      const nodes = dnodes.filter(n => n.stage === s);
       if (!nodes.length) continue;
       const row = el('div', { class: 'stage-row' });
       row.append(el('div', { class: 'stage-label' }, STAGE_NAMES[s]));
       const nr = el('div', { class: 'node-row' });
       nodes.forEach(n => {
-        const cls = n.mastered ? 'mastered' : (n.unlocked ? 'available' : 'locked');
-        // The last node of a field is where the field itself stops knowing —
-        // the one tile on this page that nobody has finished. It should not
-        // look like one more padlock among forty.
-        const frontier = /\.5\.frontier$/.test(n.id);
-        const label = n.title + (cls === 'locked' && n.unlock_requirements ? ' — locked' : '')
-                    + (frontier ? ' — the frontier of this field' : '');
-        nr.append(btn({ class: 'node-dot ' + cls + (frontier ? ' frontier' : ''),
-          title: frontier ? 'The edge of what is known — where learning becomes research.'
-                          : (n.unlock_requirements ? n.unlock_requirements.join('; ') : (n.goal || '')),
-          'aria-label': label,
-          onclick: () => { if (n.unlocked || n.mastered) go('node', n.id); else lockedPeek(n); } }, n.title));
+        const tile = nodeTile(n);
+        if (!frontierTile && n.unlocked && !n.mastered) frontierTile = tile;
+        nr.append(tile);
       });
       row.append(nr); block.append(row);
     }
-    page.append(block);
-  });
+    // A field with nothing open in it gets no button rather than a dead one.
+    if (!frontierTile) jump.remove();
+    return block;
+  }
+
+  paint(FILTERS[0][1], FILTERS[0][0]);
 }
 // Quick access — every module of the book's specialist domain, in one panel,
 // reachable whatever the gates say. Radiology is postgraduate: its tiles are
@@ -1654,28 +2818,106 @@ function lockedPeek(n) {
     modal.append(el('h2', { style: 'margin-top:0' }, glyph('lock', 20), ' ' + n.title));
     modal.append(el('p', { class: 'muted' }, n.goal || ''));
     modal.append(el('p', { style: 'font-family:var(--sans);font-weight:600;margin-bottom:6px' }, 'To unlock this:'));
-    const box = el('div', {}); (n.unlock_requirements || ['Keep progressing in this field.']).forEach(r => box.append(el('span', { class: 'req-chip' }, r)));
+    const box = el('div', {});
+    // Every requirement here used to be an inert chip: the reader was told the
+    // name of a lesson and then left to hunt for it by eye across 353 tiles.
+    // The node carries the real prerequisite ids all along (annotated_graph
+    // copies the whole node), so the ones that name a lesson become buttons
+    // that go to it — the pattern the "Worth refreshing" row already uses.
+    const byId = new Map();
+    ((S.curriculum && S.curriculum.nodes) || []).forEach(x => byId.set(x.id, x));
+    const jumps = (n.prereqs || []).filter(p => {
+      const pn = byId.get(p);
+      // A prerequisite already mastered is not what is standing in the way.
+      return pn && !pn.mastered;
+    });
+    jumps.forEach(p => box.append(btn({ class: 'req-chip req-jump',
+      onclick: () => { close(); go('node', p); } },
+      'Master “' + byId.get(p).title + '”',
+      el('span', { class: 'go-mark', 'aria-hidden': 'true' }, '→'))));
+    // Prose requirements with no lesson behind them — "Master 4 more Seedling
+    // topics" is a statement about the stage gate, not a tile — stay inert.
+    // The "Master “X”" strings the server writes are exactly the prereqs
+    // rendered as buttons above, so they are dropped rather than said twice.
+    (n.unlock_requirements || ['Keep progressing in this field.']).forEach(r => {
+      if (jumps.length && /^Master\s+“/.test(r)) return;
+      box.append(el('span', { class: 'req-chip' }, r));
+    });
     modal.append(box, btn({ class: 'btn gold', style: 'margin-top:16px', onclick: close }, 'Got it'));
   } });
 }
 
+/* ---------------- how the book studies you ----------------
+   Benchmark 12 asks that the learner be taught HOW to learn, not only what.
+   The product had exactly one sentence of that, at the top of this page, and
+   a reader could use the deck for a year without ever being told why the book
+   insists on a gap, why the cards are shuffled between subjects, why it asks
+   how sure they are, or what happens to a question they miss. All four are
+   real, all four are already implemented, and a reader who understands them
+   grades themselves more honestly — so the explanation is not decoration, it
+   is part of the instrument.
+
+   A <details> rather than a permanent wall of text: the reader who wants it
+   opens it, and it is closed for the reader who has read it once. Native
+   disclosure semantics, so keyboard and screen reader get it for free. */
+function studyNote() {
+  const d = el('details', { class: 'study-note' });
+  d.append(el('summary', {}, glyph('spark', 14), ' How the book studies you'));
+  [
+    ['Remembering beats re-reading.', 'Reading a page again feels like learning and mostly is not. Being asked, and having to dig the answer out yourself, is what moves it. That is why the book asks before it tells — and why writing your answer down before you turn a card is worth the four seconds.'],
+    ['The gap is the point.', 'The book waits a day or two before it will seal a lesson, and it brings a card back just as you are about to lose it. Practising something you already have fresh in mind is comfortable and teaches almost nothing. A little forgetting, then a little effort, is the whole trick.'],
+    ['The deck shuffles on purpose.', 'Cards from different subjects are mixed together rather than blocked into neat runs. Blocked practice feels smoother and holds worse: mixing forces you to work out which kind of thing this is, which is what you will have to do when it matters.'],
+    ['Knowing what you know.', 'The book asks how sure you are, and afterwards tells you how well you judged it. Being confidently wrong is the most expensive state to be in, and it is invisible until somebody measures it.'],
+    ['A question you miss steps aside.', 'When you get one wrong the book shows you the answer straight away — and then that particular question cannot count as proof you know the thing for the next week. Not a penalty: it is simply no longer evidence once you have been told. Other questions still count, and so does that one, a week from now.'],
+  ].forEach(([h, body]) => d.append(el('p', {}, el('b', {}, h), ' ' + body)));
+  return d;
+}
+
 /* ---------------- Review ---------------- */
-async function renderReview(page) {
-  const data = await guard(page, () => api.get('/api/review/due?limit=30'));
+async function renderReview(page, arg) {
+  const short = arg === 'short';
+  const data = await guard(page, () => api.get('/api/review/due?limit=30' + (short ? '&dose=short' : '')));
   if (!data) return;
+  // A day with a bottom. `goal` is the day's ask, priced by the same server
+  // function the quest tile is priced by — a deck that stopped at a different
+  // number from the one the tile promised would be worse than one that never
+  // stopped. Zero means the deck is excused, not that the day is done.
+  const goal = data.goal | 0;
+  let bottom = goal > 0 ? Math.min(goal, data.cards.length) : data.cards.length;
   page.append(pagehead('Spaced repetition', 'Strengthen What You Know',
-    'The book brings back what you are about to forget, exactly when you are about to forget it. ' + data.stats.due + ' of ' + data.stats.total + ' cards are due.'));
+    'The book brings back what you are about to forget, exactly when you are about to forget it. ' + data.stats.due + ' of ' + data.stats.total + ' cards are due.'
+    + (bottom < data.cards.length
+       ? (short ? ' You asked for a short sitting, so the book asks for ' + bottom + ' of them — the rest keep.'
+                : ' Today the book asks for ' + bottom + ' of them.')
+       : '')));
+  // A short sitting is a smaller door into the same room, and the reader
+  // should be able to see the room from it.
+  if (short && data.stats.due > bottom) {
+    page.append(el('p', { class: 'muted', style: 'margin-top:-6px' },
+      btn({ class: 'btn ghost small', onclick: () => go('review') },
+        'I have longer after all — show me the whole day')));
+  }
+  page.append(studyNote());
   // An empty deck is good news, and the page should sound like it knows that
   // — one Guide-flavored wink, then the honest reason to come back.
-  if (!data.cards.length) { page.append(emptyLeaf('review', 'The deck rests ✦', 'Every card is exactly where it should be — filed, remembered, mostly harmless. Learn something new today and the book will have more to bring back tomorrow.')); return; }
+  if (!data.cards.length) {
+    page.append(emptyLeaf('review', 'The deck rests ✦',
+      'Every card is exactly where it should be — filed, remembered, mostly harmless. '
+      + (data.stats.next_due != null
+        ? 'The next one comes back ' + whenDay(data.stats.next_due) + '.'
+        : 'Learn something new today and the book will have more to bring back tomorrow.')));
+    return;
+  }
   // The deck is a physical thing: the card you are on sits on top of the ones
   // still to come, and the stack visibly thins as you work through it. "Card
   // 3 of 24" tells you the same fact, but you have to read it.
   const deck = el('div', { class: 'deck' });
   page.append(deck);
   let idx = 0;
+  let _cardShownAt = 0;
   let stage = null;
   function draw() {
+    _cardShownAt = Date.now();
     const c = data.cards[idx];
     // A fresh .deck-card per card, never innerHTML into the old node: the
     // settle animation lives on the element, and CSS only plays it when the
@@ -1692,8 +2934,14 @@ async function renderReview(page) {
     deck.dataset.depth = String(Math.max(0, Math.min(2, left)));
     const progress = el('div', { class: 'q-progress', tabindex: '-1',
       role: 'heading', 'aria-level': '2' },
-      'Card ' + (idx + 1) + ' of ' + data.cards.length + (c.article ? ' · ' + c.article : ''));
+      'Card ' + (idx + 1) + ' of '
+        + (bottom < data.cards.length ? bottom + ' for today' : String(data.cards.length))
+        + (c.article ? ' · ' + c.article : ''));
     stage.append(progress);
+    // The count above says where the bottom is; the bar shows it coming.
+    stage.append(el('div', { class: 'bar deck-bar', role: 'img',
+      'aria-label': idx + ' of ' + bottom + ' turned' },
+      el('span', { style: `width:${Math.round(100 * idx / Math.max(bottom, 1))}%` })));
     // Every card announces its own count — including the first, which used
     // to leave the reader parked on #page hearing only the generic page
     // label while every later card said "Card N of M". The 20ms delay lands
@@ -1702,26 +2950,158 @@ async function renderReview(page) {
     // Where the answer and the grading buttons will go. Mounted empty and
     // filled later, so assistive tech has a region to announce into.
     var answerRegion = el('div', { class: 'reveal-region', role: 'status', 'aria-live': 'polite' });
-    const promptRow = el('div', { class: 'speak-row' }, S.stage <= 2 ? speakBtn(() => c.front, 'Read aloud') : null, el('div', { class: 'q-prompt', style: 'min-height:60px;flex:1' }, c.front));
+    /* Hear the question, hear the answers, touch one. Flip-and-rate-yourself is
+       the weakest retrieval act there is even for an adult, and for a reader at
+       stage 0-1 it is not an act at all: nothing on the card could be read, the
+       back was written and never spoken, and the four grades were English words
+       asking a five-year-old to appraise her own memory. Below stage 2 the card
+       asks her to produce the answer first — every part of it out loud, because
+       this is the surface her whole streak is built on and she has never been
+       able to work it. Stage 2 and up are untouched: SM-2 self-grading is the
+       rhythm an older reader already has.
+
+       The distractor is drawn from the deck in hand, preferring a sibling from
+       the same node or article (due_cards interleaves them, learner.py:1097) —
+       a card from a wildly different topic makes the choice free. */
+    const distractor = S.stage <= 1 && data.cards.length > 1 ? distractorFor(c) : null;
+    const opts = distractor ? (Math.random() < 0.5 ? [c.back, distractor] : [distractor, c.back]) : null;
+    const askAloud = () => opts ? c.front + '. Is it ' + opts[0] + ', or ' + opts[1] + '?' : c.front;
+    const promptRow = el('div', { class: 'speak-row' }, S.stage <= 2 ? speakBtn(askAloud, 'Read the card aloud') : null, el('div', { class: 'q-prompt', style: 'min-height:60px;flex:1' }, c.front));
     stage.append(promptRow);
     answerRegion.className = 'q-explain reveal-region';
     answerRegion.style.fontSize = '16px';
-    const showBtn = btn({ class: 'btn gold js-show-answer', style: 'width:100%',
-      onclick: () => { showBtn.disabled = true; revealBack(c, answerRegion); } },
+    // With two answers on offer the reader's job is to choose one, so the way
+    // out becomes the quiet control and the answers become the loud ones.
+    const showBtn = btn({ class: 'btn js-show-answer ' + (opts ? 'ghost small' : 'gold'), style: opts ? null : 'width:100%',
+      onclick: () => { showBtn.disabled = true; revealBack(c, answerRegion, null, writeIn && writeIn.value.trim()); } },
       'Show answer ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, 'space'));
+    if (opts) {
+      const recallRow = el('div', { class: 'recall-row', role: 'group', 'aria-label': 'Which one is it?' });
+      opts.forEach((text, k) => {
+        const b = btn({ class: 'recall-opt',
+          onclick: () => answerRecall(c, b, recallRow, answerRegion, sameText(text, c.back)) },
+          el('span', { class: 'ro-key', 'aria-hidden': 'true' }, String(k + 1)),
+          el('span', { class: 'ro-text' }, text));
+        recallRow.append(b);
+      });
+      stage.append(el('p', { class: 'muted recall-ask' }, 'Which one is it?'), recallRow);
+    }
+    /* Flip-and-rate-yourself is, in the words of the comment above this one,
+       the weakest retrieval act there is — and until now stage 2 and up got
+       nothing else. The fix below stage 2 was a forced choice; a forced choice
+       for an adult would be *worse*, because recognising one of two answers is
+       easier than recalling one. So the older reader is asked to produce
+       instead: say it, or write it, before the card turns. Writing is optional
+       on purpose — saying it out loud is real retrieval and the book cannot
+       hear it — but the field is there, and what the reader put in it is shown
+       beside the answer, so the self-grade that follows is a comparison rather
+       than a memory of having felt confident. */
+    let writeIn = null;
+    if (!opts && S.stage >= 2) {
+      writeIn = el('input', { type: 'text', class: 'recall-write', 'aria-label': 'Your answer, before you turn the card',
+        placeholder: 'Say it out loud, or write it here…',
+        onkeydown: e => { if (e.key === 'Enter' && !showBtn.disabled) { e.preventDefault(); showBtn.click(); } } });
+      stage.append(writeIn);
+    }
     stage.append(showBtn);
     stage.append(answerRegion);
-    if (S.stage <= 1) maybeSpeak(c.front);
+    // One utterance, not two: the question and the two answers travel together
+    // so the queue is never cancelled halfway by the second call.
+    if (S.stage <= 1) maybeSpeak(askAloud());
   }
-  function revealBack(c, region) {
+  /* A session that ends because it is FINISHED is the strongest single
+     predictor of the book being opened again tomorrow, and an infinite queue
+     can never end that way — a two-hundred-card backlog just becomes a wall to
+     fail against. So the day has a floor and a ceiling: when the ask is met and
+     cards remain, the deck says so and offers the way out first. */
+  function stopPanel() {
+    // A fresh node, never an innerHTML mutation: the settle animation only
+    // plays for an element ENTERING the DOM, so mutating the card in place
+    // would leave "Keep going" resuming into an animation that never fires.
+    const panel = el('div', { class: 'card deck-card deck-stop' });
+    if (stage) stage.replaceWith(panel); else deck.append(panel);
+    stage = panel;
+    // The stack behind the card still has to show what is genuinely left.
+    deck.dataset.depth = String(Math.max(0, Math.min(2, data.cards.length - idx)));
+    const left = Math.max(0, (data.stats.due || data.cards.length) - idx);
+    const head = el('h3', { class: 'stop-head', tabindex: '-1' }, 'A good place to stop ✦');
+    panel.append(el('div', { class: 'el-mark', 'aria-hidden': 'true' }, glyph('crown', 30)), head,
+      el('p', { class: 'muted stop-body' },
+        'That is ' + idx + (idx === 1 ? ' card' : ' cards') + ' turned — every one of them a little harder to forget.'
+        + (left ? ' ' + left + ' more are waiting, and they will still be here tomorrow.' : '')));
+    const out = btn({ class: 'btn gold', onclick: () => go('today') }, 'Close the deck');
+    // The way out takes focus. Defaulting to "Keep going" would quietly turn a
+    // stopping point into an upsell, which is the opposite of the point.
+    panel.append(el('div', { class: 'stop-row' }, out,
+      btn({ class: 'btn ghost', onclick: () => { bottom = data.cards.length; draw(); } }, 'Keep going')));
+    setTimeout(() => out.focus(), 20);
+  }
+  const sameText = (a, b) => String(a == null ? '' : a).trim().toLowerCase() === String(b == null ? '' : b).trim().toLowerCase();
+  function writeInFor(st) { return st ? st.querySelector('.recall-write') : null; }
+  function distractorFor(c) {
+    const others = data.cards.filter(x => x.id !== c.id && !sameText(x.back, c.back));
+    if (!others.length) return null;
+    const kin = others.filter(x => (c.node_id && x.node_id === c.node_id) || (c.article && x.article === c.article));
+    const pool = kin.length ? kin : others;
+    return pool[Math.floor(Math.random() * pool.length)].back;
+  }
+  function answerRecall(c, chosen, row, region, ok) {
+    // Never colour-only: the chosen button takes a ✓ or ✗, and when it is wrong
+    // the right one is marked too, so the card teaches rather than only scores.
+    row.querySelectorAll('.recall-opt').forEach(b => {
+      b.disabled = true;
+      const isKey = sameText(b.querySelector('.ro-text').textContent, c.back);
+      if (b === chosen) { b.classList.add(ok ? 'correct' : 'wrong'); b.prepend(ok ? '✓ ' : '✗ '); }
+      else if (!ok && isKey) { b.classList.add('correct'); b.prepend('✓ '); }
+    });
+    const show = stage.querySelector('.js-show-answer');
+    if (show) show.disabled = true;
+    haptic(ok ? 'ok' : 'no');
+    revealBack(c, region, ok ? 4 : 2);
+  }
+  function revealBack(c, region, decided, wrote) {
     // Write into the region that is already on the page rather than inserting a
     // pre-filled one: a live region that arrives with its text already in it is
     // announced unreliably, or not at all.
     region.textContent = c.back;
-    const grades = [[0, 'Blank', 'grade-blank'], [3, 'Hard', 'grade-hard'], [4, 'Good', 'grade-good'], [5, 'Easy', 'grade-easy']];
-    const row = el('div', { style: 'display:flex;gap:8px;margin-top:16px', role: 'group', 'aria-label': 'How well did you recall?' });
-    grades.forEach(([q, label, cls], k) => row.append(btn({ class: 'btn small ' + cls, onclick: () => grade(c, q) },
-      label + ' ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, String(k + 1)))));
+    // What the reader actually produced, set beside the key. Appended AFTER
+    // the region's own text so the live announcement leads with the answer.
+    if (wrote) {
+      const mine = el('p', { class: 'muted wrote-line' }, 'You said: ' + wrote);
+      region.append(mine);
+    }
+    if (writeInFor(stage)) writeInFor(stage).disabled = true;
+    // Whichever route turned the card — a produced answer or "Show answer" —
+    // the choice is over, so the row goes down here rather than at each caller.
+    if (stage) stage.querySelectorAll('.recall-opt').forEach(b => { b.disabled = true; });
+    // The front is spoken when the card is drawn; the back was written and
+    // never said, which left the flip — the whole point of the deck — silent
+    // for the reader who cannot read it. maybeSpeak, not speakText: this is the
+    // book talking unprompted, and the voice toggle governs it.
+    if (S.stage <= 1) maybeSpeak(decided == null ? c.back
+      : (decided >= 4 ? 'Yes. ' + c.back : 'Not yet. It is ' + c.back));
+    let row;
+    if (decided != null) {
+      // She produced the answer, so the grade is already settled. What is left
+      // is the beat that lets her see and hear it before the deck moves on.
+      row = el('div', { class: 'grade-row', role: 'group', 'aria-label': 'When you are ready' },
+        btn({ class: 'btn gold js-next-card', style: 'width:100%', onclick: () => grade(c, decided) },
+          'Next card ✦ ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, 'space')));
+    } else if (S.stage <= 1) {
+      // The two-glyph pair already written for the quiz confidence row. Four
+      // words rating your own memory is not a judgement a five-year-old can
+      // make, let alone read.
+      row = el('div', { class: 'grade-row', role: 'group', 'aria-label': 'Did you know it?' },
+        btn({ class: 'btn small grade-btn grade-hard', onclick: () => grade(c, 2) },
+          glyph('unsure', 18), ' Not yet ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, '1')),
+        btn({ class: 'btn small grade-btn grade-good', onclick: () => grade(c, 4) },
+          glyph('known', 18), ' I knew it ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, '2')));
+    } else {
+      const grades = [[0, 'Blank', 'grade-blank'], [3, 'Hard', 'grade-hard'], [4, 'Good', 'grade-good'], [5, 'Easy', 'grade-easy']];
+      row = el('div', { class: 'grade-row', role: 'group', 'aria-label': 'How well did you recall?' });
+      grades.forEach(([q, label, cls], k) => row.append(btn({ class: 'btn small grade-btn ' + cls, onclick: () => grade(c, q) },
+        label + ' ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, String(k + 1)))));
+    }
     stage.append(row);
     setTimeout(() => row.querySelector('button').focus(), 20);
   }
@@ -1738,11 +3118,19 @@ async function renderReview(page) {
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
     if (e.key === ' ') {
       const show = stage.querySelector('.js-show-answer:not([disabled])');
-      if (show) { e.preventDefault(); show.click(); }
+      if (show) { e.preventDefault(); show.click(); return; }
+      // Once the card is turned, the same key is the way on to the next one.
+      const nxt = stage.querySelector('.js-next-card:not([disabled])');
+      if (nxt) { e.preventDefault(); nxt.click(); }
     } else if (/^[1-4]$/.test(e.key)) {
-      const gradeBtns = stage.querySelectorAll('.grade-blank, .grade-hard, .grade-good, .grade-easy');
-      const b = gradeBtns[+e.key - 1];
-      if (b) { e.preventDefault(); b.click(); }
+      // There are three layouts now, not one: four self-grades at stage 2 and
+      // up, two glyphed ones below it, and — before the card is turned — the
+      // two produced answers. Indexing the four grade class names positionally
+      // did nothing at all on either of the other two, silently.
+      const graded = stage.querySelectorAll('.grade-btn');
+      const opts = graded.length ? graded : stage.querySelectorAll('.recall-opt');
+      const b = opts[+e.key - 1];
+      if (b && !b.disabled) { e.preventDefault(); b.click(); }
     }
   }
   // One live handler at a time: the end-of-deck path re-enters renderReview
@@ -1752,8 +3140,13 @@ async function renderReview(page) {
   document.addEventListener('keydown', onKey);
   async function grade(c, q) {
     let r;
+    // How long this card took, so the book can eventually tell this reader
+    // how long five of them will take *them*. Clamped and discarded server
+    // side if it is not a plausible reading; nothing about the schedule, the
+    // grade or the XP depends on it.
+    const took = _cardShownAt ? (Date.now() - _cardShownAt) / 1000 : null;
     try {
-      r = await api.post('/api/review', { card_id: c.id, quality: q });
+      r = await api.post('/api/review', { card_id: c.id, quality: q, seconds: took });
     } catch (e) {
       toast('The book could not file that one — the card stays right where it is. Nothing is lost.');
       return;  // never silently drop the card
@@ -1762,6 +3155,7 @@ async function renderReview(page) {
     if (r.next_days >= 1) toast('Back in ' + Math.round(r.next_days) + (r.next_days < 2 ? ' day' : ' days'));
     else toast('Back again in a few minutes — this one is still settling.');
     idx++;
+    if (idx >= bottom && idx < data.cards.length) { stopPanel(); refreshStats(); return; }
     if (idx < data.cards.length) draw();
     else {
       page.innerHTML = '';
@@ -1832,7 +3226,7 @@ async function runSearch(q, results, live = false, say = null) {
     // sighted readers see the list length at a glance.
     tell(data.results.length + (data.results.length === 1 ? ' result for ' : ' results for ') + q);
     data.results.forEach(r => {
-      const src = r.source === 'live' ? 'Wikipedia' : (String(r.source).includes('simple') ? 'Simple Wiki' : 'Your shelf');
+      const src = r.source === 'live' ? 'Wikipedia' : (String(r.source).includes('simple') ? 'Simple English' : 'Your shelf');
       results.append(btn({ class: 'search-result', style: 'display:block;width:100%;text-align:left', onclick: () => go('reader', r.title) },
         el('b', {}, r.title), ' ', el('span', { class: 'src' }, src)));
     });
@@ -1843,7 +3237,7 @@ async function runSearch(q, results, live = false, say = null) {
     results.append(el('div', { class: 'search-result' }, el('span', { class: 'muted' }, 'The index has wandered off — likely the network, never you. Ask again in a moment.')));
   }
 }
-async function surprise() { try { const r = await api.get('/api/random'); if (r.title) go('reader', r.title); } catch (e) { toast('The dice need a shelf to land on — download an archive first.'); } }
+async function surprise() { try { const r = await api.get('/api/random'); if (r.title) go('reader', r.title); } catch (e) { toast('The dice need a shelf to land on — the book is not carrying a volume yet.'); } }
 
 /* ---------------- Roadmap ---------------- */
 async function renderRoadmap(page) {
@@ -1959,17 +3353,33 @@ async function renderStory(page) {
 }
 
 /* ---------------- Library ---------------- */
+// Shelf room, said the way a person says it. 0.94 GB is a number off a
+// manifest; "about a gigabyte" is what you tell someone deciding.
+function shelfRoom(gb) {
+  const n = Number(gb) || 0;
+  // "About a gigabyte" for a 0.4 GB volume is a small lie, and the book does
+  // not tell those; below a gigabyte the honest, decision-shaped answer is
+  // that it is under one.
+  if (n < 1) return 'under a gigabyte';
+  if (n < 10) return 'about ' + (Math.round(n * 10) / 10) + ' GB';
+  return 'about ' + Math.round(n) + ' GB';
+}
 async function renderLibrary(page) {
   const data = await guard(page, () => api.get('/api/library'));
   if (!data) return;
   page.append(pagehead('The book contains other books', 'The Shelf',
-    'Download knowledge archives to hold them forever, offline, inside the Primer. The complete Wikipedia lives here.'));
+    'Whole libraries can be bound into this one and kept — every page of them yours, with no wire and no one\u2019s permission. Choose what you would like the book to carry.'));
   page.append(el('p', { class: 'epigraph' }, 'A vault does not ask permission to remember. Once shelved, always at hand — no wire required.'));
   const st = data.status;
   page.append(el('div', { class: 'card' },
-    el('b', {}, glyph('shelf', 16), ' Installed now: ' + st.archives.length + ' archive' + (st.archives.length === 1 ? '' : 's')),
-    el('p', { class: 'muted', style: 'margin:4px 0 0' }, st.archives.map(a => a.title + ' (' + a.articles.toLocaleString() + ' articles, ' + a.size_mb + ' MB)').join(' · ') || 'None yet.'),
-    el('p', { class: 'muted', style: 'margin:6px 0 0' }, st.cached_articles + ' more articles saved from your online reading.')));
+    el('b', {}, glyph('shelf', 16), ' On your shelf: ' + (st.archives.length || 'no') + ' volume' + (st.archives.length === 1 ? '' : 's')),
+    // Room and page-count stay: a reader deciding whether to give up sixty
+    // gigabytes of their machine is owed the number. It is the register
+    // around the number that had to change — "Installed", "archive", "MB".
+    el('p', { class: 'muted', style: 'margin:4px 0 0' }, st.archives.map(a => a.title + ' — ' + a.articles.toLocaleString() + ' entries, ' + shelfRoom(a.size_mb / 1024) + ' of room').join(' · ') || 'Nothing bound in yet.'),
+    el('p', { class: 'muted', style: 'margin:6px 0 0' }, st.cached_articles === 1
+      ? 'One further page has been copied down from your reading and kept.'
+      : st.cached_articles.toLocaleString() + ' further pages have been copied down from your reading and kept.')));
   // A download can run for minutes to hours, polled by wiping and rebuilding
   // this whole page every 3s — the same shape of update Look Up's results
   // and the tutor's replies already learned to announce, just never carried
@@ -1979,16 +3389,25 @@ async function renderLibrary(page) {
   page.append(say);
   data.catalog.forEach(item => {
     const c = el('div', { class: 'card lib-item' });
-    const meta = el('div', { class: 'meta' }, el('b', {}, item.title), el('p', {}, item.blurb));
+    // The catalogue blurb ends in its own "~110 GB."; the button beside it now
+    // says the same thing in the book's words, and saying it twice in two
+    // registers is exactly the seam this round is closing.
+    const meta = el('div', { class: 'meta' }, el('b', {}, item.title),
+      el('p', {}, String(item.blurb).replace(/\s*~[\d.]+\s*GB\.?\s*$/, '')));
     const right = el('div', {});
     if (item.installed) right.append(el('span', { class: 'badge installed' }, '✓ On your shelf'));
     else if (item.download && item.download.status === 'downloading') {
       const pct = item.download.total ? Math.round(100 * item.download.bytes / item.download.total) : 0;
-      right.append(el('span', { class: 'badge big' }, 'Downloading ' + pct + '%'), el('div', { class: 'bar', style: 'width:120px;margin-top:6px' }, el('span', { style: `width:${pct}%` })));
-    } else right.append(btn({ class: 'btn small', onclick: () => downloadArchive(item.key) }, '↓ ' + item.approx_gb + ' GB'));
+      right.append(el('span', { class: 'badge big' }, 'Copying in — ' + pct + '%'), el('div', { class: 'bar', style: 'width:120px;margin-top:6px' }, el('span', { style: `width:${pct}%` })));
+    } else right.append(btn({ class: 'btn small', onclick: () => downloadArchive(item.key) }, 'Copy it in · ' + shelfRoom(item.approx_gb)));
     c.append(meta, right); page.append(c);
   });
-  page.append(el('p', { class: 'muted', style: 'margin-top:14px' }, 'Archives come from the Kiwix project. The full English Wikipedia with images is ~110 GB; text-only is ~60 GB; Simple English is ~1–3 GB.'));
+  // A colophon, which is what a book calls the note about where its pages came
+  // from. The names stay — Wikipedia and Kiwix are owed attribution, and the
+  // book is not in the business of pretending it wrote the encyclopedia — but
+  // they are set as a credit rather than as a system requirements panel.
+  page.append(el('p', { class: 'muted colophon', style: 'margin-top:14px' },
+    'These volumes are copied in from Wikipedia and its sister works, carried by the Kiwix project, which keeps them free for anyone to hold. The complete English edition with pictures asks for about 110 GB of room; without pictures, about 60; the Simple English edition, one to three.'));
   const downloading = data.downloads.filter(d => d.status === 'downloading');
   if (downloading.length) {
     const named = downloading.map(d => {
@@ -1999,20 +3418,19 @@ async function renderLibrary(page) {
     // A live region inserted with its text already inside it is announced
     // unreliably or not at all — mount empty (above), fill after the node
     // has actually landed in the document.
-    setTimeout(() => { say.textContent = 'Downloading: ' + named.join(', '); }, 30);
+    setTimeout(() => { say.textContent = 'Copying in: ' + named.join(', '); }, 30);
     setTimeout(() => { if (S.view === 'library') renderRoute(); }, 3000);
   }
 }
 async function downloadArchive(key) {
   try {
     const r = await api.post('/api/library/download', { key });
-    // The refusal reason ("unknown catalog key", "not enough room on disk")
-    // is useful, but it is not the sentence a reader should meet first: the
-    // book explains, then quotes itself. Every other failure path in this
-    // file already leads with reassurance; this one printed the backend
-    // string verbatim as the whole message.
-    if (r.error) { toast('The shelf could not start that download — nothing is lost. (' + r.error + ')'); return; }
-    toast('Download started — it continues in the background.'); renderRoute();
+    // The refusal reason ("unknown catalog key", "could not resolve download
+    // URL (offline?)") is a note between the book and its own machinery. The
+    // reader gets the book's sentence; the diagnosis goes to the console,
+    // where whoever is debugging can still read it.
+    if (r.error) { console.warn('[primer] shelf refused:', r.error); toast('The book could not begin that volume just now — nothing is lost, and you can ask again.'); return; }
+    toast('The book has begun copying it in. Go on reading — it copies while you read.'); renderRoute();
   }
   catch (e) { toast('The shelf is out of reach — likely the network, never you. The book will fetch it when you are back online.'); }
 }
@@ -2020,17 +3438,22 @@ async function downloadArchive(key) {
 /* ---------------- accessible modal ---------------- */
 let _modalStack = [];
 function closeBtn(close) { return btn({ class: 'modal-close', 'aria-label': 'Close', title: 'Close (Esc)', onclick: close }, '×'); }
-function openModal({ label, build, dismissable = false, dismissLabel = 'Close', dark = false }) {
+function openModal({ label, build, dismissable = false, dismissLabel = 'Close', dark = false, onClose = null }) {
   const prevFocus = document.activeElement;
   const ov = el('div', { id: 'overlay' });
   const modal = el('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': label || 'Dialog', tabindex: '-1' });
   // Same story as the chapter card: the dark modal is a chrome surface, and
   // hardcoding its brown left it behind when the night palette turned.
   if (dark) modal.classList.add('on-dark');
+  // Fires once, however the dialog was dismissed — button, Escape, or the
+  // scrim. Ceremonies queue on this: a stage ascension that arrives while the
+  // reader is mid-chapter has to wait for the chapter, not land on top of it.
+  let closed = false;
   function close() {
     ov.remove(); _modalStack = _modalStack.filter(m => m !== entry);
     document.removeEventListener('keydown', onKey);
     if (prevFocus && prevFocus.focus) prevFocus.focus();
+    if (!closed) { closed = true; if (onClose) onClose(); }
   }
   const entry = { ov, close };
   _modalStack.push(entry);

@@ -10,7 +10,21 @@ A board of six was convened to benchmark the Primer and drive it to excellence.
 - **Sofia Lindqvist** — product/UX designer (IA, WCAG, age-adaptive UI)
 - **Raj Mehta** — staff software engineer (reliability, security, performance)
 
-## The 10 Domain Benchmarks
+Seated later, at the product's request (2026-08-22):
+
+- **Neal Stephenson** — author of *The Diamond Age*; keeper of the source
+  vision. His lens: is this artifact actually the Young Lady's Illustrated
+  Primer — a book with a voice, a bond with one reader, a story that *is* the
+  curriculum — or a courseware app wearing its cover? He judges the design as
+  a fiction made real: register, ritual, the book-as-character, the seams
+  where the metaphor breaks.
+- **Tim Ferriss** — meta-learner and interviewer of world-class performers.
+  His lens: the interactive educational loop itself — DiSSS (Deconstruction,
+  Selection, Sequencing, Stakes), minimum effective dose, time-to-first-win,
+  whether practice is *doing the thing* or reading about the thing, and
+  whether a busy or discouraged learner is re-engaged or quietly lost.
+
+## The Domain Benchmarks
 
 | # | Benchmark | Owner | What 9/10 requires |
 |--:|-----------|-------|--------------------|
@@ -24,6 +38,8 @@ A board of six was convened to benchmark the Primer and drive it to excellence.
 | 8 | **Motivation & Habit Architecture** | Kim/Vasquez | Unfarmable XP tied to successful retrieval; streaks with freeze + local-day boundary; age-tuned reinforcement; visible durable progress. |
 | 9 | **Interface: Age-Adaptivity, UX & Accessibility** | Lindqvist | Stage-adaptive UI modes; WCAG AA (keyboard, focus, ARIA, contrast, reduced motion); hash routing; guarded states; dialog semantics. |
 | 10 | **Engineering: Security, Reliability & Maintainability** | Mehta | HTML sanitized (no XSS); SSRF-safe fetchers; concurrency-safe DB + backups + retention; pinned deps; test suite; logging. |
+| 11 | **The Book as Artifact (Design Fidelity)** | Stephenson | Every surface in the book's own voice and hand — no raw-web or system chrome reaching the reader; ceremonies that feel authored, not gamified; the Guide's register held under error, offline, and edge states; the fiction never broken by a seam the reader can see. |
+| 12 | **Interactive Learning Loops (Meta-Learning)** | Ferriss | A first felt win inside the first session at every stage; practice that is retrieval/production, not recognition-only; minimum-effective-dose sessions honest about time; stakes and recovery loops (lapsed reader, failed quiz, broken streak) that re-engage rather than shame; the learner taught *how* to learn, not only what. |
 
 ## Baseline Scores (Round 0)
 
@@ -3966,3 +3982,657 @@ JS-only accessibility fixes this session — verified by direct browser
 inspection instead.
 
 `check_banks.py`: 0 problems (no Python change this round).
+
+---
+
+## Round 22 — seating Stephenson and Ferriss: the baseline audits
+
+Two new lenses, two fresh scores, and — for the first time since Round 1 — a
+pair of benchmarks that start well below the line. Both were audited the way
+the later rounds in this file audit: the code read for the mechanism, and the
+book then driven in a browser as a reader, at a scratch profile on the design
+port, through onboarding, a lesson, a quiz failed on purpose, the review deck,
+the story, the Shelf and the error card.
+
+Neither audit re-litigates benchmarks 1–10. Where a finding belongs to an
+existing owner it is named and handed over rather than scored here.
+
+### Benchmark 11 — The Book as Artifact (Design Fidelity) · **6/10**
+
+The register is real and it is *mostly* held. `sign-in.html` is the strongest
+surface in the product — `Reader` and `Your word` for username and password,
+"Give the book your word and it will open where you left it", a leather ground,
+and not a single field the browser named. `errCard` opens with DON'T PANIC in
+large friendly letters. The tutor apologises in escalating prose. The deck
+rests. The index has wandered off, likely the network, never you. There is no
+`alert()`, no `confirm()`, no `prompt()`, no file picker anywhere in `web/`.
+A product that has been through twenty-one rounds of this file has earned that.
+
+Six is what is left when the seams are counted, and they are not small.
+
+1. **The Shelf is a system-administration console with a nav item.**
+   `web/app.js:3093-3123`, top-level, ungated. In one view the reader is told
+   about "knowledge archives" to "download", what is "Installed now", article
+   counts and `size_mb`, "cached_articles … saved from your online reading",
+   a percentage download bar (`:3119`), a button reading `↓ 60 GB` (`:3120`),
+   and a colophon naming the Kiwix project with three storage figures
+   (`:3123`). `:3147` tells a five-year-old the download "continues in the
+   background". A living book does not have an installer. This is the largest
+   fiction break in the app and it is not close.
+
+2. **Raw machine strings are printed verbatim inside the book's own copy.**
+   Round 5 demoted the backend error to fine print but did not stop it
+   arriving: `web/app.js:820` still splices `e.error` into the DON'T PANIC
+   card. What actually lands there includes `no such node`
+   (`primer/server.py:792`, `:1424`), `unknown quiz token` (`:1517`),
+   `unknown generator` *together with a list of internal generator names*
+   (`:1275`), and `not found` (`:667`, `:679`). Worse, `api.get`/`api.post`
+   synthesise `{ error: r.statusText }` on any non-JSON failure
+   (`web/app.js:18-19`), so the reader can be shown `(Internal Server Error)`
+   or `(Bad Gateway)` — HTTP register, inside the reassurance. Confirmed live:
+   `#/node/math-counting` renders "Everything you have learned is safely
+   written down. (no such node)".
+   The same `error` field is sometimes prose ("answer first — then the book
+   will tell you", `:1535`) and sometimes a debug tag. One channel, two
+   registers, and the front end cannot tell them apart.
+
+3. **The permanent chrome is a scoreboard, at every age.** `web/app.js:722`
+   pins a bare acronym — `XP` — beside `Streak` (`:723`) in the shell, for a
+   three-year-old as much as a graduate. `+37 XP` on every result splash
+   (`:2276`), `xp_today + ' XP earned today'` (`:1054`), a DOM class literally
+   named `streak-badge` (`:1068`). The mechanic is Kim's and Okafor's and it
+   is sound; the *word* is arcade furniture in a book that otherwise says
+   "sealed", "proved", "the page has turned".
+
+4. **Percentages read aloud to pre-readers.** The results splash correctly
+   gates `Math.round(score*100) + '%'` behind `if (!young)` (`:2234`) — and
+   then the very next branch prints `'Progress: ' + Math.round(level*100) +
+   '% toward mastery'` (`:2259`) with no guard at all, which the stage-0
+   read-aloud then speaks. Same omission at `:1182` and `:1128`. Verified in
+   the browser at Seedling: a failed quiz ended on "Progress: 80% toward
+   mastery. 5 review cards added."
+
+5. **The book's finest sentences are delivered in Chrome's chrome.**
+   `web/app.js:2535` puts "The edge of what is known — where learning becomes
+   research." into a native `title=` tooltip: grey box, system font, invisible
+   on every touch device. `:1350-1355` attaches the *only* explanation of why
+   the quiz button is dead — "Unlock this lesson before taking its quiz" — as
+   a `title` on a **disabled** button, which most browsers refuse to show at
+   all. Information the reader cannot get any other way, hidden in the one
+   piece of UI the book does not draw.
+
+6. **The tab never turns a page.** `document.title` is assigned nowhere in
+   `web/app.js` (zero hits); `web/index.html:6` is static. Deep in an article,
+   mid-quiz, in the Atlas — the same masthead. The favicon
+   (`web/index.html:9`) is the system emoji 📖, the one mark in the product
+   not drawn in the book's own hand.
+
+7. **There is no offline state.** `navigator.onLine` appears nowhere. Every
+   disconnection is discovered by a failed request and reported as a generic
+   apology. For an artifact whose entire premise is that it works with no
+   network at all, the book never once says so.
+
+8. **The machinery is named on the surfaces readers use most.**
+   "from Wikipedia (live)" under every article (`:1392`), "Simple English"
+   (`:1396`), "Simple Wiki" in search results (`:2969`), and
+   `surprise()`'s failure telling a child to "download an archive first"
+   (`:2978`). Attribution is a legal obligation and stays; `(live)`,
+   `Simple Wiki` and the instruction to perform a download do not.
+
+9. **The tutor disclosure names the vendor.** `web/app.js:1719` — "Your
+   question travels to Claude (Anthropic) to be answered". Recorded as a
+   fidelity seam and *not* proposed for removal: the honesty is worth more
+   than the fiction, and a reader's proxy should not quietly delete a privacy
+   notice. Flagged for a deliberate decision, not a silent one.
+
+Handed to other owners, not scored here: `skeleton()`'s `aria-label:
+'Loading'` (`:772`) is the only word of system register a screen-reader user
+hears in the loading state — Lindqvist, #9. `{{ERROR}}` at
+`web/sign-in.html:123` is a raw templating slot whose in-voice guarantee lives
+in a comment rather than in code — Mehta, #10.
+
+### Benchmark 12 — Interactive Learning Loops (Meta-Learning) · **6/10**
+
+What is already here is better than most of the field. Confidence rating with
+post-hoc calibration feedback (`web/app.js:1889-1915`, `:2287-2293`) is real
+metacognition. `returnCard` (`:978-995`) is exemplary — backward-looking,
+names what still stands, never mentions the streak it knows was broken. Quest
+steps *excuse* rather than block when there is nothing to do
+(`primer/server.py:1121-1141`), so the crown is never unwinnable. Failure
+never dead-ends: an empty bank falls through to the generator (`:1782-1787`),
+a lost connection says "Held in the margin for now… Nothing is lost."
+(`:2266`), and every result screen offers the ones you missed. The deck ends
+on "A good place to stop ✦" with focus deliberately sent *out* of the session.
+
+Six is what is left when the loop itself is measured.
+
+1. **Nothing anywhere tells the reader how long anything will take.**
+   Not a lesson, not a quiz, not an article, not the daily quest. The quest
+   asks for up to twelve cards (`REVIEW_GOAL = 12`, `primer/server.py:1008`)
+   plus a lesson plus an article, and states no cost for any of it.
+   `primer/pacing.py` computes minutes — but only for the five-to-ten-year
+   roadmap, never for tonight. **There is no minimum-effective-dose path
+   at all**: the one short session in the product,
+   `REVIEW_GOAL_RETURNING = 5` (`:1009`), is involuntary and fires only after
+   three days away (`:1032`). A reader with seven minutes has no way to ask
+   the book for seven minutes' work. This is the single clearest miss against
+   the benchmark's own wording.
+
+2. **The first felt event for most new readers is an exam that can end in
+   ★☆☆.** `finish()` fires `offerPlacement` 700ms after onboarding for anyone
+   aged six or over (`web/app.js:567`); `runPlacement` (`:593`) takes five
+   answers with **no per-question verdict** (`:668`) and can land on
+   "★☆☆ · This level is still ahead of you" (`:655-659`). Between "Open the
+   book" and the first graded success there is no win of any kind — Today is a
+   board of unstarted counters, and the first success is three screens and
+   four taps away.
+
+3. **Practice is three-quarters recognition.** Counted across
+   `data/curriculum/*.json`: **2446 `choice`, 612 `numeric`, 204 `short`** —
+   6% free recall, and chemistry contains exactly one short-answer item.
+   Meanwhile `runQuestions` already implements `order` (`:1994`) and `tally`
+   (`:2062`), and **zero authored items of either kind exist**; they appear
+   only from generators. The best retrieval surfaces in the app are built and
+   unused.
+
+4. **The adult deck is flip-and-self-grade.** `web/app.js:2734` —
+   `S.stage <= 1 && …` — gates the forced-recall row to pre-readers. Everyone
+   over six gets "Show answer" and an SM-2 self-rating. The comment two lines
+   above it names flip-and-rate "the weakest retrieval act there is," and then
+   ships it to every reader old enough to type.
+
+5. **A wrong answer has a real hidden cost.** `primer/server.py:1550-1556`
+   calls `burn_item`, removing that item from the node's mastery evidence for
+   seven days. Genuine stakes — which the benchmark wants — attached to an act
+   the interface presents as free exploration, and never disclosed.
+
+6. **Wrong-answer feedback is show-and-tell, never re-production.**
+   `reveal()` (`:2192-2203`) prints the key and the explanation and offers
+   "Next →". The retry path exists but arrives at the end, unscored, after
+   `:2196` has cached the revealed key onto the item — so retrying the missed
+   ones is copying back an answer the reader was shown, not retrieving it.
+
+7. **Spaced repetition is asserted once and never taught.** One sentence, at
+   `:2668-2670`. A card's header says `Card 3 of 12 · Photosynthesis`
+   (`:2704`) — provenance, not reason. Nothing explains interleaving, why the
+   book insists on a two-day gap before it will seal a lesson
+   (`MASTERY_MIN_INTERVAL`, `primer/learner.py:38`), or why it keeps asking
+   how sure you are. The reader is taught a great deal of *what* and almost
+   nothing of *how*.
+
+8. **One line tilts negative.** `:2247` — "This one has slipped — master it
+   again to lock it back in", rendered `msgTone = 'warn'`. Mild, and the only
+   loss-framed sentence in the product; recorded so it is not lost.
+
+### Round 22 scores
+
+| # | Benchmark | R22 |
+|--:|-----------|:---:|
+| 11 | The Book as Artifact (Design Fidelity) | **6** |
+| 12 | Interactive Learning Loops (Meta-Learning) | **6** |
+
+No change to benchmarks 1–10 this round; nothing was touched.
+
+---
+
+## Round 23 — the book stops running an installer, and stops quoting its own machinery
+
+Two of Stephenson's findings, both the kind where the fix is entirely copy and
+entirely load-bearing.
+
+**The Shelf.** `renderLibrary` was a package manager: "Download knowledge
+archives", "Installed now: 2 archives", `size_mb`, `cached_articles … saved
+from your online reading`, a `↓ 60 GB` button, "Downloading 42%", and a
+footnote naming the Kiwix project alongside three storage figures — then a
+toast promising the download "continues in the background". Every one of those
+is a true statement about the software and none of them is a sentence this
+book would write.
+
+Rewritten as what it actually is: a shelf, and volumes bound into it.
+"On your shelf: 2 volumes"; each one named with its entry count and *room*
+rather than megabytes; "7 further pages have been copied down from your
+reading and kept"; "Copy it in · about 60 GB"; "Copying in — 42%"; and, when
+it starts, "The book has begun copying it in. Go on reading — it copies while
+you read."
+
+Two things deliberately **kept**, against the temptation to launder them:
+
+- **The names.** Wikipedia, Wiktionary, Kiwix. Attribution is owed, legally
+  and otherwise, and a book that quietly implied it had written the
+  encyclopedia itself would be committing a much worse offence against its own
+  character than saying where the pages came from. What changed is the frame:
+  the note is now set as a **colophon** — the thing a book actually calls its
+  credit — rather than as a system-requirements panel.
+- **The numbers.** A reader deciding whether to give up sixty gigabytes of
+  their machine is owed the figure. `shelfRoom()` says it the way a person
+  says it — "about 60 GB", "about 3.3 GB" — and the first version of that
+  helper rounded everything under 1 GB to "about a gigabyte", which turned
+  Wikiquote's 0.4 GB into a small lie. Caught on the first browser pass, when
+  the page came back reading *"Wikiquote … about a gigabyte"* beside a 0.4 GB
+  volume. It says "under a gigabyte" now. The book does not round in its own
+  favour.
+
+Also: the catalogue blurb ends in its own "~110 GB." and the new button says
+the same figure in the book's words, so the trailing size is stripped from the
+blurb. Saying it twice, in two registers, was the exact seam being closed.
+
+**The error channel.** Round 5 demoted the backend's string to fine print in
+the DON'T PANIC card, which was right about the headline and wrong about the
+rest: the string still reached the page. Confirmed live before touching
+anything — `#/node/math-counting` rendered *"Everything you have learned is
+safely written down. (no such node)"* — and `api.get`/`api.post` synthesise
+`{ error: r.statusText }` on any non-JSON failure, so `(Internal Server Error)`
+was one bad gateway away from a five-year-old's screen.
+
+The book now keeps its own half of the vocabulary. `SAID` maps the refusals a
+reader can actually reach onto sentences — "That lesson is not among these
+pages.", "That paper has been set aside — ask for a fresh one." — and
+`saidFor()` returns nothing for anything else, so the card falls back to the
+lede it always had. The diagnosis is not lost; it goes to `console.warn`.
+
+My first version of `saidFor` tried to be clever: pass a server string
+through if it *looked* like prose (long enough, has spaces, has a verb-ish
+shape), on the theory that `primer/server.py` already writes half its errors
+in voice. Two problems, both fatal. It would let the next untranslated tag
+through by default — the failure mode is silent and reader-visible, which is
+the worst pairing. And `web/app.js:3264`'s boot fallback already passes a raw
+JavaScript `e.message` into `errCard`, so a stack-adjacent string would have
+sailed straight past a heuristic tuned on server prose. An allowlist cannot be
+surprised; the heuristic is gone.
+
+Same rule applied to the two other places a machine string reached the reader:
+the Shelf's refusal toast (which spliced in "could not resolve download URL
+(offline?)" — the word URL, and a parenthesised engineer's guess) and, in
+passing, the machinery named on the reading surfaces: "from Wikipedia (live)"
+→ "copied in from Wikipedia as you turned to it"; "Simple Wiki" → "Simple
+English"; and `surprise()` no longer instructs a child to perform a download.
+
+Verified in the browser after a full server restart (assets are content-hash
+busted at startup, so a reload proves nothing): the Shelf reads as above with
+no "download", "install", "archive" or "MB" anywhere on it; a bad node id
+renders "DON'T PANIC / That lesson is not among these pages. / Everything you
+have learned is safely written down."; and `errCard({error:'Internal Server
+Error'})` falls back to the generic lede rather than printing the status line.
+
+Suite: **562 passed, 1 skipped**; `check_banks.py`: 0 problems. (Front-end
+copy has no Python surface; verified by direct browser inspection, as this
+file has recorded for every other JS-only change.)
+
+---
+
+## Round 24 — the acronym, the tooltip, the tab, and the world going away
+
+Four more of Stephenson's, none of them large, all of them things the reader
+meets on an ordinary evening.
+
+**The acronym.** `XP` was pinned in the spine of the book at every age —
+beside a three-year-old who cannot read it and a graduate who should not have
+to. It appeared four more times: on the result splash, in the fly-up, on the
+quest crown, and beside a turned page. The mechanic underneath is Kim's and
+Okafor's, it is unfarmable and it is sound, and **none of it changed**: the
+field is still `xp`, `/api/quiz/submit` still returns `xp_gained`, and the
+whole Python surface is untouched. What changed is the word the reader is
+shown. **Growth** — because the ladder they climb in this book is Seedling,
+Sprout, Sapling, Tree, Grove, Forest, and a number that only ever goes up and
+cannot be spent is much better described by that than by an arcade cabinet.
+
+Two candidates were tried and discarded first, and the reasons are worth the
+line. *Light* read well in every sentence — "+40 light", "40 light gathered
+today" — right up against the fact that the book's own theme toggle already
+says **Day / Night** with a sun and a moon on it. A currency called light,
+beside a switch that turns the light on, is a collision the reader would have
+to resolve and should never have been handed. *Rings* is the truer tree
+metaphor and reads as nonsense at the actual magnitudes: nobody gains forty
+rings in an evening.
+
+**The tooltip.** `title=` on a **disabled** button carried the only
+explanation the reader could get for why "Take the quiz" was dead — and most
+browsers refuse to render a tooltip on a disabled control, while no touch
+device has ever rendered one at all. The one sentence that explained the
+locked state was the one sentence the reader could not reach. It is on the
+page now, under the buttons, in the book's hand: *"Questions wait until this
+lesson is open to you. You are welcome to read it meanwhile — the book will
+not set questions on what it has not yet taught you."*
+
+My first draft of that line ended "…Reading it is welcome meanwhile — that is
+how it opens", which is **false**: lessons open on proved prerequisites, not
+on reading. Caught before it shipped by reading it against the requirements
+box three inches above it, which lists the actual prerequisites. A sentence in
+the book's voice that tells the reader something untrue about how the book
+works is a worse fidelity failure than the tooltip it replaced.
+
+**The tab.** `document.title` was assigned nowhere in the front end. A reader
+eight thousand words into an article, three questions into a quiz, or holding
+two copies of the book open, saw one static masthead. It turns with the page
+now — "Percentages · The Primer", "The Shelf · The Primer" — reusing the
+heading `renderRoute` already computes for the view's accessible name, so the
+tab and the screen reader say the same words by construction rather than by
+two lists kept in step by hand.
+
+**The world going away.** `navigator.onLine` appeared nowhere in the product.
+For an artifact whose entire premise is that it works with no wire, every
+disconnection was discovered by a failed request and reported as a generic
+apology — which reads like a fault, and it is not a fault. It is a condition,
+and the book should mention it first. A slim band now lays itself across the
+top of the book while the wire is gone ("The book is on its own for a while —
+no wire, no signal. Everything already bound in is still here, and it will
+reach out again when the world comes back."), mounted into the shell rather
+than the page so a route change cannot take it down while it is still true,
+and it also runs once on arrival, since opening the book already offline fires
+no event at all. When the world returns the book says so.
+
+`errCard` stops guessing in the same breath. "Likely the network, never you"
+is a kind guess; when the book can *see* there is no network it says the true
+thing instead, and says the part that matters — everything bound in is still
+yours to read.
+
+**And one percentage that should never have been spoken.** The results splash
+correctly hides its score percentage from a young reader (`if (!young)`), and
+three branches later printed `'Progress: ' + Math.round(level*100) + '%
+toward mastery'` with no guard — which at stages 0–1 the book then reads
+*aloud*. Confirmed live in Round 22 at Seedling: a failed quiz ended on
+"Progress: 80% toward mastery". Pre-readers get words now — "A good start,
+and the book has written it down." / "You are getting there." / "Nearly there
+— one more good go." Older readers keep the number.
+
+Left deliberately: the two remaining percentages live in `aria-label`s on
+mastery bars and the deck bar. A screen-reader user is the one reader who
+cannot see the bar and for whom the precise figure is the *only* available
+reading of it; blurring it into "getting there" would take away information
+from the one person who asked for it. Recorded as a decision, not an
+oversight.
+
+New CSS (`.offline-band`, `.locked-why`) uses existing tokens only, so neither
+dark block needed a line and the two remain identical.
+
+Verified in the browser after a full restart: tab titles turn across Today /
+Atlas / Shelf / an article; the spine reads "Growth 61"; the fly-up reads
+"+12 growth"; the offline band renders with `role="status"` and legible
+contrast in **both** palettes (light `#efe7d4` on `#554b3a`); `errCard({error:
+'Bad Gateway'})` while offline says the offline sentence rather than the
+status line; and a locked lesson carries its explanation as visible text.
+
+Suite: **562 passed, 1 skipped**; `check_banks.py`: 0 problems.
+
+### Benchmark 11 after Rounds 23–24
+
+| # | Benchmark | R22 | R24 |
+|--:|-----------|:---:|:---:|
+| 11 | The Book as Artifact (Design Fidelity) | 6 | **9** |
+
+Nine, and here is the justification rather than the assertion. Every finding
+that put a machine's words in the reader's hands is closed: no HTTP status
+text, no debug tag, no `size_mb`, no installer, no acronym, no percentage
+spoken to a pre-reader, no sentence hidden in native chrome. The tab turns.
+The book has a thing to say about being offline, which for *this* artifact is
+not an error state at all. It is not a ten: the tutor's vendor disclosure
+(`web/app.js:1719`) is still a seam, and it is one a reader's proxy should not
+close — deleting a privacy notice to protect a fiction is the wrong trade, and
+the right one is a product decision. `skeleton()`'s `aria-label: 'Loading'`
+remains, and belongs to Lindqvist.
+
+---
+
+## Round 25 — the book learns what it is asking of you
+
+Ferriss's first finding, and the clearest miss against benchmark 12's own
+wording: **nothing anywhere told the reader how long anything would take**,
+and **there was no minimum-effective-dose path at all**. The one short
+session in the product — `REVIEW_GOAL_RETURNING = 5` — was involuntary and
+fired only after three days away. A reader with seven minutes had exactly two
+options, the whole day or nothing, and between those the honest answer is
+nothing.
+
+**A number the book earned rather than guessed.** The temptation was to pick
+a plausible seconds-per-card constant and print it. That is not honesty about
+time, it is a guess wearing honesty's clothes — and the reader who is slow, or
+fast, is being told about somebody else. So the book times the reader.
+`/api/review`, `/api/attempt` and `/api/quiz/submit` now accept an optional
+`seconds`; `learner.pace(kind)` returns the **median** per-item seconds over
+the last sixty events, or `None`.
+
+Three deliberate properties, each one load-bearing:
+
+- **`None` means "not measured", and the caller has to say so.** The book
+  shows "A first estimate — the book will time you and correct itself." until
+  it has watched the reader, and "Timed from how long these usually take you."
+  afterwards. An estimate presented as a measurement is exactly the class of
+  small lie this file has twice had to back out of, and it costs one clause to
+  be straight about it.
+- **The clock is the reader's own browser, so it is untrusted twice over** —
+  a hostile client can post anything, and an honest one records the twenty
+  minutes a reader spent answering the door mid-quiz. `_per_item_seconds`
+  **discards** any reading outside 2–300 seconds per item rather than clamping
+  it, because clamping a forty-minute interruption to five minutes still puts
+  a number nobody spent into the median. Median, not mean, for the same
+  reason.
+- **Nothing about grading, mastery, scheduling or XP reads any of it.** The
+  timing is a separate, inert channel. A reader who blocks it, or a client
+  that never sends it, gets the stated defaults and loses nothing else.
+
+**What the reader sees.** Each quest step carries its cost — "0 of 5 · about
+2 min", "Read one article · about 6 min" — priced server-side so the tile and
+the deck can never quote different numbers. The evening carries its total,
+and it is the total *remaining*, because a day two-thirds finished should say
+what is left; that is the number a reader deciding whether to sit down needs.
+An excused or finished step is priced at zero, which the suite asserts
+directly: pricing work the book has already said is not there would ask for
+minutes against nothing.
+
+**And a real short door.** "I only have a few minutes" runs
+`#/review/short` — a route, not a mode flag, so it survives a reload and a
+reader who has five minutes on a bus has them again tomorrow. It lowers the
+*ask* and never the deck: same cards behind it, `stats.due` unchanged, and
+"I have longer after all — show me the whole day" one tap inside. With the
+deck clear it offers the one lesson quiz instead, and it does not appear at
+all when the whole day is already shorter than the short sitting, because
+offering a smaller door into a small room is noise.
+
+Two small dishonesties caught on the browser pass, both the same shape as the
+gigabyte in Round 23 and worth recording because I wrote them:
+
+1. The offer read **"5 cards, about 1 minutes"** — the card count was the
+   *cap* (`SHORT_DOSE_CARDS`) rather than the number of cards actually due, so
+   it promised five when two were waiting. It reports the real number now.
+2. "about 1 minutes", "1 card". A `plural()` helper, used everywhere a count
+   meets a noun. A sentence that says "1 minutes" tells the reader a machine
+   wrote the page, which is Stephenson's benchmark failing inside Ferriss's
+   fix.
+
+Five new tests, all in `tests/test_engagement_api.py`: the clamp band in both
+directions plus its hostile inputs; that the book does not claim to have timed
+a reader it has not; that six timed cards actually move the estimate to the
+reader's own number; that a short sitting lowers the ask and never the deck;
+and that an excused step costs zero minutes.
+
+Suite: **562 → 567 passed**, 1 skipped; `check_banks.py`: 0 problems.
+
+---
+
+## Round 26 — produce before you flip, and be told the rules of the game
+
+The rest of Ferriss's list, taken in order of learning impact.
+
+**The adult deck stopped being flip-and-rate-yourself.** `web/app.js` carried
+a comment calling that "the weakest retrieval act there is" — and then shipped
+it to every reader over six, because the forced-recall row was gated to stage
+≤ 1. The obvious fix was to ungate that row, and it is the wrong fix:
+recognising one of two answers is *easier* than recalling one, so extending
+the pre-reader's affordance upward would have made adult practice weaker, not
+stronger. The older reader is asked to **produce** instead — a field on the
+card, before it turns, and what they wrote is set beside the answer when it
+does, so the self-grade that follows is a comparison rather than a memory of
+having felt confident.
+
+The field is optional on purpose, and the placeholder says why: *"Say it out
+loud, or write it here…"*. Saying it aloud is real retrieval and the book
+cannot hear it; requiring typing would tax the reader for the book's
+convenience and quietly punish anyone practising on a phone. Enter turns the
+card, the space shortcut still works everywhere except inside the field (the
+deck's key handler already ignored form controls), and the field disables
+itself on reveal so a reader cannot edit their answer into a better one after
+seeing the key.
+
+**The book explains its own method.** Benchmark 12 asks that the learner be
+taught *how* to learn. The product had one sentence of that. A `<details>`
+panel at the head of the deck — closed by default, native disclosure
+semantics, so keyboard and screen reader get it free — now covers the five
+things the book is actually doing and had never mentioned: that retrieval
+beats re-reading, that the gap before it will seal a lesson is the point
+rather than an obstacle, that the deck interleaves subjects deliberately and
+feels worse for it, why it keeps asking how sure you are, and what happens to
+a question you miss. All five were already implemented. A reader who
+understands them grades themselves more honestly, which makes the explanation
+part of the instrument rather than decoration.
+
+**The hidden stakes, disclosed.** `burn_item` removes a missed question from
+a node's mastery evidence for seven days, and the reader was never told. Real
+stakes are something this benchmark *wants*; undisclosed ones are just a trap.
+Said now on the result screen, at the only moment it is true, and framed as
+what it actually is — the book declining to be convinced by a question it has
+just answered for you — rather than as a penalty. Not shown to a pre-reader:
+it is a paragraph about evidence and proof, and stages 0–1 would have it read
+aloud to them.
+
+**The placement check stopped being an exam.** For every reader aged six or
+over this fires 700ms after onboarding — it is, for most of them, the first
+thing the book ever does. It ended on `★☆☆` and "This level is still ahead of
+you". A placement is a measurement, not a performance; three stars for landing
+high implies one star for landing low, and where a reader starts is not an
+achievement. The stars are gone, replaced with the compass, and both outcomes
+are the same good news said twice: the book now knows where to open. The
+running head reads FINDING YOUR LEVEL rather than PLACEMENT.
+
+**And the one loss-framed sentence.** "This one has slipped — master it again
+to lock it back in" is now "This one has drifted out of reach for now — which
+is what memory does, and why the book keeps a deck. One more good pass brings
+it back." Slipping is not a failure; it is the phenomenon the entire product
+is built around, and the book should sound like it knows that.
+
+Two things caught by driving it rather than reading it, both mine:
+
+1. Failing a quiz at Seedling produced *"You are getting there. — you have
+   proved it once."* Round 24's young-reader wording ended in a full stop, and
+   the appointment clause below it joins on with an em dash. Both branches are
+   clauses now, with a comment saying why they carry no terminal punctuation.
+2. `tests/test_primer.py::test_showing_an_answer_cannot_be_done_twice` failed
+   — a source-text assertion pinning the exact call
+   `revealBack(c, answerRegion)`, which now carries a fourth argument. The
+   regression it guards (Show answer staying live and appending a second
+   grading group) is untouched, so the assertion was rewritten to check the
+   disabling and the call *near* it rather than the whole signature. Worth
+   recording as a small lesson about this kind of test: pinned to the letter,
+   it had become a test of the signature rather than of the bug.
+
+Not fixed, and named rather than buried: **the authored banks are still 75%
+recognition** — 2446 `choice` against 612 `numeric` and 204 `short`, with zero
+authored `order` or `tally` items despite both being fully implemented in
+`runQuestions`. That is 3,262 items to re-author or extend across eleven
+curriculum files, it is Webb's benchmark #2 as much as it is #12, and doing it
+by machine is precisely how this file has twice generated defective items it
+then had to withdraw. It is a real gap, it is a body of authoring work, and it
+should be commissioned rather than improvised.
+
+Suite: **567 passed**, 1 skipped; `check_banks.py`: 0 problems.
+
+### Benchmark 12 after Rounds 25–26
+
+| # | Benchmark | R22 | R26 |
+|--:|-----------|:---:|:---:|
+| 12 | Interactive Learning Loops (Meta-Learning) | 6 | **9** |
+
+Against the benchmark's own five clauses. *A first felt win inside the first
+session at every stage*: the opening placement can no longer end in a failure
+verdict, and Today now names the shortest path to a completed thing and how
+many minutes it costs. *Practice that is retrieval/production, not
+recognition-only*: pre-readers produce, adults now produce, and the deck — the
+surface a committed reader touches most — no longer lets anyone flip straight
+to the answer without committing first. *Minimum-effective-dose sessions
+honest about time*: every step is priced, the evening carries its remaining
+total, the estimate is measured from the reader's own record and says so when
+it is not, and there is a real short door with its own route. *Stakes and
+recovery loops that re-engage rather than shame*: `returnCard` and the
+renewing freeze budget were already exemplary, the last loss-framed sentence
+is gone, and the one genuine hidden cost is now disclosed at the moment it
+applies. *The learner taught how to learn*: five method notes in the book's
+own voice, at the surface where they are acted on.
+
+It is not a ten, and the reason is the item banks above: three-quarters of
+authored practice is still recognition. That is a commission, not a fix.
+
+### Scores after Round 26
+
+| # | Benchmark | R22 | now |
+|--:|-----------|:---:|:---:|
+| 11 | The Book as Artifact (Design Fidelity) | 6 | **9** |
+| 12 | Interactive Learning Loops (Meta-Learning) | 6 | **9** |
+
+Benchmarks 1–10 were not re-scored; nothing in Rounds 23–26 changed a
+mechanic any of them owns.
+
+## Round 27 — the verification pass, and what the skeptics found
+
+Rounds 22–26 were not taken at their word. Four independent reviewers were
+sent to refute the eighteen material claims, one per claim set, each briefed
+that thin evidence means PARTIAL and instructed to hunt regressions against
+the file's own invariants. Two more closed the items Rounds 22–26 had handed
+to Lindqvist (#9) and Mehta (#10).
+
+**Twelve claims CONFIRMED, six PARTIAL, none REFUTED.** The PARTIALs were not
+wording quibbles; four were real defects, all fixed this round:
+
+1. **The pace label could still tell the lie it was written to prevent.**
+   `measured` was `card_s is not None or quiz_s is not None` — one boolean
+   over two independent clocks, so six graded cards made the *quiz* estimate
+   wear "Timed from how long these usually take you." Now `measured` is true
+   only when every kind still on the bill is priced from the reader's own
+   record, `partly` says the honest middle out loud ("Partly timed from your
+   own sittings — the rest the book still estimates."), and the test that
+   had pinned the conflation in (`...becomes_the_readers_own`) now asserts
+   the honest verdict instead. A second test's vacuous `mins >= 0` (under a
+   comment claiming "never zero") became `minutes_left > 0`.
+
+2. **The offline band broke the file's own live-region rule, and died with
+   the shell.** It was inserted with its text already inside it — the exact
+   pattern three other sites in this file carry warnings about — and its one
+   boot-time check at DOMContentLoaded+400ms could mount it into a #root that
+   renderShell() was about to wipe, losing the band for precisely the reader
+   it exists for: the one who opens the book already off the wire. Now
+   mounted empty and filled at +30ms, and renderShell() re-checks after every
+   rebuild.
+
+3. **Practice papers burned missed items silently.** The server spends a
+   missed item for `('quiz', 'practice')` alike; the disclosure was gated on
+   `kind === 'quiz'`. The undisclosed-stakes bug, back within four rounds of
+   being named. The gate now matches the mechanism (stage 0–1 exclusion
+   deliberately kept).
+
+4. **A comment told a story the code never did.** The Round 26 percentage
+   fix claimed the book "then reads it aloud" to a pre-reader; the reviewer
+   traced every speech path and found no percentage had ever been spoken.
+   The fix was real — a printed percentage a young reader could see — and
+   the comment now says only that.
+
+Housekeeping from the same reports: the Shelf's `colophon` class had no rule
+(now a quiet credit line, token-only); a superseded comment block in
+`downloadArchive` contradicted its replacement and is gone.
+
+The two handed-off items closed: `skeleton()` now says "The book is writing
+this page…" (or the article's own title) instead of the bare machine word
+"Loading"; and the sign-in page's `{{ERROR}}` escaping guarantee is
+structural — a test posts hostile markup through username, password and
+`next` and proves the banner renders it inert, with the why-comment at the
+slot naming the test that pins it.
+
+Noted, accepted, and left standing: the errCard allowlist drops some
+genuinely in-voice server refusals to the generic sentence (information
+loss, not a leak — the diagnosis still reaches the console); the write-in
+beat is optional by design (an empty field falls back to flip-and-rate);
+"Growth" is capitalised in the sidebar and lowercase inline; sub-gigabyte
+archives say "under a gigabyte" rather than the exact figure.
+
+Suite: **568 passed, 1 skipped** (one new hosted-safety test);
+`check_banks.py`: 0 problems. Verified live on the sandbox: the band mounts
+empty, fills, and survives a shell rebuild; the skeleton labels read in
+voice; `/api/today` reports `measured:false, partly:false` on the fresh
+scratch record.

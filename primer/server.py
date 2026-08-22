@@ -32,7 +32,8 @@ from . import library, practice, quiz, store, tutor
 from . import sittings as sittings_mod
 from . import story as story_mod
 from .curriculum import Curriculum
-from .learner import LearnerStore, STAGE_NAMES, STAGE_SPAN, STAGE_TITLES
+from .learner import (LearnerStore, STAGE_NAMES, STAGE_SPAN, STAGE_TITLES,
+                      _end_of_tomorrow, _local_day)
 from .pacing import roadmap
 from .render import rewrite_article
 from .wiki import WikiService, ROOT
@@ -990,6 +991,95 @@ def _daily_seed() -> int:
     return lt.tm_year * 1000 + lt.tm_yday
 
 
+# How many of today's five lessons may be ones already started. Two is the
+# whole safety margin: uncapped, a reader with six half-proved lessons opens
+# the book to a day made entirely of debt, which is the opposite of the point.
+RESUME_MAX = 2
+TODAY_LESSONS = 5
+# Appointments not shown among today's five. Bounded for the same reason the
+# refresh list is: this is a row of chips on a page, not a report.
+PENDING_SHOWN = 6
+# Mirrors learner.streak_milestone's ladder. Duplicated deliberately rather
+# than imported: that function answers "did one land today", this one answers
+# "which is next", and the two must be readable side by side to stay in step.
+STREAK_MILESTONES = (3, 7, 30, 100, 365)
+
+# The day's review ask, and the smaller one a returning reader meets.
+REVIEW_GOAL = 12
+REVIEW_GOAL_RETURNING = 5
+
+# ---------------- how long tonight will take ----------------
+# The book had never once told a reader what it was asking of them: not for a
+# card, not for a quiz, not for the day. These are the numbers it uses BEFORE
+# it has watched this particular reader do anything — stated here rather than
+# buried, so they can be argued with, and superseded the moment there is a
+# real measurement (learner.pace). The book says "about" either way, and says
+# which of the two it is using.
+DEFAULT_CARD_SECONDS = 25.0
+DEFAULT_QUESTION_SECONDS = 55.0
+# What `startQuiz` actually asks the server for. If that cap ever moves, the
+# estimate moves with it or the book starts lying about its own quiz.
+QUIZ_QUESTIONS = 5
+# An article is the one step with no natural unit, and the reader chooses how
+# deep to go. A deliberately modest figure: the step asks for one article
+# read, not one article exhausted.
+ARTICLE_MINUTES = 6
+
+
+def _round_minutes(mins: float) -> int:
+    """Minutes as a person would say them. Never zero: a step the reader has
+    to actually do is never "about 0 minutes", and rounding it there would be
+    the one kind of dishonesty this whole block exists to remove."""
+    return max(1, int(round(mins)))
+
+
+def _review_goal(deck: dict, days_away: Optional[int] = None,
+                 done_today: int = 0) -> int:
+    """How many cards the book asks for today.
+
+    A module function because the quest tile and the deck itself must name the
+    same number — a tile reading "of 12" over a deck that never stops is worse
+    than no number at all.
+
+    Never more than the deck actually holds: a goal above what is available is
+    a task the reader cannot finish, which is precisely what `step()`'s excusal
+    rule exists to prevent, and `goal == 0` is how that rule now recognises it.
+
+    `done_today` is added back in so the ask cannot shrink under the reader as
+    they work. Pricing the goal against the cards still due would re-read "five
+    of twenty done" as "five of fifteen", and the day would recede exactly as
+    fast as it was met.
+
+    A reader three days away meets a smaller day. The backlog is not a debt to
+    be collected on the first afternoon back.
+    """
+    cap = REVIEW_GOAL_RETURNING if (days_away or 0) >= 3 else REVIEW_GOAL
+    return max(0, min(int(done_today) + int(deck.get("due") or 0), cap))
+
+
+# Beyond this the events log has been thinned to one representative row per
+# day (learner.prune), so "when were you last here" stops being a measurement.
+# Unknown is the honest answer, and the ordinary greeting stands.
+ABSENCE_HORIZON_DAYS = 400
+
+
+def _elapsed_days(last_seen: Optional[float]) -> Optional[int]:
+    """Whole local days between the reader's last visit and today, or None.
+
+    None has one meaning and it is not "long ago": either the reader's whole
+    history is today's (a first afternoon, which must never be greeted as a
+    lapse) or it is older than the retention window can vouch for. Counted in
+    calendar days rather than by dividing seconds, because a day is not always
+    86400 seconds long and a DST transition must not invent or erase one.
+    """
+    if last_seen is None:
+        return None
+    days = _local_day(time.time()) - _local_day(last_seen)
+    if days < 0 or days > ABSENCE_HORIZON_DAYS:
+        return None
+    return days
+
+
 @app.get("/api/today")
 def today():
     """The adaptive home: a stable daily quest — review first, then new
@@ -1003,9 +1093,47 @@ def today():
     # Stable order for the day (no reshuffle on refresh), but varied day to day.
     rng = random.Random(_daily_seed() + int(prof.get("created_at", 0)))
     rng.shuffle(lessons)
-    lessons = lessons[:5]
+
+    # An open loop outranks a new one. A lesson standing one earned pass short
+    # of mastery already has a dated appointment — `_apply_attempt` refuses to
+    # master it until the proving gap has elapsed — and until now the book
+    # never mentioned it, leaving it a coin flip whether the reader met that
+    # lesson again at all.
+    #
+    # The shuffle above runs ONCE, over the whole candidate list, and the
+    # partition is read off its result. Shuffling the two halves separately
+    # would make the draw sequence depend on how many lessons are pending, so
+    # passing one lesson would silently re-order the rest of the day — the
+    # reshuffle-on-refresh bug the seeded rng exists to prevent, wearing a
+    # different hat.
+    now = time.time()
+    pend = {p["node_id"]: p for p in learner.pending_proofs()}
+    for n in lessons:
+        appointment = pend.get(n["id"])
+        if appointment:
+            n["passes"] = appointment["passes"]
+            n["ready_at"] = appointment["ready_at"]
+            n["resume"] = True
+    resume = [n for n in lessons if n.get("resume")]
+    fresh = [n for n in lessons if not n.get("resume")]
+    # Ready now ahead of ready later; the seeded order holds within each group
+    # because sort is stable. An elapsed ready_at is an invitation, never a
+    # date the reader appears to have missed.
+    resume.sort(key=lambda n: n["ready_at"] > now)
+    lessons = (resume[:RESUME_MAX] + fresh)[:TODAY_LESSONS]
+    shown = {n["id"] for n in lessons}
+    # The appointments that did not fit. Named rather than dropped: the cap
+    # protects the shape of the day, and it should not cost the reader the
+    # knowledge that the work is still there and still theirs.
+    pending = [{"id": nid, "title": (curr.node(nid) or {}).get("title", nid),
+                "ready_at": p["ready_at"]}
+               for nid, p in pend.items() if nid not in shown][:PENDING_SHOWN]
 
     deck = learner.deck_stats()
+    # How long the reader has been away, read before the quest is built
+    # because a returning day asks for less.
+    last_seen = learner.last_active_before_today()
+    days_away = _elapsed_days(last_seen)
     reading = learner.reading_stats()
     refresh = learner.nodes_needing_refresh(4)
     refresh_titles = [{"id": nid, "title": (curr.node(nid) or {}).get("title", nid)}
@@ -1015,36 +1143,138 @@ def today():
     # step is built through this one function so the excusal rule cannot
     # diverge between steps: a step with nothing available to do (empty deck,
     # exhausted frontier) is excused, never left blocking the crown.
-    def step(label, done, count, hint=None):
+    def step(label, done_count, goal, count, hint=None):
+        # `goal` is what the book asks for today; `count` stays exactly what it
+        # always was — what is available — because pacing and the current
+        # client read it, and this round may only add.
+        #
+        # `max(goal, 1)` keeps the old yes/no meaning of `done` wherever the
+        # goal is zero: with nothing to do, having done nothing is not done.
+        # Without it, `0 >= 0` would quietly hand the reader the crown for an
+        # empty deck instead of excusing the step, which is a different claim.
+        done = done_count >= max(goal, 1)
         return {"label": label, "done": done, "count": count,
+                # What the day asks for and how much of it is behind them.
+                "done_count": done_count, "goal": goal,
                 # Excused only when the reader has not already done it AND
-                # there is genuinely nothing available to do.
-                "excused": not done and count == 0,
-                "hint": hint if not done and count == 0 else None}
+                # there is genuinely nothing available to do. `goal == 0` is
+                # the same condition `count == 0` used to state: every goal
+                # below is bounded by what is available.
+                "excused": not done and goal == 0,
+                "hint": hint if not done and goal == 0 else None}
 
+    reviewed_today = learner.events_today_count("review")
     quest = {
-        "review": step("Strengthen your memory", _events_today("review"), deck["due"],
+        "review": step("Strengthen your memory", reviewed_today,
+                       _review_goal(deck, days_away, reviewed_today), deck["due"],
                        "Deck is clear — nothing due" if deck["total"]
                        else "Pass a lesson quiz and the book will start your deck"),
-        "learn": step("Learn something new", _events_today("attempt"), len(lessons),
+        "learn": step("Learn something new", learner.events_today_count("attempt"),
+                      min(len(lessons), 1), len(lessons),
                       "You are at the frontier of every subject you chose — "
                       "add another from your profile, or review to keep it solid"),
         # No count to exhaust: an article is always available to read, so this
         # step can never be excused. `None` is not zero.
-        "read": step("Read one article", _events_today("read"), None),
+        "read": step("Read one article", learner.events_today_count("read"), 1, None),
     }
     quest_done = sum(1 for k in quest.values() if k["done"])
     quest_total = sum(1 for k in quest.values() if not k["excused"])
 
+    # What the day costs, in minutes, priced per step. Only steps the reader
+    # still has to do are counted: a day two-thirds finished should say what is
+    # LEFT, which is the number a reader deciding whether to sit down needs.
+    card_s = learner.pace("review")
+    quiz_s = learner.pace("attempt")
+    # Two independent clocks, and the label has to speak for the numbers
+    # actually on the bill. A single `or` here meant six graded cards made
+    # the *quiz* estimate wear the "timed from you" label — the exact
+    # estimate-presented-as-measurement the label exists to prevent.
+    card_measured = card_s is not None
+    quiz_measured = quiz_s is not None
+    card_s = card_s or DEFAULT_CARD_SECONDS
+    quiz_s = quiz_s or DEFAULT_QUESTION_SECONDS
+    step_minutes = {}
+    for key, q in quest.items():
+        if q["done"] or q["excused"]:
+            step_minutes[key] = 0
+            continue
+        left = max(0, (q["goal"] or 0) - (q["done_count"] or 0))
+        if key == "review":
+            step_minutes[key] = _round_minutes(left * card_s / 60.0)
+        elif key == "learn":
+            step_minutes[key] = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+        else:
+            step_minutes[key] = ARTICLE_MINUTES
+    # `measured` is true only when every kind still being priced is priced
+    # from the reader's own record; `partly` says the honest middle out loud.
+    flags = {"review": card_measured, "learn": quiz_measured}
+    relevant = [k for k, q in quest.items()
+                if not q["done"] and not q["excused"] and k in flags]
+    measured = bool(relevant) and all(flags[k] for k in relevant)
+    partly = (bool(relevant) and any(flags[k] for k in relevant)
+              and not measured)
+    pace = {
+        "measured": measured,
+        "partly": partly,
+        "card_seconds": round(card_s, 1),
+        "question_seconds": round(quiz_s, 1),
+        "steps": step_minutes,
+        "minutes_left": sum(step_minutes.values()),
+        # The smallest honest sitting: five cards, or — with the deck clear or
+        # not yet started — the one thing a short evening can still finish.
+        # The number of cards a short sitting would ACTUALLY be, not the cap:
+        # promising five when two are due is the same class of small lie as
+        # rounding 0.4 GB up to "about a gigabyte".
+        "short_cards": min(SHORT_DOSE_CARDS, max(0, deck["due"])),
+        "short_minutes": _round_minutes(
+            min(SHORT_DOSE_CARDS, max(0, deck["due"])) * card_s / 60.0),
+        "short_kind": "review" if deck["due"] else "learn",
+    }
+    if pace["short_kind"] == "learn":
+        pace["short_minutes"] = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+
     story, progress, story_can_advance = _story_cursor(prof, commit=True)
+
+    best_streak = learner.best_streak_days()
+    standing = learner.proven_count_current()
+
+    # A day with a tomorrow. Every clause is something waiting, never
+    # something forfeited by not returning — the reader may be five.
+    streak = int(prof["streak"] or 0)
+    milestone = next((m for m in STREAK_MILESTONES if m > streak), None)
+    horizon = _end_of_tomorrow(now)
+    ready_soon = [p["ready_at"] for p in pend.values() if p["ready_at"] < horizon]
+    tomorrow = {
+        "due_tomorrow": deck.get("due_tomorrow", 0),
+        "next_due": deck.get("next_due"),
+        # May already be in the past, which means ready now — pending_proofs
+        # never nulls an elapsed appointment, and neither does this.
+        "next_ready": min(ready_soon) if ready_soon else None,
+        "streak_next": streak + 1,
+        "milestone": ({"days": milestone, "away": milestone - streak}
+                      if milestone else None),
+    }
+
+    # Where the reader was, and what the book kept while they were gone.
+    # Omitted entirely when there is nothing honest to say.
+    absence = None if days_away is None else {
+        "days_away": days_away,
+        "last_seen": last_seen,
+        "best_streak": best_streak,
+        "standing": standing,
+        "chapter_title": (story or {}).get("title"),
+    }
 
     return {
         "profile": prof,
         "lessons": lessons,
+        "pending": pending,
+        "tomorrow": tomorrow,
+        "absence": absence,
         "deck": deck,
         "reading": reading,
         "refresh": refresh_titles,
-        "mastered": learner.proven_count_current(),
+        "mastered": standing,
         # Both sides of this subtraction now come from the same decay-aware
         # definition. Before, `mastered_count()` was decay-aware while
         # `proven_count()` counted every node ever earned regardless of
@@ -1053,11 +1283,12 @@ def today():
         "assumed": max(0, learner.mastered_count() - learner.proven_count_current()),
         "xp_today": learner.xp_today(),
         "streak": prof["streak"],
-        "best_streak": learner.best_streak_days(),
+        "best_streak": best_streak,
         "streak_milestone": learner.streak_milestone(),
         "freezes_left": learner.freezes_left(),
         "active_today": learner.active_today(),
         "quest": quest,
+        "pace": pace,
         "quest_done": quest_done,
         "quest_total": quest_total,
         "story": story,
@@ -1066,11 +1297,6 @@ def today():
         "story_needs": None if story_can_advance else _story_needs(story),
         "story_title": _book_title(prof["name"]),
     }
-
-
-def _events_today(kind: str) -> bool:
-    """Whether this kind of event was logged today — the store's own question."""
-    return bool(learner.events_today(kind))
 
 
 # A graded paper is never one question long. A single item can be lucky, and a
@@ -1136,6 +1362,11 @@ class AttemptIn(BaseModel):
     node_id: str
     answers: List[str] = Field(default_factory=list, max_length=24)
     token: str = ""
+    # How long the paper took, by the reader's own clock. Untrusted and
+    # non-load-bearing: see learner._per_item_seconds. Nothing about grading,
+    # mastery or XP reads it; it exists only so the book can answer "how long
+    # will this take me" with the reader's own number instead of a guess.
+    seconds: Optional[float] = None
 
     @field_validator("answers")
     @classmethod
@@ -1174,7 +1405,8 @@ def record_attempt(a: AttemptIn):
     if not a.node_id or node is None:
         return {"score": score, "xp_gained": 0, "unlessoned": True,
                 "cards_added": 0, "ascension": None}
-    res = learner.record_attempt(a.node_id, score)
+    res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
+                                 items=len(a.answers))
     # Practice is a study event too: whatever was missed should come back.
     cards_added = 0
     if graded and given:
@@ -1249,7 +1481,12 @@ def _add_young_ordering(questions, node, n, stage):
     extra = practice.generate_set(gen, 1, level=stage)
     if not extra:
         return questions
-    keep = [q for q in questions if q.get("kind") in ("numeric", "short", "order")]
+    # `tally` belongs here with the other produced answers: it asks the child
+    # to count and hand back a number. Left out, the one question shape built
+    # for these readers is classified as droppable recognition and dropped —
+    # for exactly the readers it was built for.
+    keep = [q for q in questions
+            if q.get("kind") in ("numeric", "short", "order", "tally")]
     drop = [q for q in questions if q not in keep]
     return (keep + drop)[:max(0, n - 1)] + extra
 
@@ -1415,6 +1652,7 @@ class QuizSubmitIn(BaseModel):
     make_cards: bool = True
     token: str = ""
     confidence: List[int] = Field(default_factory=list, max_length=24)
+    seconds: Optional[float] = None
 
     @field_validator("answers")
     @classmethod
@@ -1451,7 +1689,8 @@ def submit_quiz(s: QuizSubmitIn):
                       "these. Come back to this one in a few days.",
              "spent": spent}, status_code=409)
     result = quiz.score_quiz(scorable, scorable_given)
-    mastery = learner.record_attempt(s.node_id, result["score"])
+    mastery = learner.record_attempt(s.node_id, result["score"],
+                                     seconds=s.seconds, items=len(s.answers))
     cards_added = 0
     if s.make_cards:
         article = node["articles"][0] if node and node["articles"] else ""
@@ -1500,8 +1739,24 @@ def submit_quiz(s: QuizSubmitIn):
                        "total": len(pairs)}
         learner.log_event("calibration", {"node": s.node_id, **calibration})
     ascension = _check_ascension(learner.get_profile()) if mastery.get("newly_mastered") else None
+    # The page turns where it was earned. This is a READ of the story cursor
+    # and nothing else: /api/story/advance stays the only writer, or a splash
+    # re-opened from history would grant the chapter's 15 XP a second time.
+    # Read after the ascension, which may have moved the reader's stage and so
+    # the window the cursor walks, and from the profile that ascension saved.
+    story_unlocked = None
+    if mastery.get("newly_mastered"):
+        chapter, progress, can_advance = _story_cursor(learner.get_profile(),
+                                                       commit=False)
+        # Only when this very lesson is the one the open chapter was waiting
+        # for. A reader who masters something unrelated has not turned a page.
+        if can_advance and (chapter or {}).get("leads_to") == s.node_id:
+            story_unlocked = {"number": progress + 1,
+                              "title": chapter.get("title", ""),
+                              "chapter": chapter}
     return {"result": result, "mastery": mastery, "cards_added": cards_added,
-            "ascension": ascension, "calibration": calibration}
+            "ascension": ascension, "calibration": calibration,
+            "story_unlocked": story_unlocked}
 
 
 # The self-check that used to live here — machine-generated fill-in-the-blank
@@ -1517,19 +1772,40 @@ def submit_quiz(s: QuizSubmitIn):
 
 # ---------------- spaced repetition ----------------
 
+# The smallest sitting the book will admit to being worth doing. Named here
+# because the quest tile, the deck and the copy that offers it must all quote
+# the same number.
+SHORT_DOSE_CARDS = 5
+
+
 @app.get("/api/review/due")
-def review_due(limit: int = 20):
-    return {"cards": learner.due_cards(limit), "stats": learner.deck_stats()}
+def review_due(limit: int = 20, dose: str = ""):
+    # The deck ships the day's ask with the cards, from the same function the
+    # quest tile is priced by — a deck that stops at a different number from
+    # the one the tile promised would be worse than a deck that never stops.
+    stats = learner.deck_stats()
+    goal = _review_goal(stats, _elapsed_days(learner.last_active_before_today()),
+                        learner.events_today_count("review"))
+    # A reader who asked for a short sitting gets a short sitting. The ask is
+    # lowered, never the deck: the cards behind it are untouched and the full
+    # day is one tap away, so this is a smaller door into the same room rather
+    # than a different, lesser deck.
+    if dose == "short" and goal > 0:
+        goal = min(goal, SHORT_DOSE_CARDS)
+    return {"cards": learner.due_cards(limit), "stats": stats, "goal": goal,
+            "dose": dose or "full", "short_goal": SHORT_DOSE_CARDS}
 
 
 class ReviewIn(BaseModel):
     card_id: int
     quality: int
+    seconds: Optional[float] = None
 
 
 @app.post("/api/review")
 def review(r: ReviewIn):
-    return learner.review_card(r.card_id, max(0, min(5, r.quality)))
+    return learner.review_card(r.card_id, max(0, min(5, r.quality)),
+                               seconds=r.seconds)
 
 
 class CardIn(BaseModel):
@@ -1792,9 +2068,14 @@ def ask_tutor(t: TutorIn) -> JSONResponse:
     # State the response type explicitly.  Tutor text is untrusted (it may
     # include user input or a remote model's reply), and must never be inferred
     # or served as HTML by a framework/analyser.
+    # The name travels only now that the disclosure the reader is shown says so.
+    # It named the conversation, the passage and the reading level but not the
+    # name, and it could not be wired until that sentence was true — which it
+    # now is (see the tutor-disclosure line in web/app.js).
     return JSONResponse(tutor.ask(
         messages, t.title, excerpt, stage,
         allow_remote=_tutor_remote_allowed(prof),
+        reader=(prof or {}).get("name") or "",
     ))
 
 
