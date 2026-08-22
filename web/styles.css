@@ -277,11 +277,18 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- book shell ---------- */
 #book {
-  max-width: 1180px;
+  /* The book used to be a fixed 1180px plank on a dark desk, which on anything
+     larger than a laptop meant the desk got most of the screen: at 2560px the
+     page covered 56% and the reader's own text 43%. The cap is now high enough
+     that only a very wide monitor sees any desk at all, and the rail and the
+     padding scale with the viewport instead of staying laptop-sized on a 27in
+     display. */
+  --rail: clamp(212px, 15vw, 296px);
+  max-width: min(100%, 2400px);
   margin: 0 auto;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: var(--rail) 1fr;
   background: var(--paper);
   background-image: var(--page-texture),
     radial-gradient(circle at 50% 0%, var(--paper-hi), var(--paper));
@@ -290,7 +297,7 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 #book::before {
   /* the spine */
-  content: ""; position: absolute; left: 240px; top: 0; bottom: 0; width: 24px;
+  content: ""; position: absolute; left: var(--rail); top: 0; bottom: 0; width: 24px;
   transform: translateX(-12px);
   background: var(--seam);
   pointer-events: none; z-index: 5;
@@ -351,7 +358,8 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- page area ---------- */
 #page {
-  padding: 40px 52px 80px; min-height: 100vh; position: relative;
+  padding: clamp(22px, 2.1vw, 52px) clamp(18px, 2.4vw, 60px) 80px;
+  min-height: 100vh; position: relative;
   animation: fade 0.4s ease;
 }
 @keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform:none;} }
@@ -453,12 +461,19 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
    column appears. */
 #reader-layout {
   display: grid; gap: 30px;
-  grid-template-columns: minmax(0, 1fr) clamp(268px, 24vw, 330px);
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 24vw, 560px);
 }
-#book:has(#reader-layout) { max-width: 1440px; }
 #article {
-  font-size: 17px; line-height: 1.72; color: var(--ink);
+  /* Filling a wide screen by lengthening the line would be the wrong trade —
+     72ch is a measure, not a shortfall. The type grows instead, so the same
+     count of characters covers more of the display: 17px on a laptop, up to
+     21px on a 27in monitor, and the ch-based measure widens with it. */
+  font-size: clamp(17px, 1.05vw, 21px); line-height: 1.72; color: var(--ink);
   max-width: 72ch;
+  /* Whatever the measure does not use is split either side rather than left as
+     a gap against the tutor: on a wide screen that reads as the margin of a set
+     page, which is what it is, instead of a column that failed to fill. */
+  margin-inline: auto;
 }
 #article h1, #article h2, #article h3 { font-weight: 600; line-height: 1.25; }
 #article h1 { font-size: 30px; border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
@@ -548,6 +563,10 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 @media (max-width: 1199px) {
   #reader-layout { grid-template-columns: 1fr; gap: 0; }
   #tutor { position: relative; height: 420px; margin-top: 22px; }
+  /* Once the tutor is below rather than beside, there is no gap to balance and
+     centring only buys a stray indent: the measure would sit inboard of the
+     page heading above it, which reads as a mistake rather than a margin. */
+  #article { margin-inline: 0; }
 }
 
 /* Each navigation box is folded into a disclosure by render.py, so the foot of
@@ -1064,7 +1083,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   .grid.two, .grid.three { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
-  #page { padding: 16px; }
+  #page { padding: clamp(11px, 3.2vw, 17px); }
   .pagehead h2 { font-size: 26px; }
   .grid.auto { grid-template-columns: 1fr; }
   .quest-item { flex: 1 1 100%; }
@@ -1472,14 +1491,14 @@ body[data-stage="4"] .result-splash .stars, body[data-stage="5"] .result-splash 
 body[data-stage="4"] .result-splash .score, body[data-stage="5"] .result-splash .score { font-size: 46px; }
 body[data-stage="4"] .dropcap::first-letter, body[data-stage="5"] .dropcap::first-letter { font-size: 1em; float: none; margin: 0; line-height: inherit; color: inherit; }
 /* Denser reading column: an adult reads longer lines comfortably. */
-body[data-stage="4"] #article, body[data-stage="5"] #article { font-size: 17px; line-height: 1.62; max-width: 74ch; }
+body[data-stage="4"] #article, body[data-stage="5"] #article { font-size: clamp(17px, 1.05vw, 21px); line-height: 1.62; max-width: 74ch; }
 /* Stage 5 was every stage-4 rule plus one line pointing at a `.kbd-hint` class
    that no template ever emitted — five modes wearing six labels. A graduate
    reader gets a genuinely quieter surface: no decorative seal, tighter measure,
    the domain colour reduced to a rule rather than a filled badge. */
 body[data-stage="5"] { --ui-scale: 0.92; }
 body[data-stage="5"] .pagehead h2 { font-size: 23px; letter-spacing: -0.01em; }
-body[data-stage="5"] #article { font-size: 16px; line-height: 1.58; max-width: 78ch; }
+body[data-stage="5"] #article { font-size: clamp(16px, 0.98vw, 20px); line-height: 1.58; max-width: 78ch; }
 body[data-stage="5"] .card { padding: 11px 14px; margin-bottom: 8px; }
 body[data-stage="5"] .badge { background: none; border: 1px solid currentColor;
   font-weight: 500; letter-spacing: .06em; }
