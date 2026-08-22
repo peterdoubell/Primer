@@ -1570,6 +1570,26 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 .err-lede { font-size: 16px; margin: 4px 0 2px; }
 .err-note { font-size: 13px; margin-bottom: 14px; }
 
+/* The book explaining its own method. Closed by default; a reader who has
+   read it once should not have to scroll past it every evening. */
+.study-note { font-family: var(--sans); font-size: 13px; line-height: 1.6;
+  border: 1px solid var(--rule); border-radius: 8px; padding: 8px 14px;
+  margin: 0 0 16px; background: var(--paper-2); color: var(--ink-soft); }
+.study-note > summary { cursor: pointer; font-weight: 600; color: var(--gold-ink);
+  padding: 4px 0; list-style-position: outside; }
+.study-note > summary svg { vertical-align: -2px; }
+.study-note > summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.study-note p { margin: 8px 0; max-width: 68ch; }
+.study-note b { color: var(--ink); }
+
+/* Produce the answer before the card turns. */
+.recall-write { display: block; width: 100%; margin: 10px 0; padding: 11px 13px;
+  font-family: var(--sans); font-size: 15px; color: var(--ink);
+  background: var(--field); border: 1px solid var(--rule); border-radius: 7px; }
+.recall-write:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.wrote-line { font-size: 13px; margin: 8px 0 0; }
+.burn-note { font-size: 13px; max-width: 62ch; margin: 10px auto 0; }
+
 .pace-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
   margin: 10px 0 4px; font-family: var(--sans); font-size: 13px; }
 .pace-total { color: var(--ink-soft); font-weight: 600; }
