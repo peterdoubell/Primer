@@ -810,14 +810,39 @@ async function guard(page, fn) {
 // The Guide's first and best advice, in large friendly letters. An error in a
 // book for children should reassure before it explains: nothing the reader
 // did, nothing lost, and a clear way onward.
+// What the book says about its own refusals. Round 5 demoted the backend
+// string to fine print, which kept the DON'T PANIC lede intact but still put
+// "no such node" — and, on any non-JSON failure, "Internal Server Error" —
+// on the page in the reader's own hands. A machine tag is not fine print; it
+// is a different book. So the front end keeps the book's half of the
+// vocabulary, and anything it does not recognise is said in the book's words
+// instead of the server's. The diagnosis is not lost: it goes to the console.
+const SAID = {
+  'no such node': 'That lesson is not among these pages.',
+  'not found': 'That page is not on the shelf.',
+  'unknown catalog key': 'That volume is not in the book\u2019s catalogue.',
+  'unknown quiz token': 'That paper has been set aside — ask for a fresh one.',
+  'unknown generator': 'That drill is not one the book knows how to set.',
+};
+function saidFor(e) {
+  const tag = e && typeof e.error === 'string' ? e.error.toLowerCase() : '';
+  if (!tag) return '';
+  // Recognised or not said at all. A rule that tried to *infer* whether a
+  // string was in voice — long enough, has a verb — would let the next
+  // untranslated tag through, and a JS exception message already arrives here
+  // by one path (the boot fallback below passes e.message). An allowlist
+  // cannot be surprised.
+  return SAID[tag] || '';
+}
 function errCard(e, retry) {
-  // The reassuring lede always leads; the backend's terse string ("no such
-  // node", a bare statusText) is demoted to fine print — a raw server error
-  // as the headline undid the whole DON'T PANIC register.
+  // The lede leads, and the second line is the book explaining itself in its
+  // own words or saying nothing at all.
+  if (e && e.error) console.warn('[primer]', e.error);
+  const said = saidFor(e);
   const c = el('div', { class: 'card err-card', role: 'alert' },
     el('div', { class: 'dont-panic', 'aria-hidden': 'true' }, 'DON’T PANIC'),
-    el('p', { class: 'err-lede' }, 'The Book has briefly lost its train of thought — likely the network, never you.'),
-    el('p', { class: 'muted err-note' }, 'Everything you have learned is safely written down.' + (e && e.error ? ' (' + e.error + ')' : '')));
+    el('p', { class: 'err-lede' }, said || 'The Book has briefly lost its train of thought — likely the network, never you.'),
+    el('p', { class: 'muted err-note' }, 'Everything you have learned is safely written down.'));
   if (retry) c.append(btn({ class: 'btn ghost small', onclick: retry }, 'Try again'));
   return c;
 }
@@ -1389,7 +1414,10 @@ async function renderReader(page, arg) {
       link.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') goLink(e); });
     });
     attachPictureHandlers(art);
-    const badge = a.source === 'zim' ? 'from your shelf' : a.source === 'cache' ? 'from your library' : 'from Wikipedia (live)';
+    // Where the page came from, said as a book says it. "(live)" is a word
+    // about wires; "copied in from Wikipedia as you turned to it" is the same
+    // fact, keeps the attribution Wikipedia is owed, and is a sentence.
+    const badge = a.source === 'zim' ? 'from your shelf' : a.source === 'cache' ? 'from your library' : 'copied in from Wikipedia as you turned to it';
     // .reader-source: the book's own footnote about where the page came from,
     // not a sentence of the article. articleBlocks skips it, so read-aloud does
     // not end a twenty-minute reading with "from your shelf".
@@ -2964,7 +2992,7 @@ async function runSearch(q, results, live = false, say = null) {
     // sighted readers see the list length at a glance.
     tell(data.results.length + (data.results.length === 1 ? ' result for ' : ' results for ') + q);
     data.results.forEach(r => {
-      const src = r.source === 'live' ? 'Wikipedia' : (String(r.source).includes('simple') ? 'Simple Wiki' : 'Your shelf');
+      const src = r.source === 'live' ? 'Wikipedia' : (String(r.source).includes('simple') ? 'Simple English' : 'Your shelf');
       results.append(btn({ class: 'search-result', style: 'display:block;width:100%;text-align:left', onclick: () => go('reader', r.title) },
         el('b', {}, r.title), ' ', el('span', { class: 'src' }, src)));
     });
@@ -2975,7 +3003,7 @@ async function runSearch(q, results, live = false, say = null) {
     results.append(el('div', { class: 'search-result' }, el('span', { class: 'muted' }, 'The index has wandered off — likely the network, never you. Ask again in a moment.')));
   }
 }
-async function surprise() { try { const r = await api.get('/api/random'); if (r.title) go('reader', r.title); } catch (e) { toast('The dice need a shelf to land on — download an archive first.'); } }
+async function surprise() { try { const r = await api.get('/api/random'); if (r.title) go('reader', r.title); } catch (e) { toast('The dice need a shelf to land on — the book is not carrying a volume yet.'); } }
 
 /* ---------------- Roadmap ---------------- */
 async function renderRoadmap(page) {
@@ -3091,17 +3119,33 @@ async function renderStory(page) {
 }
 
 /* ---------------- Library ---------------- */
+// Shelf room, said the way a person says it. 0.94 GB is a number off a
+// manifest; "about a gigabyte" is what you tell someone deciding.
+function shelfRoom(gb) {
+  const n = Number(gb) || 0;
+  // "About a gigabyte" for a 0.4 GB volume is a small lie, and the book does
+  // not tell those; below a gigabyte the honest, decision-shaped answer is
+  // that it is under one.
+  if (n < 1) return 'under a gigabyte';
+  if (n < 10) return 'about ' + (Math.round(n * 10) / 10) + ' GB';
+  return 'about ' + Math.round(n) + ' GB';
+}
 async function renderLibrary(page) {
   const data = await guard(page, () => api.get('/api/library'));
   if (!data) return;
   page.append(pagehead('The book contains other books', 'The Shelf',
-    'Download knowledge archives to hold them forever, offline, inside the Primer. The complete Wikipedia lives here.'));
+    'Whole libraries can be bound into this one and kept — every page of them yours, with no wire and no one\u2019s permission. Choose what you would like the book to carry.'));
   page.append(el('p', { class: 'epigraph' }, 'A vault does not ask permission to remember. Once shelved, always at hand — no wire required.'));
   const st = data.status;
   page.append(el('div', { class: 'card' },
-    el('b', {}, glyph('shelf', 16), ' Installed now: ' + st.archives.length + ' archive' + (st.archives.length === 1 ? '' : 's')),
-    el('p', { class: 'muted', style: 'margin:4px 0 0' }, st.archives.map(a => a.title + ' (' + a.articles.toLocaleString() + ' articles, ' + a.size_mb + ' MB)').join(' · ') || 'None yet.'),
-    el('p', { class: 'muted', style: 'margin:6px 0 0' }, st.cached_articles + ' more articles saved from your online reading.')));
+    el('b', {}, glyph('shelf', 16), ' On your shelf: ' + (st.archives.length || 'no') + ' volume' + (st.archives.length === 1 ? '' : 's')),
+    // Room and page-count stay: a reader deciding whether to give up sixty
+    // gigabytes of their machine is owed the number. It is the register
+    // around the number that had to change — "Installed", "archive", "MB".
+    el('p', { class: 'muted', style: 'margin:4px 0 0' }, st.archives.map(a => a.title + ' — ' + a.articles.toLocaleString() + ' entries, ' + shelfRoom(a.size_mb / 1024) + ' of room').join(' · ') || 'Nothing bound in yet.'),
+    el('p', { class: 'muted', style: 'margin:6px 0 0' }, st.cached_articles === 1
+      ? 'One further page has been copied down from your reading and kept.'
+      : st.cached_articles.toLocaleString() + ' further pages have been copied down from your reading and kept.')));
   // A download can run for minutes to hours, polled by wiping and rebuilding
   // this whole page every 3s — the same shape of update Look Up's results
   // and the tutor's replies already learned to announce, just never carried
@@ -3111,16 +3155,25 @@ async function renderLibrary(page) {
   page.append(say);
   data.catalog.forEach(item => {
     const c = el('div', { class: 'card lib-item' });
-    const meta = el('div', { class: 'meta' }, el('b', {}, item.title), el('p', {}, item.blurb));
+    // The catalogue blurb ends in its own "~110 GB."; the button beside it now
+    // says the same thing in the book's words, and saying it twice in two
+    // registers is exactly the seam this round is closing.
+    const meta = el('div', { class: 'meta' }, el('b', {}, item.title),
+      el('p', {}, String(item.blurb).replace(/\s*~[\d.]+\s*GB\.?\s*$/, '')));
     const right = el('div', {});
     if (item.installed) right.append(el('span', { class: 'badge installed' }, '✓ On your shelf'));
     else if (item.download && item.download.status === 'downloading') {
       const pct = item.download.total ? Math.round(100 * item.download.bytes / item.download.total) : 0;
-      right.append(el('span', { class: 'badge big' }, 'Downloading ' + pct + '%'), el('div', { class: 'bar', style: 'width:120px;margin-top:6px' }, el('span', { style: `width:${pct}%` })));
-    } else right.append(btn({ class: 'btn small', onclick: () => downloadArchive(item.key) }, '↓ ' + item.approx_gb + ' GB'));
+      right.append(el('span', { class: 'badge big' }, 'Copying in — ' + pct + '%'), el('div', { class: 'bar', style: 'width:120px;margin-top:6px' }, el('span', { style: `width:${pct}%` })));
+    } else right.append(btn({ class: 'btn small', onclick: () => downloadArchive(item.key) }, 'Copy it in · ' + shelfRoom(item.approx_gb)));
     c.append(meta, right); page.append(c);
   });
-  page.append(el('p', { class: 'muted', style: 'margin-top:14px' }, 'Archives come from the Kiwix project. The full English Wikipedia with images is ~110 GB; text-only is ~60 GB; Simple English is ~1–3 GB.'));
+  // A colophon, which is what a book calls the note about where its pages came
+  // from. The names stay — Wikipedia and Kiwix are owed attribution, and the
+  // book is not in the business of pretending it wrote the encyclopedia — but
+  // they are set as a credit rather than as a system requirements panel.
+  page.append(el('p', { class: 'muted colophon', style: 'margin-top:14px' },
+    'These volumes are copied in from Wikipedia and its sister works, carried by the Kiwix project, which keeps them free for anyone to hold. The complete English edition with pictures asks for about 110 GB of room; without pictures, about 60; the Simple English edition, one to three.'));
   const downloading = data.downloads.filter(d => d.status === 'downloading');
   if (downloading.length) {
     const named = downloading.map(d => {
@@ -3131,7 +3184,7 @@ async function renderLibrary(page) {
     // A live region inserted with its text already inside it is announced
     // unreliably or not at all — mount empty (above), fill after the node
     // has actually landed in the document.
-    setTimeout(() => { say.textContent = 'Downloading: ' + named.join(', '); }, 30);
+    setTimeout(() => { say.textContent = 'Copying in: ' + named.join(', '); }, 30);
     setTimeout(() => { if (S.view === 'library') renderRoute(); }, 3000);
   }
 }
@@ -3143,8 +3196,12 @@ async function downloadArchive(key) {
     // book explains, then quotes itself. Every other failure path in this
     // file already leads with reassurance; this one printed the backend
     // string verbatim as the whole message.
-    if (r.error) { toast('The shelf could not start that download — nothing is lost. (' + r.error + ')'); return; }
-    toast('Download started — it continues in the background.'); renderRoute();
+    // The refusal reason ("unknown catalog key", "could not resolve download
+    // URL (offline?)") is a note between the book and its own machinery. The
+    // reader gets the book's sentence; the diagnosis goes to the console,
+    // where whoever is debugging can still read it.
+    if (r.error) { console.warn('[primer] shelf refused:', r.error); toast('The book could not begin that volume just now — nothing is lost, and you can ask again.'); return; }
+    toast('The book has begun copying it in. Go on reading — it copies while you read.'); renderRoute();
   }
   catch (e) { toast('The shelf is out of reach — likely the network, never you. The book will fetch it when you are back online.'); }
 }
