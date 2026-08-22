@@ -526,3 +526,35 @@ def test_an_excused_or_finished_step_costs_the_reader_no_minutes(tmp_path):
         # time against work the book has already said is not there.
         assert today["quest"]["review"]["excused"] is True
         assert today["pace"]["steps"]["review"] == 0
+
+
+def test_the_short_door_opens_onto_work_the_day_still_owes(tmp_path):
+    """Regression: the smallest sitting was chosen from the deck alone.
+
+    `"review" if deck["due"] else "learn"` never asked whether either step was
+    still on the bill. So a reader who sat their lesson that morning and whose
+    deck was clear was offered "One lesson quiz, about 5 minutes" — a five
+    minute door into the only room they had already left — while the one step
+    still owed, the article, went unnamed. It is the minimum-effective-dose
+    control, and it was pointing at finished work.
+    """
+    with book(tmp_path) as (client, srv):
+        _pass_paper(client, srv, _frontier(srv, ["math", "physics"])[0])
+        today = client.get("/api/today").json()
+        quest, pace = today["quest"], today["pace"]
+        # The state that used to mislead: learn done, deck clear, read owed.
+        assert quest["learn"]["done"] is True
+        assert quest["review"]["excused"] is True
+        assert quest["read"]["done"] is False
+        # There is no shorter version of "read one article" than reading one,
+        # so the honest answer is that there is no smaller door — and an empty
+        # kind with no minutes behind it is how the client is told to draw none.
+        assert pace["short_kind"] == ""
+        assert pace["short_minutes"] == 0
+
+        # And when the deck does have something to say, the door opens on it.
+        _cards_due_now(srv, 20)
+        pace = client.get("/api/today").json()["pace"]
+        assert pace["short_kind"] == "review"
+        assert pace["short_cards"] == srv.SHORT_DOSE_CARDS
+        assert pace["short_minutes"] > 0

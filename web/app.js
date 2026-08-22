@@ -1520,6 +1520,17 @@ async function renderReader(page, arg) {
   // fire, or the outgoing article's remembered place is overwritten with this
   // one's — which is precisely the case the memory exists to serve.
   S.readerTitle = title;
+  // And READ the remembered place in the same breath, because claiming the
+  // title is only half the job. renderRoute has just emptied #page, so the
+  // document has collapsed to a toolbar, a skeleton and the tutor panel; the
+  // browser clamps the scroll offset to whatever that short page allows and
+  // fires a scroll event for it — after this function has returned to its
+  // first await, and therefore against THIS article's slot. Reading the value
+  // after the fetch read that clamp back: a never-visited article opened 533px
+  // down its own page, and returning to one genuinely remembered at 1212 landed
+  // at 533 and overwrote the 1212 with it. Measured in the browser, both.
+  // Captured here, nothing between the claim and the read can fire.
+  const wantScroll = readerScroll.get(title) || 0;
   // "Check yourself" stood here for articles with no curriculum node. It was
   // machine-made cloze over raw article prose, hand-audited at 55% defective,
   // and is withdrawn: the book does not ask questions no person wrote. Read
@@ -1555,10 +1566,11 @@ async function renderReader(page, arg) {
     // Back to where the eye was, once the article has been laid out. This is
     // safe to do in a single frame because fix_img stamps an intrinsic width
     // and height on every image (render.py), so nothing reflows underneath the
-    // reader afterwards. A first visit remembers 0, which is also the right
-    // answer: a hash change to a fragment that names no element leaves the
-    // window scrolled exactly where the previous page left it.
-    const want = readerScroll.get(title) || 0;
+    // reader afterwards. `wantScroll` was read at the top of this function, not
+    // here — see the note there; by now the slot holds a layout artefact rather
+    // than a place anybody read to. A first visit wants 0, which is the right
+    // answer: the top of an article nobody has opened before.
+    const want = wantScroll;
     requestAnimationFrame(() => {
       const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
       window.scrollTo(0, Math.min(want, max));
@@ -2494,8 +2506,13 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // spends the item either way) — a disclosure gated on quizzes alone left
     // practice burning silently, which is the undisclosed-stakes bug again.
     if (missedIdx.length && !isRetry && (kind === 'quiz' || kind === 'practice') && !young) {
-      splash.append(el('p', { class: 'muted burn-note' },
-        'The ' + plural(missedIdx.length, 'question') + ' you missed stepped aside for a week — once the book has shown you an answer, that question cannot be its proof that you know it. Every other question still counts, and so will that one, later.'));
+      // Both numbers written out rather than run through plural(): that helper
+      // fixes the count and the noun, and this sentence carries the number
+      // three more times after them — "The 1 question … that question … that
+      // one" is the same machine-wrote-this tell in a longer coat.
+      splash.append(el('p', { class: 'muted burn-note' }, missedIdx.length === 1
+        ? 'The question you missed has stepped aside for a week — once the book has shown you an answer, that question cannot be its proof that you know it. Every other question still counts, and so will that one, later.'
+        : 'The ' + missedIdx.length + ' questions you missed have stepped aside for a week — once the book has shown you an answer, a question cannot be its proof that you know it. Every other question still counts, and so will those, later.'));
     }
     if (missedIdx.length) controls.append(btn({ class: 'btn', onclick: () => { const retry = missedIdx.map(k => questions[k]); close(); runQuestions({ title, questions: retry, nodeId, kind, stage, isRetry: true }); } }, '↻ Retry the ' + missedIdx.length + ' you missed'));
     controls.append(btn({ class: 'btn ghost', onclick: close }, 'Close'));
