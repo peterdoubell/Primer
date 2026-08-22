@@ -833,6 +833,25 @@ def _shuffled(question: dict) -> dict:
     if len(choices) > 1:
         random.shuffle(choices)
         q["choices"] = choices
+    # The same reasoning reaches an order item's `items`, and it had been left
+    # out. An author writes the steps down in the order they happen — that is
+    # the only sane way to write them — so serving them verbatim lets the
+    # reader tap left to right and score full marks without knowing the
+    # sequence at all. The corpus carried no authored order items when this
+    # was found, so nothing was exploitable yet; it would have become
+    # exploitable with the first one written. Shuffled here rather than
+    # trusted to every future author remembering to scramble by hand.
+    items = list(q.get("items") or [])
+    if len(items) > 1 and q.get("kind") == "order":
+        shuffled = items[:]
+        # An order item with two steps has a 50% chance of shuffling to itself,
+        # and a fair shuffle may return the identity for any length. Reroll a
+        # few times rather than shipping the answer as the starting position.
+        for _ in range(8):
+            random.shuffle(shuffled)
+            if shuffled != items:
+                break
+        q["items"] = shuffled
     return q
 
 
@@ -1213,6 +1232,29 @@ def today():
     measured = bool(relevant) and all(flags[k] for k in relevant)
     partly = (bool(relevant) and any(flags[k] for k in relevant)
               and not measured)
+    # The smallest honest sitting. Which door it opens is read off what the day
+    # still OWES — never off the deck alone. `"review" if deck["due"] else
+    # "learn"` had no idea whether either step was still on the bill, so a
+    # reader who had sat their lesson that morning and whose deck was clear was
+    # offered "One lesson quiz, about 5 minutes" — a five-minute door into the
+    # only room they had already left — while the one step still owed went
+    # unnamed. An empty `short_kind` is a real answer: there is no smaller
+    # honest sitting than what is left, and the client draws no door for it.
+    # `short_cards` is the number a short sitting would ACTUALLY be, not the
+    # cap: promising five when two are due is the same class of small lie as
+    # rounding 0.4 GB up to "about a gigabyte".
+    owed = [k for k, q in quest.items() if not q["done"] and not q["excused"]]
+    short_cards = min(SHORT_DOSE_CARDS, max(0, deck["due"]))
+    if "review" in owed and short_cards:
+        short_kind = "review"
+        short_minutes = _round_minutes(short_cards * card_s / 60.0)
+    elif "learn" in owed:
+        short_kind = "learn"
+        short_minutes = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+    else:
+        # Only the article is left (or nothing is). There is no shorter version
+        # of "read one article" than reading one article, so no door is drawn.
+        short_kind, short_minutes = "", 0
     pace = {
         "measured": measured,
         "partly": partly,
@@ -1220,18 +1262,10 @@ def today():
         "question_seconds": round(quiz_s, 1),
         "steps": step_minutes,
         "minutes_left": sum(step_minutes.values()),
-        # The smallest honest sitting: five cards, or — with the deck clear or
-        # not yet started — the one thing a short evening can still finish.
-        # The number of cards a short sitting would ACTUALLY be, not the cap:
-        # promising five when two are due is the same class of small lie as
-        # rounding 0.4 GB up to "about a gigabyte".
-        "short_cards": min(SHORT_DOSE_CARDS, max(0, deck["due"])),
-        "short_minutes": _round_minutes(
-            min(SHORT_DOSE_CARDS, max(0, deck["due"])) * card_s / 60.0),
-        "short_kind": "review" if deck["due"] else "learn",
+        "short_cards": short_cards,
+        "short_minutes": short_minutes,
+        "short_kind": short_kind,
     }
-    if pace["short_kind"] == "learn":
-        pace["short_minutes"] = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
 
     story, progress, story_can_advance = _story_cursor(prof, commit=True)
 

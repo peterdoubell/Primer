@@ -16,7 +16,9 @@ Design commitments (from the review board):
   "freezes" mean one busy day doesn't erase months of habit.
 """
 
+import bisect
 import datetime
+import functools
 import json
 import math
 import logging
@@ -456,10 +458,22 @@ class LearnerStore:
     # ---------- profile ----------
 
     def get_profile(self) -> Optional[Dict]:
+        """The reader, with the two numbers that always ride along.
+
+        All three reads share one connection. They used to be three: the row,
+        then `total_xp()`, then `streak_days()`, each opening and closing its
+        own. That is nearly free against a local file and emphatically not
+        free against Turso, where a connection is an HTTPS client and every
+        statement is a round trip — and get_profile() is on the path of almost
+        every route the reader touches. Same queries, same order, same
+        answers; one connection instead of three.
+        """
         with _lock, self._conn() as c:
             row = c.execute("SELECT * FROM profile WHERE id=1").fetchone()
-        if not row:
-            return None
+            if not row:
+                return None
+            xp = self._total_xp(c)
+            day_rows = self._streak_day_rows(c)
         p = dict(row)
         p["domains"] = json.loads(p["domains"] or "[]")
         p["settings"] = json.loads(p["settings"] or "{}")
@@ -467,8 +481,8 @@ class LearnerStore:
         p["stage_name"] = STAGE_NAMES[s]
         p["stage_span"] = STAGE_SPAN[s]
         p["title"] = STAGE_TITLES[s]
-        p["xp"] = self.total_xp()
-        p["streak"] = self.streak_days()
+        p["xp"] = xp
+        p["streak"] = _streak_walk_from_rows(day_rows, _local_day(time.time()))[0]
         return p
 
     def save_profile(self, name: str, age: float, hours_per_week: float,
@@ -1720,10 +1734,15 @@ class LearnerStore:
             ).fetchall()
         return {"articles_read": n, "recent": [r["title"] for r in recent]}
 
+    @staticmethod
+    def _total_xp(c) -> int:
+        """Lifetime XP, read through a connection the caller already holds."""
+        row = c.execute("SELECT COALESCE(SUM(xp),0) FROM events").fetchone()
+        return int(row[0] or 0)
+
     def total_xp(self) -> int:
         with _lock, self._conn() as c:
-            row = c.execute("SELECT COALESCE(SUM(xp),0) FROM events").fetchone()
-        return int(row[0] or 0)
+            return self._total_xp(c)
 
     def xp_today(self) -> int:
         start = _local_midnight(time.time())
@@ -1751,33 +1770,7 @@ class LearnerStore:
         gap spends nothing: the run ends there outright rather than the
         attempt itself being charged.
         """
-        relevant = [d for d in days if d <= anchor]
-        if not relevant:
-            return 0, 0
-        run = 0
-        # Every bridged day, ever, across the whole walk — never pruned
-        # mid-walk. An earlier version filtered this down to "nearby the gap
-        # being evaluated" and reassigned it, which silently discarded
-        # recent, still-live spends the moment an OLDER gap got processed:
-        # bridging an ancient sick day 330 days back dropped the record of
-        # yesterday's miss from the list entirely, so freezes_left() at the
-        # end read 2 (full budget) when only 1 was truly still outstanding.
-        # "Nearby" must stay a read-only view taken for one gap's own
-        # affordability check, never the list itself.
-        spent: List[int] = []
-        expect = anchor
-        for d in reversed(relevant):
-            gap = expect - d
-            if gap:
-                nearby = [s for s in spent if s - d < STREAK_FREEZE_RENEW_DAYS]
-                if len(nearby) + gap > STREAK_FREEZES:
-                    break
-                spent.extend(d + 1 + i for i in range(gap))
-            run += 1
-            expect = d - 1
-        # Freezes "used" as of the anchor itself — the ones still unexpired.
-        used = sum(1 for s in spent if anchor - s < STREAK_FREEZE_RENEW_DAYS)
-        return run, used
+        return _bridged_run_ending_at(days, anchor)
 
     def _streak_walk(self) -> tuple:
         """Every streak-related number the app shows, from one shared
@@ -1806,22 +1799,24 @@ class LearnerStore:
         active day in the reader's history and keeps the longest.
         """
         with _lock, self._conn() as c:
-            rows = c.execute(
-                "SELECT DISTINCT date(at, 'unixepoch', 'localtime') d "
-                "FROM events ORDER BY d ASC").fetchall()
-        if not rows:
-            return 0, STREAK_FREEZES, 0
-        days = [datetime.date.fromisoformat(r["d"]).toordinal() for r in rows]
-        today = _local_day(time.time())
-        # Anchor to the reader's most recent activity when it's today or
-        # yesterday — today's box hasn't closed yet, so nothing has been
-        # missed there. Fall back to yesterday for a genuinely stale streak,
-        # where the gap to the present is real and must be charged.
-        anchor = days[-1] if days[-1] >= today - 1 else today - 1
-        current, used = self._bridged_run_ending_at(days, anchor)
-        best = max((self._bridged_run_ending_at(days, a)[0] for a in days), default=0)
-        best = max(best, current)
-        return current, max(0, STREAK_FREEZES - used), best
+            rows = self._streak_day_rows(c)
+        return _streak_walk_from_rows(rows, _local_day(time.time()))
+
+    @staticmethod
+    def _streak_day_rows(c) -> tuple:
+        """The reader's distinct active local days, oldest first.
+
+        Split out from `_streak_walk` so a caller that already holds a
+        connection (see `get_profile`) reads them through it rather than
+        opening a second one — the same rows, the same order, one round trip
+        instead of two. Returned as a plain tuple of ISO date strings because
+        that is the cache key `_streak_walk_from_rows` is memoised on, and a
+        list of sqlite3.Row objects is neither hashable nor comparable across
+        two reads of identical data.
+        """
+        return tuple(r["d"] for r in c.execute(
+            "SELECT DISTINCT date(at, 'unixepoch', 'localtime') d "
+            "FROM events ORDER BY d ASC").fetchall())
 
     def streak_days(self) -> int:
         """Consecutive local days with activity, bridging missed days against
@@ -2124,6 +2119,111 @@ class LearnerStore:
                 if r[0] not in keep_ids]
             if stale:
                 c.executemany("DELETE FROM events WHERE id=?", [(i,) for i in stale])
+
+
+# --------------------------------------------------------------------------
+# The streak walk, as free functions over plain data.
+#
+# It lives out here, and it is memoised, because of how often it is asked for.
+# One /api/today asks four separate questions that are all this one walk —
+# streak_days, best_streak_days, freezes_left, and streak_milestone (which
+# asks streak_days again) — and each used to re-run it from scratch: measured
+# at 11 ms a walk on a four-hundred-day history, that was 36 of the
+# endpoint's 57 ms spent computing the same three numbers four times.
+#
+# The walk is a pure function of two things: the set of days the reader was
+# active, and which day is today. Nothing else in the record can move its
+# answer. So the memo below is exact rather than a staleness trade: a new
+# event on a day already in the set cannot change the result, and an event on
+# a NEW day changes the key. The cache is small on purpose — a handful of
+# entries covers "today, this reader" with room for the day to roll over
+# mid-process and for tests to hold several fixtures at once.
+# --------------------------------------------------------------------------
+
+
+def _bridged_run_ending_at(days, anchor: int) -> tuple:
+    """(run_length, freezes_used) for the run of active days ending at or
+    including `anchor` — see LearnerStore._bridged_run_ending_at for the rules
+    this enacts and why the walk runs backward from a fixed right edge.
+
+    `days` is ascending and distinct. The old shape of this function filtered
+    the whole history into a `relevant` list on every call, which is O(history)
+    work per anchor before the walk even starts — and the walk is called once
+    per active day. A bisect for the right edge and a backwards index walk is
+    the same traversal, in the same order, over the same values, without
+    materialising a copy of the past for each one.
+    """
+    hi = bisect.bisect_right(days, anchor)
+    if not hi:
+        return 0, 0
+    run = 0
+    # Every bridged day, ever, across the whole walk — never pruned
+    # mid-walk. An earlier version filtered this down to "nearby the gap
+    # being evaluated" and reassigned it, which silently discarded
+    # recent, still-live spends the moment an OLDER gap got processed:
+    # bridging an ancient sick day 330 days back dropped the record of
+    # yesterday's miss from the list entirely, so freezes_left() at the
+    # end read 2 (full budget) when only 1 was truly still outstanding.
+    # "Nearby" must stay a read-only view taken for one gap's own
+    # affordability check, never the list itself.
+    spent: List[int] = []
+    expect = anchor
+    for i in range(hi - 1, -1, -1):
+        d = days[i]
+        gap = expect - d
+        if gap:
+            nearby = 0
+            for sp in spent:
+                if sp - d < STREAK_FREEZE_RENEW_DAYS:
+                    nearby += 1
+            if nearby + gap > STREAK_FREEZES:
+                break
+            spent.extend(range(d + 1, d + 1 + gap))
+        run += 1
+        expect = d - 1
+    # Freezes "used" as of the anchor itself — the ones still unexpired.
+    used = 0
+    for sp in spent:
+        if anchor - sp < STREAK_FREEZE_RENEW_DAYS:
+            used += 1
+    return run, used
+
+
+def _streak_walk_from_days(days, today: int) -> tuple:
+    """(current_streak, freezes_left, best_streak) from the day list alone."""
+    if not days:
+        return 0, STREAK_FREEZES, 0
+    # Anchor to the reader's most recent activity when it's today or
+    # yesterday — today's box hasn't closed yet, so nothing has been
+    # missed there. Fall back to yesterday for a genuinely stale streak,
+    # where the gap to the present is real and must be charged.
+    anchor = days[-1] if days[-1] >= today - 1 else today - 1
+    current, used = _bridged_run_ending_at(days, anchor)
+    # The best run is the longest one ending at any active day. Seeding the
+    # maximum with the current run and scanning newest-first turns that into
+    # a search that can stop early: a run ending at days[i] can be at most
+    # i + 1 days long, because that is how many days precede it, so once the
+    # index falls to the best already found no earlier anchor can beat it.
+    # Every anchor is still *considered*; the ones skipped are the ones whose
+    # own ceiling is proof they would lose. Same answer, without walking the
+    # whole history once per day of it.
+    best = current
+    for i in range(len(days) - 1, -1, -1):
+        if i + 1 <= best:
+            break
+        run = _bridged_run_ending_at(days, days[i])[0]
+        if run > best:
+            best = run
+    return current, max(0, STREAK_FREEZES - used), best
+
+
+@functools.lru_cache(maxsize=8)
+def _streak_walk_from_rows(iso_days: tuple, today: int) -> tuple:
+    """The memoised walk. `iso_days` is the tuple of 'YYYY-MM-DD' strings the
+    events table hands back, ascending; `today` is the reader's local day."""
+    return _streak_walk_from_days(
+        tuple(datetime.date.fromisoformat(d).toordinal() for d in iso_days),
+        today)
 
 
 def _local_day(ts: float) -> int:

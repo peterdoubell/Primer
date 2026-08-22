@@ -2138,6 +2138,33 @@ def test_the_internal_reader_route_is_not_a_dead_end():
     assert "if (view === 'reader' && !parts[1]) return { view: 'library-search', arg: null };" in js
 
 
+def test_the_readers_place_is_read_before_the_page_can_collapse():
+    """Regression: the scroll memory restored a layout artefact, never a place.
+
+    renderRoute empties #page, so by the time renderReader is entered the
+    document is a toolbar, a skeleton and the tutor panel. The browser clamps
+    the scroll offset to whatever that short page allows and fires a scroll
+    event for it — and that event lands *after* `S.readerTitle = title` has
+    claimed the slot for the article now arriving, so it writes the clamp into
+    that article's memory. Reading the value after the fetch read the clamp
+    back: measured in the browser, a never-visited article opened 533px down
+    its own page, and returning to one genuinely remembered at 1212 landed at
+    533 and overwrote the 1212 with it.
+
+    The whole feature therefore has one ordering requirement: the remembered
+    offset is read in the same synchronous breath that claims the title,
+    before the first await hands the task back to the browser.
+    """
+    js = _web("app.js")
+    body = js[js.index("async function renderReader("):]
+    body = body[:body.index("\n}\n")]
+    claim = body.index("S.readerTitle = title;")
+    read = body.index("readerScroll.get(title)")
+    first_await = body.index("await api.get(")
+    assert claim < read < first_await, \
+        "the remembered offset must be read before renderReader's first await"
+
+
 def test_practice_errors_still_become_cards(store):
     """Regression: every practice generator stamps `ephemeral: True` on every
     item, and `cards_from_missed` trusted that flag — so the 41 nodes assessed
