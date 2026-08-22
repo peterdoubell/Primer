@@ -1185,7 +1185,12 @@ def today():
     # LEFT, which is the number a reader deciding whether to sit down needs.
     card_s = learner.pace("review")
     quiz_s = learner.pace("attempt")
-    measured = card_s is not None or quiz_s is not None
+    # Two independent clocks, and the label has to speak for the numbers
+    # actually on the bill. A single `or` here meant six graded cards made
+    # the *quiz* estimate wear the "timed from you" label — the exact
+    # estimate-presented-as-measurement the label exists to prevent.
+    card_measured = card_s is not None
+    quiz_measured = quiz_s is not None
     card_s = card_s or DEFAULT_CARD_SECONDS
     quiz_s = quiz_s or DEFAULT_QUESTION_SECONDS
     step_minutes = {}
@@ -1200,8 +1205,17 @@ def today():
             step_minutes[key] = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
         else:
             step_minutes[key] = ARTICLE_MINUTES
+    # `measured` is true only when every kind still being priced is priced
+    # from the reader's own record; `partly` says the honest middle out loud.
+    flags = {"review": card_measured, "learn": quiz_measured}
+    relevant = [k for k, q in quest.items()
+                if not q["done"] and not q["excused"] and k in flags]
+    measured = bool(relevant) and all(flags[k] for k in relevant)
+    partly = (bool(relevant) and any(flags[k] for k in relevant)
+              and not measured)
     pace = {
         "measured": measured,
+        "partly": partly,
         "card_seconds": round(card_s, 1),
         "question_seconds": round(quiz_s, 1),
         "steps": step_minutes,

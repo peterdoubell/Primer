@@ -476,11 +476,12 @@ def test_the_book_does_not_claim_to_have_timed_a_reader_it_has_not(tmp_path):
     with book(tmp_path) as (client, srv):
         pace = client.get("/api/today").json()["pace"]
         assert pace["measured"] is False
-        # Every step the reader still has to do carries a number, and it is
-        # never zero — "about 0 minutes" for work that has to be done is the
-        # one dishonesty this whole block exists to remove.
-        for key, mins in pace["steps"].items():
-            assert mins >= 0
+        assert pace["partly"] is False
+        # A fresh book has real work priced on the bill: the total is a
+        # positive number of minutes, and it is the sum of its own parts.
+        # (Excused steps are legitimately zero, so "never zero" is not a
+        # property any single step can promise.)
+        assert pace["minutes_left"] > 0
         assert pace["minutes_left"] == sum(pace["steps"].values())
         assert srv.learner.pace("review") is None
 
@@ -496,7 +497,11 @@ def test_enough_timed_cards_and_the_estimate_becomes_the_readers_own(tmp_path):
                         json={"card_id": card["id"], "quality": 4, "seconds": 10.0})
         assert srv.learner.pace("review") == 10.0
         pace = client.get("/api/today").json()["pace"]
-        assert pace["measured"] is True
+        # Only the cards have been timed; the learn step is still priced from
+        # the default. That is "partly", not "measured" — the earlier version
+        # of this test pinned the conflation in rather than catching it.
+        assert pace["measured"] is False
+        assert pace["partly"] is True
         assert pace["card_seconds"] == 10.0
 
 

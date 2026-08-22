@@ -273,3 +273,40 @@ def test_safe_next_is_constructed_not_checked():
     for raw in ("/'\"<>&;:\\\x00\x1f", "/ok:8080/x", "/java\tscript:alert(1)"):
         out = _safe_next(raw)
         assert not any(c in out for c in "'\"<>:\\\r\n\t\x00"), (raw, out)
+
+
+def test_the_error_banner_renders_and_swallows_hostile_markup(monkeypatch):
+    """The one templating slot in sign-in.html can never carry a reader's markup.
+
+    The guarantee has lived only in _sign_in_page's use of html.escape and a
+    comment beside {{ERROR}}.  This pins it: a refused attempt must actually
+    render the banner (otherwise the rest proves nothing), the script tag the
+    stranger typed must be reflected nowhere, and the banner's own text must
+    be escaped rather than substituted raw.
+    """
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    hostile = '<script>alert("xss")</script>'
+    with TestClient(srv.app) as client:
+        refused = client.post(srv.SIGN_IN_PATH + "?next=" + hostile,
+                              follow_redirects=False,
+                              data={"username": hostile, "password": hostile})
+
+    # The banner is on the page, so the escaping path below was exercised.
+    assert refused.status_code == 401
+    assert 'class="err"' in refused.text
+    assert "That is not the word this copy knows." in refused.text
+    assert "{{ERROR}}" not in refused.text
+
+    # Nothing the stranger typed comes back, in any form.
+    assert "<script>" not in refused.text
+    assert "alert(" not in refused.text
+    assert "xss" not in refused.text
+
+    # And the slot escapes what it is handed, rather than trusting the caller.
+    forged = srv._sign_in_page(hostile, 401)
+    body = forged.body.decode()
+    assert "<script>" not in body
+    assert "&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;" in body
