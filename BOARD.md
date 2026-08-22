@@ -4172,3 +4172,88 @@ Six is what is left when the loop itself is measured.
 | 12 | Interactive Learning Loops (Meta-Learning) | **6** |
 
 No change to benchmarks 1–10 this round; nothing was touched.
+
+---
+
+## Round 23 — the book stops running an installer, and stops quoting its own machinery
+
+Two of Stephenson's findings, both the kind where the fix is entirely copy and
+entirely load-bearing.
+
+**The Shelf.** `renderLibrary` was a package manager: "Download knowledge
+archives", "Installed now: 2 archives", `size_mb`, `cached_articles … saved
+from your online reading`, a `↓ 60 GB` button, "Downloading 42%", and a
+footnote naming the Kiwix project alongside three storage figures — then a
+toast promising the download "continues in the background". Every one of those
+is a true statement about the software and none of them is a sentence this
+book would write.
+
+Rewritten as what it actually is: a shelf, and volumes bound into it.
+"On your shelf: 2 volumes"; each one named with its entry count and *room*
+rather than megabytes; "7 further pages have been copied down from your
+reading and kept"; "Copy it in · about 60 GB"; "Copying in — 42%"; and, when
+it starts, "The book has begun copying it in. Go on reading — it copies while
+you read."
+
+Two things deliberately **kept**, against the temptation to launder them:
+
+- **The names.** Wikipedia, Wiktionary, Kiwix. Attribution is owed, legally
+  and otherwise, and a book that quietly implied it had written the
+  encyclopedia itself would be committing a much worse offence against its own
+  character than saying where the pages came from. What changed is the frame:
+  the note is now set as a **colophon** — the thing a book actually calls its
+  credit — rather than as a system-requirements panel.
+- **The numbers.** A reader deciding whether to give up sixty gigabytes of
+  their machine is owed the figure. `shelfRoom()` says it the way a person
+  says it — "about 60 GB", "about 3.3 GB" — and the first version of that
+  helper rounded everything under 1 GB to "about a gigabyte", which turned
+  Wikiquote's 0.4 GB into a small lie. Caught on the first browser pass, when
+  the page came back reading *"Wikiquote … about a gigabyte"* beside a 0.4 GB
+  volume. It says "under a gigabyte" now. The book does not round in its own
+  favour.
+
+Also: the catalogue blurb ends in its own "~110 GB." and the new button says
+the same figure in the book's words, so the trailing size is stripped from the
+blurb. Saying it twice, in two registers, was the exact seam being closed.
+
+**The error channel.** Round 5 demoted the backend's string to fine print in
+the DON'T PANIC card, which was right about the headline and wrong about the
+rest: the string still reached the page. Confirmed live before touching
+anything — `#/node/math-counting` rendered *"Everything you have learned is
+safely written down. (no such node)"* — and `api.get`/`api.post` synthesise
+`{ error: r.statusText }` on any non-JSON failure, so `(Internal Server Error)`
+was one bad gateway away from a five-year-old's screen.
+
+The book now keeps its own half of the vocabulary. `SAID` maps the refusals a
+reader can actually reach onto sentences — "That lesson is not among these
+pages.", "That paper has been set aside — ask for a fresh one." — and
+`saidFor()` returns nothing for anything else, so the card falls back to the
+lede it always had. The diagnosis is not lost; it goes to `console.warn`.
+
+My first version of `saidFor` tried to be clever: pass a server string
+through if it *looked* like prose (long enough, has spaces, has a verb-ish
+shape), on the theory that `primer/server.py` already writes half its errors
+in voice. Two problems, both fatal. It would let the next untranslated tag
+through by default — the failure mode is silent and reader-visible, which is
+the worst pairing. And `web/app.js:3264`'s boot fallback already passes a raw
+JavaScript `e.message` into `errCard`, so a stack-adjacent string would have
+sailed straight past a heuristic tuned on server prose. An allowlist cannot be
+surprised; the heuristic is gone.
+
+Same rule applied to the two other places a machine string reached the reader:
+the Shelf's refusal toast (which spliced in "could not resolve download URL
+(offline?)" — the word URL, and a parenthesised engineer's guess) and, in
+passing, the machinery named on the reading surfaces: "from Wikipedia (live)"
+→ "copied in from Wikipedia as you turned to it"; "Simple Wiki" → "Simple
+English"; and `surprise()` no longer instructs a child to perform a download.
+
+Verified in the browser after a full server restart (assets are content-hash
+busted at startup, so a reload proves nothing): the Shelf reads as above with
+no "download", "install", "archive" or "MB" anywhere on it; a bad node id
+renders "DON'T PANIC / That lesson is not among these pages. / Everything you
+have learned is safely written down."; and `errCard({error:'Internal Server
+Error'})` falls back to the generic lede rather than printing the status line.
+
+Suite: **562 passed, 1 skipped**; `check_banks.py`: 0 problems. (Front-end
+copy has no Python surface; verified by direct browser inspection, as this
+file has recorded for every other JS-only change.)
