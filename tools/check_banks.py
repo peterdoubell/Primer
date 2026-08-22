@@ -95,6 +95,43 @@ def audit(path):
             if q.get("kind") == "short" and len(q.get("keywords") or []) < 3:
                 problems.append(("thin keywords", n["id"], stem[:40]))
 
+            # Order and tally were implemented in the renderer long before any
+            # were authored, so nothing here had ever validated one. These are
+            # the checks that would have caught the mistakes the shapes invite.
+            if q.get("kind") == "order":
+                items = q.get("items") or []
+                if len(items) < 3:
+                    # Two steps is a coin flip, not a sequence.
+                    problems.append(("order too short", n["id"], stem[:40]))
+                if len(set(items)) != len(items):
+                    # A repeated chip has no single correct position.
+                    problems.append(("duplicate order items", n["id"], stem[:40]))
+                if sorted(ans.split()) != sorted(" ".join(items).split()):
+                    # The answer is graded by string equality against the chips
+                    # joined with spaces, so it must be exactly those chips.
+                    problems.append(("order answer is not its items", n["id"], stem[:40]))
+                if any(" " in str(i) for i in items):
+                    # A chip containing a space cannot survive the join/compare.
+                    problems.append(("order item contains a space", n["id"], stem[:40]))
+                # An authored order item mints a review card whose front is the
+                # PROMPT alone — the chips are not stored. A boilerplate stem
+                # ("Put them in order") would therefore give two different
+                # cards the same face. Generated items are exempt because they
+                # are ephemeral and mint no card; authored ones must say what
+                # is being ordered.
+                if len(stem.split()) < 6 or stem.strip().lower().rstrip(".:") in (
+                        "put them in order", "put these in order",
+                        "order these", "arrange these", "put in order"):
+                    problems.append(("order stem is boilerplate", n["id"], stem[:40]))
+
+            if q.get("kind") == "tally":
+                items = q.get("items") or []
+                if not items:
+                    problems.append(("tally has no items", n["id"], stem[:40]))
+                elif str(len(items)) != ans.strip():
+                    # len(items) IS the answer; there is no separate count.
+                    problems.append(("tally count does not match items", n["id"], stem[:40]))
+
             if ch:
                 if ans not in ch:
                     problems.append(("answer not an option", n["id"], stem[:40]))
