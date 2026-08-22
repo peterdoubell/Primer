@@ -733,10 +733,26 @@ def is_ephemeral_prompt(prompt: str, kind: str = "",
     the text is still the best evidence there is.
     """
     if ephemeral is False:
-        # Authored, and therefore durable — with one exception that holds
-        # however an item was made: an order item's sequence is reshuffled per
-        # instance, so a fixed front maps to a different back each sitting.
-        return kind == "order"
+        # Authored, and therefore durable — order included.
+        #
+        # This used to except order outright, on the grounds that "an order
+        # item's sequence is reshuffled per instance, so a fixed front maps to
+        # a different back each sitting". That is true of a GENERATED order
+        # item, where the content being ordered is drawn afresh every time:
+        # front "Put them in order", back "2 3 5 7" today and "1 4 6 9"
+        # tomorrow. It is not true of an authored one, whose prompt and answer
+        # are both written down and fixed.
+        #
+        # What is shuffled for an authored item is only the presentation — the
+        # chips are dealt in a random order so the reader cannot score by
+        # tapping left to right — and a card never stores the chips. Its front
+        # is the prompt and its back is the answer (see cards_from_missed),
+        # both of which are constant. So the card is stable and the reader
+        # should get one when they miss the item.
+        #
+        # The exception could not be tested either way while the corpus held
+        # no authored order items; the first ones written exposed it.
+        return False
     if gen and kind != "order":
         # Generated, and it says which generator made it — so ask that
         # generator whether this prompt recurs and is stably answered, rather

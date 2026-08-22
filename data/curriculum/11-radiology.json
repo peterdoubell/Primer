@@ -10,7 +10,7 @@
    "id": "rad.5.coronary-ct",
    "title": "Coronary CT Angiography",
    "stage": 5,
-   "goal": "Plan, acquire and read a coronary CT angiogram, and act on what it shows.",
+   "goal": "Plan, acquire and read a coronary CT angiogram, report it in CAD-RADS 2.0, and act on what it shows.",
    "articles": [
     "Coronary CT angiography",
     "Coronary CT calcium scan",
@@ -141,6 +141,130 @@
       "ischaemia"
      ],
      "explain": "Sensitivity and specificity belong to the test; predictive values also depend on how common disease is among the patients being scanned. CCTA's near-complete sensitivity is what makes a normal study powerful, and it is powerful precisely because the pretest probability was low, since the same normal study in a high-prevalence group leaves more residual risk behind. Running the argument the other way explains the second decision: a modest positive predictive value, inflated further by blooming, means the eye overcalls severity, and anatomy has never been the same thing as ischaemia. The corollary worth carrying into reporting is that a single non-diagnostic segment forfeits the rule-out argument for that vessel, so such a study is flagged as non-diagnostic rather than reported as normal."
+    },
+    {
+     "kind": "order",
+     "prompt": "Put these CAD-RADS 2.0 stenosis categories in order, from the least narrowing to the most.",
+     "items": [
+      "CAD-RADS-2",
+      "CAD-RADS-5",
+      "CAD-RADS-0",
+      "CAD-RADS-4A",
+      "CAD-RADS-1",
+      "CAD-RADS-3"
+     ],
+     "answer": "CAD-RADS-0 CAD-RADS-1 CAD-RADS-2 CAD-RADS-3 CAD-RADS-4A CAD-RADS-5",
+     "explain": "0 is no visible plaque or stenosis; 1 is 1-24%, minimal; 2 is 25-49%, mild; 3 is 50-69%, moderate — the band where a functional test earns its place; 4A is 70-99%, severe; 5 is total occlusion. The category is assigned per patient, from the clinically most relevant — usually the highest-grade — stenosis, and only in vessels 1.5 mm or larger.",
+     "ephemeral": false
+    },
+    {
+     "kind": "order",
+     "prompt": "A coronary CT angiogram is read to a checklist so that a subtle finding outside the coronaries is not lost. Put the review steps in the order the guide recommends.",
+     "items": [
+      "CAD-RADS",
+      "modifiers",
+      "extracoronary",
+      "coronary-origins",
+      "extracardiac"
+     ],
+     "answer": "extracoronary extracardiac coronary-origins CAD-RADS modifiers",
+     "explain": "Chambers, pericardium and great vessels first; then the non-cardiac chest, abdomen and bones — the incidental lung nodule is found here or not at all; then the origin, course and termination of the coronaries, with dominance, bridging and anomalies; only then the stenosis-and-plaque grade; and finally the modifiers. Grading first is how an anomalous origin gets missed on a study that was otherwise reported perfectly.",
+     "ephemeral": false
+    },
+    {
+     "kind": "numeric",
+     "prompt": "A CCTA is scored for total plaque burden using the segment involvement score: one point for each of the sixteen coronary segments containing any detectable plaque. Seven segments carry plaque. Which P category does that segment involvement score place the patient in? Answer with the number alone.",
+     "answer": "3",
+     "explain": "The segment involvement score bands onto plaque burden as SIS <=2 for P1, 3-4 for P2, 5-7 for P3 and >=8 for P4. Seven segments is the top of the P3 band — severe plaque burden — and P3 or P4 is what moves the management column from risk-factor modification to aggressive preventive therapy, whatever the stenosis grade happens to be.",
+     "ephemeral": false
+    },
+    {
+     "kind": "choice",
+     "prompt": "Motion artefact renders the mid right coronary artery non-diagnostic. In the segments that can be interpreted, the mid left anterior descending artery has a 50-69 per cent stenosis and there is a moderate total plaque burden. How should the study be coded?",
+     "choices": [
+      "CAD-RADS 3/P2/N",
+      "CAD-RADS N alone, as one segment is uninterpretable",
+      "CAD-RADS N/P2, with the stenosis described only in the text",
+      "CAD-RADS 3/P2, as a single non-diagnostic segment does not change the grade"
+     ],
+     "answer": "CAD-RADS 3/P2/N",
+     "explain": "N is a modifier before it is a category. Where a diagnostic segment already shows a stenosis of 50 per cent or more, that stenosis is graded and N is appended — the finding stands and further evaluation is still flagged. N replaces the numeric category only when the interpretable segments show nothing above mild, because then the study genuinely cannot exclude obstructive disease.",
+     "ephemeral": false
+    },
+    {
+     "kind": "choice",
+     "prompt": "Focal non-calcified plaque in the mid right coronary artery causes 25-49 per cent narrowing. It shows an attenuation below 30 HU and an outer-vessel-diameter ratio of 1.2 at the plaque compared with the reference segments. Which coding is correct?",
+     "choices": [
+      "CAD-RADS 2/HRP, as two high-risk features are present",
+      "CAD-RADS 2, as high-risk features apply only from 50 per cent narrowing",
+      "CAD-RADS 2/HRP, as low attenuation alone is sufficient",
+      "CAD-RADS 4A/HRP, as high-risk plaque upgrades the category"
+     ],
+     "answer": "CAD-RADS 2/HRP, as two high-risk features are present",
+     "explain": "Low attenuation below 30 HU and positive remodelling above 1.1 are two of the four high-risk features, alongside spotty calcification and the napkin-ring sign — and the modifier requires two or more, which is why one feature does not earn it. HRP never changes the stenosis category; it travels beside it, and it matters most exactly here, on non-obstructive disease, where it argues for more aggressive prevention than the narrowing alone would.",
+     "ephemeral": false
+    },
+    {
+     "kind": "choice",
+     "prompt": "A patient has a patent left internal mammary artery graft to the left anterior descending artery. The native proximal left anterior descending artery, upstream of the anastomosis, is occluded. There is no other stenosis above 50 per cent anywhere. How is the study coded?",
+     "choices": [
+      "By the grafts and the native segments distal to and including the anastomosis, so not CAD-RADS 5",
+      "CAD-RADS 5/G, because a native vessel is totally occluded",
+      "CAD-RADS 5, because occlusion is graded wherever it is found",
+      "CAD-RADS N/G, because a bypassed circulation cannot be graded"
+     ],
+     "answer": "By the grafts and the native segments distal to and including the anastomosis, so not CAD-RADS 5",
+     "explain": "In a grafted patient the native segments proximal to an anastomosis are not evaluated for CAD-RADS: a stenosis that a patent graft has bypassed is no longer the thing determining flow, and grading it would report a severity the patient does not have. The graft, the anastomosis and everything distal are what carry the blood, and therefore what carry the category.",
+     "ephemeral": false
+    },
+    {
+     "kind": "numeric",
+     "prompt": "CT-derived fractional flow reserve is used to decide whether a moderate stenosis is haemodynamically significant. At or below which value is the result treated as abnormal, warranting the ischaemia modifier I+? Answer as a decimal.",
+     "answer": "0.75",
+     "explain": "0.75 or below is abnormal and earns I+; above 0.80 is negative and earns I-; the grey zone from 0.76 to 0.80 is borderline, I+/-, where the decision leans on symptoms, lesion location and the trans-lesional gradient. The value is read 1 to 2 cm distal to the stenosis rather than at its narrowest point, because it is the pressure downstream that tells you what the myocardium is actually receiving.",
+     "ephemeral": false
+    },
+    {
+     "kind": "choice",
+     "prompt": "On the post-processing workstation the software extracts a volume of interest, computes a centreline through the vessel and then measures a cross-section at every point along it. It asks you to accept or reject the tracking. Why does this prompt exist rather than the software proceeding straight to the stenosis figures?",
+     "choices": [
+      "Every diameter and area measurement is taken perpendicular to that centreline, so a centreline that has strayed reports a stenosis that is not there",
+      "Accepting confirms the correct patient and study have been loaded before measurement",
+      "Rejecting is required whenever calcified plaque is present anywhere in the vessel",
+      "The prompt records that a human performed the measurement, for medico-legal purposes"
+     ],
+     "answer": "Every diameter and area measurement is taken perpendicular to that centreline, so a centreline that has strayed reports a stenosis that is not there",
+     "explain": "Identification and quantification are one chained operation: the centreline is computed first, then each cross-section is cut at right angles to it. Where the line clips a calcified plaque, jumps to an adjacent vein or cuts a corner at a bend, the cross-sections are taken through the wrong plane and the lumen is measured too small. Rejecting returns you to vessel identification to place new points; accepting an unverified centreline is how a confident percentage gets reported from a bad line.",
+     "ephemeral": false
+    },
+    {
+     "kind": "short",
+     "prompt": "A CCTA in a patient with prior stenting shows severe in-stent restenosis of 70-99 per cent in the proximal left anterior descending artery, and a severe total plaque burden. Give the full CAD-RADS 2.0 coding for this study and say what each part of it is doing.",
+     "answer": "CAD-RADS 4A/P3/S — 4A for the 70-99 per cent severe stenosis, P3 for the severe plaque burden, and S to declare that a stent is present.",
+     "keywords": [
+      "4A",
+      "P3",
+      "S",
+      "stent",
+      "severe",
+      "70",
+      "plaque"
+     ],
+     "explain": "In-stent restenosis is graded on the same stenosis scale as a native vessel, so 70-99 per cent is 4A. P records total plaque burden across native vessels and grafts together. S simply declares that a stent is somewhere in the coronary tree; it does not change the category, because what determines management is whether a severe stenosis is present, not whether the narrowed segment happens to be stented.",
+     "ephemeral": false
+    },
+    {
+     "kind": "choice",
+     "prompt": "A left circumflex artery is found arising from the ostium of the right coronary artery and taking a course behind the aorta. The coronary tree shows no atherosclerotic narrowing at all. How does CAD-RADS 2.0 accommodate this?",
+     "choices": [
+      "CAD-RADS 0/E, as the exception modifier carries non-atherosclerotic abnormalities",
+      "CAD-RADS 0, as the classification describes atherosclerosis only",
+      "CAD-RADS N, as an anomalous vessel cannot be graded normally",
+      "CAD-RADS 1/E, as an anomalous course counts as minimal disease"
+     ],
+     "answer": "CAD-RADS 0/E, as the exception modifier carries non-atherosclerotic abnormalities",
+     "explain": "The stenosis category still says what it says — no atherosclerotic narrowing is CAD-RADS 0 — and E is appended so the report does not read as entirely normal when it is not. E covers anomalous origin, dissection, aneurysm, vasculitis, fistula, extrinsic compression and arteriovenous malformation. A retroaortic circumflex is generally benign, but the modifier is what stops a clinically important anatomical finding disappearing behind a reassuring number.",
+     "ephemeral": false
     }
    ]
   },
