@@ -124,7 +124,10 @@
     <!-- No action attribute: the form posts back to the URL it was served
          from, so the ?next= query rides along without ever being written
          into this page. The one templating slot left is {{ERROR}}, which
-         only ever carries the server's own words. -->
+         only ever carries the server's own words -- and is escaped on the
+         way in besides, so even a future caller who hands it a reader's
+         text cannot open a hole here. Pinned by
+         tests/test_hosted_safety.py::test_the_error_banner_renders_and_swallows_hostile_markup. -->
     <form method="post">
       <label>
         <span>Reader</span>

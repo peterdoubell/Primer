@@ -4569,3 +4569,70 @@ authored practice is still recognition. That is a commission, not a fix.
 
 Benchmarks 1–10 were not re-scored; nothing in Rounds 23–26 changed a
 mechanic any of them owns.
+
+## Round 27 — the verification pass, and what the skeptics found
+
+Rounds 22–26 were not taken at their word. Four independent reviewers were
+sent to refute the eighteen material claims, one per claim set, each briefed
+that thin evidence means PARTIAL and instructed to hunt regressions against
+the file's own invariants. Two more closed the items Rounds 22–26 had handed
+to Lindqvist (#9) and Mehta (#10).
+
+**Twelve claims CONFIRMED, six PARTIAL, none REFUTED.** The PARTIALs were not
+wording quibbles; four were real defects, all fixed this round:
+
+1. **The pace label could still tell the lie it was written to prevent.**
+   `measured` was `card_s is not None or quiz_s is not None` — one boolean
+   over two independent clocks, so six graded cards made the *quiz* estimate
+   wear "Timed from how long these usually take you." Now `measured` is true
+   only when every kind still on the bill is priced from the reader's own
+   record, `partly` says the honest middle out loud ("Partly timed from your
+   own sittings — the rest the book still estimates."), and the test that
+   had pinned the conflation in (`...becomes_the_readers_own`) now asserts
+   the honest verdict instead. A second test's vacuous `mins >= 0` (under a
+   comment claiming "never zero") became `minutes_left > 0`.
+
+2. **The offline band broke the file's own live-region rule, and died with
+   the shell.** It was inserted with its text already inside it — the exact
+   pattern three other sites in this file carry warnings about — and its one
+   boot-time check at DOMContentLoaded+400ms could mount it into a #root that
+   renderShell() was about to wipe, losing the band for precisely the reader
+   it exists for: the one who opens the book already off the wire. Now
+   mounted empty and filled at +30ms, and renderShell() re-checks after every
+   rebuild.
+
+3. **Practice papers burned missed items silently.** The server spends a
+   missed item for `('quiz', 'practice')` alike; the disclosure was gated on
+   `kind === 'quiz'`. The undisclosed-stakes bug, back within four rounds of
+   being named. The gate now matches the mechanism (stage 0–1 exclusion
+   deliberately kept).
+
+4. **A comment told a story the code never did.** The Round 26 percentage
+   fix claimed the book "then reads it aloud" to a pre-reader; the reviewer
+   traced every speech path and found no percentage had ever been spoken.
+   The fix was real — a printed percentage a young reader could see — and
+   the comment now says only that.
+
+Housekeeping from the same reports: the Shelf's `colophon` class had no rule
+(now a quiet credit line, token-only); a superseded comment block in
+`downloadArchive` contradicted its replacement and is gone.
+
+The two handed-off items closed: `skeleton()` now says "The book is writing
+this page…" (or the article's own title) instead of the bare machine word
+"Loading"; and the sign-in page's `{{ERROR}}` escaping guarantee is
+structural — a test posts hostile markup through username, password and
+`next` and proves the banner renders it inert, with the why-comment at the
+slot naming the test that pins it.
+
+Noted, accepted, and left standing: the errCard allowlist drops some
+genuinely in-voice server refusals to the generic sentence (information
+loss, not a leak — the diagnosis still reaches the console); the write-in
+beat is optional by design (an empty field falls back to flip-and-rate);
+"Growth" is capitalised in the sidebar and lowercase inline; sub-gigabyte
+archives say "under a gigabyte" rather than the exact figure.
+
+Suite: **568 passed, 1 skipped** (one new hosted-safety test);
+`check_banks.py`: 0 problems. Verified live on the sandbox: the band mounts
+empty, fills, and survives a shell rebuild; the skeleton labels read in
+voice; `/api/today` reports `measured:false, partly:false` on the fresh
+scratch record.

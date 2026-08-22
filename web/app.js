@@ -366,17 +366,25 @@ function offlineBand() {
   let band = $('#offline-band');
   if (navigator.onLine) { if (band) band.remove(); return; }
   if (band) return;
-  band = el('div', { id: 'offline-band', class: 'offline-band', role: 'status' },
-    glyph('shelf', 14),
-    ' The book is on its own for a while — no wire, no signal. Everything already bound in is still here, and it will reach out again when the world comes back.');
+  // Mounted empty and filled after it has landed — the same rule every other
+  // live region in this file obeys: a role="status" node inserted with its
+  // text already inside it is announced unreliably, or not at all.
+  band = el('div', { id: 'offline-band', class: 'offline-band', role: 'status' });
   // Mounted into the shell rather than the page, so a route change does not
   // take it down while it is still true.
   const book = $('#book') || $('#root');
-  if (book) book.prepend(band);
+  if (!book) return;
+  book.prepend(band);
+  setTimeout(() => band.append(glyph('shelf', 14),
+    ' The book is on its own for a while — no wire, no signal. Everything already bound in is still here, and it will reach out again when the world comes back.'), 30);
 }
 window.addEventListener('offline', () => { offlineBand(); });
 // And once on arrival: opening the book already off the wire is the commonest
-// case of all, and it fires no event.
+// case of all, and it fires no event. This early tick alone was not enough —
+// renderShell() rebuilds #root wholesale, so a band mounted before the shell
+// existed was thrown away with the spinner it stood beside; renderShell now
+// re-checks after every rebuild (see its tail), and this tick covers pages
+// that never build a shell at all, like onboarding.
 window.addEventListener('DOMContentLoaded', () => setTimeout(offlineBand, 400));
 window.addEventListener('online', () => { offlineBand(); toast('The world is back. The book will fetch what it was missing.'); });
 
@@ -785,6 +793,10 @@ function renderShell() {
   book.append(sidebar, el('main', { id: 'page' }));
   const skip = btn({ class: 'skip-link', onclick: () => { const m = $('#page'); if (m) { m.setAttribute('tabindex', '-1'); m.focus(); } } }, 'Skip to content');
   $('#root').append(skip, book);
+  // The shell was just rebuilt from nothing; if the world is still away, the
+  // band must come back with it — this is the only path that can restore it
+  // for a reader who opened the book already offline.
+  offlineBand();
   refreshStats();
 }
 function effectiveTheme() {
@@ -825,15 +837,21 @@ async function refreshStats() {
 // A spinner says "wait"; ruled lines filling in say "the page is being
 // written." It also holds roughly the shape of what arrives, so the layout
 // does not jump when it does. Announcement is unchanged: one status node.
-function skeleton(lines) {
-  const box = el('div', { class: 'book-skeleton', role: 'status', 'aria-label': 'Loading' });
+// A reader who cannot see the lines fill in hears that node instead, so it
+// speaks in the book's voice and names what is coming: "Loading" told them
+// neither. Callers that know the subject pass it; the rest get the page.
+function skeleton(lines, subject) {
+  const box = el('div', {
+    class: 'book-skeleton', role: 'status',
+    'aria-label': 'The book is writing ' + (subject || 'this page') + '…'
+  });
   const widths = ['62%', '96%', '88%', '94%', '71%'];
   for (let i = 0; i < (lines || 5); i++) {
     box.append(el('i', { class: i === 0 ? 'sk-head' : '', style: 'width:' + widths[i % widths.length] }));
   }
   return box;
 }
-function loading(page) { page.append(skeleton(5)); }
+function loading(page, subject) { page.append(skeleton(5, subject)); }
 // An empty state is an unwritten leaf, not a missing feature: the page that
 // is waiting for the reader gets the same care as the page that has arrived.
 function emptyLeaf(glyphName, title, body) {
@@ -1177,7 +1195,9 @@ async function renderToday(page) {
     // back out of; it costs one clause to be straight about it.
     row.append(el('span', { class: 'muted pace-note' }, t.pace.measured
       ? 'Timed from how long these usually take you.'
-      : 'A first estimate — the book will time you and correct itself.'));
+      : t.pace.partly
+        ? 'Partly timed from your own sittings — the rest the book still estimates.'
+        : 'A first estimate — the book will time you and correct itself.'));
     page.append(row);
   }
   if (t.quest_done === t.quest_total) {
@@ -1510,7 +1530,7 @@ async function renderReader(page, arg) {
     readAloudControls());
   page.append(bar);
   const layout = el('div', { id: 'reader-layout' });
-  const art = el('article', { id: 'article', tabindex: '-1' }); art.append(skeleton(7));
+  const art = el('article', { id: 'article', tabindex: '-1' }); art.append(skeleton(7, title));
   layout.append(art, buildTutor(title));
   page.append(layout);
   try {
@@ -2403,8 +2423,9 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
             // is never printed as a date that has gone by.
             // The splash above correctly hides its percentage from a young
             // reader (`if (!young)`) and this line, three branches later, printed
-            // one anyway — and at stage 0-1 the book then reads it aloud. A
-            // four-year-old does not have a use for eighty per cent.
+            // one anyway. (Only printed — a verification pass confirmed no speech
+            // path ever carried this string.) A four-year-old still has no use
+            // for eighty per cent on screen.
             // Deliberately no terminal punctuation on either branch: the
             // appointment clause below joins onto this with an em dash, and
             // the first draft of the young wording ended in a full stop, so
@@ -2469,7 +2490,10 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // convinced by a question it has just answered for you.
     // Not for a pre-reader: it is a paragraph about evidence and proof, and
     // the five-year-old it would be read aloud to has no use for it.
-    if (missedIdx.length && !isRetry && kind === 'quiz' && !young) {
+    // Practice papers burn missed items exactly as quizzes do (the server
+    // spends the item either way) — a disclosure gated on quizzes alone left
+    // practice burning silently, which is the undisclosed-stakes bug again.
+    if (missedIdx.length && !isRetry && (kind === 'quiz' || kind === 'practice') && !young) {
       splash.append(el('p', { class: 'muted burn-note' },
         'The ' + plural(missedIdx.length, 'question') + ' you missed stepped aside for a week — once the book has shown you an answer, that question cannot be its proof that you know it. Every other question still counts, and so will that one, later.'));
     }
@@ -3401,11 +3425,6 @@ async function renderLibrary(page) {
 async function downloadArchive(key) {
   try {
     const r = await api.post('/api/library/download', { key });
-    // The refusal reason ("unknown catalog key", "not enough room on disk")
-    // is useful, but it is not the sentence a reader should meet first: the
-    // book explains, then quotes itself. Every other failure path in this
-    // file already leads with reassurance; this one printed the backend
-    // string verbatim as the whole message.
     // The refusal reason ("unknown catalog key", "could not resolve download
     // URL (offline?)") is a note between the book and its own machinery. The
     // reader gets the book's sentence; the diagnosis goes to the console,
