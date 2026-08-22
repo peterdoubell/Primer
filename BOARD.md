@@ -4257,3 +4257,116 @@ Error'})` falls back to the generic lede rather than printing the status line.
 Suite: **562 passed, 1 skipped**; `check_banks.py`: 0 problems. (Front-end
 copy has no Python surface; verified by direct browser inspection, as this
 file has recorded for every other JS-only change.)
+
+---
+
+## Round 24 — the acronym, the tooltip, the tab, and the world going away
+
+Four more of Stephenson's, none of them large, all of them things the reader
+meets on an ordinary evening.
+
+**The acronym.** `XP` was pinned in the spine of the book at every age —
+beside a three-year-old who cannot read it and a graduate who should not have
+to. It appeared four more times: on the result splash, in the fly-up, on the
+quest crown, and beside a turned page. The mechanic underneath is Kim's and
+Okafor's, it is unfarmable and it is sound, and **none of it changed**: the
+field is still `xp`, `/api/quiz/submit` still returns `xp_gained`, and the
+whole Python surface is untouched. What changed is the word the reader is
+shown. **Growth** — because the ladder they climb in this book is Seedling,
+Sprout, Sapling, Tree, Grove, Forest, and a number that only ever goes up and
+cannot be spent is much better described by that than by an arcade cabinet.
+
+Two candidates were tried and discarded first, and the reasons are worth the
+line. *Light* read well in every sentence — "+40 light", "40 light gathered
+today" — right up against the fact that the book's own theme toggle already
+says **Day / Night** with a sun and a moon on it. A currency called light,
+beside a switch that turns the light on, is a collision the reader would have
+to resolve and should never have been handed. *Rings* is the truer tree
+metaphor and reads as nonsense at the actual magnitudes: nobody gains forty
+rings in an evening.
+
+**The tooltip.** `title=` on a **disabled** button carried the only
+explanation the reader could get for why "Take the quiz" was dead — and most
+browsers refuse to render a tooltip on a disabled control, while no touch
+device has ever rendered one at all. The one sentence that explained the
+locked state was the one sentence the reader could not reach. It is on the
+page now, under the buttons, in the book's hand: *"Questions wait until this
+lesson is open to you. You are welcome to read it meanwhile — the book will
+not set questions on what it has not yet taught you."*
+
+My first draft of that line ended "…Reading it is welcome meanwhile — that is
+how it opens", which is **false**: lessons open on proved prerequisites, not
+on reading. Caught before it shipped by reading it against the requirements
+box three inches above it, which lists the actual prerequisites. A sentence in
+the book's voice that tells the reader something untrue about how the book
+works is a worse fidelity failure than the tooltip it replaced.
+
+**The tab.** `document.title` was assigned nowhere in the front end. A reader
+eight thousand words into an article, three questions into a quiz, or holding
+two copies of the book open, saw one static masthead. It turns with the page
+now — "Percentages · The Primer", "The Shelf · The Primer" — reusing the
+heading `renderRoute` already computes for the view's accessible name, so the
+tab and the screen reader say the same words by construction rather than by
+two lists kept in step by hand.
+
+**The world going away.** `navigator.onLine` appeared nowhere in the product.
+For an artifact whose entire premise is that it works with no wire, every
+disconnection was discovered by a failed request and reported as a generic
+apology — which reads like a fault, and it is not a fault. It is a condition,
+and the book should mention it first. A slim band now lays itself across the
+top of the book while the wire is gone ("The book is on its own for a while —
+no wire, no signal. Everything already bound in is still here, and it will
+reach out again when the world comes back."), mounted into the shell rather
+than the page so a route change cannot take it down while it is still true,
+and it also runs once on arrival, since opening the book already offline fires
+no event at all. When the world returns the book says so.
+
+`errCard` stops guessing in the same breath. "Likely the network, never you"
+is a kind guess; when the book can *see* there is no network it says the true
+thing instead, and says the part that matters — everything bound in is still
+yours to read.
+
+**And one percentage that should never have been spoken.** The results splash
+correctly hides its score percentage from a young reader (`if (!young)`), and
+three branches later printed `'Progress: ' + Math.round(level*100) + '%
+toward mastery'` with no guard — which at stages 0–1 the book then reads
+*aloud*. Confirmed live in Round 22 at Seedling: a failed quiz ended on
+"Progress: 80% toward mastery". Pre-readers get words now — "A good start,
+and the book has written it down." / "You are getting there." / "Nearly there
+— one more good go." Older readers keep the number.
+
+Left deliberately: the two remaining percentages live in `aria-label`s on
+mastery bars and the deck bar. A screen-reader user is the one reader who
+cannot see the bar and for whom the precise figure is the *only* available
+reading of it; blurring it into "getting there" would take away information
+from the one person who asked for it. Recorded as a decision, not an
+oversight.
+
+New CSS (`.offline-band`, `.locked-why`) uses existing tokens only, so neither
+dark block needed a line and the two remain identical.
+
+Verified in the browser after a full restart: tab titles turn across Today /
+Atlas / Shelf / an article; the spine reads "Growth 61"; the fly-up reads
+"+12 growth"; the offline band renders with `role="status"` and legible
+contrast in **both** palettes (light `#efe7d4` on `#554b3a`); `errCard({error:
+'Bad Gateway'})` while offline says the offline sentence rather than the
+status line; and a locked lesson carries its explanation as visible text.
+
+Suite: **562 passed, 1 skipped**; `check_banks.py`: 0 problems.
+
+### Benchmark 11 after Rounds 23–24
+
+| # | Benchmark | R22 | R24 |
+|--:|-----------|:---:|:---:|
+| 11 | The Book as Artifact (Design Fidelity) | 6 | **9** |
+
+Nine, and here is the justification rather than the assertion. Every finding
+that put a machine's words in the reader's hands is closed: no HTTP status
+text, no debug tag, no `size_mb`, no installer, no acronym, no percentage
+spoken to a pre-reader, no sentence hidden in native chrome. The tab turns.
+The book has a thing to say about being offline, which for *this* artifact is
+not an error state at all. It is not a ten: the tutor's vendor disclosure
+(`web/app.js:1719`) is still a seam, and it is one a reader's proxy should not
+close — deleting a privacy notice to protect a fiction is the wrong trade, and
+the right one is a product decision. `skeleton()`'s `aria-label: 'Loading'`
+remains, and belongs to Lindqvist.
