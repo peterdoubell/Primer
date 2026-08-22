@@ -4446,3 +4446,126 @@ reader's own number; that a short sitting lowers the ask and never the deck;
 and that an excused step costs zero minutes.
 
 Suite: **562 → 567 passed**, 1 skipped; `check_banks.py`: 0 problems.
+
+---
+
+## Round 26 — produce before you flip, and be told the rules of the game
+
+The rest of Ferriss's list, taken in order of learning impact.
+
+**The adult deck stopped being flip-and-rate-yourself.** `web/app.js` carried
+a comment calling that "the weakest retrieval act there is" — and then shipped
+it to every reader over six, because the forced-recall row was gated to stage
+≤ 1. The obvious fix was to ungate that row, and it is the wrong fix:
+recognising one of two answers is *easier* than recalling one, so extending
+the pre-reader's affordance upward would have made adult practice weaker, not
+stronger. The older reader is asked to **produce** instead — a field on the
+card, before it turns, and what they wrote is set beside the answer when it
+does, so the self-grade that follows is a comparison rather than a memory of
+having felt confident.
+
+The field is optional on purpose, and the placeholder says why: *"Say it out
+loud, or write it here…"*. Saying it aloud is real retrieval and the book
+cannot hear it; requiring typing would tax the reader for the book's
+convenience and quietly punish anyone practising on a phone. Enter turns the
+card, the space shortcut still works everywhere except inside the field (the
+deck's key handler already ignored form controls), and the field disables
+itself on reveal so a reader cannot edit their answer into a better one after
+seeing the key.
+
+**The book explains its own method.** Benchmark 12 asks that the learner be
+taught *how* to learn. The product had one sentence of that. A `<details>`
+panel at the head of the deck — closed by default, native disclosure
+semantics, so keyboard and screen reader get it free — now covers the five
+things the book is actually doing and had never mentioned: that retrieval
+beats re-reading, that the gap before it will seal a lesson is the point
+rather than an obstacle, that the deck interleaves subjects deliberately and
+feels worse for it, why it keeps asking how sure you are, and what happens to
+a question you miss. All five were already implemented. A reader who
+understands them grades themselves more honestly, which makes the explanation
+part of the instrument rather than decoration.
+
+**The hidden stakes, disclosed.** `burn_item` removes a missed question from
+a node's mastery evidence for seven days, and the reader was never told. Real
+stakes are something this benchmark *wants*; undisclosed ones are just a trap.
+Said now on the result screen, at the only moment it is true, and framed as
+what it actually is — the book declining to be convinced by a question it has
+just answered for you — rather than as a penalty. Not shown to a pre-reader:
+it is a paragraph about evidence and proof, and stages 0–1 would have it read
+aloud to them.
+
+**The placement check stopped being an exam.** For every reader aged six or
+over this fires 700ms after onboarding — it is, for most of them, the first
+thing the book ever does. It ended on `★☆☆` and "This level is still ahead of
+you". A placement is a measurement, not a performance; three stars for landing
+high implies one star for landing low, and where a reader starts is not an
+achievement. The stars are gone, replaced with the compass, and both outcomes
+are the same good news said twice: the book now knows where to open. The
+running head reads FINDING YOUR LEVEL rather than PLACEMENT.
+
+**And the one loss-framed sentence.** "This one has slipped — master it again
+to lock it back in" is now "This one has drifted out of reach for now — which
+is what memory does, and why the book keeps a deck. One more good pass brings
+it back." Slipping is not a failure; it is the phenomenon the entire product
+is built around, and the book should sound like it knows that.
+
+Two things caught by driving it rather than reading it, both mine:
+
+1. Failing a quiz at Seedling produced *"You are getting there. — you have
+   proved it once."* Round 24's young-reader wording ended in a full stop, and
+   the appointment clause below it joins on with an em dash. Both branches are
+   clauses now, with a comment saying why they carry no terminal punctuation.
+2. `tests/test_primer.py::test_showing_an_answer_cannot_be_done_twice` failed
+   — a source-text assertion pinning the exact call
+   `revealBack(c, answerRegion)`, which now carries a fourth argument. The
+   regression it guards (Show answer staying live and appending a second
+   grading group) is untouched, so the assertion was rewritten to check the
+   disabling and the call *near* it rather than the whole signature. Worth
+   recording as a small lesson about this kind of test: pinned to the letter,
+   it had become a test of the signature rather than of the bug.
+
+Not fixed, and named rather than buried: **the authored banks are still 75%
+recognition** — 2446 `choice` against 612 `numeric` and 204 `short`, with zero
+authored `order` or `tally` items despite both being fully implemented in
+`runQuestions`. That is 3,262 items to re-author or extend across eleven
+curriculum files, it is Webb's benchmark #2 as much as it is #12, and doing it
+by machine is precisely how this file has twice generated defective items it
+then had to withdraw. It is a real gap, it is a body of authoring work, and it
+should be commissioned rather than improvised.
+
+Suite: **567 passed**, 1 skipped; `check_banks.py`: 0 problems.
+
+### Benchmark 12 after Rounds 25–26
+
+| # | Benchmark | R22 | R26 |
+|--:|-----------|:---:|:---:|
+| 12 | Interactive Learning Loops (Meta-Learning) | 6 | **9** |
+
+Against the benchmark's own five clauses. *A first felt win inside the first
+session at every stage*: the opening placement can no longer end in a failure
+verdict, and Today now names the shortest path to a completed thing and how
+many minutes it costs. *Practice that is retrieval/production, not
+recognition-only*: pre-readers produce, adults now produce, and the deck — the
+surface a committed reader touches most — no longer lets anyone flip straight
+to the answer without committing first. *Minimum-effective-dose sessions
+honest about time*: every step is priced, the evening carries its remaining
+total, the estimate is measured from the reader's own record and says so when
+it is not, and there is a real short door with its own route. *Stakes and
+recovery loops that re-engage rather than shame*: `returnCard` and the
+renewing freeze budget were already exemplary, the last loss-framed sentence
+is gone, and the one genuine hidden cost is now disclosed at the moment it
+applies. *The learner taught how to learn*: five method notes in the book's
+own voice, at the surface where they are acted on.
+
+It is not a ten, and the reason is the item banks above: three-quarters of
+authored practice is still recognition. That is a commission, not a fix.
+
+### Scores after Round 26
+
+| # | Benchmark | R22 | now |
+|--:|-----------|:---:|:---:|
+| 11 | The Book as Artifact (Design Fidelity) | 6 | **9** |
+| 12 | Interactive Learning Loops (Meta-Learning) | 6 | **9** |
+
+Benchmarks 1–10 were not re-scored; nothing in Rounds 23–26 changed a
+mechanic any of them owns.

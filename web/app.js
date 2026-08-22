@@ -653,7 +653,7 @@ async function runPlacement(domain, stage) {
     modal.innerHTML = ''; modal.append(closeBtn(close));
     const progress = el('div', { class: 'q-progress', tabindex: '-1',
       role: 'heading', 'aria-level': '2' },
-      'PLACEMENT · ' + domainById(domain).name + ' · ' + STAGE_NAMES[stage] +
+      'FINDING YOUR LEVEL · ' + domainById(domain).name + ' · ' + STAGE_NAMES[stage] +
       ' — ' + (i + 1) + ' of ' + data.questions.length);
     modal.append(progress);
     if (i > 0 && q.kind === 'choice') setTimeout(() => progress.focus(), 20);
@@ -696,10 +696,19 @@ async function runPlacement(domain, stage) {
     modal.append(head);
     setTimeout(() => head.focus(), 30);
     const splash = el('div', { class: 'result-splash' });
-    splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, r.passed ? '★★★' : '★☆☆'),
+    /* This is, for most readers over six, the FIRST thing the book ever does
+       with them — it fires 700ms after onboarding. It used to end on ★☆☆ and
+       "This level is still ahead of you", which makes the opening beat of the
+       whole product a failure verdict on a check the reader cannot fail.
+       A placement is a measurement, not a performance, and a star rating is
+       the wrong instrument for it: three stars for landing high implies one
+       star for landing low, and where a reader starts is not an achievement.
+       The mark is a compass now, and both outcomes are the same good news
+       said twice — the book knows where to open. */
+    splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, glyph('atlas', 38)),
       el('p', {}, r.passed
-        ? 'Comfortable at ' + STAGE_NAMES[stage] + ' level in ' + domainById(domain).name + '.'
-        : 'This level is still ahead of you — the book will start you lower and build up.'));
+        ? 'You are comfortable at ' + STAGE_NAMES[stage] + ' level in ' + domainById(domain).name + '. That is worth knowing, and now the book knows it.'
+        : 'The book has found where to open in ' + domainById(domain).name + ' — a little below ' + STAGE_NAMES[stage] + ', so the ground is solid under you. Nothing here was a check you could fail.'));
     if (r.suggest_stage != null && !r.settled) {
       splash.append(el('p', { class: 'muted' }, r.passed ? 'Let\'s try one level higher.' : 'Let\'s try one level down.'),
         btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, 'Continue →'));
@@ -2381,7 +2390,10 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
             : '✦ Mastered! This lesson is now complete.'; msgTone = 'good'; }
           else if (r.mastery.proven) msg = 'Reviewed — already proved.';
           else if (r.mastery.mastered) msg = 'The book assumed you knew this. Pass it once more, a day or two apart, to prove it.';
-          else if (r.mastery.lost_mastery) { msg = 'This one has slipped — master it again to lock it back in.'; msgTone = 'warn'; }
+          // The only loss-framed sentence in the product, and it fires at the
+          // moment a reader is least able to hear it. Slipping is what memory
+          // does; the book knows that and built a whole deck around it.
+          else if (r.mastery.lost_mastery) { msg = 'This one has drifted out of reach for now — which is what memory does, and why the book keeps a deck. One more good pass brings it back.'; msgTone = 'warn'; }
           else {
             // "Come back in a day or two" was a guess, and on a young reader's
             // six-hour proving window it was the wrong guess by a day and a
@@ -2393,10 +2405,15 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
             // reader (`if (!young)`) and this line, three branches later, printed
             // one anyway — and at stage 0-1 the book then reads it aloud. A
             // four-year-old does not have a use for eighty per cent.
+            // Deliberately no terminal punctuation on either branch: the
+            // appointment clause below joins onto this with an em dash, and
+            // the first draft of the young wording ended in a full stop, so
+            // the book said "You are getting there. — you have proved it
+            // once." Caught in the browser, on the very first failed quiz.
             msg = young
-              ? (r.mastery.level >= 0.67 ? 'Nearly there — one more good go.'
-                 : r.mastery.level >= 0.34 ? 'You are getting there.'
-                 : 'A good start, and the book has written it down.')
+              ? (r.mastery.level >= 0.67 ? 'Nearly there'
+                 : r.mastery.level >= 0.34 ? 'You are getting there'
+                 : 'A good start, and the book has written it down')
               : 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery';
             const ra = r.mastery.ready_at;
             if (ra == null) msg += '.';
@@ -2445,6 +2462,16 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         openStory(storyUnlocked.chapter, true, null,
           () => { turningPage = false; releaseAscension(900); });
       } }, glyph('story', 16), ' The page has turned — read it'));
+    }
+    // The stakes were real and undisclosed: a missed question stops being
+    // evidence for this node for seven days. Told plainly, at the only moment
+    // it is true, and framed as what it actually is — the book declining to be
+    // convinced by a question it has just answered for you.
+    // Not for a pre-reader: it is a paragraph about evidence and proof, and
+    // the five-year-old it would be read aloud to has no use for it.
+    if (missedIdx.length && !isRetry && kind === 'quiz' && !young) {
+      splash.append(el('p', { class: 'muted burn-note' },
+        'The ' + plural(missedIdx.length, 'question') + ' you missed stepped aside for a week — once the book has shown you an answer, that question cannot be its proof that you know it. Every other question still counts, and so will that one, later.'));
     }
     if (missedIdx.length) controls.append(btn({ class: 'btn', onclick: () => { const retry = missedIdx.map(k => questions[k]); close(); runQuestions({ title, questions: retry, nodeId, kind, stage, isRetry: true }); } }, '↻ Retry the ' + missedIdx.length + ' you missed'));
     controls.append(btn({ class: 'btn ghost', onclick: close }, 'Close'));
@@ -2796,6 +2823,32 @@ function lockedPeek(n) {
   } });
 }
 
+/* ---------------- how the book studies you ----------------
+   Benchmark 12 asks that the learner be taught HOW to learn, not only what.
+   The product had exactly one sentence of that, at the top of this page, and
+   a reader could use the deck for a year without ever being told why the book
+   insists on a gap, why the cards are shuffled between subjects, why it asks
+   how sure they are, or what happens to a question they miss. All four are
+   real, all four are already implemented, and a reader who understands them
+   grades themselves more honestly — so the explanation is not decoration, it
+   is part of the instrument.
+
+   A <details> rather than a permanent wall of text: the reader who wants it
+   opens it, and it is closed for the reader who has read it once. Native
+   disclosure semantics, so keyboard and screen reader get it for free. */
+function studyNote() {
+  const d = el('details', { class: 'study-note' });
+  d.append(el('summary', {}, glyph('spark', 14), ' How the book studies you'));
+  [
+    ['Remembering beats re-reading.', 'Reading a page again feels like learning and mostly is not. Being asked, and having to dig the answer out yourself, is what moves it. That is why the book asks before it tells — and why writing your answer down before you turn a card is worth the four seconds.'],
+    ['The gap is the point.', 'The book waits a day or two before it will seal a lesson, and it brings a card back just as you are about to lose it. Practising something you already have fresh in mind is comfortable and teaches almost nothing. A little forgetting, then a little effort, is the whole trick.'],
+    ['The deck shuffles on purpose.', 'Cards from different subjects are mixed together rather than blocked into neat runs. Blocked practice feels smoother and holds worse: mixing forces you to work out which kind of thing this is, which is what you will have to do when it matters.'],
+    ['Knowing what you know.', 'The book asks how sure you are, and afterwards tells you how well you judged it. Being confidently wrong is the most expensive state to be in, and it is invisible until somebody measures it.'],
+    ['A question you miss steps aside.', 'When you get one wrong the book shows you the answer straight away — and then that particular question cannot count as proof you know the thing for the next week. Not a penalty: it is simply no longer evidence once you have been told. Other questions still count, and so does that one, a week from now.'],
+  ].forEach(([h, body]) => d.append(el('p', {}, el('b', {}, h), ' ' + body)));
+  return d;
+}
+
 /* ---------------- Review ---------------- */
 async function renderReview(page, arg) {
   const short = arg === 'short';
@@ -2820,6 +2873,7 @@ async function renderReview(page, arg) {
       btn({ class: 'btn ghost small', onclick: () => go('review') },
         'I have longer after all — show me the whole day')));
   }
+  page.append(studyNote());
   // An empty deck is good news, and the page should sound like it knows that
   // — one Guide-flavored wink, then the honest reason to come back.
   if (!data.cards.length) {
@@ -2895,7 +2949,7 @@ async function renderReview(page, arg) {
     // With two answers on offer the reader's job is to choose one, so the way
     // out becomes the quiet control and the answers become the loud ones.
     const showBtn = btn({ class: 'btn js-show-answer ' + (opts ? 'ghost small' : 'gold'), style: opts ? null : 'width:100%',
-      onclick: () => { showBtn.disabled = true; revealBack(c, answerRegion); } },
+      onclick: () => { showBtn.disabled = true; revealBack(c, answerRegion, null, writeIn && writeIn.value.trim()); } },
       'Show answer ', el('kbd', { class: 'key-hint', 'aria-hidden': 'true' }, 'space'));
     if (opts) {
       const recallRow = el('div', { class: 'recall-row', role: 'group', 'aria-label': 'Which one is it?' });
@@ -2907,6 +2961,23 @@ async function renderReview(page, arg) {
         recallRow.append(b);
       });
       stage.append(el('p', { class: 'muted recall-ask' }, 'Which one is it?'), recallRow);
+    }
+    /* Flip-and-rate-yourself is, in the words of the comment above this one,
+       the weakest retrieval act there is — and until now stage 2 and up got
+       nothing else. The fix below stage 2 was a forced choice; a forced choice
+       for an adult would be *worse*, because recognising one of two answers is
+       easier than recalling one. So the older reader is asked to produce
+       instead: say it, or write it, before the card turns. Writing is optional
+       on purpose — saying it out loud is real retrieval and the book cannot
+       hear it — but the field is there, and what the reader put in it is shown
+       beside the answer, so the self-grade that follows is a comparison rather
+       than a memory of having felt confident. */
+    let writeIn = null;
+    if (!opts && S.stage >= 2) {
+      writeIn = el('input', { type: 'text', class: 'recall-write', 'aria-label': 'Your answer, before you turn the card',
+        placeholder: 'Say it out loud, or write it here…',
+        onkeydown: e => { if (e.key === 'Enter' && !showBtn.disabled) { e.preventDefault(); showBtn.click(); } } });
+      stage.append(writeIn);
     }
     stage.append(showBtn);
     stage.append(answerRegion);
@@ -2942,6 +3013,7 @@ async function renderReview(page, arg) {
     setTimeout(() => out.focus(), 20);
   }
   const sameText = (a, b) => String(a == null ? '' : a).trim().toLowerCase() === String(b == null ? '' : b).trim().toLowerCase();
+  function writeInFor(st) { return st ? st.querySelector('.recall-write') : null; }
   function distractorFor(c) {
     const others = data.cards.filter(x => x.id !== c.id && !sameText(x.back, c.back));
     if (!others.length) return null;
@@ -2963,11 +3035,18 @@ async function renderReview(page, arg) {
     haptic(ok ? 'ok' : 'no');
     revealBack(c, region, ok ? 4 : 2);
   }
-  function revealBack(c, region, decided) {
+  function revealBack(c, region, decided, wrote) {
     // Write into the region that is already on the page rather than inserting a
     // pre-filled one: a live region that arrives with its text already in it is
     // announced unreliably, or not at all.
     region.textContent = c.back;
+    // What the reader actually produced, set beside the key. Appended AFTER
+    // the region's own text so the live announcement leads with the answer.
+    if (wrote) {
+      const mine = el('p', { class: 'muted wrote-line' }, 'You said: ' + wrote);
+      region.append(mine);
+    }
+    if (writeInFor(stage)) writeInFor(stage).disabled = true;
     // Whichever route turned the card — a produced answer or "Show answer" —
     // the choice is over, so the row goes down here rather than at each caller.
     if (stage) stage.querySelectorAll('.recall-opt').forEach(b => { b.disabled = true; });
