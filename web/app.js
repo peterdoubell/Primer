@@ -121,6 +121,26 @@ const domainById = id => S.domains.find(d => d.id === id) || { name: id, color: 
 function domainMark(d, size) { return d.icon ? d.icon : glyph('spark', size || 15); }
 function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
+/* ---------------- haptics ----------------
+   A book you hold should sometimes answer the hand that holds it. On devices
+   with a vibration motor (Android; iOS ignores navigator.vibrate and loses
+   nothing) the book taps back at the moments that already have a voice and a
+   colour: a right answer, a wrong one, a ceremony. Three vocabulary items
+   only — a grammar, not a drum kit — and all of it under prefers-reduced-
+   motion, which is the closest thing the platform has to "please don't". */
+const HAPTICS = {
+  ok: [12],                     // a nod
+  no: [50],                     // a firmer, single "hm"
+  fanfare: [15, 60, 15, 60, 40] // the confetti, felt
+};
+function haptic(kind) {
+  try {
+    if (!navigator.vibrate) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    navigator.vibrate(HAPTICS[kind] || []);
+  } catch (e) { /* a silent motor is never worth an error */ }
+}
+
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600); }
 
 /* ---------------- speech ----------------
@@ -2169,6 +2189,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       ? region.textContent + ' ' + msg : msg;
   }
   function reveal(ok, q, given, card, modal, close) {
+    haptic(ok ? 'ok' : 'no');
     if (ok) correct++;
     oks.push(!!ok);
     // Always submit the learner's real response. Echoing the canonical key on a
@@ -2318,6 +2339,7 @@ function confetti() {
   // Two ceremonies can now land within a second of each other (mastery, then
   // the page it turned). One storm is a celebration; two overlaid is noise.
   if (document.querySelector('.confetti')) return;
+  haptic('fanfare');  // behind both guards above: one storm, one shudder
   const box = el('div', { class: 'confetti', 'aria-hidden': 'true' });
   // Drawn from the live palette rather than a hardcoded list, so by day the
   // pieces are inked paper and by night they are phosphor sparks — the same
@@ -2784,6 +2806,7 @@ async function renderReview(page) {
     });
     const show = stage.querySelector('.js-show-answer');
     if (show) show.disabled = true;
+    haptic(ok ? 'ok' : 'no');
     revealBack(c, region, ok ? 4 : 2);
   }
   function revealBack(c, region, decided) {
