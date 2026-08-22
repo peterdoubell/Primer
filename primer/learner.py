@@ -160,6 +160,32 @@ def _half_life(reinforcements: "float | None") -> float:
                STRENGTH_HALF_LIFE_MAX)
 
 
+# The clock the reader is timed by is the reader's own browser, which makes it
+# untrusted input twice over: a hostile client can post anything, and an honest
+# one records the twenty minutes a reader spent answering the door mid-quiz.
+# Both are handled the same way — a per-item reading outside this band is not a
+# measurement of anything and is discarded rather than clamped, because
+# clamping a forty-minute interruption to five minutes would still poison the
+# median with a number nobody spent.
+PACE_ITEM_MIN_SECONDS = 2.0
+PACE_ITEM_MAX_SECONDS = 300.0
+
+
+def _per_item_seconds(seconds: Optional[float], items: int) -> Optional[float]:
+    """Seconds per item, or None if the reading is not usable."""
+    try:
+        total = float(seconds)
+    except (TypeError, ValueError):
+        return None
+    n = int(items or 0)
+    if n <= 0 or not math.isfinite(total):
+        return None
+    per = total / n
+    if per < PACE_ITEM_MIN_SECONDS or per > PACE_ITEM_MAX_SECONDS:
+        return None
+    return round(per, 2)
+
+
 def _reinforce_min_gap(age: Optional[float]) -> float:
     if age is None:
         return REINFORCE_MIN_GAP
@@ -989,8 +1015,17 @@ class LearnerStore:
             return None
         return level, mastered_at is not None, newly_mastered, lost_mastery
 
-    def record_attempt(self, node_id: str, score: float, assumed: bool = False) -> Dict:
-        """Record a graded attempt (score 0..1). Returns mastery + xp_gained."""
+    def record_attempt(self, node_id: str, score: float, assumed: bool = False,
+                       seconds: Optional[float] = None,
+                       items: int = 0) -> Dict:
+        """Record a graded attempt (score 0..1). Returns mastery + xp_gained.
+
+        `seconds`/`items` are how long this paper took the reader and how many
+        questions were on it. They exist so the book can tell them how long
+        tonight will take *from their own record* rather than from a number
+        somebody guessed — see `pace()`. They are clamped there, not trusted
+        here, and nothing about mastery or XP reads them.
+        """
         now = time.time()
         score = max(0.0, min(1.0, score))
         with _lock, self._conn() as c:
@@ -1053,9 +1088,13 @@ class LearnerStore:
                         (node_id, local_day, now)).rowcount == 1
                 xp = ((round(score * 12) if effort_claimed else 0)
                       + (60 if newly and first_ever else 0))
+                payload = {"node": node_id, "score": round(score, 2),
+                           "mastered": newly}
+                per = _per_item_seconds(seconds, items)
+                if per is not None:
+                    payload["per_item"] = per
                 c.execute("INSERT INTO events(kind, payload, at, xp) VALUES('attempt',?,?,?)",
-                          (json.dumps({"node": node_id, "score": round(score, 2),
-                                       "mastered": newly}), now, xp))
+                          (json.dumps(payload), now, xp))
         proven = node_id in self.proven_set()
         return {"node_id": node_id, "level": round(level, 3),
                 "mastered": mastered, "newly_mastered": newly,
@@ -1453,7 +1492,8 @@ class LearnerStore:
                     c, node_id, mastery, desired):
                 return
 
-    def review_card(self, card_id: int, quality: int) -> Dict:
+    def review_card(self, card_id: int, quality: int,
+                    seconds: Optional[float] = None) -> Dict:
         """SM-2. quality: 0 (blank) .. 5 (perfect). A lapse also lowers the
         related node's strength and can flag it for refresh."""
         now = time.time()
@@ -1560,8 +1600,12 @@ class LearnerStore:
             # Streaks and levels are built on this number, so it needs a ceiling.
             room = max(0, self.REVIEW_XP_DAILY_CAP - self._review_xp_today(c))
             xp = min(xp, room)
+            payload = {"card": card_id, "q": quality}
+            per = _per_item_seconds(seconds, 1)
+            if per is not None:
+                payload["per_item"] = per
             c.execute("INSERT INTO events(kind, payload, at, xp) VALUES('review',?,?,?)",
-                      (json.dumps({"card": card_id, "q": quality}), now, xp))
+                      (json.dumps(payload), now, xp))
         return {"id": card_id, "next_days": round(max((due - now) / DAY, 0.01), 2),
                 "xp_gained": xp, "lapses": lapses}
 
@@ -1856,6 +1900,41 @@ class LearnerStore:
                 pass
         items.sort(key=lambda x: x.get("at") or 0, reverse=True)
         return items[:limit]
+
+    # ---------- how long this takes *this* reader ----------
+
+    # Enough samples that one interrupted sitting cannot set the estimate, and
+    # few enough that a reader who has sped up is not held to last spring's
+    # pace. A median, not a mean, for the same reason.
+    PACE_MIN_SAMPLES = 6
+    PACE_WINDOW = 60
+
+    def pace(self, kind: str) -> Optional[float]:
+        """Median seconds per item for this reader on `kind`, or None.
+
+        None means "not measured yet" and callers must say so rather than
+        quietly substituting a default and presenting it as the reader's own
+        number. The book is allowed to estimate; it is not allowed to imply it
+        measured something it did not.
+        """
+        with self._conn() as c:
+            rows = c.execute(
+                "SELECT payload FROM events WHERE kind=? ORDER BY at DESC LIMIT ?",
+                (kind, self.PACE_WINDOW),
+            ).fetchall()
+        vals = []
+        for r in rows:
+            try:
+                v = json.loads(r["payload"] or "{}").get("per_item")
+            except Exception:
+                continue
+            if isinstance(v, (int, float)):
+                vals.append(float(v))
+        if len(vals) < self.PACE_MIN_SAMPLES:
+            return None
+        vals.sort()
+        mid = len(vals) // 2
+        return vals[mid] if len(vals) % 2 else (vals[mid - 1] + vals[mid]) / 2
 
     def log_event(self, kind: str, payload: Dict, xp: int = 0):
         with _lock, self._conn() as c:

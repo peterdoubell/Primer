@@ -444,3 +444,80 @@ def test_the_young_ordering_step_keeps_a_tally_item(tmp_path):
     assert len(paper) == 6
     assert tally in paper, "the counting question survives the ordering splice"
     assert sum(1 for q in paper if q.get("kind") == "order") == 1
+
+
+# ---------------- the book learns to say how long ----------------
+# Added for benchmark 12 (Ferriss): the product could not tell a reader what
+# it was asking of them — not for a card, not for a quiz, not for the evening.
+# These cover the three claims that makes: a per-item clock that cannot be
+# poisoned, an estimate that says which kind of number it is, and a short
+# sitting that is smaller without being lesser.
+
+
+def test_a_per_item_reading_outside_the_plausible_band_is_discarded():
+    from primer.learner import _per_item_seconds
+
+    assert _per_item_seconds(100.0, 5) == 20.0
+    # No items, no reading.
+    assert _per_item_seconds(100.0, 0) is None
+    # A hostile or absent client.
+    assert _per_item_seconds(None, 5) is None
+    assert _per_item_seconds("twenty", 5) is None
+    assert _per_item_seconds(float("inf"), 5) is None
+    # A reader who answered the door: discarded, not clamped. Clamping a
+    # forty-minute interruption to five minutes still puts a number nobody
+    # spent into the median.
+    assert _per_item_seconds(40 * 60.0, 1) is None
+    # And an impossibly fast one, which is the shape a script has.
+    assert _per_item_seconds(1.0, 5) is None
+
+
+def test_the_book_does_not_claim_to_have_timed_a_reader_it_has_not(tmp_path):
+    with book(tmp_path) as (client, srv):
+        pace = client.get("/api/today").json()["pace"]
+        assert pace["measured"] is False
+        # Every step the reader still has to do carries a number, and it is
+        # never zero — "about 0 minutes" for work that has to be done is the
+        # one dishonesty this whole block exists to remove.
+        for key, mins in pace["steps"].items():
+            assert mins >= 0
+        assert pace["minutes_left"] == sum(pace["steps"].values())
+        assert srv.learner.pace("review") is None
+
+
+def test_enough_timed_cards_and_the_estimate_becomes_the_readers_own(tmp_path):
+    with book(tmp_path) as (client, srv):
+        _cards_due_now(srv, 10)
+        due = client.get("/api/review/due?limit=10").json()["cards"]
+        # Ten seconds a card, comfortably inside the plausible band and well
+        # under the 25s default, so the direction of the change is visible.
+        for card in due[:srv.learner.PACE_MIN_SAMPLES]:
+            client.post("/api/review",
+                        json={"card_id": card["id"], "quality": 4, "seconds": 10.0})
+        assert srv.learner.pace("review") == 10.0
+        pace = client.get("/api/today").json()["pace"]
+        assert pace["measured"] is True
+        assert pace["card_seconds"] == 10.0
+
+
+def test_a_short_sitting_lowers_the_ask_and_never_the_deck(tmp_path):
+    with book(tmp_path) as (client, srv):
+        _cards_due_now(srv, 20)
+        full = client.get("/api/review/due?limit=30").json()
+        short = client.get("/api/review/due?limit=30&dose=short").json()
+        assert full["goal"] > short["goal"] == srv.SHORT_DOSE_CARDS
+        # The cards behind the ask are untouched: a smaller door into the same
+        # room, not a different and lesser deck.
+        assert len(short["cards"]) == len(full["cards"])
+        assert short["stats"]["due"] == full["stats"]["due"]
+        assert short["dose"] == "short" and full["dose"] == "full"
+
+
+def test_an_excused_or_finished_step_costs_the_reader_no_minutes(tmp_path):
+    with book(tmp_path) as (client, srv):
+        today = client.get("/api/today").json()
+        # A fresh reader's deck is empty, so the review step is excused — and
+        # an excused step must not be priced, or the evening's total asks for
+        # time against work the book has already said is not there.
+        assert today["quest"]["review"]["excused"] is True
+        assert today["pace"]["steps"]["review"] == 0

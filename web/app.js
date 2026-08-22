@@ -270,6 +270,10 @@ function speakBtn(getText, label) {
 /* ---------------- routing (hash-based) ---------------- */
 function hashFor(view, arg) {
   if (view === 'node') return '#/node/' + encodeURIComponent(arg);
+  // The short sitting is a route, not a mode flag, so it survives a reload and
+  // can be linked to — a reader who has five minutes on a bus has them again
+  // tomorrow.
+  if (view === 'review' && arg === 'short') return '#/review/short';
   if (view === 'reader') { const a = typeof arg === 'string' ? { title: arg } : (arg || {});
     return '#/read/' + encodeURIComponent(a.title || '') + (a.node ? '/' + encodeURIComponent(a.node) : ''); }
   return '#/' + view;
@@ -285,6 +289,7 @@ function parseHash() {
   const parts = h.split('/').map(decodeURIComponent);
   const view = parts[0] || 'today';
   if (view === 'node') return { view, arg: parts[1] };
+  if (view === 'review') return { view, arg: parts[1] === 'short' ? 'short' : null };
   if (view === 'read') return { view: 'reader', arg: { title: parts[1], node: parts[2] || null } };
   // `reader` is the internal name for the article view and needs a title. Typed
   // on its own it rendered a blank page with no message and focus on an empty
@@ -924,6 +929,9 @@ function sectionLabel(text) { return el('h3', { class: 'section-label' }, el('sp
    Format through toLocale*, never by hand. And an appointment that has come
    round is not one that was missed: the book says "ready now", never "ready
    yesterday", because a reader who arrives late has lost nothing at all. */
+// "about 1 minutes" is the sort of sentence that tells a reader a machine
+// wrote the page. One helper, used everywhere a count meets a noun.
+function plural(n, word) { return n + ' ' + word + (Math.abs(n) === 1 ? '' : 's'); }
 function readyNow(ts) { return ts == null || ts * 1000 <= Date.now(); }
 function dayStart(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
 // Only time components, so toLocaleString renders the clock alone — and the
@@ -1087,7 +1095,8 @@ async function renderToday(page) {
 
   // Daily quest checklist
   const quest = el('div', { class: 'quest', role: 'group', 'aria-label': "Today's quest" });
-  Object.values(t.quest).forEach(q => {
+  Object.entries(t.quest).forEach(([qkey, q]) => {
+    q.key = qkey;
     // A count that fills, not a checkbox that flips. `goal` is what the day
     // asks for and `done_count` how much of it is behind the reader, so the
     // widget meant to represent the day's work stops hiding it: a reader who
@@ -1109,9 +1118,16 @@ async function renderToday(page) {
     const status = q.excused ? (q.hint || 'nothing waiting today')
       : counted ? dc + ' of ' + goal
       : q.done ? 'done' : 'today';
+    // What this step costs, in minutes. The book had never told a reader what
+    // it was asking of them — not for a card, not for a quiz, not for the
+    // evening — which makes every ask an open-ended one, and an open-ended ask
+    // is the easiest thing in the world to put off. Server-priced (see the
+    // pace block in /api/today) so the tile and the deck quote one number.
+    const mins = (t.pace && t.pace.steps && t.pace.steps[q.key]) || 0;
     const item = el('div', { class: 'quest-item' + (q.done ? ' done' : q.excused ? ' excused' : '') },
       el('span', { class: 'tick', 'aria-hidden': 'true' }, q.done ? '✓' : q.excused ? '—' : '✓'),
-      el('span', { class: 'qt' }, el('b', {}, q.label), status));
+      el('span', { class: 'qt' }, el('b', {}, q.label), status
+        + (mins ? ' · about ' + mins + ' min' : '')));
     if (counted) {
       // The same role="img" + aria-label pattern the mastery bars use: a bar
       // that is aria-hidden says "58%" only to people who can see it.
@@ -1122,6 +1138,39 @@ async function renderToday(page) {
     quest.append(item);
   });
   page.append(quest);
+  // The evening's whole cost, said once, plus the smallest door into it.
+  // "Minimum effective dose" is a real idea and it needs a real control: a
+  // reader with five minutes previously had to either take on the entire day
+  // or take on nothing, and between those two the honest answer is nothing.
+  if (t.pace && t.quest_done !== t.quest_total) {
+    const row = el('div', { class: 'pace-row' });
+    if (t.pace.minutes_left) {
+      row.append(el('span', { class: 'pace-total' },
+        glyph('target', 14), ' Tonight asks about ' + plural(t.pace.minutes_left, 'minute') + ' of you.'));
+    }
+    // Offering a smaller door when the room is already small is noise, and
+    // "the rest keep" is a promise about cards that do not exist. The short
+    // sitting appears only when it is genuinely shorter than the day.
+    if (t.pace.short_minutes && t.pace.minutes_left > t.pace.short_minutes) {
+      row.append(btn({ class: 'btn ghost small', onclick: () => {
+        if (t.pace.short_kind === 'review') go('review', 'short');
+        else if (t.lessons && t.lessons.length) go('node', t.lessons[0].id);
+        else go('review', 'short');
+      } }, 'I only have a few minutes'));
+      row.append(el('span', { class: 'muted pace-note' },
+        t.pace.short_kind === 'review'
+          ? plural(t.pace.short_cards, 'card') + ', about ' + plural(t.pace.short_minutes, 'minute') + '.'
+            + (t.pace.short_cards < (t.deck && t.deck.due || 0) ? ' The rest keep.' : '')
+          : 'One lesson quiz, about ' + plural(t.pace.short_minutes, 'minute') + '.'));
+    }
+    // The book says which kind of number it just gave. An estimate presented
+    // as a measurement is the sort of small lie this file has twice had to
+    // back out of; it costs one clause to be straight about it.
+    row.append(el('span', { class: 'muted pace-note' }, t.pace.measured
+      ? 'Timed from how long these usually take you.'
+      : 'A first estimate — the book will time you and correct itself.'));
+    page.append(row);
+  }
   if (t.quest_done === t.quest_total) {
     page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' growth today. Beautifully done.'));
     // The crown used to end in a full stop. A day should have a tomorrow.
@@ -1883,6 +1932,10 @@ function spinnerOverlay(msg) {
 
 function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, token = '' }) {
   const young = (stage != null ? stage : S.stage) <= 1;
+  // The paper's own clock, started when it is handed over. See the note on
+  // the deck's: untrusted, non-load-bearing, and the only reason the book can
+  // ever say "about four minutes" and mean this reader's four minutes.
+  const startedAt = Date.now();
   let i = 0, correct = 0; const answers = [], confidences = [], oks = []; let confidence = null;
   // Ceremonies queue rather than collide. A stage ascension used to be fired on
   // a bare 900ms timer; with a page turn now also on offer in the same splash,
@@ -2319,7 +2372,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       // attempt — otherwise failing then re-answering 5 of 6 posts 100%.
       try {
         if (kind === 'quiz') {
-          const r = await api.post('/api/quiz/submit', { node_id: nodeId, answers, make_cards: true, confidence: confidences, token });
+          const r = await api.post('/api/quiz/submit', { node_id: nodeId, answers, make_cards: true, confidence: confidences, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.mastery.xp_gained || 0; ascension = r.ascension; calibration = r.calibration;
           // null unless THIS lesson is the one the open chapter was waiting for.
           storyUnlocked = r.story_unlocked || null;
@@ -2353,7 +2406,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
           if (r.cards_added) msg += ' ' + r.cards_added + ' review card' + (r.cards_added > 1 ? 's' : '') + ' added.';
           if (r.mastery.newly_mastered) celebrate();
         } else {
-          const r = await api.post('/api/attempt', { node_id: nodeId, answers, token });
+          const r = await api.post('/api/attempt', { node_id: nodeId, answers, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.xp_gained || 0; ascension = r.ascension;
           msg = 'Set down in the Book.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
           if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
@@ -2744,8 +2797,9 @@ function lockedPeek(n) {
 }
 
 /* ---------------- Review ---------------- */
-async function renderReview(page) {
-  const data = await guard(page, () => api.get('/api/review/due?limit=30'));
+async function renderReview(page, arg) {
+  const short = arg === 'short';
+  const data = await guard(page, () => api.get('/api/review/due?limit=30' + (short ? '&dose=short' : '')));
   if (!data) return;
   // A day with a bottom. `goal` is the day's ask, priced by the same server
   // function the quest tile is priced by — a deck that stopped at a different
@@ -2755,7 +2809,17 @@ async function renderReview(page) {
   let bottom = goal > 0 ? Math.min(goal, data.cards.length) : data.cards.length;
   page.append(pagehead('Spaced repetition', 'Strengthen What You Know',
     'The book brings back what you are about to forget, exactly when you are about to forget it. ' + data.stats.due + ' of ' + data.stats.total + ' cards are due.'
-    + (bottom < data.cards.length ? ' Today the book asks for ' + bottom + ' of them.' : '')));
+    + (bottom < data.cards.length
+       ? (short ? ' You asked for a short sitting, so the book asks for ' + bottom + ' of them — the rest keep.'
+                : ' Today the book asks for ' + bottom + ' of them.')
+       : '')));
+  // A short sitting is a smaller door into the same room, and the reader
+  // should be able to see the room from it.
+  if (short && data.stats.due > bottom) {
+    page.append(el('p', { class: 'muted', style: 'margin-top:-6px' },
+      btn({ class: 'btn ghost small', onclick: () => go('review') },
+        'I have longer after all — show me the whole day')));
+  }
   // An empty deck is good news, and the page should sound like it knows that
   // — one Guide-flavored wink, then the honest reason to come back.
   if (!data.cards.length) {
@@ -2772,8 +2836,10 @@ async function renderReview(page) {
   const deck = el('div', { class: 'deck' });
   page.append(deck);
   let idx = 0;
+  let _cardShownAt = 0;
   let stage = null;
   function draw() {
+    _cardShownAt = Date.now();
     const c = data.cards[idx];
     // A fresh .deck-card per card, never innerHTML into the old node: the
     // settle animation lives on the element, and CSS only plays it when the
@@ -2971,8 +3037,13 @@ async function renderReview(page) {
   document.addEventListener('keydown', onKey);
   async function grade(c, q) {
     let r;
+    // How long this card took, so the book can eventually tell this reader
+    // how long five of them will take *them*. Clamped and discarded server
+    // side if it is not a plausible reading; nothing about the schedule, the
+    // grade or the XP depends on it.
+    const took = _cardShownAt ? (Date.now() - _cardShownAt) / 1000 : null;
     try {
-      r = await api.post('/api/review', { card_id: c.id, quality: q });
+      r = await api.post('/api/review', { card_id: c.id, quality: q, seconds: took });
     } catch (e) {
       toast('The book could not file that one — the card stays right where it is. Nothing is lost.');
       return;  // never silently drop the card

@@ -4370,3 +4370,79 @@ not an error state at all. It is not a ten: the tutor's vendor disclosure
 close — deleting a privacy notice to protect a fiction is the wrong trade, and
 the right one is a product decision. `skeleton()`'s `aria-label: 'Loading'`
 remains, and belongs to Lindqvist.
+
+---
+
+## Round 25 — the book learns what it is asking of you
+
+Ferriss's first finding, and the clearest miss against benchmark 12's own
+wording: **nothing anywhere told the reader how long anything would take**,
+and **there was no minimum-effective-dose path at all**. The one short
+session in the product — `REVIEW_GOAL_RETURNING = 5` — was involuntary and
+fired only after three days away. A reader with seven minutes had exactly two
+options, the whole day or nothing, and between those the honest answer is
+nothing.
+
+**A number the book earned rather than guessed.** The temptation was to pick
+a plausible seconds-per-card constant and print it. That is not honesty about
+time, it is a guess wearing honesty's clothes — and the reader who is slow, or
+fast, is being told about somebody else. So the book times the reader.
+`/api/review`, `/api/attempt` and `/api/quiz/submit` now accept an optional
+`seconds`; `learner.pace(kind)` returns the **median** per-item seconds over
+the last sixty events, or `None`.
+
+Three deliberate properties, each one load-bearing:
+
+- **`None` means "not measured", and the caller has to say so.** The book
+  shows "A first estimate — the book will time you and correct itself." until
+  it has watched the reader, and "Timed from how long these usually take you."
+  afterwards. An estimate presented as a measurement is exactly the class of
+  small lie this file has twice had to back out of, and it costs one clause to
+  be straight about it.
+- **The clock is the reader's own browser, so it is untrusted twice over** —
+  a hostile client can post anything, and an honest one records the twenty
+  minutes a reader spent answering the door mid-quiz. `_per_item_seconds`
+  **discards** any reading outside 2–300 seconds per item rather than clamping
+  it, because clamping a forty-minute interruption to five minutes still puts
+  a number nobody spent into the median. Median, not mean, for the same
+  reason.
+- **Nothing about grading, mastery, scheduling or XP reads any of it.** The
+  timing is a separate, inert channel. A reader who blocks it, or a client
+  that never sends it, gets the stated defaults and loses nothing else.
+
+**What the reader sees.** Each quest step carries its cost — "0 of 5 · about
+2 min", "Read one article · about 6 min" — priced server-side so the tile and
+the deck can never quote different numbers. The evening carries its total,
+and it is the total *remaining*, because a day two-thirds finished should say
+what is left; that is the number a reader deciding whether to sit down needs.
+An excused or finished step is priced at zero, which the suite asserts
+directly: pricing work the book has already said is not there would ask for
+minutes against nothing.
+
+**And a real short door.** "I only have a few minutes" runs
+`#/review/short` — a route, not a mode flag, so it survives a reload and a
+reader who has five minutes on a bus has them again tomorrow. It lowers the
+*ask* and never the deck: same cards behind it, `stats.due` unchanged, and
+"I have longer after all — show me the whole day" one tap inside. With the
+deck clear it offers the one lesson quiz instead, and it does not appear at
+all when the whole day is already shorter than the short sitting, because
+offering a smaller door into a small room is noise.
+
+Two small dishonesties caught on the browser pass, both the same shape as the
+gigabyte in Round 23 and worth recording because I wrote them:
+
+1. The offer read **"5 cards, about 1 minutes"** — the card count was the
+   *cap* (`SHORT_DOSE_CARDS`) rather than the number of cards actually due, so
+   it promised five when two were waiting. It reports the real number now.
+2. "about 1 minutes", "1 card". A `plural()` helper, used everywhere a count
+   meets a noun. A sentence that says "1 minutes" tells the reader a machine
+   wrote the page, which is Stephenson's benchmark failing inside Ferriss's
+   fix.
+
+Five new tests, all in `tests/test_engagement_api.py`: the clamp band in both
+directions plus its hostile inputs; that the book does not claim to have timed
+a reader it has not; that six timed cards actually move the estimate to the
+reader's own number; that a short sitting lowers the ask and never the deck;
+and that an excused step costs zero minutes.
+
+Suite: **562 → 567 passed**, 1 skipped; `check_banks.py`: 0 problems.
