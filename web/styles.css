@@ -36,6 +36,18 @@
   --edge: #8a7f62;
   --ink-place: #665c4d;   /* authored placeholder: the UA default fails in dark */
   --muted: var(--ink-faint); /* quiet status text; was referenced but never defined */
+  /* Corner geometry, stated once. The radii had drifted into nine ad-hoc
+     values (7, 8, 9, 10, 12, 14…), so no two surfaces agreed on how soft the
+     book's corners are. Three steps — control, card, sheet — nudged a little
+     rounder than before, which is where screen design has settled: a corner
+     generous enough to read as continuous rather than machined. */
+  --r-ctl: 10px;          /* buttons, inputs, choices, nav pills */
+  --r-card: 14px;         /* cards, tiles, the tutor's replies */
+  --r-sheet: 18px;        /* modals and full panels */
+  /* One spring for every press and pop. The old eases were flat and all
+     slightly different; this overshoots by a hair and settles, which is what
+     makes a control feel sprung rather than animated. */
+  --spring: cubic-bezier(0.34, 1.3, 0.45, 1);
   /* Translucent state washes. These were hardcoded light-palette RGB
      (rgba(51,122,75,…), rgba(201,162,39,…)) at every use site, so the green
      and gold tints stayed daylight-mixed on the night page. Declared as
@@ -101,6 +113,10 @@
   --btn-gold-ink: #241a03;
   --shell-base: #221c12;
   --scrim: rgba(30,22,10,0.7);   /* candle-lit by day */
+  /* The toast's ground when the page can be blurred through it: the same
+     tooled-leather chrome, poured thin enough to see the page move behind.
+     Solid --panel-bg stays as the fallback for engines without the blur. */
+  --glass: rgba(43, 32, 15, 0.72);
   --lock-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4.8' y='10.5' width='14.4' height='9.7' rx='2'/><path d='M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7'/></svg>");
   --chrome-bg: linear-gradient(160deg, #3c2c17, #241a0d);
   --panel-bg: linear-gradient(170deg, #2f2413, #211809);
@@ -180,6 +196,7 @@
   --dk-btn-gold-ink: #0a0e14;
   --dk-shell-base: #03060a;
   --dk-scrim: rgba(2,6,12,0.74);  /* the room lights off at night */
+  --dk-glass: rgba(10, 18, 27, 0.66);
   --dk-chrome-bg: linear-gradient(165deg, #0c1420, #04080e);
   --dk-panel-bg: linear-gradient(170deg, #0e1823, #05090f);
   --dk-chrome-ink: #cfe0ee;
@@ -216,7 +233,7 @@
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --btn-gold-fill: var(--dk-btn-gold-fill); --btn-gold-ink: var(--dk-btn-gold-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
-    --scrim: var(--dk-scrim);
+    --scrim: var(--dk-scrim); --glass: var(--dk-glass);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
     --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
     --sk-sheen: var(--dk-sk-sheen);
@@ -249,7 +266,7 @@
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --btn-gold-fill: var(--dk-btn-gold-fill); --btn-gold-ink: var(--dk-btn-gold-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
-    --scrim: var(--dk-scrim);
+    --scrim: var(--dk-scrim); --glass: var(--dk-glass);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
     --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
     --sk-sheen: var(--dk-sk-sheen);
@@ -319,10 +336,11 @@ button { font-family: var(--sans); cursor: pointer; }
 .navlist { display: flex; flex-direction: column; gap: 4px; }
 .navbtn {
   background: transparent; border: none; color: var(--chrome-ink-soft);
-  text-align: left; padding: 9px 12px; border-radius: 8px;
+  text-align: left; padding: 9px 12px; border-radius: var(--r-ctl);
   font-size: 15px; font-family: var(--serif); display: flex; align-items: center; gap: 10px;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, transform 0.25s var(--spring);
 }
+.navbtn:active { transform: scale(0.97); transition-duration: 0.08s; }
 .navbtn .ic { width: 20px; text-align: center; font-size: 16px; opacity: 0.9; }
 .navbtn:hover { background: var(--chrome-hover); color: var(--chrome-hi); }
 .navbtn.active { background: var(--chrome-active); color: var(--chrome-hi); box-shadow: inset 3px 0 0 var(--gold-bright); }
@@ -368,8 +386,11 @@ button { font-family: var(--sans); cursor: pointer; }
 .card {
   background: var(--paper-2); border: 1px solid var(--paper-edge);
   color: var(--ink);            /* buttons must not inherit UA buttontext */
-  border-radius: 10px; padding: 18px 20px; margin-bottom: 16px;
-  box-shadow: 0 2px 5px var(--shadow);
+  border-radius: var(--r-card); padding: 18px 20px; margin-bottom: 16px;
+  /* Two layers where there was one: a tight contact line and a wide, faint
+     ambient wash. A single mid-distance shadow reads as a sticker; the pair
+     reads as a card actually resting on the page. */
+  box-shadow: 0 1px 2px var(--shadow), 0 8px 24px -12px var(--shadow);
 }
 .card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; }
 .grid { display: grid; gap: 16px; }
@@ -395,11 +416,15 @@ button { font-family: var(--sans); cursor: pointer; }
   /* Fixed dark stops in both themes: --accent lightens in dark mode, which put
      near-white label text on a pale salmon fill (2.46:1). */
   background: var(--btn-fill); color: var(--btn-ink); border: none;
-  padding: 11px 20px; border-radius: 8px; font-size: 15px; font-weight: 600;
-  box-shadow: 0 2px 4px var(--shadow); transition: filter 0.15s, transform 0.1s;
+  padding: 11px 20px; border-radius: var(--r-ctl); font-size: 15px; font-weight: 600;
+  box-shadow: 0 1px 2px var(--shadow), 0 4px 10px -6px var(--shadow);
+  transition: filter 0.15s, transform 0.25s var(--spring);
 }
 .btn:hover { filter: brightness(1.08); }
-.btn:active { transform: translateY(1px); }
+/* The press compresses instead of sliding: the whole control gives a little
+   under the finger and springs back, which is the difference between pressing
+   a key and nudging a tile. */
+.btn:active { transform: scale(0.965); transition-duration: 0.08s; }
 /* The primary CTA. Its gradient was a fixed daylight pair, so the loudest
    gold object on the page stayed leaf-gilt on a page of phosphor; themed like
    --btn-fill, with near-black ink by day and night-paper ink on the brighter
@@ -413,7 +438,7 @@ button { font-family: var(--sans); cursor: pointer; }
 label.field { display: block; margin-bottom: 16px; font-family: var(--sans); font-size: 13px; color: var(--ink-soft); }
 label.field span { display: block; margin-bottom: 5px; font-weight: 600; letter-spacing: 0.3px; }
 input[type=text], input[type=number], input[type=search], select {
-  width: 100%; padding: 10px 12px; border: 1px solid var(--edge); border-radius: 7px;
+  width: 100%; padding: 10px 12px; border: 1px solid var(--edge); border-radius: var(--r-ctl);
   font-size: 15px; font-family: var(--serif); background: var(--field); color: var(--ink);
 }
 /* Sliders, in the book's own hand. The UA defaults render a grey plastic
@@ -775,8 +800,8 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
   position: sticky; top: 20px; align-self: start; height: calc(100vh - 40px);
   display: flex; flex-direction: column;
   background: var(--panel-bg);
-  border-radius: 12px; color: var(--chrome-ink); overflow: hidden;
-  box-shadow: 0 4px 16px var(--shadow);
+  border-radius: var(--r-sheet); color: var(--chrome-ink); overflow: hidden;
+  box-shadow: 0 1px 3px var(--shadow), 0 12px 32px -16px var(--shadow);
 }
 #tutor .th { padding: 14px 16px; border-bottom: 1px solid var(--chrome-rule); }
 #tutor .th .mark { color: var(--gold-bright); font-size: 22px; }
@@ -792,7 +817,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 .tutor-disclosure { font-family: var(--sans); font-size: 11px; line-height: 1.45;
   color: var(--chrome-ink-dim); margin-top: 5px; }
 #tutor-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-.msg { padding: 10px 13px; border-radius: 12px; font-size: 14.5px; line-height: 1.5; max-width: 92%; }
+.msg { padding: 10px 13px; border-radius: var(--r-card); font-size: 14.5px; line-height: 1.5; max-width: 92%; }
 .msg.book { background: var(--chrome-active); color: var(--chrome-hi); border-bottom-left-radius: 3px; }
 .msg.me { background: rgba(255,255,255,0.1); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
 .msg.think { opacity: 0.6; font-style: italic; }
@@ -812,14 +837,16 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 #tutor .composer button { background: var(--btn-gold-fill); border: none; color: var(--btn-gold-ink); border-radius: 20px; padding: 0 16px; font-weight: 700; }
 
 /* ---------- quiz / practice ---------- */
-.q-card { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: 12px; padding: 26px; box-shadow: 0 3px 8px var(--shadow); }
+.q-card { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: var(--r-card); padding: 26px; box-shadow: 0 1px 2px var(--shadow), 0 10px 28px -14px var(--shadow); }
 .q-prompt { font-size: 21px; line-height: 1.5; white-space: pre-wrap; margin-bottom: 20px; }
 .q-choices { display: grid; gap: 10px; }
 .choice {
-  text-align: left; padding: 13px 16px; border: 1.5px solid var(--edge); border-radius: 9px;
-  background: var(--field); font-size: 16px; font-family: var(--serif); color: var(--ink); transition: all 0.12s;
+  text-align: left; padding: 13px 16px; border: 1.5px solid var(--edge); border-radius: var(--r-ctl);
+  background: var(--field); font-size: 16px; font-family: var(--serif); color: var(--ink);
+  transition: border-color 0.12s, background 0.12s, transform 0.25s var(--spring);
 }
 .choice:hover { border-color: var(--link); background: var(--field-hi); }
+.choice:active { transform: scale(0.985); transition-duration: 0.08s; }
 .choice.correct { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); font-weight: 600; }
 /* The wrong fill was the last daylight-mixed wash: at night the border and
    text turned magenta while a hardcoded brown-red sat underneath them. */
@@ -934,10 +961,25 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 .tl-year .ms { margin-top: 3px; }
 
 /* ---------- overlay / toast ---------- */
-#overlay { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 100; backdrop-filter: blur(2px); }
-#overlay .modal { background: var(--paper); border-radius: 14px; padding: 30px; max-width: 560px; width: 92%; max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--panel-bg); color: var(--chrome-hi); padding: 12px 22px; border-radius: 30px; font-family: var(--sans); font-size: 14px; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
-#toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+/* The page does not vanish behind a modal, it falls out of focus: a real blur
+   under the scrim, so what is behind stays present the way a room does behind
+   a held-up page. The 2px it used to get read as a rendering mistake. */
+#overlay { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 100; backdrop-filter: blur(12px) saturate(1.3); -webkit-backdrop-filter: blur(12px) saturate(1.3); }
+#overlay .modal { background: var(--paper); border-radius: var(--r-sheet); padding: 30px; max-width: 560px; width: 92%; max-height: 88vh; overflow-y: auto; box-shadow: 0 24px 64px -12px rgba(0,0,0,0.5); animation: sheet-pop 0.34s var(--spring); }
+/* Arrives like a sheet, not a slide: a touch small and a touch low, springing
+   to rest. Reduced-motion collapses this along with everything else. */
+@keyframes sheet-pop { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
+/* The toast becomes glass where the engine can afford it: the page shows
+   through, blurred, so a passing notice stops being a black bar stamped over
+   the book. Solid chrome remains the fallback — never translucency without
+   the blur, which would just be text on mud. */
+#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--panel-bg); color: var(--chrome-hi); padding: 12px 22px; border-radius: 30px; font-family: var(--sans); font-size: 14px; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s, transform 0.35s var(--spring); pointer-events: none; }
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  #toast { background: var(--glass); backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid var(--chrome-rule); }
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
 
 .muted { color: var(--ink-faint); font-family: var(--sans); font-size: 13px; }
 .spinner { width: 26px; height: 26px; border: 3px solid var(--rule); border-top-color: var(--link); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 30px auto; }
@@ -1146,7 +1188,7 @@ h3 > .card-open { font: inherit; color: inherit; }
 /* Daily quest checklist. */
 .quest { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 20px; }
 .quest-item { flex: 1 1 180px; background: var(--paper-2); border: 1.5px solid var(--paper-edge);
-  border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  border-radius: var(--r-card); padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
 .quest-item .tick { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--edge);
   display: grid; place-items: center; font-size: 15px; color: transparent; flex: none; }
 .quest-item.done { border-color: var(--green); background: var(--tint-green); }
