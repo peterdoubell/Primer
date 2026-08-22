@@ -326,6 +326,12 @@ function renderRoute() {
     const h1 = page.querySelector('#article h1');
     const h = h1 || page.querySelector('.pagehead h2');
     page.setAttribute('aria-label', h ? h.textContent : view);
+    // The one surface that never turned a page. A reader eight thousand words
+    // into an article, or three questions into a quiz, saw the same masthead in
+    // the tab as on the day they opened the book; with two copies open they had
+    // no way to tell them apart. The heading the view already computed for the
+    // accessible name is exactly the right words, so it does both jobs.
+    setTitle(h ? h.textContent : null);
     // A control that caused this rebuild (the theme toggle) keeps focus, so the
     // reader is not thrown back to the top of the page for changing a setting.
     const restore = S.restoreFocus && $('#' + S.restoreFocus);
@@ -337,6 +343,37 @@ function renderRoute() {
   });
 }
 window.addEventListener('hashchange', renderRoute);
+const TITLE_ROOT = 'The Primer';
+function setTitle(leaf) {
+  const t = (leaf || '').trim();
+  document.title = t && t !== TITLE_ROOT ? t + ' · ' + TITLE_ROOT
+                                         : TITLE_ROOT + ' — A Living Book of All Knowledge';
+}
+
+/* ---------------- the world coming and going ----------------
+   The book's whole premise is that it works with no wire at all, and until now
+   it never once said so: every disconnection was discovered by a failed
+   request and reported as a generic apology, which reads like a fault. Losing
+   the network is not a fault in this artifact. It is a condition, and the book
+   should be the one to mention it first — calmly, and without implying the
+   reader has lost anything, because they have not. */
+function offlineBand() {
+  let band = $('#offline-band');
+  if (navigator.onLine) { if (band) band.remove(); return; }
+  if (band) return;
+  band = el('div', { id: 'offline-band', class: 'offline-band', role: 'status' },
+    glyph('shelf', 14),
+    ' The book is on its own for a while — no wire, no signal. Everything already bound in is still here, and it will reach out again when the world comes back.');
+  // Mounted into the shell rather than the page, so a route change does not
+  // take it down while it is still true.
+  const book = $('#book') || $('#root');
+  if (book) book.prepend(band);
+}
+window.addEventListener('offline', () => { offlineBand(); });
+// And once on arrival: opening the book already off the wire is the commonest
+// case of all, and it fires no event.
+window.addEventListener('DOMContentLoaded', () => setTimeout(offlineBand, 400));
+window.addEventListener('online', () => { offlineBand(); toast('The world is back. The book will fetch what it was missing.'); });
 
 /* ---------------- the reader's place ----------------
    The article view is the only page a reader can be eight thousand words into,
@@ -719,7 +756,12 @@ function renderShell() {
   sidebar.append(el('div', { class: 'statrow' },
     el('div', { class: 'stat' }, el('span', {}, 'Reader'), el('b', {}, p.name)),
     el('div', { class: 'stat' }, el('span', {}, 'Mastered'), el('b', { id: 'stat-mastered' }, '—')),
-    el('div', { class: 'stat' }, el('span', {}, 'XP'), el('b', { id: 'stat-xp' }, p.xp || 0)),
+    // "XP" is a two-letter acronym off an arcade cabinet, pinned over the page
+    // of a three-year-old who cannot read it and a graduate who should not have
+    // to. The mechanic underneath is Kim's and Okafor's and is untouched: only
+    // the word the reader sees changes, to one the rest of this book would use.
+    // Growth, because the ladder the reader climbs is Seedling to Forest.
+    el('div', { class: 'stat' }, el('span', {}, 'Growth'), el('b', { id: 'stat-xp' }, p.xp || 0)),
     el('div', { class: 'stat' }, el('span', {}, 'Streak'), el('b', { id: 'stat-streak' }, String(p.streak || 0), glyph('flame', 13))),
   ));
   sidebar.append(el('div', { class: 'chrome-row', role: 'group', 'aria-label': 'Reading settings' },
@@ -838,7 +880,12 @@ function errCard(e, retry) {
   // The lede leads, and the second line is the book explaining itself in its
   // own words or saying nothing at all.
   if (e && e.error) console.warn('[primer]', e.error);
-  const said = saidFor(e);
+  // "Likely the network, never you" is a kind guess. When the book can see for
+  // itself that there is no network, it should stop guessing and say so — and
+  // say the thing that matters, which is that nothing is out of reach that was
+  // ever really in hand.
+  const said = saidFor(e) || (navigator.onLine ? '' :
+    'The book is on its own just now — no wire, no signal. Everything already bound in is still yours to read.');
   const c = el('div', { class: 'card err-card', role: 'alert' },
     el('div', { class: 'dont-panic', 'aria-hidden': 'true' }, 'DON’T PANIC'),
     el('p', { class: 'err-lede' }, said || 'The Book has briefly lost its train of thought — likely the network, never you.'),
@@ -1076,7 +1123,7 @@ async function renderToday(page) {
   });
   page.append(quest);
   if (t.quest_done === t.quest_total) {
-    page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' XP earned today. Beautifully done.'));
+    page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' growth today. Beautifully done.'));
     // The crown used to end in a full stop. A day should have a tomorrow.
     const tl = tomorrowLine(t.tomorrow);
     if (tl) page.append(el('p', { class: 'tomorrow-line' }, tl));
@@ -1271,7 +1318,7 @@ function openStory(s, canAdvance, needs, onClose) {
               const cheap = pageTurnIsCheap();
               if (!cheap) { confetti(); if (r.xp_gained) flyXP(r.xp_gained); }
               toast('The next chapter has opened ✦'
-                + (cheap && r.xp_gained ? ' +' + r.xp_gained + ' XP' : ''));
+                + (cheap && r.xp_gained ? ' +' + r.xp_gained + ' growth' : ''));
             }
             refreshStats();
             renderRoute();
@@ -1372,14 +1419,19 @@ async function renderNode(page, nodeId) {
       glyph('story', 15), ' Proving this opens “' + n.opens_chapter.title + '” — chapter ' + n.opens_chapter.number + ' of your story.'));
   }
   const canAssess = n.unlocked || n.mastered;
-  const lockedTitle = canAssess ? null : 'Unlock this lesson before taking its quiz or practice.';
+  // Why the quiz is dead used to live in a native `title=` on a *disabled*
+  // button — which most browsers refuse to show at all, and no touch device
+  // has ever shown. The only explanation the reader could get was one they
+  // could not get. It is a sentence on the page now, in the book's hand.
   const actions = el('div', { style: 'display:flex;gap:12px;flex-wrap:wrap;margin-top:26px' },
-    btn({ class: 'btn gold', disabled: canAssess ? null : '', title: lockedTitle,
+    btn({ class: 'btn gold', disabled: canAssess ? null : '',
       onclick: canAssess ? () => startQuiz(nodeId) : null }, glyph('quill', 16), ' Take the quiz'),
-    n.practice ? btn({ class: 'btn', disabled: canAssess ? null : '', title: lockedTitle,
+    n.practice ? btn({ class: 'btn', disabled: canAssess ? null : '',
       onclick: canAssess ? () => startPractice(nodeId, n.practice, n.stage) : null }, glyph('target', 16), ' Practice') : null,
     n.articles && n.articles.length ? btn({ class: 'btn ghost', onclick: () => go('reader', { title: n.articles[0], node: nodeId }) }, glyph('story', 16), ' Start reading') : null);
   page.append(actions);
+  if (!canAssess) page.append(el('p', { class: 'muted locked-why', style: 'margin-top:10px' },
+    glyph('lock', 14), ' Questions wait until this lesson is open to you. You are welcome to read it meanwhile — the book will not set questions on what it has not yet taught you.'));
 }
 
 /* ---------------- Reader + tutor ---------------- */
@@ -2284,7 +2336,15 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
             // returns the exact moment, and — unlike mastery_detail — it does
             // not null an elapsed one, so a past timestamp means ready NOW and
             // is never printed as a date that has gone by.
-            msg = 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery';
+            // The splash above correctly hides its percentage from a young
+            // reader (`if (!young)`) and this line, three branches later, printed
+            // one anyway — and at stage 0-1 the book then reads it aloud. A
+            // four-year-old does not have a use for eighty per cent.
+            msg = young
+              ? (r.mastery.level >= 0.67 ? 'Nearly there — one more good go.'
+                 : r.mastery.level >= 0.34 ? 'You are getting there.'
+                 : 'A good start, and the book has written it down.')
+              : 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery';
             const ra = r.mastery.ready_at;
             if (ra == null) msg += '.';
             else if (readyNow(ra)) msg += ' — you have proved it once already, so the next pass seals it.';
@@ -2304,7 +2364,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     } else if (isRetry) {
       msg = 'Good — those are the ones that needed another look.';
     }
-    if (xp) { splash.append(el('p', { style: 'color:var(--gold-ink);font-weight:700;font-size:18px' }, '+' + xp + ' XP')); flyXP(xp); }
+    if (xp) { splash.append(el('p', { style: 'color:var(--gold-ink);font-weight:700;font-size:18px' }, '+' + xp + ' growth')); flyXP(xp); }
     if (calibration && calibration.total) {
       let cal;
       if (calibration.overconfident > calibration.total / 3) cal = 'You were sure on ' + calibration.overconfident + ' you got wrong — worth a second look.';
@@ -2358,7 +2418,7 @@ function flyXP(xp) {
   // Centering lives inside the keyframes: an animated transform replaces the
   // inline one wholesale, so an inline translateX(-50%) silently vanished on
   // the first frame and the badge sat half its width right of centre.
-  const p = el('div', { class: 'xp-pop' }, '+' + xp + ' XP');
+  const p = el('div', { class: 'xp-pop' }, '+' + xp + ' growth');
   document.body.append(p); setTimeout(() => p.remove(), 1500);
 }
 function celebrate() { confetti(); }
