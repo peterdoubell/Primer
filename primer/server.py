@@ -1008,6 +1008,30 @@ STREAK_MILESTONES = (3, 7, 30, 100, 365)
 REVIEW_GOAL = 12
 REVIEW_GOAL_RETURNING = 5
 
+# ---------------- how long tonight will take ----------------
+# The book had never once told a reader what it was asking of them: not for a
+# card, not for a quiz, not for the day. These are the numbers it uses BEFORE
+# it has watched this particular reader do anything — stated here rather than
+# buried, so they can be argued with, and superseded the moment there is a
+# real measurement (learner.pace). The book says "about" either way, and says
+# which of the two it is using.
+DEFAULT_CARD_SECONDS = 25.0
+DEFAULT_QUESTION_SECONDS = 55.0
+# What `startQuiz` actually asks the server for. If that cap ever moves, the
+# estimate moves with it or the book starts lying about its own quiz.
+QUIZ_QUESTIONS = 5
+# An article is the one step with no natural unit, and the reader chooses how
+# deep to go. A deliberately modest figure: the step asks for one article
+# read, not one article exhausted.
+ARTICLE_MINUTES = 6
+
+
+def _round_minutes(mins: float) -> int:
+    """Minutes as a person would say them. Never zero: a step the reader has
+    to actually do is never "about 0 minutes", and rounding it there would be
+    the one kind of dishonesty this whole block exists to remove."""
+    return max(1, int(round(mins)))
+
 
 def _review_goal(deck: dict, days_away: Optional[int] = None,
                  done_today: int = 0) -> int:
@@ -1156,6 +1180,45 @@ def today():
     quest_done = sum(1 for k in quest.values() if k["done"])
     quest_total = sum(1 for k in quest.values() if not k["excused"])
 
+    # What the day costs, in minutes, priced per step. Only steps the reader
+    # still has to do are counted: a day two-thirds finished should say what is
+    # LEFT, which is the number a reader deciding whether to sit down needs.
+    card_s = learner.pace("review")
+    quiz_s = learner.pace("attempt")
+    measured = card_s is not None or quiz_s is not None
+    card_s = card_s or DEFAULT_CARD_SECONDS
+    quiz_s = quiz_s or DEFAULT_QUESTION_SECONDS
+    step_minutes = {}
+    for key, q in quest.items():
+        if q["done"] or q["excused"]:
+            step_minutes[key] = 0
+            continue
+        left = max(0, (q["goal"] or 0) - (q["done_count"] or 0))
+        if key == "review":
+            step_minutes[key] = _round_minutes(left * card_s / 60.0)
+        elif key == "learn":
+            step_minutes[key] = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+        else:
+            step_minutes[key] = ARTICLE_MINUTES
+    pace = {
+        "measured": measured,
+        "card_seconds": round(card_s, 1),
+        "question_seconds": round(quiz_s, 1),
+        "steps": step_minutes,
+        "minutes_left": sum(step_minutes.values()),
+        # The smallest honest sitting: five cards, or — with the deck clear or
+        # not yet started — the one thing a short evening can still finish.
+        # The number of cards a short sitting would ACTUALLY be, not the cap:
+        # promising five when two are due is the same class of small lie as
+        # rounding 0.4 GB up to "about a gigabyte".
+        "short_cards": min(SHORT_DOSE_CARDS, max(0, deck["due"])),
+        "short_minutes": _round_minutes(
+            min(SHORT_DOSE_CARDS, max(0, deck["due"])) * card_s / 60.0),
+        "short_kind": "review" if deck["due"] else "learn",
+    }
+    if pace["short_kind"] == "learn":
+        pace["short_minutes"] = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+
     story, progress, story_can_advance = _story_cursor(prof, commit=True)
 
     best_streak = learner.best_streak_days()
@@ -1211,6 +1274,7 @@ def today():
         "freezes_left": learner.freezes_left(),
         "active_today": learner.active_today(),
         "quest": quest,
+        "pace": pace,
         "quest_done": quest_done,
         "quest_total": quest_total,
         "story": story,
@@ -1284,6 +1348,11 @@ class AttemptIn(BaseModel):
     node_id: str
     answers: List[str] = Field(default_factory=list, max_length=24)
     token: str = ""
+    # How long the paper took, by the reader's own clock. Untrusted and
+    # non-load-bearing: see learner._per_item_seconds. Nothing about grading,
+    # mastery or XP reads it; it exists only so the book can answer "how long
+    # will this take me" with the reader's own number instead of a guess.
+    seconds: Optional[float] = None
 
     @field_validator("answers")
     @classmethod
@@ -1322,7 +1391,8 @@ def record_attempt(a: AttemptIn):
     if not a.node_id or node is None:
         return {"score": score, "xp_gained": 0, "unlessoned": True,
                 "cards_added": 0, "ascension": None}
-    res = learner.record_attempt(a.node_id, score)
+    res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
+                                 items=len(a.answers))
     # Practice is a study event too: whatever was missed should come back.
     cards_added = 0
     if graded and given:
@@ -1568,6 +1638,7 @@ class QuizSubmitIn(BaseModel):
     make_cards: bool = True
     token: str = ""
     confidence: List[int] = Field(default_factory=list, max_length=24)
+    seconds: Optional[float] = None
 
     @field_validator("answers")
     @classmethod
@@ -1604,7 +1675,8 @@ def submit_quiz(s: QuizSubmitIn):
                       "these. Come back to this one in a few days.",
              "spent": spent}, status_code=409)
     result = quiz.score_quiz(scorable, scorable_given)
-    mastery = learner.record_attempt(s.node_id, result["score"])
+    mastery = learner.record_attempt(s.node_id, result["score"],
+                                     seconds=s.seconds, items=len(s.answers))
     cards_added = 0
     if s.make_cards:
         article = node["articles"][0] if node and node["articles"] else ""
@@ -1686,25 +1758,40 @@ def submit_quiz(s: QuizSubmitIn):
 
 # ---------------- spaced repetition ----------------
 
+# The smallest sitting the book will admit to being worth doing. Named here
+# because the quest tile, the deck and the copy that offers it must all quote
+# the same number.
+SHORT_DOSE_CARDS = 5
+
+
 @app.get("/api/review/due")
-def review_due(limit: int = 20):
+def review_due(limit: int = 20, dose: str = ""):
     # The deck ships the day's ask with the cards, from the same function the
     # quest tile is priced by — a deck that stops at a different number from
     # the one the tile promised would be worse than a deck that never stops.
     stats = learner.deck_stats()
     goal = _review_goal(stats, _elapsed_days(learner.last_active_before_today()),
                         learner.events_today_count("review"))
-    return {"cards": learner.due_cards(limit), "stats": stats, "goal": goal}
+    # A reader who asked for a short sitting gets a short sitting. The ask is
+    # lowered, never the deck: the cards behind it are untouched and the full
+    # day is one tap away, so this is a smaller door into the same room rather
+    # than a different, lesser deck.
+    if dose == "short" and goal > 0:
+        goal = min(goal, SHORT_DOSE_CARDS)
+    return {"cards": learner.due_cards(limit), "stats": stats, "goal": goal,
+            "dose": dose or "full", "short_goal": SHORT_DOSE_CARDS}
 
 
 class ReviewIn(BaseModel):
     card_id: int
     quality: int
+    seconds: Optional[float] = None
 
 
 @app.post("/api/review")
 def review(r: ReviewIn):
-    return learner.review_card(r.card_id, max(0, min(5, r.quality)))
+    return learner.review_card(r.card_id, max(0, min(5, r.quality)),
+                               seconds=r.seconds)
 
 
 class CardIn(BaseModel):
