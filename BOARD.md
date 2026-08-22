@@ -3982,3 +3982,193 @@ JS-only accessibility fixes this session — verified by direct browser
 inspection instead.
 
 `check_banks.py`: 0 problems (no Python change this round).
+
+---
+
+## Round 22 — seating Stephenson and Ferriss: the baseline audits
+
+Two new lenses, two fresh scores, and — for the first time since Round 1 — a
+pair of benchmarks that start well below the line. Both were audited the way
+the later rounds in this file audit: the code read for the mechanism, and the
+book then driven in a browser as a reader, at a scratch profile on the design
+port, through onboarding, a lesson, a quiz failed on purpose, the review deck,
+the story, the Shelf and the error card.
+
+Neither audit re-litigates benchmarks 1–10. Where a finding belongs to an
+existing owner it is named and handed over rather than scored here.
+
+### Benchmark 11 — The Book as Artifact (Design Fidelity) · **6/10**
+
+The register is real and it is *mostly* held. `sign-in.html` is the strongest
+surface in the product — `Reader` and `Your word` for username and password,
+"Give the book your word and it will open where you left it", a leather ground,
+and not a single field the browser named. `errCard` opens with DON'T PANIC in
+large friendly letters. The tutor apologises in escalating prose. The deck
+rests. The index has wandered off, likely the network, never you. There is no
+`alert()`, no `confirm()`, no `prompt()`, no file picker anywhere in `web/`.
+A product that has been through twenty-one rounds of this file has earned that.
+
+Six is what is left when the seams are counted, and they are not small.
+
+1. **The Shelf is a system-administration console with a nav item.**
+   `web/app.js:3093-3123`, top-level, ungated. In one view the reader is told
+   about "knowledge archives" to "download", what is "Installed now", article
+   counts and `size_mb`, "cached_articles … saved from your online reading",
+   a percentage download bar (`:3119`), a button reading `↓ 60 GB` (`:3120`),
+   and a colophon naming the Kiwix project with three storage figures
+   (`:3123`). `:3147` tells a five-year-old the download "continues in the
+   background". A living book does not have an installer. This is the largest
+   fiction break in the app and it is not close.
+
+2. **Raw machine strings are printed verbatim inside the book's own copy.**
+   Round 5 demoted the backend error to fine print but did not stop it
+   arriving: `web/app.js:820` still splices `e.error` into the DON'T PANIC
+   card. What actually lands there includes `no such node`
+   (`primer/server.py:792`, `:1424`), `unknown quiz token` (`:1517`),
+   `unknown generator` *together with a list of internal generator names*
+   (`:1275`), and `not found` (`:667`, `:679`). Worse, `api.get`/`api.post`
+   synthesise `{ error: r.statusText }` on any non-JSON failure
+   (`web/app.js:18-19`), so the reader can be shown `(Internal Server Error)`
+   or `(Bad Gateway)` — HTTP register, inside the reassurance. Confirmed live:
+   `#/node/math-counting` renders "Everything you have learned is safely
+   written down. (no such node)".
+   The same `error` field is sometimes prose ("answer first — then the book
+   will tell you", `:1535`) and sometimes a debug tag. One channel, two
+   registers, and the front end cannot tell them apart.
+
+3. **The permanent chrome is a scoreboard, at every age.** `web/app.js:722`
+   pins a bare acronym — `XP` — beside `Streak` (`:723`) in the shell, for a
+   three-year-old as much as a graduate. `+37 XP` on every result splash
+   (`:2276`), `xp_today + ' XP earned today'` (`:1054`), a DOM class literally
+   named `streak-badge` (`:1068`). The mechanic is Kim's and Okafor's and it
+   is sound; the *word* is arcade furniture in a book that otherwise says
+   "sealed", "proved", "the page has turned".
+
+4. **Percentages read aloud to pre-readers.** The results splash correctly
+   gates `Math.round(score*100) + '%'` behind `if (!young)` (`:2234`) — and
+   then the very next branch prints `'Progress: ' + Math.round(level*100) +
+   '% toward mastery'` (`:2259`) with no guard at all, which the stage-0
+   read-aloud then speaks. Same omission at `:1182` and `:1128`. Verified in
+   the browser at Seedling: a failed quiz ended on "Progress: 80% toward
+   mastery. 5 review cards added."
+
+5. **The book's finest sentences are delivered in Chrome's chrome.**
+   `web/app.js:2535` puts "The edge of what is known — where learning becomes
+   research." into a native `title=` tooltip: grey box, system font, invisible
+   on every touch device. `:1350-1355` attaches the *only* explanation of why
+   the quiz button is dead — "Unlock this lesson before taking its quiz" — as
+   a `title` on a **disabled** button, which most browsers refuse to show at
+   all. Information the reader cannot get any other way, hidden in the one
+   piece of UI the book does not draw.
+
+6. **The tab never turns a page.** `document.title` is assigned nowhere in
+   `web/app.js` (zero hits); `web/index.html:6` is static. Deep in an article,
+   mid-quiz, in the Atlas — the same masthead. The favicon
+   (`web/index.html:9`) is the system emoji 📖, the one mark in the product
+   not drawn in the book's own hand.
+
+7. **There is no offline state.** `navigator.onLine` appears nowhere. Every
+   disconnection is discovered by a failed request and reported as a generic
+   apology. For an artifact whose entire premise is that it works with no
+   network at all, the book never once says so.
+
+8. **The machinery is named on the surfaces readers use most.**
+   "from Wikipedia (live)" under every article (`:1392`), "Simple English"
+   (`:1396`), "Simple Wiki" in search results (`:2969`), and
+   `surprise()`'s failure telling a child to "download an archive first"
+   (`:2978`). Attribution is a legal obligation and stays; `(live)`,
+   `Simple Wiki` and the instruction to perform a download do not.
+
+9. **The tutor disclosure names the vendor.** `web/app.js:1719` — "Your
+   question travels to Claude (Anthropic) to be answered". Recorded as a
+   fidelity seam and *not* proposed for removal: the honesty is worth more
+   than the fiction, and a reader's proxy should not quietly delete a privacy
+   notice. Flagged for a deliberate decision, not a silent one.
+
+Handed to other owners, not scored here: `skeleton()`'s `aria-label:
+'Loading'` (`:772`) is the only word of system register a screen-reader user
+hears in the loading state — Lindqvist, #9. `{{ERROR}}` at
+`web/sign-in.html:123` is a raw templating slot whose in-voice guarantee lives
+in a comment rather than in code — Mehta, #10.
+
+### Benchmark 12 — Interactive Learning Loops (Meta-Learning) · **6/10**
+
+What is already here is better than most of the field. Confidence rating with
+post-hoc calibration feedback (`web/app.js:1889-1915`, `:2287-2293`) is real
+metacognition. `returnCard` (`:978-995`) is exemplary — backward-looking,
+names what still stands, never mentions the streak it knows was broken. Quest
+steps *excuse* rather than block when there is nothing to do
+(`primer/server.py:1121-1141`), so the crown is never unwinnable. Failure
+never dead-ends: an empty bank falls through to the generator (`:1782-1787`),
+a lost connection says "Held in the margin for now… Nothing is lost."
+(`:2266`), and every result screen offers the ones you missed. The deck ends
+on "A good place to stop ✦" with focus deliberately sent *out* of the session.
+
+Six is what is left when the loop itself is measured.
+
+1. **Nothing anywhere tells the reader how long anything will take.**
+   Not a lesson, not a quiz, not an article, not the daily quest. The quest
+   asks for up to twelve cards (`REVIEW_GOAL = 12`, `primer/server.py:1008`)
+   plus a lesson plus an article, and states no cost for any of it.
+   `primer/pacing.py` computes minutes — but only for the five-to-ten-year
+   roadmap, never for tonight. **There is no minimum-effective-dose path
+   at all**: the one short session in the product,
+   `REVIEW_GOAL_RETURNING = 5` (`:1009`), is involuntary and fires only after
+   three days away (`:1032`). A reader with seven minutes has no way to ask
+   the book for seven minutes' work. This is the single clearest miss against
+   the benchmark's own wording.
+
+2. **The first felt event for most new readers is an exam that can end in
+   ★☆☆.** `finish()` fires `offerPlacement` 700ms after onboarding for anyone
+   aged six or over (`web/app.js:567`); `runPlacement` (`:593`) takes five
+   answers with **no per-question verdict** (`:668`) and can land on
+   "★☆☆ · This level is still ahead of you" (`:655-659`). Between "Open the
+   book" and the first graded success there is no win of any kind — Today is a
+   board of unstarted counters, and the first success is three screens and
+   four taps away.
+
+3. **Practice is three-quarters recognition.** Counted across
+   `data/curriculum/*.json`: **2446 `choice`, 612 `numeric`, 204 `short`** —
+   6% free recall, and chemistry contains exactly one short-answer item.
+   Meanwhile `runQuestions` already implements `order` (`:1994`) and `tally`
+   (`:2062`), and **zero authored items of either kind exist**; they appear
+   only from generators. The best retrieval surfaces in the app are built and
+   unused.
+
+4. **The adult deck is flip-and-self-grade.** `web/app.js:2734` —
+   `S.stage <= 1 && …` — gates the forced-recall row to pre-readers. Everyone
+   over six gets "Show answer" and an SM-2 self-rating. The comment two lines
+   above it names flip-and-rate "the weakest retrieval act there is," and then
+   ships it to every reader old enough to type.
+
+5. **A wrong answer has a real hidden cost.** `primer/server.py:1550-1556`
+   calls `burn_item`, removing that item from the node's mastery evidence for
+   seven days. Genuine stakes — which the benchmark wants — attached to an act
+   the interface presents as free exploration, and never disclosed.
+
+6. **Wrong-answer feedback is show-and-tell, never re-production.**
+   `reveal()` (`:2192-2203`) prints the key and the explanation and offers
+   "Next →". The retry path exists but arrives at the end, unscored, after
+   `:2196` has cached the revealed key onto the item — so retrying the missed
+   ones is copying back an answer the reader was shown, not retrieving it.
+
+7. **Spaced repetition is asserted once and never taught.** One sentence, at
+   `:2668-2670`. A card's header says `Card 3 of 12 · Photosynthesis`
+   (`:2704`) — provenance, not reason. Nothing explains interleaving, why the
+   book insists on a two-day gap before it will seal a lesson
+   (`MASTERY_MIN_INTERVAL`, `primer/learner.py:38`), or why it keeps asking
+   how sure you are. The reader is taught a great deal of *what* and almost
+   nothing of *how*.
+
+8. **One line tilts negative.** `:2247` — "This one has slipped — master it
+   again to lock it back in", rendered `msgTone = 'warn'`. Mild, and the only
+   loss-framed sentence in the product; recorded so it is not lost.
+
+### Round 22 scores
+
+| # | Benchmark | R22 |
+|--:|-----------|:---:|
+| 11 | The Book as Artifact (Design Fidelity) | **6** |
+| 12 | Interactive Learning Loops (Meta-Learning) | **6** |
+
+No change to benchmarks 1–10 this round; nothing was touched.
