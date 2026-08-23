@@ -2792,43 +2792,143 @@ async function renderAtlas(page) {
 
   paint(FILTERS[0][1], FILTERS[0][0]);
 }
-// Quick access — every module of the book's specialist domain, in one panel,
-// reachable whatever the gates say. Radiology is postgraduate: its tiles are
-// locked for almost every reader, which makes the ordinary route through the
-// Atlas useless for reviewing or testing the material itself. This panel is
-// that route: lesson, quiz and each source article, one click from the top of
-// the page. It shows the real lock state rather than hiding it, so nobody
-// mistakes it for progress they have made.
+// Quick access — the specialist field as an index rather than a ladder.
+//
+// Radiology is postgraduate: its tiles are locked for almost every reader,
+// which makes the ordinary route through the Atlas useless for reviewing the
+// material itself. This panel is the other route — lesson, quiz and each source
+// article, one click from the top of the page, whatever the gates say.
+//
+// It began as a flat list of five modules. At eighty-odd it would be a wall, so
+// it is now what a reference work of this size actually needs: an index, filed
+// by section, searchable, with the sections closed until asked for. The lock
+// state stays visible on every row, because a shortcut that looks like progress
+// is a lie about what the reader has done.
 function quickAccess(page, g) {
   const d = g.domains.find(x => x.id === 'radiology');
   if (!d) return;
   const nodes = g.nodes.filter(n => n.domain === 'radiology');
   if (!nodes.length) return;
+  const sections = [];
+  nodes.forEach(n => {
+    const name = n.section || 'Other';
+    let sec = sections.find(x => x.name === name);
+    if (!sec) sections.push(sec = { name: name, nodes: [] });
+    sec.nodes.push(n);
+  });
+  const locked = nodes.filter(n => !n.unlocked && !n.mastered).length;
+
   const box = el('section', { class: 'quick-access', 'aria-label': 'Quick access — ' + d.name });
   box.append(el('div', { class: 'qa-head' },
     el('div', { class: 'ic', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))`, 'aria-hidden': 'true' }, domainMark(d, 18)),
     el('div', {}, el('h3', {}, 'Quick access · ' + d.name),
-      el('div', { class: 'tag' }, nodes.length + ' modules — open any lesson, quiz or article directly, locked or not.'))));
-  nodes.forEach(n => {
-    const state = n.mastered ? ['mastered', '✓ mastered'] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
-    const row = el('div', { class: 'qa-row' });
-    row.append(el('div', { class: 'qa-title' },
-      el('b', {}, n.title), el('span', { class: 'qa-state ' + state[0] }, state[1]),
-      n.goal ? el('p', { class: 'muted' }, n.goal) : null));
-    const acts = el('div', { class: 'qa-acts' },
-      // Five identical "Lesson" buttons in a column read as five identical
-      // buttons to anyone listening; the module name has to travel with each.
-      btn({ class: 'btn small', 'aria-label': 'Lesson — ' + n.title, onclick: () => go('node', n.id) }, 'Lesson'),
-      btn({ class: 'btn ghost small', 'aria-label': 'Quiz — ' + n.title, onclick: () => startQuiz(n.id) }, glyph('quill', 14), ' Quiz'));
-    row.append(acts);
-    const arts = el('div', { class: 'qa-arts' });
-    (n.articles || []).forEach(a => arts.append(btn({ class: 'node-dot',
-      'aria-label': 'Read “' + a + '” — ' + n.title,
-      onclick: () => go('reader', { title: a, node: n.id }) }, a)));
-    if (arts.children.length) row.append(arts);
-    box.append(row);
+      el('div', { class: 'tag' }, plural(nodes.length, 'module') + ' across '
+        + plural(sections.length, 'section') + ' — open any lesson, quiz or article directly, locked or not.'))));
+
+  // The honest door out of the lock, offered only while there is something
+  // locked to open. See POST /api/domain/open: it credits the general-spine
+  // groundwork as ASSUMED, never as proved.
+  if (locked) box.append(el('div', { class: 'qa-open' },
+    btn({ class: 'btn gold small', onclick: () => openField(d, locked) },
+      glyph('spark', 15), ' Open this field — I already have the grounding'),
+    el('span', { class: 'muted' }, plural(locked, 'module') + ' still gated on the general spine.')));
+
+  const search = el('input', { type: 'search', class: 'qa-search',
+    placeholder: 'Filter modules — “stroke”, “LI-RADS”, “paediatric”…',
+    'aria-label': 'Filter radiology modules' });
+  const count = el('div', { class: 'qa-count', role: 'status', 'aria-live': 'polite' });
+  box.append(search, count);
+
+  const groups = [];
+  sections.forEach(sec => {
+    const wrap = el('details', { class: 'qa-section' });
+    const sum = el('summary', {}, el('b', {}, sec.name),
+      el('span', { class: 'qa-n' }, String(sec.nodes.length)));
+    wrap.append(sum);
+    const rows = sec.nodes.map(n => {
+      const state = n.mastered ? ['mastered', '✓ mastered'] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
+      const row = el('div', { class: 'qa-row' });
+      row.append(el('div', { class: 'qa-title' },
+        el('b', {}, n.title), el('span', { class: 'qa-state ' + state[0] }, state[1]),
+        n.goal ? el('p', { class: 'muted' }, n.goal) : null));
+      row.append(el('div', { class: 'qa-acts' },
+        // Eighty identical "Lesson" buttons read as eighty identical buttons to
+        // anyone listening; the module name has to travel with each.
+        btn({ class: 'btn small', 'aria-label': 'Lesson — ' + n.title, onclick: () => go('node', n.id) }, 'Lesson'),
+        btn({ class: 'btn ghost small', 'aria-label': 'Quiz — ' + n.title, onclick: () => startQuiz(n.id) }, glyph('quill', 14), ' Quiz')));
+      const arts = el('div', { class: 'qa-arts' });
+      (n.articles || []).forEach(a => arts.append(btn({ class: 'node-dot',
+        'aria-label': 'Read “' + a + '” — ' + n.title,
+        onclick: () => go('reader', { title: a, node: n.id }) }, a)));
+      if (arts.children.length) row.append(arts);
+      wrap.append(row);
+      return { row: row, hay: (n.title + ' ' + sec.name + ' ' + (n.goal || '')).toLowerCase() };
+    });
+    groups.push({ wrap: wrap, rows: rows });
+    box.append(wrap);
   });
+
+  function filter() {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    groups.forEach(gr => {
+      let here = 0;
+      gr.rows.forEach(r => {
+        const hit = !q || r.hay.includes(q);
+        r.row.hidden = !hit;
+        if (hit) here++;
+      });
+      gr.wrap.hidden = here === 0;
+      // A search that leaves a section closed has hidden its own results.
+      if (q) gr.wrap.open = here > 0;
+      shown += here;
+    });
+    count.textContent = q
+      ? shown + (shown === 1 ? ' module matches “' : ' modules match “') + search.value.trim() + '”.'
+      : '';
+  }
+  search.addEventListener('input', filter);
   page.append(box);
+}
+
+// Opening a specialist field. The confirmation is not a formality: the reader
+// is about to be credited with work they have not done here, and the book says
+// so plainly before it does it, in the same words the tiles will then use.
+function openField(d, locked) {
+  openModal({ label: 'Open ' + d.name, dismissable: true, build: (modal, close) => {
+    modal.append(el('h2', { style: 'margin-top:0' }, glyph('spark', 20), ' Open ' + d.name + '?'));
+    modal.append(el('p', {}, 'This field begins where the general spine ends. Its '
+      + plural(locked, 'module') + ' wait on anatomy, physiology and physics from the ten fields — '
+      + 'grounding you may well already have.'));
+    modal.append(el('p', { class: 'muted' },
+      'Say so and the book will take you at your word: it marks that groundwork '
+      + '“assumed, not yet proved”, exactly as a placement check would, and opens '
+      + 'the field. Nothing is recorded as mastered, no growth is paid, and you can '
+      + 'prove any of it later — at which point the assumption gives way to the real thing.'));
+    // An assumption the book has never seen proved lapses at six months
+    // (ASSUMED_CREDIT_LIFE). Saying so now costs one sentence; finding the
+    // field quietly shut half a year later, having been told nothing, is the
+    // kind of small betrayal this book does not do.
+    modal.append(el('p', { class: 'muted' },
+      'In six months the book will ask again, as it does with any assumption it '
+      + 'has not seen proved. One click reopens it.'));
+    const row = el('div', { style: 'display:flex;gap:10px;margin-top:18px' });
+    const go_ = btn({ class: 'btn gold', onclick: async () => {
+      go_.disabled = true;
+      try {
+        const r = await api.post('/api/domain/open', { domain: d.id });
+        close();
+        toast(d.name + ' is open — ' + plural(r.opened, 'module') + ' of ' + r.total + ' ready.');
+        S.state = await api.get('/api/state');
+        renderShell(); renderRoute();
+      } catch (e) {
+        go_.disabled = false;
+        toast('The book could not open that field just now — nothing is lost, and you can ask again.');
+      }
+    } }, 'Open the field');
+    row.append(go_, btn({ class: 'btn ghost', onclick: close }, 'Not yet'));
+    modal.append(row);
+  } });
 }
 function lockedPeek(n) {
   openModal({ label: n.title + ' locked', dismissable: true, build: (modal, close) => {

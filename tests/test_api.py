@@ -17,6 +17,63 @@ import pytest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
+def test_a_specialist_field_is_a_library_not_a_ladder():
+    """Radiology's modules are peers, not a chain.
+
+    The ten general fields are a journey: every lesson is earned from the one
+    before it, which is what makes a stage mean something. A specialist field
+    is a reference work — a radiologist reading up on PI-RADS has no business
+    being told to master coronary CT first. So no module inside the field may
+    depend on another module inside the field, and the practical consequence is
+    the one that matters: the grounding that opens any of it opens all of it.
+    """
+    import primer.server as srv
+
+    rad = [n for n in srv.curr.nodes.values() if n["domain"] == "radiology"]
+    assert len(rad) >= 50, "only %d radiology modules" % len(rad)
+    inside = [(n["id"], p) for n in rad for p in n["prereqs"]
+              if srv.curr.nodes.get(p, {}).get("domain") == "radiology"]
+    assert not inside, "radiology modules gate each other: %s" % inside[:5]
+
+    # And the whole field turns over together on the outside grounding.
+    outside = {p for n in rad for p in n["prereqs"]}
+    gates = {p: 1.0 for p in outside}
+    assert all(srv.curr.unlocked(n, gates) for n in rad)
+
+
+def test_opening_a_specialist_field_opens_all_of_it(client, onboarded):
+    before = client.get("/api/curriculum").json()
+    locked = [n for n in before["nodes"]
+              if n["domain"] == "radiology" and not n["unlocked"]]
+    assert locked, "radiology should start closed to a new reader"
+
+    r = client.post("/api/domain/open", json={"domain": "radiology"})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["opened"] == body["total"]
+    assert body["credited"], "nothing was credited"
+
+    after = client.get("/api/curriculum").json()
+    rad = [n for n in after["nodes"] if n["domain"] == "radiology"]
+    assert all(n["unlocked"] for n in rad)
+    # Opened, not passed off as earned: the field itself is untouched, and the
+    # groundwork it stands on says out loud that it was assumed.
+    assert not any(n["mastered"] for n in rad)
+    credited = {c["id"] for c in body["credited"]}
+    grounding = [n for n in after["nodes"] if n["id"] in credited]
+    assert grounding and all(n["assumed"] for n in grounding)
+    assert not any(n["proven"] for n in grounding)
+
+
+def test_the_general_spine_cannot_be_opened_by_asserting_it(client, onboarded):
+    """A reader cannot skip their own education by claiming to have had it."""
+    r = client.post("/api/domain/open", json={"domain": "math"})
+    assert r.status_code == 409
+    assert client.post("/api/domain/open",
+                       json={"domain": "phrenology"}).status_code == 404
+
+
+
 def _domain_file_count():
     """How many domains the book actually ships.
 

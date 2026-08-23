@@ -2063,6 +2063,61 @@ def placement_submit(s: PlacementSubmitIn):
             "settled": settled}
 
 
+# ---------------- opening a specialist field ----------------
+
+class DomainOpenIn(BaseModel):
+    domain: str
+
+
+@app.post("/api/domain/open")
+def domain_open(s: DomainOpenIn):
+    """Let a reader who already has the grounding open a specialist field.
+
+    The ten general fields are a journey: they start at preschool and every
+    lesson is earned from the one before it. A specialist field is not that.
+    Radiology begins where the general spine ends, and the reader who wants it
+    is a clinician, not a child working upward — they arrive already holding
+    the anatomy and the physics its modules are gated on. Making them prove
+    Systems Physiology to the book before it will show them PI-RADS is a ritual
+    that teaches nobody anything.
+
+    So the reader may say so, once, and the book takes them at their word — and
+    then says so out loud. The grounding is credited as ASSUMED, which is the
+    same standing placement gives and which every surface already renders as
+    "assumed, not yet proved". Nothing here is recorded as mastery earned, no
+    growth is paid, and the reader can prove any of it later, at which point the
+    assumption is replaced by the real thing.
+
+    Only a field that declares an `entry_stage` above zero can be opened this
+    way. The general spine has no door of this kind, by design: a reader cannot
+    skip their own education by asserting it.
+    """
+    domain = next((d for d in curr.domains if d["id"] == s.domain), None)
+    if domain is None:
+        return JSONResponse({"error": "no such field"}, status_code=404)
+    if int(domain.get("entry_stage", 0)) <= 0:
+        return JSONResponse(
+            {"error": "this field is travelled from the beginning, not opened"},
+            status_code=409)
+
+    own = [n for n in curr.nodes.values() if n["domain"] == s.domain]
+    # Only what stands OUTSIDE the field: crediting its own nodes would be
+    # crediting the very thing the reader came to learn.
+    outside = sorted({p for n in own for p in n["prereqs"]
+                      if curr.nodes.get(p, {}).get("domain") != s.domain})
+    if not outside:
+        return JSONResponse({"error": "this field has nothing to open"},
+                            status_code=409)
+
+    learner.seed_assumed(outside)
+    learner.log_event("domain_opened", {"domain": s.domain, "credited": outside})
+    gates = learner.gate_map()
+    return {"domain": s.domain,
+            "credited": [{"id": p, "title": curr.nodes[p]["title"]} for p in outside],
+            "opened": sum(1 for n in own if curr.unlocked(n, gates)),
+            "total": len(own)}
+
+
 # ---------------- tutor ----------------
 
 # A tutor turn is relayed — to the local rule engine, or (once switched on) to
