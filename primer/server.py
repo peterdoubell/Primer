@@ -279,6 +279,15 @@ ACCESS_USERNAME_ENV = "PRIMER_ACCESS_USERNAME"
 ACCESS_COOKIE = "primer_access"
 ACCESS_MAX_AGE = 60 * 60 * 24 * 30       # a month of reading between sign-ins
 SIGN_IN_PATH = "/sign-in"
+PUBLIC_ASSET_PATHS = frozenset({
+    "/app/apple-touch-icon.png",
+    "/app/favicon-32x32.png",
+    "/app/favicon.ico",
+    "/app/icon-192.png",
+    "/app/icon-512.png",
+    "/app/icon-1024.png",
+    "/app/manifest.webmanifest",
+})
 
 
 def _access_token(username: str, password: str) -> str:
@@ -374,7 +383,9 @@ async def _hosted_access_guard(request, call_next):
     # ``request.url.path`` differ from the path that ASGI actually routed.
     # Authorisation exemptions must therefore use the raw ASGI scope path.
     path = request.scope.get("path")
-    if path == "/healthz":
+    # Health monitoring and inert brand/install assets disclose no reader data.
+    # Keep the allowlist exact: the rest of /app contains the private client.
+    if path == "/healthz" or path in PUBLIC_ASSET_PATHS:
         return await call_next(request)
 
     password = os.environ.get(ACCESS_PASSWORD_ENV)
