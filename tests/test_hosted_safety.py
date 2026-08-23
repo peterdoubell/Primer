@@ -39,6 +39,34 @@ def test_vercel_fails_closed_without_an_access_password(monkeypatch):
     assert response.headers["cache-control"] == "no-store"
 
 
+def test_brand_assets_are_public_without_opening_the_private_app(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    expected_types = {
+        "/app/favicon.ico": "image/",
+        "/app/favicon-32x32.png": "image/png",
+        "/app/apple-touch-icon.png": "image/png",
+        "/app/icon-192.png": "image/png",
+        "/app/icon-512.png": "image/png",
+        "/app/icon-1024.png": "image/png",
+    }
+    with TestClient(srv.app) as client:
+        assets = {path: client.get(path) for path in expected_types}
+        manifest = client.get("/app/manifest.webmanifest")
+        private_script = client.get("/app/app.js")
+
+    for path, response in assets.items():
+        assert response.status_code == 200, path
+        assert response.headers["content-type"].startswith(expected_types[path])
+    assert manifest.status_code == 200
+    assert manifest.json()["short_name"] == "Primer"
+    assert {icon["sizes"] for icon in manifest.json()["icons"]} == {
+        "192x192", "512x512",
+    }
+    assert private_script.status_code == 401
+
+
 def test_health_exemption_cannot_be_forged_with_host_header(monkeypatch):
     """CVE-2026-48710 must not turn a protected raw path into /healthz."""
     monkeypatch.setenv("VERCEL", "1")
