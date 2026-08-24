@@ -37,6 +37,18 @@ import sqlite3
 # actually attached — hence every use is guarded, never assumed.
 URL_ENV = "TURSO_DATABASE_URL"
 TOKEN_ENV = "TURSO_AUTH_TOKEN"
+# The escape hatch, off by default. Set it only when the preview really does
+# have a database of its own and you mean for it to be used.
+PREVIEW_REMOTE_ENV = "PRIMER_ALLOW_PREVIEW_REMOTE"
+
+
+def _preview_deployment():
+    """A Vercel deployment that is not production.
+
+    `VERCEL_ENV` is "production", "preview" or "development"; it is absent
+    entirely off Vercel, which is how a laptop keeps its own behaviour.
+    """
+    return (os.environ.get("VERCEL_ENV") or "").strip().lower() == "preview"
 
 
 def turso_url():
@@ -49,6 +61,28 @@ def turso_url():
     """
     url = (os.environ.get(URL_ENV) or "").strip() or None
     if url is None:
+        return None
+    # A preview deployment does not get the remote database, and this is the
+    # one place that can be enforced rather than remembered.
+    #
+    # The Vercel integration provisions TURSO_DATABASE_URL against Production,
+    # Preview and Development alike — one database, three environments. So a
+    # preview built from any open pull request boots the app, runs `_init_db()`,
+    # and applies that branch's migrations to the *production* reader's record.
+    # That is not hypothetical: a branch adding a reader dimension rebuilt six
+    # tables in production days before its code was merged, leaving production
+    # running pre-migration code against a post-migration schema — every route
+    # that read the profile died on `no such column: id` while /healthz, which
+    # touches no table, went on answering 200.
+    #
+    # Refusing here rather than unsetting the variable in the dashboard keeps
+    # the guarantee in the repository, where it is reviewed, tested, and cannot
+    # be undone by someone re-scoping an environment variable a year from now.
+    # A preview falls back to the ephemeral per-instance SQLite this module
+    # already documents, which is the right shape for a preview anyway: it
+    # starts empty, it is disposable, and it cannot corrupt anything.
+    if _preview_deployment() and not (
+            os.environ.get(PREVIEW_REMOTE_ENV) or "").strip():
         return None
     # Turso hands out `libsql://…`, which this client resolves to a WebSocket
     # (`wss://`). That handshake is refused by the Vercel-provisioned endpoint

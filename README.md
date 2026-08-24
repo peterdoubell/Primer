@@ -262,6 +262,17 @@ On Vercel, adding the `tursocloud/database` Marketplace integration injects
 both. Unset them and the book is local again, immediately: the backend is
 chosen per connection, from the environment as it stands at that moment.
 
+**Preview deployments never use the remote database.** The integration
+provisions one database across Production, Preview and Development, which means
+a preview built from any open pull request would otherwise boot, run
+`_init_db()`, and apply *that branch's* migrations to the production reader's
+record — how production once came to be running pre-migration code against a
+post-migration schema. `primer/store.py` refuses the remote database whenever
+`VERCEL_ENV=preview`, falling back to the ephemeral per-instance SQLite that is
+the right shape for a preview anyway: empty, disposable, harmless. Set
+`PRIMER_ALLOW_PREVIEW_REMOTE=1` only if the preview genuinely has a database of
+its own.
+
 **Hosted access.** A Vercel deployment requires `PRIMER_ACCESS_PASSWORD` and
 accepts an optional `PRIMER_ACCESS_USERNAME` (default: `primer`). Every route
 except public `/healthz` is then closed to strangers. If the password is
