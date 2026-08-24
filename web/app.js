@@ -101,6 +101,8 @@ const GLYPHS = {
   spark: '<path d="M12 3.4c.9 4.1 2.6 5.8 6.7 6.7-4.1.9-5.8 2.6-6.7 6.7-.9-4.1-2.6-5.8-6.7-6.7 4.1-.9 5.8-2.6 6.7-6.7z"/><path d="M18.2 15.4c.4 1.8 1.1 2.5 2.9 2.9-1.8.4-2.5 1.1-2.9 2.9-.4-1.8-1.1-2.5-2.9-2.9 1.8-.4 2.5-1.1 2.9-2.9z"/>',
   // A single stroke of certainty: the check, for "I know it".
   known: '<path d="M4.5 13l5 5L19.5 6.5"/>',
+  // A head and shoulders: whose book this is.
+  account: '<circle cx="12" cy="8.6" r="3.4"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/>',
 };
 function glyph(name, size) {
   const s = size || 20;
@@ -283,7 +285,7 @@ function hashFor(view, arg) {
 // view's), so the Journey nav button silently "corrected" itself to Today on
 // every click and the view was unreachable by any path.
 const KNOWN_VIEWS = new Set(['today', 'atlas', 'review', 'library-search', 'story',
-                             'journey', 'roadmap', 'library', 'node', 'read', 'reader']);
+                             'journey', 'roadmap', 'library', 'node', 'read', 'reader', 'account']);
 function parseHash() {
   const h = (location.hash || '#/today').replace(/^#\/?/, '');
   const parts = h.split('/').map(decodeURIComponent);
@@ -319,7 +321,7 @@ function renderRoute() {
     b.classList.toggle('active', active);
     if (active) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
-  const routes = { today: renderToday, atlas: renderAtlas, review: renderReview, 'library-search': renderSearch, roadmap: renderRoadmap, library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode, reader: renderReader };
+  const routes = { today: renderToday, atlas: renderAtlas, review: renderReview, 'library-search': renderSearch, roadmap: renderRoadmap, library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode, reader: renderReader, account: renderAccount };
   const page = $('#page'); if (!page) return;
   page.innerHTML = ''; page.scrollTop = 0;
   // Keyboard users must land on the new view, not back at the document top.
@@ -429,6 +431,14 @@ function applyTheme(theme) {
   else document.documentElement.removeAttribute('data-theme');
 }
 
+// Webkit will not expose a filled-track pseudo, so the fill is painted by a
+// CSS variable the input keeps in sync with its own value. Shared by every
+// range slider in the app, not only onboarding's.
+function syncRangeFill(input) {
+  const min = +input.min || 0, max = +input.max || 100, v = +input.value;
+  input.style.setProperty('--range-fill', (100 * (v - min) / (max - min)) + '%');
+}
+
 /* ---------------- onboarding ---------------- */
 function renderOnboarding() {
   const root = $('#root');
@@ -511,12 +521,6 @@ function renderOnboarding() {
     card.querySelectorAll('input[type=range]').forEach(syncRangeFill);
   }
   function field(label, input, id) { const l = el('label', { class: 'field', for: id }); l.append(el('span', {}, label), input); return l; }
-  // Webkit will not expose a filled-track pseudo, so the fill is painted by a
-// CSS variable the input keeps in sync with its own value.
-function syncRangeFill(input) {
-  const min = +input.min || 0, max = +input.max || 100, v = +input.value;
-  input.style.setProperty('--range-fill', (100 * (v - min) / (max - min)) + '%');
-}
 function field2(label, out, input) { const l = el('label', { class: 'field' }); const head = el('span', { style: 'display:flex;justify-content:space-between' }, el('span', {}, label), out); l.append(head, input); return l; }
   function navRow(back, next, nextLabel = 'Continue →') {
     return el('div', { style: 'display:flex;gap:10px;margin-top:20px' },
@@ -789,6 +793,7 @@ function renderShell() {
   sidebar.append(el('div', { class: 'chrome-row', role: 'group', 'aria-label': 'Reading settings' },
     speakToggle(),
     themeToggle(),
+    accountToggle(),
   ));
   book.append(sidebar, el('main', { id: 'page' }));
   const skip = btn({ class: 'skip-link', onclick: () => { const m = $('#page'); if (m) { m.setAttribute('tabindex', '-1'); m.focus(); } } }, 'Skip to content');
@@ -825,6 +830,14 @@ function themeToggle() {
   }
   paint();
   return b;
+}
+function accountToggle() {
+  return btn({ id: 'account-toggle', class: 'chrome-toggle',
+    'aria-label': 'Account — sign in with Google and set your level by subject',
+    'aria-current': S.view === 'account' ? 'page' : null,
+    onclick: () => go('account') },
+    el('span', { class: 'tt-icon', 'aria-hidden': 'true' }, glyph('account', 15)),
+    el('span', { class: 'tt-label' }, 'Account'));
 }
 async function refreshStats() {
   try {
@@ -3422,6 +3435,134 @@ async function renderJourney(page) {
     }
   });
   page.append(tl);
+}
+
+/* ---------------- account ----------------
+   Google sign-in is a layer inside the password gate, not a replacement for
+   it: signing in keeps a profile safe across devices and browsers, but the
+   book opens and works with none at all. Whoever a session belongs to sees
+   this page render the same either way — signed out, freshly signed in with
+   an empty profile of their own, or a claimant of the one profile this copy
+   started with. */
+async function renderAccount(page) {
+  const acct = await guard(page, () => api.get('/api/account'));
+  if (!acct) return;
+  page.append(pagehead('Whose book this is', 'Account',
+    'Sign in with Google to keep this profile — its mastery, its streak, its ' +
+    'story — tied to your account rather than just this browser. The book ' +
+    'still opens, and still remembers, with no account at all.'));
+
+  const idCard = el('div', { class: 'card' });
+  if (acct.signed_in) {
+    const who = acct.name || acct.email || 'a Google account';
+    idCard.append(
+      el('p', {}, 'Signed in as ', el('b', {}, who),
+        acct.name && acct.email ? ' (' + acct.email + ')' : ''),
+      btn({ class: 'btn ghost', onclick: async () => {
+        try { await api.post('/api/account/sign-out'); toast('Signed out.'); boot(); }
+        catch (e) { toast('That did not take just now — try once more.'); }
+      } }, 'Sign out'));
+    if (acct.claimable) {
+      idCard.append(
+        el('p', { class: 'muted', style: 'margin-top:14px' },
+          'This copy still holds its original, un-claimed profile — the one ' +
+          'every reader here had before accounts existed. Claim it to make ' +
+          'it permanently, only yours.'),
+        btn({ class: 'btn gold', onclick: () => claimModal(() => boot()) },
+          'Claim this profile'));
+    }
+  } else {
+    idCard.append(
+      el('p', { class: 'muted' },
+        'Not signed in. Without an account, this profile lives in this ' +
+        'browser alone — sign in to keep it safe if you ever change devices.'),
+      btn({ class: 'btn gold', onclick: () => {
+        location.assign('/auth/google/start?next=' + encodeURIComponent('#/account'));
+      } }, 'Sign in with Google'));
+  }
+  page.append(idCard);
+
+  page.append(sectionLabel('Level, by subject'));
+  page.append(el('p', { class: 'epigraph' },
+    'The book places you by age at the start, and by what you go on to prove. ' +
+    'Slide a subject ahead or behind that on its own — the rest keep the ' +
+    'level everything else uses.'));
+
+  const prof = S.state.profile;
+  const chosen = new Set(prof.domains || []);
+  const domains = chosen.size ? S.domains.filter(d => chosen.has(d.id)) : S.domains;
+  if (!domains.length) {
+    page.append(emptyLeaf('path', 'No subjects chosen yet',
+      'Choose a field from your profile and its slider will appear here.'));
+    return;
+  }
+  const domainStage = Object.assign({}, (prof.settings || {}).domain_stage || {});
+  async function save(domainId, stage) {
+    domainStage[domainId] = stage;
+    try {
+      await api.post('/api/profile/settings', { domain_stage: domainStage });
+      S.state = await api.get('/api/state');
+    } catch (e) { toast('That level did not save just now — try nudging it again.'); }
+  }
+  const slidersCard = el('div', { class: 'card' });
+  domains.forEach(d => {
+    const current = Number.isFinite(domainStage[d.id]) ? domainStage[d.id] : (prof.stage || 0);
+    const out = el('b', {}, STAGE_NAMES[current]);
+    const input = el('input', {
+      type: 'range', min: 0, max: 5, step: 1, value: current,
+      'aria-label': d.name + ' level', 'aria-valuetext': STAGE_NAMES[current],
+      oninput: e => {
+        syncRangeFill(e.target);
+        const v = +e.target.value;
+        out.textContent = STAGE_NAMES[v];
+        e.target.setAttribute('aria-valuetext', STAGE_NAMES[v]);
+      },
+      onchange: e => save(d.id, +e.target.value),
+    });
+    slidersCard.append(el('label', { class: 'field', style: 'margin-bottom:16px;display:block' },
+      el('span', { style: 'display:flex;justify-content:space-between;align-items:center' },
+        el('span', {}, domainMark(d, 15), ' ' + d.name), out),
+      input));
+  });
+  slidersCard.querySelectorAll('input[type=range]').forEach(syncRangeFill);
+  page.append(slidersCard);
+}
+
+function claimModal(onDone) {
+  openModal({
+    label: 'Claim this profile', dismissable: true,
+    build: (modal, close) => {
+      let value = '';
+      const input = el('input', {
+        type: 'password', 'aria-label': 'The access word', autocomplete: 'off',
+        placeholder: 'The book’s access word',
+        oninput: e => { value = e.target.value; err.textContent = ''; },
+        onkeydown: e => { if (e.key === 'Enter') { e.preventDefault(); submit(); } },
+      });
+      const err = el('p', { class: 'muted', style: 'color:var(--accent)' });
+      async function submit() {
+        try {
+          await api.post('/api/account/claim', { password: value });
+          close();
+          toast('This profile is now yours to keep.');
+          onDone();
+        } catch (e) {
+          err.textContent = (e && e.error) || 'That did not work — try again.';
+        }
+      }
+      modal.append(
+        el('div', { class: 'kicker' }, 'One-way'),
+        el('h2', { style: 'margin-top:4px' }, 'Make this profile yours'),
+        el('p', { class: 'muted' },
+          'Enter the book’s own access word once more, as proof you are meant ' +
+          'to keep this history — not a new password, the same one that let you in.'),
+        el('label', { class: 'field' }, input), err,
+        el('div', { style: 'display:flex;gap:10px;margin-top:14px' },
+          btn({ class: 'btn ghost', onclick: close }, 'Not now'),
+          btn({ class: 'btn gold', style: 'flex:1', onclick: submit }, 'Claim it')));
+      setTimeout(() => input.focus(), 0);
+    },
+  });
 }
 
 /* ---------------- Your Story ---------------- */
