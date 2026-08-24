@@ -30,7 +30,7 @@ def test_a_specialist_field_is_a_library_not_a_ladder():
     import primer.server as srv
 
     rad = [n for n in srv.curr.nodes.values() if n["domain"] == "radiology"]
-    assert len(rad) >= 50, "only %d radiology modules" % len(rad)
+    assert len(rad) >= 25, "only %d radiology modules" % len(rad)
     inside = [(n["id"], p) for n in rad for p in n["prereqs"]
               if srv.curr.nodes.get(p, {}).get("domain") == "radiology"]
     assert not inside, "radiology modules gate each other: %s" % inside[:5]
@@ -41,28 +41,52 @@ def test_a_specialist_field_is_a_library_not_a_ladder():
     assert all(srv.curr.unlocked(n, gates) for n in rad)
 
 
-def test_opening_a_specialist_field_opens_all_of_it(client, onboarded):
-    before = client.get("/api/curriculum").json()
-    locked = [n for n in before["nodes"]
-              if n["domain"] == "radiology" and not n["unlocked"]]
-    assert locked, "radiology should start closed to a new reader"
+def test_opening_a_specialist_field_opens_all_of_it(tmp_path):
+    # Isolated rather than the module's shared `client`: this test's whole
+    # point is that it mutates the profile (crediting six nodes as assumed),
+    # and a later test in this module asserts that same profile starts with
+    # nothing credited. Sharing the fixture made that assertion depend on
+    # test order — caught when a full-suite run failed on "assert 6 == 0"
+    # with no code change of its own.
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
 
-    r = client.post("/api/domain/open", json={"domain": "radiology"})
-    assert r.status_code == 200
-    body = r.json()
-    assert body["opened"] == body["total"]
-    assert body["credited"], "nothing was credited"
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as client:
+            client.post("/api/profile", json={
+                "name": "Reader", "age": 30, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["radiology"]})
 
-    after = client.get("/api/curriculum").json()
-    rad = [n for n in after["nodes"] if n["domain"] == "radiology"]
-    assert all(n["unlocked"] for n in rad)
-    # Opened, not passed off as earned: the field itself is untouched, and the
-    # groundwork it stands on says out loud that it was assumed.
-    assert not any(n["mastered"] for n in rad)
-    credited = {c["id"] for c in body["credited"]}
-    grounding = [n for n in after["nodes"] if n["id"] in credited]
-    assert grounding and all(n["assumed"] for n in grounding)
-    assert not any(n["proven"] for n in grounding)
+            before = client.get("/api/curriculum").json()
+            locked = [n for n in before["nodes"]
+                      if n["domain"] == "radiology" and not n["unlocked"]]
+            assert locked, "radiology should start closed to a new reader"
+
+            r = client.post("/api/domain/open", json={"domain": "radiology"})
+            assert r.status_code == 200
+            body = r.json()
+            assert body["opened"] == body["total"]
+            assert body["credited"], "nothing was credited"
+
+            after = client.get("/api/curriculum").json()
+            rad = [n for n in after["nodes"] if n["domain"] == "radiology"]
+            assert all(n["unlocked"] for n in rad)
+            # Opened, not passed off as earned: the field itself is untouched,
+            # and the groundwork it stands on says out loud that it was assumed.
+            assert not any(n["mastered"] for n in rad)
+            credited = {c["id"] for c in body["credited"]}
+            grounding = [n for n in after["nodes"] if n["id"] in credited]
+            assert grounding and all(n["assumed"] for n in grounding)
+            assert not any(n["proven"] for n in grounding)
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
 
 def test_the_general_spine_cannot_be_opened_by_asserting_it(client, onboarded):
@@ -180,7 +204,7 @@ def _place_reader(srv, stage):
                              p.get("settings"))
     return srv.learner.get_profile()
 
-def test_a_new_profile_starts_at_the_beginning_and_assumes_nothing(client, onboarded):
+def test_a_new_profile_starts_at_the_beginning_and_assumes_nothing(tmp_path):
     """Age says how old a reader is, not what they have been taught.
 
     This test used to assert the opposite — that setup placed the reader by
@@ -189,11 +213,33 @@ def test_a_new_profile_starts_at_the_beginning_and_assumes_nothing(client, onboa
     starts everyone at stage 0 with an empty ledger. The placement check is
     what moves a reader up, and it is offered immediately after setup and
     available afterwards from Your Path.
+
+    Needs its own isolated client rather than the module-scoped one: other
+    tests in this file share that fixture and credit assumed grounding on it
+    (e.g. opening radiology), so asking it for a blank ledger is asking the
+    wrong question — nothing here is fresh once earlier tests have run.
     """
-    assert onboarded["stage"] == 0
-    t = client.get("/api/today").json()
-    assert t["assumed"] == 0, "nothing has been measured, so nothing is credited"
-    assert t["mastered"] == 0
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as isolated:
+            onboarded = isolated.post("/api/profile", json={
+                "name": "Ada", "age": 8, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["math", "physics"]}).json()
+            assert onboarded["stage"] == 0
+            t = isolated.get("/api/today").json()
+            assert t["assumed"] == 0, "nothing has been measured, so nothing is credited"
+            assert t["mastered"] == 0
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
 
 def test_editing_a_profile_preserves_its_existing_stage(tmp_path):

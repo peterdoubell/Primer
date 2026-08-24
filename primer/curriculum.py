@@ -130,6 +130,11 @@ class Curriculum:
                 node.setdefault("articles", [])
                 node.setdefault("practice", None)
                 node.setdefault("quiz", [])
+                # A specialist field is a reference work, not a ladder: its
+                # modules are peers, so the only order they have is the one a
+                # section heading gives them. The ten general fields need none
+                # — their stages ARE their filing — and leave this empty.
+                node.setdefault("section", "")
                 node.setdefault("kid_text", "")
                 # Provenance, recorded once, where authored items enter the
                 # app. A human wrote these: fixed prompt, fixed answer, the
