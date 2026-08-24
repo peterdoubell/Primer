@@ -89,6 +89,55 @@ def test_opening_a_specialist_field_opens_all_of_it(tmp_path):
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
 
+def test_opening_a_field_credits_the_reader_who_asked_not_the_default_profile(tmp_path):
+    """The grounding goes to the signed-in reader, not to reader 1.
+
+    /api/domain/open predates Google sign-in by hours; every learner call in it
+    took the reader_id=1 default. The rebase that brought the two together was
+    textually clean and silently kept that default, which would have credited a
+    signed-in reader's grounding to the legacy profile, reported the modules
+    "opened" off that profile's gates, and left the asking reader still locked
+    out. Nothing about that is visible in a diff — only in a call that signs in
+    first.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as client:
+            reader_id = srv.learner.upsert_google_reader(
+                "sub-open", "open@example.com", "Open")
+            token = srv.learner.create_session(reader_id)
+            # domain= matters: see _sign_in_as in test_reader_isolation.py —
+            # an unqualified cookie lands in a second jar entry the real
+            # responses cannot overwrite.
+            client.cookies.set(srv.READER_COOKIE, token, domain="testserver.local")
+            client.post("/api/profile", json={
+                "name": "Signed In", "age": 30, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["radiology"]})
+
+            body = client.post("/api/domain/open",
+                               json={"domain": "radiology"}).json()
+            credited = {c["id"] for c in body["credited"]}
+            assert credited
+
+            # The asking reader holds the credit...
+            mine = srv.learner.gate_map(reader_id=reader_id)
+            assert all(mine.get(n, 0) >= 0.8 for n in credited)
+            # ...and the default profile was never touched on their behalf.
+            legacy = srv.learner.gate_map(reader_id=1)
+            assert not any(legacy.get(n, 0) >= 0.8 for n in credited)
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
 def test_the_general_spine_cannot_be_opened_by_asserting_it(client, onboarded):
     """A reader cannot skip their own education by claiming to have had it."""
     r = client.post("/api/domain/open", json={"domain": "math"})

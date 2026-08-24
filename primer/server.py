@@ -2374,7 +2374,7 @@ class DomainOpenIn(BaseModel):
 
 
 @app.post("/api/domain/open")
-def domain_open(s: DomainOpenIn):
+def domain_open(s: DomainOpenIn, request: Request):
     """Let a reader who already has the grounding open a specialist field.
 
     The ten general fields are a journey: they start at preschool and every
@@ -2413,9 +2413,17 @@ def domain_open(s: DomainOpenIn):
         return JSONResponse({"error": "this field has nothing to open"},
                             status_code=409)
 
-    learner.seed_assumed(outside)
-    learner.log_event("domain_opened", {"domain": s.domain, "credited": outside})
-    gates = learner.gate_map()
+    # Every write and read here belongs to the reader who asked, not to the
+    # default profile. This endpoint predates Google sign-in by a few hours and
+    # was written when reader_id=1 was the only reader there was; left alone
+    # through the rebase it would have credited a signed-in reader's grounding
+    # to the legacy profile, reported "66 modules opened" off that profile's
+    # gates, and left the actual reader's field still locked.
+    reader_id = current_reader(request)
+    learner.seed_assumed(outside, reader_id=reader_id)
+    learner.log_event("domain_opened", {"domain": s.domain, "credited": outside},
+                      reader_id=reader_id)
+    gates = learner.gate_map(reader_id=reader_id)
     return {"domain": s.domain,
             "credited": [{"id": p, "title": curr.nodes[p]["title"]} for p in outside],
             "opened": sum(1 for n in own if curr.unlocked(n, gates)),
