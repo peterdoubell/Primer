@@ -549,8 +549,14 @@ def google_start(request: Request, next: str = "/"):
     response = RedirectResponse(url, status_code=303, headers=_no_store())
     # State and the return path travel together in one short-lived cookie —
     # the callback has nothing else linking it back to this specific request.
+    # _safe_next() guarantees a safe PATH (no scheme, no CR/LF); a cookie
+    # value has its own, stricter grammar (RFC 6265 cookie-octet excludes
+    # the comma that a path may legally contain), so the path is
+    # percent-encoded before it rides in the cookie rather than trusted to
+    # already be cookie-safe — CodeQL flags exactly this class of gap.
     response.set_cookie(
-        _OAUTH_STATE_COOKIE, state + "|" + _safe_next(next),
+        _OAUTH_STATE_COOKIE,
+        state + "|" + urllib.parse.quote(_safe_next(next), safe=""),
         max_age=_OAUTH_STATE_MAX_AGE, httponly=True, samesite="lax",
         secure=bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV")),
         path="/auth/google")
@@ -561,7 +567,15 @@ def google_start(request: Request, next: str = "/"):
 async def google_callback(request: Request, code: str = "", state: str = "",
                           error: str = ""):
     cookie_val = request.cookies.get(_OAUTH_STATE_COOKIE, "")
-    expected_state, _, next_path = cookie_val.partition("|")
+    expected_state, _, next_encoded = cookie_val.partition("|")
+    try:
+        next_path = urllib.parse.unquote(next_encoded, errors="strict")
+    except (UnicodeDecodeError, ValueError):
+        next_path = "/"
+    # Decoded, then re-validated — the cookie is the book's own and the
+    # encoding round-trips cleanly, but this is the one call that turns the
+    # value into a redirect target, and that call trusts nothing it has not
+    # just checked itself.
     next_path = _safe_next(next_path or "/")
     response = RedirectResponse(next_path, status_code=303, headers=_no_store())
     response.delete_cookie(_OAUTH_STATE_COOKIE, path="/auth/google")

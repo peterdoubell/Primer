@@ -13,6 +13,7 @@ throwaway database; the reader's real record is never touched.
 
 import os
 import sys
+from urllib.parse import quote as urllib_quote
 
 import pytest
 from fastapi.testclient import TestClient
@@ -425,6 +426,25 @@ def test_google_callback_happy_path_signs_in_and_sets_a_session(monkeypatch, cli
     assert account["signed_in"] is True
     assert account["email"] == "happy@example.com"
     assert account["reader_id"] != 1
+
+
+def test_the_oauth_state_cookie_survives_a_next_path_with_cookie_unsafe_characters(monkeypatch, client):
+    """A path legally contains a comma; RFC 6265's cookie-octet grammar does
+    not. CodeQL flagged the un-encoded write as user input reaching a cookie;
+    this proves the fix (percent-encode on write, decode-then-revalidate on
+    read) actually round-trips such a path rather than just quieting the
+    scanner."""
+    import primer.server as srv
+    _configure_google(monkeypatch, srv, verify=lambda raw: {
+        "sub": "sub-comma", "email": "comma@example.com", "name": "Comma"})
+
+    client.get("/auth/google/start?next=" + urllib_quote("/a,b/c?x=1&y=2"),
+              follow_redirects=False)
+    state = _state_from_cookie(client, srv)
+    cb = client.get("/auth/google/callback?code=abc&state=" + state,
+                    follow_redirects=False)
+    assert cb.status_code == 303
+    assert cb.headers["location"] == "/a,b/c?x=1&y=2"
 
 
 def test_signing_in_again_with_the_same_identity_reaches_the_same_reader(monkeypatch, client):
