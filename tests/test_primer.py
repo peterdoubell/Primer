@@ -32,7 +32,7 @@ def open_assessment_gate(monkeypatch):
     using this fixture measure only paper composition and answer-bank quality.
     """
     import primer.server as srv
-    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node: None)
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
 
 
 # ---------------- security: HTML sanitizer ----------------
@@ -991,7 +991,7 @@ def test_story_arc_is_never_silently_truncated():
                 c.execute('UPDATE mastery SET first_pass_at=?, assumed=0 WHERE node_id=?',
                           (_t.time() - 3 * 86400, target))
             srv.learner.record_attempt(target, 1.0)
-        _, idx, _adv = srv._story_cursor(srv.learner.get_profile())
+        _, idx, _adv = srv._story_cursor(srv.learner.get_profile(), 1)
         assert idx <= 10, 'cursor jumped to {} — chapters were discarded'.format(idx)
     finally:
         srv.learner = saved
@@ -1008,7 +1008,7 @@ def test_epilogue_is_terminal():
         last = len(srv.STORY['chapters']) - 1
         srv.learner.save_profile('R', 20, 6, 'balanced', 5, ['math'],
                                  {'story_progress': last})
-        _chapter, _idx, can_advance = srv._story_cursor(srv.learner.get_profile())
+        _chapter, _idx, can_advance = srv._story_cursor(srv.learner.get_profile(), 1)
         assert can_advance is False
     finally:
         srv.learner = saved
@@ -2327,12 +2327,12 @@ def test_a_paper_is_a_sitting_not_a_standing_offer():
     """Papers were evicted only by the size cap, so a token minted months ago
     stayed redeemable as long as the book had been quiet."""
     import primer.server as srv
-    token = srv._remember([{"id": 0, "prompt": "p", "answer": "a"}], "quiz", "n.0.x")
-    assert srv._recall(token, "quiz", "n.0.x") is not None
+    token = srv._remember([{"id": 0, "prompt": "p", "answer": "a"}], "quiz", "n.0.x", 1)
+    assert srv._recall(token, "quiz", "n.0.x", 1) is not None
 
-    token = srv._remember([{"id": 0, "prompt": "p", "answer": "a"}], "quiz", "n.0.x")
+    token = srv._remember([{"id": 0, "prompt": "p", "answer": "a"}], "quiz", "n.0.x", 1)
     srv._SERVED[token]["at"] = time.time() - srv._SERVED_TTL - 1
-    assert srv._recall(token, "quiz", "n.0.x") is None, "a stale paper must not be redeemable"
+    assert srv._recall(token, "quiz", "n.0.x", 1) is None, "a stale paper must not be redeemable"
 
 
 def test_focus_is_held_across_the_marking_round_trip():

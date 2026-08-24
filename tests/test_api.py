@@ -148,7 +148,7 @@ def open_assessment_gate(monkeypatch):
     paper shape, feedback and mastery isolated from prerequisite setup.
     """
     import primer.server as srv
-    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node: None)
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
 
 
 def _play(client, path, node_id=None, wrong=False):
@@ -438,7 +438,7 @@ def test_a_focused_reader_can_still_ascend(tmp_path):
                     "breadth": "balanced", "domains": domains})
                 srv.learner.seed_assumed([nid for nid, n in srv.curr.nodes.items()
                                           if n["domain"] in mastered])
-                rose = srv._check_ascension(srv.learner.get_profile())
+                rose = srv._check_ascension(srv.learner.get_profile(), 1)
                 if expect:
                     assert rose and rose["stage"] == 5, \
                         "a reader who mastered every node in every domain they chose must ascend"
@@ -682,7 +682,7 @@ def test_story_will_not_advance_without_proof(tmp_path):
                     break
                 assert client.post("/api/story/advance").json()["advanced"] is True
 
-            chapter, _, _ = srv._story_cursor(srv.learner.get_profile())
+            chapter, _, _ = srv._story_cursor(srv.learner.get_profile(), 1)
             node = srv.curr.node(chapter.get("leads_to") or "")
             assert node and node["stage"] >= stage, \
                 "the arc must come to rest on a lesson that is genuinely ahead of them"
@@ -733,7 +733,7 @@ def test_the_story_arc_is_reachable_by_a_reader_placed_above_stage_zero(tmp_path
             prof = _place_reader(srv, 2)
             assert prof["stage"] == 2
 
-            chapter, _, can_advance = srv._story_cursor(prof)
+            chapter, _, can_advance = srv._story_cursor(prof, 1)
             gate = chapter.get("leads_to")
             # The precondition that made this a deadlock rather than a nudge:
             # the gate lesson is credited, and therefore never offered.
@@ -751,7 +751,7 @@ def test_the_story_arc_is_reachable_by_a_reader_placed_above_stage_zero(tmp_path
             assert turned >= 10, \
                 "the arc must catch up to the reader, not stall one page in"
 
-            chapter, _, _ = srv._story_cursor(srv.learner.get_profile())
+            chapter, _, _ = srv._story_cursor(srv.learner.get_profile(), 1)
             node = srv.curr.node(chapter.get("leads_to") or "")
             assert node["stage"] >= prof["stage"], \
                 "and must then stop exactly where real work begins"
@@ -782,7 +782,7 @@ def test_a_true_beginner_is_given_no_chapters_for_free(tmp_path):
                 "domains": [d["id"] for d in srv.curr.domains]})
             prof = srv.learner.get_profile()
             assert prof["stage"] == 0
-            chapter, progress, can_advance = srv._story_cursor(prof)
+            chapter, progress, can_advance = srv._story_cursor(prof, 1)
             assert progress == 0 and can_advance is False, \
                 "a beginner starts at page one and earns every page from there"
     finally:
@@ -1093,7 +1093,7 @@ def test_one_domain_cannot_promote_the_reader(client, onboarded):
     gates = srv.learner.gate_map()
     per_domain = sorted(srv.curr.domain_stage_estimate(d["id"], gates) for d in srv.curr.domains)
     expected = per_domain[(len(per_domain) - 1) // 2]
-    srv._check_ascension(prof)
+    srv._check_ascension(prof, 1)
     assert srv.learner.get_profile()["stage"] <= max(prof["stage"], expected)
 
 
@@ -2019,7 +2019,7 @@ def test_a_faded_chapter_gate_does_not_report_stale_passes(client, onboarded,
     assert faded_detail["faded"] and not faded_detail["proven"], \
         "the node must have decayed out of proven standing without an explicit failure"
 
-    needs = srv._story_needs({"leads_to": node})
+    needs = srv._story_needs({"leads_to": node}, 1)
     assert needs["faded"] is True
     assert needs["ever_proven"] is True
     assert needs["passes"] == 0, \

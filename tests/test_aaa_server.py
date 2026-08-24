@@ -49,7 +49,7 @@ def onboarded(client):
 def open_assessment_gate(monkeypatch):
     """Keep a sitting-mechanics test independent of curriculum prerequisites."""
     import primer.server as srv
-    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node: None)
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
 
 
 # ---------------- 1. short-answer structure requirement ----------------
@@ -86,7 +86,7 @@ def test_structure_check_spares_fuzzy_and_near_miss_answers():
 def test_sitting_survives_simulated_restart(client, onboarded):
     import primer.server as srv
     qs = [{"id": 0, "kind": "numeric", "prompt": "2+2", "answer": "4"}]
-    token = srv._remember(qs, "quiz", "math.1.addition")
+    token = srv._remember(qs, "quiz", "math.1.addition", 1)
     # A restart loses every Python object but keeps the DB. A fresh store over
     # the same file must still hold the paper, with its binding intact.
     fresh = srv._SittingStore()
@@ -99,29 +99,29 @@ def test_sitting_survives_simulated_restart(client, onboarded):
 def test_sitting_pop_is_single_use_and_purpose_bound(client, onboarded):
     import primer.server as srv
     qs = [{"id": 0, "kind": "numeric", "prompt": "3+3", "answer": "6"}]
-    token = srv._remember(qs, "quiz", "math.1.addition")
+    token = srv._remember(qs, "quiz", "math.1.addition", 1)
     # Wrong purpose or subject: refused, and the paper is NOT consumed.
-    assert srv._recall(token, "placement", "math:5") is None
-    assert srv._recall(token, "quiz", "math.9.fake") is None
+    assert srv._recall(token, "placement", "math:5", 1) is None
+    assert srv._recall(token, "quiz", "math.9.fake", 1) is None
     # Right binding: honoured exactly once.
-    assert srv._recall(token, "quiz", "math.1.addition") is not None
-    assert srv._recall(token, "quiz", "math.1.addition") is None
+    assert srv._recall(token, "quiz", "math.1.addition", 1) is not None
+    assert srv._recall(token, "quiz", "math.1.addition", 1) is None
 
 
 def test_sitting_ttl_still_expires(client, onboarded):
     import primer.server as srv
     qs = [{"id": 0, "kind": "numeric", "prompt": "4+4", "answer": "8"}]
-    token = srv._remember(qs, "quiz", "math.1.addition")
+    token = srv._remember(qs, "quiz", "math.1.addition", 1)
     # The write-through proxy: mutating `at` must reach the persistent store.
     srv._SERVED[token]["at"] = time.time() - srv._SERVED_TTL - 1
-    assert srv._recall(token, "quiz", "math.1.addition") is None
+    assert srv._recall(token, "quiz", "math.1.addition", 1) is None
 
 
 def test_committed_answers_persist_across_restart(client, onboarded,
                                                   open_assessment_gate):
     import primer.server as srv
     qs = [{"id": 0, "kind": "numeric", "prompt": "5+5", "answer": "10"}]
-    token = srv._remember(qs, "quiz", "math.1.addition")
+    token = srv._remember(qs, "quiz", "math.1.addition", 1)
     r = client.post("/api/quiz/check", json={"token": token, "id": 0, "answer": "7"})
     assert r.status_code == 200 and r.json()["correct"] is False
     fresh = srv._SittingStore()
@@ -299,13 +299,13 @@ def test_placement_reopen_is_noop_without_store_support(client, onboarded):
     class _Stub:
         db_path = srv.learner.db_path
 
-        def placement_state(self):
+        def placement_state(self, reader_id=1):
             return {"math": {"done": True, "asked": [{"stage": 1, "passed": True}]}}
 
     orig = srv.learner
     srv.learner = _Stub()
     try:
-        assert srv._placement_reopen("math") is False
+        assert srv._placement_reopen("math", 1) is False
     finally:
         srv.learner = orig
 
@@ -319,18 +319,18 @@ def test_placement_reopen_uses_the_fixed_store_interface(client, onboarded):
     class _Stub:
         db_path = srv.learner.db_path
 
-        def reopen_placement(self, domain):
+        def reopen_placement(self, domain, reader_id=1):
             calls.append(domain)
             return len(calls) == 1   # first call reopens, second is refused
 
-        def placement_state(self):
+        def placement_state(self, reader_id=1):
             return {"math": {"done": False, "asked": []}}
 
     orig = srv.learner
     srv.learner = _Stub()
     try:
-        assert srv._placement_reopen("math") is True
-        assert srv._placement_reopen("math") is False, \
+        assert srv._placement_reopen("math", 1) is True
+        assert srv._placement_reopen("math", 1) is False, \
             "the store's False (still cooling / not settled) must be final"
         assert calls == ["math", "math"]
     finally:

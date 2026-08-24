@@ -23,6 +23,7 @@ import json
 import math
 import logging
 import os
+import secrets
 import shutil
 import sqlite3
 import threading
@@ -2309,6 +2310,95 @@ class LearnerStore:
             except OSError:
                 pass
         return dest
+
+    # ---------------- readers & sessions (Google identity) ----------------
+
+    def upsert_google_reader(self, google_sub: str, email: str, name: str) -> int:
+        """Find or create the reader row for this Google identity.
+
+        Keyed on `google_sub`, Google's stable subject id — never on email,
+        which can change or be reused by a different person. Insert-first,
+        not select-then-branch: two callback requests for the same brand-new
+        identity (a double-click, a retried request) would otherwise both see
+        no existing row and both try to create one, and only one can win the
+        UNIQUE constraint. Losing that race is not an error here — it just
+        means the row now exists, so the fall-through UPDATE finds it.
+        """
+        now = time.time()
+        with _lock, self._conn() as c:
+            try:
+                c.execute(
+                    "INSERT INTO readers(google_sub, email, name, created_at) "
+                    "VALUES (?,?,?,?)", (google_sub, email, name, now))
+            except sqlite3.IntegrityError:
+                c.execute("UPDATE readers SET email=?, name=? WHERE google_sub=?",
+                         (email, name, google_sub))
+            row = c.execute("SELECT id FROM readers WHERE google_sub=?",
+                            (google_sub,)).fetchone()
+        return int(row[0])
+
+    def get_reader(self, reader_id: int) -> Optional[Dict]:
+        with self._conn() as c:
+            row = c.execute(
+                "SELECT id, google_sub, email, name, created_at FROM readers "
+                "WHERE id=?", (reader_id,)).fetchone()
+        if row is None:
+            return None
+        return {"id": row[0], "google_sub": row[1], "email": row[2],
+                "name": row[3], "created_at": row[4]}
+
+    def claim_legacy_reader(self, reader_id: int, google_sub: str, email: str,
+                            name: str) -> bool:
+        """Move a Google identity onto reader_id=1, the one profile every
+        database had before this feature existed — one time, one direction.
+
+        `reader_id` is the caller's own (already-authenticated) reader id, the
+        empty row their Google sign-in was given by default. False means
+        reader_id=1 was already claimed — by this identity or another — and
+        nothing changed. The identity's placeholder row is freed of its
+        google_sub *before* reader_id=1 claims it, so the UNIQUE constraint on
+        google_sub never has to hold the same value on two rows at once; if a
+        crash lands between the two statements, the identity is briefly
+        homeless (both rows google_sub=NULL) but the caller's live session
+        still resolves via its own reader_id, and simply retrying the claim —
+        which re-checks reader_id=1 is still unclaimed — completes it.
+        """
+        with _lock, self._conn() as c:
+            row = c.execute("SELECT google_sub FROM readers WHERE id=1").fetchone()
+            if row is None or row[0] is not None or reader_id == 1:
+                return False
+            c.execute("UPDATE readers SET google_sub=NULL WHERE id=?", (reader_id,))
+            changed = c.execute(
+                "UPDATE readers SET google_sub=?, email=?, name=? "
+                "WHERE id=1 AND google_sub IS NULL",
+                (google_sub, email, name)).rowcount
+        return changed == 1
+
+    def create_session(self, reader_id: int, ttl: float = 60 * 60 * 24 * 180) -> str:
+        """A new session token for this reader, persisted so sign-out — a real
+        DELETE — can end it. The stateless HMAC cookie the password gate uses
+        has no such handle: there is nothing to delete, only a secret to
+        rotate, which is the outer gate's job, not this inner one's."""
+        token = secrets.token_urlsafe(24)
+        now = time.time()
+        with _lock, self._conn() as c:
+            c.execute(
+                "INSERT INTO sessions(token, reader_id, created_at, expires_at) "
+                "VALUES (?,?,?,?)", (token, reader_id, now, now + ttl))
+        return token
+
+    def reader_for_session(self, token: str) -> Optional[int]:
+        if not token:
+            return None
+        with self._conn() as c:
+            row = c.execute(
+                "SELECT reader_id FROM sessions WHERE token=? AND expires_at > ?",
+                (token, time.time())).fetchone()
+        return int(row[0]) if row else None
+
+    def delete_session(self, token: str):
+        with _lock, self._conn() as c:
+            c.execute("DELETE FROM sessions WHERE token=?", (token,))
 
     def events_today(self, kind: str, reader_id: int = 1) -> bool:
         """Has an event of this kind been logged since local midnight?

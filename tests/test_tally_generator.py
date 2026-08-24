@@ -14,10 +14,16 @@ import os
 import sys
 
 import pytest
+from starlette.requests import Request
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from primer import practice, quiz
+
+# A cookie-less request, for calling an endpoint function directly rather than
+# through TestClient — current_reader() reads no cookie from this and so
+# resolves to reader_id=1, same as any request that predates Google sign-in.
+_ANON_REQUEST = Request(scope={"type": "http", "headers": []})
 
 
 def _tally_items(n=24, level=1):
@@ -190,13 +196,15 @@ def test_the_check_endpoint_marks_a_tally_with_no_change_to_the_server(srv):
     n = int(q["answer"])
 
     # A paper with no subject, so nothing here can burn an item or touch a node.
-    token = srv._remember([q], "practice", "")
-    right = srv.check_one(srv.CheckIn(token=token, id=q["id"], answer=str(n)))
+    token = srv._remember([q], "practice", "", 1)
+    right = srv.check_one(srv.CheckIn(token=token, id=q["id"], answer=str(n)),
+                          _ANON_REQUEST)
     assert right["correct"] is True
     assert right["answer"] == str(n)
 
-    token = srv._remember([q], "practice", "")
-    wrong = srv.check_one(srv.CheckIn(token=token, id=q["id"], answer=str(n + 1)))
+    token = srv._remember([q], "practice", "", 1)
+    wrong = srv.check_one(srv.CheckIn(token=token, id=q["id"], answer=str(n + 1)),
+                          _ANON_REQUEST)
     assert wrong["correct"] is False
 
 
