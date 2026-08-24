@@ -116,6 +116,13 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
     is — omitting it keeps the old numbers exactly, and the figure used is
     reported as `srs_minutes_per_node` so the estimate can be audited instead
     of taken on faith.
+
+    `profile["settings"]["domain_stage"]`, when present, prices the 25%
+    review discount below per node against *that node's own domain's*
+    placed level rather than one scalar shared by every field the reader
+    chose — a domain never set here still falls back to `profile["stage"]`,
+    so a reader who has never touched the sliders sees exactly the old
+    numbers.
     """
     breadth = profile.get("breadth", "balanced")
     plan = BREADTH_PLANS.get(breadth, BREADTH_PLANS["balanced"])
@@ -123,10 +130,18 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
     hours = max(float(profile.get("hours_per_week") or 6), 1.0)
     minutes_per_year = hours * 60 * WEEKS_PER_YEAR * EFFICIENCY
     srs_per_node = srs_minutes_per_node(deck)
+    domain_stage = (profile.get("settings") or {}).get("domain_stage") or {}
+    current_stage = int(profile.get("stage") or 0)
 
     # Remaining minutes for every node not yet mastered, bucketed by stage.
+    # `minutes` stays the raw, undiscounted total (the "stages" field below
+    # reports real hours left, not a paced estimate); `weighted_minutes` is
+    # the same total with each node's own review discount already applied,
+    # since that discount is no longer uniform within a bucket once it can
+    # vary by domain.
     stage_buckets: List[Dict] = [
-        {"stage": s, "minutes": 0.0, "nodes": 0, "domains": set()} for s in range(6)
+        {"stage": s, "minutes": 0.0, "weighted_minutes": 0.0, "nodes": 0, "domains": set()}
+        for s in range(6)
     ]
     for node in graph["nodes"]:
         target = plan["deep_target"] if (not deep_domains or node["domain"] in deep_domains) \
@@ -141,17 +156,17 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
         # Instructional minutes plus the node's lifetime SRS maintenance —
         # see SRS_REVIEW_MIN_PER_NODE. Folding it in here keeps the years,
         # the timeline, and the per-stage hours all telling the same story.
-        b["minutes"] += node.get("minutes", 40) + srs_per_node
+        node_minutes = node.get("minutes", 40) + srs_per_node
+        # Skipped for pacing (it's review, priced at 25%) once this domain's
+        # own placed level has passed the node's stage.
+        reader_stage_here = domain_stage.get(node["domain"], current_stage)
+        weight = 0.25 if node["stage"] < reader_stage_here else 1.0
+        b["minutes"] += node_minutes
+        b["weighted_minutes"] += node_minutes * weight
         b["nodes"] += 1
         b["domains"].add(node["domain"])
 
-    # Skip stages below current placement for pacing (they're review, priced at 25%).
-    current_stage = int(profile.get("stage") or 0)
-    total_minutes = 0.0
-    for b in stage_buckets:
-        weight = 0.25 if b["stage"] < current_stage else 1.0
-        total_minutes += b["minutes"] * weight
-
+    total_minutes = sum(b["weighted_minutes"] for b in stage_buckets)
     years_total = total_minutes / minutes_per_year if minutes_per_year else 99
 
     # Build the year-by-year timeline.
@@ -161,13 +176,12 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
     year_index = 1
     year_contents: List[str] = []
     for b in stage_buckets:
-        weight = 0.25 if b["stage"] < current_stage else 1.0
-        need = b["minutes"] * weight
+        need = b["weighted_minutes"]
         if need <= 0:
             continue
         while need > 0:
             take = min(need, minutes_left_in_year)
-            frac_done = 1 - (need - take) / (b["minutes"] * weight) if b["minutes"] else 1
+            frac_done = 1 - (need - take) / b["weighted_minutes"] if b["weighted_minutes"] else 1
             need -= take
             minutes_left_in_year -= take
             label = "{} ({})".format(STAGE_NAMES[b["stage"]], STAGE_SPAN[b["stage"]])

@@ -789,6 +789,106 @@ def test_a_true_beginner_is_given_no_chapters_for_free(tmp_path):
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
 
 
+def test_a_domain_slider_opens_a_chapter_the_global_stage_alone_would_not(tmp_path):
+    """The story's "placed past" bar — one honest pass instead of two — is
+    now read against the chapter's own domain where the reader has set a
+    slider for it, not the single global stage every other domain still
+    falls back to."""
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig_learner, orig_wiki, orig_backup_dir = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as client:
+            client.post("/api/profile", json={
+                "name": "Nell", "age": 6, "hours_per_week": 6, "breadth": "balanced",
+                "domains": ["math"]})
+            node = srv.curr.node("math.0.counting")
+            assert node["stage"] == 0 and node["domain"] == "math", \
+                "fixture assumes the story's first chapter leads here"
+
+            # One honest pass — not two — is exactly the "placed past" bar,
+            # never the full two-spaced-pass "proven" bar on its own.
+            srv.learner.record_attempt("math.0.counting", 1.0)
+            before = client.get("/api/story").json()
+            assert before["can_advance"] is False, \
+                "setup: at global stage 0, one pass on a stage-0 gate is not enough"
+
+            client.post("/api/profile/settings", json={"domain_stage": {"math": 1}})
+            after = client.get("/api/story").json()
+            assert after["can_advance"] is True, \
+                "the math slider alone must open a chapter gated on math"
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
+
+
+def test_article_and_tutor_reading_level_follow_the_articles_own_domain(tmp_path, monkeypatch):
+    """/api/article and /api/tutor judge simple-vs-full and the tutor's pitch
+    against the article's own domain slider, where one is set, rather than
+    the single global stage — the same principle the story gate and roadmap
+    weighting already follow."""
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig_learner, orig_wiki, orig_backup_dir = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        node = srv.curr.node("math.0.counting")
+        title = node["articles"][0]
+
+        calls = []
+        monkeypatch.setattr(
+            srv.wiki, "get_article",
+            lambda t, prefer_simple=False: calls.append(prefer_simple) or {
+                "title": t, "html": "<article><p>x</p></article>", "base": ""})
+        stages = []
+        monkeypatch.setattr(srv, "tutor", type("T", (), {
+            "have_api_key": staticmethod(lambda: False),
+            "ask": staticmethod(lambda messages, title, excerpt, stage, **kw:
+                                stages.append(stage) or {"reply": "", "remote": False}),
+        }))
+
+        with TestClient(srv.app) as client:
+            # A high global stage: articles and the tutor default to full depth.
+            client.post("/api/profile", json={
+                "name": "Nell", "age": 16, "hours_per_week": 6, "breadth": "balanced",
+                "domains": ["math"]})
+            p = srv.learner.get_profile()
+            srv.learner.save_profile(p["name"], p["age"], p["hours_per_week"], p["breadth"],
+                                     4, p["domains"], p.get("settings"))
+
+            client.get("/api/article", params={"title": title, "log_read": False})
+            assert calls[-1] is False, \
+                "setup: a high global stage must not default to the simple text"
+            client.post("/api/tutor", json={"messages": [{"role": "user", "content": "hi"}],
+                                            "title": title})
+            assert stages[-1] == 4, "setup: the tutor pitches at the global stage by default"
+
+            # A low slider for THIS article's own domain flips both, without
+            # moving the reader's global stage at all.
+            client.post("/api/profile/settings", json={"domain_stage": {"math": 1}})
+            client.get("/api/article", params={"title": title, "log_read": False})
+            assert calls[-1] is True, \
+                "the article's own domain slider must govern its reading level"
+            client.post("/api/tutor", json={"messages": [{"role": "user", "content": "hi"}],
+                                            "title": title})
+            assert stages[-1] == 1, \
+                "the tutor must pitch to the article's own domain slider too"
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
+
+
 def test_roadmap_reports_proven_not_assumed(tmp_path):
     """The headline must not present a placement guess as an accomplishment.
 

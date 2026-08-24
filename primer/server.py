@@ -20,7 +20,7 @@ import urllib.parse
 import uuid
 from contextlib import asynccontextmanager
 from html import escape as _escape
-from typing import List, Literal, Optional
+from typing import Dict, List, Literal, Optional
 
 import httpx
 from fastapi import FastAPI, Body, Request
@@ -872,6 +872,19 @@ class SettingsIn(BaseModel):
     # how they are addressed, must not have to rebuild their profile to fix
     # the story's pronouns.
     pronouns: Optional[Literal["she", "he"]] = None
+    # Per-domain override of the reader's effective level, keyed by domain
+    # id. `profile.stage` remains the fallback for any domain not present
+    # here, and the only value story.py and pacing.py ever fall back to when
+    # this is absent entirely — see _display_stage / roadmap()'s per-domain
+    # weighting.
+    domain_stage: Optional[Dict[str, int]] = None
+
+    @field_validator("domain_stage")
+    @classmethod
+    def _domain_stage_in_range(cls, v):
+        if v is not None and any(not (0 <= s <= 5) for s in v.values()):
+            raise ValueError("each domain's stage must be 0..5, matching STAGE_NAMES")
+        return v
 
 
 READER_SETTINGS = set(SettingsIn.model_fields)
@@ -906,7 +919,12 @@ def article(request: Request, title: str, simple: Optional[bool] = None,
            log_read: bool = True):
     reader_id = current_reader(request)
     prof = learner.get_profile(reader_id=reader_id)
-    prefer_simple = simple if simple is not None else (prof and prof["stage"] <= 1)
+    stage = None
+    if prof:
+        domain = curr.domain_for_article(title)
+        domain_stage = (prof.get("settings") or {}).get("domain_stage") or {}
+        stage = domain_stage.get(domain, prof["stage"]) if domain else prof["stage"]
+    prefer_simple = simple if simple is not None else (stage is not None and stage <= 1)
     art = wiki.get_article(title, prefer_simple=bool(prefer_simple))
     if not art:
         return JSONResponse({"error": "not found", "title": title}, status_code=404)
@@ -2433,6 +2451,11 @@ def ask_tutor(t: TutorIn, request: Request) -> JSONResponse:
     reader_id = current_reader(request)
     prof = learner.get_profile(reader_id=reader_id)
     stage = prof["stage"] if prof else 2
+    if prof and t.title:
+        domain = curr.domain_for_article(t.title)
+        if domain:
+            domain_stage = (prof.get("settings") or {}).get("domain_stage") or {}
+            stage = domain_stage.get(domain, stage)
     excerpt = t.excerpt
     if not excerpt and t.title:
         s = wiki.get_summary(t.title)

@@ -738,6 +738,27 @@ def test_more_hours_shortens_the_journey(curr):
     assert fast['estimated_years'] < slow['estimated_years']
 
 
+def test_a_domain_stage_override_prices_only_its_own_domains_review(curr):
+    """A per-domain slide discounts that domain's below-it nodes as review
+    (the 25% weight) without moving a domain the reader never touched off
+    the single global stage every profile still falls back to."""
+    graph = curr.graph()
+    base = {'breadth': 'polymath', 'domains': ['math', 'physics'], 'stage': 0}
+
+    global_only = roadmap(base, graph, {})
+    math_only = roadmap(
+        {**base, 'settings': {'domain_stage': {'math': 3}}}, graph, {})
+    both_high = roadmap({**base, 'stage': 3}, graph, {})
+
+    # Discounting just math's early nodes must land strictly between doing
+    # nothing and discounting both domains' early nodes.
+    assert both_high['total_hours'] < math_only['total_hours'] < global_only['total_hours']
+
+    # The raw per-curriculum-stage hours remaining is a fact about the
+    # graph, not the pacing weight — it must not move with the override.
+    assert math_only['stages'] == global_only['stages']
+
+
 # ---------------- round-2 board regressions ----------------
 
 def test_procedural_prompts_never_become_flashcards():

@@ -163,6 +163,7 @@ def cursor(story: dict, curr, learner, prof: dict, reader_id: int = 1,
     standing = learner.mastered_set(reader_id=reader_id)
     domains = prof.get("domains") or [d["id"] for d in curr.domains]
     stage = int(prof.get("stage") or 0)
+    domain_stage = (settings or {}).get("domain_stage") or {}
 
     def earned(node, target):
         if not target:
@@ -174,9 +175,11 @@ def cursor(story: dict, curr, learner, prof: dict, reader_id: int = 1,
         # is what keeps the early arc reachable for readers onboarded above
         # stage 0 (their gate lessons are exactly the ones `next_lessons`
         # will never offer). `mastered_set` is decay-aware, so only credit
-        # that still stands today counts.
-        return (bool(node) and node["stage"] < stage
-                and (target in passed or target in standing))
+        # that still stands today counts. "Placed past" is read against this
+        # chapter's own domain where the reader has set one, not the single
+        # global stage every other domain still falls back to.
+        placed_past = bool(node) and node["stage"] < domain_stage.get(node["domain"], stage)
+        return placed_past and (target in passed or target in standing)
 
     def skippable(ch):
         # Only a chapter in a field the reader never chose is skipped. A
@@ -225,7 +228,8 @@ def needs(curr, learner, chapter: Optional[dict], reader_id: int = 1) -> Optiona
     # A lesson the reader was placed past opens on one honest pass; anything
     # ahead of them needs the full two, spaced. Say which.
     prof = learner.get_profile(reader_id=reader_id) or {}
-    placed_past = node["stage"] < int(prof.get("stage") or 0)
+    domain_stage = (prof.get("settings") or {}).get("domain_stage") or {}
+    placed_past = node["stage"] < domain_stage.get(node["domain"], int(prof.get("stage") or 0))
     needed = 1 if placed_past else 2
     # A faded lesson's lifetime pass count is stale evidence — reporting it
     # verbatim reads as "almost there" on a page that is in fact shut until
