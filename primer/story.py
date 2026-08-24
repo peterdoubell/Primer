@@ -147,7 +147,8 @@ def resolve_position(settings: dict, chapters: List[dict]) -> int:
     return legacy
 
 
-def cursor(story: dict, curr, learner, prof: dict, commit: bool = False):
+def cursor(story: dict, curr, learner, prof: dict, reader_id: int = 1,
+          commit: bool = False):
     """The chapter the reader is on, whether it may be turned, and what it wants.
 
     Pass commit=True only from a write endpoint: a GET must not persist. Even
@@ -157,11 +158,12 @@ def cursor(story: dict, curr, learner, prof: dict, commit: bool = False):
     settings = prof.get("settings", {})
     chapters = story["chapters"]
     progress = resolve_position(settings, chapters)
-    proven = learner.proven_set()
-    passed = learner.passed_set()
-    standing = learner.mastered_set()
+    proven = learner.proven_set(reader_id=reader_id)
+    passed = learner.passed_set(reader_id=reader_id)
+    standing = learner.mastered_set(reader_id=reader_id)
     domains = prof.get("domains") or [d["id"] for d in curr.domains]
     stage = int(prof.get("stage") or 0)
+    domain_stage = (settings or {}).get("domain_stage") or {}
 
     def earned(node, target):
         if not target:
@@ -173,9 +175,11 @@ def cursor(story: dict, curr, learner, prof: dict, commit: bool = False):
         # is what keeps the early arc reachable for readers onboarded above
         # stage 0 (their gate lessons are exactly the ones `next_lessons`
         # will never offer). `mastered_set` is decay-aware, so only credit
-        # that still stands today counts.
-        return (bool(node) and node["stage"] < stage
-                and (target in passed or target in standing))
+        # that still stands today counts. "Placed past" is read against this
+        # chapter's own domain where the reader has set one, not the single
+        # global stage every other domain still falls back to.
+        placed_past = bool(node) and node["stage"] < domain_stage.get(node["domain"], stage)
+        return placed_past and (target in passed or target in standing)
 
     def skippable(ch):
         # Only a chapter in a field the reader never chose is skipped. A
@@ -197,7 +201,8 @@ def cursor(story: dict, curr, learner, prof: dict, commit: bool = False):
                                  if progress < len(chapters) else chapters[-1]["id"])
         s.pop("story_progress", None)
         learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
-                             prof["breadth"], prof["stage"], prof["domains"], s)
+                             prof["breadth"], prof["stage"], prof["domains"], s,
+                             reader_id=reader_id)
     if progress >= len(chapters):
         # The arc ends rather than disappearing: hold on the last page.
         last = personalize(chapters[-1], prof.get("name", ""), reader_pronouns(prof))
@@ -211,7 +216,7 @@ def cursor(story: dict, curr, learner, prof: dict, commit: bool = False):
             progress, can_advance)
 
 
-def needs(curr, learner, chapter: Optional[dict]) -> Optional[dict]:
+def needs(curr, learner, chapter: Optional[dict], reader_id: int = 1) -> Optional[dict]:
     """What the current chapter is waiting for, in plain terms."""
     if not chapter:
         return None
@@ -219,11 +224,12 @@ def needs(curr, learner, chapter: Optional[dict]) -> Optional[dict]:
     node = curr.node(target)
     if not node:
         return None
-    info = learner.mastery_detail(target)
+    info = learner.mastery_detail(target, reader_id=reader_id)
     # A lesson the reader was placed past opens on one honest pass; anything
     # ahead of them needs the full two, spaced. Say which.
-    prof = learner.get_profile() or {}
-    placed_past = node["stage"] < int(prof.get("stage") or 0)
+    prof = learner.get_profile(reader_id=reader_id) or {}
+    domain_stage = (prof.get("settings") or {}).get("domain_stage") or {}
+    placed_past = node["stage"] < domain_stage.get(node["domain"], int(prof.get("stage") or 0))
     needed = 1 if placed_past else 2
     # A faded lesson's lifetime pass count is stale evidence — reporting it
     # verbatim reads as "almost there" on a page that is in fact shut until

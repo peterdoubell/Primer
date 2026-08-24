@@ -75,7 +75,7 @@ def test_server_recall_returns_none_when_atomic_claim_loses(monkeypatch):
             return default
 
     monkeypatch.setattr(server, "_SERVED", _LosingStore())
-    assert server._recall("tok", "quiz", "node") is None
+    assert server._recall("tok", "quiz", "node", 1) is None
 
 
 class _Result(object):

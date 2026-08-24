@@ -12,7 +12,16 @@ jobs:
   quality:
     name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # 15 was set when the suite ran in eight minutes. The radiology domain grew
+    # from 5 modules to 66 (825 authored items), and the bank-wide checks —
+    # every item drawn, every model answer scored against its own keywords,
+    # every paper checked for a length tell — all scale with that corpus. The
+    # suite is honestly slower, not pathologically so: nothing in it is worse
+    # than linear, and the slowest single test is under ten seconds. Python 3.9
+    # came in at 13m30s and 3.12 was cancelled crossing the old ceiling, which
+    # is a timeout reading as a red build. Raised with headroom for the next
+    # domain rather than to the current high-water mark.
+    timeout-minutes: 30
     env:
       # Matrix jobs run on separate ephemeral VMs, so fixed /tmp paths remain
       # isolated without using the step-only `runner.temp` context here.

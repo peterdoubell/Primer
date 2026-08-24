@@ -32,7 +32,7 @@ def open_assessment_gate(monkeypatch):
     using this fixture measure only paper composition and answer-bank quality.
     """
     import primer.server as srv
-    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node: None)
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
 
 
 # ---------------- security: HTML sanitizer ----------------
@@ -738,6 +738,27 @@ def test_more_hours_shortens_the_journey(curr):
     assert fast['estimated_years'] < slow['estimated_years']
 
 
+def test_a_domain_stage_override_prices_only_its_own_domains_review(curr):
+    """A per-domain slide discounts that domain's below-it nodes as review
+    (the 25% weight) without moving a domain the reader never touched off
+    the single global stage every profile still falls back to."""
+    graph = curr.graph()
+    base = {'breadth': 'polymath', 'domains': ['math', 'physics'], 'stage': 0}
+
+    global_only = roadmap(base, graph, {})
+    math_only = roadmap(
+        {**base, 'settings': {'domain_stage': {'math': 3}}}, graph, {})
+    both_high = roadmap({**base, 'stage': 3}, graph, {})
+
+    # Discounting just math's early nodes must land strictly between doing
+    # nothing and discounting both domains' early nodes.
+    assert both_high['total_hours'] < math_only['total_hours'] < global_only['total_hours']
+
+    # The raw per-curriculum-stage hours remaining is a fact about the
+    # graph, not the pacing weight — it must not move with the override.
+    assert math_only['stages'] == global_only['stages']
+
+
 # ---------------- round-2 board regressions ----------------
 
 def test_procedural_prompts_never_become_flashcards():
@@ -991,7 +1012,7 @@ def test_story_arc_is_never_silently_truncated():
                 c.execute('UPDATE mastery SET first_pass_at=?, assumed=0 WHERE node_id=?',
                           (_t.time() - 3 * 86400, target))
             srv.learner.record_attempt(target, 1.0)
-        _, idx, _adv = srv._story_cursor(srv.learner.get_profile())
+        _, idx, _adv = srv._story_cursor(srv.learner.get_profile(), 1)
         assert idx <= 10, 'cursor jumped to {} — chapters were discarded'.format(idx)
     finally:
         srv.learner = saved
@@ -1008,7 +1029,7 @@ def test_epilogue_is_terminal():
         last = len(srv.STORY['chapters']) - 1
         srv.learner.save_profile('R', 20, 6, 'balanced', 5, ['math'],
                                  {'story_progress': last})
-        _chapter, _idx, can_advance = srv._story_cursor(srv.learner.get_profile())
+        _chapter, _idx, can_advance = srv._story_cursor(srv.learner.get_profile(), 1)
         assert can_advance is False
     finally:
         srv.learner = saved
@@ -2327,12 +2348,12 @@ def test_a_paper_is_a_sitting_not_a_standing_offer():
     """Papers were evicted only by the size cap, so a token minted months ago
     stayed redeemable as long as the book had been quiet."""
     import primer.server as srv
-    token = srv._remember([{"id": 0, "prompt": "p", "answer": "a"}], "quiz", "n.0.x")
-    assert srv._recall(token, "quiz", "n.0.x") is not None
+    token = srv._remember([{"id": 0, "prompt": "p", "answer": "a"}], "quiz", "n.0.x", 1)
+    assert srv._recall(token, "quiz", "n.0.x", 1) is not None
 
-    token = srv._remember([{"id": 0, "prompt": "p", "answer": "a"}], "quiz", "n.0.x")
+    token = srv._remember([{"id": 0, "prompt": "p", "answer": "a"}], "quiz", "n.0.x", 1)
     srv._SERVED[token]["at"] = time.time() - srv._SERVED_TTL - 1
-    assert srv._recall(token, "quiz", "n.0.x") is None, "a stale paper must not be redeemable"
+    assert srv._recall(token, "quiz", "n.0.x", 1) is None, "a stale paper must not be redeemable"
 
 
 def test_focus_is_held_across_the_marking_round_trip():
@@ -2676,7 +2697,7 @@ def test_massed_attempts_on_one_node_do_not_compound_reinforcement(store):
     reinforcements and pinned the half-life at its ceiling immediately."""
     with store._conn() as c:
         for _ in range(20):
-            store._apply_attempt(c, "n", 1.0, False, time.time())
+            store._apply_attempt(c, 1, "n", 1.0, False, time.time())
     with store._conn() as c:
         r = c.execute("SELECT reinforcements FROM mastery WHERE node_id='n'").fetchone()[0]
     assert r <= 2, "20 same-instant passing attempts bought {} reinforcements".format(r)
@@ -2945,19 +2966,19 @@ def test_reinforcement_gap_scales_with_reader_age(store):
     blocking same-sitting massed reinforcement."""
     store.save_profile("Young", 5, 6, "balanced", 0, ["math"])
     with store._conn() as c:
-        store._apply_attempt(c, "n", 1.0, False, time.time())
+        store._apply_attempt(c, 1, "n", 1.0, False, time.time())
     with store._conn() as c:
         before = c.execute("SELECT reinforcements FROM mastery WHERE node_id='n'").fetchone()[0]
         c.execute("UPDATE mastery SET reinforced_at = reinforced_at - 14400 "
                   "WHERE node_id='n'")  # 4 hours ago: past a 5-year-old's 3h gap
-        store._apply_attempt(c, "n", 1.0, False, time.time())
+        store._apply_attempt(c, 1, "n", 1.0, False, time.time())
         after_spaced = c.execute(
             "SELECT reinforcements FROM mastery WHERE node_id='n'").fetchone()[0]
     assert after_spaced == before + 1, \
         "a 4-hour gap should count as spaced for a 5-year-old (3h minimum)"
 
     with store._conn() as c:
-        store._apply_attempt(c, "n", 1.0, False, time.time())
+        store._apply_attempt(c, 1, "n", 1.0, False, time.time())
         after_massed = c.execute(
             "SELECT reinforcements FROM mastery WHERE node_id='n'").fetchone()[0]
     assert after_massed == after_spaced, \

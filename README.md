@@ -112,6 +112,11 @@ The Primer is three things woven together:
   instructional time — and tells you what it will actually cost in hours per
   week, rather than reassuring you. A Journey view records every topic you have
   truly mastered.
+- **Keeps more than one reader, and lets you set the level per subject.**
+  Optional Google sign-in (see *Google sign-in*, below) gives each person their
+  own profile under one hosted copy. The Account screen also carries a slider
+  per subject you've chosen, so a reader far ahead in one field and just
+  starting another isn't held to one number across both.
 
 ## The 5–10 year promise, and what it costs
 
@@ -291,6 +296,58 @@ own exception classes). Three honest caveats:
 - `PRIMER_BACKUP_DIR` and the daily rotating backups in `content/backups/` are
   page-copies of a local file and do not apply to Turso. Turso is
   provider-managed, so hosted deployments rely on its point-in-time backups.
+
+## Google sign-in (optional, multi-reader)
+
+Every deployment starts single-tenant: one profile, `reader_id=1`, no account
+needed. Google sign-in is an inner layer *inside* the password gate above, not
+a replacement for it — it lets more than one person keep a separate profile
+(their own mastery, deck, streak, story) safe across devices and browsers,
+under the same hosted copy. A reader who never signs in sees no difference at
+all.
+
+**To turn it on:**
+
+1. **Google Cloud Console** — create a project, configure the OAuth consent
+   screen, and create an OAuth client (type: Web application). Add both
+   redirect URIs it will ever need: the production one
+   (`https://yourdomain.example/auth/google/callback`) and the local one
+   (`http://localhost:PORT/auth/google/callback`).
+   For yourself and your family, leave the consent screen's publishing status
+   as **Testing** and add each Google account to the **Test Users** list —
+   Google shows no "unverified app" warning to a listed tester and no review
+   is required. Moving to **Production** instead opens sign-in to any Google
+   account, but shows that warning until you complete Google's full
+   app-review process, which needs a live privacy policy; that process is
+   deliberately out of scope here.
+2. **Set the two client credentials** the Cloud Console just gave you:
+   ```bash
+   export GOOGLE_CLIENT_ID="....apps.googleusercontent.com"
+   export GOOGLE_CLIENT_SECRET="..."
+   ```
+   On Vercel, add them as project environment variables. Unset,
+   `/auth/google/start` answers 503 rather than a broken redirect, and the
+   app is exactly as it was before this feature existed.
+3. **Back up first.** The migration that adds reader accounts is additive and
+   lossless — every existing row lands under `reader_id=1` — but it is still
+   a schema change against a real database's history. Confirm a recent backup
+   exists (`content/backups/` locally, or Turso's own point-in-time recovery
+   in the cloud) before the first deploy that carries this code runs against
+   production data.
+4. **Claiming the original profile.** After the migration, `reader_id=1` is
+   *not* auto-claimed by whoever signs in first — every fresh Google identity
+   gets its own new, empty profile by default. Sign in, then use the
+   **Claim this profile** action on the Account screen (re-entering
+   `PRIMER_ACCESS_PASSWORD` as one-way proof of possession) to move onto the
+   history the book already had. It only works once.
+
+**Not the same thing:** verifying *site ownership* with Google Search
+Console — proving to Google's crawler that you control the domain — is
+unrelated to any of the above and isn't wired in yet. It needs a
+verification code or HTML file that only exists after you create the
+property in Search Console yourself; once you have it, adding it is a small
+change (exempting the file's path from the access gate, or a meta tag on
+`web/sign-in.html`, whichever method you pick).
 
 ## Design notes & honest limits
 

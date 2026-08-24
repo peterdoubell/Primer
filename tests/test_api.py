@@ -89,6 +89,55 @@ def test_opening_a_specialist_field_opens_all_of_it(tmp_path):
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
 
+def test_opening_a_field_credits_the_reader_who_asked_not_the_default_profile(tmp_path):
+    """The grounding goes to the signed-in reader, not to reader 1.
+
+    /api/domain/open predates Google sign-in by hours; every learner call in it
+    took the reader_id=1 default. The rebase that brought the two together was
+    textually clean and silently kept that default, which would have credited a
+    signed-in reader's grounding to the legacy profile, reported the modules
+    "opened" off that profile's gates, and left the asking reader still locked
+    out. Nothing about that is visible in a diff — only in a call that signs in
+    first.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as client:
+            reader_id = srv.learner.upsert_google_reader(
+                "sub-open", "open@example.com", "Open")
+            token = srv.learner.create_session(reader_id)
+            # domain= matters: see _sign_in_as in test_reader_isolation.py —
+            # an unqualified cookie lands in a second jar entry the real
+            # responses cannot overwrite.
+            client.cookies.set(srv.READER_COOKIE, token, domain="testserver.local")
+            client.post("/api/profile", json={
+                "name": "Signed In", "age": 30, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["radiology"]})
+
+            body = client.post("/api/domain/open",
+                               json={"domain": "radiology"}).json()
+            credited = {c["id"] for c in body["credited"]}
+            assert credited
+
+            # The asking reader holds the credit...
+            mine = srv.learner.gate_map(reader_id=reader_id)
+            assert all(mine.get(n, 0) >= 0.8 for n in credited)
+            # ...and the default profile was never touched on their behalf.
+            legacy = srv.learner.gate_map(reader_id=1)
+            assert not any(legacy.get(n, 0) >= 0.8 for n in credited)
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
 def test_the_general_spine_cannot_be_opened_by_asserting_it(client, onboarded):
     """A reader cannot skip their own education by claiming to have had it."""
     r = client.post("/api/domain/open", json={"domain": "math"})
@@ -148,7 +197,7 @@ def open_assessment_gate(monkeypatch):
     paper shape, feedback and mastery isolated from prerequisite setup.
     """
     import primer.server as srv
-    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node: None)
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
 
 
 def _play(client, path, node_id=None, wrong=False):
@@ -438,7 +487,7 @@ def test_a_focused_reader_can_still_ascend(tmp_path):
                     "breadth": "balanced", "domains": domains})
                 srv.learner.seed_assumed([nid for nid, n in srv.curr.nodes.items()
                                           if n["domain"] in mastered])
-                rose = srv._check_ascension(srv.learner.get_profile())
+                rose = srv._check_ascension(srv.learner.get_profile(), 1)
                 if expect:
                     assert rose and rose["stage"] == 5, \
                         "a reader who mastered every node in every domain they chose must ascend"
@@ -682,7 +731,7 @@ def test_story_will_not_advance_without_proof(tmp_path):
                     break
                 assert client.post("/api/story/advance").json()["advanced"] is True
 
-            chapter, _, _ = srv._story_cursor(srv.learner.get_profile())
+            chapter, _, _ = srv._story_cursor(srv.learner.get_profile(), 1)
             node = srv.curr.node(chapter.get("leads_to") or "")
             assert node and node["stage"] >= stage, \
                 "the arc must come to rest on a lesson that is genuinely ahead of them"
@@ -733,7 +782,7 @@ def test_the_story_arc_is_reachable_by_a_reader_placed_above_stage_zero(tmp_path
             prof = _place_reader(srv, 2)
             assert prof["stage"] == 2
 
-            chapter, _, can_advance = srv._story_cursor(prof)
+            chapter, _, can_advance = srv._story_cursor(prof, 1)
             gate = chapter.get("leads_to")
             # The precondition that made this a deadlock rather than a nudge:
             # the gate lesson is credited, and therefore never offered.
@@ -751,7 +800,7 @@ def test_the_story_arc_is_reachable_by_a_reader_placed_above_stage_zero(tmp_path
             assert turned >= 10, \
                 "the arc must catch up to the reader, not stall one page in"
 
-            chapter, _, _ = srv._story_cursor(srv.learner.get_profile())
+            chapter, _, _ = srv._story_cursor(srv.learner.get_profile(), 1)
             node = srv.curr.node(chapter.get("leads_to") or "")
             assert node["stage"] >= prof["stage"], \
                 "and must then stop exactly where real work begins"
@@ -782,9 +831,109 @@ def test_a_true_beginner_is_given_no_chapters_for_free(tmp_path):
                 "domains": [d["id"] for d in srv.curr.domains]})
             prof = srv.learner.get_profile()
             assert prof["stage"] == 0
-            chapter, progress, can_advance = srv._story_cursor(prof)
+            chapter, progress, can_advance = srv._story_cursor(prof, 1)
             assert progress == 0 and can_advance is False, \
                 "a beginner starts at page one and earns every page from there"
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
+
+
+def test_a_domain_slider_opens_a_chapter_the_global_stage_alone_would_not(tmp_path):
+    """The story's "placed past" bar — one honest pass instead of two — is
+    now read against the chapter's own domain where the reader has set a
+    slider for it, not the single global stage every other domain still
+    falls back to."""
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig_learner, orig_wiki, orig_backup_dir = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as client:
+            client.post("/api/profile", json={
+                "name": "Nell", "age": 6, "hours_per_week": 6, "breadth": "balanced",
+                "domains": ["math"]})
+            node = srv.curr.node("math.0.counting")
+            assert node["stage"] == 0 and node["domain"] == "math", \
+                "fixture assumes the story's first chapter leads here"
+
+            # One honest pass — not two — is exactly the "placed past" bar,
+            # never the full two-spaced-pass "proven" bar on its own.
+            srv.learner.record_attempt("math.0.counting", 1.0)
+            before = client.get("/api/story").json()
+            assert before["can_advance"] is False, \
+                "setup: at global stage 0, one pass on a stage-0 gate is not enough"
+
+            client.post("/api/profile/settings", json={"domain_stage": {"math": 1}})
+            after = client.get("/api/story").json()
+            assert after["can_advance"] is True, \
+                "the math slider alone must open a chapter gated on math"
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
+
+
+def test_article_and_tutor_reading_level_follow_the_articles_own_domain(tmp_path, monkeypatch):
+    """/api/article and /api/tutor judge simple-vs-full and the tutor's pitch
+    against the article's own domain slider, where one is set, rather than
+    the single global stage — the same principle the story gate and roadmap
+    weighting already follow."""
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig_learner, orig_wiki, orig_backup_dir = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        node = srv.curr.node("math.0.counting")
+        title = node["articles"][0]
+
+        calls = []
+        monkeypatch.setattr(
+            srv.wiki, "get_article",
+            lambda t, prefer_simple=False: calls.append(prefer_simple) or {
+                "title": t, "html": "<article><p>x</p></article>", "base": ""})
+        stages = []
+        monkeypatch.setattr(srv, "tutor", type("T", (), {
+            "have_api_key": staticmethod(lambda: False),
+            "ask": staticmethod(lambda messages, title, excerpt, stage, **kw:
+                                stages.append(stage) or {"reply": "", "remote": False}),
+        }))
+
+        with TestClient(srv.app) as client:
+            # A high global stage: articles and the tutor default to full depth.
+            client.post("/api/profile", json={
+                "name": "Nell", "age": 16, "hours_per_week": 6, "breadth": "balanced",
+                "domains": ["math"]})
+            p = srv.learner.get_profile()
+            srv.learner.save_profile(p["name"], p["age"], p["hours_per_week"], p["breadth"],
+                                     4, p["domains"], p.get("settings"))
+
+            client.get("/api/article", params={"title": title, "log_read": False})
+            assert calls[-1] is False, \
+                "setup: a high global stage must not default to the simple text"
+            client.post("/api/tutor", json={"messages": [{"role": "user", "content": "hi"}],
+                                            "title": title})
+            assert stages[-1] == 4, "setup: the tutor pitches at the global stage by default"
+
+            # A low slider for THIS article's own domain flips both, without
+            # moving the reader's global stage at all.
+            client.post("/api/profile/settings", json={"domain_stage": {"math": 1}})
+            client.get("/api/article", params={"title": title, "log_read": False})
+            assert calls[-1] is True, \
+                "the article's own domain slider must govern its reading level"
+            client.post("/api/tutor", json={"messages": [{"role": "user", "content": "hi"}],
+                                            "title": title})
+            assert stages[-1] == 1, \
+                "the tutor must pitch to the article's own domain slider too"
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
 
@@ -1093,7 +1242,7 @@ def test_one_domain_cannot_promote_the_reader(client, onboarded):
     gates = srv.learner.gate_map()
     per_domain = sorted(srv.curr.domain_stage_estimate(d["id"], gates) for d in srv.curr.domains)
     expected = per_domain[(len(per_domain) - 1) // 2]
-    srv._check_ascension(prof)
+    srv._check_ascension(prof, 1)
     assert srv.learner.get_profile()["stage"] <= max(prof["stage"], expected)
 
 
@@ -2019,7 +2168,7 @@ def test_a_faded_chapter_gate_does_not_report_stale_passes(client, onboarded,
     assert faded_detail["faded"] and not faded_detail["proven"], \
         "the node must have decayed out of proven standing without an explicit failure"
 
-    needs = srv._story_needs({"leads_to": node})
+    needs = srv._story_needs({"leads_to": node}, 1)
     assert needs["faded"] is True
     assert needs["ever_proven"] is True
     assert needs["passes"] == 0, \

@@ -43,5 +43,16 @@ propcache==0.4.1
 yarl==1.22.0
 async-timeout==5.0.1
 
+# Google sign-in. Used only to verify a Google ID token's signature — the
+# fetch of Google's own certificate is relayed through the httpx already
+# pinned above (see server.py's _HttpxAuthTransport), so this pulls in a
+# crypto backend, not a second HTTP client.
+google-auth==2.50.0
+cryptography==50.0.0
+cffi==2.0.0
+pycparser==2.23
+pyasn1==0.6.4
+pyasn1_modules==0.4.2
+
 # Development / tests
 pytest==8.4.2

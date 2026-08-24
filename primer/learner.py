@@ -23,6 +23,7 @@ import json
 import math
 import logging
 import os
+import secrets
 import shutil
 import sqlite3
 import threading
@@ -303,13 +304,14 @@ class LearnerStore:
             c.executescript(
                 """
                 CREATE TABLE IF NOT EXISTS profile (
-                    id INTEGER PRIMARY KEY CHECK (id = 1),
+                    reader_id INTEGER PRIMARY KEY,
                     name TEXT, age REAL, hours_per_week REAL,
                     breadth TEXT, stage INTEGER, domains TEXT,
                     created_at REAL, settings TEXT DEFAULT '{}'
                 );
                 CREATE TABLE IF NOT EXISTS mastery (
-                    node_id TEXT PRIMARY KEY,
+                    reader_id INTEGER NOT NULL DEFAULT 1,
+                    node_id TEXT,
                     level REAL DEFAULT 0,          -- 0..1 exponential moving avg
                     attempts INTEGER DEFAULT 0,
                     passes INTEGER DEFAULT 0,      -- attempts scoring >= PASS
@@ -318,10 +320,15 @@ class LearnerStore:
                     strength REAL DEFAULT 0,       -- decays; refreshed by review
                     last_seen REAL,
                     assumed INTEGER DEFAULT 0,     -- credited by placement, untested
-                    mastered_at REAL
+                    mastered_at REAL,
+                    reinforcements INTEGER DEFAULT 1,
+                    reinforced_at REAL,
+                    first_mastered_at REAL,
+                    PRIMARY KEY (reader_id, node_id)
                 );
                 CREATE TABLE IF NOT EXISTS srs_cards (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    reader_id INTEGER NOT NULL DEFAULT 1,
                     front TEXT, back TEXT, node_id TEXT, article TEXT,
                     ef REAL DEFAULT 2.5, interval REAL DEFAULT 0,
                     reps INTEGER DEFAULT 0, lapses INTEGER DEFAULT 0,
@@ -329,37 +336,54 @@ class LearnerStore:
                     -- position and is reset to 0 on every lapse, so it cannot
                     -- serve as a count of how much reviewing has happened.
                     reviews INTEGER DEFAULT 0,
-                    due REAL, created_at REAL,
-                    UNIQUE(front, node_id)
+                    due REAL, created_at REAL, origin TEXT DEFAULT 'book',
+                    UNIQUE(reader_id, front, node_id)
                 );
                 CREATE TABLE IF NOT EXISTS reading_log (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    title TEXT, opened_at REAL, seconds REAL DEFAULT 0
+                    title TEXT, opened_at REAL, seconds REAL DEFAULT 0,
+                    reader_id INTEGER DEFAULT 1
                 );
                 CREATE TABLE IF NOT EXISTS events (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    kind TEXT, payload TEXT, at REAL, xp INTEGER DEFAULT 0
+                    kind TEXT, payload TEXT, at REAL, xp INTEGER DEFAULT 0,
+                    reader_id INTEGER DEFAULT 1
                 );
                 CREATE TABLE IF NOT EXISTS attempt_effort_claims (
+                    reader_id INTEGER NOT NULL DEFAULT 1,
                     node_id TEXT NOT NULL,
                     local_day TEXT NOT NULL,
                     claimed_at REAL NOT NULL,
-                    PRIMARY KEY (node_id, local_day)
+                    PRIMARY KEY (reader_id, node_id, local_day)
                 );
                 CREATE TABLE IF NOT EXISTS placement (
-                    domain TEXT PRIMARY KEY,
-                    stage INTEGER, asked TEXT DEFAULT '[]', done INTEGER DEFAULT 0
+                    reader_id INTEGER NOT NULL DEFAULT 1,
+                    domain TEXT NOT NULL,
+                    stage INTEGER, asked TEXT DEFAULT '[]', done INTEGER DEFAULT 0,
+                    settled_at REAL,
+                    PRIMARY KEY (reader_id, domain)
                 );
                 CREATE INDEX IF NOT EXISTS idx_events_at ON events(at);
                 CREATE TABLE IF NOT EXISTS burned(
+                    reader_id INTEGER NOT NULL DEFAULT 1,
                     node_id TEXT NOT NULL,
                     fingerprint TEXT NOT NULL,
                     at REAL NOT NULL,
-                    PRIMARY KEY (node_id, fingerprint)
+                    PRIMARY KEY (reader_id, node_id, fingerprint)
                 );
                 CREATE INDEX IF NOT EXISTS idx_burned_node ON burned(node_id, at);
                 CREATE INDEX IF NOT EXISTS idx_cards_due ON srs_cards(due);
                 CREATE INDEX IF NOT EXISTS idx_reading_title ON reading_log(title);
+                CREATE TABLE IF NOT EXISTS readers (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    google_sub TEXT UNIQUE,
+                    email TEXT, name TEXT, created_at REAL
+                );
+                CREATE TABLE IF NOT EXISTS sessions (
+                    token TEXT PRIMARY KEY,
+                    reader_id INTEGER, created_at REAL, expires_at REAL
+                );
+                CREATE INDEX IF NOT EXISTS idx_sessions_reader ON sessions(reader_id);
                 """
             )
             # Lightweight migrations for databases created before these columns.
@@ -455,9 +479,189 @@ class LearnerStore:
                              date(at, 'unixepoch', 'localtime')""",
                 (_local_midnight(time.time()),))
 
+            # ---- multi-tenant: fold reader_id into every table's identity ----
+            #
+            # `profile`, `mastery`, `srs_cards`, `attempt_effort_claims`,
+            # `placement` and `burned` each have a PRIMARY KEY or UNIQUE
+            # constraint that predates readers existing at all — `node_id TEXT
+            # PRIMARY KEY` on `mastery`, for instance, meant only one row could
+            # ever exist per node, globally.  SQLite cannot ALTER a PRIMARY
+            # KEY or UNIQUE constraint in place; widening one means rebuilding
+            # the table.  `reading_log` and `events` use a plain autoincrement
+            # id with no such constraint, so a bare ADD COLUMN is enough for
+            # them — see below.
+            self._widen_table_to_reader(
+                c, "profile",
+                """CREATE TABLE IF NOT EXISTS profile (
+                    reader_id INTEGER PRIMARY KEY,
+                    name TEXT, age REAL, hours_per_week REAL,
+                    breadth TEXT, stage INTEGER, domains TEXT,
+                    created_at REAL, settings TEXT DEFAULT '{}'
+                )""",
+                ["name", "age", "hours_per_week", "breadth", "stage",
+                 "domains", "created_at", "settings"])
+            self._widen_table_to_reader(
+                c, "mastery",
+                """CREATE TABLE IF NOT EXISTS mastery (
+                    reader_id INTEGER NOT NULL DEFAULT 1,
+                    node_id TEXT,
+                    level REAL DEFAULT 0, attempts INTEGER DEFAULT 0,
+                    passes INTEGER DEFAULT 0,
+                    first_pass_at REAL, last_pass_at REAL,
+                    strength REAL DEFAULT 0, last_seen REAL,
+                    assumed INTEGER DEFAULT 0, mastered_at REAL,
+                    reinforcements INTEGER DEFAULT 1, reinforced_at REAL,
+                    first_mastered_at REAL,
+                    PRIMARY KEY (reader_id, node_id)
+                )""",
+                ["node_id", "level", "attempts", "passes", "first_pass_at",
+                 "last_pass_at", "strength", "last_seen", "assumed",
+                 "mastered_at", "reinforcements", "reinforced_at",
+                 "first_mastered_at"])
+            self._widen_table_to_reader(
+                c, "attempt_effort_claims",
+                """CREATE TABLE IF NOT EXISTS attempt_effort_claims (
+                    reader_id INTEGER NOT NULL DEFAULT 1,
+                    node_id TEXT NOT NULL, local_day TEXT NOT NULL,
+                    claimed_at REAL NOT NULL,
+                    PRIMARY KEY (reader_id, node_id, local_day)
+                )""",
+                ["node_id", "local_day", "claimed_at"])
+            self._widen_table_to_reader(
+                c, "placement",
+                """CREATE TABLE IF NOT EXISTS placement (
+                    reader_id INTEGER NOT NULL DEFAULT 1,
+                    domain TEXT NOT NULL,
+                    stage INTEGER, asked TEXT DEFAULT '[]',
+                    done INTEGER DEFAULT 0, settled_at REAL,
+                    PRIMARY KEY (reader_id, domain)
+                )""",
+                ["domain", "stage", "asked", "done", "settled_at"])
+            self._widen_table_to_reader(
+                c, "burned",
+                """CREATE TABLE IF NOT EXISTS burned (
+                    reader_id INTEGER NOT NULL DEFAULT 1,
+                    node_id TEXT NOT NULL, fingerprint TEXT NOT NULL,
+                    at REAL NOT NULL,
+                    PRIMARY KEY (reader_id, node_id, fingerprint)
+                )""",
+                ["node_id", "fingerprint", "at"])
+            # srs_cards keeps its own autoincrement `id` — that value is a real
+            # identifier (review_card looks cards up by it), not a throwaway,
+            # so it has to survive the rebuild unchanged rather than being
+            # reassigned. Only the UNIQUE constraint widens.
+            srs_cols = {r[1] for r in c.execute("PRAGMA table_info(srs_cards)")}
+            srs_exists = bool(c.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+                ("srs_cards",)).fetchone())
+            if srs_exists and "reader_id" not in srs_cols:
+                c.execute("ALTER TABLE srs_cards RENAME TO srs_cards_legacy")
+            c.execute(
+                """CREATE TABLE IF NOT EXISTS srs_cards (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    reader_id INTEGER NOT NULL DEFAULT 1,
+                    front TEXT, back TEXT, node_id TEXT, article TEXT,
+                    ef REAL DEFAULT 2.5, interval REAL DEFAULT 0,
+                    reps INTEGER DEFAULT 0, lapses INTEGER DEFAULT 0,
+                    reviews INTEGER DEFAULT 0,
+                    due REAL, created_at REAL, origin TEXT DEFAULT 'book',
+                    UNIQUE(reader_id, front, node_id)
+                )""")
+            if c.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+                    ("srs_cards_legacy",)).fetchone():
+                c.execute(
+                    """INSERT OR IGNORE INTO srs_cards
+                           (id, reader_id, front, back, node_id, article, ef,
+                            interval, reps, lapses, reviews, due, created_at,
+                            origin)
+                       SELECT id, 1, front, back, node_id, article, ef,
+                              interval, reps, lapses, reviews, due,
+                              created_at, origin
+                         FROM srs_cards_legacy""")
+
+            # reading_log/events keep their autoincrement id and never had a
+            # natural-key collision risk, so a plain column is enough.
+            rl_cols = {r[1] for r in c.execute("PRAGMA table_info(reading_log)")}
+            if "reader_id" not in rl_cols:
+                try:
+                    c.execute(
+                        "ALTER TABLE reading_log ADD COLUMN reader_id "
+                        "INTEGER DEFAULT 1")
+                except sqlite3.OperationalError:
+                    pass
+            ev_cols2 = {r[1] for r in c.execute("PRAGMA table_info(events)")}
+            if "reader_id" not in ev_cols2:
+                try:
+                    c.execute(
+                        "ALTER TABLE events ADD COLUMN reader_id "
+                        "INTEGER DEFAULT 1")
+                except sqlite3.OperationalError:
+                    pass
+            # Deferred to here rather than the top-of-file script: on an
+            # existing (pre-migration) database, events/reading_log still
+            # lack reader_id at the point that script runs, so an index on it
+            # there would fail before the ADD COLUMN above ever had a chance
+            # to run.
+            c.execute(
+                "CREATE INDEX IF NOT EXISTS idx_events_reader "
+                "ON events(reader_id)")
+            c.execute(
+                "CREATE INDEX IF NOT EXISTS idx_reading_reader "
+                "ON reading_log(reader_id)")
+
+            # The one reader this database has ever had is not auto-claimed by
+            # whoever signs in first — see the Account screen's claim flow.
+            # Creating the row here (id=1, unclaimed) just gives every other
+            # reader_id=1 row backfilled above a place to belong; it grants no
+            # access on its own, since `readers.google_sub IS NULL` matches no
+            # Google sign-in.
+            c.execute(
+                "INSERT OR IGNORE INTO readers(id, google_sub, email, name, "
+                "created_at) VALUES (1, NULL, NULL, NULL, ?)",
+                (time.time(),))
+
+    def _widen_table_to_reader(self, c, table, create_sql, legacy_cols):
+        """Fold `reader_id` into a table whose PRIMARY KEY/UNIQUE constraint
+        cannot include it without a rebuild — see the migration block above
+        for which tables need this and why.
+
+        Rebuilt as a rename-forward, not a drop-and-recreate: over Turso's
+        HTTP transport every statement autocommits on its own — there is no
+        multi-statement transaction to hold one open across (see
+        store.py `_LibsqlConnection._target`) — so a CREATE/INSERT/DROP/RENAME
+        sequence that a cold-started serverless instance can be killed in the
+        middle of would risk losing the table outright if DROP ran before
+        RENAME finished. Renaming the OLD table out of the way first instead
+        means every step here is independently safe to retry: the old data is
+        never destroyed, only ever copied, and an interrupted attempt is
+        simply resumed by the next process's own `_init_db()` — there is no
+        cross-run state to track beyond what `sqlite_master`/`PRAGMA
+        table_info` already show. The `_legacy` table is never dropped
+        automatically; keeping it costs nothing and undoing a mistake here
+        without it would cost everything.
+        """
+        legacy = table + "_legacy"
+        cols = {r[1] for r in c.execute("PRAGMA table_info(%s)" % table)}
+        exists = bool(c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+            (table,)).fetchone())
+        if exists and "reader_id" not in cols:
+            c.execute("ALTER TABLE %s RENAME TO %s" % (table, legacy))
+        c.execute(create_sql)
+        legacy_exists = bool(c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+            (legacy,)).fetchone())
+        if legacy_exists:
+            col_list = ", ".join(legacy_cols)
+            c.execute(
+                "INSERT OR IGNORE INTO %s (reader_id, %s) "
+                "SELECT 1, %s FROM %s"
+                % (table, col_list, col_list, legacy))
+
     # ---------- profile ----------
 
-    def get_profile(self) -> Optional[Dict]:
+    def get_profile(self, reader_id: int = 1) -> Optional[Dict]:
         """The reader, with the two numbers that always ride along.
 
         All three reads share one connection. They used to be three: the row,
@@ -469,11 +673,12 @@ class LearnerStore:
         answers; one connection instead of three.
         """
         with _lock, self._conn() as c:
-            row = c.execute("SELECT * FROM profile WHERE id=1").fetchone()
+            row = c.execute("SELECT * FROM profile WHERE reader_id=?",
+                            (reader_id,)).fetchone()
             if not row:
                 return None
-            xp = self._total_xp(c)
-            day_rows = self._streak_day_rows(c)
+            xp = self._total_xp(c, reader_id)
+            day_rows = self._streak_day_rows(c, reader_id)
         p = dict(row)
         p["domains"] = json.loads(p["domains"] or "[]")
         p["settings"] = json.loads(p["settings"] or "{}")
@@ -487,7 +692,8 @@ class LearnerStore:
 
     def save_profile(self, name: str, age: float, hours_per_week: float,
                      breadth: str, stage: int, domains: List[str],
-                     settings: Optional[Dict] = None) -> Dict:
+                     settings: Optional[Dict] = None,
+                     reader_id: int = 1) -> Dict:
         # The COALESCE below exists so a caller who only means to change
         # name/age/domains — POST /api/profile, which never passes settings
         # at all — leaves story_chapter_id, theme, and every other reader
@@ -507,16 +713,16 @@ class LearnerStore:
         payload = None if settings is None else json.dumps(settings)
         with _lock, self._conn() as c:
             c.execute(
-                """INSERT INTO profile(id, name, age, hours_per_week, breadth, stage, domains, created_at, settings)
-                   VALUES(1,?,?,?,?,?,?,?,?)
-                   ON CONFLICT(id) DO UPDATE SET name=excluded.name, age=excluded.age,
+                """INSERT INTO profile(reader_id, name, age, hours_per_week, breadth, stage, domains, created_at, settings)
+                   VALUES(?,?,?,?,?,?,?,?,?)
+                   ON CONFLICT(reader_id) DO UPDATE SET name=excluded.name, age=excluded.age,
                      hours_per_week=excluded.hours_per_week, breadth=excluded.breadth,
                      stage=excluded.stage, domains=excluded.domains,
                      settings=COALESCE(excluded.settings, profile.settings)""",
-                (name, age, hours_per_week, breadth, stage, json.dumps(domains),
+                (reader_id, name, age, hours_per_week, breadth, stage, json.dumps(domains),
                  time.time(), payload),
             )
-        return self.get_profile()
+        return self.get_profile(reader_id)
 
     @staticmethod
     def stage_for_age(age: float) -> int:
@@ -576,7 +782,7 @@ class LearnerStore:
         seen = r["last_seen"]
         return bool(seen) and (now - seen) >= ASSUMED_CREDIT_LIFE
 
-    def mastery_map(self) -> Dict[str, float]:
+    def mastery_map(self, reader_id: int = 1) -> Dict[str, float]:
         """Raw EMA level per node — a soft *display* signal, and only that.
 
         `level` never fades by design: the asymmetric EMA in `_apply_attempt`
@@ -594,10 +800,11 @@ class LearnerStore:
         exactly the misuse the gates were rebuilt to prevent.
         """
         with _lock, self._conn() as c:
-            rows = c.execute("SELECT node_id, level FROM mastery").fetchall()
+            rows = c.execute("SELECT node_id, level FROM mastery WHERE reader_id=?",
+                            (reader_id,)).fetchall()
         return {r["node_id"]: r["level"] for r in rows}
 
-    def mastered_set(self) -> set:
+    def mastered_set(self, reader_id: int = 1) -> set:
         """Nodes currently standing as mastered — earned or assumed, not faded.
 
         Decay applies here for the same reason it applies to `proven_set` and
@@ -609,11 +816,12 @@ class LearnerStore:
         with _lock, self._conn() as c:
             rows = c.execute(
                 """SELECT node_id, strength, last_seen, reinforcements, assumed, passes
-                   FROM mastery WHERE mastered_at IS NOT NULL""").fetchall()
+                   FROM mastery WHERE reader_id=? AND mastered_at IS NOT NULL""",
+                (reader_id,)).fetchall()
         return {r["node_id"] for r in rows
                 if self._standing_strength(r, now) >= FRESH_GATE}
 
-    def gate_map(self) -> Dict[str, float]:
+    def gate_map(self, reader_id: int = 1) -> Dict[str, float]:
         """Map for the curriculum's unlock/gate logic: 1.0 for genuinely
         mastered nodes, otherwise the raw level capped below the 0.8 gate so a
         not-yet-mastered node can never open the next one.
@@ -627,7 +835,7 @@ class LearnerStore:
         with _lock, self._conn() as c:
             rows = c.execute(
                 "SELECT node_id, level, mastered_at, strength, last_seen, reinforcements, "
-                "assumed, passes FROM mastery").fetchall()
+                "assumed, passes FROM mastery WHERE reader_id=?", (reader_id,)).fetchall()
         out = {}
         for r in rows:
             if r["mastered_at"] is not None:
@@ -637,7 +845,7 @@ class LearnerStore:
                 out[r["node_id"]] = min(r["level"], 0.79)
         return out
 
-    def passed_set(self) -> set:
+    def passed_set(self, reader_id: int = 1) -> set:
         """Nodes with at least one genuine passing attempt (not placement).
 
         Decay applies here for the same reason it applies to `proven_set` and
@@ -657,19 +865,22 @@ class LearnerStore:
         with _lock, self._conn() as c:
             rows = c.execute(
                 """SELECT node_id, strength, last_seen, reinforcements
-                   FROM mastery WHERE passes >= 1""").fetchall()
+                   FROM mastery WHERE reader_id=? AND passes >= 1""",
+                (reader_id,)).fetchall()
         return {r["node_id"] for r in rows
                 if self._strength_now(r["strength"] or 0, r["last_seen"], now,
                                       r["reinforcements"]) >= FRESH_GATE}
 
-    def mastery_detail(self, node_id: str) -> Dict:
+    def mastery_detail(self, node_id: str, reader_id: int = 1) -> Dict:
         """What this node still needs, in terms the book can explain."""
         with _lock, self._conn() as c:
             r = c.execute(
                 """SELECT level, passes, first_pass_at, mastered_at, assumed,
                           strength, last_seen, reinforcements, first_mastered_at
-                   FROM mastery WHERE node_id=?""", (node_id,)).fetchone()
-            prof_row = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
+                   FROM mastery WHERE reader_id=? AND node_id=?""",
+                (reader_id, node_id)).fetchone()
+            prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
+                                 (reader_id,)).fetchone()
         # Same age-scaled window `_apply_attempt` will actually apply — if the
         # book tells a 5-year-old "come back in two days" while the check says
         # six hours, the explanation is wrong in the direction that costs the
@@ -729,7 +940,7 @@ class LearnerStore:
             "assumed_stale": stale_credit,
         }
 
-    def pending_proofs(self) -> List[Dict]:
+    def pending_proofs(self, reader_id: int = 1) -> List[Dict]:
         """Every node standing one earned pass short of mastery, with the
         moment its second pass becomes possible.
 
@@ -772,9 +983,11 @@ class LearnerStore:
                 """SELECT node_id, passes, first_pass_at, strength, last_seen,
                           reinforcements
                      FROM mastery
-                    WHERE passes >= 1 AND mastered_at IS NULL AND assumed = 0
-                      AND first_pass_at IS NOT NULL""").fetchall()
-            prof_row = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
+                    WHERE reader_id=? AND passes >= 1 AND mastered_at IS NULL
+                      AND assumed = 0 AND first_pass_at IS NOT NULL""",
+                (reader_id,)).fetchall()
+            prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
+                                 (reader_id,)).fetchone()
         # The age-scaled window `_apply_attempt` will actually apply, read the
         # same way `mastery_detail` reads it. Telling a 5-year-old "tomorrow"
         # when the check opens in six hours costs them a day of credit they
@@ -788,19 +1001,20 @@ class LearnerStore:
         out.sort(key=lambda p: p["ready_at"])
         return out
 
-    def proven_count_current(self) -> int:
+    def proven_count_current(self, reader_id: int = 1) -> int:
         """Proven nodes whose memory has not decayed away — the honest headline
         number, matching what the gates actually treat as open."""
         now = time.time()
         with _lock, self._conn() as c:
             rows = c.execute(
                 """SELECT strength, last_seen, reinforcements FROM mastery
-                   WHERE mastered_at IS NOT NULL AND assumed=0""").fetchall()
+                   WHERE reader_id=? AND mastered_at IS NOT NULL AND assumed=0""",
+                (reader_id,)).fetchall()
         return sum(1 for r in rows
                    if self._strength_now(r["strength"] or 0, r["last_seen"], now,
                                          r["reinforcements"]) >= FRESH_GATE)
 
-    def proven_set(self) -> set:
+    def proven_set(self, reader_id: int = 1) -> set:
         """Nodes mastered by genuine, spaced performance — not placement credit.
 
         Decay applies here exactly as it does in `gate_map`. It did not, which
@@ -812,13 +1026,14 @@ class LearnerStore:
         with _lock, self._conn() as c:
             rows = c.execute(
                 """SELECT node_id, strength, last_seen, reinforcements FROM mastery
-                   WHERE mastered_at IS NOT NULL AND assumed=0"""
+                   WHERE reader_id=? AND mastered_at IS NOT NULL AND assumed=0""",
+                (reader_id,)
             ).fetchall()
         return {r["node_id"] for r in rows
                 if self._strength_now(r["strength"] or 0, r["last_seen"], now,
                                       r["reinforcements"]) >= FRESH_GATE}
 
-    def credited_set(self) -> set:
+    def credited_set(self, reader_id: int = 1) -> set:
         """Nodes the book has ever credited as mastered, freshness aside.
 
         Deliberately NOT decay-aware, and the one such set that is. It exists
@@ -829,19 +1044,21 @@ class LearnerStore:
         """
         with _lock, self._conn() as c:
             rows = c.execute(
-                "SELECT node_id FROM mastery WHERE mastered_at IS NOT NULL").fetchall()
+                "SELECT node_id FROM mastery WHERE reader_id=? AND mastered_at IS NOT NULL",
+                (reader_id,)).fetchall()
         return {r["node_id"] for r in rows}
 
-    def assumed_stale_set(self) -> set:
+    def assumed_stale_set(self, reader_id: int = 1) -> set:
         """Nodes whose placement credit has expired — see ASSUMED_CREDIT_LIFE."""
         now = time.time()
         with _lock, self._conn() as c:
             rows = c.execute(
                 """SELECT node_id, last_seen, assumed, passes FROM mastery
-                   WHERE mastered_at IS NOT NULL AND assumed=1""").fetchall()
+                   WHERE reader_id=? AND mastered_at IS NOT NULL AND assumed=1""",
+                (reader_id,)).fetchall()
         return {r["node_id"] for r in rows if self._assumed_stale(r, now)}
 
-    def ever_proven_set(self) -> set:
+    def ever_proven_set(self, reader_id: int = 1) -> set:
         """Nodes proven at some point, faded or not — for history and journals,
         where 'you did this' stays true even after the memory dims.
 
@@ -855,7 +1072,8 @@ class LearnerStore:
         """
         with _lock, self._conn() as c:
             rows = c.execute(
-                "SELECT node_id FROM mastery WHERE first_mastered_at IS NOT NULL"
+                "SELECT node_id FROM mastery WHERE reader_id=? AND first_mastered_at IS NOT NULL",
+                (reader_id,)
             ).fetchall()
         return {r["node_id"] for r in rows}
 
@@ -865,7 +1083,7 @@ class LearnerStore:
         "reinforced_at", "first_mastered_at",
     )
 
-    def _cas_mastery(self, c, node_id: str, previous, state) -> bool:
+    def _cas_mastery(self, c, reader_id: int, node_id: str, previous, state) -> bool:
         """Replace a mastery row iff every field still matches `previous`.
 
         Both quiz attempts and card reviews use this one compare shape. A
@@ -878,16 +1096,17 @@ class LearnerStore:
                       last_pass_at=?, strength=?, last_seen=?, assumed=?,
                       mastered_at=?, reinforcements=?, reinforced_at=?,
                       first_mastered_at=?
-                 WHERE node_id=?
+                 WHERE reader_id=? AND node_id=?
                    AND level IS ? AND attempts IS ? AND passes IS ?
                    AND first_pass_at IS ? AND last_pass_at IS ?
                    AND strength IS ? AND last_seen IS ? AND assumed IS ?
                    AND mastered_at IS ? AND reinforcements IS ?
                    AND reinforced_at IS ? AND first_mastered_at IS ?""",
-            tuple(state) + (node_id,) + before).rowcount
+            tuple(state) + (reader_id, node_id) + before).rowcount
         return changed == 1
 
-    def _apply_attempt(self, c, node_id: str, score: float, assumed: bool, now: float):
+    def _apply_attempt(self, c, reader_id: int, node_id: str, score: float,
+                       assumed: bool, now: float):
         """Apply one attempt, retrying if another instance changed its row.
 
         Turso's HTTP transport autocommits each statement, so the process-local
@@ -897,18 +1116,20 @@ class LearnerStore:
         state instead of overwriting it.
         """
         while True:
-            applied = self._apply_attempt_once(c, node_id, score, assumed, now)
+            applied = self._apply_attempt_once(c, reader_id, node_id, score, assumed, now)
             if applied is not None:
                 return applied
 
-    def _apply_attempt_once(self, c, node_id: str, score: float,
+    def _apply_attempt_once(self, c, reader_id: int, node_id: str, score: float,
                             assumed: bool, now: float):
-        prof_row = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
+        prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
+                             (reader_id,)).fetchone()
         age = prof_row["age"] if prof_row else None
         min_gap = _reinforce_min_gap(age)
         # Age-scaled proving window — see _mastery_min_interval.
         prove_gap = _mastery_min_interval(age)
-        row = c.execute("SELECT * FROM mastery WHERE node_id=?", (node_id,)).fetchone()
+        row = c.execute("SELECT * FROM mastery WHERE reader_id=? AND node_id=?",
+                        (reader_id, node_id)).fetchone()
         if row:
             level = row["level"]
             # Documented deviation from a symmetric EMA: gains move at 0.4,
@@ -1013,25 +1234,25 @@ class LearnerStore:
             # can change strength/mastered_at without incrementing it.  `IS`
             # is SQLite's null-safe equality, so optional timestamps participate
             # in the same comparison without special cases.
-            changed = 1 if self._cas_mastery(c, node_id, row, state) else 0
+            changed = 1 if self._cas_mastery(c, reader_id, node_id, row, state) else 0
         else:
             # Two first attempts may both observe no row.  INSERT OR IGNORE is
             # the creation-side CAS; the loser loops and applies its evidence
             # to the row the winner just created.
             changed = c.execute(
                 """INSERT OR IGNORE INTO mastery(
-                       node_id, level, attempts, passes, first_pass_at,
+                       reader_id, node_id, level, attempts, passes, first_pass_at,
                        last_pass_at, strength, last_seen, assumed, mastered_at,
                        reinforcements, reinforced_at, first_mastered_at)
-                   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-                (node_id,) + state).rowcount
+                   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (reader_id, node_id) + state).rowcount
         if changed != 1:
             return None
         return level, mastered_at is not None, newly_mastered, lost_mastery
 
     def record_attempt(self, node_id: str, score: float, assumed: bool = False,
                        seconds: Optional[float] = None,
-                       items: int = 0) -> Dict:
+                       items: int = 0, reader_id: int = 1) -> Dict:
         """Record a graded attempt (score 0..1). Returns mastery + xp_gained.
 
         `seconds`/`items` are how long this paper took the reader and how many
@@ -1051,10 +1272,11 @@ class LearnerStore:
             # already been paid for once. `first_mastered_at` is written once
             # and never cleared, which is exactly the question being asked here.
             _prior = c.execute(
-                "SELECT first_mastered_at FROM mastery WHERE node_id=?",
-                (node_id,)).fetchone()
+                "SELECT first_mastered_at FROM mastery WHERE reader_id=? AND node_id=?",
+                (reader_id, node_id)).fetchone()
             first_ever = not (_prior and _prior["first_mastered_at"])
-            level, mastered, newly, lost = self._apply_attempt(c, node_id, score, assumed, now)
+            level, mastered, newly, lost = self._apply_attempt(
+                c, reader_id, node_id, score, assumed, now)
             # The dated appointment this attempt just made, handed back at the
             # moment it is made instead of left for the next page to discover.
             # A first pass opens a spaced window (see `pending_proofs`), and
@@ -1063,9 +1285,10 @@ class LearnerStore:
             # nothing left to seal — and None for an attempt that never
             # passed, which has no window yet.
             _pend = c.execute(
-                "SELECT first_pass_at, mastered_at FROM mastery WHERE node_id=?",
-                (node_id,)).fetchone()
-            _prof = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
+                "SELECT first_pass_at, mastered_at FROM mastery WHERE reader_id=? AND node_id=?",
+                (reader_id, node_id)).fetchone()
+            _prof = c.execute("SELECT age FROM profile WHERE reader_id=?",
+                             (reader_id,)).fetchone()
             ready_at = None
             if _pend and _pend["first_pass_at"] and _pend["mastered_at"] is None:
                 ready_at = _pend["first_pass_at"] + _mastery_min_interval(
@@ -1098,8 +1321,8 @@ class LearnerStore:
                     local_day = datetime.date.fromordinal(_local_day(now)).isoformat()
                     effort_claimed = c.execute(
                         """INSERT OR IGNORE INTO attempt_effort_claims(
-                               node_id, local_day, claimed_at) VALUES(?,?,?)""",
-                        (node_id, local_day, now)).rowcount == 1
+                               reader_id, node_id, local_day, claimed_at) VALUES(?,?,?,?)""",
+                        (reader_id, node_id, local_day, now)).rowcount == 1
                 xp = ((round(score * 12) if effort_claimed else 0)
                       + (60 if newly and first_ever else 0))
                 payload = {"node": node_id, "score": round(score, 2),
@@ -1107,22 +1330,24 @@ class LearnerStore:
                 per = _per_item_seconds(seconds, items)
                 if per is not None:
                     payload["per_item"] = per
-                c.execute("INSERT INTO events(kind, payload, at, xp) VALUES('attempt',?,?,?)",
-                          (json.dumps(payload), now, xp))
-        proven = node_id in self.proven_set()
+                c.execute(
+                    "INSERT INTO events(kind, payload, at, xp, reader_id) "
+                    "VALUES('attempt',?,?,?,?)",
+                    (json.dumps(payload), now, xp, reader_id))
+        proven = node_id in self.proven_set(reader_id)
         return {"node_id": node_id, "level": round(level, 3),
                 "mastered": mastered, "newly_mastered": newly,
                 "proven": proven, "lost_mastery": lost, "xp_gained": xp,
                 "ready_at": ready_at}
 
-    def seed_assumed(self, node_ids: List[str]):
+    def seed_assumed(self, node_ids: List[str], reader_id: int = 1):
         """Bulk placement credit (assumed known)."""
         now = time.time()
         with _lock, self._conn() as c:
             for nid in node_ids:
-                self._apply_attempt(c, nid, 0.85, True, now)
+                self._apply_attempt(c, reader_id, nid, 0.85, True, now)
 
-    def burn_item(self, node_id: str, fingerprint: str):
+    def burn_item(self, node_id: str, fingerprint: str, reader_id: int = 1):
         """Record that the book has shown this item's answer to this reader.
 
         Immediate feedback teaches, and it must stay. But the key it reveals
@@ -1132,21 +1357,22 @@ class LearnerStore:
         this stops it across papers.
         """
         with _lock, self._conn() as c:
-            c.execute("""INSERT INTO burned(node_id, fingerprint, at) VALUES(?,?,?)
-                         ON CONFLICT(node_id, fingerprint) DO UPDATE SET at=?""",
-                      (node_id, fingerprint, time.time(), time.time()))
+            c.execute("""INSERT INTO burned(reader_id, node_id, fingerprint, at) VALUES(?,?,?,?)
+                         ON CONFLICT(reader_id, node_id, fingerprint) DO UPDATE SET at=?""",
+                      (reader_id, node_id, fingerprint, time.time(), time.time()))
 
-    def burned_map(self, node_id: str, window_days: float = 7.0) -> dict:
+    def burned_map(self, node_id: str, window_days: float = 7.0,
+                   reader_id: int = 1) -> dict:
         """When each of this node's items last had its answer shown."""
         cutoff = time.time() - window_days * DAY
         with _lock, self._conn() as c:
             rows = c.execute(
-                "SELECT fingerprint, at FROM burned WHERE node_id=? AND at>=?",
-                (node_id, cutoff)).fetchall()
+                "SELECT fingerprint, at FROM burned WHERE reader_id=? AND node_id=? AND at>=?",
+                (reader_id, node_id, cutoff)).fetchall()
         return {r["fingerprint"]: r["at"] for r in rows}
 
     def burned_set(self, node_id: str, window_days: float = 7.0,
-                   before: float = None) -> set:
+                   before: float = None, reader_id: int = 1) -> set:
         """Items whose answers this reader has been shown recently.
 
         The window means a node never becomes permanently unprovable — after a
@@ -1159,15 +1385,15 @@ class LearnerStore:
                 # Only what was already spent when this paper went out — an
                 # answer committed during the sitting counts, whatever it was.
                 rows = c.execute(
-                    "SELECT fingerprint FROM burned WHERE node_id=? AND at>=? AND at<?",
-                    (node_id, cutoff, before)).fetchall()
+                    "SELECT fingerprint FROM burned WHERE reader_id=? AND node_id=? AND at>=? AND at<?",
+                    (reader_id, node_id, cutoff, before)).fetchall()
             else:
                 rows = c.execute(
-                    "SELECT fingerprint FROM burned WHERE node_id=? AND at>=?",
-                    (node_id, cutoff)).fetchall()
+                    "SELECT fingerprint FROM burned WHERE reader_id=? AND node_id=? AND at>=?",
+                    (reader_id, node_id, cutoff)).fetchall()
         return {r["fingerprint"] for r in rows}
 
-    def revoke_assumed(self, node_ids: List[str]):
+    def revoke_assumed(self, node_ids: List[str], reader_id: int = 1):
         """Drop placement/age credit for these nodes.
 
         Age seeds credit at onboarding on the assumption a nine-year-old knows
@@ -1180,22 +1406,24 @@ class LearnerStore:
         if not node_ids:
             return 0
         with _lock, self._conn() as c:
-            c.executemany("DELETE FROM mastery WHERE node_id=? AND assumed=1",
-                          [(nid,) for nid in node_ids])
+            c.executemany(
+                "DELETE FROM mastery WHERE reader_id=? AND node_id=? AND assumed=1",
+                [(reader_id, nid) for nid in node_ids])
             return c.total_changes
 
-    def mastered_count(self) -> int:
-        return len(self.mastered_set())
+    def mastered_count(self, reader_id: int = 1) -> int:
+        return len(self.mastered_set(reader_id))
 
-    def proven_count(self) -> int:
+    def proven_count(self, reader_id: int = 1) -> int:
         with _lock, self._conn() as c:
             return c.execute(
-                "SELECT COUNT(*) FROM mastery WHERE mastered_at IS NOT NULL AND assumed=0"
+                "SELECT COUNT(*) FROM mastery WHERE reader_id=? AND mastered_at IS NOT NULL AND assumed=0",
+                (reader_id,)
             ).fetchone()[0]
 
     # ---------- spaced repetition (SM-2) ----------
 
-    def add_cards(self, cards: List[Dict]) -> int:
+    def add_cards(self, cards: List[Dict], reader_id: int = 1) -> int:
         now = time.time()
         added = 0
         with _lock, self._conn() as c:
@@ -1210,10 +1438,10 @@ class LearnerStore:
                     # let a decayed node be restored to full strength in zero
                     # elapsed time by minting three cards and answering them.
                     c.execute(
-                        """INSERT OR IGNORE INTO srs_cards(front, back, node_id, article,
+                        """INSERT OR IGNORE INTO srs_cards(reader_id, front, back, node_id, article,
                                                   due, created_at, origin)
-                           VALUES(?,?,?,?,?,?,?)""",
-                        (front, back, card.get("node_id", ""),
+                           VALUES(?,?,?,?,?,?,?,?)""",
+                        (reader_id, front, back, card.get("node_id", ""),
                          card.get("article", ""), now + RELEARN_DELAY, now,
                          card.get("origin", "book")),
                     )
@@ -1222,7 +1450,7 @@ class LearnerStore:
                     pass
         return added
 
-    def due_cards(self, limit: int = 20) -> List[Dict]:
+    def due_cards(self, limit: int = 20, reader_id: int = 1) -> List[Dict]:
         """Due cards, interleaved so you don't get a run of same-article cards."""
         now = time.time()
         with _lock, self._conn() as c:
@@ -1237,9 +1465,9 @@ class LearnerStore:
                        SELECT *, ROW_NUMBER() OVER (
                            PARTITION BY COALESCE(NULLIF(node_id,''), article, '')
                            ORDER BY due) AS rn
-                       FROM srs_cards WHERE due <= ?)
+                       FROM srs_cards WHERE reader_id=? AND due <= ?)
                    WHERE rn <= ? ORDER BY due""",
-                (now, max(3, limit)),
+                (reader_id, now, max(3, limit)),
             ).fetchall()
         cards = [dict(r) for r in rows]
         # Round-robin by topic so a session never becomes a run of one subject.
@@ -1268,7 +1496,7 @@ class LearnerStore:
     # card is worth this much rather than nothing.
     UNHEALTHY_CARD_WEIGHT = 0.6
 
-    def _deck_health(self, c, node_id: str, now: float) -> float:
+    def _deck_health(self, c, reader_id: int, node_id: str, now: float) -> float:
         """0..1 — how well this node's whole deck is currently standing.
 
         A node is not its easiest card. A single confident review used to set
@@ -1284,7 +1512,8 @@ class LearnerStore:
         """
         rows = c.execute(
             "SELECT due, reps, lapses FROM srs_cards "
-            "WHERE node_id=? AND COALESCE(origin,'book')='book'", (node_id,)).fetchall()
+            "WHERE reader_id=? AND node_id=? AND COALESCE(origin,'book')='book'",
+            (reader_id, node_id)).fetchall()
         if not rows:
             return 1.0
         healthy = 0.0
@@ -1326,7 +1555,8 @@ class LearnerStore:
             return 1.0 if rate > limit else 0.0
         return max(0.0, min(1.0, (rate - limit) / span))
 
-    def _calibration_rates(self, c, window: int = CALIBRATION_WINDOW) -> "tuple":
+    def _calibration_rates(self, c, reader_id: int = 1,
+                           window: int = CALIBRATION_WINDOW) -> "tuple":
         """(overconfident, underconfident) rates, each over its own population.
 
         Overconfidence is the fraction of recent *confident* answers that were
@@ -1346,8 +1576,8 @@ class LearnerStore:
         measurement's clothes.
         """
         rows = c.execute(
-            "SELECT payload FROM events WHERE kind='calibration' "
-            "ORDER BY at DESC LIMIT ?", (window,)).fetchall()
+            "SELECT payload FROM events WHERE reader_id=? AND kind='calibration' "
+            "ORDER BY at DESC LIMIT ?", (reader_id, window)).fetchall()
         over = under = confident = hesitant = sample = 0
         for r in rows:
             try:
@@ -1373,32 +1603,37 @@ class LearnerStore:
         return (over / confident if confident else 0.0,
                 under / hesitant if hesitant else 0.0)
 
-    def _overconfidence_rate(self, c, window: int = CALIBRATION_WINDOW) -> float:
+    def _overconfidence_rate(self, c, reader_id: int = 1,
+                             window: int = CALIBRATION_WINDOW) -> float:
         """Fraction of recent confident quiz answers that were wrong."""
-        return self._calibration_rates(c, window)[0]
+        return self._calibration_rates(c, reader_id, window)[0]
 
-    def _underconfidence_rate(self, c, window: int = CALIBRATION_WINDOW) -> float:
+    def _underconfidence_rate(self, c, reader_id: int = 1,
+                              window: int = CALIBRATION_WINDOW) -> float:
         """Fraction of recent hesitant quiz answers that were nonetheless right."""
-        return self._calibration_rates(c, window)[1]
+        return self._calibration_rates(c, reader_id, window)[1]
 
-    def overconfidence_rate(self, window: int = CALIBRATION_WINDOW) -> float:
+    def overconfidence_rate(self, window: int = CALIBRATION_WINDOW,
+                            reader_id: int = 1) -> float:
         """Public wrapper for the reader's recent overconfidence rate."""
         with _lock, self._conn() as c:
-            return self._overconfidence_rate(c, window)
+            return self._overconfidence_rate(c, reader_id, window)
 
-    def underconfidence_rate(self, window: int = CALIBRATION_WINDOW) -> float:
+    def underconfidence_rate(self, window: int = CALIBRATION_WINDOW,
+                             reader_id: int = 1) -> float:
         """Public wrapper for the reader's recent underconfidence rate."""
         with _lock, self._conn() as c:
-            return self._underconfidence_rate(c, window)
+            return self._underconfidence_rate(c, reader_id, window)
 
-    def _review_xp_today(self, c) -> int:
+    def _review_xp_today(self, c, reader_id: int = 1) -> int:
         """XP already paid for reviews since local midnight."""
         start = _local_midnight(time.time())
         row = c.execute("SELECT COALESCE(SUM(xp), 0) FROM events "
-                        "WHERE kind='review' AND at>=?", (start,)).fetchone()
+                        "WHERE reader_id=? AND kind='review' AND at>=?",
+                        (reader_id, start)).fetchone()
         return int(row[0] or 0)
 
-    def _apply_review_mastery(self, c, node_id: str, card, quality: int,
+    def _apply_review_mastery(self, c, reader_id: int, node_id: str, card, quality: int,
                               now: float, min_gap: float):
         """Apply one card's evidence to mastery with optimistic retry.
 
@@ -1409,7 +1644,8 @@ class LearnerStore:
         """
         while True:
             mastery = c.execute(
-                "SELECT * FROM mastery WHERE node_id=?", (node_id,)).fetchone()
+                "SELECT * FROM mastery WHERE reader_id=? AND node_id=?",
+                (reader_id, node_id)).fetchone()
             if mastery is None:
                 return
 
@@ -1441,13 +1677,13 @@ class LearnerStore:
                 # not become a different kind of learner at a hard cliff
                 # (Dunning & Kruger 1999; Koriat & Bjork 2005).
                 discount = self._miscalibration(
-                    self._overconfidence_rate(c), self.OVERCONFIDENCE_LIMIT)
+                    self._overconfidence_rate(c, reader_id), self.OVERCONFIDENCE_LIMIT)
                 target = 1.0 - discount * (1.0 - self.OVERCONFIDENT_RESTORE_CAP)
                 # One easy card cannot carry a whole node while sibling cards
                 # are lapsed or overdue. Deck health scales the restore to the
                 # actual state of all cards attached to the node.
                 strength = max(
-                    strength, target * self._deck_health(c, node_id, now))
+                    strength, target * self._deck_health(c, reader_id, node_id, now))
                 touch_clock = True
 
                 # Only a spaced and credible success extends half-life. Paying
@@ -1472,7 +1708,7 @@ class LearnerStore:
                 # the same graded ramp without buying reinforcements (Bjork;
                 # Roediger & Karpicke 2006; Koriat, Sheffer & Ma'ayan 2002).
                 credit = self._miscalibration(
-                    self._underconfidence_rate(c), self.UNDERCONFIDENCE_LIMIT)
+                    self._underconfidence_rate(c, reader_id), self.UNDERCONFIDENCE_LIMIT)
                 floor = 0.5 + credit * (self.UNDERCONFIDENT_Q3_FLOOR - 0.5)
                 strength = max(strength, floor)
                 touch_clock = True
@@ -1503,20 +1739,28 @@ class LearnerStore:
             desired = tuple(state[name] for name in self._MASTERY_STATE_COLUMNS)
             previous = tuple(mastery[name] for name in self._MASTERY_STATE_COLUMNS)
             if desired == previous or self._cas_mastery(
-                    c, node_id, mastery, desired):
+                    c, reader_id, node_id, mastery, desired):
                 return
 
     def review_card(self, card_id: int, quality: int,
-                    seconds: Optional[float] = None) -> Dict:
+                    seconds: Optional[float] = None,
+                    reader_id: int = 1) -> Dict:
         """SM-2. quality: 0 (blank) .. 5 (perfect). A lapse also lowers the
         related node's strength and can flag it for refresh."""
         now = time.time()
         quality = max(0, min(5, quality))
         with _lock, self._conn() as c:
-            row = c.execute("SELECT * FROM srs_cards WHERE id=?", (card_id,)).fetchone()
+            # Scoped by reader as well as id: srs_cards.id is a plain
+            # autoincrement, not unique per reader, so without this a reader
+            # who knew or guessed another reader's card id could grade and
+            # mutate their card. A mismatch reads as "no such card" rather
+            # than a 403 — the row genuinely does not exist for this reader.
+            row = c.execute("SELECT * FROM srs_cards WHERE id=? AND reader_id=?",
+                            (card_id, reader_id)).fetchone()
             if not row:
                 return {"error": "no such card"}
-            prof_row = c.execute("SELECT age FROM profile WHERE id=1").fetchone()
+            prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
+                                 (reader_id,)).fetchone()
             age = prof_row["age"] if prof_row else None
             min_gap = _reinforce_min_gap(age)
             first_step, second_step = _sm2_first_steps(age)
@@ -1592,42 +1836,47 @@ class LearnerStore:
             due = now + max(interval, 10 / 1440) * DAY
             c.execute(
                 "UPDATE srs_cards SET ef=?, interval=?, reps=?, lapses=?, reviews=?, due=? "
-                "WHERE id=?",
-                (ef, interval, reps, lapses, reviews, due, card_id),
+                "WHERE id=? AND reader_id=?",
+                (ef, interval, reps, lapses, reviews, due, card_id, reader_id),
             )
             # Feed the outcome back to node mastery strength — the deck is the
             # memory, so repeated lapses can un-master a node entirely.
             node_id = row["node_id"]
             if node_id:
-                self._apply_review_mastery(c, node_id, row, quality, now, min_gap)
+                self._apply_review_mastery(c, reader_id, node_id, row, quality, now, min_gap)
             # Only successful retrieval pays — a blank is practice, not progress.
             if lapses >= 6 and quality < 3:
                 # A card failed this often is badly formed or too hard: park it
                 # for a week rather than grinding the reader on it daily.
                 due = now + 7 * DAY
-                c.execute("UPDATE srs_cards SET due=? WHERE id=?", (due, card_id))
+                c.execute("UPDATE srs_cards SET due=? WHERE id=? AND reader_id=?",
+                          (due, card_id, reader_id))
                 log.info("leech card %s parked after %d lapses", card_id, lapses)
             xp = 5 if quality >= 4 else (3 if quality >= 3 else 0)
             # A day's reviewing is worth a day's credit. The due check stops one
             # card being drilled all afternoon, but not two hundred cards being
             # written and graded in a sitting — which paid 1,000 XP for nothing.
             # Streaks and levels are built on this number, so it needs a ceiling.
-            room = max(0, self.REVIEW_XP_DAILY_CAP - self._review_xp_today(c))
+            room = max(0, self.REVIEW_XP_DAILY_CAP - self._review_xp_today(c, reader_id))
             xp = min(xp, room)
             payload = {"card": card_id, "q": quality}
             per = _per_item_seconds(seconds, 1)
             if per is not None:
                 payload["per_item"] = per
-            c.execute("INSERT INTO events(kind, payload, at, xp) VALUES('review',?,?,?)",
-                      (json.dumps(payload), now, xp))
+            c.execute(
+                "INSERT INTO events(kind, payload, at, xp, reader_id) "
+                "VALUES('review',?,?,?,?)",
+                (json.dumps(payload), now, xp, reader_id))
         return {"id": card_id, "next_days": round(max((due - now) / DAY, 0.01), 2),
                 "xp_gained": xp, "lapses": lapses}
 
-    def deck_stats(self) -> Dict:
+    def deck_stats(self, reader_id: int = 1) -> Dict:
         now = time.time()
         with _lock, self._conn() as c:
-            total = c.execute("SELECT COUNT(*) FROM srs_cards").fetchone()[0]
-            due = c.execute("SELECT COUNT(*) FROM srs_cards WHERE due <= ?", (now,)).fetchone()[0]
+            total = c.execute("SELECT COUNT(*) FROM srs_cards WHERE reader_id=?",
+                              (reader_id,)).fetchone()[0]
+            due = c.execute("SELECT COUNT(*) FROM srs_cards WHERE reader_id=? AND due <= ?",
+                            (reader_id, now)).fetchone()[0]
             # Deck shape, for anything that has to price *maintenance* rather
             # than count today's queue — pacing.roadmap() reads these to turn
             # its flat per-node review estimate into this reader's own. Kept
@@ -1641,11 +1890,13 @@ class LearnerStore:
                 "SELECT COALESCE(SUM(MAX(COALESCE(reviews,0), "
                 "                       COALESCE(reps,0) + COALESCE(lapses,0))), 0), "
                 "COALESCE(SUM(lapses),0), "
-                "COUNT(DISTINCT node_id) FROM srs_cards WHERE node_id IS NOT NULL"
+                "COUNT(DISTINCT node_id) FROM srs_cards "
+                "WHERE reader_id=? AND node_id IS NOT NULL", (reader_id,)
             ).fetchone()
             graded, lapses, nodes = int(agg[0]), int(agg[1]), int(agg[2])
             with_node = c.execute(
-                "SELECT COUNT(*) FROM srs_cards WHERE node_id IS NOT NULL").fetchone()[0]
+                "SELECT COUNT(*) FROM srs_cards WHERE reader_id=? AND node_id IS NOT NULL",
+                (reader_id,)).fetchone()[0]
             # A day needs a tomorrow. `next_due` is the next moment the deck
             # has anything to say (None when nothing at all is scheduled
             # ahead — an answer in its own right, not a zero); `due_tomorrow`
@@ -1654,10 +1905,11 @@ class LearnerStore:
             # reader will actually meet when they open the book. Both are
             # served by idx_cards_due.
             next_due = c.execute(
-                "SELECT MIN(due) FROM srs_cards WHERE due > ?", (now,)).fetchone()[0]
+                "SELECT MIN(due) FROM srs_cards WHERE reader_id=? AND due > ?",
+                (reader_id, now)).fetchone()[0]
             due_tomorrow = c.execute(
-                "SELECT COUNT(*) FROM srs_cards WHERE due <= ?",
-                (_end_of_tomorrow(now),)).fetchone()[0]
+                "SELECT COUNT(*) FROM srs_cards WHERE reader_id=? AND due <= ?",
+                (reader_id, _end_of_tomorrow(now))).fetchone()[0]
         # A lapse resets a card to the bottom of the ladder, so it is the unit
         # of *extra* review cost. The denominator is every graded review ever
         # taken, which makes this the observed failure rate of the deck, not a
@@ -1678,14 +1930,15 @@ class LearnerStore:
                 "lapse_rate": (lapses / graded) if graded else 0.0,
                 "next_due": next_due, "due_tomorrow": int(due_tomorrow)}
 
-    def nodes_needing_refresh(self, limit: int = 8) -> List[str]:
+    def nodes_needing_refresh(self, limit: int = 8, reader_id: int = 1) -> List[str]:
         """Mastered nodes whose strength has decayed or that have a due card —
         the deck telling us what to reinforce."""
         now = time.time()
         with _lock, self._conn() as c:
             rows = c.execute(
                 """SELECT node_id, strength, last_seen, reinforcements, assumed, passes
-                   FROM mastery WHERE mastered_at IS NOT NULL""").fetchall()
+                   FROM mastery WHERE reader_id=? AND mastered_at IS NOT NULL""",
+                (reader_id,)).fetchall()
         out = []
         for r in rows:
             s = self._standing_strength(r, now)
@@ -1698,13 +1951,14 @@ class LearnerStore:
 
     READ_XP_DAILY_CAP = 30    # ~10 distinct articles' worth; a real day's reading
 
-    def _read_xp_today(self, c) -> int:
+    def _read_xp_today(self, c, reader_id: int = 1) -> int:
         start = _local_midnight(time.time())
         row = c.execute("SELECT COALESCE(SUM(xp), 0) FROM events "
-                        "WHERE kind='read' AND at>=?", (start,)).fetchone()
+                        "WHERE reader_id=? AND kind='read' AND at>=?",
+                        (reader_id, start)).fetchone()
         return int(row[0] or 0)
 
-    def log_reading(self, title: str, seconds: float = 0):
+    def log_reading(self, title: str, seconds: float = 0, reader_id: int = 1):
         """Log an article open. Pays at most one channel's worth of XP a day.
 
         "Only the first open of a title pays" assumed a small library. The
@@ -1718,36 +1972,44 @@ class LearnerStore:
         now = time.time()
         with _lock, self._conn() as c:
             first_ever = c.execute(
-                "SELECT 1 FROM reading_log WHERE title=? LIMIT 1", (title,)).fetchone() is None
-            c.execute("INSERT INTO reading_log(title, opened_at, seconds) VALUES(?,?,?)",
-                      (title, now, seconds))
-            room = max(0, self.READ_XP_DAILY_CAP - self._read_xp_today(c))
+                "SELECT 1 FROM reading_log WHERE reader_id=? AND title=? LIMIT 1",
+                (reader_id, title)).fetchone() is None
+            c.execute(
+                "INSERT INTO reading_log(reader_id, title, opened_at, seconds) VALUES(?,?,?,?)",
+                (reader_id, title, now, seconds))
+            room = max(0, self.READ_XP_DAILY_CAP - self._read_xp_today(c, reader_id))
             xp = min(3, room) if first_ever else 0
-            c.execute("INSERT INTO events(kind, payload, at, xp) VALUES('read',?,?,?)",
-                      (json.dumps({"title": title}), now, xp))
+            c.execute(
+                "INSERT INTO events(kind, payload, at, xp, reader_id) VALUES('read',?,?,?,?)",
+                (json.dumps({"title": title}), now, xp, reader_id))
 
-    def reading_stats(self) -> Dict:
+    def reading_stats(self, reader_id: int = 1) -> Dict:
         with _lock, self._conn() as c:
-            n = c.execute("SELECT COUNT(DISTINCT title) FROM reading_log").fetchone()[0]
+            n = c.execute("SELECT COUNT(DISTINCT title) FROM reading_log WHERE reader_id=?",
+                          (reader_id,)).fetchone()[0]
             recent = c.execute(
-                "SELECT title, MAX(opened_at) m FROM reading_log GROUP BY title ORDER BY m DESC LIMIT 12"
+                "SELECT title, MAX(opened_at) m FROM reading_log WHERE reader_id=? "
+                "GROUP BY title ORDER BY m DESC LIMIT 12", (reader_id,)
             ).fetchall()
         return {"articles_read": n, "recent": [r["title"] for r in recent]}
 
     @staticmethod
-    def _total_xp(c) -> int:
+    def _total_xp(c, reader_id: int = 1) -> int:
         """Lifetime XP, read through a connection the caller already holds."""
-        row = c.execute("SELECT COALESCE(SUM(xp),0) FROM events").fetchone()
+        row = c.execute("SELECT COALESCE(SUM(xp),0) FROM events WHERE reader_id=?",
+                        (reader_id,)).fetchone()
         return int(row[0] or 0)
 
-    def total_xp(self) -> int:
+    def total_xp(self, reader_id: int = 1) -> int:
         with _lock, self._conn() as c:
-            return self._total_xp(c)
+            return self._total_xp(c, reader_id)
 
-    def xp_today(self) -> int:
+    def xp_today(self, reader_id: int = 1) -> int:
         start = _local_midnight(time.time())
         with _lock, self._conn() as c:
-            row = c.execute("SELECT COALESCE(SUM(xp),0) FROM events WHERE at>=?", (start,)).fetchone()
+            row = c.execute(
+                "SELECT COALESCE(SUM(xp),0) FROM events WHERE reader_id=? AND at>=?",
+                (reader_id, start)).fetchone()
         return int(row[0] or 0)
 
     def _bridged_run_ending_at(self, days: List[int], anchor: int) -> tuple:
@@ -1772,7 +2034,7 @@ class LearnerStore:
         """
         return _bridged_run_ending_at(days, anchor)
 
-    def _streak_walk(self) -> tuple:
+    def _streak_walk(self, reader_id: int = 1) -> tuple:
         """Every streak-related number the app shows, from one shared
         source of truth: (current_streak, freezes_left_now, best_streak_ever).
 
@@ -1799,11 +2061,11 @@ class LearnerStore:
         active day in the reader's history and keeps the longest.
         """
         with _lock, self._conn() as c:
-            rows = self._streak_day_rows(c)
+            rows = self._streak_day_rows(c, reader_id)
         return _streak_walk_from_rows(rows, _local_day(time.time()))
 
     @staticmethod
-    def _streak_day_rows(c) -> tuple:
+    def _streak_day_rows(c, reader_id: int = 1) -> tuple:
         """The reader's distinct active local days, oldest first.
 
         Split out from `_streak_walk` so a caller that already holds a
@@ -1816,9 +2078,9 @@ class LearnerStore:
         """
         return tuple(r["d"] for r in c.execute(
             "SELECT DISTINCT date(at, 'unixepoch', 'localtime') d "
-            "FROM events ORDER BY d ASC").fetchall())
+            "FROM events WHERE reader_id=? ORDER BY d ASC", (reader_id,)).fetchall())
 
-    def streak_days(self) -> int:
+    def streak_days(self, reader_id: int = 1) -> int:
         """Consecutive local days with activity, bridging missed days against
         a freeze budget that renews over time (see STREAK_FREEZE_RENEW_DAYS)
         so one missed day doesn't wipe the streak.
@@ -1831,9 +2093,9 @@ class LearnerStore:
         read as streak 38 in a DST-free window and streak 2 across the US
         fall-back, because the day that transition falls on is 25 hours long.
         """
-        return self._streak_walk()[0]
+        return self._streak_walk(reader_id)[0]
 
-    def best_streak_days(self) -> int:
+    def best_streak_days(self, reader_id: int = 1) -> int:
         """The longest run the reader has ever put together, past or present.
 
         `prune()` keeps one row per calendar day forever specifically so this
@@ -1843,17 +2105,17 @@ class LearnerStore:
         from the same walk as streak_days() and freezes_left(), so a past
         streak is graded by exactly the rule today's is.
         """
-        return self._streak_walk()[2]
+        return self._streak_walk(reader_id)[2]
 
-    def streak_milestone(self) -> Optional[int]:
+    def streak_milestone(self, reader_id: int = 1) -> Optional[int]:
         """Return a milestone (3/7/30/100/365) if today's activity just reached
         one, so the book can celebrate it exactly once."""
-        streak = self.streak_days()
-        if streak in (3, 7, 30, 100, 365) and self.active_today():
+        streak = self.streak_days(reader_id)
+        if streak in (3, 7, 30, 100, 365) and self.active_today(reader_id):
             return streak
         return None
 
-    def freezes_left(self) -> int:
+    def freezes_left(self, reader_id: int = 1) -> int:
         """How many single-day gaps are currently available to spend.
 
         Shares its walk with streak_days() and best_streak_days() via
@@ -1862,14 +2124,16 @@ class LearnerStore:
         means they can no longer disagree about where "today" starts, how a
         gap gets bridged, or how long a spent freeze stays spent.
         """
-        return self._streak_walk()[1]
+        return self._streak_walk(reader_id)[1]
 
-    def active_today(self) -> bool:
+    def active_today(self, reader_id: int = 1) -> bool:
         start = _local_midnight(time.time())
         with _lock, self._conn() as c:
-            return c.execute("SELECT 1 FROM events WHERE at>=? LIMIT 1", (start,)).fetchone() is not None
+            return c.execute(
+                "SELECT 1 FROM events WHERE reader_id=? AND at>=? LIMIT 1",
+                (reader_id, start)).fetchone() is not None
 
-    def journal(self, limit: int = 40) -> List[Dict]:
+    def journal(self, limit: int = 40, reader_id: int = 1) -> List[Dict]:
         """A timeline of masteries, chapters, and stage ascensions for the
         'your journey' view — built from data we already keep.
 
@@ -1881,12 +2145,14 @@ class LearnerStore:
         with _lock, self._conn() as c:
             mast = c.execute(
                 "SELECT node_id, COALESCE(first_mastered_at, mastered_at) AS at "
-                "FROM mastery WHERE COALESCE(first_mastered_at, mastered_at) IS NOT NULL "
+                "FROM mastery WHERE reader_id=? "
+                "AND COALESCE(first_mastered_at, mastered_at) IS NOT NULL "
                 "AND assumed=0 ORDER BY at DESC LIMIT ?",
-                (limit,)).fetchall()
+                (reader_id, limit)).fetchall()
             asc = c.execute(
-                "SELECT kind, payload, at FROM events WHERE kind IN ('ascension','chapter') "
-                "ORDER BY at DESC LIMIT ?", (limit,)).fetchall()
+                "SELECT kind, payload, at FROM events "
+                "WHERE reader_id=? AND kind IN ('ascension','chapter') "
+                "ORDER BY at DESC LIMIT ?", (reader_id, limit)).fetchall()
         items = [{"kind": "mastered", "node_id": r["node_id"], "at": r["at"]} for r in mast]
         for r in asc:
             try:
@@ -1904,7 +2170,7 @@ class LearnerStore:
     PACE_MIN_SAMPLES = 6
     PACE_WINDOW = 60
 
-    def pace(self, kind: str) -> Optional[float]:
+    def pace(self, kind: str, reader_id: int = 1) -> Optional[float]:
         """Median seconds per item for this reader on `kind`, or None.
 
         None means "not measured yet" and callers must say so rather than
@@ -1914,8 +2180,8 @@ class LearnerStore:
         """
         with self._conn() as c:
             rows = c.execute(
-                "SELECT payload FROM events WHERE kind=? ORDER BY at DESC LIMIT ?",
-                (kind, self.PACE_WINDOW),
+                "SELECT payload FROM events WHERE reader_id=? AND kind=? ORDER BY at DESC LIMIT ?",
+                (reader_id, kind, self.PACE_WINDOW),
             ).fetchall()
         vals = []
         for r in rows:
@@ -1931,41 +2197,45 @@ class LearnerStore:
         mid = len(vals) // 2
         return vals[mid] if len(vals) % 2 else (vals[mid - 1] + vals[mid]) / 2
 
-    def log_event(self, kind: str, payload: Dict, xp: int = 0):
+    def log_event(self, kind: str, payload: Dict, xp: int = 0, reader_id: int = 1):
         with _lock, self._conn() as c:
-            c.execute("INSERT INTO events(kind, payload, at, xp) VALUES(?,?,?,?)",
-                      (kind, json.dumps(payload), time.time(), xp))
+            c.execute(
+                "INSERT INTO events(kind, payload, at, xp, reader_id) VALUES(?,?,?,?,?)",
+                (kind, json.dumps(payload), time.time(), xp, reader_id))
 
     # ---------- placement ----------
 
     PLACEMENT_COOLING = 7 * DAY  # a settled placement can be re-measured after this
 
-    def placement_state(self) -> Dict[str, Dict]:
+    def placement_state(self, reader_id: int = 1) -> Dict[str, Dict]:
         with _lock, self._conn() as c:
-            rows = c.execute("SELECT * FROM placement").fetchall()
+            rows = c.execute("SELECT * FROM placement WHERE reader_id=?",
+                             (reader_id,)).fetchall()
         return {r["domain"]: {"stage": r["stage"], "asked": json.loads(r["asked"]),
                               "done": bool(r["done"]),
                               "settled_at": r["settled_at"]} for r in rows}
 
-    def placement_update(self, domain: str, stage: int, asked: List[str], done: bool):
+    def placement_update(self, domain: str, stage: int, asked: List[str], done: bool,
+                         reader_id: int = 1):
         now = time.time()
         with _lock, self._conn() as c:
             # settled_at records when the domain settled, so re-measurement can
             # apply a cooling period; it is kept across further done writes and
             # cleared if the domain is somehow marked unsettled again.
             c.execute(
-                """INSERT INTO placement(domain, stage, asked, done, settled_at)
-                   VALUES(?,?,?,?,?)
-                   ON CONFLICT(domain) DO UPDATE SET stage=?, asked=?, done=?,
+                """INSERT INTO placement(reader_id, domain, stage, asked, done, settled_at)
+                   VALUES(?,?,?,?,?,?)
+                   ON CONFLICT(reader_id, domain) DO UPDATE SET stage=?, asked=?, done=?,
                      settled_at=CASE WHEN ?
                                      THEN COALESCE(placement.settled_at, ?)
                                      ELSE NULL END""",
-                (domain, stage, json.dumps(asked), int(done),
+                (reader_id, domain, stage, json.dumps(asked), int(done),
                  now if done else None,
                  stage, json.dumps(asked), int(done), int(done), now),
             )
 
-    def reopen_placement(self, domain: str, cooling_days: float = 7.0) -> bool:
+    def reopen_placement(self, domain: str, cooling_days: float = 7.0,
+                         reader_id: int = 1) -> bool:
         """Re-open a settled placement for re-measurement after a cooling period.
 
         A placement check is one sitting on one day — a noisy measurement —
@@ -1984,16 +2254,18 @@ class LearnerStore:
         """
         now = time.time()
         with _lock, self._conn() as c:
-            r = c.execute("SELECT done, settled_at FROM placement WHERE domain=?",
-                          (domain,)).fetchone()
+            r = c.execute(
+                "SELECT done, settled_at FROM placement WHERE reader_id=? AND domain=?",
+                (reader_id, domain)).fetchone()
             if not r or not r["done"]:
                 return False
             # Rows settled before settled_at existed have no timestamp; they
             # are by definition old enough, so treat them as past cooling.
             if r["settled_at"] and (now - r["settled_at"]) < cooling_days * DAY:
                 return False
-            c.execute("UPDATE placement SET done=0, settled_at=NULL WHERE domain=?",
-                      (domain,))
+            c.execute(
+                "UPDATE placement SET done=0, settled_at=NULL WHERE reader_id=? AND domain=?",
+                (reader_id, domain))
             return True
 
     # ---------- maintenance ----------
@@ -2039,7 +2311,96 @@ class LearnerStore:
                 pass
         return dest
 
-    def events_today(self, kind: str) -> bool:
+    # ---------------- readers & sessions (Google identity) ----------------
+
+    def upsert_google_reader(self, google_sub: str, email: str, name: str) -> int:
+        """Find or create the reader row for this Google identity.
+
+        Keyed on `google_sub`, Google's stable subject id — never on email,
+        which can change or be reused by a different person. Insert-first,
+        not select-then-branch: two callback requests for the same brand-new
+        identity (a double-click, a retried request) would otherwise both see
+        no existing row and both try to create one, and only one can win the
+        UNIQUE constraint. Losing that race is not an error here — it just
+        means the row now exists, so the fall-through UPDATE finds it.
+        """
+        now = time.time()
+        with _lock, self._conn() as c:
+            try:
+                c.execute(
+                    "INSERT INTO readers(google_sub, email, name, created_at) "
+                    "VALUES (?,?,?,?)", (google_sub, email, name, now))
+            except sqlite3.IntegrityError:
+                c.execute("UPDATE readers SET email=?, name=? WHERE google_sub=?",
+                         (email, name, google_sub))
+            row = c.execute("SELECT id FROM readers WHERE google_sub=?",
+                            (google_sub,)).fetchone()
+        return int(row[0])
+
+    def get_reader(self, reader_id: int) -> Optional[Dict]:
+        with self._conn() as c:
+            row = c.execute(
+                "SELECT id, google_sub, email, name, created_at FROM readers "
+                "WHERE id=?", (reader_id,)).fetchone()
+        if row is None:
+            return None
+        return {"id": row[0], "google_sub": row[1], "email": row[2],
+                "name": row[3], "created_at": row[4]}
+
+    def claim_legacy_reader(self, reader_id: int, google_sub: str, email: str,
+                            name: str) -> bool:
+        """Move a Google identity onto reader_id=1, the one profile every
+        database had before this feature existed — one time, one direction.
+
+        `reader_id` is the caller's own (already-authenticated) reader id, the
+        empty row their Google sign-in was given by default. False means
+        reader_id=1 was already claimed — by this identity or another — and
+        nothing changed. The identity's placeholder row is freed of its
+        google_sub *before* reader_id=1 claims it, so the UNIQUE constraint on
+        google_sub never has to hold the same value on two rows at once; if a
+        crash lands between the two statements, the identity is briefly
+        homeless (both rows google_sub=NULL) but the caller's live session
+        still resolves via its own reader_id, and simply retrying the claim —
+        which re-checks reader_id=1 is still unclaimed — completes it.
+        """
+        with _lock, self._conn() as c:
+            row = c.execute("SELECT google_sub FROM readers WHERE id=1").fetchone()
+            if row is None or row[0] is not None or reader_id == 1:
+                return False
+            c.execute("UPDATE readers SET google_sub=NULL WHERE id=?", (reader_id,))
+            changed = c.execute(
+                "UPDATE readers SET google_sub=?, email=?, name=? "
+                "WHERE id=1 AND google_sub IS NULL",
+                (google_sub, email, name)).rowcount
+        return changed == 1
+
+    def create_session(self, reader_id: int, ttl: float = 60 * 60 * 24 * 180) -> str:
+        """A new session token for this reader, persisted so sign-out — a real
+        DELETE — can end it. The stateless HMAC cookie the password gate uses
+        has no such handle: there is nothing to delete, only a secret to
+        rotate, which is the outer gate's job, not this inner one's."""
+        token = secrets.token_urlsafe(24)
+        now = time.time()
+        with _lock, self._conn() as c:
+            c.execute(
+                "INSERT INTO sessions(token, reader_id, created_at, expires_at) "
+                "VALUES (?,?,?,?)", (token, reader_id, now, now + ttl))
+        return token
+
+    def reader_for_session(self, token: str) -> Optional[int]:
+        if not token:
+            return None
+        with self._conn() as c:
+            row = c.execute(
+                "SELECT reader_id FROM sessions WHERE token=? AND expires_at > ?",
+                (token, time.time())).fetchone()
+        return int(row[0]) if row else None
+
+    def delete_session(self, token: str):
+        with _lock, self._conn() as c:
+            c.execute("DELETE FROM sessions WHERE token=?", (token,))
+
+    def events_today(self, kind: str, reader_id: int = 1) -> bool:
         """Has an event of this kind been logged since local midnight?
 
         The server asked this by reaching through _conn() into the events
@@ -2048,12 +2409,12 @@ class LearnerStore:
         """
         with self._conn() as c:
             row = c.execute(
-                "SELECT 1 FROM events WHERE kind=? AND at>=? LIMIT 1",
-                (kind, _local_midnight(time.time())),
+                "SELECT 1 FROM events WHERE reader_id=? AND kind=? AND at>=? LIMIT 1",
+                (reader_id, kind, _local_midnight(time.time())),
             ).fetchone()
         return row is not None
 
-    def events_today_count(self, kind: str) -> int:
+    def events_today_count(self, kind: str, reader_id: int = 1) -> int:
         """How many events of this kind since local midnight.
 
         `events_today` answers yes/no, and a yes/no is exactly why one graded
@@ -2064,12 +2425,12 @@ class LearnerStore:
         """
         with self._conn() as c:
             row = c.execute(
-                "SELECT COUNT(*) FROM events WHERE kind=? AND at>=?",
-                (kind, _local_midnight(time.time())),
+                "SELECT COUNT(*) FROM events WHERE reader_id=? AND kind=? AND at>=?",
+                (reader_id, kind, _local_midnight(time.time())),
             ).fetchone()
         return int(row[0] or 0)
 
-    def last_active_before_today(self) -> Optional[float]:
+    def last_active_before_today(self, reader_id: int = 1) -> Optional[float]:
         """When the reader was last here before today began, or None.
 
         None is a real answer with its own meaning — a reader whose entire
@@ -2086,8 +2447,9 @@ class LearnerStore:
         measures an absence in whole local days, which that cannot move.
         """
         with _lock, self._conn() as c:
-            row = c.execute("SELECT MAX(at) FROM events WHERE at < ?",
-                            (_local_midnight(time.time()),)).fetchone()
+            row = c.execute(
+                "SELECT MAX(at) FROM events WHERE reader_id=? AND at < ?",
+                (reader_id, _local_midnight(time.time()))).fetchone()
         return row[0] if row and row[0] is not None else None
 
     def prune(self, keep_days: int = 400):

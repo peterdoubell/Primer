@@ -4,6 +4,7 @@ import io
 import json
 
 import pytest
+from starlette.requests import Request
 
 import primer.render as render
 import primer.wiki as wiki
@@ -138,7 +139,7 @@ def test_tutor_reflection_is_an_explicit_json_response(monkeypatch):
 
     class Learner:
         @staticmethod
-        def get_profile():
+        def get_profile(reader_id=1):
             return {"stage": 2, "settings": {}}
 
     monkeypatch.setattr(server, "learner", Learner())
@@ -152,7 +153,7 @@ def test_tutor_reflection_is_an_explicit_json_response(monkeypatch):
         messages=[{"role": "user", "content": attack}],
         title=attack,
         excerpt=attack,
-    ))
+    ), Request(scope={"type": "http", "headers": []}))
 
     assert response.media_type == "application/json"
     assert json.loads(response.body)["reply"] == attack

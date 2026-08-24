@@ -99,6 +99,7 @@ class Curriculum:
 
     def load(self):
         self.domains, self.nodes, self._by_domain_stage = [], {}, {}
+        self._domain_by_article: Dict[str, str] = {}
         raw_nodes: List[Dict] = []
         for name in sorted(os.listdir(CURRICULUM_DIR)):
             if not name.endswith(".json"):
@@ -174,6 +175,13 @@ class Curriculum:
             self.nodes[node["id"]] = node
             self._by_domain_stage.setdefault(node["domain"], {}).setdefault(
                 node["stage"], []).append(node)
+            # First node to claim an article, in book order, decides which
+            # domain that article's reading level is judged by. An article
+            # can be linked from more than one node — occasionally across
+            # domains — and ties have to resolve somehow rather than
+            # silently taking whichever loaded last.
+            for title in node.get("articles") or []:
+                self._domain_by_article.setdefault(title, node["domain"])
 
         # Titles are unique within a domain but not across the graph —
         # math.3.functions and cs.2.functions are both just "Functions".
@@ -192,6 +200,11 @@ class Curriculum:
 
     def node(self, node_id: str) -> Optional[Dict]:
         return self.nodes.get(node_id)
+
+    def domain_for_article(self, title: str) -> Optional[str]:
+        """Which domain's reading level should judge this article, if any
+        curriculum node actually links it — see load()'s index."""
+        return self._domain_by_article.get(title)
 
     def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float]) -> bool:
         if stage == 0:
