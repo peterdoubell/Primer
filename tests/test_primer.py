@@ -2676,7 +2676,7 @@ def test_massed_attempts_on_one_node_do_not_compound_reinforcement(store):
     reinforcements and pinned the half-life at its ceiling immediately."""
     with store._conn() as c:
         for _ in range(20):
-            store._apply_attempt(c, "n", 1.0, False, time.time())
+            store._apply_attempt(c, 1, "n", 1.0, False, time.time())
     with store._conn() as c:
         r = c.execute("SELECT reinforcements FROM mastery WHERE node_id='n'").fetchone()[0]
     assert r <= 2, "20 same-instant passing attempts bought {} reinforcements".format(r)
@@ -2945,19 +2945,19 @@ def test_reinforcement_gap_scales_with_reader_age(store):
     blocking same-sitting massed reinforcement."""
     store.save_profile("Young", 5, 6, "balanced", 0, ["math"])
     with store._conn() as c:
-        store._apply_attempt(c, "n", 1.0, False, time.time())
+        store._apply_attempt(c, 1, "n", 1.0, False, time.time())
     with store._conn() as c:
         before = c.execute("SELECT reinforcements FROM mastery WHERE node_id='n'").fetchone()[0]
         c.execute("UPDATE mastery SET reinforced_at = reinforced_at - 14400 "
                   "WHERE node_id='n'")  # 4 hours ago: past a 5-year-old's 3h gap
-        store._apply_attempt(c, "n", 1.0, False, time.time())
+        store._apply_attempt(c, 1, "n", 1.0, False, time.time())
         after_spaced = c.execute(
             "SELECT reinforcements FROM mastery WHERE node_id='n'").fetchone()[0]
     assert after_spaced == before + 1, \
         "a 4-hour gap should count as spaced for a 5-year-old (3h minimum)"
 
     with store._conn() as c:
-        store._apply_attempt(c, "n", 1.0, False, time.time())
+        store._apply_attempt(c, 1, "n", 1.0, False, time.time())
         after_massed = c.execute(
             "SELECT reinforcements FROM mastery WHERE node_id='n'").fetchone()[0]
     assert after_massed == after_spaced, \
