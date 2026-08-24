@@ -937,6 +937,12 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .qa-head .tag { font-family: var(--sans); font-size: 12px; color: var(--ink-faint); }
 .qa-row { display: grid; grid-template-columns: 1fr auto; gap: 8px 14px; align-items: start;
   padding: 12px 0; border-top: 1px solid var(--rule); }
+/* The filter sets `hidden` on non-matching rows, but the class above already
+   claims `display`, and an author rule beats the UA [hidden] default at equal
+   specificity — so a filtered-out row rendered anyway, full grid layout and
+   all, alongside the one true match the search count reported. Invisible at
+   the panel's original five-module scale; unmissable at sixty-six. */
+.qa-row[hidden] { display: none; }
 .qa-title b { font-size: 16px; }
 .qa-title p { margin: 3px 0 0; font-size: 14px; }
 .qa-acts { display: flex; gap: 8px; align-items: center; }
@@ -945,6 +951,33 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   border-radius: 5px; border: 1px solid var(--rule); color: var(--ink-faint); vertical-align: 2px; }
 .qa-state.mastered { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); }
 .qa-state.available { border-color: var(--gold); color: var(--gold-ink); }
+/* The index furniture: a door out of the lock, a filter, and sections that stay
+   shut until asked for — eighty modules laid flat is a wall, not an index. */
+.qa-open { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 10px 0 14px; border-bottom: 1px solid var(--rule); }
+.qa-open .muted { font-family: var(--sans); font-size: 12px; }
+.qa-search { margin: 14px 0 4px; }
+.qa-count { font-family: var(--sans); font-size: 12px; color: var(--ink-faint);
+  min-height: 16px; margin-bottom: 4px; }
+.qa-section { border-top: 1px solid var(--rule); }
+.qa-section > summary { cursor: pointer; padding: 11px 2px; font-family: var(--sans);
+  font-size: 14px; display: flex; align-items: center; gap: 10px; list-style: none; }
+/* The disclosure triangle, drawn rather than borrowed: the UA marker is a
+   different shape and colour in every browser, on a page that controls both. */
+.qa-section > summary::-webkit-details-marker { display: none; }
+.qa-section > summary::before { content: ""; width: 0; height: 0; flex: none;
+  border-left: 6px solid currentColor; border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent; color: var(--ink-faint);
+  transition: transform 0.15s; }
+.qa-section[open] > summary::before { transform: rotate(90deg); }
+.qa-section > summary:hover { color: var(--link); }
+.qa-section > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.qa-section .qa-n { font-size: 11px; color: var(--ink-faint); border: 1px solid var(--rule);
+  border-radius: 5px; padding: 1px 7px; }
+.qa-section .qa-row:first-of-type { border-top: 1px solid var(--rule); }
+@media (prefers-reduced-motion: reduce) {
+  .qa-section > summary::before { transition: none; }
+}
 @media (max-width: 700px) {
   .qa-row { grid-template-columns: 1fr; }
 }

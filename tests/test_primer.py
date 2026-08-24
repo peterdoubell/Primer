@@ -390,6 +390,28 @@ def test_a_specialist_domain_is_still_reachable(curr):
                 '{} is a way in with nothing to earn it'.format(n['id'])
 
 
+def test_a_reference_field_is_filed_by_section(curr):
+    """Eighty peer modules with no filing is a wall, not a library.
+
+    Stages file the general spine; a specialist field has only one stage, so
+    the section is the only structure its reader gets. Every module in such a
+    field must carry one, and the sections must be few enough to scan.
+    """
+    for d in curr.domains:
+        if d.get('entry_stage', 0) == 0:
+            continue
+        own = [n for n in curr.nodes.values() if n['domain'] == d['id']]
+        missing = [n['id'] for n in own if not n.get('section')]
+        assert not missing, '{} modules with no section: {}'.format(
+            len(missing), missing[:5])
+        # An upper bound only: a reader scans section headings, and twenty is
+        # already a long scan. There is no lower bound to enforce — how many
+        # sections a field needs is a fact about the field, not a rule.
+        sections = {n['section'] for n in own}
+        assert len(sections) <= 20, \
+            '{} has {} sections'.format(d['id'], len(sections))
+
+
 def test_advanced_nodes_have_authored_quizzes(curr):
     advanced = [n for n in curr.nodes.values() if n['stage'] >= 2]
     with_quiz = [n for n in advanced if n.get('quiz')]
