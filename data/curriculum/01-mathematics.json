@@ -580,6 +580,29 @@
    ],
    "practice": "addition",
    "kid_text": "Adding means putting groups together to find how many you have in all. If you have 5 stickers and a friend gives you 3 more, count on: six, seven, eight, so you have 8! You can add in any order, so 3 + 5 also makes 8. A tens trick helps: 8 + 5 is the same as 10 + 3, which is 13.",
+   "lesson_media": [
+    {
+     "id": "make-ten-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/math/math-1-addition-800.webp",
+     "srcset": "/app/illustrations/sprout/math/math-1-addition-800.webp 800w, /app/illustrations/sprout/math/math-1-addition-1600.webp 1600w",
+     "alt": "A ten-frame holds eight blue pebbles and two of five green counters; three green counters remain below.",
+     "caption": "Use 2 from the 5 to complete ten; 3 remain, so 8 + 5 = 13.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "make-a-friendly-ten",
+     "kind": "model",
+     "renderer": "make-ten",
+     "title": "Make a friendly ten",
+     "instructions": "Move counters from one addend to fill the ten-frame. Swap the addends and notice that the total stays the same.",
+     "props": {
+      "first": 8,
+      "second": 5
+     }
+    }
+   ],
    "prereqs": [
     "math.0.counting",
     "math.0.numbers20"
@@ -661,7 +684,7 @@
      "answer": "35",
      "say": "What is twenty-five plus ten? 30, 45, or 35?",
      "speak_choices": true,
-     "explain": "Adding ten just makes the tens digit one bigger, so it is thirty-five."
+     "explain": "Twenty-five is two tens and five ones. One more ten makes three tens and five ones: thirty-five."
     },
     {
      "kind": "choice",

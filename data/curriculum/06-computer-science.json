@@ -349,7 +349,29 @@
     "Algorithm",
     "Flowchart"
    ],
-   "kid_text": "An algorithm is just a recipe: a list of exact steps that anyone can follow to get the same result. To make a sandwich you say get bread, spread jam, put the slices together, in that exact order. If you leave out a step or swap two, your friend ends up with a mess! Good steps are so clear that even someone who has never done it can follow along.",
+   "kid_text": "An algorithm is a clear list of steps for completing a task. Some steps depend on earlier ones: you need bread before you can spread jam, so those steps must stay in an order that works. Other independent steps may swap without changing the result. Good instructions name each action and object clearly enough for the intended follower.",
+   "lesson_media": [
+    {
+     "id": "sandwich-algorithm-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/computer-science/cs-1-algorithms-800.webp",
+     "srcset": "/app/illustrations/sprout/computer-science/cs-1-algorithms-800.webp 800w, /app/illustrations/sprout/computer-science/cs-1-algorithms-1600.webp 1600w",
+     "alt": "Four panels show two bread slices, jam spread on one, the slices joined, and the finished sandwich on a plate.",
+     "caption": "Dependent steps must be included and arranged in an order that works.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "trace-a-sandwich-algorithm",
+     "kind": "model",
+     "renderer": "algorithm-tracer",
+     "title": "Trace a sandwich algorithm",
+     "instructions": "Run all four steps, then leave one out and see which later action can no longer work.",
+     "props": {
+      "scenario": "jam-sandwich"
+     }
+    }
+   ],
    "prereqs": [
     "cs.0.instructions"
    ],
@@ -371,12 +393,12 @@
      "kind": "choice",
      "prompt": "Bread. Jam. Eat. What step is missing?",
      "choices": [
-      "Close it",
+      "Put the slices together",
       "Pour a drink",
       "Wash the plate"
      ],
-     "answer": "Close it",
-     "say": "Here are the steps: get the bread, spread the jam, eat it. One step is missing in the middle. Is it close it, pour a drink, or wash the plate?",
+     "answer": "Put the slices together",
+     "say": "Here are the steps: get the bread, spread the jam, eat it. One step is missing in the middle. Is it put the slices together, pour a drink, or wash the plate?",
      "speak_choices": true,
      "explain": "You need to put the slices together before you eat it."
     },
@@ -395,16 +417,16 @@
     },
     {
      "kind": "choice",
-     "prompt": "Washing hands 💧. Which step is missing?",
+     "prompt": "Wet, soap, scrub and rinse your hands. What comes next?",
      "choices": [
-      "Use soap",
-      "Dry them first",
-      "Sing loud"
+      "Dry them",
+      "Add more dirt",
+      "Put on gloves while wet"
      ],
-     "answer": "Use soap",
-     "say": "The steps are: turn on the tap, then dry your hands. One step is missing in the middle. Is it use soap, dry them first, or sing loud?",
+     "answer": "Dry them",
+     "say": "You wet your hands, use soap, scrub, and rinse. What comes next? Dry them, add more dirt, or put on gloves while they are wet?",
      "speak_choices": true,
-     "explain": "Soap goes in the middle, or your hands stay dirty."
+     "explain": "After wetting, soaping, scrubbing and rinsing, dry your clean hands."
     },
     {
      "kind": "choice",
@@ -430,20 +452,20 @@
      "answer": "A recipe for pancakes",
      "say": "An algorithm is a list of exact steps anyone can follow. Which one of these is an algorithm? A recipe for pancakes, a photo of a cat, or a pile of blocks?",
      "speak_choices": true,
-     "explain": "A recipe is a list of exact steps in order — that is what an algorithm is."
+     "explain": "A sufficiently clear recipe is an algorithm: its steps tell the cook what to do in an order that works."
     },
     {
      "kind": "choice",
-     "prompt": "Tea ☕: boil, pour, then what?",
+     "prompt": "Plant a seed: fill the pot, place the seed, then what?",
      "choices": [
-      "Boil again",
-      "Drink it",
-      "Pour again"
+      "Cover and water it",
+      "Empty the pot",
+      "Put the seed back in the packet"
      ],
-     "answer": "Drink it",
-     "say": "To make tea you boil the water, pour it in the cup, and then what? Boil again, drink it, or pour again?",
+     "answer": "Cover and water it",
+     "say": "To plant a seed, fill the pot and place the seed. What comes next? Cover and water it, empty the pot, or put the seed back in the packet?",
      "speak_choices": true,
-     "explain": "Drink it last, because the tea is finally ready."
+     "explain": "Cover the seed with soil and water it so the planting steps can do their job."
     }
    ]
   },

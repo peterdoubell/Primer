@@ -883,7 +883,27 @@
     "Rainbow",
     "Color"
    ],
-   "kid_text": "Sunlight looks plain white, but it is really lots of colors hiding together. When light bends through raindrops it splits open into a rainbow of red, orange, yellow, green, blue and purple. A mirror bounces light straight back, which is how you see your own face. You see everything because light bounces off it and jumps into your eyes!",
+   "kid_text": "Sunlight looks white, but it contains a continuous range of colours. In raindrops, sunlight bends as it enters and leaves and reflects inside; different colours leave at different angles, making a rainbow from red through violet. A smooth mirror reflects light in an orderly direction, and you see its image when that reflected light reaches your eyes. You see most ordinary objects because light from a source reflects from them and enters your eyes.",
+   "lesson_media": [
+    {
+     "id": "prism-spectrum-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/physics/phys-1-light-800.webp",
+     "srcset": "/app/illustrations/sprout/physics/phys-1-light-800.webp 800w, /app/illustrations/sprout/physics/phys-1-light-1600.webp 1600w",
+     "alt": "A lamp sends white light through a slit and glass prism, spreading it downward into red, orange, yellow, green, blue and violet toward a screen.",
+     "caption": "A prism refracts each colour by a different amount; red bends least and violet bends most.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "follow-the-light",
+     "kind": "model",
+     "renderer": "light-paths",
+     "title": "Follow the light",
+     "instructions": "Choose a prism, mirror or toy. Trace where light travels and how it can reach an eye.",
+     "props": {}
+    }
+   ],
    "prereqs": [
     "phys.0.push-pull",
     "phys.0.light-shadow",
@@ -901,7 +921,7 @@
      "answer": "Rainbow",
      "say": "The sun is shining and little drops of water are falling from the sky. What do you see up there? A rainbow, a shadow, or a cloud?",
      "speak_choices": true,
-     "explain": "Light bends inside each falling drop and splits into rainbow colours."
+     "explain": "Light refracts as it enters and leaves each drop and reflects inside. Different colours leave at different angles, so together many drops make a rainbow."
     },
     {
      "kind": "choice",
@@ -914,7 +934,7 @@
      "answer": "Many colours mixed",
      "say": "Sunlight looks plain white. Is it really many colours mixed, one colour only, or no colour at all?",
      "speak_choices": true,
-     "explain": "Lots of colours hide in white light — red, orange, yellow, green, blue and purple."
+     "explain": "White sunlight contains a continuous range of colours, from red through violet."
     },
     {
      "kind": "choice",
@@ -927,7 +947,7 @@
      "answer": "Mirror",
      "say": "Which one bounces light back so neatly that you see your own face? A mirror, a sheet of paper, or a woolly jumper?",
      "speak_choices": true,
-     "explain": "A mirror bounces light straight back, so you see yourself."
+     "explain": "A smooth mirror reflects light in an orderly direction. When that reflected light reaches your eyes, you see an image."
     },
     {
      "kind": "choice",
@@ -940,20 +960,20 @@
      "answer": "Bounces off it",
      "say": "Light from the lamp lands on your toy. To see it, does light bounce off it, does it stop at it, or does light come out of your eyes? Say bounces off it, stops at it, or comes out of your eyes.",
      "speak_choices": true,
-     "explain": "Light bounces off things and jumps into your eyes — eyes catch light, they don't send it."
+     "explain": "Light reflects from the toy and some of it enters your eyes. Eyes receive light; they do not send it out."
     },
     {
      "kind": "choice",
-     "prompt": "Light bends in raindrops 💧 and then…",
+     "prompt": "Inside raindrops, sunlight bends and reflects. Then it…",
      "choices": [
-      "Splits into colours",
+      "Leaves at different angles as colours",
       "Stops",
       "Turns white"
      ],
-     "answer": "Splits into colours",
-     "say": "Sunlight goes into a raindrop and bends. Does it split into colours, does it stop, or does it turn white? Say splits into colours, stops, or turns white.",
+     "answer": "Leaves at different angles as colours",
+     "say": "Sunlight bends and reflects inside a raindrop. Does it leave at different angles as colours, does it stop, or does it turn white?",
      "speak_choices": true,
-     "explain": "Bending splits white light into all the rainbow colours."
+     "explain": "Each colour refracts by a different amount, so the colours leave the drop at different angles."
     },
     {
      "kind": "choice",
@@ -961,12 +981,12 @@
      "choices": [
       "Brown",
       "Green",
-      "Purple"
+      "Violet"
      ],
      "answer": "Brown",
-     "say": "One of these is not a rainbow colour at all. Is it brown, green, or purple?",
+     "say": "One of these is not a rainbow colour at all. Is it brown, green, or violet?",
      "speak_choices": true,
-     "explain": "Rainbows show red, orange, yellow, green, blue and purple — never brown."
+     "explain": "A rainbow is a continuous spectrum from red through violet. Brown is not a spectral colour."
     },
     {
      "kind": "choice",
@@ -979,7 +999,7 @@
      "answer": "Mirror",
      "say": "You look at a shiny spoon and see your own face. Is it working like a mirror, a window, or a torch?",
      "speak_choices": true,
-     "explain": "Shiny things bounce light back, just like a mirror — a window lets light through instead."
+     "explain": "A smooth shiny spoon reflects light in an orderly way, a little like a curved mirror; a window mainly lets light through."
     }
    ]
   },

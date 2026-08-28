@@ -54,10 +54,11 @@
     );
     if (hooks && typeof hooks.speakButton === 'function') {
       const spokenText = () => {
-        const stepLabels = [...root.querySelectorAll('.sequence-step-label')]
-          .map(label => label.textContent.trim()).filter(Boolean);
-        const controlsText = [...new Set([...root.querySelectorAll('button:not(.speak-btn)')]
-          .map(button => button.textContent.trim()).filter(Boolean))];
+        const stepLabels = [...root.querySelectorAll('[data-model-speak]')]
+          .map(label => label.getAttribute('aria-label') || label.textContent.trim()).filter(Boolean);
+        const controlsText = [...new Set([...root.querySelectorAll('button:not(.speak-btn), input[type="range"]')]
+          .map(control => control.getAttribute('aria-label') || control.getAttribute('aria-valuetext') ||
+            control.textContent.trim()).filter(Boolean))];
         return [item.title, item.instructions,
           stepLabels.length ? 'Current steps: ' + stepLabels.join(', ') + '.' : '',
           controlsText.length ? 'Controls: ' + controlsText.join(', ') + '.' : '',
@@ -436,7 +437,7 @@
         onclick: () => move(step.id, 1),
       }, 'Later');
       const element = node('li', { class: 'sequence-step', 'data-step-id': step.id },
-        node('span', { class: 'sequence-step-label' }, step.label),
+        node('span', { class: 'sequence-step-label', 'data-model-speak': true }, step.label),
         node('span', { class: 'sequence-step-controls' }, earlier, later));
       rows[step.id] = { element, earlier, later };
     });
@@ -463,11 +464,433 @@
     return frame.root;
   }
 
+  function renderMakeTen(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const first = Math.round(clampNumber(props.first, 1, 9, 8));
+    const second = Math.round(clampNumber(props.second, 1, 9, 5));
+    let moved = 0;
+    let swapped = false;
+    const board = node('div', { class: 'make-ten-scene', 'aria-hidden': 'true' });
+    const tenFrame = node('div', { class: 'make-ten-frame' });
+    const bank = node('div', { class: 'make-ten-bank' });
+    board.append(tenFrame, bank);
+
+    function values() {
+      return swapped
+        ? { base: second, add: first, baseClass: 'is-green', addClass: 'is-blue' }
+        : { base: first, add: second, baseClass: 'is-blue', addClass: 'is-green' };
+    }
+
+    const moveButton = node('button', { type: 'button', class: 'btn small' }, 'Move one into the ten-frame');
+    const swapButton = node('button', { type: 'button', class: 'btn ghost small' }, 'Swap addends');
+    const resetButton = node('button', { type: 'button', class: 'btn ghost small' }, 'Reset');
+
+    function refresh(announce) {
+      const current = values();
+      const needed = 10 - current.base;
+      const left = current.add - moved;
+      tenFrame.replaceChildren();
+      bank.replaceChildren();
+      for (let index = 0; index < 10; index += 1) {
+        let counterClass = '';
+        if (index < current.base) counterClass = current.baseClass;
+        else if (index < current.base + moved) counterClass = current.addClass;
+        tenFrame.append(node('span', { class: 'make-ten-cell' },
+          counterClass ? node('span', { class: 'make-ten-counter ' + counterClass }) : null));
+      }
+      for (let index = 0; index < left; index += 1) {
+        bank.append(node('span', { class: 'make-ten-counter ' + current.addClass }));
+      }
+      moveButton.disabled = moved >= needed;
+      frame.readout.textContent = moved >= needed
+        ? current.base + ' + ' + current.add + ' = 10 + ' + left + ' = ' + (current.base + current.add) + '.'
+        : current.base + ' + ' + current.add + ' = ' + (current.base + current.add) +
+          '. The ten-frame has ' + (current.base + moved) + '; ' + left + ' counters are waiting.';
+      if (announce) {
+        frame.status.textContent = moved >= needed
+          ? 'The ten-frame is full. ' + left + ' counters remain, so the total is ten plus ' + left + '.'
+          : 'Moved one counter. The frame now holds ' + (current.base + moved) + '.';
+      }
+    }
+
+    moveButton.addEventListener('click', () => {
+      const current = values();
+      if (moved < 10 - current.base) moved += 1;
+      refresh(true);
+    });
+    swapButton.addEventListener('click', () => {
+      swapped = !swapped;
+      moved = 0;
+      refresh(false);
+      const current = values();
+      frame.status.textContent = 'The addends swapped places: ' + current.base + ' + ' + current.add +
+        '. Their total is still ' + (current.base + current.add) + '.';
+    });
+    resetButton.addEventListener('click', () => {
+      swapped = false;
+      moved = 0;
+      refresh(false);
+      frame.status.textContent = 'The counters are back at the start. Fill the friendly ten again.';
+    });
+
+    frame.canvas.classList.add('make-ten-canvas');
+    frame.canvas.append(board);
+    frame.controls.append(node('div', { class: 'model-button-row' }, moveButton, swapButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const LIGHT_PATHS = {
+    prism: {
+      label: 'Prism',
+      readout: 'Prism · white light bends and spreads into a continuous range of colours.',
+      status: 'A prism separates colours already present in white light; it does not paint the light.',
+    },
+    mirror: {
+      label: 'Mirror',
+      readout: 'Mirror · incoming and reflected light leave at matching angles.',
+      status: 'A smooth mirror sends reflected light in an orderly direction. An eye sees the image only when that light reaches it.',
+    },
+    toy: {
+      label: 'Toy',
+      readout: 'Toy · light scatters in many directions, and a small part reaches the eye.',
+      status: 'An ordinary object is visible when light from a source reflects from it into an eye.',
+    },
+  };
+
+  function renderLightPaths(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let selected = 'prism';
+    const picture = svgNode('svg', {
+      viewBox: '0 0 640 280', class: 'light-path-svg', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const optionButtons = {};
+    const optionRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose what light meets' });
+
+    function lampParts() {
+      return [
+        svgNode('circle', { cx: 64, cy: 140, r: 25, class: 'light-source-glow' }),
+        svgNode('circle', { cx: 64, cy: 140, r: 11, class: 'light-source' }),
+        svgNode('line', { x1: 64, y1: 151, x2: 64, y2: 222, class: 'light-stand' }),
+      ];
+    }
+
+    function whiteRay(x1, y1, x2, y2) {
+      const geometry = { x1, y1, x2, y2 };
+      return [
+        svgNode('line', { ...geometry, class: 'light-white-ray-outline' }),
+        svgNode('line', { ...geometry, class: 'light-white-ray' }),
+      ];
+    }
+
+    function draw(announce) {
+      picture.replaceChildren();
+      picture.append(svgNode('rect', { x: 8, y: 8, width: 624, height: 264, rx: 18, class: 'light-path-field' }));
+      lampParts().forEach(part => picture.append(part));
+      if (selected === 'prism') {
+        const gradientId = 'lesson-spectrum-' + nextModelId;
+        const defs = svgNode('defs');
+        const gradient = svgNode('linearGradient', { id: gradientId, x1: '0%', y1: '0%', x2: '0%', y2: '100%' });
+        [['0%', '#d95842'], ['18%', '#e79732'], ['36%', '#e8c94d'], ['54%', '#6fae66'],
+          ['72%', '#4f8fbd'], ['100%', '#755a9d']].forEach(([offset, color]) =>
+          gradient.append(svgNode('stop', { offset, 'stop-color': color })));
+        defs.append(gradient);
+        picture.append(defs,
+          ...whiteRay(78, 140, 288, 140),
+          svgNode('polygon', { points: '320,58 270,222 370,222', class: 'light-prism' }),
+          svgNode('polygon', { points: '342,140 604,150 604,238', fill: 'url(#' + gradientId + ')', class: 'light-spectrum' }),
+          svgNode('rect', { x: 604, y: 38, width: 16, height: 214, rx: 4, class: 'light-screen' }));
+      } else if (selected === 'mirror') {
+        picture.append(
+          ...whiteRay(78, 140, 320, 220),
+          svgNode('line', { x1: 320, y1: 220, x2: 562, y2: 140, class: 'light-reflected-ray' }),
+          svgNode('line', { x1: 224, y1: 220, x2: 416, y2: 220, class: 'light-mirror' }),
+          svgNode('line', { x1: 320, y1: 164, x2: 320, y2: 262, class: 'light-normal' }),
+          svgNode('path', { d: 'M548 140 Q566 124 584 140 Q566 156 548 140 Z', class: 'light-eye' }),
+          svgNode('circle', { cx: 566, cy: 140, r: 5, class: 'light-pupil' }));
+      } else {
+        picture.append(
+          ...whiteRay(78, 140, 304, 140),
+          svgNode('rect', { x: 304, y: 98, width: 76, height: 84, rx: 17, class: 'light-toy' }),
+          svgNode('line', { x1: 380, y1: 140, x2: 552, y2: 82, class: 'light-reflected-ray' }),
+          svgNode('line', { x1: 380, y1: 140, x2: 520, y2: 150, class: 'light-scatter-ray' }),
+          svgNode('line', { x1: 380, y1: 140, x2: 500, y2: 228, class: 'light-scatter-ray' }),
+          svgNode('path', { d: 'M540 82 Q558 66 576 82 Q558 98 540 82 Z', class: 'light-eye' }),
+          svgNode('circle', { cx: 558, cy: 82, r: 5, class: 'light-pupil' }));
+      }
+      Object.entries(optionButtons).forEach(([name, button]) => {
+        const active = name === selected;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      frame.readout.textContent = LIGHT_PATHS[selected].readout;
+      if (announce) frame.status.textContent = LIGHT_PATHS[selected].status;
+    }
+
+    Object.entries(LIGHT_PATHS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selected = name; draw(true); },
+      }, detail.label);
+      optionButtons[name] = button;
+      optionRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = 'prism';
+        draw(false);
+        frame.status.textContent = 'Back to the prism and white light.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('light-path-canvas');
+    frame.canvas.append(picture);
+    frame.controls.append(optionRow, node('div', { class: 'model-button-row' }, resetButton));
+    draw(false);
+    return frame.root;
+  }
+
+  function traceJamSandwich(included) {
+    let bread = false;
+    let jam = false;
+    let closed = false;
+    let served = false;
+    const ranStepIds = [];
+    const commands = ['bread', 'jam', 'close', 'serve'];
+    for (let index = 0; index < commands.length; index += 1) {
+      const command = commands[index];
+      if (!included.has(command)) continue;
+      let problem = '';
+      if (command === 'bread') bread = true;
+      else if (command === 'jam') {
+        if (!bread) problem = 'there is no bread to spread jam on';
+        else jam = true;
+      } else if (command === 'close') {
+        if (!bread) problem = 'there are no bread slices to put together';
+        else if (!jam) problem = 'the jam step was left out';
+        else closed = true;
+      } else if (command === 'serve') {
+        if (!closed) problem = 'the sandwich is not put together yet';
+        else served = true;
+      }
+      if (problem) return { ranStepIds, stoppedAt: index, success: false,
+        message: 'Step ' + (index + 1) + ' stopped: ' + problem + '.' };
+      ranStepIds.push(command);
+    }
+    return served && jam
+      ? { ranStepIds, stoppedAt: null, success: true,
+        message: 'The algorithm worked: every necessary step ran in a usable order.' }
+      : { ranStepIds, stoppedAt: null, success: false,
+        message: 'The listed steps finished, but they did not produce a served jam sandwich.' };
+  }
+
+  function renderAlgorithmTracer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const steps = [
+      { id: 'bread', label: 'Get two bread slices' },
+      { id: 'jam', label: 'Spread jam on one slice' },
+      { id: 'close', label: 'Put the slices together' },
+      { id: 'serve', label: 'Serve the sandwich' },
+    ];
+    const included = new Set(steps.map(step => step.id));
+    const list = node('ol', { class: 'algorithm-step-list', 'aria-label': 'Sandwich algorithm steps' });
+    const track = node('div', { class: 'algorithm-track', 'aria-hidden': 'true' });
+    const tiles = [];
+    const buttons = {};
+    steps.forEach(() => {
+      const tile = node('span', { class: 'algorithm-tile' });
+      tiles.push(tile);
+      track.append(tile);
+    });
+
+    function selectionSummary() {
+      const leftOut = steps.filter(step => !included.has(step.id)).map(step => step.label);
+      return included.size + ' of 4 necessary steps ' + (included.size === 1 ? 'is' : 'are') + ' included. ' +
+        (leftOut.length ? 'Left out: ' + leftOut.join('; ') + '.' : 'No steps are left out.');
+    }
+
+    function resetProgress() {
+      tiles.forEach((tile, index) => {
+        tile.classList.remove('is-passed');
+        tile.classList.toggle('is-omitted', !included.has(steps[index].id));
+      });
+      frame.readout.textContent = selectionSummary();
+    }
+
+    steps.forEach((step, index) => {
+      const toggle = node('button', {
+        type: 'button', class: 'btn ghost small algorithm-toggle',
+        'aria-label': 'Include step: ' + step.label, 'aria-pressed': 'true',
+        onclick: () => {
+          if (included.has(step.id)) included.delete(step.id);
+          else included.add(step.id);
+          const active = included.has(step.id);
+          toggle.setAttribute('aria-pressed', active ? 'true' : 'false');
+          toggle.textContent = active ? 'Included' : 'Left out';
+          resetProgress();
+          frame.status.textContent = 'Step ' + (index + 1) + ', “' + step.label + '”, is now ' +
+            (active ? 'included.' : 'left out. Run the algorithm to see the consequence.');
+        },
+      }, 'Included');
+      buttons[step.id] = toggle;
+      list.append(node('li', { class: 'algorithm-step' },
+        node('span', { class: 'algorithm-step-label', 'data-model-speak': true }, step.label), toggle));
+    });
+
+    const runButton = node('button', {
+      type: 'button', class: 'btn gold', onclick: () => {
+        const result = traceJamSandwich(included);
+        tiles.forEach((tile, index) => tile.classList.toggle('is-passed', result.ranStepIds.includes(steps[index].id)));
+        const ranCount = result.ranStepIds.length;
+        frame.readout.textContent = result.success
+          ? 'All four included steps ran. The jam sandwich is served. No steps are left out.'
+          : ranCount + ' included ' + (ranCount === 1 ? 'step ran. ' : 'steps ran. ') +
+            (result.stoppedAt == null ? 'The algorithm ended incomplete. ' :
+              'Step ' + (result.stoppedAt + 1) + ' stopped. ') + selectionSummary();
+        frame.status.textContent = result.message;
+      },
+    }, 'Run the algorithm');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost', onclick: () => {
+        steps.forEach(step => {
+          included.add(step.id);
+          buttons[step.id].setAttribute('aria-pressed', 'true');
+          buttons[step.id].textContent = 'Included';
+        });
+        resetProgress();
+        frame.status.textContent = 'All four necessary steps are included again.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('algorithm-canvas');
+    frame.canvas.append(track);
+    frame.controls.append(list, node('div', { class: 'model-button-row' }, runButton, resetButton));
+    resetProgress();
+    return frame.root;
+  }
+
+  const LIFE_CYCLES = {
+    frog: {
+      label: 'Frog',
+      stages: [
+        ['Eggs', 'Jelly-coated eggs develop underwater.'],
+        ['Tadpole', 'A legless tadpole swims with its tail.'],
+        ['Froglet', 'A froglet has four legs and a shrinking tail.'],
+        ['Adult frog', 'An adult has no tail; adults can produce the next eggs.'],
+      ],
+      change: 'Frogs undergo metamorphosis: their body form changes greatly as they develop.',
+    },
+    butterfly: {
+      label: 'Butterfly',
+      stages: [
+        ['Egg', 'An adult lays an egg on a suitable plant.'],
+        ['Caterpillar', 'The feeding larva grows and sheds its skin.'],
+        ['Chrysalis', 'Inside the pupa, the body reorganises.'],
+        ['Adult butterfly', 'The winged adult can lay eggs for a new generation.'],
+      ],
+      change: 'Butterflies also undergo metamorphosis, including a pupal chrysalis stage.',
+    },
+    dog: {
+      label: 'Dog',
+      stages: [
+        ['Newborn puppy', 'A newborn is small and depends on its mother.'],
+        ['Growing puppy', 'Its body and proportions change gradually.'],
+        ['Young dog', 'The young dog continues growing and learning.'],
+        ['Adult dog', 'Adults can produce puppies for a new generation.'],
+      ],
+      change: 'Dogs grow gradually without metamorphosis, but every generation still has a life cycle.',
+    },
+  };
+
+  function renderLifeCycle(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let species = 'frog';
+    let stageIndex = 0;
+    const cycle = node('ol', { class: 'life-cycle-ring', 'aria-label': 'Stages in the selected life cycle' });
+    const speciesButtons = {};
+    const speciesRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose an animal' });
+
+    function refresh(announce) {
+      const detail = LIFE_CYCLES[species];
+      cycle.replaceChildren();
+      detail.stages.forEach(([label], index) => {
+        const active = index === stageIndex;
+        cycle.append(node('li', {
+          class: 'life-cycle-stage', 'aria-current': active ? 'step' : null,
+        }, node('div', {
+          class: 'life-cycle-stage-card' + (active ? ' is-current' : ''),
+        }, node('span', { class: 'life-cycle-number', 'aria-hidden': 'true' }, String(index + 1)),
+        node('span', { 'data-model-speak': true }, label))));
+      });
+      Object.entries(speciesButtons).forEach(([name, button]) => {
+        const active = name === species;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const current = detail.stages[stageIndex];
+      frame.readout.textContent = detail.label + ' · stage ' + (stageIndex + 1) + ' of 4 · ' +
+        current[0] + '. ' + current[1] + ' ' + detail.change;
+      if (announce) {
+        frame.status.textContent = current[0] + '. ' + current[1] +
+          (stageIndex === 3 ? ' The cycle continues into a new generation.' : ' Next comes ' + detail.stages[stageIndex + 1][0] + '.');
+      }
+    }
+
+    Object.entries(LIFE_CYCLES).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          species = name;
+          stageIndex = 0;
+          refresh(false);
+          frame.status.textContent = detail.label + ' selected. This diagram starts with ' + detail.stages[0][0] + '.';
+        },
+      }, detail.label);
+      speciesButtons[name] = button;
+      speciesRow.append(button);
+    });
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const previous = stageIndex;
+        stageIndex = (stageIndex + 1) % 4;
+        refresh(false);
+        const detail = LIFE_CYCLES[species];
+        const current = detail.stages[stageIndex];
+        const newBeginning = species === 'frog' ? 'egg cluster' : species === 'dog' ? 'puppy' : 'egg';
+        frame.status.textContent = previous === 3
+          ? 'Adults reproduce and a new ' + newBeginning +
+            ' begins the next generation. The adult does not turn back into the young stage.'
+          : current[0] + '. ' + current[1] +
+            (stageIndex === 3 ? ' The next transition is reproduction into a new generation.'
+              : ' Next comes ' + detail.stages[stageIndex + 1][0] + '.');
+      },
+    }, 'Next stage');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        species = 'frog';
+        stageIndex = 0;
+        refresh(false);
+        frame.status.textContent = 'Back to frog eggs, where this diagram starts.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('life-cycle-canvas');
+    frame.canvas.append(cycle);
+    frame.controls.append(speciesRow, node('div', { class: 'model-button-row' }, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
     'shadow-lab': renderShadowLab,
     'sequence-runner': renderSequenceRunner,
+    'make-ten': renderMakeTen,
+    'light-paths': renderLightPaths,
+    'algorithm-tracer': renderAlgorithmTracer,
+    'life-cycle': renderLifeCycle,
   });
 
   window.PrimerLessonModels = Object.freeze({
