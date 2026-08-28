@@ -427,8 +427,8 @@ def test_young_nodes_have_child_voiced_lessons(curr):
 
 
 def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
-    """Every selected lesson through Forest, plus Seedling's second tranche,
-    gets both halves of the promise: an authored plate and a keyboard model."""
+    """Every selected lesson through Forest, plus the second Seedling and
+    Sprout tranches, gets an authored plate and a keyboard model."""
     expected = {
         'math.0.counting': (0, 'counter'),
         'math.0.shapes': (0, 'shape-explorer'),
@@ -442,6 +442,10 @@ def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
         'phys.1.light': (1, 'light-paths'),
         'cs.1.algorithms': (1, 'algorithm-tracer'),
         'bio.1.lifecycles': (1, 'life-cycle'),
+        'lang.1.reading': (1, 'reading-path-lab'),
+        'hist.1.timelines': (1, 'timeline-order-lab'),
+        'earth.1.seasons': (1, 'seasons-tilt-lab'),
+        'arts.1.elements': (1, 'art-elements-composer'),
         'math.2.fractions': (2, 'fraction-equivalence-lab'),
         'chem.2.atoms': (2, 'atom-element-builder'),
         'bio.2.cells': (2, 'cell-microscope'),
@@ -483,6 +487,48 @@ def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
                 header = fh.read(12)
             assert header[:4] == b'RIFF' and header[8:] == b'WEBP', disk
         assert plate['src'] in candidate_urls
+
+
+def test_second_sprout_copy_does_not_reinforce_common_misconceptions(curr):
+    """The new media must not sit beside the exact claims it is designed to fix."""
+    reading = curr.nodes['lang.1.reading']
+    reading_copy = (reading['goal'] + ' ' + reading['kid_text'] + ' ' +
+                    ' '.join(item['explain'] for item in reading['quiz'])).lower()
+    assert 'all by yourself' not in reading_copy and 'just your eyes' not in reading_copy
+    assert 'braille' in reading_copy and 'other writing systems' in reading_copy
+    assert 'english lines usually' in reading_copy
+    spoken_reading = ' '.join(item.get('say', '') + ' ' + item['explain']
+                              for item in reading['quiz']).lower()
+    for schwa_sound in ('puh', 'guh', 'kuh', 'tuh'):
+        assert schwa_sound not in spoken_reading
+
+    timeline = curr.nodes['hist.1.timelines']
+    timeline_copy = (timeline['kid_text'] + ' ' +
+                     ' '.join(item['prompt'] + ' ' + item.get('say', '') + ' ' + item['explain']
+                              for item in timeline['quiz'])).lower()
+    for old_claim in ('learning to walk', 'starting school', 'first you crawl',
+                      'a timeline goes from left to right'):
+        assert old_claim not in timeline_copy
+    assert 'timelines can also run' in timeline_copy
+    assert 'this timeline' in timeline_copy and 'dates and arrows' in timeline_copy
+    assert 'fifteen hundred' not in timeline_copy and '15:00' not in timeline_copy
+
+    seasons = curr.nodes['earth.1.seasons']
+    seasons_copy = (seasons['kid_text'] + ' ' +
+                    ' '.join(item['prompt'] + ' ' + item['explain']
+                             for item in seasons['quiz'])).lower()
+    assert 'we do not move nearer' not in seasons_copy
+    assert 'distance changes are not the cause' in seasons_copy
+    assert 'opposite astronomical seasons' in seasons_copy
+    assert 'temperate' in seasons_copy and 'other regions and cultures' in seasons_copy
+
+    art = curr.nodes['arts.1.elements']
+    art_copy = (art['kid_text'] + ' ' +
+                ' '.join(item['prompt'] + ' ' + item['explain']
+                         for item in art['quiz'])).lower()
+    assert 'dark colors can feel gloomy' not in art_copy
+    assert 'visual texture' in art_copy and 'picture itself is smooth' in art_copy
+    assert 'culture and viewer' in art_copy
 
 
 @pytest.mark.parametrize('bad_media', [None, {}, '', 0, False])
@@ -694,6 +740,88 @@ def test_lesson_media_schema_never_resolves_an_authored_path(curr):
     ('classroom-paint-mixer', {
         'scenario': 'equal-parts-classroom-ryb', 'start_first': 'blue',
     }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': 'guess',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': True,
+    }),
+    ('reading-path-lab', {
+        'scenario': 'unknown', 'start_phase': 'sounds',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': 'sounds',
+        'sentence': 'The cat sat.',
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'reading-room'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', True, 'roof-restored'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'opened', 'roof-restored'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'reading-room', 'demolished'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'real-library',
+        'start_order': ['opened', 'reading-room', 'roof-restored'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'reading-room', 'roof-restored'],
+        'locale': 'en',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'january', 'start_hemisphere': 'north',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': True, 'start_hemisphere': 'north',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'june-solstice', 'start_hemisphere': 'equator',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'june-solstice', 'start_hemisphere': True,
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'elliptical-distance-seasons',
+        'start_position': 'june-solstice', 'start_hemisphere': 'north',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'june-solstice', 'start_hemisphere': 'north',
+        'axis_degrees': 23.5,
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': [],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': [True],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': ['line', 'line'],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': ['line', 'sound'],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': 'line',
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': ['line'],
+        'palette': 'warm',
+    }),
 ])
 def test_lesson_model_props_fail_closed(renderer, props):
     model = {
@@ -786,6 +914,35 @@ def test_lesson_model_props_fail_closed(renderer, props):
     ('classroom-paint-mixer', {
         'scenario': 'equal-parts-classroom-ryb',
         'start_first': 'red', 'start_second': 'white',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': 'sounds',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': 'meaning',
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['roof-restored', 'opened', 'reading-room'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'reading-room', 'roof-restored'],
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'march-equinox', 'start_hemisphere': 'south',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'december-solstice', 'start_hemisphere': 'north',
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': ['texture'],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements',
+        'start_elements': ['line', 'shape', 'color', 'texture', 'pattern'],
     }),
 ])
 def test_lesson_model_props_accept_the_bounded_contract(renderer, props):
@@ -1929,6 +2086,96 @@ def test_second_seedling_model_registration_accessibility_resets_and_guardrails(
     assert 'repeat(2, minmax(62px, 1fr))' in css
 
 
+def test_second_sprout_model_registration_accessibility_resets_and_guardrails():
+    """Keep Sprout pass two local, keyboard-operable and conceptually honest."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    sources = {}
+    for renderer, function in (
+        ('reading-path-lab', 'renderReadingPath'),
+        ('timeline-order-lab', 'renderTimelineOrder'),
+        ('seasons-tilt-lab', 'renderSeasonsTilt'),
+        ('art-elements-composer', 'renderArtElementsComposer'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        sources[renderer] = source.lower()
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+        assert 'aria-label' in source
+        assert 'authored' in source.lower(), \
+            '{} reset must restore authored state'.format(renderer)
+
+    assert 'fetch(' not in js and '/api/' not in js
+
+    reading = sources['reading-path-lab']
+    for phrase in ('one simple english example', 'blending is one reading strategy',
+                   'irregular word', 'accents can differ', 'other scripts',
+                   'audio, braille, assistive technology'):
+        assert phrase in reading
+    assert 'phase = authoredphase;' in reading
+    assert "role: 'group'" in reading and 'choose a reading step' in reading
+    assert 'the cat sat.' in reading and 'a cat sat.' not in reading
+    assert '“the cat sat.” tells who' in reading
+    assert 'c spells k' not in reading and 'k, short a, t' not in reading
+    assert 'first sound in cup' in reading and 'first sound in top' in reading
+    assert "'data-model-speak-text': detail.spoken" in reading
+    assert "'aria-label': detail.spoken" not in reading
+
+    timeline = sources['timeline-order-lab']
+    for phrase in ('fictional timeline', 'earlier dates on the left',
+                   'other timeline layouts', 'historians check dates against sources'):
+        assert phrase in timeline
+    assert 'order = authoredorder.slice();' in timeline
+    assert 'list.append(row.element);' in timeline and '.focus();' in timeline
+    assert "role: 'group'" in timeline and 'order the fictional library events' in timeline
+    assert "row.eventspeech.setattribute('data-model-speak-text'" in timeline, \
+        'timeline read-aloud labels need punctuation and current positions'
+    assert "row.eventspeech.setattribute('aria-label'" not in timeline
+    assert '.timeline-order-copy > small { display: block; }' in css.replace('\n', ' '), \
+        'timeline event labels and details need a visible text break'
+
+    seasons = sources['seasons-tilt-lab']
+    for phrase in ('axes stay parallel', 'not-to-scale',
+                   'distance from the sun does not cause the seasons',
+                   'opposite seasons', 'temperate regions'):
+        assert phrase in seasons
+    assert 'position = authoredposition;' in seasons
+    assert 'hemisphere = authoredhemisphere;' in seasons
+    assert seasons.count("role: 'group'") >= 2
+    assert 'choose a key position' in seasons and 'choose a hemisphere' in seasons
+    assert "position = detail.id;\n          refresh(true);" in seasons, \
+        'position announcements need both hemispheres and their seasonal labels'
+    assert 'align-items: stretch; gap: 8px;' in css, \
+        'season position buttons need equal row heights when labels wrap'
+
+    art = sources['art-elements-composer']
+    for phrase in ('not an exhaustive rulebook', 'visual texture suggests touch',
+                   'color from being the sole signal', 'people and cultures'):
+        assert phrase in art
+    assert 'activeelements = new set(authoredelements);' in art
+    assert 'activeelements.clear();' in art and "'clear board'" in art
+    assert "? 'added: ' : 'removed: '" in art
+    assert "role: 'group'" in art and 'choose visual elements' in art
+    assert '.art-element-layer[hidden] { display: none; }' in css, \
+        'the pattern grid must not override the native hidden state'
+
+    for selector in ('.reading-path-scene', '.timeline-order-scene',
+                     '.seasons-tilt-scene', '.art-elements-scene'):
+        assert selector in css
+
+
 def test_a_repaint_cannot_break_out_of_an_open_dialog():
     """Regression: a background refresh called renderRoute() while an
     aria-modal dialog was open and moved focus to #page, so Tab walked the whole
@@ -3012,9 +3259,9 @@ def test_a_bare_url_cannot_widen_the_page():
     articles still pushed the document sideways at the 320px reflow threshold,
     long after the tables themselves had been fixed."""
     css = _web("styles.css")
-    assert "overflow-wrap: anywhere" in css
-    rule = next(l for l in css.splitlines() if "overflow-wrap: anywhere" in l)
-    assert "#article" in rule, rule
+    matching_rules = [line for line in css.splitlines()
+                      if "overflow-wrap: anywhere" in line]
+    assert any("#article" in rule for rule in matching_rules), matching_rules
 
 
 def test_the_graduate_stage_is_its_own_mode():

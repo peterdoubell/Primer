@@ -997,9 +997,12 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
         assert second_seedling.status_code == 200
         assert [entry['kind'] for entry in second_seedling.json()['lesson_media']] == [
             'illustration', 'model']
-    sprout = client.get('/api/curriculum/node/bio.1.lifecycles')
-    assert sprout.status_code == 200
-    assert [entry['kind'] for entry in sprout.json()['lesson_media']] == ['illustration', 'model']
+    for node_id in ('bio.1.lifecycles', 'lang.1.reading', 'hist.1.timelines',
+                    'earth.1.seasons', 'arts.1.elements'):
+        sprout = client.get('/api/curriculum/node/' + node_id)
+        assert sprout.status_code == 200
+        assert [entry['kind'] for entry in sprout.json()['lesson_media']] == [
+            'illustration', 'model']
     sapling = client.get('/api/curriculum/node/chem.2.atoms')
     assert sapling.status_code == 200
     assert [entry['kind'] for entry in sapling.json()['lesson_media']] == ['illustration', 'model']

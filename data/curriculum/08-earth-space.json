@@ -356,7 +356,31 @@
     "Season",
     "Earth's orbit"
    ],
-   "kid_text": "Earth is like a ball that leans a little to one side, and it travels in a big circle around the Sun all year. When your part of Earth leans toward the Sun, the days are warm and sunny for summer. When it leans away, the Sun feels weaker and it gets cold for winter. The lean is why we have seasons!",
+   "lesson_media": [
+    {
+     "id": "tilted-earth-orbit-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/earth-space/earth-1-seasons-800.webp",
+     "srcset": "/app/illustrations/sprout/earth-space/earth-1-seasons-800.webp 800w, /app/illustrations/sprout/earth-space/earth-1-seasons-1600.webp 1600w",
+     "alt": "Four views of a tilted Earth orbit the Sun, with budding, leafy, autumn-colored and bare branches nearby.",
+     "caption": "This schematic is not to scale. Earth's axis keeps nearly the same direction as Earth orbits, changing sunlight angle and day length; opposite hemispheres have opposite seasons, and not every region uses four temperate-season labels.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "seasons-tilt-lab",
+     "kind": "model",
+     "renderer": "seasons-tilt-lab",
+     "title": "Compare tilt through the year",
+     "instructions": "Choose one of four orbital positions and either hemisphere. Compare daylight and sunlight angle in this not-to-scale model; axial tilt, not Earth's small distance changes, drives the seasonal pattern.",
+     "props": {
+      "scenario": "earth-tilt-four-positions",
+      "start_position": "june-solstice",
+      "start_hemisphere": "north"
+     }
+    }
+   ],
+   "kid_text": "Earth's axis is tilted and keeps pointing nearly the same way as Earth travels around the Sun. When the Northern Hemisphere tilts toward the Sun, it gets longer days and more direct sunlight, while the Southern Hemisphere gets shorter days and more slanted sunlight. About half a year later, the pattern reverses. Tilt, not Earth's small changes in distance from the Sun, causes this cycle. Temperate places often name four seasons. Tropical and polar regions, and many cultural calendars, may describe seasonal changes differently.",
    "prereqs": [
     "earth.0.sky",
     "earth.0.weather"
@@ -377,16 +401,16 @@
     },
     {
      "kind": "choice",
-     "prompt": "Your half leans toward the Sun. Season?",
+     "prompt": "At the June solstice, the Northern Hemisphere has…?",
      "choices": [
       "Summer",
       "Winter",
       "Autumn"
      ],
      "answer": "Summer",
-     "say": "When your half of Earth leans toward the Sun, is it summer, winter, or autumn?",
+     "say": "At the June solstice, the Northern Hemisphere tilts toward the Sun. Does it have summer, winter, or autumn?",
      "speak_choices": true,
-     "explain": "Leaning toward the Sun makes the days long and warm, so it is summer."
+     "explain": "The Northern Hemisphere has summer around the June solstice, with longer days and more direct sunlight. The Southern Hemisphere has winter then."
     },
     {
      "kind": "choice",
@@ -403,55 +427,55 @@
     },
     {
      "kind": "choice",
-     "prompt": "In winter, sunlight hits your half…?",
+     "prompt": "In a temperate winter, sunlight arrives…?",
      "choices": [
-      "Weaker and slanted",
-      "Stronger and straight",
+      "More slanted and spread out",
+      "More direct and concentrated",
       "Just the same as summer"
      ],
-     "answer": "Weaker and slanted",
-     "say": "In winter, how does the sunlight land on your half of Earth? Weaker and slanted, stronger and straight, or just the same as summer?",
+     "answer": "More slanted and spread out",
+     "say": "In a temperate winter, how does sunlight arrive — more slanted and spread out, more direct and concentrated, or just the same as summer?",
      "speak_choices": true,
-     "explain": "Slanted sunlight spreads out and feels weaker, so winter days are cold. It really does change."
+     "explain": "More slanted sunlight spreads the same incoming energy over a larger area, and shorter days provide less time for heating."
     },
     {
      "kind": "choice",
-     "prompt": "We have summer. The other side of 🌍?",
+     "prompt": "Northern summer means the Southern Hemisphere has…?",
      "choices": [
       "Winter",
       "Summer",
       "Spring"
      ],
      "answer": "Winter",
-     "say": "When our half of Earth leans toward the Sun, the other half leans away. Does the other half have winter, summer, or spring?",
+     "say": "When the Northern Hemisphere has summer, does the Southern Hemisphere have winter, summer, or spring?",
      "speak_choices": true,
-     "explain": "The half leaning away gets winter at the very same time."
+     "explain": "The hemispheres have opposite astronomical seasons: Southern winter occurs during Northern summer."
     },
     {
      "kind": "choice",
-     "prompt": "What makes seasons happen?",
+     "prompt": "What mainly changes seasonal sunlight?",
      "choices": [
       "Earth's tilt",
       "Earth moving nearer the Sun",
       "The Sun getting hotter"
      ],
      "answer": "Earth's tilt",
-     "say": "What gives us summer and winter? Earth's tilt, Earth moving nearer the Sun, or the Sun getting hotter?",
+     "say": "What mainly changes seasonal sunlight — Earth's tilt, Earth moving nearer the Sun, or the Sun getting hotter?",
      "speak_choices": true,
-     "explain": "Earth leans to one side, and that lean gives us seasons. The Sun stays the same and we do not move nearer."
+     "explain": "Earth's tilt changes day length and sunlight angle. Earth's orbit is slightly elliptical, but its distance changes are not the cause of opposite seasons in the two hemispheres."
     },
     {
      "kind": "choice",
-     "prompt": "How many seasons in one year?",
+     "prompt": "A temperate four-season calendar names how many seasons?",
      "choices": [
       "4",
       "2",
       "12"
      ],
      "answer": "4",
-     "say": "How many seasons are there in one whole year? Is it 4, 2, or 12?",
+     "say": "In a temperate four-season calendar, how many seasons are named — 4, 2, or 12?",
      "speak_choices": true,
-     "explain": "There are four seasons: spring, summer, autumn and winter."
+     "explain": "That calendar names spring, summer, autumn and winter. Other regions and cultures may describe the year's seasonal cycle differently."
     }
    ]
   },

@@ -132,6 +132,8 @@ LESSON_MODEL_RENDERERS = frozenset({
     "morphogen-gradient-lab", "ct-window-lab",
     "alphabet-explorer", "inclusive-family-timeline",
     "day-night-rotation-lab", "classroom-paint-mixer",
+    "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
+    "art-elements-composer",
 })
 
 
@@ -398,6 +400,49 @@ def _validate_lesson_media(node: Dict) -> None:
                         or not isinstance(first, str) or first not in colors \
                         or not isinstance(second, str) or second not in colors:
                     raise ValueError("{} classroom paint mixer has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "reading-path-lab":
+                start_phase = props.get("start_phase")
+                if set(props) != {"scenario", "start_phase"} \
+                        or props.get("scenario") != "simple-english-cat-sat" \
+                        or not isinstance(start_phase, str) \
+                        or start_phase not in {"sounds", "blend", "sentence", "meaning"}:
+                    raise ValueError("{} reading path lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "timeline-order-lab":
+                start_order = props.get("start_order")
+                event_ids = {"roof-restored", "opened", "reading-room"}
+                if set(props) != {"scenario", "start_order"} \
+                        or props.get("scenario") != "fictional-library-three-dates" \
+                        or not isinstance(start_order, list) or len(start_order) != 3 \
+                        or any(not isinstance(event_id, str) for event_id in start_order) \
+                        or set(start_order) != event_ids:
+                    raise ValueError("{} timeline order lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "seasons-tilt-lab":
+                start_position = props.get("start_position")
+                start_hemisphere = props.get("start_hemisphere")
+                if set(props) != {"scenario", "start_position", "start_hemisphere"} \
+                        or props.get("scenario") != "earth-tilt-four-positions" \
+                        or not isinstance(start_position, str) \
+                        or start_position not in {
+                            "march-equinox", "june-solstice",
+                            "september-equinox", "december-solstice",
+                        } \
+                        or not isinstance(start_hemisphere, str) \
+                        or start_hemisphere not in {"north", "south"}:
+                    raise ValueError("{} seasons tilt lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "art-elements-composer":
+                start_elements = props.get("start_elements")
+                allowed_elements = {"line", "shape", "color", "texture", "pattern"}
+                if set(props) != {"scenario", "start_elements"} \
+                        or props.get("scenario") != "garden-five-elements" \
+                        or not isinstance(start_elements, list) or not start_elements \
+                        or any(not isinstance(element, str) or element not in allowed_elements
+                               for element in start_elements) \
+                        or len(start_elements) != len(set(start_elements)):
+                    raise ValueError("{} art elements composer has unknown settings".format(
                         node.get("id")))
         else:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))

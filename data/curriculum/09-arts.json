@@ -458,7 +458,33 @@
     "Line (art)",
     "Texture (visual arts)"
    ],
-   "kid_text": "Every picture is built from a few simple building blocks, just like a house is built from bricks. A line can be straight, wiggly, or zigzag, and when lines join up they make a shape, like a circle or a square. Texture is how something would feel, bumpy tree bark or soft fur, and a pattern is when shapes or colors repeat, like the stripes on a bee.",
+   "lesson_media": [
+    {
+     "id": "five-art-elements-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/arts/arts-1-elements-800.webp",
+     "srcset": "/app/illustrations/sprout/arts/arts-1-elements-800.webp 800w, /app/illustrations/sprout/arts/arts-1-elements-1600.webp 1600w",
+     "alt": "Five cards show straight, wavy and zigzag lines; geometric and organic shapes; color swatches; texture marks; and a repeating leaf pattern, with a pencil and paintbrush below.",
+     "caption": "Artists combine line, shape, color, visual texture and pattern. Marks can suggest how a surface might feel without being physically rough, and the meanings or moods associated with colors depend on context and the viewer.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "art-elements-composer",
+     "kind": "model",
+     "renderer": "art-elements-composer",
+     "title": "Compose a garden from five elements",
+     "instructions": "Turn line, shape, color, visual texture and pattern on or off to compare what each adds to a garden composition. You can clear the board, show all five, or reset to line and shape.",
+     "props": {
+      "scenario": "garden-five-elements",
+      "start_elements": [
+       "line",
+       "shape"
+      ]
+     }
+    }
+   ],
+   "kid_text": "Every picture is built from a few simple elements. A line can be straight, wiggly or zigzag, and joined lines can enclose a shape such as a circle or square. An object's actual texture can be touched, while artists also make visual texture: marks that suggest bumpy bark or soft fur even on smooth paper. A pattern repeats shapes, lines or colors, like the stripes on a bee. Artists combine these elements in many ways, and viewers can respond differently.",
    "prereqs": [
     "arts.0.colors",
     "arts.0.drawing",
@@ -480,16 +506,16 @@
     },
     {
      "kind": "choice",
-     "prompt": "Which one feels soft? 🐑 🪨 🧱",
+     "prompt": "Which picture suggests a soft texture? 🐑 🪨 🧱",
      "choices": [
       "🐑",
       "🪨",
       "🧱"
      ],
      "answer": "🐑",
-     "say": "Which one feels soft when you touch it? Is it the sheep, the rock, or the brick?",
+     "say": "Which picture suggests a soft texture — the sheep, the rock, or the brick?",
      "speak_choices": true,
-     "explain": "How something feels, soft or bumpy, is called texture."
+     "explain": "The sheep's wool suggests softness. Artists can use marks to suggest texture even when the picture itself is smooth."
     },
     {
      "kind": "choice",
@@ -519,16 +545,16 @@
     },
     {
      "kind": "choice",
-     "prompt": "Which feels rough? 🧱 🎈 🐑",
+     "prompt": "Which picture suggests a rough texture? 🧱 🎈 🐑",
      "choices": [
       "🧱",
       "🎈",
       "🐑"
      ],
      "answer": "🧱",
-     "say": "Which one feels rough and scratchy when you touch it? The brick, the balloon, or the sheep?",
+     "say": "Which picture suggests a rough texture — the brick, the balloon, or the sheep?",
      "speak_choices": true,
-     "explain": "The brick feels rough, and rough is a kind of texture!"
+     "explain": "The brick's uneven surface suggests roughness. In a drawing, small irregular marks can create that visual texture."
     },
     {
      "kind": "choice",
@@ -545,16 +571,16 @@
     },
     {
      "kind": "choice",
-     "prompt": "Dark gray storm clouds ⛈. How does it feel?",
+     "prompt": "A sky changes from pale blue to dark gray. Which element changed?",
      "choices": [
-      "Gloomy",
-      "Cheerful",
-      "Silly"
+      "Color",
+      "Shape",
+      "Pattern"
      ],
-     "answer": "Gloomy",
-     "say": "A picture full of dark gray storm clouds. How does it make you feel? Gloomy, cheerful, or silly?",
+     "answer": "Color",
+     "say": "An artist changes a sky from pale blue to dark gray. Which art element changed — color, shape, or pattern?",
      "speak_choices": true,
-     "explain": "Dark colors can feel gloomy, and bright colors can feel cheerful."
+     "explain": "The artist changed the sky's color. Colors can suggest different moods, but their meaning depends on the picture, culture and viewer."
     }
    ],
    "practice": "patterns"
