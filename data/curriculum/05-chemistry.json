@@ -647,20 +647,44 @@
    "id": "chem.2.atoms",
    "title": "Atoms and Elements",
    "stage": 2,
-   "goal": "Everything is built from about a hundred elements.",
+   "goal": "Ordinary matter is built from roughly a hundred chemical elements.",
    "articles": [
     "Atom",
     "Chemical element",
     "Periodic table"
    ],
+   "lesson_media": [
+    {
+     "id": "element-samples-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/chemistry/chem-2-atoms-800.webp",
+     "srcset": "/app/illustrations/sapling/chemistry/chem-2-atoms-800.webp 800w, /app/illustrations/sapling/chemistry/chem-2-atoms-1600.webp 1600w",
+     "alt": "Copper wire, a graphite rod and yellow sulfur crystals are each linked to a magnified circle containing one repeated symbolic motif.",
+     "caption": "Each sample is an element whose atoms share one proton number; the repeated motifs are symbolic and not to scale.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "build-an-atom",
+     "kind": "model",
+     "renderer": "atom-element-builder",
+     "title": "Build an atom",
+     "instructions": "Change proton, neutron and electron counts. Protons set the element, neutrons change the isotope, and electrons change the charge without changing elemental identity.",
+     "props": {
+      "protons": 6,
+      "neutrons": 6,
+      "electrons": 6
+     }
+    }
+   ],
    "quiz": [
     {
      "kind": "choice",
      "prompt": "Gold, oxygen, and iron are all examples of chemical elements. What makes something an element?",
-     "answer": "A substance made of only one kind of atom, not separable by chemistry",
-     "explain": "An element consists of a single type of atom, so ordinary chemical reactions cannot split it into anything simpler. Pure water is a pure substance but not an element.",
+     "answer": "A substance whose atoms all have the same number of protons, not separable by chemistry",
+     "explain": "An element is defined by proton number. Its isotopes can contain different numbers of neutrons, but ordinary chemical reactions do not change the nucleus. Pure water is a pure compound, not an element.",
      "choices": [
-      "A substance made of only one kind of atom, not separable by chemistry",
+      "A substance whose atoms all have the same number of protons, not separable by chemistry",
       "Any pure substance, whether it holds one kind of atom or several",
       "Any hard, shiny material that conducts both heat and electricity well",
       "A material holding two or more different substances mixed up together"
@@ -668,9 +692,9 @@
     },
     {
      "kind": "choice",
-     "prompt": "Roughly how many different chemical elements are there that everything in the ordinary world is built from?",
+     "prompt": "Roughly how many different chemical elements are used to build ordinary matter?",
      "answer": "About 100",
-     "explain": "The periodic table holds around 100 naturally occurring and stable elements from which all ordinary matter is assembled.",
+     "explain": "Scientists have confirmed 118 elements. Roughly 90 occur naturally on Earth, so about 100 captures the useful scale for the elements from which ordinary matter is assembled.",
      "choices": [
       "About 1,000,000",
       "About 100",
@@ -686,15 +710,15 @@
     },
     {
      "kind": "choice",
-     "prompt": "Imagine cutting a bar of pure iron in half, then cutting one half in half, again and again with a perfect blade. What would the smallest piece that is still iron be?",
-     "answer": "One iron atom, the smallest piece still iron",
+     "prompt": "Imagine cutting a bar of pure iron in half, then cutting one half in half, again and again with a perfect blade. What is the smallest unit that still has iron's elemental identity?",
+     "answer": "One iron atom, the smallest unit with iron's elemental identity",
      "choices": [
-      "One iron atom, the smallest piece still iron",
+      "One iron atom, the smallest unit with iron's elemental identity",
       "A speck of iron dust, just big enough to see",
       "Half an iron atom, sliced one more time",
       "There is no smallest piece, because iron goes on forever"
      ],
-     "explain": "An atom is the smallest piece of an element. Split an iron atom and the bits are protons, neutrons and electrons, which are not iron."
+     "explain": "An iron atom is the smallest unit with iron's atomic identity. Removing electrons can make it an iron ion; changing the proton count in its nucleus would change the element."
     },
     {
      "kind": "choice",
@@ -734,15 +758,15 @@
     },
     {
      "kind": "choice",
-     "prompt": "A block of pure copper is heated, hammered flat and then dissolved in acid. What happens to its copper atoms through all of that?",
-     "answer": "They stay copper atoms throughout.",
+     "prompt": "A block of pure copper is heated, hammered flat and then reacts with nitric acid, entering solution as copper ions. What remains unchanged?",
+     "answer": "Each copper nucleus keeps 29 protons, so the particles remain copper",
      "choices": [
-      "They stay copper atoms throughout.",
-      "They split when hammered thin.",
-      "They turn into a different element when heated strongly.",
-      "They break down into simpler atoms once dissolved."
+      "Each copper nucleus keeps 29 protons, so the particles remain copper",
+      "The copper nuclei split when the metal is hammered thin",
+      "Heating adds a proton and turns every copper atom into zinc",
+      "Dissolving breaks each copper nucleus into simpler atoms"
      ],
-     "explain": "Chemical and physical treatments rearrange atoms but do not change what element an atom is."
+     "explain": "Heating and hammering change the material's bulk form. In nitric acid, neutral copper atoms can lose electrons and become copper ions, but their nuclei still have 29 protons, so their elemental identity remains copper."
     },
     {
      "kind": "choice",
@@ -754,7 +778,7 @@
       "See which one is heavier for the same volume.",
       "See which one melts at the lower temperature."
      ],
-     "explain": "An element cannot be split into anything simpler by chemical means; a compound can be broken into its elements."
+     "explain": "An element cannot be split into a simpler substance by chemical means; a compound can be chemically decomposed into simpler substances."
     }
    ],
    "prereqs": [

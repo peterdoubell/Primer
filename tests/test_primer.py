@@ -9,6 +9,7 @@ Run:  .venv/bin/python -m pytest tests/ -q
 """
 
 import os
+import re
 import sys
 import time
 
@@ -427,8 +428,8 @@ def test_young_nodes_have_child_voiced_lessons(curr):
 
 
 def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
-    """Every selected Seedling and Sprout lesson gets both halves of the
-    promise: an authored plate and a keyboard model."""
+    """Every selected Seedling, Sprout and Sapling lesson gets both halves of
+    the promise: an authored plate and a keyboard model."""
     expected = {
         'math.0.counting': (0, 'counter'),
         'math.0.shapes': (0, 'shape-explorer'),
@@ -438,6 +439,10 @@ def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
         'phys.1.light': (1, 'light-paths'),
         'cs.1.algorithms': (1, 'algorithm-tracer'),
         'bio.1.lifecycles': (1, 'life-cycle'),
+        'math.2.fractions': (2, 'fraction-equivalence-lab'),
+        'chem.2.atoms': (2, 'atom-element-builder'),
+        'bio.2.cells': (2, 'cell-microscope'),
+        'mind.2.logic-intro': (2, 'counterexample-lab'),
     }
     with_media = {nid: n for nid, n in curr.nodes.items() if n.get('lesson_media')}
     assert set(with_media) == set(expected)
@@ -502,14 +507,38 @@ def test_lesson_media_schema_never_resolves_an_authored_path(curr):
     ('light-paths', {'scene': 'mirror'}),
     ('life-cycle', {'species': 'frog'}),
     ('algorithm-tracer', {'scenario': 'unknown'}),
+    ('fraction-equivalence-lab', {'numerator': True, 'denominator': 3, 'max_factor': 4}),
+    ('fraction-equivalence-lab', {'numerator': 3, 'denominator': 3, 'max_factor': 4}),
+    ('fraction-equivalence-lab', {'numerator': 1, 'denominator': 8, 'max_factor': 4}),
+    ('atom-element-builder', {'protons': 0, 'neutrons': 6, 'electrons': 6}),
+    ('atom-element-builder', {'protons': 6, 'neutrons': 13, 'electrons': 6}),
+    ('atom-element-builder', {'protons': 6, 'neutrons': 6, 'electrons': 3}),
+    ('cell-microscope', {'start_specimen': 'pond', 'start_magnification': 100}),
+    ('cell-microscope', {'start_specimen': 'leaf', 'start_magnification': 200}),
+    ('cell-microscope', {'start_specimen': 'leaf', 'start_magnification': True}),
+    ('counterexample-lab', {'scenario': 'birds-brown'}),
 ])
-def test_sprout_model_props_fail_closed(renderer, props):
+def test_lesson_model_props_fail_closed(renderer, props):
     model = {
         'id': 'test-model', 'kind': 'model', 'renderer': renderer,
         'title': 'Test model', 'instructions': 'Test the bounded props.', 'props': props,
     }
     with pytest.raises(ValueError):
         _validate_lesson_media({'id': 'test.1.model', 'lesson_media': [model]})
+
+
+@pytest.mark.parametrize('renderer,props', [
+    ('fraction-equivalence-lab', {'numerator': 2, 'denominator': 3, 'max_factor': 4}),
+    ('atom-element-builder', {'protons': 6, 'neutrons': 6, 'electrons': 6}),
+    ('cell-microscope', {'start_specimen': 'onion', 'start_magnification': 100}),
+    ('counterexample-lab', {'scenario': 'squares-and-rectangles'}),
+])
+def test_sapling_model_props_accept_the_bounded_contract(renderer, props):
+    model = {
+        'id': 'test-model', 'kind': 'model', 'renderer': renderer,
+        'title': 'Test model', 'instructions': 'Test the bounded props.', 'props': props,
+    }
+    _validate_lesson_media({'id': 'test.2.model', 'lesson_media': [model]})
 
 
 def test_authored_quiz_items_are_well_formed(curr):
@@ -1383,7 +1412,9 @@ def test_feedback_regions_are_mounted_before_they_are_filled():
 def test_lesson_models_are_local_explanations_not_assessments():
     js = _web('lesson-models.js')
     for renderer in ('counter', 'shape-explorer', 'shadow-lab', 'sequence-runner',
-                     'make-ten', 'light-paths', 'algorithm-tracer', 'life-cycle'):
+                     'make-ten', 'light-paths', 'algorithm-tracer', 'life-cycle',
+                     'fraction-equivalence-lab', 'atom-element-builder',
+                     'cell-microscope', 'counterexample-lab'):
         assert renderer in js
     assert 'fetch(' not in js and '/api/' not in js
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
@@ -1391,6 +1422,56 @@ def test_lesson_models_are_local_explanations_not_assessments():
     assert 'runPackBag' in js and 'traceJamSandwich' in js and 'Read this activity aloud' in js
     assert 'PrimerLessonModels' in _web('app.js')
     assert '.model-pebble' in _web('styles.css') and '.make-ten-frame' in _web('styles.css')
+
+
+def test_sapling_lesson_models_keep_the_read_aloud_control():
+    js = _web('app.js')
+    media = js[js.index('function renderLessonMedia('):js.index('async function renderNode(')]
+    assert 'speakButton: S.stage <= 2 ?' in media
+    assert 'speakButton: S.stage <= 1 ?' not in media
+    assert 'if (n.kid_text && S.stage <= 1)' in js, \
+        'the model-only speech change must not restore automatic older-reader narration'
+
+
+def test_sapling_model_accessibility_geometry_registration_and_resets():
+    """Keep the four Sapling manipulatives usable, not merely named in source."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    for renderer, function in (
+        ('fraction-equivalence-lab', 'renderFractionEquivalence'),
+        ('atom-element-builder', 'renderAtomElementBuilder'),
+        ('cell-microscope', 'renderCellMicroscope'),
+        ('counterexample-lab', 'renderCounterexampleLab'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+
+    legend_declaration = js[js.index("const legend = node('div'"):
+                            js.index('const specimenButtons', js.index("const legend = node('div'"))]
+    assert "class: 'microscope-legend'" in legend_declaration
+    assert "'aria-hidden'" not in legend_declaration
+    assert "Structures present in this specimen: ' + detail.structures.join(', ')" in js
+    assert "role: 'list', 'aria-label': 'Structures present in this specimen'" in js
+    assert "role: 'listitem'" in js
+
+    inner_shell = int(re.search(
+        r"\.atom-shell\.is-inner \{ width: (\d+)px;", css).group(1))
+    nucleus = int(re.search(
+        r"\.atom-nucleus \{.*?width: (\d+)px;", css, re.S).group(1))
+    inner_radius = int(re.search(
+        r"--electron-radius', inner \? '(\d+)px'", js).group(1))
+    electron_radius = 7
+    assert inner_shell > nucleus
+    assert inner_radius - electron_radius > nucleus / 2
+
+    for reset in (
+        'factor = 1;',
+        'Object.assign(values, authored);',
+        'specimen = authoredSpecimen;',
+        'magnification = authoredMagnification;',
+        "state = 'forward';",
+    ):
+        assert js.count(reset) >= 2 or reset == 'Object.assign(values, authored);'
 
 
 def test_a_repaint_cannot_break_out_of_an_open_dialog():

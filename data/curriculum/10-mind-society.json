@@ -762,16 +762,38 @@
     "Logical reasoning",
     "Fallacy"
    ],
+   "lesson_media": [
+    {
+     "id": "square-rectangle-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/mind-society/mind-2-logic-intro-800.webp",
+     "srcset": "/app/illustrations/sapling/mind-society/mind-2-logic-intro-800.webp 800w, /app/illustrations/sapling/mind-society/mind-2-logic-intro-1600.webp 1600w",
+     "alt": "Within a large wooden rectangular tray, four square tiles sit inside a smaller brass-outlined group while one tall non-square rectangle remains in the tray outside that group.",
+     "caption": "Every square is a rectangle, but the tall rectangle is a counterexample to the reversed claim that every rectangle is a square.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "test-a-reversed-claim",
+     "kind": "model",
+     "renderer": "counterexample-lab",
+     "title": "Test the reverse",
+     "instructions": "Start with the true statement that every square is a rectangle. Reverse it, then reveal the rectangle that disproves the reverse.",
+     "props": {
+      "scenario": "squares-and-rectangles"
+     }
+    }
+   ],
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "Maria says: 'All dogs have four legs. My pet Rex has four legs. So Rex is a dog.' Even though her sentences sound reasonable, her conclusion is not guaranteed. Why?",
-     "answer": "Many things have four legs, so four legs cannot prove that Rex is a dog.",
-     "explain": "The premise says dogs have four legs, but not that only dogs do, so four legs cannot prove Rex is a dog.",
+     "prompt": "Maria says: 'All dogs are animals. My pet Rex is an animal. So Rex is a dog.' Even though her sentences sound reasonable, her conclusion is not guaranteed. Why?",
+     "answer": "Many animals are not dogs, so being an animal cannot prove that Rex is a dog.",
+     "explain": "The premise puts every dog inside the larger group of animals, but it does not say that every animal is a dog. Rex could be another kind of animal.",
      "choices": [
       "The name Rex is not specific enough to pick out any one particular animal.",
-      "Dogs really do have four legs, so her argument is correct after all.",
-      "Many things have four legs, so four legs cannot prove that Rex is a dog.",
+      "All animals are dogs, so her argument is correct after all.",
+      "Many animals are not dogs, so being an animal cannot prove that Rex is a dog.",
       "You cannot know anything at all about Rex unless you go and see him."
      ]
     },
@@ -814,14 +836,14 @@
     {
      "kind": "short",
      "prompt": "Rafi says: 'All squares are rectangles, so all rectangles are squares.' Explain why turning the sentence around breaks the reasoning.",
-     "answer": "A rectangle only needs four right angles, so a long thin rectangle is not a square; the reversed sentence claims something the first sentence never said.",
+     "answer": "A rectangle is a four-sided shape with four right angles, while a square must also have four equal sides; a long thin rectangle is a counterexample to the reversed claim.",
      "keywords": [
       "rectangle",
       "square",
       "angles",
       "reversed"
      ],
-     "explain": "'All A are B' does not give you 'all B are A'. Squares sit inside the group of rectangles, but the group of rectangles is bigger."
+     "explain": "'All A are B' does not give you 'all B are A'. Every square is a four-sided shape with four right angles, so it is a rectangle; some rectangles have unequal side lengths, so they are not squares."
     },
     {
      "kind": "choice",
@@ -837,15 +859,15 @@
     },
     {
      "kind": "choice",
-     "prompt": "A sign says: 'You may enter the pool if you are a member.' Rio is not a member. What follows about Rio?",
-     "answer": "Nothing certain follows from the sign",
+     "prompt": "A rule says: 'If someone is a member, then that person may enter the pool.' The rule gives no other information. Rio is not a member. What follows about Rio?",
+     "answer": "Nothing certain follows from the rule",
      "choices": [
-      "Nothing certain follows from the sign",
+      "Nothing certain follows from the rule",
       "Rio may not enter the pool",
       "Rio is already in the pool",
       "Rio will become a member soon"
      ],
-     "explain": "The sign tells you what members may do. It says nothing about anyone else, so it leaves Rio's case open. Reading a rule as if it covered the opposite case is a common slip."
+     "explain": "The rule tells you what follows from being a member. It gives no rule for non-members, so Rio's case remains open. Negating a one-way rule adds information that the rule never stated."
     },
     {
      "kind": "numeric",

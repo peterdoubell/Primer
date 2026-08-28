@@ -1205,10 +1205,33 @@
    "id": "bio.2.cells",
    "title": "Cells",
    "stage": 2,
-   "goal": "Every living thing is built from cells.",
+   "goal": "Living organisms are built from one or more cells, the basic units of life.",
    "articles": [
     "Cell (biology)",
     "Microscope"
+   ],
+   "lesson_media": [
+    {
+     "id": "cell-specimens-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/biology/bio-2-cells-800.webp",
+     "srcset": "/app/illustrations/sapling/biology/bio-2-cells-800.webp 800w, /app/illustrations/sapling/biology/bio-2-cells-1600.webp 1600w",
+     "alt": "Three schematic microscope fields show rectangular onion-bulb epidermal cells with walls and nuclei, green leaf cells with walls and chloroplasts, and irregular pink cheek cells with nuclei and no walls.",
+     "caption": "Cell structures vary by specimen; these schematic fields use different views and are not to scale.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "compare-cell-specimens",
+     "kind": "model",
+     "renderer": "cell-microscope",
+     "title": "Compare cells under a microscope",
+     "instructions": "Switch between onion-bulb, green-leaf and cheek specimens, then change magnification. Notice which visible structures belong to each specimen and which details are schematic.",
+     "props": {
+      "start_specimen": "onion",
+      "start_magnification": 100
+     }
+    }
    ],
    "quiz": [
     {
@@ -1237,19 +1260,18 @@
     },
     {
      "kind": "short",
-     "prompt": "Blood cells, muscle cells and the cells in an onion skin all look different from each other. Say one thing that is true of every one of them.",
-     "answer": "They are all cells, the smallest living units, and every living thing is built from one or more of them.",
-     "keywords": [
-      "cells",
-      "living",
-      "smallest",
-      "unit"
+     "prompt": "Blood cells, muscle cells and the cells in onion epidermis all look different. Name one structure that surrounds every one of them.",
+     "answer": "Each is surrounded by a cell membrane.",
+      "keywords": [
+      "cell",
+      "membrane",
+      "surrounded"
      ],
-     "explain": "However different they look, all cells are living units, and being built from cells is what all organisms have in common."
+     "explain": "Every cell has a cell membrane around its contents. Onion epidermal cells also have a rigid cell wall outside that membrane."
     },
     {
      "kind": "choice",
-     "prompt": "Under a microscope, onion skin cells sit in neat rows with stiff straight edges, while cheek cells look round and floppy. What best explains the difference?",
+     "prompt": "Under a microscope, onion-bulb epidermal cells form neat rows with firm box-like outlines, while cheek cells have thinner, irregular outlines. What best explains the firm onion-cell shape?",
      "answer": "Plant cells have a stiff wall outside their membrane",
      "choices": [
       "Cheek cells were squashed flat when they were scraped",
@@ -1257,11 +1279,11 @@
       "Plant cells have a stiff wall outside their membrane",
       "Onion cells are dead, so they have dried into boxes"
      ],
-     "explain": "A plant cell has a rigid cellulose wall outside its membrane, which holds it in a box shape and makes neighbouring cells pack into rows. An animal cell has only a flexible membrane, so it settles into a rounded shape."
+     "explain": "A plant cell has a rigid cellulose wall outside its membrane, supporting its outline and helping neighbours pack into rows. Cheek cells lack a wall; their flexible outlines depend on the membrane, cytoskeleton and surrounding tissue rather than a default rounded shape."
     },
     {
      "kind": "choice",
-     "prompt": "A cell's instructions for growing and working are stored in which part?",
+     "prompt": "In a typical plant or animal cell, where is most of the DNA that guides growth and work stored?",
      "answer": "The nucleus",
      "choices": [
       "The nucleus",
@@ -1269,19 +1291,19 @@
       "The cell membrane",
       "The vacuole"
      ],
-     "explain": "The nucleus holds the cell's DNA, the set of instructions the cell works from."
+     "explain": "In eukaryotic plant and animal cells, the nucleus holds most of the DNA. Bacteria also have DNA but no nucleus; their DNA lies in a nucleoid region."
     },
     {
      "kind": "choice",
-     "prompt": "A single muscle cell can shorten by only a tiny amount, yet your arm can lift a heavy bag. How is that possible?",
-     "answer": "Millions of muscle cells shorten together at once",
+     "prompt": "One skeletal-muscle fibre produces only a limited force, yet a whole muscle can lift a heavy bag. How is that possible?",
+     "answer": "Many muscle fibres contract together, so their forces add",
      "choices": [
-      "Each cell shortens a little, one after another in turn",
-      "Millions of muscle cells shorten together at once",
-      "The bone stretches the cells to add extra force",
-      "One long cell runs the whole length of the arm"
+      "Each fibre takes a separate turn, so their forces never overlap",
+      "Many muscle fibres contract together, so their forces add",
+      "The bone stretches the fibres to create extra force",
+      "One fibre runs through every muscle in the arm"
      ],
-     "explain": "A muscle is built from enormous numbers of cells lying side by side and end to end. Each shortens only slightly, but pulling at the same moment their small movements and forces add up."
+     "explain": "A muscle bundles many fibres roughly in parallel, so their coordinated forces add and pull through connective tissue and tendons. Repeating sarcomeres within each fibre shorten together to make the fibre shorten."
     },
     {
      "kind": "numeric",
@@ -1291,15 +1313,15 @@
     },
     {
      "kind": "choice",
-     "prompt": "A gardener puts a thin slice of leaf and a scraping of frog skin under the same microscope. Which part will she find in the leaf cells but not in the frog skin cells?",
-     "answer": "Green chloroplasts",
+     "prompt": "A gardener places a thin slice of green leaf tissue and a scraping of frog skin under the same microscope. Which structure can she find in many photosynthetic leaf cells but not in frog skin cells?",
+     "answer": "Chloroplasts",
      "choices": [
       "A nucleus",
-      "Green chloroplasts",
+      "Chloroplasts",
       "Watery cytoplasm inside",
       "A membrane around the outside"
      ],
-     "explain": "Membranes, nuclei and cytoplasm are found in both. Only plant cells carry chloroplasts, the green parts that trap light."
+     "explain": "Both kinds of cell have membranes and cytoplasm, and typical examples contain nuclei. Chloroplasts capture light in photosynthetic plant cells, but not every plant cell has them: root cells and onion-bulb epidermal cells generally do not."
     },
     {
      "kind": "choice",
@@ -1316,14 +1338,14 @@
     {
      "kind": "choice",
      "prompt": "An amoeba in pond water is one single cell, yet it moves about, feeds and grows. What does this show?",
-     "answer": "One cell on its own can do all the jobs of a living thing",
+     "answer": "One cell can perform all the core processes of a living organism",
      "choices": [
       "Cells can only work once they are joined into tissues",
       "An amoeba must have tiny organs inside it like ours",
-      "One cell on its own can do all the jobs of a living thing",
+      "One cell can perform all the core processes of a living organism",
       "It must really be many cells stuck together"
      ],
-     "explain": "A single cell can feed, move, grow and reproduce without any help. Organs are one way of dividing that work up in a large organism, not a requirement for being alive."
+     "explain": "A single amoeba cell performs core life processes within one cell rather than dividing them among tissues and organs. It still takes in matter and energy from its environment."
     }
    ],
    "prereqs": [

@@ -416,6 +416,7 @@ button { font-family: var(--sans); cursor: pointer; }
 .model-heading-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
 .model-heading-row h3 { margin: 0; }
 .lesson-model .speak-btn { min-width: 44px; min-height: 44px; }
+.lesson-model .btn { min-height: 44px; }
 .model-instructions { margin: 0 0 15px; color: var(--ink-soft); line-height: 1.55; }
 .model-canvas {
   min-width: 0; padding: clamp(12px, 2.5vw, 22px); border: 1px solid var(--paper-edge);
@@ -665,6 +666,145 @@ button { font-family: var(--sans); cursor: pointer; }
 .life-cycle-number {
   display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px;
   border-radius: 50%; background: var(--accent-2); color: var(--paper-hi); font-weight: 900;
+}
+
+/* Sapling — equivalent fractions: the same whole keeps an identical width. */
+.fraction-equivalence-canvas { background: var(--tint-info-soft); }
+.fraction-equivalence-board { display: grid; gap: 17px; }
+.fraction-row {
+  display: grid; grid-template-columns: minmax(145px, .42fr) minmax(230px, 1fr);
+  align-items: center; gap: 12px; color: var(--ink); font-family: var(--sans); font-size: 14px;
+}
+.fraction-bar {
+  display: grid; grid-template-columns: repeat(var(--fraction-parts), minmax(0, 1fr));
+  height: 68px; overflow: hidden; border: 3px solid var(--edge); border-radius: 9px;
+  background: var(--field); box-shadow: 0 3px 6px var(--shadow);
+}
+.fraction-piece { min-width: 0; border-left: 2px solid var(--edge); background: var(--paper-2); }
+.fraction-piece:first-child { border-left: 0; }
+.fraction-piece.is-shaded { background: color-mix(in srgb, var(--accent-2) 64%, var(--paper-hi)); }
+.fraction-equation {
+  justify-self: center; padding: 7px 13px; border: 1px solid var(--paper-edge); border-radius: 999px;
+  background: var(--paper-2); color: var(--ink); font: 800 18px/1.2 var(--sans);
+}
+
+/* Sapling — atom bookkeeping: particles are symbolic, still, and explicitly
+   not to scale. The shells organize counts; they are not planetary orbits. */
+.atom-builder-canvas { background: var(--tint-gold); }
+.atom-builder-scene { display: grid; place-items: center; gap: 8px; }
+.atom-diagram { position: relative; width: min(250px, 100%); aspect-ratio: 1; }
+.atom-shell {
+  position: absolute; left: 50%; top: 50%; border: 2px dashed var(--paper-edge);
+  border-radius: 50%; transform: translate(-50%, -50%);
+}
+.atom-shell.is-inner { width: 140px; height: 140px; }
+.atom-shell.is-outer { width: 190px; height: 190px; }
+.atom-nucleus {
+  position: absolute; left: 50%; top: 50%; display: grid; grid-template-columns: repeat(5, 16px);
+  place-content: center; gap: 2px; width: 106px; height: 106px; padding: 6px;
+  border: 3px double var(--edge); border-radius: 50%; background: var(--paper-2);
+  transform: translate(-50%, -50%); box-shadow: 0 3px 8px var(--shadow);
+}
+.nuclear-particle {
+  display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
+  color: var(--ink); font: 800 10px/1 var(--sans); border: 1px solid var(--edge);
+}
+.nuclear-particle.is-proton { background: color-mix(in srgb, var(--accent) 42%, var(--paper-hi)); }
+.nuclear-particle.is-neutron { background: color-mix(in srgb, var(--accent-2) 34%, var(--paper-hi)); }
+.atom-electron {
+  position: absolute; left: calc(50% - 7px); top: calc(50% - 7px); width: 14px; height: 14px;
+  border: 2px solid var(--ink); border-radius: 50%; background: var(--gold-bright);
+  transform: rotate(var(--electron-angle)) translateX(var(--electron-radius));
+  box-shadow: 0 0 0 2px var(--field);
+}
+.atom-symbol {
+  position: absolute; left: 8px; top: 8px; display: grid; place-items: center;
+  min-width: 43px; min-height: 43px; padding: 5px; border: 2px solid var(--edge); border-radius: 8px;
+  background: var(--field); color: var(--ink); font: 800 22px/1 var(--sans);
+}
+.atom-scene-label { color: var(--ink-soft); font: 700 13px/1.4 var(--sans); text-align: center; }
+.atom-stepper-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+.atom-stepper {
+  display: grid; gap: 7px; padding: 9px; border: 1px solid var(--paper-edge); border-radius: 9px;
+  background: var(--field); color: var(--ink); font: 700 14px/1.2 var(--sans); text-align: center;
+}
+.atom-stepper-buttons { display: grid; grid-template-columns: 44px minmax(34px, 1fr) 44px; align-items: center; gap: 5px; }
+.atom-stepper-buttons .btn { min-width: 44px; padding-inline: 9px; font-size: 19px; }
+.atom-stepper-value { color: var(--ink); font: 900 17px/1 var(--sans); }
+
+/* Sapling — cell microscope: magnification changes the apparent field, never
+   the real cell size. Structure differences are reinforced by the readout. */
+.cell-microscope-canvas { background: var(--tint-green); }
+.cell-microscope-scene { display: grid; place-items: center; gap: 9px; }
+.microscope-field {
+  display: grid; grid-template-columns: repeat(var(--cell-columns), minmax(0, 1fr));
+  grid-auto-rows: 1fr; width: min(330px, 100%); aspect-ratio: 1; padding: 15px; gap: 3px;
+  overflow: hidden; border: 10px solid var(--edge); border-radius: 50%; background: var(--paper-hi);
+  box-shadow: inset 0 0 0 3px var(--paper-edge), 0 4px 9px var(--shadow);
+}
+.microscope-cell { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+.microscope-field.is-onion .microscope-cell {
+  border: 2px solid color-mix(in srgb, var(--accent-2) 68%, var(--ink));
+  border-radius: 5px; background: color-mix(in srgb, var(--accent-2) 12%, var(--paper-hi));
+}
+.microscope-field.is-leaf .microscope-cell {
+  display: flex; align-content: center; justify-content: center; flex-wrap: wrap; gap: 3px;
+  border: 3px double var(--green); border-radius: 10px;
+  background: color-mix(in srgb, var(--tint-green) 72%, var(--paper-hi));
+}
+.microscope-field.is-cheek { gap: 8px; background: color-mix(in srgb, var(--accent) 7%, var(--paper-hi)); }
+.microscope-field.is-cheek .microscope-cell {
+  margin: 2px; border: 2px solid color-mix(in srgb, var(--accent) 55%, var(--ink-soft));
+  border-radius: 52% 43% 56% 46%; background: color-mix(in srgb, var(--accent) 16%, var(--paper-hi));
+  transform: rotate(-5deg);
+}
+.microscope-field.is-cheek .microscope-cell:nth-child(even) { transform: rotate(7deg); }
+.cell-nucleus {
+  position: absolute; left: 50%; top: 50%; width: 18%; min-width: 7px; aspect-ratio: 1;
+  border: 1px solid var(--ink-soft); border-radius: 50%; background: var(--accent-2);
+  transform: translate(-50%, -50%); opacity: .72;
+}
+.cell-chloroplast {
+  position: relative; z-index: 1; width: clamp(4px, 13%, 10px); aspect-ratio: 1;
+  border: 1px solid var(--green-ink); border-radius: 50%; background: var(--green);
+}
+.microscope-field.has-contrast { filter: contrast(1.3) saturate(1.08); }
+.microscope-field-note { color: var(--ink-soft); font: 700 13px/1.3 var(--sans); }
+.microscope-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.microscope-legend[hidden] { display: none; }
+.microscope-legend span {
+  padding: 5px 8px; border: 1px solid var(--paper-edge); border-radius: 999px;
+  background: var(--field); color: var(--ink); font: 700 12px/1.2 var(--sans);
+}
+
+/* Sapling — logic: every tile remains inside the rectangle family while the
+   long non-square rectangle sits outside the square subset. */
+.counterexample-canvas { background: var(--tint-info-soft); }
+.counterexample-scene { display: grid; place-items: center; min-height: 250px; }
+.counterexample-rectangle-set {
+  display: grid; grid-template-columns: minmax(185px, 1fr) minmax(75px, .38fr); align-items: center;
+  gap: clamp(14px, 4vw, 34px); width: min(560px, 100%); min-height: 210px; padding: 20px;
+  border: 9px double var(--edge); border-radius: 13px; background: var(--paper-2);
+  box-shadow: 0 4px 9px var(--shadow);
+}
+.counterexample-square-set {
+  display: grid; grid-template-columns: repeat(2, minmax(45px, 1fr)); gap: 12px;
+  padding: 16px; border: 4px solid var(--gold-ink); border-radius: 9px; background: var(--field);
+}
+.logic-square {
+  justify-self: center; width: min(76px, 100%); aspect-ratio: 1; border: 3px solid var(--ink);
+  border-radius: 3px; background: color-mix(in srgb, var(--accent-2) 50%, var(--paper-hi));
+  box-shadow: 0 2px 4px var(--shadow);
+}
+.logic-long-rectangle {
+  justify-self: center; width: min(90px, 100%); height: 150px; border: 3px solid var(--ink);
+  border-radius: 3px; background: color-mix(in srgb, var(--accent-2) 50%, var(--paper-hi));
+  box-shadow: 0 2px 4px var(--shadow); opacity: .18; transition: opacity .18s, outline-color .18s;
+}
+.counterexample-scene.is-forward .counterexample-square-set { box-shadow: 0 0 0 5px var(--green); }
+.counterexample-scene.is-reverse .logic-long-rectangle { opacity: .48; border-style: dashed; }
+.counterexample-scene.is-counterexample .logic-long-rectangle {
+  opacity: 1; outline: 5px double var(--accent); outline-offset: 5px;
 }
 
 .bar { height: 7px; background: var(--paper-edge); border-radius: 4px; overflow: hidden; margin-top: 10px; }
@@ -1413,6 +1553,17 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   .life-cycle-ring { gap: 8px; padding: 7px; border-radius: 32px; }
   .life-cycle-stage-card { min-height: 68px; padding: 8px; font-size: 15px; }
   .life-cycle-number { flex-basis: 26px; width: 26px; height: 26px; }
+  .fraction-row { grid-template-columns: 1fr; gap: 7px; }
+  .fraction-bar { height: 58px; }
+  .atom-stepper-grid { grid-template-columns: 1fr; }
+  .microscope-field { width: min(270px, 100%); padding: 12px; border-width: 8px; }
+  .counterexample-scene { min-height: 205px; }
+  .counterexample-rectangle-set {
+    grid-template-columns: minmax(145px, 1fr) minmax(54px, .34fr); gap: 10px;
+    min-height: 175px; padding: 12px; border-width: 6px;
+  }
+  .counterexample-square-set { gap: 7px; padding: 10px; }
+  .logic-long-rectangle { width: min(62px, 100%); height: 115px; }
 
   /* The Atlas: the epoch label heads its row instead of sitting beside it.
      At 90px of a 375px screen the label column was taking a quarter of the
