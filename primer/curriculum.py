@@ -52,20 +52,45 @@ CURRICULUM_DIR = os.path.join(ROOT, "data", "curriculum")
 ILLUSTRATION_ROOT = os.path.join(ROOT, "web", "illustrations")
 
 
+def _webp_dimensions(path: str):
+    """Read dimensions from the small WebP header without an image dependency."""
+    with open(path, "rb") as image:
+        header = image.read(30)
+    if len(header) < 25 or header[:4] != b"RIFF" or header[8:12] != b"WEBP":
+        raise ValueError("lesson illustration is not a WebP: {}".format(path))
+    chunk = header[12:16]
+    if chunk == b"VP8X" and len(header) >= 30:
+        width = 1 + int.from_bytes(header[24:27], "little")
+        height = 1 + int.from_bytes(header[27:30], "little")
+    elif chunk == b"VP8 " and len(header) >= 30 and header[23:26] == b"\x9d\x01\x2a":
+        width = int.from_bytes(header[26:28], "little") & 0x3FFF
+        height = int.from_bytes(header[28:30], "little") & 0x3FFF
+    elif chunk == b"VP8L" and header[20] == 0x2F:
+        packed = int.from_bytes(header[21:25], "little")
+        width = 1 + (packed & 0x3FFF)
+        height = 1 + ((packed >> 14) & 0x3FFF)
+    else:
+        raise ValueError("lesson illustration has an unsupported WebP header: {}".format(path))
+    if width <= 0 or height <= 0:
+        raise ValueError("lesson illustration has invalid dimensions: {}".format(path))
+    return width, height
+
+
 def _discover_lesson_illustrations():
-    """Build URL names from the trusted static tree, never from authored input."""
-    urls = set()
+    """Build URL metadata from the trusted static tree, never authored input."""
+    images = {}
     for directory, _, filenames in os.walk(ILLUSTRATION_ROOT):
         for filename in filenames:
             if not filename.endswith(".webp"):
                 continue
             disk_path = os.path.join(directory, filename)
             relative = os.path.relpath(disk_path, ILLUSTRATION_ROOT).replace(os.sep, "/")
-            urls.add("/app/illustrations/" + relative)
-    return frozenset(urls)
+            images["/app/illustrations/" + relative] = _webp_dimensions(disk_path)
+    return images
 
 
-LESSON_ILLUSTRATION_URLS = _discover_lesson_illustrations()
+LESSON_ILLUSTRATION_DIMENSIONS = _discover_lesson_illustrations()
+LESSON_ILLUSTRATION_URLS = frozenset(LESSON_ILLUSTRATION_DIMENSIONS)
 
 # Total minutes to *master* a node — spread over many sessions of reading,
 # practice, quizzing and spaced review across weeks — not a single sitting.
@@ -98,6 +123,7 @@ STAGE_GATE = 0.6
 STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
 LESSON_MODEL_RENDERERS = frozenset({
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
+    "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
 })
 
 
@@ -122,7 +148,7 @@ def _validate_lesson_media(node: Dict) -> None:
             raise ValueError("{} lesson media {} needs {}".format(node.get("id"), entry.get("id"), key))
         return value
 
-    def local_image(path: str) -> None:
+    def local_image(path: str):
         if not path.startswith(static_prefix) or not path.endswith(".webp"):
             raise ValueError("{} lesson image must be a local WebP".format(node.get("id")))
         # The requested value is compared with a manifest produced solely from
@@ -132,6 +158,7 @@ def _validate_lesson_media(node: Dict) -> None:
         if path not in LESSON_ILLUSTRATION_URLS:
             raise ValueError("{} lesson image is not in the illustration manifest: {}".format(
                 node.get("id"), path))
+        return LESSON_ILLUSTRATION_DIMENSIONS[path]
 
     for entry in media:
         if not isinstance(entry, dict):
@@ -146,7 +173,11 @@ def _validate_lesson_media(node: Dict) -> None:
                 raise ValueError("{} illustration {} has unexpected fields".format(node.get("id"), media_id))
             source = text(entry, "src")
             local_image(source)
+            if any(isinstance(entry.get(key), bool) or not isinstance(entry.get(key), int)
+                   or entry[key] <= 0 for key in ("width", "height")):
+                raise ValueError("{} illustration {} needs positive integer dimensions".format(node.get("id"), media_id))
             widths = set()
+            sources = set()
             for candidate in text(entry, "srcset").split(","):
                 parts = candidate.strip().split()
                 if len(parts) != 2 or not parts[1].endswith("w") or not parts[1][:-1].isdigit():
@@ -155,12 +186,14 @@ def _validate_lesson_media(node: Dict) -> None:
                 if width <= 0 or width in widths:
                     raise ValueError("{} illustration {} has an invalid srcset".format(node.get("id"), media_id))
                 widths.add(width)
-                local_image(parts[0])
+                sources.add(parts[0])
+                actual_width, actual_height = local_image(parts[0])
+                if actual_width != width or actual_width * entry["height"] != actual_height * entry["width"]:
+                    raise ValueError("{} illustration {} has an invalid srcset".format(node.get("id"), media_id))
+            if source not in sources:
+                raise ValueError("{} illustration {} src is missing from srcset".format(node.get("id"), media_id))
             text(entry, "alt")
             text(entry, "caption")
-            if any(isinstance(entry.get(key), bool) or not isinstance(entry.get(key), int)
-                   or entry[key] <= 0 for key in ("width", "height")):
-                raise ValueError("{} illustration {} needs positive integer dimensions".format(node.get("id"), media_id))
         elif kind == "model":
             if set(entry) != model_keys:
                 raise ValueError("{} model {} has unexpected fields".format(node.get("id"), media_id))
@@ -186,6 +219,18 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "sequence-runner":
                 if props != {"scenario": "pack-bag"}:
                     raise ValueError("{} sequence runner has an unknown scenario".format(node.get("id")))
+            elif renderer == "make-ten":
+                if set(props) != {"first", "second"} or any(
+                        isinstance(props.get(key), bool) or not isinstance(props.get(key), int)
+                        or not 1 <= props[key] <= 9 for key in ("first", "second")) \
+                        or not 11 <= props["first"] + props["second"] <= 18:
+                    raise ValueError("{} make-ten model needs two addends 1..9 with a sum 11..18".format(
+                        node.get("id")))
+            elif renderer in {"light-paths", "life-cycle"} and props:
+                raise ValueError("{} {} model takes no props".format(node.get("id"), renderer))
+            elif renderer == "algorithm-tracer":
+                if props != {"scenario": "jam-sandwich"}:
+                    raise ValueError("{} algorithm tracer has an unknown scenario".format(node.get("id")))
         else:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))
 

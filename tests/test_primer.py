@@ -17,7 +17,9 @@ import pytest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from primer import practice, quiz  # noqa: E402
-from primer.curriculum import Curriculum, _validate_lesson_media  # noqa: E402
+from primer.curriculum import (  # noqa: E402
+    Curriculum, LESSON_ILLUSTRATION_DIMENSIONS, _validate_lesson_media,
+)
 from primer.learner import LearnerStore, MASTERY_MIN_INTERVAL  # noqa: E402
 from primer.pacing import roadmap  # noqa: E402
 from primer.render import rewrite_article, sanitize  # noqa: E402
@@ -424,33 +426,43 @@ def test_young_nodes_have_child_voiced_lessons(curr):
     assert len(with_text) / len(young) >= 0.9
 
 
-def test_the_first_lesson_media_cohort_is_local_and_complete(curr):
-    """The pilot is intentionally small, but every selected lesson gets both
-    halves of the promise: an authored plate and a keyboard model."""
+def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
+    """Every selected Seedling and Sprout lesson gets both halves of the
+    promise: an authored plate and a keyboard model."""
     expected = {
-        'math.0.counting': 'counter',
-        'math.0.shapes': 'shape-explorer',
-        'phys.0.light-shadow': 'shadow-lab',
-        'cs.0.instructions': 'sequence-runner',
+        'math.0.counting': (0, 'counter'),
+        'math.0.shapes': (0, 'shape-explorer'),
+        'phys.0.light-shadow': (0, 'shadow-lab'),
+        'cs.0.instructions': (0, 'sequence-runner'),
+        'math.1.addition': (1, 'make-ten'),
+        'phys.1.light': (1, 'light-paths'),
+        'cs.1.algorithms': (1, 'algorithm-tracer'),
+        'bio.1.lifecycles': (1, 'life-cycle'),
     }
     with_media = {nid: n for nid, n in curr.nodes.items() if n.get('lesson_media')}
     assert set(with_media) == set(expected)
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     for nid, node in with_media.items():
-        assert node['stage'] == 0, nid
+        assert node['stage'] == expected[nid][0], nid
         assert [entry['kind'] for entry in node['lesson_media']] == ['illustration', 'model'], nid
         plate, model = node['lesson_media']
-        assert model['renderer'] == expected[nid]
+        assert model['renderer'] == expected[nid][1]
         assert plate['alt'].strip() and plate['caption'].strip()
         assert (plate['width'], plate['height']) == (1600, 1000)
+        candidate_urls = set()
         for candidate in plate['srcset'].split(','):
-            path = candidate.strip().split()[0]
-            disk = os.path.join(root, 'web', path[len('/app/'):])
+            url, descriptor = candidate.strip().split()
+            candidate_urls.add(url)
+            disk = os.path.join(root, 'web', url[len('/app/'):])
             assert os.path.isfile(disk), disk
             assert os.path.getsize(disk) < 300_000, '{} is too heavy'.format(disk)
+            actual_width, actual_height = LESSON_ILLUSTRATION_DIMENSIONS[url]
+            assert actual_width == int(descriptor[:-1])
+            assert actual_width * plate['height'] == actual_height * plate['width']
             with open(disk, 'rb') as fh:
                 header = fh.read(12)
             assert header[:4] == b'RIFF' and header[8:] == b'WEBP', disk
+        assert plate['src'] in candidate_urls
 
 
 @pytest.mark.parametrize('bad_media', [None, {}, '', 0, False])
@@ -459,13 +471,20 @@ def test_lesson_media_schema_rejects_explicit_falsy_non_lists(bad_media):
         _validate_lesson_media({'id': 'test.0.media', 'lesson_media': bad_media})
 
 
-@pytest.mark.parametrize('descriptor', ['0w', '800w,duplicate'])
+@pytest.mark.parametrize('descriptor', ['0w', '799w', '800w,duplicate'])
 def test_lesson_media_schema_rejects_invalid_srcset_widths(curr, descriptor):
     plate = dict(curr.nodes['math.0.counting']['lesson_media'][0])
     source = plate['src']
     plate['srcset'] = '{} {}'.format(source, descriptor.replace(',duplicate', ', {} 800w'.format(source)))
     with pytest.raises(ValueError, match='invalid srcset'):
         _validate_lesson_media({'id': 'test.0.srcset', 'lesson_media': [plate]})
+
+
+def test_lesson_media_schema_requires_fallback_in_srcset(curr):
+    plate = dict(curr.nodes['math.0.counting']['lesson_media'][0])
+    plate['srcset'] = plate['srcset'].split(',')[1].strip()
+    with pytest.raises(ValueError, match='src is missing from srcset'):
+        _validate_lesson_media({'id': 'test.0.fallback', 'lesson_media': [plate]})
 
 
 def test_lesson_media_schema_never_resolves_an_authored_path(curr):
@@ -475,6 +494,22 @@ def test_lesson_media_schema_never_resolves_an_authored_path(curr):
     plate['srcset'] = escaped + ' 800w'
     with pytest.raises(ValueError, match='illustration manifest'):
         _validate_lesson_media({'id': 'test.0.path', 'lesson_media': [plate]})
+
+
+@pytest.mark.parametrize('renderer,props', [
+    ('make-ten', {'first': True, 'second': 5}),
+    ('make-ten', {'first': 5, 'second': 5}),
+    ('light-paths', {'scene': 'mirror'}),
+    ('life-cycle', {'species': 'frog'}),
+    ('algorithm-tracer', {'scenario': 'unknown'}),
+])
+def test_sprout_model_props_fail_closed(renderer, props):
+    model = {
+        'id': 'test-model', 'kind': 'model', 'renderer': renderer,
+        'title': 'Test model', 'instructions': 'Test the bounded props.', 'props': props,
+    }
+    with pytest.raises(ValueError):
+        _validate_lesson_media({'id': 'test.1.model', 'lesson_media': [model]})
 
 
 def test_authored_quiz_items_are_well_formed(curr):
@@ -1347,14 +1382,15 @@ def test_feedback_regions_are_mounted_before_they_are_filled():
 
 def test_lesson_models_are_local_explanations_not_assessments():
     js = _web('lesson-models.js')
-    for renderer in ('counter', 'shape-explorer', 'shadow-lab', 'sequence-runner'):
+    for renderer in ('counter', 'shape-explorer', 'shadow-lab', 'sequence-runner',
+                     'make-ten', 'light-paths', 'algorithm-tracer', 'life-cycle'):
         assert renderer in js
     assert 'fetch(' not in js and '/api/' not in js
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
     assert "type: 'range'" in js and "type: 'button'" in js
-    assert 'runPackBag' in js and 'Read this activity aloud' in js
+    assert 'runPackBag' in js and 'traceJamSandwich' in js and 'Read this activity aloud' in js
     assert 'PrimerLessonModels' in _web('app.js')
-    assert '.model-pebble' in _web('styles.css')
+    assert '.model-pebble' in _web('styles.css') and '.make-ten-frame' in _web('styles.css')
 
 
 def test_a_repaint_cannot_break_out_of_an_open_dialog():

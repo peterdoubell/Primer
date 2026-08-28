@@ -415,6 +415,7 @@ button { font-family: var(--sans); cursor: pointer; }
 .lesson-model h3 { margin-bottom: 5px; }
 .model-heading-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
 .model-heading-row h3 { margin: 0; }
+.lesson-model .speak-btn { min-width: 44px; min-height: 44px; }
 .model-instructions { margin: 0 0 15px; color: var(--ink-soft); line-height: 1.55; }
 .model-canvas {
   min-width: 0; padding: clamp(12px, 2.5vw, 22px); border: 1px solid var(--paper-edge);
@@ -556,6 +557,115 @@ button { font-family: var(--sans); cursor: pointer; }
 .sequence-step-label { display: inline-block; min-width: min(220px, 48%); font-weight: 700; }
 .sequence-step-controls { display: inline-flex; flex-wrap: wrap; gap: 7px; justify-content: flex-end; }
 .model-move { min-height: 44px; }
+
+/* Sprout — addition: the same counters move between two visible groups. */
+.make-ten-canvas { background: var(--tint-green); }
+.make-ten-scene {
+  display: grid; grid-template-columns: minmax(260px, 430px) minmax(110px, 190px);
+  align-items: center; justify-content: center; gap: clamp(14px, 3vw, 30px);
+  min-height: 190px;
+}
+.make-ten-frame {
+  display: grid; grid-template-columns: repeat(5, minmax(38px, 64px));
+  gap: 6px; padding: 9px; border: 5px solid var(--edge); border-radius: 12px;
+  background: color-mix(in srgb, var(--paper-2) 86%, var(--accent-2));
+  box-shadow: inset 0 0 0 2px var(--paper-edge), 0 4px 8px var(--shadow);
+}
+.make-ten-cell {
+  display: grid; place-items: center; aspect-ratio: 1; min-width: 0;
+  border: 2px solid var(--paper-edge); border-radius: 9px; background: var(--field);
+}
+.make-ten-counter {
+  display: block; width: 72%; aspect-ratio: 1; border: 2px solid var(--ink-soft);
+  border-radius: 50%; box-shadow: inset 0 3px 4px rgba(255,255,255,.24), 0 2px 3px var(--shadow);
+}
+.make-ten-counter.is-blue { background: color-mix(in srgb, var(--accent-2) 58%, var(--paper-hi)); }
+.make-ten-counter.is-green { background: color-mix(in srgb, var(--green) 58%, var(--paper-hi)); }
+.make-ten-bank {
+  display: grid; grid-template-columns: repeat(3, minmax(36px, 54px));
+  place-content: center; gap: 8px; min-height: 118px; padding: 12px;
+  border: 2px dashed var(--edge); border-radius: 12px; background: var(--field);
+}
+
+/* Sprout — light: three truthful ray stories share one small laboratory. */
+.light-path-canvas { padding: 8px; background: var(--tint-gold); }
+.light-path-svg { display: block; width: 100%; height: auto; min-height: 180px; }
+.light-path-field { fill: var(--field); stroke: var(--paper-edge); stroke-width: 2; }
+.light-source-glow { fill: var(--tint-gold-strong); }
+.light-source { fill: var(--gold-bright); stroke: var(--gold-ink); stroke-width: 4; }
+.light-stand { stroke: var(--gold-ink); stroke-width: 5; stroke-linecap: round; }
+.light-white-ray-outline {
+  stroke: var(--gold-ink); stroke-width: 12; stroke-linecap: round; opacity: .82;
+}
+.light-white-ray {
+  stroke: var(--paper-hi); stroke-width: 6; stroke-linecap: round;
+  filter: drop-shadow(0 0 3px var(--gold));
+}
+.light-reflected-ray { stroke: var(--gold-bright); stroke-width: 5; }
+.light-scatter-ray { stroke: var(--gold); stroke-width: 3; stroke-dasharray: 8 7; }
+.light-prism { fill: color-mix(in srgb, var(--accent-2) 13%, transparent); stroke: var(--accent-2); stroke-width: 5; }
+.light-spectrum { opacity: .82; }
+.light-screen { fill: var(--paper-2); stroke: var(--edge); stroke-width: 3; }
+.light-mirror { stroke: var(--accent-2); stroke-width: 12; }
+.light-normal { stroke: var(--ink-soft); stroke-width: 2; stroke-dasharray: 7 6; }
+.light-toy { fill: var(--accent-2); stroke: var(--ink); stroke-width: 4; }
+.light-eye { fill: var(--paper-hi); stroke: var(--ink); stroke-width: 3; }
+.light-pupil { fill: var(--ink); }
+
+/* Sprout — algorithms: omitted steps remain spatially present, so absence is
+   conveyed by a dashed tile and label rather than colour alone. */
+.algorithm-canvas { background: var(--tint-info-soft); }
+.algorithm-track {
+  display: grid; grid-template-columns: repeat(4, minmax(42px, 1fr));
+  gap: clamp(8px, 2vw, 18px); min-height: 92px; align-items: center;
+}
+.algorithm-tile {
+  height: 52px; border: 2px solid var(--edge); border-radius: 9px;
+  background: var(--paper-2); box-shadow: 0 2px 4px var(--shadow);
+}
+.algorithm-tile.is-passed { border: 4px double var(--green); background: var(--tint-green); }
+.algorithm-tile.is-omitted {
+  border-style: dashed; background: repeating-linear-gradient(135deg, var(--field), var(--field) 8px,
+    var(--paper-edge) 8px, var(--paper-edge) 11px); opacity: .72;
+}
+.algorithm-step-list { display: grid; gap: 8px; margin: 0; padding-left: 29px; }
+.algorithm-step {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 9px 10px 9px 13px; border: 1px solid var(--paper-edge);
+  border-radius: 9px; background: var(--field); color: var(--ink); font-family: var(--sans);
+}
+.algorithm-step::marker { color: var(--gold-ink); font-weight: 800; }
+.algorithm-step-label { font-weight: 700; }
+.algorithm-toggle { flex: 0 0 auto; min-height: 44px; }
+.algorithm-toggle[aria-pressed="false"] { border-style: dashed; opacity: .82; }
+
+/* Sprout — life cycles: the winding reading order is visual only; the native
+   ordered list and complete readout carry the same sequence for assistive tech. */
+.life-cycle-canvas { background: var(--tint-green); }
+.life-cycle-ring {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 2.5vw, 22px); margin: 0; padding: 9px; list-style: none;
+  border: 2px solid var(--paper-edge); border-radius: 999px;
+  background: radial-gradient(circle, var(--field) 0 31%, transparent 32%);
+}
+.life-cycle-stage:nth-child(1) { grid-column: 1; grid-row: 1; }
+.life-cycle-stage:nth-child(2) { grid-column: 2; grid-row: 1; }
+.life-cycle-stage:nth-child(3) { grid-column: 2; grid-row: 2; }
+.life-cycle-stage:nth-child(4) { grid-column: 1; grid-row: 2; }
+.life-cycle-stage-card {
+  display: flex; align-items: center; gap: 9px; width: 100%; min-height: 58px;
+  padding: 8px 11px; border: 2px solid var(--edge); border-radius: 12px;
+  background: var(--paper-2); color: var(--ink); font: 700 15px/1.3 var(--sans);
+  text-align: left;
+}
+.life-cycle-stage-card.is-current {
+  border: 4px double var(--green); background: color-mix(in srgb, var(--tint-green) 72%, var(--paper-2));
+  box-shadow: 0 3px 7px var(--shadow);
+}
+.life-cycle-number {
+  display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px;
+  border-radius: 50%; background: var(--accent-2); color: var(--paper-hi); font-weight: 900;
+}
 
 .bar { height: 7px; background: var(--paper-edge); border-radius: 4px; overflow: hidden; margin-top: 10px; }
 .bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-ink), var(--gold)); }
@@ -1295,6 +1405,14 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   .sequence-step-label { display: block; min-width: 0; margin-bottom: 8px; }
   .sequence-step-controls { justify-content: flex-start; }
   .model-slider-ends { font-size: 14px; }
+  .make-ten-scene { grid-template-columns: 1fr; gap: 11px; }
+  .make-ten-frame { gap: 4px; padding: 6px; }
+  .make-ten-bank { grid-template-columns: repeat(5, minmax(34px, 48px)); min-height: 62px; padding: 8px; }
+  .algorithm-step { align-items: flex-start; flex-direction: column; }
+  .algorithm-toggle { align-self: stretch; }
+  .life-cycle-ring { gap: 8px; padding: 7px; border-radius: 32px; }
+  .life-cycle-stage-card { min-height: 68px; padding: 8px; font-size: 15px; }
+  .life-cycle-number { flex-basis: 26px; width: 26px; height: 26px; }
 
   /* The Atlas: the epoch label heads its row instead of sitting beside it.
      At 90px of a 375px screen the label column was taking a quarter of the
