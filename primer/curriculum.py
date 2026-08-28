@@ -130,6 +130,8 @@ LESSON_MODEL_RENDERERS = frozenset({
     "venturi-flow-lab", "gene-expression-stepper", "tcp-packet-tracer",
     "heat-equation-lab", "complexity-certificate-lab",
     "morphogen-gradient-lab", "ct-window-lab",
+    "alphabet-explorer", "inclusive-family-timeline",
+    "day-night-rotation-lab", "classroom-paint-mixer",
 })
 
 
@@ -363,6 +365,39 @@ def _validate_lesson_media(node: Dict) -> None:
                 if props != expected or any(
                         type(props.get(key)) is not int for key in ("level", "width")):
                     raise ValueError("{} CT window lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "alphabet-explorer":
+                start_letter = props.get("start_letter")
+                if set(props) != {"alphabet", "start_letter", "example_set"} \
+                        or props.get("alphabet") != "english-basic-latin" \
+                        or props.get("example_set") != "common-words-v1" \
+                        or not isinstance(start_letter, str) or len(start_letter) != 1 \
+                        or not "A" <= start_letter <= "Z":
+                    raise ValueError("{} alphabet explorer has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "inclusive-family-timeline":
+                if props != {
+                        "scenario": "fictional-family-three-times", "start_time": "today"}:
+                    raise ValueError("{} inclusive family timeline has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "day-night-rotation-lab":
+                start_hour = props.get("start_hour")
+                step_hours = props.get("step_hours")
+                if set(props) != {"scenario", "start_hour", "step_hours"} \
+                        or props.get("scenario") != "earth-rotation-equinox-equator" \
+                        or type(start_hour) is not int or start_hour not in {0, 6, 12, 18} \
+                        or type(step_hours) is not int or step_hours != 6:
+                    raise ValueError("{} day and night rotation lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "classroom-paint-mixer":
+                colors = {"red", "yellow", "blue", "white"}
+                first = props.get("start_first")
+                second = props.get("start_second")
+                if set(props) != {"scenario", "start_first", "start_second"} \
+                        or props.get("scenario") != "equal-parts-classroom-ryb" \
+                        or not isinstance(first, str) or first not in colors \
+                        or not isinstance(second, str) or second not in colors:
+                    raise ValueError("{} classroom paint mixer has unknown settings".format(
                         node.get("id")))
         else:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))

@@ -15,20 +15,44 @@
     "Moon",
     "Star"
    ],
-   "kid_text": "In the daytime the Sun shines bright and warm, and the sky is blue. When the Sun goes down, it gets dark and you can see the Moon and tiny twinkly stars. The Sun always comes back in the morning to say hello!",
+   "lesson_media": [
+    {
+     "id": "turning-earth-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/earth-space/earth-0-sky-800.webp",
+     "srcset": "/app/illustrations/seedling/earth-space/earth-0-sky-800.webp 800w, /app/illustrations/seedling/earth-space/earth-0-sky-1600.webp 1600w",
+     "alt": "A brass lamp lights one half of a globe; a small house stands near the boundary between light and dark, and an arrow circles the globe.",
+     "caption": "Earth's rotation carries one place into sunlight and then into darkness. The Moon can appear by day or night, and stars remain in the daytime sky even when scattered sunlight hides most of them.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "day-night-rotation-lab",
+     "kind": "model",
+     "renderer": "day-night-rotation-lab",
+     "title": "Turn through one day",
+     "instructions": "Advance six hours at a time through a simplified equinox day at the equator. Follow one place as Earth's rotation carries it through sunrise, midday, sunset and midnight.",
+     "props": {
+      "scenario": "earth-rotation-equinox-equator",
+      "start_hour": 6,
+      "step_hours": 6
+     }
+    }
+   ],
+   "kid_text": "Earth turns once each day. The side facing the Sun has daylight. As your place turns away from the Sun, the sky grows dark; as it turns back, morning begins. The Moon can be visible in daytime or at night. Stars are still beyond the daytime sky too, but bright scattered sunlight hides most of them from our eyes.",
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "Which one shines at night? 🌃",
+     "prompt": "Which can often be seen in a clear night sky? 🌃",
      "choices": [
       "Moon 🌙",
       "Sun ☀️",
       "Rainbow 🌈"
      ],
      "answer": "Moon 🌙",
-     "say": "When the sky goes dark at night, which one shines? The moon, the sun, or a rainbow?",
+     "say": "Which can often be seen in a clear night sky — the moon, the sun, or a rainbow?",
      "speak_choices": true,
-     "explain": "The moon shines in the sky when it is dark."
+     "explain": "The Moon is often visible at night because it reflects sunlight. It can also be visible during part of the day."
     },
     {
      "kind": "choice",
@@ -41,7 +65,7 @@
      "answer": "Night 🌙",
      "say": "The sky is dark and full of twinkly stars. Is it night 🌙, day ☀️, or morning 🌅?",
      "speak_choices": true,
-     "explain": "A dark sky full of stars means it is night time."
+     "explain": "A dark sky makes many stars easier to see, so this scene is at night. The stars are still there during the day."
     },
     {
      "kind": "choice",
@@ -54,7 +78,7 @@
      "answer": "Sun ☀️",
      "say": "In the day time, what shines bright and keeps us warm? The sun ☀️, the moon 🌙, or the stars ⭐?",
      "speak_choices": true,
-     "explain": "The sun shines in the daytime and makes everything warm."
+     "explain": "Sunlight makes daytime bright and warms Earth's surface."
     },
     {
      "kind": "choice",
@@ -67,7 +91,7 @@
      "answer": "Stars ⭐",
      "say": "At night you can see tiny lights twinkling way up high. Are they stars ⭐, clouds ☁️, or snow ❄️?",
      "speak_choices": true,
-     "explain": "Stars are the tiny lights that twinkle in the night sky."
+     "explain": "Stars are distant suns. Their light can seem to twinkle as it passes through Earth's moving atmosphere."
     },
     {
      "kind": "choice",
@@ -80,19 +104,20 @@
      "answer": "Sun ☀️",
      "say": "It is morning and the sky is getting bright. What is coming up? The sun ☀️, the moon 🌙, or the stars ⭐?",
      "speak_choices": true,
-     "explain": "The sun comes back up every morning to say hello."
+     "explain": "The Sun appears to rise as Earth's rotation turns your place toward it."
     },
     {
      "kind": "choice",
-     "prompt": "See stars while the sun shines? ☀️⭐",
+     "prompt": "Why are most stars hard to see in daytime? ☀️⭐",
      "choices": [
-      "No",
-      "Yes"
+      "Scattered sunlight hides their light",
+      "The stars switch off during the day",
+      "The stars leave the sky each morning"
      ],
-     "answer": "No",
-     "say": "When the bright sun is shining in the daytime, can you see the twinkly stars? No, or yes?",
+     "answer": "Scattered sunlight hides their light",
+     "say": "Why are most stars hard to see in daytime? Does bright scattered sunlight hide their faint light, do the stars switch off, or do they leave the sky?",
      "speak_choices": true,
-     "explain": "The sun is so bright that it hides the stars until night."
+     "explain": "The stars remain in the sky, but sunlight scattered through the atmosphere makes the sky bright and hides most of their light from our eyes."
     },
     {
      "kind": "choice",
@@ -105,7 +130,7 @@
      "answer": "Night 🌙",
      "say": "When the sun goes down and the sky gets dark, what comes next? Night 🌙, morning 🌅, or noon 🕛?",
      "speak_choices": true,
-     "explain": "After the sun goes down, night comes with the moon and stars."
+     "explain": "As Earth rotates, your place turns away from the Sun and night begins. The Moon or stars may be visible when they are above the horizon and the sky is clear."
     }
    ],
    "prereqs": []

@@ -2513,6 +2513,378 @@
     return frame.root;
   }
 
+  function renderAlphabetExplorer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const examples = [
+      ['A', 'apple', '🍎'], ['B', 'ball', '⚽'], ['C', 'cat', '🐈'],
+      ['D', 'dog', '🐕'], ['E', 'egg', '🥚'], ['F', 'fish', '🐟'],
+      ['G', 'goat', '🐐'], ['H', 'hat', '🎩'], ['I', 'ice', '🧊'],
+      ['J', 'juice', '🧃'], ['K', 'kite', '🪁'], ['L', 'leaf', '🍃'],
+      ['M', 'moon', '🌙'], ['N', 'nest', '🪺'], ['O', 'octopus', '🐙'],
+      ['P', 'pig', '🐖'], ['Q', 'queen', '♛'], ['R', 'rabbit', '🐇'],
+      ['S', 'sun', '☀'], ['T', 'turtle', '🐢'], ['U', 'umbrella', '☂'],
+      ['V', 'van', '🚐'], ['W', 'whale', '🐋'], ['X', 'x-ray', '🩻'],
+      ['Y', 'yarn', '🧶'], ['Z', 'zebra', '🦓'],
+    ].map(([letter, word, symbol]) => ({ letter, word, symbol }));
+    const requested = String((item.props || {}).start_letter || 'A');
+    const authored = { index: Math.max(0, examples.findIndex(entry => entry.letter === requested)) };
+    let index = authored.index;
+    const capital = node('strong', { class: 'alphabet-focus-capital', 'data-model-speak': true });
+    const lowercase = node('span', { class: 'alphabet-focus-lowercase', 'data-model-speak': true });
+    const symbol = node('span', { class: 'alphabet-focus-symbol', 'aria-hidden': 'true' });
+    const word = node('strong', { class: 'alphabet-focus-word', 'data-model-speak': true });
+    const note = node('p', { class: 'alphabet-sound-note' });
+    const focus = node('div', { class: 'alphabet-focus' },
+      node('div', { class: 'alphabet-letter-pair' }, capital, lowercase),
+      node('div', { class: 'alphabet-example' }, symbol,
+        node('span', {}, node('small', {}, 'One common example'), word)),
+      note);
+    const grid = node('div', {
+      class: 'alphabet-letter-grid', role: 'group', 'aria-label': 'Choose one of 26 English letters',
+    });
+    const letterButtons = examples.map((entry, entryIndex) => {
+      const button = node('button', {
+        type: 'button', class: 'alphabet-letter-button',
+        'aria-label': 'Letter ' + entry.letter + ', ' + (entryIndex + 1) + ' of 26',
+        'aria-pressed': 'false',
+        onclick: () => {
+          index = entryIndex;
+          refresh(true);
+        },
+      }, entry.letter);
+      grid.append(button);
+      return button;
+    });
+    const scene = node('div', { class: 'alphabet-explorer-scene' }, focus, grid);
+    const previousButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-label': 'Previous letter', onclick: () => {
+        index = Math.max(0, index - 1);
+        refresh(true);
+      },
+    }, 'Previous');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Next letter', onclick: () => {
+        index = Math.min(examples.length - 1, index + 1);
+        refresh(true);
+      },
+    }, 'Next');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        index = authored.index;
+        refresh(true, 'Back to the authored starting letter.');
+      },
+    }, 'Reset');
+
+    function refresh(announce, message) {
+      const entry = examples[index];
+      capital.textContent = entry.letter;
+      lowercase.textContent = entry.letter.toLowerCase();
+      symbol.textContent = entry.symbol;
+      word.textContent = entry.word;
+      note.textContent = entry.letter + ' can begin ' + entry.word + '. This is one common example, not the only sound: English letters can represent more than one sound in different words.';
+      letterButtons.forEach((button, buttonIndex) => {
+        const selected = buttonIndex === index;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      previousButton.disabled = index === 0;
+      nextButton.disabled = index === examples.length - 1;
+      frame.readout.textContent = entry.letter + ' and ' + entry.letter.toLowerCase() +
+        ' — letter ' + (index + 1) + ' of 26. One common example: ' + entry.word + '.';
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    frame.canvas.classList.add('alphabet-explorer-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(node('div', { class: 'model-button-row alphabet-nav-row' },
+      previousButton, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderInclusiveFamilyTimeline(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const authored = { mode: 'day', index: 1 };
+    let mode = authored.mode;
+    let index = authored.index;
+    const stories = {
+      day: [
+        { label: 'Yesterday', tense: 'Already happened', detail: 'The child and an older caregiver found a wooden rabbit in a keepsake box.' },
+        { label: 'Today', tense: 'Happening now', detail: 'They look at an old photograph and share the rabbit’s story together.' },
+        { label: 'Tomorrow', tense: 'Has not happened yet', detail: 'They plan to add a new drawing and its story to the album.' },
+      ],
+      family: [
+        { label: 'Long ago', tense: 'Earlier in the family story', detail: 'The older caregiver was a child and held the same wooden rabbit.' },
+        { label: 'Today', tense: 'Now', detail: 'The caregiver shares the keepsake and an old memory with the child.' },
+        { label: 'Later', tense: 'A future part of the story', detail: 'Today’s drawing and memory can become part of the family history too.' },
+      ],
+    };
+    const track = node('ol', {
+      class: 'family-timeline-track', 'aria-label': 'Earlier to later timeline',
+    });
+    const timeButtons = [0, 1, 2].map(timeIndex => {
+      const button = node('button', {
+        type: 'button', class: 'family-timeline-card', 'aria-pressed': 'false',
+        'aria-label': 'Choose timeline position ' + (timeIndex + 1), onclick: () => {
+          index = timeIndex;
+          refresh(true);
+        },
+      });
+      track.append(node('li', {}, button));
+      return button;
+    });
+    const guardrail = node('p', { class: 'family-timeline-note' },
+      'Families can be biological, adoptive, foster, blended, or chosen. This fictional family is one example, and the activity asks for no names, dates, or personal information.');
+    const scene = node('div', { class: 'family-timeline-scene' }, track, guardrail);
+    const dayModeButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-pressed': 'true', onclick: () => {
+        mode = 'day';
+        refresh(true, 'Showing yesterday, today, and tomorrow.');
+      },
+    }, 'Three days');
+    const familyModeButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-pressed': 'false', onclick: () => {
+        mode = 'family';
+        refresh(true, 'Showing a longer fictional family story.');
+      },
+    }, 'Family history');
+    const previousButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-label': 'Earlier on the timeline', onclick: () => {
+        index = Math.max(0, index - 1);
+        refresh(true);
+      },
+    }, 'Earlier');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Later on the timeline', onclick: () => {
+        index = Math.min(2, index + 1);
+        refresh(true);
+      },
+    }, 'Later');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        mode = authored.mode;
+        index = authored.index;
+        refresh(true, 'Back to the authored starting point: today.');
+      },
+    }, 'Reset');
+
+    function refresh(announce, message) {
+      const entries = stories[mode];
+      timeButtons.forEach((button, buttonIndex) => {
+        const entry = entries[buttonIndex];
+        const selected = buttonIndex === index;
+        button.replaceChildren(
+          node('strong', { 'data-model-speak': true }, entry.label),
+          node('small', {}, entry.tense),
+          node('span', {}, entry.detail));
+        button.classList.toggle('is-current', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        button.setAttribute('aria-label', entry.label + '. ' + entry.tense + '. ' + entry.detail);
+      });
+      dayModeButton.classList.toggle('is-selected', mode === 'day');
+      familyModeButton.classList.toggle('is-selected', mode === 'family');
+      dayModeButton.setAttribute('aria-pressed', mode === 'day' ? 'true' : 'false');
+      familyModeButton.setAttribute('aria-pressed', mode === 'family' ? 'true' : 'false');
+      previousButton.disabled = index === 0;
+      nextButton.disabled = index === 2;
+      const current = entries[index];
+      frame.readout.textContent = current.label + ' — ' + current.tense + '. ' + current.detail;
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    frame.canvas.classList.add('family-timeline-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(
+      node('div', { class: 'model-button-row family-timeline-mode', role: 'group', 'aria-label': 'Choose timeline scale' },
+        dayModeButton, familyModeButton),
+      node('div', { class: 'model-button-row family-timeline-nav' },
+        previousButton, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderDayNightRotation(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const hours = [0, 6, 12, 18];
+    const descriptions = {
+      0: { label: 'Midnight', detail: 'This place faces away from the Sun and is deep in night.' },
+      6: { label: 'Sunrise', detail: 'This place is crossing from the dark half into daylight.' },
+      12: { label: 'Noon', detail: 'This place faces the Sun most directly in this model.' },
+      18: { label: 'Sunset', detail: 'This place is crossing from daylight into the dark half.' },
+    };
+    const requestedHour = Number((item.props || {}).start_hour);
+    const authored = { index: Math.max(0, hours.indexOf(requestedHour)) };
+    const stepHours = 6;
+    let index = authored.index;
+    const observer = node('span', { class: 'day-night-observer', 'aria-hidden': 'true' });
+    const earth = node('div', { class: 'day-night-earth', 'aria-hidden': 'true' }, observer);
+    const stage = node('div', { class: 'day-night-stage', role: 'img' },
+      node('div', { class: 'day-night-sun', 'aria-hidden': 'true' }),
+      node('div', { class: 'day-night-beam', 'aria-hidden': 'true' }), earth,
+      node('span', { class: 'day-night-turn-arrow', 'aria-hidden': 'true' }, '↺'));
+    const timeRow = node('div', {
+      class: 'day-night-time-row', role: 'group', 'aria-label': 'Choose a local solar time',
+    });
+    const timeButtons = hours.map((hour, hourIndex) => {
+      const description = descriptions[hour];
+      const button = node('button', {
+        type: 'button', class: 'day-night-time-button', 'aria-pressed': 'false',
+        'aria-label': String(hour).padStart(2, '0') + ':00, ' + description.label, onclick: () => {
+          index = hourIndex;
+          refresh(true);
+        },
+      }, node('strong', {}, String(hour).padStart(2, '0') + ':00'),
+      node('small', {}, description.label));
+      timeRow.append(button);
+      return button;
+    });
+    const caveat = node('p', { class: 'day-night-note' },
+      'Earth rotates eastward once per day. This teaching view shows an equinox at the equator, so sunrise and sunset are near 06:00 and 18:00; latitude and season change those times. The Moon can appear during the day. Stars are still present in daylight, but scattered sunlight hides most of them.');
+    const scene = node('div', { class: 'day-night-rotation-scene' }, stage, timeRow, caveat);
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Turn Earth ahead by six hours', onclick: () => {
+        const nextHour = (hours[index] + stepHours) % 24;
+        index = hours.indexOf(nextHour);
+        refresh(true);
+      },
+    }, 'Turn 6 hours');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        index = authored.index;
+        refresh(true, 'Back to the authored starting time.');
+      },
+    }, 'Reset');
+
+    function refresh(announce, message) {
+      const hour = hours[index];
+      const angle = 15 * (hour - 12);
+      const radians = angle * Math.PI / 180;
+      const x = 50 - 42 * Math.cos(radians);
+      const y = 50 + 42 * Math.sin(radians);
+      observer.style.setProperty('--observer-x', x.toFixed(2) + '%');
+      observer.style.setProperty('--observer-y', y.toFixed(2) + '%');
+      timeButtons.forEach((button, buttonIndex) => {
+        const selected = buttonIndex === index;
+        button.classList.toggle('is-current', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      const description = descriptions[hour];
+      stage.setAttribute('aria-label', String(hour).padStart(2, '0') + ':00, ' +
+        description.label + '. ' + description.detail + ' Earth rotates eastward while the Sun stays fixed.');
+      frame.readout.textContent = String(hour).padStart(2, '0') + ':00 — ' +
+        description.label + '. ' + description.detail;
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    frame.canvas.classList.add('day-night-rotation-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(node('div', { class: 'model-button-row day-night-nav' }, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderClassroomPaintMixer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const paints = {
+      red: { label: 'Red', color: '#b64b42' },
+      yellow: { label: 'Yellow', color: '#dfbd38' },
+      blue: { label: 'Blue', color: '#496e9d' },
+      white: { label: 'White', color: '#f4ecda' },
+    };
+    const recipes = {
+      'blue+red': { label: 'Purple', color: '#765a87' },
+      'blue+white': { label: 'Light blue', color: '#9eb8cf' },
+      'blue+yellow': { label: 'Green', color: '#708b4d' },
+      'red+white': { label: 'Pink', color: '#dba3a0' },
+      'red+yellow': { label: 'Orange', color: '#cc783b' },
+      'white+yellow': { label: 'Pale yellow', color: '#eadb91' },
+    };
+    const requestedFirst = (item.props || {}).start_first;
+    const requestedSecond = (item.props || {}).start_second;
+    const authored = {
+      first: paints[requestedFirst] ? requestedFirst : 'blue',
+      second: paints[requestedSecond] ? requestedSecond : 'yellow',
+    };
+    let first = authored.first;
+    let second = authored.second;
+    const firstChip = node('span', { class: 'paint-source-chip' });
+    const plus = node('strong', { class: 'paint-plus', 'aria-hidden': 'true' }, '+');
+    const secondChip = node('span', { class: 'paint-source-chip' });
+    const resultBowl = node('div', { class: 'paint-result-bowl', 'data-model-speak': true });
+    const scene = node('div', { class: 'paint-mixer-scene' },
+      node('div', { class: 'paint-source-row' }, firstChip, plus, secondChip), resultBowl,
+      node('p', { class: 'paint-mixer-note' },
+        'These are approximate classroom paint recipes for equal parts. Real pigments, brands, and amounts vary. Paint absorbs light; a colored screen instead combines additive light, so its mixing rules are different.'));
+    const selectors = { first: [], second: [] };
+
+    function selector(name, label) {
+      const group = node('div', { class: 'paint-selector' }, node('strong', {}, label));
+      const row = node('div', {
+        class: 'paint-selector-row', role: 'group', 'aria-label': label,
+      });
+      Object.entries(paints).forEach(([key, paint]) => {
+        const button = node('button', {
+          type: 'button', class: 'paint-choice', 'aria-pressed': 'false',
+          'aria-label': label + ': ' + paint.label, onclick: () => {
+            if (name === 'first') first = key;
+            else second = key;
+            refresh(true);
+          },
+        }, node('span', {
+          class: 'paint-choice-swatch paint-' + key, 'aria-hidden': 'true',
+          style: '--paint-color:' + paint.color,
+        }), paint.label);
+        selectors[name].push({ key, button });
+        row.append(button);
+      });
+      group.append(row);
+      return group;
+    }
+
+    const selectorPair = node('div', { class: 'paint-selector-pair' },
+      selector('first', 'First paint'), selector('second', 'Second paint'));
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        first = authored.first;
+        second = authored.second;
+        refresh(true, 'Back to the authored ' + paints[authored.first].label.toLowerCase() +
+          ' and ' + paints[authored.second].label.toLowerCase() + ' recipe.');
+      },
+    }, 'Reset');
+
+    function mixedPaint() {
+      if (first === second) return { label: paints[first].label, color: paints[first].color };
+      return recipes[[first, second].sort().join('+')];
+    }
+
+    function refresh(announce, message) {
+      const mixed = mixedPaint();
+      firstChip.textContent = paints[first].label;
+      firstChip.style.setProperty('--paint-color', paints[first].color);
+      secondChip.textContent = paints[second].label;
+      secondChip.style.setProperty('--paint-color', paints[second].color);
+      resultBowl.style.setProperty('--paint-color', mixed.color);
+      resultBowl.textContent = mixed.label;
+      resultBowl.setAttribute('aria-label', 'Approximate equal-parts result: ' + mixed.label);
+      Object.entries(selectors).forEach(([name, entries]) => entries.forEach(({ key, button }) => {
+        const selected = key === (name === 'first' ? first : second);
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      }));
+      frame.readout.textContent = 'Equal parts ' + paints[first].label.toLowerCase() + ' and ' +
+        paints[second].label.toLowerCase() + ' make an approximate ' + mixed.label.toLowerCase() +
+        ' with this classroom-paint recipe.';
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    frame.canvas.classList.add('paint-mixer-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(selectorPair,
+      node('div', { class: 'model-button-row paint-mixer-nav' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
@@ -2538,6 +2910,10 @@
     'complexity-certificate-lab': renderComplexityCertificate,
     'morphogen-gradient-lab': renderMorphogenGradient,
     'ct-window-lab': renderCtWindow,
+    'alphabet-explorer': renderAlphabetExplorer,
+    'inclusive-family-timeline': renderInclusiveFamilyTimeline,
+    'day-night-rotation-lab': renderDayNightRotation,
+    'classroom-paint-mixer': renderClassroomPaintMixer,
   });
 
   window.PrimerLessonModels = Object.freeze({

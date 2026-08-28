@@ -427,13 +427,17 @@ def test_young_nodes_have_child_voiced_lessons(curr):
 
 
 def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
-    """Every selected lesson from Seedling through Forest gets both halves of
-    the promise: an authored plate and a keyboard model."""
+    """Every selected lesson through Forest, plus Seedling's second tranche,
+    gets both halves of the promise: an authored plate and a keyboard model."""
     expected = {
         'math.0.counting': (0, 'counter'),
         'math.0.shapes': (0, 'shape-explorer'),
         'phys.0.light-shadow': (0, 'shadow-lab'),
         'cs.0.instructions': (0, 'sequence-runner'),
+        'lang.0.alphabet': (0, 'alphabet-explorer'),
+        'hist.0.family': (0, 'inclusive-family-timeline'),
+        'earth.0.sky': (0, 'day-night-rotation-lab'),
+        'arts.0.colors': (0, 'classroom-paint-mixer'),
         'math.1.addition': (1, 'make-ten'),
         'phys.1.light': (1, 'light-paths'),
         'cs.1.algorithms': (1, 'algorithm-tracer'),
@@ -615,6 +619,81 @@ def test_lesson_media_schema_never_resolves_an_authored_path(curr):
     ('ct-window-lab', {
         'phantom': 'synthetic-hu-reference', 'level': 40.0, 'width': 400,
     }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'a',
+        'example_set': 'common-words-v1',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': True,
+        'example_set': 'common-words-v1',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 1.0,
+        'example_set': 'common-words-v1',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'A',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'A',
+        'example_set': 'common-words-v1', 'locale': 'en',
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'fictional-family-three-times', 'start_time': 'yesterday',
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'personal-family-three-times', 'start_time': 'today',
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'fictional-family-three-times', 'start_time': 'today',
+        'names': ['Alex'],
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'fictional-family-three-times',
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': True, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6.0, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 3, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6, 'step_hours': True,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6, 'step_hours': 6.0,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6,
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'green', 'start_second': 'yellow',
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'blue', 'start_second': True,
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'blue', 'start_second': 1.0,
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'blue', 'start_second': 'yellow', 'mode': 'rgb',
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb', 'start_first': 'blue',
+    }),
 ])
 def test_lesson_model_props_fail_closed(renderer, props):
     model = {
@@ -672,6 +751,41 @@ def test_lesson_model_props_fail_closed(renderer, props):
     }),
     ('ct-window-lab', {
         'phantom': 'synthetic-hu-reference', 'level': 40, 'width': 400,
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'A',
+        'example_set': 'common-words-v1',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'Z',
+        'example_set': 'common-words-v1',
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'fictional-family-three-times', 'start_time': 'today',
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 0, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 12, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 18, 'step_hours': 6,
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'blue', 'start_second': 'yellow',
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'red', 'start_second': 'white',
     }),
 ])
 def test_lesson_model_props_accept_the_bounded_contract(renderer, props):
@@ -1561,7 +1675,9 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'matrix-transform-lab', 'venturi-flow-lab',
                      'gene-expression-stepper', 'tcp-packet-tracer',
                      'heat-equation-lab', 'complexity-certificate-lab',
-                     'morphogen-gradient-lab', 'ct-window-lab'):
+                     'morphogen-gradient-lab', 'ct-window-lab',
+                     'alphabet-explorer', 'inclusive-family-timeline',
+                     'day-night-rotation-lab', 'classroom-paint-mixer'):
         assert renderer in js
     assert 'fetch(' not in js and '/api/' not in js
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
@@ -1747,6 +1863,70 @@ def test_forest_model_registration_accessibility_resets_and_accuracy_caveats():
     for selector in ('.heat-equation-scene', '.complexity-certificate-scene',
                      '.morphogen-gradient-scene', '.ct-window-scene'):
         assert selector in css
+
+
+def test_second_seedling_model_registration_accessibility_resets_and_guardrails():
+    """Keep Seedling pass two local, inclusive, operable and honest."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    sources = {}
+    for renderer, function in (
+        ('alphabet-explorer', 'renderAlphabetExplorer'),
+        ('inclusive-family-timeline', 'renderInclusiveFamilyTimeline'),
+        ('day-night-rotation-lab', 'renderDayNightRotation'),
+        ('classroom-paint-mixer', 'renderClassroomPaintMixer'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        sources[renderer] = source.lower()
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+        assert 'aria-label' in source
+        assert 'authored' in source.lower(), '{} reset must restore authored state'.format(renderer)
+
+    assert 'fetch(' not in js and '/api/' not in js
+
+    alphabet = sources['alphabet-explorer']
+    assert 'more than one sound' in alphabet
+    assert 'one common example' in alphabet
+    assert 'index = authored.index;' in alphabet
+
+    family = sources['inclusive-family-timeline']
+    assert 'fictional family' in family
+    assert 'biological, adoptive, foster, blended, or chosen' in family
+    assert 'no names, dates, or personal information' in family
+    assert "node('input'" not in family and 'contenteditable' not in family
+    assert 'mode = authored.mode;' in family and 'index = authored.index;' in family
+    assert "role: 'group', 'aria-label': 'choose timeline scale'" in family
+
+    rotation = sources['day-night-rotation-lab']
+    for phrase in ('earth rotates eastward', 'equinox at the equator',
+                   'moon can appear during the day', 'stars are still present'):
+        assert phrase in rotation
+    assert 'index = authored.index;' in rotation
+
+    paint = sources['classroom-paint-mixer']
+    for phrase in ('approximate classroom paint', 'equal parts',
+                   'real pigments', 'additive light'):
+        assert phrase in paint
+    assert 'first = authored.first;' in paint and 'second = authored.second;' in paint
+
+    for selector in ('.alphabet-explorer-scene', '.family-timeline-scene',
+                     '.day-night-rotation-scene', '.paint-mixer-scene'):
+        assert selector in css
+    assert 'repeat(auto-fill, minmax(44px, 1fr))' in css
+    assert 'repeat(2, minmax(62px, 1fr))' in css
 
 
 def test_a_repaint_cannot_break_out_of_an_open_dialog():
