@@ -49,6 +49,23 @@ from typing import Dict, List, Optional
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CURRICULUM_DIR = os.path.join(ROOT, "data", "curriculum")
+ILLUSTRATION_ROOT = os.path.join(ROOT, "web", "illustrations")
+
+
+def _discover_lesson_illustrations():
+    """Build URL names from the trusted static tree, never from authored input."""
+    urls = set()
+    for directory, _, filenames in os.walk(ILLUSTRATION_ROOT):
+        for filename in filenames:
+            if not filename.endswith(".webp"):
+                continue
+            disk_path = os.path.join(directory, filename)
+            relative = os.path.relpath(disk_path, ILLUSTRATION_ROOT).replace(os.sep, "/")
+            urls.add("/app/illustrations/" + relative)
+    return frozenset(urls)
+
+
+LESSON_ILLUSTRATION_URLS = _discover_lesson_illustrations()
 
 # Total minutes to *master* a node — spread over many sessions of reading,
 # practice, quizzing and spaced review across weeks — not a single sitting.
@@ -108,12 +125,13 @@ def _validate_lesson_media(node: Dict) -> None:
     def local_image(path: str) -> None:
         if not path.startswith(static_prefix) or not path.endswith(".webp"):
             raise ValueError("{} lesson image must be a local WebP".format(node.get("id")))
-        illustration_root = os.path.abspath(os.path.join(ROOT, "web", "illustrations"))
-        disk_path = os.path.abspath(os.path.join(ROOT, "web", path[len("/app/"):]))
-        if os.path.commonpath((illustration_root, disk_path)) != illustration_root:
-            raise ValueError("{} lesson image escapes the illustration directory".format(node.get("id")))
-        if not os.path.isfile(disk_path):
-            raise ValueError("{} lesson image is missing: {}".format(node.get("id"), disk_path))
+        # The requested value is compared with a manifest produced solely from
+        # the trusted illustration directory above. It never participates in
+        # a filesystem expression, so traversal and arbitrary-file probes are
+        # impossible even if this validator is reused with untrusted data.
+        if path not in LESSON_ILLUSTRATION_URLS:
+            raise ValueError("{} lesson image is not in the illustration manifest: {}".format(
+                node.get("id"), path))
 
     for entry in media:
         if not isinstance(entry, dict):

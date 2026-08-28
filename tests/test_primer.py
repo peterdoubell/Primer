@@ -468,6 +468,15 @@ def test_lesson_media_schema_rejects_invalid_srcset_widths(curr, descriptor):
         _validate_lesson_media({'id': 'test.0.srcset', 'lesson_media': [plate]})
 
 
+def test_lesson_media_schema_never_resolves_an_authored_path(curr):
+    plate = dict(curr.nodes['math.0.counting']['lesson_media'][0])
+    escaped = '/app/illustrations/../styles.css.webp'
+    plate['src'] = escaped
+    plate['srcset'] = escaped + ' 800w'
+    with pytest.raises(ValueError, match='illustration manifest'):
+        _validate_lesson_media({'id': 'test.0.path', 'lesson_media': [plate]})
+
+
 def test_authored_quiz_items_are_well_formed(curr):
     for nid, node in curr.nodes.items():
         for q in node.get('quiz', []):
