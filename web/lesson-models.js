@@ -1286,6 +1286,463 @@
     return frame.root;
   }
 
+  function renderFunctionComposition(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authored = {
+      fSlope: Math.round(clampNumber(props.f_slope, -3, 3, 2)) || 2,
+      fIntercept: Math.round(clampNumber(props.f_intercept, -5, 5, 0)),
+      gSlope: Math.round(clampNumber(props.g_slope, -3, 3, 1)) || 1,
+      gIntercept: Math.round(clampNumber(props.g_intercept, -5, 5, -1)),
+      xMin: Math.round(clampNumber(props.x_min, -8, 7, -5)),
+      xMax: Math.round(clampNumber(props.x_max, -7, 8, 5)),
+      startX: Math.round(clampNumber(props.start_x, -8, 8, 5)),
+    };
+    if (authored.xMin >= authored.xMax) {
+      authored.xMin = -5;
+      authored.xMax = 5;
+    }
+    authored.startX = Math.max(authored.xMin, Math.min(authored.xMax, authored.startX));
+    let x = authored.startX;
+    let order = 'f-then-g';
+    const pipeline = node('div', { class: 'function-pipeline', 'aria-hidden': 'true' });
+    const graph = svgNode('svg', {
+      viewBox: '0 0 560 250', class: 'function-graph', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const scene = node('div', { class: 'function-composition-scene' }, pipeline, graph);
+    const orderButtons = {};
+    const orderRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose the order of the two functions',
+    });
+
+    function f(value) { return authored.fSlope * value + authored.fIntercept; }
+    function g(value) { return authored.gSlope * value + authored.gIntercept; }
+    function result(value, selectedOrder) {
+      return selectedOrder === 'f-then-g' ? g(f(value)) : f(g(value));
+    }
+    function signed(value) {
+      if (value === 0) return '';
+      return value > 0 ? ' + ' + value : ' − ' + Math.abs(value);
+    }
+    function formula(name, slope, intercept) {
+      const coefficient = slope === 1 ? '' : slope === -1 ? '−' : String(slope);
+      return name + '(x) = ' + coefficient + 'x' + signed(intercept);
+    }
+    function drawGraph() {
+      graph.replaceChildren();
+      graph.append(svgNode('rect', { x: 28, y: 16, width: 504, height: 206, rx: 12, class: 'function-graph-field' }));
+      const sampleOutputs = [];
+      for (let value = authored.xMin; value <= authored.xMax; value += 1) {
+        sampleOutputs.push(result(value, 'f-then-g'), result(value, 'g-then-f'));
+      }
+      const yMin = Math.floor(Math.min(0, ...sampleOutputs)) - 1;
+      const yMax = Math.ceil(Math.max(0, ...sampleOutputs)) + 1;
+      const mapX = value => 44 + (value - authored.xMin) * 472 / (authored.xMax - authored.xMin);
+      const mapY = value => 210 - (value - yMin) * 182 / (yMax - yMin);
+      for (let index = 0; index <= 8; index += 1) {
+        const gx = 44 + index * 59;
+        graph.append(svgNode('line', { x1: gx, y1: 28, x2: gx, y2: 210, class: 'function-grid-line' }));
+      }
+      for (let index = 0; index <= 6; index += 1) {
+        const gy = 28 + index * (182 / 6);
+        graph.append(svgNode('line', { x1: 44, y1: gy, x2: 516, y2: gy, class: 'function-grid-line' }));
+      }
+      if (authored.xMin <= 0 && authored.xMax >= 0) {
+        graph.append(svgNode('line', { x1: mapX(0), y1: 28, x2: mapX(0), y2: 210, class: 'function-axis' }));
+      }
+      if (yMin <= 0 && yMax >= 0) {
+        graph.append(svgNode('line', { x1: 44, y1: mapY(0), x2: 516, y2: mapY(0), class: 'function-axis' }));
+      }
+      const orders = ['f-then-g', 'g-then-f'];
+      orders.forEach(candidate => {
+        graph.append(svgNode('line', {
+          x1: mapX(authored.xMin), y1: mapY(result(authored.xMin, candidate)),
+          x2: mapX(authored.xMax), y2: mapY(result(authored.xMax, candidate)),
+          class: 'function-composition-line' + (candidate === order ? ' is-selected' : ' is-comparison'),
+        }));
+      });
+      graph.append(svgNode('circle', {
+        cx: mapX(x), cy: mapY(result(x, order)), r: 7, class: 'function-current-point',
+      }));
+    }
+    function refresh(announce) {
+      const firstName = order === 'f-then-g' ? 'f' : 'g';
+      const secondName = order === 'f-then-g' ? 'g' : 'f';
+      const firstValue = order === 'f-then-g' ? f(x) : g(x);
+      const finalValue = result(x, order);
+      const comparisonOrder = order === 'f-then-g' ? 'g-then-f' : 'f-then-g';
+      const comparisonValue = result(x, comparisonOrder);
+      pipeline.replaceChildren(
+        node('span', { class: 'function-value-card' }, String(x)),
+        node('span', { class: 'function-arrow' }, '→'),
+        node('span', { class: 'function-machine-card' }, firstName),
+        node('span', { class: 'function-value-card' }, String(firstValue)),
+        node('span', { class: 'function-arrow' }, '→'),
+        node('span', { class: 'function-machine-card' }, secondName),
+        node('span', { class: 'function-value-card is-result' }, String(finalValue)),
+      );
+      Object.entries(orderButtons).forEach(([name, button]) => {
+        const active = name === order;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      slider.value = String(x);
+      slider.setAttribute('aria-valuetext', 'Input x equals ' + x);
+      drawGraph();
+      const expression = order === 'f-then-g' ? 'g(f(' + x + '))' : 'f(g(' + x + '))';
+      const comparisonExpression = order === 'f-then-g' ? 'f(g(' + x + '))' : 'g(f(' + x + '))';
+      frame.readout.textContent = formula('f', authored.fSlope, authored.fIntercept) + '; ' +
+        formula('g', authored.gSlope, authored.gIntercept) + '. Selected order: apply ' + firstName +
+        ', then ' + secondName + '. ' + expression + ' = ' + finalValue + '; the other order gives ' +
+        comparisonExpression + ' = ' + comparisonValue +
+        '. Composition is not commutative in general: changing the order can change the output.';
+      if (announce) {
+        frame.status.textContent = 'Applied ' + firstName + ' first and ' + secondName +
+          ' second. The final output is ' + finalValue + '.';
+      }
+    }
+
+    [['f-then-g', 'Apply f, then g'], ['g-then-f', 'Apply g, then f']].forEach(([name, label]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { order = name; refresh(true); },
+      }, label);
+      orderButtons[name] = button;
+      orderRow.append(button);
+    });
+    const slider = node('input', {
+      type: 'range', min: authored.xMin, max: authored.xMax, step: 1, value: x,
+      'aria-label': 'Input x', oninput: event => { x = Number(event.target.value); refresh(false); },
+    });
+    const sliderLabel = node('label', { class: 'model-slider' },
+      node('span', { class: 'model-slider-title' }, 'Choose the input'), slider,
+      node('span', { class: 'model-slider-ends' },
+        node('span', {}, String(authored.xMin)), node('span', {}, String(authored.xMax))));
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        x = authored.startX;
+        order = 'f-then-g';
+        refresh(false);
+        frame.status.textContent = 'The input and function order are back to their authored starting values.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('function-composition-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(orderRow, sliderLabel, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const CARDIOPULMONARY_ROUTE = [
+    {
+      name: 'Venae cavae to right atrium', state: 'Lower-oxygen blood', className: 'is-lower',
+      detail: 'Systemic veins return blood from the body to the right atrium.',
+    },
+    {
+      name: 'Right ventricle', state: 'Lower-oxygen blood', className: 'is-lower',
+      detail: 'The right ventricle receives that blood and pumps it toward the lungs.',
+    },
+    {
+      name: 'Pulmonary artery', state: 'Lower-oxygen blood', className: 'is-lower',
+      detail: 'The pulmonary artery carries blood away from the heart to the lungs.',
+    },
+    {
+      name: 'Lung capillaries', state: 'Oxygen level rises', className: 'is-changing',
+      detail: 'Oxygen diffuses from alveolar air into blood down a partial-pressure gradient.',
+    },
+    {
+      name: 'Pulmonary veins', state: 'Higher-oxygen blood', className: 'is-higher',
+      detail: 'Pulmonary veins carry blood from the lungs toward the left atrium.',
+    },
+    {
+      name: 'Left atrium', state: 'Higher-oxygen blood', className: 'is-higher',
+      detail: 'The left atrium receives the pulmonary venous return.',
+    },
+    {
+      name: 'Left ventricle', state: 'Higher-oxygen blood', className: 'is-higher',
+      detail: 'The left ventricle pumps blood into the systemic circulation.',
+    },
+    {
+      name: 'Aorta and body capillaries', state: 'Oxygen is delivered', className: 'is-changing',
+      detail: 'The aorta distributes blood; at tissue capillaries, oxygen moves into tissues.',
+    },
+    {
+      name: 'Systemic veins', state: 'Lower-oxygen blood', className: 'is-lower',
+      detail: 'Systemic veins collect the return flow and lead back to the venae cavae.',
+    },
+  ];
+
+  function renderCirculationRoute(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredStep = Math.round(clampNumber(props.start_step, 0, CARDIOPULMONARY_ROUTE.length - 1, 0));
+    const authoredOxygen = props.show_oxygenation !== false;
+    let step = authoredStep;
+    let showOxygen = authoredOxygen;
+    const route = node('ol', {
+      class: 'circulation-route', 'aria-label': 'Cardiopulmonary circulation route in order',
+    });
+
+    function refresh(announce) {
+      route.replaceChildren();
+      CARDIOPULMONARY_ROUTE.forEach((station, index) => {
+        const current = index === step;
+        route.append(node('li', {
+          class: 'circulation-station ' + (showOxygen ? station.className + ' ' : '') +
+            (current ? 'is-current' : ''),
+          'aria-current': current ? 'step' : null,
+        }, node('span', { class: 'circulation-step-number', 'aria-hidden': 'true' }, String(index + 1)),
+        node('span', { class: 'circulation-station-copy' },
+          node('strong', { 'data-model-speak': true }, station.name),
+          showOxygen ? node('small', {}, station.state) : null)));
+      });
+      oxygenButton.setAttribute('aria-pressed', showOxygen ? 'true' : 'false');
+      oxygenButton.textContent = showOxygen ? 'Hide diagram oxygen cues' : 'Show diagram oxygen cues';
+      const station = CARDIOPULMONARY_ROUTE[step];
+      const next = CARDIOPULMONARY_ROUTE[(step + 1) % CARDIOPULMONARY_ROUTE.length];
+      frame.readout.textContent = 'Step ' + (step + 1) + ' of ' + CARDIOPULMONARY_ROUTE.length + ': ' +
+        station.name + '. ' + station.state + '. ' + station.detail + ' Next: ' + next.name +
+        '. This schematic route follows one complete circuit. Arteries carry blood away from the heart and veins carry ' +
+        'blood toward it, regardless of oxygen level.';
+      if (announce) frame.status.textContent = 'Now tracing ' + station.name + '. ' + station.detail;
+    }
+
+    const backButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = (step + CARDIOPULMONARY_ROUTE.length - 1) % CARDIOPULMONARY_ROUTE.length;
+        refresh(true);
+      },
+    }, 'Previous stop');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const completed = step === CARDIOPULMONARY_ROUTE.length - 1;
+        step = (step + 1) % CARDIOPULMONARY_ROUTE.length;
+        refresh(false);
+        frame.status.textContent = completed
+          ? 'The circuit is complete and continues at the right side of the heart.'
+          : 'Now tracing ' + CARDIOPULMONARY_ROUTE[step].name + '. ' + CARDIOPULMONARY_ROUTE[step].detail;
+      },
+    }, 'Next stop');
+    const oxygenButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': String(showOxygen), onclick: () => {
+        showOxygen = !showOxygen;
+        refresh(false);
+        frame.status.textContent = showOxygen
+          ? 'Diagram oxygen cues are shown with words and border patterns.'
+          : 'Diagram oxygen cues are hidden; the full state remains in the text readout.';
+      },
+    }, 'Hide diagram oxygen cues');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = authoredStep;
+        showOxygen = authoredOxygen;
+        refresh(false);
+        frame.status.textContent = 'The route is back to its authored starting stop.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('circulation-route-canvas');
+    frame.canvas.append(route);
+    frame.controls.append(node('div', { class: 'model-button-row' },
+      backButton, nextButton, oxygenButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const TRUTH_OPERATORS = {
+    and: { label: 'AND', apply: (p, q) => p && q,
+      rule: 'AND is true only when both propositions are true.' },
+    or: { label: 'OR', apply: (p, q) => p || q,
+      rule: 'Inclusive OR is true when at least one proposition is true.' },
+    implies: { label: 'IMPLIES', apply: (p, q) => !p || q,
+      rule: 'Material implication is false only when the first proposition is true and the second is false.' },
+  };
+
+  function renderTruthTable(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authored = {
+      operator: TRUTH_OPERATORS[props.start_operator] ? props.start_operator : 'implies',
+      p: props.start_p !== false,
+      q: props.start_q === true,
+    };
+    let operator = authored.operator;
+    let p = authored.p;
+    let q = authored.q;
+    const table = node('table', { class: 'truth-table' });
+    const operatorButtons = {};
+    const operatorRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose a logical operator',
+    });
+
+    function truth(value) { return value ? 'True' : 'False'; }
+    function refresh(announce) {
+      const detail = TRUTH_OPERATORS[operator];
+      table.replaceChildren(
+        node('caption', {}, detail.label + ' truth table'),
+        node('thead', {}, node('tr', {},
+          node('th', { scope: 'col' }, 'P'), node('th', { scope: 'col' }, 'Q'),
+          node('th', { scope: 'col' }, detail.label))),
+        node('tbody', {}, ...[[true, true], [true, false], [false, true], [false, false]].map(([rowP, rowQ]) => {
+          const current = rowP === p && rowQ === q;
+          return node('tr', { class: current ? 'is-current' : '', 'aria-current': current ? 'true' : null },
+            node('td', {}, truth(rowP)), node('td', {}, truth(rowQ)),
+            node('td', { class: detail.apply(rowP, rowQ) ? 'is-true' : 'is-false' },
+              truth(detail.apply(rowP, rowQ))));
+        })),
+      );
+      Object.entries(operatorButtons).forEach(([name, button]) => {
+        const active = name === operator;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      pButton.setAttribute('aria-pressed', p ? 'true' : 'false');
+      pButton.textContent = 'P is ' + truth(p);
+      qButton.setAttribute('aria-pressed', q ? 'true' : 'false');
+      qButton.textContent = 'Q is ' + truth(q);
+      const result = detail.apply(p, q);
+      frame.readout.textContent = 'P is ' + truth(p) + '; Q is ' + truth(q) + '. P ' + detail.label +
+        ' Q is ' + truth(result) + '. ' + detail.rule +
+        ' A truth table checks every possible truth-value pair; it does not decide whether P or Q is factually true.';
+      if (announce) frame.status.textContent = 'The highlighted row now evaluates to ' + truth(result) + '.';
+    }
+
+    Object.entries(TRUTH_OPERATORS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { operator = name; refresh(true); },
+      }, detail.label);
+      operatorButtons[name] = button;
+      operatorRow.append(button);
+    });
+    const pButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': String(p), onclick: () => {
+        p = !p;
+        refresh(true);
+      },
+    }, 'P is ' + truth(p));
+    const qButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': String(q), onclick: () => {
+        q = !q;
+        refresh(true);
+      },
+    }, 'Q is ' + truth(q));
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        operator = authored.operator;
+        p = authored.p;
+        q = authored.q;
+        refresh(false);
+        frame.status.textContent = 'The operator and proposition values are back to their authored settings.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('truth-table-canvas');
+    frame.canvas.append(table);
+    frame.controls.append(operatorRow, node('div', { class: 'model-button-row' }, pButton, qButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const STRUCTURE_SHAPES = ['is-square', 'is-circle', 'is-triangle', 'is-diamond', 'is-hexagon'];
+
+  function renderStackQueue(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authored = {
+      mode: props.start_mode === 'queue' ? 'queue' : 'stack',
+      capacity: Math.round(clampNumber(props.capacity, 3, 8, 6)),
+      count: Math.round(clampNumber(props.initial_count, 0, 8, 3)),
+    };
+    authored.count = Math.min(authored.capacity, authored.count);
+    let mode = authored.mode;
+    let nextSerial = authored.count + 1;
+    let items = Array.from({ length: authored.count }, (_, index) => makeItem(index + 1));
+    let lastAction = 'No operation yet.';
+    const scene = node('div', { class: 'stack-queue-scene', 'aria-hidden': 'true' });
+    const modeButtons = {};
+    const modeRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose a data structure',
+    });
+
+    function makeItem(serial) {
+      return {
+        serial,
+        label: 'item ' + serial,
+        symbol: String.fromCharCode(65 + ((serial - 1) % 26)),
+        shape: STRUCTURE_SHAPES[(serial - 1) % STRUCTURE_SHAPES.length],
+      };
+    }
+    function refresh(announce) {
+      const nextRemoval = items.length ? (mode === 'stack' ? items[items.length - 1] : items[0]) : null;
+      scene.className = 'stack-queue-scene is-' + mode;
+      scene.replaceChildren(
+        node('span', { class: 'structure-marker is-remove' }, mode === 'stack' ? 'remove top' : 'remove front'),
+        node('div', { class: 'structure-track' }, ...items.map(entry =>
+          node('span', { class: 'structure-token ' + entry.shape }, entry.symbol))),
+        node('span', { class: 'structure-marker is-add' }, mode === 'stack' ? 'add at top' : 'add at rear'),
+      );
+      Object.entries(modeButtons).forEach(([name, button]) => {
+        const active = name === mode;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      addButton.disabled = items.length >= authored.capacity;
+      removeButton.disabled = items.length === 0;
+      const orderText = items.length ? items.map(entry => entry.label).join(', ') : 'empty';
+      const rule = mode === 'stack'
+        ? 'A stack is last-in, first-out: add and remove at the top.'
+        : 'A queue is first-in, first-out: add at the rear and remove at the front.';
+      frame.readout.textContent = (mode === 'stack' ? 'Stack' : 'Queue') + ' · ' + items.length + ' of ' +
+        authored.capacity + ' places used · oldest-to-newest order: ' + orderText + '. ' + rule +
+        (nextRemoval ? ' Next removal: ' + nextRemoval.label + '. ' : ' There is nothing to remove. ') + lastAction;
+      if (announce) frame.status.textContent = lastAction;
+    }
+
+    [['stack', 'Stack'], ['queue', 'Queue']].forEach(([name, label]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false', onclick: () => {
+          mode = name;
+          lastAction = 'The same items remain in order; insertion and removal now follow the ' +
+            label.toLowerCase() + ' rule.';
+          refresh(true);
+        },
+      }, label);
+      modeButtons[name] = button;
+      modeRow.append(button);
+    });
+    const addButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const added = makeItem(nextSerial);
+        nextSerial += 1;
+        items.push(added);
+        lastAction = (mode === 'stack' ? 'Pushed ' : 'Enqueued ') + added.label +
+          (mode === 'stack' ? ' at the top.' : ' at the rear.');
+        refresh(true);
+      },
+    }, 'Add item');
+    const removeButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const removed = mode === 'stack' ? items.pop() : items.shift();
+        lastAction = (mode === 'stack' ? 'Popped ' : 'Dequeued ') + removed.label +
+          (mode === 'stack' ? ', the newest item.' : ', the oldest item.');
+        refresh(true);
+      },
+    }, 'Remove next');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        mode = authored.mode;
+        nextSerial = authored.count + 1;
+        items = Array.from({ length: authored.count }, (_, index) => makeItem(index + 1));
+        lastAction = 'The structure is back to its authored items and mode.';
+        refresh(true);
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('stack-queue-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(modeRow, node('div', { class: 'model-button-row' }, addButton, removeButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
@@ -1299,6 +1756,10 @@
     'atom-element-builder': renderAtomElementBuilder,
     'cell-microscope': renderCellMicroscope,
     'counterexample-lab': renderCounterexampleLab,
+    'function-composition-lab': renderFunctionComposition,
+    'circulation-route-lab': renderCirculationRoute,
+    'truth-table-lab': renderTruthTable,
+    'stack-queue-lab': renderStackQueue,
   });
 
   window.PrimerLessonModels = Object.freeze({

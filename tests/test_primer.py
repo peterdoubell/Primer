@@ -427,7 +427,7 @@ def test_young_nodes_have_child_voiced_lessons(curr):
 
 
 def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
-    """Every selected Seedling, Sprout and Sapling lesson gets both halves of
+    """Every selected lesson from Seedling through Tree gets both halves of
     the promise: an authored plate and a keyboard model."""
     expected = {
         'math.0.counting': (0, 'counter'),
@@ -442,6 +442,10 @@ def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
         'chem.2.atoms': (2, 'atom-element-builder'),
         'bio.2.cells': (2, 'cell-microscope'),
         'mind.2.logic-intro': (2, 'counterexample-lab'),
+        'math.3.functions': (3, 'function-composition-lab'),
+        'bio.3.human-anatomy': (3, 'circulation-route-lab'),
+        'mind.3.logic': (3, 'truth-table-lab'),
+        'cs.3.data-structures': (3, 'stack-queue-lab'),
     }
     with_media = {nid: n for nid, n in curr.nodes.items() if n.get('lesson_media')}
     assert set(with_media) == set(expected)
@@ -516,6 +520,46 @@ def test_lesson_media_schema_never_resolves_an_authored_path(curr):
     ('cell-microscope', {'start_specimen': 'leaf', 'start_magnification': 200}),
     ('cell-microscope', {'start_specimen': 'leaf', 'start_magnification': True}),
     ('counterexample-lab', {'scenario': 'birds-brown'}),
+    ('function-composition-lab', {
+        'f_slope': True, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 0, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 2, 'f_intercept': 6, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 2, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': 5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 2, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 6,
+    }),
+    ('circulation-route-lab', {
+        'route': 'systemic', 'start_step': 0, 'show_oxygenation': True,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': True, 'show_oxygenation': True,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': 9, 'show_oxygenation': True,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': 0, 'show_oxygenation': 1,
+    }),
+    ('truth-table-lab', {'start_operator': 'xor', 'start_p': True, 'start_q': False}),
+    ('truth-table-lab', {'start_operator': 'and', 'start_p': 1, 'start_q': False}),
+    ('truth-table-lab', {'start_operator': 'or', 'start_p': True, 'start_q': 0}),
+    ('stack-queue-lab', {'start_mode': 'deque', 'capacity': 6, 'initial_count': 3}),
+    ('stack-queue-lab', {'start_mode': 'stack', 'capacity': True, 'initial_count': 0}),
+    ('stack-queue-lab', {'start_mode': 'queue', 'capacity': 2, 'initial_count': 0}),
+    ('stack-queue-lab', {'start_mode': 'queue', 'capacity': 8, 'initial_count': True}),
+    ('stack-queue-lab', {'start_mode': 'stack', 'capacity': 3, 'initial_count': 4}),
 ])
 def test_lesson_model_props_fail_closed(renderer, props):
     model = {
@@ -531,8 +575,27 @@ def test_lesson_model_props_fail_closed(renderer, props):
     ('atom-element-builder', {'protons': 6, 'neutrons': 6, 'electrons': 6}),
     ('cell-microscope', {'start_specimen': 'onion', 'start_magnification': 100}),
     ('counterexample-lab', {'scenario': 'squares-and-rectangles'}),
+    ('function-composition-lab', {
+        'f_slope': 2, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': -3, 'f_intercept': -5, 'g_slope': 3, 'g_intercept': 5,
+        'x_min': -8, 'x_max': 8, 'start_x': -8,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': 0, 'show_oxygenation': True,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': 8, 'show_oxygenation': False,
+    }),
+    ('truth-table-lab', {'start_operator': 'and', 'start_p': False, 'start_q': False}),
+    ('truth-table-lab', {'start_operator': 'or', 'start_p': False, 'start_q': True}),
+    ('truth-table-lab', {'start_operator': 'implies', 'start_p': True, 'start_q': False}),
+    ('stack-queue-lab', {'start_mode': 'stack', 'capacity': 3, 'initial_count': 0}),
+    ('stack-queue-lab', {'start_mode': 'queue', 'capacity': 8, 'initial_count': 8}),
 ])
-def test_sapling_model_props_accept_the_bounded_contract(renderer, props):
+def test_lesson_model_props_accept_the_bounded_contract(renderer, props):
     model = {
         'id': 'test-model', 'kind': 'model', 'renderer': renderer,
         'title': 'Test model', 'instructions': 'Test the bounded props.', 'props': props,
@@ -1413,7 +1476,9 @@ def test_lesson_models_are_local_explanations_not_assessments():
     for renderer in ('counter', 'shape-explorer', 'shadow-lab', 'sequence-runner',
                      'make-ten', 'light-paths', 'algorithm-tracer', 'life-cycle',
                      'fraction-equivalence-lab', 'atom-element-builder',
-                     'cell-microscope', 'counterexample-lab'):
+                     'cell-microscope', 'counterexample-lab',
+                     'function-composition-lab', 'circulation-route-lab',
+                     'truth-table-lab', 'stack-queue-lab'):
         assert renderer in js
     assert 'fetch(' not in js and '/api/' not in js
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
@@ -1473,6 +1538,44 @@ def test_sapling_model_accessibility_geometry_registration_and_resets():
         "state = 'forward';",
     ):
         assert js.count(reset) >= 2 or reset == 'Object.assign(values, authored);'
+
+
+def test_tree_model_registration_accessibility_resets_and_accuracy_caveats():
+    """Keep Tree's four local explanations operable and scientifically honest."""
+    js = _web('lesson-models.js')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    for renderer, function in (
+        ('function-composition-lab', 'renderFunctionComposition'),
+        ('circulation-route-lab', 'renderCirculationRoute'),
+        ('truth-table-lab', 'renderTruthTable'),
+        ('stack-queue-lab', 'renderStackQueue'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+
+    assert 'fetch(' not in js and '/api/' not in js
+    model_frame = js[js.index('function modelFrame('):js.index('function clampNumber(')]
+    assert "role: 'status'" in model_frame and "'aria-live': 'polite'" in model_frame
+
+    lower = js.lower()
+    for accuracy_phrase in (
+        'not commutative', 'pulmonary arter', 'pulmonary vein', 'schematic',
+        'material implication', 'false only when', 'last-in, first-out',
+        'first-in, first-out',
+    ):
+        assert accuracy_phrase in lower
 
 
 def test_a_repaint_cannot_break_out_of_an_open_dialog():

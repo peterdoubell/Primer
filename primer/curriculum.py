@@ -125,7 +125,8 @@ LESSON_MODEL_RENDERERS = frozenset({
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
-    "counterexample-lab",
+    "counterexample-lab", "function-composition-lab", "circulation-route-lab",
+    "truth-table-lab", "stack-queue-lab",
 })
 
 
@@ -262,6 +263,49 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "counterexample-lab":
                 if props != {"scenario": "squares-and-rectangles"}:
                     raise ValueError("{} counterexample lab has an unknown scenario".format(node.get("id")))
+            elif renderer == "function-composition-lab":
+                keys = {
+                    "f_slope", "f_intercept", "g_slope", "g_intercept",
+                    "x_min", "x_max", "start_x",
+                }
+                if set(props) != keys or any(
+                        isinstance(props.get(key), bool) or not isinstance(props.get(key), int)
+                        for key in keys) or any(
+                        props[key] == 0 or not -3 <= props[key] <= 3
+                        for key in ("f_slope", "g_slope")) or any(
+                        not -5 <= props[key] <= 5
+                        for key in ("f_intercept", "g_intercept")) \
+                        or not -8 <= props["x_min"] < props["x_max"] <= 8 \
+                        or not props["x_min"] <= props["start_x"] <= props["x_max"]:
+                    raise ValueError("{} function composition lab needs bounded integer rules".format(
+                        node.get("id")))
+            elif renderer == "circulation-route-lab":
+                start_step = props.get("start_step")
+                if set(props) != {"route", "start_step", "show_oxygenation"} \
+                        or props.get("route") != "cardiopulmonary" \
+                        or isinstance(start_step, bool) or not isinstance(start_step, int) \
+                        or not 0 <= start_step <= 8 \
+                        or not isinstance(props.get("show_oxygenation"), bool):
+                    raise ValueError("{} circulation route lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "truth-table-lab":
+                if set(props) != {"start_operator", "start_p", "start_q"} \
+                        or props.get("start_operator") not in {"and", "or", "implies"} \
+                        or not isinstance(props.get("start_p"), bool) \
+                        or not isinstance(props.get("start_q"), bool):
+                    raise ValueError("{} truth table lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "stack-queue-lab":
+                capacity = props.get("capacity")
+                initial_count = props.get("initial_count")
+                if set(props) != {"start_mode", "capacity", "initial_count"} \
+                        or props.get("start_mode") not in {"stack", "queue"} \
+                        or isinstance(capacity, bool) or not isinstance(capacity, int) \
+                        or not 3 <= capacity <= 8 \
+                        or isinstance(initial_count, bool) or not isinstance(initial_count, int) \
+                        or not 0 <= initial_count <= capacity:
+                    raise ValueError("{} stack and queue lab has unknown starting settings".format(
+                        node.get("id")))
         else:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))
 
