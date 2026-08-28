@@ -79,6 +79,97 @@ DEFAULT_MINUTES = [180, 360, 660, 1080, 1680, 2700]
 # demand a much fuller foundation.
 STAGE_GATE = 0.6
 STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
+LESSON_MODEL_RENDERERS = frozenset({
+    "counter", "shape-explorer", "shadow-lab", "sequence-runner",
+})
+
+
+def _validate_lesson_media(node: Dict) -> None:
+    """Fail closed when authored lesson media does not match its small schema.
+
+    Media is executable UI at the last inch of the pipeline. Keeping the
+    curriculum format deliberately narrow prevents a future data edit from
+    smuggling HTML, remote URLs, or an unbounded renderer into that UI.
+    """
+    media = node.get("lesson_media", [])
+    if not isinstance(media, list):
+        raise ValueError("{} lesson_media must be a list".format(node.get("id")))
+    seen = set()
+    illustration_keys = {"id", "kind", "src", "srcset", "alt", "caption", "width", "height"}
+    model_keys = {"id", "kind", "renderer", "title", "instructions", "props"}
+    static_prefix = "/app/illustrations/"
+
+    def text(entry: Dict, key: str) -> str:
+        value = entry.get(key)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("{} lesson media {} needs {}".format(node.get("id"), entry.get("id"), key))
+        return value
+
+    def local_image(path: str) -> None:
+        if not path.startswith(static_prefix) or not path.endswith(".webp"):
+            raise ValueError("{} lesson image must be a local WebP".format(node.get("id")))
+        illustration_root = os.path.abspath(os.path.join(ROOT, "web", "illustrations"))
+        disk_path = os.path.abspath(os.path.join(ROOT, "web", path[len("/app/"):]))
+        if os.path.commonpath((illustration_root, disk_path)) != illustration_root:
+            raise ValueError("{} lesson image escapes the illustration directory".format(node.get("id")))
+        if not os.path.isfile(disk_path):
+            raise ValueError("{} lesson image is missing: {}".format(node.get("id"), disk_path))
+
+    for entry in media:
+        if not isinstance(entry, dict):
+            raise ValueError("{} lesson media entries must be objects".format(node.get("id")))
+        media_id = text(entry, "id")
+        if media_id in seen:
+            raise ValueError("{} repeats lesson media id {}".format(node.get("id"), media_id))
+        seen.add(media_id)
+        kind = entry.get("kind")
+        if kind == "illustration":
+            if set(entry) != illustration_keys:
+                raise ValueError("{} illustration {} has unexpected fields".format(node.get("id"), media_id))
+            source = text(entry, "src")
+            local_image(source)
+            widths = set()
+            for candidate in text(entry, "srcset").split(","):
+                parts = candidate.strip().split()
+                if len(parts) != 2 or not parts[1].endswith("w") or not parts[1][:-1].isdigit():
+                    raise ValueError("{} illustration {} has an invalid srcset".format(node.get("id"), media_id))
+                width = int(parts[1][:-1])
+                if width <= 0 or width in widths:
+                    raise ValueError("{} illustration {} has an invalid srcset".format(node.get("id"), media_id))
+                widths.add(width)
+                local_image(parts[0])
+            text(entry, "alt")
+            text(entry, "caption")
+            if any(isinstance(entry.get(key), bool) or not isinstance(entry.get(key), int)
+                   or entry[key] <= 0 for key in ("width", "height")):
+                raise ValueError("{} illustration {} needs positive integer dimensions".format(node.get("id"), media_id))
+        elif kind == "model":
+            if set(entry) != model_keys:
+                raise ValueError("{} model {} has unexpected fields".format(node.get("id"), media_id))
+            renderer = text(entry, "renderer")
+            if renderer not in LESSON_MODEL_RENDERERS:
+                raise ValueError("{} model {} has unknown renderer {}".format(node.get("id"), media_id, renderer))
+            text(entry, "title")
+            text(entry, "instructions")
+            props = entry.get("props")
+            if not isinstance(props, dict):
+                raise ValueError("{} model {} props must be an object".format(node.get("id"), media_id))
+            if renderer == "counter":
+                if set(props) != {"total"} or isinstance(props.get("total"), bool) \
+                        or not isinstance(props.get("total"), int) or not 1 <= props["total"] <= 20:
+                    raise ValueError("{} counter model needs total 1..20".format(node.get("id")))
+            elif renderer == "shape-explorer" and props:
+                raise ValueError("{} shape explorer takes no props".format(node.get("id")))
+            elif renderer == "shadow-lab":
+                start = props.get("start_position")
+                if set(props) != {"start_position"} or isinstance(start, bool) \
+                        or not isinstance(start, int) or not 0 <= start <= 100:
+                    raise ValueError("{} shadow lab needs start_position 0..100".format(node.get("id")))
+            elif renderer == "sequence-runner":
+                if props != {"scenario": "pack-bag"}:
+                    raise ValueError("{} sequence runner has an unknown scenario".format(node.get("id")))
+        else:
+            raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))
 
 
 def _content_chars(node: Dict) -> int:
@@ -137,6 +228,8 @@ class Curriculum:
                 # — their stages ARE their filing — and leave this empty.
                 node.setdefault("section", "")
                 node.setdefault("kid_text", "")
+                node.setdefault("lesson_media", [])
+                _validate_lesson_media(node)
                 # Provenance, recorded once, where authored items enter the
                 # app. A human wrote these: fixed prompt, fixed answer, the
                 # same tomorrow as today. The generators in practice.py stamp
@@ -269,6 +362,7 @@ class Curriculum:
             if not n["unlocked"] and not n["mastered"]:
                 n["unlock_requirements"] = self.unlock_requirements(node, mastery)
             n.pop("quiz", None)  # keep the graph payload light
+            n.pop("lesson_media", None)  # detail-only; plates and model copy are much larger
             nodes.append(n)
         domains = []
         for d in self.domains:
