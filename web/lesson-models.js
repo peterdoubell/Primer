@@ -882,6 +882,410 @@
     return frame.root;
   }
 
+  function renderFractionEquivalence(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const numerator = Math.round(clampNumber(props.numerator, 1, 7, 2));
+    const denominator = Math.round(clampNumber(props.denominator, 2, 8, 3));
+    const maxFactor = Math.round(clampNumber(props.max_factor, 2, 4, 4));
+    let factor = 1;
+    const board = node('div', { class: 'fraction-equivalence-board', 'aria-hidden': 'true' });
+    const reference = node('div', { class: 'fraction-row' },
+      node('b', {}, 'Original whole'), node('div', { class: 'fraction-bar' }));
+    const transformed = node('div', { class: 'fraction-row' },
+      node('b', {}, 'Same whole, split again'), node('div', { class: 'fraction-bar' }));
+    const equation = node('div', { class: 'fraction-equation' });
+    const factorButtons = {};
+    const optionRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose how many pieces replace each original part',
+    });
+
+    function fillBar(bar, shaded, parts) {
+      bar.replaceChildren();
+      bar.style.setProperty('--fraction-parts', parts);
+      for (let index = 0; index < parts; index += 1) {
+        bar.append(node('span', { class: 'fraction-piece' + (index < shaded ? ' is-shaded' : '') }));
+      }
+    }
+
+    function refresh(announce) {
+      const newNumerator = numerator * factor;
+      const newDenominator = denominator * factor;
+      fillBar(reference.lastElementChild, numerator, denominator);
+      fillBar(transformed.lastElementChild, newNumerator, newDenominator);
+      equation.textContent = numerator + '/' + denominator + ' = ' + newNumerator + '/' + newDenominator;
+      Object.entries(factorButtons).forEach(([value, button]) => {
+        const active = Number(value) === factor;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      frame.readout.textContent = numerator + '/' + denominator + ' = ' + newNumerator + '/' + newDenominator +
+        '. That is ' + numerator + ' over ' + denominator + ' equals ' + newNumerator + ' over ' + newDenominator +
+        '. The whole and shaded amount stay the same; only the number and names of equal pieces change.';
+      if (announce) {
+        frame.status.textContent = factor === 1
+          ? 'Back to the original equal parts. Both bars name the same fraction in the same way.'
+          : 'Each original part was split into ' + factor + ' equal pieces. The shaded amount did not change.';
+      }
+    }
+
+    for (let value = 1; value <= maxFactor; value += 1) {
+      const label = value === 1 ? 'Original' : 'Split each part into ' + value;
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { factor = value; refresh(true); },
+      }, label);
+      factorButtons[value] = button;
+      optionRow.append(button);
+    }
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        factor = 1;
+        refresh(false);
+        frame.status.textContent = 'The bars are back to the original partition.';
+      },
+    }, 'Reset');
+
+    board.append(reference, transformed, equation);
+    frame.canvas.classList.add('fraction-equivalence-canvas');
+    frame.canvas.append(board);
+    frame.controls.append(optionRow, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const FIRST_TEN_ELEMENTS = [null,
+    { symbol: 'H', name: 'hydrogen' }, { symbol: 'He', name: 'helium' },
+    { symbol: 'Li', name: 'lithium' }, { symbol: 'Be', name: 'beryllium' },
+    { symbol: 'B', name: 'boron' }, { symbol: 'C', name: 'carbon' },
+    { symbol: 'N', name: 'nitrogen' }, { symbol: 'O', name: 'oxygen' },
+    { symbol: 'F', name: 'fluorine' }, { symbol: 'Ne', name: 'neon' },
+  ];
+
+  function renderAtomElementBuilder(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authored = {
+      protons: Math.round(clampNumber(props.protons, 1, 10, 6)),
+      neutrons: Math.round(clampNumber(props.neutrons, 0, 12, 6)),
+      electrons: Math.round(clampNumber(props.electrons, 0, 10, 6)),
+    };
+    const values = { ...authored };
+    const scene = node('div', { class: 'atom-builder-scene', 'aria-hidden': 'true' });
+    const atom = node('div', { class: 'atom-diagram' });
+    const nucleus = node('div', { class: 'atom-nucleus' });
+    const symbol = node('strong', { class: 'atom-symbol' });
+    const sceneLabel = node('span', { class: 'atom-scene-label' }, 'Schematic bookkeeping model · not to scale');
+    const steppers = {};
+
+    function chargeValue() {
+      return values.protons - values.electrons;
+    }
+
+    function chargeText() {
+      const charge = chargeValue();
+      if (charge === 0) return 'neutral atom';
+      return (charge > 0 ? '+' + charge : '−' + Math.abs(charge)) + ' ion';
+    }
+
+    function draw() {
+      const element = FIRST_TEN_ELEMENTS[values.protons];
+      atom.querySelectorAll('.atom-electron').forEach(electron => electron.remove());
+      nucleus.replaceChildren();
+      for (let index = 0; index < values.protons; index += 1) {
+        nucleus.append(node('span', { class: 'nuclear-particle is-proton' }, 'p'));
+      }
+      for (let index = 0; index < values.neutrons; index += 1) {
+        nucleus.append(node('span', { class: 'nuclear-particle is-neutron' }, 'n'));
+      }
+      for (let index = 0; index < values.electrons; index += 1) {
+        const inner = index < 2;
+        const place = inner ? index : index - 2;
+        const count = inner ? Math.min(values.electrons, 2) : Math.max(values.electrons - 2, 1);
+        const electron = node('span', { class: 'atom-electron' });
+        electron.style.setProperty('--electron-angle', (360 * place / count) + 'deg');
+        electron.style.setProperty('--electron-radius', inner ? '68px' : '91px');
+        atom.append(electron);
+      }
+      symbol.textContent = element.symbol;
+      Object.entries(steppers).forEach(([kind, controls]) => {
+        const low = kind === 'protons' ? 1 : 0;
+        const high = kind === 'neutrons' ? 12 : 10;
+        controls.value.textContent = String(values[kind]);
+        controls.remove.disabled = values[kind] <= low;
+        controls.add.disabled = values[kind] >= high;
+      });
+      frame.readout.textContent = element.name[0].toUpperCase() + element.name.slice(1) + ' (' + element.symbol + ') · ' +
+        values.protons + ' protons · ' + values.neutrons + ' neutrons · ' + values.electrons +
+        ' electrons · mass number ' + (values.protons + values.neutrons) + ' · ' + chargeText() +
+        '. Proton count defines the element. The rings organize electron counts; they are not paths that electrons orbit. ' +
+        'This schematic bookkeeping model does not predict whether a nucleus or ion is stable.';
+    }
+
+    function change(kind, amount) {
+      const before = FIRST_TEN_ELEMENTS[values.protons];
+      values[kind] += amount;
+      draw();
+      const after = FIRST_TEN_ELEMENTS[values.protons];
+      if (kind === 'protons') {
+        frame.status.textContent = 'The proton count changed, so the element changed from ' + before.name + ' to ' +
+          after.name + '. This is a hypothetical nuclear change, not an ordinary chemical reaction.';
+      } else if (kind === 'neutrons') {
+        frame.status.textContent = 'The neutron count changed. It is still ' + after.name + ', now with mass number ' +
+          (values.protons + values.neutrons) + '.';
+      } else {
+        frame.status.textContent = 'The electron count changed. It is still ' + after.name + ', now a ' + chargeText() + '.';
+      }
+    }
+
+    function stepper(kind, label) {
+      const singular = label.endsWith('s') ? label.slice(0, -1).toLowerCase() : label.toLowerCase();
+      const remove = node('button', {
+        type: 'button', class: 'btn ghost small', 'aria-label': 'Remove one ' + singular,
+        onclick: () => change(kind, -1),
+      }, '−');
+      const add = node('button', {
+        type: 'button', class: 'btn ghost small', 'aria-label': 'Add one ' + singular,
+        onclick: () => change(kind, 1),
+      }, '+');
+      const value = node('output', { class: 'atom-stepper-value', 'aria-label': label + ' count' });
+      steppers[kind] = { remove, add, value };
+      return node('div', { class: 'atom-stepper' }, node('b', {}, label),
+        node('div', { class: 'atom-stepper-buttons' }, remove, value, add));
+    }
+
+    atom.append(node('span', { class: 'atom-shell is-inner' }),
+      node('span', { class: 'atom-shell is-outer' }), nucleus, symbol);
+    scene.append(atom, sceneLabel);
+    const neutralButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        values.electrons = values.protons;
+        draw();
+        frame.status.textContent = 'Electrons now equal protons, so the atom is electrically neutral.';
+      },
+    }, 'Make neutral');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        Object.assign(values, authored);
+        draw();
+        const element = FIRST_TEN_ELEMENTS[authored.protons];
+        frame.status.textContent = 'The particle counts are back at the authored ' + element.name + '-' +
+          (authored.protons + authored.neutrons) + ' example.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('atom-builder-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(node('div', { class: 'atom-stepper-grid' },
+      stepper('protons', 'Protons'), stepper('neutrons', 'Neutrons'), stepper('electrons', 'Electrons')),
+    node('div', { class: 'model-button-row' }, neutralButton, resetButton));
+    draw();
+    return frame.root;
+  }
+
+  const CELL_SPECIMENS = {
+    onion: {
+      label: 'Onion bulb epidermis', className: 'is-onion',
+      structures: ['Cell wall', 'Cell membrane', 'Cytoplasm', 'Stained nucleus'],
+      description: 'Cell walls and stained nuclei are visible; chloroplasts are not expected in bulb epidermis.',
+    },
+    leaf: {
+      label: 'Green leaf', className: 'is-leaf',
+      structures: ['Cell wall', 'Cell membrane', 'Cytoplasm', 'Chloroplasts', 'Nucleus'],
+      description: 'Cell walls and many chloroplasts are visible in these photosynthetic cells.',
+    },
+    cheek: {
+      label: 'Cheek', className: 'is-cheek',
+      structures: ['Cell membrane', 'Cytoplasm', 'Stained nucleus'],
+      description: 'Flattened irregular cells have membranes and nuclei, but no cell walls or chloroplasts.',
+    },
+  };
+
+  function renderCellMicroscope(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredSpecimen = CELL_SPECIMENS[props.start_specimen] ? props.start_specimen : 'onion';
+    const authoredMagnification = [40, 100, 400].includes(Number(props.start_magnification))
+      ? Number(props.start_magnification) : 100;
+    let specimen = authoredSpecimen;
+    let magnification = authoredMagnification;
+    let contrast = false;
+    let labels = false;
+    const field = node('div', { class: 'microscope-field', 'aria-hidden': 'true' });
+    const fieldNote = node('span', { class: 'microscope-field-note' }, 'Schematic microscope view');
+    const legend = node('div', {
+      class: 'microscope-legend', role: 'list', 'aria-label': 'Structures present in this specimen',
+    });
+    const specimenButtons = {};
+    const magnificationButtons = {};
+    const specimenRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose a specimen' });
+    const magnificationRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose total magnification',
+    });
+    const views = {
+      40: { cells: 25, columns: 5, phrase: 'many small apparent cells' },
+      100: { cells: 9, columns: 3, phrase: 'several medium apparent cells' },
+      400: { cells: 4, columns: 2, phrase: 'a few large apparent cells' },
+    };
+
+    function drawCell(detail) {
+      const cell = node('span', { class: 'microscope-cell' });
+      cell.append(node('span', { class: 'cell-nucleus' }));
+      if (specimen === 'leaf') {
+        for (let index = 0; index < 7; index += 1) cell.append(node('span', { class: 'cell-chloroplast' }));
+      }
+      return cell;
+    }
+
+    function refresh(announce) {
+      const detail = CELL_SPECIMENS[specimen];
+      const view = views[magnification];
+      field.replaceChildren();
+      field.className = 'microscope-field ' + detail.className + (contrast ? ' has-contrast' : '');
+      field.style.setProperty('--cell-columns', view.columns);
+      for (let index = 0; index < view.cells; index += 1) field.append(drawCell(detail));
+      legend.replaceChildren(...detail.structures.map(structure => node('span', { role: 'listitem' }, structure)));
+      legend.hidden = !labels;
+      Object.entries(specimenButtons).forEach(([name, button]) => {
+        const active = name === specimen;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      Object.entries(magnificationButtons).forEach(([value, button]) => {
+        const active = Number(value) === magnification;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      contrastButton.setAttribute('aria-pressed', contrast ? 'true' : 'false');
+      contrastButton.textContent = contrast ? 'Contrast improved' : 'Improve contrast';
+      labelsButton.setAttribute('aria-pressed', labels ? 'true' : 'false');
+      labelsButton.textContent = labels ? 'Hide structure list' : 'Show structure list';
+      frame.readout.textContent = detail.label + ' · ' + magnification + '× total magnification · contrast ' +
+        (contrast ? 'improved' : 'unchanged') + '. This schematic shows ' + view.phrase + '. ' + detail.description +
+        ' Structures present in this specimen: ' + detail.structures.join(', ') + '. ' +
+        ' Higher magnification enlarges the image and shows fewer cells; it does not make the cells grow or guarantee more detail.';
+      if (announce) frame.status.textContent = detail.label + ' selected. ' + detail.description;
+    }
+
+    Object.entries(CELL_SPECIMENS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { specimen = name; refresh(true); },
+      }, detail.label.replace(' epidermis', ''));
+      specimenButtons[name] = button;
+      specimenRow.append(button);
+    });
+    [40, 100, 400].forEach(value => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          magnification = value;
+          refresh(false);
+          frame.status.textContent = 'The image is now shown at ' + value +
+            ' times total magnification. Apparent size changed; actual cell size did not.';
+        },
+      }, value + '×');
+      magnificationButtons[value] = button;
+      magnificationRow.append(button);
+    });
+    const contrastButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': 'false', onclick: () => {
+        contrast = !contrast;
+        refresh(false);
+        frame.status.textContent = contrast
+          ? 'Contrast is stronger, so existing boundaries stand out. No new structure or size was created.'
+          : 'Contrast is back to its original level.';
+      },
+    }, 'Improve contrast');
+    const labelsButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-pressed': 'false', onclick: () => {
+        labels = !labels;
+        refresh(false);
+        frame.status.textContent = labels ? 'The structure list is visible below the field.' : 'The structure list is hidden.';
+      },
+    }, 'Show structure list');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        specimen = authoredSpecimen;
+        magnification = authoredMagnification;
+        contrast = false;
+        labels = false;
+        refresh(false);
+        frame.status.textContent = 'The microscope is back to the authored specimen and magnification.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('cell-microscope-canvas');
+    frame.canvas.append(node('div', { class: 'cell-microscope-scene' }, field, fieldNote, legend));
+    frame.controls.append(specimenRow, magnificationRow,
+      node('div', { class: 'model-button-row' }, contrastButton, labelsButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const COUNTEREXAMPLE_STATES = {
+    forward: {
+      readout: 'Forward claim: all squares are rectangles. Every square has four right angles, so every square belongs inside the rectangle family.',
+      status: 'The forward claim follows from the definitions: a square meets every requirement for a rectangle.',
+    },
+    reverse: {
+      readout: 'Reversed claim to test: all rectangles are squares. The first claim did not promise this reverse direction. Look for a rectangle without four equal sides.',
+      status: 'Reversing “all squares are rectangles” makes a new claim. It needs its own test.',
+    },
+    counterexample: {
+      readout: 'Counterexample found: the long shape has four right angles, so it is a rectangle, but its sides are not all equal, so it is not a square. One counterexample disproves the reversed universal claim.',
+      status: 'The long non-square rectangle disproves “all rectangles are squares.” It does not change the true forward claim.',
+    },
+  };
+
+  function renderCounterexampleLab(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let state = 'forward';
+    const scene = node('div', { class: 'counterexample-scene is-forward', 'aria-hidden': 'true' });
+    const rectangleSet = node('div', { class: 'counterexample-rectangle-set' });
+    const squareSet = node('div', { class: 'counterexample-square-set' });
+    for (let index = 0; index < 4; index += 1) squareSet.append(node('span', { class: 'logic-square' }));
+    const longRectangle = node('span', { class: 'logic-long-rectangle' });
+    rectangleSet.append(squareSet, longRectangle);
+    scene.append(rectangleSet);
+    const stateButtons = {};
+    const stateRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose a reasoning step' });
+
+    function refresh(announce) {
+      scene.className = 'counterexample-scene is-' + state;
+      Object.entries(stateButtons).forEach(([name, button]) => {
+        const active = name === state;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      frame.readout.textContent = COUNTEREXAMPLE_STATES[state].readout;
+      if (announce) frame.status.textContent = COUNTEREXAMPLE_STATES[state].status;
+    }
+
+    [['forward', 'Follow the forward claim'], ['reverse', 'Test the reverse'],
+      ['counterexample', 'Reveal the counterexample']].forEach(([name, label]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { state = name; refresh(true); },
+      }, label);
+      stateButtons[name] = button;
+      stateRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        state = 'forward';
+        refresh(false);
+        frame.status.textContent = 'Back to the true forward claim: all squares are rectangles.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('counterexample-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(stateRow, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
@@ -891,6 +1295,10 @@
     'light-paths': renderLightPaths,
     'algorithm-tracer': renderAlgorithmTracer,
     'life-cycle': renderLifeCycle,
+    'fraction-equivalence-lab': renderFractionEquivalence,
+    'atom-element-builder': renderAtomElementBuilder,
+    'cell-microscope': renderCellMicroscope,
+    'counterexample-lab': renderCounterexampleLab,
   });
 
   window.PrimerLessonModels = Object.freeze({

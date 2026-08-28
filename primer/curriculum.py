@@ -124,6 +124,8 @@ STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
 LESSON_MODEL_RENDERERS = frozenset({
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
+    "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
+    "counterexample-lab",
 })
 
 
@@ -231,6 +233,35 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "algorithm-tracer":
                 if props != {"scenario": "jam-sandwich"}:
                     raise ValueError("{} algorithm tracer has an unknown scenario".format(node.get("id")))
+            elif renderer == "fraction-equivalence-lab":
+                keys = {"numerator", "denominator", "max_factor"}
+                if set(props) != keys or any(
+                        isinstance(props.get(key), bool) or not isinstance(props.get(key), int)
+                        for key in keys) or not 2 <= props["denominator"] <= 8 \
+                        or not 1 <= props["numerator"] < props["denominator"] \
+                        or not 2 <= props["max_factor"] <= 4 \
+                        or props["denominator"] * props["max_factor"] > 24:
+                    raise ValueError("{} fraction equivalence lab needs a bounded proper fraction".format(
+                        node.get("id")))
+            elif renderer == "atom-element-builder":
+                keys = {"protons", "neutrons", "electrons"}
+                if set(props) != keys or any(
+                        isinstance(props.get(key), bool) or not isinstance(props.get(key), int)
+                        for key in keys) or not 1 <= props["protons"] <= 10 \
+                        or not 0 <= props["neutrons"] <= 12 \
+                        or not 0 <= props["electrons"] <= 10 \
+                        or abs(props["protons"] - props["electrons"]) > 2:
+                    raise ValueError("{} atom builder needs bounded particle counts".format(node.get("id")))
+            elif renderer == "cell-microscope":
+                magnification = props.get("start_magnification")
+                if set(props) != {"start_specimen", "start_magnification"} \
+                        or props.get("start_specimen") not in {"onion", "leaf", "cheek"} \
+                        or isinstance(magnification, bool) or not isinstance(magnification, int) \
+                        or magnification not in {40, 100, 400}:
+                    raise ValueError("{} cell microscope has unknown starting settings".format(node.get("id")))
+            elif renderer == "counterexample-lab":
+                if props != {"scenario": "squares-and-rectangles"}:
+                    raise ValueError("{} counterexample lab has an unknown scenario".format(node.get("id")))
         else:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))
 

@@ -995,6 +995,9 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     sprout = client.get('/api/curriculum/node/bio.1.lifecycles')
     assert sprout.status_code == 200
     assert [entry['kind'] for entry in sprout.json()['lesson_media']] == ['illustration', 'model']
+    sapling = client.get('/api/curriculum/node/chem.2.atoms')
+    assert sapling.status_code == 200
+    assert [entry['kind'] for entry in sapling.json()['lesson_media']] == ['illustration', 'model']
 
     graph = client.get('/api/curriculum').json()
     assert all('lesson_media' not in node for node in graph['nodes'])

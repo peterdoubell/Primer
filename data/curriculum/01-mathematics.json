@@ -1462,11 +1462,35 @@
    "id": "math.2.fractions",
    "title": "Fractions",
    "stage": 2,
-   "goal": "Add, compare, multiply and simplify fractions.",
+   "goal": "Add, subtract, compare, multiply and simplify fractions.",
    "articles": [
     "Fraction"
    ],
    "practice": "fractions",
+   "lesson_media": [
+    {
+     "id": "equivalent-fractions-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/math/math-2-fractions-800.webp",
+     "srcset": "/app/illustrations/sapling/math/math-2-fractions-800.webp 800w, /app/illustrations/sapling/math/math-2-fractions-1600.webp 1600w",
+     "alt": "Three equal-length fraction bars show one of two, two of four and four of eight equal parts shaded, each covering exactly half of its bar.",
+     "caption": "One half, two quarters and four eighths are equivalent fractions: the partitions change, but the shaded amount stays the same.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "build-equivalent-fractions",
+     "kind": "model",
+     "renderer": "fraction-equivalence-lab",
+     "title": "Build equivalent fractions",
+     "instructions": "Multiply the numerator and denominator by the same factor. Watch the partitions change while the fraction's value stays the same.",
+     "props": {
+      "numerator": 2,
+      "denominator": 3,
+      "max_factor": 4
+     }
+    }
+   ],
    "quiz": [
     {
      "kind": "choice",
@@ -1490,7 +1514,7 @@
       "Sam is wrong: the two fractions turn out equal",
       "Sam is right: 3 pieces beats 2 pieces"
      ],
-     "explain": "Over a common denominator of 40, 3/8 becomes 15/40 and 2/5 becomes 16/40, so 2/5 is the larger. A bigger denominator cuts the whole into smaller pieces."
+     "explain": "Both fractions refer to the same-sized whole. Over a common denominator of 40, 3/8 becomes 15/40 and 2/5 becomes 16/40, so 2/5 is larger. The denominator says how many equal parts make the whole; by itself it does not tell you which fraction is larger."
     },
     {
      "kind": "numeric",
@@ -1550,7 +1574,7 @@
       "He should have turned the second fraction upside down",
       "He forgot to simplify at the end"
      ],
-     "explain": "To multiply fractions you multiply top by top and bottom by bottom: 1/2 x 1/3 = 1/6. Common denominators belong to adding, not multiplying."
+     "explain": "To multiply fractions you multiply top by top and bottom by bottom: 1/2 x 1/3 = 1/6. Common denominators are needed when adding or subtracting fractions with unlike denominators, not when multiplying."
     },
     {
      "kind": "choice",

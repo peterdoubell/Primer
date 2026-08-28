@@ -1454,7 +1454,7 @@ function renderLessonMedia(items) {
     }
     if (item.kind === 'model' && window.PrimerLessonModels) {
       const model = window.PrimerLessonModels.render(item, {
-        speakButton: S.stage <= 1 ? (getText, label) => speakBtn(getText, label) : null,
+        speakButton: S.stage <= 2 ? (getText, label) => speakBtn(getText, label) : null,
       });
       if (model) media.append(model);
     }
