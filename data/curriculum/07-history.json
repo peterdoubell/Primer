@@ -14,7 +14,30 @@
     "Family",
     "History"
    ],
-   "kid_text": "Every day has a yesterday, a today, and a tomorrow! Yesterday already happened, today is right now, and tomorrow is coming next. Your family has a past too: your grandma was once a little kid just like you, and one day you might have kids of your own. Ask a grownup to tell you a story about when they were small.",
+   "lesson_media": [
+    {
+     "id": "family-keepsake-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/history/hist-0-family-800.webp",
+     "srcset": "/app/illustrations/seedling/history/hist-0-family-800.webp 800w, /app/illustrations/seedling/history/hist-0-family-1600.webp 1600w",
+     "alt": "A child and an older caregiver look at an album with an old photograph of a child holding a wooden rabbit; a matching rabbit sits beside the album.",
+     "caption": "Objects, pictures and stories can help a family remember its past and plan what comes next. Families take many forms, and every family's history is different.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "inclusive-family-timeline",
+     "kind": "model",
+     "renderer": "inclusive-family-timeline",
+     "title": "Past, present and next",
+     "instructions": "Move through yesterday, today and tomorrow in one fictional family's story. Compare its keepsakes and plans at each point; real families can look very different from this example.",
+     "props": {
+      "scenario": "fictional-family-three-times",
+      "start_time": "today"
+     }
+    }
+   ],
+   "kid_text": "Every day has a yesterday, a today, and a tomorrow! Yesterday already happened, today is right now, and tomorrow is coming next. Families take many forms, and the people who care for one another have stories from before today. Pictures, objects and memories can help tell those stories. Ask a trusted grown-up to share a memory from when they were younger.",
    "quiz": [
     {
      "kind": "choice",
@@ -44,13 +67,13 @@
     },
     {
      "kind": "choice",
-     "prompt": "Was Grandma once a little kid? 👵",
+     "prompt": "Was a trusted grown-up once a child?",
      "choices": [
       "Yes",
       "No"
      ],
      "answer": "Yes",
-     "say": "Was your grandma once a little kid, just like you? Say yes, or no.",
+     "say": "Was a trusted grown-up once a child? Say yes, or no.",
      "speak_choices": true,
      "explain": "Yes! Every grownup was small once, a long time ago."
     },
@@ -69,42 +92,42 @@
     },
     {
      "kind": "choice",
-     "prompt": "You ate breakfast this morning. It is? 🥣",
+     "prompt": "Mika ate breakfast, then started school. Breakfast is? 🥣",
      "choices": [
       "Already done",
       "Happening now",
       "Still to come"
      ],
      "answer": "Already done",
-     "say": "You ate your breakfast this morning. Is that already done, happening now, or still to come?",
+     "say": "Mika ate breakfast, then started school. Is breakfast already done, happening now, or still to come?",
      "speak_choices": true,
-     "explain": "Right! Breakfast this morning is finished, so it is in the past."
+     "explain": "Right! In Mika's story, breakfast happened before school, so it is in the past."
     },
     {
      "kind": "choice",
-     "prompt": "Who was a little kid first? 👴👨👦",
+     "prompt": "Ari was born, then Bo, then Cy. Who was born first?",
      "choices": [
-      "You",
-      "Dad",
-      "Grandpa"
+      "Ari",
+      "Bo",
+      "Cy"
      ],
-     "answer": "Grandpa",
-     "say": "Who was a little kid first of all — you, your dad, or your grandpa?",
+     "answer": "Ari",
+     "say": "Ari was born, then Bo, then Cy. Who was born first — Ari, Bo, or Cy?",
      "speak_choices": true,
-     "explain": "Grandpa was little first, then your dad, and then you."
+     "explain": "Ari was born first, before Bo and Cy. A timeline puts earlier events before later ones."
     },
     {
      "kind": "choice",
-     "prompt": "Grandma, Mom, you. Who came last? 👶",
+     "prompt": "Noor joined a family, then Sam, then Jo. Who joined last?",
      "choices": [
-      "Grandma",
-      "Mom",
-      "You"
+      "Noor",
+      "Sam",
+      "Jo"
      ],
-     "answer": "You",
-     "say": "First grandma was born, then mom, then you. Who came last — grandma, mom, or you?",
+     "answer": "Jo",
+     "say": "Noor joined a family, then Sam, then Jo. Who joined last — Noor, Sam, or Jo?",
      "speak_choices": true,
-     "explain": "You came last! You are the newest one in the family story."
+     "explain": "Jo joined last in this fictional family's story. People can join families in many different ways."
     }
    ],
    "prereqs": []

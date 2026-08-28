@@ -14,8 +14,32 @@
     "Alphabet",
     "Letter (alphabet)"
    ],
+   "lesson_media": [
+    {
+     "id": "alphabet-blocks-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/language/lang-0-alphabet-800.webp",
+     "srcset": "/app/illustrations/seedling/language/lang-0-alphabet-800.webp 800w, /app/illustrations/seedling/language/lang-0-alphabet-1600.webp 1600w",
+     "alt": "Three wooden blocks show A, B and C above an apple, a blue ball and a cat.",
+     "caption": "The basic English alphabet has 26 letters, each with an uppercase and lowercase form. A letter has a name and can represent different sounds in different words.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "alphabet-explorer",
+     "kind": "model",
+     "renderer": "alphabet-explorer",
+     "title": "Meet the 26 letters",
+     "instructions": "Choose a letter or move one step at a time. Compare its uppercase and lowercase forms and explore one common word that begins with it. Use Read aloud to hear the current letter and word.",
+     "props": {
+      "alphabet": "english-basic-latin",
+      "start_letter": "A",
+      "example_set": "common-words-v1"
+     }
+    }
+   ],
    "practice": "letters",
-   "kid_text": "The alphabet is a little parade of 26 letters, and each one has its very own name. When you sing \"A, B, C, D...\" you are calling out their names in order, just like calling friends in a line. Let's find the letter that starts YOUR name — point to it and say hello!",
+   "kid_text": "The English alphabet is a little parade of 26 letters, and each one has a name. When you sing \"A, B, C, D...\" you are saying those names in order. Letters help us write the sounds in words, but the same letter can sound different in different words. Find the letter that starts your name, or the name of someone you know, and say hello!",
    "quiz": [
     {
      "kind": "choice",
@@ -54,7 +78,7 @@
      "answer": "A",
      "say": "Apple! Which letter does apple start with? Is it A, P, or S?",
      "speak_choices": true,
-     "explain": "Apple starts with A, the very first letter of all."
+     "explain": "Apple starts with A, the first letter in the English alphabet. The letter A can represent other sounds in other words too."
     },
     {
      "kind": "choice",
@@ -106,7 +130,7 @@
      "answer": "B",
      "say": "Bee! Which letter does bee start with? Is it E, D, or B?",
      "speak_choices": true,
-     "explain": "Bee starts with B, the letter that says buh."
+     "explain": "Bee begins with the /b/ sound. The letter B represents that sound at the start of this word."
     }
    ],
    "prereqs": []

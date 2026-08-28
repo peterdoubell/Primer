@@ -14,7 +14,31 @@
     "Color",
     "Primary color"
    ],
-   "kid_text": "Red, yellow, and blue are special colors called primaries, because you can't mix any other colors to make them. But you can mix THEM to make new colors! Swirl blue and yellow paint together and watch them turn into green, like fresh grass. Try mixing two colors yourself and see what surprise pops out.",
+   "lesson_media": [
+    {
+     "id": "blue-yellow-paint-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/arts/arts-0-colors-800.webp",
+     "srcset": "/app/illustrations/seedling/arts/arts-0-colors-800.webp 800w, /app/illustrations/seedling/arts/arts-0-colors-1600.webp 1600w",
+     "alt": "Equal dabs of classroom blue and yellow paint are shown before mixing and as an approximate green mixture, with separate brushes and a clean palette.",
+     "caption": "Equal parts of these classroom blue and yellow paints make an approximate green. Real pigment mixtures vary; screens add colored light instead and follow different mixing rules.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "classroom-paint-mixer",
+     "kind": "model",
+     "renderer": "classroom-paint-mixer",
+     "title": "Mix two classroom paints",
+     "instructions": "Choose two classroom paint colors and combine equal parts. Compare the model's approximate recipe with the two starting swatches; real paints can mix differently.",
+     "props": {
+      "scenario": "equal-parts-classroom-ryb",
+      "start_first": "blue",
+      "start_second": "yellow"
+     }
+    }
+   ],
+   "kid_text": "In many classrooms, red, yellow and blue paints are a handy set for learning to mix colors. Equal parts of classroom blue and yellow often look green, but real results depend on the pigments and amounts. Red, yellow and blue are one teaching model, not the only possible set of primaries. Phone and television screens mix red, green and blue light instead, so their recipes are different.",
    "quiz": [
     {
      "kind": "choice",
@@ -31,29 +55,29 @@
     },
     {
      "kind": "choice",
-     "prompt": "Mix blue 🔵 and yellow 🟡. What color?",
+     "prompt": "Mix equal parts classroom blue 🔵 and yellow 🟡 paint. About what color?",
      "choices": [
       "Green",
       "Purple",
       "Black"
      ],
      "answer": "Green",
-     "say": "If you swirl blue paint and yellow paint together, what color do you get? Green, purple, or black?",
+     "say": "If you swirl equal parts classroom blue and yellow paint together, about what color do you get? Green, purple, or black?",
      "speak_choices": true,
-     "explain": "Blue and yellow swirl together to make green, like fresh grass!"
+     "explain": "These classroom blue and yellow paints make an approximate green. The exact result depends on the pigments and amounts."
     },
     {
      "kind": "choice",
-     "prompt": "Mix red 🔴 and yellow 🟡. What color?",
+     "prompt": "Mix equal parts classroom red 🔴 and yellow 🟡 paint. About what color?",
      "choices": [
       "Orange",
       "Purple",
       "Green"
      ],
      "answer": "Orange",
-     "say": "Now swirl red paint and yellow paint together. What color pops out? Orange, purple, or green?",
+     "say": "Now swirl equal parts classroom red and yellow paint together. About what color appears? Orange, purple, or green?",
      "speak_choices": true,
-     "explain": "Red and yellow make orange, just like a juicy orange!"
+     "explain": "These classroom red and yellow paints make an approximate orange. Different pigments can shift the result."
     },
     {
      "kind": "choice",
@@ -70,42 +94,41 @@
     },
     {
      "kind": "choice",
-     "prompt": "Mix red 🔴 and blue 🔵. What color?",
+     "prompt": "Mix equal parts classroom red 🔴 and blue 🔵 paint. About what color?",
      "choices": [
       "Purple",
       "Brown",
       "Green"
      ],
      "answer": "Purple",
-     "say": "If you swirl red paint and blue paint together, what do you get? Purple, brown, or green?",
+     "say": "If you swirl equal parts classroom red and blue paint together, about what color do you get? Purple, brown, or green?",
      "speak_choices": true,
-     "explain": "Red and blue make purple, like a juicy grape!"
+     "explain": "These classroom red and blue paints make an approximate purple. The pigments used can make it brighter or duller."
     },
     {
      "kind": "choice",
-     "prompt": "What color is the grass outside?",
+     "prompt": "Do screen lights mix just like classroom paints?",
      "choices": [
-      "Green",
-      "Brown",
-      "Orange"
+      "No — screens add colored light",
+      "Yes — both use the same recipes"
      ],
-     "answer": "Green",
-     "say": "Look at the grass outside. What color is it? Green, brown, or orange?",
+     "answer": "No — screens add colored light",
+     "say": "Do screen lights mix just like classroom paints? No, screens add colored light, or yes, both use the same recipes?",
      "speak_choices": true,
-     "explain": "Grass is green, and green comes from blue and yellow!"
+     "explain": "No. Screens usually add red, green and blue light, while paints contain pigments that absorb some light. Their mixing recipes are different."
     },
     {
      "kind": "choice",
-     "prompt": "Mix white ⚪ and red 🔴. What color?",
+     "prompt": "Mix equal parts classroom white ⚪ and red 🔴 paint. About what color?",
      "choices": [
       "Pink",
       "Purple",
       "Orange"
      ],
      "answer": "Pink",
-     "say": "Now stir white paint into red paint. What color do you get? Pink, purple, or orange?",
+     "say": "Now stir equal parts classroom white and red paint. About what color do you get? Pink, purple, or orange?",
      "speak_choices": true,
-     "explain": "White makes red lighter, and it turns into soft pink!"
+     "explain": "These classroom white and red paints make an approximate pink. More white would usually make the mixture lighter."
     }
    ],
    "prereqs": []
