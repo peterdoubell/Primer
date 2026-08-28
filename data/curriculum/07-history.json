@@ -349,7 +349,34 @@
     "Timeline",
     "Chronology"
    ],
-   "kid_text": "A timeline is like a road that shows when things happened, with the oldest things first and the newest things last. If you drew your own timeline, being a baby would come first, then learning to walk, then starting school. We read a timeline from left to right, just like reading a story. Try putting three things you did today in the right order!",
+   "lesson_media": [
+    {
+     "id": "growing-tree-timeline-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/history/hist-1-timelines-800.webp",
+     "srcset": "/app/illustrations/sprout/history/hist-1-timelines-800.webp 800w, /app/illustrations/sprout/history/hist-1-timelines-1600.webp 1600w",
+     "alt": "Three cards show an acorn sprouting, a young sapling and a mature oak above an arrow pointing to the right.",
+     "caption": "A timeline arranges events in a declared direction. This example runs from left to right, but other timelines may run vertically or in another direction, so follow their dates, labels and arrows.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "timeline-order-lab",
+     "kind": "model",
+     "renderer": "timeline-order-lab",
+     "title": "Order the library's history",
+     "instructions": "Arrange three dated events from a fictional library from earliest to latest. The cards begin shuffled; compare their dates, check your order, or reset and try again.",
+     "props": {
+      "scenario": "fictional-library-three-dates",
+      "start_order": [
+       "roof-restored",
+       "opened",
+       "reading-room"
+      ]
+     }
+    }
+   ],
+   "kid_text": "A timeline arranges events from earlier to later, using dates, labels and sometimes arrows to show the order. Many English-language timelines run from left to right, but timelines can also run from right to left, from top to bottom, or in another clearly marked direction. Follow the dates and arrows instead of guessing. Try ordering three dated events from a fictional library!",
    "prereqs": [
     "hist.0.family",
     "hist.0.longago",
@@ -358,94 +385,94 @@
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "On your timeline, which is first? 👶🧒🧑",
+     "prompt": "A library opened, added a reading room, then fixed its roof. First?",
      "choices": [
-      "👶",
-      "🧒",
-      "🧑"
+      "Opened",
+      "Reading room",
+      "Roof repair"
      ],
-     "answer": "👶",
-     "say": "On your own timeline, which comes first — being a baby 👶, being a big kid 🧒, or being a grownup 🧑?",
+     "answer": "Opened",
+     "say": "A fictional library opened, then added a reading room, then fixed its roof. Which event came first — opening, adding the reading room, or repairing the roof?",
      "speak_choices": true,
-     "explain": "Right! Baby comes first, because that happened the longest ago."
+     "explain": "The library opening came first in this fictional history, before the reading room and roof repair."
     },
     {
      "kind": "choice",
-     "prompt": "Which way do we read a timeline? 📜",
+     "prompt": "This timeline's arrow points right. Where do later events go? 📜",
      "choices": [
       "Left to right",
       "Right to left",
       "Top to bottom"
      ],
      "answer": "Left to right",
-     "say": "Which way do we read a timeline — left to right, right to left, or top to bottom?",
+     "say": "This timeline has an arrow pointing to the right. Do its later events go from left to right, right to left, or top to bottom?",
      "speak_choices": true,
-     "explain": "Yes, just like a story, a timeline goes from left to right."
+     "explain": "On this timeline, the arrow shows that later events go toward the right. Other timelines can declare a different direction."
     },
     {
      "kind": "choice",
-     "prompt": "A baby grows up. Which comes last? ⏳",
+     "prompt": "A bell rang, doors opened, then a story began. Last? ⏳",
      "choices": [
-      "Run",
-      "Crawl",
-      "Walk"
+      "Story began",
+      "Bell rang",
+      "Doors opened"
      ],
-     "answer": "Run",
-     "say": "A baby learns to move about. Which one comes last — run, crawl, or walk?",
+     "answer": "Story began",
+     "say": "At the library, a bell rang, the doors opened, and then a story began. Which came last — the story beginning, the bell ringing, or the doors opening?",
      "speak_choices": true,
-     "explain": "Yes! First you crawl, then you walk, then you run. Running comes last."
+     "explain": "The story began last, after the bell rang and the doors opened."
     },
     {
      "kind": "choice",
-     "prompt": "On a hen's timeline, which is first? 📅",
+     "prompt": "A laid egg hatches into a chick, then grows into a hen. First? 📅",
      "choices": [
       "Hen",
       "Egg",
       "Chick"
      ],
      "answer": "Egg",
-     "say": "On a hen's timeline, which one comes first — the hen, the egg, or the chick?",
+     "say": "In this sequence, a laid egg hatches into a chick, then grows into a hen. Which comes first — the hen, the egg, or the chick?",
      "speak_choices": true,
-     "explain": "Yes! First there is an egg, then a chick hatches out, and then it grows into a hen."
+     "explain": "In this sequence, the laid egg comes first, then the chick, then the adult hen."
     },
     {
      "kind": "choice",
-     "prompt": "Which meal comes last in the day? 🕐",
+     "prompt": "Visits are in the morning, at noon and in the afternoon. Last? 🕐",
      "choices": [
-      "Dinner",
-      "Lunch",
-      "Breakfast"
+      "3 in the afternoon",
+      "Noon",
+      "9 in the morning"
      ],
-     "answer": "Dinner",
-     "say": "Which meal comes last in the day — dinner, lunch, or breakfast?",
+     "answer": "3 in the afternoon",
+     "say": "Three library visits are scheduled at nine in the morning, noon, and three in the afternoon. Which time comes last — three in the afternoon, noon, or nine in the morning?",
      "speak_choices": true,
-     "explain": "Right! Breakfast is in the morning, lunch in the middle of the day, and dinner comes last."
+     "explain": "Three in the afternoon is later than nine in the morning and noon."
     },
     {
      "kind": "choice",
-     "prompt": "On a timeline, oldest goes where? ⬅️",
+     "prompt": "This timeline runs left to right. Earliest goes where? ⬅️",
      "choices": [
       "Left",
       "Right",
       "Middle"
      ],
      "answer": "Left",
-     "say": "On a timeline, does the oldest thing go on the left, on the right, or in the middle?",
+     "say": "This timeline runs from left to right. Does its earliest event go on the left, on the right, or in the middle?",
      "speak_choices": true,
-     "explain": "Yes! The oldest things start on the left, and newer things follow."
+     "explain": "On this left-to-right timeline, the earliest event starts on the left. Check the arrow because other timelines can use another direction."
     },
     {
      "kind": "choice",
-     "prompt": "A tree grows in three steps. Which is the middle one? ⏳",
+     "prompt": "In this simple tree sequence, which is the middle one? ⏳",
      "choices": [
       "Sprout",
       "Seed",
       "Tree"
      ],
      "answer": "Sprout",
-     "say": "A tree grows in three steps. Which one is the middle step — the sprout, the seed, or the tree?",
+     "say": "In this simple tree sequence, which one is in the middle — the sprout, the seed, or the mature tree?",
      "speak_choices": true,
-     "explain": "That's right — first a seed, then a sprout, then a tall tree. The sprout is in the middle."
+     "explain": "In this simplified sequence, the seed comes first, the sprout is in the middle, and the mature tree comes last."
     }
    ]
   },

@@ -553,17 +553,40 @@
    "id": "lang.1.reading",
    "title": "Learning to Read",
    "stage": 1,
-   "goal": "Read whole sentences and short books alone.",
+   "goal": "Read and understand whole sentences and short books.",
    "articles": [
     "Reading",
     "Literacy"
+   ],
+   "lesson_media": [
+    {
+     "id": "reading-path-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-reading-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-reading-800.webp 800w, /app/illustrations/sprout/language/lang-1-reading-1600.webp 1600w",
+     "alt": "An open book shows the words 'THE CAT SAT.' beside a drawing of an orange cat while a finger points along the sentence.",
+     "caption": "Readers connect speech sounds to written words, then use the whole sentence to make meaning. English lines usually run from left to right; other writing systems may use other directions.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "reading-path-lab",
+     "kind": "model",
+     "renderer": "reading-path-lab",
+     "title": "Build meaning from sounds",
+     "instructions": "Follow one simple English sentence from individual sounds through blending, words and meaning. Move between phases or reset to the beginning; reading with another person or an accessibility support is valid too.",
+     "props": {
+      "scenario": "simple-english-cat-sat",
+      "start_phase": "sounds"
+     }
+    }
    ],
    "prereqs": [
     "lang.0.alphabet",
     "lang.0.phonics",
     "lang.0.stories"
    ],
-   "kid_text": "Reading is turning letters into words and words into whole ideas, all by yourself. Slide your finger under each word and say its sounds, then let them blend together — \"the cat sat.\" At the end of the line, your brain sees a picture of what happened! Read a short book to the very last page, and you'll have gone on a whole adventure with just your eyes.",
+   "kid_text": "Reading connects written words with language and ideas. You might follow print with a finger, read braille, listen while following the words, or read with help from a person or tool. For many English words, saying the sounds and blending them can reveal the word — \"the cat sat.\" English lines usually run from left to right, while other writing systems may use other directions. However you access the words, a sentence can open a whole adventure!",
    "quiz": [
     {
      "kind": "choice",
@@ -587,22 +610,22 @@
       "big"
      ],
      "answer": "pig",
-     "say": "Let's blend these sounds together: puh, ih, guh. What word do they make? Pig, pug, or big?",
+     "say": "Listen for the first sound in pan, the short i sound in sit, and the first sound in go. What word do they make — pig, pug, or big?",
      "speak_choices": true,
-     "explain": "Puh, ih, guh slides together into pig. That is reading!"
+     "explain": "Those three sounds blend into pig. Keeping them close together helps the word emerge."
     },
     {
      "kind": "choice",
-     "prompt": "Which side do we start reading? 📖",
+     "prompt": "In English, where does a line usually start? 📖",
      "choices": [
       "left",
       "right",
       "middle"
      ],
      "answer": "left",
-     "say": "When you read a line of words, which side do you start on? The left, the right, or the middle?",
+     "say": "When you read a line of English words, which side does it usually start on? The left, the right, or the middle?",
      "speak_choices": true,
-     "explain": "We start at the left and slide our finger across to the right."
+     "explain": "English lines usually begin on the left and continue to the right. Other writing systems can use other directions."
     },
     {
      "kind": "choice",
@@ -613,9 +636,9 @@
       "cat"
      ],
      "answer": "cat",
-     "say": "Let's blend these sounds together: kuh, ah, tuh. What word do they make? Cot, bat, or cat?",
+     "say": "Listen for the first sound in cup, the short a sound in map, and the first sound in top. What word do they make — cot, bat, or cat?",
      "speak_choices": true,
-     "explain": "Kuh, ah, tuh slides together into cat. That is reading!"
+     "explain": "Those three sounds blend into cat. Keeping them close together helps the word emerge."
     },
     {
      "kind": "choice",
@@ -628,7 +651,7 @@
      "answer": "Red",
      "say": "Read with me: Sam has a red hat. What colour is the hat? Red, blue, or green?",
      "speak_choices": true,
-     "explain": "The words told you the hat is red. You read it yourself!"
+     "explain": "The words tell you the hat is red. You used the sentence to find the answer."
     },
     {
      "kind": "choice",

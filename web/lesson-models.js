@@ -55,7 +55,8 @@
     if (hooks && typeof hooks.speakButton === 'function') {
       const spokenText = () => {
         const stepLabels = [...root.querySelectorAll('[data-model-speak]')]
-          .map(label => label.getAttribute('aria-label') || label.textContent.trim()).filter(Boolean);
+          .map(label => label.getAttribute('data-model-speak-text') ||
+            label.getAttribute('aria-label') || label.textContent.trim()).filter(Boolean);
         const controlsText = [...new Set([...root.querySelectorAll('button:not(.speak-btn), input[type="range"]')]
           .map(control => control.getAttribute('aria-label') || control.getAttribute('aria-valuetext') ||
             control.textContent.trim()).filter(Boolean))];
@@ -2885,6 +2886,499 @@
     return frame.root;
   }
 
+  function renderReadingPath(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const phases = [
+      {
+        id: 'sounds', label: 'Sounds', kicker: 'Start with the sounds',
+        spoken: 'In cat, listen for the first sound in cup, the short a sound in map, and the first sound in top.',
+        readout: 'Look from left to right through c, a, t. Say the first sound in cup, the short a sound in map, then the first sound in top.',
+      },
+      {
+        id: 'blend', label: 'Blend', kicker: 'Slide the sounds together',
+        spoken: 'Blend the first sound in cup, the short a sound in map, and the first sound in top smoothly into cat.',
+        readout: 'Keep those three sounds moving without a long pause until they become cat.',
+      },
+      {
+        id: 'sentence', label: 'Sentence', kicker: 'Read the whole thought',
+        spoken: 'The cat sat. The capital T starts the sentence and the full stop ends it.',
+        readout: 'Read the words from left to right: “The cat sat.” Together they make one complete thought.',
+      },
+      {
+        id: 'meaning', label: 'Meaning', kicker: 'Make meaning from the words',
+        spoken: 'The sentence says that a cat is the one that sat.',
+        readout: 'Reading is more than naming words. “The cat sat.” tells who did something and what happened.',
+      },
+    ];
+    const byId = Object.fromEntries(phases.map(detail => [detail.id, detail]));
+    const validScenario = props.scenario === 'simple-english-cat-sat';
+    const requestedPhase = props.start_phase;
+    const authoredPhase = validScenario && typeof requestedPhase === 'string' &&
+      Object.prototype.hasOwnProperty.call(byId, requestedPhase) ? requestedPhase : 'sounds';
+    let phase = authoredPhase;
+    const stage = node('div', { class: 'reading-path-stage' });
+    const scene = node('div', { class: 'reading-path-scene' }, stage,
+      node('p', { class: 'reading-path-note', 'data-model-speak': true },
+        'This is one simple English example read from left to right. Blending is one reading strategy, not the only support: “the” is a high-frequency irregular word, accents can differ, other scripts use other directions, and readers may use audio, braille, assistive technology, or other supports.'));
+    const phaseButtons = {};
+    const phaseRow = node('div', {
+      class: 'model-option-row reading-path-phase-row', role: 'group',
+      'aria-label': 'Choose a reading step',
+    });
+
+    function phasePicture(detail) {
+      const focus = node('div', {
+        class: 'reading-path-focus', 'data-model-speak': true,
+        'data-model-speak-text': detail.spoken,
+      });
+      if (detail.id === 'sounds') {
+        focus.append(node('div', { class: 'reading-path-symbols' },
+          node('span', {}, 'c'), node('span', {}, 'a'), node('span', {}, 't')),
+        node('p', {}, '/k/ · short a · /t/'));
+      } else if (detail.id === 'blend') {
+        focus.append(node('div', { class: 'reading-path-symbols is-blended' },
+          node('span', {}, 'c'), node('span', {}, 'a'), node('span', {}, 't')),
+        node('p', {}, '/k/—short a—/t/  →  cat'));
+      } else if (detail.id === 'sentence') {
+        focus.append(node('div', { class: 'reading-path-word-row' },
+          node('span', { class: 'reading-path-word' }, 'The'),
+          node('span', { class: 'reading-path-word' }, 'cat'),
+          node('span', { class: 'reading-path-word' }, 'sat'),
+          node('span', { class: 'reading-path-word is-stop' }, '.')));
+      } else {
+        focus.append(node('div', { class: 'reading-path-word-row is-meaning' },
+          node('span', { class: 'reading-path-word is-who' }, 'Who?  The cat.'),
+          node('span', { class: 'reading-path-word is-action' }, 'Did what?  Sat.')));
+      }
+      return focus;
+    }
+
+    const nextButton = node('button', { type: 'button', class: 'btn small' }, 'Next reading step');
+    const resetButton = node('button', { type: 'button', class: 'btn ghost small' }, 'Reset');
+
+    function refresh(announce, message) {
+      const detail = byId[phase];
+      const index = phases.findIndex(candidate => candidate.id === phase);
+      stage.className = 'reading-path-stage is-' + phase;
+      stage.setAttribute('data-phase', phase);
+      stage.replaceChildren(
+        node('p', { class: 'reading-path-kicker' }, detail.kicker), phasePicture(detail));
+      Object.entries(phaseButtons).forEach(([id, button]) => {
+        const selected = id === phase;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      nextButton.disabled = index === phases.length - 1;
+      frame.readout.textContent = 'Step ' + (index + 1) + ' of ' + phases.length + '. ' + detail.readout;
+      if (announce) frame.status.textContent = message || detail.spoken;
+    }
+
+    phases.forEach(detail => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          phase = detail.id;
+          refresh(true, detail.label + ' step selected. ' + detail.spoken);
+        },
+      }, detail.label);
+      phaseButtons[detail.id] = button;
+      phaseRow.append(button);
+    });
+    nextButton.addEventListener('click', () => {
+      const index = phases.findIndex(candidate => candidate.id === phase);
+      if (index < phases.length - 1) phase = phases[index + 1].id;
+      refresh(true);
+    });
+    resetButton.addEventListener('click', () => {
+      phase = authoredPhase;
+      refresh(false);
+      frame.status.textContent = 'Back to the authored ' + byId[authoredPhase].label.toLowerCase() + ' step.';
+    });
+
+    frame.canvas.classList.add('reading-path-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(phaseRow,
+      node('div', { class: 'model-button-row reading-path-nav' }, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderTimelineOrder(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const events = [
+      {
+        id: 'opened', year: 1910, label: 'Library opened',
+        detail: 'The fictional River Street Library opened its doors.',
+      },
+      {
+        id: 'reading-room', year: 1950, label: 'Reading room added',
+        detail: 'A new children’s reading room was added.',
+      },
+      {
+        id: 'roof-restored', year: 1995, label: 'Roof restored',
+        detail: 'Workers restored the old roof.',
+      },
+    ];
+    const byId = Object.fromEntries(events.map(event => [event.id, event]));
+    const requestedOrder = Array.isArray(props.start_order) ? props.start_order : [];
+    const validOrder = props.scenario === 'fictional-library-three-dates' &&
+      requestedOrder.length === events.length && new Set(requestedOrder).size === events.length &&
+      requestedOrder.every(id => typeof id === 'string' &&
+        Object.prototype.hasOwnProperty.call(byId, id));
+    const authoredOrder = validOrder
+      ? requestedOrder.slice() : ['roof-restored', 'opened', 'reading-room'];
+    let order = authoredOrder.slice();
+    const list = node('ol', {
+      class: 'timeline-order-list',
+      'aria-label': 'Fictional library events to order by date',
+    });
+    const rows = {};
+    const track = node('div', { class: 'timeline-order-track', 'aria-hidden': 'true' });
+    const scene = node('div', { class: 'timeline-order-scene' },
+      node('div', { class: 'timeline-order-axis', 'aria-hidden': 'true' },
+        node('span', {}, 'Earlier'), node('span', {}, 'Later')), track,
+      node('p', { class: 'timeline-order-note', 'data-model-speak': true },
+        'This is a fictional timeline. This English-language example puts earlier dates on the left and later dates on the right; other timeline layouts can differ. Real historians check dates against sources before ordering events.'));
+
+    function chronological() {
+      return order.every((id, index) => index === 0 || byId[order[index - 1]].year < byId[id].year);
+    }
+
+    function refreshList() {
+      order.forEach((id, index) => {
+        const row = rows[id];
+        row.earlier.disabled = index === 0;
+        row.later.disabled = index === order.length - 1;
+        row.position.textContent = 'Position ' + (index + 1) + ' of ' + order.length;
+        row.eventSpeech.setAttribute('data-model-speak-text', byId[id].year + '. ' +
+          byId[id].label + '. ' + byId[id].detail + ' Position ' +
+          (index + 1) + ' of ' + order.length + '.');
+        list.append(row.element);
+      });
+      track.replaceChildren(...order.map(id => {
+        const event = byId[id];
+        return node('span', { class: 'timeline-order-visual-card' },
+          node('strong', {}, String(event.year)), node('small', {}, event.label));
+      }));
+      const sorted = chronological();
+      scene.classList.toggle('is-chronological', sorted);
+      frame.readout.textContent = 'Current order: ' + order.map(id => {
+        const event = byId[id];
+        return event.year + ', ' + event.label.toLowerCase();
+      }).join('; ') + '. ' + (sorted
+        ? 'The dates now increase from earlier to later.'
+        : 'Compare the dates and move the smallest year toward Earlier.');
+    }
+
+    function move(id, delta) {
+      const from = order.indexOf(id);
+      const to = from + delta;
+      if (to < 0 || to >= order.length) return;
+      [order[from], order[to]] = [order[to], order[from]];
+      refreshList();
+      const own = delta < 0 ? rows[id].earlier : rows[id].later;
+      const counterpart = delta < 0 ? rows[id].later : rows[id].earlier;
+      (own.disabled ? counterpart : own).focus();
+      frame.status.textContent = 'Moved “' + byId[id].label + '” ' +
+        (delta < 0 ? 'earlier' : 'later') + '. Its date is ' + byId[id].year + '.';
+    }
+
+    events.forEach(event => {
+      const earlier = node('button', {
+        type: 'button', class: 'btn ghost small model-move',
+        'aria-label': 'Move ' + event.year + ', ' + event.label + ', earlier',
+        onclick: () => move(event.id, -1),
+      }, 'Earlier');
+      const later = node('button', {
+        type: 'button', class: 'btn ghost small model-move',
+        'aria-label': 'Move ' + event.year + ', ' + event.label + ', later',
+        onclick: () => move(event.id, 1),
+      }, 'Later');
+      const position = node('small', { class: 'timeline-order-position' });
+      const eventSpeech = node('span', {
+        class: 'timeline-order-event', 'data-model-speak': true,
+      },
+      node('strong', { class: 'timeline-order-date' }, String(event.year)),
+      node('span', { class: 'timeline-order-copy' },
+        node('span', {}, event.label), node('small', {}, event.detail), position));
+      const element = node('li', { class: 'timeline-order-item', 'data-event-id': event.id },
+        eventSpeech,
+        node('span', { class: 'timeline-order-moves' }, earlier, later));
+      rows[event.id] = { element, earlier, later, position, eventSpeech };
+    });
+
+    const checkButton = node('button', {
+      type: 'button', class: 'btn gold small', onclick: () => {
+        frame.status.textContent = chronological()
+          ? 'The timeline is chronological: 1910, then 1950, then 1995.'
+          : 'The timeline is not chronological yet. Find the smallest date and move it toward Earlier.';
+      },
+    }, 'Check the order');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        order = authoredOrder.slice();
+        refreshList();
+        frame.status.textContent = 'The fictional event cards are back in their authored mixed order.';
+      },
+    }, 'Reset');
+    const reorderGroup = node('div', {
+      class: 'timeline-order-controls', role: 'group',
+      'aria-label': 'Order the fictional library events',
+    }, list);
+
+    frame.canvas.classList.add('timeline-order-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(reorderGroup,
+      node('div', { class: 'model-button-row timeline-order-nav' }, checkButton, resetButton));
+    refreshList();
+    return frame.root;
+  }
+
+  function renderSeasonsTilt(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const positions = [
+      {
+        id: 'march-equinox', label: 'March equinox', x: 182, y: 140,
+        north: 'astronomical spring', south: 'astronomical autumn',
+        light: 'Neither hemisphere tilts toward the Sun, so day and night are about equal in length.',
+      },
+      {
+        id: 'june-solstice', label: 'June solstice', x: 260, y: 338,
+        north: 'temperate summer', south: 'temperate winter',
+        light: 'The north tilts toward the Sun for longer days and more direct sunlight; the south tilts away for shorter days and more slanted sunlight.',
+      },
+      {
+        id: 'september-equinox', label: 'September equinox', x: 458, y: 260,
+        north: 'astronomical autumn', south: 'astronomical spring',
+        light: 'Neither hemisphere tilts toward the Sun, so day and night are about equal in length.',
+      },
+      {
+        id: 'december-solstice', label: 'December solstice', x: 380, y: 62,
+        north: 'temperate winter', south: 'temperate summer',
+        light: 'The south tilts toward the Sun for longer days and more direct sunlight; the north tilts away for shorter days and more slanted sunlight.',
+      },
+    ];
+    const byId = Object.fromEntries(positions.map(position => [position.id, position]));
+    const hemisphereLabels = { north: 'Northern Hemisphere', south: 'Southern Hemisphere' };
+    const validScenario = props.scenario === 'earth-tilt-four-positions';
+    const requestedPosition = props.start_position;
+    const requestedHemisphere = props.start_hemisphere;
+    const authoredPosition = validScenario && typeof requestedPosition === 'string' &&
+      Object.prototype.hasOwnProperty.call(byId, requestedPosition)
+      ? requestedPosition : 'june-solstice';
+    const authoredHemisphere = validScenario && typeof requestedHemisphere === 'string' &&
+      Object.prototype.hasOwnProperty.call(hemisphereLabels, requestedHemisphere)
+      ? requestedHemisphere : 'north';
+    let position = authoredPosition;
+    let hemisphere = authoredHemisphere;
+    const diagram = svgNode('svg', {
+      viewBox: '0 0 640 400', class: 'seasons-orbit-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    diagram.append(
+      svgNode('circle', { cx: 320, cy: 200, r: 150, class: 'seasons-orbit' }),
+      svgNode('circle', { cx: 320, cy: 200, r: 35, class: 'seasons-sun' }));
+    const earthGroups = {};
+    positions.forEach(detail => {
+      const group = svgNode('g', { class: 'seasons-earth-position' });
+      group.append(
+        svgNode('circle', { cx: detail.x, cy: detail.y, r: 25, class: 'seasons-earth' }),
+        svgNode('line', {
+          x1: detail.x - 18, y1: detail.y + 42,
+          x2: detail.x + 18, y2: detail.y - 42,
+          class: 'seasons-axis',
+        }));
+      earthGroups[detail.id] = group;
+      diagram.append(group);
+    });
+    const scene = node('div', { class: 'seasons-tilt-scene' }, diagram,
+      node('p', { class: 'seasons-tilt-note', 'data-model-speak': true },
+        'All four Earth axes stay parallel in this not-to-scale teaching view. Earth’s distance from the Sun does not cause the seasons; axial tilt changes daylight length and sunlight angle, and the two hemispheres have opposite seasons.'),
+      node('p', { class: 'seasons-temperate-note', 'data-model-speak': true },
+        'The familiar four-season labels fit many temperate regions. Places near the equator and in other climates can have different seasonal patterns.'));
+    const positionButtons = {};
+    const positionRow = node('div', {
+      class: 'model-option-row seasons-position-row', role: 'group',
+      'aria-label': 'Choose a key position in Earth’s orbit',
+    });
+    const hemisphereButtons = {};
+    const hemisphereRow = node('div', {
+      class: 'model-option-row seasons-hemisphere-row', role: 'group',
+      'aria-label': 'Choose a hemisphere to follow',
+    });
+
+    function refresh(announce, message) {
+      const detail = byId[position];
+      const other = hemisphere === 'north' ? 'south' : 'north';
+      Object.entries(positionButtons).forEach(([id, button]) => {
+        const selected = id === position;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        earthGroups[id].classList.toggle('is-selected', selected);
+      });
+      Object.entries(hemisphereButtons).forEach(([id, button]) => {
+        const selected = id === hemisphere;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      frame.readout.textContent = detail.label + '. ' + hemisphereLabels[hemisphere] +
+        ': ' + detail[hemisphere] + '. ' + hemisphereLabels[other] +
+        ' has the opposite season, ' + detail[other] + '. ' + detail.light;
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    positions.forEach(detail => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          position = detail.id;
+          refresh(true);
+        },
+      }, detail.label);
+      positionButtons[detail.id] = button;
+      positionRow.append(button);
+    });
+    Object.entries(hemisphereLabels).forEach(([id, label]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          hemisphere = id;
+          refresh(true, label + ' selected. It has ' + byId[position][id] +
+            ' at the ' + byId[position].label.toLowerCase() + '.');
+        },
+      }, label.replace(' Hemisphere', ''));
+      hemisphereButtons[id] = button;
+      hemisphereRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        position = authoredPosition;
+        hemisphere = authoredHemisphere;
+        refresh(false);
+        frame.status.textContent = 'Back to the authored ' + byId[authoredPosition].label +
+          ' and ' + hemisphereLabels[authoredHemisphere] + '.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('seasons-tilt-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(positionRow, hemisphereRow,
+      node('div', { class: 'model-button-row seasons-tilt-nav' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderArtElementsComposer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const details = {
+      line: { label: 'Line', explanation: 'lines make paths, edges, and movement' },
+      shape: { label: 'Shape', explanation: 'closed and implied areas make shapes' },
+      color: { label: 'Color', explanation: 'named colors distinguish areas without carrying meaning alone' },
+      texture: { label: 'Texture', explanation: 'marks suggest how a surface might feel' },
+      pattern: { label: 'Pattern', explanation: 'repeated marks create a pattern' },
+    };
+    const elementOrder = Object.keys(details);
+    const requestedElements = Array.isArray(props.start_elements) ? props.start_elements : [];
+    const validElements = props.scenario === 'garden-five-elements' && requestedElements.length > 0 &&
+      new Set(requestedElements).size === requestedElements.length &&
+      requestedElements.every(id => typeof id === 'string' &&
+        Object.prototype.hasOwnProperty.call(details, id));
+    const authoredElements = validElements ? requestedElements.slice() : ['line', 'shape'];
+    let activeElements = new Set(authoredElements);
+    const layers = {
+      line: node('div', { class: 'art-element-layer art-layer-line', 'aria-hidden': 'true' },
+        node('span', { class: 'art-line-stem' }), node('span', { class: 'art-line-stem' }),
+        node('span', { class: 'art-line-stem' })),
+      shape: node('div', { class: 'art-element-layer art-layer-shape', 'aria-hidden': 'true' },
+        node('span', { class: 'art-shape-petal' }), node('span', { class: 'art-shape-petal' }),
+        node('span', { class: 'art-shape-petal' }), node('span', { class: 'art-shape-center' })),
+      color: node('div', { class: 'art-element-layer art-layer-color', 'aria-hidden': 'true' },
+        node('span', { class: 'art-color-wash is-first' }),
+        node('span', { class: 'art-color-wash is-second' })),
+      texture: node('div', { class: 'art-element-layer art-layer-texture', 'aria-hidden': 'true' },
+        node('span', { class: 'art-texture-patch' })),
+      pattern: node('div', { class: 'art-element-layer art-layer-pattern', 'aria-hidden': 'true' },
+        ...Array.from({ length: 7 }, () => node('span', { class: 'art-pattern-mark' }))),
+    };
+    const board = node('div', { class: 'art-composition-board', 'aria-hidden': 'true' },
+      ...elementOrder.map(id => layers[id]));
+    const summary = node('p', { class: 'art-elements-summary', 'data-model-speak': true });
+    const scene = node('div', { class: 'art-elements-scene' }, board, summary,
+      node('p', { class: 'art-elements-note', 'data-model-speak': true },
+        'These five visual tools are useful, not an exhaustive rulebook. Artists combine many other choices. Visual texture suggests touch but does not make the screen feel rough, and labels, shapes, line styles, and patterns keep color from being the sole signal. Color meanings can differ between people and cultures.'));
+    const buttons = {};
+    const elementRow = node('div', {
+      class: 'model-option-row art-elements-row', role: 'group',
+      'aria-label': 'Choose visual elements for the composition',
+    });
+
+    function refresh(announce, message) {
+      elementOrder.forEach(id => {
+        const active = activeElements.has(id);
+        layers[id].hidden = !active;
+        layers[id].classList.toggle('is-active', active);
+        buttons[id].classList.toggle('is-selected', active);
+        buttons[id].setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const active = elementOrder.filter(id => activeElements.has(id));
+      board.classList.toggle('is-empty', active.length === 0);
+      board.setAttribute('data-active-count', String(active.length));
+      summary.textContent = active.length
+        ? 'Showing ' + active.map(id => details[id].label.toLowerCase()).join(', ') + '.'
+        : 'The board is empty. Choose a visual element to add a layer.';
+      frame.readout.textContent = active.length
+        ? active.map(id => details[id].label + ': ' + details[id].explanation + '.').join(' ')
+        : 'No layers are active. The visual idea changes as line, shape, color, texture, and pattern are added.';
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    elementOrder.forEach(id => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          if (activeElements.has(id)) activeElements.delete(id);
+          else activeElements.add(id);
+          refresh(true, details[id].label + ' layer ' +
+            (activeElements.has(id) ? 'added: ' : 'removed: ') + details[id].explanation + '.');
+        },
+      }, details[id].label);
+      buttons[id] = button;
+      elementRow.append(button);
+    });
+    const showAllButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        activeElements = new Set(elementOrder);
+        refresh(true, 'All five visual element layers are showing together.');
+      },
+    }, 'Show all five');
+    const clearButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        activeElements.clear();
+        refresh(true, 'The composition board is clear. Choose an element to begin again.');
+      },
+    }, 'Clear board');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        activeElements = new Set(authoredElements);
+        refresh(false);
+        frame.status.textContent = 'Back to the authored ' + authoredElements.map(id =>
+          details[id].label.toLowerCase()).join(' and ') + ' layers.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('art-elements-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(elementRow,
+      node('div', { class: 'model-button-row art-elements-nav' },
+        showAllButton, clearButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
@@ -2914,6 +3408,10 @@
     'inclusive-family-timeline': renderInclusiveFamilyTimeline,
     'day-night-rotation-lab': renderDayNightRotation,
     'classroom-paint-mixer': renderClassroomPaintMixer,
+    'reading-path-lab': renderReadingPath,
+    'timeline-order-lab': renderTimelineOrder,
+    'seasons-tilt-lab': renderSeasonsTilt,
+    'art-elements-composer': renderArtElementsComposer,
   });
 
   window.PrimerLessonModels = Object.freeze({
