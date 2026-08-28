@@ -3484,12 +3484,36 @@
    "title": "Computational Complexity",
    "stage": 5,
    "goal": "P, NP, and the hardest questions in the field.",
-   "articles": [
-    "Computational complexity theory",
-    "P versus NP problem",
-    "NP-completeness"
-   ],
-   "prereqs": [
+  "articles": [
+   "Computational complexity theory",
+   "P versus NP problem",
+   "NP-completeness"
+  ],
+  "lesson_media": [
+   {
+    "id": "growth-and-certificate-plate",
+    "kind": "illustration",
+    "src": "/app/illustrations/forest/computer-science/cs-5-complexity-800.webp",
+    "srcset": "/app/illustrations/forest/computer-science/cs-5-complexity-800.webp 800w, /app/illustrations/forest/computer-science/cs-5-complexity-1600.webp 1600w",
+    "alt": "One input feeds three separate tracks whose work grows linearly, quadratically and exponentially; beside them, a small Boolean assignment is checked against a fixed formula.",
+    "caption": "Growth rates compare how resource use scales with input size. Separately, a satisfying assignment is a certificate that can be checked quickly; neither picture settles the open P versus NP question.",
+    "width": 1600,
+    "height": 1000
+   },
+   {
+    "id": "compare-growth-and-verify",
+    "kind": "model",
+    "renderer": "complexity-certificate-lab",
+    "title": "Compare growth and verify a certificate",
+    "instructions": "Change n to compare n, n squared and 2 to the n from 4 through 20. Then test assignments for the fixed SAT example and distinguish finding a certificate from checking one.",
+    "props": {
+     "scenario": "sat-certificate",
+     "start_n": 4,
+     "max_n": 20
+    }
+   }
+  ],
+  "prereqs": [
     "cs.4.theory",
     "cs.4.algorithms-adv",
     "math.4.discrete"
@@ -3498,10 +3522,10 @@
     {
      "kind": "choice",
      "prompt": "A problem is NP-complete. Which statement best captures what that means?",
-     "answer": "It is in NP, and every NP problem reduces to it",
-     "explain": "NP-complete problems are in NP and NP-hard: a polynomial solution to one would solve all of NP.",
+     "answer": "It is in NP, and every NP problem polynomial-time reduces to it",
+     "explain": "NP-complete problems are both in NP and NP-hard: every problem in NP has a polynomial-time reduction to one. A polynomial-time algorithm for any NP-complete problem would therefore give polynomial-time algorithms for all problems in NP.",
      "choices": [
-      "It is in NP, and every NP problem reduces to it",
+      "It is in NP, and every NP problem polynomial-time reduces to it",
       "It resists solution by any known algorithm",
       "It can be solved quickly yet checked rather slowly",
       "It provably requires exponential time to solve"
@@ -3509,33 +3533,33 @@
     },
     {
      "kind": "choice",
-     "prompt": "SAT is in NP: a satisfying assignment is a certificate that any verifier can check in polynomial time. A colleague argues that this means SAT can therefore be solved in polynomial time, since checking is fast. Where does the argument break?",
-     "answer": "Finding the certificate is the hard part",
+     "prompt": "SAT is in NP: a proposed satisfying assignment is a certificate that a deterministic verifier can check in polynomial time. A colleague argues that this alone proves SAT can be solved in polynomial time. Where does the argument break?",
+     "answer": "Fast verification alone does not provide a polynomial-time way to find a certificate",
      "choices": [
-      "Finding the certificate is the hard part",
+      "Fast verification alone does not provide a polynomial-time way to find a certificate",
       "Checking one assignment is not actually polynomial",
       "A fast check would place SAT in P rather than in NP",
       "An unsatisfiable formula has no certificate to check"
      ],
-     "explain": "NP bounds the cost of verifying a witness someone hands you, not the cost of searching 2^n assignments for one. That unsatisfiable formulas have no such witness is true, and is why UNSAT sits in co-NP, but it is not the flaw in this argument."
+     "explain": "NP bounds the cost of verifying a supplied witness; that definition does not itself provide an efficient search algorithm. Whether every efficiently verifiable certificate can also be found in polynomial time is the open P versus NP question. Brute-force search over assignments is one method, but no theorem says every SAT algorithm must use it."
     },
     {
      "kind": "choice",
      "prompt": "Suppose someone finds a polynomial-time algorithm for one NP-complete problem. What would follow?",
-     "answer": "Every NP problem would be solvable in polynomial time",
-     "explain": "Because all NP problems reduce to an NP-complete one, a polynomial solution to it collapses NP into P.",
+     "answer": "P would equal NP, so every NP problem would be solvable in polynomial time",
+     "explain": "Every NP problem polynomial-time reduces to an NP-complete problem. Combining those reductions with the new polynomial-time algorithm would put all of NP in P; since P is already a subset of NP, this would prove P = NP.",
      "choices": [
       "Just that one problem becomes easy; the rest stay hard",
       "It would prove that the halting problem is decidable",
       "It would immediately prove that P is not equal to NP",
-      "Every NP problem would be solvable in polynomial time"
+      "P would equal NP, so every NP problem would be solvable in polynomial time"
      ]
     },
     {
      "kind": "numeric",
-     "prompt": "An algorithm's running time satisfies T(n) = 2*T(n/2) + n. The master theorem gives a bound of the form n^a * (log n)^b with whole-number a and b. Give the value of a + b.",
+     "prompt": "An algorithm's running time satisfies T(n) = 2*T(n/2) + n. The master theorem gives a bound of the form n^p * (log n)^q with whole-number exponents p and q. Give p + q.",
      "answer": "2",
-     "explain": "The master theorem solves recurrences of the form T(n) = a*T(n/b) + f(n) by comparing f(n) against n^(log_b a): if f(n) grows slower, T(n) = Theta(n^(log_b a)); if it grows faster, T(n) = Theta(f(n)); if the two match (case 2), T(n) = Theta(n^(log_b a) * log n). Here a=2, b=2, so n^(log_2 2) = n^1 = n, which matches f(n) = n exactly — case 2 applies, giving T(n) = Theta(n log n), so a = 1 and b = 1."
+     "explain": "The master theorem solves recurrences of the form T(n) = a*T(n/b) + f(n) by comparing f(n) against n^(log_b a): if f(n) grows slower, T(n) = Theta(n^(log_b a)); if it grows faster, T(n) = Theta(f(n)); if the two match (case 2), T(n) = Theta(n^(log_b a) * log n). Here the recurrence coefficients are a=2 and b=2, so n^(log_2 2) = n, matching f(n) = n. Thus T(n) = Theta(n log n), whose requested exponents are p=1 and q=1."
     },
     {
      "kind": "choice",
@@ -3551,27 +3575,27 @@
     },
     {
      "kind": "choice",
-     "prompt": "A vertex-cover instance on 40 vertices must be solved exactly today, and brute force over all subsets remains hopeless. Which approach still returns a provably optimal answer?",
-     "answer": "Branch on the parameter k: vertex cover is fixed-parameter tractable",
+     "prompt": "For a graph on 40 vertices, you must decide exactly whether it has a vertex cover of size at most k=5. Which approach gives an exact fixed-parameter algorithm?",
+     "answer": "Branch on an uncovered edge; O(2^k poly(n)) is exact for k=5",
      "choices": [
-      "Branch on the parameter k: vertex cover is fixed-parameter tractable",
+      "Branch on an uncovered edge; O(2^k poly(n)) is exact for k=5",
       "A greedy pass that repeatedly removes the highest-degree vertex, then stops",
       "A 2-approximation of the cover from a maximal matching",
       "An integer program handed to its linear relaxation alone"
      ],
-     "explain": "Vertex cover is FPT: an O(2^k n) branching search is exact and finishes quickly whenever k stays small, which is the usual case in practice. The other three return an answer with no guarantee that it is optimal - a 2-approximation is provably within a factor of two, which is not the same thing."
+     "explain": "Every vertex cover must contain at least one endpoint of any uncovered edge. Branching on those two choices decreases k by one, giving an O(2^k poly(n)) decision algorithm. It is exact for the stated k=5 instance; its usefulness depends on k being small, not on a claim that small k is usual. A 2-approximation has a ratio guarantee but does not decide this exact bound."
     },
     {
      "kind": "choice",
-     "prompt": "A logistics team's scheduling problem is NP-hard and their instances have 5,000 tasks. A manager asks for a guaranteed optimum by Friday. Which response is technically sound?",
-     "answer": "Offer an approximation with a proven ratio, or an exact solver given time",
+     "prompt": "A logistics team says only that its 5,000-task scheduling problem is NP-hard and asks for a guaranteed optimum by Friday. Which response is technically sound?",
+     "answer": "Identify the exact variant, then use a proven approximation if one exists or an exact solver with a time limit and optimality gap",
      "choices": [
-      "Offer an approximation with a proven ratio, or an exact solver given time",
+      "Identify the exact variant, then use a proven approximation if one exists or an exact solver with a time limit and optimality gap",
       "Note that 5,000 tasks is small, so the exponential term stays manageable",
       "Explain that NP-hard problems admit no correct algorithm at any size",
       "Buy faster hardware, since NP-hardness concerns only constant factors"
      ],
-     "explain": "NP-hardness rules out a known polynomial-time exact method; it rules out neither correctness nor good answers on real instances. It is about how the cost grows, so neither faster hardware nor a fixed instance size makes an exponential term go away."
+     "explain": "Approximation guarantees are problem-specific, so 'NP-hard scheduling' is not enough to promise one. An exact mixed-integer or constraint solver can report an incumbent and a bound, making any remaining optimality gap explicit at the deadline. NP-hardness does not prove that every instance is slow, and the absence of a polynomial-time exact algorithm is conditional on P not equaling NP, which remains unproved."
     },
     {
      "kind": "numeric",
@@ -3581,15 +3605,15 @@
     },
     {
      "kind": "choice",
-     "prompt": "A colleague hands you a Boolean formula and asserts that it is unsatisfiable. Why is that assertion harder to check quickly than an assertion that it is satisfiable?",
-     "answer": "No short certificate for unsatisfiability is known to exist",
+     "prompt": "A satisfying assignment is a polynomial-size certificate that verifies SAT instances quickly. What is currently known about an analogous certificate for every unsatisfiable Boolean formula?",
+     "answer": "No polynomial-size certificate verifiable in polynomial time is known for every UNSAT instance",
      "choices": [
-      "No short certificate for unsatisfiability is known to exist",
-      "Every one of the 2^n assignments would have to be checked first",
-      "A refutation proof exists but may be exponentially long",
-      "Unsatisfiability is not in NP, so it cannot be decided"
+      "No polynomial-size certificate verifiable in polynomial time is known for every UNSAT instance",
+      "Every one of the 2^n assignments has been proved necessary to check",
+      "SAT's certificate automatically puts UNSAT in NP as well",
+      "UNSAT has been proved to lie outside NP"
      ],
-     "explain": "SAT is in NP because a satisfying assignment is a witness anyone can check quickly; UNSAT sits in co-NP, where no such short witness is known. Refutation proofs do exist - resolution gives one - but they can be exponentially long. Nobody has proved that all 2^n assignments must be examined either; doing so would settle NP versus co-NP."
+     "explain": "UNSAT is coNP-complete. We do not know whether every UNSAT instance has a polynomial-size certificate accepted by a polynomial-time verifier; equivalently, we do not know whether UNSAT is in NP. In fact, UNSAT is in NP if and only if NP = coNP. SAT's usual satisfying-assignment certificate does not settle that question, and exhaustive search has not been proved necessary."
     },
     {
      "kind": "choice",

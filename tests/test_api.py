@@ -1004,6 +1004,9 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     grove = client.get('/api/curriculum/node/math.4.linalg')
     assert grove.status_code == 200
     assert [entry['kind'] for entry in grove.json()['lesson_media']] == ['illustration', 'model']
+    forest = client.get('/api/curriculum/node/math.5.pde')
+    assert forest.status_code == 200
+    assert [entry['kind'] for entry in forest.json()['lesson_media']] == ['illustration', 'model']
 
     graph = client.get('/api/curriculum').json()
     assert all('lesson_media' not in node for node in graph['nodes'])

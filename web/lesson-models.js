@@ -2168,6 +2168,351 @@
     return frame.root;
   }
 
+  function renderHeatEquation(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const cellCount = Math.round(clampNumber(props.cells, 9, 9, 9));
+    const hotIndex = Math.round(clampNumber(props.hot_cell, 4, 4, 4)) - 1;
+    const rate = clampNumber(props.diffusion_percent, 20, 20, 20) / 100;
+    const maxSteps = Math.round(clampNumber(props.max_steps, 10, 10, 10));
+    const history = [];
+    const initial = Array(cellCount).fill(0);
+    initial[hotIndex] = 100;
+    history.push(initial);
+    for (let count = 0; count < maxSteps; count += 1) {
+      const old = history[history.length - 1];
+      const next = old.map((value, index) => {
+        const left = index === 0 ? old[index] : old[index - 1];
+        const right = index === old.length - 1 ? old[index] : old[index + 1];
+        return value + rate * (left - 2 * value + right);
+      });
+      history.push(next);
+    }
+    let step = 0;
+    const strip = node('div', { class: 'heat-cell-grid', 'aria-hidden': 'true' });
+    const metrics = node('div', { class: 'heat-equation-metrics' });
+
+    function number(value) {
+      return Math.abs(value) < 0.0005 ? '0.00' : value.toFixed(2);
+    }
+    function refresh(announce) {
+      const values = history[step];
+      const total = values.reduce((sum, value) => sum + value, 0);
+      const maximum = Math.max(...values);
+      strip.replaceChildren(...values.map((value, index) => {
+        const fill = node('span', { class: 'heat-cell-fill' });
+        fill.style.height = Math.max(4, value) + '%';
+        return node('span', { class: 'heat-cell ' + (index === hotIndex ? 'is-origin' : '') },
+          fill, node('small', {}, String(index + 1)));
+      }));
+      metrics.replaceChildren(
+        node('span', {}, node('small', {}, 'Step'), node('strong', { 'data-model-speak': true }, step + ' / ' + maxSteps)),
+        node('span', {}, node('small', {}, 'Total'), node('strong', {}, number(total))),
+        node('span', {}, node('small', {}, 'Maximum'), node('strong', {}, number(maximum))),
+      );
+      previousButton.disabled = step === 0;
+      nextButton.disabled = step === maxSteps;
+      frame.readout.textContent = 'Cell temperature excesses: [' + values.map(number).join(', ') + ']. ' +
+        'This dimensionless forward-Euler teaching model uses simultaneous updates, insulated no-flux boundaries, and r = 0.20. ' +
+        'Because r ≤ 0.50 the one-dimensional stencil is stable here, and total heat is conserved at 100. ' +
+        'It approximates diffusion on a grid; it is not an exact continuum solution or a claim of finite physical propagation speed.';
+      if (announce) frame.status.textContent = 'Diffusion step ' + step + '. Maximum ' + number(maximum) +
+        '; conserved total ' + number(total) + '.';
+    }
+
+    const previousButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = Math.max(0, step - 1);
+        refresh(true);
+      },
+    }, 'Previous step');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        step = Math.min(maxSteps, step + 1);
+        refresh(true);
+      },
+    }, 'Diffuse one step');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = 0;
+        refresh(false);
+        frame.status.textContent = 'The insulated strip is back to one hot fourth cell.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('heat-equation-canvas');
+    frame.canvas.append(node('div', { class: 'heat-equation-scene' }, strip, metrics));
+    frame.controls.append(node('div', { class: 'model-button-row' }, previousButton, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const COMPLEXITY_CERTIFICATE_CLAUSES = [
+    { label: 'A ∨ ¬B ∨ D', terms: [['A', true], ['B', false], ['D', true]] },
+    { label: '¬A ∨ C', terms: [['A', false], ['C', true]] },
+    { label: 'B ∨ ¬C ∨ D', terms: [['B', true], ['C', false], ['D', true]] },
+    { label: '¬D ∨ A', terms: [['D', false], ['A', true]] },
+  ];
+
+  function renderComplexityCertificate(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const startN = Math.round(clampNumber(props.start_n, 4, 20, 4));
+    const maxN = Math.round(clampNumber(props.max_n, startN, 20, 20));
+    let n = startN;
+    let assignment = { A: true, B: true, C: true, D: true };
+    const growth = node('div', { class: 'complexity-growth-list' });
+    const certificate = node('div', { class: 'complexity-certificate-scene' });
+    const clauseList = node('ol', { class: 'complexity-certificate-list', 'aria-label': 'Clause results' });
+    const variableRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Proposed Boolean certificate' });
+    const variableButtons = {};
+    const nControl = node('input', {
+      type: 'range', min: startN, max: maxN, step: 1, value: n,
+      'aria-label': 'Input size n',
+      oninput: event => { n = Number(event.target.value); refresh(false); },
+    });
+
+    function clauseResult(clause) {
+      return clause.terms.some(([name, positive]) => positive ? assignment[name] : !assignment[name]);
+    }
+    function growthRow(label, count, className) {
+      const bar = node('span', { class: 'complexity-growth-bar ' + className });
+      const scale = Math.max(4, Math.min(100, Math.log2(count + 1) / maxN * 100));
+      bar.style.width = scale + '%';
+      return node('div', { class: 'complexity-growth-row' },
+        node('span', { class: 'complexity-growth-label' }, label),
+        node('span', { class: 'complexity-growth-track', 'aria-hidden': 'true' }, bar),
+        node('strong', {}, count.toLocaleString('en-US')));
+    }
+    function refresh(announce) {
+      const linear = n;
+      const square = n * n;
+      const exponential = Math.pow(2, n);
+      nControl.value = String(n);
+      nControl.setAttribute('aria-valuetext', 'n equals ' + n + '. Linear ' + linear +
+        ', square ' + square + ', two to the n ' + exponential.toLocaleString('en-US') + '.');
+      growth.replaceChildren(
+        growthRow('n', linear, 'is-linear'),
+        growthRow('n²', square, 'is-square'),
+        growthRow('2ⁿ', exponential, 'is-exponential'),
+      );
+      Object.entries(variableButtons).forEach(([name, button]) => {
+        const value = assignment[name];
+        button.textContent = name + ' = ' + (value ? 'True' : 'False');
+        button.setAttribute('aria-pressed', value ? 'true' : 'false');
+        button.classList.toggle('is-selected', value);
+      });
+      const results = COMPLEXITY_CERTIFICATE_CLAUSES.map(clauseResult);
+      clauseList.replaceChildren(...COMPLEXITY_CERTIFICATE_CLAUSES.map((clause, index) => node('li', {
+        class: results[index] ? 'is-true' : 'is-false',
+      }, node('span', {}, '(' + clause.label + ')'), node('strong', {}, results[index] ? 'True' : 'False'))));
+      const allTrue = results.every(Boolean);
+      frame.readout.textContent = 'At n = ' + n + ': n = ' + linear.toLocaleString('en-US') +
+        ', n² = ' + square.toLocaleString('en-US') + ', and 2ⁿ = ' + exponential.toLocaleString('en-US') + '. ' +
+        'The bars share a logarithmic display scale, while the written counts are exact. These are representative growth functions: polynomial examples do not prove that every problem has a polynomial algorithm. ' +
+        'Checking this supplied certificate takes work proportional to the displayed formula size; finding one is a different task. ' +
+        'The proposed assignment currently makes ' + results.filter(Boolean).length + ' of 4 clauses true. P versus NP remains open.';
+      if (announce) frame.status.textContent = 'Certificate changed: ' + results.filter(Boolean).length +
+        ' of 4 clauses are true; the whole formula is ' + (allTrue ? 'satisfied.' : 'not satisfied.');
+    }
+
+    ['A', 'B', 'C', 'D'].forEach(name => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'true', onclick: () => {
+          assignment[name] = !assignment[name];
+          refresh(true);
+        },
+      }, name + ' = True');
+      variableButtons[name] = button;
+      variableRow.append(button);
+    });
+    const verifyButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const passed = COMPLEXITY_CERTIFICATE_CLAUSES.filter(clauseResult).length;
+        frame.status.textContent = 'Verification complete: ' + passed + ' of 4 clauses are true. ' +
+          (passed === 4 ? 'This supplied assignment satisfies the formula.' : 'This assignment is not a certificate for satisfiability.');
+      },
+    }, 'Verify supplied certificate');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        n = startN;
+        assignment = { A: true, B: true, C: true, D: true };
+        refresh(false);
+        frame.status.textContent = 'The chart and satisfying supplied certificate are reset.';
+      },
+    }, 'Reset');
+    certificate.append(
+      node('p', { class: 'complexity-formula', 'data-model-speak': true },
+        '(A ∨ ¬B ∨ D) ∧ (¬A ∨ C) ∧ (B ∨ ¬C ∨ D) ∧ (¬D ∨ A)'),
+      variableRow, clauseList,
+    );
+    frame.canvas.classList.add('complexity-certificate-canvas');
+    frame.canvas.append(node('div', { class: 'complexity-model-scene' }, growth, certificate));
+    frame.controls.append(node('label', { class: 'model-range-control' },
+      node('span', {}, 'Compare growth at input size n'), nControl),
+    node('div', { class: 'model-button-row' }, verifyButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderMorphogenGradient(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const cellCount = Math.round(clampNumber(props.cells, 11, 11, 11));
+    const source = clampNumber(props.source, 100, 100, 100);
+    const retention = 1 - clampNumber(props.decay_percent, 20, 20, 20) / 100;
+    const lowThreshold = clampNumber(props.low_threshold, 30, 30, 30);
+    const highThreshold = clampNumber(props.high_threshold, 65, 65, 65);
+    let selected = 0;
+    let flat = false;
+    const row = node('div', { class: 'morphogen-cell-row', 'aria-hidden': 'true' });
+    const legend = node('div', { class: 'morphogen-fate-legend' });
+    const inspectControl = node('input', {
+      type: 'range', min: 1, max: cellCount, step: 1, value: 1,
+      'aria-label': 'Inspect a cell', oninput: event => {
+        selected = Number(event.target.value) - 1;
+        refresh(false);
+      },
+    });
+
+    function concentrations() {
+      return Array.from({ length: cellCount }, (_, index) => flat ? 50 : source * Math.pow(retention, index));
+    }
+    function fate(value) {
+      if (value >= highThreshold) return { key: 'high', label: 'High-threshold fate' };
+      if (value >= lowThreshold) return { key: 'middle', label: 'Middle-band fate' };
+      return { key: 'low', label: 'Below-threshold fate' };
+    }
+    function refresh(announce) {
+      const values = concentrations();
+      const fates = values.map(fate);
+      row.replaceChildren(...values.map((value, index) => node('span', {
+        class: 'morphogen-cell fate-' + fates[index].key + (index === selected ? ' is-selected' : ''),
+      }, node('strong', {}, String(index + 1)), node('small', {}, value.toFixed(1)))));
+      const counts = ['high', 'middle', 'low'].map(key => fates.filter(item => item.key === key).length);
+      legend.replaceChildren(
+        node('span', { class: 'fate-high' }, node('strong', {}, 'High'), ' ≥ 65 · ' + counts[0] + ' cells'),
+        node('span', { class: 'fate-middle' }, node('strong', {}, 'Middle'), ' 30–<65 · ' + counts[1] + ' cells'),
+        node('span', { class: 'fate-low' }, node('strong', {}, 'Low'), ' < 30 · ' + counts[2] + ' cells'),
+      );
+      inspectControl.value = String(selected + 1);
+      inspectControl.setAttribute('aria-valuetext', 'Cell ' + (selected + 1) + ', concentration ' +
+        values[selected].toFixed(2) + ', ' + fates[selected].label + '.');
+      flattenButton.setAttribute('aria-pressed', flat ? 'true' : 'false');
+      flattenButton.textContent = flat ? 'Restore gradient' : 'Flatten to 50';
+      frame.readout.textContent = 'Cell ' + (selected + 1) + ' has model concentration ' +
+        values[selected].toFixed(3) + ' and the ' + fates[selected].label + '. ' +
+        (flat ? 'Every cell has the same 50-unit signal, so this one-signal fixed-threshold model gives one middle fate everywhere. ' :
+          'The fixed profile is 100 × 0.80^i for zero-based position i; classification uses unrounded values. ') +
+        'The 65 and 30 cutoffs are illustrative thresholds in an idealized static one-dimensional model. Real developmental fate can depend on exposure history, receptors, noise, feedback and other signals.';
+      if (announce) frame.status.textContent = flat ?
+        'The signal is flat at 50: all 11 cells have the middle fate in this simplified model.' :
+        'The decaying gradient is restored: 2 high, 4 middle and 5 low cells.';
+    }
+
+    const flattenButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': 'false', onclick: () => {
+        flat = !flat;
+        refresh(true);
+      },
+    }, 'Flatten to 50');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = 0;
+        flat = false;
+        refresh(false);
+        frame.status.textContent = 'The original gradient and first selected cell are restored.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('morphogen-gradient-canvas');
+    frame.canvas.append(node('div', { class: 'morphogen-gradient-scene' },
+      node('div', { class: 'morphogen-source', 'data-model-speak': true }, 'Localized source · 100'), row, legend));
+    frame.controls.append(node('label', { class: 'model-range-control' },
+      node('span', {}, 'Inspect cell 1–11'), inspectControl),
+    node('div', { class: 'model-button-row' }, flattenButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const CT_REFERENCE_INSERTS = [
+    { label: 'Air reference', hu: -1000 },
+    { label: 'Low-density foam', hu: -700 },
+    { label: 'Fat-equivalent polymer', hu: -100 },
+    { label: 'Water', hu: 0 },
+    { label: 'Soft-tissue-equivalent resin', hu: 40 },
+    { label: 'Dense mineral insert', hu: 1000 },
+  ];
+
+  function renderCtWindow(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredLevel = clampNumber(props.level, 40, 40, 40);
+    const authoredWidth = clampNumber(props.width, 400, 400, 400);
+    let level = authoredLevel;
+    let width = authoredWidth;
+    const insertGrid = node('div', { class: 'ct-phantom-grid' });
+    const rangeSummary = node('div', { class: 'ct-window-range', 'data-model-speak': true });
+    const levelControl = node('input', {
+      type: 'range', min: -1000, max: 1000, step: 10, value: level,
+      'aria-label': 'Window level', oninput: event => { level = Number(event.target.value); refresh(false); },
+    });
+    const widthControl = node('input', {
+      type: 'range', min: 2, max: 2000, step: 2, value: width,
+      'aria-label': 'Window width', oninput: event => { width = Number(event.target.value); refresh(false); },
+    });
+
+    function windowValue(hu) {
+      const lower = level - 0.5 - (width - 1) / 2;
+      const upper = level - 0.5 + (width - 1) / 2;
+      if (width <= 1) return hu <= level - 0.5 ? 0 : 255;
+      if (hu <= lower) return 0;
+      if (hu > upper) return 255;
+      return Math.max(0, Math.min(255,
+        ((hu - (level - 0.5)) / (width - 1) + 0.5) * 255));
+    }
+    function refresh(announce) {
+      const lower = level - 0.5 - (width - 1) / 2;
+      const upper = level - 0.5 + (width - 1) / 2;
+      const blackThrough = Math.floor(lower);
+      const whiteFrom = Math.ceil(upper);
+      insertGrid.replaceChildren(...CT_REFERENCE_INSERTS.map(insert => {
+        const output = windowValue(insert.hu);
+        const swatch = node('span', { class: 'ct-insert-swatch', 'aria-hidden': 'true' });
+        swatch.style.background = 'rgb(' + output.toFixed(3) + ', ' + output.toFixed(3) + ', ' + output.toFixed(3) + ')';
+        return node('div', { class: 'ct-insert' }, swatch,
+          node('span', {}, node('strong', {}, insert.label), node('small', {}, insert.hu + ' HU → ' + Math.round(output) + ' / 255')));
+      }));
+      rangeSummary.textContent = 'Level ' + level + ' · Width ' + width +
+        ' · black through ' + blackThrough + ' HU · white from ' + whiteFrom + ' HU';
+      levelControl.value = String(level);
+      widthControl.value = String(width);
+      levelControl.setAttribute('aria-valuetext', 'Window level ' + level + ' Hounsfield units');
+      widthControl.setAttribute('aria-valuetext', 'Window width ' + width + ' Hounsfield units');
+      frame.readout.textContent = 'DICOM LINEAR VOI with MONOCHROME2 maps low output to black and high output to white. ' +
+        'Its linear branch uses width − 1 and level − 0.5: at level ' + level + ' and width ' + width +
+        ', integer values through ' + blackThrough + ' HU are black and values from ' + whiteFrom + ' HU are white. ' +
+        'Windowing changes only the display mapping, not stored HU or the acquisition. This is a synthetic phantom teaching display, not patient data and not a diagnosis.';
+      if (announce) frame.status.textContent = 'Window reset to level ' + level + ' and width ' + width + '.';
+    }
+
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        level = authoredLevel;
+        width = authoredWidth;
+        refresh(true);
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('ct-window-canvas');
+    frame.canvas.append(node('div', { class: 'ct-window-scene' },
+      node('p', { class: 'ct-phantom-label' }, 'Synthetic HU reference phantom'), insertGrid, rangeSummary));
+    frame.controls.append(
+      node('label', { class: 'model-range-control' }, node('span', {}, 'Window level'), levelControl),
+      node('label', { class: 'model-range-control' }, node('span', {}, 'Window width'), widthControl),
+      node('div', { class: 'model-button-row' }, resetButton),
+    );
+    refresh(false);
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
@@ -2189,6 +2534,10 @@
     'venturi-flow-lab': renderVenturiFlow,
     'gene-expression-stepper': renderGeneExpression,
     'tcp-packet-tracer': renderTcpPacketTracer,
+    'heat-equation-lab': renderHeatEquation,
+    'complexity-certificate-lab': renderComplexityCertificate,
+    'morphogen-gradient-lab': renderMorphogenGradient,
+    'ct-window-lab': renderCtWindow,
   });
 
   window.PrimerLessonModels = Object.freeze({

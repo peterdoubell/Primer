@@ -348,6 +348,30 @@
         "Iterative reconstruction",
         "Image noise"
       ],
+      "lesson_media": [
+        {
+          "id": "ct-window-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/forest/radiology/rad-3-ct-image-800.webp",
+          "srcset": "/app/illustrations/forest/radiology/rad-3-ct-image-800.webp 800w, /app/illustrations/forest/radiology/rad-3-ct-image-1600.webp 1600w",
+          "alt": "A synthetic circular CT reference phantom contains inserts of several densities beside a brass windowing instrument; no patient anatomy is shown.",
+          "caption": "Window level chooses the center of the displayed Hounsfield-unit range and window width chooses its span. Values outside that range clip to black or white.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "window-a-synthetic-ct-phantom",
+          "kind": "model",
+          "renderer": "ct-window-lab",
+          "title": "Window a synthetic CT phantom",
+          "instructions": "Adjust level and width on a fixed, non-clinical HU reference phantom. Read the lower and upper cutoffs and follow the DICOM linear window rule as each insert maps to grayscale.",
+          "props": {
+            "phantom": "synthetic-hu-reference",
+            "level": 40,
+            "width": 400
+          }
+        }
+      ],
       "prereqs": [
         "phys.3.nuclear",
         "phys.3.em"
@@ -358,14 +382,14 @@
           "kind": "numeric",
           "prompt": "At the effective energy of a scan, water has a linear attenuation coefficient of 0.180 per centimetre and one voxel measures 0.207 per centimetre. The CT number is a thousand times the voxel's difference from water, divided by that of water. What is the CT number of the voxel, in Hounsfield units? Answer with the number alone.",
           "answer": "150",
-          "explain": "A thousand times 0.027 divided by 0.180 is 150 HU. The scale is anchored at two fixed points, water at 0 and air at minus 1000, and that anchoring is what makes a CT number a measurement rather than a shade of grey: the same tissue should return the same number on a different scanner on a different day, which is why attenuation can be quoted in a report and compared between studies. Two caveats travel with it. The number is an average over the whole voxel, so a small structure is diluted by whatever shares its voxel, and the beam is polychromatic rather than monoenergetic, so the effective energy shifts as the beam passes through dense tissue and the same material can measure differently in different surroundings.",
+          "explain": "A thousand times 0.027 divided by 0.180 is 150 HU. Water defines 0 HU and air approximately minus 1000 HU, so the scale is more standardized than an arbitrary display shade, but a tissue is not guaranteed to return one invariant number across scanners or days. Tube energy and spectrum, calibration, reconstruction method, contrast timing, beam hardening, noise and partial-volume averaging can all shift a measurement. The number is also an average over the voxel, so a small structure is diluted by whatever shares that voxel.",
           "ephemeral": false
         },
         {
           "kind": "numeric",
-          "prompt": "A CT is displayed at a window level of 40 HU with a window width of 400 HU. At and above which CT number does everything appear the same pure white? Answer in Hounsfield units, with the number alone.",
-          "answer": "240",
-          "explain": "The displayed range runs from the level minus half the width to the level plus half the width, so 40 plus or minus 200 gives minus 160 to plus 240. Everything at or above 240 saturates to white, everything at or below minus 160 to black, and the entire grey scale is spent on the 400 HU in between. That is why cortical bone at around a thousand, a surgical clip at several thousand and a densely calcified plaque all look identical on a soft-tissue window, and why fat at minus 100 and lung at minus 800 do not look identical there but a pneumothorax at minus 1000 and the lung next to it both vanish into black. Narrowing the width raises contrast per Hounsfield unit and magnifies noise with it; widening it shows everything faintly.",
+          "prompt": "Using the DICOM LINEAR window function with a MONOCHROME2 display, a CT has window center 40 HU and window width 400 HU. At what CT number does the mapped output first reach pure white? Answer in Hounsfield units, with the number alone.",
+          "answer": "239",
+          "explain": "DICOM's LINEAR rule uses center minus 0.5 and width minus 1. Its upper endpoint is c - 0.5 + (w - 1)/2 = 40 - 0.5 + 399/2 = 239 HU, which maps to the maximum MONOCHROME2 output; values above it remain white. The lower endpoint is minus 160 HU. Between those endpoints the mapping is linear. Narrowing the width increases displayed contrast per HU and also makes noise more conspicuous; widening it reduces displayed contrast.",
           "ephemeral": false
         },
         {
@@ -378,12 +402,12 @@
             "Lung images require a separate low-dose acquisition"
           ],
           "answer": "The stored numbers can be redisplayed without rescanning",
-          "explain": "Windowing is a display transformation applied to CT numbers that are already stored, so the lung information is in the dataset whether or not anybody looked at it, and re-scanning to change a window is a pure dose penalty for nothing. The lesson underneath is the one that caused the miss: a window discards all contrast outside its range, so a chest CT is scrolled at least three times, on lung, mediastinal and bone settings, and a small anterior pneumothorax, subtle emphysema or a rib fracture lives on only one of them. One related operation genuinely is not a display change: the reconstruction kernel is applied when the images are made from the raw projection data, so a sharp lung kernel has to be reconstructed rather than windowed, but that too is done from data the scanner already holds, still without exposing the patient again.",
+          "explain": "Windowing is a display transformation applied to stored CT numbers, so the same reconstructed series can be redisplayed on lung settings without another exposure. A finding may be clipped or inconspicuous on one window and conspicuous on another, which is why review uses task-specific settings. A reconstruction kernel is different: producing a sharp lung reconstruction may require retained projection data or an already archived reconstruction, and what can be reconstructed depends on the acquisition and local retention policy.",
           "ephemeral": false
         },
         {
           "kind": "order",
-          "prompt": "Different review tasks on the same CT dataset call for different window widths. Put these four review windows in order of increasing window width, from the narrowest to the widest.",
+          "prompt": "Illustrative protocol values are: brain about 80 HU wide, soft tissue about 350 to 400 HU, lung about 1500 HU, and bone 2000 HU or more. Put these review windows in order of increasing width, from narrowest to widest.",
           "items": [
             "brain",
             "soft-tissue",
@@ -391,12 +415,12 @@
             "bone"
           ],
           "answer": "brain soft-tissue lung bone",
-          "explain": "A brain window runs about 80 HU wide, because the whole diagnostic task lives in the few tens of units separating grey matter, white matter, oedema and acute blood, and a wider setting would render all of them the same grey. Soft tissue is about 350 to 400 wide, enough to separate fat, fluid, nodes and enhancing vessels. Lung is about 1500, spanning aerated parenchyma near minus 900 up to vessels near zero. Bone is 2000 or more, since cortex and trabeculae differ by hundreds of units and fine detail matters more there than subtle contrast. Narrow windows amplify noise along with contrast, which is why a low-dose head CT looks so much worse than a low-dose abdomen. Task-specific variants exist for exactly this reason, such as the wider subdural window that separates a thin extra-axial collection from the bright skull beside it.",
+          "explain": "For the illustrative values given, the order is brain, soft tissue, lung, then bone. A narrower width allocates more of the display range to each HU and therefore increases displayed contrast, while a wider width reduces displayed contrast so a larger attenuation range fits on screen. Exact centers and widths are task-, protocol- and institution-specific; variants such as a wider subdural window are chosen for particular findings.",
           "ephemeral": false
         },
         {
           "kind": "choice",
-          "prompt": "On a head CT, a dark band runs across the pons between the two petrous temporal bones, sitting in the same place on consecutive slices, with no mass effect and nothing in the examination to match it. What is it?",
+          "prompt": "On a head CT, a dark band across the pons is aligned with the dense petrous temporal bones on adjacent slices. It has no mass effect and nothing in the examination matches it. What is the best explanation?",
           "choices": [
             "Beam hardening between the dense petrous bones",
             "An acute infarct in the basilar artery territory",
@@ -404,26 +428,26 @@
             "Motion during the acquisition of those slices"
           ],
           "answer": "Beam hardening between the dense petrous bones",
-          "explain": "A polychromatic beam loses its lower-energy photons preferentially as it passes through dense bone, so the beam emerging is harder and is attenuated less than the reconstruction algorithm assumes. The algorithm compensates by assigning numbers that are too low along that path, producing the classic dark band between two dense structures with brighter streaks nearby. Three clues separate it from disease: it is bounded by bone rather than by a vascular territory, it lies in the same plane on every slice because the geometry that causes it does not change, and it exerts no mass effect. Higher tube potential, bow-tie filtration, correction algorithms and dual-energy reconstruction all reduce it, and posterior fossa protocols are built around it. A ring artefact is a circle centred on the isocentre, and motion smears the whole image rather than one band.",
+          "explain": "A polychromatic beam preferentially loses lower-energy photons while crossing dense bone, so the emerging spectrum is harder than the reconstruction model may assume. The resulting errors can produce a dark band between dense structures with adjacent bright streaks. Alignment with the petrous bones across nearby slices and absence of mass effect support beam hardening. A detector calibration error instead tends to make a ring centered on the isocenter; motion can cause ghosting, misregistration or streaks tied to moving high-contrast edges, but its appearance is not universally one pattern.",
           "ephemeral": false
         },
         {
           "kind": "choice",
-          "prompt": "A 2 cm renal lesion measures 34 HU before contrast and 46 HU on the nephrographic phase, with the same size of region of interest placed in the same part of the lesion. How should this be reported?",
+          "prompt": "For this matched renal CT comparison, use these thresholds: a rise of 20 HU or more is enhancement, at least 10 but under 20 HU is equivocal, and under 10 HU is no enhancement. A 2 cm lesion measures 34 HU before contrast and 46 HU on the nephrographic phase with the same region of interest. How should this be reported?",
           "choices": [
-            "Indeterminate: the rise is too small to call enhancement",
+            "Equivocal for enhancement: the 12 HU rise is at least 10 but under 20 HU",
             "Enhancing, and therefore a solid mass until disproved",
             "A simple cyst, since the rise stays under twenty units",
             "Artefactual, since a cyst is stable between the phases"
           ],
-          "answer": "Indeterminate: the rise is too small to call enhancement",
-          "explain": "The convention in wide use is that a rise of 20 HU or more counts as enhancement, a rise of 10 HU or less does not, and the band between the two is indeterminate, because pseudo-enhancement of a small lesion surrounded by dense cortex, beam hardening, partial volume and imperfect region-of-interest placement can each shift a measurement by that much. A rise of 12 HU sits in the middle of that band and is a reason to keep looking rather than a verdict. Note also that the unenhanced value of 34 HU already places this above the simple-cyst range, so the lesion needed characterising regardless: the next step is a dedicated renal protocol with matched measurements, or MRI, which separates the same lesions by signal characteristics and subtraction and does not suffer pseudo-enhancement. Reporting it as a simple cyst discards exactly the caution the indeterminate band exists to enforce.",
+          "answer": "Equivocal for enhancement: the 12 HU rise is at least 10 but under 20 HU",
+          "explain": "Using the thresholds stated for this question, a matched increase of 20 HU or more is enhancement, an increase of at least 10 but under 20 HU is equivocal, and an increase under 10 HU is no enhancement. The observed rise is 12 HU, so it belongs in the equivocal band. Comparisons require matched technique, phase and region-of-interest placement because noise, partial volume, beam hardening and pseudo-enhancement can shift small measurements. The result warrants context-dependent characterization rather than a universal next step or an automatic diagnosis.",
           "ephemeral": false
         },
         {
           "kind": "short",
           "prompt": "A coronal reformat of an abdominal CT comes back blurred and stepped, although the axial images look sharp. The axial series was reconstructed at 5 mm. Explain the appearance, and say what can be done about it without bringing the patient back.",
-          "answer": "A reformat can only be as good as the thinnest data it is built from. A 5 mm axial series has voxels that are far longer through the plane than they are wide, so a plane reformatted along that long axis has to interpolate between widely spaced samples, which produces stair-step edges and through-plane blur, while the same data looks sharp displayed in the plane in which it was sampled. The remedy is to reconstruct thin sections, of the order of a millimetre with some overlap, from the raw projection data that the scanner still holds; that gives near-isotropic voxels which reformat in any plane, and in three dimensions, without loss. It requires no new exposure, because the photons were already collected and the slice thickness is a reconstruction choice rather than an acquisition one on a modern multidetector scanner. The practical catch is that the raw data is deleted after a set period, so the request has to be made early, which is why departments routinely archive a thin series alongside the thicker one used for reading.",
+      "answer": "The 5 mm source series has voxels that sample the through-plane direction coarsely, so the coronal reformat interpolates between widely spaced samples and shows blur and stair steps. First use an archived thin, near-isotropic voxel series if one exists. If retained raw data includes projection measurements and the original acquisition collimation supports thinner sections, reconstructing them can improve the reformat without another exposure; if neither source exists, resampling the 5 mm images cannot recover the missing detail.",
           "keywords": [
             "isotropic",
             "thin",
@@ -431,12 +455,12 @@
             "voxel",
             "reconstruct"
           ],
-          "explain": "The distinction worth fixing here is between what the scanner acquired and what somebody chose to reconstruct. Detector collimation sets the thinnest section that can ever be made; everything at or above that is a choice made afterwards from the same projections. Thick sections are chosen deliberately, because averaging more photons per voxel lowers noise and there are fewer images to read, and they are perfectly adequate for viewing in the acquired plane. What they cannot do is support reformatting, three-dimensional rendering or the measurement of small structures. Hence the standard compromise of reading a thicker series while archiving a thin one, and hence the urgency of asking before the raw data window closes.",
+          "explain": "Acquisition geometry and detector collimation limit the thinnest useful reconstruction. A thick displayed series may be only one reconstruction of finer acquired data, but that is not guaranteed, and retained projections may no longer be available. An archived thin reconstruction is therefore the safest no-rescan source. Simply interpolating the existing 5 mm series may look smoother but cannot restore spatial information that it does not contain.",
           "ephemeral": false
         },
         {
           "kind": "choice",
-          "prompt": "A 4 mm rounded focus in the liver measures 45 HU on the 5 mm series and 9 HU on the 1 mm series reconstructed from the same acquisition, with the region of interest placed carefully both times. What accounts for the difference?",
+          "prompt": "A 4 mm rounded focus in the liver measures 45 HU on a 5 mm series and 9 HU on a 1 mm series reconstructed from the same acquisition. Which effect best explains why the thicker reconstruction can give the higher measurement?",
           "choices": [
             "The thick slice averaged the focus with the liver around it",
             "The thin series was reconstructed at a lower energy",
@@ -444,26 +468,26 @@
             "The focus enhanced between the two reconstructions"
           ],
           "answer": "The thick slice averaged the focus with the liver around it",
-          "explain": "Each voxel returns one number, the average attenuation of everything inside it. A 4 mm object cannot fill a 5 mm slice, so the number reported there is a blend of the low-attenuation focus and the roughly 60 HU liver above and below it, pulled upward. Reconstructing thinner reduces the blend and reveals the true value of 9 HU, a simple cyst. This is why small structures must be measured on the thinnest series available, and why so many tiny liver and renal lesions that appear to be in the soft-tissue range on thick sections turn out to be cysts. Partial volume averaging works in both directions and also dilutes small dense objects, so a punctate calcification or a small stone can vanish on thick slices. Noise widens the spread of values without shifting the mean, and both series were reconstructed from the same photons at the same energy.",
+          "explain": "A 4 mm focus cannot fully occupy a 5 mm slice, so its voxel value can be averaged with higher-attenuation liver above and below it and pulled upward. A thinner reconstruction reduces that through-plane partial-volume effect, but the 1 mm measurement is still noisy and the example alone does not establish a diagnosis or a perfectly 'true' value. Noise has no systematic bias in an ideal average, yet it can move any individual small-region measurement up or down.",
           "ephemeral": false
         },
         {
           "kind": "choice",
-          "prompt": "A pelvic CT in a patient with bilateral hip replacements is degraded by dark and bright streaks across the bladder and rectum, and the study must be repeated to assess the pelvic organs. Which change to the acquisition helps most?",
+          "prompt": "After reviewing the existing images and dose, the responsible clinical and physics team decides that a repeat pelvic CT is justified despite bilateral hip replacements. Which strategy is most defensible for reducing metal artefact?",
           "choices": [
-            "Raise the tube potential and apply metal correction",
+            "Use a penetration-tailored protocol with validated metal-artefact reduction",
             "Lower the tube potential to boost iodine contrast",
             "Increase the pitch so the tube passes through faster",
             "Reconstruct with a sharper kernel and thin slices"
           ],
-          "answer": "Raise the tube potential and apply metal correction",
-          "explain": "Streaks around metal come from three overlapping causes: photon starvation along paths that pass through the prosthesis, beam hardening, and scatter. A higher tube potential produces a beam that penetrates the metal, so fewer projections are starved of photons, and raising the tube current-time product helps for the same reason. Dedicated metal artefact reduction reconstruction, or high-keV virtual monoenergetic images from a dual-energy acquisition, correct much of what survives. Lowering the potential does raise the attenuation of iodine, which is why it flatters ordinary angiography, but it raises the attenuation of metal too and worsens the artefact. Increasing pitch collects fewer projections through the same anatomy. A sharper kernel accentuates the streaks rather than suppressing them, though thin sections do reduce the through-plane component.",
+          "answer": "Use a penetration-tailored protocol with validated metal-artefact reduction",
+          "explain": "Metal streaks can combine photon starvation, beam hardening and scatter. Depending on patient size, implant and scanner, the team may increase beam penetration and photon supply while managing dose, then use a validated metal-artefact-reduction reconstruction; dual-energy high-keV virtual monoenergetic images may also help when available. These choices are protocol- and vendor-specific, and correction algorithms can introduce their own artefacts. The effect of changing pitch is not universal enough to be the standalone answer.",
           "ephemeral": false
         },
         {
           "kind": "short",
-          "prompt": "A student watching you report a chest CT asks why you scroll through the same slices three separate times. Explain what each pass is for, and give a finding that would be lost if the mediastinal window alone were used.",
-          "answer": "The three passes look at the same stored Hounsfield numbers through three different display ranges. The lung window is wide and centred far into the negative numbers, so contrast is spread across aerated lung, and it shows nodules, emphysema, interstitial change, airways and the pleural line. The mediastinal or soft-tissue window is narrow and centred near zero, so it separates tissues differing by only tens of units, distinguishing nodes from fat and vessels, fluid from soft tissue, and it is the window on which attenuation is measured. The bone window is very wide and centred high, so cortex, trabeculae and lytic or sclerotic lesions are visible without the saturation that hides them elsewhere. Anything whose numbers fall outside the displayed range saturates to white or black and becomes invisible, so on the mediastinal window alone a small anterior pneumothorax is lost, along with a subtle nodule, early interstitial change and a rib or vertebral lesion.",
+          "prompt": "A student watching you report a chest CT asks why you review the same slices with several display windows. Explain what lung, mediastinal and bone settings emphasize, and give a finding that could be clipped or inconspicuous on a mediastinal window alone.",
+          "answer": "The passes redisplay the same stored Hounsfield numbers for different tasks. Lung settings emphasize aerated parenchyma, airways and pleura; mediastinal settings emphasize soft-tissue differences among fat, fluid, nodes and vessels; bone settings preserve contrast across high-attenuation cortex and trabeculae. A small pneumothorax or subtle lung, rib or vertebral abnormality can be clipped or inconspicuous on mediastinal settings alone. Exact windows and the required review sequence depend on the examination, protocol and clinical question.",
           "keywords": [
             "window",
             "lung",
@@ -471,7 +495,7 @@
             "pneumothorax",
             "bone"
           ],
-          "explain": "The habit of scrolling several times is a direct consequence of what a window is: a linear map from a range of Hounsfield units onto the shades of grey a display can show, throwing away everything outside that range. The eye can only distinguish a few tens of grey levels, so no single window can serve tissues spanning four thousand units. That fact also explains a class of reporting error that has nothing to do with knowledge: the finding was in the data, was correctly reconstructed, and was displayed as uniform white or uniform black at the moment the reader passed over it. It is the reason review protocols specify windows, why comparison with a prior study should be made on matched settings, and why a report that says the lungs are clear should mean somebody looked at them on a lung window.",
+          "explain": "A display window maps a selected HU interval onto the available grayscale and clips values outside it. No one interval optimizes contrast for aerated lung, soft tissue and dense bone simultaneously, so readers use task-specific settings. A feature outside or compressed within the selected interval may still be present in the stored data but less conspicuous on that display. Review conventions should follow the examination, local protocol and clinical question rather than a universal number of passes.",
           "ephemeral": false
         },
         {

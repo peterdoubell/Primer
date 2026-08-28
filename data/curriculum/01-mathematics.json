@@ -6702,22 +6702,47 @@
    "title": "Partial Differential Equations",
    "stage": 5,
    "goal": "Model fields that change in space and time: heat, waves, and diffusion.",
-   "articles": [
-    "Partial differential equation",
-    "Heat equation",
-    "Wave equation"
-   ],
-   "quiz": [
+  "articles": [
+   "Partial differential equation",
+   "Heat equation",
+   "Wave equation"
+  ],
+  "lesson_media": [
+   {
+    "id": "heat-diffusion-plate",
+    "kind": "illustration",
+    "src": "/app/illustrations/forest/math/math-5-pde-800.webp",
+    "srcset": "/app/illustrations/forest/math/math-5-pde-800.webp 800w, /app/illustrations/forest/math/math-5-pde-1600.webp 1600w",
+    "alt": "A row of nine equal rod cells has a hot fourth cell, with arrows pointing from it toward cooler cells on both sides.",
+    "caption": "A local hot spot has negative spatial curvature, so the heat equation lowers it while raising its cooler neighbors. In an insulated discrete rod, the update redistributes heat without creating or destroying the total.",
+    "width": 1600,
+    "height": 1000
+   },
+   {
+    "id": "step-a-discrete-heat-equation",
+    "kind": "model",
+    "renderer": "heat-equation-lab",
+    "title": "Step a discrete heat equation",
+    "instructions": "Advance a stable finite-difference model of an insulated nine-cell rod. Track how the fourth cell's heat spreads, how the profile smooths and how the total remains constant.",
+    "props": {
+     "cells": 9,
+     "hot_cell": 4,
+     "diffusion_percent": 20,
+     "max_steps": 10
+    }
+   }
+  ],
+  "quiz": [
     {
      "kind": "choice",
-     "prompt": "The heat equation u_t = k u_xx models temperature spreading along a rod. A point starts hotter than its neighbors on both sides. Predict what u_xx tells you there, and what that implies for u_t.",
-     "answer": "u_xx is negative there, so u_t is negative: it cools",
-     "explain": "A local hot spot is a local maximum in x, so the second derivative u_xx is negative (the curve bends downward around it). Since u_t = k u_xx with k positive, u_t is negative there: the point cools toward its neighbors. Heat flow is diffusion down the curvature.",
+     "prompt": "On a uniform 1-D grid, the centered second difference at cell i is (u_(i-1) - 2u_i + u_(i+1))/(dx)^2. If u_i is strictly hotter than both neighboring cell values, what is the sign of this difference, and what does the heat equation's explicit update do to u_i?",
+     "answer": "The centered second difference is negative, so u_i decreases",
+     "explain": "The numerator is (u_(i-1) - u_i) + (u_(i+1) - u_i), a sum of two negative terms, so the discrete second difference is negative. With positive diffusivity, the explicit heat update therefore lowers u_i. In the continuum, a smooth local maximum guarantees only u_xx <= 0; the strict discrete conclusion here comes from both neighboring grid values being lower.",
      "choices": [
-      "u_xx is negative there, so u_t is negative: it cools",
-      "u_xx is positive there, so u_t is positive: it heats further",
-      "u_xx tells us nothing without knowing u_x",
-      "u_xx is zero at any local extremum, so the point stays fixed"
+      "The centered second difference is negative, so u_i decreases",
+      "The centered second difference is positive, so u_i increases",
+      "The centered second difference gives no information without a first difference",
+      "The centered second difference is zero at every discrete maximum"
      ]
     },
     {
@@ -6734,11 +6759,11 @@
     },
     {
      "kind": "choice",
-     "prompt": "Laplace's equation u_xx + u_yy = 0 governs steady-state temperature with no internal sources. A solution has an interior local maximum strictly hotter than every boundary point. Apply the maximum principle to judge this.",
-     "answer": "Impossible: a harmonic function's extremes lie on the boundary",
-     "explain": "The maximum principle for harmonic functions (solutions of Laplace's equation) forces every extremum to occur on the boundary of the domain, never strictly inside — an interior point is always an average of a small circle around it, so it cannot exceed all of them.",
+     "prompt": "A nonconstant harmonic function on a bounded, connected domain is continuous up to the boundary. Could one of its interior values be strictly greater than every value on the boundary?",
+     "answer": "No: its maximum cannot exceed the boundary maximum",
+     "explain": "The maximum principle says that a harmonic function continuous on the closure of a bounded domain attains its maximum on the boundary. The strong form says that an interior maximum forces the function to be constant on a connected domain. Constant harmonic functions are the important caveat: they attain the same maximum both inside and on the boundary, but never a strictly larger interior value.",
      "choices": [
-      "Impossible: a harmonic function's extremes lie on the boundary",
+      "No: its maximum cannot exceed the boundary maximum",
       "Possible only if the domain is unbounded",
       "Possible, since Laplace's equation places no constraint on extrema",
       "Impossible, but only when the boundary values are constant"
@@ -6760,11 +6785,11 @@
     },
     {
      "kind": "choice",
-     "prompt": "Separation of variables seeks solutions of the form u(x,t) = X(x)T(t) for a PDE. A student objects that most physical solutions are not literally a single product of an x-function and a t-function. Explain why the method still works.",
-     "answer": "Product solutions form a basis; a Fourier sum of them fits any initial data",
-     "explain": "Separation produces an infinite family of product solutions (eigenfunctions), typically sines or cosines in x with matching exponentials or oscillations in t. Because these form a complete basis (Fourier's insight), any admissible initial condition can be written as a — generally infinite — sum of them, and the PDE is linear, so that sum also solves it. The individual product solutions are building blocks, not the final answer.",
+     "prompt": "For a standard linear heat or wave boundary-value problem, suppose the spatial operator and boundary conditions provide a complete eigenfunction basis for suitable data. Separation seeks products u(x,t) = X(x)T(t), but a student objects that most physical solutions are not one product. Why does the method still work here?",
+     "answer": "For this linear boundary-value problem, separated eigenfunctions form a complete basis for suitable data",
+     "explain": "For standard linear heat or wave boundary-value problems, the spatial operator together with its boundary conditions defines an eigenfunction system that is complete in the appropriate function space. Suitable initial data can therefore be expanded as a generally infinite Fourier-type sum, and linearity lets the matching separated solutions be superposed. This conclusion depends on the operator, boundary conditions, function space and admissible data; it is not a claim that separation works for every PDE.",
      "choices": [
-      "Product solutions form a basis; a Fourier sum of them fits any initial data",
+      "For this linear boundary-value problem, separated eigenfunctions form a complete basis for suitable data",
       "The method only works when the initial data happens to already be a product",
       "It doesn't really work; it's a convenient approximation",
       "Nonlinear terms are dropped, so the method changes the physics being modeled"
@@ -6772,9 +6797,9 @@
     },
     {
      "kind": "choice",
-     "prompt": "An explicit finite-difference scheme for the heat equation u_t = k u_xx becomes numerically unstable — oscillations blow up — unless the time step is kept below a bound tied to (space step)^2 / k. Diagnose why shrinking the space step for accuracy without adjusting the time step causes this.",
+     "prompt": "For the standard 1-D heat equation on a uniform grid, use forward Euler in time and a centered second difference in space. Its stability parameter is r = k*dt/(dx)^2 and must satisfy r <= 1/2. What happens to the largest stable dt if dx is halved while k is fixed?",
      "answer": "Halving the space step alone shrinks the required time step by 4×",
-     "explain": "The CFL-type stability condition for the explicit heat scheme scales as dt <= (dx)^2 / (2k): the bound depends on the SQUARE of the space step. Refining dx without shrinking dt proportionally (by the square) violates the bound, and the scheme amplifies rounding error every step until it diverges — the classic instability of explicit parabolic solvers.",
+     "explain": "For this particular forward-Euler, centered-space scheme, r <= 1/2 is equivalent to dt <= (dx)^2/(2k). Replacing dx by dx/2 divides the bound on dt by four. Keeping the old time step would make r four times as large and can violate the scheme's stability condition.",
      "choices": [
       "Halving the space step alone shrinks the required time step by 4×",
       "Space and time steps are independent for parabolic equations",
@@ -6802,11 +6827,11 @@
     },
     {
      "kind": "choice",
-     "prompt": "A PDE and its boundary/initial conditions are called well-posed when a solution exists, is unique, and depends continuously on the data. An engineer solves a well-posed heat problem, then perturbs the initial temperature by a tiny measurement error. Predict the effect on the computed solution at a later time.",
-     "answer": "A small change, since well-posedness controls sensitivity to data",
-     "explain": "Continuous dependence on data — the third pillar of well-posedness alongside existence and uniqueness — guarantees that small perturbations in the input produce correspondingly small changes in the solution. Ill-posed problems lack exactly this guarantee, so tiny measurement noise can blow up in an ill-posed setting; a well-posed heat problem is protected against it.",
+     "prompt": "For a well-posed heat problem, perturb the initial temperature by a small amount in the data norm used by the well-posedness estimate. Over a fixed later time interval, what does continuous dependence imply in the corresponding solution norm?",
+     "answer": "The solution changes by a small amount in that solution norm",
+     "explain": "Continuous dependence is a statement in specified norms and, commonly, over a specified time interval: sufficiently small changes in the data norm produce small changes in the corresponding solution norm. It does not mean the solution is unchanged, nor does the word 'small' make sense without the norms and interval that define the estimate.",
      "choices": [
-      "A small change, since well-posedness controls sensitivity to data",
+      "The solution changes by a small amount in that solution norm",
       "No effect at all, since the solution is fixed once boundary data is set",
       "An unpredictable, possibly enormous change, regardless of well-posedness",
       "The solution stops existing until the error is corrected"
