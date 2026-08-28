@@ -126,7 +126,8 @@ LESSON_MODEL_RENDERERS = frozenset({
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
     "counterexample-lab", "function-composition-lab", "circulation-route-lab",
-    "truth-table-lab", "stack-queue-lab",
+    "truth-table-lab", "stack-queue-lab", "matrix-transform-lab",
+    "venturi-flow-lab", "gene-expression-stepper", "tcp-packet-tracer",
 })
 
 
@@ -305,6 +306,27 @@ def _validate_lesson_media(node: Dict) -> None:
                         or isinstance(initial_count, bool) or not isinstance(initial_count, int) \
                         or not 0 <= initial_count <= capacity:
                     raise ValueError("{} stack and queue lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "matrix-transform-lab":
+                if set(props) != {"start_transform"} or props.get("start_transform") not in {
+                        "identity", "x-stretch", "x-shear", "y-reflection", "x-projection"}:
+                    raise ValueError("{} matrix transform lab has an unknown starting transform".format(
+                        node.get("id")))
+            elif renderer == "venturi-flow-lab":
+                if set(props) != {"scenario", "start_throat"} \
+                        or props.get("scenario") != "horizontal-water-venturi" \
+                        or props.get("start_throat") not in {"full-area", "half-area", "quarter-area"}:
+                    raise ValueError("{} Venturi flow lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "gene-expression-stepper":
+                if set(props) != {"scenario", "start_gene_state"} \
+                        or props.get("scenario") != "eukaryotic-met-glu-phe" \
+                        or props.get("start_gene_state") not in {"off", "on"}:
+                    raise ValueError("{} gene expression stepper has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "tcp-packet-tracer":
+                if props != {"scenario": "tcp-four-segment-loss-two"}:
+                    raise ValueError("{} TCP packet tracer has an unknown scenario".format(
                         node.get("id")))
         else:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))

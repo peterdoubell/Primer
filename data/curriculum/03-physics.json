@@ -2856,16 +2856,39 @@
    "stage": 4,
    "goal": "Pressure, flow, and the physics of liquids and gases in motion.",
    "articles": [
-    "Fluid mechanics",
-    "Bernoulli's principle",
-    "Viscosity"
-   ],
-   "quiz": [
+   "Fluid mechanics",
+   "Bernoulli's principle",
+   "Viscosity"
+  ],
+  "lesson_media": [
+   {
+    "id": "venturi-flow-plate",
+    "kind": "illustration",
+    "src": "/app/illustrations/grove/physics/phys-4-fluids-800.webp",
+    "srcset": "/app/illustrations/grove/physics/phys-4-fluids-800.webp 800w, /app/illustrations/grove/physics/phys-4-fluids-1600.webp 1600w",
+    "alt": "Water flows left to right through a level wide-narrow-wide tube; arrows lengthen in the throat while three pressure taps show equal levels in the wide sections and a lower level in the throat.",
+    "caption": "For steady incompressible flow, a smaller cross-sectional area requires greater speed. At the same elevation in an idealized flow, Bernoulli's equation pairs that speed increase with lower static pressure.",
+    "width": 1600,
+    "height": 1000
+   },
+   {
+    "id": "compare-venturi-sections",
+    "kind": "model",
+    "renderer": "venturi-flow-lab",
+    "title": "Compare Venturi flow",
+    "instructions": "Narrow the throat of a horizontal water tube while the volume flow rate stays fixed. Compare speed and ideal pressure change in the wide section and throat.",
+    "props": {
+     "scenario": "horizontal-water-venturi",
+     "start_throat": "half-area"
+    }
+   }
+  ],
+  "quiz": [
     {
      "kind": "choice",
-     "prompt": "Bernoulli's principle says that along a streamline, faster-moving fluid has lower pressure. Air flows faster over the curved top of an airplane wing than beneath the flatter bottom. Predict the pressure difference this creates and what it produces.",
+     "prompt": "Measurements around a lifting airplane wing show faster airflow over much of the upper surface than below it. Along appropriate streamlines at similar height, use Bernoulli's relation to predict the pressure difference and its contribution to lift.",
      "answer": "Lower pressure above the wing than below it, producing net upward lift",
-     "explain": "Faster flow above means lower pressure there by Bernoulli's principle; the higher pressure underneath pushes up harder than the lower pressure above pushes down, giving a net upward force — lift. (The full story of lift also involves the wing deflecting air downward, by Newton's third law, but the pressure asymmetry Bernoulli predicts is a real and measurable part of it.)",
+     "explain": "Where the upper-surface flow is faster under the stated conditions, its static pressure is lower. Integrating the pressure distribution over the wing contributes a net upward force while the wing-air system also deflects air downward. Bernoulli relates local speed and pressure; curvature alone does not make separated parcels reunite at the trailing edge and is not a complete causal explanation of lift.",
      "choices": [
       "Lower pressure above the wing than below it, producing net upward lift",
       "Higher pressure above the wing, pushing the plane downward",
@@ -2900,9 +2923,9 @@
     },
     {
      "kind": "choice",
-     "prompt": "The Reynolds number Re = (density x speed x length)/viscosity predicts whether a flow is smooth (laminar, low Re) or chaotic (turbulent, high Re). A engineer doubles a pipe's flow speed while keeping the fluid, pipe diameter, and everything else fixed. Predict the effect on the Reynolds number and the likelihood of turbulence.",
+     "prompt": "The Reynolds number Re = (density x speed x length)/viscosity helps characterize whether a flow is laminar or turbulent. An engineer doubles a pipe's flow speed while keeping the fluid, pipe diameter, and everything else fixed. Predict the effect on the Reynolds number and the likelihood of transition in that same pipe.",
      "answer": "Reynolds number doubles, making turbulence more likely",
-     "explain": "Reynolds number is directly proportional to flow speed, so doubling the speed doubles Re (holding density, length, and viscosity fixed). Since turbulence becomes more likely as Re rises past a critical threshold (around 2000-4000 for pipe flow), doubling the speed pushes the flow toward — or further into — the turbulent regime.",
+     "explain": "Reynolds number is directly proportional to speed, so doubling the speed doubles Re. For ordinary pipe flow this moves the system toward or farther through its geometry-dependent transition range, often roughly Re 2000-4000; there is no single universal critical Reynolds number for every flow.",
      "choices": [
       "Reynolds number doubles, making turbulence more likely",
       "Reynolds number is unaffected by flow speed",
@@ -2912,11 +2935,11 @@
     },
     {
      "kind": "choice",
-     "prompt": "Viscosity measures a fluid's internal resistance to flow — honey is far more viscous than water. Two identical spheres are dropped into separate tall cylinders, one filled with water and one with honey. Predict which sphere reaches terminal velocity (constant falling speed) sooner, and roughly how that terminal velocity compares between the two fluids.",
-     "answer": "The sphere in honey reaches terminal velocity almost immediately, at a much lower speed",
-     "explain": "At low Reynolds number (the regime a small sphere falling through a very viscous fluid occupies), Stokes' law gives a terminal velocity inversely proportional to viscosity — honey's viscosity is thousands of times water's, so the honey sphere's terminal speed is proportionally tiny, and it is reached almost instantly because the strong viscous drag rapidly cancels the small net force. The water sphere takes longer to reach its own, much higher, terminal velocity.",
+     "prompt": "Viscosity measures a fluid's resistance to shear. Two identical, sufficiently small spheres fall separately through water and honey, with both flows remaining in the low-Reynolds-number Stokes regime. Which sphere approaches terminal speed sooner, and how do the terminal speeds compare?",
+     "answer": "The sphere in honey approaches a much lower terminal speed more quickly",
+     "explain": "For a sufficiently small sphere in creeping flow, Stokes' law makes terminal speed inversely proportional to viscosity and the velocity relaxation time smaller in the more viscous fluid. That low-Reynolds-number formula is well suited to the honey case; the qualitative prediction that the honey sphere settles more slowly is robust, but Stokes' numerical scaling must not be extrapolated to a water case whose Reynolds number is no longer small.",
      "choices": [
-      "The sphere in honey reaches terminal velocity almost immediately, at a much lower speed",
+       "The sphere in honey approaches a much lower terminal speed more quickly",
       "Both spheres reach the same terminal velocity, just at different times",
       "The sphere in water reaches terminal velocity sooner and at a lower speed",
       "Viscosity does not affect terminal velocity, only the sphere's density does"
@@ -2924,17 +2947,17 @@
     },
     {
      "kind": "numeric",
-     "prompt": "Water (density 1000 kg/m^3) flows through a wide section of pipe at 2 m/s and 1 m/s^2 gravity effects aside, then through a narrow section where its speed rises to 8 m/s. Using Bernoulli's equation, the pressure drop from wide to narrow section is (1/2) x density x (v_narrow^2 - v_wide^2). Give the pressure drop in kilopascals (1 kPa = 1000 Pa), rounded to the nearest whole kPa.",
+     "prompt": "Water (density 1000 kg/m^3) flows through a wide section of a horizontal pipe at 2 m/s, then through a narrow section where its speed rises to 8 m/s. Neglecting losses and using Bernoulli's equation, the pressure drop is (1/2) x density x (v_narrow^2 - v_wide^2). Give the drop in kilopascals (1 kPa = 1000 Pa), rounded to the nearest whole kPa.",
      "answer": "30",
      "explain": "(1/2)(1000)(8^2 - 2^2) = 500 x (64-4) = 500 x 60 = 30,000 Pa = 30 kPa. This pressure drop in the narrow, fast section is exactly the mechanism a venturi flow meter uses to measure flow speed."
     },
     {
      "kind": "choice",
      "prompt": "A no-slip boundary condition states that a viscous fluid's velocity is exactly zero at a solid, stationary surface it flows past — even air right at an airplane wing's surface is (very nearly) motionless relative to the wing. A student argues this contradicts observing wind blowing strongly a few centimeters above a table. Resolve the apparent contradiction.",
-     "answer": "No-slip applies exactly at the surface; speed rises rapidly through a thin boundary layer",
-     "explain": "The no-slip condition holds exactly at the solid surface itself (zero relative velocity in an infinitesimally thin layer touching it), but velocity climbs rapidly with distance from that surface through a thin boundary layer, reaching the free-stream speed within a small fraction of a millimeter to a few millimeters depending on viscosity and speed. Measuring wind a few centimeters up is already well outside this boundary layer, so there's no contradiction — both facts describe the same flow at different distances from the surface.",
+     "answer": "No-slip fixes velocity at the surface; speed rises through a boundary layer whose thickness depends on the flow",
+     "explain": "No-slip fixes the fluid's relative velocity at the solid surface itself. Velocity then changes continuously through a boundary layer whose thickness depends on geometry, distance downstream, Reynolds number and the surrounding flow. A strong speed a few centimeters above the table therefore does not contradict zero speed at the wall; that point may be within or beyond the boundary layer in a particular setup.",
      "choices": [
-      "No-slip applies exactly at the surface; speed rises rapidly through a thin boundary layer",
+       "No-slip fixes velocity at the surface; speed rises through a boundary layer whose thickness depends on the flow",
       "No-slip only applies to liquids, not gases like air",
       "The no-slip condition is a simplification that is not actually true",
       "Wind speed a few centimeters up is an illusion caused by measurement error"
@@ -2942,9 +2965,9 @@
     },
     {
      "kind": "choice",
-     "prompt": "Pascal's principle says pressure applied to an enclosed, incompressible fluid is transmitted equally to every point in the fluid. A hydraulic lift has a small piston of area 10 cm^2 and a large piston of area 200 cm^2. A worker pushes the small piston with 50 N of force. Predict the force available at the large piston.",
+     "prompt": "Pascal's principle says a change in pressure applied to a confined fluid is transmitted undiminished throughout it, apart from hydrostatic height differences. A hydraulic lift has pistons at the same height with areas 10 cm^2 and 200 cm^2. A worker applies 50 N to the small piston. Neglecting losses, predict the force at the large piston.",
      "answer": "1000 N",
-     "explain": "Pressure is transmitted equally, so P = F1/A1 = F2/A2, giving F2 = F1 x (A2/A1) = 50 x (200/10) = 1000 N. This 20x force multiplication, at the cost of the large piston moving only 1/20th as far (since volume displaced must match), is exactly how a car jack lifts a vehicle with modest hand force.",
+     "explain": "The applied pressure change is the same at equal height, so F1/A1 = F2/A2 and F2 = 50 x (200/10) = 1000 N. The ideal 20-fold force multiplication is exchanged for the large piston moving one-twentieth as far because displaced volumes match.",
      "choices": [
       "1000 N",
       "50 N",
@@ -2955,7 +2978,7 @@
     {
      "kind": "short",
      "prompt": "Explain why a smoke plume rises smoothly for a short distance and then abruptly breaks into swirling, chaotic eddies further up, in terms of the Reynolds number changing along the plume.",
-     "answer": "Close to the source, the smoke moves slowly and the flow region is small, keeping the Reynolds number low enough that viscous forces dominate over inertial ones, producing smooth laminar flow. As the plume rises, it speeds up and widens, both of which increase the Reynolds number (which scales with speed and length scale). Once Re crosses the critical threshold, inertial effects dominate enough that small disturbances are no longer damped out by viscosity, and the flow transitions to turbulence — the same transition, driven by the same dimensionless number, that governs when flow in a pipe or around any obstacle becomes chaotic.",
+     "answer": "Close to the source, the smoke moves slowly over a small length scale, so its Reynolds number can be low enough for a laminar region where viscosity damps disturbances. Reynolds number compares viscous versus inertial effects; as the plume's speed and width grow, inertial effects become more important and the flow can transition to a turbulent region. The transition range depends on the plume's geometry, buoyancy and disturbances; there is no universal critical Re shared by pipes, plumes and every obstacle.",
      "keywords": [
       "Reynolds number",
       "laminar",
@@ -2963,7 +2986,7 @@
       "transition",
       "viscous versus inertial"
      ],
-     "explain": "The laminar-to-turbulent transition in a rising plume is one of the most visually intuitive everyday demonstrations of the Reynolds number's role, since the same plume passes through both regimes within a single continuous flow."
+     "explain": "A rising plume can display laminar and turbulent regions in one continuous flow, making Reynolds number's comparison of inertial and viscous effects visible. Its transition should not be assigned the critical value used for a different geometry such as a circular pipe."
     },
     {
      "kind": "choice",

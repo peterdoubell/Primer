@@ -4807,11 +4807,33 @@
    "stage": 4,
    "goal": "Vector spaces, matrices, eigenvalues — the language of modern science.",
    "articles": [
-    "Linear algebra",
-    "Matrix (mathematics)",
-    "Eigenvalues and eigenvectors"
-   ],
-   "practice": "matrices",
+   "Linear algebra",
+   "Matrix (mathematics)",
+   "Eigenvalues and eigenvectors"
+  ],
+  "lesson_media": [
+   {
+    "id": "matrix-transform-plate",
+    "kind": "illustration",
+    "src": "/app/illustrations/grove/math/math-4-linalg-800.webp",
+    "srcset": "/app/illustrations/grove/math/math-4-linalg-800.webp 800w, /app/illustrations/grove/math/math-4-linalg-1600.webp 1600w",
+    "alt": "A square coordinate grid with basis arrows appears beside a sheared grid and a collapsed projection line.",
+    "caption": "A matrix acts on every vector by the same linear rule. The determinant tracks signed area scale, while a zero determinant collapses the plane and makes the map non-invertible.",
+    "width": 1600,
+    "height": 1000
+   },
+   {
+    "id": "transform-the-plane",
+    "kind": "model",
+    "renderer": "matrix-transform-lab",
+    "title": "Transform the plane",
+    "instructions": "Choose a fixed 2-by-2 matrix. Compare the original grid, basis vectors and vector v with their images, then use the determinant to predict area scaling and invertibility.",
+    "props": {
+     "start_transform": "x-shear"
+    }
+   }
+  ],
+  "practice": "matrices",
    "quiz": [
     {
      "kind": "numeric",
