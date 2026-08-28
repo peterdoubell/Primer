@@ -3242,6 +3242,34 @@
     "Function (mathematics)"
    ],
    "practice": "functions",
+   "lesson_media": [
+    {
+     "id": "composition-order-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/math/math-3-functions-800.webp",
+     "srcset": "/app/illustrations/tree/math/math-3-functions-800.webp 800w, /app/illustrations/tree/math/math-3-functions-1600.webp 1600w",
+     "alt": "Two rows show the same pair of brass machines arranged in opposite orders, with blue beads moving from an input tray through each machine to an output tray.",
+     "caption": "Applying the same two rules in a different order can change the output: function composition is generally not commutative.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "compare-composition-order",
+     "kind": "model",
+     "renderer": "function-composition-lab",
+     "title": "Compare composition order",
+     "instructions": "Choose an input, then compare f followed by g with g followed by f. Follow each intermediate value to see why order can change the output.",
+     "props": {
+      "f_slope": 2,
+      "f_intercept": 0,
+      "g_slope": 1,
+      "g_intercept": -1,
+      "x_min": -5,
+      "x_max": 5,
+      "start_x": 5
+     }
+    }
+   ],
    "quiz": [
     {
      "kind": "numeric",
@@ -3294,14 +3322,14 @@
     {
      "kind": "short",
      "prompt": "The rule f(x) = x^2 sends both 3 and -3 to 9. Say why f is still a function, and why it has no inverse until its domain is cut down.",
-     "answer": "A function may send different inputs to the same output; what it may not do is give one input two outputs. An inverse would have to send 9 back to both 3 and -3, so f gains an inverse only once its domain is restricted to one side of zero.",
+     "answer": "A function may send different inputs to the same output; what it may not do is give one input two outputs. To obtain an inverse, restrict f to x ≥ 0, giving f⁻¹(x) = √x, or to x ≤ 0, giving f⁻¹(x) = −√x.",
      "keywords": [
       "9",
       "function",
       "send",
       "different"
      ],
-     "explain": "Many-to-one is allowed for a function but fatal for an inverse, which is why the square root is defined on a restricted domain."
+     "explain": "Many-to-one is allowed for a function but fatal for an inverse. Restricting f(x) = x^2 to x ≥ 0 gives the inverse √x; restricting it to x ≤ 0 gives the inverse −√x."
     },
     {
      "kind": "numeric",

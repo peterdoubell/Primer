@@ -807,6 +807,116 @@ button { font-family: var(--sans); cursor: pointer; }
   opacity: 1; outline: 5px double var(--accent); outline-offset: 5px;
 }
 
+/* Tree — function composition: both orders stay visible on one fixed graph;
+   the pipeline and complete readout carry the exact arithmetic. */
+.function-composition-canvas { background: var(--tint-info-soft); }
+.function-composition-scene { display: grid; gap: 13px; }
+.function-pipeline {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 7px;
+  min-height: 66px; padding: 8px; border: 1px solid var(--paper-edge); border-radius: 10px;
+  background: var(--field); color: var(--ink); font: 800 17px/1 var(--sans);
+}
+.function-value-card, .function-machine-card {
+  display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 7px;
+  border: 2px solid var(--edge); border-radius: 9px; background: var(--paper-2);
+}
+.function-machine-card {
+  border-radius: 50%; background: var(--tint-gold-strong); color: var(--gold-ink);
+  font-style: italic;
+}
+.function-value-card.is-result { border: 4px double var(--green); background: var(--tint-green); }
+.function-arrow { color: var(--gold-ink); font-size: 23px; }
+.function-graph { display: block; width: 100%; height: auto; min-height: 190px; }
+.function-graph-field { fill: var(--field); stroke: var(--paper-edge); stroke-width: 2; }
+.function-grid-line { stroke: var(--paper-edge); stroke-width: 1; }
+.function-axis { stroke: var(--ink-soft); stroke-width: 2.5; }
+.function-composition-line { fill: none; stroke-width: 5; stroke-linecap: round; }
+.function-composition-line.is-selected { stroke: var(--accent-2); }
+.function-composition-line.is-comparison { stroke: var(--gold-ink); stroke-dasharray: 10 8; opacity: .72; }
+.function-current-point { fill: var(--paper-hi); stroke: var(--accent); stroke-width: 4; }
+
+/* Tree — circulation: oxygen state is written and reinforced with border
+   pattern, while the ordered list remains the actual accessible route. */
+.circulation-route-canvas { background: var(--tint-green); }
+.circulation-route {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px;
+  margin: 0; padding: 0; list-style: none;
+}
+.circulation-station {
+  display: flex; align-items: flex-start; gap: 8px; min-width: 0; min-height: 79px; padding: 10px;
+  border: 2px solid var(--edge); border-radius: 10px; background: var(--paper-2);
+  color: var(--ink); font: 700 13px/1.3 var(--sans);
+}
+.circulation-station.is-lower { border-style: dashed; }
+.circulation-station.is-higher { border-style: double; border-width: 4px; }
+.circulation-station.is-changing { border-style: dotted; border-width: 3px; }
+.circulation-station.is-current {
+  outline: 4px solid var(--gold); outline-offset: 2px; background: var(--field-hi);
+  box-shadow: 0 4px 9px var(--shadow);
+}
+.circulation-step-number {
+  display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px;
+  border-radius: 50%; background: var(--accent-2); color: var(--paper-hi); font-weight: 900;
+}
+.circulation-station-copy { display: grid; gap: 4px; min-width: 0; }
+.circulation-station-copy small { color: var(--ink-soft); font-size: 11px; font-weight: 700; }
+
+/* Tree — formal logic: a native table exposes all rows; colour is only a
+   secondary cue beside the explicit True/False words. */
+.truth-table-canvas { background: var(--tint-info-soft); }
+.truth-table {
+  width: min(580px, 100%); margin: auto; border-collapse: separate; border-spacing: 0;
+  overflow: hidden; border: 2px solid var(--edge); border-radius: 10px;
+  background: var(--paper-2); color: var(--ink); font: 700 14px/1.3 var(--sans);
+}
+.truth-table caption { margin-bottom: 8px; color: var(--ink); font-size: 16px; font-weight: 850; }
+.truth-table th, .truth-table td {
+  width: 33.333%; padding: 10px 8px; border-right: 1px solid var(--paper-edge);
+  border-bottom: 1px solid var(--paper-edge); text-align: center;
+}
+.truth-table :is(th, td):last-child { border-right: 0; }
+.truth-table tbody tr:last-child td { border-bottom: 0; }
+.truth-table th { background: var(--tint-gold); color: var(--gold-ink); }
+.truth-table tr.is-current td { box-shadow: inset 0 0 0 3px var(--gold); background: var(--field-hi); }
+.truth-table td.is-true { text-decoration: underline; text-decoration-thickness: 2px; }
+.truth-table td.is-false { font-style: italic; }
+
+/* Tree — stack and queue: the same DOM order is rendered vertically or
+   horizontally, with shapes and letters so order never depends on colour. */
+.stack-queue-canvas { background: var(--tint-gold); }
+.stack-queue-scene {
+  display: grid; align-items: center; justify-content: center; gap: 10px; min-height: 250px;
+  color: var(--ink); font: 800 12px/1.2 var(--sans); text-transform: uppercase; letter-spacing: .04em;
+}
+.stack-queue-scene.is-queue { grid-template-columns: auto minmax(260px, 1fr) auto; }
+.stack-queue-scene.is-stack { grid-template-columns: repeat(2, minmax(100px, 150px)); }
+.structure-track {
+  display: flex; align-items: center; gap: 8px; padding: 10px; border: 5px double var(--edge);
+  background: color-mix(in srgb, var(--field) 84%, transparent); box-shadow: 0 4px 8px var(--shadow);
+}
+.is-queue .structure-track { min-height: 86px; overflow-x: auto; }
+.is-stack .structure-track {
+  grid-column: 1 / -1; grid-row: 2; justify-self: center; flex-direction: column-reverse;
+  justify-content: flex-start; width: 112px; min-height: 245px; border-top-style: dashed;
+}
+.is-stack .structure-marker.is-remove { grid-column: 1; grid-row: 1; text-align: right; }
+.is-stack .structure-marker.is-add { grid-column: 2; grid-row: 1; }
+.structure-marker { color: var(--ink-soft); white-space: nowrap; }
+.structure-token {
+  display: grid; place-items: center; flex: 0 0 55px; width: 55px; height: 55px;
+  border: 3px solid var(--ink); background: var(--accent-2); color: var(--paper-hi);
+  font-size: 17px; box-shadow: inset 0 3px 5px rgba(255,255,255,.2), 0 2px 4px var(--shadow);
+}
+.structure-token.is-circle { border-radius: 50%; background: var(--green); }
+.structure-token.is-triangle { clip-path: polygon(50% 2%, 98% 96%, 2% 96%); background: var(--gold-ink); }
+.structure-token.is-diamond { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); background: var(--accent); }
+.structure-token.is-hexagon { clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%); }
+
+@media (max-width: 600px) {
+  .stack-queue-scene.is-queue { grid-template-columns: 1fr; justify-items: center; }
+  .is-queue .structure-track { width: 100%; min-width: 0; }
+}
+
 .bar { height: 7px; background: var(--paper-edge); border-radius: 4px; overflow: hidden; margin-top: 10px; }
 .bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-ink), var(--gold)); }
 
@@ -1564,6 +1674,13 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   }
   .counterexample-square-set { gap: 7px; padding: 10px; }
   .logic-long-rectangle { width: min(62px, 100%); height: 115px; }
+  .function-pipeline { gap: 4px; padding: 6px; }
+  .function-value-card, .function-machine-card { min-width: 40px; min-height: 40px; padding: 5px; }
+  .function-graph { min-height: 150px; }
+  .circulation-route { grid-template-columns: 1fr; }
+  .circulation-station { min-height: 64px; }
+  .truth-table th, .truth-table td { padding: 9px 4px; font-size: 13px; }
+  .stack-queue-scene.is-stack { grid-template-columns: repeat(2, minmax(80px, 120px)); }
 
   /* The Atlas: the epoch label heads its row instead of sitting beside it.
      At 90px of a 375px screen the label column was taking a quarter of the

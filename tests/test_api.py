@@ -998,6 +998,9 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     sapling = client.get('/api/curriculum/node/chem.2.atoms')
     assert sapling.status_code == 200
     assert [entry['kind'] for entry in sapling.json()['lesson_media']] == ['illustration', 'model']
+    tree = client.get('/api/curriculum/node/math.3.functions')
+    assert tree.status_code == 200
+    assert [entry['kind'] for entry in tree.json()['lesson_media']] == ['illustration', 'model']
 
     graph = client.get('/api/curriculum').json()
     assert all('lesson_media' not in node for node in graph['nodes'])

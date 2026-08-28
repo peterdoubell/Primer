@@ -1541,6 +1541,30 @@
     "Array (data structure)",
     "Hash table"
    ],
+   "lesson_media": [
+    {
+     "id": "stack-queue-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/computer-science/cs-3-data-structures-800.webp",
+     "srcset": "/app/illustrations/tree/computer-science/cs-3-data-structures-800.webp 800w, /app/illustrations/tree/computer-science/cs-3-data-structures-1600.webp 1600w",
+     "alt": "Matching blue cube, green sphere, yellow pyramid, red cylinder and purple star blocks sit in a vertical stack and a horizontal queue; arrows show the stack's top star leaving, the queue's front cube leaving and another star entering at the rear.",
+     "caption": "A stack removes from the top in last-in, first-out order; a queue removes from the front and adds at the rear in first-in, first-out order.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "compare-stack-and-queue",
+     "kind": "model",
+     "renderer": "stack-queue-lab",
+     "title": "Compare a stack and a queue",
+     "instructions": "Switch between stack and queue mode, then add and remove shape-coded blocks. Watch which end accepts a new block and which block leaves next.",
+     "props": {
+      "start_mode": "stack",
+      "capacity": 6,
+      "initial_count": 3
+     }
+    }
+   ],
    "prereqs": [
     "cs.2.functions",
     "cs.2.data-types",
@@ -1561,9 +1585,9 @@
     },
     {
      "kind": "choice",
-     "prompt": "You need to check thousands of times whether a given username already exists in a large collection. Assuming a good hash function, which structure gives the best average lookup time?",
+     "prompt": "You need to check thousands of times whether a given username already exists in a large collection. Assuming a suitable hash function, ordinary constant-time key hashing and equality checks, and a load factor kept bounded by resizing, which structure gives the best expected average lookup time?",
      "answer": "A hash table, with average O(1) lookup",
-     "explain": "A hash table jumps straight to a bucket, so the average lookup does not grow with the collection at all. Sorted arrays and balanced trees are genuinely fast at O(log n) but still pay a factor that grows with size, and a scan grows in step with it.",
+     "explain": "Under those hashing, key-cost, load-factor and resizing assumptions, a hash table has expected O(1) average lookup; this is not a worst-case guarantee. Sorted arrays and balanced trees are O(log n), while a linear scan is O(n).",
      "choices": [
       "A hash table, with average O(1) lookup",
       "A sorted array, with a binary search each time",
@@ -1585,9 +1609,9 @@
     },
     {
      "kind": "numeric",
-     "prompt": "A binary tree is completely full and has 4 levels: a root plus three more levels below it. How many nodes does it hold altogether?",
+     "prompt": "A perfect binary tree has 4 levels: a root plus three more levels below it, with every level full. How many nodes does it hold altogether?",
      "answer": "15",
-     "explain": "Level sizes double: 1 + 2 + 4 + 8 = 15, so a full tree of h levels holds 2^h - 1 nodes."
+     "explain": "Level sizes double: 1 + 2 + 4 + 8 = 15, so a perfect binary tree with every one of its h levels full holds 2^h - 1 nodes."
     },
     {
      "kind": "choice",
@@ -1603,7 +1627,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "Two different keys hash to the same bucket in a hash table. What does a correct implementation do?",
+     "prompt": "Two different keys hash to the same bucket in a separately chained hash table. What does a correct implementation do?",
      "answer": "Store both in that bucket and compare keys on lookup",
      "choices": [
       "Store both in that bucket and compare keys on lookup",
@@ -1611,7 +1635,7 @@
       "Refuse the second key and report the table as full",
       "Rebuild the whole table with a different hash function"
      ],
-     "explain": "Collisions are expected, so a bucket holds a short chain and lookups compare the full keys - two distinct keys are never confused."
+     "explain": "With separate chaining, collisions are expected: the bucket holds both entries in a chain and lookup compares their full keys, so distinct keys are not confused. Open-addressed tables resolve collisions differently by probing other slots."
     },
     {
      "kind": "numeric",
@@ -1645,7 +1669,7 @@
     },
     {
      "kind": "short",
-     "prompt": "A hash table's lookups normally take constant time, but a badly chosen hash function that sends every key to the same bucket makes them take time proportional to the number of keys. Explain why.",
+     "prompt": "A separately chained hash table has expected constant-time lookup when keys spread well, but a badly chosen hash function sends every key to the same bucket. Explain why lookup can then take time proportional to the number of keys.",
      "answer": "All the entries end up on one bucket's chain, so a lookup can no longer jump straight to a short bucket and must instead scan that single chain linearly through every stored key.",
      "keywords": [
       "bucket",
@@ -1653,7 +1677,7 @@
       "scan",
       "linear"
      ],
-     "explain": "Constant-time lookup depends on keys spreading evenly across buckets so each chain stays short."
+     "explain": "Expected constant-time lookup in a separately chained table depends on keys spreading well and the load factor staying bounded so bucket chains remain short."
     }
    ]
   },

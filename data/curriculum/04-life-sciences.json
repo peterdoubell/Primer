@@ -2501,18 +2501,42 @@
    "id": "bio.3.human-anatomy",
    "title": "Human Anatomy & Physiology",
    "stage": 3,
-   "goal": "How the body's systems truly work.",
+   "goal": "How human organs are organized and how major body systems coordinate circulation, gas exchange, control and waste removal.",
    "articles": [
     "Human anatomy",
     "Physiology",
     "Nervous system"
    ],
+   "lesson_media": [
+    {
+     "id": "anatomy-specimens-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/biology/bio-3-human-anatomy-800.webp",
+     "srcset": "/app/illustrations/tree/biology/bio-3-human-anatomy-800.webp 800w, /app/illustrations/tree/biology/bio-3-human-anatomy-1600.webp 1600w",
+     "alt": "Separate teaching specimens show a cutaway heart, a pair of lungs and a standing body with major vessels; each is presented on its own rather than as a connected circulation route.",
+     "caption": "These separate teaching specimens frame the heart, lungs and whole body; they are not a connected route diagram. Use the model to trace an ordered schematic of blood's cardiopulmonary path.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "trace-circulation-route",
+     "kind": "model",
+     "renderer": "circulation-route-lab",
+     "title": "Trace the circulation route",
+     "instructions": "Advance through the cardiopulmonary circuit from body tissues to the right heart, lungs, left heart and back to the body. Use the oxygenation cues to distinguish blood returning from the body from blood returning from the lungs.",
+     "props": {
+      "route": "cardiopulmonary",
+      "start_step": 0,
+      "show_oxygenation": true
+     }
+    }
+   ],
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "You touch a hot stove and jerk your hand away before you even feel the pain. Which pathway best explains this rapid response?",
+     "prompt": "You touch a hot stove and your hand begins to withdraw before you consciously feel the pain. Which pathway initiates this rapid response?",
      "answer": "A reflex arc carried by nerves to and from the spinal cord",
-     "explain": "The signal enters the spinal cord and is routed straight back to the muscle, so the hand moves before the message has reached the brain. That short cut is why the movement comes before the pain.",
+     "explain": "Sensory neurons enter the spinal cord, where interneurons activate motor neurons and can begin the withdrawal without waiting for conscious processing. At the same time, ascending pathways carry signals to the brain, where the pain becomes consciously perceived.",
      "choices": [
       "A reflex arc carried by nerves to and from the spinal cord",
       "A signal that goes to the brain and back before you move",
@@ -2523,13 +2547,13 @@
     {
      "kind": "choice",
      "prompt": "In the lungs, oxygen moves from the air in the alveoli into the blood. What drives this movement?",
-     "answer": "Diffusion from higher to lower concentration",
-     "explain": "Oxygen is more concentrated in alveolar air than in the blood arriving, so it moves down that gradient across the thin wall. No energy is spent; the blood flowing on keeps the gradient there.",
+     "answer": "Diffusion down an oxygen partial-pressure gradient",
+     "explain": "The partial pressure of oxygen is higher in alveolar gas than in the deoxygenated blood arriving in the lung capillaries, so oxygen diffuses across the thin alveolar-capillary barrier down that gradient. Ventilation and blood flow help maintain the gradient; no active pump is required.",
      "choices": [
       "Active pumping by the alveoli that uses cell energy",
       "Gravity pulling the heavier oxygen down into blood",
       "The blood's suction pulls oxygen out of the air",
-      "Diffusion from higher to lower concentration"
+      "Diffusion down an oxygen partial-pressure gradient"
      ]
     },
     {
@@ -2582,7 +2606,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "Arteries have thick muscular walls, while veins have thin walls and one-way valves. What best explains the difference?",
+     "prompt": "Arteries generally have thick, muscular, elastic walls. Many veins, especially those in the limbs, have thinner walls and one-way valves. What best explains these differences?",
      "answer": "Arteries carry blood at high pressure; veins return it at low",
      "choices": [
       "Arteries carry blood at high pressure; veins return it at low",
@@ -2590,19 +2614,19 @@
       "Arteries carry oxygen-rich blood and veins never do",
       "Veins carry less blood than arteries do"
      ],
-     "explain": "Each heartbeat drives blood into the arteries at high pressure, so their walls must be thick and elastic. By the time blood returns the pressure is low, so thin walls suffice and valves stop it falling backwards."
+     "explain": "Each heartbeat drives blood into the arteries at relatively high pressure, so their walls are thick and elastic. Venous pressure is lower; many limb veins use valves together with muscle contractions to limit backflow, although not all veins contain valves."
     },
     {
      "kind": "choice",
-     "prompt": "Someone standing still in a hot room faints, and laying them flat helps within seconds. Why does that help so quickly?",
-     "answer": "Blood reaches the brain without climbing uphill",
+     "prompt": "Someone standing still in a hot room faints, and lying them flat helps within seconds. Why does that help so quickly?",
+     "answer": "It improves venous return and cerebral perfusion by reducing the hydrostatic gradient",
      "choices": [
       "The heart beats more slowly and saves its strength",
       "More air reaches the lungs when the chest is flat",
-      "Blood reaches the brain without climbing uphill",
+      "It improves venous return and cerebral perfusion by reducing the hydrostatic gradient",
       "Lying down lets the body cool much faster"
      ],
-     "explain": "Standing still in heat lets blood pool in the legs, so too little reaches the brain. Lying flat puts the head level with the heart, and blood returns to the brain within a few beats."
+     "explain": "Heat and prolonged standing promote blood pooling in the legs, reducing venous return, cardiac output and cerebral perfusion. Lying flat reduces the gravitational hydrostatic gradient between the heart and brain and helps pooled blood return to the chest, restoring cerebral perfusion."
     },
     {
      "kind": "short",
