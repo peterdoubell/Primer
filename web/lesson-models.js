@@ -1743,6 +1743,431 @@
     return frame.root;
   }
 
+  const MATRIX_TRANSFORMS = {
+    identity: {
+      label: 'Identity', matrix: [[1, 0], [0, 1]], determinant: 1,
+    },
+    'x-stretch': {
+      label: 'Stretch x by 2', matrix: [[2, 0], [0, 1]], determinant: 2,
+    },
+    'x-shear': {
+      label: 'Shear x by y', matrix: [[1, 1], [0, 1]], determinant: 1,
+    },
+    'y-reflection': {
+      label: 'Reflect across x-axis', matrix: [[1, 0], [0, -1]], determinant: -1,
+    },
+    'x-projection': {
+      label: 'Project onto x-axis', matrix: [[1, 0], [0, 0]], determinant: 0,
+    },
+  };
+
+  function renderMatrixTransform(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredTransform = MATRIX_TRANSFORMS[props.start_transform] ? props.start_transform : 'x-shear';
+    let selected = authoredTransform;
+    const original = svgNode('svg', {
+      viewBox: '0 0 300 280', class: 'matrix-grid', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const transformed = svgNode('svg', {
+      viewBox: '0 0 300 280', class: 'matrix-grid', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const transformButtons = {};
+    const transformRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose a matrix transformation',
+    });
+
+    function applyMatrix(matrix, point) {
+      return [
+        matrix[0][0] * point[0] + matrix[0][1] * point[1],
+        matrix[1][0] * point[0] + matrix[1][1] * point[1],
+      ];
+    }
+    function drawGrid(svg, matrix) {
+      svg.replaceChildren();
+      const map = point => [150 + point[0] * 48, 140 - point[1] * 48];
+      const segment = (from, to, className) => {
+        const start = map(applyMatrix(matrix, from));
+        const end = map(applyMatrix(matrix, to));
+        svg.append(svgNode('line', {
+          x1: start[0], y1: start[1], x2: end[0], y2: end[1], class: className,
+        }));
+      };
+      const arrow = (point, className) => {
+        const start = map([0, 0]);
+        const end = map(applyMatrix(matrix, point));
+        svg.append(svgNode('line', {
+          x1: start[0], y1: start[1], x2: end[0], y2: end[1], class: className,
+        }));
+        svg.append(svgNode('circle', { cx: end[0], cy: end[1], r: 5, class: className + '-tip' }));
+      };
+      svg.append(svgNode('rect', { x: 8, y: 8, width: 284, height: 264, rx: 14, class: 'matrix-grid-field' }));
+      for (let grid = -2; grid <= 2; grid += 1) {
+        segment([grid, -2], [grid, 2], grid === 0 ? 'matrix-axis-line' : 'matrix-grid-line');
+        segment([-2, grid], [2, grid], grid === 0 ? 'matrix-axis-line' : 'matrix-grid-line');
+      }
+      const square = [[0, 0], [1, 0], [1, 1], [0, 1]].map(point => {
+        const mapped = map(applyMatrix(matrix, point));
+        return mapped[0] + ',' + mapped[1];
+      }).join(' ');
+      svg.append(svgNode('polygon', { points: square, class: 'matrix-unit-square' }));
+      arrow([1, 0], 'matrix-basis-one');
+      arrow([0, 1], 'matrix-basis-two');
+      arrow([1, 1], 'matrix-vector-v');
+    }
+    function formatMatrix(matrix) {
+      return '[[' + matrix[0].join(', ') + '], [' + matrix[1].join(', ') + ']]';
+    }
+    function formatVector(vector) {
+      return '(' + vector.join(', ') + ')';
+    }
+    function refresh(announce) {
+      const detail = MATRIX_TRANSFORMS[selected];
+      const image = applyMatrix(detail.matrix, [1, 1]);
+      drawGrid(original, MATRIX_TRANSFORMS.identity.matrix);
+      drawGrid(transformed, detail.matrix);
+      Object.entries(transformButtons).forEach(([name, button]) => {
+        const active = name === selected;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const invertibility = detail.determinant === 0
+        ? 'The plane collapses to a line, so the map is not invertible.'
+        : 'The determinant is nonzero, so the map is invertible.';
+      const orientation = detail.determinant < 0
+        ? 'The negative sign reverses orientation. '
+        : detail.determinant > 0 ? 'Orientation is preserved. ' : '';
+      frame.readout.textContent = 'A = ' + formatMatrix(detail.matrix) + '. v = (1, 1) maps to Av = ' +
+        formatVector(image) + '. det(A) = ' + detail.determinant + ', so signed area is multiplied by ' +
+        detail.determinant + ' and ordinary area by ' + Math.abs(detail.determinant) + '. ' + orientation + invertibility;
+      if (announce) frame.status.textContent = detail.label + ' selected. ' + invertibility;
+    }
+
+    Object.entries(MATRIX_TRANSFORMS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selected = name; refresh(true); },
+      }, detail.label);
+      transformButtons[name] = button;
+      transformRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = authoredTransform;
+        refresh(false);
+        frame.status.textContent = 'The matrix is back to the authored starting transform.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('matrix-transform-canvas');
+    frame.canvas.append(node('div', { class: 'matrix-transform-scene' },
+      node('div', { class: 'matrix-panel' }, node('strong', { 'data-model-speak': true }, 'Original plane'), original),
+      node('span', { class: 'matrix-map-arrow', 'aria-hidden': 'true' }, '→'),
+      node('div', { class: 'matrix-panel' }, node('strong', { 'data-model-speak': true }, 'Transformed plane'), transformed)));
+    frame.controls.append(transformRow, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const VENTURI_THROATS = {
+    'full-area': { label: 'Full area', area: 4, ratio: 1, speed: 1, drop: 0 },
+    'half-area': { label: 'Half area', area: 2, ratio: 0.5, speed: 2, drop: 1.5 },
+    'quarter-area': { label: 'Quarter area', area: 1, ratio: 0.25, speed: 4, drop: 7.5 },
+  };
+
+  function renderVenturiFlow(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredThroat = VENTURI_THROATS[props.start_throat] ? props.start_throat : 'half-area';
+    let selected = authoredThroat;
+    const diagram = svgNode('svg', {
+      viewBox: '0 0 640 270', class: 'venturi-diagram', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const throatButtons = {};
+    const throatRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose the throat cross-sectional area',
+    });
+    const metrics = node('div', { class: 'venturi-metrics' });
+
+    function drawVenturi(detail) {
+      diagram.replaceChildren();
+      const center = 166;
+      const wideHalf = 58;
+      const throatHalf = Math.max(16, wideHalf * detail.ratio);
+      const top = 'M48,' + (center - wideHalf) + ' L206,' + (center - wideHalf) +
+        ' L276,' + (center - throatHalf) + ' L364,' + (center - throatHalf) +
+        ' L434,' + (center - wideHalf) + ' L592,' + (center - wideHalf);
+      const bottom = 'M48,' + (center + wideHalf) + ' L206,' + (center + wideHalf) +
+        ' L276,' + (center + throatHalf) + ' L364,' + (center + throatHalf) +
+        ' L434,' + (center + wideHalf) + ' L592,' + (center + wideHalf);
+      const fluid = top + ' L592,' + (center + wideHalf) + ' L434,' + (center + wideHalf) +
+        ' L364,' + (center + throatHalf) + ' L276,' + (center + throatHalf) +
+        ' L206,' + (center + wideHalf) + ' L48,' + (center + wideHalf) + ' Z';
+      diagram.append(svgNode('path', { d: fluid, class: 'venturi-fluid' }));
+      diagram.append(svgNode('path', { d: top, class: 'venturi-wall' }));
+      diagram.append(svgNode('path', { d: bottom, class: 'venturi-wall' }));
+      [[112, 44], [320, 44 + detail.speed * 11], [490, 44]].forEach(([x, length], index) => {
+        diagram.append(svgNode('line', {
+          x1: x - length / 2, y1: center, x2: x + length / 2, y2: center,
+          class: index === 1 ? 'venturi-flow-arrow is-throat' : 'venturi-flow-arrow',
+        }));
+        diagram.append(svgNode('polygon', {
+          points: (x + length / 2) + ',' + center + ' ' + (x + length / 2 - 10) + ',' +
+            (center - 6) + ' ' + (x + length / 2 - 10) + ',' + (center + 6),
+          class: index === 1 ? 'venturi-arrowhead is-throat' : 'venturi-arrowhead',
+        }));
+      });
+      const throatColumnTop = 34 + detail.drop * 8;
+      [[120, 34, center - wideHalf], [320, throatColumnTop, center - throatHalf],
+        [520, 34, center - wideHalf]].forEach(([x, y, tubeTop], index) => {
+        diagram.append(svgNode('line', { x1: x, y1: tubeTop, x2: x, y2: 22, class: 'venturi-tap' }));
+        diagram.append(svgNode('line', {
+          x1: x, y1: tubeTop - 1, x2: x, y2: y, class: index === 1 ? 'venturi-column is-throat' : 'venturi-column',
+        }));
+        diagram.append(svgNode('circle', {
+          cx: x, cy: y, r: 5, class: index === 1 ? 'venturi-column-cap is-throat' : 'venturi-column-cap',
+        }));
+      });
+    }
+    function metric(label, value) {
+      return node('div', { class: 'venturi-metric' }, node('small', {}, label), node('strong', {}, value));
+    }
+    function refresh(announce) {
+      const detail = VENTURI_THROATS[selected];
+      drawVenturi(detail);
+      Object.entries(throatButtons).forEach(([name, button]) => {
+        const active = name === selected;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      metrics.replaceChildren(
+        metric('Wide section', '4 cm² · 1 m/s'),
+        metric('Throat', detail.area + ' cm² · ' + detail.speed + ' m/s'),
+        metric('Ideal pressure drop', detail.drop + ' kPa'),
+      );
+      frame.readout.textContent = 'For this steady, horizontal, incompressible-water model with negligible viscosity and other losses, volume flow rate Q = 400 cm³/s. Continuity gives v = Q/A: the 4 cm² wide section moves at 1 m/s, and the ' +
+        detail.area + ' cm² throat moves at ' + detail.speed + ' m/s. For horizontal ideal water flow, Bernoulli gives a throat pressure drop of ' +
+        detail.drop + ' kPa relative to the wide section. Real viscous flow loses energy, so downstream pressure recovery is not perfect.';
+      if (announce) frame.status.textContent = detail.label + ' selected: throat speed ' + detail.speed +
+        ' m/s and ideal pressure drop ' + detail.drop + ' kPa.';
+    }
+
+    Object.entries(VENTURI_THROATS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selected = name; refresh(true); },
+      }, detail.label + ' (' + detail.area + ' cm²)');
+      throatButtons[name] = button;
+      throatRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = authoredThroat;
+        refresh(false);
+        frame.status.textContent = 'The throat is back to its authored starting area.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('venturi-flow-canvas');
+    frame.canvas.append(node('div', { class: 'venturi-scene' }, diagram, metrics));
+    frame.controls.append(throatRow, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const GENE_EXPRESSION_STEPS = [
+    'Gene off', 'Gene on', 'RNA transcribed', 'Mature mRNA exported',
+    'AUG translated: Met', 'GAA translated: Glu', 'UUU translated: Phe', 'UAA read: stop and release',
+  ];
+
+  function renderGeneExpression(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredStage = props.start_gene_state === 'on' ? 1 : 0;
+    let stage = authoredStage;
+    const scene = node('div', { class: 'gene-expression-scene' });
+    const progress = node('ol', { class: 'gene-expression-progress', 'aria-label': 'Gene expression stages' });
+    const DNA = '5′-ATG GAA TTT TAA-3′';
+    const RNA = '5′-AUG GAA UUU UAA-3′';
+    const codons = ['AUG', 'GAA', 'UUU', 'UAA'];
+    const aminoAcids = ['Met', 'Glu', 'Phe'];
+
+    function refresh(announce) {
+      const translated = Math.max(0, Math.min(3, stage - 3));
+      const stopRead = stage === 7;
+      progress.replaceChildren(...GENE_EXPRESSION_STEPS.map((label, index) => node('li', {
+        class: index < stage ? 'is-complete' : index === stage ? 'is-current' : '',
+        'aria-current': index === stage ? 'step' : null,
+      }, label)));
+      const dnaCard = node('div', { class: 'gene-molecule gene-dna ' + (stage >= 1 ? 'is-active' : '') },
+        node('small', {}, 'Coding DNA strand'), node('strong', { 'data-model-speak': true }, DNA));
+      const rnaCard = node('div', { class: 'gene-molecule gene-rna ' + (stage >= 2 ? 'is-active' : 'is-muted') },
+        node('small', {}, stage >= 3 ? 'Mature mRNA in cytoplasm' : 'RNA in nucleus'),
+        node('strong', { 'data-model-speak': true }, stage >= 2 ? RNA : 'RNA not made yet'));
+      const codonRow = node('div', { class: 'gene-codon-row' }, ...codons.map((codon, index) => node('span', {
+        class: 'gene-codon ' + (index < translated || (index === 3 && stopRead) ? 'is-read' : ''),
+      }, codon)));
+      const peptide = node('div', { class: 'gene-peptide' },
+        node('small', {}, 'Peptide'),
+        node('strong', { 'data-model-speak': true }, translated
+          ? aminoAcids.slice(0, translated).join('–') + (stopRead ? ' · released' : '')
+          : 'No amino acids joined yet'));
+      scene.replaceChildren(
+        node('div', { class: 'gene-nucleus' }, node('span', { class: 'gene-compartment-label' }, 'Nucleus'),
+          dnaCard, stage < 3 ? rnaCard : null),
+        node('span', { class: 'gene-pore ' + (stage >= 3 ? 'is-active' : ''), 'aria-hidden': 'true' }, '→'),
+        node('div', { class: 'gene-cytoplasm' }, node('span', { class: 'gene-compartment-label' }, 'Cytoplasm'),
+          stage >= 3 ? rnaCard : null,
+          stage >= 3 ? codonRow : node('p', { class: 'gene-awaiting-rna' }, 'No mRNA in the cytoplasm yet.'),
+          peptide),
+      );
+      geneButton.disabled = stage !== 0;
+      transcribeButton.disabled = stage !== 1;
+      exportButton.disabled = stage !== 2;
+      translateButton.disabled = stage < 3 || stage >= 7;
+      translateButton.textContent = stage === 6 ? 'Read stop codon' : 'Translate next codon';
+      const currentCodon = stage >= 4 ? codons[Math.min(3, stage - 4)] : 'none yet';
+      const currentPeptide = translated ? aminoAcids.slice(0, translated).join('–') : 'none yet';
+      frame.readout.textContent = 'Step ' + (stage + 1) + ' of ' + GENE_EXPRESSION_STEPS.length + ': ' +
+        GENE_EXPRESSION_STEPS[stage] + '. Coding DNA ' + DNA + '; mRNA ' + RNA + '; product Met–Glu–Phe, then stop. ' +
+        'The mRNA matches the coding DNA strand except that U replaces T; RNA polymerase reads the opposite template strand. ' +
+        'Current codon: ' + currentCodon + '; current peptide: ' + currentPeptide + '. DNA remains in the nucleus and translation occurs in the cytoplasm. ' +
+        'The on/off switch is a simplified regulation control. This bounded example follows a continuous coding sequence and omits introns, the 5′ cap and poly(A) tail.';
+      if (announce) frame.status.textContent = GENE_EXPRESSION_STEPS[stage] + '.';
+    }
+
+    const geneButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = 1; refresh(true); },
+    }, 'Switch gene on');
+    const transcribeButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = 2; refresh(true); },
+    }, 'Transcribe');
+    const exportButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = 3; refresh(true); },
+    }, 'Export mature mRNA');
+    const translateButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = Math.min(7, stage + 1); refresh(true); },
+    }, 'Translate next codon');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        stage = authoredStage;
+        refresh(false);
+        frame.status.textContent = 'Gene expression is back to its authored starting state.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('gene-expression-canvas');
+    frame.canvas.append(scene, progress);
+    frame.controls.append(node('div', { class: 'model-button-row' },
+      geneButton, transcribeButton, exportButton, translateButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const TCP_TRACE_EVENTS = [
+    {
+      title: 'Ready to send', ack: 'No ACK yet',
+      detail: 'Four one-byte teaching segments are queued at the sender.',
+    },
+    {
+      title: 'Segment 1 received', ack: 'ACK 2',
+      detail: 'The receiver accepts segment 1 and cumulatively acknowledges the next expected teaching segment, 2.',
+    },
+    {
+      title: 'Segment 2 lost', ack: 'ACK remains 2',
+      detail: 'Segment 2 is dropped in the network, so the receiver still expects 2.',
+    },
+    {
+      title: 'Segment 3 buffered', ack: 'Duplicate ACK 2 · 1 of 2',
+      detail: 'Segment 3 arrives out of order. The receiver buffers it and repeats ACK 2 because the gap remains.',
+    },
+    {
+      title: 'Segment 4 buffered', ack: 'Duplicate ACK 2 · 2 of 2',
+      detail: 'Segment 4 also arrives out of order and is buffered. A second duplicate ACK 2 is sent.',
+    },
+    {
+      title: 'Retransmission timeout', ack: 'Still ACK 2',
+      detail: 'Only two duplicate acknowledgements arrived. In this simplified classic scenario that is not the three needed for fast retransmit, so the sender waits for its retransmission timer.',
+    },
+    {
+      title: 'Segment 2 retransmitted', ack: 'ACK 2 until receipt',
+      detail: 'The sender retransmits the missing segment 2 after the timeout.',
+    },
+    {
+      title: 'Gap filled; stream released', ack: 'ACK 5',
+      detail: 'Segment 2 arrives, making segments 1 through 4 contiguous. The receiver releases the ordered stream and acknowledges the next expected teaching segment, 5.',
+    },
+  ];
+
+  function renderTcpPacketTracer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let step = 0;
+    const scene = node('div', { class: 'tcp-trace-scene' });
+    const eventList = node('ol', { class: 'tcp-event-list', 'aria-label': 'TCP transfer events' });
+    const packetTrack = node('div', { class: 'tcp-packet-track', 'aria-hidden': 'true' });
+    const ackBadge = node('strong', { class: 'tcp-ack-badge', 'data-model-speak': true });
+
+    function packetState(number) {
+      if (number === 1) return step >= 1 ? 'is-delivered' : 'is-sender';
+      if (number === 2) {
+        if (step >= 7) return 'is-delivered';
+        if (step === 6) return 'is-retransmitting';
+        if (step >= 2) return 'is-lost';
+        return 'is-sender';
+      }
+      if (number === 3) {
+        if (step >= 7) return 'is-delivered';
+        if (step >= 3) return 'is-buffered';
+        return 'is-sender';
+      }
+      if (step >= 7) return 'is-delivered';
+      if (step >= 4) return 'is-buffered';
+      return 'is-sender';
+    }
+    function refresh(announce) {
+      const event = TCP_TRACE_EVENTS[step];
+      packetTrack.replaceChildren(...[1, 2, 3, 4].map(number => node('span', {
+        class: 'tcp-packet tcp-packet-' + number + ' ' + packetState(number),
+      }, String(number))));
+      eventList.replaceChildren(...TCP_TRACE_EVENTS.map((entry, index) => node('li', {
+        class: index < step ? 'is-complete' : index === step ? 'is-current' : '',
+        'aria-current': index === step ? 'step' : null,
+      }, entry.title)));
+      ackBadge.textContent = event.ack;
+      scene.replaceChildren(
+        node('div', { class: 'tcp-endpoint-row' },
+          node('span', {}, 'Sender'), node('span', {}, 'Network / receiver'), node('span', {}, 'Application')),
+        packetTrack,
+        node('div', { class: 'tcp-ack-row' }, node('span', {}, 'Receiver response'), ackBadge),
+      );
+      backButton.disabled = step === 0;
+      nextButton.disabled = step === TCP_TRACE_EVENTS.length - 1;
+      nextButton.textContent = step === 4 ? 'Advance to timeout' : step === 5 ? 'Retransmit segment 2' : 'Send next event';
+      frame.readout.textContent = 'Event ' + (step + 1) + ' of ' + TCP_TRACE_EVENTS.length + ': ' + event.title + '. ' +
+        event.detail + ' ' + event.ack + '. The labels 1–4 are pedagogical one-byte sequence positions; real TCP segments usually carry many bytes, sequence and acknowledgement numbers count byte positions, and an ACK names the next byte expected.';
+      if (announce) frame.status.textContent = event.title + '. ' + event.ack + '.';
+    }
+
+    const backButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => { step = Math.max(0, step - 1); refresh(true); },
+    }, 'Previous event');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        step = Math.min(TCP_TRACE_EVENTS.length - 1, step + 1);
+        refresh(true);
+      },
+    }, 'Next event');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = 0;
+        refresh(false);
+        frame.status.textContent = 'The trace is back before the first send.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('tcp-packet-canvas');
+    frame.canvas.append(scene, eventList);
+    frame.controls.append(node('div', { class: 'model-button-row' }, backButton, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
@@ -1760,6 +2185,10 @@
     'circulation-route-lab': renderCirculationRoute,
     'truth-table-lab': renderTruthTable,
     'stack-queue-lab': renderStackQueue,
+    'matrix-transform-lab': renderMatrixTransform,
+    'venturi-flow-lab': renderVenturiFlow,
+    'gene-expression-stepper': renderGeneExpression,
+    'tcp-packet-tracer': renderTcpPacketTracer,
   });
 
   window.PrimerLessonModels = Object.freeze({

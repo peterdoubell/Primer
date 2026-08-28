@@ -912,9 +912,159 @@ button { font-family: var(--sans); cursor: pointer; }
 .structure-token.is-diamond { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); background: var(--accent); }
 .structure-token.is-hexagon { clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%); }
 
+/* Grove — linear algebra: two copies of one fixed plane keep the comparison
+   honest. Exact matrices and vectors live in the persistent readout. */
+.matrix-transform-canvas { background: var(--tint-info-soft); }
+.matrix-transform-scene {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center; gap: clamp(6px, 2vw, 16px);
+}
+.matrix-panel { display: grid; gap: 6px; min-width: 0; color: var(--ink); text-align: center;
+  font: 800 13px/1.2 var(--sans); }
+.matrix-grid { display: block; width: 100%; height: auto; }
+.matrix-map-arrow { color: var(--gold-ink); font-size: 30px; font-weight: 900; }
+.matrix-grid-field { fill: var(--field); stroke: var(--paper-edge); stroke-width: 2; }
+.matrix-grid-line { stroke: var(--paper-edge); stroke-width: 1.5; }
+.matrix-axis-line { stroke: var(--ink-soft); stroke-width: 2.5; }
+.matrix-unit-square {
+  fill: color-mix(in srgb, var(--gold) 24%, transparent); stroke: var(--gold-ink);
+  stroke-width: 3; stroke-dasharray: 6 4;
+}
+.matrix-basis-one, .matrix-basis-two, .matrix-vector-v {
+  stroke-width: 6; stroke-linecap: round;
+}
+.matrix-basis-one { stroke: var(--accent-2); }
+.matrix-basis-two { stroke: var(--green); }
+.matrix-vector-v { stroke: var(--accent); stroke-dasharray: 8 5; }
+.matrix-basis-one-tip { fill: var(--accent-2); }
+.matrix-basis-two-tip { fill: var(--green); }
+.matrix-vector-v-tip { fill: var(--accent); stroke: var(--ink); stroke-width: 1; }
+
+/* Grove — Venturi: the manometer columns, arrow lengths and numeric cards all
+   repeat the same fixed continuity/Bernoulli calculation. */
+.venturi-flow-canvas { background: var(--tint-green); }
+.venturi-scene { display: grid; gap: 12px; }
+.venturi-diagram { display: block; width: 100%; height: auto; min-height: 190px; }
+.venturi-fluid { fill: color-mix(in srgb, var(--accent-2) 28%, var(--paper-hi)); }
+.venturi-wall { fill: none; stroke: var(--edge); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.venturi-flow-arrow { stroke: var(--accent-2); stroke-width: 6; stroke-linecap: round; }
+.venturi-flow-arrow.is-throat { stroke: var(--green-ink); }
+.venturi-arrowhead { fill: var(--accent-2); }
+.venturi-arrowhead.is-throat { fill: var(--green-ink); }
+.venturi-tap { stroke: var(--edge); stroke-width: 5; stroke-linecap: round; }
+.venturi-column { stroke: var(--accent-2); stroke-width: 7; stroke-linecap: round; }
+.venturi-column.is-throat { stroke: var(--gold-ink); stroke-dasharray: 7 4; }
+.venturi-column-cap { fill: var(--accent-2); stroke: var(--ink); stroke-width: 2; }
+.venturi-column-cap.is-throat { fill: var(--gold-bright); }
+.venturi-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.venturi-metric {
+  display: grid; gap: 4px; min-width: 0; padding: 9px; border: 1px solid var(--paper-edge);
+  border-radius: 9px; background: var(--field); color: var(--ink); font-family: var(--sans);
+}
+.venturi-metric small { color: var(--ink-soft); font-size: 11px; }
+.venturi-metric strong { font-size: 14px; }
+
+/* Grove — gene expression: compartments and disabled native controls make
+   molecular location and causal order explicit without animation. */
+.gene-expression-canvas { background: var(--tint-gold); }
+.gene-expression-scene {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch; gap: 9px;
+}
+.gene-nucleus, .gene-cytoplasm {
+  display: grid; align-content: start; gap: 9px; min-width: 0; min-height: 215px;
+  padding: 12px; border: 3px solid var(--edge); background: var(--field);
+}
+.gene-nucleus { border-radius: 46% 52% 48% 50% / 18% 20% 18% 20%; }
+.gene-cytoplasm { border-radius: 12px; border-style: double; border-width: 5px; }
+.gene-compartment-label {
+  color: var(--gold-ink); font: 800 11px/1.2 var(--sans); letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.gene-molecule {
+  display: grid; gap: 4px; min-width: 0; padding: 9px; border: 2px solid var(--paper-edge);
+  border-radius: 9px; background: var(--paper-2); color: var(--ink); font-family: var(--sans);
+}
+.gene-molecule small, .gene-peptide small { color: var(--ink-soft); font-size: 11px; }
+.gene-molecule strong { overflow-wrap: break-word; font-size: 13px; }
+.gene-molecule.is-muted { border-style: dashed; opacity: .62; }
+.gene-molecule.is-active { border: 4px double var(--green); }
+.gene-pore { align-self: center; color: var(--ink-faint); font-size: 27px; font-weight: 900; }
+.gene-pore.is-active { color: var(--gold-ink); }
+.gene-codon-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
+.gene-codon {
+  display: grid; place-items: center; min-height: 38px; border: 1px dashed var(--edge);
+  border-radius: 6px; background: var(--paper-2); color: var(--ink-soft); font: 800 11px/1 var(--sans);
+}
+.gene-codon.is-read { border: 3px double var(--green); background: var(--tint-green); color: var(--ink); }
+.gene-peptide {
+  display: grid; gap: 4px; padding: 9px; border: 1px solid var(--paper-edge);
+  border-radius: 9px; background: var(--paper-2); color: var(--ink); font-family: var(--sans);
+}
+.gene-expression-progress {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px;
+  margin: 12px 0 0; padding: 0; list-style: none;
+}
+.gene-expression-progress li {
+  min-width: 0; padding: 7px; border: 1px dashed var(--paper-edge); border-radius: 7px;
+  background: var(--field); color: var(--ink-soft); font: 700 11px/1.25 var(--sans);
+}
+.gene-expression-progress li.is-complete { border-style: solid; text-decoration: line-through; }
+.gene-expression-progress li.is-current { border: 3px double var(--gold-ink); color: var(--ink); background: var(--tint-gold); }
+
+/* Grove — TCP: numbered one-byte teaching segments carry written and patterned
+   sender/lost/buffered/retransmitted/delivered states. */
+.tcp-packet-canvas { background: var(--tint-info-soft); }
+.tcp-trace-scene { display: grid; gap: 10px; }
+.tcp-endpoint-row {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px;
+  color: var(--ink-soft); font: 800 11px/1.2 var(--sans); text-align: center;
+}
+.tcp-packet-track {
+  display: grid; grid-template-columns: repeat(4, minmax(48px, 72px));
+  justify-content: space-around; gap: 10px; min-height: 88px; padding: 10px;
+  border: 5px double var(--edge); border-radius: 10px; background: var(--field);
+}
+.tcp-packet {
+  display: grid; place-items: center; min-width: 48px; min-height: 58px;
+  border: 3px solid var(--ink); border-radius: 8px; color: var(--ink);
+  background: var(--paper-2); font: 900 18px/1 var(--sans);
+}
+.tcp-packet.is-sender { border-style: dashed; }
+.tcp-packet.is-lost {
+  background: repeating-linear-gradient(135deg, var(--field), var(--field) 7px,
+    var(--paper-edge) 7px, var(--paper-edge) 11px); text-decoration: line-through;
+}
+.tcp-packet.is-buffered { border: 5px double var(--gold-ink); background: var(--tint-gold); }
+.tcp-packet.is-retransmitting { outline: 4px solid var(--accent-2); outline-offset: 3px; }
+.tcp-packet.is-delivered { border: 5px double var(--green); background: var(--tint-green); text-decoration: underline; }
+.tcp-ack-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 8px 11px; border: 1px solid var(--paper-edge); border-radius: 8px;
+  background: var(--paper-2); color: var(--ink-soft); font: 700 12px/1.25 var(--sans);
+}
+.tcp-ack-badge { color: var(--gold-ink); text-align: right; }
+.tcp-event-list {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px;
+  margin: 0; padding: 0; list-style: none;
+}
+.tcp-event-list li {
+  min-width: 0; padding: 7px; border: 1px dashed var(--paper-edge); border-radius: 7px;
+  background: var(--field); color: var(--ink-soft); font: 700 11px/1.25 var(--sans);
+}
+.tcp-event-list li.is-complete { border-style: solid; }
+.tcp-event-list li.is-current { border: 3px double var(--gold-ink); color: var(--ink); background: var(--tint-gold); }
+
 @media (max-width: 600px) {
   .stack-queue-scene.is-queue { grid-template-columns: 1fr; justify-items: center; }
   .is-queue .structure-track { width: 100%; min-width: 0; }
+  .matrix-transform-scene { grid-template-columns: 1fr; }
+  .matrix-map-arrow { transform: rotate(90deg); }
+  .matrix-grid { width: min(100%, 300px); margin: auto; }
+  .gene-expression-scene { grid-template-columns: 1fr; }
+  .gene-pore { justify-self: center; transform: rotate(90deg); }
+  .gene-nucleus, .gene-cytoplasm { min-height: 0; border-radius: 12px; }
+  .gene-expression-progress, .tcp-event-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .bar { height: 7px; background: var(--paper-edge); border-radius: 4px; overflow: hidden; margin-top: 10px; }

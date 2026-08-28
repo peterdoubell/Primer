@@ -2833,11 +2833,33 @@
    "stage": 4,
    "goal": "Protocols, packets and the layered internet.",
    "articles": [
-    "Computer network",
-    "Internet protocol suite",
-    "Transmission Control Protocol"
-   ],
-   "prereqs": [
+   "Computer network",
+   "Internet protocol suite",
+   "Transmission Control Protocol"
+  ],
+  "lesson_media": [
+   {
+    "id": "ordered-packet-plate",
+    "kind": "illustration",
+    "src": "/app/illustrations/grove/computer-science/cs-4-networks-800.webp",
+    "srcset": "/app/illustrations/grove/computer-science/cs-4-networks-800.webp 800w, /app/illustrations/grove/computer-science/cs-4-networks-1600.webp 1600w",
+    "alt": "Four differently colored paths cross two brass router boxes and end at four receiver slots marked with distinct shapes.",
+    "caption": "IP packets can take different routes and arrive out of order. TCP identifies positions in a byte stream, acknowledges progress and retransmits missing data before delivering an ordered stream to the application.",
+    "width": 1600,
+    "height": 1000
+   },
+   {
+    "id": "trace-one-tcp-loss",
+    "kind": "model",
+    "renderer": "tcp-packet-tracer",
+    "title": "Trace a lost TCP segment",
+    "instructions": "Advance through a fixed four-segment transfer in which segment 2 is lost. Watch cumulative acknowledgements, receiver buffering, timeout retransmission and ordered release.",
+    "props": {
+     "scenario": "tcp-four-segment-loss-two"
+    }
+   }
+  ],
+  "prereqs": [
     "cs.2.internet",
     "cs.3.hardware",
     "cs.3.algorithms"
@@ -2846,10 +2868,10 @@
     {
      "kind": "choice",
      "prompt": "TCP provides reliable, ordered delivery, while UDP does not. For a live video call where occasional lost frames are acceptable but low latency is critical, which is usually preferred?",
-     "answer": "UDP, since a late frame is worth less than a missing one",
-     "explain": "What costs time is waiting: TCP holds later data while it retransmits an old segment, and by the time the retransmission lands the moment has passed. The header saving is real but a few bytes, and a lost frame degrades one picture rather than corrupting the stream.",
+     "answer": "UDP-based real-time transport, so the application can manage timing and loss without TCP head-of-line waiting",
+     "explain": "For an interactive call, waiting for TCP to retransmit older bytes can make later media arrive too late. A UDP-based real-time protocol can choose concealment, selective repair or frame recovery according to deadlines. Loss can affect dependent predictive frames until a recovery point, so it is not guaranteed to damage only one picture; the tradeoff is controlled latency rather than harmless loss.",
      "choices": [
-      "UDP, since a late frame is worth less than a missing one",
+       "UDP-based real-time transport, so the application can manage timing and loss without TCP head-of-line waiting",
       "TCP, since one dropped packet would corrupt the stream",
       "TCP, since its congestion control keeps the picture smooth",
       "UDP, since its shorter header is what saves the time"
@@ -2859,7 +2881,7 @@
      "kind": "choice",
      "prompt": "In the layered internet model, what is the main benefit of separating concerns into layers (e.g., IP for addressing, TCP for reliability)?",
      "answer": "Each layer can change on its own if interfaces stay fixed",
-     "explain": "Layering is about substitution: TCP did not change when Ethernet gave way to Wi-Fi, because the interface between them did not. It costs header bytes rather than saving them, and it promises no delivery - that is TCP's job, one layer up.",
+     "explain": "Layering is about substitution: IP can run over Ethernet or Wi-Fi through a stable link-layer interface, while TCP in turn uses IP's packet service. The separation costs header bytes rather than saving them, and IP itself does not promise reliable delivery; TCP adds that service above it.",
      "choices": [
       "Each layer can change on its own if interfaces stay fixed",
       "It guarantees that no packet gets lost or delayed",
@@ -2870,10 +2892,10 @@
     {
      "kind": "choice",
      "prompt": "A file is sent across the internet in many packets that may take different routes. What ensures the receiver reconstructs the data correctly and in order when using TCP?",
-     "answer": "Sequence numbers and acknowledgments reorder and resend packets",
-     "explain": "TCP numbers its bytes and acknowledges what has arrived, so the receiver buffers, reorders and asks again for what is missing. IP makes no ordering promise, routers forward packet by packet, and the application is handed a stream that is already in order.",
+     "answer": "TCP byte sequence numbers, cumulative acknowledgements and retransmission",
+     "explain": "TCP sequence numbers locate bytes in the stream, and a cumulative ACK normally states the next byte expected. The receiver can buffer later bytes while the sender infers a gap from duplicate ACKs or a timeout and retransmits missing data. IP makes no ordering promise; TCP releases an ordered byte stream to the application.",
      "choices": [
-      "Sequence numbers and acknowledgments reorder and resend packets",
+       "TCP byte sequence numbers, cumulative acknowledgements and retransmission",
       "IP delivers the packets in the order they were sent",
       "The receiving application sorts the data as it arrives",
       "Routers hold each packet until the earlier ones have passed"
@@ -2918,18 +2940,18 @@
     {
      "kind": "choice",
      "prompt": "Two laptops behind one home router both open connections to the same web server, which sees a single public address. How does the router keep the two conversations apart?",
-     "answer": "It maps each connection to a distinct source port",
+     "answer": "NAPT/PAT maps each private address-and-port flow to a public source port",
      "choices": [
-      "It maps each connection to a distinct source port",
+       "NAPT/PAT maps each private address-and-port flow to a public source port",
       "It hands each laptop the public address in turn",
       "It queues one laptop's traffic until the other has finished",
       "The server tags each reply with the laptop's MAC address"
      ],
-     "explain": "Network address translation rewrites the source port and records the mapping, so returning packets can be sent to the right host."
+     "explain": "Network address and port translation, also called NAPT or PAT, records each private address-and-port flow and assigns it a public-side source port. The returning destination port lets the router restore the correct private endpoint."
     },
     {
      "kind": "choice",
-     "prompt": "A workstation reaches every host on its own subnet but nothing outside it, and DNS lookups also fail. Which setting is the first suspect?",
+     "prompt": "A workstation reaches every host on its own subnet but nothing outside it. Its configured DNS resolver is also outside that subnet, and DNS lookups fail. Which setting is the first suspect?",
      "answer": "The default gateway",
      "choices": [
       "The default gateway",
@@ -2937,7 +2959,7 @@
       "The MAC address of the network card",
       "The cable between the machine and the switch"
      ],
-     "explain": "Local traffic needs no router; anything off-subnet, DNS included, is sent to the gateway, so a wrong gateway gives exactly this pattern."
+     "explain": "Same-subnet traffic is delivered directly, but every off-subnet destination—including the configured DNS resolver in this scenario—must be reached through the default gateway. A missing or wrong gateway therefore gives exactly this pattern."
     },
     {
      "kind": "choice",

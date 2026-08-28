@@ -3029,11 +3029,34 @@
    "stage": 4,
    "goal": "Transcription, translation, gene regulation.",
    "articles": [
-    "Molecular biology",
-    "Protein biosynthesis",
-    "Gene expression"
-   ],
-   "prereqs": [
+   "Molecular biology",
+   "Protein biosynthesis",
+   "Gene expression"
+  ],
+  "lesson_media": [
+   {
+    "id": "gene-expression-plate",
+    "kind": "illustration",
+    "src": "/app/illustrations/grove/biology/bio-4-molecular-800.webp",
+    "srcset": "/app/illustrations/grove/biology/bio-4-molecular-800.webp 800w, /app/illustrations/grove/biology/bio-4-molecular-1600.webp 1600w",
+    "alt": "Three panels show DNA transcribed to one RNA strand in a nucleus, that RNA exported through a nuclear pore, and a cytoplasmic ribosome using transfer RNAs to assemble a short peptide.",
+    "caption": "In a eukaryotic cell, transcription produces RNA in the nucleus, export moves a processed messenger RNA to the cytoplasm, and a ribosome translates its codons into a polypeptide.",
+    "width": 1600,
+    "height": 1000
+   },
+   {
+    "id": "step-through-gene-expression",
+    "kind": "model",
+    "renderer": "gene-expression-stepper",
+    "title": "Step through gene expression",
+    "instructions": "Switch the example gene on, then transcribe, export and translate its fixed coding sequence one stage at a time. Track which molecule exists in which compartment.",
+    "props": {
+     "scenario": "eukaryotic-met-glu-phe",
+     "start_gene_state": "off"
+    }
+   }
+  ],
+  "prereqs": [
     "bio.3.genetics",
     "bio.3.cell-bio",
     "chem.3.organic-intro"
@@ -3041,9 +3064,9 @@
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "The central dogma runs DNA to RNA to protein. A drug degrades all the messenger RNA in a cell while leaving its DNA and its ribosomes intact. What do you predict?",
+     "prompt": "The usual flow of sequence information for protein synthesis is DNA to RNA to protein. A drug degrades all messenger RNA in a cell while leaving its DNA and ribosomes intact. What do you predict?",
      "answer": "New protein synthesis stops until fresh mRNA is transcribed",
-     "explain": "Ribosomes can only read mRNA, so translation halts as soon as the transcripts are gone. Protein already made persists until it is turned over, and information never runs backwards from protein to RNA.",
+     "explain": "Ribosomes translate mRNA rather than reading chromosomal DNA directly, so new translation halts until transcripts are replaced. Proteins already made persist according to their half-lives. Reverse transcription can copy RNA into DNA, but sequence information is not copied from protein back into nucleic acid.",
      "choices": [
       "Ribosomes switch to reading the DNA template directly",
       "New protein synthesis stops until fresh mRNA is transcribed",
@@ -3084,18 +3107,18 @@
     {
      "kind": "choice",
      "prompt": "Deleting the repressor gene of a bacterial inducible operon makes the operon's enzymes appear even when no inducer is present. What does that result establish?",
-     "answer": "The repressor blocks transcription until inducer binds",
+     "answer": "The repressor normally blocks transcription in the uninduced state",
      "choices": [
       "The repressor is what switches transcription on directly",
-      "The repressor blocks transcription until inducer binds",
+       "The repressor normally blocks transcription in the uninduced state",
       "The inducer must activate the promoter directly",
       "The enzymes are unstable unless the inducer is there to protect them"
      ],
-     "explain": "Losing a gene and getting constitutive expression is the signature of a negative regulator: the repressor holds transcription off, and the inducer works by relieving that block rather than by switching anything on itself."
+     "explain": "Deleting the gene and observing constitutive expression supports the repressor's role as a negative regulator in the uninduced state. This result alone does not establish that the inducer binds the repressor directly; that molecular interaction needs separate evidence."
     },
     {
      "kind": "short",
-     "prompt": "Cells infected with an RNA virus stop producing new viral genomes when treated with a drug that inhibits reverse transcriptase. Explain what reverse transcriptase normally does.",
+     "prompt": "Cells infected with a retrovirus stop producing new viral genomes when treated with a drug that inhibits reverse transcriptase. Explain what reverse transcriptase normally does.",
      "answer": "It builds a DNA copy from the viral RNA template, the step a retrovirus needs before its genome can be integrated into the host chromosome and replicated.",
      "keywords": [
       "RNA",
@@ -3103,7 +3126,7 @@
       "template",
       "integrate"
      ],
-     "explain": "Reverse transcriptase runs information from RNA back to DNA, the exception to the usual direction of the central dogma, and blocking it stops the retroviral cycle."
+     "explain": "Reverse transcriptase copies RNA into DNA, reversing the common direction of transcription but not violating the central dogma's prohibition on transferring sequence information from protein back to nucleic acid. Blocking it interrupts the retroviral replication cycle."
     },
     {
      "kind": "numeric",
@@ -3113,15 +3136,15 @@
     },
     {
      "kind": "choice",
-     "prompt": "A mutation at a splice site causes one whole exon to be skipped in the mature mRNA, and that exon's length is a multiple of three. Which prediction follows?",
-     "answer": "The protein is made but lacks that exon's residues",
+     "prompt": "A splice-site mutation causes one internal protein-coding exon to be skipped. The exon begins and ends in compatible codon phases and its length is a multiple of three. Which prediction best follows, assuming translation still initiates normally?",
+     "answer": "The reading frame is preserved, but the protein lacks that exon's residues",
      "choices": [
       "The gene can no longer be transcribed at all",
-      "The protein is made but lacks that exon's residues",
+       "The reading frame is preserved, but the protein lacks that exon's residues",
       "The mutation has no effect, since introns are removed anyway",
       "Translation starts instead from a downstream start codon"
      ],
-     "explain": "Splice-site mutations act after transcription, so the gene is still transcribed. Skipping an exon whose length divides by three keeps the reading frame, giving a shortened but otherwise normal protein."
+     "explain": "With an internal coding exon, compatible splice phases and a length divisible by three, joining the neighboring exons preserves the downstream reading frame. The protein lacks those residues and may still misfold or lose function; frame preservation does not make the deletion harmless."
     },
     {
      "kind": "choice",
@@ -3138,14 +3161,14 @@
     {
      "kind": "choice",
      "prompt": "Cells are given a drug that blocks RNA polymerase. One protein's level collapses within minutes; another barely shifts over several hours. What best explains the contrast?",
-     "answer": "The two proteins turn over at very different rates",
+     "answer": "Their mRNAs and/or proteins have very different half-lives",
      "choices": [
       "The collapsing protein's gene is far more sensitive to the drug",
-      "The two proteins turn over at very different rates",
+       "Their mRNAs and/or proteins have very different half-lives",
       "The stable protein is transcribed much more often than the other",
       "Only the collapsing protein depends on RNA polymerase at all"
      ],
-     "explain": "Blocking synthesis reveals turnover. Once no new transcripts are made, each protein falls at the rate it and its mRNA are degraded, so a short-lived pair vanishes in minutes while a long-lived pair persists for hours. How often a gene is transcribed sets the level, not the decay rate."
+     "explain": "Blocking transcription reveals persistence across two stages. Existing mRNA can continue to be translated until it decays, and existing protein persists until it is degraded, so differences in either mRNA half-life or protein half-life can produce the contrast."
     }
    ]
   },
