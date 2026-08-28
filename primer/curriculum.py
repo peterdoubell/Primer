@@ -128,6 +128,8 @@ LESSON_MODEL_RENDERERS = frozenset({
     "counterexample-lab", "function-composition-lab", "circulation-route-lab",
     "truth-table-lab", "stack-queue-lab", "matrix-transform-lab",
     "venturi-flow-lab", "gene-expression-stepper", "tcp-packet-tracer",
+    "heat-equation-lab", "complexity-certificate-lab",
+    "morphogen-gradient-lab", "ct-window-lab",
 })
 
 
@@ -327,6 +329,40 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "tcp-packet-tracer":
                 if props != {"scenario": "tcp-four-segment-loss-two"}:
                     raise ValueError("{} TCP packet tracer has an unknown scenario".format(
+                        node.get("id")))
+            elif renderer == "heat-equation-lab":
+                expected = {
+                    "cells": 9, "hot_cell": 4, "diffusion_percent": 20,
+                    "max_steps": 10,
+                }
+                if props != expected or any(
+                        type(props.get(key)) is not int for key in expected):
+                    raise ValueError("{} heat equation lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "complexity-certificate-lab":
+                expected = {
+                    "scenario": "sat-certificate", "start_n": 4, "max_n": 20,
+                }
+                if props != expected or any(
+                        type(props.get(key)) is not int for key in ("start_n", "max_n")):
+                    raise ValueError("{} complexity certificate lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "morphogen-gradient-lab":
+                expected = {
+                    "cells": 11, "source": 100, "decay_percent": 20,
+                    "low_threshold": 30, "high_threshold": 65,
+                }
+                if props != expected or any(
+                        type(props.get(key)) is not int for key in expected):
+                    raise ValueError("{} morphogen gradient lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "ct-window-lab":
+                expected = {
+                    "phantom": "synthetic-hu-reference", "level": 40, "width": 400,
+                }
+                if props != expected or any(
+                        type(props.get(key)) is not int for key in ("level", "width")):
+                    raise ValueError("{} CT window lab has unknown settings".format(
                         node.get("id")))
         else:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))

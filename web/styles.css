@@ -1055,6 +1055,131 @@ button { font-family: var(--sans); cursor: pointer; }
 .tcp-event-list li.is-complete { border-style: solid; }
 .tcp-event-list li.is-current { border: 3px double var(--gold-ink); color: var(--ink); background: var(--tint-gold); }
 
+/* Forest — a conservative explicit heat step. The nine visual cells are not
+   controls; exact values and conservation stay in the written readout. */
+.heat-equation-canvas { background: var(--tint-gold); }
+.heat-equation-scene { display: grid; gap: 12px; min-width: 0; }
+.heat-cell-grid {
+  display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); align-items: stretch;
+  gap: clamp(3px, 1vw, 8px); min-width: 0; height: 190px; padding: 10px;
+  border: 5px double var(--edge); border-radius: 10px; background: var(--field);
+}
+.heat-cell {
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch;
+  min-width: 0; overflow: hidden; border: 1px solid var(--paper-edge);
+  border-radius: 6px 6px 3px 3px; background: var(--paper-2);
+}
+.heat-cell.is-origin { border-style: dashed; border-width: 3px; }
+.heat-cell-fill {
+  display: block; min-height: 4px; margin: 3px 3px 0;
+  background: linear-gradient(180deg, var(--gold-bright), var(--accent));
+  border: 1px solid var(--gold-ink); border-bottom: 0; border-radius: 4px 4px 0 0;
+}
+.heat-cell small {
+  display: grid; place-items: center; min-height: 24px; border-top: 1px solid var(--paper-edge);
+  color: var(--ink-soft); font: 800 10px/1 var(--sans);
+}
+.heat-equation-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.heat-equation-metrics span {
+  display: grid; gap: 3px; min-width: 0; padding: 8px; border: 1px solid var(--paper-edge);
+  border-radius: 8px; background: var(--paper-2); font-family: var(--sans);
+}
+.heat-equation-metrics small { color: var(--ink-soft); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+.heat-equation-metrics strong { color: var(--ink); font-size: 14px; }
+
+/* Forest — representative growth counts and certificate verification share a
+   card but remain visibly separate so verification is never mistaken for search. */
+.complexity-certificate-canvas { background: var(--tint-info-soft); }
+.complexity-model-scene {
+  display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  align-items: stretch; gap: 12px; min-width: 0;
+}
+.complexity-growth-list {
+  display: grid; align-content: center; gap: 12px; min-width: 0; padding: 12px;
+  border: 3px solid var(--edge); border-radius: 10px; background: var(--field);
+}
+.complexity-growth-row {
+  display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center;
+  gap: 8px; min-width: 0; color: var(--ink); font: 750 12px/1.2 var(--sans);
+}
+.complexity-growth-label { font-size: 17px; font-weight: 900; }
+.complexity-growth-track { display: block; min-width: 0; height: 15px; overflow: hidden;
+  border: 1px solid var(--paper-edge); border-radius: 999px; background: var(--paper-2); }
+.complexity-growth-bar { display: block; height: 100%; min-width: 4px; background: var(--accent-2); }
+.complexity-growth-bar.is-square { background: var(--gold-ink); }
+.complexity-growth-bar.is-exponential {
+  background: repeating-linear-gradient(135deg, var(--accent), var(--accent) 6px,
+    var(--gold-bright) 6px, var(--gold-bright) 9px);
+}
+.complexity-certificate-scene {
+  display: grid; align-content: start; gap: 10px; min-width: 0; padding: 12px;
+  border: 5px double var(--edge); border-radius: 10px; background: var(--paper-2);
+}
+.complexity-formula { margin: 0; overflow-wrap: break-word; color: var(--ink);
+  font: 800 14px/1.45 var(--serif); }
+.complexity-certificate-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px; margin: 0; padding: 0; list-style: none; }
+.complexity-certificate-list li { display: flex; justify-content: space-between; gap: 6px;
+  min-width: 0; padding: 7px; border: 1px dashed var(--edge); border-radius: 7px;
+  color: var(--ink); font: 700 11px/1.3 var(--sans); }
+.complexity-certificate-list li span { min-width: 0; overflow-wrap: break-word; }
+.complexity-certificate-list li.is-true { border: 3px double var(--green); background: var(--tint-green); }
+.complexity-certificate-list li.is-false { border-style: dashed; background: var(--tint-red); }
+
+.model-range-control { display: grid; gap: 5px; min-width: 0; color: var(--ink-soft);
+  font: 750 12px/1.3 var(--sans); }
+.model-range-control input[type="range"] { width: 100%; min-width: 0; min-height: 44px; margin: 0; }
+
+/* Forest — the gradient remains continuous while borders and written bands,
+   not colour alone, carry the three idealized fate regions. */
+.morphogen-gradient-canvas { background: var(--tint-green); }
+.morphogen-gradient-scene { display: grid; gap: 10px; min-width: 0; }
+.morphogen-source {
+  justify-self: start; padding: 7px 10px; border: 4px double var(--gold-ink);
+  border-radius: 999px; background: var(--tint-gold); color: var(--ink);
+  font: 800 12px/1.2 var(--sans);
+}
+.morphogen-cell-row {
+  display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 4px;
+  min-width: 0; padding: 10px; border: 2px solid var(--edge); border-radius: 10px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--green) 46%, var(--field)),
+    color-mix(in srgb, var(--gold) 13%, var(--field)));
+}
+.morphogen-cell {
+  display: grid; align-content: center; justify-items: center; gap: 5px; min-width: 0;
+  min-height: 92px; border: 2px solid var(--edge); border-radius: 46%;
+  background: var(--paper-2); color: var(--ink); font-family: var(--sans);
+}
+.morphogen-cell strong { font-size: 12px; }
+.morphogen-cell small { max-width: 100%; overflow: hidden; font-size: 8px; }
+.morphogen-cell.fate-high { border: 5px double var(--green-ink); background: var(--tint-green); }
+.morphogen-cell.fate-middle { border-style: solid; background: var(--tint-gold); }
+.morphogen-cell.fate-low { border-style: dashed; background: var(--field); }
+.morphogen-cell.is-selected { outline: 4px solid var(--focus); outline-offset: 2px; }
+.morphogen-fate-legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+.morphogen-fate-legend span { min-width: 0; padding: 7px; border: 1px solid var(--paper-edge);
+  border-radius: 7px; background: var(--paper-2); color: var(--ink-soft);
+  font: 700 10px/1.35 var(--sans); }
+.morphogen-fate-legend .fate-high { border-style: double; border-width: 3px; }
+.morphogen-fate-legend .fate-low { border-style: dashed; }
+
+/* Forest — synthetic reference inserts keep the display-mapping lesson clear
+   of patient data. Labels stay beside, never on, dynamic gray swatches. */
+.ct-window-canvas { background: var(--tint-info-soft); }
+.ct-window-scene { display: grid; gap: 11px; min-width: 0; }
+.ct-phantom-label { margin: 0; color: var(--ink); font: 850 13px/1.2 var(--sans);
+  text-align: center; text-transform: uppercase; letter-spacing: .06em; }
+.ct-phantom-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; min-width: 0; }
+.ct-insert { display: grid; grid-template-columns: 54px minmax(0, 1fr); align-items: center;
+  gap: 8px; min-width: 0; padding: 8px; border: 1px solid var(--paper-edge);
+  border-radius: 9px; background: var(--paper-2); }
+.ct-insert-swatch { display: block; width: 54px; height: 54px; border: 3px double var(--edge); border-radius: 50%; }
+.ct-insert > span { display: grid; gap: 3px; min-width: 0; color: var(--ink); font-family: var(--sans); }
+.ct-insert strong { overflow-wrap: break-word; font-size: 11px; }
+.ct-insert small { color: var(--ink-soft); font-size: 10px; }
+.ct-window-range { padding: 9px; border: 5px double var(--edge); border-radius: 8px;
+  background: var(--field); color: var(--ink); font: 800 12px/1.35 var(--sans); text-align: center; }
+
 @media (max-width: 600px) {
   .stack-queue-scene.is-queue { grid-template-columns: 1fr; justify-items: center; }
   .is-queue .structure-track { width: 100%; min-width: 0; }
@@ -1065,6 +1190,15 @@ button { font-family: var(--sans); cursor: pointer; }
   .gene-pore { justify-self: center; transform: rotate(90deg); }
   .gene-nucleus, .gene-cytoplasm { min-height: 0; border-radius: 12px; }
   .gene-expression-progress, .tcp-event-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .complexity-model-scene { grid-template-columns: 1fr; }
+  .complexity-certificate-list { grid-template-columns: 1fr; }
+  .morphogen-cell-row { gap: 2px; padding: 7px 4px; }
+  .morphogen-cell { min-height: 76px; border-radius: 10px; }
+  .morphogen-cell small { display: none; }
+  .morphogen-fate-legend { grid-template-columns: 1fr; }
+  .ct-phantom-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ct-insert { grid-template-columns: 42px minmax(0, 1fr); padding: 6px; }
+  .ct-insert-swatch { width: 42px; height: 42px; }
 }
 
 .bar { height: 7px; background: var(--paper-edge); border-radius: 4px; overflow: hidden; margin-top: 10px; }

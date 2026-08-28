@@ -4023,12 +4023,38 @@
    "title": "Developmental Biology",
    "stage": 5,
    "goal": "From one cell to a whole organism.",
-   "articles": [
-    "Developmental biology",
-    "Embryology",
-    "Stem cell"
-   ],
-   "prereqs": [
+  "articles": [
+   "Developmental biology",
+   "Embryology",
+   "Stem cell"
+  ],
+  "lesson_media": [
+   {
+    "id": "morphogen-gradient-plate",
+    "kind": "illustration",
+    "src": "/app/illustrations/forest/biology/bio-5-developmental-800.webp",
+    "srcset": "/app/illustrations/forest/biology/bio-5-developmental-800.webp 800w, /app/illustrations/forest/biology/bio-5-developmental-1600.webp 1600w",
+    "alt": "One signal source faces a row of eleven cells; a fading concentration wash crosses two threshold markers and divides the cells into three colored fate regions.",
+    "caption": "In this threshold model, one source makes a decaying morphogen gradient. Otherwise-equivalent cells read their local concentration against two thresholds to produce three spatial fates.",
+    "width": 1600,
+    "height": 1000
+   },
+   {
+    "id": "read-a-morphogen-gradient",
+    "kind": "model",
+    "renderer": "morphogen-gradient-lab",
+    "title": "Read a morphogen gradient",
+    "instructions": "Inspect the concentration and fate at each of eleven cells. Flatten the signal to one intermediate concentration, then restore the gradient and compare the three explicit fate regions.",
+    "props": {
+     "cells": 11,
+     "source": 100,
+     "decay_percent": 20,
+     "low_threshold": 30,
+     "high_threshold": 65
+    }
+   }
+  ],
+  "prereqs": [
     "bio.4.molecular",
     "bio.3.cell-bio",
     "bio.2.reproduction"
@@ -4036,12 +4062,12 @@
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "Differentiation is the process by which an unspecialised cell takes on a specialised structure and function. A cultured cell switches on muscle proteins and fuses into a fibre. If that is differentiation, which of these must also be true of the cell?",
-     "answer": "It still carries the genes of every other cell type",
-     "explain": "Differentiation changes which genes are expressed, not which genes are present. The genome stays essentially intact, which is why a differentiated nucleus can be reprogrammed and why cloning from an adult cell works at all.",
+     "prompt": "A typical nucleated somatic cell switches on muscle proteins and differentiates into a muscle fibre. Which statement best describes what usually happened to its genetic information?",
+     "answer": "It retained essentially the same genome but changed which genes it expresses",
+     "explain": "Differentiation mainly changes gene regulation and expression rather than replacing the genome with a cell-type-specific version. 'Essentially' matters: somatic mutations and specialized DNA rearrangements can occur, and a few mature cell types lose their nucleus, so literal genomic identity is not a universal rule.",
      "choices": [
       "Its DNA has been rewritten into a muscle-specific version",
-      "It still carries the genes of every other cell type",
+      "It retained essentially the same genome but changed which genes it expresses",
       "It has gained muscle genes it did not previously have",
       "It has discarded the genes it will never use again"
      ]
@@ -4061,11 +4087,11 @@
     {
      "kind": "choice",
      "prompt": "During development, a chemical signal (a morphogen) is released from one end of an embryo, forming a concentration gradient. How can this single signal help create different structures along the embryo?",
-     "answer": "Different concentrations give cells different fates",
-     "explain": "A morphogen gradient carries positional information: each cell reads the local concentration against thresholds and commits accordingly, so one signal can specify a series of structures along the axis.",
+     "answer": "Different concentrations can activate different programs and bias or specify different fates",
+     "explain": "A morphogen gradient can carry positional information: cells exposed to different local concentrations may activate different gene-regulatory programs and adopt different fates. Simple threshold diagrams are useful idealizations; response also depends on exposure time, cellular competence and other signals.",
      "choices": [
       "Every cell receives the same dose and reacts identically",
-      "Different concentrations give cells different fates",
+      "Different concentrations can activate different programs and bias or specify different fates",
       "The signal reaches only the cells nearest its source",
       "The gradient decides the timing rather than the fate"
      ]
@@ -4096,15 +4122,15 @@
     },
     {
      "kind": "choice",
-     "prompt": "Adult fibroblasts forced to express four transcription factors revert to a pluripotent state and can then form many tissues. What does this imply about differentiation?",
-     "answer": "It is reversible, so the genome must be left intact",
+     "prompt": "Adult fibroblasts forced to express four transcription factors can be reprogrammed to a pluripotent state and then form many tissues. What does this most directly show about differentiation?",
+     "answer": "Its regulatory state can be reversed because most genomic information was retained",
      "choices": [
       "Differentiated cells must discard genes as they specialise",
-      "It is reversible, so the genome must be left intact",
+      "Its regulatory state can be reversed because most genomic information was retained",
       "Pluripotency exists only in cells taken from an embryo",
       "The four factors must add new genes to the genome"
      ],
-     "explain": "If specialising destroyed or discarded genetic information, no combination of transcription factors could restore it. Reprogramming works because the information was there all along, held in a stable but reversible pattern of expression."
+     "explain": "Induced pluripotency shows that a differentiated regulatory state can be reset and that the cells retained the genomic information needed for many other fates. It does not require every DNA base to be literally unchanged: somatic mutations or rearrangements may remain, and reprogramming is neither perfect nor universal."
     },
     {
      "kind": "numeric",
@@ -4114,7 +4140,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "A morphogen gradient is experimentally flattened, so every cell along the axis now sees the same intermediate concentration. What outcome do you predict?",
+     "prompt": "In an idealized threshold model, this morphogen is the only positional cue, all cells respond identically, and their thresholds stay fixed. The gradient is flattened so every cell sees the same intermediate concentration. What outcome does the model predict?",
      "answer": "One intermediate fate everywhere, and no pattern at all",
      "choices": [
       "Development proceeds normally, since the signal is still there",
@@ -4122,11 +4148,11 @@
       "Cells take random fates in a salt-and-pepper arrangement",
       "Only the highest-threshold fate is produced"
      ],
-     "explain": "Positional information lives in the differences across the gradient, not in the presence of the signal. Give every cell the same intermediate dose and every cell reads the same threshold, so the spatial pattern disappears."
+     "explain": "Under the stated assumptions, every cell applies the same fixed thresholds to the same concentration, so every cell adopts the same intermediate fate and the spatial pattern disappears. Real embryos also use timing, competence and interacting signals, which is why the assumptions are explicit."
     },
     {
      "kind": "choice",
-     "prompt": "Posterior tissue from one limb bud is grafted to the anterior edge of a second bud, and a mirror-image duplicated limb develops. Which interpretation fits best?",
+     "prompt": "Posterior tissue from one limb bud is grafted to the anterior edge of a second bud, and a mirror-image duplicated limb develops. Lineage tracing shows that most extra digits are made from host cells rather than graft cells. Which interpretation fits best?",
      "answer": "The tissue is a source of positional signal",
      "choices": [
       "The graft simply supplied extra cells that became the new digits",

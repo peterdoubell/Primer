@@ -427,7 +427,7 @@ def test_young_nodes_have_child_voiced_lessons(curr):
 
 
 def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
-    """Every selected lesson from Seedling through Grove gets both halves of
+    """Every selected lesson from Seedling through Forest gets both halves of
     the promise: an authored plate and a keyboard model."""
     expected = {
         'math.0.counting': (0, 'counter'),
@@ -450,6 +450,10 @@ def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
         'phys.4.fluids': (4, 'venturi-flow-lab'),
         'bio.4.molecular': (4, 'gene-expression-stepper'),
         'cs.4.networks': (4, 'tcp-packet-tracer'),
+        'math.5.pde': (5, 'heat-equation-lab'),
+        'cs.5.complexity': (5, 'complexity-certificate-lab'),
+        'bio.5.developmental': (5, 'morphogen-gradient-lab'),
+        'rad.3.ct-image': (5, 'ct-window-lab'),
     }
     with_media = {nid: n for nid, n in curr.nodes.items() if n.get('lesson_media')}
     assert set(with_media) == set(expected)
@@ -572,6 +576,45 @@ def test_lesson_media_schema_never_resolves_an_authored_path(curr):
     ('gene-expression-stepper', {'scenario': 'random-codons', 'start_gene_state': 'off'}),
     ('tcp-packet-tracer', {'scenario': 'tcp-random-loss'}),
     ('tcp-packet-tracer', {'scenario': 'tcp-four-segment-loss-two', 'segments': 4}),
+    ('heat-equation-lab', {
+        'cells': 9, 'hot_cell': 3, 'diffusion_percent': 20, 'max_steps': 10,
+    }),
+    ('heat-equation-lab', {
+        'cells': True, 'hot_cell': 4, 'diffusion_percent': 20, 'max_steps': 10,
+    }),
+    ('heat-equation-lab', {
+        'cells': 9.0, 'hot_cell': 4, 'diffusion_percent': 20, 'max_steps': 10,
+    }),
+    ('complexity-certificate-lab', {
+        'scenario': 'travelling-salesperson', 'start_n': 4, 'max_n': 20,
+    }),
+    ('complexity-certificate-lab', {
+        'scenario': 'sat-certificate', 'start_n': 4, 'max_n': 20, 'base': 2,
+    }),
+    ('complexity-certificate-lab', {
+        'scenario': 'sat-certificate', 'start_n': 4.0, 'max_n': 20,
+    }),
+    ('morphogen-gradient-lab', {
+        'cells': 11, 'source': 100, 'decay_percent': 20,
+        'low_threshold': 30, 'high_threshold': 64,
+    }),
+    ('morphogen-gradient-lab', {
+        'cells': 11, 'source': True, 'decay_percent': 20,
+        'low_threshold': 30, 'high_threshold': 65,
+    }),
+    ('morphogen-gradient-lab', {
+        'cells': 11, 'source': 100.0, 'decay_percent': 20,
+        'low_threshold': 30, 'high_threshold': 65,
+    }),
+    ('ct-window-lab', {
+        'phantom': 'synthetic-hu-reference', 'level': 40, 'width': 401,
+    }),
+    ('ct-window-lab', {
+        'phantom': 'synthetic-hu-reference', 'level': True, 'width': 400,
+    }),
+    ('ct-window-lab', {
+        'phantom': 'synthetic-hu-reference', 'level': 40.0, 'width': 400,
+    }),
 ])
 def test_lesson_model_props_fail_closed(renderer, props):
     model = {
@@ -617,6 +660,19 @@ def test_lesson_model_props_fail_closed(renderer, props):
     ('gene-expression-stepper', {'scenario': 'eukaryotic-met-glu-phe', 'start_gene_state': 'off'}),
     ('gene-expression-stepper', {'scenario': 'eukaryotic-met-glu-phe', 'start_gene_state': 'on'}),
     ('tcp-packet-tracer', {'scenario': 'tcp-four-segment-loss-two'}),
+    ('heat-equation-lab', {
+        'cells': 9, 'hot_cell': 4, 'diffusion_percent': 20, 'max_steps': 10,
+    }),
+    ('complexity-certificate-lab', {
+        'scenario': 'sat-certificate', 'start_n': 4, 'max_n': 20,
+    }),
+    ('morphogen-gradient-lab', {
+        'cells': 11, 'source': 100, 'decay_percent': 20,
+        'low_threshold': 30, 'high_threshold': 65,
+    }),
+    ('ct-window-lab', {
+        'phantom': 'synthetic-hu-reference', 'level': 40, 'width': 400,
+    }),
 ])
 def test_lesson_model_props_accept_the_bounded_contract(renderer, props):
     model = {
@@ -1503,7 +1559,9 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'function-composition-lab', 'circulation-route-lab',
                      'truth-table-lab', 'stack-queue-lab',
                      'matrix-transform-lab', 'venturi-flow-lab',
-                     'gene-expression-stepper', 'tcp-packet-tracer'):
+                     'gene-expression-stepper', 'tcp-packet-tracer',
+                     'heat-equation-lab', 'complexity-certificate-lab',
+                     'morphogen-gradient-lab', 'ct-window-lab'):
         assert renderer in js
     assert 'fetch(' not in js and '/api/' not in js
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
@@ -1645,6 +1703,49 @@ def test_grove_model_registration_accessibility_resets_and_accuracy_caveats():
 
     for selector in ('.matrix-transform-scene', '.venturi-diagram',
                      '.gene-expression-scene', '.tcp-packet-track'):
+        assert selector in css
+
+
+def test_forest_model_registration_accessibility_resets_and_accuracy_caveats():
+    """Keep Forest's four deterministic models operable and technically exact."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    for renderer, function in (
+        ('heat-equation-lab', 'renderHeatEquation'),
+        ('complexity-certificate-lab', 'renderComplexityCertificate'),
+        ('morphogen-gradient-lab', 'renderMorphogenGradient'),
+        ('ct-window-lab', 'renderCtWindow'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+
+    assert 'fetch(' not in js and '/api/' not in js
+
+    lower = js.lower()
+    for accuracy_phrase in (
+        'no-flux boundaries', 'total heat is conserved', 'r = 0.20',
+        'p versus np remains open', 'polynomial examples do not prove',
+        'certificate', 'illustrative thresholds', '100 × 0.80',
+        'dicom linear voi', 'width − 1', 'synthetic phantom',
+        'not a diagnosis',
+    ):
+        assert accuracy_phrase in lower
+
+    for selector in ('.heat-equation-scene', '.complexity-certificate-scene',
+                     '.morphogen-gradient-scene', '.ct-window-scene'):
         assert selector in css
 
 
