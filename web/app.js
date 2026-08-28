@@ -1430,6 +1430,38 @@ function openStory(s, canAdvance, needs, onClose) {
 }
 
 /* ---------------- Node / lesson ---------------- */
+function renderLessonMedia(items) {
+  if (!Array.isArray(items) || !items.length) return null;
+  const media = el('div', { class: 'lesson-media' });
+  items.forEach(item => {
+    if (item && item.kind === 'illustration') {
+      if (!item.src || !item.alt) return;
+      const image = el('img', {
+        src: item.src,
+        srcset: item.srcset || null,
+        sizes: item.srcset ? '(max-width: 720px) calc(100vw - 36px), 960px' : null,
+        alt: item.alt,
+        width: item.width || 1600,
+        height: item.height || 1000,
+        loading: 'eager',
+        decoding: 'async',
+        fetchpriority: 'high',
+      });
+      const figure = el('figure', { class: 'card lesson-illustration' }, image);
+      if (item.caption) figure.append(el('figcaption', {}, item.caption));
+      media.append(figure);
+      return;
+    }
+    if (item.kind === 'model' && window.PrimerLessonModels) {
+      const model = window.PrimerLessonModels.render(item, {
+        speakButton: S.stage <= 1 ? (getText, label) => speakBtn(getText, label) : null,
+      });
+      if (model) media.append(model);
+    }
+  });
+  return media.childElementCount ? media : null;
+}
+
 async function renderNode(page, nodeId) {
   const n = await guard(page, () => api.get('/api/curriculum/node/' + nodeId));
   if (!n) return;
@@ -1485,6 +1517,11 @@ async function renderNode(page, nodeId) {
       el('div', {}, n.kid_text));
     page.append(kt);
     maybeSpeak(n.kid_text);
+  }
+
+  const lessonMedia = renderLessonMedia(n.lesson_media);
+  if (lessonMedia) {
+    page.append(sectionLabel(S.stage <= 1 ? 'Try it' : 'Explore the idea'), lessonMedia);
   }
 
   const young = S.stage <= 1;

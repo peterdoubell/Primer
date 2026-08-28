@@ -710,12 +710,16 @@ async def _security_headers(request, call_next):
 # Fields of a curriculum node that must never leave the server. `quiz` carries
 # every `answer` and `explain` in the bank.
 _NODE_PRIVATE = ("quiz",)
+_NODE_DETAIL_ONLY = ("lesson_media",)
 
 
-def _public_node(node: dict) -> dict:
+def _public_node(node: dict, include_detail: bool = False) -> dict:
     """A node as the reader may see it. Anything that serialises a node goes
-    through here — stripping the bank route by route is how keys leak."""
-    out = {k: v for k, v in node.items() if k not in _NODE_PRIVATE}
+    through here — stripping the bank route by route is how keys leak. Large
+    lesson plates and model copy travel only with the one opened lesson, not
+    every Today card."""
+    hidden = _NODE_PRIVATE if include_detail else _NODE_PRIVATE + _NODE_DETAIL_ONLY
+    out = {k: v for k, v in node.items() if k not in hidden}
     out["question_count"] = len(node.get("quiz") or [])
     return out
 
@@ -1070,7 +1074,7 @@ def curriculum_node(node_id: str, request: Request):
     if not node:
         return JSONResponse({"error": "no such node"}, status_code=404)
     gates = learner.gate_map(reader_id=reader_id)
-    out = _public_node(node)
+    out = _public_node(node, include_detail=True)
     out["mastery"] = round(learner.mastery_map(reader_id=reader_id).get(node_id, 0), 2)
     out["mastered"] = node_id in learner.mastered_set(reader_id=reader_id)
     out["proven"] = node_id in learner.proven_set(reader_id=reader_id)
@@ -2621,7 +2625,7 @@ def _asset_tag(name: str) -> str:
 @app.get("/app/", include_in_schema=False)
 @app.get("/app/index.html", include_in_schema=False)
 def app_shell():
-    """The shell, with the stylesheet and script stamped by content hash.
+    """The shell, with the stylesheet and scripts stamped by content hash.
 
     Without this the browser happily runs today's JavaScript against last
     week's stylesheet: the URLs never changed and the static mount sends no
@@ -2632,6 +2636,7 @@ def app_shell():
     with open(os.path.join(WEB_DIR, "index.html")) as fh:
         html = fh.read()
     html = html.replace("/app/styles.css", "/app/styles.css?v=" + _asset_tag("styles.css"))
+    html = html.replace("/app/lesson-models.js", "/app/lesson-models.js?v=" + _asset_tag("lesson-models.js"))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
 

@@ -395,6 +395,168 @@ button { font-family: var(--sans); cursor: pointer; }
 .lesson-card .goal { color: var(--ink-soft); font-size: 14px; }
 .lesson-card .stagepill { position: absolute; top: 12px; right: 12px; font-family: var(--sans); font-size: 11px; color: var(--ink-faint); }
 
+/* ---------- lesson plates and manipulatives ----------
+   Authored pictures and executable explanations share one visual chapter,
+   but remain real figures/sections in the document rather than a clickable
+   image with meaning trapped inside it. */
+.lesson-media { display: grid; gap: 18px; width: 100%; max-width: 960px; margin: 0 auto 28px; }
+.lesson-media > .card { margin-bottom: 0; }
+.lesson-illustration { padding: 0; margin: 0; overflow: hidden; }
+.lesson-illustration picture { display: block; }
+.lesson-illustration img {
+  display: block; width: 100%; height: auto; aspect-ratio: 8 / 5;
+  object-fit: cover; object-position: 50% 45%; filter: var(--img-glare);
+}
+.lesson-illustration figcaption {
+  padding: 13px 18px 15px; border-top: 1px solid var(--paper-edge);
+  color: var(--ink-soft); font-size: 14px; line-height: 1.55;
+}
+.lesson-model { border-color: var(--edge); overflow: hidden; }
+.lesson-model h3 { margin-bottom: 5px; }
+.model-heading-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+.model-heading-row h3 { margin: 0; }
+.model-instructions { margin: 0 0 15px; color: var(--ink-soft); line-height: 1.55; }
+.model-canvas {
+  min-width: 0; padding: clamp(12px, 2.5vw, 22px); border: 1px solid var(--paper-edge);
+  border-radius: 10px; background: var(--field); overflow: hidden;
+}
+.model-controls { display: grid; gap: 12px; margin-top: 14px; }
+.model-button-row, .model-option-row {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 9px;
+}
+.model-option-row { justify-content: center; }
+.model-option.is-selected {
+  box-shadow: inset 0 -4px 0 var(--gold), 0 2px 4px var(--shadow);
+  font-weight: 800;
+}
+.model-readout {
+  margin: 14px 0 0; padding-top: 11px; border-top: 1px solid var(--rule);
+  color: var(--ink); font-family: var(--sans); font-size: 14px; font-weight: 650;
+}
+.model-status {
+  min-height: 1.5em; margin: 5px 0 0; color: var(--gold-ink);
+  font-family: var(--sans); font-size: 14px;
+}
+
+/* Counting: every pebble is a native button. The ring and check carry the
+   touched state as shape as well as colour. */
+.counter-canvas { background: var(--tint-info-soft); }
+.model-counter-scene {
+  display: grid; grid-template-columns: repeat(5, minmax(44px, 72px));
+  justify-content: center; align-items: center; gap: clamp(6px, 1.8vw, 14px);
+  min-height: 158px; padding: 10px;
+}
+.model-pebble {
+  appearance: none; min-width: 44px; min-height: 52px; padding: 4px;
+  border: 0; background: transparent; color: var(--ink); cursor: pointer;
+  transition: transform .24s ease;
+}
+.pebble-surface {
+  position: relative; display: grid; place-items: center; width: 100%; height: 44px;
+  border: 2px solid color-mix(in srgb, var(--accent-2) 75%, var(--ink));
+  border-radius: 48% 52% 45% 55%;
+  background: color-mix(in srgb, var(--accent-2) 58%, var(--paper-hi));
+  box-shadow: inset 0 4px 7px rgba(255,255,255,.22), 0 3px 5px var(--shadow);
+}
+.model-pebble:nth-child(3n) .pebble-surface { border-radius: 54% 46% 51% 49%; transform: scale(.94); }
+.model-pebble:nth-child(4n) .pebble-surface { border-radius: 44% 56% 53% 47%; transform: scale(1.04); }
+.model-pebble.is-counted .pebble-surface {
+  border: 4px double var(--gold-ink); background: var(--tint-gold-strong);
+}
+.model-pebble.is-counted .pebble-surface::after {
+  content: "✓"; font-family: var(--sans); font-size: 19px; font-weight: 900; color: var(--gold-ink);
+}
+.model-counter-scene.is-mixed .model-pebble:nth-child(1) { transform: translate(8px, 16px) rotate(-8deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(2) { transform: translate(-4px, -8px) rotate(6deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(3) { transform: translate(10px, 7px) rotate(11deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(4) { transform: translate(-7px, 14px) rotate(-5deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(5) { transform: translate(-10px, -5px) rotate(7deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(6) { transform: translate(6px, -12px) rotate(8deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(7) { transform: translate(-9px, 5px) rotate(-10deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(8) { transform: translate(5px, -3px) rotate(5deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(9) { transform: translate(11px, 11px) rotate(-7deg); }
+.model-counter-scene.is-mixed .model-pebble:nth-child(10) { transform: translate(-8px, -10px) rotate(9deg); }
+.model-counter-scene.is-mixed { grid-template-columns: repeat(4, minmax(44px, 72px)); }
+.counter-button-row { justify-content: center; }
+
+/* Shape explorer: SVG is explanatory ink; buttons and the live sentence are
+   the complete keyboard/screen-reader path. */
+.shape-canvas { display: grid; place-items: center; background: var(--tint-info-soft); }
+.shape-model-svg { display: block; width: min(100%, 480px); height: auto; }
+.shape-model-field { fill: var(--paper-hi); stroke: var(--paper-edge); stroke-width: 2; }
+.model-shape-line {
+  fill: color-mix(in srgb, var(--accent-2) 22%, var(--paper-hi));
+  stroke: var(--accent-2); stroke-width: 7; stroke-linejoin: round;
+}
+.shape-corner { fill: var(--gold-bright); stroke: var(--ink); stroke-width: 3; }
+
+/* Shadow lab: one small-source geometry, with boundary rays kept visible so
+   size is not communicated by the dark patch alone. */
+.shadow-canvas { padding: 8px; background: var(--tint-gold); }
+.shadow-model-svg { display: block; width: 100%; height: auto; min-height: 180px; }
+.shadow-model-field { fill: var(--field); stroke: var(--paper-edge); stroke-width: 2; }
+.shadow-table-line { stroke: var(--edge); stroke-width: 3; }
+.shadow-lamp-glow { fill: var(--tint-gold-strong); }
+.shadow-lamp { fill: var(--gold-bright); stroke: var(--gold-ink); stroke-width: 5; stroke-linecap: round; }
+.shadow-ray { stroke: var(--gold); stroke-width: 2; stroke-dasharray: 7 6; }
+.shadow-blocker { fill: var(--ink-soft); stroke: var(--ink); stroke-width: 2; }
+.shadow-screen { fill: var(--paper-2); stroke: var(--edge); stroke-width: 3; }
+.shadow-cast { fill: color-mix(in srgb, var(--ink) 78%, transparent); }
+.shadow-model-svg.is-lamp-off .shadow-lamp { opacity: .38; fill: var(--paper-edge); }
+.shadow-model-svg.is-lamp-off .shadow-screen { opacity: .68; }
+.model-slider { display: grid; gap: 4px; color: var(--ink-soft); font-family: var(--sans); }
+.model-slider-title { color: var(--ink); font-weight: 700; }
+.model-slider-ends { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
+.lesson-model input[type=range] { height: 44px; }
+.lesson-model input[type=range]::-webkit-slider-thumb { width: 24px; height: 24px; margin-top: -10.5px; }
+.lesson-model input[type=range]::-moz-range-thumb { width: 22px; height: 22px; }
+
+/* Sequence runner: the ordered list is the source of truth. The beetle track
+   merely mirrors how many causally valid steps the Run button completed. */
+.sequence-canvas { background: var(--tint-info-soft); }
+.sequence-track {
+  position: relative; display: grid; grid-template-columns: repeat(4, minmax(36px, 1fr));
+  align-items: center; gap: clamp(7px, 2vw, 18px); min-height: 96px;
+  padding: 18px 54px 18px 42px;
+}
+.sequence-tile {
+  height: 46px; border: 2px solid var(--edge); border-radius: 9px;
+  background: var(--paper-2); box-shadow: 0 2px 4px var(--shadow);
+}
+.sequence-tile.is-passed { border: 4px double var(--green); background: var(--tint-green); }
+.sequence-beetle {
+  position: absolute; left: 4%; top: 50%; width: 34px; height: 24px;
+  transform: translate(-50%, -50%); border: 2px solid var(--gold-ink);
+  border-radius: 55% 55% 45% 45%; background: var(--gold-bright);
+  transition: left .35s ease;
+}
+.sequence-beetle::before {
+  content: ""; position: absolute; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent-2); border: 1px solid var(--ink); left: 12px; top: 7px;
+}
+.sequence-beetle::after {
+  content: ""; position: absolute; left: 4px; right: 4px; top: 10px;
+  border-top: 2px solid var(--gold-ink);
+}
+.sequence-goal {
+  position: absolute; right: 2%; top: 50%; width: 34px; height: 38px;
+  transform: translateY(-50%); border: 3px double var(--accent-2);
+  border-radius: 6px 6px 10px 10px; background: var(--paper-2);
+}
+.sequence-goal::before {
+  content: ""; position: absolute; width: 16px; height: 8px; left: 6px; top: -10px;
+  border: 3px solid var(--accent-2); border-bottom: 0; border-radius: 8px 8px 0 0;
+}
+.model-sequence-list { display: grid; gap: 8px; margin: 0; padding-left: 29px; }
+.sequence-step {
+  padding: 9px 10px 9px 13px; border: 1px solid var(--paper-edge); border-radius: 9px;
+  background: var(--field); color: var(--ink); font-family: var(--sans);
+}
+.sequence-step::marker { color: var(--gold-ink); font-weight: 800; }
+.sequence-step-label { display: inline-block; min-width: min(220px, 48%); font-weight: 700; }
+.sequence-step-controls { display: inline-flex; flex-wrap: wrap; gap: 7px; justify-content: flex-end; }
+.model-move { min-height: 44px; }
+
 .bar { height: 7px; background: var(--paper-edge); border-radius: 4px; overflow: hidden; margin-top: 10px; }
 .bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-ink), var(--gold)); }
 
@@ -1125,6 +1287,14 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   .pagehead h2 { font-size: 26px; }
   .grid.auto { grid-template-columns: 1fr; }
   .quest-item { flex: 1 1 100%; }
+  .lesson-model { padding: 15px 13px; }
+  .model-canvas { padding: 8px; }
+  .model-counter-scene { gap: 4px; padding: 4px; min-height: 142px; }
+  .model-pebble { min-width: 40px; padding: 2px; }
+  .sequence-track { padding-inline: 34px 42px; gap: 5px; }
+  .sequence-step-label { display: block; min-width: 0; margin-bottom: 8px; }
+  .sequence-step-controls { justify-content: flex-start; }
+  .model-slider-ends { font-size: 14px; }
 
   /* The Atlas: the epoch label heads its row instead of sitting beside it.
      At 90px of a 375px screen the label column was taking a quarter of the
@@ -1201,6 +1371,12 @@ body[data-stage="0"] #article, body[data-stage="1"] #article { font-size: 20px; 
 body[data-stage="0"] .choice, body[data-stage="1"] .choice { min-height: 58px; font-size: 20px; display: flex; align-items: center; }
 body[data-stage="0"] .q-prompt, body[data-stage="1"] .q-prompt { font-size: 24px; }
 body[data-stage="0"] .lesson-card h3, body[data-stage="1"] .lesson-card h3 { font-size: 21px; }
+body[data-stage="0"] .lesson-illustration figcaption,
+body[data-stage="1"] .lesson-illustration figcaption,
+body[data-stage="0"] .model-readout, body[data-stage="1"] .model-readout,
+body[data-stage="0"] .model-status, body[data-stage="1"] .model-status {
+  font-size: 16px;
+}
 /* Icon-first sidebar for pre-readers: keep labels for screen readers, enlarge icons. */
 /* This read `font-size: 13px` — the smallest nav label in the book, on the
    youngest reader's screen, while the adult default is 15px. The intent was an

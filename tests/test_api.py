@@ -987,6 +987,24 @@ def test_curriculum_graph_shape(client, onboarded):
         "every locked node must explain itself"
 
 
+def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
+    detail = client.get('/api/curriculum/node/math.0.counting')
+    assert detail.status_code == 200
+    media = detail.json().get('lesson_media')
+    assert media and [entry['kind'] for entry in media] == ['illustration', 'model']
+
+    graph = client.get('/api/curriculum').json()
+    assert all('lesson_media' not in node for node in graph['nodes'])
+    today = client.get('/api/today').json()
+    assert all('lesson_media' not in node for node in today['lessons'])
+
+    plate = media[0]
+    image = client.get(plate['src'])
+    assert image.status_code == 200
+    assert image.headers['content-type'].startswith('image/webp')
+    assert len(image.content) < 300_000
+
+
 def test_search_and_article(client, onboarded, monkeypatch):
     """The HTTP contract is testable without an ignored ZIM or live Wikipedia."""
     import primer.server as srv
@@ -1078,7 +1096,8 @@ def test_locked_lessons_cannot_issue_or_redeem_assessments(tmp_path):
 # ---------------- security ----------------
 
 @pytest.mark.parametrize("path", ["/", "/app/index.html", "/app/", "/app/app.js",
-                                  "/api/state", "/healthz", "/no-such-route"])
+                                  "/app/lesson-models.js", "/api/state", "/healthz",
+                                  "/no-such-route"])
 def test_security_headers_cover_every_route(client, path):
     """Regression: the headers used to live on the `/` handler only, so the
     static mount served a byte-identical, unprotected copy of the app shell."""
@@ -1528,12 +1547,15 @@ def test_the_shell_stamps_its_assets(client):
     for path in ("/", "/app/", "/app/index.html"):
         r = client.get(path)
         assert r.status_code == 200, path
-        found = set(re.findall(r"/app/(?:styles\.css|app\.js)\?v=([0-9a-f]{10})", r.text))
-        assert len(found) == 2, "{} did not stamp both assets".format(path)
+        found = set(re.findall(
+            r"/app/(?:styles\.css|lesson-models\.js|app\.js)\?v=([0-9a-f]{10})", r.text))
+        assert len(found) == 3, "{} did not stamp all three assets".format(path)
         stamps[path] = found
     assert len(set(map(frozenset, stamps.values()))) == 1, "entry points disagree"
 
     assert "immutable" in client.get("/app/styles.css?v=deadbeef00").headers["cache-control"]
+    assert "immutable" in client.get(
+        "/app/lesson-models.js?v=deadbeef00").headers["cache-control"]
     assert client.get("/app/styles.css").headers["cache-control"] == "no-cache"
 
 
