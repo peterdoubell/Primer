@@ -9,7 +9,6 @@ Run:  .venv/bin/python -m pytest tests/ -q
 """
 
 import os
-import re
 import sys
 import time
 
@@ -1438,6 +1437,10 @@ def test_sapling_model_accessibility_geometry_registration_and_resets():
     js = _web('lesson-models.js')
     css = _web('styles.css')
 
+    def px_after(text, marker):
+        start = text.index(marker) + len(marker)
+        return int(text[start:text.index('px', start)])
+
     for renderer, function in (
         ('fraction-equivalence-lab', 'renderFractionEquivalence'),
         ('atom-element-builder', 'renderAtomElementBuilder'),
@@ -1454,12 +1457,10 @@ def test_sapling_model_accessibility_geometry_registration_and_resets():
     assert "role: 'list', 'aria-label': 'Structures present in this specimen'" in js
     assert "role: 'listitem'" in js
 
-    inner_shell = int(re.search(
-        r"\.atom-shell\.is-inner \{ width: (\d+)px;", css).group(1))
-    nucleus = int(re.search(
-        r"\.atom-nucleus \{.*?width: (\d+)px;", css, re.S).group(1))
-    inner_radius = int(re.search(
-        r"--electron-radius', inner \? '(\d+)px'", js).group(1))
+    inner_shell = px_after(css, '.atom-shell.is-inner { width: ')
+    nucleus_block = css[css.index('.atom-nucleus {'):css.index('}', css.index('.atom-nucleus {'))]
+    nucleus = px_after(nucleus_block, 'width: ')
+    inner_radius = px_after(js, "--electron-radius', inner ? '")
     electron_radius = 7
     assert inner_shell > nucleus
     assert inner_radius - electron_radius > nucleus / 2
