@@ -5719,173 +5719,186 @@
     },
     {
       "id": "rad.4.head-trauma",
-      "title": "Intracranial Haemorrhage in Head Trauma",
+      "title": "Head Injury: Selecting, Timing and Reading the Trauma CT",
+      "section": "Neuroradiology",
       "stage": 5,
-      "goal": "Assign an intracranial bleed to its compartment from the shape of its margins, and recognise the herniation it threatens.",
+      "goal": "Decide which head injury is scanned and when it is scanned again, and read the trauma study for axonal injury, herniation and fracture-related vascular injury.",
       "articles": [
         "Traumatic brain injury",
-        "Epidural hematoma",
-        "Subdural hematoma",
-        "Subarachnoid hemorrhage",
+        "Diffuse axonal injury",
         "Brain herniation",
-        "Diffuse axonal injury"
+        "Basilar skull fracture",
+        "Second-impact syndrome",
+        "Glasgow Coma Scale"
       ],
       "prereqs": [
         "bio.4.neuro",
-        "phys.3.mechanics"
+        "phys.3.mechanics",
+        "math.3.statistics"
       ],
       "practice": null,
       "quiz": [
         {
           "kind": "choice",
-          "prompt": "A cyclist struck the top of his head. CT shows a biconvex high-attenuation collection at the vertex that extends from one side of the midline to the other but stops abruptly at the coronal suture on both sides. What is the collection?",
+          "prompt": "A 34-year-old fell from standing while drunk, was briefly dazed, and has vomited once. In the department her GCS is 15 at two hours, there is no scalp wound, no sign of a base of skull injury, and she remembers everything up to the moment she fell. She takes no medication. The nurse asks whether to book a CT head.",
           "choices": [
-            "An extradural haematoma from the sagittal sinus",
-            "An interhemispheric subdural haematoma",
-            "Subarachnoid blood filling the vertex sulci",
-            "A subgaleal haematoma over the vertex"
+            "No scan on these features, but observe and rescan if any of them changes",
+            "Scan now, because a single episode of vomiting is itself sufficient",
+            "Scan now, because alcohol makes the clinical assessment unreliable",
+            "No scan and no observation, since the decision rule has been satisfied"
           ],
-          "answer": "An extradural haematoma from the sagittal sinus",
-          "explain": "Two boundaries, two different rules, and here both are met by one answer: held at the sutures, free across the midline. A vertex extradural is classically venous, from a torn superior sagittal sinus or a fracture through the sagittal groove, and it behaves differently from the arterial temporal variety - it may accumulate slowly over hours to days, and at operation it bleeds from a sinus rather than from the middle meningeal artery, which is why the neurosurgeon wants to know the diagnosis before the bone flap is raised. It is also the extradural most often missed, because it sits at the top of the stack where axial images contain little brain and the collection is easily dismissed as volume averaging with the vault: coronal reformats are what show it. Subgaleal blood lies outside the skull, crosses sutures with the galea, and expands the scalp rather than indenting the brain.",
+          "answer": "No scan on these features, but observe and rescan if any of them changes",
+          "explain": "The Canadian CT Head Rule applies exactly here: minor injury, witnessed loss of awareness or amnesia, and a GCS that has returned to 15. Its high-risk features are GCS below 15 at two hours after injury, suspected open or depressed vault fracture, any sign of a base of skull fracture, two or more episodes of vomiting, and age sixty-five or over; its medium-risk features are retrograde amnesia of thirty minutes or more and a dangerous mechanism. She has none of them, so the rule does not call for imaging. What the rule does not do is discharge her: it selects a scan, not a disposition, and any rule loses its validity the moment the patient drifts outside the population it was derived in - so a second vomit, a drop to 14, a new headache or a raccoon eye all reopen the question. Alcohol is a reason to observe rather than an automatic reason to irradiate, though a patient too intoxicated to be assessed at all cannot be risk-stratified and is usually scanned for that reason. Note that the rule was derived excluding anticoagulated patients, which is why they are handled separately.",
           "ephemeral": false
         },
         {
           "kind": "numeric",
-          "prompt": "An extradural haematoma measures 6.0 cm in its greatest axial diameter, 4.0 cm perpendicular to that on the same image, and extends over 3.0 cm in the craniocaudal direction. Using the ABC/2 estimate for an ellipsoid, what is its volume in millilitres? Answer with the number alone.",
-          "answer": "36",
-          "explain": "ABC/2 multiplies the three orthogonal diameters and halves the product: 6 x 4 x 3 / 2 = 36 mL. It approximates the ellipsoid volume, which is four-thirds pi times abc over eight, or about 0.52abc, close enough to the 0.5 the formula uses - and it takes seconds at the workstation, which is why it has survived every attempt to replace it. The number matters because published surgical guidance takes an extradural volume above 30 cm3 as warranting evacuation whatever the GCS, so this measurement decides the content of the phone call rather than merely decorating the report. Two cautions: the estimate overstates volume for irregular or multilobular collections, and the C dimension should be counted from the images - the number of slices containing blood multiplied by the slice thickness - rather than eyeballed from a single plane.",
+          "prompt": "A head-injured man opens his eyes only when you press on his nail bed, makes incomprehensible groaning sounds, and withdraws his arm from that same painful stimulus without localising it. What is his total Glasgow Coma Scale score? Answer with the number alone.",
+          "answer": "8",
+          "explain": "Eye opening to pain scores 2, incomprehensible sounds score 2, and withdrawal from pain scores 4, giving 8. Report the three components rather than only the sum, because 8 can be assembled several ways with very different meanings - E1 V1 M6 in a fitting patient is not the same clinical problem as this one. Eight is the conventional threshold at which the airway is considered unprotected and intubation is planned, and a patient at or below it is in the severe band, so the imaging question shifts from whether to scan to how fast, and a low GCS with a bland CT should send you to look for axonal injury rather than to relax. The commonest scoring error is scoring localisation when the patient merely withdraws: localising means the hand crosses to the site of the stimulus, and the difference of one point sits exactly on the decision line.",
           "ephemeral": false
         },
         {
           "kind": "choice",
-          "prompt": "An 82-year-old on warfarin has been drowsy for a week, three weeks after a fall. The CT is reported as showing no haemorrhage. Reviewing it, you find that sulci are absent across the right convexity, the grey-white junction on that side is displaced several millimetres away from the inner table, and there is 4 mm of midline shift to the left. What explains this?",
+          "prompt": "An 84-year-old on apixaban for atrial fibrillation tripped and hit her forehead. She is fully alert, GCS 15, with no focal signs and no vomiting. A CT head performed within the hour shows no intracranial haemorrhage.",
           "choices": [
-            "An isodense subdural collection over that convexity",
-            "Cortical swelling from a subacute infarction",
-            "Diffuse cerebral oedema after a hypoxic insult",
-            "Subarachnoid blood layering within the sulci"
+            "Observe for a delayed bleed rather than discharging on the negative scan",
+            "Discharge directly, since an early negative CT excludes late haemorrhage",
+            "Book a routine repeat CT at six weeks to look for a chronic subdural",
+            "Request MRI now, because CT cannot exclude blood in the elderly brain"
           ],
-          "answer": "An isodense subdural collection over that convexity",
-          "explain": "A subdural haematoma passes through an isodense phase at roughly one to three weeks as the clot degrades, and it can match cortex closely enough to disappear. What gives it away is displacement rather than density: effaced sulci over a convexity, a grey-white interface standing off from the inner table, a compressed ventricle, and midline shift with no visible cause. Bilateral isodense collections are the real trap, because the shift cancels and the study looks normal but tight - so look for ventricles that are too small for the age and cortex held away from the vault on both sides. Anaemia lowers clot attenuation as well, so an acute subdural in a profoundly anaemic or coagulopathic patient can be isodense from the outset, and a fluid-fluid level or a swirl of unclotted blood within a collection raises the question of continuing haemorrhage. Contrast-enhanced CT, which opacifies the displaced cortical veins, or MRI, settles an equivocal study.",
+          "answer": "Observe for a delayed bleed rather than discharging on the negative scan",
+          "explain": "Two separate things make the anticoagulated elderly patient a special case. Age alone is a high-risk feature in the Canadian rule, so she was always going to be scanned; and anticoagulation means a bleed that had not started at one hour can still appear later, which the rule was never designed to address. The practical response is a period of observation with a low threshold for a repeat scan on any change - new headache, vomiting, drowsiness, a fresh focal sign - rather than either reflexive rescanning of every patient or discharge on the strength of one early film. Direct oral anticoagulants and warfarin are not equivalent: warfarin can be reversed with prothrombin complex concentrate and vitamin K guided by the INR, while a factor Xa inhibitor has its own agent and dabigatran has idarucizumab, and knowing which drug the patient takes changes the phone call you make when the scan is positive. Antiplatelet agents raise risk far less than anticoagulants, and aspirin alone least of all. MRI would be more sensitive but is the wrong tool in an acute trauma pathway.",
           "ephemeral": false
         },
         {
-          "kind": "choice",
-          "prompt": "A 76-year-old with no history of trauma has had several episodes of numbness spreading up the left hand and arm, each lasting a few minutes. CT shows blood confined to three adjacent sulci over the right parietal convexity, with nothing in the basal cisterns or the Sylvian fissures. What should be suspected?",
-          "choices": [
-            "Cerebral amyloid angiopathy of leptomeningeal vessels",
-            "Rupture of an anterior communicating artery aneurysm",
-            "Reversible cerebral vasoconstriction after a headache",
-            "A cortical vein thrombosis with local extravasation"
+          "kind": "short",
+          "prompt": "A three-year-old fell from a sofa, cried immediately, and is now playing normally with a small boggy swelling over the left parietal region and a GCS of 15. A parent asks for a CT scan to be certain. Set out how the calculus differs from the adult one and what you would offer.",
+          "answer": "The calculus differs on three counts. First, the child is more radiosensitive and has decades of life ahead for a stochastic malignancy to appear, so the dose of a CT head carries more weight than it does in an adult and the threshold to image should be correspondingly higher. Second, the clinical predictors are different and paediatric rules are validated separately, using features such as altered mental status, a palpable or basal skull fracture, a severe mechanism, a non-frontal scalp haematoma in an infant, prolonged loss of consciousness and persistent vomiting, and a well child at low risk can be observed instead of scanned. Third, observation is itself a validated strategy in this group, because deterioration is what identifies the few who need imaging. I would explain that a structured period of observation is safer than an immediate scan here, scan promptly if anything changes, and consider whether the history and the injury match, since a discrepant account is the first sign of an inflicted injury.",
+          "keywords": [
+            "radiosensitive",
+            "observation",
+            "haematoma",
+            "vomiting",
+            "inflicted"
           ],
-          "answer": "Cerebral amyloid angiopathy of leptomeningeal vessels",
-          "explain": "Distribution carries the whole argument. Aneurysmal blood arrives under arterial pressure into the basal cisterns and fills them, and an anterior communicating aneurysm loads the interhemispheric fissure and often the ventricles. Blood confined to a few convexity sulci comes from vessels lying on the surface, and in a patient over about sixty the commonest cause is amyloid angiopathy. The transient spreading sensory episodes are the classic companion - amyloid spells, probably cortical spreading depolarisation over the blood - and they matter because they are routinely mistaken for transient ischaemic attacks and treated with antiplatelets or anticoagulants, which is the worst available move in a brain full of fragile amyloid-laden vessels. Confirm on susceptibility-weighted MRI, looking for lobar microbleeds and cortical superficial siderosis that spare the deep grey matter. Reversible cerebral vasoconstriction also produces convexity subarachnoid blood and is the right answer in a younger patient with thunderclap headaches, often postpartum or after serotonergic drugs.",
+          "explain": "The dose argument is the one that is most often waved away as theoretical, but it is the reason paediatric rules exist at all: the aim is not to detect fewer injuries but to detect the same injuries with far fewer scans. Two paediatric particulars are worth carrying. A non-frontal scalp haematoma in a child under about two years is a real predictor of underlying fracture and bleed, because the infant skull is thin and the child cannot report symptoms - so the boggy swelling matters more the younger the child. And skull radiographs, long abandoned in adults, retain a place in the skeletal survey for suspected inflicted injury, where the question is the fracture itself rather than the brain. If imaging is needed for a suspected inflicted injury, CT answers the acute question and MRI is added for the age of collections and for parenchymal injury.",
           "ephemeral": false
         },
         {
           "kind": "order",
-          "prompt": "A patient thrown from a vehicle has blood in five separate spaces on one CT of the head. Put the spaces in order from the scalp inwards.",
+          "prompt": "Arrange the stages of an untreated expanding supratentorial mass by the rostrocaudal order in which the herniations appear.",
           "items": [
-            "subarachnoid",
-            "extradural",
-            "subgaleal",
-            "intraparenchymal",
-            "subdural"
+            "subfalcine",
+            "uncal",
+            "central-transtentorial",
+            "tonsillar"
           ],
-          "answer": "subgaleal extradural subdural subarachnoid intraparenchymal",
-          "explain": "The order is scalp, skull, dura, arachnoid, brain. Subgaleal blood lies between the galea aponeurotica and the pericranium, outside the skull, and crosses sutures because the galea does - unlike the neonatal subperiosteal cephalhaematoma, which is bounded by them. Extradural blood strips dura from the inner table and is held at the sutures. Subdural blood spreads in the potential space between dura and arachnoid, crossing sutures freely but stopped by the falx and tentorium. Subarachnoid blood follows cerebrospinal fluid into sulci and cisterns and so takes the shape of the space rather than pushing the brain aside. Intraparenchymal blood is within the brain itself. Every shape question a trauma CT asks - biconvex, crescentic, sulcal, rounded - reduces to which of these five spaces the blood is in, and getting the space right is what determines whether the answer is an operation, an observation, or an angiogram.",
-          "ephemeral": false
-        },
-        {
-          "kind": "short",
-          "prompt": "A registrar can recite that an extradural haematoma does not cross a suture while a subdural haematoma does not cross the midline, but cannot say why. Explain both boundaries from the anatomy of the dura, and give the exception you would still be careful about.",
-          "answer": "The dura has two layers. The outer periosteal layer is the inner periosteum of the skull and is continuous with the pericranium through the sutures, where it is firmly adherent, so an extradural collection, which forms by stripping dura off the inner table, is halted at sutural lines. The falx and tentorium are reflections of the inner meningeal layer alone and lie deep to the extradural space, so extradural blood crosses the midline without difficulty. Subdural blood collects deep to both layers, between dura and arachnoid, so it spreads under sutures freely but is walled off by the falx and tentorium. The exception to be careful about is a suture that has been fractured through or diastased, which an extradural can cross, and the unfused sutures of an infant, where the rule barely applies.",
-          "keywords": [
-            "periosteal",
-            "meningeal",
-            "suture",
-            "falx",
-            "strip"
-          ],
-          "explain": "Reading the two rules together gives a usable heuristic: a collection that crosses the midline is extradural, and a collection that crosses a suture is subdural. The one refinement is the interhemispheric subdural, which lies along one side of the falx and follows it without crossing to the other side, so it can look like midline blood without breaking the rule. The mechanism also explains the company each keeps. Extradural blood needs enough force to separate an adherent dura, so the great majority in adults have an overlying fracture crossing a vascular groove, most often the middle meningeal artery in the temporoparietal region. Subdural blood needs only a bridging vein to tear, which is why it appears in atrophic, anticoagulated and alcoholic patients after trivial injury, and why its volume tells you less about the force of the impact than its extradural counterpart.",
+          "answer": "subfalcine central-transtentorial uncal tonsillar",
+          "explain": "The cingulate gyrus slips under the free edge of the falx first, because the falx is the nearest boundary and the shift is horizontal. As volume grows, the diencephalon is pressed downward through the tentorial incisura - central transtentorial herniation - and the medial temporal lobe, the uncus, follows over the tentorial edge. Finally the cerebellar tonsils are forced through the foramen magnum onto the medulla, which is the terminal event. The sequence is worth holding because each step has a signature: subfalcine herniation threatens the anterior cerebral artery under the falx and infarcts the medial frontal lobe with contralateral leg weakness; transtentorial herniation compresses the third nerve to give a fixed dilated pupil and the posterior cerebral artery against the tentorial edge to infarct the occipital lobe; tonsillar herniation gives apnoea and death. A lateral temporal mass can reach the uncus before the diencephalon has moved much, so the order is the typical progression of a diffuse or convexity mass rather than an invariable law, and the tonsils are always last.",
           "ephemeral": false
         },
         {
           "kind": "choice",
-          "prompt": "A biconvex temporal collection 15 mm thick contains an irregular area of lower attenuation within an otherwise dense clot. The patient's GCS has fallen two points in twenty minutes. What does the low-attenuation area within the clot indicate?",
+          "prompt": "A patient with a large right hemisphere swelling and a fixed dilated right pupil is taken for a repeat CT. There is now a small ovoid haemorrhage in the central pons and midbrain, with no other new blood and no vascular injury on the angiographic images.",
           "choices": [
-            "Fresh unclotted blood still entering the collection",
-            "Cerebrospinal fluid tracking through a dural tear",
-            "Fat from a fracture through the diploic space",
-            "An older collection that has begun to liquefy"
+            "Brainstem perforators torn by downward displacement of the midbrain",
+            "A hypertensive pontine haemorrhage arising from a perforating vessel",
+            "A cavernous malformation in the pons that has bled during the admission",
+            "Basilar artery occlusion with haemorrhagic transformation of an infarct"
           ],
-          "answer": "Fresh unclotted blood still entering the collection",
-          "explain": "This is the swirl sign. Clotted blood is dense because it is retracted and packed with haemoglobin; blood that has not yet clotted attenuates less, so an active bleeding point shows as a swirl or lucency inside a dense haematoma. It means the collection is still growing, it is associated with rapid expansion and worse outcome, and paired with a falling GCS it argues for shortening the interval to theatre rather than repeating the scan in six hours. The near-miss worth thinking through is the older, liquefying collection: that takes days to weeks, is uniform rather than swirled, and does not occur in a patient injured within the hour. Cerebrospinal fluid entering through a dural tear would sit at water attenuation with a sharp margin rather than swirling through the clot. The same sign in an intraparenchymal haematoma carries the same meaning, and its contrast-enhanced relative is the spot sign.",
+          "answer": "Brainstem perforators torn by downward displacement of the midbrain",
+          "explain": "This is a Duret haemorrhage, the mechanical consequence of descending transtentorial herniation rather than a disease of the brainstem itself. The basilar artery is anchored below while the midbrain is driven downwards, so the perforating branches supplying the central pons and midbrain are stretched and torn; the resulting haemorrhage lies centrally and paramedian in the tegmentum, appears in the context of an obvious supratentorial mass, and is an agonal sign rather than an independent problem to treat. The value of naming it is that it changes nothing about the operation but a great deal about the conversation with the family and the intensive care team. A hypertensive pontine bleed occurs without a supratentorial mass and in a hypertensive patient, a cavernoma has a haemosiderin rim and popcorn heterogeneity on prior imaging, and haemorrhagic transformation of a brainstem infarct would follow a demonstrable arterial occlusion and an established infarct.",
           "ephemeral": false
         },
         {
           "kind": "short",
-          "prompt": "An 18-year-old is unconscious with a GCS of 6 after a high-speed collision. The CT shows two punctate dense foci at the grey-white junction of the right frontal lobe, no mass effect and nothing else. The team is reassured by the CT. Explain the discrepancy, and say what imaging you would request and what you would look for.",
-          "answer": "The discrepancy is typical of diffuse axonal injury, in which rotational acceleration shears axons where tissues of differing stiffness meet. Most of those lesions are non-haemorrhagic and therefore invisible on CT, so the CT badly underestimates the injury, and a near-normal CT with a very low GCS is evidence of axonal injury rather than grounds for reassurance; the two dense dots are the haemorrhagic minority. MRI is the study. Susceptibility-weighted imaging is the sequence that matters most, since it shows microhaemorrhages that gradient echo and certainly CT miss, and diffusion-weighted imaging shows the non-haemorrhagic lesions as foci of restricted diffusion. Look at the lobar grey-white junction, at the corpus callosum and particularly its splenium, and at the dorsolateral midbrain and upper pons, because depth of involvement grades the injury and carries the prognosis.",
+          "prompt": "A twenty-year-old is deeply unconscious after a motorcycle crash. The CT head shows no collection, no shift and no fracture; a few scattered dense dots sit at the lobar grey-white junction. The team wants to know why the scan and the patient do not match, and what to do about it.",
+          "answer": "The mismatch is the signature of diffuse axonal injury. Rotational acceleration and deceleration shear axons where tissues of different stiffness meet, and most of those lesions are non-haemorrhagic, so a CT that images density sees almost nothing while the patient is comatose; the few dense dots are the haemorrhagic minority of a far larger burden. The answer is MRI. Susceptibility-weighted imaging is the sequence that changes the study, because it exploits the field distortion around deoxygenated blood products and shows microhaemorrhages that gradient echo underestimates and CT misses entirely, while diffusion-weighted imaging shows non-haemorrhagic lesions as restricted foci in the first week. Grade the depth: lobar grey-white junction alone, then involvement of the corpus callosum, then the dorsolateral midbrain and upper pons, with prognosis worsening as the lesions go deeper. Timing matters, since the susceptibility lesions persist for months while the diffusion changes fade.",
           "keywords": [
             "axonal",
             "susceptibility",
-            "callosum",
-            "grey-white",
-            "midbrain"
+            "rotational",
+            "diffusion",
+            "callosum"
           ],
-          "explain": "The three depths are the classic staging: grade 1 lobar grey-white junction, grade 2 adding the corpus callosum, grade 3 adding the dorsolateral brainstem, with outcome worsening as the lesions go deeper. The mechanism explains the sites - the callosum is tethered by the falx and the midbrain by the tentorium, so both are shearing planes - and it also explains the company: intraventricular blood near the fornix, and small haemorrhages in the deep grey matter. Timing matters when requesting the study, because susceptibility lesions persist for months while diffusion lesions are most conspicuous in the first week. The final point is medico-legal as much as clinical: documenting axonal injury in a patient whose CT looks bland is often the only objective evidence of why the patient did not wake up.",
+          "explain": "The sites follow the mechanics. The corpus callosum is tethered against the falx and the dorsolateral midbrain against the tentorial edge, so both are shearing planes; grey-white junctions shear because myelinated white matter and cortex have different densities and so different inertia. That is also why the injury is a feature of rotational mechanisms - a fall from standing rarely produces it, a high-speed rotational deceleration commonly does. The clinical use of the scan is threefold: it explains a coma no other finding accounts for, it supplies prognostic information for the family and the rehabilitation team, and it provides objective evidence in the medico-legal account of a patient whose CT was called normal. It is not an emergency study; the patient is stabilised first, and MRI in a ventilated trauma patient is planned rather than rushed.",
+          "ephemeral": false
+        },
+        {
+          "kind": "choice",
+          "prompt": "A young man struck on the side of the head is alert. CT shows an undisplaced linear fracture of the right temporal bone that runs forward across the floor of the middle cranial fossa and through the wall of the carotid canal. There is no intracranial collection and he has no neurological deficit.",
+          "choices": [
+            "Add CT angiography of the neck and skull base before he leaves the scanner",
+            "Repeat the unenhanced CT head in six hours and image no further",
+            "Arrange outpatient MRI of the brain in the next two weeks",
+            "No further imaging, since he is neurologically intact after the injury"
+          ],
+          "answer": "Add CT angiography of the neck and skull base before he leaves the scanner",
+          "explain": "A fracture crossing the carotid canal is one of the accepted screening criteria for blunt cerebrovascular injury, alongside fractures extending into the foramen transversarium, cervical spine fractures particularly of the upper three levels or with subluxation, Le Fort II and III facial fractures, a basal skull fracture, severe closed head injury, and clinical clues such as a cervical bruit, an expanding neck haematoma or a neurological deficit unexplained by the brain images. The whole point of screening is that these patients are asymptomatic: dissection or pseudoaneurysm is silent until it embolises, and the strokes that follow occur hours to days later and are largely preventable with antithrombotic treatment. CT angiography is the screening test in practice, and the injury is graded on the Biffl scale from intimal irregularity through dissection with a haematoma, pseudoaneurysm, occlusion, to transection. A fracture crossing a venous sinus groove poses the venous version of the same question, and CT venography is what answers it. Deferring to outpatient MRI wastes the interval in which the stroke happens.",
+          "ephemeral": false
+        },
+        {
+          "kind": "choice",
+          "prompt": "A patient assaulted the previous evening has clear fluid dripping from the left nostril, bruising confined to both eyelids with sharp margins at the orbital rims, and reduced hearing on the left. The CT head is reported as showing no haemorrhage, and the reporting radiologist has looked only at soft tissue windows.",
+          "choices": [
+            "Review bone windows and thin reformats for a fracture of the skull base",
+            "Request lumbar puncture to confirm the source of the nasal discharge",
+            "Repeat the CT head after twenty-four hours on soft tissue windows",
+            "Attribute the findings to soft tissue swelling from the facial assault"
+          ],
+          "answer": "Review bone windows and thin reformats for a fracture of the skull base",
+          "explain": "Periorbital bruising held within the orbital rims, cerebrospinal fluid rhinorrhoea and conductive hearing loss are clinical signs of a base of skull fracture, and the clinical signs frequently arrive before the fracture is seen - retroauricular bruising and haemotympanum complete the set, and the retroauricular sign typically takes a day or two to appear. Base fractures are missed because they are undisplaced, oriented obliquely, and invisible at soft tissue windows: they are found on thin-section bone algorithm images with coronal and sagittal reformats, and their surrogate signs are pneumocephalus, an opacified or fluid-filled sphenoid sinus, and mastoid or middle ear opacification. Each site brings its own complication - a cribriform or posterior frontal sinus fracture brings a cerebrospinal fluid leak and meningitis, a petrous fracture brings facial nerve injury and hearing loss, and a fracture across the carotid canal or a sinus groove brings a vascular question. A lumbar puncture answers nothing here and is contraindicated thinking in a head injury.",
           "ephemeral": false
         },
         {
           "kind": "numeric",
-          "prompt": "On the axial CT at the level of the foramen of Monro, the distance from inner table to inner table is 140 mm, and the septum pellucidum lies 82 mm from the left inner table. What is the midline shift in millimetres? Answer with the number alone.",
-          "answer": "12",
-          "explain": "The true midline is half the width, 70 mm; the septum sits at 82 mm, so it is displaced 12 mm to the right. Measure at the foramen of Monro, from a line joining the anterior and posterior attachments of the falx, and state where you measured, because shift at the septum, at the third ventricle and at the pineal can differ in a rotated or asymmetric head. The threshold to have in mind is that an acute subdural haematoma more than 10 mm thick, or producing more than 5 mm of midline shift, is generally taken as warranting evacuation whatever the GCS. The most useful thing this measurement does, though, is flag a mismatch: shift far out of proportion to the visible collection means either that swelling is doing the work - in which case evacuating a thin collection will not fix it - or that there is a second collection you have not seen, most often an isodense one on the other side.",
+          "prompt": "In the Canadian CT Head Rule, what is the minimum duration of retrograde amnesia before the impact, in minutes, that counts as a medium-risk criterion for imaging? Answer with the number alone.",
+          "answer": "30",
+          "explain": "Thirty minutes or more of retrograde amnesia - memory lost for events before the blow, not after it - is one of the two medium-risk criteria, the other being a dangerous mechanism such as ejection from a vehicle, a pedestrian struck by a car, or a fall from more than about a metre or five stairs. The medium-risk criteria were derived to identify clinically important brain injury rather than injury needing an operation, which is why the rule is sometimes applied with only its high-risk criteria when the question is strictly neurosurgical. The distinction that trips people is retrograde against anterograde: patients volunteer post-traumatic amnesia readily, but the criterion asks what they have lost from before, so it must be asked for directly. Remember also who the rule excludes - patients on anticoagulants, those with a coagulopathy, seizure after the injury, focal deficit, age under sixteen, and no loss of consciousness or amnesia at all - because applying a rule outside its derivation population is the commonest way it fails.",
           "ephemeral": false
         },
         {
           "kind": "choice",
-          "prompt": "Three days after evacuation of an acute subdural haematoma that had caused 14 mm of midline shift, a patient develops weakness of the left leg. CT now shows new hypoattenuation along the medial surface of the right frontal lobe. What has happened?",
+          "prompt": "A CT head done four hours after a fall shows a 3 mm right frontal contusion and no shift. Twelve hours later the patient is more drowsy though still obeying commands, and a repeat scan shows the contusion is now 20 mm with surrounding oedema and 4 mm of shift.",
           "choices": [
-            "Anterior cerebral artery compression beneath the falx",
-            "Posterior cerebral artery compression at the tentorium",
-            "Watershed infarction from intraoperative hypotension",
-            "Venous infarction from a thrombosed bridging vein"
+            "Contusions expand over the first day, so early imaging understates the injury",
+            "The initial study was misreported and the contusion was always this large",
+            "A second impact has occurred between the two scans and caused the growth",
+            "Rebleeding indicates an underlying vascular malformation beneath the contusion"
           ],
-          "answer": "Anterior cerebral artery compression beneath the falx",
-          "explain": "Subfalcine herniation pushes the cingulate gyrus under the free edge of the falx, and the anterior cerebral artery and its callosomarginal branch travel with it, to be compressed against a rigid edge; the medial frontal cortex infarcts and the contralateral leg goes weak. It is the herniation easiest to see on a scan and easiest to leave out of a report, and it is worth naming explicitly because the resulting infarct appears days later and is otherwise attributed to the operation. The mirror image happens one level down: uncal herniation compresses the posterior cerebral artery against the tentorial edge and infarcts the occipital lobe, which is why a homonymous hemianopia after a temporal haematoma is not a coincidence. Watershed infarction from hypotension would be bilateral and in the borderzones rather than confined to one medial frontal lobe, and bridging vein thrombosis would not respect an arterial territory.",
-          "ephemeral": false
-        },
-        {
-          "kind": "choice",
-          "prompt": "A patient with a right temporal extradural haematoma develops a dilated right pupil and a left hemiparesis. Over the next hour the left side improves while the right side becomes weak, and the right pupil stays dilated. What accounts for the change of side?",
-          "choices": [
-            "The left cerebral peduncle is pressed on the tentorial edge",
-            "A second haematoma has developed on the left side",
-            "The left internal carotid artery has dissected acutely",
-            "A left middle cerebral artery embolus has occurred"
-          ],
-          "answer": "The left cerebral peduncle is pressed on the tentorial edge",
-          "explain": "This is Kernohan's notch phenomenon, the classic false localising sign. Descending transtentorial herniation on the right displaces the whole midbrain across, and the contralateral cerebral peduncle is crushed against the opposite rigid tentorial edge. The corticospinal fibres in that peduncle have not yet decussated, so they serve the right side of the body, and the hemiparesis appears on the same side as the haematoma. The pupil is the honest sign: the third nerve is compressed by the uncus on the side of the mass, so a fixed dilated pupil localises the lesion reliably where the limbs do not. The clinical weight of the sign is that it marks an advanced herniation, and that it must not be read as a new contralateral lesion, because the operation the patient needs is decompression of the right-sided collection. The same mechanism, carried further, tears the perforators from the basilar artery and produces a Duret haemorrhage in the pons and midbrain.",
+          "answer": "Contusions expand over the first day, so early imaging understates the injury",
+          "explain": "Contusions blossom. What begins as scattered petechial haemorrhage in bruised cortex coalesces and enlarges over roughly the first six to twenty-four hours, with oedema following, so the scan done in the first hours of a trauma call systematically shows the injury at its smallest. This is the single most useful fact about timing a head injury CT: a scan is a snapshot of a moving process, and the report should say when it was performed relative to the injury. The practical rule is to repeat the scan for a reason - clinical deterioration, an unexplained failure to improve, coagulopathy or anticoagulation, or a finding whose growth would change the plan such as a contusion abutting the tentorium - rather than reflexively at a fixed interval, since routine rescanning of stable patients with a normal examination rarely changes management and adds dose and transfers. A vascular malformation is a consideration in spontaneous rather than traumatic contusional bleeding.",
           "ephemeral": false
         },
         {
           "kind": "short",
-          "prompt": "A CT one hour after a fall onto the occiput is normal. Eight hours later the patient is confused, and a repeat CT shows haemorrhagic contusions in both inferior frontal lobes and the anterior right temporal lobe. Explain the distribution and the interval, and say what follows for any patient with a normal early CT and a persistent deficit.",
-          "answer": "The distribution is contrecoup. An occipital blow accelerates the brain against the irregular anterior skull base, so the inferior frontal surfaces, the gyrus rectus and the temporal poles strike the orbital roofs, the sphenoid ridges and the petrous ridges; contusions concentrate at those sites whatever the point of impact, because it is the roughness of the bone rather than the direction of the blow that determines where the brain is grazed. The interval reflects the blossoming of contusions: what begins as scattered petechial haemorrhage and oedema expands and coalesces over the first six to twenty-four hours, so a very early CT systematically underestimates the injury. It follows that a normal CT in the first hour does not exclude significant contusional injury, and that a patient with a persisting deficit, a falling GCS, coagulopathy or anticoagulation needs a repeat CT rather than reassurance, with MRI if the CT still fails to explain the clinical state.",
+          "prompt": "You are reporting the CT of a head-injured patient overnight and the ward is busy. List the trauma findings you would telephone rather than leave in a written report, and give the principle that decides which findings qualify.",
+          "answer": "The principle is that a finding must be telephoned when it needs an action within a shorter time than the report will realistically be read, and when the receiving team cannot see it for themselves. On that basis I would telephone any extra-axial collection with mass effect or midline shift, any evidence of herniation of any kind, an expanding or actively bleeding haematoma showing a swirl within the clot, obstructive hydrocephalus, a depressed or open vault fracture, a fracture crossing the carotid canal or a venous sinus groove because of the vascular injury it implies, a base of skull fracture with pneumocephalus or a cerebrospinal fluid leak, and any suspicion of inflicted injury in a child. The call is documented in the report with the time, the name of the person told, and what was said.",
           "keywords": [
-            "contrecoup",
-            "temporal",
-            "frontal",
-            "blossom",
-            "repeat"
+            "telephone",
+            "herniation",
+            "shift",
+            "depressed",
+            "documented"
           ],
-          "explain": "The anatomy is why contusions are so predictable: the anterior and middle cranial fossae are ridged and sharp, while the occipital bone and the posterior fossa are smooth, so occipital contusions are comparatively rare and inferior frontal and anterior temporal ones are the default. Two practical consequences follow. First, when a CT of a head injury looks normal, those two sites deserve a deliberate second look on a narrow window, because a small contusion against dense bone is easily lost. Second, expansion is the rule rather than the exception in the first day, so the question after a head injury CT is not only what is on it but when it was done - and in an anticoagulated patient, a normal early scan is the beginning of the observation, not the end of it.",
+          "explain": "Critical results communication is part of the report rather than an optional courtesy, and it is where trauma reporting most often fails in practice: the finding is correct, written, and read four hours later. Two refinements are worth adding. First, tell the person who can act - the neurosurgical registrar for a collection needing evacuation, the trauma team leader for the rest - rather than whoever answers. Second, the threshold falls at night and in a district hospital without on-site neurosurgery, because the action needed is a transfer and transfers take hours; a small extradural in a patient who is well is precisely the finding that turns dangerous while the report sits unread. Suspected inflicted injury in a child is on the list for a different reason: the action needed is protective as well as medical, and it cannot wait for the morning.",
+          "ephemeral": false
+        },
+        {
+          "kind": "choice",
+          "prompt": "A seventeen-year-old rugby player concussed a week ago, still headachy, took a further blow in training today and collapsed within minutes. CT shows diffuse cerebral swelling with effaced basal cisterns and only a thin subdural collection quite out of proportion to the swelling.",
+          "choices": [
+            "Catastrophic swelling after a second impact during symptomatic recovery",
+            "A rapidly expanding subdural haematoma driving the swelling mechanically",
+            "Post-traumatic epilepsy with prolonged seizure and secondary oedema",
+            "Global hypoxic-ischaemic injury from an unwitnessed cardiac arrest"
+          ],
+          "answer": "Catastrophic swelling after a second impact during symptomatic recovery",
+          "explain": "Second-impact syndrome is the label for diffuse malignant cerebral swelling that follows a further head injury while a young athlete is still symptomatic from an earlier one, and its imaging signature is exactly this mismatch: swelling far out of proportion to any collection, effaced cisterns, and a very rapid collapse. The mechanism is presumed to be loss of cerebrovascular autoregulation, which is why the swelling is vascular and immediate rather than the delayed cytotoxic oedema of an ischaemic insult. It is rare and it remains contested as an entity, so report the findings you can see - the swelling, the cistern effacement, the thin collection - and offer the syndrome as the clinical context rather than the diagnosis. Its whole value is preventive, and it is the argument behind graduated return-to-play protocols that keep a symptomatic player out. A thin subdural does not mechanically cause diffuse swelling, and hypoxic injury spares no territory and would show loss of grey-white differentiation in the deep grey matter with a reversal sign.",
           "ephemeral": false
         }
-      ],
-      "section": "Neuroradiology"
+      ]
     },
     {
       "id": "rad.5.intracranial-haemorrhage",
