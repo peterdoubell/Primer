@@ -2742,6 +2742,13 @@ class _CachedStatic(StaticFiles):
 
     def file_response(self, *args, **kwargs):
         resp = super().file_response(*args, **kwargs)
+        full_path = kwargs.get("full_path") or (args[0] if args else None)
+        # Some slim serverless Python images do not ship an OS MIME database
+        # entry for WebP, so Starlette falls back to text/plain.  The app also
+        # sends nosniff; make the raster contract explicit and portable rather
+        # than relying on the host's /etc/mime.types.
+        if full_path is not None and os.fspath(full_path).lower().endswith(".webp"):
+            resp.headers["Content-Type"] = "image/webp"
         scope = kwargs.get("scope") or (args[2] if len(args) > 2 else None)
         query = ""
         if isinstance(scope, dict):

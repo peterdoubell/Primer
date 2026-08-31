@@ -1287,6 +1287,237 @@
     return frame.root;
   }
 
+  function renderIntegerNumberLine(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const supplied = item.props && typeof item.props === 'object' && !Array.isArray(item.props)
+      ? item.props : {};
+    const authoredDefaults = { min: -12, max: 12, startValue: -2, startDelta: -7 };
+    const keys = ['min', 'max', 'start_value', 'start_delta'];
+    const suppliedIsValid = Object.keys(supplied).length === keys.length && keys.every(key =>
+      Object.prototype.hasOwnProperty.call(supplied, key) && Number.isInteger(supplied[key])) &&
+      supplied.min === -12 && supplied.max === 12 &&
+      supplied.start_value === -2 && supplied.start_delta === -7 &&
+      supplied.min < supplied.max &&
+      supplied.start_value >= supplied.min && supplied.start_value <= supplied.max &&
+      supplied.start_value + supplied.start_delta >= supplied.min &&
+      supplied.start_value + supplied.start_delta <= supplied.max;
+    const authored = suppliedIsValid ? {
+      min: supplied.min, max: supplied.max,
+      startValue: supplied.start_value, startDelta: supplied.start_delta,
+    } : authoredDefaults;
+    let value = authored.startValue;
+    let delta = authored.startDelta;
+
+    const graphic = svgNode('svg', {
+      viewBox: '0 0 760 210', class: 'integer-number-line-svg',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const currentText = node('span', { class: 'integer-number-line-key-value' });
+    const moveText = node('span', { class: 'integer-number-line-key-value' });
+    const destinationText = node('span', { class: 'integer-number-line-key-value' });
+    const key = node('div', { class: 'integer-number-line-key' },
+      node('div', { class: 'integer-number-line-key-item is-current' },
+        node('span', { class: 'integer-number-line-key-symbol', 'aria-hidden': 'true' }, '■'),
+        node('strong', {}, 'Current'), currentText),
+      node('div', { class: 'integer-number-line-key-item is-move' },
+        node('span', { class: 'integer-number-line-key-symbol', 'aria-hidden': 'true' }, '→'),
+        node('strong', {}, 'Signed move'), moveText),
+      node('div', { class: 'integer-number-line-key-item is-destination' },
+        node('span', { class: 'integer-number-line-key-symbol', 'aria-hidden': 'true' }, '●'),
+        node('strong', {}, 'Destination'), destinationText));
+    const scene = node('div', {
+      class: 'integer-number-line-scene', role: 'group',
+      'aria-label': 'Integer number line with textual current position, signed move, and destination',
+    }, graphic, key);
+
+    function formatInteger(number) {
+      return number < 0 ? '−' + Math.abs(number) : String(number);
+    }
+    function formatMove(number) {
+      return number > 0 ? '+' + number : formatInteger(number);
+    }
+    function moveWords(number) {
+      if (number < 0) return Math.abs(number) + ' units left';
+      if (number > 0) return number + ' units right';
+      return '0 units; stay in place';
+    }
+    function svgText(valueToShow, attrs) {
+      const label = svgNode('text', attrs);
+      label.textContent = valueToShow;
+      return label;
+    }
+    function mapValue(number) {
+      return 45 + (number - authored.min) * 670 / (authored.max - authored.min);
+    }
+    function destination() {
+      return value + delta;
+    }
+    function drawNumberLine() {
+      const target = destination();
+      const startX = mapValue(value);
+      const endX = mapValue(target);
+      graphic.replaceChildren();
+      graphic.append(
+        svgNode('rect', {
+          x: 12, y: 10, width: 736, height: 190, rx: 14,
+          class: 'integer-number-line-field',
+        }),
+        svgText('← smaller', { x: 45, y: 34, class: 'integer-number-line-direction', 'text-anchor': 'start' }),
+        svgText('greater →', { x: 715, y: 34, class: 'integer-number-line-direction', 'text-anchor': 'end' }),
+        svgNode('line', { x1: 35, y1: 140, x2: 725, y2: 140, class: 'integer-number-line-axis' }),
+        svgNode('polygon', { points: '35,140 48,132 48,148', class: 'integer-number-line-axis-head' }),
+        svgNode('polygon', { points: '725,140 712,132 712,148', class: 'integer-number-line-axis-head' }),
+      );
+
+      for (let tick = authored.min; tick <= authored.max; tick += 1) {
+        const x = mapValue(tick);
+        const major = tick === authored.min || tick === authored.max || tick % 3 === 0;
+        graphic.append(svgNode('line', {
+          x1: x, y1: major ? 124 : 131, x2: x, y2: major ? 157 : 150,
+          class: 'integer-number-line-tick' + (tick === 0 ? ' is-zero' : ''),
+        }));
+        if (major) {
+          graphic.append(svgText(formatInteger(tick), {
+            x, y: 181, class: 'integer-number-line-tick-label', 'text-anchor': 'middle',
+          }));
+        }
+      }
+
+      if (delta === 0) {
+        graphic.append(
+          svgNode('polygon', {
+            points: startX + ',128 ' + (startX + 11) + ',140 ' + startX + ',152 ' +
+              (startX - 11) + ',140',
+            class: 'integer-number-line-same-marker',
+          }),
+          svgText('S = E', {
+            x: startX, y: 120, class: 'integer-number-line-marker-label', 'text-anchor': 'middle',
+          }),
+        );
+      } else {
+        const direction = Math.sign(delta);
+        const arrowStart = startX + direction * 10;
+        const arrowEnd = endX - direction * 12;
+        graphic.append(
+          svgNode('line', { x1: startX, y1: 130, x2: startX, y2: 94, class: 'integer-number-line-guide' }),
+          svgNode('line', { x1: endX, y1: 130, x2: endX, y2: 94, class: 'integer-number-line-guide' }),
+          svgNode('line', { x1: arrowStart, y1: 82, x2: arrowEnd, y2: 82, class: 'integer-number-line-move' }),
+          svgNode('polygon', {
+            points: arrowEnd + ',82 ' + (arrowEnd - direction * 13) + ',73 ' +
+              (arrowEnd - direction * 13) + ',91',
+            class: 'integer-number-line-move-head',
+          }),
+          svgNode('rect', {
+            x: startX - 8, y: 132, width: 16, height: 16,
+            class: 'integer-number-line-current-marker',
+          }),
+          svgNode('circle', {
+            cx: endX, cy: 140, r: 10,
+            class: 'integer-number-line-destination-marker',
+          }),
+          svgText('S', {
+            x: startX, y: 125, class: 'integer-number-line-marker-label', 'text-anchor': 'middle',
+          }),
+          svgText('E', {
+            x: endX, y: 125, class: 'integer-number-line-marker-label', 'text-anchor': 'middle',
+          }),
+        );
+      }
+    }
+
+    const deltaSlider = node('input', {
+      type: 'range', step: 1, value: delta,
+      'aria-label': 'Choose a signed move',
+      oninput: event => {
+        delta = Number(event.target.value);
+        refresh(true);
+      },
+    });
+    const lowEnd = node('span');
+    const highEnd = node('span');
+    const sliderLabel = node('label', { class: 'model-slider integer-number-line-slider' },
+      node('span', { class: 'model-slider-title' }, 'Choose a signed move'),
+      deltaSlider,
+      node('span', { class: 'model-slider-ends' }, lowEnd, highEnd));
+    const decreaseButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Decrease the signed move by 1',
+      onclick: () => { delta -= 1; refresh(true); },
+    }, '−1');
+    const increaseButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Increase the signed move by 1',
+      onclick: () => { delta += 1; refresh(true); },
+    }, '+1');
+    const applyButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const from = value;
+        const applied = delta;
+        value += delta;
+        delta = 0;
+        refresh(false);
+        frame.status.textContent = 'Applied ' + formatMove(applied) + ': ' + formatInteger(from) +
+          ' + (' + formatMove(applied) + ') = ' + formatInteger(value) +
+          '. The current position is now ' + formatInteger(value) + '.';
+      },
+    }, 'Apply move');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        value = authored.startValue;
+        delta = authored.startDelta;
+        refresh(false);
+        frame.status.textContent = 'Reset to the authored start: current position −2 with signed move −7.';
+      },
+    }, 'Reset');
+
+    function refresh(announce) {
+      const moveMin = authored.min - value;
+      const moveMax = authored.max - value;
+      delta = Math.max(moveMin, Math.min(moveMax, delta));
+      const target = destination();
+      deltaSlider.min = String(moveMin);
+      deltaSlider.max = String(moveMax);
+      deltaSlider.value = String(delta);
+      deltaSlider.setAttribute('aria-valuetext', 'Signed move ' + formatMove(delta) +
+        ': ' + moveWords(delta) + ', from ' + formatInteger(value) + ' to ' + formatInteger(target));
+      lowEnd.textContent = formatMove(moveMin) + ' to ' + formatInteger(authored.min);
+      highEnd.textContent = formatMove(moveMax) + ' to ' + formatInteger(authored.max);
+      decreaseButton.disabled = delta <= moveMin;
+      increaseButton.disabled = delta >= moveMax;
+      applyButton.disabled = delta === 0;
+      currentText.textContent = formatInteger(value);
+      moveText.textContent = formatMove(delta) + ' (' + moveWords(delta) + ')';
+      destinationText.textContent = formatInteger(target);
+      drawNumberLine();
+
+      let comparison;
+      if (target === value) {
+        comparison = 'The current position and destination are equal.';
+      } else if (target > value) {
+        comparison = formatInteger(target) + ' is farther right than ' + formatInteger(value) +
+          ', so ' + formatInteger(target) + ' is greater.';
+      } else {
+        comparison = formatInteger(value) + ' is farther right than ' + formatInteger(target) +
+          ', so ' + formatInteger(value) + ' is greater.';
+      }
+      frame.readout.textContent = 'Current position: ' + formatInteger(value) +
+        '. Signed move: ' + formatMove(delta) + ', meaning ' + moveWords(delta) +
+        '. Destination: ' + formatInteger(target) + '. Farther right is greater. ' + comparison +
+        ' Absolute value: |' + formatInteger(target) + '| = ' + Math.abs(target) +
+        ', the destination’s distance from zero.';
+      if (announce) {
+        frame.status.textContent = 'Signed move ' + formatMove(delta) + ' means move ' +
+          moveWords(delta) + ', from ' + formatInteger(value) + ' to ' + formatInteger(target) + '.';
+      }
+    }
+
+    frame.canvas.classList.add('integer-number-line-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(sliderLabel,
+      node('div', { class: 'model-button-row integer-number-line-buttons' },
+        decreaseButton, increaseButton, applyButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
   function renderFunctionComposition(item, hooks) {
     const frame = modelFrame(item, hooks);
     const props = item.props || {};
@@ -3392,6 +3623,7 @@
     'atom-element-builder': renderAtomElementBuilder,
     'cell-microscope': renderCellMicroscope,
     'counterexample-lab': renderCounterexampleLab,
+    'integer-number-line-lab': renderIntegerNumberLine,
     'function-composition-lab': renderFunctionComposition,
     'circulation-route-lab': renderCirculationRoute,
     'truth-table-lab': renderTruthTable,

@@ -1015,6 +1015,12 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     forest = client.get('/api/curriculum/node/math.5.pde')
     assert forest.status_code == 200
     assert [entry['kind'] for entry in forest.json()['lesson_media']] == ['illustration', 'model']
+    for node_id in ('math.0.compare', 'math.2.decimals', 'math.3.slope',
+                    'math.4.diff-calc', 'math.5.frontier'):
+        illustrated = client.get('/api/curriculum/node/' + node_id)
+        assert illustrated.status_code == 200
+        assert [entry['kind'] for entry in illustrated.json()['lesson_media']] == [
+            'illustration']
 
     graph = client.get('/api/curriculum').json()
     assert all('lesson_media' not in node for node in graph['nodes'])
@@ -1026,6 +1032,23 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     assert image.status_code == 200
     assert image.headers['content-type'].startswith('image/webp')
     assert len(image.content) < 300_000
+
+
+def test_webp_static_type_does_not_depend_on_the_host_mime_database(
+        client, onboarded, monkeypatch):
+    """Serverless images may omit WebP from their MIME database.
+
+    Primer sends ``nosniff``, so the static response must remain explicit.
+    """
+    import starlette.responses
+
+    monkeypatch.setattr(starlette.responses, 'guess_type', lambda _path: (None, None))
+    image = client.get(
+        '/app/illustrations/forest/math/math-5-frontier-800.webp')
+
+    assert image.status_code == 200
+    assert image.headers['content-type'] == 'image/webp'
+    assert image.headers['x-content-type-options'] == 'nosniff'
 
 
 def test_search_and_article(client, onboarded, monkeypatch):
