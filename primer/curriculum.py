@@ -133,7 +133,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "alphabet-explorer", "inclusive-family-timeline",
     "day-night-rotation-lab", "classroom-paint-mixer",
     "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
-    "art-elements-composer",
+    "art-elements-composer", "integer-number-line-lab",
 })
 
 
@@ -270,6 +270,19 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "counterexample-lab":
                 if props != {"scenario": "squares-and-rectangles"}:
                     raise ValueError("{} counterexample lab has an unknown scenario".format(node.get("id")))
+            elif renderer == "integer-number-line-lab":
+                expected = {
+                    "min": -12, "max": 12,
+                    "start_value": -2, "start_delta": -7,
+                }
+                integer_keys = {"min", "max", "start_value", "start_delta"}
+                if props != expected or set(props) != integer_keys \
+                        or any(type(props.get(key)) is not int for key in integer_keys) \
+                        or not props["min"] < props["max"] \
+                        or not props["min"] <= props["start_value"] <= props["max"] \
+                        or not props["min"] <= props["start_value"] + props["start_delta"] <= props["max"]:
+                    raise ValueError("{} integer number line lab has unknown settings".format(
+                        node.get("id")))
             elif renderer == "function-composition-lab":
                 keys = {
                     "f_slope", "f_intercept", "g_slope", "g_intercept",

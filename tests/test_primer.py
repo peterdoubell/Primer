@@ -426,9 +426,8 @@ def test_young_nodes_have_child_voiced_lessons(curr):
     assert len(with_text) / len(young) >= 0.9
 
 
-def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
-    """Every selected lesson through Forest, plus the second Seedling and
-    Sprout tranches, gets an authored plate and a keyboard model."""
+def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
+    """The bounded-model cohorts keep both their authored plate and model."""
     expected = {
         'math.0.counting': (0, 'counter'),
         'math.0.shapes': (0, 'shape-explorer'),
@@ -447,6 +446,7 @@ def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
         'earth.1.seasons': (1, 'seasons-tilt-lab'),
         'arts.1.elements': (1, 'art-elements-composer'),
         'math.2.fractions': (2, 'fraction-equivalence-lab'),
+        'math.2.negatives': (2, 'integer-number-line-lab'),
         'chem.2.atoms': (2, 'atom-element-builder'),
         'bio.2.cells': (2, 'cell-microscope'),
         'mind.2.logic-intro': (2, 'counterexample-lab'),
@@ -463,14 +463,19 @@ def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
         'bio.5.developmental': (5, 'morphogen-gradient-lab'),
         'rad.3.ct-image': (5, 'ct-window-lab'),
     }
-    with_media = {nid: n for nid, n in curr.nodes.items() if n.get('lesson_media')}
-    assert set(with_media) == set(expected)
+    with_models = {
+        nid: node for nid, node in curr.nodes.items()
+        if any(item['kind'] == 'model' for item in node.get('lesson_media', []))
+    }
+    assert set(with_models) == set(expected)
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    for nid, node in with_media.items():
+    for nid, node in with_models.items():
         assert node['stage'] == expected[nid][0], nid
-        assert [entry['kind'] for entry in node['lesson_media']] == ['illustration', 'model'], nid
-        plate, model = node['lesson_media']
+        kinds = [entry['kind'] for entry in node['lesson_media']]
+        assert kinds == ['illustration', 'model'], nid
+        model = node['lesson_media'][-1]
         assert model['renderer'] == expected[nid][1]
+        plate = node['lesson_media'][0]
         assert plate['alt'].strip() and plate['caption'].strip()
         assert (plate['width'], plate['height']) == (1600, 1000)
         candidate_urls = set()
@@ -487,6 +492,73 @@ def test_the_first_lesson_media_cohorts_are_local_and_complete(curr):
                 header = fh.read(12)
             assert header[:4] == b'RIFF' and header[8:] == b'WEBP', disk
         assert plate['src'] in candidate_urls
+
+
+def test_every_mathematics_lesson_has_one_local_responsive_illustration(curr):
+    """Counting through postgraduate work has uninterrupted explanatory visuals."""
+    mathematics = {
+        nid: node for nid, node in curr.nodes.items() if nid.startswith('math.')
+    }
+    assert len(mathematics) == 59
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    raster_urls = set()
+    plate_ids = set()
+    for nid, node in mathematics.items():
+        plates = [item for item in node.get('lesson_media', [])
+                  if item['kind'] == 'illustration']
+        assert len(plates) == 1, nid
+        plate = plates[0]
+        assert plate['id'] not in plate_ids, plate['id']
+        plate_ids.add(plate['id'])
+        assert len(plate['alt'].split()) >= 8, nid
+        assert len(plate['caption'].split()) >= 8, nid
+        # The caption must add the mathematical insight; it may not merely
+        # repeat the image description as decorative alt copy.
+        assert plate['caption'].strip() != plate['alt'].strip(), nid
+        assert (plate['width'], plate['height']) == (1600, 1000)
+        candidates = {}
+        for candidate in plate['srcset'].split(','):
+            url, descriptor = candidate.strip().split()
+            width = int(descriptor[:-1])
+            assert width in (800, 1600), (nid, descriptor)
+            assert url not in raster_urls, url
+            raster_urls.add(url)
+            disk = os.path.join(root, 'web', url[len('/app/'):])
+            assert os.path.isfile(disk), disk
+            assert os.path.getsize(disk) < 300_000, '{} is too heavy'.format(disk)
+            actual_width, actual_height = LESSON_ILLUSTRATION_DIMENSIONS[url]
+            assert (actual_width, actual_height) == (width, width * 5 // 8)
+            candidates[url] = width
+        assert set(candidates.values()) == {800, 1600}, nid
+        assert candidates[plate['src']] == 800, nid
+    assert len(raster_urls) == 118
+
+
+def test_mathematics_visual_copy_keeps_the_audited_boundary_conditions(curr):
+    """Plates must not lend authority to the misconceptions found beside them."""
+    def copy(node_id):
+        return str(curr.nodes[node_id]).lower()
+
+    assert 'bigger digit means colder' not in copy('math.2.negatives')
+    assert '115 cm' not in copy('math.2.ratio')
+    assert '11520 cm' in copy('math.2.ratio')
+    assert 'sensitivity and 99% specificity' in copy('math.3.probability')
+    assert 'summaries alone do not determine' in copy('math.3.statistics')
+    assert 'with x measured in radians' in copy('math.3.precalc')
+    assert 'ordinary improper integral diverges' in copy('math.4.int-calc')
+    assert curr.nodes['math.4.complex']['goal'] == \
+        'The plane where every nonconstant polynomial has a root.'
+    differential_geometry = copy('math.5.diffgeo')
+    assert 'positive gaussian curvature on its outer region' in differential_geometry
+    assert 'vacuum can still have nonzero weyl curvature' in differential_geometry
+    assert 'calculus remains essential' in differential_geometry
+    assert 'the equations alone are insufficient under these weak hypotheses' in \
+        copy('math.5.complex-analysis')
+    frontier_plate = curr.nodes['math.5.frontier']['lesson_media'][0]
+    assert frontier_plate['id'] == 'evidence-proof-counterexample-plate'
+    assert 'induction chain' in frontier_plate['alt'].lower()
+    assert 'finite computation' in frontier_plate['caption'].lower()
+    assert 'counterexample refutes' in frontier_plate['caption'].lower()
 
 
 def test_second_sprout_copy_does_not_reinforce_common_misconceptions(curr):
@@ -578,6 +650,22 @@ def test_lesson_media_schema_never_resolves_an_authored_path(curr):
     ('cell-microscope', {'start_specimen': 'leaf', 'start_magnification': 200}),
     ('cell-microscope', {'start_specimen': 'leaf', 'start_magnification': True}),
     ('counterexample-lab', {'scenario': 'birds-brown'}),
+    ('integer-number-line-lab', {
+        'min': True, 'max': 12, 'start_value': -2, 'start_delta': -7,
+    }),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 12.0, 'start_value': -2, 'start_delta': -7,
+    }),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 11, 'start_value': -2, 'start_delta': -7,
+    }),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -11,
+    }),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -7,
+        'step': 1,
+    }),
     ('function-composition-lab', {
         'f_slope': True, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
         'x_min': -5, 'x_max': 5, 'start_x': 5,
@@ -832,11 +920,28 @@ def test_lesson_model_props_fail_closed(renderer, props):
         _validate_lesson_media({'id': 'test.1.model', 'lesson_media': [model]})
 
 
+@pytest.mark.parametrize('field', ('min', 'max', 'start_value', 'start_delta'))
+def test_integer_number_line_props_reject_bool_smuggling(field):
+    props = {'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -7}
+    props[field] = True
+    model = {
+        'id': 'test-integer-line', 'kind': 'model',
+        'renderer': 'integer-number-line-lab',
+        'title': 'Test integer number line',
+        'instructions': 'Test strict integer props.', 'props': props,
+    }
+    with pytest.raises(ValueError, match='integer number line lab'):
+        _validate_lesson_media({'id': 'test.2.integer-line', 'lesson_media': [model]})
+
+
 @pytest.mark.parametrize('renderer,props', [
     ('fraction-equivalence-lab', {'numerator': 2, 'denominator': 3, 'max_factor': 4}),
     ('atom-element-builder', {'protons': 6, 'neutrons': 6, 'electrons': 6}),
     ('cell-microscope', {'start_specimen': 'onion', 'start_magnification': 100}),
     ('counterexample-lab', {'scenario': 'squares-and-rectangles'}),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -7,
+    }),
     ('function-composition-lab', {
         'f_slope': 2, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
         'x_min': -5, 'x_max': 5, 'start_x': 5,
@@ -1827,6 +1932,7 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'make-ten', 'light-paths', 'algorithm-tracer', 'life-cycle',
                      'fraction-equivalence-lab', 'atom-element-builder',
                      'cell-microscope', 'counterexample-lab',
+                     'integer-number-line-lab',
                      'function-composition-lab', 'circulation-route-lab',
                      'truth-table-lab', 'stack-queue-lab',
                      'matrix-transform-lab', 'venturi-flow-lab',
@@ -1894,6 +2000,49 @@ def test_sapling_model_accessibility_geometry_registration_and_resets():
         "state = 'forward';",
     ):
         assert js.count(reset) >= 2 or reset == 'Object.assign(values, authored);'
+
+
+def test_integer_number_line_registration_accessibility_reset_and_accuracy(curr):
+    """The first next-stage mathematics model stays exact and independently usable."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+    start = js.index('function renderIntegerNumberLine(')
+    end = js.index('\n  function renderFunctionComposition(', start)
+    source = js[start:end]
+    lower = source.lower()
+
+    assert "'integer-number-line-lab': renderIntegerNumberLine" in js
+    model = next(item for item in curr.nodes['math.2.negatives']['lesson_media']
+                 if item['kind'] == 'model')
+    assert model['renderer'] == 'integer-number-line-lab'
+    assert model['props'] == {
+        'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -7,
+    }
+
+    assert "type: 'range'" in source and source.count("type: 'button'") >= 4
+    assert "role: 'group'" in source and 'aria-label' in source
+    assert "'aria-valuetext'" in source
+    assert "'Reset'" in source and "'Apply move'" in source
+    assert 'frame.controls.append' in source
+    assert 'frame.readout.textContent' in source
+    assert 'frame.status.textContent' in source
+    assert source.count('value = authored.startValue;') >= 2
+    assert source.count('delta = authored.startDelta;') >= 2
+
+    for phrase in ('current position', 'signed move', 'farther right is greater',
+                   'absolute value', 'distance from zero', 'units left', 'units right'):
+        assert phrase in lower
+    assert 'bigger digit' not in lower
+    assert 'math.abs(target)' in lower
+    assert 'number.isinteger' in lower
+
+    for selector in ('.integer-number-line-scene', '.integer-number-line-svg',
+                     '.integer-number-line-key', '.integer-number-line-buttons'):
+        assert selector in css
+    button_rule = css[css.index('.integer-number-line-buttons .btn {'):
+                      css.index('}', css.index('.integer-number-line-buttons .btn {'))]
+    assert 'min-width: 44px' in button_rule
+    assert '@media (max-width: 600px)' in css
 
 
 def test_tree_model_registration_accessibility_resets_and_accuracy_caveats():
