@@ -19,7 +19,8 @@ const api = {
   async post(path, body) { const r = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) }); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
 };
 
-const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null, restoreFocus: null, readerTitle: null };
+const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null,
+  mathImages: null, restoreFocus: null, readerTitle: null };
 // The review deck's document-level keydown handler, held here so leaving the
 // page can remove it deterministically — its old self-removal only fired on
 // the *next* keypress after the deck was gone.
@@ -56,6 +57,8 @@ const GLYPHS = {
   today: '<circle cx="12" cy="12" r="4.2"/><path d="M3 20h18"/><path d="M12 3.2v2M12 19v1.2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M3.2 12h2M18.8 12h2M5.2 18.8l1.4-1.4M17.4 6.6l1.4-1.4"/>',
   // A compass rose: the whole map, oriented.
   atlas: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+  // Four framed plates: a gallery of explanations, not a second atlas.
+  gallery: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2"/><path d="M5.2 8.6l1.6-1.7 2 2.1M15.2 8.6l1.5-1.6 2.1 2M5.2 18.6l1.6-1.7 2 2.1M15.2 18.6l1.5-1.6 2.1 2"/>',
   // Return: the loop that brings a thing back.
   review: '<path d="M20 12a8 8 0 1 1-2.7-6"/><path d="M20 4v5h-5"/>',
   // A lens over the page.
@@ -291,7 +294,7 @@ function hashFor(view, arg) {
 // spell it. This list said 'journal' (the API endpoint's name, not the
 // view's), so the Journey nav button silently "corrected" itself to Today on
 // every click and the view was unreachable by any path.
-const KNOWN_VIEWS = new Set(['today', 'atlas', 'review', 'library-search', 'story',
+const KNOWN_VIEWS = new Set(['today', 'atlas', 'math-images', 'review', 'library-search', 'story',
                              'journey', 'roadmap', 'library', 'node', 'read', 'reader', 'account']);
 function parseHash() {
   const h = (location.hash || '#/today').replace(/^#\/?/, '');
@@ -328,7 +331,10 @@ function renderRoute() {
     b.classList.toggle('active', active);
     if (active) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
-  const routes = { today: renderToday, atlas: renderAtlas, review: renderReview, 'library-search': renderSearch, roadmap: renderRoadmap, library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode, reader: renderReader, account: renderAccount };
+  const routes = { today: renderToday, atlas: renderAtlas, 'math-images': renderMathImages,
+    review: renderReview, 'library-search': renderSearch, roadmap: renderRoadmap,
+    library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode,
+    reader: renderReader, account: renderAccount };
   const page = $('#page'); if (!page) return;
   page.innerHTML = ''; page.scrollTop = 0;
   // The turn of the page. Removing and re-adding the class restarts the CSS
@@ -751,7 +757,8 @@ function renderShell() {
   const book = el('div', { id: 'book' });
   // Icons are deliberately distinct — four near-identical book glyphs are no
   // help to a child who cannot read the labels.
-  const nav = [['today', 'today', 'Today'], ['atlas', 'atlas', 'The Atlas'], ['review', 'review', 'Review'],
+  const nav = [['today', 'today', 'Today'], ['atlas', 'atlas', 'The Atlas'],
+    ['math-images', 'gallery', 'Math Images'], ['review', 'review', 'Review'],
     ['library-search', 'lookup', 'Look Up'], ['story', 'story', 'Your Story'], ['journey', 'journey', 'Journey'],
     ['roadmap', 'path', 'Your Path'], ['library', 'shelf', 'The Shelf']];
   const sidebar = el('nav', { id: 'sidebar', 'aria-label': 'Main' },
@@ -1913,7 +1920,7 @@ function openLightbox(img, opener) {
       // are scoped to #article, so a diagram lifted out of the article and into
       // the overlay would go back to being black ink on the night page —
       // present, and invisible. The class travels with the picture.
-      const big = el('img', { src: img.currentSrc || img.getAttribute('src') || '',
+      const big = el('img', { src: img.dataset.fullSrc || img.currentSrc || img.getAttribute('src') || '',
         alt: img.getAttribute('alt') || caption || '' });
       if (img.classList.contains('skin-invert')) big.classList.add('skin-invert');
       box.append(big);
@@ -2667,6 +2674,186 @@ function stageAscension(info) {
       renderRoute();
     }
   }).catch(() => {});
+}
+
+/* ---------------- Mathematics image dashboard ---------------- */
+function largestSrcFromSet(srcset, fallback) {
+  let best = { src: fallback || '', width: 0 };
+  String(srcset || '').split(',').forEach(candidate => {
+    const match = candidate.trim().match(/^(\S+)\s+(\d+)w$/);
+    if (match && Number(match[2]) > best.width) {
+      best = { src: match[1], width: Number(match[2]) };
+    }
+  });
+  return best.src;
+}
+
+async function renderMathImages(page) {
+  const data = await guard(page, () => S.mathImages
+    ? Promise.resolve(S.mathImages)
+    : api.get('/api/curriculum/mathematics/illustrations'));
+  if (!data) return;
+  S.mathImages = data;
+  const items = Array.isArray(data.illustrations) ? data.illustrations : [];
+  const stageCounts = STAGE_NAMES.map((_, stage) =>
+    items.filter(item => item.stage === stage).length);
+
+  page.append(pagehead('Mathematics · ' + items.length + ' visual explanations',
+    'Mathematics Image Dashboard',
+    'Every mathematics lesson plate in one place. Search the ideas, filter by learning stage, open a plate larger, or continue into the lesson it explains.'));
+
+  const overview = el('section', { class: 'card math-gallery-overview',
+    'aria-label': 'Illustration coverage' },
+    el('div', { class: 'math-gallery-promise' },
+      el('div', { class: 'math-gallery-mark', 'aria-hidden': 'true' }, glyph('gallery', 32)),
+      el('div', {}, el('h3', {}, 'Pictures that do mathematical work'),
+        el('p', {}, 'Each caption names the relationship made visible by the plate — quantity, structure, transformation or proof — rather than adding decoration.'))),
+    el('dl', { class: 'math-gallery-stats' },
+      el('div', {}, el('dt', {}, String(items.length)), el('dd', {}, 'lesson plates')),
+      el('div', {}, el('dt', {}, String(STAGE_NAMES.length)), el('dd', {}, 'learning stages')),
+      el('div', {}, el('dt', {}, '1:1'), el('dd', {}, 'lesson coverage'))));
+
+  let activeStage = null;
+  const bar = el('div', { class: 'math-stage-filters', role: 'radiogroup',
+    'aria-label': 'Filter images by learning stage' });
+  const stageOptions = [{ stage: null, label: 'All stages', count: items.length }]
+    .concat(STAGE_NAMES.map((label, stage) => ({ stage, label, count: stageCounts[stage] })));
+  stageOptions.forEach((option, index) => {
+    const b = btn({ class: 'math-stage-option' + (index === 0 ? ' picked' : ''),
+      role: 'radio', 'aria-checked': index === 0 ? 'true' : 'false',
+      tabindex: index === 0 ? '0' : '-1', dataset: { stage: option.stage == null ? 'all' : option.stage },
+      onkeydown: event => {
+        if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const controls = [...bar.querySelectorAll('[role=radio]')];
+        const current = controls.indexOf(event.currentTarget);
+        const direction = (event.key === 'ArrowDown' || event.key === 'ArrowRight') ? 1 : -1;
+        const next = event.key === 'Home' ? controls[0]
+          : event.key === 'End' ? controls[controls.length - 1]
+          : controls[(current + direction + controls.length) % controls.length];
+        next.focus(); next.click();
+      },
+      onclick: () => {
+        activeStage = option.stage;
+        bar.querySelectorAll('[role=radio]').forEach(control => {
+          control.classList.remove('picked');
+          control.setAttribute('aria-checked', 'false');
+          control.setAttribute('tabindex', '-1');
+        });
+        b.classList.add('picked');
+        b.setAttribute('aria-checked', 'true');
+        b.setAttribute('tabindex', '0');
+        paint();
+      } },
+      el('span', { class: 'math-stage-name' }, option.label),
+      el('strong', { class: 'math-stage-count' }, String(option.count)));
+    bar.append(b);
+  });
+
+  const search = el('input', { id: 'math-image-search', type: 'search',
+    placeholder: 'Try “fractions”, “symmetry” or “proof”…', autocomplete: 'off',
+    'aria-describedby': 'math-image-search-hint',
+    oninput: () => paint(),
+    onkeydown: event => {
+      if (event.key !== 'Escape' || !search.value) return;
+      event.preventDefault(); search.value = ''; paint();
+    } });
+  const clear = btn({ class: 'btn ghost small math-search-clear', onclick: () => {
+    search.value = ''; paint(); search.focus();
+  } }, 'Clear');
+  clear.hidden = true;
+  const tools = el('section', { class: 'math-gallery-tools', 'aria-label': 'Find an image' },
+    el('div', { class: 'math-search-copy' },
+      el('label', { for: 'math-image-search' }, glyph('lookup', 18), ' Search the explanations'),
+      el('p', { id: 'math-image-search-hint' }, 'Matches lesson titles, aims, image descriptions and captions.')),
+    el('div', { class: 'math-search-row', role: 'search' }, search, clear),
+    el('div', { class: 'math-filter-label' }, 'Coverage by stage'),
+    bar);
+
+  const live = el('div', { class: 'math-gallery-live', role: 'status', 'aria-live': 'polite' });
+  const board = el('div', { class: 'math-gallery-board' });
+  const groups = new Map();
+  let plateNumber = 0;
+  STAGE_NAMES.forEach((stageName, stage) => {
+    const stageItems = items.filter(item => item.stage === stage);
+    if (!stageItems.length) return;
+    const visibleCount = el('span', { class: 'math-stage-visible' });
+    const heading = el('div', { class: 'math-gallery-stage-head' },
+      sectionLabel(stageName), visibleCount);
+    const grid = el('div', { class: 'math-image-grid' });
+    const cards = [];
+    stageItems.forEach(item => {
+      plateNumber += 1;
+      const titleId = 'math-image-title-' + plateNumber;
+      const image = el('img', {
+        src: item.src, srcset: item.srcset,
+        sizes: '(max-width: 520px) calc(100vw - 34px), (max-width: 700px) calc(100vw - 48px), (max-width: 1200px) 42vw, 390px',
+        alt: item.alt, width: item.width, height: item.height,
+        loading: 'lazy', decoding: 'async', title: 'Open this image larger',
+        dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src) },
+      });
+      const figure = el('figure', { class: 'math-image-figure' }, image,
+        el('figcaption', {}, item.caption));
+      const card = el('article', { class: 'card math-image-card',
+        'aria-labelledby': titleId, dataset: { stage: item.stage } },
+        el('header', { class: 'math-image-card-head' },
+          el('span', { class: 'math-image-sequence' }, 'Plate ' + String(plateNumber).padStart(2, '0')),
+          el('h4', { id: titleId }, item.title)),
+        figure,
+        el('div', { class: 'math-image-card-body' },
+          el('p', { class: 'math-image-goal' },
+            el('span', {}, 'Lesson aim'), item.goal),
+          btn({ class: 'btn ghost small math-image-lesson',
+            onclick: () => go('node', item.lesson_id) }, 'Open lesson →')));
+      card._mathSearch = [item.title, item.goal, item.alt, item.caption]
+        .join(' ').toLocaleLowerCase();
+      cards.push(card); grid.append(card);
+    });
+    const section = el('section', { class: 'math-gallery-stage',
+      'aria-label': stageName + ' mathematics images' }, heading, grid);
+    groups.set(stage, { section, cards, visibleCount, total: stageItems.length });
+    board.append(section);
+  });
+  const noResults = emptyLeaf('gallery', 'No plate matches that view',
+    'Try another word, or choose “All stages” to bring the complete mathematics gallery back.');
+  noResults.classList.add('math-gallery-empty');
+  noResults.hidden = true;
+  board.append(noResults);
+  page.append(overview, tools, live, board);
+
+  // The app's existing picture handler supplies click and keyboard activation,
+  // an accessible trapped dialog, Escape-to-close, spoken captions and focus
+  // restoration.  The high-resolution source above makes its enlarged view a
+  // genuine enlargement rather than a stretched thumbnail.
+  attachPictureHandlers(board);
+  paint();
+
+  function paint() {
+    const query = search.value.trim().toLocaleLowerCase();
+    let shown = 0;
+    groups.forEach((group, stage) => {
+      let inStage = 0;
+      group.cards.forEach(card => {
+        const matchesStage = activeStage == null || activeStage === stage;
+        const matchesQuery = !query || card._mathSearch.includes(query);
+        const visible = matchesStage && matchesQuery;
+        card.hidden = !visible;
+        if (visible) { shown += 1; inStage += 1; }
+      });
+      group.section.hidden = inStage === 0;
+      group.visibleCount.textContent = query
+        ? inStage + ' of ' + group.total + ' plates'
+        : group.total + (group.total === 1 ? ' plate' : ' plates');
+    });
+    noResults.hidden = shown !== 0;
+    clear.hidden = !query;
+    const scope = activeStage == null ? 'all stages' : STAGE_NAMES[activeStage];
+    const said = 'Showing ' + shown + ' of ' + items.length + ' mathematics images in ' + scope
+      + (query ? ' matching “' + search.value.trim() + '”.' : '.');
+    clearTimeout(live._timer);
+    live.textContent = '';
+    live._timer = setTimeout(() => { live.textContent = said; }, 30);
+  }
 }
 
 /* ---------------- Atlas ---------------- */

@@ -97,6 +97,22 @@ def test_hosted_access_password_protects_html_and_api(monkeypatch):
     assert allowed.headers["vary"] == "Authorization, Cookie"
 
 
+def test_mathematics_illustration_dashboard_stays_behind_the_hosted_gate(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    path = "/api/curriculum/mathematics/illustrations"
+
+    with TestClient(srv.app) as client:
+        denied = client.get(path)
+        allowed = client.get(path, auth=("reader", "secret"))
+
+    assert denied.status_code == 401
+    assert allowed.status_code == 200
+    assert allowed.json()["count"] == 59
+    assert allowed.headers["vary"] == "Authorization, Cookie"
+
+
 def test_challenge_never_asks_the_browser_to_draw_its_own_dialog(monkeypatch):
     """WWW-Authenticate is what summons the unstyleable native credential box."""
     monkeypatch.setenv("VERCEL", "1")

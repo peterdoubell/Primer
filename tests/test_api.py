@@ -987,6 +987,45 @@ def test_curriculum_graph_shape(client, onboarded):
         "every locked node must explain itself"
 
 
+def test_mathematics_illustration_dashboard_is_complete_minimal_and_ordered(
+        client, onboarded):
+    import primer.server as srv
+    from primer.learner import STAGE_NAMES
+
+    response = client.get('/api/curriculum/mathematics/illustrations')
+    assert response.status_code == 200
+    body = response.json()
+    assert set(body) == {'domain', 'count', 'illustrations'}
+    assert body['domain'] == 'math'
+    items = body['illustrations']
+    assert body['count'] == len(items) == 59
+    assert {stage: sum(item['stage'] == stage for item in items)
+            for stage in range(6)} == {0: 5, 1: 8, 2: 12, 3: 15, 4: 9, 5: 10}
+
+    public_keys = {'lesson_id', 'title', 'stage', 'stage_name', 'goal', 'media_id',
+                   'src', 'srcset', 'alt', 'caption', 'width', 'height'}
+    assert all(set(item) == public_keys for item in items)
+    ranked = [(index, node) for index, node in enumerate(srv.curr.nodes.values())
+              if node['domain'] == 'math']
+    expected = [node for _, node in sorted(
+        ranked, key=lambda pair: (pair[1]['stage'], pair[0]))]
+    assert [item['lesson_id'] for item in items] == [node['id'] for node in expected]
+    assert len({item['lesson_id'] for item in items}) == 59
+
+    for item, node in zip(items, expected):
+        plates = [entry for entry in node['lesson_media']
+                  if entry['kind'] == 'illustration']
+        assert len(plates) == 1
+        plate = plates[0]
+        assert item == {
+            'lesson_id': node['id'], 'title': node['title'], 'stage': node['stage'],
+            'stage_name': STAGE_NAMES[node['stage']], 'goal': node['goal'],
+            'media_id': plate['id'], 'src': plate['src'], 'srcset': plate['srcset'],
+            'alt': plate['alt'], 'caption': plate['caption'],
+            'width': plate['width'], 'height': plate['height'],
+        }
+
+
 def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     detail = client.get('/api/curriculum/node/math.0.counting')
     assert detail.status_code == 200
@@ -1015,6 +1054,14 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     forest = client.get('/api/curriculum/node/math.5.pde')
     assert forest.status_code == 200
     assert [entry['kind'] for entry in forest.json()['lesson_media']] == ['illustration', 'model']
+    for node_id in ('phys.0.push-pull', 'phys.2.waves', 'phys.5.quantum-info',
+                    'phys.0.light-shadow', 'phys.4.fluids'):
+        physics = client.get('/api/curriculum/node/' + node_id)
+        assert physics.status_code == 200
+        payload = physics.json()
+        assert [entry['kind'] for entry in payload['lesson_media']] == [
+            'illustration', 'model']
+        assert all('answer' not in question for question in payload.get('quiz', []))
     for node_id in ('math.0.compare', 'math.2.decimals', 'math.3.slope',
                     'math.4.diff-calc', 'math.5.frontier'):
         illustrated = client.get('/api/curriculum/node/' + node_id)
@@ -1901,7 +1948,8 @@ def test_no_route_publishes_the_answer_key(client, onboarded):
             for i, v in enumerate(o):
                 yield from answer_bearing(v, "{}[{}]".format(path, i))
 
-    routes = ["/api/today", "/api/curriculum", "/api/state", "/api/roadmap",
+    routes = ["/api/today", "/api/curriculum",
+              "/api/curriculum/mathematics/illustrations", "/api/state", "/api/roadmap",
               "/api/journal", "/api/story", "/api/review/due"]
     routes += ["/api/curriculum/node/" + n for n in list(srv.curr.nodes)[:10]]
     for r in routes:
