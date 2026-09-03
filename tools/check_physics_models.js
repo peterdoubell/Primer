@@ -12,11 +12,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const CURRICULUM_PATH = path.join(ROOT, 'data', 'curriculum', '03-physics.json');
-const MODELS_PATH = path.join(ROOT, 'web', 'lesson-models.js');
 const EXPECTED_SCENARIO_COUNT = 36;
 
 class FakeStyle {
@@ -266,9 +264,11 @@ function collectPhysicsModels(curriculum) {
 function loadRenderer() {
   const document = new FakeDocument();
   const window = {};
-  const context = vm.createContext({ document, window, console });
-  const source = fs.readFileSync(MODELS_PATH, 'utf8');
-  new vm.Script(source, { filename: MODELS_PATH }).runInContext(context);
+  global.document = document;
+  global.window = window;
+  // Load the repository-owned module through Node's normal module boundary;
+  // never evaluate file contents as dynamically supplied code.
+  require('../web/lesson-models.js');
   if (!window.PrimerLessonModels || typeof window.PrimerLessonModels.render !== 'function') {
     throw new Error('lesson model registry did not initialize');
   }
