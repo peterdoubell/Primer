@@ -4636,3 +4636,72 @@ Suite: **568 passed, 1 skipped** (one new hosted-safety test);
 empty, fills, and survives a shell rebuild; the skeleton labels read in
 voice; `/api/today` reports `measured:false, partly:false` on the fresh
 scratch record.
+
+## Round 28 — depth, motion and the hand, stated once
+
+The book's surfaces had a physical grammar that nobody had written down. Nine
+ad-hoc corner radii (7, 8, 9, 10, 12, 14…) meant no two surfaces agreed on how
+soft the book is; a single mid-distance shadow made every card read as a
+sticker; every press slid instead of giving; twenty-eight transitions each
+carried its own hand-typed easing; and the twelve `prefers-reduced-motion`
+guards were scattered one per component, so every new animation was one
+forgotten guard away from a WCAG failure. PR #3 had said most of this two
+months ago and then sat unmerged while `styles.css` grew past it into a
+conflict. This round absorbs it, credited, and finishes the thought.
+
+**Stated once, in `:root`.** Three corner steps (`--r-ctl` 10px, `--r-card`
+14px, `--r-sheet` 18px); a three-step duration scale (120/240/420ms) and one
+stagger beat (40ms); one ease-out and one spring; three elevations built as two
+layers each — a tight contact line and a wide faint wash — on the existing
+`--shadow`, so the night palette darkens them without a second rule set; and a
+`--glass` with its `--dk-glass` partner, the one theme-bearing addition, present
+in both dark blocks (parity re-checked block-accurately: 57/57).
+
+**Reduced motion, decided once.** A single rule zeroes every duration token and
+flattens the spring. Anything built from the tokens — including anything built
+next year — is silenced by construction rather than by remembering a guard. The
+functional motion that must survive (spinner, skeleton sheen, read-aloud marker)
+never used the tokens and keeps its own guards. The JS half is one
+`reducedMotion()` helper replacing four inline `matchMedia` copies, so the two
+sides cannot drift.
+
+**What moves now.** Cards rest and lift on the spring; the press compresses
+(`scale .965`) instead of sliding; the modal falls out of focus behind a real
+12px blur and arrives as a sheet, a touch small and low, springing to rest; the
+toast is glass where the engine can afford it and solid chrome where it cannot
+— never translucency without the blur, which is just text on mud; every route
+turns the page, the new view rising three pixels out of the paper; the Atlas
+builds down the page one field per beat, capped at eight so a twentieth field
+never means a wait; a quest tick lands on the spring; a mastered tile carries a
+hairline of gilt along its top edge, the one place the book allows itself a lit
+edge. Haptics gain one word — `tap`, a commitment made — wired to grading a
+review card and nothing else. Every button buzzing was considered and refused:
+the motor speaks when the book judges or celebrates, not when it is touched.
+
+**What the live probe caught, in the order it caught it.** (1) Every Atlas
+block read `--i: 8`: the stagger took `shown` for its index, and `shown` counts
+topics, so the first field already stood past the cap and the whole wall
+arrived on one late beat. A dedicated block counter fixed it; the probe then
+read `0,1,2…8,8,8` and delays `0s → 0.04s → 0.32s`. (2) The quest tick's spring
+was added as a *second* declaration of `.quest-item.done .tick`, and the
+`--on-fill` contrast test reads the first — so the check lost sight of the
+colour rule that still stood two lines down. Merged into one rule rather than
+taught the test to look harder. (3) With every duration token zeroed the last
+Atlas block still sat at opacity 0 for 0.32s: its delay was `calc(--i * 40ms)`,
+not token-built, and a zero-length animation that still *waits* its delay holds
+the `from` state. The beat became `--stagger`, zeroed with the rest. Each fix
+was re-probed, not assumed.
+
+**Two things the probe showed that were not defects, and were not "fixed".**
+A solid-black screenshot with a provably healthy DOM turned out to be
+`scrollY 8747` of `9467`: my own `location.hash =` write had triggered native
+fragment scrolling. The app's own navigation keeps `scrollY 0` on every route,
+so nothing was changed. And a "one shadow layer" reading was a bad string
+split in the probe; counting `rgba(` gave the true two.
+
+Suite: **787 passed, 1 skipped**, run against the final stylesheet, not the one
+before the last fix; `check_banks.py`: 0 problems. Verified live on the sandbox
+in both themes: the tokens resolve, the page turns on real navigation, the
+stagger runs `0s → 0.04s → 0.32s` and collapses to `0s` with every token
+zeroed, the modal blurs and springs, the toast is glass, and the console is
+empty.

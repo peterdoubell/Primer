@@ -1,4 +1,13 @@
 /* The Primer — an illuminated, book-like interface. */
+/* Reduced motion, decided once. Zeroing the duration tokens and flattening
+   the spring silences every transition and animation written against them —
+   including ones not yet written — instead of adding a thirteenth scattered
+   per-component guard. The functional motion that must survive (the spinner,
+   the skeleton sheen, the read-aloud marker) does not use these tokens and
+   keeps its own existing guards. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; --stagger: 0ms; --spring: linear; --ease-out: linear; }
+}
 :root {
   color-scheme: light;
   --paper: #f6f0e2;
@@ -36,6 +45,38 @@
   --edge: #8a7f62;
   --ink-place: #665c4d;   /* authored placeholder: the UA default fails in dark */
   --muted: var(--ink-faint); /* quiet status text; was referenced but never defined */
+  /* ---- depth, motion, geometry: the book's physical grammar, stated once ----
+     Corners had drifted into nine ad-hoc radii (7, 8, 9, 10, 12, 14…), so no two
+     surfaces agreed on how soft the book is. Three steps replace them — control,
+     card, sheet — nudged a hair rounder, which is where a corner stops reading
+     as machined and starts reading as continuous. (Absorbed from PR #3, which
+     said this first and then sat unmerged while the file moved under it.) */
+  --r-ctl: 10px;          /* buttons, inputs, choices, nav pills, tiles */
+  --r-card: 14px;         /* cards, quest items, the tutor's replies */
+  --r-sheet: 18px;        /* modals and full panels */
+  /* One motion scale, and one spring for every press and pop. The old eases
+     were flat and all slightly different; the spring overshoots by a hair and
+     settles, which is what makes a control feel sprung rather than animated.
+     Every duration below is a token so that reduced-motion can zero them all
+     in one rule — a new animation built from these is covered by construction,
+     rather than by remembering a guard. */
+  --dur-fast: 120ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+  --stagger: 40ms;        /* the beat between staggered siblings; a token so reduced motion can zero it */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --spring: cubic-bezier(0.34, 1.3, 0.45, 1);
+  /* Elevation as two layers where there was one: a tight contact line and a
+     wide, faint ambient wash. A single mid-distance shadow reads as a sticker;
+     the pair reads as a thing actually resting on the page. Built on --shadow,
+     so the night palette darkens them without a second set of rules. */
+  --elev-1: 0 1px 2px var(--shadow), 0 8px 24px -12px var(--shadow);
+  --elev-2: 0 2px 4px var(--shadow), 0 14px 32px -12px var(--shadow);
+  --elev-3: 0 1px 3px var(--shadow), 0 24px 64px -16px var(--shadow);
+  /* The ground of a surface that lets the page show through, blurred. Solid
+     chrome stays the fallback: never translucency without the blur, which is
+     just text on mud. Themed, so it carries a --dk-* partner below. */
+  --glass: rgba(43, 32, 15, 0.72);
   /* Translucent state washes. These were hardcoded light-palette RGB
      (rgba(51,122,75,…), rgba(201,162,39,…)) at every use site, so the green
      and gold tints stayed daylight-mixed on the night page. Declared as
@@ -180,6 +221,7 @@
   --dk-btn-gold-ink: #0a0e14;
   --dk-shell-base: #03060a;
   --dk-scrim: rgba(2,6,12,0.74);  /* the room lights off at night */
+  --dk-glass: rgba(10, 18, 27, 0.66);
   --dk-chrome-bg: linear-gradient(165deg, #0c1420, #04080e);
   --dk-panel-bg: linear-gradient(170deg, #0e1823, #05090f);
   --dk-chrome-ink: #cfe0ee;
@@ -216,7 +258,7 @@
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --btn-gold-fill: var(--dk-btn-gold-fill); --btn-gold-ink: var(--dk-btn-gold-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
-    --scrim: var(--dk-scrim);
+    --scrim: var(--dk-scrim); --glass: var(--dk-glass);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
     --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
     --sk-sheen: var(--dk-sk-sheen);
@@ -249,7 +291,7 @@
     --btn-fill: var(--dk-btn-fill); --btn-ink: var(--dk-btn-ink);
     --btn-gold-fill: var(--dk-btn-gold-fill); --btn-gold-ink: var(--dk-btn-gold-ink);
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
-    --scrim: var(--dk-scrim);
+    --scrim: var(--dk-scrim); --glass: var(--dk-glass);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
     --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
     --sk-sheen: var(--dk-sk-sheen);
@@ -376,8 +418,8 @@ button { font-family: var(--sans); cursor: pointer; }
 .card {
   background: var(--paper-2); border: 1px solid var(--paper-edge);
   color: var(--ink);            /* buttons must not inherit UA buttontext */
-  border-radius: 10px; padding: 18px 20px; margin-bottom: 16px;
-  box-shadow: 0 2px 5px var(--shadow);
+  border-radius: var(--r-card); padding: 18px 20px; margin-bottom: 16px;
+  box-shadow: var(--elev-1);
 }
 .card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; }
 .grid { display: grid; gap: 16px; }
@@ -385,8 +427,9 @@ button { font-family: var(--sans); cursor: pointer; }
 .grid.three { grid-template-columns: repeat(3, 1fr); }
 .grid.auto { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
 
-.lesson-card { border-color: var(--edge); cursor: pointer; transition: transform 0.12s, box-shadow 0.12s; position: relative; overflow: hidden; }
-.lesson-card:hover { transform: translateY(-3px); box-shadow: 0 8px 18px var(--shadow); }
+.lesson-card { border-color: var(--edge); cursor: pointer; position: relative; overflow: hidden;
+  transition: transform var(--dur-base) var(--spring), box-shadow var(--dur-base) var(--ease-out); }
+.lesson-card:hover { transform: translateY(-3px); box-shadow: var(--elev-2); }
 /* The press: the page settles back under the finger, ink meeting paper — the
    tactile half of the hover lift, without which a card feels like glass. */
 .lesson-card:active { transform: translateY(-1px) scale(.995);
@@ -1777,11 +1820,16 @@ button { font-family: var(--sans); cursor: pointer; }
   /* Fixed dark stops in both themes: --accent lightens in dark mode, which put
      near-white label text on a pale salmon fill (2.46:1). */
   background: var(--btn-fill); color: var(--btn-ink); border: none;
-  padding: 11px 20px; border-radius: 8px; font-size: 15px; font-weight: 600;
-  box-shadow: 0 2px 4px var(--shadow); transition: filter 0.15s, transform 0.1s;
+  padding: 11px 20px; border-radius: var(--r-ctl); font-size: 15px; font-weight: 600;
+  box-shadow: 0 1px 2px var(--shadow), 0 4px 10px -6px var(--shadow);
+  transition: filter var(--dur-fast), transform var(--dur-base) var(--spring);
 }
 .btn:hover { filter: brightness(1.08); }
-.btn:active { transform: translateY(1px); }
+/* The press compresses instead of sliding: the whole control gives a little
+   under the finger and springs back — the difference between pressing a key
+   and nudging a tile. The short duration is the down-stroke; the spring is
+   the release. */
+.btn:active { transform: scale(0.965); transition-duration: var(--dur-fast); }
 /* The primary CTA. Its gradient was a fixed daylight pair, so the loudest
    gold object on the page stayed leaf-gilt on a page of phosphor; themed like
    --btn-fill, with near-black ink by day and night-paper ink on the brighter
@@ -2205,14 +2253,16 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 #tutor .composer button { background: var(--btn-gold-fill); border: none; color: var(--btn-gold-ink); border-radius: 20px; padding: 0 16px; font-weight: 700; }
 
 /* ---------- quiz / practice ---------- */
-.q-card { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: 12px; padding: 26px; box-shadow: 0 3px 8px var(--shadow); }
+.q-card { background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: var(--r-card); padding: 26px; box-shadow: var(--elev-2); }
 .q-prompt { font-size: 21px; line-height: 1.5; white-space: pre-wrap; margin-bottom: 20px; }
 .q-choices { display: grid; gap: 10px; }
 .choice {
-  text-align: left; padding: 13px 16px; border: 1.5px solid var(--edge); border-radius: 9px;
-  background: var(--field); font-size: 16px; font-family: var(--serif); color: var(--ink); transition: all 0.12s;
+  text-align: left; padding: 13px 16px; border: 1.5px solid var(--edge); border-radius: var(--r-ctl);
+  background: var(--field); font-size: 16px; font-family: var(--serif); color: var(--ink);
+  transition: border-color var(--dur-fast), background var(--dur-fast), transform var(--dur-base) var(--spring);
 }
 .choice:hover { border-color: var(--link); background: var(--field-hi); }
+.choice:active { transform: scale(0.985); transition-duration: var(--dur-fast); }
 .choice.correct { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); font-weight: 600; }
 /* The wrong fill was the last daylight-mixed wash: at night the border and
    text turned magenta while a hardcoded brown-red sat underneath them. */
@@ -2282,11 +2332,18 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .stage-label { font-family: var(--sans); font-size: 11px; color: var(--ink-faint); text-align: right; }
 .node-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .node-dot {
-  font-family: var(--sans); font-size: 12px; padding: 5px 10px; border-radius: 6px;
-  border: 1px solid var(--rule); background: var(--field); color: var(--ink-soft); cursor: pointer; transition: all 0.12s;
+  font-family: var(--sans); font-size: 12px; padding: 5px 10px; border-radius: var(--r-ctl);
+  border: 1px solid var(--rule); background: var(--field); color: var(--ink-soft); cursor: pointer;
+  transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast),
+              transform var(--dur-base) var(--spring);
 }
-.node-dot:hover { border-color: var(--link); }
-.node-dot.mastered { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); }
+.node-dot:hover { border-color: var(--link); transform: translateY(-1px); }
+.node-dot:active { transform: scale(0.96); transition-duration: var(--dur-fast); }
+/* A mastered tile carries a hairline of gilt along its top edge — the one
+   place the book allows itself a lit edge — so the wall of the Atlas reads as
+   raised where it has been earned, not merely recoloured. */
+.node-dot.mastered { background: var(--tint-green); border-color: var(--green); color: var(--green-ink);
+  box-shadow: inset 0 1px 0 var(--tint-gold-strong); }
 .node-dot.mastered::before { content: "✓ "; }
 .node-dot.locked { color: var(--ink-locked); border-color: var(--rule);
   background: var(--paper); cursor: pointer; }   /* a locked tile explains itself */
@@ -2401,10 +2458,24 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .tl-year .ms { margin-top: 3px; }
 
 /* ---------- overlay / toast ---------- */
-#overlay { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 100; backdrop-filter: blur(2px); }
-#overlay .modal { background: var(--paper); border-radius: 14px; padding: 30px; max-width: 560px; width: 92%; max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--panel-bg); color: var(--chrome-hi); padding: 12px 22px; border-radius: 30px; font-family: var(--sans); font-size: 14px; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
-#toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+/* The page does not vanish behind a modal, it falls out of focus: a real blur
+   under the scrim, so what is behind stays present the way a room does behind
+   a held-up page. The 2px it used to get read as a rendering mistake. */
+#overlay { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 100;
+  backdrop-filter: blur(12px) saturate(1.3); -webkit-backdrop-filter: blur(12px) saturate(1.3); }
+#overlay .modal { background: var(--paper); border-radius: var(--r-sheet); padding: 30px; max-width: 560px; width: 92%; max-height: 88vh; overflow-y: auto;
+  box-shadow: var(--elev-3); animation: sheet-pop var(--dur-slow) var(--spring); }
+/* Arrives like a sheet, not a slide: a touch small and a touch low, springing
+   to rest. Reduced motion zeroes --dur-slow and this collapses with it. */
+@keyframes sheet-pop { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
+#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--panel-bg); color: var(--chrome-hi); padding: 12px 22px; border-radius: 30px; font-family: var(--sans); font-size: 14px; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,0.4); opacity: 0; transition: opacity var(--dur-base), transform var(--dur-slow) var(--spring); pointer-events: none; }
+/* Glass where the engine can afford it: the page shows through, blurred, so a
+   passing notice stops being a black bar stamped over the book. */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  #toast { background: var(--glass); backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4); border: 1px solid var(--chrome-rule); }
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
 
 .muted { color: var(--ink-faint); font-family: var(--sans); font-size: 13px; }
 .spinner { width: 26px; height: 26px; border: 3px solid var(--rule); border-top-color: var(--link); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 30px auto; }
@@ -2678,11 +2749,17 @@ h3 > .card-open { font: inherit; color: inherit; }
 /* Daily quest checklist. */
 .quest { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 20px; }
 .quest-item { flex: 1 1 180px; background: var(--paper-2); border: 1.5px solid var(--paper-edge);
-  border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  border-radius: var(--r-card); padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+  transition: border-color var(--dur-base), background var(--dur-base); }
 .quest-item .tick { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--edge);
-  display: grid; place-items: center; font-size: 15px; color: transparent; flex: none; }
+  display: grid; place-items: center; font-size: 15px; color: transparent; flex: none;
+  transition: transform var(--dur-slow) var(--spring), color var(--dur-base), background var(--dur-base), border-color var(--dur-base); }
 .quest-item.done { border-color: var(--green); background: var(--tint-green); }
-.quest-item.done .tick { background: var(--green); border-color: var(--green); color: var(--on-fill); }
+/* The tick is drawn, not switched: it lands on the spring when the step is
+   done, so completing a quest is something the reader sees happen. One rule,
+   not two — a second declaration of the same selector is how the --on-fill
+   contrast check lost sight of this one. */
+.quest-item.done .tick { background: var(--green); border-color: var(--green); color: var(--on-fill); transform: scale(1.08); }
 /* Nothing to do rather than something left undone: settled, not urgent, and
    visibly not the same state as a step still waiting on the reader. */
 .quest-item.excused { border-style: dashed; }
@@ -3265,6 +3342,18 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 @keyframes card-settle { from { transform: translateY(14px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
 .reveal-region:not(:empty) { animation: ink-reveal .28s ease; }
 @keyframes ink-reveal { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+/* A route change turns the page: the new view rises a few pixels out of the
+   paper and settles. Set by renderRoute after the view exists; purely visual,
+   so focus and announcement are untouched. Domain blocks on the Atlas take a
+   short stagger by index so the wall builds down the page instead of
+   appearing all at once — capped in JS so eleven fields never means a wait. */
+#page.turning { animation: ink-reveal var(--dur-base) var(--ease-out) both; }
+.domain-block { animation: ink-reveal var(--dur-base) var(--ease-out) both;
+  /* The delay is built from a token too: a zero-length animation that still
+     WAITS its delay holds the `from` state — opacity 0 — for up to a third of
+     a second under reduced motion. A live probe caught the last block sitting
+     invisible at 0.32s while every duration around it read 0s. */
+  animation-delay: calc(var(--i, 0) * var(--stagger)); }
 @media (prefers-reduced-motion: reduce) {
   .deck::before, .deck::after { transition: none; }
   .deck-card { animation: none; }

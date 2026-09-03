@@ -133,12 +133,19 @@ function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<':
 const HAPTICS = {
   ok: [12],                     // a nod
   no: [50],                     // a firmer, single "hm"
-  fanfare: [15, 60, 15, 60, 40] // the confetti, felt
+  fanfare: [15, 60, 15, 60, 40], // the confetti, felt
+  tap: [8]                       // a commitment made — a card graded
 };
+// Asked once, in one place. Four sites each held their own inline matchMedia
+// call; the CSS side now zeroes every motion token under reduced motion, and
+// this is the JS half of the same decision, so the two cannot drift apart.
+function reducedMotion() {
+  try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+}
 function haptic(kind) {
   try {
     if (!navigator.vibrate) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (reducedMotion()) return;
     navigator.vibrate(HAPTICS[kind] || []);
   } catch (e) { /* a silent motor is never worth an error */ }
 }
@@ -324,6 +331,10 @@ function renderRoute() {
   const routes = { today: renderToday, atlas: renderAtlas, review: renderReview, 'library-search': renderSearch, roadmap: renderRoadmap, library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode, reader: renderReader, account: renderAccount };
   const page = $('#page'); if (!page) return;
   page.innerHTML = ''; page.scrollTop = 0;
+  // The turn of the page. Removing and re-adding the class restarts the CSS
+  // animation on every route; it is purely visual, so focus, announcement and
+  // the title below are exactly as they were. Reduced motion zeroes it.
+  page.classList.remove('turning'); void page.offsetWidth; page.classList.add('turning');
   // Keyboard users must land on the new view, not back at the document top.
   page.setAttribute('tabindex', '-1');
   const rendered = (routes[view] || renderToday)(page, arg);
@@ -1740,7 +1751,7 @@ function inViewport(e) {
   return r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight);
 }
 function readAloudControls() {
-  const reduce = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
+  const reduce = reducedMotion;
   // Mounted empty and written into later: a live region that arrives with its
   // text already inside it is announced unreliably, or not at all.
   const status = el('span', { class: 'read-status', role: 'status', 'aria-live': 'polite' });
@@ -2594,7 +2605,7 @@ function flyXP(xp) {
 }
 function celebrate() { confetti(); }
 function confetti() {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (reducedMotion()) return;
   // Two ceremonies can now land within a second of each other (mastery, then
   // the page it turned). One storm is a celebration; two overlaid is noise.
   if (document.querySelector('.confetti')) return;
@@ -2729,13 +2740,18 @@ async function renderAtlas(page) {
   function paint(test, label) {
     board.innerHTML = '';
     let shown = 0;
+    // The stagger wants the block's rendered position, and `shown` is not
+    // that: it counts topics, so the first field already stood past the cap
+    // and every block arrived on the same late beat — caught by a live probe
+    // reading eleven identical --i values.
+    let blockIndex = 0;
     g.domains.forEach(d => {
       // Filtering only ever reduces the render — a domain with nothing left in
       // it drops out rather than standing as an empty heading.
       const dnodes = g.nodes.filter(n => n.domain === d.id && test(n));
       if (!dnodes.length) return;
       shown += dnodes.length;
-      board.append(domainBlock(d, dnodes));
+      board.append(domainBlock(d, dnodes, blockIndex++));
     });
     if (!shown) board.append(emptyLeaf('atlas', 'Nothing in that state — yet',
       'No tile answers to that just now. Choose “All fields” to see the whole map again.'));
@@ -2799,8 +2815,10 @@ async function renderAtlas(page) {
       marks.length ? el('span', { class: 'dot-mark', 'aria-hidden': 'true' }, ' ' + marks.join('')) : null);
   }
 
-  function domainBlock(d, dnodes) {
-    const block = el('section', { class: 'domain-block', 'aria-label': d.name });
+  function domainBlock(d, dnodes, i) {
+    // Capped: eleven fields at 40ms is fine, but the cap is what keeps a
+    // future twentieth field from making the reader wait for the wall.
+    const block = el('section', { class: 'domain-block', 'aria-label': d.name, style: '--i:' + Math.min(i || 0, 8) });
     const total = d.stages.reduce((s, x) => s + x.total, 0);
     // Across 353 tiles the one that matters is the first open, unmastered tile
     // in the field, and finding it used to be a scan by eye. Focus travels with
@@ -2812,7 +2830,7 @@ async function renderAtlas(page) {
         if (!frontierTile) return;
         frontierTile.focus({ preventScroll: true });
         frontierTile.scrollIntoView({ block: 'center',
-          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+          behavior: reducedMotion() ? 'auto' : 'smooth' });
       } }, '→ My frontier');
     block.append(el('div', { class: 'domain-head' },
       // Same daylight-hex lift as the lesson-card domain tag: themed via
@@ -3306,6 +3324,7 @@ async function renderReview(page, arg) {
   _reviewKeyHandler = onKey;
   document.addEventListener('keydown', onKey);
   async function grade(c, q) {
+    haptic('tap');
     let r;
     // How long this card took, so the book can eventually tell this reader
     // how long five of them will take *them*. Clamped and discarded server
