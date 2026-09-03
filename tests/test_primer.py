@@ -591,6 +591,20 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
     assert len(raster_urls) == 78
 
 
+def test_every_curriculum_lesson_has_one_unique_explanatory_plate():
+    """The whole book, not a favoured subject subset, carries visual teaching."""
+    from tools.check_curriculum_illustrations import audit
+
+    result = audit()
+    assert result['lessons'] == 432
+    assert result['illustrated'] == result['lessons']
+    assert result['missing'] == 0
+    assert result['responsive_webps'] == result['lessons'] * 2
+    assert not result['errors'], '\n'.join(result['errors'][:20])
+    assert all(domain['illustrated'] == domain['lessons']
+               for domain in result['domains'])
+
+
 def test_physics_visual_copy_keeps_scientific_boundaries(curr):
     sound = str(curr.nodes['phys.1.sound']).lower()
     forces = str(curr.nodes['phys.2.forces']).lower()
@@ -3874,9 +3888,58 @@ def test_mathematics_image_dashboard_is_a_complete_accessible_route():
     assert "img.dataset.fullSrc || img.currentSrc" in js
     assert "math-image-card[hidden]" in css
     assert ".math-image-grid" in css and ".math-stage-filters" in css
+    assert ".math-search-row input[type=search]" in css
     assert 'body[data-stage="0"] .math-stage-option' in css
     assert 'body[data-stage="4"] .math-image-card' in css
     assert "@media (max-width: 430px)" in css
+
+
+def test_lesson_illustrations_have_a_full_resolution_keyboard_viewer():
+    js = _web("app.js")
+    css = _web("styles.css")
+
+    assert "dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src) }" in js
+    assert "attachPictureHandlers(media)" in js
+    assert "Read labels at full size" in js
+    assert "Full-resolution image. Scroll horizontally and vertically" in js
+    assert "lightbox-image-scroll is-zoomed" not in js  # state is toggled, not baked in
+    assert ".lightbox-image-scroll.is-zoomed" in css
+    assert "width: var(--zoom-width, 1600px)" in css
+
+
+def test_radiology_diagrams_have_complete_html_text_equivalents(curr):
+    """Clinical reasoning must not be trapped in tiny text inside a raster."""
+    generated = {
+        node_id: node for node_id, node in curr.nodes.items()
+        if node_id.startswith('rad.') and node_id != 'rad.3.ct-image'
+    }
+    assert len(generated) == 83
+    for node_id, node in generated.items():
+        plate = next(item for item in node['lesson_media']
+                     if item['kind'] == 'illustration')
+        description = plate.get('long_description')
+        assert set(description) == {'title', 'mode', 'items', 'takeaway'}, node_id
+        assert description['title'] == node['title']
+        assert description['mode'] in {'flow', 'compare', 'map', 'scale', 'physics'}
+        assert description['takeaway'] == plate['caption']
+        assert len(description['items']) == 3
+        for item in description['items']:
+            assert set(item) == {'heading', 'label', 'detail'}
+            assert all(isinstance(item[key], str) and item[key].strip()
+                       for key in item)
+
+    js = _web('app.js')
+    css = _web('styles.css')
+    assert 'function lessonLongDescription(item)' in js
+    assert "ordered ? 'ol' : 'ul'" in js
+    assert "peers to compare, not steps in a sequence" in js
+    assert "'Read this diagram as text'" in js
+    assert "part.heading !== part.label" in js
+    assert "image.setAttribute('aria-describedby', longDescription.id)" in js
+    assert "window.matchMedia('(max-width: 720px)').matches" in js
+    assert '.lesson-diagram-steps' in css
+    assert '@media (max-width: 720px)' in css
+    assert 'grid-template-columns: 1fr' in css
 
 
 def test_review_card_decays_strength_before_adjusting_it(store):

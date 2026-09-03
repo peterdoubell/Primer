@@ -454,6 +454,36 @@ button { font-family: var(--sans); cursor: pointer; }
   padding: 13px 18px 15px; border-top: 1px solid var(--paper-edge);
   color: var(--ink-soft); font-size: 14px; line-height: 1.55;
 }
+.lesson-diagram-details {
+  border-top: 1px solid var(--paper-edge); background: var(--field);
+  color: var(--ink-soft); font-size: 14px; line-height: 1.5;
+}
+.lesson-diagram-details summary {
+  cursor: pointer; padding: 12px 18px; color: var(--ink);
+  font-family: var(--sans); font-weight: 700;
+}
+.lesson-diagram-details summary:focus-visible {
+  outline: 2px solid var(--focus); outline-offset: -3px;
+}
+.lesson-diagram-description { padding: 0 18px 16px; }
+.lesson-diagram-mode { margin: 0 0 10px; color: var(--ink-faint); }
+.lesson-diagram-steps {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px; margin: 0; padding: 0; list-style: none;
+}
+.lesson-diagram-steps li {
+  min-width: 0; padding: 10px 12px; border: 1px solid var(--paper-edge);
+  border-radius: 10px; background: var(--paper-2);
+}
+.lesson-diagram-steps strong { display: block; color: var(--ink); font-family: var(--sans); }
+.lesson-diagram-steps p { margin: 5px 0 0; }
+.lesson-diagram-takeaway {
+  margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--rule);
+  color: var(--ink); font-weight: 600;
+}
+@media (max-width: 720px) {
+  .lesson-diagram-steps { grid-template-columns: 1fr; }
+}
 
 /* ---------- mathematics image dashboard ----------
    This is a catalogue of explanatory plates, so the caption is never demoted
@@ -484,7 +514,7 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 .math-search-copy p { margin: 0; color: var(--ink-faint); font-size: 13px; }
 .math-search-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; margin: 7px 0 18px; }
-.math-search-row input { min-height: 46px; font-size: 17px; }
+.math-search-row input[type=search] { min-height: 46px; font-size: 17px; }
 .math-search-clear { min-width: 72px; }
 .math-filter-label {
   margin-bottom: 7px; color: var(--gold-ink); font: 700 11px/1.3 var(--sans);
@@ -3543,6 +3573,7 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
    specificity against a two-class selector. */
 #overlay .modal.wide { max-width: min(94vw, 900px); }
 .lightbox { text-align: center; }
+.lightbox-image-scroll { max-width: 100%; border-radius: 8px; }
 .lightbox img {
   width: 100%; height: auto; max-height: 78vh; object-fit: contain;
   border-radius: 8px; background: var(--paper-2);
@@ -3551,6 +3582,16 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
      full daylight punched through the page, and a line diagram turns invisible. */
   filter: var(--img-glare);
 }
+.lightbox-zoom { margin-bottom: 12px; }
+.lightbox-image-scroll.is-zoomed {
+  overflow: auto; max-height: 72vh; text-align: left;
+  overscroll-behavior: contain; border: 1px solid var(--paper-edge);
+  box-shadow: inset 0 0 0 1px var(--field);
+}
+.lightbox-image-scroll.is-zoomed img {
+  display: block; width: var(--zoom-width, 1600px); max-width: none;
+  max-height: none; border-radius: 0;
+}
 .lightbox img.skin-invert { filter: var(--img-invert); }
 .lightbox .cap {
   display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -3558,7 +3599,8 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 }
 .lightbox .cap p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
 /* The affordance the dead anchors never had: this picture answers to a touch. */
-#article a[href="#"] img, #article img.tappable { cursor: zoom-in; }
+#article a[href="#"] img, #article img.tappable,
+.lesson-illustration img.tappable, .math-image-figure img.tappable { cursor: zoom-in; }
 
 /* ---------------- the Atlas as an instrument ----------------
    The payload carries how far every tile has come and the page used to draw
