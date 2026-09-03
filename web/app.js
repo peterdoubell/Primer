@@ -1448,6 +1448,43 @@ function openStory(s, canAdvance, needs, onClose) {
 }
 
 /* ---------------- Node / lesson ---------------- */
+function lessonLongDescription(item) {
+  const description = item && item.long_description;
+  if (!description || typeof description !== 'object' || !Array.isArray(description.items)) return null;
+  const id = 'lesson-diagram-text-' + String(item.id || 'plate').replace(/[^a-z0-9_-]+/gi, '-');
+  const mode = String(description.mode || '').toLowerCase();
+  const ordered = mode === 'flow' || mode === 'scale';
+  const modeLead = {
+    flow: 'Read these three steps in order.',
+    compare: 'These three entries are peers to compare, not steps in a sequence.',
+    map: 'These entries describe distinct locations or mapped relationships.',
+    scale: 'Read these three positions as a progression.',
+    physics: 'The three panels connect physical properties to visible evidence.',
+  }[mode] || 'Read the diagram\u2019s three relationships.';
+  const list = el(ordered ? 'ol' : 'ul', { class: 'lesson-diagram-steps' });
+  description.items.forEach(part => {
+    if (!part || !part.label || !part.detail) return;
+    const role = part.heading && part.heading !== part.label ? part.heading + ' · ' : '';
+    list.append(el('li', {},
+      el('strong', {}, role + part.label),
+      el('p', {}, part.detail)));
+  });
+  if (!list.childElementCount) return null;
+  const body = el('div', { id, class: 'lesson-diagram-description' },
+    el('p', { class: 'lesson-diagram-mode' }, modeLead), list);
+  if (description.takeaway) body.append(
+    el('p', { class: 'lesson-diagram-takeaway' }, description.takeaway));
+  const openOnSmallScreen = typeof window.matchMedia === 'function'
+    && window.matchMedia('(max-width: 720px)').matches;
+  return {
+    id,
+    node: el('details', {
+      class: 'lesson-diagram-details',
+      open: openOnSmallScreen ? '' : null,
+    }, el('summary', {}, 'Read this diagram as text'), body),
+  };
+}
+
 function renderLessonMedia(items) {
   if (!Array.isArray(items) || !items.length) return null;
   const media = el('div', { class: 'lesson-media' });
@@ -1464,9 +1501,15 @@ function renderLessonMedia(items) {
         loading: 'eager',
         decoding: 'async',
         fetchpriority: 'high',
+        dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src) },
       });
       const figure = el('figure', { class: 'card lesson-illustration' }, image);
       if (item.caption) figure.append(el('figcaption', {}, item.caption));
+      const longDescription = lessonLongDescription(item);
+      if (longDescription) {
+        image.setAttribute('aria-describedby', longDescription.id);
+        figure.append(longDescription.node);
+      }
       media.append(figure);
       return;
     }
@@ -1477,7 +1520,12 @@ function renderLessonMedia(items) {
       if (model) media.append(model);
     }
   });
-  return media.childElementCount ? media : null;
+  if (!media.childElementCount) return null;
+  // Explanatory labels remain available on small screens: the same accessible
+  // viewer used by article and dashboard pictures can open a plate's 1600px
+  // source and pan it at its authored size.
+  attachPictureHandlers(media);
+  return media;
 }
 
 async function renderNode(page, nodeId) {
@@ -1920,10 +1968,37 @@ function openLightbox(img, opener) {
       // are scoped to #article, so a diagram lifted out of the article and into
       // the overlay would go back to being black ink on the night page —
       // present, and invisible. The class travels with the picture.
-      const big = el('img', { src: img.dataset.fullSrc || img.currentSrc || img.getAttribute('src') || '',
+      const fullSource = img.dataset.fullSrc || img.currentSrc || img.getAttribute('src') || '';
+      const big = el('img', { src: fullSource,
         alt: img.getAttribute('alt') || caption || '' });
       if (img.classList.contains('skin-invert')) big.classList.add('skin-invert');
-      box.append(big);
+      const imageScroll = el('div', { class: 'lightbox-image-scroll' }, big);
+      const canReadFullSize = Boolean(img.dataset.fullSrc);
+      if (canReadFullSize) {
+        const authoredWidth = Math.max(800, Number(img.getAttribute('width')) || 1600);
+        imageScroll.style.setProperty('--zoom-width', authoredWidth + 'px');
+        const zoom = btn({ class: 'btn ghost small lightbox-zoom',
+          'aria-pressed': 'false', onclick: () => {
+            const expanded = imageScroll.classList.toggle('is-zoomed');
+            zoom.setAttribute('aria-pressed', expanded ? 'true' : 'false');
+            zoom.textContent = expanded ? 'Fit the whole image' : 'Read labels at full size';
+            if (expanded) {
+              imageScroll.setAttribute('tabindex', '0');
+              imageScroll.setAttribute('aria-label',
+                'Full-resolution image. Scroll horizontally and vertically to read every label.');
+              requestAnimationFrame(() => {
+                imageScroll.scrollLeft = Math.max(0,
+                  (imageScroll.scrollWidth - imageScroll.clientWidth) / 2);
+                imageScroll.focus({ preventScroll: true });
+              });
+            } else {
+              imageScroll.removeAttribute('tabindex');
+              imageScroll.removeAttribute('aria-label');
+            }
+          } }, 'Read labels at full size');
+        box.append(zoom);
+      }
+      box.append(imageScroll);
       if (caption) {
         box.append(el('div', { class: 'cap' },
           speakBtn(() => caption, 'Read the caption aloud'),

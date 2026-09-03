@@ -165,7 +165,10 @@ def _validate_lesson_media(node: Dict) -> None:
     if not isinstance(media, list):
         raise ValueError("{} lesson_media must be a list".format(node.get("id")))
     seen = set()
-    illustration_keys = {"id", "kind", "src", "srcset", "alt", "caption", "width", "height"}
+    illustration_required_keys = {
+        "id", "kind", "src", "srcset", "alt", "caption", "width", "height"
+    }
+    illustration_optional_keys = {"long_description"}
     model_keys = {"id", "kind", "renderer", "title", "instructions", "props"}
     static_prefix = "/app/illustrations/"
 
@@ -196,7 +199,8 @@ def _validate_lesson_media(node: Dict) -> None:
         seen.add(media_id)
         kind = entry.get("kind")
         if kind == "illustration":
-            if set(entry) != illustration_keys:
+            if (not illustration_required_keys.issubset(entry)
+                    or set(entry) - illustration_required_keys - illustration_optional_keys):
                 raise ValueError("{} illustration {} has unexpected fields".format(node.get("id"), media_id))
             source = text(entry, "src")
             local_image(source)
@@ -221,6 +225,31 @@ def _validate_lesson_media(node: Dict) -> None:
                 raise ValueError("{} illustration {} src is missing from srcset".format(node.get("id"), media_id))
             text(entry, "alt")
             text(entry, "caption")
+            if "long_description" in entry:
+                description = entry["long_description"]
+                required = {"title", "mode", "items", "takeaway"}
+                if not isinstance(description, dict) or set(description) != required:
+                    raise ValueError("{} illustration {} has an invalid long description".format(
+                        node.get("id"), media_id))
+                for key in ("title", "mode", "takeaway"):
+                    if not isinstance(description[key], str) or not description[key].strip():
+                        raise ValueError("{} illustration {} long description needs {}".format(
+                            node.get("id"), media_id, key))
+                if description["mode"] not in {"flow", "compare", "map", "scale", "physics"}:
+                    raise ValueError("{} illustration {} has an unknown description mode".format(
+                        node.get("id"), media_id))
+                description_items = description["items"]
+                if not isinstance(description_items, list) or not description_items:
+                    raise ValueError("{} illustration {} long description needs items".format(
+                        node.get("id"), media_id))
+                for description_item in description_items:
+                    if (not isinstance(description_item, dict)
+                            or set(description_item) != {"heading", "label", "detail"}
+                            or any(not isinstance(description_item[key], str)
+                                   or not description_item[key].strip()
+                                   for key in ("heading", "label", "detail"))):
+                        raise ValueError("{} illustration {} has an invalid description item".format(
+                            node.get("id"), media_id))
         elif kind == "model":
             if set(entry) != model_keys:
                 raise ValueError("{} model {} has unexpected fields".format(node.get("id"), media_id))

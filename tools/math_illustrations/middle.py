@@ -1097,7 +1097,7 @@ SPECS: Dict[str, Spec] = {
     ),
     "math.3.expo-logs": _spec(
         "math.3.expo-logs", "Exponentials and Logarithms", 3, "exponential-log-inverses-plate",
-        "Base-two exponential and logarithm graphs mirror each other, swapping three-eight and eight-three.",
+        "The graphs of two to the x and log base two of x reflect across y equals x; the ordered point (3, 8) becomes (8, 3).",
         "A logarithm returns the exponent, so it reverses exponentiation.", draw_expo_logs,
     ),
     "math.3.sequences": _spec(
