@@ -1015,6 +1015,14 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     forest = client.get('/api/curriculum/node/math.5.pde')
     assert forest.status_code == 200
     assert [entry['kind'] for entry in forest.json()['lesson_media']] == ['illustration', 'model']
+    for node_id in ('phys.0.push-pull', 'phys.2.waves', 'phys.5.quantum-info',
+                    'phys.0.light-shadow', 'phys.4.fluids'):
+        physics = client.get('/api/curriculum/node/' + node_id)
+        assert physics.status_code == 200
+        payload = physics.json()
+        assert [entry['kind'] for entry in payload['lesson_media']] == [
+            'illustration', 'model']
+        assert all('answer' not in question for question in payload.get('quiz', []))
     for node_id in ('math.0.compare', 'math.2.decimals', 'math.3.slope',
                     'math.4.diff-calc', 'math.5.frontier'):
         illustrated = client.get('/api/curriculum/node/' + node_id)

@@ -9,6 +9,9 @@ Run:  .venv/bin/python -m pytest tests/ -q
 """
 
 import os
+import re
+import shutil
+import subprocess
 import sys
 import time
 
@@ -18,7 +21,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from primer import practice, quiz  # noqa: E402
 from primer.curriculum import (  # noqa: E402
-    Curriculum, LESSON_ILLUSTRATION_DIMENSIONS, _validate_lesson_media,
+    Curriculum, LESSON_ILLUSTRATION_DIMENSIONS, PHYSICS_MODEL_SCENARIOS,
+    _validate_lesson_media,
 )
 from primer.learner import LearnerStore, MASTERY_MIN_INTERVAL  # noqa: E402
 from primer.pacing import roadmap  # noqa: E402
@@ -463,6 +467,10 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'bio.5.developmental': (5, 'morphogen-gradient-lab'),
         'rad.3.ct-image': (5, 'ct-window-lab'),
     }
+    expected.update({
+        node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
+        for node_id in PHYSICS_MODEL_SCENARIOS
+    })
     with_models = {
         nid: node for nid, node in curr.nodes.items()
         if any(item['kind'] == 'model' for item in node.get('lesson_media', []))
@@ -532,6 +540,96 @@ def test_every_mathematics_lesson_has_one_local_responsive_illustration(curr):
         assert set(candidates.values()) == {800, 1600}, nid
         assert candidates[plate['src']] == 800, nid
     assert len(raster_urls) == 118
+
+
+def test_every_physics_lesson_has_explanatory_responsive_media(curr):
+    """Every physics rung now carries one auditable plate and one live model."""
+    physics = {nid: node for nid, node in curr.nodes.items() if nid.startswith('phys.')}
+    assert len(physics) == 39
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    raster_urls = set()
+    plate_ids = set()
+    model_ids = set()
+    bespoke = {
+        'phys.0.light-shadow': 'shadow-lab',
+        'phys.1.light': 'light-paths',
+        'phys.4.fluids': 'venturi-flow-lab',
+    }
+    for nid, node in physics.items():
+        assert [item['kind'] for item in node.get('lesson_media', [])] == [
+            'illustration', 'model'], nid
+        plate, model = node['lesson_media']
+        assert plate['id'] not in plate_ids, plate['id']
+        assert model['id'] not in model_ids, model['id']
+        plate_ids.add(plate['id'])
+        model_ids.add(model['id'])
+        assert len(plate['alt'].split()) >= 8, nid
+        assert len(plate['caption'].split()) >= 8, nid
+        assert plate['alt'].strip() != plate['caption'].strip(), nid
+        assert (plate['width'], plate['height']) == (1600, 1000)
+        candidates = {}
+        for candidate in plate['srcset'].split(','):
+            url, descriptor = candidate.strip().split()
+            width = int(descriptor[:-1])
+            assert width in (800, 1600), (nid, descriptor)
+            assert url.startswith('/app/illustrations/') and url.endswith('.webp')
+            assert url not in raster_urls, url
+            raster_urls.add(url)
+            disk = os.path.join(root, 'web', url[len('/app/'):])
+            assert os.path.isfile(disk), disk
+            assert os.path.getsize(disk) < 300_000, disk
+            assert LESSON_ILLUSTRATION_DIMENSIONS[url] == (width, width * 5 // 8)
+            candidates[url] = width
+        assert set(candidates.values()) == {800, 1600}, nid
+        assert candidates[plate['src']] == 800, nid
+        if nid in PHYSICS_MODEL_SCENARIOS:
+            assert model['renderer'] == 'physics-concept-lab', nid
+            assert model['props'] == {'scenario': nid}, nid
+        else:
+            assert model['renderer'] == bespoke[nid], nid
+    assert len(plate_ids) == len(model_ids) == 39
+    assert len(raster_urls) == 78
+
+
+def test_physics_visual_copy_keeps_scientific_boundaries(curr):
+    sound = str(curr.nodes['phys.1.sound']).lower()
+    forces = str(curr.nodes['phys.2.forces']).lower()
+    all_physics = (' '.join(str(node).lower() for nid, node in curr.nodes.items()
+                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower())
+    assert 'slow big wiggles' not in sound
+    assert 'speed changes pitch; size changes loudness' in sound
+    assert 'slides steadily when two people' not in forces
+    assert 'begins accelerating when two people' in forces
+    for boundary in (
+        'constant velocity—not necessarily rest',
+        'changing magnetic flux',
+        'individual events',
+        'no real engine exceeds the carnot bound',
+        'spacelike door-event order',
+        'photographed trajectories',
+        'faster-than-light signalling',
+        'without a center',
+        'air-pressure variation over time, not sideways air motion',
+        'heating and sound are transfer pathways',
+        'two phases can coexist',
+        'one free bosonic mode',
+        'one angle cannot show bell violation',
+        'outer disk and excludes the galactic center',
+        'makes the field transition abrupt',
+        'relative density (peak = 1)',
+        'fixed 24 μs axis',
+        'absolute temperatures in kelvin',
+        'normalized squared magnitude',
+        'total kinetic energy is conserved only',
+        'photon arrival-rate scale',
+        'resolution/√12',
+        'fusion of light nuclei and fission of heavy nuclei',
+        'mean residual',
+        'residual scatter',
+        'axial pull/push orientation index',
+        'turning index',
+    ):
+        assert boundary in all_physics, boundary
 
 
 def test_mathematics_visual_copy_keeps_the_audited_boundary_conditions(curr):
@@ -632,6 +730,37 @@ def test_lesson_media_schema_never_resolves_an_authored_path(curr):
     plate['srcset'] = escaped + ' 800w'
     with pytest.raises(ValueError, match='illustration manifest'):
         _validate_lesson_media({'id': 'test.0.path', 'lesson_media': [plate]})
+
+
+def _physics_test_model(props):
+    return {
+        'id': 'test-physics-model', 'kind': 'model',
+        'renderer': 'physics-concept-lab', 'title': 'Physics concept test',
+        'instructions': 'Move the bounded scientific control.', 'props': props,
+    }
+
+
+def test_physics_model_props_accept_only_the_matching_lesson_scenario():
+    _validate_lesson_media({
+        'id': 'phys.0.push-pull',
+        'lesson_media': [_physics_test_model({'scenario': 'phys.0.push-pull'})],
+    })
+
+
+@pytest.mark.parametrize('node_id,props', [
+    ('phys.0.push-pull', {'scenario': 'phys.9.unknown'}),
+    ('phys.0.push-pull', {'scenario': 'phys.1.motion'}),
+    ('phys.0.push-pull', {'scenario': 'phys.0.push-pull', 'extra': True}),
+    ('phys.0.push-pull', {'scenario': 7}),
+    ('phys.0.push-pull', {'scenario': 'constructor'}),
+    ('phys.0.light-shadow', {'scenario': 'phys.0.light-shadow'}),
+])
+def test_physics_model_props_reject_unknown_cross_lesson_and_bespoke_scenarios(
+        node_id, props):
+    with pytest.raises(ValueError, match='unknown or cross-lesson scenario'):
+        _validate_lesson_media({
+            'id': node_id, 'lesson_media': [_physics_test_model(props)],
+        })
 
 
 @pytest.mark.parametrize('renderer,props', [
@@ -1940,7 +2069,8 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'heat-equation-lab', 'complexity-certificate-lab',
                      'morphogen-gradient-lab', 'ct-window-lab',
                      'alphabet-explorer', 'inclusive-family-timeline',
-                     'day-night-rotation-lab', 'classroom-paint-mixer'):
+                     'day-night-rotation-lab', 'classroom-paint-mixer',
+                     'physics-concept-lab'):
         assert renderer in js
     assert 'fetch(' not in js and '/api/' not in js
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
@@ -1948,6 +2078,55 @@ def test_lesson_models_are_local_explanations_not_assessments():
     assert 'runPackBag' in js and 'traceJamSandwich' in js and 'Read this activity aloud' in js
     assert 'PrimerLessonModels' in _web('app.js')
     assert '.model-pebble' in _web('styles.css') and '.make-ten-frame' in _web('styles.css')
+
+
+def test_physics_scenario_registry_matches_python_and_curriculum_exactly(curr):
+    js = _web('lesson-models.js')
+    start = js.index('const PHYSICS_SCENARIOS = Object.freeze({')
+    end = js.index('function formatPhysicsControl(', start)
+    registry = js[start:end]
+    scenario_keys = set(re.findall(r"^    '(phys\.[^']+)': \{", registry, re.MULTILINE))
+    expected = {
+        nid for nid, node in curr.nodes.items()
+        if nid.startswith('phys.') and
+        node['lesson_media'][-1]['renderer'] == 'physics-concept-lab'
+    }
+    assert scenario_keys == set(PHYSICS_MODEL_SCENARIOS) == expected
+    assert len(scenario_keys) == 36
+    assert registry.count('controls: [') == 36
+    assert registry.count('caveat:') == 36
+    assert registry.count('compute(state)') == 36
+    assert registry.count('readout:') >= 36
+    assert registry.count('visual:') == 36
+
+
+def test_physics_model_has_native_controls_resets_live_copy_and_fail_closed_lookup():
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+    start = js.index('function renderPhysicsConceptLab(')
+    end = js.index('const RENDERERS = Object.freeze({', start)
+    renderer = js[start:end]
+    assert "'physics-concept-lab': renderPhysicsConceptLab" in js
+    assert "type: 'range'" in renderer and "type: 'button'" in renderer
+    assert "'aria-valuetext'" in renderer and "node('output'" in renderer
+    assert "'Reset to the authored starting state'" in renderer
+    assert "Object.prototype.hasOwnProperty.call(PHYSICS_SCENARIOS, scenarioId)" in renderer
+    assert 'refresh(false)' in renderer and 'onchange:' in renderer
+    assert 'physics-svg-scroll' in renderer and 'physics-visual-summary' in renderer
+    assert '.physics-svg-scroll' in css and 'overflow-x: auto' in css
+    assert '.physics-control-grid' in css and '.physics-slider-value' in css
+
+
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is unavailable')
+def test_every_physics_model_control_changes_readout_and_svg_geometry():
+    """Execute the shipped renderer, not a parallel copy of its formulas."""
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    result = subprocess.run(
+        ['node', os.path.join(root, 'tools', 'check_physics_models.js')],
+        cwd=root, capture_output=True, text=True, timeout=30, check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert '36 scenarios, 62 independently exercised controls' in result.stdout
 
 
 def test_sapling_lesson_models_keep_the_read_aloud_control():

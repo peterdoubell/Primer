@@ -3610,6 +3610,1468 @@
     return frame.root;
   }
 
+  /* Physics concept lab ---------------------------------------------------
+     Thirty-six lesson-bound scenarios share this rendering grammar, not a
+     generic answer widget. Each scenario owns its independent variables,
+     calculation, readout, scientific boundary, and visible SVG state. */
+  function physicsControl(key, label, min, max, step, start, unit, low, high) {
+    return { key, label, min, max, step, start, unit, low, high };
+  }
+
+  function physicsFixed(value, digits = 1) {
+    const safe = Number.isFinite(value) ? value : 0;
+    return safe.toFixed(digits).replace(/\.0$/, '');
+  }
+
+  function physicsChoose(n, k) {
+    if (k < 0 || k > n) return 0;
+    let result = 1;
+    for (let index = 1; index <= Math.min(k, n - k); index += 1) {
+      result = result * (n - index + 1) / index;
+    }
+    return Math.round(result);
+  }
+
+  function physicsGraphPoints(fn, count = 60) {
+    return Array.from({ length: count + 1 }, (_, index) => {
+      const x = index / count;
+      return [x, Math.max(0, Math.min(1, fn(x)))];
+    });
+  }
+
+  function physicsSeededRandom(seed) {
+    let value = (seed >>> 0) || 0x6d2b79f5;
+    return () => {
+      value ^= value << 13;
+      value ^= value >>> 17;
+      value ^= value << 5;
+      return (value >>> 0) / 4294967296;
+    };
+  }
+
+  function physicsWellHistogram(stateNumber, sampleCount, binCount = 20) {
+    const counts = Array(binCount).fill(0);
+    const random = physicsSeededRandom(0x9e3779b9 ^ Math.imul(stateNumber, 0x85ebca6b));
+    let accepted = 0;
+    let trial = 0;
+    while (accepted < sampleCount && trial < sampleCount * 12) {
+      const x = random();
+      const gate = random();
+      if (gate <= Math.sin(stateNumber * Math.PI * x) ** 2) {
+        counts[Math.min(binCount - 1, Math.floor(x * binCount))] += 1;
+        accepted += 1;
+      }
+      trial += 1;
+    }
+    const expectedPeak = Math.max(1, 2 * sampleCount / binCount);
+    return counts.map(count => Math.min(1, count / expectedPeak));
+  }
+
+  function physicsDeterministicCount(probability, sampleCount, seed) {
+    const random = physicsSeededRandom(0x517cc1b7 ^ Math.imul(Math.round(seed * 1000), 0x45d9f3b));
+    let count = 0;
+    for (let index = 0; index < sampleCount; index += 1) {
+      if (random() < probability) count += 1;
+    }
+    return count;
+  }
+
+  function physicsSvgText(x, y, value, className = 'physics-svg-label', anchor = 'middle') {
+    const textNode = svgNode('text', { x, y, class: className, 'text-anchor': anchor });
+    textNode.textContent = value;
+    return textNode;
+  }
+
+  function physicsArrow(svg, arrowId, x1, y1, x2, y2, className = 'physics-svg-accent') {
+    svg.append(svgNode('line', {
+      x1, y1, x2, y2, class: 'physics-svg-line ' + className,
+      'marker-end': 'url(#' + arrowId + ')',
+    }));
+  }
+
+  function physicsCurvePath(points, left = 88, top = 34, width = 560, height = 205) {
+    return points.map((point, index) => {
+      const x = left + Math.max(0, Math.min(1, point[0])) * width;
+      const y = top + (1 - Math.max(0, Math.min(1, point[1]))) * height;
+      return (index ? 'L' : 'M') + physicsFixed(x, 2) + ' ' + physicsFixed(y, 2);
+    }).join(' ');
+  }
+
+  function drawPhysicsGraph(svg, visual) {
+    svg.append(
+      svgNode('line', { x1: 82, y1: 244, x2: 660, y2: 244, class: 'physics-svg-axis' }),
+      svgNode('line', { x1: 82, y1: 244, x2: 82, y2: 26, class: 'physics-svg-axis' }),
+      physicsSvgText(660, 274, visual.xLabel || 'input', 'physics-svg-small', 'end'),
+      physicsSvgText(92, 30, visual.yLabel || 'response', 'physics-svg-small', 'start'),
+    );
+    if (visual.histogram) {
+      const barWidth = 560 / visual.histogram.length;
+      visual.histogram.forEach((height, index) => {
+        const bounded = Math.max(0, Math.min(1, height));
+        svg.append(svgNode('rect', {
+          x: 88 + index * barWidth + 1, y: 239 - bounded * 205,
+          width: Math.max(1, barWidth - 2), height: bounded * 205,
+          class: 'physics-svg-histogram',
+        }));
+      });
+    }
+    (visual.curves || []).forEach((curve, index) => {
+      svg.append(svgNode('path', {
+        d: physicsCurvePath(curve.points),
+        class: 'physics-svg-curve physics-curve-' + (curve.tone || (index ? 'secondary' : 'primary')),
+      }));
+      if (curve.label) {
+        svg.append(physicsSvgText(648, 48 + index * 22, curve.label,
+          'physics-svg-small physics-text-' + (curve.tone || (index ? 'secondary' : 'primary')), 'end'));
+      }
+    });
+    (visual.scatter || []).forEach(point => {
+      const x = 88 + Math.max(0, Math.min(1, point[0])) * 560;
+      const y = 34 + (1 - Math.max(0, Math.min(1, point[1]))) * 205;
+      svg.append(svgNode('circle', { cx: x, cy: y, r: 7, class: 'physics-svg-data-point' }));
+    });
+    if (visual.incidentPhotons) {
+      for (let index = 0; index < Math.min(12, visual.incidentPhotons); index += 1) {
+        svg.append(svgNode('circle', { cx: 110 + index * 24, cy: 66, r: 6,
+          class: 'physics-svg-photon' }));
+      }
+      svg.append(physicsSvgText(110, 91, 'incident photons', 'physics-svg-small', 'start'));
+    }
+    if (visual.marker) {
+      const x = 88 + Math.max(0, Math.min(1, visual.marker[0])) * 560;
+      const y = 34 + (1 - Math.max(0, Math.min(1, visual.marker[1]))) * 205;
+      svg.append(
+        svgNode('line', { x1: x, y1: 239, x2: x, y2: y, class: 'physics-svg-guide' }),
+        svgNode('circle', { cx: x, cy: y, r: visual.markerRadius || 9, class: 'physics-svg-marker' }),
+      );
+    }
+    if (visual.phaseOrbit != null) {
+      const scale = Math.max(0.2, Math.min(1, visual.phaseOrbit));
+      svg.append(
+        svgNode('rect', { x: 470, y: 112, width: 170, height: 108, rx: 10,
+          class: 'physics-svg-inset' }),
+        svgNode('line', { x1: 487, y1: 166, x2: 625, y2: 166, class: 'physics-svg-guide' }),
+        svgNode('line', { x1: 556, y1: 124, x2: 556, y2: 208, class: 'physics-svg-guide' }),
+        svgNode('ellipse', { cx: 556, cy: 166, rx: 61 * scale, ry: 35 * scale,
+          class: 'physics-svg-phase-orbit' }),
+        physicsSvgText(556, 107, 'constant-H phase orbit', 'physics-svg-small'),
+        physicsSvgText(626, 184, 'q', 'physics-svg-small', 'end'),
+        physicsSvgText(568, 132, 'p', 'physics-svg-small', 'start'),
+      );
+    }
+    if (visual.measurement) {
+      const x = 88 + Math.max(0, Math.min(1, visual.measurement.x)) * 560;
+      const center = Math.max(0, Math.min(1, visual.measurement.y));
+      const error = Math.max(0, Math.min(1, visual.measurement.error || 0));
+      const y = 34 + (1 - center) * 205;
+      const top = 34 + (1 - Math.min(1, center + error)) * 205;
+      const bottom = 34 + (1 - Math.max(0, center - error)) * 205;
+      svg.append(
+        svgNode('line', { x1: x, y1: top, x2: x, y2: bottom,
+          class: 'physics-svg-measurement-error' }),
+        svgNode('line', { x1: x - 10, y1: top, x2: x + 10, y2: top,
+          class: 'physics-svg-measurement-error' }),
+        svgNode('line', { x1: x - 10, y1: bottom, x2: x + 10, y2: bottom,
+          class: 'physics-svg-measurement-error' }),
+        svgNode('circle', { cx: x, cy: y, r: 10, class: 'physics-svg-measurement' }),
+      );
+    }
+  }
+
+  function drawPhysicsVector(svg, visual, arrowId) {
+    if (visual.vertical) {
+      svg.append(
+        svgNode('line', { x1: 80, y1: 226, x2: 640, y2: 226, class: 'physics-svg-ground' }),
+        svgNode('rect', { x: 300, y: 115, width: 120, height: 88, rx: 13, class: 'physics-svg-object' }),
+        physicsSvgText(360, 166, visual.object || 'system', 'physics-svg-label'),
+      );
+      const up = 70 * Math.max(0, Math.min(1, visual.up || 0));
+      const down = 70 * Math.max(0, Math.min(1, visual.down || 0));
+      if (up > 1) physicsArrow(svg, arrowId, 360, 115, 360, 115 - up, 'physics-svg-teal');
+      if (down > 1) physicsArrow(svg, arrowId, 360, 203, 360, 203 + down, 'physics-svg-coral');
+      svg.append(
+        physicsSvgText(382, 82, visual.upLabel || 'upward', 'physics-svg-small', 'start'),
+        physicsSvgText(382, 235, visual.downLabel || 'downward', 'physics-svg-small', 'start'),
+        physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
+      );
+      return;
+    }
+    svg.append(
+      svgNode('line', { x1: 76, y1: 222, x2: 644, y2: 222, class: 'physics-svg-ground' }),
+      svgNode('rect', { x: 300, y: 120, width: 120, height: 82, rx: 13, class: 'physics-svg-object' }),
+      physicsSvgText(360, 168, visual.object || 'system', 'physics-svg-label'),
+    );
+    const left = 184 * Math.max(0, Math.min(1, visual.left || 0));
+    const right = 184 * Math.max(0, Math.min(1, visual.right || 0));
+    if (left > 1) physicsArrow(svg, arrowId, 300, 160, 300 - left, 160, 'physics-svg-coral');
+    if (right > 1) physicsArrow(svg, arrowId, 420, 160, 420 + right, 160, 'physics-svg-teal');
+    svg.append(
+      physicsSvgText(left > 1 ? 292 - left / 2 : 245, 130,
+        visual.leftLabel || 'left', 'physics-svg-small'),
+      physicsSvgText(right > 1 ? 428 + right / 2 : 475, 130,
+        visual.rightLabel || 'right', 'physics-svg-small'),
+      physicsSvgText(360, 270, visual.note || '', 'physics-svg-note'),
+    );
+    const response = Math.max(-1, Math.min(1, visual.response || 0));
+    if (Math.abs(response) > 0.01) {
+      physicsArrow(svg, arrowId, 360, 232, 360 + response * 150, 232,
+        response > 0 ? 'physics-svg-teal' : 'physics-svg-coral');
+    }
+  }
+
+  function drawPhysicsTransfer(svg, visual, arrowId) {
+    const leftLevel = Math.max(0, Math.min(1, visual.left || 0));
+    const rightLevel = Math.max(0, Math.min(1, visual.right || 0));
+    const tanks = [[112, leftLevel, visual.leftLabel || 'A'], [448, rightLevel, visual.rightLabel || 'B']];
+    tanks.forEach(([x, level, label], index) => {
+      svg.append(
+        svgNode('rect', { x, y: 58, width: 160, height: 170, rx: 15, class: 'physics-svg-tank' }),
+        svgNode('rect', { x: x + 8, y: 220 - level * 150, width: 144,
+          height: level * 150, rx: 9, class: index ? 'physics-svg-fill-blue' : 'physics-svg-fill-coral' }),
+        physicsSvgText(x + 80, 45, label, 'physics-svg-label'),
+      );
+    });
+    if ((visual.direction || 0) > 0.02) {
+      physicsArrow(svg, arrowId, 292, 142, 428, 142, 'physics-svg-gold');
+    } else if ((visual.direction || 0) < -0.02) {
+      physicsArrow(svg, arrowId, 428, 142, 292, 142, 'physics-svg-gold');
+    } else {
+      svg.append(svgNode('line', { x1: 302, y1: 142, x2: 418, y2: 142, class: 'physics-svg-guide' }));
+    }
+    if (visual.mechanism === 'conduction') {
+      for (let x = 300; x <= 420; x += 24) {
+        svg.append(svgNode('circle', { cx: x, cy: 178, r: 6, class: 'physics-svg-particle is-active' }));
+      }
+    } else if (visual.mechanism === 'convection') {
+      svg.append(svgNode('path', { d: 'M322 195 C295 165 305 105 350 98 C405 88 430 140 402 183',
+        class: 'physics-svg-curve physics-curve-primary', 'marker-end': 'url(#' + arrowId + ')' }));
+    } else if (visual.mechanism === 'radiation') {
+      const ray = [];
+      for (let index = 0; index <= 40; index += 1) {
+        const x = 295 + index * 3.2;
+        ray.push((index ? 'L' : 'M') + x + ' ' + (188 + 10 * Math.sin(index * .9)));
+      }
+      svg.append(svgNode('path', { d: ray.join(' '), class: 'physics-svg-curve physics-curve-secondary' }));
+    }
+    if (visual.rate != null) {
+      svg.append(
+        svgNode('rect', { x: 300, y: 218, width: 120, height: 10, rx: 5, class: 'physics-svg-gauge-track' }),
+        svgNode('rect', { x: 300, y: 218, width: 120 * Math.max(0, Math.min(1, visual.rate)),
+          height: 10, rx: 5, class: 'physics-svg-gauge-fill' }),
+      );
+    }
+    svg.append(
+      physicsSvgText(360, 118, visual.arrowLabel || 'transfer', 'physics-svg-small'),
+      physicsSvgText(360, 270, visual.note || '', 'physics-svg-note'),
+    );
+  }
+
+  function drawPhysicsWave(svg, visual) {
+    function pathFor(cycles, amplitude, mid, phase = 0) {
+      const points = [];
+      for (let index = 0; index <= 120; index += 1) {
+        const t = index / 120;
+        points.push([70 + t * 580, mid - amplitude * Math.sin(Math.PI * 2 * cycles * t + phase)]);
+      }
+      return points.map((point, index) => (index ? 'L' : 'M') +
+        physicsFixed(point[0], 2) + ' ' + physicsFixed(point[1], 2)).join(' ');
+    }
+    const normalizedAmplitude = visual.amplitude == null
+      ? 0.4 : Math.max(0, Math.min(1, visual.amplitude));
+    svg.append(svgNode('line', { x1: 65, y1: 135, x2: 655, y2: 135, class: 'physics-svg-guide' }));
+    svg.append(svgNode('path', {
+      d: pathFor(visual.cycles || 2, 80 * normalizedAmplitude, 135),
+      class: 'physics-svg-curve physics-curve-primary',
+    }));
+    if (visual.orthogonalFields) {
+      const cycles = visual.cycles || 2;
+      const amplitude = normalizedAmplitude;
+      // Four depth samples per cycle preserve sign changes as frequency rises.
+      const depthSamples = Math.max(20, Math.ceil(cycles * 4));
+      for (let index = 0; index <= depthSamples; index += 1) {
+        const phase = Math.sin(Math.PI * 2 * cycles * index / depthSamples);
+        const cx = 70 + index * 580 / depthSamples;
+        const radius = 3 + Math.abs(phase) * (4 + 12 * amplitude);
+        svg.append(svgNode('circle', { cx, cy: 216, r: radius,
+          class: 'physics-svg-field-depth' }));
+        if (phase > 0.12) {
+          svg.append(svgNode('circle', { cx, cy: 216, r: Math.max(1.5, radius * .22),
+            class: 'physics-svg-field-dot' }));
+        } else if (phase < -0.12) {
+          const arm = Math.max(2, radius * .48);
+          svg.append(
+            svgNode('line', { x1: cx - arm, y1: 216 - arm, x2: cx + arm, y2: 216 + arm,
+              class: 'physics-svg-field-cross' }),
+            svgNode('line', { x1: cx - arm, y1: 216 + arm, x2: cx + arm, y2: 216 - arm,
+              class: 'physics-svg-field-cross' }),
+          );
+        }
+      }
+      svg.append(physicsSvgText(70, 244, 'B: dot out / cross in', 'physics-svg-small', 'start'));
+    } else if (visual.secondCycles) {
+      svg.append(svgNode('path', {
+        d: pathFor(visual.secondCycles, 80 * (visual.secondAmplitude == null
+          ? 0.4 : Math.max(0, Math.min(1, visual.secondAmplitude))), 215,
+          visual.secondPhase || 0),
+        class: 'physics-svg-curve physics-curve-secondary',
+      }));
+    }
+    for (let index = 0; index < Math.min(12, visual.tokens || 0); index += 1) {
+      svg.append(svgNode('circle', { cx: 92 + index * 42, cy: 52, r: 9,
+        class: 'physics-svg-particle is-active' }));
+    }
+    svg.append(
+      physicsSvgText(70, 40, visual.label || 'wave state', 'physics-svg-label', 'start'),
+      physicsSvgText(650, 272, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsQft(svg, visual) {
+    const mode = [];
+    for (let index = 0; index <= 80; index += 1) {
+      const x = 70 + index * 4.2;
+      const y = 140 - 52 * Math.sin(4 * Math.PI * index / 80);
+      mode.push((index ? 'L' : 'M') + physicsFixed(x, 2) + ' ' + physicsFixed(y, 2));
+    }
+    svg.append(
+      svgNode('line', { x1: 65, y1: 140, x2: 410, y2: 140, class: 'physics-svg-guide' }),
+      svgNode('path', { d: mode.join(' '), class: 'physics-svg-curve physics-curve-primary' }),
+      physicsSvgText(238, 55, 'one spatial mode function u(x)', 'physics-svg-label'),
+      physicsSvgText(238, 207, 'mode shape, not a classical field value', 'physics-svg-small'),
+    );
+    for (let index = 0; index < Math.min(6, visual.occupation || 0); index += 1) {
+      svg.append(svgNode('circle', { cx: 150 + index * 36, cy: 245, r: 9,
+        class: 'physics-svg-particle is-active' }));
+    }
+    const spacing = 6 * Math.max(1, Math.min(5, visual.frequency || 1));
+    for (let number = 0; number <= 6; number += 1) {
+      const y = 257 - number * spacing;
+      svg.append(svgNode('line', { x1: 475, y1: y, x2: 650, y2: y,
+        class: number === visual.occupation ? 'physics-svg-qft-level is-selected' : 'physics-svg-qft-level' }));
+      if (number === 0 || number === 6 || number === visual.occupation) {
+        svg.append(physicsSvgText(462, y + 6, 'n=' + number, 'physics-svg-small', 'end'));
+      }
+    }
+    svg.append(
+      physicsSvgText(562, 55, 'occupation-energy ladder', 'physics-svg-label'),
+      physicsSvgText(650, 286, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsParticles(svg, visual) {
+    svg.append(svgNode('rect', { x: 78, y: 42, width: 564, height: 205, rx: 15,
+      class: 'physics-svg-chamber' }));
+    const count = Math.max(8, Math.min(40, visual.count || 24));
+    if (visual.coexistence) {
+      const phases = visual.coexistence === 'solid-liquid'
+        ? ['solid', 'liquid'] : ['liquid', 'gas'];
+      svg.append(
+        svgNode('line', { x1: 360, y1: 52, x2: 360, y2: 237, class: 'physics-svg-guide' }),
+        physicsSvgText(220, 70, phases[0], 'physics-svg-small'),
+        physicsSvgText(500, 70, phases[1], 'physics-svg-small'),
+      );
+      for (let index = 0; index < count; index += 1) {
+        const rightSide = index >= count / 2;
+        const local = index % Math.ceil(count / 2);
+        let x;
+        let y;
+        if (!rightSide && phases[0] === 'solid') {
+          x = 125 + (local % 4) * 62;
+          y = 99 + Math.floor(local / 4) * 40;
+        } else if (!rightSide) {
+          x = 104 + ((local * 83) % 230);
+          y = 100 + ((local * 47) % 116);
+        } else if (phases[1] === 'liquid') {
+          x = 385 + ((local * 83) % 230);
+          y = 100 + ((local * 47) % 116);
+        } else {
+          x = 384 + ((local * 107) % 236);
+          y = 84 + ((local * 71) % 138);
+        }
+        svg.append(svgNode('circle', { cx: x, cy: y, r: 7,
+          class: 'physics-svg-particle' }));
+        // Coexisting phases share one temperature; latent heat changes phase
+        // fraction/configuration, not the particles' mean kinetic-energy cue.
+        const phaseEnergy = Math.max(0, Math.min(1, visual.energy || 0));
+        const angle = (index * 2.31) % (Math.PI * 2);
+        const speed = 3 + 10 * phaseEnergy;
+        svg.append(svgNode('line', { x1: x, y1: y,
+          x2: x - Math.cos(angle) * speed, y2: y - Math.sin(angle) * speed,
+          class: 'physics-svg-motion-mark' }));
+      }
+      svg.append(
+        physicsSvgText(95, 28, visual.label || 'coexisting phases', 'physics-svg-label', 'start'),
+        physicsSvgText(630, 274, visual.note || '', 'physics-svg-note', 'end'),
+      );
+      return;
+    }
+    const order = Math.max(0, Math.min(1, visual.order || 0));
+    const spread = Math.max(0.12, Math.min(1, visual.spread || 0.5));
+    for (let index = 0; index < count; index += 1) {
+      const column = index % 8;
+      const row = Math.floor(index / 8);
+      const gridX = 120 + column * 68;
+      const gridY = 82 + row * 48;
+      const looseX = 95 + ((index * 97) % 520);
+      const looseY = 62 + ((index * 67) % 165);
+      const x = order * gridX + (1 - order) * (360 + (looseX - 360) * spread);
+      const y = order * gridY + (1 - order) * (145 + (looseY - 145) * spread);
+      svg.append(svgNode('circle', {
+        cx: x, cy: y, r: 7,
+        class: index < (visual.active || 0) ? 'physics-svg-particle is-active' : 'physics-svg-particle',
+      }));
+      if ((visual.energy || 0) > 0.08) {
+        const angle = (index * 2.31) % (Math.PI * 2);
+        const speed = 3 + 10 * visual.energy;
+        svg.append(svgNode('line', { x1: x, y1: y, x2: x - Math.cos(angle) * speed,
+          y2: y - Math.sin(angle) * speed, class: 'physics-svg-motion-mark' }));
+      }
+    }
+    svg.append(
+      physicsSvgText(95, 28, visual.label || 'particle state', 'physics-svg-label', 'start'),
+      physicsSvgText(630, 274, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsEnsemble(svg, visual) {
+    if (visual.bars) {
+      const max = Math.max(...visual.bars, 1);
+      visual.bars.forEach((value, index) => {
+        const width = 460 / visual.bars.length;
+        const height = value / max * 155;
+        const x = 128 + index * width;
+        svg.append(
+          svgNode('rect', { x, y: 224 - height, width: width - 12, height,
+            class: index === visual.highlight ? 'physics-svg-bar is-highlighted' : 'physics-svg-bar' }),
+          physicsSvgText(x + (width - 12) / 2, 248,
+            visual.barLabels ? visual.barLabels[index] : String(index), 'physics-svg-small'),
+        );
+      });
+    } else {
+      const shown = Math.max(16, Math.min(128, visual.total || 64));
+      const active = Math.round(shown * Math.max(0, Math.min(1, visual.fraction || 0)));
+      for (let index = 0; index < shown; index += 1) {
+        const x = 126 + (index % 16) * 31;
+        const y = 55 + Math.floor(index / 16) * 26;
+        svg.append(svgNode('circle', { cx: x, cy: y, r: 6,
+          class: index < active ? 'physics-svg-particle is-active' : 'physics-svg-particle is-faded' }));
+      }
+    }
+    svg.append(
+      physicsSvgText(90, 32, visual.label || 'ensemble', 'physics-svg-label', 'start'),
+      physicsSvgText(630, 274, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsSpacetime(svg, visual) {
+    svg.append(
+      svgNode('line', { x1: 360, y1: 258, x2: 360, y2: 28, class: 'physics-svg-axis' }),
+      svgNode('line', { x1: 82, y1: 258, x2: 650, y2: 258, class: 'physics-svg-axis' }),
+      svgNode('line', { x1: 360, y1: 258, x2: 150, y2: 48, class: 'physics-svg-light' }),
+      svgNode('line', { x1: 360, y1: 258, x2: 570, y2: 48, class: 'physics-svg-light' }),
+      physicsSvgText(650, 282, 'x/c (μs)', 'physics-svg-small', 'end'),
+      physicsSvgText(372, 35, 't (μs)', 'physics-svg-small', 'start'),
+    );
+    const beta = Math.max(-0.95, Math.min(0.95, visual.beta || 0));
+    const topX = 360 + beta * 210;
+    svg.append(svgNode('line', { x1: 360, y1: 258, x2: topX, y2: 48,
+      class: 'physics-svg-worldline' }));
+    if (visual.simultaneity) {
+      const tilt = beta * 130;
+      svg.append(svgNode('line', { x1: 230, y1: 155 + tilt, x2: 490, y2: 155 - tilt,
+        class: 'physics-svg-simultaneity' }));
+    }
+    if (visual.duration != null) {
+      // Both axes share a fixed 0–24 μs scale, so x/c = βt is visible.
+      const fraction = Math.max(0.04, Math.min(0.96, visual.duration));
+      svg.append(svgNode('circle', { cx: 360 + beta * 210 * fraction,
+        cy: 258 - 210 * fraction, r: 9, class: 'physics-svg-marker' }));
+    }
+    svg.append(
+      physicsSvgText(100, 28, visual.label || 'spacetime state', 'physics-svg-label', 'start'),
+      physicsSvgText(630, 282, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsCircuit(svg, visual) {
+    const closed = visual.closed !== false;
+    const current = Math.max(0, Math.min(1, visual.current || 0));
+    svg.append(
+      svgNode('path', { d: closed
+        ? 'M120 130 V75 H600 V225 H534 M466 225 H120 V165'
+        : 'M120 130 V75 H315 M390 75 H600 V225 H534 M466 225 H120 V165', class: 'physics-svg-circuit' }),
+      svgNode('line', { x1: 105, y1: 130, x2: 135, y2: 130, class: 'physics-svg-battery' }),
+      svgNode('line', { x1: 112, y1: 165, x2: 128, y2: 165, class: 'physics-svg-battery' }),
+      physicsSvgText(94, 135, '+', 'physics-svg-small'),
+      svgNode('circle', { cx: 500, cy: 225, r: 34, class: current ? 'physics-svg-bulb is-on' : 'physics-svg-bulb' }),
+      physicsSvgText(500, 232, 'load', 'physics-svg-small'),
+    );
+    if (!closed) {
+      svg.append(svgNode('line', { x1: 315, y1: 75, x2: 380, y2: 35, class: 'physics-svg-switch' }));
+    }
+    svg.append(
+      svgNode('rect', { x: 190, y: 120, width: 340 * current, height: 25, rx: 8,
+        class: 'physics-svg-current' }),
+      physicsSvgText(360, 112, visual.meter || 'current', 'physics-svg-label'),
+      physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsField(svg, visual, arrowId) {
+    svg.append(
+      svgNode('rect', { x: 85, y: 103, width: 170, height: 90, rx: 12,
+        class: 'physics-svg-magnet' }),
+      svgNode('line', { x1: 170, y1: 103, x2: 170, y2: 193, class: 'physics-svg-divider' }),
+      physicsSvgText(128, 158, visual.flipped ? 'S' : 'N', 'physics-svg-label'),
+      physicsSvgText(212, 158, visual.flipped ? 'N' : 'S', 'physics-svg-label'),
+    );
+    const coilCount = Math.max(2, Math.min(8, visual.coilTurns || 6));
+    for (let index = 0; index < coilCount; index += 1) {
+      svg.append(svgNode('ellipse', { cx: 520 + index * 12, cy: 148, rx: 45, ry: 88,
+        class: 'physics-svg-coil' }));
+    }
+    const strength = Math.max(-1, Math.min(1, visual.strength || 0));
+    if (Math.abs(strength) > 0.03) {
+      physicsArrow(svg, arrowId, strength > 0 ? 275 : 430, 148,
+        strength > 0 ? 420 : 280, 148, 'physics-svg-teal');
+    }
+    svg.append(
+      physicsSvgText(360, 78, visual.label || 'field interaction', 'physics-svg-label'),
+      physicsSvgText(360, 245, visual.meter || '', 'physics-svg-note'),
+      physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsBands(svg, visual) {
+    const gap = 25 + 90 * Math.max(0, Math.min(1, visual.gap || 0));
+    svg.append(
+      svgNode('rect', { x: 120, y: 48, width: 480, height: 58, rx: 8, class: 'physics-svg-band upper' }),
+      svgNode('rect', { x: 120, y: 106 + gap, width: 480, height: 58, rx: 8, class: 'physics-svg-band lower' }),
+      physicsSvgText(360, 83, 'conduction band', 'physics-svg-label'),
+      physicsSvgText(360, 141 + gap, 'valence band', 'physics-svg-label'),
+      physicsSvgText(155, 126 + gap / 2, 'gap', 'physics-svg-small', 'start'),
+    );
+    const carriers = Math.max(0, Math.min(18, Math.round(visual.carriers || 0)));
+    for (let index = 0; index < carriers; index += 1) {
+      svg.append(svgNode('circle', { cx: 195 + (index % 9) * 42, cy: 65 + Math.floor(index / 9) * 24,
+        r: 7, class: 'physics-svg-particle is-active' }));
+    }
+    svg.append(physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'));
+  }
+
+  function drawPhysicsLedger(svg, visual, arrowId) {
+    const segments = visual.segments || [];
+    const total = segments.reduce((sum, segment) => sum + Math.max(0, segment.value), 0) || 1;
+    let cursor = 90;
+    segments.forEach((segment, index) => {
+      const width = 540 * Math.max(0, segment.value) / total;
+      svg.append(svgNode('rect', { x: cursor, y: 106, width, height: 80,
+        class: 'physics-svg-ledger physics-ledger-' + (index % 4) }));
+      if (width > 52) svg.append(physicsSvgText(cursor + width / 2, 151,
+        segment.label, 'physics-svg-small'));
+      cursor += width;
+    });
+    svg.append(
+      physicsSvgText(90, 70, visual.label || 'conserved total', 'physics-svg-label', 'start'),
+      physicsSvgText(630, 225, visual.equation || '', 'physics-svg-note', 'end'),
+      physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
+    );
+    if (visual.arrow) physicsArrow(svg, arrowId, 160, 230, 560, 230, 'physics-svg-teal');
+  }
+
+  function drawPhysicsEngine(svg, visual, arrowId) {
+    const workFraction = Math.max(0, Math.min(1, (visual.work || 0) / 100));
+    const rejectedFraction = Math.max(0, Math.min(1, (visual.coldHeat || 0) / 100));
+    svg.append(
+      svgNode('rect', { x: 210, y: 28, width: 300, height: 55, rx: 11, class: 'physics-svg-reservoir hot' }),
+      physicsSvgText(360, 63, visual.hotLabel, 'physics-svg-label'),
+      svgNode('rect', { x: 280, y: 120, width: 160, height: 64, rx: 13, class: 'physics-svg-engine' }),
+      physicsSvgText(360, 160, 'engine', 'physics-svg-label'),
+      svgNode('rect', { x: 210, y: 224, width: 300, height: 48, rx: 11, class: 'physics-svg-reservoir cold' }),
+      physicsSvgText(360, 255, visual.coldLabel, 'physics-svg-label'),
+    );
+    physicsArrow(svg, arrowId, 360, 86, 360, 116, 'physics-svg-coral');
+    physicsArrow(svg, arrowId, 360, 188, 360, 188 + 32 * rejectedFraction,
+      'physics-svg-accent');
+    physicsArrow(svg, arrowId, 445, 152, 445 + 165 * workFraction, 152,
+      'physics-svg-teal');
+    svg.append(
+      physicsSvgText(392, 105, 'Q_h = 100 J', 'physics-svg-small', 'start'),
+      physicsSvgText(392, 214, 'Q_c ≥ ' + physicsFixed(visual.coldHeat, 1) + ' J', 'physics-svg-small', 'start'),
+      physicsSvgText(520, 132, 'W ≤ ' + physicsFixed(visual.work, 1) + ' J', 'physics-svg-small'),
+    );
+  }
+
+  function renderPhysicsGraphic(svg, visual, arrowId) {
+    const defs = svgNode('defs');
+    const marker = svgNode('marker', {
+      id: arrowId, markerWidth: 9, markerHeight: 9, refX: 8, refY: 4.5,
+      orient: 'auto', markerUnits: 'strokeWidth',
+    });
+    marker.append(svgNode('path', { d: 'M0,0 L9,4.5 L0,9 z', class: 'physics-svg-arrowhead' }));
+    defs.append(marker);
+    svg.replaceChildren(defs, svgNode('rect', { x: 3, y: 3, width: 714, height: 294,
+      rx: 16, class: 'physics-svg-field' }));
+    const kind = visual.kind || 'graph';
+    if (kind === 'vector') drawPhysicsVector(svg, visual, arrowId);
+    else if (kind === 'transfer') drawPhysicsTransfer(svg, visual, arrowId);
+    else if (kind === 'wave') drawPhysicsWave(svg, visual);
+    else if (kind === 'particles') drawPhysicsParticles(svg, visual);
+    else if (kind === 'ensemble') drawPhysicsEnsemble(svg, visual);
+    else if (kind === 'spacetime') drawPhysicsSpacetime(svg, visual);
+    else if (kind === 'circuit') drawPhysicsCircuit(svg, visual);
+    else if (kind === 'field') drawPhysicsField(svg, visual, arrowId);
+    else if (kind === 'bands') drawPhysicsBands(svg, visual);
+    else if (kind === 'ledger') drawPhysicsLedger(svg, visual, arrowId);
+    else if (kind === 'engine') drawPhysicsEngine(svg, visual, arrowId);
+    else if (kind === 'qft') drawPhysicsQft(svg, visual);
+    else drawPhysicsGraph(svg, visual);
+  }
+
+  const PHYSICS_SCENARIOS = Object.freeze({
+    'phys.0.push-pull': {
+      controls: [physicsControl('right', 'Rightward push', 0, 10, 1, 7, 'N', 'no right push', '10 N right')],
+      caveat: 'The cart model treats both horizontal pushes as steady and combines only forces on the cart.',
+      compute(state) {
+        const left = 4;
+        const net = state.right - left;
+        const motion = Math.abs(net) < 0.01 ? 'no acceleration' :
+          'acceleration ' + (net > 0 ? 'right' : 'left');
+        return {
+          readout: 'Left push = 4 N; right push = ' + state.right + ' N; net force = ' +
+            physicsFixed(net, 0) + ' N, so the cart has ' + motion + '.',
+          visual: { kind: 'vector', object: 'cart', left: left / 10, right: state.right / 10,
+            leftLabel: '4 N', rightLabel: state.right + ' N', note: 'net = ' + physicsFixed(net, 0) + ' N' },
+        };
+      },
+    },
+    'phys.0.hot-cold': {
+      controls: [physicsControl('time', 'Contact time', 0, 6, 0.5, 0, 'min', 'just touching', 'six minutes')],
+      caveat: 'This ideal pair is insulated, has equal heat capacity, and loses no energy to the room.',
+      compute(state) {
+        const difference = 60 * Math.exp(-state.time / 1.8);
+        const hot = 50 + difference / 2;
+        const cold = 50 - difference / 2;
+        return {
+          readout: 'After ' + physicsFixed(state.time, 1) + ' min: hot object = ' +
+            physicsFixed(hot, 1) + ' °C, cold object = ' + physicsFixed(cold, 1) +
+            ' °C. Their temperature gap is ' + physicsFixed(difference, 1) + ' °C.',
+          visual: { kind: 'transfer', left: hot / 100, right: cold / 100,
+            direction: difference / 60, leftLabel: 'hot ' + physicsFixed(hot, 0) + ' °C',
+            rightLabel: 'cold ' + physicsFixed(cold, 0) + ' °C', arrowLabel: 'energy hot → cold',
+            note: difference < 3 ? 'nearly at equilibrium' : 'gap shrinks with time' },
+        };
+      },
+    },
+    'phys.0.float-sink': {
+      controls: [physicsControl('volume', 'Displaced volume', 50, 200, 5, 100, 'cm³', 'compact shape', 'wide hollow shape')],
+      caveat: 'The object has fixed mass and is fully immersed; real floating objects settle after displacing only their own weight.',
+      compute(state) {
+        const mass = 120;
+        const density = mass / state.volume;
+        const buoyancy = state.volume / 120;
+        const outcome = density < 1 ? 'rises or floats' : density > 1 ? 'sinks' : 'is neutrally buoyant';
+        return {
+          readout: 'The same 120 g spread through ' + state.volume + ' cm³ has average density ' +
+            physicsFixed(density, 2) + ' g/cm³, so in water it ' + outcome + '.',
+          visual: { kind: 'vector', vertical: true, object: '120 g',
+            up: buoyancy / 1.7, down: 1 / 1.7,
+            upLabel: 'buoyancy ' + physicsFixed(buoyancy, 2), downLabel: 'weight 1.00',
+            note: 'average density ' + physicsFixed(density, 2) + ' g/cm³' },
+        };
+      },
+    },
+    'phys.1.motion': {
+      controls: [physicsControl('friction', 'Surface friction', 0, 8, 1, 3, 'N', 'smooth ice', 'rough sand')],
+      caveat: 'After launch there is no continuing forward push; the curve isolates steady opposing friction.',
+      compute(state) {
+        const stop = state.friction === 0 ? Infinity : 16 / state.friction;
+        const stopTime = state.friction === 0 ? Infinity : 8 / state.friction;
+        const points = physicsGraphPoints(x => {
+          const time = 8 * x;
+          const movingTime = Math.min(time, stopTime);
+          const position = 4 * movingTime - state.friction * movingTime ** 2 / 4;
+          return position / 32;
+        });
+        return {
+          readout: state.friction === 0
+            ? 'A 2 kg cart launched at 4 m/s keeps constant speed when no friction is modeled.'
+            : 'A 2 kg cart launched at 4 m/s against ' + state.friction +
+              ' N friction slows without reversing; its stopping distance is ' +
+              physicsFixed(stop, 1) + ' m.',
+          visual: { kind: 'graph', xLabel: 'time', yLabel: 'position',
+            curves: [{ points, label: state.friction + ' N friction', tone: 'primary' }],
+            marker: [0.78, points[Math.round(points.length * .78)][1]],
+            note: state.friction === 0 ? 'straight position line: constant speed' :
+              state.friction + ' N makes position level off after ' + physicsFixed(stopTime, 1) + ' s' },
+        };
+      },
+    },
+    'phys.1.machines': {
+      controls: [physicsControl('length', 'Ramp length for a 1 m rise', 1, 5, 0.5, 3, 'm', 'steep and short', 'long and shallow')],
+      caveat: 'The ideal calculation ignores friction; a real ramp needs extra work that becomes thermal energy.',
+      compute(state) {
+        const weight = 100;
+        const force = weight / state.length;
+        const markerX = (state.length - 1) / 4;
+        const curve = physicsGraphPoints(x => 1 / (1 + 4 * x));
+        return {
+          readout: 'Raising a 100 N load by 1 m along a ' + physicsFixed(state.length, 1) +
+            ' m ideal ramp needs ' + physicsFixed(force, 1) + ' N over more distance; work remains 100 J.',
+          visual: { kind: 'graph', xLabel: 'ramp length', yLabel: 'ideal force',
+            curves: [{ points: curve, label: 'force = weight × height / length', tone: 'primary' }],
+            marker: [markerX, force / 100],
+            note: physicsFixed(state.length, 1) + ' m ramp → ' + physicsFixed(force, 1) + ' N; work = 100 J' },
+        };
+      },
+    },
+    'phys.1.magnets': {
+      controls: [physicsControl('angle', 'Turn the second magnet', 0, 180, 15, 0, '°', 'opposite poles face', 'like poles face')],
+      caveat: 'The traces are qualitative end-to-end dipole orientation indices, not exact force or torque laws for finite bar magnets.',
+      compute(state) {
+        const interaction = Math.cos(state.angle * Math.PI / 180);
+        const turning = Math.abs(Math.sin(state.angle * Math.PI / 180));
+        const axialWord = Math.abs(interaction) < 0.15 ? 'little axial pull or push' :
+          interaction > 0 ? 'axial attraction' : 'axial repulsion';
+        const turningWord = turning > 0.8 ? 'strong turning tendency' :
+          turning > 0.25 ? 'moderate turning tendency' : 'little turning tendency';
+        const axialCurve = physicsGraphPoints(x => (1 + Math.cos(x * Math.PI)) / 2);
+        const turningCurve = physicsGraphPoints(x => Math.abs(Math.sin(x * Math.PI)));
+        return {
+          readout: 'At ' + state.angle + '°, axial pull/push orientation index = ' +
+            physicsFixed(interaction, 2) + ' and turning index = ' + physicsFixed(turning, 2) +
+            ': ' + axialWord + ' with ' + turningWord + '.',
+          visual: { kind: 'graph', xLabel: 'rotation 0° → 180°', yLabel: 'scaled orientation response',
+            curves: [
+              { points: axialCurve, label: 'axial index −1…+1 (mapped)', tone: 'primary' },
+              { points: turningCurve, label: 'turning index |sin θ|', tone: 'secondary' },
+            ],
+            marker: [state.angle / 180, (1 + interaction) / 2],
+            note: state.angle + '° → ' + axialWord + '; ' + turningWord },
+        };
+      },
+    },
+    'phys.1.sound': {
+      controls: [
+        physicsControl('frequency', 'Frequency', 100, 900, 50, 300, 'Hz', 'low pitch', 'high pitch'),
+        physicsControl('amplitude', 'Amplitude', 1, 10, 1, 4, 'units', 'quiet', 'loud'),
+      ],
+      caveat: 'The curve graphs air-pressure variation over time, not sideways air motion. Real instruments contain many frequencies and loudness also depends on hearing sensitivity.',
+      compute(state) {
+        return {
+          readout: state.frequency + ' Hz sets the pitch while amplitude ' + state.amplitude +
+            ' sets the wave height and relative intensity ' + (state.amplitude ** 2) + '. The controls are independent.',
+          visual: { kind: 'wave', cycles: state.frequency / 100,
+            amplitude: state.amplitude / 10,
+            label: 'air-pressure trace: ' + state.frequency + ' Hz; amplitude ' + state.amplitude,
+            note: 'intensity ∝ amplitude² = ' + (state.amplitude ** 2) },
+        };
+      },
+    },
+    'phys.1.energy': {
+      controls: [physicsControl('progress', 'Transfer progress', 0, 100, 5, 35, '%', 'stored', 'dispersed as heat and sound')],
+      caveat: 'The three displayed stores are bookkeeping; heating and sound are transfer pathways, and the surroundings must be included for the total to close.',
+      compute(state) {
+        const gravitational = Math.max(0, 100 - state.progress * 2);
+        const kinetic = state.progress <= 50 ? state.progress * 2 : Math.max(0, 200 - state.progress * 2);
+        const thermal = 100 - gravitational - kinetic;
+        return {
+          readout: 'Energy account: gravitational store ' + gravitational + ', kinetic store ' + kinetic +
+            ', thermal stores after transfer ' + thermal + '. Heating and sound are pathways; the total is 100 units.',
+          visual: { kind: 'ledger', label: '100-unit energy account', segments: [
+            { label: 'gravitational ' + gravitational, value: gravitational },
+            { label: 'kinetic ' + kinetic, value: kinetic },
+            { label: 'thermal ' + thermal, value: thermal },
+          ], equation: gravitational + ' + ' + kinetic + ' + ' + thermal + ' = 100',
+          note: 'stores change; transfers move energy', arrow: true },
+        };
+      },
+    },
+    'phys.2.forces': {
+      controls: [
+        physicsControl('applied', 'Applied force', 0, 14, 1, 9, 'N', 'no push', '14 N push'),
+        physicsControl('friction', 'Friction', 0, 10, 1, 4, 'N', 'smooth', 'strong friction'),
+      ],
+      caveat: 'The crate is already moving right, so a larger leftward friction force can slow it; static friction from rest is not modeled.',
+      compute(state) {
+        const net = state.applied - state.friction;
+        const acceleration = net / 2;
+        return {
+          readout: 'For a 2 kg crate initially moving right, net force = ' + state.applied + ' − ' + state.friction +
+            ' = ' + physicsFixed(net, 0) + ' N and acceleration = ' + physicsFixed(acceleration, 1) + ' m/s².',
+          visual: { kind: 'vector', object: '2 kg moving →', left: state.friction / 14,
+            right: state.applied / 14, leftLabel: state.friction + ' N friction',
+            rightLabel: state.applied + ' N push', response: acceleration / 7,
+            note: 'ΣF = ' + physicsFixed(net, 0) + ' N' },
+        };
+      },
+    },
+    'phys.2.gravity': {
+      controls: [
+        physicsControl('field', 'Gravitational field', 1.6, 24.8, 0.2, 9.8, 'N/kg', 'Moon-like', 'strong field'),
+        physicsControl('mass', 'Mass', 1, 20, 1, 10, 'kg', '1 kg', '20 kg'),
+      ],
+      caveat: 'A uniform field is a local approximation; orbital gravity changes with distance from the attracting body.',
+      compute(state) {
+        const weight = state.mass * state.field;
+        const curve = physicsGraphPoints(x => state.mass / 20 * x);
+        const markerX = state.field / 24.8;
+        return {
+          readout: 'Mass stays ' + state.mass + ' kg. In a ' + physicsFixed(state.field, 1) +
+            ' N/kg field, weight W = mg = ' + physicsFixed(weight, 1) + ' N.',
+          visual: { kind: 'graph', xLabel: 'field strength g', yLabel: 'weight for fixed mass',
+            curves: [{ points: curve, label: 'W = mg', tone: 'primary' }],
+            marker: [markerX, state.mass / 20 * markerX],
+            note: state.mass + ' kg × ' + physicsFixed(state.field, 1) + ' N/kg = ' + physicsFixed(weight, 1) + ' N' },
+        };
+      },
+    },
+    'phys.2.electricity': {
+      controls: [
+        physicsControl('voltage', 'Battery voltage', 1, 12, 1, 6, 'V', '1 V', '12 V'),
+        physicsControl('resistance', 'Resistance', 1, 20, 1, 6, 'Ω', '1 Ω', '20 Ω'),
+        { ...physicsControl('closed', 'Switch', 0, 1, 1, 1, '', 'open', 'closed'), names: ['open', 'closed'] },
+      ],
+      caveat: 'Ohm’s law here assumes an ideal battery and an ohmic resistor at constant temperature.',
+      compute(state) {
+        const current = state.closed ? state.voltage / state.resistance : 0;
+        return {
+          readout: state.closed ? 'Closed circuit: I = V/R = ' + state.voltage + '/' + state.resistance +
+            ' = ' + physicsFixed(current, 2) + ' A.' : 'Open circuit: the broken path makes current 0 A.',
+          visual: { kind: 'circuit', closed: Boolean(state.closed),
+            current: Math.min(1, current / 3), meter: physicsFixed(current, 2) + ' A',
+            note: state.closed ? 'complete path' : 'open switch breaks the path' },
+        };
+      },
+    },
+    'phys.2.heat': {
+      controls: [
+        { ...physicsControl('mechanism', 'Transfer mechanism', 0, 2, 1, 0, '', 'conduction', 'radiation'),
+          names: ['conduction', 'convection', 'radiation'] },
+        physicsControl('difference', 'Temperature difference', 5, 80, 5, 30, '°C', 'small gap', 'large gap'),
+      ],
+      caveat: 'The pathway motifs are qualitative; geometry and material coefficients determine absolute rates, so this model does not rank mechanisms.',
+      compute(state) {
+        const names = ['conduction', 'convection', 'radiation'];
+        const dependence = state.mechanism === 2
+          ? 'Radiative exchange depends on T_hot⁴ − T_cold⁴ using absolute temperatures in kelvin; ΔT alone does not set it.'
+          : 'In this fixed example, a larger temperature gap increases the transfer rate.';
+        return {
+          readout: names[state.mechanism] + ' selected with a ' + state.difference +
+            ' °C temperature gap. ' + dependence +
+            ' This display does not rank absolute rates across mechanisms.',
+          visual: { kind: 'transfer', left: 0.5 + state.difference / 200,
+            right: 0.5 - state.difference / 200, direction: 1,
+            leftLabel: 'hot side', rightLabel: 'cold side', arrowLabel: names[state.mechanism],
+            mechanism: names[state.mechanism],
+            note: 'mechanism changes how energy travels' },
+        };
+      },
+    },
+    'phys.2.waves': {
+      controls: [
+        physicsControl('frequency', 'Frequency', 1, 8, 0.5, 3, 'Hz', 'low frequency', 'high frequency'),
+        physicsControl('amplitude', 'Amplitude', 1, 10, 1, 4, 'cm', 'small amplitude', 'large amplitude'),
+      ],
+      caveat: 'The medium fixes wave speed at 12 m/s in this model; changing the medium would change that constraint.',
+      compute(state) {
+        const wavelength = 12 / state.frequency;
+        return {
+          readout: 'At fixed speed 12 m/s, f = ' + physicsFixed(state.frequency, 1) +
+            ' Hz gives λ = ' + physicsFixed(wavelength, 2) + ' m. Amplitude ' + state.amplitude +
+            ' cm changes energy, not speed.',
+          visual: { kind: 'wave', cycles: state.frequency, amplitude: state.amplitude / 10,
+            label: 'v = fλ = 12 m/s', note: 'λ = ' + physicsFixed(wavelength, 2) + ' m' },
+        };
+      },
+    },
+    'phys.2.matter': {
+      controls: [physicsControl('temperature', 'Temperature', -30, 150, 5, 25, '°C', 'cold solid', 'hot gas')],
+      caveat: 'This is water at 1 atm. At 0 °C or 100 °C two phases can coexist while latent heat changes their fractions at fixed temperature.',
+      compute(state) {
+        const atMelting = state.temperature === 0;
+        const atBoiling = state.temperature === 100;
+        const phase = state.temperature < 0 ? 'solid' : atMelting ? 'solid + liquid coexistence' :
+          state.temperature < 100 ? 'liquid' : atBoiling ? 'liquid + gas coexistence' : 'gas';
+        const order = state.temperature < 0 ? 1 : atMelting ? 0.62 :
+          state.temperature < 100 ? 0.25 : atBoiling ? 0.1 : 0;
+        const spread = state.temperature < 0 ? 0.22 : atMelting ? 0.4 :
+          state.temperature < 100 ? 0.55 : atBoiling ? 0.78 : 1;
+        const boundaryNote = atMelting || atBoiling
+          ? 'At this coexistence temperature, latent heat changes the phase fractions.'
+          : 'Particle identity is unchanged; spacing and freedom of motion differ.';
+        return {
+          readout: 'At ' + state.temperature + ' °C in this water model, the state is ' + phase +
+            '. ' + boundaryNote,
+          visual: { kind: 'particles', count: 32, order, spread,
+            coexistence: atMelting ? 'solid-liquid' : atBoiling ? 'liquid-gas' : null,
+            energy: (state.temperature + 30) / 180, label: phase + ' particle model',
+            note: atMelting || atBoiling ? 'phase fraction is not fixed by temperature alone' :
+              phase === 'gas' ? 'widely spaced and compressible' :
+              phase === 'liquid' ? 'neighbors rearrange' : 'ordered neighbors vibrate' },
+        };
+      },
+    },
+    'phys.2.units': {
+      controls: [
+        physicsControl('resolution', 'Instrument resolution', 0.1, 2, 0.1, 0.5, 'mm', 'fine scale', 'coarse scale'),
+        physicsControl('repeats', 'Repeated readings', 1, 25, 1, 5, '', 'one reading', '25 readings'),
+      ],
+      caveat: 'The model combines an independent uniform read-off term (resolution/√12) with a 1.2 mm single-reading standard deviation. Repeating cannot remove a calibration bias shared by every reading.',
+      compute(state) {
+        const random = 1.2 / Math.sqrt(state.repeats);
+        const rounding = state.resolution / Math.sqrt(12);
+        const uncertainty = Math.sqrt(rounding ** 2 + random ** 2);
+        const curve = physicsGraphPoints(x => {
+          const n = 1 + 24 * x;
+          return Math.min(1, Math.sqrt(rounding ** 2 + (1.2 / Math.sqrt(n)) ** 2) / 1.3);
+        });
+        return {
+          readout: state.repeats + ' readings at ' + physicsFixed(state.resolution, 1) +
+            ' mm resolution give one-standard combined uncertainty u_c ≈ ' + physicsFixed(uncertainty, 2) + ' mm.',
+          visual: { kind: 'graph', xLabel: 'repeat count', yLabel: 'one-standard uncertainty',
+            curves: [{ points: curve, label: 'random term falls; resolution floor remains', tone: 'primary' }],
+            marker: [(state.repeats - 1) / 24, Math.min(1, uncertainty / 1.3)],
+            note: state.repeats + ' readings at ' + physicsFixed(state.resolution, 1) +
+              ' mm resolution → u_c ' + physicsFixed(uncertainty, 2) + ' mm' },
+        };
+      },
+    },
+    'phys.3.mechanics': {
+      controls: [
+        physicsControl('force', 'Net force', -20, 20, 1, 10, 'N', '20 N left', '20 N right'),
+        physicsControl('mass', 'Mass', 1, 10, 1, 2, 'kg', '1 kg', '10 kg'),
+      ],
+      caveat: 'This point-mass model uses an inertial frame and a constant net force; internal rotation and deformation are omitted.',
+      compute(state) {
+        const acceleration = state.force / state.mass;
+        return {
+          readout: 'Newton’s second law gives a = F/m = ' + state.force + '/' + state.mass +
+            ' = ' + physicsFixed(acceleration, 2) + ' m/s². Zero net force would preserve velocity, not force rest.',
+          visual: { kind: 'vector', object: state.mass + ' kg',
+            left: Math.max(0, -state.force) / 20, right: Math.max(0, state.force) / 20,
+            leftLabel: state.force < 0 ? Math.abs(state.force) + ' N' : '0 N',
+            rightLabel: state.force > 0 ? state.force + ' N' : '0 N', response: acceleration / 20,
+            note: 'a = ' + physicsFixed(acceleration, 2) + ' m/s²' },
+        };
+      },
+    },
+    'phys.3.energy-work': {
+      controls: [physicsControl('restitution', 'Collision elasticity', 0, 1, 0.05, 0.6, '', 'sticks together', 'perfectly elastic')],
+      caveat: 'The calculation uses equal masses, one initially stationary, one-dimensional motion, and no external impulse.',
+      compute(state) {
+        const first = (1 - state.restitution) / 2 * 4;
+        const second = (1 + state.restitution) / 2 * 4;
+        const kineticFraction = (1 + state.restitution ** 2) / 2;
+        const lost = 100 * (1 - kineticFraction);
+        return {
+          readout: 'Momentum remains 4m in model units. Final speeds are ' + physicsFixed(first, 2) +
+            ' and ' + physicsFixed(second, 2) + ' m/s; ' + physicsFixed(lost, 1) +
+            '% of initial kinetic energy becomes internal energy.',
+          visual: { kind: 'ledger', label: 'initial kinetic energy = 100%', segments: [
+            { label: 'final KE ' + physicsFixed(100 - lost, 0) + '%', value: 100 - lost },
+            { label: 'internal ' + physicsFixed(lost, 0) + '%', value: lost },
+          ], equation: 'momentum before = momentum after',
+          note: state.restitution === 1 ? 'elastic: KE also conserved' : 'momentum conserved; KE redistributed', arrow: true },
+        };
+      },
+    },
+    'phys.3.em': {
+      controls: [
+        physicsControl('velocity', 'Magnet velocity', -5, 5, 0.5, 2, 'm/s', 'withdraw fast', 'insert fast'),
+        physicsControl('turns', 'Coil turns', 10, 100, 10, 50, '', '10 turns', '100 turns'),
+      ],
+      caveat: 'The proportional flux-gradient model holds geometry fixed and omits coil resistance and magnetic saturation.',
+      compute(state) {
+        const emf = -state.turns * state.velocity * 0.02;
+        return {
+          readout: 'With ' + state.turns + ' turns and velocity ' + physicsFixed(state.velocity, 1) +
+            ' m/s, induced emf is ' + physicsFixed(emf, 2) + ' V. Reversing motion reverses polarity; stopping makes it zero.',
+          visual: { kind: 'field', strength: state.velocity / 5, flipped: false,
+            coilTurns: 2 + Math.round(state.turns / 20),
+            label: state.velocity === 0 ? 'unchanged flux' : 'changing magnetic flux',
+            meter: 'emf = ' + physicsFixed(emf, 2) + ' V',
+            note: 'Faraday: emf = −N dΦ/dt' },
+        };
+      },
+    },
+    'phys.3.optics-waves': {
+      controls: [
+        physicsControl('difference', 'Path difference', 0, 2, 0.05, 0.5, 'λ', 'equal paths', 'two wavelengths'),
+        physicsControl('amplitude', 'Each-wave amplitude', 1, 10, 1, 5, 'units', 'small', 'large'),
+      ],
+      caveat: 'The two sources are coherent and equally strong; finite slit width and detector geometry are omitted.',
+      compute(state) {
+        const intensity = Math.cos(Math.PI * state.difference) ** 2;
+        const word = intensity > 0.9 ? 'constructive' : intensity < 0.1 ? 'destructive' : 'partial';
+        return {
+          readout: 'Path difference ' + physicsFixed(state.difference, 2) + ' λ gives normalized intensity ' +
+            physicsFixed(intensity, 2) + ': ' + word + ' interference. Each-wave amplitude ' +
+            state.amplitude + ' sets the absolute intensity scale, not the normalized fringe positions.',
+          visual: { kind: 'wave', cycles: 3, amplitude: state.amplitude / 10,
+            secondCycles: 3, secondAmplitude: state.amplitude / 10,
+            secondPhase: 2 * Math.PI * state.difference,
+            label: 'two coherent contributions', note: 'I/Imax = cos²(π Δr/λ) = ' + physicsFixed(intensity, 2) },
+        };
+      },
+    },
+    'phys.3.thermo': {
+      controls: [
+        physicsControl('hot', 'Hot reservoir', 400, 1000, 25, 600, 'K', '400 K', '1000 K'),
+        physicsControl('cold', 'Cold reservoir', 200, 390, 10, 300, 'K', '200 K', '390 K'),
+      ],
+      caveat: 'Carnot efficiency is a reversible upper bound; finite-rate heat flow and friction make real engines less efficient.',
+      compute(state) {
+        const eta = 1 - state.cold / state.hot;
+        const work = 100 * eta;
+        return {
+          readout: 'For T_hot = ' + state.hot + ' K and T_cold = ' + state.cold +
+            ' K, η_Carnot = 1 − T_cold/T_hot = ' + physicsFixed(eta * 100, 1) +
+            '%. At least ' + physicsFixed(100 - work, 1) + ' J of each 100 J must be rejected.',
+          visual: { kind: 'engine', hotLabel: state.hot + ' K hot reservoir',
+            coldLabel: state.cold + ' K cold reservoir', work, coldHeat: 100 - work,
+            note: 'Carnot ceiling ' + physicsFixed(eta * 100, 1) + '%; reject at least ' +
+              physicsFixed(100 - work, 1) + ' J' },
+        };
+      },
+    },
+    'phys.3.nuclear': {
+      controls: [
+        physicsControl('halves', 'Elapsed half-lives', 0, 6, 1, 2, '', 'start', 'six half-lives'),
+        physicsControl('initial', 'Starting nuclei', 32, 128, 32, 128, '', '32 nuclei', '128 nuclei'),
+      ],
+      caveat: 'The dots show the expected ensemble fraction deterministically; an individual nucleus has no scheduled decay time.',
+      compute(state) {
+        const expected = state.initial * (0.5 ** state.halves);
+        return {
+          readout: 'After ' + state.halves + ' half-lives, N = ' + state.initial +
+            ' × (1/2)^' + state.halves + ' = ' + physicsFixed(expected, 1) + ' nuclei expected on average.',
+          visual: { kind: 'ensemble', fraction: expected / state.initial, total: state.initial,
+            label: state.initial + '-nucleus ensemble',
+            note: physicsFixed(expected, 1) + ' expected; individual decays remain random' },
+        };
+      },
+    },
+    'phys.3.relativity-intro': {
+      controls: [physicsControl('beta', 'Relative speed v/c', 0, 0.95, 0.05, 0.6, 'c', 'at rest', '0.95 c')],
+      caveat: 'The clocks are inertial and compare intervals between the same two events; acceleration during turnaround is not modeled.',
+      compute(state) {
+        const gamma = 1 / Math.sqrt(1 - state.beta ** 2);
+        return {
+          readout: 'At v = ' + physicsFixed(state.beta, 2) + ' c, γ = ' + physicsFixed(gamma, 3) +
+            '. A 1.00 μs proper-time tick spans ' + physicsFixed(gamma, 3) + ' μs in this frame.',
+          visual: { kind: 'spacetime', beta: state.beta,
+            label: 'moving clock worldline',
+            note: 'γ = ' + physicsFixed(gamma, 3) },
+        };
+      },
+    },
+    'phys.3.modern': {
+      controls: [
+        physicsControl('frequency', 'Light frequency', 3, 10, 0.25, 6, '×10¹⁴ Hz', 'infrared', 'ultraviolet'),
+        physicsControl('intensity', 'Photon arrival-rate scale', 1, 10, 1, 4, '', 'few photons', 'many photons'),
+      ],
+      caveat: 'The arrival-rate control means photon flux, not fixed optical power. The toy metal has one work function, constant collection efficiency above threshold, and no electron energy loss before detection.',
+      compute(state) {
+        const threshold = 5.2;
+        const thresholdX = (threshold - 3) / 7;
+        const kinetic = Math.max(0, 0.414 * state.frequency - 2.153);
+        const count = state.frequency >= threshold ? state.intensity * 10 : 0;
+        const curve = Array.from({ length: 61 }, (_, index) => {
+          const x = thresholdX + (1 - thresholdX) * index / 60;
+          return [x, Math.min(1, (x - thresholdX) / .65)];
+        });
+        const markerX = (state.frequency - 3) / 7;
+        return {
+          readout: state.frequency < threshold
+            ? 'Frequency is below the threshold: no electrons emerge, even at photon arrival-rate scale ' + state.intensity + '.'
+            : 'Above threshold, K_max = ' + physicsFixed(kinetic, 2) + ' eV; photon arrival-rate scale ' + state.intensity +
+              ' gives a relative electron count of ' + count + ' without changing K_max.',
+          visual: { kind: 'graph', xLabel: 'frequency', yLabel: 'maximum electron KE',
+            curves: [{ points: curve, label: 'K_max = hf − work function', tone: 'primary' }],
+            marker: state.frequency >= threshold ? [markerX, Math.min(1, kinetic / 2)] : null,
+            incidentPhotons: state.intensity,
+            note: state.frequency >= threshold ? count + ' relative electrons; K_max ' +
+              physicsFixed(kinetic, 2) + ' eV' : 'below threshold: incident photons but no emission' },
+        };
+      },
+    },
+    'phys.4.classical': {
+      controls: [
+        physicsControl('deviation', 'Trial-path deformation', -1, 1, 0.05, 0.45, '', 'bend below', 'bend above'),
+        physicsControl('energy', 'Oscillator energy', 0.5, 2, 0.1, 1, 'units', 'small orbit', 'large orbit'),
+      ],
+      caveat: 'This toy action has a minimum at the physical path; in general stationary action may be a minimum, maximum, or saddle.',
+      compute(state) {
+        const deltaAction = state.deviation ** 2 * 4;
+        const physical = physicsGraphPoints(x => 0.2 + 0.6 * x);
+        const trial = physicsGraphPoints(x => 0.2 + 0.6 * x + state.deviation * 0.65 * 4 * x * (1 - x));
+        return {
+          readout: 'The trial deformation ' + physicsFixed(state.deviation, 2) +
+            ' raises this toy action by ΔS = ' + physicsFixed(deltaAction, 2) +
+            '. Oscillator energy ' + physicsFixed(state.energy, 1) + ' sets a larger constant-H phase orbit.',
+          visual: { kind: 'graph', xLabel: 'time', yLabel: 'configuration q', curves: [
+            { points: physical, label: 'stationary path δS = 0', tone: 'primary' },
+            { points: trial, label: 'selected trial path', tone: 'secondary' },
+          ], marker: [0.5, trial[Math.floor(trial.length / 2)][1]],
+          phaseOrbit: Math.sqrt(state.energy / 2),
+          note: 'trial deformation ' + physicsFixed(state.deviation, 2) +
+            '; phase-orbit radius scales as sqrt(' + physicsFixed(state.energy, 1) + ')' },
+        };
+      },
+    },
+    'phys.4.em-maxwell': {
+      controls: [
+        physicsControl('frequency', 'Frequency', 1, 10, 0.5, 4, 'GHz', '1 GHz', '10 GHz'),
+        physicsControl('amplitude', 'Electric-field amplitude', 1, 10, 1, 5, 'units', 'weak field', 'strong field'),
+      ],
+      caveat: 'The display is a monochromatic plane wave in vacuum; sources, finite beams, and material dispersion are omitted.',
+      compute(state) {
+        const wavelength = 0.3 / state.frequency;
+        return {
+          readout: 'At ' + physicsFixed(state.frequency, 1) + ' GHz, λ = c/f = ' +
+            physicsFixed(wavelength, 3) + ' m. E and B remain in phase and perpendicular; electric-field amplitude ' +
+            state.amplitude + ' sets the wave intensity scale.',
+          visual: { kind: 'wave', cycles: state.frequency,
+            amplitude: state.amplitude / 10, orthogonalFields: true,
+            label: 'E vertical; B through the page',
+            note: 'E ⟂ B ⟂ travel; c = fλ; λ = ' + physicsFixed(wavelength, 3) + ' m' },
+        };
+      },
+    },
+    'phys.4.quantum': {
+      controls: [
+        physicsControl('state', 'Box energy state n', 1, 5, 1, 2, '', 'ground state', 'n = 5'),
+        physicsControl('samples', 'Detection samples', 16, 128, 16, 64, '', '16 samples', '128 samples'),
+      ],
+      caveat: 'This one-dimensional infinite well has ideal hard walls; a wavefunction is an amplitude, not a material wave trajectory.',
+      compute(state) {
+        const probability = physicsGraphPoints(x => Math.sin(state.state * Math.PI * x) ** 2);
+        const histogram = physicsWellHistogram(state.state, state.samples);
+        return {
+          readout: 'State n = ' + state.state + ' has ' + (state.state - 1) +
+            ' interior probability nodes and energy proportional to n² = ' + (state.state ** 2) +
+            '. With ' + state.samples + ' samples, histogram noise is reduced but not erased. ' +
+            'The vertical scale is relative to the theoretical peak.',
+          visual: { kind: 'graph', xLabel: 'position x', yLabel: 'relative density (peak = 1)', curves: [
+            { points: probability, label: 'relative |ψ|²', tone: 'primary' },
+          ], histogram, marker: [0.5, probability[Math.floor(probability.length / 2)][1]],
+          note: state.samples + ' seeded detections; sample bars above the plot ceiling are clipped' },
+        };
+      },
+    },
+    'phys.4.statmech': {
+      controls: [physicsControl('heads', 'Heads in four coins', 0, 4, 1, 2, '', 'zero heads', 'four heads')],
+      caveat: 'All 16 coin microstates are equally likely here; interacting particles can have unequal energies and correlations.',
+      compute(state) {
+        const multiplicity = physicsChoose(4, state.heads);
+        const entropy = Math.log(multiplicity);
+        return {
+          readout: state.heads + ' heads can occur in Ω = C(4,' + state.heads + ') = ' +
+            multiplicity + ' microstates, so S/k = ln Ω = ' + physicsFixed(entropy, 3) + '.',
+          visual: { kind: 'ensemble', bars: [1, 4, 6, 4, 1], barLabels: ['0', '1', '2', '3', '4'],
+            highlight: state.heads, label: 'macrostate multiplicities 1 : 4 : 6 : 4 : 1',
+            note: 'more compatible microstates → greater entropy' },
+        };
+      },
+    },
+    'phys.4.relativity': {
+      controls: [
+        physicsControl('beta', 'Frame speed v/c', -0.9, 0.9, 0.05, 0.6, 'c', '0.9 c left', '0.9 c right'),
+        physicsControl('proper', 'Proper-time interval', 1, 10, 0.5, 4, 'μs', '1 μs', '10 μs'),
+      ],
+      caveat: 'The Lorentz transformation connects inertial frames; gravity and acceleration require additional treatment.',
+      compute(state) {
+        const gamma = 1 / Math.sqrt(1 - state.beta ** 2);
+        const coordinate = gamma * state.proper;
+        return {
+          readout: 'For β = ' + physicsFixed(state.beta, 2) + ', γ = ' + physicsFixed(gamma, 3) +
+            '. Proper time ' + physicsFixed(state.proper, 1) + ' μs spans ' + physicsFixed(coordinate, 2) +
+            ' μs in this frame; the light cone and spacetime interval stay invariant.',
+          visual: { kind: 'spacetime', beta: state.beta, simultaneity: true,
+            duration: coordinate / 24,
+            label: 'worldline and frame simultaneity slice',
+            note: 'marker: t = ' + physicsFixed(coordinate, 2) + ' μs on a fixed 24 μs axis; Δs² invariant' },
+        };
+      },
+    },
+    'phys.4.solid-state': {
+      controls: [
+        physicsControl('gap', 'Band gap', 0.2, 4, 0.1, 1.1, 'eV', 'narrow gap', 'wide gap'),
+        physicsControl('temperature', 'Temperature', 100, 800, 25, 300, 'K', 'cold', 'hot'),
+        physicsControl('doping', 'Donor density', 0, 10, 1, 2, 'units', 'intrinsic', 'heavily doped'),
+      ],
+      caveat: 'The model uses n_i = (material prefactor) exp[−Eg/(2kBT)] and reports only that exponential factor. Donors are treated as fully ionized and nondegenerate; freeze-out, band-gap narrowing, and degenerate statistics are omitted. Carrier dots use a compressed log scale.',
+      compute(state) {
+        const log10Thermal = -state.gap * 5802 / (state.temperature * Math.LN10);
+        const thermalVisual = Math.max(0, 10 + log10Thermal);
+        const carriers = Math.min(18, state.doping + thermalVisual);
+        return {
+          readout: 'For gap ' + physicsFixed(state.gap, 1) + ' eV at ' + state.temperature +
+            ' K, log₁₀[n_i/material prefactor] = −Eg/(2kBT ln 10) = ' + physicsFixed(log10Thermal, 2) +
+            '. Donor index ' + state.doping + ' adds carriers on the compressed visual scale.',
+          visual: { kind: 'bands', gap: state.gap / 4, carriers,
+            note: 'log-scaled carriers; the gap remains visible' },
+        };
+      },
+    },
+    'phys.4.particles': {
+      controls: [{ ...physicsControl('channel', 'Candidate decay channel', 0, 2, 1, 0, '',
+        'complete beta decay', 'free proton proposal'),
+        names: ['n → p + e⁻ + antineutrino', 'n → p + e⁻', 'p → n + positron'] }],
+      caveat: 'A full decay audit also checks energy, momentum, spin, and every relevant flavor quantum number.',
+      compute(state) {
+        const channels = [
+          { name: 'n → p + e⁻ + antineutrino', q: true, b: true, l: true, allowed: true },
+          { name: 'n → p + e⁻', q: true, b: true, l: false, allowed: false },
+          { name: 'p → n + positron', q: true, b: true, l: false, allowed: false },
+        ];
+        const selected = channels[state.channel];
+        return {
+          readout: selected.name + ': electric charge ' + (selected.q ? 'balances' : 'fails') +
+            ', baryon number ' + (selected.b ? 'balances' : 'fails') + ', and lepton number ' +
+            (selected.l ? 'balances' : 'fails') + '. This ledger ' + (selected.allowed ? 'passes' : 'rejects the channel') + '.',
+          visual: { kind: 'ledger', label: selected.name, segments: [
+            { label: 'charge ' + (selected.q ? '✓' : '×'), value: selected.q ? 1 : .42 },
+            { label: 'baryon ' + (selected.b ? '✓' : '×'), value: selected.b ? 1 : .42 },
+            { label: 'lepton ' + (selected.l ? '✓' : '×'), value: selected.l ? 1 : .42 },
+          ], equation: selected.allowed ? 'required additive numbers balance' : 'one failed law is enough to reject',
+          note: selected.allowed ? 'ledger passes these three checks' : 'ledger fails: missing required products' },
+        };
+      },
+    },
+    'phys.4.experiment': {
+      controls: [
+        physicsControl('bias', 'Calibration offset', -5, 5, 0.5, 1, 'units', 'negative bias', 'positive bias'),
+        physicsControl('noise', 'Random scatter', 0, 5, 0.5, 1.5, 'units', 'precise', 'noisy'),
+        { ...physicsControl('outlier', 'Outlier', 0, 1, 1, 0, '', 'absent', 'present'), names: ['absent', 'present'] },
+      ],
+      caveat: 'The fixed irregular residual sequence makes comparisons reproducible. Points outside the plotting window clip visually, but diagnostics use raw values; real residuals also require independence checks and domain knowledge.',
+      compute(state) {
+        const predicted = physicsGraphPoints(x => 0.12 + 0.72 * x);
+        const fixedResiduals = [-.72, .18, .83, -.31, .44, -.91, .06, .67, -.48,
+          .29, -.12, .94, -.63, .38, -.25, .55, -.81, .11];
+        const rawObserved = fixedResiduals.map((residual, index) => {
+          const x = (index + 1) / (fixedResiduals.length + 1);
+          const outlier = state.outlier && index === 11 ? .28 : 0;
+          return [x, 0.12 + 0.72 * x + state.bias / 16 + state.noise / 20 * residual + outlier];
+        });
+        const residuals = rawObserved.map(point => point[1] - (0.12 + 0.72 * point[0]));
+        const meanResidual = residuals.reduce((sum, residual) => sum + residual, 0) / residuals.length;
+        const residualScatter = Math.sqrt(residuals.reduce((sum, residual) =>
+          sum + (residual - meanResidual) ** 2, 0) / residuals.length);
+        return {
+          readout: 'Offset ' + physicsFixed(state.bias, 1) + ', scatter ' + physicsFixed(state.noise, 1) +
+            ', outlier ' + (state.outlier ? 'present' : 'absent') + ' produce mean residual ' +
+            physicsFixed(meanResidual, 3) + ' and residual scatter ' + physicsFixed(residualScatter, 3) +
+            ' plot units. Averaging independent repeats can reduce random uncertainty; calibration bias remains.',
+          visual: { kind: 'graph', xLabel: 'controlled input', yLabel: 'instrument reading',
+            curves: [{ points: predicted, label: 'calibrated expectation', tone: 'primary' }],
+            scatter: rawObserved,
+            note: 'mean residual ' + physicsFixed(meanResidual, 3) + '; scatter ' +
+              physicsFixed(residualScatter, 3) + '; outlier ' + (state.outlier ? 'shown' : 'absent') },
+        };
+      },
+    },
+    'phys.5.qft': {
+      controls: [
+        physicsControl('quanta', 'Excitation number n', 0, 6, 1, 2, '', 'vacuum state', 'six quanta'),
+        physicsControl('frequency', 'Mode frequency', 1, 5, 0.25, 2, 'ω units', 'low frequency', 'high frequency'),
+      ],
+      caveat: 'This is one free bosonic mode; a number state has no definite classical field amplitude. Fermionic occupations and interacting fields differ.',
+      compute(state) {
+        const energy = (state.quanta + 0.5) * state.frequency;
+        return {
+          readout: 'For one free bosonic mode with n = ' + state.quanta + ' and ω = ' + physicsFixed(state.frequency, 2) +
+            ', E/ℏ = (n + 1/2)ω = ' + physicsFixed(energy, 2) + '. Even n = 0 retains zero-point energy.',
+          visual: { kind: 'qft', occupation: state.quanta, frequency: state.frequency,
+            energy, note: 'spacing ∝ ω; selected level n=' + state.quanta },
+        };
+      },
+    },
+    'phys.5.gr-cosmo': {
+      controls: [physicsControl('scale', 'Observed scale factor a', 0.5, 2, 0.05, 1, '', 'emission epoch', 'twice today’s scale')],
+      caveat: 'The homogeneous scale-factor model applies on cosmological scales, not to gravitationally bound atoms, people, or galaxies.',
+      compute(state) {
+        const emittedScale = 0.5;
+        const wavelength = 500 * state.scale / emittedScale;
+        const redshift = state.scale / emittedScale - 1;
+        return {
+          readout: 'Light emitted at a = 0.50 with λ = 500 nm is observed at a = ' +
+            physicsFixed(state.scale, 2) + ' with λ = ' + physicsFixed(wavelength, 0) +
+            ' nm and redshift z = ' + physicsFixed(redshift, 2) + '.',
+          visual: { kind: 'wave', cycles: Math.max(1, 7 / (state.scale / emittedScale)),
+            amplitude: 0.45, label: 'wavelength stretches with scale factor',
+            note: 'λ stretches with a; expansion has no center' },
+        };
+      },
+    },
+    'phys.5.condensed': {
+      controls: [
+        physicsControl('temperature', 'Temperature', 0.5, 10, 0.5, 5, 'K', '0.5 K', '10 K'),
+        physicsControl('field', 'Applied magnetic field', 0, 100, 5, 30, 'mT', 'no field', '100 mT'),
+      ],
+      caveat: 'This lead-like bulk type-I teaching model uses Tc = 7.2 K and Hc(0) = 80 mT, and makes the field transition abrupt. Demagnetization can create an intermediate state; real samples add shape and history effects.',
+      compute(state) {
+        const critical = 7.2;
+        const criticalField = state.temperature < critical
+          ? 80 * (1 - (state.temperature / critical) ** 2) : 0;
+        const inMeissnerState = state.temperature < critical && state.field < criticalField;
+        const order = inMeissnerState ? Math.sqrt(1 - state.temperature / critical) : 0;
+        const curve = physicsGraphPoints(x => {
+          const temp = 10 * x;
+          const hc = temp < critical ? 80 * (1 - (temp / critical) ** 2) : 0;
+          return temp < critical && state.field < hc ? Math.sqrt(1 - temp / critical) : 0;
+        });
+        return {
+          readout: 'In the lead-like type-I example, at ' + physicsFixed(state.temperature, 1) +
+            ' K with Tc = 7.2 K, order-parameter index = ' + physicsFixed(order, 3) +
+            '. Hc(T) ≈ ' + physicsFixed(criticalField, 1) + ' mT, so applied field ' + state.field + ' mT' +
+            (inMeissnerState ? ' remains in the Meissner regime.' :
+              ' drives or leaves the sample normal; the ideal field transition is abrupt.'),
+          visual: { kind: 'graph', xLabel: 'temperature', yLabel: 'superconducting order',
+            curves: [{ points: curve, label: 'bulk order; jump where H = Hc(T)', tone: 'primary' }],
+            marker: [state.temperature / 10, order],
+            note: physicsFixed(state.temperature, 1) + ' K, H=' + state.field + ' mT: ' +
+              (inMeissnerState ? 'Meissner state' : 'normal state') },
+        };
+      },
+    },
+    'phys.5.quantum-info': {
+      controls: [
+        physicsControl('angle', 'Detector angle difference', 0, 180, 5, 45, '°', 'same axis', 'opposite axes'),
+        physicsControl('trials', 'Entangled pairs', 32, 256, 32, 128, '', '32 pairs', '256 pairs'),
+      ],
+      caveat: 'This ideal spin-singlet model omits detector inefficiency. One angle cannot show Bell violation; CHSH combines four setting pairs.',
+      compute(state) {
+        const correlation = -Math.cos(state.angle * Math.PI / 180);
+        const sameProbability = (1 + correlation) / 2;
+        const expectedSame = state.trials * sameProbability;
+        const observedSame = physicsDeterministicCount(sameProbability, state.trials, state.angle);
+        const observedProbability = observedSame / state.trials;
+        const standardError = Math.sqrt(sameProbability * (1 - sameProbability) / state.trials);
+        const curve = physicsGraphPoints(x => (1 - Math.cos(x * Math.PI)) / 2);
+        return {
+          readout: 'At angle difference ' + state.angle + '°, singlet correlation E = ' +
+            physicsFixed(correlation, 3) + '; theory expects ' + physicsFixed(expectedSame, 1) + ' matches. A reproducible ' +
+            state.trials + '-pair mock sample has ' + observedSame +
+            '. Alice and Bob each still see 50/50 locally, so neither can signal.',
+          visual: { kind: 'graph', xLabel: 'angle difference', yLabel: 'same-outcome probability',
+            curves: [{ points: curve, label: 'P(same) theory', tone: 'primary' }],
+            measurement: { x: state.angle / 180, y: observedProbability, error: standardError },
+            note: state.trials + '-pair mock sample at ' + state.angle + '°: ' +
+              observedSame + ' same outcomes with one-standard-error bar' },
+        };
+      },
+    },
+    'phys.5.frontier': {
+      controls: [
+        physicsControl('halo', 'Halo contribution', 0, 100, 5, 65, '%', 'visible matter only', 'strong halo'),
+        physicsControl('baryons', 'Visible-mass scale', 50, 150, 5, 100, '%', 'low visible mass', 'high visible mass'),
+      ],
+      caveat: 'The plotted interval samples the outer disk and excludes the galactic center. Rotation curves alone do not uniquely identify dark matter; distance, gas, stellar mass, geometry, and alternative dynamics matter.',
+      compute(state) {
+        const observed = physicsGraphPoints(() => 0.72);
+        const predictionFn = x => {
+          const baryonSpeed = Math.sqrt(state.baryons / 100) * 0.78 / Math.sqrt(1 + 3.5 * x);
+          const haloSpeed = Math.sqrt(state.halo / 100) * 0.62 * Math.sqrt(1 - Math.exp(-4 * x));
+          return Math.max(0, Math.min(1, Math.sqrt(baryonSpeed ** 2 + haloSpeed ** 2)));
+        };
+        const predicted = physicsGraphPoints(predictionFn);
+        const residual = Math.sqrt(predicted.reduce((sum, point) => sum + (point[1] - 0.72) ** 2, 0) / predicted.length);
+        return {
+          readout: 'Visible-mass scale ' + state.baryons + '% plus halo contribution ' + state.halo +
+            '% gives rotation-curve RMS mismatch ' + physicsFixed(residual, 3) +
+            '. Lower mismatch improves this fit but does not prove a unique model.',
+          visual: { kind: 'graph', xLabel: 'outer-disk radius', yLabel: 'orbital speed', curves: [
+            { points: observed, label: 'synthetic flat observation', tone: 'primary' },
+            { points: predicted, label: 'selected model prediction', tone: 'secondary' },
+          ], marker: [0.82, predictionFn(0.82)],
+          note: 'component squared speeds add; RMS mismatch ' + physicsFixed(residual, 3) },
+        };
+      },
+    },
+  });
+
+  function formatPhysicsControl(control, value) {
+    if (control.names) return control.names[Math.round(value)] || String(value);
+    const digits = control.step < 0.1 ? 2 : control.step < 1 ? 1 : 0;
+    return physicsFixed(value, digits) + (control.unit ? ' ' + control.unit : '');
+  }
+
+  function renderPhysicsConceptLab(item, hooks) {
+    const scenarioId = item && item.props && item.props.scenario;
+    if (!Object.prototype.hasOwnProperty.call(PHYSICS_SCENARIOS, scenarioId)) return null;
+    const scenario = PHYSICS_SCENARIOS[scenarioId];
+    const frame = modelFrame(item, hooks);
+    const serial = nextModelId;
+    const arrowId = 'physics-arrow-' + serial;
+    const state = {};
+    const inputs = {};
+    const outputs = {};
+    scenario.controls.forEach(control => { state[control.key] = control.start; });
+    const svg = svgNode('svg', {
+      viewBox: '0 0 720 300', class: 'physics-concept-svg', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const summary = node('p', { class: 'physics-visual-summary', 'data-model-speak': true });
+
+    function refresh(announce, sourceLabel) {
+      const result = scenario.compute({ ...state });
+      renderPhysicsGraphic(svg, result.visual, arrowId);
+      summary.textContent = result.visual.note || result.visual.label || 'The model state changed.';
+      frame.readout.textContent = result.readout + ' Model boundary: ' + scenario.caveat;
+      scenario.controls.forEach(control => {
+        const formatted = formatPhysicsControl(control, state[control.key]);
+        inputs[control.key].setAttribute('aria-valuetext', formatted);
+        outputs[control.key].textContent = formatted;
+        const fill = (state[control.key] - control.min) / (control.max - control.min) * 100;
+        inputs[control.key].style.setProperty('--range-fill', physicsFixed(fill, 1) + '%');
+      });
+      if (announce) frame.status.textContent = (sourceLabel ? sourceLabel + '. ' : '') + result.readout;
+    }
+
+    const sliderGroup = node('div', { class: 'physics-control-grid' });
+    scenario.controls.forEach(control => {
+      const sliderId = 'physics-control-' + serial + '-' + control.key;
+      const input = node('input', {
+        id: sliderId, type: 'range', min: control.min, max: control.max, step: control.step,
+        value: control.start, 'aria-label': control.label,
+        oninput: event => {
+          state[control.key] = Number(event.currentTarget.value);
+          refresh(false);
+        },
+        onchange: event => {
+          state[control.key] = Number(event.currentTarget.value);
+          refresh(true, control.label + ' is ' + formatPhysicsControl(control, state[control.key]));
+        },
+      });
+      inputs[control.key] = input;
+      const valueOutput = node('output', { class: 'physics-slider-value', for: sliderId },
+        formatPhysicsControl(control, control.start));
+      outputs[control.key] = valueOutput;
+      sliderGroup.append(node('label', { class: 'model-slider physics-slider', for: sliderId },
+        node('span', { class: 'physics-slider-heading' },
+          node('span', { class: 'model-slider-title' }, control.label), valueOutput), input,
+        node('span', { class: 'model-slider-ends' },
+          node('span', {}, control.low), node('span', {}, control.high))));
+    });
+
+    const presetRow = node('div', { class: 'model-button-row physics-preset-row' },
+      node('button', { type: 'button', class: 'btn ghost small', onclick: () => {
+        scenario.controls.forEach(control => {
+          state[control.key] = control.start;
+          inputs[control.key].value = String(control.start);
+        });
+        refresh(true, 'Reset to the authored starting state');
+      } }, 'Reset'));
+
+    frame.canvas.classList.add('physics-concept-canvas');
+    frame.canvas.append(node('div', { class: 'physics-svg-scroll' }, svg), summary);
+    frame.controls.append(sliderGroup, presetRow);
+    refresh(false);
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
@@ -3644,6 +5106,7 @@
     'timeline-order-lab': renderTimelineOrder,
     'seasons-tilt-lab': renderSeasonsTilt,
     'art-elements-composer': renderArtElementsComposer,
+    'physics-concept-lab': renderPhysicsConceptLab,
   });
 
   window.PrimerLessonModels = Object.freeze({

@@ -133,7 +133,24 @@ LESSON_MODEL_RENDERERS = frozenset({
     "alphabet-explorer", "inclusive-family-timeline",
     "day-night-rotation-lab", "classroom-paint-mixer",
     "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
-    "art-elements-composer", "integer-number-line-lab",
+    "art-elements-composer", "integer-number-line-lab", "physics-concept-lab",
+})
+
+# These scenarios intentionally exclude the three physics lessons with bespoke
+# renderers.  A scenario is bound to the matching node id below, so authored
+# curriculum data cannot silently reuse a scientific model in the wrong lesson.
+PHYSICS_MODEL_SCENARIOS = frozenset({
+    "phys.0.push-pull", "phys.0.hot-cold", "phys.0.float-sink",
+    "phys.1.motion", "phys.1.machines", "phys.1.magnets", "phys.1.sound",
+    "phys.1.energy", "phys.2.forces", "phys.2.gravity", "phys.2.electricity",
+    "phys.2.heat", "phys.2.waves", "phys.2.matter", "phys.2.units",
+    "phys.3.mechanics", "phys.3.energy-work", "phys.3.em",
+    "phys.3.optics-waves", "phys.3.thermo", "phys.3.nuclear",
+    "phys.3.relativity-intro", "phys.3.modern", "phys.4.classical",
+    "phys.4.em-maxwell", "phys.4.quantum", "phys.4.statmech",
+    "phys.4.relativity", "phys.4.solid-state", "phys.4.particles",
+    "phys.4.experiment", "phys.5.qft", "phys.5.gr-cosmo",
+    "phys.5.condensed", "phys.5.quantum-info", "phys.5.frontier",
 })
 
 
@@ -456,6 +473,13 @@ def _validate_lesson_media(node: Dict) -> None:
                                for element in start_elements) \
                         or len(start_elements) != len(set(start_elements)):
                     raise ValueError("{} art elements composer has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "physics-concept-lab":
+                scenario = props.get("scenario")
+                if set(props) != {"scenario"} or not isinstance(scenario, str) \
+                        or scenario not in PHYSICS_MODEL_SCENARIOS \
+                        or scenario != node.get("id"):
+                    raise ValueError("{} physics concept lab has an unknown or cross-lesson scenario".format(
                         node.get("id")))
         else:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))
