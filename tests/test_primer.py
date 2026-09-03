@@ -3857,6 +3857,28 @@ def test_an_unknown_route_corrects_the_address_bar():
     assert "if (corrected) { location.replace('#/' + view); return; }" in js
 
 
+def test_mathematics_image_dashboard_is_a_complete_accessible_route():
+    js = _web("app.js")
+    css = _web("styles.css")
+
+    assert "['math-images', 'gallery', 'Math Images']" in js
+    assert "'math-images': renderMathImages" in js
+    assert "/api/curriculum/mathematics/illustrations" in js
+    assert "function renderMathImages(page)" in js
+    assert "role: 'radiogroup'" in js and "aria-checked" in js
+    assert "['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End']" in js
+    assert "role: 'status', 'aria-live': 'polite'" in js
+    assert "loading: 'lazy'" in js and "srcset: item.srcset" in js
+    assert "(max-width: 700px) calc(100vw - 48px)" in js
+    assert "attachPictureHandlers(board)" in js
+    assert "img.dataset.fullSrc || img.currentSrc" in js
+    assert "math-image-card[hidden]" in css
+    assert ".math-image-grid" in css and ".math-stage-filters" in css
+    assert 'body[data-stage="0"] .math-stage-option' in css
+    assert 'body[data-stage="4"] .math-image-card' in css
+    assert "@media (max-width: 430px)" in css
+
+
 def test_review_card_decays_strength_before_adjusting_it(store):
     """Regression: `review_card` read the raw stored `strength` instead of
     decaying it to now, so a single blank review on a node that had faded to

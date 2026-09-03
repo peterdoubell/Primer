@@ -1067,6 +1067,49 @@ def curriculum(request: Request):
     return graph
 
 
+@app.get("/api/curriculum/mathematics/illustrations")
+def mathematics_illustrations():
+    """The complete, deliberately small catalogue behind the image dashboard.
+
+    Lesson detail is intentionally not reused here: a node contains its quiz
+    bank, reading list and interactive-model instructions as well as its plate.
+    Projecting an explicit record keeps this browse-all surface useful without
+    turning it into a second, much larger curriculum graph (or another place an
+    answer key could escape).
+    """
+    ranked = []
+    for authored_order, node in enumerate(curr.nodes.values()):
+        if node["domain"] != "math":
+            continue
+        plates = [entry for entry in node.get("lesson_media", [])
+                  if entry.get("kind") == "illustration"]
+        # The dashboard promises one explanatory plate for every mathematics
+        # lesson.  Failing closed makes a future missing or duplicate plate a
+        # content error, not a quietly misleading coverage number.
+        if len(plates) != 1:
+            raise RuntimeError("{} has {} mathematics illustrations; expected 1".format(
+                node["id"], len(plates)))
+        plate = plates[0]
+        ranked.append((node["stage"], authored_order, {
+            "lesson_id": node["id"],
+            "title": node["title"],
+            "stage": node["stage"],
+            "stage_name": STAGE_NAMES[node["stage"]],
+            "goal": node["goal"],
+            "media_id": plate["id"],
+            "src": plate["src"],
+            "srcset": plate["srcset"],
+            "alt": plate["alt"],
+            "caption": plate["caption"],
+            "width": plate["width"],
+            "height": plate["height"],
+        }))
+    illustrations = [record for _, _, record in sorted(
+        ranked, key=lambda item: (item[0], item[1]))]
+    return {"domain": "math", "count": len(illustrations),
+            "illustrations": illustrations}
+
+
 @app.get("/api/curriculum/node/{node_id}")
 def curriculum_node(node_id: str, request: Request):
     reader_id = current_reader(request)
