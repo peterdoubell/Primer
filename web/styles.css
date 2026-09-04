@@ -3928,3 +3928,13 @@ body[data-stage="0"] .check-it, body[data-stage="1"] .check-it { min-height: 58p
 
 body[data-stage="0"] .physics-visual-summary,
 body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
+
+/* Placement, offered per field. A reader who chose several fields is measured
+   in each one separately, so the modal lists them rather than picking the
+   first and calling it the reader's level. Each row says whether the book has
+   been through that door already, because "measured — Sapling" and "not yet
+   measured" are different invitations. */
+.placement-fields { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.placement-field { display: flex; justify-content: space-between; align-items: baseline;
+  gap: 14px; width: 100%; text-align: left; }
+.placement-field .muted { font-family: var(--sans); font-size: 12px; }

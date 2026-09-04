@@ -2439,15 +2439,36 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
             # level. The global stage is the median of what has been measured.
             settings = dict(prof.get("settings", {}))
             per_domain = dict(settings.get("placed", {}))
+            # Whether the book had measured ANY field before this sitting. It
+            # decides which of the two rules below applies, so it must be read
+            # before this result joins the map.
+            had_prior_measurement = bool(per_domain)
             per_domain[s.domain] = placed
             settings["placed"] = per_domain
             measured = sorted(per_domain.values())
-            if len(measured) < 2:
-                # One domain is not a reading level: keep the age placement
-                # unless this single result is *lower*, which is safe.
+            if len(measured) >= 2:
+                overall = measured[(len(measured) - 1) // 2]   # lower median
+            elif had_prior_measurement:
+                # A re-measurement of the only field measured so far may lower
+                # the reading level but not raise it — Round 5's rule, that one
+                # domain must not promote a reader past what other evidence
+                # supports.
                 overall = min(int(prof["stage"] or 0), measured[0])
             else:
-                overall = measured[(len(measured) - 1) // 2]   # lower median
+                # The first measurement the book has ever taken. Round 5's rule
+                # was written when setup seeded a stage from age, so `min()`
+                # meant "your age says Sapling; one strong result will not push
+                # you to Grove". A later round made setup start EVERY reader at
+                # 0 on principle ("age says how old a reader is, not what they
+                # have been taught") — and that quietly turned this branch into
+                # min(0, anything), so a settled placement could never raise
+                # anyone. A reader measured at Grove was still served the
+                # pre-reader UI, Simple English, and a story frozen at page one.
+                # With nothing else measured, 0 is not neutrality; it is a claim
+                # that the reader is a preschooler, and it is the one claim we
+                # have evidence against. Take the measurement — the lower-median
+                # rule above resumes the moment a second field is measured.
+                overall = measured[0]
             learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
                                  prof["breadth"], overall, prof["domains"], settings,
                                  reader_id=reader_id)

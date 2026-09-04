@@ -654,34 +654,94 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
 function speakBtnAlways(getText) { const b = btn({ class: 'speak-btn', 'aria-label': 'Read aloud', onclick: () => { speakText(typeof getText === 'function' ? getText() : getText, () => b.classList.remove('speaking')); b.classList.add('speaking'); } }, glyph('speak', 16)); return b; }
 
 /* ---------------- placement check ---------------- */
+// Placement is measured per field, credited per field, and settled per field —
+// so it has to be *offered* per field. This used to read `domains[0]` and stop
+// there: a reader who chose three fields could be measured in one and had no
+// route to the other two but the Account slider, which is self-assertion, not
+// measurement. In a book that distinguishes "assumed" from "proved" on every
+// tile, leaving two thirds of a reader's fields to assertion was the wrong
+// default. Every chosen field now gets its own door, and the door says whether
+// the book has been through it already.
 function offerPlacement(domains) {
-  const domain = (domains && domains[0]) || 'math';
-  const d = domainById(domain);
+  const chosen = (domains && domains.length) ? domains.slice() : ['math'];
+  const placed = ((S.state && S.state.profile && S.state.profile.settings) || {}).placed || {};
+  const measuredAt = id => (Number.isFinite(placed[id]) ? placed[id] : null);
   openModal({
     label: 'Check your level', dismissable: true,
     build: (modal, close) => {
+      const only = chosen.length === 1 ? domainById(chosen[0]) : null;
       modal.append(
         el('div', { class: 'kicker' }, 'Optional'),
         el('h2', { style: 'margin-top:4px' }, 'Shall the book check your level?'),
-        el('p', { class: 'muted' }, 'The book starts at the beginning and assumes nothing. A few questions in ' + d.name +
-          ' can place you by what you actually know — you can skip this and do it any time.'),
-        el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
+        el('p', { class: 'muted' }, 'The book starts at the beginning and assumes nothing. A few questions' +
+          (only ? ' in ' + only.name : ', one field at a time,') +
+          ' can place you by what you actually know — you can skip this and do it any time.'));
+      if (only) {
+        modal.append(el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
           btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Skip for now'),
-          btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); runPlacement(domain, S.stage); } }, 'Check my level →')));
+          btn({ class: 'btn gold', style: 'flex:1',
+            onclick: () => { close(); runPlacement(only.id, S.stage, measuredAt(only.id) !== null); } },
+            'Check my level →')));
+        return;
+      }
+      const list = el('div', { class: 'placement-fields' });
+      chosen.forEach(id => {
+        const d = domainById(id);
+        const at = measuredAt(id);
+        list.append(btn({
+          class: 'btn ghost placement-field',
+          'aria-label': 'Check my level in ' + d.name +
+            (at === null ? ', not yet measured' : ', already measured at ' + STAGE_NAMES[at]),
+          onclick: () => { close(); runPlacement(id, S.stage, at !== null); }
+        },
+          el('b', {}, d.name),
+          el('span', { class: 'muted' }, at === null ? 'not yet measured' : 'measured — ' + STAGE_NAMES[at])));
+      });
+      modal.append(list);
+      modal.append(el('div', { style: 'display:flex;margin-top:16px' },
+        btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Skip for now')));
     }
   });
 }
 
-async function runPlacement(domain, stage) {
+async function runPlacement(domain, stage, recheck) {
   // Placement had neither of the fixes the quiz path got: no heading to move
   // focus to, no live region, and `modal.innerHTML = ''` on every question —
   // so focus fell to <body> from the second question onward.
   const ov = spinnerOverlay('Preparing a few questions…');
   let data;
-  try { data = await api.get('/api/placement/next?domain=' + encodeURIComponent(domain) + '&stage=' + stage + '&n=5'); }
-  catch (e) { ov.remove(); toast('The book cannot reach its questions just now — try again in a moment. Nothing is lost.'); return; }
+  try {
+    // A field the book has already settled needs `recheck` to be re-opened at
+    // all; without it the server answers 409 and always will. The server still
+    // owns the decision — it re-measures only after the field has had its week
+    // of rest — so asking is safe even when the answer is no.
+    data = await api.get('/api/placement/next?domain=' + encodeURIComponent(domain) +
+      '&stage=' + stage + '&n=5' + (recheck ? '&recheck=true' : ''));
+  }
+  catch (e) {
+    ov.remove();
+    // "Already settled" is not a network hiccup, and telling the reader to try
+    // again in a moment was false: the cooling period is a week, and the retry
+    // they were invited to make could not have succeeded. Say what is true.
+    const settled = e && typeof e.error === 'string' && e.error.indexOf('already settled') !== -1;
+    toast(settled
+      ? 'The book has already measured you in ' + domainById(domain).name +
+        ' — it rests a week before asking again, so that one bad morning cannot set your level for good.'
+      : 'The book cannot reach its questions just now — try again in a moment. Nothing is lost.');
+    return;
+  }
   ov.remove();
   if (!data.questions.length) { toast('The book has no questions at that level yet — nothing to prove today, nothing lost.'); return; }
+  // The server chooses the rung, not the caller: `/api/placement/next` runs
+  // `_placement_rung()` and serves that, logging a warning if it differs from
+  // what was asked for. The client used to keep asking with its own `stage`
+  // anyway — so the header named the wrong level ("Seedling" over genuine
+  // Sapling questions), and, worse, the final submit sent that stale number
+  // and came back 409 "that is not the rung this check is on". The reader had
+  // answered five questions and was told "likely the network, never you"
+  // while their result was dropped, every time, for good. Take the rung the
+  // book actually served; both the label and the submit read this.
+  stage = data.stage;
   const answers = [];
   let i = 0;
   openModal({

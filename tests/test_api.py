@@ -693,6 +693,121 @@ def test_placement_is_scored_server_side(client, onboarded):
     assert bad["credited_through_stage"] == -1, "the client cannot assert a pass"
 
 
+def test_placement_round_trips_at_the_rung_the_book_served(tmp_path):
+    """The first thing the book does for a grown reader must not end in an error.
+
+    Every new profile is stored at stage 0 whatever the reader's age, but the
+    placement rung is chosen from age — 4 for an adult. The web client used to
+    keep sending its own stage (0) to /api/placement/submit, which the server
+    correctly refuses as "not the rung this check is on": five answered
+    questions dropped, and a toast blaming the network. It was the opening beat
+    of the product for every reader over six.
+
+    The suite never caught it because every placement test here submits
+    `p["stage"]` — the value the server just handed back — while the client sent
+    its own. So this drives the contract the client actually depends on: the
+    rung `next` serves is the rung `submit` accepts, all the way down a real
+    staircase, and a reader who answers correctly ends up credited rather than
+    stranded on counting.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            prof = c.post("/api/profile", json={
+                "name": "Grown Reader", "age": 30, "hours_per_week": 8,
+                "breadth": "balanced", "domains": ["math"]}).json()
+            assert prof["stage"] == 0, "a new profile is stored at stage 0 whatever the age"
+
+            settled, rungs = False, []
+            for _ in range(8):
+                p = c.get("/api/placement/next?domain=math&n=4").json()
+                assert p.get("questions"), "the book served an empty paper"
+                rungs.append(p["stage"])
+                r = c.post("/api/placement/submit", json={
+                    "domain": "math", "stage": p["stage"], "token": p["token"],
+                    "answers": answer_key(p)})
+                assert r.status_code == 200, (
+                    "the rung the book served was refused by its own submit: %s"
+                    % r.json())
+                body = r.json()
+                if body["settled"]:
+                    settled = True
+                    break
+            assert settled, "the staircase never settled: rungs %s" % rungs
+            # It started where age said to start, not at Seedling...
+            assert rungs[0] > 0, "an adult was measured from preschool"
+            # ...and a reader who answered correctly is credited for it.
+            after = c.get("/api/state").json()["profile"]
+            assert after["settings"]["placed"]["math"] > 0
+            assert after["stage"] > 0, "placement never reached the reader's level"
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
+def test_one_strong_field_does_not_promote_a_reader_across_the_book(tmp_path):
+    """Round 5's rule, kept: a second field measured low pulls the level back.
+
+    The first measurement the book takes is allowed to set the reading level,
+    because with nothing else measured a stage of 0 is not neutrality — it is a
+    claim the reader is a preschooler. But that must not become "your best
+    subject is your level": as soon as a second field is measured, the lower
+    median governs, so a reader who is strong in mathematics and a beginner in
+    language is not handed graduate register across the whole book.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            c.post("/api/profile", json={
+                "name": "Lopsided", "age": 30, "hours_per_week": 8,
+                "breadth": "balanced", "domains": ["math", "language"]})
+
+            def sit(domain, correct):
+                for _ in range(8):
+                    p = c.get("/api/placement/next?domain=%s&n=4" % domain).json()
+                    if not p.get("questions"):
+                        return None
+                    answers = (answer_key(p) if correct
+                               else ["definitely wrong"] * len(p["questions"]))
+                    r = c.post("/api/placement/submit", json={
+                        "domain": domain, "stage": p["stage"],
+                        "token": p["token"], "answers": answers}).json()
+                    if r["settled"]:
+                        return r
+                return None
+
+            assert sit("math", True) is not None
+            strong_only = c.get("/api/state").json()["profile"]["stage"]
+            assert strong_only > 0, "the first measurement should set the level"
+
+            assert sit("language", False) is not None
+            both = c.get("/api/state").json()["profile"]
+            placed = both["settings"]["placed"]
+            assert placed["language"] < placed["math"], "the second field measured lower"
+            assert both["stage"] <= strong_only, (
+                "a strong first field kept promoting the reader after a weak second: "
+                "placed=%s stage=%s" % (placed, both["stage"]))
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
 def test_story_will_not_advance_without_proof(tmp_path):
     """A page turns only on real evidence for the lesson it leads to.
 
