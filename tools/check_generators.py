@@ -57,6 +57,8 @@ def profile(gen_key, samples=SAMPLES, seed=None):
     """
     practice.R.seed("%s/%s" % (gen_key, seed if seed is not None else "primer-audit"))
     ranks = collections.Counter()
+    len_ranks = collections.Counter()
+    n_len_ranked = 0
     keys = collections.Counter()
     lengths = collections.Counter()
     n_ranked = n_keyed = n_len = 0
@@ -93,6 +95,37 @@ def profile(gen_key, samples=SAMPLES, seed=None):
                 else:
                     lengths["longest"] += int(answer == max(choices, key=len))
                     lengths["shortest"] += int(answer == min(choices, key=len))
+                # The same rank test, but by LENGTH — which is the only axis a
+                # text-answer generator has. The numeric test below skips every
+                # item whose options are words, and that is most of the
+                # knowledge drills: the tool reported them clean while
+                # "always take the third shortest" beat chance by 35 points on
+                # one of them. Ties are shared rather than broken arbitrarily,
+                # so a set of equal-length options reads as no signal at all.
+                # Only where the options are WORDS. When they are numbers the
+                # numeric rank check below is the right instrument and this one
+                # measures the same thing badly — for numerals length is mostly
+                # magnitude, so a generator whose key is honestly spread over
+                # the numeric ranks fails a length test that is really the
+                # numeric test with ties broken by digit count.
+                try:
+                    for c in choices:
+                        float(c)
+                    numeric = True
+                except (TypeError, ValueError):
+                    numeric = False
+                lens_only = [len(c) for c in choices]
+                if not numeric and len(set(lens_only)) > 1:
+                    by_len = sorted(choices, key=lambda c: (len(c), c))
+                    n_len_ranked += 1
+                    same = [c for c in choices if len(c) == len(answer)]
+                    if len(same) > 1:
+                        # A shared length is not a readable position. Spread the
+                        # item evenly over the ranks its ties occupy.
+                        for c in same:
+                            len_ranks[by_len.index(c) + 1] += 1.0 / len(same)
+                    else:
+                        len_ranks[by_len.index(answer) + 1] += 1
                 try:
                     nums = sorted(float(c) for c in choices)
                     key_val = float(answer)
@@ -110,6 +143,7 @@ def profile(gen_key, samples=SAMPLES, seed=None):
         if drawn >= samples:
             break
     return {"ranks": ranks, "keys": keys, "lengths": lengths, "negatives": negatives,
+            "len_ranks": len_ranks, "n_len_ranked": n_len_ranked,
             "n_ranked": n_ranked, "n_keyed": n_keyed, "n_len": n_len, "drawn": drawn}
 
 
@@ -148,6 +182,21 @@ def audit(gen_key, verbose=True):
         if edge > KEY_TOLERANCE:
             problems.append(("one key dominates", gen_key,
                              "%r %.0f%% (%+.0fpp)" % (top[:12], share * 100, edge * 100)))
+
+    if p["n_len_ranked"] >= MIN_FOR_VERDICT:
+        n = p["n_len_ranked"]
+        share = {r: p["len_ranks"][r] / n for r in sorted(p["len_ranks"])}
+        best_rank, best = max(share.items(), key=lambda kv: kv[1])
+        chance = 1.0 / max(1, len(share))
+        edge = best - chance
+        if verbose:
+            print("  key rank by length:            %s  best=rank %d at %.0f%% vs %.0f%% chance (%+.0fpp)  %s"
+                  % ({r: "%.0f%%" % (v * 100) for r, v in share.items()},
+                     best_rank, best * 100, chance * 100, edge * 100,
+                     "ok" if edge <= RANK_TOLERANCE else "EXPLOITABLE"))
+        if edge > RANK_TOLERANCE:
+            problems.append(("key sits at a fixed rank by length", gen_key,
+                             "rank %d at %.0f%% (%+.0fpp)" % (best_rank, best * 100, edge * 100)))
 
     if p["n_len"] >= MIN_FOR_VERDICT:
         chance = p["lengths"]["chance"] / p["n_len"]

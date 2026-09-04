@@ -393,7 +393,11 @@ function renderRoute() {
     else if (!_modalStack.length) page.focus({ preventScroll: true });
   });
 }
-window.addEventListener('hashchange', renderRoute);
+window.addEventListener('hashchange', () => {
+  // Leaving the article ends its reading clock, whatever the destination.
+  if (typeof stopReadingClock === 'function') stopReadingClock();
+  renderRoute();
+});
 const TITLE_ROOT = 'The Primer';
 function setTitle(leaf) {
   const t = (leaf || '').trim();
@@ -1835,6 +1839,46 @@ function showIndependentReaderContext(articleTitle) {
     el('span', { class: 'reader-context-open', 'aria-hidden': 'true' }, 'Open')));
 }
 
+// How long an article was actually open, sent when the reader leaves it.
+//
+// `reading_log.seconds` has been in the schema from the start and nothing ever
+// filled it, so the roadmap's "measured instructional rate" was reading a
+// column of zeroes and reporting the model back as though it were the reader's
+// own number. This is the one end of that wire that was missing.
+//
+// Sent on leaving the article, on tab-hide, and on unload — a reader who
+// closes the laptop mid-article should still have the time counted. The server
+// takes the longest sitting rather than a sum, so re-sends are harmless.
+let readingClock = null;
+
+function startReadingClock(title) {
+  stopReadingClock();
+  readingClock = { title: title, at: Date.now(), sent: 0 };
+}
+
+function stopReadingClock() {
+  const clock = readingClock;
+  if (!clock) return;
+  const seconds = Math.round((Date.now() - clock.at) / 1000);
+  // Below the server's own floor there is nothing to report; re-sending a
+  // figure no bigger than the last is just noise on the wire.
+  if (seconds >= 20 && seconds > clock.sent) {
+    clock.sent = seconds;
+    api.post('/api/reading/time', { title: clock.title, seconds: seconds })
+      .catch(() => {});   // a lost duration must never interrupt reading
+  }
+  // Cleared unconditionally, including on tab-hide. A reader who tabs away
+  // and returns simply stops accruing: counting the hidden minutes would
+  // measure the tab, not the reading, and undercounting is the safe direction
+  // for a figure that shortens a plan.
+  readingClock = null;
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') stopReadingClock();
+});
+window.addEventListener('pagehide', stopReadingClock);
+
 function prepareReaderContext(title, nodeId) {
   const slot = $('#reader-context-slot');
   if (!slot) return;
@@ -1982,6 +2026,7 @@ async function renderReader(page, arg) {
   layout.append(art, buildTutor(title));
   page.append(layout);
   prepareReaderContext(title, nodeId);
+  startReadingClock(title);
   const articlePromise = api.get('/api/article?title=' + encodeURIComponent(title));
   if (nodeId) {
     api.get('/api/curriculum/node/' + encodeURIComponent(nodeId) + '/navigation')
@@ -3105,6 +3150,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         } else {
           const r = await api.post('/api/attempt', { node_id: nodeId, answers, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.xp_gained || 0; ascension = r.ascension;
+          showServerScore(r.result);   // the marks the book actually recorded
           msg = 'Set down in the Book.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
           if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
         }

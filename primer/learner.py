@@ -263,6 +263,28 @@ PACE_ITEM_MIN_SECONDS = 2.0
 PACE_ITEM_MAX_SECONDS = 300.0
 
 
+# The same untrusted clock, the same treatment, for a *reading* row. An article
+# left open overnight is not eight hours of reading, and an article opened and
+# shut in four seconds is not reading either. Both are discarded rather than
+# clamped, for the reason given above: a clamped forty-minute interruption is
+# still a number nobody spent.
+READ_MIN_SECONDS = 20.0
+READ_MAX_SECONDS = 60.0 * 90.0
+
+
+def usable_reading_seconds(seconds: Optional[float]) -> Optional[float]:
+    """Seconds of reading worth recording, or None if the reading is not usable."""
+    try:
+        total = float(seconds)
+    except (TypeError, ValueError):
+        return None
+    if not math.isfinite(total):
+        return None
+    if total < READ_MIN_SECONDS or total > READ_MAX_SECONDS:
+        return None
+    return round(total, 1)
+
+
 def _per_item_seconds(seconds: Optional[float], items: int) -> Optional[float]:
     """Seconds per item, or None if the reading is not usable."""
     try:
@@ -2123,12 +2145,61 @@ class LearnerStore:
                 (reader_id, title)).fetchone() is None
             c.execute(
                 "INSERT INTO reading_log(reader_id, title, opened_at, seconds) VALUES(?,?,?,?)",
-                (reader_id, title, now, seconds))
+                (reader_id, title, now, seconds or 0))
             room = max(0, self.READ_XP_DAILY_CAP - self._read_xp_today(c, reader_id))
             xp = min(3, room) if first_ever else 0
             c.execute(
                 "INSERT INTO events(kind, payload, at, xp, reader_id) VALUES('read',?,?,?,?)",
                 (json.dumps({"title": title}), now, xp, reader_id))
+
+    def set_reading_seconds(self, title: str, seconds: float, reader_id: int = 1):
+        """Attach a duration to this reader's most recent open of `title`.
+
+        Updates rather than inserts: the row was already written when the
+        article was served, and a second row would count one read twice.
+        """
+        with _lock, self._conn() as c:
+            row = c.execute(
+                "SELECT id FROM reading_log WHERE reader_id=? AND title=? "
+                "ORDER BY opened_at DESC LIMIT 1", (reader_id, title)).fetchone()
+            if row is None:
+                c.execute(
+                    "INSERT INTO reading_log(reader_id, title, opened_at, seconds) "
+                    "VALUES(?,?,?,?)", (reader_id, title, time.time(), seconds))
+                return
+            # The longest sitting on that open wins: a reader who comes back to
+            # the same article in one visit sends a bigger number, not another
+            # row, and taking the max keeps re-sends idempotent.
+            c.execute(
+                "UPDATE reading_log SET seconds = MAX(COALESCE(seconds, 0), ?) "
+                "WHERE id = ?", (seconds, row["id"]))
+
+    def reading_minutes_by_title(self, reader_id: int = 1) -> Dict[str, float]:
+        """Recorded reading minutes per article title, for this reader.
+
+        The roadmap prices instructional time from a stage constant scaled by
+        prose density — a model of how long a node takes *somebody*. This is
+        the evidence for how long it takes THIS reader: the shelf is where the
+        instructional minutes actually go, and how long each article was open
+        has been recorded all along. `pacing.roadmap` joins it to the graph,
+        because the title-to-node mapping is the curriculum's business and not
+        this module's.
+
+        Zero-second rows (an article opened and closed, or logged by a client
+        that sent no duration) are dropped rather than counted as instant
+        reading, which would bias the reader's measured rate downwards.
+        """
+        with _lock, self._conn() as c:
+            rows = c.execute(
+                "SELECT title, seconds FROM reading_log WHERE reader_id=? "
+                "AND seconds > 0", (reader_id,)).fetchall()
+        out: Dict[str, float] = {}
+        for r in rows:
+            usable = usable_reading_seconds(r["seconds"])
+            if usable is None:
+                continue
+            out[r["title"]] = out.get(r["title"], 0.0) + usable / 60.0
+        return out
 
     def reading_stats(self, reader_id: int = 1) -> Dict:
         with _lock, self._conn() as c:

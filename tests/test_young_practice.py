@@ -10,6 +10,7 @@ time a young node is written.
 
 import glob
 import json
+import re
 import os
 import sys
 
@@ -87,10 +88,84 @@ def test_knowledge_options_are_never_duplicated(node_id):
             assert str(q["answer"]) in choices
 
 
-def test_a_knowledge_drill_is_worth_a_review_card():
-    """Recall of a fact belongs on a card; the ordering items do not, and are
-    excluded by kind the same way every other generator's are."""
-    assert practice.is_durable_item("know:bio.0.animals", 0, "Which one is a bird?")
+def test_a_fact_is_worth_a_review_card_and_a_category_pick_is_not():
+    """A card's front has to determine its back.
+
+    "Which one is a bird?" is one fixed prompt over a set of members, so the
+    first draw froze one arbitrary member as the answer — the deck's
+    UNIQUE(front, node_id) — and the reader was then drilled towards it
+    forever. An audit found a third of card-worthy items had a front mapping to
+    more than one back, one of them to five. A fact names its own answer in the
+    prompt; a category pick does not.
+    """
+    assert practice.is_durable_item(
+        "know:bio.0.animals", 0, "How many legs does an insect have?")
+    assert not practice.is_durable_item(
+        "know:bio.0.animals", 0, "Which one is a bird?")
+
+
+@pytest.mark.parametrize("node_id", sorted(practice.young_material()))
+def test_no_card_front_maps_to_two_different_backs(node_id):
+    """The measurement that caught it, run over every node."""
+    backs = {}
+    for level in (0, 1):
+        for _ in range(40):
+            for q in practice.generate_set("know:" + node_id, 6, level=level):
+                if q.get("kind") == "order":
+                    continue
+                if not practice.is_durable_item("know:" + node_id, level, q["prompt"]):
+                    continue
+                backs.setdefault(q["prompt"], set()).add(str(q["answer"]))
+    ambiguous = {f: b for f, b in backs.items() if len(b) > 1}
+    assert not ambiguous, "%s: %s" % (node_id, list(ambiguous.items())[:2])
+
+
+@pytest.mark.parametrize("node_id", sorted(practice.young_material()))
+def test_no_item_has_two_right_answers(node_id):
+    """Fourteen members across six nodes belong to two categories at once —
+    red is both primary and warm — and the distractor draw did not know it. On
+    arts.0.colors that put a second correct answer on 92% of category cards."""
+    spec = practice.young_material()[node_id]
+    groups = spec.get("groups") or {}
+    member_of = {}
+    for cat, members in groups.items():
+        for m in members:
+            member_of.setdefault(m, set()).add(cat)
+    positive = {practice._articled(
+        spec.get("group_prompt", "Which one is a {}?").format(cat)): cat
+        for cat in groups}
+    for _ in range(300):
+        q = practice._know_group(spec)
+        if not q or q["prompt"] not in positive:
+            continue
+        cat = positive[q["prompt"]]
+        extra = [c for c in q["choices"]
+                 if c != q["answer"] and cat in member_of.get(c, ())]
+        assert not extra, "%s: %r also answers %r" % (node_id, extra, q["prompt"])
+
+
+@pytest.mark.parametrize("node_id", sorted(practice.young_material()))
+def test_every_item_explains_itself(node_id):
+    """Every authored bank item in the book explains itself; not one generated
+    knowledge item did. "Not quite. The answer is red" teaches nothing about
+    how to get the next one right, which is the whole bar this dimension is
+    scored against."""
+    for level in (0, 1):
+        for q in practice.generate_set("know:" + node_id, 6, level=level):
+            assert q.get("explain"), "%s: %r explains nothing" % (node_id, q["prompt"])
+
+
+@pytest.mark.parametrize("node_id", sorted(practice.young_material()))
+def test_prompts_are_grammatical(node_id):
+    """The book says these out loud. "Which one is a insect?" was spoken to a
+    five-year-old exactly as written."""
+    for _ in range(60):
+        for shape in (practice._know_group, practice._know_pair):
+            q = shape(practice.young_material()[node_id])
+            if not q:
+                continue
+            assert not re.search(r"\ba [aeiouAEIOU]", q["prompt"]), q["prompt"]
+            assert q["prompt"] == q["say"]
 
 
 def test_missing_material_yields_no_items_rather_than_noise():

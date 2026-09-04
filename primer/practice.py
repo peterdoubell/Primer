@@ -11,6 +11,7 @@ import json
 import math
 import os
 import random
+import re
 from fractions import Fraction
 from typing import Callable, Dict, List, Optional
 
@@ -1085,13 +1086,20 @@ def young_material() -> Dict[str, Dict]:
 
 
 def _length_balanced(key: str, pool: List[str], k: int = 3) -> List[str]:
-    """Pick k distractors whose lengths straddle the key's.
+    """Pick k distractors so the key's LENGTH RANK varies from item to item.
 
-    Picking at random from a pool leaves length readable: "Which one is a
-    mammal?" against {bat, hippopotamus, wren} tells a non-reader nothing, but
-    tells a reader plenty when the key is reliably the long one. So the draw
-    takes one shorter, one longer, and one nearest, and falls back to random
-    only when the pool has no such member.
+    Length is the only rank a text answer has, and it is readable: an auditor
+    measured "always take the third shortest" at 60% against a 25% chance rate
+    on one of these nodes. The first version of this took one shorter, one
+    longer and one nearest, which is balanced on average and still parks the
+    key in the middle of the sorted-by-length four almost every time — a fixed
+    rank is a fixed rank whether it is first or third.
+
+    So the rank is *drawn*: pick how many distractors should be shorter than
+    the key (0 to k), take that many from below and the rest from above, and
+    fall back to whatever the pool has when it cannot oblige. Over a drill the
+    key lands at each rank about equally often, which is what makes the
+    position carry no information.
     """
     pool = [p for p in dict.fromkeys(pool) if p != key]
     if len(pool) <= k:
@@ -1099,23 +1107,60 @@ def _length_balanced(key: str, pool: List[str], k: int = 3) -> List[str]:
     n = len(key)
     shorter = sorted([p for p in pool if len(p) < n], key=lambda p: n - len(p))
     longer = sorted([p for p in pool if len(p) > n], key=lambda p: len(p) - n)
-    nearest = sorted(pool, key=lambda p: abs(len(p) - n))
-    out: List[str] = []
-    # Round-robin, one from each bucket in turn. Draining the "shorter" bucket
-    # first — which an in-order loop does — puts the key at the long end of
-    # every card it can, and that is exactly the tell being guarded against.
-    buckets = [longer, shorter, nearest, pool]
-    idx = [0, 0, 0, 0]
-    guard = 0
-    while len(out) < k and guard < 200:
-        guard += 1
-        for b, bucket in enumerate(buckets):
-            while idx[b] < len(bucket) and bucket[idx[b]] in out:
-                idx[b] += 1
-            if idx[b] < len(bucket) and len(out) < k:
-                out.append(bucket[idx[b]])
-                idx[b] += 1
+    equal = [p for p in pool if len(p) == n]
+    want_shorter = R.randint(0, k)
+    R.shuffle(shorter)
+    R.shuffle(longer)
+    out = shorter[:want_shorter] + longer[:k - want_shorter]
+    # The pool did not have enough on one side; take whatever is nearest in
+    # length rather than leaving the item short.
+    if len(out) < k:
+        rest = [p for p in sorted(pool, key=lambda p: abs(len(p) - n)) if p not in out]
+        out += rest[:k - len(out)]
+    if len(out) < k:
+        out += [p for p in equal if p not in out][:k - len(out)]
     return out[:k]
+
+
+def _length_rank(key: str, choices: List[str]) -> int:
+    """Where the key sits once the options are sorted shortest to longest."""
+    return sorted(choices, key=lambda c: (len(c), c)).index(key) + 1
+
+
+def _at_drawn_rank(build, tries: int = 8):
+    """Draw a target length rank, then keep drawing items until one lands there.
+
+    Some material simply cannot put its key at every rank: the words that rhyme
+    with "cat" are the shortest words in that lesson, so the key is the
+    shortest option on the card however the distractors are chosen. Rather than
+    invent filler to pad the card out, this re-draws the *item* — a different
+    category, a different pair — until one of them can sit where the draw asked
+    for. What cannot be balanced within a node is then reported by
+    tools/check_generators.py rather than hidden.
+    """
+    target = R.randint(1, 4)
+    fallback = None
+    for _ in range(tries):
+        q = build()
+        if q is None:
+            continue
+        fallback = fallback or q
+        choices = q.get("choices") or []
+        if len(choices) < 2:
+            return q
+        if _length_rank(str(q["answer"]), [str(c) for c in choices]) == target:
+            return q
+    return fallback
+
+
+def _articled(text: str) -> str:
+    """"a insect" is not a sentence, and the book says these out loud.
+
+    The prompts are templates with the category dropped in, so the article is
+    written before anything knows what follows it. Ten of them came out
+    ungrammatical and were spoken to a five-year-old as written.
+    """
+    return re.sub(r"\ba (?=[aeiouAEIOU])", "an ", text)
 
 
 def _know_group(spec: Dict) -> Optional[Dict]:
@@ -1124,21 +1169,43 @@ def _know_group(spec: Dict) -> Optional[Dict]:
     if len(names) < 2:
         return None
     cat = R.choice(names)
-    others = [m for g, ms in groups.items() if g != cat for m in ms]
+    # Distractors are excluded by MEMBERSHIP, not by which group they were
+    # listed under. Fourteen members across six nodes belong to two categories
+    # at once — red is both primary and warm — so "which of these is a warm
+    # colour?" was drawing red as a distractor for yellow and marking a child
+    # who tapped it wrong. On arts.0.colors that was 92% of category items.
+    # Same list, one line, and the item had two right answers on it.
+    inside = set(groups[cat])
+    others = [m for g, ms in groups.items() if g != cat
+              for m in ms if m not in inside]
+    # `extras` are authored wrong answers that belong to the lesson without
+    # belonging to any category. They exist so the length draw below has
+    # something to draw from: where every alternative is longer than the key,
+    # the key is the shortest option on every card, and "take the shortest" is
+    # a strategy.
+    others += [e for e in (spec.get("extras") or []) if e not in inside]
     if len(others) < 3:
         return None
+    # The negative is asked only for the categories whose own wording was
+    # written for it. Applying it to every category in the node produced
+    # "Which one does NOT keep you unhealthy?" — a double negative, spoken
+    # aloud, to a six-year-old.
     not_prompt = spec.get("group_not_prompt")
-    # As with pairs: the negative is asked only where its own wording was
-    # written. "Which one would you measure with a scale?" does not negate into
-    # "Which one is NOT a scale?" by rule.
-    if not_prompt and len(groups[cat]) >= 3 and R.random() < 0.3:
+    not_cats = spec.get("group_not_cats") or []
+    if not_prompt and cat in not_cats and len(inside) >= 3 and R.random() < 0.3:
         key = R.choice(others)
-        prompt = not_prompt.format(cat)
-        q = _mc(prompt, key, _length_balanced(key, groups[cat]), pad=False)
+        prompt = _articled(not_prompt.format(cat))
+        q = _mc(prompt, key, _length_balanced(key, sorted(inside)), pad=False)
+        q["explain"] = "%s is not %s." % (key, cat)
     else:
         key = R.choice(groups[cat])
-        prompt = spec.get("group_prompt", "Which one is a {}?").format(cat)
+        prompt = _articled(spec.get("group_prompt", "Which one is a {}?").format(cat))
         q = _mc(prompt, key, _length_balanced(key, others), pad=False)
+        # Something to take away rather than a verdict. Every authored bank
+        # item in the book explains itself; not one generated knowledge item
+        # did, and "Not quite. The answer is red" teaches nothing about how to
+        # get the next one.
+        q["explain"] = "%s belongs with %s." % (key, cat)
     q["say"] = prompt
     q["speak_choices"] = True
     return q
@@ -1154,12 +1221,14 @@ def _know_pair(spec: Dict) -> Optional[Dict]:
     # forward template backwards produced "How many are in one 7 days?" — the
     # sentence a template cannot survive being read from the wrong end.
     if back and R.random() < 0.5:
-        prompt = back.format(right)
+        prompt = _articled(back.format(right))
         key, pool = left, [a for a, b in pairs if a != left]
     else:
-        prompt = spec.get("pair_prompt", "What goes with {}?").format(left)
+        prompt = _articled(spec.get("pair_prompt", "What goes with {}?").format(left))
         key, pool = right, [b for a, b in pairs if b != right]
+    pool = pool + [e for e in (spec.get("extras") or []) if e != key]
     q = _mc(prompt, key, _length_balanced(key, pool), pad=False)
+    q["explain"] = "%s goes with %s." % (left, right)
     q["say"] = prompt
     q["speak_choices"] = True
     return q
@@ -1170,8 +1239,23 @@ def _know_fact(spec: Dict) -> Optional[Dict]:
     if not facts:
         return None
     f = R.choice(facts)
-    q = _mc(f["q"], f["a"], _length_balanced(str(f["a"]), list(f["d"])),
-            f.get("explain", ""), pad=False)
+    key = str(f["a"])
+    authored = [str(d) for d in f["d"]]
+    # Two of the three distractors are the authored ones; the third is chosen
+    # for length, from the wrong answers written for this node's OTHER facts.
+    #
+    # With exactly three authored distractors there is nothing to choose
+    # between and the key's length rank is whatever the authoring happened to
+    # make it — which an auditor measured as "always take the third shortest,
+    # 49% against 25% chance" on one node. Every candidate here is a wrong
+    # answer somebody wrote for this same lesson, so the item stays plausible
+    # and stops being positional.
+    R.shuffle(authored)
+    keep = authored[:2]
+    elsewhere = [str(d) for g in facts if g is not f for d in (g.get("d") or [])]
+    third = _length_balanced(key, [c for c in authored[2:] + elsewhere
+                                   if c not in keep], 1)
+    q = _mc(f["q"], f["a"], keep + third, f.get("explain") or "", pad=False)
     q["say"] = f.get("say", f["q"])
     q["speak_choices"] = True
     return q
@@ -1185,7 +1269,32 @@ def _know_order(spec: Dict) -> Optional[Dict]:
     prompt = spec.get("sequence_prompt", "Put them in the right order")
     return _order(prompt, [str(x) for x in seq],
                   spec.get("sequence_say", "Tap them in the right order."),
-                  spec.get("sequence_explain", ""))
+                  spec.get("sequence_explain",
+                           "The order is: " + ", ".join(str(x) for x in seq) + "."))
+
+
+_GROUP_PROMPT_CACHE: Dict[str, frozenset] = {}
+
+
+def _group_prompts(gen_key: str) -> frozenset:
+    """Every prompt a node's CATEGORY PICK can produce.
+
+    Declared from the material rather than inferred from the text, so the same
+    item is judged the same way in every process — the property
+    `is_durable_item` exists to keep deterministic.
+    """
+    if gen_key not in _GROUP_PROMPT_CACHE:
+        spec = young_material().get(gen_key[len("know:"):]) or {}
+        groups = spec.get("groups") or {}
+        template = spec.get("group_prompt", "Which one is a {}?")
+        negative = spec.get("group_not_prompt")
+        not_cats = set(spec.get("group_not_cats") or [])
+        prompts = {_articled(template.format(cat)) for cat in groups}
+        if negative:
+            prompts |= {_articled(negative.format(cat))
+                        for cat in groups if cat in not_cats}
+        _GROUP_PROMPT_CACHE[gen_key] = frozenset(prompts)
+    return _GROUP_PROMPT_CACHE[gen_key]
 
 
 def make_knowledge_generator(node_id: str) -> Callable:
@@ -1214,7 +1323,10 @@ def make_knowledge_generator(node_id: str) -> Callable:
             recall[i % 3:] + recall[:i % 3] + \
             ([] if order_first else [_know_order])
         for shape in shapes:
-            q = shape(spec)
+            if shape is _know_order:
+                q = shape(spec)
+            else:
+                q = _at_drawn_rank(lambda: shape(spec))
             if q is not None:
                 return q
         # Nothing authored for this node yet: say so rather than mint noise.
@@ -1324,10 +1436,18 @@ def is_durable_item(gen_key: str, level: int, prompt: str) -> bool:
     every process, on every run.
     """
     if gen_key.startswith("know:"):
-        # A knowledge drill asks for a fact about the world, and a fact is
-        # exactly what a review card is for. Its order items are excluded
-        # upstream by kind, where every generator's are.
-        return True
+        # NOT wholesale. A card's front has to determine its back, and a
+        # category pick's does not: "Which one is a bird?" is one fixed prompt
+        # over a set of members, so the first draw froze one arbitrary member
+        # as the answer (the deck's UNIQUE(front, node_id)) and the reader was
+        # then drilled towards it forever. A third of card-worthy items had a
+        # front mapping to more than one back, one of them to five.
+        #
+        # A fact and a forward pair each name their own answer in the prompt.
+        # Those are cards. The category pick is ephemeral by construction, for
+        # exactly the reason quiz.py already gives about "Which spelling is
+        # correct?".
+        return prompt not in _group_prompts(gen_key)
     return gen_key in DURABLE_GENERATORS
 
 

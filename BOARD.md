@@ -4992,3 +4992,110 @@ is no new front-end surface, but that is reasoning, not a screenshot.
 
 Blocker 2 (per-node minutes as a stage constant × prose density) is untouched
 and still a redesign rather than a repair.
+
+---
+
+## Round 25 — the board re-audits, and both scores go DOWN
+
+Round 24 closed a blocker and claimed the ground for it. Two adversarial
+auditors were then briefed one-directionally — find every reason this score is
+too high — and given the specific claims to break. Both scores fell.
+
+**Interactive Learning Loops: 6.0 → 5.0.** The auditor's sentence is the whole
+finding: *a loop that closes onto a false key is worse for meta-learning than
+no loop.* The 6.0 had been awarded over an absence, and an absence is neutral.
+
+- **Items with two right answers.** Fourteen members across six nodes belong to
+  two categories at once — red is both primary and warm — and the distractor
+  draw excluded by *group identity* rather than by membership. "Which one is a
+  warm colour?" offered red as a distractor for yellow and marked a child who
+  tapped it wrong. On `arts.0.colors`, 90.8% of category cards.
+- **Cards whose front does not determine their back.** `is_durable_item`
+  returned True for every `know:` item, so "Which one is a bird?" minted a card
+  whose answer was whichever member that draw happened to pick; the deck's
+  `UNIQUE(front, node_id)` then froze it. 247 of 1,127 fronts carried 985 backs
+  between them, one of them five.
+- **Nothing explained anything.** 0 of 9,000 minted items carried an
+  explanation, against 622 of 622 for the stage 0-1 authored items the drill
+  displaces. The spoken feedback was `'Not quite. The answer is ' + q.answer`.
+- **The auditing tool was structurally blind.** Both of `check_generators.py`'s
+  rank tests require `float(c)`, so on 75 word-answer generators they ran on
+  *zero* items. "0 problems across 126 generators" was an empty measurement. On
+  the axis the tool already believes in, measured by length, **58 of 75
+  exceeded its own 9pp tolerance**; worst, "always take the third shortest" at
+  64%.
+- Ten prompts were ungrammatical and spoken aloud as written — "Which one is a
+  insect?", "What sound does a owl make?" — and one node asked a six-year-old
+  "Which one does NOT keep you unhealthy?".
+
+**Mastery, Placement & Pacing: 7.5 → 6.5.** Two findings, and the second is
+mine from this round.
+
+- **The measured instructional rate was a no-op.** `reading_log.seconds` has
+  been in the schema since the first version and *nothing ever wrote to it* —
+  `log_reading()` takes a `seconds` argument and the one production caller
+  never passed one. So the term shipped as a documented per-reader correction
+  wired to a column of zeroes: `factor 1.0, measured False` for every reader,
+  verified through `/api/roadmap`. It was also structurally pinned: it divided
+  article-reading minutes by the node's whole *mastery* cost — about 478
+  modelled minutes per linked article against the book's own `ARTICLE_MINUTES`
+  of 6 — so every reader alive came out at the floor while the function
+  published `measured: True` over a constant. This is the identical defect the
+  same commit congratulated itself for finding in `deck`, one layer down.
+- **A live placement collapse.** `measured[(len - 1) // 2]` is the lower
+  median, and at n = 2 the lower median IS the minimum. Reproduced end to end:
+  ace math → stage 5; fail one history check → **stage 0**, which is the entire
+  pre-reader interface. Round 22's only CRITICAL, reachable in two sittings,
+  and Round 23 had scored it fixed.
+
+**The addendum that mattered more than either score.** The auditor ran the
+suite against the tree holding both defects: **1,255 passed, 3 skipped, 0
+failed**. Every test of the pacing term handed `instructional_rate` a literal
+dict on a synthetic graph, so none of them could see an empty column or a 478×
+denominator; no test had ever sat two placements in a row. Stated plainly for
+the record, because "suite green" has been the closing line of several rounds
+and it was green through all of this.
+
+### What was repaired
+
+Placement: a sitting may move the global stage at most one rung down;
+specialist fields are excluded from the general median, never recorded below
+their own floor, and no longer move the general reading level at all. The rate:
+rebuilt against like for like — minutes per article over `ARTICLE_MINUTES` —
+reporting `clamped` apart from `measured`, with `POST /api/reading/time` and a
+client reading clock actually filling the column, and the same outlier
+discipline `_per_item_seconds` uses. `/api/attempt` now returns the mark it
+recorded, so "one paper, one mark" reaches the practice splash too.
+
+Knowledge drills: distractors excluded by membership (0 two-answer items in
+22,262 draws); card-worthiness declared per shape from the material; **100% of
+items now explain themselves** — 334 fact explanations authored, plus
+structural ones for groups, pairs and orderings; the article and double-negative
+bugs fixed. `check_generators.py` now measures rank by length where the options
+are words, and the knowledge generators are **75 of 75 clean**, from 58
+failing. The same check exposed five pre-existing generators whose answers are
+mathematical expressions; they are recorded as a named open finding in
+`tests/test_generator_fairness.py` rather than hidden by a loosened tolerance.
+
+Tests now go through the real store, the real graph and HTTP
+(`tests/test_end_to_end_progression.py`). All five fail on the pre-fix tree.
+
+### Standing, and not to be read as settled
+
+Both scores are the board's verdict on commit `88cd908`. Everything above came
+after it, and none of it has been independently audited. The loops auditor's
+warning is recorded in full: it watched this worktree change underneath it,
+including the very tool whose blindness it had just reported, and it is right
+that a later "0 problems" from that tool is not independent evidence of
+anything. Two of its numbers also beat mine and stand corrected here: node-own
+production is **43.3%**, not the 39% Round 24 claimed (and the figure moves with
+a process-global counter rather than with the reader), and
+`test_young_practice.py` collects **319** cases, not 313.
+
+Not done, and named by the auditors as still standing between here and 8.0:
+production that is more than a median of two fixed sequences per node; ordering
+items admitted to the review loop under a stable front; adaptivity of any kind
+(the drill ignores `level` and does not prefer what this reader missed); the
+drill as a priced step of the day; rendering the roadmap's published workings
+anywhere the reader can see them; whether assumed placement credit should open a
+graduate gate; and a browser check.

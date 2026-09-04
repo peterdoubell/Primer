@@ -35,7 +35,8 @@ from . import sittings as sittings_mod
 from . import story as story_mod
 from .curriculum import Curriculum
 from .learner import (LearnerStore, STAGE_NAMES, STAGE_SPAN, STAGE_TITLES,
-                      _end_of_tomorrow, _local_day, _remove_backup)
+                      _end_of_tomorrow, _local_day, _remove_backup,
+                      usable_reading_seconds)
 from .pacing import roadmap
 from .render import rewrite_article
 from .wiki import WikiService, ROOT
@@ -1000,6 +1001,36 @@ def article(request: Request, title: str, simple: Optional[bool] = None,
     return art
 
 
+class ReadingTimeIn(BaseModel):
+    title: str = Field(min_length=1, max_length=300)
+    seconds: float = Field(ge=0, le=60 * 60 * 12)
+
+
+@app.post("/api/reading/time")
+def record_reading_time(r: ReadingTimeIn, request: Request):
+    """How long an article was actually open.
+
+    `reading_log.seconds` has existed since the first version of the schema and
+    nothing ever wrote to it: `log_reading` takes a `seconds` argument and the
+    one production caller never passed one. So the column that says how long
+    this reader reads has been zero for every row ever written, and anything
+    built on top of it — the roadmap's measured instructional rate — was a
+    documented per-reader term wired to a column nobody filled. That is the
+    same defect the roadmap call site had with `deck`, one layer down.
+
+    The number comes from the reader's own browser and is treated accordingly:
+    the schema caps it, and `usable_reading_seconds` discards a row outside the
+    plausible band rather than clamping it, because a clamped overnight tab is
+    still a number nobody spent.
+    """
+    reader_id = current_reader(request)
+    usable = usable_reading_seconds(r.seconds)
+    if usable is None:
+        return {"recorded": False}
+    learner.set_reading_seconds(r.title, usable, reader_id=reader_id)
+    return {"recorded": True, "seconds": usable}
+
+
 @app.get("/api/summary")
 def summary(title: str):
     s = wiki.get_summary(title)
@@ -1904,15 +1935,24 @@ def record_attempt(a: AttemptIn, request: Request):
              # got the generic offline card instead, and was told a refusal the
              # book had made on purpose was probably their network.
              "reason": "bank_spent"}, status_code=409)
-    score = quiz.score_quiz(scorable, scorable_given)["score"]
+    marks = quiz.score_quiz(scorable, scorable_given)
+    score = marks["score"]
+    # The marks the book actually recorded, so the practice splash can show the
+    # same thing the quiz splash does. Without this the drill screen tallied its
+    # own per-item booleans against a paper the server may have shortened
+    # (`_drop_burned`) and scored with partial credit — one paper, two marks,
+    # which is exactly what "One paper, one mark" fixed on the quiz path and
+    # left standing on this one.
+    result = {"score": round(score, 3), "right": marks["right"],
+              "total": marks["total"]}
     # A drill can be run without a lesson behind it (/api/practice/{gen} with
     # no node_id mints a token bound to ""), and that is fine to *do* — but it
     # must not be recorded. Writing mastery and XP against the empty-string
     # node created a ledger row for a lesson that does not exist and paid for
     # it. Grade it, return the marks, record nothing.
     if not a.node_id or node is None:
-        return {"score": score, "xp_gained": 0, "unlessoned": True,
-                "cards_added": 0, "ascension": None}
+        return {"score": score, "result": result, "xp_gained": 0,
+                "unlessoned": True, "cards_added": 0, "ascension": None}
     res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
                                  items=len(a.answers), reader_id=reader_id)
     # Practice is a study event too: whatever was missed should come back.
@@ -1923,6 +1963,7 @@ def record_attempt(a: AttemptIn, request: Request):
                   if not _is_ephemeral(graded, q)]
         cards_added = learner.add_cards(missed, reader_id=reader_id)
     res["cards_added"] = cards_added
+    res["result"] = result
     res["ascension"] = (_check_ascension(learner.get_profile(reader_id=reader_id), reader_id)
                         if res.get("newly_mastered") else None)
     return res
@@ -2414,6 +2455,14 @@ def add_card(c: CardIn, request: Request):
 
 # ---------------- placement ----------------
 
+def _is_specialist(domain: str) -> bool:
+    """A field a reader enters from elsewhere, not one the spine starts in."""
+    for d in curr.domains:
+        if d["id"] == domain:
+            return int(d.get("entry_stage", 0) or 0) > 0
+    return False
+
+
 def _askable_stages(domain: str) -> list:
     """The stages this domain can actually set a paper at.
 
@@ -2687,6 +2736,13 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
     if settled:
         placed = max([h["stage"] for h in run if h["passed"]], default=-1) + 1
         placed = max(0, min(placed, 5))
+        # A field that only asks about one rung cannot record a level below it.
+        # Failing the single graduate paper radiology has means "not placed into
+        # radiology" — it does not mean the reader reads at preschool level in
+        # radiology, and writing 0 there put a floor-5 field on the floor.
+        askable_here = _askable_stages(s.domain)
+        floor_here = askable_here[0] if askable_here else 0
+        not_placed = placed < floor_here
         # Credit is granted once, at settle time — not on every passing rung.
         credited_through = placed - 1
         if placed > 0:
@@ -2707,11 +2763,39 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
             # decides which of the two rules below applies, so it must be read
             # before this result joins the map.
             had_prior_measurement = bool(per_domain)
-            per_domain[s.domain] = placed
+            if not_placed:
+                # Below the field's own floor there is no level to record. The
+                # reader has not entered the field; that is not a measurement
+                # of how they read, and a stale higher record would be worse.
+                per_domain.pop(s.domain, None)
+            else:
+                per_domain[s.domain] = placed
             settings["placed"] = per_domain
-            measured = sorted(per_domain.values())
-            if len(measured) >= 2:
-                overall = measured[(len(measured) - 1) // 2]   # lower median
+            # A specialist field is not evidence about general reading level.
+            # Radiology's only rung is graduate; a reader who cannot yet sit it
+            # is not thereby a pre-reader, and letting that result into the
+            # median said they were.
+            general = {d: v for d, v in per_domain.items()
+                       if not _is_specialist(d)} or dict(per_domain)
+            measured = sorted(general.values())
+            if not_placed or _is_specialist(s.domain):
+                # This sitting added no evidence about general reading level,
+                # so it moves nothing. Recomputing anyway let a specialist
+                # paper walk the global stage down one rung per attempt while
+                # contributing nothing to the median it was walking towards.
+                overall = int(prof["stage"] or 0)
+            elif len(measured) >= 2:
+                target = measured[(len(measured) - 1) // 2]   # lower median
+                # ...but never more than one stage down per sitting. At n=2 the
+                # lower median IS the minimum, so a reader who measured at
+                # Frontier in one field and then failed a single check in
+                # another was dropped to stage 0 outright — and stage <= 1 is
+                # the whole pre-reader interface: young mode, Simple English,
+                # the story frozen at page one. That was Round 22's only
+                # CRITICAL, reachable in two sittings. The median is still the
+                # target and repeated sittings still reach it; what is refused
+                # is arriving there in one move on one field's evidence.
+                overall = max(target, int(prof["stage"] or 0) - 1)
             elif had_prior_measurement:
                 # A re-measurement of the only field measured so far may lower
                 # the reading level but not raise it — Round 5's rule, that one
@@ -2894,8 +2978,15 @@ def roadmap_api(request: Request):
     # Pace against what the reader can still be expected to need to learn.
     # Placement-assumed nodes are treated as covered for scheduling, but the
     # headline "mastered" count reports only what has actually been proven.
+    # `deck` and `reading` are what make this plan THIS reader's: the first
+    # prices maintenance from their own card count and lapse rate, the second
+    # scales the instructional half by the rate their reading log actually
+    # shows. Both were built with a documented per-reader term and then never
+    # passed from here, so every reader saw the flat model.
     r = roadmap(prof, curr.graph(), learner.gate_map(reader_id=reader_id),
-               proven=learner.proven_set(reader_id=reader_id))
+               proven=learner.proven_set(reader_id=reader_id),
+               deck=learner.deck_stats(reader_id=reader_id),
+               reading=learner.reading_minutes_by_title(reader_id=reader_id))
     r["nodes_mastered"] = learner.proven_count_current(reader_id=reader_id)
     r["nodes_assumed"] = max(0, learner.mastered_count(reader_id=reader_id)
                              - learner.proven_count_current(reader_id=reader_id))
