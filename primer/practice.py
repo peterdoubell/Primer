@@ -1127,7 +1127,7 @@ def _length_rank(key: str, choices: List[str]) -> int:
     return sorted(choices, key=lambda c: (len(c), c)).index(key) + 1
 
 
-def _at_drawn_rank(build, tries: int = 8):
+def _at_drawn_rank(build, tries: int = 20):
     """Draw a target length rank, then keep drawing items until one lands there.
 
     Some material simply cannot put its key at every rank: the words that rhyme
@@ -1241,8 +1241,9 @@ def _know_fact(spec: Dict) -> Optional[Dict]:
     f = R.choice(facts)
     key = str(f["a"])
     authored = [str(d) for d in f["d"]]
-    # Two of the three distractors are the authored ones; the third is chosen
-    # for length, from the wrong answers written for this node's OTHER facts.
+    # One of the three distractors is always an authored one; the other two are
+    # chosen for length, from the wrong answers written for this node's OTHER
+    # facts.
     #
     # With exactly three authored distractors there is nothing to choose
     # between and the key's length rank is whatever the authoring happened to
@@ -1251,26 +1252,48 @@ def _know_fact(spec: Dict) -> Optional[Dict]:
     # answer somebody wrote for this same lesson, so the item stays plausible
     # and stops being positional.
     R.shuffle(authored)
-    keep = authored[:2]
+    keep = authored[:1]
     elsewhere = [str(d) for g in facts if g is not f for d in (g.get("d") or [])]
-    third = _length_balanced(key, [c for c in authored[2:] + elsewhere
-                                   if c not in keep], 1)
-    q = _mc(f["q"], f["a"], keep + third, f.get("explain") or "", pad=False)
+    rest = _length_balanced(key, [c for c in authored[1:] + elsewhere
+                                  if c not in keep], 2)
+    q = _mc(f["q"], f["a"], keep + rest, f.get("explain") or "", pad=False)
     q["say"] = f.get("say", f["q"])
     q["speak_choices"] = True
     return q
 
 
 def _know_order(spec: Dict) -> Optional[Dict]:
+    """An ordering the child produces — and, unlike a generated one, a card.
+
+    Every generated order item in the book is ephemeral by construction: the
+    sequence is drawn fresh each time, so one fixed front ("Put them in order")
+    would map to a different back on every sitting. That is true of
+    `g_order_numbers`, which invents its numbers. It is NOT true here: these
+    sequences are authored and finite, exactly like an authored bank item, and
+    `quiz.is_ephemeral_prompt` already says an authored order item is durable
+    because "what is shuffled is only the presentation".
+
+    So the prompt names its own set. "Put the seasons in order: autumn,
+    spring, summer, winter" is a stable front with one stable back, it gives
+    nothing away (the chips are on screen anyway), and it means the one shape
+    that asks a young reader to PRODUCE can finally come back tomorrow when
+    they get it wrong. Before this, 0 of 468 ordering items could mint a card.
+    """
     seqs = [s for s in (spec.get("sequences") or []) if len(s) >= 3]
     if not seqs:
         return None
-    seq = R.choice(seqs)
+    seq = [str(x) for x in R.choice(seqs)]
     prompt = spec.get("sequence_prompt", "Put them in the right order")
-    return _order(prompt, [str(x) for x in seq],
-                  spec.get("sequence_say", "Tap them in the right order."),
-                  spec.get("sequence_explain",
-                           "The order is: " + ", ".join(str(x) for x in seq) + "."))
+    prompt = "%s: %s" % (prompt, ", ".join(sorted(seq)))
+    q = _order(prompt, seq,
+               spec.get("sequence_say", "Tap them in the right order."),
+               spec.get("sequence_explain",
+                        "The order is: " + ", ".join(seq) + "."))
+    # Still stamped `ephemeral: True` like every generated item — the guard
+    # that keeps a forgetful generator from being read as authored. Its
+    # durability is declared where a generated item's always is, in
+    # is_durable_item, which knows these orderings name their own set.
+    return q
 
 
 _GROUP_PROMPT_CACHE: Dict[str, frozenset] = {}
@@ -1297,6 +1320,23 @@ def _group_prompts(gen_key: str) -> frozenset:
     return _GROUP_PROMPT_CACHE[gen_key]
 
 
+_ROTATIONS: List[Dict] = []
+
+
+def reset_rotation() -> None:
+    """Put every knowledge drill back to the start of its shape rotation.
+
+    The rotation counter is process-global — it has to be, since the shape has
+    to alternate across separate calls to `gen()` — which means an audit run
+    inside a long-lived process starts wherever the last caller left it. Two
+    generators came out clean alone and dirty in the suite for exactly that
+    reason, and a measurement that depends on how many items were drawn before
+    it is not a measurement. Seeded auditors call this straight after seeding.
+    """
+    for turn in _ROTATIONS:
+        turn["n"] = 0
+
+
 def make_knowledge_generator(node_id: str) -> Callable:
     """One drill over one node's authored material.
 
@@ -1306,6 +1346,7 @@ def make_knowledge_generator(node_id: str) -> Callable:
     whenever the node has a sequence to order.
     """
     turn = {"n": 0}
+    _ROTATIONS.append(turn)
 
     def gen(level=0):
         spec = young_material().get(node_id) or {}
@@ -1318,7 +1359,17 @@ def make_knowledge_generator(node_id: str) -> Callable:
         turn["n"] += 1
         i = turn["n"]
         recall = [_know_group, _know_pair, _know_fact]
-        order_first = i % 4 == 0
+        # `level` was accepted and then ignored, so a Seedling and a Sprout got
+        # the identical drill. A Seedling has fewer words and less patience for
+        # them: give them the tapping shape more often (every third item rather
+        # than every fourth) and put the two shapes with the shortest options
+        # first. A Sprout, who can read a sentence, meets more of the facts.
+        every = 3 if level <= 0 else 4
+        order_first = i % every == 0
+        if level <= 0:
+            recall = [_know_group, _know_pair, _know_fact]
+        else:
+            recall = [_know_fact, _know_group, _know_pair]
         shapes = ([_know_order] if order_first else []) + \
             recall[i % 3:] + recall[:i % 3] + \
             ([] if order_first else [_know_order])
@@ -1447,6 +1498,8 @@ def is_durable_item(gen_key: str, level: int, prompt: str) -> bool:
         # Those are cards. The category pick is ephemeral by construction, for
         # exactly the reason quiz.py already gives about "Which spelling is
         # correct?".
+        # Orderings included: the prompt carries the sequence's own members,
+        # so the front is as fixed as an authored bank item's.
         return prompt not in _group_prompts(gen_key)
     return gen_key in DURABLE_GENERATORS
 

@@ -4280,6 +4280,14 @@ async function renderRoadmap(page) {
   page.append(el('div', { style: 'margin:18px 0' },
     btn({ class: 'btn ghost small', onclick: () => offerPlacement(S.state.profile.domains) },
       glyph('target', 16), ' Check my level again')));
+  // How the number above was arrived at. The server publishes its workings —
+  // the reader's measured reading rate, the maintenance cost per topic, how
+  // much of the mastered count is assumed rather than proven — and for a long
+  // time published them to nobody: computed, returned, and rendered nowhere.
+  // An estimate the reader cannot inspect is an estimate they have to take on
+  // trust, which is the one thing a book pricing ten years of their life must
+  // not ask.
+  page.append(pricingNote(r));
   page.append(sectionLabel('The Plan, year by year'));
   const tl = el('div', { class: 'timeline' });
   r.timeline.forEach(y => tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, 'Year ' + y.year), el('div', { class: 'ms' }, y.milestones.join(' · ')))));
@@ -4294,6 +4302,33 @@ async function renderRoadmap(page) {
     r.stages.forEach(s => g.append(el('div', { class: 'card' }, el('b', {}, s.name + ' — ' + s.span), el('p', { class: 'muted', style: 'margin:4px 0 0' }, s.nodes_remaining + ' topics · ~' + s.hours_remaining + ' hours'))));
     page.append(g);
   }
+}
+function pricingNote(r) {
+  const rate = r.instructional_rate || {};
+  const lines = [];
+  if (rate.measured) {
+    const pct = Math.round((rate.factor - 1) * 100);
+    const pace = pct === 0 ? 'at the pace the book expects'
+      : pct > 0 ? Math.abs(pct) + '% slower than the book expects'
+      : Math.abs(pct) + '% faster than the book expects';
+    lines.push('You read ' + pace + ' — about ' + rate.per_article + ' minutes an article across '
+      + rate.articles + ' articles' + (rate.clamped ? ', held at the limit the plan allows' : '')
+      + ' — and the hours above are priced at your pace, not the average reader\'s.');
+  } else {
+    lines.push('Your reading pace is not measured yet, so the hours above are priced at the '
+      + 'book\'s own figure. After ' + 8 + ' articles it will be priced at yours.');
+  }
+  if (typeof r.srs_minutes_per_node === 'number') {
+    lines.push('Each topic also carries about ' + Math.round(r.srs_minutes_per_node)
+      + ' minutes of later review, so that what is learned stays learned.');
+  }
+  if (typeof r.nodes_assumed === 'number' && r.nodes_assumed > 0) {
+    lines.push(r.nodes_assumed + ' of the topics counted as covered are assumed from your placement '
+      + 'rather than proved at the page. They can be checked at any time.');
+  }
+  return el('details', { class: 'card pricing-note' },
+    el('summary', {}, 'How these hours were arrived at'),
+    ...lines.map(t => el('p', { class: 'muted', style: 'margin:6px 0 0' }, t)));
 }
 function statCard(big, label, color) { return el('div', { class: 'card', style: 'text-align:center' }, el('div', { style: `font-size:40px;color:${color};font-weight:600` }, big), el('div', { class: 'muted' }, label)); }
 

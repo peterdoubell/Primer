@@ -160,3 +160,42 @@ def test_the_practice_path_returns_the_mark_it_recorded(app_client, monkeypatch)
     assert "result" in r, "the drill screen has no server mark to show"
     assert set(r["result"]) >= {"score", "right", "total"}
     assert r["result"]["total"] == len(served)
+
+
+def test_the_drill_prefers_what_this_reader_got_wrong(app_client, monkeypatch):
+    """Adaptivity of any kind. There was none: `level` was accepted and
+    ignored, and nothing about the reader reached the generator, so a child who
+    cannot tell a mammal from a bird met that question no more often than any
+    other. The deck already knew — every card in it was minted from a missed
+    item — and the drill had never read it."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    node_id = "bio.0.animals"
+    gen = srv.curr.nodes[node_id]["practice"]
+
+    # Find a prompt this drill really can serve, and file it as missed.
+    seen = srv.practice.generate_set(gen, 6, level=0)
+    sore = [q["prompt"] for q in seen if q.get("kind") != "order"][:2]
+    assert sore
+    srv.learner.add_cards([{"front": p, "back": "x", "node_id": node_id, "article": ""}
+                           for p in sore])
+    assert set(srv.learner.missed_fronts(node_id)) >= set(sore)
+
+    hits = 0
+    for _ in range(12):
+        paper = app_client.get("/api/practice/%s?n=6&level=0&node_id=%s"
+                               % (gen, node_id)).json()
+        hits += sum(1 for q in paper["questions"] if q["prompt"] in sore)
+    assert hits >= 12, "the drill ignored the reader's own missed items (%d)" % hits
+
+
+def test_a_clean_deck_changes_nothing(app_client, monkeypatch):
+    """A reader who has missed nothing must see exactly the old drill."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    node_id = "bio.0.plants"
+    gen = srv.curr.nodes[node_id]["practice"]
+    assert srv.learner.missed_fronts(node_id) == []
+    paper = app_client.get("/api/practice/%s?n=6&level=0&node_id=%s"
+                           % (gen, node_id)).json()
+    assert len(paper["questions"]) == 6

@@ -5099,3 +5099,57 @@ items admitted to the review loop under a stable front; adaptivity of any kind
 drill as a priced step of the day; rendering the roadmap's published workings
 anywhere the reader can see them; whether assumed placement credit should open a
 graduate gate; and a browser check.
+
+---
+
+## Round 26 — working the auditors' list
+
+The Round 25 auditors left a concrete list of what stood between each
+dimension and its target. This round works it, in the order that matters most
+to a young reader.
+
+**Interactive Learning Loops.**
+
+- **Production is no longer two memorised tap-sequences.** 162 orderings
+  authored: sequences per node from a median of 2 (54 nodes at two or fewer)
+  to a median of 5, minimum 3.
+- **Orderings can come back tomorrow.** 0 of 468 could mint a card, because
+  every generated `order` item is ephemeral by construction — the sequence is
+  drawn fresh, so one front maps to many backs. These sequences are authored
+  and finite, which is the case `quiz.py` already documents as durable for a
+  bank item. The prompt now names its own set — "Put the seasons in order:
+  autumn, spring, summer, winter" — a stable front with one stable back, and
+  durability is declared through `is_durable_item` rather than by a generated
+  item claiming `ephemeral: False`, which a guard test rightly forbids. 136 of
+  136 now card-worthy; `order-numbers`, `order-time` and `order-lifecycle`
+  stay ephemeral exactly as before.
+- **The drill responds to the reader.** `level` was accepted and ignored. A
+  Seedling now meets the tapping shape every third item rather than every
+  fourth and the shortest options first; a Sprout meets more of the facts.
+  And the drill **prefers what this reader has actually got wrong**: the deck
+  is precisely that record — every card was minted from a missed item — and
+  nothing had ever read it. Drawn three times wider than asked, sorted so the
+  sore spots lead, same paper size; a clean deck sees no change at all.
+- **A measurement bug in my own tooling.** Two generators came out clean alone
+  and dirty in the suite. The shape rotation is a process-global counter, so
+  an audit inside a long-lived process starts wherever the last caller left
+  it. Seeded auditors now reset it. A verdict that depends on how many items
+  were drawn before it is not a measurement.
+- Widening the material re-exposed length tells and **four answer spaces that
+  were two or three values wide** — `phys.0.float-sink`'s pairs answered only
+  "it floats" or "it sinks", so *always say it sinks* scored 35%. All widened
+  with the reason, not just the verdict. Knowledge generators: 75 of 75 clean.
+
+**Mastery, Placement & Pacing.**
+
+- **The workings are rendered.** `instructional_rate`, `srs_minutes_per_node`
+  and `nodes_assumed` were computed, published, and shown to nobody. The
+  roadmap now carries "How these hours were arrived at": the reader's measured
+  pace (or that it is not measured yet, and when it will be), the review cost
+  folded into each topic, and how much of the mastered count is assumed rather
+  than proved.
+
+**Still open from the list:** the drill as a priced step of the day; whether
+assumed placement credit should open a graduate gate; a browser check. And
+neither dimension has been re-audited since Round 25 — every number in this
+entry is mine.

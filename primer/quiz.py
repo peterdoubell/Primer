@@ -766,6 +766,17 @@ def is_ephemeral_prompt(prompt: str, kind: str = "",
         if not practice.is_durable_item(gen, level, prompt):
             return True
     if kind == "order":
+        # Generated orderings are ephemeral by construction — the sequence is
+        # drawn fresh — with one declared exception: a generator whose
+        # orderings are AUTHORED and finite, and whose prompt names its own
+        # set, may say so through is_durable_item. The knowledge drills do
+        # ("Put the seasons in order: autumn, spring, summer, winter"): a
+        # stable front, one stable back, the same case as an authored bank
+        # ordering. Before this, 0 of 468 of the only shape that asks a young
+        # reader to PRODUCE could ever come back as a card.
+        if gen:
+            from . import practice
+            return not practice.is_durable_item(gen, level, prompt)
         return True
     p = (prompt or "").strip()
     if not p:

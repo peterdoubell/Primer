@@ -56,6 +56,10 @@ def profile(gen_key, samples=SAMPLES, seed=None):
     verdict stable while still giving them different streams.
     """
     practice.R.seed("%s/%s" % (gen_key, seed if seed is not None else "primer-audit"))
+    # ...and put the knowledge drills' shape rotation back to the start, or a
+    # generator's verdict depends on how many items the process drew before it.
+    if hasattr(practice, "reset_rotation"):
+        practice.reset_rotation()
     ranks = collections.Counter()
     len_ranks = collections.Counter()
     n_len_ranked = 0

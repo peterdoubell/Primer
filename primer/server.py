@@ -1881,6 +1881,21 @@ def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
     # does. Guessing alone proved undergraduate differential calculus.
     n = max(QUIZ_MIN_ITEMS, min(int(n), QUIZ_MAX_ITEMS)) if node_id else max(1, min(int(n), 20))
     qs = practice.generate_set(gen_key, n, level)
+    # Prefer what this reader has already got wrong. The deck is the record of
+    # exactly that — every card in it was minted from a missed item — and the
+    # drill had never once read it, so a child who cannot tell a mammal from a
+    # bird met that question no more often than any other. Drawn wider than
+    # asked for, then sorted so the sore spots come first; the paper is still
+    # the same size, and a reader with a clean deck sees no change at all.
+    if node_id and n >= QUIZ_MIN_ITEMS:
+        sore = set(learner.missed_fronts(node_id, reader_id=reader_id))
+        if sore:
+            wider = practice.generate_set(gen_key, n * 3, level)
+            if len(wider) >= n:
+                wider.sort(key=lambda q: 0 if q.get("prompt") in sore else 1)
+                qs = wider[:n]
+                for i, q in enumerate(qs):
+                    q["id"] = i
     if not qs:
         return JSONResponse({"error": "unknown generator", "available": practice.list_generators()},
                             status_code=404)

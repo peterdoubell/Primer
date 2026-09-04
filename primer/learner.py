@@ -1590,6 +1590,22 @@ class LearnerStore:
                     pass
         return added
 
+    def missed_fronts(self, node_id: str, limit: int = 40, reader_id: int = 1) -> List[str]:
+        """Card fronts for this node the reader has actually got wrong.
+
+        A drill that draws uniformly from a node's material asks about the
+        thing they already know as often as the thing they do not. Every card
+        in the deck was minted from a missed item, and a lapsed one was missed
+        again since — so the deck already knows what this reader finds hard,
+        and nothing was reading it.
+        """
+        with _lock, self._conn() as c:
+            rows = c.execute(
+                "SELECT front FROM srs_cards WHERE reader_id=? AND node_id=? "
+                "ORDER BY COALESCE(lapses, 0) DESC, due ASC LIMIT ?",
+                (reader_id, node_id, int(limit))).fetchall()
+        return [r["front"] for r in rows]
+
     def due_cards(self, limit: int = 20, reader_id: int = 1) -> List[Dict]:
         """Due cards, interleaved so you don't get a run of same-article cards."""
         now = time.time()
