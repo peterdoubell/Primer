@@ -4812,3 +4812,45 @@ only client-writable model with no length bound.
 
 Suite: **785 → 844**. `check_banks.py`: 0 problems across 11 files.
 `check_generators.py`: 0 problems across 51 generators.
+
+## Round 22, continued — the register cleared
+
+The round shipped with sixteen confirmed findings named and open, on the
+principle that a review which quietly drops what it did not reach is not a
+review. This closes all sixteen.
+
+The pattern worth recording is not in the findings. It is that **every one of
+the sixteen fixes departs from the remedy the board proposed**, because the
+skeptic who verified each finding also took the proposed fix apart:
+
+- The pricing fix's own "small group falls back to the stage average" guard
+  would have put `(5, arts)` — three nodes, a general graduate group — straight
+  back on the clamp floor it was meant to lift them off.
+- The relearning-card condition (`reps == 0 and lapses > 0`) also matches a
+  reader who blanks a card, closes the book, and returns a week later. It would
+  have traded an over-crediting bug for an under-crediting one on the honest
+  path.
+- Routing that case to the q==3 branch would not have closed the hole anyway:
+  its 0.5 floor still lifts the node back over the freshness gate.
+- `revoke_assumed`'s replacement SQL had to keep a `passes = 0` clause on the
+  DELETE or it would still remove the rows the UPDATE existed to preserve.
+- The focus-ring remedy (padding plus negative margins) would have pulled the
+  strip into the sidebar's 10px flex gaps; the `overflow-x: clip` alternative
+  would have killed the strip's horizontal scrolling. Drawing the ring inside
+  costs no geometry at all.
+- Rejecting only `Sec-Fetch-Site: cross-site` leaves `same-site` through, which
+  for a book on 127.0.0.1 is another origin.
+- And the short-answer finding reported 81 items where the discriminating
+  measurement — the GAP between the model answer's score and the stem's, not
+  the stem's score alone — finds 7. A question about bounded linear functionals
+  on a normed space cannot avoid the word "norm"; the rule has to know that.
+
+Two numbers from the pricing fix are worth keeping. Before: **49 of 52** general
+graduate nodes on the 0.5 clamp floor, nine of ten general domains with their
+whole graduate tier at half, general spine 5,486 h. After: **0 of 52**, and
+6,626 h against the ~6,500 the instructional-time anchor claims. The comment
+stating that anchor had been quietly wrong since the specialist field landed;
+it now says what the code computes and where to measure it.
+
+Suite: **846 → 849**. `check_banks.py`: 0 problems across 11 files.
+`check_generators.py`: 0 problems across 51 generators.
