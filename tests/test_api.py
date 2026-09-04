@@ -693,6 +693,38 @@ def test_placement_is_scored_server_side(client, onboarded):
     assert bad["credited_through_stage"] == -1, "the client cannot assert a pass"
 
 
+def test_the_unmarked_reflection_item_is_not_marked_wrong(client, onboarded,
+                                                          open_assessment_gate):
+    """An item the book declines to grade cannot be graded wrong.
+
+    Every paper from Sapling up closes with a written reflection whose key is
+    the node's own published goal. It is deliberately `ungraded` — the reader
+    can read that goal on the lesson page, so it is worth writing but not worth
+    marks. But `/api/quiz/check` marked it anyway: `score_quiz` skips ungraded
+    items and floors the denominator at 1, so it returned 0.0 and the endpoint
+    reported `correct: false` for every answer any reader ever wrote there,
+    then burned the item for a week for having been missed. Every lesson quiz
+    from Sapling up was capped at five of six.
+    """
+    paper = client.get("/api/quiz/math.2.fractions?n=6").json()
+    reflection = next((q for q in paper["questions"] if q.get("ungraded")), None)
+    assert reflection is not None, "no reflection item on a Sapling paper"
+
+    # The model answer itself — the best any reader could write.
+    node = next(n for n in json.loads(
+        open(os.path.join(os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__))), "data", "curriculum",
+            "01-mathematics.json")).read())["nodes"]
+        if n["id"] == "math.2.fractions")
+    r = client.post("/api/quiz/check", json={
+        "token": paper["token"], "id": reflection["id"], "answer": node["goal"]})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["ungraded"] is True, "the flag must reach the reader's client"
+    assert body["correct"] is None, (
+        "the book reported a verdict on an item it did not grade: %r" % body["correct"])
+
+
 def test_placement_round_trips_at_the_rung_the_book_served(tmp_path):
     """The first thing the book does for a grown reader must not end in an error.
 

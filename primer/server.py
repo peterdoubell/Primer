@@ -2056,7 +2056,20 @@ def check_one(c: CheckIn, request: Request):
         return JSONResponse({"error": "this quiz token was already submitted"},
                             status_code=409)
     locked = committed["answer"]
-    correct = quiz.score_quiz([q], [locked])["score"] >= (0.6 if q.get("kind") == "short" else 1.0)
+    # The closing reflection item every paper from Sapling up carries is
+    # `ungraded` by construction (quiz.py:934): its key is the node's published
+    # goal, which the reader can read on the lesson page, so it is worth writing
+    # and worth comparing against a model answer, but it is not worth marks.
+    # `score_quiz` skips ungraded items and then floors the denominator at 1, so
+    # asking it to mark one returns 0.0 — and this endpoint duly told the reader
+    # they were wrong, on every paper, whatever they wrote, capping every lesson
+    # quiz at five out of six. It then burned the item for a week for having
+    # been "missed". An item the book has declined to grade cannot be graded
+    # wrong, and cannot be spent as evidence either. `correct` is null here
+    # rather than false: there is no verdict to report.
+    ungraded = bool(q.get("ungraded"))
+    correct = None if ungraded else (
+        quiz.score_quiz([q], [locked])["score"] >= (0.6 if q.get("kind") == "short" else 1.0))
     # A wrong answer spends the item: the reader is about to be told, and for the
     # next week that item cannot be the evidence they know it — otherwise a paper
     # is read for its answers, discarded, and a clean one sat a moment later.
@@ -2065,9 +2078,9 @@ def check_one(c: CheckIn, request: Request):
     # reader their own pass on every sitting, permanently.
     node_for = q.get("node_id") or (entry["subject"] if entry["purpose"] in
                                     ("quiz", "practice") else "")
-    if node_for and not correct:
+    if node_for and correct is False:
         learner.burn_item(node_for, _fingerprint(q), reader_id=reader_id)
-    return {"correct": correct, "answer": q.get("answer", ""),
+    return {"correct": correct, "ungraded": ungraded, "answer": q.get("answer", ""),
             "explain": q.get("explain", ""), "keywords": q.get("keywords", []),
             "locked": locked}
 

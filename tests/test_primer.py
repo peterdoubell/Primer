@@ -3457,7 +3457,16 @@ def test_the_results_screen_keeps_focus():
     js = _web("app.js")
     assert js.count("class: 'result-heading'") >= 2, "quiz and placement both need one"
     i = js.index("async function finish(modal, close)")
-    assert "splashHead.focus()" in js[i:i + 900]
+    # Scoped to the function, not to a byte count. This read `js[i:i + 900]`,
+    # which asks "is the focus call within 900 characters of the declaration" —
+    # a question about comment length, not about behaviour. Adding five lines of
+    # comment inside `finish` pushed the call to character 901 and failed a test
+    # whose subject had not changed. The rule being kept is that focus moves to
+    # the results heading somewhere inside `finish`, so the window is `finish`.
+    rest = js[i:]
+    end = rest.index("\n  function ", 1) if "\n  function " in rest[1:] else len(rest)
+    assert "splashHead.focus()" in rest[:end], (
+        "finish() must move focus to the results heading")
 
 
 def test_a_wide_table_scrolls_without_widening_the_page():

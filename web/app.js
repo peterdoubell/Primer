@@ -2395,6 +2395,11 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
   // ever say "about four minutes" and mean this reader's four minutes.
   const startedAt = Date.now();
   let i = 0, correct = 0; const answers = [], confidences = [], oks = []; let confidence = null;
+  // Items the book declines to mark — the closing reflection every paper from
+  // Sapling up carries. They are answered and worth answering, but they are not
+  // evidence, so they must not sit in the denominator, must not be told they are
+  // wrong, and must not join the "you missed these" retry.
+  const unmarkedIdx = new Set();
   // Ceremonies queue rather than collide. A stage ascension used to be fired on
   // a bare 900ms timer; with a page turn now also on offer in the same splash,
   // that timer could drop a second dialog on top of the chapter the reader had
@@ -2736,10 +2741,16 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     ta.disabled = true;
     holdFocus(card, 'Checking…');
     const m = await mark(q, given);
-    ta.style.borderColor = m.correct ? 'var(--green)' : 'var(--accent)';
-    tell(card, m.correct ? '✓ You covered the main ideas.'
-                         : 'Compare your answer with the model answer below.');
-    reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
+    // `ungraded` items get no verdict and no red border: the server has told us
+    // it did not mark this one, and painting it as a failure is how every
+    // reflection answer came back wrong however good it was.
+    const unmarked = !!(m.ungraded || q.ungraded);
+    ta.style.borderColor = unmarked ? 'var(--rule)' : (m.correct ? 'var(--green)' : 'var(--accent)');
+    tell(card, unmarked ? 'Not marked — this one is yours. Compare it with the model answer below.'
+                        : (m.correct ? '✓ You covered the main ideas.'
+                                     : 'Compare your answer with the model answer below.'));
+    reveal(unmarked ? null : m.correct,
+           { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
   }
 
   async function submitNum(inp, q, card, modal, close) {
@@ -2780,9 +2791,13 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       ? region.textContent + ' ' + msg : msg;
   }
   function reveal(ok, q, given, card, modal, close) {
-    haptic(ok ? 'ok' : 'no');
+    // `ok === null` means the book declined to mark this one. It is neither a
+    // pass nor a miss: no haptic verdict, no place in the score, no retry.
+    const unmarked = ok === null;
+    if (!unmarked) haptic(ok ? 'ok' : 'no');
     if (ok) correct++;
-    oks.push(!!ok);
+    if (unmarked) unmarkedIdx.add(i);
+    oks.push(unmarked ? null : !!ok);
     // Always submit the learner's real response. Echoing the canonical key on a
     // correct answer would reduce the server's scoring to rubber-stamping the
     // client's own verdict.
@@ -2793,13 +2808,16 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // object so a later retry of just the missed ones can be graded without
     // a server token (the original paper's token is spent by then).
     if (q.answer) questions[i].answer = q.answer;
-    if (confidence) {
+    if (confidence && !unmarked) {
       const mis = (confidence === 3 && !ok) || (confidence === 1 && ok);
       tell(card, mis ? (ok ? 'You knew more than you thought!'
                            : 'Confident but wrong — worth another look.')
                      : 'Well calibrated.', true);
     }
-    if (q.explain) tell(card, (ok ? '✓ ' : 'The answer: ') + q.explain, true);
+    // The unmarked item's own explain already opens "A good answer covers: …",
+    // so it is shown as written rather than prefixed with a verdict word.
+    if (q.explain) tell(card, unmarked ? q.explain
+                                       : (ok ? '✓ ' : 'The answer: ') + q.explain, true);
     const nextBtn = btn({ class: 'btn gold', style: 'width:100%;margin-top:16px', onclick: () => next(modal, close) },
       i + 1 < questions.length ? 'Next →' : 'See results');
     card.append(nextBtn);
@@ -2810,7 +2828,11 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
   }
   function next(modal, close) { i++; if (i < questions.length) drawQuestion(modal, close); else finish(modal, close); }
   async function finish(modal, close) {
-    const score = correct / questions.length;
+    // Score over what was actually marked. The reflection item is answered but
+    // never graded, so counting it in the denominator capped every paper from
+    // Sapling up at five out of six however well the reader did.
+    const graded = Math.max(1, questions.length - unmarkedIdx.size);
+    const score = correct / graded;
     modal.innerHTML = ''; modal.append(closeBtn(close));
     // Emptying the modal while "See results" had focus left it on <body> —
     // inside a dialog still claiming aria-modal, so the trap could not even
@@ -2823,7 +2845,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     const splash = el('div', { class: 'result-splash' });
     splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, stars));
     if (!young) splash.append(el('div', { class: 'score' }, Math.round(score * 100) + '%'));
-    splash.append(el('p', {}, correct + ' of ' + questions.length + ' correct.'));
+    splash.append(el('p', {}, correct + ' of ' + graded + ' correct.'));
     let msg = '', msgTone = 'neutral', ascension = null, xp = 0, calibration = null, storyUnlocked = null;
     if (nodeId && !isRetry) {
       // A retry of only the missed items must not be scored as a fresh
@@ -2898,7 +2920,9 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // comparison would both miss items the server never sent an answer key
     // for and mis-flag short-answer items the server graded as "close enough"
     // (a fuzzy match, not an exact one) as if they'd been missed.
-    const missedIdx = oks.map((ok, k) => ok ? -1 : k).filter(k => k >= 0);
+    // `ok === null` is an unmarked item, not a miss: `!ok` would have swept the
+    // reflection into every retry list and every burn notice.
+    const missedIdx = oks.map((ok, k) => ok === false ? k : -1).filter(k => k >= 0);
     const controls = el('div', { style: 'display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap' });
     // The page turns where it was earned — but the READER turns it. Advancing
     // is a write, and a chapter that opens itself is a chapter nobody chose to
@@ -2936,7 +2960,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     if (nodeId) controls.append(btn({ class: 'btn gold', onclick: () => { close(); go('node', nodeId); } }, 'Back to lesson'));
     splash.append(controls);
     modal.append(splash);
-    if (young) maybeSpeak('You got ' + correct + ' out of ' + questions.length + '. ' + (score >= 0.7 ? 'Wonderful work!' : 'Good try — let us practice a little more.'));
+    if (young) maybeSpeak('You got ' + correct + ' out of ' + graded + '. ' + (score >= 0.7 ? 'Wonderful work!' : 'Good try — let us practice a little more.'));
     // Strictly sequenced: page turn first, stage ceremony behind it. With no
     // page turn on offer this is the same 900ms beat it always was.
     if (ascension) {

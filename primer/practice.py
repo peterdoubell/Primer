@@ -83,6 +83,65 @@ def _mc(prompt: str, answer, distractors: List, explain: str = "", pad: bool = T
             "answer": str(answer), "explain": explain, "ephemeral": True}
 
 
+def _near_distractors(key: int, k: int = 3, lo: int = None, hi: int = None) -> List[int]:
+    """k distinct plausible neighbours of `key`, on a randomly chosen split.
+
+    The exploit these exist to close is the key's RANK once a reader sorts the
+    options by size. `_mc` shuffles the display order, which is what every
+    position audit measured — and sorting undoes a shuffle, so it was never the
+    protection it looked like. What was fixed was the recipe: g_counting offered
+    {n-2, n-1, n, n+1}, so the key was permanently the second largest;
+    g_patterns offered {nxt-step, nxt, nxt+1, nxt+step}, so for any step>1 it
+    was permanently the second smallest; g_shapes was worse again. "Always pick
+    the third smallest" scored 87% on counting and 90% on patterns against a 25%
+    chance rate, and cleared the 0.8 mastery gate on that alone.
+
+    So the number of neighbours drawn from below the key is chosen at random
+    rather than baked into the recipe. `lo`/`hi` bound the sensible range — a
+    counting drill must not offer minus one, which is separately why the
+    preschool bank was showing negative numbers among its answers.
+
+    A generic version of this once lived inside `_mc` and applied to every
+    numeric option set. It was measured and withdrawn: generators whose
+    distractors were already well spread (g_place_value draws three random
+    distinct digits) came out WORSE, because rebuilding from mirrored offsets
+    near the zero floor collapsed the below-side and pinned the key at rank 1 —
+    27% became 40%. The generators that need this are the ones with a fixed
+    recipe, and they are named here rather than guessed at. The arbiter for all
+    of them is tools/check_generators.py.
+    """
+    want_below = R.randint(0, k)
+    below, above = [], []
+    d = 1
+    while len(below) < want_below and d <= k + 3:
+        v = key - d
+        if lo is None or v >= lo:
+            below.append(v)
+        d += 1
+    d = 1
+    while len(above) < k - len(below) and d <= k + 3:
+        v = key + d
+        if hi is None or v <= hi:
+            above.append(v)
+        d += 1
+    # Short on one side (the key sits near a bound): make the count up from the
+    # other rather than returning fewer options than asked for.
+    d = 1
+    while len(below) + len(above) < k and d <= k + 6:
+        for v in (key - d, key + d):
+            if v == key or v in below or v in above:
+                continue
+            if lo is not None and v < lo:
+                continue
+            if hi is not None and v > hi:
+                continue
+            (below if v < key else above).append(v)
+            if len(below) + len(above) >= k:
+                break
+        d += 1
+    return below + above
+
+
 def _choice2(prompt: str, answer, other, explain: str = "", say: str = "") -> Dict:
     """A genuine binary choice (e.g. bigger/smaller) — exactly two options, no
     nonsense padding."""
@@ -110,7 +169,7 @@ def g_counting(_):
     n = R.randint(1, 10)
     thing = R.choice(COUNT_THINGS)
     q = _mc("How many do you see?\n\n" + (thing + " ") * n, n,
-            [max(1, n - 1), n + 1, max(1, n - 2)])
+            _near_distractors(n, 3, lo=1))
     q["say"] = "How many do you see? Count them out loud."
     q["speak_choices"] = True
     return q
@@ -310,7 +369,7 @@ def g_patterns(_):
     seq = [start + i * step for i in range(4)]
     nxt = seq[-1] + step
     q = _mc("What comes next?   {} , ___".format(" , ".join(map(str, seq))),
-            nxt, [nxt - step, nxt + step, nxt + 1],
+            nxt, _near_distractors(nxt, 3, lo=0),
             "The pattern counts up by {}.".format(step))
     q["say"] = "What comes next? {}".format(", ".join(map(str, seq)))
     q["speak_choices"] = True
@@ -321,7 +380,10 @@ def g_shapes(_):
     name, sides = R.choice(list(shapes.items()))
     if R.random() < 0.5:
         q = _mc("How many sides does a {} have?".format(name), sides,
-                [sides - 1, sides + 1, sides + 2])
+                # lo=1, not 3: a child's plausible wrong answers include one
+                # and two, and refusing them left a triangle with nothing below
+                # its own key, pinning it at rank 1 on every draw.
+                _near_distractors(sides, 3, lo=1))
         q["say"] = "How many sides does a {} have?".format(name)
     else:
         wrong = R.sample([k for k in shapes if shapes[k] != sides], 3)
@@ -337,13 +399,15 @@ def _arith(prompt: str, answer: int, say: str, level: int) -> Dict:
     """Below stage 2 a learner should never have to type: offer spoken choices."""
     if level > 1:
         return _num(prompt, answer)
-    wrong = set()
-    while len(wrong) < 3:
-        d = R.choice([-3, -2, -1, 1, 2, 3, 10])
-        cand = answer + d
-        if cand >= 0 and cand != answer:
-            wrong.add(cand)
-    q = _mc(prompt, answer, sorted(wrong), pad=False)
+    # The old delta pool was [-3,-2,-1,1,2,3,10] — four of seven above the key —
+    # and the `cand >= 0` filter then dropped most of the rest, because at this
+    # level the answers are small. So the distractors piled up above the key and
+    # "always pick the second smallest" scored 49-56% across addition,
+    # subtraction, division and times-tables against a 25% chance rate. These
+    # are the most-drilled generators in the book, and the tell was invisible to
+    # every audit the project had, all of which measured display order — which
+    # _mc does shuffle, and which sorting undoes.
+    q = _mc(prompt, answer, _near_distractors(answer, 3, lo=0), pad=False)
     q["say"] = say
     q["speak_choices"] = True
     return q
@@ -504,9 +568,19 @@ def g_order_of_ops(_):
     return _num(expr + " = ?", ans,
                 "Multiply before adding unless parentheses say otherwise.")
 
+_PRIMES_TO_60 = [n for n in range(2, 61)
+                 if all(n % i for i in range(2, int(n ** 0.5) + 1))]
+_COMPOSITES_TO_60 = [n for n in range(2, 61) if n not in set(_PRIMES_TO_60)]
+
+
 def g_primes(_):
-    n = R.randint(2, 60)
-    is_prime = n > 1 and all(n % i for i in range(2, int(n ** 0.5) + 1))
+    # Drawing n first and asking whether it happens to be prime keys the item
+    # "no" by construction: there are 17 primes below 60 and 42 composites, so
+    # "always answer no" scored 71.7% against a 50% chance rate and passed 48%
+    # of six-item drill papers outright. Choose the answer first, then a number
+    # that has it, and the two keys come out even.
+    is_prime = R.random() < 0.5
+    n = R.choice(_PRIMES_TO_60 if is_prime else _COMPOSITES_TO_60)
     return _choice2("Is {} a prime number?".format(n), "yes" if is_prime else "no",
                     "no" if is_prime else "yes",
                     "A prime has exactly two divisors: 1 and itself.")
@@ -582,18 +656,37 @@ def g_logs(_):
     exp = R.randint(1, 4 if base == 10 else 6)
     return _num("log base {} of {} = ?".format(base, base ** exp), exp)
 
+# Keyed by the ANSWER, then a question that has it. Drawing the question first
+# is what made "1/4" the answer 40% of the time (both the coin and the card
+# branch keyed it) and then "1/2" 33% once those were varied: the key follows
+# whatever the question list happens to contain. Draw the key uniformly and the
+# imbalance cannot arise, whatever questions are added later.
+PROBABILITY_QUESTIONS = {
+    "1/6": ["A fair six-sided die is rolled. P(a six) = ?",
+            "A fair six-sided die is rolled. P(number ≤ 1) = ?"],
+    "1/3": ["A fair six-sided die is rolled. P(number ≤ 2) = ?",
+            "A fair six-sided die is rolled. P(a multiple of 3) = ?"],
+    "1/2": ["A fair six-sided die is rolled. P(number ≤ 3) = ?",
+            "Two fair coins are flipped. P(exactly one head) = ?",
+            "One card is drawn from a 52-card deck. P(a red card) = ?"],
+    "2/3": ["A fair six-sided die is rolled. P(number ≤ 4) = ?"],
+    "1/4": ["Two fair coins are flipped. P(both heads) = ?",
+            "Two fair coins are flipped. P(no heads) = ?",
+            "One card is drawn from a 52-card deck. P(a heart) = ?"],
+    "3/4": ["Two fair coins are flipped. P(at least one head) = ?"],
+    "1/13": ["One card is drawn from a 52-card deck. P(an ace) = ?"],
+    "3/13": ["One card is drawn from a 52-card deck. P(a face card) = ?"],
+}
+_PROBABILITY_KEYS = sorted(PROBABILITY_QUESTIONS)
+
+
 def g_probability(_):
-    mode = R.choice(["die", "cards", "coins"])
-    if mode == "die":
-        k = R.choice([1, 2, 3])
-        return _mc("A fair six-sided die is rolled. P(number ≤ {}) = ?".format(k),
-                   "{}/6".format(k) if k not in (2, 3) else {2: "1/3", 3: "1/2"}[k],
-                   ["1/6", "1/2", "1/3", "2/3"])
-    if mode == "coins":
-        return _mc("Two fair coins are flipped. P(both heads) = ?", "1/4",
-                   ["1/2", "1/3", "3/4"])
-    return _mc("One card is drawn from a 52-card deck. P(a heart) = ?", "1/4",
-               ["1/13", "1/2", "4/13"])
+    key = R.choice(_PROBABILITY_KEYS)
+    prompt = R.choice(PROBABILITY_QUESTIONS[key])
+    others = [k for k in _PROBABILITY_KEYS if k != key]
+    R.shuffle(others)
+    return _mc(prompt, key, others[:3], pad=False)
+
 
 def g_stats(_):
     nums = sorted(R.sample(range(1, 30), 5))
@@ -663,7 +756,18 @@ def g_limits(_):
         return _num("lim (x→{}) of  {}x² {} {}  = ?".format(
             x0, a, "+" if c >= 0 else "−", abs(c)), a * x0 * x0 + c)
     if mode == "sinx":
-        return _mc("lim (x→0) of  sin(x)/x  = ?", "1", ["0", "∞", "does not exist"])
+        # One hard-coded item whose key was both fixed at "1" and the shortest
+        # string on the card, so "pick the shortest" beat chance by 11pp.
+        k = R.randint(1, 4)
+        expr, key = R.choice([
+            ("sin({}x)/x".format(k), str(k)),
+            ("sin(x)/({}x)".format(k), "1/{}".format(k)),
+            ("(1 − cos(x))/x", "0"),
+            ("tan({}x)/x".format(k), str(k)),
+        ])
+        pool = [str(k), "1/{}".format(k), "0", "∞", str(k + 1), "1"]
+        return _mc("lim (x→0) of  {}  = ?".format(expr), key,
+                   [c for c in pool if c != key][:3], pad=False)
     r = R.randint(1, 5)
     return _num("lim (x→{r}) of  (x² − {r2}) / (x − {r})  = ?".format(r=r, r2=r * r),
                 2 * r, "Factor the numerator as (x−{r})(x+{r}).".format(r=r))
@@ -774,13 +878,22 @@ def g_molar_mass(_):
                 "Add the atomic masses: " +
                 " + ".join("{}×{}".format(k, MOLAR[e]) for e, k in parts) + ".")
 
+# Grouped by answer, not listed flat. The flat list held three acids, three
+# bases and one neutral, so drawing an ITEM at random keyed "acid" or "base"
+# 43% of the time each against a 33% chance rate. Draw the answer first, then
+# something that has it.
+PH_ITEMS = {
+    "acid": ["lemon juice", "vinegar", "battery acid", "orange juice", "black coffee"],
+    "base": ["soap", "baking soda solution", "bleach", "oven cleaner", "milk of magnesia"],
+    "neutral": ["pure water", "table salt solution", "blood plasma", "milk"],
+}
+
+
 def g_ph(_):
-    items = [("lemon juice", "acid"), ("soap", "base"), ("pure water", "neutral"),
-             ("vinegar", "acid"), ("baking soda solution", "base"),
-             ("battery acid", "acid"), ("bleach", "base")]
-    thing, kind = R.choice(items)
+    kind = R.choice(list(PH_ITEMS))
+    thing = R.choice(PH_ITEMS[kind])
     return _mc("Is {} an acid, a base, or neutral?".format(thing), kind,
-               [k for k in ["acid", "base", "neutral"] if k != kind], pad=False)
+               [k for k in PH_ITEMS if k != kind], pad=False)
 
 def g_binary(_):
     if R.random() < 0.5:
