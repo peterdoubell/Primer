@@ -2424,6 +2424,32 @@ def _snap_to_askable(stage: Optional[int], domain: str) -> Optional[int]:
     return min(available, key=lambda s: (abs(s - stage), s))
 
 
+def _placement_runs(asked: list) -> list:
+    """The asked-history split into staircases, oldest first.
+
+    `reopen_placement` drops a marker where each new run begins. The last
+    element is the run in progress; the ones before it are finished
+    measurements, and the most recent of those is where the reader actually
+    stands today.
+    """
+    runs, current = [], []
+    for entry in asked or []:
+        if not isinstance(entry, dict):
+            continue          # legacy rows stored bare strings here
+        if entry.get("reopened"):
+            runs.append(current)
+            current = []
+        elif "stage" in entry:
+            current.append(entry)
+    runs.append(current)
+    return runs
+
+
+def _run_frontier(run: list) -> int:
+    """Where a finished staircase landed: one above its highest passed rung."""
+    return max([h["stage"] for h in run if h.get("passed")], default=-1) + 1
+
+
 def _placement_run(asked: list) -> list:
     """The rungs belonging to the CURRENT staircase.
 
@@ -2466,10 +2492,16 @@ def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Option
         # records the last rung asked and not where the reader landed. Only the
         # starting rung is inherited: the new run settles on its own answers,
         # which is what stops a re-check ratcheting upward for ever.
-        prior = [h for h in history if isinstance(h, dict) and "stage" in h]
-        if prior:
-            frontier = max([h["stage"] for h in prior if h.get("passed")],
-                           default=-1) + 1
+        # The frontier of the MOST RECENT finished run — not the highest rung
+        # ever passed across every run there has been. Reading the whole
+        # history put a reader who had been measured down to Seedling back at
+        # the top of the ladder on their next re-check, where a single passing
+        # paper restored the level they had just lost: an upward ratchet at the
+        # entry, and a placement decided by one quiz. Both are the things this
+        # staircase exists to refuse.
+        finished = [r for r in _placement_runs(history)[:-1] if r]
+        if finished:
+            frontier = _run_frontier(finished[-1])
             return _snap_to_askable(max(0, min(frontier, 5)), domain)
         # A first placement starts from where their age would put them.
         return _snap_to_askable(
@@ -2483,13 +2515,13 @@ def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Option
         # not repeat items) arrives here unsettled. Re-measure at the rung
         # the reader settled on: the frontier is exactly where growth since
         # the last sitting would show.
-        placed = max([h["stage"] for h in asked if h.get("passed")], default=-1) + 1
+        placed = _run_frontier(asked)
         return _snap_to_askable(max(0, min(placed, 5)), domain)
     snapped = _snap_to_askable(nxt, domain)
     # Snapping can land back on a rung already sat — a field with one askable
     # rung has nowhere else to go — and re-serving it would loop for ever.
     if snapped is None or any(h["stage"] == snapped for h in asked):
-        placed = max([h["stage"] for h in asked if h.get("passed")], default=-1) + 1
+        placed = _run_frontier(asked)
         settled_at = _snap_to_askable(max(0, min(placed, 5)), domain)
         return None if settled_at is None or any(
             h["stage"] == settled_at for h in asked) else settled_at
@@ -2692,9 +2724,18 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
         next_stage = None
         log.info("placement settled: %s at stage %d", s.domain, placed)
     learner.placement_update(s.domain, s.stage, history, settled, reader_id=reader_id)
+    # The lowest rung this field can be asked at. A specialist field begins
+    # where the general spine ends — radiology's 84 modules are all Forest — so
+    # "the book has found where to open, a little below Forest" is not a kind
+    # framing of a low result there, it is a false statement about a field with
+    # nothing below Forest in it. The client needs the fact to say something
+    # true instead.
+    askable = _askable_stages(s.domain)
     return {"domain": s.domain, "score": round(result["score"], 2), "passed": passed,
             "credited_through_stage": credited_through, "suggest_stage": next_stage,
-            "settled": settled}
+            "settled": settled,
+            "field_floor": askable[0] if askable else 0,
+            "single_rung": len(askable) == 1}
 
 
 # ---------------- opening a specialist field ----------------

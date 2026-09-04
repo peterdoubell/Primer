@@ -822,9 +822,16 @@ async function runPlacement(domain, stage, recheck) {
        The mark is a compass now, and both outcomes are the same good news
        said twice — the book knows where to open. */
     splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, glyph('atlas', 38)),
+      // "A little below Forest" is a kind sentence about a field that HAS a
+      // below. A specialist field does not: radiology begins where the general
+      // spine ends and every one of its modules is Forest, so telling a reader
+      // the book had found solid ground beneath it was simply untrue — and it
+      // was the only thing the book said to them in their whole first session.
       el('p', {}, r.passed
         ? 'You are comfortable at ' + STAGE_NAMES[stage] + ' level in ' + domainById(domain).name + '. That is worth knowing, and now the book knows it.'
-        : 'The book has found where to open in ' + domainById(domain).name + ' — a little below ' + STAGE_NAMES[stage] + ', so the ground is solid under you. Nothing here was a check you could fail.'));
+        : (r.single_rung
+          ? domainById(domain).name + ' begins at ' + STAGE_NAMES[r.field_floor] + ' — it is a field the book opens at the far end of the journey, and there is no ground below it to start you on. Nothing here was a check you could fail; the door stays where it is until you are ready for it.'
+          : 'The book has found where to open in ' + domainById(domain).name + ' — a little below ' + STAGE_NAMES[stage] + ', so the ground is solid under you. Nothing here was a check you could fail.')));
     if (r.suggest_stage != null && !r.settled) {
       splash.append(el('p', { class: 'muted' }, r.passed ? 'Let\'s try one level higher.' : 'Let\'s try one level down.'),
         btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, 'Continue →'));

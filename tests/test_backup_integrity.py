@@ -319,3 +319,80 @@ def test_a_re_measurement_can_place_a_reader_down(tmp_path):
                 "a re-check could not lower the reader: %s then %s" % (high, low))
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
+def test_a_re_check_resumes_where_the_reader_last_landed(tmp_path):
+    """Not where they once stood at their best.
+
+    Scoping the SETTLE to the current run stopped an old run's passes deciding
+    where a re-measurement lands — but the entry point still read the whole
+    history to choose the opening rung, so a reader measured down to Seedling
+    was re-opened at the top of the ladder, where one passing paper handed back
+    the level they had just lost. That is both an upward ratchet and a
+    placement decided by a single quiz, which are the two things the staircase
+    exists to refuse.
+    """
+    import time
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            c.post("/api/profile", json={
+                "name": "Ada", "age": 30, "hours_per_week": 8,
+                "breadth": "balanced", "domains": ["math"]})
+
+            def key(paper):
+                served = srv._SERVED[paper["token"]]["questions"]
+                by_id = {q.get("id"): q.get("answer", "") for q in served}
+                return [by_id.get(q["id"], "") for q in paper["questions"]]
+
+            def sit(correct):
+                for _ in range(9):
+                    p = c.get("/api/placement/next?domain=math&n=4").json()
+                    if not p.get("questions"):
+                        return None
+                    answers = key(p) if correct else ["wrong"] * len(p["questions"])
+                    r = c.post("/api/placement/submit", json={
+                        "domain": "math", "stage": p["stage"],
+                        "token": p["token"], "answers": answers}).json()
+                    if r["settled"]:
+                        return r
+                return None
+
+            def cool_and_reopen():
+                with srv.learner._conn() as conn:
+                    conn.execute("UPDATE placement SET settled_at=?",
+                                 (time.time() - 30 * 86400,))
+                assert srv.learner.reopen_placement("math") is True
+
+            assert sit(True) is not None
+            high = c.get("/api/state").json()["profile"]["settings"]["placed"]["math"]
+            assert high > 0
+
+            cool_and_reopen()
+            assert sit(False) is not None
+            low = c.get("/api/state").json()["profile"]["settings"]["placed"]["math"]
+            assert low < high, "the re-check could not lower the reader"
+
+            # A third check must open near where run two left them, not at the
+            # high-water mark of run one.
+            cool_and_reopen()
+            resumed = c.get("/api/placement/next?domain=math&n=4").json()
+            assert resumed["stage"] <= low + 1, (
+                "re-opened at rung %s after settling at %s" % (resumed["stage"], low))
+            r = c.post("/api/placement/submit", json={
+                "domain": "math", "stage": resumed["stage"],
+                "token": resumed["token"], "answers": key(resumed)}).json()
+            assert not r["settled"] or (
+                c.get("/api/state").json()["profile"]["settings"]["placed"]["math"] < high), \
+                "one passing paper handed back the level the reader had lost"
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
