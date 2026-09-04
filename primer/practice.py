@@ -10,7 +10,7 @@ preschool counting to undergraduate calculus and linear algebra.
 import math
 import random
 from fractions import Fraction
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Optional
 
 R = random.Random()
 
@@ -420,6 +420,37 @@ def g_shapes(_):
 
 # ---------------- Stage 1: Sprout ----------------
 
+def _arith_tally(answer: int, story: str, say: str) -> Optional[Dict]:
+    """An arithmetic answer COUNTED OUT rather than picked from a list.
+
+    "Below stage 2 a learner should never have to type" was read for years as
+    "below stage 2 every item is multiple choice", and the two are not the same
+    sentence. The tally shape written for counting proves it: the objects are
+    the answering surface, so nothing has to be read or typed, and what is
+    scored is the act being taught. Addition and subtraction are the most
+    drilled generators in the book and were pure recognition for the readers
+    who most need to produce — a child who works out that five and two make
+    seven, then picks 7 from a list, has been asked to recognise a numeral at
+    the end of doing the real work.
+
+    A committed tally is a plain number, so quiz.py grades it exactly as it
+    grades a typed one and no new marking path exists.
+    """
+    if not (1 <= answer <= 9):
+        return None            # the tokens must all fit one small screen
+    thing, one, many = R.choice(TALLY_THINGS)
+    return {
+        "kind": "tally",
+        "prompt": "{}\n\nTouch each {}, then press the button.".format(story, one),
+        "items": [thing] * answer,
+        "answer": str(answer),
+        "say": say,
+        "explain": "There are {} — one number word for each one you touched.".format(answer),
+        "ephemeral": True,
+        "gen": "arith-tally",
+    }
+
+
 def _arith(prompt: str, answer: int, say: str, level: int) -> Dict:
     """Below stage 2 a learner should never have to type: offer spoken choices."""
     if level > 1:
@@ -440,13 +471,63 @@ def _arith(prompt: str, answer: int, say: str, level: int) -> Dict:
 def g_addition(level):
     hi = 10 if level <= 1 else 100
     a, b = R.randint(1, hi), R.randint(1, hi)
+    if (level or 0) <= 1 and R.random() < 0.5:
+        # Draw a sum that can actually be counted out on one screen. Left to
+        # the general 1-10 draw, four fifths of sums land above nine and fall
+        # straight back to multiple choice — the produced form would exist and
+        # almost never be reached. Small sums are the right material here
+        # anyway: counting on from five is the skill, not adding to twenty.
+        a = R.randint(1, 6)
+        b = R.randint(1, 9 - a) if a < 9 else 1
+        counted = _arith_tally(
+            a + b,
+            "{} and {} more.".format(a, b),
+            "{} and {} more. How many altogether? Touch each one.".format(a, b))
+        if counted:
+            return counted
     return _arith("{} + {} = ?".format(a, b), a + b,
                   "What is {} plus {}?".format(a, b), level)
 
 def g_subtraction(level):
     hi = 10 if level <= 1 else 100
-    a, b = R.randint(1, hi), R.randint(1, hi)
-    a, b = max(a, b), min(a, b)
+    if level <= 1:
+        # Draw the ANSWER first, then the operands that give it. Drawing two
+        # numbers and subtracting makes small differences far commoner than
+        # large ones (a difference of 0-2 came up three times as often as 7-9),
+        # which is both worse practice — the child mostly meets the easiest
+        # cases — and a surface tell: a key of 0, 1 or 2 has no room for three
+        # plausible options BELOW it once negatives are excluded, so the key
+        # sat at the bottom of the sorted list and "pick the smallest" beat
+        # chance by ten points.
+        # 1 to 9, not 0 to 9. A remainder of nought has no plausible option
+        # BELOW it once negative numbers are off the table for a five-year-old
+        # — and they are, deliberately — so every zero-answer card put the key
+        # at the bottom of the sorted list. Ten per cent of cards doing that is
+        # enough for "pick the smallest" to beat chance. The idea of a nought
+        # remainder is not lost: from Sapling up the answer is typed, where a
+        # distractor set does not arise.
+        answer = R.randint(1, 9)
+        b = R.randint(1, hi - answer)
+        a = answer + b
+    else:
+        a, b = R.randint(1, hi), R.randint(1, hi)
+        a, b = max(a, b), min(a, b)
+    if (level or 0) <= 1 and R.random() < 0.5:
+        # Operands drawn INSIDE the branch, so it always yields a countable
+        # remainder. Testing the general draw instead only took the branch when
+        # the remainder happened to fall in 1-9, which left the multiple-choice
+        # half over-supplied with remainders of ZERO — and a key of nought can
+        # have no plausible option below it, so the key sat at rank 1 and
+        # "always pick the smallest" beat chance by 11pp. The produced form
+        # must not bias the recognised one.
+        a = R.randint(2, 9)
+        b = R.randint(1, a - 1)
+        counted = _arith_tally(
+            a - b,
+            "There were {}, and {} went away.".format(a, b),
+            "There were {}, and {} went away. How many are left? Touch each one.".format(a, b))
+        if counted:
+            return counted
     return _arith("{} − {} = ?".format(a, b), a - b,
                   "What is {} take away {}?".format(a, b), level)
 

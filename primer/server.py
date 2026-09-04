@@ -2399,6 +2399,31 @@ def add_card(c: CardIn, request: Request):
 
 # ---------------- placement ----------------
 
+def _askable_stages(domain: str) -> list:
+    """The stages this domain can actually set a paper at.
+
+    Not every field spans the ladder. Radiology is 84 modules and every one of
+    them is stage 5 — it is a specialist field that begins where the general
+    spine ends. The staircase assumed 0-5 everywhere, so a reader who chose it
+    was served five consecutive papers containing ZERO questions, each graded
+    0.0 as though they had failed it, and was then recorded at stage 0: the
+    exact opposite of the truth about a field whose content is all graduate
+    work. A rung the book cannot ask about is not a rung.
+    """
+    return sorted({n["stage"] for n in curr.nodes.values()
+                   if n["domain"] == domain and (n.get("quiz") or n.get("practice"))})
+
+
+def _snap_to_askable(stage: Optional[int], domain: str) -> Optional[int]:
+    """The nearest rung this domain can actually ask about, or None if it has none."""
+    available = _askable_stages(domain)
+    if not available:
+        return None
+    if stage is None:
+        return available[0]
+    return min(available, key=lambda s: (abs(s - stage), s))
+
+
 def _placement_run(asked: list) -> list:
     """The rungs belonging to the CURRENT staircase.
 
@@ -2445,9 +2470,10 @@ def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Option
         if prior:
             frontier = max([h["stage"] for h in prior if h.get("passed")],
                            default=-1) + 1
-            return max(0, min(frontier, 5))
+            return _snap_to_askable(max(0, min(frontier, 5)), domain)
         # A first placement starts from where their age would put them.
-        return learner.stage_for_age(float((prof or {}).get("age") or 6))
+        return _snap_to_askable(
+            learner.stage_for_age(float((prof or {}).get("age") or 6)), domain)
     last = asked[-1]
     nxt = last["stage"] + 1 if last["passed"] else last["stage"] - 1
     if nxt < 0 or nxt > 5 or any(h["stage"] == nxt for h in asked):
@@ -2458,8 +2484,16 @@ def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Option
         # the reader settled on: the frontier is exactly where growth since
         # the last sitting would show.
         placed = max([h["stage"] for h in asked if h.get("passed")], default=-1) + 1
-        return max(0, min(placed, 5))
-    return nxt
+        return _snap_to_askable(max(0, min(placed, 5)), domain)
+    snapped = _snap_to_askable(nxt, domain)
+    # Snapping can land back on a rung already sat — a field with one askable
+    # rung has nowhere else to go — and re-serving it would loop for ever.
+    if snapped is None or any(h["stage"] == snapped for h in asked):
+        placed = max([h["stage"] for h in asked if h.get("passed")], default=-1) + 1
+        settled_at = _snap_to_askable(max(0, min(placed, 5)), domain)
+        return None if settled_at is None or any(
+            h["stage"] == settled_at for h in asked) else settled_at
+    return snapped
 
 
 # A settled placement is not settled forever: a reader grows, and re-measuring
@@ -2593,6 +2627,12 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
         next_stage = s.stage + 1 if s.stage < 5 else None
     else:
         next_stage = s.stage - 1 if s.stage > 0 else None
+    # …and it has to be a rung this field can actually ask about. A specialist
+    # field whose nodes all sit at one stage has exactly one rung; stepping to a
+    # neighbour it cannot set a paper for is how a reader ended up sitting five
+    # empty papers, each marked 0.0, and being recorded at stage 0.
+    if next_stage is not None:
+        next_stage = _snap_to_askable(next_stage, s.domain)
 
     # The staircase stops when it reverses direction or runs off either end.
     tried = {h["stage"] for h in run}
