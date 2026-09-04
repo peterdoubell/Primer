@@ -2337,6 +2337,18 @@ class LearnerStore:
                             (google_sub,)).fetchone()
         return int(row[0])
 
+    def reader_for_static_account(self, slot_key: str, label: str) -> int:
+        """Find or create the reader row for a static username/password
+        account — see server.py's multi-account password gate.
+
+        The same identity-row shape Google sign-in uses, keyed by `slot_key`
+        (e.g. "static:2") instead of a real Google subject, so the two can
+        never collide — Google's own subject values are purely numeric,
+        never colon-separated. See `_is_real_google_sub` in server.py, which
+        is what keeps a static account from reading as Google-signed-in.
+        """
+        return self.upsert_google_reader(slot_key, "", label)
+
     def get_reader(self, reader_id: int) -> Optional[Dict]:
         with self._conn() as c:
             row = c.execute(
