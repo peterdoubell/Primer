@@ -35,7 +35,7 @@ from . import sittings as sittings_mod
 from . import story as story_mod
 from .curriculum import Curriculum
 from .learner import (LearnerStore, STAGE_NAMES, STAGE_SPAN, STAGE_TITLES,
-                      _end_of_tomorrow, _local_day)
+                      _end_of_tomorrow, _local_day, _remove_backup)
 from .pacing import roadmap
 from .render import rewrite_article
 from .wiki import WikiService, ROOT
@@ -136,10 +136,10 @@ def _prune_backups(dest_dir: str):
     keep.update(list(monthly.values())[:12])
     for f in files:
         if f not in keep:
-            try:
-                os.remove(os.path.join(dest_dir, f))
-            except OSError:
-                pass
+            # Sidecar-aware: this removed only the `.db` and left the -wal/-shm
+            # beside it, so every rotated-out generation leaked two files that
+            # nothing would ever collect.
+            _remove_backup(os.path.join(dest_dir, f))
 
 
 def backup_status() -> dict:
@@ -878,11 +878,15 @@ def save_profile(p: ProfileIn, request: Request):
 # name in the response — a bare 422 would hide *which* key was the problem.
 class SettingsIn(BaseModel):
     model_config = {"extra": "allow"}
-    theme: Optional[str] = None
+    # Bounded like every other client-writable string in this file
+    # (ProfileIn.name 60, TutorIn.title 300, CheckIn.answer 2000). These
+    # three were the only ones without a ceiling, and they are persisted
+    # into the profile, so an 8 MB string was an 8 MB row for ever.
+    theme: Optional[str] = Field(None, max_length=40)
     speak: Optional[bool] = None
     reduce_motion: Optional[bool] = None
     font_scale: Optional[float] = None
-    name_pronunciation: Optional[str] = None
+    name_pronunciation: Optional[str] = Field(None, max_length=120)
     # Reader-owned privacy switch: False keeps the tutor fully local even
     # when an ANTHROPIC_API_KEY is set (see _tutor_remote_allowed).
     tutor_remote_ok: Optional[bool] = None
@@ -900,8 +904,17 @@ class SettingsIn(BaseModel):
     @field_validator("domain_stage")
     @classmethod
     def _domain_stage_in_range(cls, v):
-        if v is not None and any(not (0 <= s <= 5) for s in v.values()):
+        if v is None:
+            return v
+        if any(not (0 <= s <= 5) for s in v.values()):
             raise ValueError("each domain's stage must be 0..5, matching STAGE_NAMES")
+        # Keys are checked against the real fields, which bounds this far better
+        # than a length cap would: a cap on the number of keys still admits
+        # thirty-two keys of a megabyte each, whereas a domain id is a domain id.
+        known = {d["id"] for d in curr.domains}
+        unknown = sorted(k for k in v if k not in known)
+        if unknown:
+            raise ValueError("no such field: %s" % ", ".join(unknown[:3]))
         return v
 
 
@@ -2667,13 +2680,21 @@ def story(request: Request):
     if not prof:
         # Even the un-onboarded preview must be rendered: the source chapters
         # are tokenised, and raw {SUBJ}/{NAME} on the page is not a story.
+        # Nothing is set aside before a reader has chosen fields, so the preview
+        # numbers straight through — but it must carry `number` like the real
+        # thing, or the page falls back to a different scheme for this one case.
+        preview = []
+        for i, ch in enumerate(STORY["chapters"]):
+            c = _personalize(ch, "")
+            c["set_aside"], c["read"], c["number"] = False, False, i + 1
+            preview.append(c)
         return {"title": STORY["title"], "about": STORY["about"],
-                "chapters": [_personalize(ch, "") for ch in STORY["chapters"]],
-                "progress": 0, "can_advance": False}
+                "chapters": preview, "progress": 0, "can_advance": False}
     cur, progress, can_advance = _story_cursor(prof, reader_id)
     name = prof["name"]
     domains = prof.get("domains") or [d["id"] for d in curr.domains]
     chapters = []
+    number = 0
     for i, ch in enumerate(STORY["chapters"]):
         c = _personalize(ch, name, story_mod.reader_pronouns(prof))
         node = curr.node(ch.get("leads_to", "") or "")
@@ -2681,6 +2702,17 @@ def story(request: Request):
         c["set_aside"] = bool(node) and node["domain"] not in domains
         c["read"] = i < progress and not c["set_aside"]
         c["current"] = i == progress
+        # The reader's own numbering, counted over the reader's own story. The
+        # page took its total from the chapters that are NOT set aside while
+        # numbering every card from the raw array index, so the same screen
+        # could say "11 of 15 chapters earned" and head a card "Chapter 19".
+        # A chapter belonging to a field this reader never chose is not their
+        # chapter number seven; it has no number in their story at all.
+        if not c["set_aside"]:
+            number += 1
+            c["number"] = number
+        else:
+            c["number"] = None
         chapters.append(c)
     return {"title": _book_title(name), "about": STORY["about"],
             "chapters": chapters, "progress": progress,

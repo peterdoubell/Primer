@@ -4705,3 +4705,110 @@ in both themes: the tokens resolve, the page turns on real navigation, the
 stagger runs `0s → 0.04s → 0.32s` and collapses to `0s` with every token
 zeroed, the modal blurs and springs, the toast is glass, and the console is
 empty.
+
+---
+
+## Round 22 — a board of ten, and the instrument that had never been built
+
+A fresh board of ten was convened, one seat per dimension of the Primer's
+objective, with an independent skeptic behind every finding whose brief was to
+*refute* it. Forty findings were filed; **thirty survived, ten were refuted** —
+a refutation rate worth recording, because it is the part of the process that
+keeps a score honest.
+
+| # | Benchmark | R21 | **R22** |
+|--:|-----------|:---:|:-------:|
+| 1 | Curriculum Coverage & Sequencing | 9.6 | **7.5** |
+| 2 | Assessment Validity | 9.0 | **7.5** |
+| 3 | Mastery, Placement & Pacing Integrity | 9.3 | **7.0** |
+| 4 | Retention & Spaced-Practice Engineering | 9.3 | **7.5** |
+| 5 | Developmental Appropriateness | 9.2 | **8.0** |
+| 6 | Engagement & Habit Architecture | 9.3 | **7.5** |
+| 7 | Narrative Integration & The Book as Artifact | 9.3 | **7.5** |
+| 9 | Interface, Age-Adaptivity & Accessibility | 9.3 | **8.8** |
+| 10 | Engineering: Security, Reliability | 9.2 | **8.0** |
+| 12 | Interactive Learning Loops (Meta-Learning) | 9.0 | **6.0** |
+| | **Average** | **9.25** | **7.53** |
+
+The drop is not a regression in the code so much as a correction in the
+measurement. Two causes, both worth naming. The 84-module radiology corpus
+landed after the last scoring and was never audited by it — it is 19% of the
+graph, has no internal prerequisite edges at all, and collapsed the graduate
+tier's time model. And several benchmarks had been scored against tooling that
+did not look where the defects were.
+
+### The placement check had never once reached the reader
+
+The board's only CRITICAL, and the first thing the book does for every reader
+over six. `/api/placement/next` picks the rung from age — 4 for an adult — and
+returns it; the client kept submitting its own `S.stage`, which setup stores as
+0 for everybody, so the submit came back 409 and the reader was told *"likely
+the network, never you — your answers are safe"* while nothing had been stored.
+Underneath it, a settled placement could not raise anyone: the single-domain
+branch read `min(prof["stage"], measured[0])`, written in Round 5 when setup
+seeded a stage from age, and a later round set every new profile to 0 on
+principle — turning that line into `min(0, anything)`. A reader measured at
+Grove still got the pre-reader interface, Simple English, and a story frozen at
+page one. Both are fixed and both are now held by tests; every placement test in
+the suite had submitted the stage the server just handed back, which is exactly
+why none of them caught a client that sent its own.
+
+### Half the graded surface had never been audited
+
+`check_banks.py` reads `data/curriculum/*.json` and nothing else. The other half
+is minted at request time by the ~50 generators in `practice.py`.
+`tools/check_generators.py` now measures it, and what it found had been sitting
+there since the generators were written:
+
+| generator | strategy | scored | chance |
+|---|---|--:|--:|
+| addition, subtraction, division, times-tables | pick the 2nd smallest | 49–56% | 25% |
+| counting | pick the 3rd smallest | 87% | 25% |
+| patterns | pick the 2nd smallest | 90% | 25% |
+| shapes | pick the smallest | 100% | 25% |
+| primes | always answer "no" | 72% | 50% |
+| ph, probability, limits | one key dominates | 40–43% | 33%/25% |
+
+Every audit the project had measured the order options are *displayed* in —
+which `_mc` does shuffle. The exploit was the key's rank once a reader sorts the
+numbers by size, and sorting undoes a shuffle. The four arithmetic drills are
+the most-used generators in the book. All 51 now audit clean, seeded so a
+verdict is reproducible rather than lucky.
+
+**A fix tried, measured, and withdrawn.** The first attempt put a generic
+rank-balancer inside `_mc` for every numeric option set. It made `g_place_value`
+*worse* — 27% to 40% — because that generator's distractors are three random
+distinct digits, already well spread, and rebuilding them from mirrored offsets
+near the zero floor collapsed the below-side and pinned the key at rank 1. It
+was withdrawn for targeted fixes at the generators whose recipe was actually
+fixed. The measurement, not the idea, decided it.
+
+### The item that was always wrong, and the backup that was mostly cache
+
+Every paper from Sapling up closes with a written reflection that is `ungraded`
+by construction. `/api/quiz/check` marked it anyway — `score_quiz` skips
+ungraded items and floors the denominator at 1 — so it returned 0.0 and told the
+reader they were wrong whatever they wrote, capped every quiz at five of six,
+and burned the item for a week for having been missed.
+
+And `backup()` page-copied the whole SQLite file, which holds two unlike things:
+the reader's irreplaceable multi-year record, and the wiki article/image caches,
+which are bytes a ZIM file or a URL away. Every "backup of the learner record"
+was in practice 319 MB of disposable cache around about a megabyte of the
+reader's actual life — five rotated generations of it. Measured on a seeded
+copy: **58.9 MB → 112 KB**, record intact, integrity ok. Retention also deleted
+only the `.db` and left the `-wal`/`-shm` beside it, so 672 orphans had piled up;
+deletion is sidecar-aware now and a finished backup is one file.
+
+Also fixed: placement was offered only for `domains[0]`, so a reader who chose
+three fields could be measured in one and left to assert the rest on a slider;
+the story page numbered its cards from the raw array while counting the total
+from the reader's own chapters, so it could head a card **"Chapter 63"** above
+the line *"0 of 8 chapters earned"*; Space on an in-article wikilink was
+swallowed by a keydown handler, so a keyboard reader could not page down; the
+day/night toggle's fixed `aria-label` overrode the one word that said which mode
+was on; two chapters printed their authoring asterisks; and `SettingsIn` was the
+only client-writable model with no length bound.
+
+Suite: **785 → 844**. `check_banks.py`: 0 problems across 11 files.
+`check_generators.py`: 0 problems across 51 generators.

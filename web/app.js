@@ -900,7 +900,7 @@ function effectiveTheme() {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 function themeToggle() {
-  const b = btn({ id: 'theme-toggle', class: 'chrome-toggle', 'aria-label': 'Switch between day and night reading', onclick: () => {
+  const b = btn({ id: 'theme-toggle', class: 'chrome-toggle', onclick: () => {
     // Toggle relative to what the reader actually sees, so the first press
     // always visibly changes the page (even when following the OS setting).
     const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
@@ -917,6 +917,15 @@ function themeToggle() {
     const now = effectiveTheme();
     b.querySelector('.tt-label').textContent = now === 'dark' ? 'Night' : 'Day';
     b.querySelector('.tt-icon').textContent = now === 'dark' ? '☾' : '☀';
+    // The state has to live in the NAME. A fixed aria-label ("Switch between
+    // day and night reading") overrides the element's contents in the
+    // accessible-name computation, so the one word that says which mode is on
+    // — the visible 'Night'/'Day' right there in the button — never reached a
+    // screen reader at all, and the control announced identically in both
+    // states. Named rather than aria-pressed: a theme is not a pressed
+    // control, and a polarity has to be guessed to announce one.
+    b.setAttribute('aria-label', now === 'dark'
+      ? 'Night reading on — switch to day' : 'Day reading on — switch to night');
   }
   paint();
   return b;
@@ -1912,7 +1921,14 @@ async function renderReader(page, arg) {
       if (t0) link.setAttribute('href', hashFor('reader', { title: t0, node: nodeId }));
       const goLink = e => { e.preventDefault(); const t = link.getAttribute('data-primer-title'); if (t) go('reader', { title: t, node: nodeId }); };
       link.addEventListener('click', goLink);
-      link.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') goLink(e); });
+      // No keydown handler, deliberately. `link` is a real <a href> (set just
+      // above), so Enter already fires a native click and lands in goLink. The
+      // handler that used to live here also caught Space and called
+      // preventDefault, which is the one key an anchor must NOT swallow: Space
+      // scrolls the page. A keyboard reader who tabbed to any link in an
+      // article — and a long article has hundreds — lost the ability to page
+      // down, and instead navigated away to that link's subject. The picture
+      // handler below already documents exactly this rule for its own anchors.
     });
     attachPictureHandlers(art);
     // Where the page came from, said as a book says it. "(live)" is a word
@@ -4191,15 +4207,21 @@ async function renderStory(page) {
   page.append(el('p', { class: 'muted', style: 'margin-top:-8px' },
     earned + ' of ' + total + ' chapters earned.'));
   st.chapters.forEach((c, i) => {
+    // The reader's own chapter number, counted by the server over the reader's
+    // own story. Numbering from the raw array index let the page head a card
+    // "Chapter 19" while the line above it said the story was 15 chapters long.
+    const no = Number.isFinite(c.number) ? c.number : (i + 1);
     if (c.set_aside) {
       page.append(el('div', { class: 'card card-quiet' },
-        el('div', { class: 'kicker' }, 'Chapter ' + (i + 1) + ' · set aside'),
+        // No number: a chapter belonging to a field this reader never chose is
+        // not their chapter seven, it is outside their story altogether.
+        el('div', { class: 'kicker' }, 'Set aside'),
         btn({ class: 'unstyled card-open', onclick: () => openStory(c, false, null) },
           el('h3', { style: 'font-size:18px;margin:0' }, glyph('moon', 16), ' ' + c.title)),
         el('p', { class: 'muted' }, 'This one belongs to a field you did not choose — open it any time.')));
     } else if (c.read) {
       const card = el('div', { class: 'card lesson-card' });
-      card.append(el('div', { class: 'kicker' }, 'Chapter ' + (i + 1) + ' · read'),
+      card.append(el('div', { class: 'kicker' }, 'Chapter ' + no + ' · read'),
         btn({ class: 'unstyled card-open', onclick: () => openStory(c, false, null) },
           el('h3', { style: 'font-size:19px' }, glyph('story', 17), ' ' + c.title)),
         el('p', { class: 'muted' }, (c.text[0] || '').slice(0, 120) + '…'));
@@ -4210,7 +4232,7 @@ async function renderStory(page) {
       // panel. It was hardcoded brown, which left it the one muddy tile on
       // an otherwise phosphor page once the night palette turned.
       const card = el('div', { class: 'card story-current' });
-      card.append(el('div', { class: 'kicker' }, 'Chapter ' + (i + 1) + ' · you are here'),
+      card.append(el('div', { class: 'kicker' }, 'Chapter ' + no + ' · you are here'),
         el('h3', {}, c.title),
         el('p', {}, (c.text[0] || '').slice(0, 160) + '…'),
         btn({ class: 'btn gold', style: 'margin-top:8px', onclick: () => openStory(c, st.can_advance, st.needs) }, glyph('story', 16), ' Read this chapter'));
@@ -4219,7 +4241,7 @@ async function renderStory(page) {
       page.append(card);
     } else {
       page.append(el('div', { class: 'card card-quiet' },
-        el('div', { class: 'kicker' }, 'Chapter ' + (i + 1)),
+        el('div', { class: 'kicker' }, 'Chapter ' + no),
         el('h3', { style: 'font-size:18px' }, glyph('lock', 17), ' Not yet written'),
         el('p', { class: 'muted' }, 'Keep learning — this page is waiting for you.')));
     }

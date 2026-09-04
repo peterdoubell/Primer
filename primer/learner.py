@@ -36,6 +36,95 @@ log = logging.getLogger("primer.learner")
 
 _lock = threading.Lock()
 
+# Tables that belong to the wiki cache rather than to the reader. They live in
+# the same SQLite file (server.py hands one path to both WikiService and
+# LearnerStore) but they are of a completely different kind: article and image
+# bytes that came from a ZIM archive or a URL and can come from there again.
+# A backup keeps the record and sheds these.
+_CACHE_TABLES = ("article_cache", "image_cache")
+# Backups smaller than this are left exactly as copied. The record alone is
+# ~100 KB; it is the caches that make the file hundreds of megabytes, so this
+# only needs to trigger where there is a great deal to reclaim. Set high on
+# purpose: shrinking costs an extra connection and a VACUUM temp file, and
+# under a long test run that pressure was enough to make *other* backups fail
+# with "disk I/O error". Reclaiming a few megabytes is never worth risking a
+# backup, so the threshold sits far above anything but a genuinely cache-heavy
+# database. Tests lower it to exercise the path.
+_SHRINK_BACKUP_ABOVE = 32_000_000
+
+
+def _shed_wiki_cache(path: str) -> None:
+    """Drop the cache tables from a finished backup and reclaim the space.
+
+    Takes a PATH, not a connection, and is called only after the copy has been
+    written, closed and verified: everything here is an optimisation on a file
+    that is already a good backup, so any failure must cost a larger backup and
+    nothing else. VACUUM in particular can fail for reasons that have nothing to
+    do with the reader's data — a full disk, an unwritable temp directory, an
+    exhausted file-descriptor table under a long test run — and none of those
+    are a reason to throw away a sound copy.
+
+    VACUUM also cannot run inside a transaction, and Python's sqlite3 opens one
+    implicitly unless isolation_level is None, so the commit and the isolation
+    change are both load-bearing rather than decoration.
+    """
+    # Only worth doing when there is something to reclaim. A backup of the
+    # record alone is ~100 KB; the caches are what make the file hundreds of
+    # megabytes. Below this there is nothing to win, and the cost is not zero:
+    # an extra connection and a VACUUM temp file per backup. Under a long test
+    # run those were enough to tip the process into "disk I/O error" and take
+    # unrelated backups down with them, which is a steep price for shrinking a
+    # file that was already small.
+    try:
+        if os.path.getsize(path) < _SHRINK_BACKUP_ABOVE:
+            return
+    except OSError:
+        return
+    conn = None
+    try:
+        conn = sqlite3.connect(path)
+        for table in _CACHE_TABLES:
+            conn.execute("DROP TABLE IF EXISTS {}".format(table))
+        conn.commit()
+        conn.isolation_level = None
+        conn.execute("VACUUM")
+        # A finished backup should be one file. The copy inherits WAL mode from
+        # the source and so landed with a -wal and a -shm beside it; those are
+        # what accumulated in the backup directory, and a restore that copies
+        # only the .db of a WAL-mode database is a restore missing whatever had
+        # not been checkpointed.
+        conn.execute("PRAGMA journal_mode=DELETE")
+    except Exception as exc:      # a bigger backup beats no backup
+        log.warning("could not shrink backup (keeping the full copy): %s: %s",
+                    exc.__class__.__name__, exc)
+    finally:
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception:
+                pass
+        for suffix in ("-wal", "-shm"):
+            try:
+                os.remove(path + suffix)
+            except OSError:
+                pass
+
+
+def _remove_backup(path: str) -> None:
+    """Delete a backup and the -wal/-shm sidecars SQLite leaves beside it.
+
+    Retention deleted only the `.db`, so every rotated-out generation left its
+    two sidecars behind for good: 672 orphans had accumulated in one backup
+    directory, and the two failure paths in `backup()` leaked them too, on
+    exactly the runs where something had already gone wrong.
+    """
+    for suffix in ("", "-wal", "-shm"):
+        try:
+            os.remove(path + suffix)
+        except OSError:
+            pass
+
+
 DAY = 86400.0
 PASS = 0.8                       # score that counts as a passing attempt
 MASTERY_MIN_INTERVAL = 2 * DAY   # min gap between 1st and 2nd pass to master (12+)
@@ -2271,9 +2360,23 @@ class LearnerStore:
     # ---------- maintenance ----------
 
     def backup(self, dest_dir: str, keep: int = 5):
-        """Consistent online backup of the whole learner record, rotating a few
+        """Consistent online backup of the learner record, rotating a few
         generations. The single DB is the reader's irreplaceable multi-year
-        history, so this runs at startup and daily."""
+        history, so this runs at startup and daily.
+
+        What is copied is deliberately narrower than what is stored. One SQLite
+        file holds two very different things: the record — profile, mastery,
+        events, srs_cards, sittings, reading_log — which cannot be reconstructed
+        from anything, and the wiki caches, which are article and image bytes
+        already sitting in a ZIM file or a URL away. The caches dwarf the
+        record, so every "backup of the irreplaceable learner record" was in
+        practice 319 MB of disposable page cache carrying about a megabyte of
+        the reader's actual life. Five generations of that is 1.6 GB, which is
+        exactly the sort of number that makes a reader move backups off a small
+        disk, or stop keeping them. The copy sheds the caches and keeps the
+        record; a restored file rebuilds the cache tables on first use, because
+        WikiService creates them IF NOT EXISTS.
+        """
         os.makedirs(dest_dir, exist_ok=True)
         stamp = time.strftime("%Y%m%d-%H%M%S", time.localtime())
         dest = os.path.join(dest_dir, "primer-{}.db".format(stamp))
@@ -2293,22 +2396,28 @@ class LearnerStore:
                 check.close()
             if status != "ok":
                 log.error("backup failed integrity check (%s): %s", status, dest)
-                os.remove(dest)
+                _remove_backup(dest)
                 return None
             log.info("backup verified: %s (%d mastery rows)", os.path.basename(dest), rows)
         except Exception as exc:
             log.error("backup failed: %s: %s", exc.__class__.__name__, exc)
-            try:
-                os.remove(dest)
-            except OSError:
-                pass
+            _remove_backup(dest)
             return None
+        # Shrinking comes LAST — after the copy is closed, verified, and out
+        # of the try that discards a failed backup. It is an optimisation on a
+        # file that is already a good backup, so a database that will not
+        # VACUUM (a full disk, an unwritable temp directory, an exhausted
+        # file-descriptor table under a long test run) must cost a larger
+        # backup and nothing else. Run inside that try, an unrelated I/O error
+        # threw away a perfectly sound copy and returned None.
+        try:
+            _shed_wiki_cache(dest)
+        except Exception as exc:   # belt and braces: the helper catches its own
+            log.warning("could not shrink backup: %s: %s",
+                        exc.__class__.__name__, exc)
         backups = sorted(f for f in os.listdir(dest_dir) if f.endswith(".db"))
         for old in backups[:-keep]:
-            try:
-                os.remove(os.path.join(dest_dir, old))
-            except OSError:
-                pass
+            _remove_backup(os.path.join(dest_dir, old))
         return dest
 
     # ---------------- readers & sessions (Google identity) ----------------
