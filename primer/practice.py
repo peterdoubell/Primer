@@ -7,7 +7,9 @@ Generators are keyed; curriculum nodes reference them by key. Levels run from
 preschool counting to undergraduate calculus and linear algebra.
 """
 
+import json
 import math
+import os
 import random
 from fractions import Fraction
 from typing import Callable, Dict, List, Optional
@@ -1043,6 +1045,184 @@ def g_logic_gates(_):
                     res, 1 - res, "Recall the truth table for {}.".format(gate))
 
 
+# ---------------- Knowledge drills for the young nodes ----------------
+#
+# Seventy-five of the eighty-nine stage 0-1 nodes had no practice generator at
+# all. Not because nobody had got to them, but because the generators here are
+# procedural — they compute an answer — and "Which one is a mammal?" has no
+# arithmetic to compute. So the youngest half of the book, the half whose
+# reader most needs to meet a thing more than once, had a read step and a quiz
+# and nothing in between: the interactive loop could not close on a node with
+# nothing to practise.
+#
+# The material a knowledge drill needs is authored (data/practice/young.json);
+# the *drill* is procedural, and that is the split that makes this worth
+# building rather than writing four thousand more bank items. One node's entry
+# supplies groups, pairs, sequences and facts; this code mints an unbounded
+# stream of items out of them — category picks and their negatives, matches
+# either way round, orderings the child produces rather than recognises.
+#
+# Every item is fully spoken and fully tappable: nothing here asks a
+# five-year-old to read or type.
+
+_YOUNG_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                           "data", "practice", "young.json")
+_YOUNG_CACHE: Optional[Dict[str, Dict]] = None
+
+
+def young_material() -> Dict[str, Dict]:
+    """The authored material behind the knowledge drills, loaded once."""
+    global _YOUNG_CACHE
+    if _YOUNG_CACHE is None:
+        try:
+            with open(_YOUNG_PATH, encoding="utf-8") as fh:
+                _YOUNG_CACHE = json.load(fh)
+        except (OSError, ValueError):
+            # A missing or broken file must not take the book down: the node
+            # keeps its authored bank and simply offers no drill.
+            _YOUNG_CACHE = {}
+    return _YOUNG_CACHE
+
+
+def _length_balanced(key: str, pool: List[str], k: int = 3) -> List[str]:
+    """Pick k distractors whose lengths straddle the key's.
+
+    Picking at random from a pool leaves length readable: "Which one is a
+    mammal?" against {bat, hippopotamus, wren} tells a non-reader nothing, but
+    tells a reader plenty when the key is reliably the long one. So the draw
+    takes one shorter, one longer, and one nearest, and falls back to random
+    only when the pool has no such member.
+    """
+    pool = [p for p in dict.fromkeys(pool) if p != key]
+    if len(pool) <= k:
+        return pool
+    n = len(key)
+    shorter = sorted([p for p in pool if len(p) < n], key=lambda p: n - len(p))
+    longer = sorted([p for p in pool if len(p) > n], key=lambda p: len(p) - n)
+    nearest = sorted(pool, key=lambda p: abs(len(p) - n))
+    out: List[str] = []
+    # Round-robin, one from each bucket in turn. Draining the "shorter" bucket
+    # first — which an in-order loop does — puts the key at the long end of
+    # every card it can, and that is exactly the tell being guarded against.
+    buckets = [longer, shorter, nearest, pool]
+    idx = [0, 0, 0, 0]
+    guard = 0
+    while len(out) < k and guard < 200:
+        guard += 1
+        for b, bucket in enumerate(buckets):
+            while idx[b] < len(bucket) and bucket[idx[b]] in out:
+                idx[b] += 1
+            if idx[b] < len(bucket) and len(out) < k:
+                out.append(bucket[idx[b]])
+                idx[b] += 1
+    return out[:k]
+
+
+def _know_group(spec: Dict) -> Optional[Dict]:
+    groups = spec.get("groups") or {}
+    names = [g for g, members in groups.items() if len(members) >= 1]
+    if len(names) < 2:
+        return None
+    cat = R.choice(names)
+    others = [m for g, ms in groups.items() if g != cat for m in ms]
+    if len(others) < 3:
+        return None
+    not_prompt = spec.get("group_not_prompt")
+    # As with pairs: the negative is asked only where its own wording was
+    # written. "Which one would you measure with a scale?" does not negate into
+    # "Which one is NOT a scale?" by rule.
+    if not_prompt and len(groups[cat]) >= 3 and R.random() < 0.3:
+        key = R.choice(others)
+        prompt = not_prompt.format(cat)
+        q = _mc(prompt, key, _length_balanced(key, groups[cat]), pad=False)
+    else:
+        key = R.choice(groups[cat])
+        prompt = spec.get("group_prompt", "Which one is a {}?").format(cat)
+        q = _mc(prompt, key, _length_balanced(key, others), pad=False)
+    q["say"] = prompt
+    q["speak_choices"] = True
+    return q
+
+
+def _know_pair(spec: Dict) -> Optional[Dict]:
+    pairs = [p for p in (spec.get("pairs") or []) if len(p) == 2]
+    if len(pairs) < 4:
+        return None
+    left, right = R.choice(pairs)
+    back = spec.get("pair_back_prompt")
+    # The reverse direction is only asked when it has been authored. Running a
+    # forward template backwards produced "How many are in one 7 days?" — the
+    # sentence a template cannot survive being read from the wrong end.
+    if back and R.random() < 0.5:
+        prompt = back.format(right)
+        key, pool = left, [a for a, b in pairs if a != left]
+    else:
+        prompt = spec.get("pair_prompt", "What goes with {}?").format(left)
+        key, pool = right, [b for a, b in pairs if b != right]
+    q = _mc(prompt, key, _length_balanced(key, pool), pad=False)
+    q["say"] = prompt
+    q["speak_choices"] = True
+    return q
+
+
+def _know_fact(spec: Dict) -> Optional[Dict]:
+    facts = [f for f in (spec.get("facts") or []) if len(f.get("d") or []) >= 3]
+    if not facts:
+        return None
+    f = R.choice(facts)
+    q = _mc(f["q"], f["a"], _length_balanced(str(f["a"]), list(f["d"])),
+            f.get("explain", ""), pad=False)
+    q["say"] = f.get("say", f["q"])
+    q["speak_choices"] = True
+    return q
+
+
+def _know_order(spec: Dict) -> Optional[Dict]:
+    seqs = [s for s in (spec.get("sequences") or []) if len(s) >= 3]
+    if not seqs:
+        return None
+    seq = R.choice(seqs)
+    prompt = spec.get("sequence_prompt", "Put them in the right order")
+    return _order(prompt, [str(x) for x in seq],
+                  spec.get("sequence_say", "Tap them in the right order."),
+                  spec.get("sequence_explain", ""))
+
+
+def make_knowledge_generator(node_id: str) -> Callable:
+    """One drill over one node's authored material.
+
+    Production is not an afterthought here. On a young paper an ordering item
+    — tap these in the order they happen — is the only shape that asks the
+    child to *make* the answer rather than spot it, so it is drawn first
+    whenever the node has a sequence to order.
+    """
+    turn = {"n": 0}
+
+    def gen(level=0):
+        spec = young_material().get(node_id) or {}
+        # The SHAPE rotates; only the content is drawn. Sampling the shape too
+        # meant a four-item drill could come out all ordering, and whether that
+        # drill was worth a review card then depended on the draw — the exact
+        # coin-flip that `is_durable_item` exists to have stopped. Rotating
+        # also guarantees what sampling only made likely: every drill of four
+        # asks the child to produce something, and asks for recall as well.
+        turn["n"] += 1
+        i = turn["n"]
+        recall = [_know_group, _know_pair, _know_fact]
+        order_first = i % 4 == 0
+        shapes = ([_know_order] if order_first else []) + \
+            recall[i % 3:] + recall[:i % 3] + \
+            ([] if order_first else [_know_order])
+        for shape in shapes:
+            q = shape(spec)
+            if q is not None:
+                return q
+        # Nothing authored for this node yet: say so rather than mint noise.
+        return None
+    gen.__name__ = "g_know_%s" % node_id.replace(".", "_").replace("-", "_")
+    return gen
+
+
 GENERATORS: Dict[str, Callable] = {
     "counting": g_counting, "count-tally": g_count_tally,
     "letters": g_letters, "phonics": g_phonics,
@@ -1067,6 +1247,12 @@ GENERATORS: Dict[str, Callable] = {
     "binary": g_binary, "logic-gates": g_logic_gates,
 }
 
+# One drill per node that has authored material. Registered at import so
+# `list_generators()` — and therefore tools/check_generators.py — sees them
+# exactly like the procedural ones, and they are audited on the same terms.
+for _node_id in sorted(young_material()):
+    GENERATORS["know:" + _node_id] = make_knowledge_generator(_node_id)
+
 
 def generate_set(gen_key: str, n: int = 6, level: int = 1) -> List[Dict]:
     fn = GENERATORS.get(gen_key)
@@ -1077,6 +1263,8 @@ def generate_set(gen_key: str, n: int = 6, level: int = 1) -> List[Dict]:
     while len(out) < n and guard < n * 12:
         guard += 1
         q = fn(level)
+        if q is None:      # a knowledge drill with no material for this node
+            break
         # Key on prompt+answer: some generators deliberately reuse one prompt
         # (e.g. "Which spelling is correct?") so the child must listen.
         key = (q["prompt"], q.get("answer"))
@@ -1135,6 +1323,11 @@ def is_durable_item(gen_key: str, level: int, prompt: str) -> bool:
     Deterministic by construction: the same item is judged the same way in
     every process, on every run.
     """
+    if gen_key.startswith("know:"):
+        # A knowledge drill asks for a fact about the world, and a fact is
+        # exactly what a review card is for. Its order items are excluded
+        # upstream by kind, where every generator's are.
+        return True
     return gen_key in DURABLE_GENERATORS
 
 

@@ -4918,3 +4918,77 @@ pedagogy to a rubric word is teaching to the metric.
 
 Suite: **849 → 850**. `check_banks.py`: 0 problems across 11 files.
 `check_generators.py`: 0 problems across 51 generators.
+
+---
+
+## Round 24 — closing blocker 1: the young half of the book gets a loop
+
+Round 23 named two things holding **Interactive Learning Loops** at 6.0 and
+declared both out of scope. One of them was not out of scope; it was just
+large. This round closes it.
+
+**75 of 89 stage 0-1 nodes had no practice generator.** Not an oversight so
+much as a shape mismatch: the ~50 generators in `primer/practice.py` are
+procedural — they *compute* an answer — and "Which one is a mammal?" has
+nothing to compute. So the youngest half of the book, the half the pacing
+model prices in *years*, had a read step and a quiz and nothing in between.
+The interactive loop cannot close on a node with nothing to practise.
+
+**What was built.** A knowledge-drill engine: the *material* is authored
+(`data/practice/young.json`, 75 nodes), the *drill* stays procedural. One
+node's entry supplies groups, pairs, sequences and facts; the engine mints an
+unbounded stream out of them — category picks, matches either way round, and
+orderings the child produces rather than recognises. Each node gets its own
+registered generator (`know:<node id>`), so `list_generators()` sees them and
+`tools/check_generators.py` audits all 126 on identical terms.
+
+- **Coverage: 14 of 89 → 89 of 89.** No generator is reused across a node it
+  does not fit; every young node runs on its own material.
+- **Production, measured through the real `/api/quiz` path:** of the 38 papers
+  a fresh reader can draw, 100% carry a produced item — and 39% now draw it
+  from the node's own material rather than the generic domain fallback, which
+  was 0%. Produced items are 24% of all items, up from 17%.
+- Every item is spoken and tappable. Nothing below stage 2 requires reading or
+  typing — the rule `test_young_practice_never_requires_typing_and_is_voiced`
+  has enforced all along, and which caught the first thing I got wrong here.
+
+**What the auditors caught, and it was not a small list.** Authoring 75 nodes
+by hand produced defects at a steady rate, and every one was found by a tool
+rather than by reading it back:
+
+- Two template bugs. Running a forward prompt backwards gave *"How many are in
+  one 7 days?"*; a template that does not negate by rule gave *"Which one is
+  NOT a scale?"* against a list of things you weigh. Both directions are now
+  asked only where their own wording was authored.
+- A key-rank exploit in the fractions material (rank 3 at 57%, +32pp).
+- Six length tells, +10 to +13pp on pick-the-longest — including one caused by
+  my own distractor picker, which drained its "shorter" bucket first and so
+  put the key at the long end of every card it could. It round-robins now.
+- **`counting` wired to "Numbers to Twenty."** A node about the teens drilling
+  single digits; `test_young_practice_generators_are_topical` rejected it.
+- **`place-value` wired to a stage-1 node.** It mints *"In the number 7799,
+  what digit is in the hundreds place?"* with no spoken line — a six-year-old
+  reading a four-digit numeral off a screen. The voicing test caught it.
+- **A coin flip I reintroduced one level up.** The generator sampled its item
+  *shape*, so a four-item drill could come out all ordering, and whether that
+  drill was worth a review card then depended on the draw — exactly what
+  `is_durable_item` exists to have abolished.
+  `test_card_worthiness_is_declared_not_sampled` caught it. The shape now
+  rotates deterministically; content is still drawn. A side effect is worth
+  more than the fix: every drill of four now both asks the child to produce
+  something and asks for recall, where before that was merely likely.
+
+**What is locked.** `tests/test_young_practice.py` (313 cases): every young
+node has a registered generator, fills a whole six-item drill with distinct
+items, carries at least one orderable sequence, speaks every item, and never
+offers a duplicated option. The gap was curriculum authoring, which is exactly
+why it needed a test — nothing else stops it reopening with the next young
+node written.
+
+**Not verified:** the browser. Port 8748 holds another session's design
+sandbox pointed at the main checkout, not this worktree. The drills emit only
+`choice`, `order` and `tally` — three shapes the UI already renders — so there
+is no new front-end surface, but that is reasoning, not a screenshot.
+
+Blocker 2 (per-node minutes as a stage constant × prose density) is untouched
+and still a redesign rather than a repair.
