@@ -1026,6 +1026,42 @@ def test_mathematics_illustration_dashboard_is_complete_minimal_and_ordered(
         }
 
 
+def test_reader_navigation_is_small_exact_and_selected_by_node_id(client, onboarded):
+    import primer.server as srv
+
+    response = client.get('/api/curriculum/node/bio.3.genetics/navigation')
+    assert response.status_code == 200
+    body = response.json()
+    assert set(body) == {'domain', 'current', 'lessons'}
+    assert body['domain'] == {'id': 'biology', 'name': 'Life Sciences', 'icon': '⚘'}
+    assert body['current']['id'] == 'bio.3.genetics'
+    assert body['current']['title'] == 'Genetics'
+    assert body['current']['stage_name'] == 'Tree'
+    assert body['current']['articles'] == ['Genetics', 'DNA', 'Gene']
+    assert [lesson['id'] for lesson in body['lessons']] == [
+        node['id'] for node in srv.curr.nodes.values() if node['domain'] == 'biology']
+    assert all(set(lesson) == {
+        'id', 'title', 'stage', 'stage_name', 'section', 'unlocked', 'mastered'
+    } for lesson in body['lessons'])
+
+    # The projection is navigation, not a disguised node-detail or answer-key
+    # endpoint. Its compact size is part of the contract: the reader starts it
+    # beside the article request on every contextual page turn.
+    blob = json.dumps(body)
+    assert 'lesson_media' not in blob and 'question_count' not in blob
+    assert not any(key in blob for key in ('"quiz"', '"answer"', '"explain"'))
+    assert len(blob) < 12000
+
+    # Astrobiology belongs to two different lessons. The article title cannot
+    # decide which context the reader came from; the route's node id must.
+    biology = client.get('/api/curriculum/node/bio.5.frontier/navigation').json()
+    earth = client.get('/api/curriculum/node/earth.5.astrobiology/navigation').json()
+    assert biology['current']['id'] == 'bio.5.frontier'
+    assert earth['current']['id'] == 'earth.5.astrobiology'
+    assert biology['domain']['id'] != earth['domain']['id']
+    assert client.get('/api/curriculum/node/not.a.lesson/navigation').status_code == 404
+
+
 def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
     detail = client.get('/api/curriculum/node/math.0.counting')
     assert detail.status_code == 200

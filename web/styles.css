@@ -361,6 +361,43 @@ button { font-family: var(--sans); cursor: pointer; }
 #sidebar .brand .mark { font-size: 40px; color: var(--gold-bright); line-height: 1; }
 #sidebar .brand h1 { font-size: 21px; margin: 8px 0 2px; letter-spacing: 0.5px; color: var(--chrome-hi); }
 #sidebar .brand .sub { font-size: 11px; color: var(--chrome-ink-dim); font-family: var(--sans); letter-spacing: 1.5px; text-transform: uppercase; }
+/* An article can be many screens deep, while its curriculum context used to
+   exist only on the page that launched it. This compact disclosure trigger is
+   part of the sticky spine, so the field, stage and lesson remain visible at
+   every scroll position. The actual navigator opens in the existing modal
+   sheet; it never steals width from the article or tutor. */
+#reader-context-slot { margin: 2px 0 8px; }
+#reader-context-slot[hidden] { display: none; }
+.reader-context-toggle {
+  width: 100%; min-height: 72px; padding: 10px 9px;
+  display: flex; align-items: flex-start; gap: 8px; text-align: left;
+  border: 1px solid var(--chrome-rule); border-radius: 9px;
+  background: var(--chrome-hover); color: var(--chrome-ink-soft);
+}
+.reader-context-toggle:hover { border-color: var(--gold); color: var(--chrome-hi); }
+.reader-context-toggle:disabled { cursor: wait; opacity: 0.76; }
+.reader-context-icon { flex: none; color: var(--gold-bright); margin-top: 2px; }
+.reader-context-copy { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.reader-context-meta {
+  color: var(--gold-bright); font: 700 9px/1.35 var(--sans);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.reader-context-copy strong {
+  color: var(--chrome-hi); font: 600 14px/1.25 var(--serif);
+  overflow: hidden; text-overflow: ellipsis;
+}
+.reader-context-reading {
+  color: var(--chrome-ink-dim); font: 11px/1.3 var(--sans);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.reader-context-open { flex: none; color: var(--chrome-ink-dim); font: 9px/1.4 var(--sans); text-transform: uppercase; }
+.reader-context-unavailable {
+  padding: 9px 10px; border-left: 2px solid var(--chrome-rule);
+  display: flex; flex-direction: column; gap: 2px;
+  color: var(--chrome-ink-dim); font: 11px/1.35 var(--sans);
+}
+.reader-context-unavailable strong { color: var(--chrome-ink-soft); font-weight: 600; }
 /* A column of full-width buttons. The nav used to be bare flex children of
    #sidebar, which stretched them; once wrapped in .navlist they became
    buttons in a block box and shrank to fit their labels, so the active pill
@@ -2021,6 +2058,10 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 .chip.on { background: var(--link); color: var(--on-fill); border-color: var(--link); }
 
 /* ---------- reader ---------- */
+.reader-toolbar {
+  display: flex; gap: 10px; align-items: center;
+  margin-bottom: 14px; flex-wrap: wrap;
+}
 /* Every other page in the book is one column at the book's width. The reader
    adds a second for the tutor, and at 1180px that left the article about 45
    characters — narrower than a paperback, for the one view that has to hold an
@@ -2138,6 +2179,48 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
   #article { margin-inline: 0; }
 }
 
+/* The lesson map opened by the spine's context toggle. It is a compact atlas,
+   not a third reader column: the current lesson and its readings come first,
+   then every lesson in the same field grouped by stage (or by authored section
+   for specialist curricula). */
+.lesson-nav-heading { padding-right: 34px; border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+.lesson-nav-kicker {
+  display: flex; align-items: center; gap: 5px; color: var(--gold-ink);
+  font: 700 11px/1.4 var(--sans); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.lesson-nav-heading h2 { font-size: 30px; margin: 4px 0 5px; }
+.lesson-nav-heading p { margin: 0 0 15px; color: var(--ink-soft); line-height: 1.55; }
+.lesson-nav-current { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.lesson-nav-readings { padding: 14px 16px; border: 1px solid var(--paper-edge); border-radius: 9px; background: var(--paper-2); }
+.lesson-nav-readings h3, .lesson-nav-group h3 { margin: 0 0 9px; font-size: 15px; }
+.lesson-nav-reading-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 7px; }
+.lesson-nav-reading, .lesson-nav-detour {
+  min-height: 44px; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 7px;
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  color: var(--ink); text-decoration: none; font: 600 13px/1.3 var(--sans);
+}
+.lesson-nav-reading:hover { border-color: var(--link); background: var(--tint-info-soft); }
+.lesson-nav-reading.is-current { border-color: var(--gold); background: var(--tint-gold); }
+.lesson-nav-reading small, .lesson-nav-detour small { color: var(--ink-faint); font: 11px/1.3 var(--sans); }
+.lesson-nav-detour { border-style: dashed; color: var(--ink-soft); }
+.lesson-nav-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 22px; }
+.lesson-nav-group { min-width: 0; }
+.lesson-nav-list { display: flex; flex-direction: column; gap: 6px; }
+.lesson-nav-item {
+  min-height: 48px; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 7px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  color: var(--ink); text-decoration: none; font: 600 13px/1.25 var(--sans);
+}
+.lesson-nav-item:hover { border-color: var(--link); background: var(--tint-info-soft); }
+.lesson-nav-item small { flex: none; color: var(--ink-faint); font: 10px/1.25 var(--sans); text-align: right; }
+.lesson-nav-item.is-current { border-color: var(--gold); background: var(--tint-gold); }
+.lesson-nav-item.is-locked { color: var(--ink-soft); border-style: dashed; }
+
+@media (max-width: 600px) {
+  .lesson-nav-groups { grid-template-columns: 1fr; }
+  .lesson-nav-current .btn { width: 100%; justify-content: center; }
+}
+
 /* Each navigation box is folded into a disclosure by render.py, so the foot of
    an article is a short list of things you may open rather than a wall of every
    link the encyclopedia holds on the subject. Closed, not gone: the links are
@@ -2169,6 +2252,38 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
   margin: 0; border: 0; border-top: 1px solid var(--rule); border-radius: 0;
 }
 #article details.primer-navbox > .navbox > .table-scroll > table > tbody > tr > .navbox-title { display: none; }
+
+/* Topic sidebars (the large Genetics box in particular) also promise collapsed
+   groups through Wikipedia's JavaScript. No upstream script runs in Primer, so
+   the promise became a fully expanded wall. The renderer wraps the whole guide
+   in one native disclosure named from its own subject title. */
+#article details.primer-article-guide {
+  margin: 0.7em 0 1.1em; border: 1px solid var(--rule); border-radius: 8px;
+  background: var(--paper-hi); overflow: hidden;
+}
+#article details.primer-article-guide > summary {
+  display: flex; align-items: center; gap: 9px; list-style: none;
+  min-height: 44px; padding: 9px 13px; cursor: pointer;
+  font-family: var(--sans); font-size: 0.82em; font-weight: 600;
+  color: var(--ink-soft);
+}
+#article details.primer-article-guide > summary::-webkit-details-marker { display: none; }
+#article details.primer-article-guide > summary::before {
+  content: ""; flex: none; width: 0; height: 0;
+  border: 5px solid transparent; border-left-color: var(--gold-ink);
+  transition: transform 0.15s ease;
+}
+#article details.primer-article-guide[open] > summary::before { transform: rotate(90deg); }
+#article details.primer-article-guide > summary:hover { background: var(--tint-gold); color: var(--ink); }
+#article details.primer-article-guide > .table-scroll {
+  margin: 0; border-top: 1px solid var(--rule); border-radius: 0;
+}
+#article details.primer-article-guide table.sidebar {
+  width: 100%; margin: 0; background: var(--paper-2); font-size: 0.78em; line-height: 1.45;
+}
+#article details.primer-article-guide .sidebar-title,
+#article details.primer-article-guide .sidebar-title-with-pretitle { font-size: 1.2em; color: var(--heading-accent); }
+#article details.primer-article-guide :is(td, th) { padding: 5px 8px; }
 
 /* Navigation boxes: the footer of related topics at the end of most articles.
    Set small and banded, they read as an index; set at body size with no table
@@ -2318,7 +2433,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
    transparency — at night, black ink on a black page. Photographs and maps are
    not marked, and are only eased back from full daylight white. */
 #article :is(.skin-invert, .skin-invert-image) img,
-#article img.skin-invert { filter: var(--img-invert); }
+#article img:is(.skin-invert, .skin-invert-image) { filter: var(--img-invert); }
 #article img { filter: var(--img-glare); }
 #article :is(.skin-invert, .skin-invert-image) img { background: transparent; }
 
@@ -2350,6 +2465,13 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
     max-width: min(300px, 42%); margin: 0.3em 1.5em 1.1em 0;
   }
   #article figure.mw-halign-center { float: none; margin-left: auto; margin-right: auto; }
+  #article details.primer-article-guide {
+    float: right; clear: right; width: min(320px, 44%);
+    margin: 0.3em 0 1.1em 1.5em;
+  }
+  #article details.primer-article-guide > .table-scroll:has(> .sidebar) {
+    float: none; clear: none; max-width: 100%; margin: 0;
+  }
 }
 /* The reference list reads well in columns, but only where a column is still
    wide enough to hold a citation. A count would force two 200px columns that
@@ -2675,6 +2797,12 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   #sidebar .brand h1 { font-size: 17px; margin: 0; }
   #sidebar .brand .sub { font-size: 10px; margin-left: auto; }
   #sidebar .spacer { display: none; }
+  #reader-context-slot { margin: 0; }
+  .reader-context-toggle { min-height: 50px; padding: 7px 10px; align-items: center; }
+  .reader-context-copy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 9px; }
+  .reader-context-meta { grid-column: 1 / -1; }
+  .reader-context-copy strong, .reader-context-reading { white-space: nowrap; }
+  .reader-context-open { align-self: center; }
 
   /* One row, scrolled rather than wrapped, so the order stays readable and
      the strip keeps a predictable height however many entries it holds. */
@@ -3592,7 +3720,7 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
   display: block; width: var(--zoom-width, 1600px); max-width: none;
   max-height: none; border-radius: 0;
 }
-.lightbox img.skin-invert { filter: var(--img-invert); }
+.lightbox img:is(.skin-invert, .skin-invert-image) { filter: var(--img-invert); }
 .lightbox .cap {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   margin: 16px auto 0; max-width: 60ch; text-align: left;
@@ -3601,6 +3729,16 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 /* The affordance the dead anchors never had: this picture answers to a touch. */
 #article a[href="#"] img, #article img.tappable,
 .lesson-illustration img.tappable, .math-image-figure img.tappable { cursor: zoom-in; }
+.picture-fallback {
+  min-height: 48px; max-width: 100%; padding: 9px 11px;
+  display: inline-flex; align-items: center; gap: 9px;
+  border: 1px dashed var(--rule); border-radius: 7px;
+  background: var(--paper-2); color: var(--ink-faint);
+  font: 12px/1.35 var(--sans);
+}
+.picture-fallback > .glyph { flex: none; color: var(--gold-ink); }
+.picture-fallback > span:last-child { display: flex; flex-direction: column; gap: 2px; }
+.picture-fallback small { display: block; max-width: 48ch; color: var(--ink-soft); font: 11px/1.35 var(--sans); }
 
 /* ---------------- the Atlas as an instrument ----------------
    The payload carries how far every tile has come and the page used to draw

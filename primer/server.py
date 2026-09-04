@@ -1147,6 +1147,51 @@ def curriculum_node(node_id: str, request: Request):
     return out
 
 
+@app.get("/api/curriculum/node/{node_id}/navigation")
+def curriculum_node_navigation(node_id: str, request: Request):
+    """The small, explicit projection used by the reader's lesson navigator.
+
+    An article title cannot identify its lesson: more than a hundred readings
+    belong to multiple nodes, occasionally in different fields.  The route's
+    node id is authoritative, and this endpoint turns it into enough context to
+    orient and navigate without shipping the full curriculum graph, lesson
+    media, practice instructions, or any answer-bank material.
+    """
+    reader_id = current_reader(request)
+    node = curr.node(node_id)
+    if not node:
+        return JSONResponse({"error": "no such node"}, status_code=404)
+    domain = next((d for d in curr.domains if d["id"] == node["domain"]), None)
+    if not domain:  # The loader guarantees this; keep the HTTP boundary total.
+        return JSONResponse({"error": "no such domain"}, status_code=404)
+
+    gates = learner.gate_map(reader_id=reader_id)
+    mastered = learner.mastered_set(reader_id=reader_id)
+    lessons = []
+    for sibling in curr.nodes.values():
+        if sibling["domain"] != node["domain"]:
+            continue
+        lessons.append({
+            "id": sibling["id"],
+            "title": sibling["title"],
+            "stage": sibling["stage"],
+            "stage_name": STAGE_NAMES[sibling["stage"]],
+            "section": sibling.get("section", ""),
+            "unlocked": curr.unlocked(sibling, gates),
+            "mastered": sibling["id"] in mastered,
+        })
+    return {
+        "domain": {"id": domain["id"], "name": domain["name"],
+                   "icon": domain.get("icon", "")},
+        "current": {
+            "id": node["id"], "title": node["title"], "goal": node.get("goal", ""),
+            "stage": node["stage"], "stage_name": STAGE_NAMES[node["stage"]],
+            "section": node.get("section", ""), "articles": node.get("articles", []),
+        },
+        "lessons": lessons,
+    }
+
+
 def _shuffled(question: dict) -> dict:
     """Return a copy with its options reordered.
 

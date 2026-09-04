@@ -25,6 +25,10 @@ const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curr
 // page can remove it deterministically — its old self-removal only fired on
 // the *next* keypress after the deck was gone.
 let _reviewKeyHandler = null;
+// Every route change retires the reader-context request that preceded it. A
+// slow response for DNA must never repopulate the spine after the reader has
+// already turned to Today (or to a different lesson that also links DNA).
+let _readerContextSeq = 0;
 const $ = (s, r = document) => r.querySelector(s);
 const STAGE_NAMES = ['Seedling', 'Sprout', 'Sapling', 'Tree', 'Grove', 'Forest'];
 
@@ -321,6 +325,13 @@ function renderRoute() {
   // reading a page that no longer existed, marking paragraphs in a detached
   // DOM. Views that speak on arrival do so after this, from their own render.
   stopSpeaking();
+  _readerContextSeq += 1;
+  const readerContext = $('#reader-context-slot');
+  if (readerContext) {
+    readerContext.replaceChildren();
+    readerContext.hidden = true;
+    readerContext.removeAttribute('aria-busy');
+  }
   const { view, arg, corrected } = parseHash();
   // Falling back to Today while leaving the address bar on a bogus route left
   // no nav item marked current, and a reload landed nowhere.
@@ -763,7 +774,8 @@ function renderShell() {
     ['roadmap', 'path', 'Your Path'], ['library', 'shelf', 'The Shelf']];
   const sidebar = el('nav', { id: 'sidebar', 'aria-label': 'Main' },
     el('div', { class: 'brand' }, el('div', { class: 'mark', 'aria-hidden': 'true' }, glyph('story', 34)), el('h1', {}, 'The Primer'),
-      el('div', { class: 'sub' }, p.title || p.stage_name)));
+      el('div', { class: 'sub' }, p.title || p.stage_name)),
+    el('div', { id: 'reader-context-slot', hidden: '' }));
   // The nav and the stats each get a container. Without them every button,
   // the brand and every stat chip were bare siblings of one flex parent, so
   // the narrow-screen rule (`flex-wrap: wrap`) had nothing to wrap *as* — it
@@ -1629,9 +1641,161 @@ async function renderNode(page, nodeId) {
 }
 
 /* ---------------- Reader + tutor ---------------- */
+function readerContextStillCurrent(seq, title, nodeId) {
+  const route = parseHash();
+  return seq === _readerContextSeq && route.view === 'reader'
+    && route.arg && route.arg.title === title && route.arg.node === nodeId;
+}
+
+function openIndependentReaderNavigator(articleTitle) {
+  openModal({ label: 'Reading: ' + articleTitle, dismissable: true, build: (modal, close) => {
+    modal.classList.add('lesson-nav-panel');
+    modal.append(el('div', { class: 'lesson-nav-heading' },
+      el('div', { class: 'lesson-nav-kicker' }, glyph('story', 18), ' Independent reading'),
+      el('h2', {}, articleTitle),
+      el('p', {}, 'This article was opened outside a curriculum lesson, so it has no attached module or lesson.')));
+    modal.append(el('div', { class: 'lesson-nav-current' },
+      btn({ class: 'btn gold', onclick: () => { close(); go('atlas'); } },
+        glyph('atlas', 16), ' Open the Atlas'),
+      btn({ class: 'btn ghost', onclick: () => { close(); go('library-search'); } },
+        glyph('lookup', 16), ' Look up another topic')));
+  } });
+}
+
+function showIndependentReaderContext(articleTitle) {
+  const slot = $('#reader-context-slot');
+  if (!slot) return;
+  slot.hidden = false;
+  slot.removeAttribute('aria-busy');
+  slot.replaceChildren(btn({ class: 'reader-context-toggle', 'aria-haspopup': 'dialog',
+    'aria-label': 'Open reading navigation. Independent reading: ' + articleTitle,
+    onclick: () => openIndependentReaderNavigator(articleTitle) },
+    el('span', { class: 'reader-context-icon', 'aria-hidden': 'true' }, glyph('story', 18)),
+    el('span', { class: 'reader-context-copy' },
+      el('span', { class: 'reader-context-meta' }, 'Independent reading'),
+      el('strong', {}, articleTitle),
+      el('span', { class: 'reader-context-reading' }, 'No lesson attached')),
+    el('span', { class: 'reader-context-open', 'aria-hidden': 'true' }, 'Open')));
+}
+
+function prepareReaderContext(title, nodeId) {
+  const slot = $('#reader-context-slot');
+  if (!slot) return;
+  if (!nodeId) {
+    showIndependentReaderContext(title);
+    return;
+  }
+  slot.hidden = false;
+  slot.setAttribute('aria-busy', 'true');
+  slot.replaceChildren(btn({ class: 'reader-context-toggle is-loading', disabled: '',
+    'aria-label': 'Finding the lesson for ' + title },
+    el('span', { class: 'reader-context-icon', 'aria-hidden': 'true' }, glyph('path', 18)),
+    el('span', { class: 'reader-context-copy' },
+      el('span', { class: 'reader-context-meta' }, 'Finding lesson…'),
+      el('strong', {}, title),
+      el('span', { class: 'reader-context-reading' }, 'Reading: ' + title))));
+}
+
+function lessonNavigationState(lesson) {
+  if (lesson.mastered) return 'Mastered';
+  if (lesson.unlocked) return 'Open';
+  return 'Locked · reading available';
+}
+
+function openLessonNavigator(data, articleTitle) {
+  const current = data.current;
+  const domain = data.domain;
+  const lessons = data.lessons || [];
+  openModal({ label: 'Lesson navigation: ' + domain.name + ', ' + current.stage_name + ', ' + current.title,
+    dismissable: true, build: (modal, close) => {
+      modal.classList.add('wide', 'lesson-nav-panel');
+      modal.append(el('div', { class: 'lesson-nav-heading' },
+        el('div', { class: 'lesson-nav-kicker' }, domainMark(domain, 18), ' ', domain.name + ' · ' + (current.section || current.stage_name)),
+        el('h2', {}, current.title),
+        current.goal ? el('p', {}, current.goal) : null));
+
+      const currentActions = el('div', { class: 'lesson-nav-current' },
+        btn({ class: 'btn gold', onclick: () => { close(); go('node', current.id); } },
+          glyph('story', 16), ' Open lesson overview'));
+      const here = lessons.findIndex(lesson => lesson.id === current.id);
+      const previous = here > 0 ? lessons[here - 1] : null;
+      const next = here >= 0 && here + 1 < lessons.length ? lessons[here + 1] : null;
+      if (previous) currentActions.append(btn({ class: 'btn ghost small',
+        'aria-label': 'Previous lesson: ' + previous.title + ' — ' + lessonNavigationState(previous),
+        onclick: () => { close(); go('node', previous.id); } }, '← ' + previous.title));
+      if (next) currentActions.append(btn({ class: 'btn ghost small',
+        'aria-label': 'Next lesson: ' + next.title + ' — ' + lessonNavigationState(next),
+        onclick: () => { close(); go('node', next.id); } }, next.title + ' →'));
+      modal.append(currentActions);
+
+      const reading = el('section', { class: 'lesson-nav-readings', 'aria-labelledby': 'lesson-readings-title' },
+        el('h3', { id: 'lesson-readings-title' }, 'Readings in ' + current.title));
+      const readingLinks = el('div', { class: 'lesson-nav-reading-links' });
+      (current.articles || []).forEach(title => {
+        const active = title === articleTitle;
+        readingLinks.append(el('a', { class: 'lesson-nav-reading' + (active ? ' is-current' : ''),
+          href: hashFor('reader', { title, node: current.id }),
+          'aria-current': active ? 'page' : null,
+          onclick: e => { e.preventDefault(); close(); if (!active) go('reader', { title, node: current.id }); } },
+          el('span', {}, title), active ? el('small', {}, 'Now reading') : null));
+      });
+      if (!(current.articles || []).includes(articleTitle)) {
+        readingLinks.prepend(el('div', { class: 'lesson-nav-detour' },
+          el('span', {}, articleTitle), el('small', {}, 'Linked reading · still in ' + current.title)));
+      }
+      reading.append(readingLinks);
+      modal.append(reading);
+
+      const lessonNav = el('nav', { class: 'lesson-nav-groups',
+        'aria-label': 'Lessons in ' + domain.name });
+      const groups = new Map();
+      lessons.forEach(lesson => {
+        const key = lesson.section || lesson.stage_name;
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(lesson);
+      });
+      groups.forEach((items, label) => {
+        const group = el('section', { class: 'lesson-nav-group' }, el('h3', {}, label));
+        const list = el('div', { class: 'lesson-nav-list' });
+        items.forEach(lesson => {
+          const active = lesson.id === current.id;
+          const state = lessonNavigationState(lesson);
+          const locked = !lesson.unlocked && !lesson.mastered;
+          list.append(el('a', { class: 'lesson-nav-item' + (active ? ' is-current' : '') + (locked ? ' is-locked' : ''),
+            href: hashFor('node', lesson.id), 'aria-current': active ? 'location' : null,
+            'aria-label': lesson.title + ' — ' + state,
+            onclick: e => { e.preventDefault(); close(); go('node', lesson.id); } },
+            el('span', {}, lesson.title), el('small', {}, state)));
+        });
+        group.append(list); lessonNav.append(group);
+      });
+      modal.append(lessonNav);
+    } });
+}
+
+function showReaderContext(data, articleTitle) {
+  const slot = $('#reader-context-slot');
+  if (!slot) return;
+  const current = data.current;
+  const domain = data.domain;
+  const scope = domain.name + ' · ' + (current.section || current.stage_name);
+  slot.hidden = false;
+  slot.removeAttribute('aria-busy');
+  slot.replaceChildren(btn({ class: 'reader-context-toggle', 'aria-haspopup': 'dialog',
+    'aria-label': 'Open lesson navigation: ' + scope + ', ' + current.title + '. Reading ' + articleTitle,
+    onclick: () => openLessonNavigator(data, articleTitle) },
+    el('span', { class: 'reader-context-icon', 'aria-hidden': 'true' }, glyph('path', 18)),
+    el('span', { class: 'reader-context-copy' },
+      el('span', { class: 'reader-context-meta' }, scope),
+      el('strong', {}, current.title),
+      el('span', { class: 'reader-context-reading' }, 'Reading: ' + articleTitle)),
+    el('span', { class: 'reader-context-open', 'aria-hidden': 'true' }, 'Open')));
+}
+
 async function renderReader(page, arg) {
   const title = typeof arg === 'string' ? arg : arg.title;
   const nodeId = typeof arg === 'object' ? arg.node : null;
+  const contextSeq = _readerContextSeq;
   // Claim the scroll memory for this article before the first scroll event can
   // fire, or the outgoing article's remembered place is overwritten with this
   // one's — which is precisely the case the memory exists to serve.
@@ -1651,7 +1815,7 @@ async function renderReader(page, arg) {
   // machine-made cloze over raw article prose, hand-audited at 55% defective,
   // and is withdrawn: the book does not ask questions no person wrote. Read
   // aloud and the tutor already cover "check what I just read".
-  const bar = el('div', { style: 'display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap' },
+  const bar = el('div', { class: 'reader-toolbar' },
     btn({ class: 'btn ghost small', onclick: () => history.length > 1 ? history.back() : go(nodeId ? 'node' : 'today', nodeId) }, '← Back'),
     nodeId ? btn({ class: 'btn gold small', onclick: () => startQuiz(nodeId) }, glyph('quill', 14), ' Quiz me on this') : null,
     readAloudControls());
@@ -1660,8 +1824,28 @@ async function renderReader(page, arg) {
   const art = el('article', { id: 'article', tabindex: '-1' }); art.append(skeleton(7, title));
   layout.append(art, buildTutor(title));
   page.append(layout);
+  prepareReaderContext(title, nodeId);
+  const articlePromise = api.get('/api/article?title=' + encodeURIComponent(title));
+  if (nodeId) {
+    api.get('/api/curriculum/node/' + encodeURIComponent(nodeId) + '/navigation')
+      .then(context => {
+        if (readerContextStillCurrent(contextSeq, title, nodeId)) showReaderContext(context, title);
+      })
+      .catch(error => {
+        // The article remains a complete reading surface if orientation fails;
+        // keep its title visible in the spine and make the degraded state
+        // explicit instead of silently removing the control.
+        if (!readerContextStillCurrent(contextSeq, title, nodeId)) return;
+        console.warn('[primer] lesson navigation unavailable:', error);
+        const slot = $('#reader-context-slot');
+        if (!slot) return;
+        slot.removeAttribute('aria-busy');
+        slot.replaceChildren(el('div', { class: 'reader-context-unavailable' },
+          el('span', {}, 'Lesson navigation unavailable'), el('strong', {}, 'Reading: ' + title)));
+      });
+  }
   try {
-    const a = await api.get('/api/article?title=' + encodeURIComponent(title));
+    const a = await articlePromise;
     art.innerHTML = '<h1>' + esc(a.title) + '</h1>' + a.rendered;
     art.querySelectorAll('a.primer-wikilink').forEach(link => {
       const t0 = link.getAttribute('data-primer-title');
@@ -1912,6 +2096,13 @@ function attachPictureHandlers(art) {
   };
   const pictureIn = (target, a) =>
     (target && target.tagName === 'IMG') ? target : (a ? a.querySelector('img') : null);
+  // An infobox may contain several unrelated images and captions. Only a
+  // single-image media container can own a caption for this particular image;
+  // otherwise its own alt text is the honest fallback.
+  const pictureCaptionElement = img => {
+    const owner = img.closest('figure, .thumb, .thumbinner, .gallerybox');
+    return owner ? owner.querySelector('figcaption, .thumbcaption') : null;
+  };
   art.addEventListener('click', e => {
     const a = e.target.closest ? e.target.closest('a') : null;
     if (a && !dead(a)) return;
@@ -1937,6 +2128,26 @@ function attachPictureHandlers(art) {
   // touch it just the same — and an <img> is not focusable, so without this it
   // would be reachable by finger and by nothing else.
   art.querySelectorAll('img').forEach(im => {
+    const failed = () => {
+      if (im.dataset.failureHandled) return;
+      im.dataset.failureHandled = '1';
+      const caption = pictureCaptionElement(im);
+      const captionText = (caption ? caption.textContent : '').trim();
+      const altText = (im.getAttribute('alt') || '').trim();
+      const words = captionText || altText;
+      const wrapper = im.closest('a') || im;
+      wrapper.hidden = true;
+      // Decorative furniture should simply leave no broken-image glyph behind.
+      // A picture carrying meaning keeps that meaning as an honest text state,
+      // so a proxy timeout is not mistaken for a half-rendered illustration.
+      if (words) wrapper.insertAdjacentElement('afterend', el('span', {
+        class: 'picture-fallback', role: 'img',
+        'aria-label': 'Picture unavailable' + (!captionText && altText ? ': ' + altText : ''),
+      }, glyph('gallery', 18), el('span', {}, 'Picture unavailable',
+        !captionText && altText ? el('small', {}, altText) : null)));
+    };
+    im.addEventListener('error', failed, { once: true });
+    if (im.complete && !im.naturalWidth) failed();
     if (im.closest('a')) return;
     im.setAttribute('tabindex', '0');
     im.setAttribute('role', 'button');
@@ -1947,7 +2158,7 @@ function attachPictureHandlers(art) {
 function openLightbox(img, opener) {
   // The caption a sighted reader can see belongs to the figure, not to the
   // <img>; alt text is the fallback, and a decorative image may carry neither.
-  const fig = img.closest('figure, .thumb, .thumbinner, .gallerybox, .infobox');
+  const fig = img.closest('figure, .thumb, .thumbinner, .gallerybox');
   const capEl = fig ? fig.querySelector('figcaption, .thumbcaption') : null;
   const caption = ((capEl ? capEl.textContent : '') || img.getAttribute('alt') || '').trim();
   // openModal restores focus to whatever held it when the dialog opened, and a
@@ -1971,7 +2182,10 @@ function openLightbox(img, opener) {
       const fullSource = img.dataset.fullSrc || img.currentSrc || img.getAttribute('src') || '';
       const big = el('img', { src: fullSource,
         alt: img.getAttribute('alt') || caption || '' });
-      if (img.classList.contains('skin-invert')) big.classList.add('skin-invert');
+      const inversionSource = img.closest('.skin-invert, .skin-invert-image');
+      for (const marker of ['skin-invert', 'skin-invert-image']) {
+        if (inversionSource && inversionSource.classList.contains(marker)) big.classList.add(marker);
+      }
       const imageScroll = el('div', { class: 'lightbox-image-scroll' }, big);
       const canReadFullSize = Boolean(img.dataset.fullSrc);
       if (canReadFullSize) {
