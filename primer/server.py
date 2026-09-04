@@ -1613,6 +1613,8 @@ def today(request: Request):
     # step is built through this one function so the excusal rule cannot
     # diverge between steps: a step with nothing available to do (empty deck,
     # exhausted frontier) is excused, never left blocking the crown.
+    attempts_today = learner.attempts_today(reader_id=reader_id)
+
     def step(label, done_count, goal, count, hint=None):
         # `goal` is what the book asks for today; `count` stays exactly what it
         # always was — what is available — because pacing and the current
@@ -1639,8 +1641,12 @@ def today(request: Request):
                        _review_goal(deck, days_away, reviewed_today), deck["due"],
                        "Deck is clear — nothing due" if deck["total"]
                        else "Pass a lesson quiz and the book will start your deck"),
+        # Counted by what LANDED, not by what was sat. An attempt event is
+        # written whatever the score, so a paper at 17% used to tick the day's
+        # learning off and collect the crown — while the same paper earned no
+        # growth, so the tile and the ledger disagreed about the same sitting.
         "learn": step("Learn something new",
-                      learner.events_today_count("attempt", reader_id=reader_id),
+                      attempts_today["landed"],
                       min(len(lessons), 1), len(lessons),
                       "You are at the frontier of every subject you chose — "
                       "add another from your profile, or review to keep it solid"),
@@ -1649,6 +1655,11 @@ def today(request: Request):
         "read": step("Read one article",
                      learner.events_today_count("read", reader_id=reader_id), 1, None),
     }
+    # A paper sat that did not land is neither "not started" nor "done", and the
+    # reader should be told which of the two they are in. The tile carries the
+    # fact; the client turns it into a sentence and a route to the drill.
+    if not quest["learn"]["done"] and attempts_today["sat"]:
+        quest["learn"]["sat"] = attempts_today["sat"]
     quest_done = sum(1 for k in quest.values() if k["done"])
     quest_total = sum(1 for k in quest.values() if not k["excused"])
 
@@ -1989,6 +2000,42 @@ def _add_young_ordering(questions, node, n, stage):
     return (keep + drop)[:max(0, n - 1)] + extra
 
 
+def _add_young_production(questions, node, n, stage):
+    """Guarantee the youngest readers something to PRODUCE, not just recognise.
+
+    From Sapling up every paper closes with a written reflection, so a produced
+    answer is guaranteed. Below that there was no equivalent: all 622 authored
+    items at stages 0-1 are multiple choice, and a paper is drawn from the
+    authored bank first, so the generators never got a look in. The reader's
+    first years — priced in years, not weeks — asked them to recognise an
+    answer and never once to produce one.
+
+    The instrument for this already existed and was simply never minted onto a
+    paper: `g_count_tally` scores counting AS counting (touch each object, the
+    book counting along), so a child who counts five apples but cannot yet read
+    the numeral 5 is marked right rather than wrong. It has a touch UI, a
+    validator in check_banks, and its own tests.
+
+    Written against the node's own generator rather than against a hard-coded
+    list, so any young generator that later grows a produced form arrives on
+    the paper for free. A recognition item makes room; the ordering item added
+    beside it is never the one dropped.
+    """
+    gen = node.get("practice")
+    if not gen:
+        return questions
+    extra = [q for q in practice.generate_set(gen, 2, level=stage)
+             if q.get("kind") in ("tally", "numeric", "short", "order")]
+    if not extra:
+        return questions
+    if any(q.get("kind") in ("tally", "numeric", "short") for q in questions):
+        return questions          # this paper already asks for something produced
+    keep = [q for q in questions
+            if q.get("kind") in ("numeric", "short", "order", "tally")]
+    drop = [q for q in questions if q not in keep]
+    return (keep + drop)[:max(0, n - 1)] + extra[:1]
+
+
 @app.get("/api/quiz/{node_id}")
 def quiz_for_node(node_id: str, request: Request, n: int = 6):
     """Draw a paper from the node's bank — assembled in ONE pass, deliberately;
@@ -2022,6 +2069,7 @@ def quiz_for_node(node_id: str, request: Request, n: int = 6):
 
     if stage <= 1:
         questions = _add_young_ordering(questions, node, n, stage)
+        questions = _add_young_production(questions, node, n, stage)
 
     questions = questions[:n]
 
@@ -2351,6 +2399,28 @@ def add_card(c: CardIn, request: Request):
 
 # ---------------- placement ----------------
 
+def _placement_run(asked: list) -> list:
+    """The rungs belonging to the CURRENT staircase.
+
+    `reopen_placement` keeps the whole asked-history so a re-measurement does
+    not repeat items the reader has already seen, and drops a marker where the
+    new run starts. Everything that reasons about the staircase — which rung is
+    next, whether the neighbours are exhausted, where it settles — has to read
+    only the current run, or the previous run's passes go on holding the floor
+    and a reader who has forgotten can be re-measured upward but never
+    downward.
+    """
+    run = []
+    for entry in asked or []:
+        if not isinstance(entry, dict):
+            continue          # legacy rows stored bare strings here
+        if entry.get("reopened"):
+            run = []
+        elif "stage" in entry:
+            run.append(entry)
+    return run
+
+
 def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Optional[int]:
     """The rung the book is willing to offer next for this domain.
 
@@ -2362,9 +2432,21 @@ def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Option
     state = learner.placement_state(reader_id=reader_id).get(domain, {})
     if state.get("done"):
         return None
-    asked = state.get("asked") or []
+    history = state.get("asked") or []
+    asked = _placement_run(history)
     if not asked:
-        # Start from where their age would put them, never above it.
+        # A RE-measurement resumes at the frontier the LAST run reached — that
+        # is where growth or forgetting since would show — computed from the
+        # previous run's own passes rather than from the `stage` column, which
+        # records the last rung asked and not where the reader landed. Only the
+        # starting rung is inherited: the new run settles on its own answers,
+        # which is what stops a re-check ratcheting upward for ever.
+        prior = [h for h in history if isinstance(h, dict) and "stage" in h]
+        if prior:
+            frontier = max([h["stage"] for h in prior if h.get("passed")],
+                           default=-1) + 1
+            return max(0, min(frontier, 5))
+        # A first placement starts from where their age would put them.
         return learner.stage_for_age(float((prof or {}).get("age") or 6))
     last = asked[-1]
     nxt = last["stage"] + 1 if last["passed"] else last["stage"] - 1
@@ -2499,6 +2581,13 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
     state = learner.placement_state(reader_id=reader_id).get(s.domain, {})
     history = list(state.get("asked", []))
     history.append({"stage": s.stage, "score": round(result["score"], 2), "passed": passed})
+    # The whole history is stored (it is what keeps a re-measurement from
+    # repeating items), but only the CURRENT run decides where this staircase
+    # goes and where it lands. Reading the lot meant a previous run's passes
+    # went on holding the floor, so a re-check could raise a reader and never
+    # lower one — and "can place a reader down" is half of what makes it a
+    # measurement rather than a ceremony.
+    run = _placement_run(history)
 
     if passed:
         next_stage = s.stage + 1 if s.stage < 5 else None
@@ -2506,10 +2595,10 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
         next_stage = s.stage - 1 if s.stage > 0 else None
 
     # The staircase stops when it reverses direction or runs off either end.
-    tried = {h["stage"] for h in history}
+    tried = {h["stage"] for h in run}
     settled = next_stage is None or next_stage in tried
     if settled:
-        placed = max([h["stage"] for h in history if h["passed"]], default=-1) + 1
+        placed = max([h["stage"] for h in run if h["passed"]], default=-1) + 1
         placed = max(0, min(placed, 5))
         # Credit is granted once, at settle time — not on every passing rung.
         credited_through = placed - 1

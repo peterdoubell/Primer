@@ -1270,7 +1270,14 @@ async function renderToday(page) {
     const goal = q.goal | 0;
     const dc = Math.min(q.done_count | 0, goal);
     const counted = !q.excused && goal > 0;
+    // A paper that was sat but did not land says so. "0 of 1" beside a lesson
+    // the reader has just spent twenty minutes on reads as though nothing
+    // happened; the day's step should acknowledge the sitting and name what is
+    // still missing, which is a pass rather than an appearance.
     const status = q.excused ? (q.hint || 'nothing waiting today')
+      : (q.sat && !q.done)
+        ? (q.sat === 1 ? 'sat once — one pass and it counts'
+                       : q.sat + ' sittings — one pass and it counts')
       : counted ? dc + ' of ' + goal
       : q.done ? 'done' : 'today';
     // What this step costs, in minutes. The book had never told a reader what
@@ -1699,6 +1706,36 @@ async function renderNode(page, nodeId) {
       el('p', { class: 'muted', style: 'margin:6px 0 0' }, ready
         ? 'The waiting is over: pass it once more and it is sealed.'
         : 'The two passes have to sit a little apart, so the book can tell it stuck. This one can be sealed after ' + whenReady(md.ready_at) + '.')));
+  }
+
+  // The reader who has sat this one more than once and not yet landed it. None
+  // of the four cards above match them — proven, assumed, locked, one-pass-in
+  // all fail when passes is 0 — so the page they met was byte for byte the page
+  // of a lesson they had never opened. The book knew they had been here three
+  // times; it simply never said so, and the only across-sitting response it had
+  // was the refusal that eventually closes the door. Say it, and point at the
+  // two things that are not another identical paper: the drill, which is
+  // unlimited and unburnt, and the article the lesson is built on.
+  else if (n.mastery_detail && !n.mastered && !n.proven
+           && (n.mastery_detail.passes | 0) === 0
+           && (n.mastery_detail.attempts | 0) >= 2) {
+    const tries = n.mastery_detail.attempts | 0;
+    const card = el('div', { class: 'card', style: 'border-color:var(--accent-2)' },
+      el('b', {}, '◑ You have sat this one ' + tries + ' times'),
+      el('p', { class: 'muted', style: 'margin:6px 0 10px' },
+        'That is not a verdict on you — it is the book telling you this one wants a '
+        + 'different approach before the next paper. Papers you have seen the answers '
+        + 'to cannot prove anything, so try it from another side first.'));
+    const acts = el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap' });
+    // startPractice(nodeId, gen, stage) — node first, generator second.
+    if (n.practice) acts.append(btn({ class: 'btn gold small',
+      onclick: () => startPractice(n.id, n.practice, n.stage) },
+      glyph('spark', 15), ' Practise it instead'));
+    if ((n.articles || []).length) acts.append(btn({ class: 'btn ghost small',
+      onclick: () => go('reader', { title: n.articles[0], node: n.id }) },
+      glyph('shelf', 15), ' Read it again'));
+    if (acts.children.length) card.append(acts);
+    page.append(card);
   }
 
   // Child-voiced mini-lesson for the youngest readers.

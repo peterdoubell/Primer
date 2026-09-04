@@ -165,7 +165,32 @@ def _num(prompt: str, answer, explain: str = "") -> Dict:
 
 COUNT_THINGS = ["🍎", "⭐", "🐟", "🌸", "🎈", "🐞", "🦋", "🐚", "🍄", "☂️"]
 
-def g_counting(_):
+def g_counting(level=0):
+    """Counting, asked both ways — and mostly asked as counting.
+
+    `g_count_tally` below is a real production instrument for pre-readers: the
+    objects themselves are the answering surface, so a child who counts five
+    apples correctly but cannot yet read the numeral 5 is marked right. It was
+    written, tested (tests/test_tally_generator.py), given a bespoke touch UI
+    in app.js and a validator in check_banks.py — and then wired to nothing.
+    `grep -rn count-tally` found it only in practice.py and its own test, so no
+    reader had ever met it.
+
+    That mattered more than one unused generator, because it was the ONLY
+    production item a young reader could have met anywhere: all 622 authored
+    items at stages 0-1 are multiple choice, and all twelve generators their
+    nodes reference returned choice items at level 0. For the Seedling and
+    Sprout years — which the pacing model prices in years, not weeks — the book
+    asked the reader to recognise an answer and never once to produce one.
+
+    So counting now mints the tally form most of the time for young readers,
+    and keeps the multiple-choice form as the minority case: recognising the
+    numeral is a real, separate skill worth practising, it just should not be
+    the whole of what "counting" means. Above Sprout the reader can read
+    numerals fluently and the choice form is the honest one.
+    """
+    if (level or 0) <= 1 and R.random() < 0.7:
+        return g_count_tally(level)
     n = R.randint(1, 10)
     thing = R.choice(COUNT_THINGS)
     q = _mc("How many do you see?\n\n" + (thing + " ") * n, n,

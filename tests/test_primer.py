@@ -1584,6 +1584,16 @@ def test_young_learners_get_cards_from_their_lesson():
     assert cards and all(c['back'] for c in cards)
 
 
+# Answer shapes a reader with no keyboard skills can still use: pick one, put
+# them in order, or touch each thing and commit. The rule is that a pre-reader
+# never has to TYPE — this listed only 'choice' because choice was once the
+# only shape that satisfied it, and that made a rule about the reader read like
+# a rule about the item kind. `tally` is the shape built for exactly these
+# readers (touch each apple, the book counting along), and asserting it away
+# was part of why it sat unused.
+YOUNG_ANSWER_SHAPES = ('choice', 'tally', 'order')
+
+
 def test_young_practice_never_requires_typing_and_is_voiced(curr):
     """A pre-reader must be able to answer by ear and by tapping."""
     young_gens = {n['practice'] for n in curr.nodes.values()
@@ -1591,8 +1601,29 @@ def test_young_practice_never_requires_typing_and_is_voiced(curr):
     assert young_gens
     for key in young_gens:
         for q in practice.generate_set(key, 4, level=1):
-            assert q['kind'] == 'choice', '{} asks a young reader to type'.format(key)
+            assert q['kind'] in YOUNG_ANSWER_SHAPES, (
+                '{} asks a young reader to type ({})'.format(key, q['kind']))
             assert q.get('say'), '{} has no spoken prompt'.format(key)
+
+
+def test_a_young_reader_is_asked_to_produce_and_not_only_to_recognise(curr):
+    """Recognition alone is not practice, and it was all there was.
+
+    Every one of the 622 authored items at stages 0-1 is multiple choice, and
+    every young generator returned choice too — so for the Seedling and Sprout
+    years, which the pacing model prices in years rather than weeks, the book
+    asked the reader to pick an answer and never once to make one. The
+    instrument for this existed the whole time: `g_count_tally` scores counting
+    AS counting, so a child who counts five apples but cannot yet read the
+    numeral 5 is marked right. It was simply wired to nothing.
+    """
+    produced = 0
+    for q in practice.generate_set('counting', 40, level=0):
+        if q['kind'] in ('tally', 'numeric', 'order'):
+            produced += 1
+    assert produced >= 10, (
+        'counting minted %d produced items in 40 — a young reader is still only '
+        'recognising' % produced)
 
 
 def test_young_practice_generators_are_topical(curr):

@@ -964,8 +964,9 @@ class LearnerStore:
         """What this node still needs, in terms the book can explain."""
         with _lock, self._conn() as c:
             r = c.execute(
-                """SELECT level, passes, first_pass_at, mastered_at, assumed,
-                          strength, last_seen, reinforcements, first_mastered_at
+                """SELECT level, passes, attempts, first_pass_at, mastered_at,
+                          assumed, strength, last_seen, reinforcements,
+                          first_mastered_at
                    FROM mastery WHERE reader_id=? AND node_id=?""",
                 (reader_id, node_id)).fetchone()
             prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
@@ -976,7 +977,8 @@ class LearnerStore:
         # reader a day and a half of credit they had already earned.
         prove_gap = _mastery_min_interval(prof_row["age"] if prof_row else None)
         if not r:
-            return {"passes": 0, "passes_needed": 2, "ready_at": None,
+            return {"passes": 0, "attempts": 0, "passes_needed": 2,
+                    "ready_at": None,
                     "mastered": False, "proven": False, "assumed": False,
                     "assumed_stale": False, "ever_proven": False, "faded": False}
         ready_at = None
@@ -1011,6 +1013,13 @@ class LearnerStore:
         return {
             "level": round(r["level"] or 0, 2),
             "passes": r["passes"] or 0,
+            # How many times this has been SAT, not just how many landed. The
+            # node page had four state cards — proven, assumed, locked, and
+            # one-pass-in — and a reader who has failed the same lesson three
+            # times matches none of them, so the page they meet is byte for
+            # byte the page of a lesson they have never opened. The book knows
+            # they have been here; it just had no way to say so.
+            "attempts": r["attempts"] or 0,
             "passes_needed": 2,
             "ready_at": ready_at,
             "mastered": mastered,
@@ -2393,7 +2402,8 @@ class LearnerStore:
         now = time.time()
         with _lock, self._conn() as c:
             r = c.execute(
-                "SELECT done, settled_at FROM placement WHERE reader_id=? AND domain=?",
+                "SELECT done, settled_at, asked FROM placement "
+                "WHERE reader_id=? AND domain=?",
                 (reader_id, domain)).fetchone()
             if not r or not r["done"]:
                 return False
@@ -2401,9 +2411,25 @@ class LearnerStore:
             # are by definition old enough, so treat them as past cooling.
             if r["settled_at"] and (now - r["settled_at"]) < cooling_days * DAY:
                 return False
+            # A marker, so the new staircase can tell its own rungs from the
+            # old ones. The history is kept deliberately — it is what stops the
+            # re-measurement repeating items the reader has already seen — but
+            # keeping it also meant the OLD passes went on setting the floor:
+            # `_placement_rung` and the settle both compute `max(passed) + 1`
+            # over the whole list, so a reader who had genuinely forgotten
+            # could be re-measured upward and never downward. A re-measurement
+            # that can only ratchet up is not a measurement.
+            try:
+                asked = json.loads(r["asked"]) if r["asked"] else []
+            except (TypeError, ValueError):
+                asked = []
+            if not isinstance(asked, list):
+                asked = []
+            asked.append({"reopened": True, "at": now})
             c.execute(
-                "UPDATE placement SET done=0, settled_at=NULL WHERE reader_id=? AND domain=?",
-                (reader_id, domain))
+                "UPDATE placement SET done=0, settled_at=NULL, asked=? "
+                "WHERE reader_id=? AND domain=?",
+                (json.dumps(asked), reader_id, domain))
             return True
 
     # ---------- maintenance ----------
@@ -2571,6 +2597,31 @@ class LearnerStore:
                 (reader_id, kind, _local_midnight(time.time())),
             ).fetchone()
         return row is not None
+
+    def attempts_today(self, reader_id: int = 1) -> Dict[str, int]:
+        """Today's attempts, split by whether they actually landed.
+
+        The day's "Learn something new" step counted attempt EVENTS, and an
+        attempt is written whatever the score — so a paper sat at 17% ticked
+        the day's learning off and the crown said so, on the one day the reader
+        most needed a route rather than a compliment. The book already knew
+        better: it withholds the growth for the same paper. Now the tile can
+        agree with the ledger, and can also tell the two states apart, which a
+        bare count cannot.
+        """
+        with self._conn() as c:
+            rows = c.execute(
+                "SELECT payload FROM events "
+                "WHERE reader_id=? AND kind='attempt' AND at>=?",
+                (reader_id, _local_midnight(time.time()))).fetchall()
+        landed = 0
+        for row in rows:
+            try:
+                if float((json.loads(row["payload"]) or {}).get("score", 0)) >= PASS:
+                    landed += 1
+            except (ValueError, TypeError, json.JSONDecodeError):
+                continue          # an unreadable payload is not a pass
+        return {"sat": len(rows), "landed": landed}
 
     def events_today_count(self, kind: str, reader_id: int = 1) -> int:
         """How many events of this kind since local midnight.

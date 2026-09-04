@@ -255,3 +255,67 @@ def test_a_specialist_field_does_not_reprice_the_general_spine():
     assert len(on_floor) <= len(general_5) // 4, (
         "%d of %d general graduate nodes are on the clamp floor: %s"
         % (len(on_floor), len(general_5), on_floor[:5]))
+
+
+def test_a_re_measurement_can_place_a_reader_down(tmp_path):
+    """A re-check that can only ratchet upward is not a measurement.
+
+    `reopen_placement` keeps the asked-history so the new sitting does not
+    repeat items the reader has already seen — but `_placement_rung` and the
+    settle both computed `max(passed) + 1` over the WHOLE list, so the previous
+    run's passes went on setting the floor. A reader who had genuinely
+    forgotten could be re-measured upward and never downward, which is half the
+    bar's clause about placement gone.
+    """
+    import time
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            c.post("/api/profile", json={
+                "name": "Ada", "age": 30, "hours_per_week": 8,
+                "breadth": "balanced", "domains": ["math"]})
+
+            def answer_key(paper):
+                served = srv._SERVED[paper["token"]]["questions"]
+                by_id = {q.get("id"): q.get("answer", "") for q in served}
+                return [by_id.get(q["id"], "") for q in paper["questions"]]
+
+            def sit(correct):
+                for _ in range(8):
+                    p = c.get("/api/placement/next?domain=math&n=4").json()
+                    if not p.get("questions"):
+                        return None
+                    answers = (answer_key(p) if correct
+                               else ["definitely wrong"] * len(p["questions"]))
+                    r = c.post("/api/placement/submit", json={
+                        "domain": "math", "stage": p["stage"],
+                        "token": p["token"], "answers": answers}).json()
+                    if r.get("settled"):
+                        return r
+                return None
+
+            assert sit(True) is not None, "first placement never settled"
+            high = c.get("/api/state").json()["profile"]["settings"]["placed"]["math"]
+            assert high > 0, "the reader should have placed above zero"
+
+            # Cool the placement off so it may be re-opened, then forget everything.
+            with srv.learner._conn() as conn:
+                conn.execute("UPDATE placement SET settled_at=?",
+                             (time.time() - 30 * 86400,))
+            assert srv.learner.reopen_placement("math") is True
+
+            assert sit(False) is not None, "the re-measurement never settled"
+            low = c.get("/api/state").json()["profile"]["settings"]["placed"]["math"]
+            assert low < high, (
+                "a re-check could not lower the reader: %s then %s" % (high, low))
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
