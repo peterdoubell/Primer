@@ -660,7 +660,7 @@ class WikiService:
 
     @staticmethod
     def _validated_image_url(url: str) -> Optional[str]:
-        """Return a canonical URL on one exact Wikimedia host, else ``None``.
+        """Return a canonical URL on an exact approved Wikimedia host, else ``None``.
 
         Rebuilding the URL matters as much as checking it: ``proxy_image`` is
         reached from a public query parameter, so the value handed to urllib
@@ -691,6 +691,13 @@ class WikiService:
         # literal chosen by this server, never the caller-controlled ``host``.
         if host == "upload.wikimedia.org":
             canonical_origin = "https://upload.wikimedia.org"
+        # Simple English REST summaries currently use Wikimedia's dedicated
+        # thumbnail origin for some lead images. It serves the same bounded
+        # media as upload.wikimedia.org, but must be named exactly here: a
+        # wildcard would turn this public proxy into an SSRF hop through any
+        # present or future Wikimedia subdomain.
+        elif host == "thumb.wikimedia.org":
+            canonical_origin = "https://thumb.wikimedia.org"
         elif host == "wikimedia.org":
             canonical_origin = "https://wikimedia.org"
         elif host == "wikipedia.org":

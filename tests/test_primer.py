@@ -103,11 +103,13 @@ def test_sanitize_escapes_bare_text():
 
 @pytest.mark.parametrize('url,allowed', [
     ('https://upload.wikimedia.org/a/b.jpg', True),
+    ('https://thumb.wikimedia.org/a/b.jpg', True),
     ('https://en.wikipedia.org/x.png', True),
     ('https://commons.wikimedia.org/y.svg', True),
     ('http://169.254.169.254/x.wikipedia.org/', False),
     ('http://169.254.169.254/latest/meta-data/', False),
     ('https://evil.com/a.wikipedia.org/x', False),
+    ('https://thumb.wikimedia.org.evil.com/x', False),
     ('https://wikipedia.org.evil.com/x', False),
     ('http://localhost:8747/api/state', False),
     ('http://127.0.0.1/', False),
@@ -2909,6 +2911,22 @@ def test_a_picture_reserves_its_own_space():
         '<img src="https://upload.wikimedia.org/a.png" width="500" height="322">')
     assert 'width="500"' in out and 'height="322"' in out
 
+    # Parsoid writes the source file's dimensions before its displayed box.
+    # ``\bwidth`` matched the suffix of data-file-width, so a 20px icon backed
+    # by a 180px SVG was stretched into a blurry 180px placeholder.  Only the
+    # actual HTML width/height attributes reserve layout space.
+    parsoid = rewrite_article(
+        '<img src="//upload.wikimedia.org/thumb/icon.svg/20px-icon.svg.png" '
+        'srcset="//upload.wikimedia.org/thumb/icon.svg/40px-icon.svg.png 2x" '
+        'data-file-width="180" data-file-height="185" width="12" height="16" alt="">')
+    assert 'width="12"' in parsoid and 'height="16"' in parsoid, parsoid
+    assert 'width="180"' not in parsoid and 'height="185"' not in parsoid, parsoid
+
+    metadata_only = rewrite_article(
+        '<img src="https://upload.wikimedia.org/a.png" '
+        'data-file-width="4000" data-file-height="3000">')
+    assert 'width="' not in metadata_only and 'height="' not in metadata_only
+
     for hostile in ('<img src="https://upload.wikimedia.org/a.png" width="100%">',
                     '<img src="https://upload.wikimedia.org/a.png" width="1e9">',
                     '<img src="https://upload.wikimedia.org/a.png" height="-5">',
@@ -2918,6 +2936,43 @@ def test_a_picture_reserves_its_own_space():
 
     css = _web("styles.css")
     assert "height: auto" in css, "a stated width without height:auto distorts"
+
+
+def test_a_picture_uses_its_sharpest_safe_srcset_candidate():
+    """A retina display must not enlarge the low-density fallback thumbnail.
+
+    srcset itself stays out of the sanitized document so every request still
+    passes through the Primer's cache/proxy; its best candidate becomes src.
+    """
+    from primer.render import rewrite_article
+
+    out = rewrite_article(
+        '<img src="//upload.wikimedia.org/thumb/map.svg/250px-map.svg.png?x=1&amp;y=2" '
+        'srcset="//upload.wikimedia.org/thumb/map.svg/500px-map.svg.png?x=1&amp;y=2 2x" '
+        'width="250" height="180" alt="Map">')
+    assert "500px-map.svg.png" in out and "250px-map.svg.png" not in out, out
+    assert "srcset" not in out
+    assert 'width="250"' in out and 'height="180"' in out
+    assert 'src="https://' not in out and 'src="//' not in out
+
+    # Invalid/mixed candidates cannot displace a good fallback.
+    mixed = rewrite_article(
+        '<img src="https://upload.wikimedia.org/fallback.png" '
+        'srcset="https://upload.wikimedia.org/a.png 2x, https://upload.wikimedia.org/b.png 900w">')
+    assert "fallback.png" in mixed and "a.png" not in mixed and "b.png" not in mixed
+
+    # Presentation markers are data about the pixels, not permission to carry
+    # arbitrary upstream classes into the app.  Keep only the two markers that
+    # make dark line-work visible on the night page.
+    invert = rewrite_article(
+        '<img class="mw-file-element skin-invert invented" '
+        'src="https://upload.wikimedia.org/hieroglyph.png" alt="glyph">')
+    assert 'class="skin-invert"' in invert, invert
+    assert "mw-file-element" not in invert and "invented" not in invert
+    invert_image = rewrite_article(
+        '<img class="skin-invert-image" '
+        'src="https://upload.wikimedia.org/line-art.png" alt="line art">')
+    assert 'class="skin-invert-image"' in invert_image
 
 
 def test_an_external_link_is_escaped_exactly_once():
@@ -3219,6 +3274,36 @@ def test_a_navigation_box_is_folded_but_not_lost():
             '<div class="%s">x</div>' % part), part
 
 
+def test_an_article_subject_sidebar_is_a_named_toggle_not_an_open_wall():
+    """Wikipedia promises collapsed groups with site JS Primer does not run.
+
+    Genetics therefore arrived as a permanently expanded table, including
+    dozens of topic links and tiny maintenance icons.  The native disclosure
+    keeps every link but gives the whole guide one accurate name and a toggle.
+    """
+    from primer.render import rewrite_article
+
+    genetics = (
+        '<table class="sidebar sidebar-collapse" role="navigation">'
+        '<tbody><tr><td class="sidebar-pretitle">Part of a series on</td></tr>'
+        '<tr><th class="sidebar-title-with-pretitle">'
+        '<a href="./Genetics">Genetics</a></th></tr>'
+        '<tr><td class="sidebar-content"><div class="sidebar-list mw-collapsed">'
+        '<a href="./DNA">DNA</a></div></td></tr></tbody></table>'
+    )
+    out = rewrite_article(genetics)
+    assert out.count('<details class="primer-article-guide">') == 1, out
+    assert "<summary>Genetics topics</summary>" in out, out
+    assert "DNA" in out and "primer-wikilink" in out
+    assert "<details open" not in out
+
+    # The marker is renderer-owned: an article cannot fold arbitrary claims.
+    forged = rewrite_article(
+        '<div class="primer-article-guide">not a real guide</div>')
+    assert "primer-article-guide" not in forged
+    assert "not a real guide" in forged
+
+
 def test_showing_an_answer_cannot_be_done_twice():
     """Regression: "Show answer" stayed live, so three clicks appended three
     grading groups with identical labels and twelve live buttons."""
@@ -3429,7 +3514,7 @@ def test_the_readers_place_is_read_before_the_page_can_collapse():
     body = body[:body.index("\n}\n")]
     claim = body.index("S.readerTitle = title;")
     read = body.index("readerScroll.get(title)")
-    first_await = body.index("await api.get(")
+    first_await = body.index("const a = await articlePromise;")
     assert claim < read < first_await, \
         "the remembered offset must be read before renderReader's first await"
 
@@ -3892,6 +3977,46 @@ def test_mathematics_image_dashboard_is_a_complete_accessible_route():
     assert 'body[data-stage="0"] .math-stage-option' in css
     assert 'body[data-stage="4"] .math-image-card' in css
     assert "@media (max-width: 430px)" in css
+
+
+def test_reader_keeps_exact_lesson_context_in_a_toggleable_navigator():
+    js = _web("app.js")
+    css = _web("styles.css")
+
+    assert "id: 'reader-context-slot'" in js
+    assert "function openLessonNavigator(data, articleTitle)" in js
+    assert "function openIndependentReaderNavigator(articleTitle)" in js
+    assert "Independent reading: ' + articleTitle" in js
+    assert "showIndependentReaderContext(title)" in js
+    assert "/navigation')" in js
+    assert "readerContextStillCurrent(contextSeq, title, nodeId)" in js
+    assert "'aria-haspopup': 'dialog'" in js
+    assert "'aria-current': active ? 'page' : null" in js
+    assert "'aria-current': active ? 'location' : null" in js
+    assert "'Lessons in ' + domain.name" in js
+    assert "current.section || current.stage_name" in js
+    assert "Reading: ' + articleTitle" in js
+    assert "Linked reading · still in " in js
+    assert ".reader-context-toggle" in css
+    assert ".lesson-nav-groups" in css
+    assert "grid-template-columns: repeat(2, minmax(0, 1fr))" in css
+    assert "@media (max-width: 600px)" in css
+
+
+def test_failed_article_images_become_text_states_not_broken_placeholders():
+    js = _web("app.js")
+    css = _web("styles.css")
+
+    assert "im.addEventListener('error', failed, { once: true })" in js
+    assert "im.complete && !im.naturalWidth" in js
+    assert "'aria-label': 'Picture unavailable'" in js
+    assert "': ' + altText" in js
+    assert "wrapper.hidden = true" in js
+    assert "img.closest('figure, .thumb, .thumbinner, .gallerybox')" in js
+    assert "figure, .thumb, .thumbinner, .gallerybox, .infobox" not in js
+    assert "const inversionSource = img.closest('.skin-invert, .skin-invert-image')" in js
+    assert "inversionSource.classList.contains(marker)" in js
+    assert ".picture-fallback" in css
 
 
 def test_lesson_illustrations_have_a_full_resolution_keyboard_viewer():

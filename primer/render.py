@@ -43,7 +43,7 @@ log = logging.getLogger("primer.render")
 # second branch is the plain first-`>` rule, bounded the same way.
 _IMG_RE = re.compile(
     r'<img\b((?:=\s*"[^"<]*"|=\s*\'[^\'<]*\'|[^<>"\'])*|[^<>]*)>', re.IGNORECASE)
-_SRCSET_RE = re.compile(r'\ssrcset="[^"]*"', re.IGNORECASE)
+_RAW_ATTR_RE = {}
 # Parsoid's <link>/<meta> carry template JSON in a single-quoted data-mw
 # attribute holding things like `<ref name="x" />` — so their attribute values
 # contain `>`, and `<link\b[^>]*>` cut the tag at that inner `>` and left the
@@ -110,7 +110,9 @@ ALLOWED_ATTRS = {
 # client's handler reads data-primer-title, which is unforgeable, and calls
 # preventDefault — but the reader still sees the book's own in-book styling on a
 # link that middle-clicks straight out to whatever the article chose.
-RESERVED_CLASSES = {"table-scroll", "primer-navbox", "primer-wikilink"}
+RESERVED_CLASSES = {
+    "table-scroll", "primer-navbox", "primer-article-guide", "primer-wikilink",
+}
 _ATTR_VALUE_WHITELIST = {
     "target": {"_blank"},
     "rel": {"noopener noreferrer", "noopener", "noreferrer"},
@@ -417,7 +419,6 @@ def rewrite_article(html: str, base: str = "") -> str:
     """base is the URL prefix for ZIM-relative assets, e.g. /zim/<id>/A/."""
     html = _VOID_META_RE.sub("", html)
     html = _BROKEN_VOID_META_RE.sub("", html)
-    html = _SRCSET_RE.sub("", html)
     # Metadata has its own conservative malformed-tag rule above. Bound every
     # other candidate before the raw image rewrite and again inside sanitize()
     # so neither stage sees a megabyte-long unfinished tag.
@@ -432,19 +433,76 @@ def rewrite_article(html: str, base: str = "") -> str:
     # _restore_math_metrics.
     math_metrics = {}
 
+    def raw_attr(attrs, name):
+        """Read one real attribute, never a similarly suffixed data attribute.
+
+        Parsoid puts ``data-file-width`` before ``width`` on most images.  The
+        old ``\\bwidth`` search therefore found the file's original dimensions
+        (often 180x185 for a 20px maintenance icon) and enlarged the thumbnail
+        ninefold.  HTML attributes are whitespace-separated, so anchoring the
+        name to whitespace/start is both simpler and exact.
+        """
+        pattern = _RAW_ATTR_RE.get(name)
+        if pattern is None:
+            pattern = re.compile(
+                r'(?:^|\s)' + re.escape(name) +
+                r'\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|([^\s"\'<>]+))',
+                re.IGNORECASE,
+            )
+            _RAW_ATTR_RE[name] = pattern
+        got = pattern.search(attrs)
+        if not got:
+            return None
+        return next((value for value in got.groups() if value is not None), "")
+
+    def best_srcset_source(value):
+        """Choose the sharpest valid source while keeping srcset off the page.
+
+        Every chosen URL is still rewritten through the image proxy below;
+        the browser never contacts Wikimedia directly.  Wikimedia's REST HTML
+        normally supplies one 2x candidate, while ZIM/older markup may use
+        width descriptors.  Mixed descriptor kinds are invalid HTML, so a
+        malformed set simply leaves the ordinary ``src`` in place.
+        """
+        if not value:
+            return None
+        ranked, kind = [], None
+        for raw_candidate in unescape(value).split(","):
+            parts = raw_candidate.strip().rsplit(None, 1)
+            if len(parts) != 2:
+                continue
+            source, descriptor = parts
+            try:
+                if descriptor.endswith("x"):
+                    candidate_kind, score = "x", float(descriptor[:-1])
+                elif descriptor.endswith("w"):
+                    candidate_kind, score = "w", float(descriptor[:-1])
+                else:
+                    continue
+            except ValueError:
+                continue
+            if score <= 0 or not _SAFE_URL.match(source):
+                continue
+            if kind is None:
+                kind = candidate_kind
+            if candidate_kind != kind:
+                return None
+            ranked.append((score, source))
+        return max(ranked, default=(0, None))[1]
+
     def fix_img(m):
         attrs = m.group(1)
-        src_m = re.search(r'src="([^"]*)"', attrs, re.IGNORECASE)
-        alt_m = re.search(r'alt="([^"]*)"', attrs, re.IGNORECASE)
+        raw_src = raw_attr(attrs, "src")
+        raw_alt = raw_attr(attrs, "alt")
         # These are read out of raw source, where the values are entity-escaped;
         # they must come back to their real form before being escaped (or
         # URL-quoted) once on the way out. Without this, every & reached the
         # image proxy as %26amp%3B — a parameter literally named "amp;…" — and a
         # formula's alt text spoke "&amp;=" where its LaTeX says "&=".
-        alt = unescape(alt_m.group(1)) if alt_m else ""
-        if not src_m:
+        alt = unescape(raw_alt) if raw_alt is not None else ""
+        if raw_src is None:
             return ""
-        src = unescape(src_m.group(1))
+        src = best_srcset_source(raw_attr(attrs, "srcset")) or unescape(raw_src)
         if src.startswith("//"):
             src = "https:" + src
         if src.startswith("http"):
@@ -454,9 +512,9 @@ def rewrite_article(html: str, base: str = "") -> str:
         else:
             new = src
         if _MATH_SRC_RE.search(src):
-            style_m = re.search(r'style="([^"]*)"', attrs, re.IGNORECASE)
-            if style_m:
-                ex = {k.lower(): v for k, v in _EX_METRIC_RE.findall(style_m.group(1))}
+            style = raw_attr(attrs, "style")
+            if style:
+                ex = {k.lower(): v for k, v in _EX_METRIC_RE.findall(style)}
                 if ex:
                     math_metrics[new] = ex
         # Keep the intrinsic size the encyclopedia states (295 of 416 images in
@@ -469,11 +527,23 @@ def rewrite_article(html: str, base: str = "") -> str:
         # size, so a wide image still fits a narrow column.
         box = ""
         for name in ("width", "height"):
-            got = re.search(r'\b%s="(\d{1,5})"' % name, attrs, re.IGNORECASE)
-            if got:
-                box += ' {}="{}"'.format(name, got.group(1))
-        return '<img loading="lazy"{} src="{}" alt="{}">'.format(
-            box, escape(new, quote=True), escape(alt, quote=True))
+            value = raw_attr(attrs, name)
+            if value and re.fullmatch(r'\d{1,5}', value):
+                box += ' {}="{}"'.format(name, value)
+        # A very small, semantic slice of Wikipedia's image classes survives
+        # reconstruction.  These are not layout hooks: they say the bitmap is
+        # dark line-work on transparency and therefore needs inverting on the
+        # night page.  Eight cached hieroglyphs carry the marker on the image
+        # itself rather than on an ancestor; dropping it made sound image data
+        # render as black ink on a black page.
+        raw_class = raw_attr(attrs, "class") or ""
+        presentation = " ".join(dict.fromkeys(
+            token.lower() for token in raw_class.split()
+            if token.lower() in {"skin-invert", "skin-invert-image"}
+        ))
+        class_attr = (' class="{}"'.format(presentation)) if presentation else ""
+        return '<img loading="lazy"{}{} src="{}" alt="{}">'.format(
+            box, class_attr, escape(new, quote=True), escape(alt, quote=True))
 
     html = _IMG_RE.sub(fix_img, html)
 
@@ -485,7 +555,7 @@ def rewrite_article(html: str, base: str = "") -> str:
     # simply declare its own destination.
     html = sanitize(html)
     html = _rewrite_sanitized_tags(html, math_metrics)
-    return _fold_navboxes(_wrap_tables(html))
+    return _fold_navboxes(_wrap_tables(_fold_article_guides(html)))
 
 
 # Wikimedia's maths renderer, and the three ex-relative metrics it states.
@@ -748,6 +818,118 @@ def _navbox_summary(inner: str) -> str:
     except Exception:
         return "Related topics"
     return parser.result()
+
+
+class _ArticleGuideSummaryPass(HTMLParser):
+    """Read the subject name from a Wikipedia ``table.sidebar``.
+
+    Sidebars normally call their subject ``sidebar-title`` (or the pretitle
+    variant).  The fallback is deliberately generic because a disclosure with
+    the wrong inferred subject is worse than one simply called Article guide.
+    """
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.capturing = False
+        self.depth = 0
+        self.done = False
+        self.parts = []
+
+    def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
+        if self.done:
+            return
+        if not self.capturing:
+            classes = next((value or "" for name, value in attrs
+                            if (name or "").lower() == "class"), "")
+            tokens = {token.lower() for token in classes.split()}
+            if tag in ("th", "td", "div") and tokens.intersection(
+                    {"sidebar-title", "sidebar-title-with-pretitle"}):
+                self.capturing = True
+                self.depth = 1
+            return
+        if tag not in VOID_TAGS:
+            self.depth += 1
+        self.parts.append(" ")
+
+    def handle_endtag(self, tag):
+        if not self.capturing or self.done:
+            return
+        self.parts.append(" ")
+        self.depth -= 1
+        if self.depth <= 0:
+            self.capturing = False
+            self.done = True
+
+    def handle_data(self, data):
+        if self.capturing:
+            self.parts.append(data)
+
+    def result(self):
+        text = " ".join("".join(self.parts).split()).strip()[:100]
+        return (text + " topics") if text else "Article guide"
+
+
+def _article_guide_summary(inner: str) -> str:
+    parser = _ArticleGuideSummaryPass()
+    try:
+        parser.feed(inner)
+        parser.close()
+    except Exception:
+        return "Article guide"
+    return parser.result()
+
+
+class _ArticleGuideFolderPass(_StreamingHTMLPass):
+    """Fold each outer Wikipedia topic sidebar into a named disclosure."""
+    def __init__(self):
+        super().__init__()
+        self.buffer = None
+        self.table_depth = 0
+
+    def _emit(self, text):
+        (self.buffer if self.buffer is not None else self.out).append(text)
+
+    def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
+        raw = self._raw_start(tag, attrs)
+        if self.buffer is None and tag == "table" and _has_class(attrs, "sidebar"):
+            self.buffer = [raw]
+            self.table_depth = 1
+            return
+        self._emit(raw)
+        if self.buffer is not None and tag == "table":
+            self.table_depth += 1
+
+    def handle_endtag(self, tag):
+        tag = tag.lower()
+        self._emit("</{}>".format(tag))
+        if self.buffer is not None and tag == "table":
+            self.table_depth -= 1
+            if self.table_depth == 0:
+                inner = "".join(self.buffer)
+                self.buffer = None
+                self.out.append(
+                    '<details class="primer-article-guide"><summary>{}</summary>{}</details>'.format(
+                        escape(_article_guide_summary(inner), quote=True), inner))
+
+    def result(self):
+        if self.buffer is not None:
+            self.out.extend(self.buffer)
+            self.buffer = None
+        return super().result()
+
+
+def _fold_article_guides(html: str) -> str:
+    """Keep upstream subject navigation available without opening a wall.
+
+    ``sidebar-collapse`` / ``mw-collapsed`` are behavior hooks in Wikipedia's
+    own JavaScript.  That script is intentionally absent here, so every group
+    arrived expanded.  A native closed ``details`` restores the promised
+    toggle without importing upstream code or hiding any of its links.
+    """
+    if "sidebar" not in html.lower():
+        return html
+    return _run_html_pass(html, _ArticleGuideFolderPass())
 
 
 class _NavboxFolderPass(_StreamingHTMLPass):
