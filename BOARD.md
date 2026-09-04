@@ -4854,3 +4854,67 @@ it now says what the code computes and where to measure it.
 
 Suite: **846 → 849**. `check_banks.py`: 0 problems across 11 files.
 `check_generators.py`: 0 problems across 51 generators.
+
+## Round 23 — two benchmarks pushed, and where the bar stops being a bug list
+
+The product asked for Interactive Learning Loops 6.0 → 8.0 and Mastery,
+Placement & Pacing 7.0 → 8.0. Five independent scoring rounds were run against
+a **pinned worktree**, each assessor followed by an auditor briefed one-way: find
+every reason the score is too high. The pinning matters — an earlier round
+produced a page of false findings because the shared checkout changed branch
+underneath the assessor, and a second misdiagnosed a serious defect after a
+silent port collision with another agent's server.
+
+**Mastery, Placement & Pacing: 7.0 → 7.5 (audited).**
+
+- A re-measurement could only ratchet UP. Scoping the settle to the current run
+  was half a fix; the entry point still read the whole history, so a reader
+  measured down to Seedling re-opened at the top of the ladder and one passing
+  paper handed back the level they had just lost — a placement decided by a
+  single quiz, in the path that exists to correct a bad morning.
+- Radiology's placement asked five consecutive papers containing **zero
+  questions**, marked each 0.0, and recorded stage 0 — for a field whose 84
+  modules are all Forest. The staircase now only offers rungs a field can set a
+  paper at.
+- And when that reader failed, the book told them it had found ground "a little
+  below Forest". There is no below. It now says what is true.
+
+**Interactive Learning Loops: 6.0 → 6.0 (audited), with real movement inside it.**
+
+- **One paper, one mark.** The score shown was not the score recorded: a
+  partial short answer ticked green and counted whole on screen while
+  contributing 0.6 against a 0.8 pass mark. "6 of 6 · 100%" over a sitting the
+  server scored 0.73 and did not credit.
+- Production reached the youngest readers for the first time. `g_count_tally`
+  had been built, tested, given a touch UI and a validator — and wired to
+  nothing. Counting, addition and subtraction now count out; spelling, the
+  archetypal production skill, was being served as *"Which spelling is
+  correct?"* and now asks the child to build the word.
+- The day's quest counted attendance, not learning: a 17% paper ticked it off.
+
+**Why the meta-learning number did not move, stated plainly.** Every round the
+auditor reached a deeper structure than the last, and the two that now hold it
+at 6 are not defects:
+
+1. **75 of 89 stage 0-1 nodes carry no practice generator.** No generator work
+   reaches them; the produced item on their papers is the one domain-keyed
+   ordering item. Closing this is curriculum authoring, not code.
+2. **Per-node minutes are a stage constant scaled by prose density.** The
+   auditor reads the bar's "anchored to instructional time" as requiring
+   per-node anchoring. That is the documented design (curriculum.py:100-118),
+   and changing it is a redesign rather than a repair.
+
+One measurement is disputed and recorded as disputed: an auditor scored young
+papers as 97.8% "asking nothing produced". A census of 190 assembled papers
+found **100% carry a produced item** and 17% of items are produced — the
+difference is that the audit excluded ordering, which is production.
+
+Three findings were checked and NOT acted on, each because a test recorded a
+deliberate decision the audit's framing missed: the retry that never submits
+(scoring it would launder revealed answers), the per-subject slider's reduced
+proof bar (a real pass is still required), and the age-scaled proving gap (six
+hours is deliberate for a five-year-old; the rubric says "days"). Bending
+pedagogy to a rubric word is teaching to the metric.
+
+Suite: **849 → 850**. `check_banks.py`: 0 problems across 11 files.
+`check_generators.py`: 0 problems across 51 generators.
