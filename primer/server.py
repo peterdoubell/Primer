@@ -696,6 +696,40 @@ async def _request_id(request, call_next):
         _request_id_var.reset(token)
 
 
+# A browser tells the server where a request came from, and the book had never
+# looked. Every state-changing route is a plain same-site call with no token,
+# which is exactly right for a local book — and means any page the reader has
+# open in another tab could drive this API through their own browser: read the
+# whole profile from GET /api/state, re-open a settled placement through
+# GET /api/placement/next?recheck=true, write reading history, spend quiz
+# items. On a machine bound to 127.0.0.1 the classic route in is DNS
+# rebinding; on the hosted copy it is an ordinary cross-origin page.
+#
+# `Sec-Fetch-Site` closes the class in one place, which is why it is preferred
+# here over patching individual routes: fixing the reading-log write on one
+# GET leaves every other state-changing GET exactly as it was.
+#
+# Only `same-origin` and `none` (a typed URL, a bookmark) are the book talking
+# to itself. `cross-site` is obvious; `same-site` is refused too, because for
+# a book served from 127.0.0.1 another port on the same host is somebody else.
+# An ABSENT header is allowed: curl, the test client, and older browsers send
+# nothing, and a guard that cannot tell those from an attacker must not
+# pretend it can — this raises the floor for real browsers rather than
+# claiming an authentication story the book does not have.
+_SAME_ORIGIN_FETCH_SITES = {"same-origin", "none"}
+
+
+@app.middleware("http")
+async def _cross_origin_guard(request, call_next):
+    site = (request.headers.get("sec-fetch-site") or "").lower()
+    if site and site not in _SAME_ORIGIN_FETCH_SITES and request.url.path.startswith("/api/"):
+        log.warning("refused %s request to %s from another origin",
+                    site, request.url.path)
+        return JSONResponse(
+            {"error": "this book answers only to its own pages"}, status_code=403)
+    return await call_next(request)
+
+
 @app.middleware("http")
 async def _security_headers(request, call_next):
     response = await call_next(request)
@@ -1539,9 +1573,31 @@ def today(request: Request):
     # The appointments that did not fit. Named rather than dropped: the cap
     # protects the shape of the day, and it should not cost the reader the
     # knowledge that the work is still there and still theirs.
-    pending = [{"id": nid, "title": (curr.node(nid) or {}).get("title", nid),
-                "ready_at": p["ready_at"]}
-               for nid, p in pend.items() if nid not in shown][:PENDING_SHOWN]
+    # An appointment can be RE-LOCKED between sittings: one failed attempt nulls
+    # `mastered_at`, gate_map caps the node at 0.79, and every dependent — and
+    # the node itself, if a prereq of its own faded — closes behind it. This
+    # list was built with no gate check at all, so the chip went on saying
+    # "ready now" for a lesson the reader could not open, and the lesson page
+    # met them with a lock. The chip stays either way (it is the reader's only
+    # reminder that half-proved work is still theirs), but it now says which of
+    # the two states it is in, and what stands in the way. `curr.node` can
+    # return None for a retired id, which is why the title lookup guards — the
+    # gate check needs the same guard rather than throwing on it.
+    pending = []
+    for nid, p in pend.items():
+        if nid in shown:
+            continue
+        node = curr.node(nid)
+        entry = {"id": nid, "title": (node or {}).get("title", nid),
+                 "ready_at": p["ready_at"],
+                 "open": bool(node) and curr.unlocked(node, gates)}
+        if node is not None and not entry["open"]:
+            needs = curr.unlock_requirements(node, gates)
+            if needs:
+                entry["blocked_by"] = needs[0]
+        pending.append(entry)
+        if len(pending) >= PENDING_SHOWN:
+            break
 
     deck = learner.deck_stats(reader_id=reader_id)
     # How long the reader has been away, read before the quest is built
@@ -1830,7 +1886,13 @@ def record_attempt(a: AttemptIn, request: Request):
     if len(scorable) < min(QUIZ_MIN_ITEMS, len(graded)):
         return JSONResponse(
             {"error": "the book has already shown you the answers to most of "
-                      "these. Come back to this one in a few days."}, status_code=409)
+                      "these. Come back to this one in a few days.",
+             # A stable tag beside the prose. The client used to have to match
+             # the sentence itself to know what had happened, which couples its
+             # copy to this file's wording character for character; the reader
+             # got the generic offline card instead, and was told a refusal the
+             # book had made on purpose was probably their network.
+             "reason": "bank_spent"}, status_code=409)
     score = quiz.score_quiz(scorable, scorable_given)["score"]
     # A drill can be run without a lesson behind it (/api/practice/{gen} with
     # no node_id mints a token bound to ""), and that is fine to *do* — but it
@@ -2143,7 +2205,7 @@ def submit_quiz(s: QuizSubmitIn, request: Request):
         return JSONResponse(
             {"error": "the book has already shown you the answers to most of "
                       "these. Come back to this one in a few days.",
-             "spent": spent}, status_code=409)
+             "reason": "bank_spent", "spent": spent}, status_code=409)
     result = quiz.score_quiz(scorable, scorable_given)
     mastery = learner.record_attempt(s.node_id, result["score"],
                                      seconds=s.seconds, items=len(s.answers),

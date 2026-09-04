@@ -110,7 +110,14 @@ LESSON_ILLUSTRATION_URLS = frozenset(LESSON_ILLUSTRATION_DIMENSIONS)
 # more. One-to-one adaptive tutoring is genuinely faster than a classroom — no
 # waiting for the group, no re-teaching for the median, nothing repeated that
 # the reader has already shown they know — so the Primer prices its curriculum
-# at roughly a third of the classroom equivalent: 6,496 hours.
+# at roughly a third of the classroom equivalent: about 6,500 hours across the
+# ten general fields. (Measured live rather than quoted: the general spine
+# currently prices at ~6,630 h and the whole book, radiology included, at
+# ~10,400 h. The figure written here was 6,496 for a long time after the
+# specialist field arrived, when the ten fields had in fact been pushed down to
+# ~5,490 by a shared density pool — see the pricing block below. Nothing the
+# reader sees was read off this comment; `pacing.roadmap` computes its hours,
+# years and weekly figure from `total_minutes` every time.)
 #
 # That is a real number with a real consequence, which the roadmap now states
 # plainly: the promise holds at 15-30 hours a week, and not at six.
@@ -592,10 +599,31 @@ class Curriculum:
         # stage's average, clamped so density never swings the estimate more
         # than ±50%. This is a real, measurable proxy (more explaining, more
         # worked cases, more to teach) — not an invented per-node number.
-        by_stage: Dict[int, List[Dict]] = {}
+        # The pool a node is measured against is its own kind of field, not the
+        # whole book. This averaged every domain together at each stage, which
+        # was harmless while the book held ten general fields of comparable
+        # authored depth — and stopped being harmless the moment a specialist
+        # field arrived. Radiology's 84 modules carry 3.7x the content of a
+        # general node, and at stage 5 they made up enough of the pool to pull
+        # the average up past every general node's density: 49 of the 52
+        # general graduate nodes landed on the 0.5 clamp floor, nine of the ten
+        # general domains had their ENTIRE graduate tier priced at half, and
+        # the tier the 6,496-hour instructional-time anchor is built on was
+        # quietly costing half what it claims.
+        #
+        # So the ten general fields are normalised against each other, and a
+        # specialist field against itself. Note what this deliberately does not
+        # do: fall back to the stage-wide pool for a small group. There are
+        # seven (stage, domain) groups below four nodes and one of them —
+        # (5, arts), three nodes — is a general graduate group, so a
+        # "too small, use the stage average" guard would put exactly the nodes
+        # this fixes straight back on the floor.
+        specialist = {d["id"] for d in self.domains if d.get("entry_stage", 0) > 0}
+        by_stage: Dict[tuple, List[Dict]] = {}
         for node in raw_nodes:
-            by_stage.setdefault(node["stage"], []).append(node)
-        for stage, nodes in by_stage.items():
+            pool = node["domain"] if node["domain"] in specialist else "*general*"
+            by_stage.setdefault((node["stage"], pool), []).append(node)
+        for (stage, _pool), nodes in by_stage.items():
             lens = [_content_chars(n) for n in nodes]
             avg = sum(lens) / len(lens) if lens else 0
             for node, length in zip(nodes, lens):

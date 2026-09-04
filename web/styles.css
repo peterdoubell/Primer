@@ -2812,6 +2812,25 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
     margin: 0 -14px; padding: 0 14px 2px;
   }
   .navlist::-webkit-scrollbar { display: none; }
+  /* The focus ring, turned inward — because this strip is a scrollport on both
+     axes whether it wants to be or not. `overflow-x: auto` forces `overflow-y`
+     to compute to `auto` as well (CSS Overflow 3: `visible` is not honoured on
+     one axis alone), so the indicator the rest of the book draws OUTSIDE the
+     element — a 3px outline at 2px offset, plus the 5px halo the dark chrome
+     needs for 1.4.11 — lands outside the clip edge and is never painted.
+     Measured at 375x812: 0px of headroom above the button and 2px below,
+     against the 10px the indicator asks for. A keyboard reader on a phone
+     tabbed through the whole nav with no visible focus at all.
+     Inward is the only direction that works here: `overflow-x: clip` would
+     unclip the ring but take the strip's horizontal scrolling with it, and
+     padding the scrollport open needs negative margins that pull the row into
+     the sidebar's 10px flex gaps above and below. Drawn inside, nothing else
+     on the page moves. The #sidebar prefix is load-bearing — it has to outrank
+     `#sidebar :focus-visible`, which is where the halo is set. */
+  #sidebar .navlist .navbtn:focus-visible {
+    outline-offset: -3px;
+    box-shadow: inset 0 0 0 5px rgba(31, 95, 191, 0.85);
+  }
   /* The strip is 992px of nav in a 375px window, and with the scrollbar
      hidden nothing said so. A fade at the trailing edge is the standard
      signal that the row continues; `mask` keeps it exact whatever the
@@ -3575,8 +3594,13 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
    only a faint fill (SC 1.4.1). It now says which one it is, in the same
    uppercase pick-mark the breadth chooser uses. */
 .conf-opt.picked { background: var(--paper-edge); border-color: var(--gold); }
+/* --ink-soft, not --gold-ink. The gold reads as "chosen", but at 10px on
+   --paper-edge it measured 4.36:1 by day — under AA for small text, on the one
+   mark that tells a reader which option they picked. --ink-soft is 6.04:1 on
+   the same ground and 7.59:1 at night, so one token carries both themes. (A
+   size bump would not have helped: 11px is still small text under WCAG.) */
 .conf-opt .conf-mark { display: none; font-family: var(--sans); font-size: 10px;
-  letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-left: 7px; }
+  letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-left: 7px; }
 .conf-opt.picked .conf-mark { display: inline; }
 
 .onboard-steps { display: flex; justify-content: center; gap: 18px; margin-bottom: 22px; font-family: var(--sans); }
@@ -3768,8 +3792,9 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 
 .atlas-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 6px; }
 .filter-opt.picked { background: var(--paper-edge); border-color: var(--gold); }
+/* Same 4.36:1 failure as .conf-mark above, same one-token remedy. */
 .filter-opt .filter-mark { display: none; font-family: var(--sans); font-size: 10px;
-  letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-left: 7px; }
+  letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-left: 7px; }
 .filter-opt.picked .filter-mark { display: inline; }
 /* The spoken count. Sighted readers see the map shrink, so it stays quiet on
    the page — the same treatment the search and library live regions get. */
@@ -3938,3 +3963,13 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .placement-field { display: flex; justify-content: space-between; align-items: baseline;
   gap: 14px; width: 100%; text-align: left; }
 .placement-field .muted { font-family: var(--sans); font-size: 12px; }
+
+/* A pending appointment that is currently gated. It keeps its place in the row
+   — the reminder is the point — but should not read as an invitation. */
+.pending-chip.blocked { opacity: 0.72; border-style: dashed; }
+
+/* A link that leaves the book. It stays a link — these are sources and they
+   are worth reaching — but it should not look identical to one that stays
+   inside, and it should not go anywhere without saying so first. */
+.primer-outside { border-bottom: 1px dotted currentColor; text-decoration: none; }
+.outside-mark { font-size: 0.8em; margin-left: 2px; opacity: 0.75; }

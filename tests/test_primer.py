@@ -1458,8 +1458,22 @@ def test_sanitizer_never_swallows_the_article_on_malformed_html():
 
 
 def test_sanitizer_keeps_rel_noopener_on_external_links():
+    """rel stays; target is gone on purpose.
+
+    The renderer used to hand every external link `target="_blank"`, so an
+    article's several hundred citation links were several hundred unannounced
+    exits: one tap and the reader was in a raw browser tab, outside the book's
+    typography and its offline guarantee. The destination is kept and marked —
+    `data-primer-outside` names the host and the client asks before going — and
+    `rel="noopener noreferrer"` still travels with it, because the client opens
+    the window itself and the anchor must stay safe if it is ever followed
+    directly.
+    """
     out = rewrite_article('<a href="https://example.com/x">ext</a>')
-    assert 'rel="noopener noreferrer"' in out and 'target="_blank"' in out
+    assert 'rel="noopener noreferrer"' in out
+    assert 'target=' not in out, "an unannounced exit from the book"
+    assert 'data-primer-outside="example.com"' in out
+    assert 'class="primer-outside"' in out
 
 
 def test_sanitizer_drops_unsafe_target_values():
@@ -3108,14 +3122,19 @@ def test_stripping_an_attribute_cannot_reopen_the_tag():
     # the "target=x" the class value happens to contain: counting raw substrings
     # would find it, which is why the check is on parsed attributes.
     assert ("title", "onclick=alert(1) zz") in seen, seen
-    assert ("class", "external target=x") in seen, seen
-    # …and the renderer still states its own pair, exactly once each.
+    # The hostile `target=x` rides inside a value and stays there: it must never
+    # appear as an attribute of its own. (On an external anchor the article's
+    # class is now replaced by the book's own marker rather than preserved, so
+    # the surviving-value evidence is `title` above; what matters here is that
+    # nothing re-tokenised.)
+    assert ("class", "primer-outside") in seen, seen
+    assert not any(name == "target" for name, _ in seen), seen
     names = [name for name, _ in seen]
-    assert names.count("target") == 1 and names.count("rel") == 1, names
+    assert names.count("rel") == 1, names
 
-    # A value that really is target/rel is still stripped.
-    assert rewrite_article(
-        '<a href="https://example.com" target="_blank">x</a>').count("target=") == 1
+    # A value that really is target is stripped and not restated.
+    assert "target=" not in rewrite_article(
+        '<a href="https://example.com" target="_blank">x</a>')
 
 
 def test_an_unquoted_value_cannot_open_a_quoted_run():
@@ -3781,7 +3800,19 @@ def test_an_article_cannot_mint_the_renderers_own_markers():
     # article carrying its own produced the attribute twice, and browsers take
     # the first one.
     dup = rewrite_article('<a href="https://example.com" target="_blank" rel="noopener">x</a>')
-    assert dup.count("target=") == 1 and dup.count("rel=") == 1, dup
+    assert dup.count("target=") == 0 and dup.count("rel=") == 1, dup
+    # The marker on a door out of the book is the book's to state, like every
+    # other reserved class: an article must not be able to dress one of its own
+    # links as one, nor dress a door as ordinary prose.
+    forged_outside = rewrite_article(
+        '<a class="primer-outside" data-primer-outside="evil.test" '
+        'href="https://real.test/x">x</a>')
+    # The substring occurs twice legitimately — the attribute name and the class
+    # — so count the class, and check the forged HOST was replaced by the real
+    # destination rather than carried through.
+    assert forged_outside.count('class="primer-outside"') == 1, forged_outside
+    assert 'data-primer-outside="real.test"' in forged_outside, forged_outside
+    assert "evil.test" not in forged_outside, forged_outside
 
 
 def test_no_image_reaches_the_reader_on_an_upstream_url():

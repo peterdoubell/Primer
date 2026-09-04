@@ -1490,14 +1490,34 @@ class LearnerStore:
         says otherwise the assumption has to go — otherwise a reader placed at
         stage 0 keeps 89 nodes marked known, and the book teaches around them.
 
-        Only `assumed` rows are touched: anything actually proven stands.
+        Only `assumed` rows are touched: anything actually proven stands — but
+        "assumed" and "has never been proved" are not the same row. `assumed`
+        stays 1 through a genuine passing attempt, because `_apply_attempt_once`
+        clears it only on the branch where mastery is actually EARNED (two
+        passes, spaced). So a placement-credited node the reader had since sat
+        and passed once still matched `assumed=1`, and the whole row went: the
+        pass, its timestamp, the attempt count, the strength — every trace that
+        the reader had done the work. The next placement to move them down did
+        not merely withdraw an assumption; it erased evidence, and the reader
+        had to earn that first pass a second time.
+
+        So revocation is surgical. A row with no passes is an assumption and
+        nothing else, and still goes. A row with a pass behind it keeps
+        everything the reader earned and loses only the credit: the assumption
+        flag, the mastery timestamp, and any standing above the mastery gate.
         """
         if not node_ids:
             return 0
         with _lock, self._conn() as c:
             c.executemany(
-                "DELETE FROM mastery WHERE reader_id=? AND node_id=? AND assumed=1",
+                "DELETE FROM mastery "
+                "WHERE reader_id=? AND node_id=? AND assumed=1 AND passes = 0",
                 [(reader_id, nid) for nid in node_ids])
+            c.executemany(
+                "UPDATE mastery SET assumed=0, mastered_at=NULL, "
+                "                   strength=MIN(strength, ?) "
+                "WHERE reader_id=? AND node_id=? AND assumed=1 AND passes > 0",
+                [(PASS - 0.01, reader_id, nid) for nid in node_ids])
             return c.total_changes
 
     def mastered_count(self, reader_id: int = 1) -> int:
@@ -1754,7 +1774,36 @@ class LearnerStore:
             # correct must not make an old memory look fresh.
             touch_clock = False
 
-            if quality >= 4 and not reader_card:
+            # A success on a card still inside its relearning step is not
+            # spaced recall — it is the same answer, minutes later. On a lapse
+            # `review_card` sets reps and interval to 0 and makes the card due
+            # again in RELEARN_DELAY, so a reader who blanks a card and then
+            # passes it from short-term memory was handing the q>=4 branch a
+            # full restore: strength back to target, the decay clock restarted,
+            # and the node lifted back over the freshness gate the blank had
+            # just closed. Ten minutes of memory cannot undo the forgetting the
+            # blank measured.
+            #
+            # The discriminator has to be elapsed time, not the relearning
+            # state alone: a reader who blanks a card, closes the book and
+            # returns tomorrow is in exactly the same reps/lapses state, and
+            # that pass is genuine spaced recall after real forgetting.
+            # `srs_cards` keeps no last-graded column, but for a card still in
+            # its relearn step the previous grade is recoverable — it happened
+            # at `due - RELEARN_DELAY`.
+            #
+            # Such a pass is scheduled normally (the card advances; that half
+            # is already done before this runs) and simply buys no mastery
+            # credit: no restore, no floor, no clock, no reinforcement. It is
+            # not routed to the q==3 branch, because that branch's 0.5 floor
+            # would itself re-open the gate the lapse closed.
+            still_relearning = False
+            if ((card["reps"] or 0) == 0 and not (card["interval"] or 0)
+                    and (card["lapses"] or 0) > 0 and card["due"]):
+                previous_grade = card["due"] - RELEARN_DELAY
+                still_relearning = (now - previous_grade) < min_gap
+
+            if quality >= 4 and not reader_card and not still_relearning:
                 # Confident successful recall restores current standing. A
                 # small additive nudge converged below the freshness gate once
                 # SM-2 intervals outgrew it, so an on-schedule learner could be

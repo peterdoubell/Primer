@@ -147,12 +147,28 @@ const HAPTICS = {
 // call; the CSS side now zeroes every motion token under reduced motion, and
 // this is the JS half of the same decision, so the two cannot drift apart.
 function reducedMotion() {
-  try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+  try {
+    // Tri-state, and it has to be: the book offers its own `reduce_motion`
+    // switch, and that switch was accepted by the API, written to the profile,
+    // and then read by nothing at all — a setting the reader could turn on and
+    // watch do nothing. An explicit choice now wins in BOTH directions (a
+    // reader who unticks it on a machine whose OS asks for reduced motion has
+    // said what they want, in this book, on purpose), and only an unset
+    // preference falls through to the system.
+    const set = ((S.state && S.state.profile && S.state.profile.settings) || {}).reduce_motion;
+    if (set === true) return true;
+    if (set === false) return false;
+    return matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e) { return false; }
 }
-function haptic(kind) {
+function haptic(kind, evenIfReduced) {
   try {
     if (!navigator.vibrate) return;
-    if (reducedMotion()) return;
+    // `prefers-reduced-motion` is about motion the eye tracks — vestibular,
+    // on-screen. A vibration is neither, and for a ceremony it is the only
+    // channel left once the animation is gone, so a ceremony may ask for it
+    // anyway. Ordinary feedback still stays quiet.
+    if (reducedMotion() && !evenIfReduced) return;
     navigator.vibrate(HAPTICS[kind] || []);
   } catch (e) { /* a silent motor is never worth an error */ }
 }
@@ -1313,7 +1329,27 @@ async function renderToday(page) {
     page.append(row);
   }
   if (t.quest_done === t.quest_total) {
-    page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' growth today. Beautifully done.'));
+    // The crown named a number that can honestly be zero. Both non-review
+    // channels pay nothing on their own terms and still tick their step: an
+    // attempt below half score writes its event but earns no growth, and a
+    // reading day with the daily cap already spent pays nothing either. So a
+    // reader who finished everything the day asked of them was congratulated
+    // with "0 growth today" — the one sentence that takes the day back off
+    // them. When the number is zero, name the work instead of the number;
+    // the steps are right there and know what they were.
+    const crownWork = (t.quest && Object.keys(t.quest).length)
+      ? Object.keys(t.quest)
+          .filter(k => t.quest[k] && t.quest[k].done && !t.quest[k].excused)
+          .map(k => ({ learn: 'a lesson sat', review: 'your memory strengthened',
+                       read: 'an article read' })[k])
+          .filter(Boolean)
+      : [];
+    const crownTail = t.xp_today > 0
+      ? t.xp_today + ' growth today. Beautifully done.'
+      : (crownWork.length
+          ? crownWork.join(', ').replace(/, ([^,]*)$/, ' and $1') + '. Beautifully done.'
+          : 'every step of it. Beautifully done.');
+    page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + crownTail));
     // The crown used to end in a full stop. A day should have a tomorrow.
     const tl = tomorrowLine(t.tomorrow);
     if (tl) page.append(el('p', { class: 'tomorrow-line' }, tl));
@@ -1364,8 +1400,16 @@ async function renderToday(page) {
   if (t.pending && t.pending.length) {
     page.append(sectionLabel('Waiting to be proved'));
     const pr = el('div', { class: 'refresh-row' });
-    t.pending.forEach(w => pr.append(btn({ class: 'req-chip pending-chip', onclick: () => go('node', w.id) },
-      '◐ ' + w.title + ' · ' + (readyNow(w.ready_at) ? 'ready now' : 'ready ' + whenReady(w.ready_at)))));
+    // "ready now" was said whatever the gates thought, so a lesson re-locked by
+    // a failed sitting was still advertised as open and the lesson page then
+    // refused it. The server now says whether the appointment is actually open;
+    // when it is not, the chip names what is standing in front of it instead of
+    // a time that has already passed.
+    t.pending.forEach(w => pr.append(btn({ class: 'req-chip pending-chip' + (w.open === false ? ' blocked' : ''),
+      onclick: () => go('node', w.id) },
+      '◐ ' + w.title + ' · ' + (w.open === false
+        ? (w.blocked_by || 'waiting on earlier work')
+        : (readyNow(w.ready_at) ? 'ready now' : 'ready ' + whenReady(w.ready_at))))));
     page.append(pr);
   }
 
@@ -1930,6 +1974,39 @@ async function renderReader(page, arg) {
       // down, and instead navigated away to that link's subject. The picture
       // handler below already documents exactly this rule for its own anchors.
     });
+    // Doors out of the book, marked and asked about. render.py used to give
+    // these target="_blank", so a long article carried several hundred silent
+    // exits: one tap and the reader was in a raw browser tab, outside the
+    // book's typography, outside its offline guarantee, with nothing saying
+    // where they had gone or how to come back. The link still works — these
+    // are sources, and they are worth reaching — but the book says where it
+    // leads and waits to be told to go.
+    art.querySelectorAll('a.primer-outside').forEach(link => {
+      const host = link.getAttribute('data-primer-outside') || 'another site';
+      if (!link.querySelector('.outside-mark')) {
+        link.append(el('span', { class: 'outside-mark', 'aria-hidden': 'true' }, '↗'));
+      }
+      const said = link.getAttribute('aria-label') || link.textContent.trim();
+      link.setAttribute('aria-label', said + ' — leaves the book, on ' + host);
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const href = link.getAttribute('href') || '';
+        if (!href) return;
+        openModal({ label: 'Leave the book?', dismissable: true, build: (modal, close) => {
+          modal.append(
+            el('div', { class: 'kicker' }, 'Outside the book'),
+            el('h2', { style: 'margin-top:4px' }, 'This one leads off the shelf'),
+            el('p', { class: 'muted' },
+              'It opens ' + host + ' in your browser — outside the book, and outside what it keeps for you offline. The page you are on stays exactly where it is.'),
+            el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
+              btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Stay here'),
+              btn({ class: 'btn gold', style: 'flex:1', onclick: () => {
+                close();
+                window.open(href, '_blank', 'noopener,noreferrer');
+              } }, 'Open ' + host + ' →')));
+        } });
+      });
+    });
     attachPictureHandlers(art);
     // Where the page came from, said as a book says it. "(live)" is a word
     // about wires; "copied in from Wikipedia as you turned to it" is the same
@@ -2344,7 +2421,25 @@ function buildTutor(title) {
     const q = input.value.trim(); if (!q) return; input.value = '';
     push('me', q); messages.push({ role: 'user', content: q });
     const thinking = push('book', el('span', { class: 'think-dots', 'aria-label': 'The book is thinking' }, el('i', {}), el('i', {}), el('i', {})), 'book think');
-    const excerpt = ($('#article') ? $('#article').textContent : '').slice(0, 2400);
+    // The tutor's grounding, taken the way the book reads the page to itself.
+    // This was `#article.textContent` — every string in the subtree, in DOM
+    // order, with no filtering at all: navbox link lists, infobox rows, the
+    // reference list, citation markers, and the book's own "from your shelf"
+    // footer, all of it before the prose. `articleBlocks()` was written for
+    // exactly this — its docblock names the tutor as its second caller — and it
+    // drops all of that and reads rendered text rather than raw nodes. The
+    // book's own voice, the default engine, was being grounded on furniture.
+    //
+    // And it starts where the READER is, as read-aloud does: grounding the
+    // answer in the top of an eight-thousand-word article the reader scrolled
+    // past ten minutes ago answers a question they did not ask.
+    const _blocks = articleBlocks();
+    let _from = 0;
+    if (docScrollTop() > 40) {
+      const at = _blocks.findIndex(b => b.el.getBoundingClientRect().bottom > 0);
+      if (at > 0) _from = at;
+    }
+    const excerpt = _blocks.slice(_from).map(b => b.text).join(' ').slice(0, 2400);
     try {
       const r = await api.post('/api/tutor', { messages, title, excerpt });
       thinking.remove(); tutorFails = 0; push('book', r.reply); messages.push({ role: 'assistant', content: r.reply });
@@ -2458,7 +2553,24 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // A retry batch carries no server token (its paper was already redeemed
     // by the first pass's submit) — grade it locally against the answer the
     // first pass already revealed to this reader for exactly these items.
-    if (!token) return { correct: normalize(given) === normalize(q.answer || ''), answer: q.answer || '', explain: q.explain || '' };
+    if (!token) {
+      // Exact string equality is the real rule for a choice or an ordering —
+      // the reader picked one of the offered strings, so comparing strings is
+      // comparing what they did. It is NOT the rule for anything they wrote.
+      // The server compares numerics by value ('0.5', '.50' and '1/2' all
+      // match) and marks short answers on keyword coverage at 0.6, so grading
+      // a retry in the browser marked corrected answers wrong: '2' against a
+      // key of '2.0', '1,000' against '1000', a good sentence against a model
+      // one. The reader was told they had failed the very item they had just
+      // got right, on the screen offered to them as a second chance.
+      // So the retry marks what it can mark honestly, and for produced
+      // answers shows the model answer with no verdict at all.
+      const producible = q.kind === 'short' || q.kind === 'numeric';
+      if (producible) return { ungraded: true, correct: null,
+                               answer: q.answer || '', explain: q.explain || '' };
+      return { correct: normalize(given) === normalize(q.answer || ''),
+               answer: q.answer || '', explain: q.explain || '' };
+    }
     try {
       return await api.post('/api/quiz/check', { token, id: q.id, answer: String(given) });
     } catch (e) {
@@ -2776,15 +2888,25 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     inp.disabled = true;
     holdFocus(card, 'Checking…');
     const m = await mark(q, given);
-    inp.style.borderColor = m.correct ? 'var(--green)' : 'var(--accent)';
+    // A retry has no token, and a number typed in the browser cannot be marked
+    // the way the server marks it (which compares by VALUE, so '2' and '2.0'
+    // and '1/2' and '0.5' all pass). Rather than mark it wrongly, show the
+    // answer beside what they wrote and let them judge.
+    const unmarked = !!m.ungraded;
+    inp.style.borderColor = unmarked ? 'var(--rule)'
+      : (m.correct ? 'var(--green)' : 'var(--accent)');
     // A green border was the whole verdict here (SC 1.4.1), and with no
     // explain to reveal the live region stayed on 'Checking…' forever
     // (SC 4.1.3). The other three answer types all say it in words; so does
     // this one now.
-    tell(card, m.correct ? '✓ Correct.'
-                         : (m.answer ? 'Not quite — the answer is ' + m.answer + '.' : 'Not quite.'));
-    if (!m.correct && m.answer) inp.value = given + '  →  ' + m.answer;
-    reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
+    tell(card, unmarked
+      ? (m.answer ? 'Not marked here — the answer is ' + m.answer + '. Compare it with yours.'
+                  : 'Not marked here — compare your answer with the model answer.')
+      : (m.correct ? '✓ Correct.'
+                   : (m.answer ? 'Not quite — the answer is ' + m.answer + '.' : 'Not quite.')));
+    if (!unmarked && !m.correct && m.answer) inp.value = given + '  →  ' + m.answer;
+    reveal(unmarked ? null : m.correct,
+           { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
   }
   function holdFocus(card, msg) {
     const region = card.querySelector('.q-live');
@@ -2917,7 +3039,18 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
           if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
         }
       } catch (e) {
-        msg = 'Held in the margin for now — the book will copy it into the record the moment it can. Nothing is lost.';
+        // Not every refusal is the network. The book deliberately declines a
+        // sitting whose bank it has already spent — a reader failing the same
+        // lesson twice burns the items they were shown, and the third paper
+        // has too few unseen questions left to mean anything. That is an
+        // honest, considered "not today", and it was being delivered as
+        // "held in the margin… nothing is lost", which reads as a glitch and
+        // invites an immediate retry that will be refused in exactly the same
+        // way. The server tags it; say what it says.
+        msg = (e && e.reason === 'bank_spent')
+          ? 'The book has already shown you the answers to most of these, so this sitting cannot prove anything yet. Come back to this one in a few days — the questions you have not seen will be waiting.'
+          : 'Held in the margin for now — the book will copy it into the record the moment it can. Nothing is lost.';
+        if (e && e.reason === 'bank_spent') msgTone = 'warn';
       }
     } else if (isRetry) {
       msg = 'Good — those are the ones that needed another look.';
@@ -2999,7 +3132,17 @@ function flyXP(xp) {
   const p = el('div', { class: 'xp-pop' }, '+' + xp + ' growth');
   document.body.append(p); setTimeout(() => p.remove(), 1500);
 }
-function celebrate() { confetti(); }
+function celebrate() {
+  // Mastery is the one ceremony with no second channel. `streakCeremony` and
+  // `stageAscension` each fire confetti and then open a modal, so they still
+  // land when motion is suppressed; this was exactly `confetti()`, which
+  // returns at its first line under reduced motion — before it reaches even
+  // its own haptic. So the single beat the whole book builds toward happened
+  // in complete silence for a reader who had asked for less motion. They
+  // asked for less motion, not for less ceremony.
+  if (reducedMotion()) { haptic('fanfare', true); return; }
+  confetti();
+}
 function confetti() {
   if (reducedMotion()) return;
   // Two ceremonies can now land within a second of each other (mastery, then

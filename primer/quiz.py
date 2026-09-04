@@ -899,8 +899,18 @@ def cards_from_lesson(title: str, goal: str, kid_text: str = "",
         cards.append({"front": "What are you learning when you learn “{}”?".format(title),
                       "back": goal, "node_id": node_id, "article": title})
     if kid_text:
+        # `_sentences` is a cloze-MINING filter: it drops anything outside
+        # 40-240 chars, or carrying a colon, a semicolon, four commas, an
+        # example marker or a referent. Those rules are right for picking a
+        # sentence to blank a word out of, and wrong for picking one to put on
+        # the back of a card — and when the filter rejected every sentence, the
+        # fallback handed back the ENTIRE lesson. A card whose back is a
+        # six-sentence paragraph is not a card; it is a page with a question on
+        # the front, and it is shown to the youngest readers in the book.
+        # The first sentence is what "tell it back" means, filter or no filter.
         first = _sentences(kid_text)
-        sentence = first[0] if first else kid_text.strip()
+        sentence = (first[0] if first
+                    else re.split(r"(?<=[.!?])\s+", kid_text.strip())[0].strip())
         if sentence and sentence.lower() != (goal or "").lower():
             cards.append({"front": "Tell it back: what is {}?".format(title),
                           "back": sentence, "node_id": node_id, "article": title})

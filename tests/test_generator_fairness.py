@@ -71,3 +71,41 @@ def test_a_counting_drill_never_offers_a_negative_number():
             for choice in q.get("choices") or []:
                 assert not str(choice).startswith("-"), (
                     "counting offered %r among %s" % (choice, q.get("choices")))
+
+
+def test_a_short_item_cannot_be_passed_by_parroting_its_own_question():
+    """Answering with the question must score materially worse than answering it.
+
+    Short answers are marked on keyword coverage at 0.6. Where the keywords are
+    words the STEM already prints, pasting the question back scores them — 34 of
+    447 authored items reached a pass that way, and because `/api/quiz/check`
+    burns an item only when the answer is wrong, that pass also handed back the
+    full key with the item unspent, ready to be scored a clean 1.0 next sitting.
+
+    The rule is a GAP, not a ceiling on the stem score: some items cannot avoid
+    their own nouns (a question about bounded functionals on a normed space has
+    to say "norm"), and a bare threshold would flag those forever. What must not
+    happen is that parroting scores as well as answering.
+    """
+    import glob
+    import json as _json
+
+    from primer import quiz
+
+    offenders = []
+    for path in sorted(glob.glob("data/curriculum/*.json")):
+        for node in _json.load(open(path, encoding="utf-8"))["nodes"]:
+            for item in node.get("quiz") or []:
+                if item.get("kind") != "short":
+                    continue
+                keywords = item.get("keywords") or []
+                if len(keywords) < 3:
+                    continue          # a separate rule, enforced by check_banks
+                stem = quiz.score_short_answer(item.get("prompt", ""), keywords)
+                model = quiz.score_short_answer(item.get("answer", ""), keywords)
+                if stem >= 0.6 and (model - stem) < 0.25:
+                    offenders.append("%s: stem %.2f vs model %.2f"
+                                     % (node["id"], stem, model))
+    assert not offenders, (
+        "%d short item(s) can be passed by pasting the question:\n  %s"
+        % (len(offenders), "\n  ".join(offenders[:8])))

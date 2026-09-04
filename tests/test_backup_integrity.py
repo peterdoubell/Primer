@@ -142,3 +142,116 @@ def test_a_backup_survives_a_failed_shrink(tmp_path, caplog):
         assert copy.execute("SELECT name FROM profile").fetchone()[0] == "Ada"
     finally:
         copy.close()
+
+
+def test_revoking_assumed_credit_keeps_what_was_earned(tmp_path):
+    """Withdrawing an assumption must not erase evidence.
+
+    `assumed` stays 1 through a genuine passing attempt — `_apply_attempt_once`
+    clears it only on the branch where mastery is fully earned. So a
+    placement-credited node the reader had since sat and passed once still
+    matched `assumed=1`, and `DELETE ... WHERE assumed=1` took the whole row:
+    the pass, its timestamp, the attempts, the strength. A later placement that
+    moved the reader down did not just withdraw an assumption, it made them
+    earn that first pass again.
+    """
+    from primer.learner import LearnerStore
+
+    store = LearnerStore(str(tmp_path / "primer.db"))
+    store.save_profile("Ada", 11, 8, "balanced", 0, ["math"], {})
+
+    store.seed_assumed(["math.2.fractions", "math.2.decimals"])
+    # One honest pass on one of them; the other stays a bare assumption.
+    store.record_attempt("math.2.fractions", 0.9)
+    before = store.mastery_detail("math.2.fractions")
+    assert before["passes"] == 1
+
+    store.revoke_assumed(["math.2.fractions", "math.2.decimals"])
+
+    kept = store.mastery_detail("math.2.fractions")
+    assert kept, "the row with a real pass behind it was deleted outright"
+    assert kept["passes"] == 1, "a genuine passing attempt was erased"
+    assert not kept.get("assumed"), "the assumption should be gone"
+    assert not kept.get("mastered_at"), "credit-derived mastery should be gone"
+
+    # A bare assumption still goes entirely.
+    assert not store.mastery_map().get("math.2.decimals")
+
+
+def test_a_card_blanked_minutes_ago_cannot_restore_the_node(tmp_path):
+    """Ten minutes of short-term memory is not evidence against forgetting.
+
+    On a lapse the card is rescheduled RELEARN_DELAY (10 min) out with reps and
+    interval zeroed. Nothing in the q>=4 branch asked how long ago the reader
+    had last seen it, so blanking a card and immediately passing it restored
+    the node's strength to target and restarted the decay clock — lifting it
+    back over the freshness gate the blank had just closed. The honest path
+    (blank, come back tomorrow) must still be credited, so the discriminator is
+    elapsed time, not the relearning state.
+    """
+    from primer.learner import LearnerStore, RELEARN_DELAY
+
+    store = LearnerStore(str(tmp_path / "primer.db"))
+    store.save_profile("Ada", 30, 8, "balanced", 0, ["math"], {})
+    store.record_attempt("math.2.fractions", 0.95)
+    store.add_cards([{"front": "1/2 + 1/4", "back": "3/4",
+                      "node_id": "math.2.fractions", "article": "Fraction"}])
+    card = store.due_cards(limit=5)[0] if store.due_cards(limit=5) else None
+    if card is None:                      # a new card waits RELEARN_DELAY
+        import sqlite3
+        con = sqlite3.connect(str(tmp_path / "primer.db"))
+        con.execute("UPDATE srs_cards SET due = due - ?", (RELEARN_DELAY + 60,))
+        con.commit(); con.close()
+        card = store.due_cards(limit=5)[0]
+
+    store.review_card(card["id"], 0)                 # blank it
+    after_blank = store.mastery_map().get("math.2.fractions", 0)
+    store.review_card(card["id"], 5)                 # ...and pass it right back
+    after_repass = store.mastery_map().get("math.2.fractions", 0)
+
+    assert after_repass <= after_blank + 1e-9, (
+        "a re-pass inside the relearning window restored the node: %.3f -> %.3f"
+        % (after_blank, after_repass))
+
+
+def test_a_specialist_field_does_not_reprice_the_general_spine():
+    """Each kind of field is priced against its own kind.
+
+    Per-node minutes scale by content density against the stage's average. That
+    was computed over every domain at once, which was harmless while the book
+    held ten general fields of comparable depth — and stopped being harmless
+    when a specialist field arrived carrying 3.7x the content per node. At
+    stage 5 radiology pulled the average past every general node's density: 49
+    of the 52 general graduate nodes sat on the 0.5 clamp floor, nine of ten
+    general domains had their whole graduate tier priced at half, and the tier
+    the instructional-time anchor rests on cost half what it claims.
+
+    The invariant asserted here is the one the anchor actually makes: a group's
+    mean node minutes stays near its stage's base. A bound-population heuristic
+    would not have caught it — the nodes were all *at* a bound, legally.
+    """
+    from primer.curriculum import Curriculum, DEFAULT_MINUTES
+
+    curr = Curriculum()
+    specialist = {d["id"] for d in curr.domains if d.get("entry_stage", 0) > 0}
+    assert specialist, "this test needs a specialist field to be meaningful"
+
+    pools = {}
+    for node in curr.nodes.values():
+        pool = node["domain"] if node["domain"] in specialist else "general"
+        pools.setdefault((node["stage"], pool), []).append(node["minutes"])
+
+    for (stage, pool), minutes in sorted(pools.items()):
+        mean = sum(minutes) / len(minutes)
+        base = DEFAULT_MINUTES[stage]
+        assert abs(mean - base) <= 0.35 * base, (
+            "%s at stage %d averages %.0f minutes against a base of %d"
+            % (pool, stage, mean, base))
+
+    floor = 0.5 * DEFAULT_MINUTES[5]
+    general_5 = [n for n in curr.nodes.values()
+                 if n["stage"] == 5 and n["domain"] not in specialist]
+    on_floor = [n["id"] for n in general_5 if n["minutes"] <= floor]
+    assert len(on_floor) <= len(general_5) // 4, (
+        "%d of %d general graduate nodes are on the clamp floor: %s"
+        % (len(on_floor), len(general_5), on_floor[:5]))
