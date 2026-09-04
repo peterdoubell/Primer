@@ -2284,10 +2284,25 @@ def submit_quiz(s: QuizSubmitIn, request: Request):
     if any(s.confidence):
         # Knowing how well you know something is itself a skill worth tracking.
         def _right(q, a):
-            expected = str(q.get("answer", "")).strip()
-            num = quiz._numeric_equal(str(a), expected)
-            return num is True or (num is None and str(a).strip().lower() == expected.lower())
-        pairs = [(c, q, a) for c, q, a in zip(s.confidence, questions, s.answers) if c]
+            """Marked the way the paper is marked — one rule, not a third one.
+
+            This did its own exact/numeric comparison, which disagreed with the
+            two graders either side of it. A short answer covering most of its
+            keywords is a pass at the quiz door (>=0.6) and was counted WRONG
+            here, so a reader who wrote a good answer confidently was recorded
+            as overconfident about it. And the closing reflection — which the
+            book explicitly declines to grade, and tells the reader it is not
+            marking — was counted wrong on every paper from Sapling up, which
+            both inflated overconfidence and discounted the sitting's credit.
+            An item the book will not grade cannot be evidence about the
+            reader's judgement either: it is skipped, not failed.
+            """
+            if q.get("ungraded"):
+                return None
+            marked = quiz.score_quiz([q], [a])["score"]
+            return marked >= (0.6 if q.get("kind") == "short" else 1.0)
+        pairs = [(c, q, a) for c, q, a in zip(s.confidence, questions, s.answers)
+                 if c and _right(q, a) is not None]
         # Each direction is counted over its OWN population. Overconfidence is
         # "of the answers you were confident about, how many were wrong" — so
         # its denominator is the confident answers, not every rated answer.

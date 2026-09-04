@@ -3023,11 +3023,36 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     const splashHead = el('h2', { tabindex: '-1', class: 'result-heading' }, 'What the book made of it');
     modal.append(splashHead);
     setTimeout(() => splashHead.focus(), 30);
-    const stars = score >= 0.9 ? '★★★' : score >= 0.7 ? '★★☆' : score >= 0.4 ? '★☆☆' : '☆☆☆';
+    // The book must show the score it actually grades. These three lines were
+    // built from the client's own tally of booleans, and the server does not
+    // mark that way: a short answer covering most of its keywords passes the
+    // item at 0.6 and is shown '✓ Correct', but contributes 0.6 — not 1 — to
+    // the score that PASS = 0.8 is measured against. So a paper of two picked
+    // answers and four good-but-partial short ones displayed "6 of 6 · 100% ·
+    // ★★★" while the server scored 0.73, recorded no pass, and left Today
+    // saying "sat once — one pass and it counts". The reader was told they got
+    // everything right and that nothing landed, in the same sitting.
+    //
+    // The splash is drawn before the submit returns, so it still opens on the
+    // local tally — and is corrected the moment the server's own {right,total,
+    // score} arrives, which it has always sent and nothing has ever read.
+    const starsFor = v => v >= 0.9 ? '★★★' : v >= 0.7 ? '★★☆' : v >= 0.4 ? '★☆☆' : '☆☆☆';
     const splash = el('div', { class: 'result-splash' });
-    splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, stars));
-    if (!young) splash.append(el('div', { class: 'score' }, Math.round(score * 100) + '%'));
-    splash.append(el('p', {}, correct + ' of ' + graded + ' correct.'));
+    const starsEl = el('div', { class: 'stars', style: 'color:var(--gold)' }, starsFor(score));
+    const scoreEl = young ? null : el('div', { class: 'score' }, Math.round(score * 100) + '%');
+    const tallyEl = el('p', {}, correct + ' of ' + graded + ' correct.');
+    splash.append(starsEl);
+    if (scoreEl) splash.append(scoreEl);
+    splash.append(tallyEl);
+    const showServerScore = res => {
+      if (!res || typeof res.score !== 'number') return;
+      starsEl.textContent = starsFor(res.score);
+      if (scoreEl) scoreEl.textContent = Math.round(res.score * 100) + '%';
+      const whole = Math.abs(res.right - Math.round(res.right)) < 0.01;
+      tallyEl.textContent = whole
+        ? Math.round(res.right) + ' of ' + res.total + ' correct.'
+        : res.right.toFixed(1) + ' of ' + res.total + ' — partial credit counts.';
+    };
     let msg = '', msgTone = 'neutral', ascension = null, xp = 0, calibration = null, storyUnlocked = null;
     if (nodeId && !isRetry) {
       // A retry of only the missed items must not be scored as a fresh
@@ -3036,6 +3061,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         if (kind === 'quiz') {
           const r = await api.post('/api/quiz/submit', { node_id: nodeId, answers, make_cards: true, confidence: confidences, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.mastery.xp_gained || 0; ascension = r.ascension; calibration = r.calibration;
+          showServerScore(r.result);   // the marks the book actually recorded
           // null unless THIS lesson is the one the open chapter was waiting for.
           storyUnlocked = r.story_unlocked || null;
           if (r.mastery.newly_mastered) { msg = r.mastery.proven

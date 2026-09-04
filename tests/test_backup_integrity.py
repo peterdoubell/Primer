@@ -396,3 +396,63 @@ def test_a_re_check_resumes_where_the_reader_last_landed(tmp_path):
                 "one passing paper handed back the level the reader had lost"
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
+def test_the_score_shown_is_the_score_recorded(tmp_path):
+    """One paper, one mark. The book must not congratulate and withhold.
+
+    Three graders disagreed about the same sitting. The result screen tallied
+    per-item booleans; `/api/quiz/check` called a short answer correct at 0.6
+    keyword coverage and rendered "✓ Correct"; and `score_quiz` counted that
+    same answer as 0.6 toward the 0.8 pass mark. A paper of two picked answers
+    and four good-but-partial short ones showed "6 of 6 · 100% · ★★★" while the
+    server scored 0.73, recorded no pass, and left Today saying "sat once — one
+    pass and it counts". The reader was told they got everything right and that
+    nothing landed, in the same sitting.
+
+    The server has always returned its own {right, total, score}; nothing read
+    it. This pins the contract the client now depends on, and the rule that
+    calibration marks a paper the way the paper is marked.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            c.post("/api/profile", json={
+                "name": "Ada", "age": 30, "hours_per_week": 8,
+                "breadth": "balanced", "domains": ["math"]})
+            srv.learner.seed_assumed([n["id"] for n in srv.curr.nodes.values()
+                                      if n["domain"] == "math" and n["stage"] < 2])
+
+            paper = c.get("/api/quiz/math.2.fractions?n=6").json()
+            served = {q.get("id"): q for q in srv._SERVED[paper["token"]]["questions"]}
+            ungraded = [q for q in paper["questions"] if served[q["id"]].get("ungraded")]
+            assert ungraded, "a Sapling paper should carry the unmarked reflection"
+
+            answers = [served[q["id"]].get("answer", "") for q in paper["questions"]]
+            r = c.post("/api/quiz/submit", json={
+                "node_id": "math.2.fractions", "answers": answers,
+                "token": paper["token"],
+                "confidence": [3] * len(answers)}).json()
+
+            # The screen renders these, so they must be present and coherent.
+            result = r["result"]
+            assert {"right", "total", "score"} <= set(result), result
+            assert result["total"] == len(paper["questions"]) - len(ungraded), (
+                "the unmarked reflection must not sit in the denominator")
+            assert abs(result["score"] - result["right"] / result["total"]) < 0.01
+
+            # …and an item the book declines to grade is not evidence about the
+            # reader's judgement either.
+            assert r["calibration"]["total"] == result["total"], (
+                "calibration counted the unmarked reflection: %s" % r["calibration"])
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
