@@ -553,7 +553,31 @@ SIGHT_WORDS = ["the", "and", "said", "have", "with", "they", "this", "from", "wa
                "little", "could", "there", "about", "would", "because", "friend",
                "before", "again", "always", "together"]
 
-def g_spelling(_):
+def g_spelling(level=0):
+    """Spelling, asked as spelling about half the time.
+
+    "Which spelling is correct? [ugain / aagin / again / agian]" is the inverse
+    of the skill: it asks a child to RECOGNISE a misspelling, and it puts three
+    wrong spellings of a word they are still learning in front of their eyes.
+    Building the word from its own letters is the thing being taught, and the
+    ordering surface — tap in sequence, fully spoken, no typing — already
+    exists for exactly this kind of answer.
+
+    The recognition form is kept as the minority case: telling a right spelling
+    from a near-miss is its own real skill, it just should not be the whole of
+    what "spelling" means to a five-year-old.
+    """
+    if (level or 0) <= 1 and R.random() < 0.5:
+        # Short enough that every tile fits one row on a phone, and long enough
+        # that the order is not obvious from two letters.
+        buildable = [w for w in SIGHT_WORDS if 3 <= len(w) <= 6 and len(set(w)) == len(w)]
+        if buildable:
+            word = R.choice(buildable)
+            return _order(
+                "Put the letters in order to spell “{}”.".format(word),
+                list(word),
+                "Spell {}. Tap the letters in order.".format(word),
+                "{} — one letter at a time, in that order.".format(word))
     # Prefer words long enough to misspell in several distinct ways; short
     # words (the/and) can only be scrambled one way, so we also mine other
     # sight words as plausible distractors and cap the search.
