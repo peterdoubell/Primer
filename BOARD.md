@@ -5153,3 +5153,76 @@ to a young reader.
 assumed placement credit should open a graduate gate; a browser check. And
 neither dimension has been re-audited since Round 25 — every number in this
 entry is mine.
+
+---
+
+## Round 27 — re-audited at d4312ea, and both scores fell again
+
+Two fresh auditors, each on its own pinned extraction of `d4312ea`, briefed
+one-directionally. **Interactive Learning Loops 5.0 → 4.5. Mastery, Placement
+& Pacing 6.5 → 5.5.** The Round 25 repairs held — every one was reproduced —
+and the Round 26 *features* were what fell.
+
+**Loops (4.5).** The headline "adaptivity" locked the loop for the child it
+was built for. The sore-first draw put the burned items FIRST — they are, by
+definition, the ones the reader missed — `_drop_burned` removed them at
+submit, and `record_attempt` refused the sitting for having too few items
+left. Measured over HTTP: a child who missed two of five was refused on **5 of
+5** honest retries; with the feature stubbed out, 2 of 5. The loop was not
+closing; it was locking, for a week. And `level` was honoured *backwards*: the
+ordering cadence and the recall rotation shared one counter, so at level 0 the
+ordering always landed on the phase where the category pick would have led —
+served **0.0%** of the time to a Seedling, whose whole drill shrank to sixteen
+distinct items. Also: 41 of 347 ordering fronts listed their members
+alphabetically, and 41 orderings *are* alphabetical, so the front printed the
+answer; ~44 of the 162 added orderings sat under a node prompt that did not
+describe them ("bedtime steps: dry them, rinse, soap, wet your hands");
+`bio.0.seasons` authored three rotations of one cycle — one front, three backs,
+the defect class Round 25 was scored on; 72.5% of explanations are templates;
+`big-o`'s fairness verdict depended on `PYTHONHASHSEED`.
+
+**Mastery (5.5).** "At most one rung down per sitting" converged towards a
+target that was still the minimum at two fields, so a Forest reader was walked
+to the nursery over four sittings **by acing maths four times**; the lone-field
+branch had no cap at all (one failed re-check: 5 → 0, and no later pass could
+raise it); sitting radiology first counted as "a prior measurement" and froze a
+later perfect maths placement at 0. The reading clock billed quiz time as
+reading, nulled itself on tab-hide and never resumed (undercounting is NOT the
+safe direction — fewer minutes read as a faster reader and a shorter plan),
+and sent from `pagehide` with a plain fetch the browser is free to cancel.
+`RATE_MIN_MINUTES = 60` let one hour of clocked reading move a five-thousand-
+hour plan by up to 79%. The e2e placement helper keyed on a field the API does
+not return, and the fixture imported `primer.server` before pointing it away
+from the live record.
+
+### Repaired
+
+One global-stage rule for every branch: median of the general fields (an even
+count splits the difference — {0, 5} is Grove, not preschool), at most one rung
+per sitting in *either* direction, and a sitting whose own result is at or
+above the current stage never lowers it. Specialist fields count for nothing
+either way. Four end-to-end tests sit the auditor's exact scenarios, and one
+asserts the one-rung invariant across six consecutive sittings.
+
+The sore-first draw excludes anything the burn has spent, and `missed_fronts`
+decays with the SRS — due, young, or recently lapsed cards only. An HTTP test
+misses two, then retries five times honestly: 0 refused. The recall rotation
+counts only non-ordering turns: level 0 now serves the category shape 23% of
+the time and 28 distinct items per node at both levels. Ordering fronts are
+listed in a stable order that is checked against the answer; 98 orderings
+carry their own prompt; the seasons are one cycle. The reading clock pauses
+for a paper and on tab-hide, resumes on return, and sends with `keepalive`.
+`RATE_MIN_ARTICLES = 20`, `RATE_MIN_MINUTES = 240`, longest sitting per title
+rather than the sum, thresholds published to the page, and the page says "at
+least" when the ceiling is hit. `big-o` draws from the seeded stream and is off
+the known-findings list. Tests set `PRIMER_DB` before the import.
+
+### Not repaired
+
+Explanations for pairs and orderings are still structural, not authored. The
+pair-item tells the auditor measured — the option without an article, the
+option sharing a word with the prompt — are not yet in the tool. The drill is
+not a priced step of the day. Assumed placement credit still opens graduate
+gates, a decision the board has asked to be made explicitly rather than
+shipped. No browser check. And these scores are the board's verdict on
+`d4312ea`; everything in "Repaired" is mine and unaudited.

@@ -20,8 +20,15 @@ not evidence about the defect.
 
 import os
 import sys
+import tempfile
 
 import pytest
+
+# Before ANYTHING imports primer.server: that module attaches to the live
+# reader's record at import unless PRIMER_DB points elsewhere. An auditor
+# noticed the fixture below rebinds the store only after the import had
+# already opened content/primer.db.
+os.environ.setdefault("PRIMER_DB", os.path.join(tempfile.gettempdir(), "primer-e2e-import.db"))
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -53,14 +60,14 @@ def _sit_placement(client, domain, ace):
     last = {}
     for _ in range(14):
         paper = client.get("/api/placement/next?domain=" + domain).json()
-        if paper.get("done") or not paper.get("questions"):
+        if paper.get("settled") or paper.get("done") or not paper.get("questions"):
             return last
         served = srv._SERVED.get(paper["token"])["questions"]
         answers = [(str(q.get("answer", "")) if ace else "zzz") for q in served]
         last = client.post("/api/placement/submit",
                            json={"domain": domain, "stage": paper["stage"],
                                  "token": paper["token"], "answers": answers}).json()
-        if last.get("done"):
+        if last.get("settled") or last.get("done"):
             return last
     return last
 
@@ -111,15 +118,17 @@ def test_reading_time_is_actually_recorded_and_actually_moves_the_plan(app_clien
         for title in node.get("articles") or []:
             if title not in titles:
                 titles.append(title)
-        if len(titles) >= 20:
+        if len(titles) >= 30:
             break
-    assert len(titles) >= 20
+    assert len(titles) >= 30
 
     before = app_client.get("/api/roadmap").json()
     assert before["instructional_rate"]["measured"] is False
     assert before["instructional_rate"]["factor"] == 1.0
 
-    for title in titles[:20]:
+    # Thirty articles at nine minutes is 270 minutes: past the four-hour
+    # minimum the rate now demands before it will move a plan at all.
+    for title in titles[:30]:
         r = app_client.post("/api/reading/time", json={"title": title, "seconds": 9 * 60})
         assert r.json()["recorded"] is True
 
@@ -199,3 +208,99 @@ def test_a_clean_deck_changes_nothing(app_client, monkeypatch):
     paper = app_client.get("/api/practice/%s?n=6&level=0&node_id=%s"
                            % (gen, node_id)).json()
     assert len(paper["questions"]) == 6
+
+
+def _recheck(client, domain, ace):
+    """Re-measure a settled field: back-date the cooling and sit it again."""
+    import primer.server as srv
+    with srv.learner._conn() as c:
+        c.execute("UPDATE placement SET settled_at = settled_at - ? WHERE domain=?",
+                  (srv.learner.PLACEMENT_COOLING + 60, domain))
+    srv.learner.reopen_placement(domain)
+    return _sit_placement(client, domain, ace)
+
+
+def test_passing_evidence_never_lowers_the_reading_level(app_client):
+    """An auditor walked a Forest reader to the nursery by ACING maths four
+    times: {math 5, history 0} has a lower median of 0, so every settle —
+    perfect ones included — stepped the stage down one rung. A sitting whose
+    own result is at or above the current stage must not lower it."""
+    _sit_placement(app_client, "math", ace=True)
+    _sit_placement(app_client, "history", ace=False)
+    before, _ = _stage(app_client)
+    for _ in range(4):
+        _recheck(app_client, "math", ace=True)
+        after, placed = _stage(app_client)
+        assert after >= before, "acing maths lowered the stage to %s (%s)" % (after, placed)
+        before = after
+    assert before > 1
+
+
+def test_a_lone_field_recheck_moves_one_rung_and_can_come_back(app_client):
+    """The single-field branch had no cap: one failed re-check went 5 -> 0
+    and no later pass could raise it. One rule now, every branch."""
+    _sit_placement(app_client, "math", ace=True)
+    high, _ = _stage(app_client)
+    assert high >= 4
+    _recheck(app_client, "math", ace=False)
+    down, placed = _stage(app_client)
+    assert down >= high - 1, "one failed re-check dropped %d rungs" % (high - down)
+    _recheck(app_client, "math", ace=True)
+    back, placed = _stage(app_client)
+    assert back > down, "a passed re-check could not raise the stage (%s)" % placed
+
+
+def test_sitting_a_specialist_first_does_not_freeze_the_stage(app_client):
+    """Radiology sat first counted as "a prior measurement", so a perfect
+    maths placement afterwards was min(0, 5) = 0."""
+    _sit_placement(app_client, "radiology", ace=False)
+    assert _stage(app_client)[0] == 0
+    _sit_placement(app_client, "math", ace=True)
+    stage, placed = _stage(app_client)
+    assert stage >= 4, "maths after radiology froze the stage at %s (%s)" % (stage, placed)
+
+
+def test_the_stage_never_moves_more_than_one_rung_across_many_sittings(app_client):
+    """The invariant, asserted across a run of sittings rather than one pair."""
+    prev, _ = _stage(app_client)
+    first = True
+    for domain, ace in [("math", True), ("history", False), ("physics", True),
+                        ("bio", False), ("chem", True), ("earth", False)]:
+        _sit_placement(app_client, domain, ace)
+        cur, placed = _stage(app_client)
+        if not first:
+            assert abs(cur - prev) <= 1, "%s moved %d -> %d (%s)" % (domain, prev, cur, placed)
+        first = False
+        prev = cur
+
+
+def test_a_child_who_misses_two_is_not_locked_out(app_client, monkeypatch):
+    """The loop was not closing; it was locking. The sore-first draw put the
+    burned items FIRST, `_drop_burned` removed them at submit, and the sitting
+    was refused for having too few items left — on every retry, for a week."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    node_id = "bio.0.animals"
+    gen = srv.curr.nodes[node_id]["practice"]
+
+    def sit(miss):
+        paper = app_client.get("/api/practice/%s?n=5&level=0&node_id=%s" % (gen, node_id)).json()
+        served = srv._SERVED.get(paper["token"])["questions"]
+        answers = []
+        for i, q in enumerate(served):
+            a = "zzz" if i < miss else str(q.get("answer", ""))
+            # honest use: check each answer as it is given, then submit
+            app_client.post("/api/quiz/check", json={"node_id": node_id, "token": paper["token"],
+                                                     "id": q["id"], "answer": a})
+            answers.append(a)
+        return app_client.post("/api/attempt", json={"node_id": node_id, "answers": answers,
+                                                     "token": paper["token"], "seconds": 60})
+
+    first = sit(miss=2)
+    assert first.status_code == 200
+    refused = 0
+    for _ in range(5):
+        r = sit(miss=0)
+        if r.status_code == 409:
+            refused += 1
+    assert refused == 0, "%d of 5 honest retries were refused" % refused

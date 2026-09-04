@@ -63,8 +63,11 @@ import check_generators  # noqa: E402
 # rather than hidden by a weakened tolerance, and so anyone can see the size of
 # each one. Fixing them is its own piece of work: it needs distractors drawn
 # from the shape of the expression rather than its value.
+# big-o came off this list when its distractor draw was made deterministic:
+# it had been iterating a set, so its verdict changed with PYTHONHASHSEED and
+# was "known" only under five hash seeds out of six.
 KNOWN_LENGTH_RANK_FINDINGS = {
-    "big-o", "complex-numbers", "derivatives", "fractions", "integrals",
+    "complex-numbers", "derivatives", "fractions", "integrals",
 }
 
 
@@ -87,7 +90,7 @@ def test_no_surface_strategy_beats_guessing(gen_key):
 
 def test_the_known_findings_list_does_not_quietly_grow():
     """A tolerated finding must stay one finding, not become a habit."""
-    assert len(KNOWN_LENGTH_RANK_FINDINGS) == 5
+    assert len(KNOWN_LENGTH_RANK_FINDINGS) == 4
     still_failing = {g for g in KNOWN_LENGTH_RANK_FINDINGS
                      if any(p[0] == "key sits at a fixed rank by length"
                             for p in check_generators.audit(g, verbose=False))}

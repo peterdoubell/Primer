@@ -1591,19 +1591,24 @@ class LearnerStore:
         return added
 
     def missed_fronts(self, node_id: str, limit: int = 40, reader_id: int = 1) -> List[str]:
-        """Card fronts for this node the reader has actually got wrong.
+        """Card fronts for this node the reader STILL finds hard.
 
-        A drill that draws uniformly from a node's material asks about the
-        thing they already know as often as the thing they do not. Every card
-        in the deck was minted from a missed item, and a lapsed one was missed
-        again since — so the deck already knows what this reader finds hard,
-        and nothing was reading it.
+        Every card was minted from a missed item, so the deck knows what this
+        reader got wrong — but a card the reader has since answered right and
+        right again is not a sore spot any more, and preferring it forever made
+        the same three fronts lead every paper indefinitely. So: only cards
+        that are due now, or were lapsed within the last fortnight, or are
+        still in their first steps (an interval under a week). A card the SRS
+        has pushed out to months is a thing the reader knows.
         """
+        now = time.time()
         with _lock, self._conn() as c:
             rows = c.execute(
                 "SELECT front FROM srs_cards WHERE reader_id=? AND node_id=? "
+                "AND (due <= ? OR COALESCE(interval, 0) < 7 "
+                "     OR (COALESCE(lapses, 0) > 0 AND due <= ?)) "
                 "ORDER BY COALESCE(lapses, 0) DESC, due ASC LIMIT ?",
-                (reader_id, node_id, int(limit))).fetchall()
+                (reader_id, node_id, now, now + 14 * DAY, int(limit))).fetchall()
         return [r["front"] for r in rows]
 
     def due_cards(self, limit: int = 20, reader_id: int = 1) -> List[Dict]:
@@ -2191,19 +2196,20 @@ class LearnerStore:
                 "WHERE id = ?", (seconds, row["id"]))
 
     def reading_minutes_by_title(self, reader_id: int = 1) -> Dict[str, float]:
-        """Recorded reading minutes per article title, for this reader.
+        """Minutes this reader spent on each article, per title.
 
         The roadmap prices instructional time from a stage constant scaled by
         prose density — a model of how long a node takes *somebody*. This is
-        the evidence for how long it takes THIS reader: the shelf is where the
-        instructional minutes actually go, and how long each article was open
-        has been recorded all along. `pacing.roadmap` joins it to the graph,
-        because the title-to-node mapping is the curriculum's business and not
-        this module's.
+        the evidence for how long an article takes THIS reader. `pacing`
+        joins it to the graph, because the title-to-node mapping is the
+        curriculum's business and not this module's.
 
-        Zero-second rows (an article opened and closed, or logged by a client
-        that sent no duration) are dropped rather than counted as instant
-        reading, which would bias the reader's measured rate downwards.
+        The LONGEST sitting on a title, not the sum. Summing billed a second
+        read of the same article as slower first reading, and "how long does
+        an article take you" is a question about one reading of it. Rows
+        outside the plausible band are dropped, not clamped — an article left
+        open overnight is not eight hours of reading, and neither is four
+        seconds.
         """
         with _lock, self._conn() as c:
             rows = c.execute(
@@ -2214,7 +2220,7 @@ class LearnerStore:
             usable = usable_reading_seconds(r["seconds"])
             if usable is None:
                 continue
-            out[r["title"]] = out.get(r["title"], 0.0) + usable / 60.0
+            out[r["title"]] = max(out.get(r["title"], 0.0), usable / 60.0)
         return out
 
     def reading_stats(self, reader_id: int = 1) -> Dict:

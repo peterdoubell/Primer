@@ -945,8 +945,15 @@ def g_bigo(_):
              ("nested loops over n items", "O(n²)"),
              ("visiting every node of a balanced tree", "O(n)")]
     task, ans = R.choice(pairs)
+    # Drawn from the seeded stream, not from set order. `list({...})[:3]`
+    # iterated a set, so which three distractors appeared — and therefore this
+    # generator's fairness verdict — changed with PYTHONHASHSEED: NEEDS WORK
+    # under five hash seeds out of six, CLEAN under the other. An auditor
+    # caught it; the audit tool could not, because it was measuring a
+    # different generator on every run.
+    others = sorted({o for _, o in pairs if o != ans})
     return _mc("Time complexity of {}: ?".format(task), ans,
-               list({o for _, o in pairs if o != ans})[:3], pad=False)
+               R.sample(others, min(3, len(others))), pad=False)
 
 
 # ---------------- Science & computing (stages 2–4) ----------------
@@ -1262,6 +1269,22 @@ def _know_fact(spec: Dict) -> Optional[Dict]:
     return q
 
 
+def _front_order(seq: List[str]) -> List[str]:
+    """A stable listing of a sequence's members that is never the answer.
+
+    The front used to list them alphabetically. Forty-one of the orderings ARE
+    alphabetical — every dictionary drill, the binary numbers — so the front
+    printed the answer and the child could copy it off. Alphabetical when that
+    differs from the answer; otherwise by length then reverse-alphabetical,
+    which is stable, and is checked against the answer too.
+    """
+    for candidate in (sorted(seq), sorted(seq, key=lambda x: (len(x), x), reverse=True),
+                      list(reversed(seq))):
+        if candidate != seq:
+            return candidate
+    return seq   # three identical members cannot be reordered at all
+
+
 def _know_order(spec: Dict) -> Optional[Dict]:
     """An ordering the child produces — and, unlike a generated one, a card.
 
@@ -1279,12 +1302,21 @@ def _know_order(spec: Dict) -> Optional[Dict]:
     that asks a young reader to PRODUCE can finally come back tomorrow when
     they get it wrong. Before this, 0 of 468 ordering items could mint a card.
     """
-    seqs = [s for s in (spec.get("sequences") or []) if len(s) >= 3]
+    seqs = [s for s in (spec.get("sequences") or [])
+            if len([x for x in s if not isinstance(x, dict)]) >= 3]
     if not seqs:
         return None
-    seq = [str(x) for x in R.choice(seqs)]
-    prompt = spec.get("sequence_prompt", "Put them in the right order")
-    prompt = "%s: %s" % (prompt, ", ".join(sorted(seq)))
+    chosen = R.choice(seqs)
+    # A sequence may carry its own prompt as a trailing {"prompt": ...} dict,
+    # for the orderings the node's shared criterion does not describe —
+    # "bedtime steps" is not what "wet, soap, rinse, dry" is an ordering of.
+    override = None
+    if isinstance(chosen[-1], dict):
+        override = chosen[-1].get("prompt")
+        chosen = chosen[:-1]
+    seq = [str(x) for x in chosen]
+    prompt = override or spec.get("sequence_prompt", "Put them in the right order")
+    prompt = "%s: %s" % (prompt, ", ".join(_front_order(seq)))
     q = _order(prompt, seq,
                spec.get("sequence_say", "Tap them in the right order."),
                spec.get("sequence_explain",
@@ -1370,8 +1402,15 @@ def make_knowledge_generator(node_id: str) -> Callable:
             recall = [_know_group, _know_pair, _know_fact]
         else:
             recall = [_know_fact, _know_group, _know_pair]
+        # The recall rotation counts only the turns that are NOT orderings.
+        # Rotating it on the same counter as the ordering cadence meant that
+        # at level 0 (`every = 3`) the ordering always landed on the phase
+        # where the category pick would have led — so a Seedling was served
+        # the category shape 0.0% of the time, and their whole drill shrank to
+        # sixteen distinct items. An auditor measured it; nothing here did.
+        r = (i - i // every) % 3
         shapes = ([_know_order] if order_first else []) + \
-            recall[i % 3:] + recall[:i % 3] + \
+            recall[r:] + recall[:r] + \
             ([] if order_first else [_know_order])
         for shape in shapes:
             if shape is _know_order:

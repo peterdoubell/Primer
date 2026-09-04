@@ -1853,29 +1853,54 @@ let readingClock = null;
 
 function startReadingClock(title) {
   stopReadingClock();
-  readingClock = { title: title, at: Date.now(), sent: 0 };
+  readingClock = { title: title, at: Date.now(), sent: 0, paused: 0 };
+}
+
+// Pause without forgetting the title, so returning to the tab resumes the
+// count. The first version nulled the clock on tab-hide and called
+// undercounting "the safe direction" — it is the opposite: fewer minutes read
+// as a faster reader, and a faster reader is handed a shorter plan.
+function pauseReadingClock() {
+  const clock = readingClock;
+  if (!clock || clock.paused) return;
+  flushReadingClock(clock);
+  clock.paused = Date.now();
+}
+
+function resumeReadingClock() {
+  const clock = readingClock;
+  if (!clock || !clock.paused) return;
+  // Hidden time is not reading time: shift the start forward by the pause.
+  clock.at += Date.now() - clock.paused;
+  clock.paused = 0;
+}
+
+function flushReadingClock(clock) {
+  const end = clock.paused || Date.now();
+  const seconds = Math.round((end - clock.at) / 1000);
+  // Below the server's own floor there is nothing to report; re-sending a
+  // figure no bigger than the last is just noise on the wire.
+  if (seconds >= 20 && seconds > clock.sent) {
+    clock.sent = seconds;
+    const body = JSON.stringify({ title: clock.title, seconds: seconds });
+    // `keepalive` so the send on tab-close is allowed to outlive the page; a
+    // plain fetch from pagehide is cancelled with the document.
+    fetch('/api/reading/time', { method: 'POST', keepalive: true,
+      headers: { 'Content-Type': 'application/json' }, body: body })
+      .catch(() => {});   // a lost duration must never interrupt reading
+  }
 }
 
 function stopReadingClock() {
   const clock = readingClock;
   if (!clock) return;
-  const seconds = Math.round((Date.now() - clock.at) / 1000);
-  // Below the server's own floor there is nothing to report; re-sending a
-  // figure no bigger than the last is just noise on the wire.
-  if (seconds >= 20 && seconds > clock.sent) {
-    clock.sent = seconds;
-    api.post('/api/reading/time', { title: clock.title, seconds: seconds })
-      .catch(() => {});   // a lost duration must never interrupt reading
-  }
-  // Cleared unconditionally, including on tab-hide. A reader who tabs away
-  // and returns simply stops accruing: counting the hidden minutes would
-  // measure the tab, not the reading, and undercounting is the safe direction
-  // for a figure that shortens a plan.
+  flushReadingClock(clock);
   readingClock = null;
 }
 
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') stopReadingClock();
+  if (document.visibilityState === 'hidden') pauseReadingClock();
+  else resumeReadingClock();
 });
 window.addEventListener('pagehide', stopReadingClock);
 
@@ -2589,6 +2614,8 @@ function spinnerOverlay(msg) {
 }
 
 function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, token = '' }) {
+  // Time spent in a paper is not time spent reading the article beneath it.
+  pauseReadingClock();
   const young = (stage != null ? stage : S.stage) <= 1;
   // The paper's own clock, started when it is handed over. See the note on
   // the deck's: untrusted, non-load-bearing, and the only reason the book can
@@ -4313,10 +4340,16 @@ function pricingNote(r) {
       : Math.abs(pct) + '% faster than the book expects';
     lines.push('You read ' + pace + ' — about ' + rate.per_article + ' minutes an article across '
       + rate.articles + ' articles' + (rate.clamped ? ', held at the limit the plan allows' : '')
-      + ' — and the hours above are priced at your pace, not the average reader\'s.');
+      + ' — and the hours above are priced at your pace, not the average reader\'s.'
+      + (rate.clamped && rate.factor > 1
+         ? ' The plan cannot price slower than this, so read the years above as at least that many.'
+         : ''));
   } else {
+    const need = rate.min_articles || 20;
+    const mins = rate.min_minutes || 240;
     lines.push('Your reading pace is not measured yet, so the hours above are priced at the '
-      + 'book\'s own figure. After ' + 8 + ' articles it will be priced at yours.');
+      + 'book\'s own figure. After about ' + need + ' articles and ' + Math.round(mins / 60)
+      + ' hours of reading it will be priced at yours.');
   }
   if (typeof r.srs_minutes_per_node === 'number') {
     lines.push('Each topic also carries about ' + Math.round(r.srs_minutes_per_node)

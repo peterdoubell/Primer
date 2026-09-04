@@ -1889,13 +1889,24 @@ def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
     # the same size, and a reader with a clean deck sees no change at all.
     if node_id and n >= QUIZ_MIN_ITEMS:
         sore = set(learner.missed_fronts(node_id, reader_id=reader_id))
-        if sore:
-            wider = practice.generate_set(gen_key, n * 3, level)
-            if len(wider) >= n:
+        # ...but never an item whose key this reader has already been shown.
+        # The first version of this put the burned items FIRST — they are, by
+        # definition, the ones the reader missed — and then `_drop_burned`
+        # removed every one of them at submit and `record_attempt` refused the
+        # sitting for having too few items left. A child who missed two was
+        # told "come back in a few days" on every retry for a week. The loop
+        # was not closing; it was locking.
+        burned = learner.burned_map(node_id, reader_id=reader_id)
+        wider = practice.generate_set(gen_key, n * 3, level)
+        if len(wider) >= n:
+            fresh = [q for q in wider if _fingerprint(q) not in burned]
+            if len(fresh) >= n:
+                wider = fresh
+            if sore:
                 wider.sort(key=lambda q: 0 if q.get("prompt") in sore else 1)
-                qs = wider[:n]
-                for i, q in enumerate(qs):
-                    q["id"] = i
+            qs = wider[:n]
+            for i, q in enumerate(qs):
+                q["id"] = i
     if not qs:
         return JSONResponse({"error": "unknown generator", "available": practice.list_generators()},
                             status_code=404)
@@ -2774,10 +2785,14 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
             # level. The global stage is the median of what has been measured.
             settings = dict(prof.get("settings", {}))
             per_domain = dict(settings.get("placed", {}))
-            # Whether the book had measured ANY field before this sitting. It
-            # decides which of the two rules below applies, so it must be read
-            # before this result joins the map.
-            had_prior_measurement = bool(per_domain)
+            # A specialist field is not evidence about general reading level.
+            # Radiology's only rung is graduate; a reader who cannot yet sit it
+            # is not thereby a pre-reader, and letting that result into the
+            # median said they were. It is not evidence the other way either:
+            # sitting radiology FIRST used to count as "a prior measurement",
+            # which skipped the first-measurement rule and froze a later
+            # perfect maths placement at 0.
+            had_prior_general = any(not _is_specialist(d) for d in per_domain)
             if not_placed:
                 # Below the field's own floor there is no level to record. The
                 # reader has not entered the field; that is not a measurement
@@ -2786,52 +2801,43 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
             else:
                 per_domain[s.domain] = placed
             settings["placed"] = per_domain
-            # A specialist field is not evidence about general reading level.
-            # Radiology's only rung is graduate; a reader who cannot yet sit it
-            # is not thereby a pre-reader, and letting that result into the
-            # median said they were.
-            general = {d: v for d, v in per_domain.items()
-                       if not _is_specialist(d)} or dict(per_domain)
+            general = {d: v for d, v in per_domain.items() if not _is_specialist(d)}
             measured = sorted(general.values())
-            if not_placed or _is_specialist(s.domain):
+            current = int(prof["stage"] or 0)
+            if not_placed or _is_specialist(s.domain) or not measured:
                 # This sitting added no evidence about general reading level,
-                # so it moves nothing. Recomputing anyway let a specialist
-                # paper walk the global stage down one rung per attempt while
-                # contributing nothing to the median it was walking towards.
-                overall = int(prof["stage"] or 0)
-            elif len(measured) >= 2:
-                target = measured[(len(measured) - 1) // 2]   # lower median
-                # ...but never more than one stage down per sitting. At n=2 the
-                # lower median IS the minimum, so a reader who measured at
-                # Frontier in one field and then failed a single check in
-                # another was dropped to stage 0 outright — and stage <= 1 is
-                # the whole pre-reader interface: young mode, Simple English,
-                # the story frozen at page one. That was Round 22's only
-                # CRITICAL, reachable in two sittings. The median is still the
-                # target and repeated sittings still reach it; what is refused
-                # is arriving there in one move on one field's evidence.
-                overall = max(target, int(prof["stage"] or 0) - 1)
-            elif had_prior_measurement:
-                # A re-measurement of the only field measured so far may lower
-                # the reading level but not raise it — Round 5's rule, that one
-                # domain must not promote a reader past what other evidence
-                # supports.
-                overall = min(int(prof["stage"] or 0), measured[0])
-            else:
-                # The first measurement the book has ever taken. Round 5's rule
-                # was written when setup seeded a stage from age, so `min()`
-                # meant "your age says Sapling; one strong result will not push
-                # you to Grove". A later round made setup start EVERY reader at
-                # 0 on principle ("age says how old a reader is, not what they
-                # have been taught") — and that quietly turned this branch into
-                # min(0, anything), so a settled placement could never raise
-                # anyone. A reader measured at Grove was still served the
-                # pre-reader UI, Simple English, and a story frozen at page one.
-                # With nothing else measured, 0 is not neutrality; it is a claim
-                # that the reader is a preschooler, and it is the one claim we
-                # have evidence against. Take the measurement — the lower-median
-                # rule above resumes the moment a second field is measured.
+                # so it moves nothing.
+                overall = current
+            elif not had_prior_general:
+                # The first general measurement the book has ever taken. With
+                # nothing else measured, 0 is not neutrality; it is a claim that
+                # the reader is a preschooler, and it is the one claim we have
+                # evidence against. Take the measurement.
                 overall = measured[0]
+            else:
+                # ONE rule from here on, whatever the branch. Four earlier
+                # versions each had their own, and an auditor walked a reader
+                # through the seams: the lower median is the minimum at two
+                # fields, so a Forest reader was walked down to the nursery one
+                # rung per sitting by ACING maths four times; the lone-field
+                # branch had no cap at all, so one failed re-check went 5 -> 0
+                # and no later pass could raise it.
+                #
+                # The target is the median of the general fields, with an even
+                # count splitting the difference rather than taking the lower
+                # value — {0, 5} is Grove, not preschool. The stage moves at
+                # most one rung per sitting in EITHER direction, so no single
+                # paper rewrites a reading level. And a sitting whose own
+                # result is at or above the current stage never lowers it:
+                # passing evidence is not grounds for demotion.
+                n = len(measured)
+                if n % 2:
+                    target = measured[n // 2]
+                else:
+                    target = int((measured[n // 2 - 1] + measured[n // 2] + 1) // 2)
+                overall = max(current - 1, min(current + 1, target))
+                if placed >= current and overall < current:
+                    overall = current
             learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
                                  prof["breadth"], overall, prof["domains"], settings,
                                  reader_id=reader_id)

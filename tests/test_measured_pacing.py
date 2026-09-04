@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from primer import pacing  # noqa: E402
 
 
-def _graph(n=20, minutes=100):
+def _graph(n=60, minutes=100):
     return {"domains": [{"id": "d", "name": "D"}],
             "nodes": [{"id": "n%d" % i, "domain": "d", "stage": 1,
                        "minutes": minutes, "articles": ["A%d" % i]}
@@ -41,7 +41,7 @@ def _reading(n, per_article):
 
 def test_an_unmeasured_reader_gets_the_model_exactly():
     g = _graph()
-    for reading in (None, {}, _reading(3, 30)):
+    for reading in (None, {}, _reading(10, 30)):
         rate = pacing.instructional_rate(g, reading)
         assert rate["factor"] == 1.0
         assert rate["measured"] is False
@@ -50,20 +50,20 @@ def test_an_unmeasured_reader_gets_the_model_exactly():
 def test_a_reader_at_the_books_own_figure_scores_one():
     """Six minutes an article is what the book tells the reader an article
     takes. A reader who reads at exactly that must not move their own plan."""
-    rate = pacing.instructional_rate(_graph(), _reading(20, 6))
+    rate = pacing.instructional_rate(_graph(), _reading(60, 6))
     assert rate["measured"] is True and rate["clamped"] is False
     assert rate["factor"] == 1.0
     assert rate["per_article"] == 6.0
 
 
 def test_a_slower_reader_is_measured_as_slower():
-    rate = pacing.instructional_rate(_graph(), _reading(20, 9))
+    rate = pacing.instructional_rate(_graph(), _reading(60, 9))
     assert rate["measured"] is True and rate["clamped"] is False
     assert rate["factor"] == 1.5
 
 
 def test_a_faster_reader_is_measured_as_faster():
-    rate = pacing.instructional_rate(_graph(), _reading(20, 4.5))
+    rate = pacing.instructional_rate(_graph(), _reading(60, 4.5))
     assert rate["measured"] is True and rate["clamped"] is False
     assert rate["factor"] == 0.75
 
@@ -72,9 +72,9 @@ def test_a_clamped_value_says_so():
     """A number that hit a bound is a bound, not a measurement."""
     # Enough articles and enough minutes to be a rate, at a quarter of the
     # modelled pace — measured, and then held at the floor.
-    low = pacing.instructional_rate(_graph(60), _reading(60, 1.5))
+    low = pacing.instructional_rate(_graph(200), _reading(200, 1.5))
     assert low["factor"] == pacing.RATE_FLOOR and low["clamped"] is True
-    high = pacing.instructional_rate(_graph(), _reading(20, 60))
+    high = pacing.instructional_rate(_graph(), _reading(60, 60))
     assert high["factor"] == pacing.RATE_CEIL and high["clamped"] is True
 
 
@@ -82,14 +82,14 @@ def test_the_ordinary_reader_is_not_at_a_bound():
     """The first version put every real reader on the floor. A rate whose only
     output is a constant is not a rate."""
     for per_article in (4.0, 5, 6, 7.5, 9, 10):
-        rate = pacing.instructional_rate(_graph(), _reading(20, per_article))
+        rate = pacing.instructional_rate(_graph(), _reading(60, per_article))
         assert rate["clamped"] is False, per_article
 
 
 def test_a_thin_sample_is_not_a_rate():
     g = _graph()
-    assert pacing.instructional_rate(g, _reading(4, 90))["measured"] is False
-    assert pacing.instructional_rate(g, _reading(20, 1))["measured"] is False
+    assert pacing.instructional_rate(g, _reading(10, 90))["measured"] is False
+    assert pacing.instructional_rate(g, _reading(60, 1))["measured"] is False
 
 
 def test_reading_off_the_curriculum_does_not_move_the_plan():
@@ -99,9 +99,9 @@ def test_reading_off_the_curriculum_does_not_move_the_plan():
     off = {"Some other article %d" % i: 40.0 for i in range(30)}
     assert pacing.instructional_rate(g, off)["measured"] is False
     mixed = dict(off)
-    mixed.update(_reading(20, 6))
+    mixed.update(_reading(60, 6))
     rate = pacing.instructional_rate(g, mixed)
-    assert rate["articles"] == 20 and rate["factor"] == 1.0
+    assert rate["articles"] == 60 and rate["factor"] == 1.0
 
 
 def test_the_roadmap_moves_with_the_measured_rate():
@@ -113,8 +113,11 @@ def test_the_roadmap_moves_with_the_measured_rate():
     mastery = {"n%d" % i: (1.0 if i < 20 else 0.0) for i in range(400)}
 
     modelled = pacing.roadmap(profile, g, mastery)
-    slow = pacing.roadmap(profile, g, mastery, reading=_reading(20, 9))
-    fast = pacing.roadmap(profile, g, mastery, reading=_reading(20, 4.5))
+    # Sixty articles at 4.5 minutes is 270 minutes — over the four-hour
+    # minimum; forty at 4.5 was 180, below it, and "fast" silently became
+    # "unmeasured", which is the exact thing the threshold exists to do.
+    slow = pacing.roadmap(profile, g, mastery, reading=_reading(60, 9))
+    fast = pacing.roadmap(profile, g, mastery, reading=_reading(60, 4.5))
 
     assert modelled["instructional_rate"]["measured"] is False
     assert slow["instructional_rate"]["measured"] is True
@@ -129,6 +132,6 @@ def test_the_maintenance_half_is_not_scaled_twice():
                     "articles": ["A%d" % i]} for i in range(40)]}
     profile = {"breadth": "balanced", "hours_per_week": 10, "stage": 0}
     mastery = {"n%d" % i: (1.0 if i < 20 else 0.0) for i in range(40)}
-    r = pacing.roadmap(profile, g, mastery, reading=_reading(20, 9))
+    r = pacing.roadmap(profile, g, mastery, reading=_reading(40, 9))
     per_node = 100 * r["instructional_rate"]["factor"] + r["srs_minutes_per_node"]
     assert abs(r["total_hours"] - (20 * per_node) / 60) < 1.0

@@ -176,3 +176,57 @@ def test_missing_material_yields_no_items_rather_than_noise():
         assert practice.generate_set("know:no.such.node", 6) == []
     finally:
         del practice.GENERATORS["know:no.such.node"]
+
+
+def test_a_seedling_meets_every_shape():
+    """At level 0 the ordering cadence and the recall rotation shared one
+    counter, so the category pick was served 0.0% of the time and a
+    Seedling's whole drill shrank to sixteen distinct items."""
+    import collections
+    practice.R.seed("shapes")
+    practice.reset_rotation()
+    for level in (0, 1):
+        kinds = collections.Counter()
+        for node_id in sorted(practice.young_material()):
+            for q in practice.generate_set("know:" + node_id, 8, level=level):
+                if q["kind"] == "order":
+                    kinds["order"] += 1
+                elif q["prompt"] in practice._group_prompts("know:" + node_id):
+                    kinds["group"] += 1
+                else:
+                    kinds["recall"] += 1
+        total = sum(kinds.values())
+        assert kinds["group"] / total > 0.12, (level, dict(kinds))
+        assert kinds["order"] / total > 0.15, (level, dict(kinds))
+
+
+def test_an_ordering_front_never_prints_its_answer():
+    """Forty-one authored orderings are alphabetical — every dictionary
+    drill, the binary numbers — so a front that listed the members
+    alphabetically printed the answer and the child could copy it off."""
+    for node_id, spec in practice.young_material().items():
+        for _ in range(30):
+            q = practice._know_order(spec)
+            if not q:
+                break
+            listed = q["prompt"].split(": ", 1)[1]
+            assert listed != q["answer"].replace(" ", ", ") or len(q["items"]) < 3, \
+                (node_id, q["prompt"])
+            assert ", ".join(q["answer"].split(" ")) != listed or " " in q["items"][0], \
+                (node_id, q["prompt"])
+
+
+def test_one_ordering_front_has_one_back():
+    """`bio.0.seasons` authored three rotations of one cycle: one durable
+    front, three backs — the defect class Round 25 was scored on,
+    reintroduced by Round 26's own feature."""
+    for node_id, spec in practice.young_material().items():
+        fronts = {}
+        for s in spec.get("sequences") or []:
+            core = [str(x) for x in s if not isinstance(x, dict)]
+            if len(core) < 3:
+                continue
+            key = frozenset(core)
+            fronts.setdefault(key, set()).add(tuple(core))
+        dupes = {k: v for k, v in fronts.items() if len(v) > 1}
+        assert not dupes, (node_id, list(dupes.values())[0])

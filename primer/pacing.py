@@ -111,8 +111,12 @@ def srs_minutes_per_node(deck: "Dict | None") -> float:
 # is a bound, not a measurement, and saying otherwise is the exact dishonesty
 # `learner.pace()` refuses when it returns None.
 ARTICLE_MODEL_MINUTES = 6.0  # server.ARTICLE_MINUTES, the book's own figure
-RATE_MIN_ARTICLES = 8        # fewer than this is a sample, not a rate
-RATE_MIN_MINUTES = 60.0      # ...and neither is an hour of reading
+# Proportionate to what it rescales. An auditor measured one hour of clocked
+# reading moving a five-thousand-hour plan by up to 79%; that is not a rate,
+# it is a rumour. Twenty articles and four hours is still a small sample of a
+# decade, but it is a sample of something.
+RATE_MIN_ARTICLES = 20       # fewer than this is a sample, not a rate
+RATE_MIN_MINUTES = 240.0     # ...and neither is an afternoon of reading
 RATE_FLOOR = 0.6             # a fast reader is not given a fifth of a curriculum
 RATE_CEIL = 1.8              # nor a slow one three times one they cannot finish
 
@@ -126,7 +130,10 @@ def instructional_rate(graph: Dict, reading: "Dict[str, float] | None") -> Dict:
     exactly 1.0 whenever `measured` is False.
     """
     out = {"factor": 1.0, "measured": False, "clamped": False, "articles": 0,
-           "minutes": 0.0, "modelled": 0.0, "per_article": None}
+           "minutes": 0.0, "modelled": 0.0, "per_article": None,
+           # The thresholds, so the page can say when the plan becomes the
+           # reader's own instead of hard-coding a number that drifts.
+           "min_articles": RATE_MIN_ARTICLES, "min_minutes": RATE_MIN_MINUTES}
     if not reading:
         return out
     # Only articles this book actually assigns. Wiki-wandering off the
