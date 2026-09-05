@@ -2316,23 +2316,18 @@ class LearnerStore:
     def upsert_google_reader(self, google_sub: str, email: str, name: str) -> int:
         """Find or create the reader row for this Google identity.
 
-        Keyed on `google_sub`, Google's stable subject id — never on email,
-        which can change or be reused by a different person. Insert-first,
-        not select-then-branch: two callback requests for the same brand-new
-        identity (a double-click, a retried request) would otherwise both see
-        no existing row and both try to create one, and only one can win the
-        UNIQUE constraint. Losing that race is not an error here — it just
-        means the row now exists, so the fall-through UPDATE finds it.
+        Keyed on `google_sub`, the stable identity key, never on email.
+        Resolve repeat sign-ins in SQL: the HTTP client can surface a UNIQUE
+        violation as a malformed result instead of sqlite3.IntegrityError.
+        A single UPSERT also handles concurrent first sign-ins atomically.
         """
         now = time.time()
         with _lock, self._conn() as c:
-            try:
-                c.execute(
-                    "INSERT INTO readers(google_sub, email, name, created_at) "
-                    "VALUES (?,?,?,?)", (google_sub, email, name, now))
-            except sqlite3.IntegrityError:
-                c.execute("UPDATE readers SET email=?, name=? WHERE google_sub=?",
-                         (email, name, google_sub))
+            c.execute(
+                "INSERT INTO readers(google_sub, email, name, created_at) "
+                "VALUES (?,?,?,?) ON CONFLICT(google_sub) DO UPDATE SET "
+                "email=excluded.email, name=excluded.name",
+                (google_sub, email, name, now))
             row = c.execute("SELECT id FROM readers WHERE google_sub=?",
                             (google_sub,)).fetchone()
         return int(row[0])
