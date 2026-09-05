@@ -5369,3 +5369,55 @@ stated in the gate's own code: a field with no ladder opens on assumed credit
 and is labelled assumed until proved.
 
 Everything under "Repaired" is mine and unaudited.
+
+---
+
+## Round 31 — Learning loops and the mastery ladder (2026-09-05)
+
+### Findings and repairs — implementation claims, initially unaudited
+
+Round 30's intended ten-item, three-pass young rule was not consistently enforced:
+the quiz could still serve five, the scoring floor accepted five countable items,
+and the last two passes could cluster after the first gap. These now share the
+stricter rule, individually spaced, with matching node/story copy. Unscored
+practice counts a completed Today practice step without counting Learn or mastery.
+
+All 75 young banks received authored pair/order explanations. Independent review
+then found wrong age/pitch/phase keys and undefined total orders; these were fixed
+or withdrawn, and spoken criteria now follow each sequence. Failed review feedback also
+needed to restart answer exposure, including legacy explained and abbreviated
+cards. A normalized front identity now closes that cross-surface hole. Ordering
+review alternatives preserve whole members and work on a one-card deck.
+
+Advanced general evidence now sets a stage-2 interface floor while retaining the
+one-rung downward cap and specialist exclusion. Earned promotion and recovery are
+checked with real advancing clocks, replacing ineffective timestamp fixtures.
+Reading rate changes only assigned reading allowance, and its copy describes
+longest visits rather than asserting article completion. Tutor, picture, paper and
+tab visibility holds pause the same clock independently. Assumed access is labelled.
+
+### Independent audit and measured outcomes
+
+The auditors first rated frozen tree `cc238d81dc375694718746d479b86c062d1f8f95`
+**6.0 learning loops / 7.5 mastery**, with concrete semantic, review-exposure and
+measurement/test-fixture defects. After repairs, both independently rated candidate
+`9031ee70447222574a2a86634a1a24adeb26edbc` **8.0/10**. Reports retain the failed
+claims, counterexamples, measured discrepancies and remaining limitations.
+These are their scores, not an implementation self-assessment.
+
+The browser completed wrong answer → authored feedback → mistake card → due review
+→ re-encounter → three spaced passes → proven mastery. It also confirmed an
+unscored perfect retry counts Practice, not Learn. Six deliberate regression
+mutations were caught, including the opposite failure of burning successful recall. The policy enumeration covers 23,328 transitions; realistic
+HTTP earned promotion/recovery and graduate surface checks pass.
+
+Final implementation commit: `b3e1533`, tree
+`a97009117654ddff83725e14bf330a9eced22944`. Full suite: **1,629 passed,
+3 skipped**. Across three nodes, two seeds and 45 days per behaviour, all
+12 guessing/half-knower runs remained unproved; all six learning runs proved in
+7–13 days. Final graded adaptation probe: **1/23 vs 22/23 errors** under the
+stated model. Both final independent audits confirm 8.0/10 on this exact implementation tree.
+See `docs/learning-loop-ladder.md` for exact evidence, assumptions, commands and
+remaining work. Human retention, transfer and the base instructional time model
+are not claimed validated. The requested same-URL dashboard returns “Page not
+found”; a publication-ready update is prepared locally pending access.
