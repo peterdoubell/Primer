@@ -4705,3 +4705,667 @@ in both themes: the tokens resolve, the page turns on real navigation, the
 stagger runs `0s → 0.04s → 0.32s` and collapses to `0s` with every token
 zeroed, the modal blurs and springs, the toast is glass, and the console is
 empty.
+
+---
+
+## Round 22 — a board of ten, and the instrument that had never been built
+
+A fresh board of ten was convened, one seat per dimension of the Primer's
+objective, with an independent skeptic behind every finding whose brief was to
+*refute* it. Forty findings were filed; **thirty survived, ten were refuted** —
+a refutation rate worth recording, because it is the part of the process that
+keeps a score honest.
+
+| # | Benchmark | R21 | **R22** |
+|--:|-----------|:---:|:-------:|
+| 1 | Curriculum Coverage & Sequencing | 9.6 | **7.5** |
+| 2 | Assessment Validity | 9.0 | **7.5** |
+| 3 | Mastery, Placement & Pacing Integrity | 9.3 | **7.0** |
+| 4 | Retention & Spaced-Practice Engineering | 9.3 | **7.5** |
+| 5 | Developmental Appropriateness | 9.2 | **8.0** |
+| 6 | Engagement & Habit Architecture | 9.3 | **7.5** |
+| 7 | Narrative Integration & The Book as Artifact | 9.3 | **7.5** |
+| 9 | Interface, Age-Adaptivity & Accessibility | 9.3 | **8.8** |
+| 10 | Engineering: Security, Reliability | 9.2 | **8.0** |
+| 12 | Interactive Learning Loops (Meta-Learning) | 9.0 | **6.0** |
+| | **Average** | **9.25** | **7.53** |
+
+The drop is not a regression in the code so much as a correction in the
+measurement. Two causes, both worth naming. The 84-module radiology corpus
+landed after the last scoring and was never audited by it — it is 19% of the
+graph, has no internal prerequisite edges at all, and collapsed the graduate
+tier's time model. And several benchmarks had been scored against tooling that
+did not look where the defects were.
+
+### The placement check had never once reached the reader
+
+The board's only CRITICAL, and the first thing the book does for every reader
+over six. `/api/placement/next` picks the rung from age — 4 for an adult — and
+returns it; the client kept submitting its own `S.stage`, which setup stores as
+0 for everybody, so the submit came back 409 and the reader was told *"likely
+the network, never you — your answers are safe"* while nothing had been stored.
+Underneath it, a settled placement could not raise anyone: the single-domain
+branch read `min(prof["stage"], measured[0])`, written in Round 5 when setup
+seeded a stage from age, and a later round set every new profile to 0 on
+principle — turning that line into `min(0, anything)`. A reader measured at
+Grove still got the pre-reader interface, Simple English, and a story frozen at
+page one. Both are fixed and both are now held by tests; every placement test in
+the suite had submitted the stage the server just handed back, which is exactly
+why none of them caught a client that sent its own.
+
+### Half the graded surface had never been audited
+
+`check_banks.py` reads `data/curriculum/*.json` and nothing else. The other half
+is minted at request time by the ~50 generators in `practice.py`.
+`tools/check_generators.py` now measures it, and what it found had been sitting
+there since the generators were written:
+
+| generator | strategy | scored | chance |
+|---|---|--:|--:|
+| addition, subtraction, division, times-tables | pick the 2nd smallest | 49–56% | 25% |
+| counting | pick the 3rd smallest | 87% | 25% |
+| patterns | pick the 2nd smallest | 90% | 25% |
+| shapes | pick the smallest | 100% | 25% |
+| primes | always answer "no" | 72% | 50% |
+| ph, probability, limits | one key dominates | 40–43% | 33%/25% |
+
+Every audit the project had measured the order options are *displayed* in —
+which `_mc` does shuffle. The exploit was the key's rank once a reader sorts the
+numbers by size, and sorting undoes a shuffle. The four arithmetic drills are
+the most-used generators in the book. All 51 now audit clean, seeded so a
+verdict is reproducible rather than lucky.
+
+**A fix tried, measured, and withdrawn.** The first attempt put a generic
+rank-balancer inside `_mc` for every numeric option set. It made `g_place_value`
+*worse* — 27% to 40% — because that generator's distractors are three random
+distinct digits, already well spread, and rebuilding them from mirrored offsets
+near the zero floor collapsed the below-side and pinned the key at rank 1. It
+was withdrawn for targeted fixes at the generators whose recipe was actually
+fixed. The measurement, not the idea, decided it.
+
+### The item that was always wrong, and the backup that was mostly cache
+
+Every paper from Sapling up closes with a written reflection that is `ungraded`
+by construction. `/api/quiz/check` marked it anyway — `score_quiz` skips
+ungraded items and floors the denominator at 1 — so it returned 0.0 and told the
+reader they were wrong whatever they wrote, capped every quiz at five of six,
+and burned the item for a week for having been missed.
+
+And `backup()` page-copied the whole SQLite file, which holds two unlike things:
+the reader's irreplaceable multi-year record, and the wiki article/image caches,
+which are bytes a ZIM file or a URL away. Every "backup of the learner record"
+was in practice 319 MB of disposable cache around about a megabyte of the
+reader's actual life — five rotated generations of it. Measured on a seeded
+copy: **58.9 MB → 112 KB**, record intact, integrity ok. Retention also deleted
+only the `.db` and left the `-wal`/`-shm` beside it, so 672 orphans had piled up;
+deletion is sidecar-aware now and a finished backup is one file.
+
+Also fixed: placement was offered only for `domains[0]`, so a reader who chose
+three fields could be measured in one and left to assert the rest on a slider;
+the story page numbered its cards from the raw array while counting the total
+from the reader's own chapters, so it could head a card **"Chapter 63"** above
+the line *"0 of 8 chapters earned"*; Space on an in-article wikilink was
+swallowed by a keydown handler, so a keyboard reader could not page down; the
+day/night toggle's fixed `aria-label` overrode the one word that said which mode
+was on; two chapters printed their authoring asterisks; and `SettingsIn` was the
+only client-writable model with no length bound.
+
+Suite: **785 → 844**. `check_banks.py`: 0 problems across 11 files.
+`check_generators.py`: 0 problems across 51 generators.
+
+## Round 22, continued — the register cleared
+
+The round shipped with sixteen confirmed findings named and open, on the
+principle that a review which quietly drops what it did not reach is not a
+review. This closes all sixteen.
+
+The pattern worth recording is not in the findings. It is that **every one of
+the sixteen fixes departs from the remedy the board proposed**, because the
+skeptic who verified each finding also took the proposed fix apart:
+
+- The pricing fix's own "small group falls back to the stage average" guard
+  would have put `(5, arts)` — three nodes, a general graduate group — straight
+  back on the clamp floor it was meant to lift them off.
+- The relearning-card condition (`reps == 0 and lapses > 0`) also matches a
+  reader who blanks a card, closes the book, and returns a week later. It would
+  have traded an over-crediting bug for an under-crediting one on the honest
+  path.
+- Routing that case to the q==3 branch would not have closed the hole anyway:
+  its 0.5 floor still lifts the node back over the freshness gate.
+- `revoke_assumed`'s replacement SQL had to keep a `passes = 0` clause on the
+  DELETE or it would still remove the rows the UPDATE existed to preserve.
+- The focus-ring remedy (padding plus negative margins) would have pulled the
+  strip into the sidebar's 10px flex gaps; the `overflow-x: clip` alternative
+  would have killed the strip's horizontal scrolling. Drawing the ring inside
+  costs no geometry at all.
+- Rejecting only `Sec-Fetch-Site: cross-site` leaves `same-site` through, which
+  for a book on 127.0.0.1 is another origin.
+- And the short-answer finding reported 81 items where the discriminating
+  measurement — the GAP between the model answer's score and the stem's, not
+  the stem's score alone — finds 7. A question about bounded linear functionals
+  on a normed space cannot avoid the word "norm"; the rule has to know that.
+
+Two numbers from the pricing fix are worth keeping. Before: **49 of 52** general
+graduate nodes on the 0.5 clamp floor, nine of ten general domains with their
+whole graduate tier at half, general spine 5,486 h. After: **0 of 52**, and
+6,626 h against the ~6,500 the instructional-time anchor claims. The comment
+stating that anchor had been quietly wrong since the specialist field landed;
+it now says what the code computes and where to measure it.
+
+Suite: **846 → 849**. `check_banks.py`: 0 problems across 11 files.
+`check_generators.py`: 0 problems across 51 generators.
+
+## Round 23 — two benchmarks pushed, and where the bar stops being a bug list
+
+The product asked for Interactive Learning Loops 6.0 → 8.0 and Mastery,
+Placement & Pacing 7.0 → 8.0. Five independent scoring rounds were run against
+a **pinned worktree**, each assessor followed by an auditor briefed one-way: find
+every reason the score is too high. The pinning matters — an earlier round
+produced a page of false findings because the shared checkout changed branch
+underneath the assessor, and a second misdiagnosed a serious defect after a
+silent port collision with another agent's server.
+
+**Mastery, Placement & Pacing: 7.0 → 7.5 (audited).**
+
+- A re-measurement could only ratchet UP. Scoping the settle to the current run
+  was half a fix; the entry point still read the whole history, so a reader
+  measured down to Seedling re-opened at the top of the ladder and one passing
+  paper handed back the level they had just lost — a placement decided by a
+  single quiz, in the path that exists to correct a bad morning.
+- Radiology's placement asked five consecutive papers containing **zero
+  questions**, marked each 0.0, and recorded stage 0 — for a field whose 84
+  modules are all Forest. The staircase now only offers rungs a field can set a
+  paper at.
+- And when that reader failed, the book told them it had found ground "a little
+  below Forest". There is no below. It now says what is true.
+
+**Interactive Learning Loops: 6.0 → 6.0 (audited), with real movement inside it.**
+
+- **One paper, one mark.** The score shown was not the score recorded: a
+  partial short answer ticked green and counted whole on screen while
+  contributing 0.6 against a 0.8 pass mark. "6 of 6 · 100%" over a sitting the
+  server scored 0.73 and did not credit.
+- Production reached the youngest readers for the first time. `g_count_tally`
+  had been built, tested, given a touch UI and a validator — and wired to
+  nothing. Counting, addition and subtraction now count out; spelling, the
+  archetypal production skill, was being served as *"Which spelling is
+  correct?"* and now asks the child to build the word.
+- The day's quest counted attendance, not learning: a 17% paper ticked it off.
+
+**Why the meta-learning number did not move, stated plainly.** Every round the
+auditor reached a deeper structure than the last, and the two that now hold it
+at 6 are not defects:
+
+1. **75 of 89 stage 0-1 nodes carry no practice generator.** No generator work
+   reaches them; the produced item on their papers is the one domain-keyed
+   ordering item. Closing this is curriculum authoring, not code.
+2. **Per-node minutes are a stage constant scaled by prose density.** The
+   auditor reads the bar's "anchored to instructional time" as requiring
+   per-node anchoring. That is the documented design (curriculum.py:100-118),
+   and changing it is a redesign rather than a repair.
+
+One measurement is disputed and recorded as disputed: an auditor scored young
+papers as 97.8% "asking nothing produced". A census of 190 assembled papers
+found **100% carry a produced item** and 17% of items are produced — the
+difference is that the audit excluded ordering, which is production.
+
+Three findings were checked and NOT acted on, each because a test recorded a
+deliberate decision the audit's framing missed: the retry that never submits
+(scoring it would launder revealed answers), the per-subject slider's reduced
+proof bar (a real pass is still required), and the age-scaled proving gap (six
+hours is deliberate for a five-year-old; the rubric says "days"). Bending
+pedagogy to a rubric word is teaching to the metric.
+
+Suite: **849 → 850**. `check_banks.py`: 0 problems across 11 files.
+`check_generators.py`: 0 problems across 51 generators.
+
+---
+
+## Round 24 — closing blocker 1: the young half of the book gets a loop
+
+Round 23 named two things holding **Interactive Learning Loops** at 6.0 and
+declared both out of scope. One of them was not out of scope; it was just
+large. This round closes it.
+
+**75 of 89 stage 0-1 nodes had no practice generator.** Not an oversight so
+much as a shape mismatch: the ~50 generators in `primer/practice.py` are
+procedural — they *compute* an answer — and "Which one is a mammal?" has
+nothing to compute. So the youngest half of the book, the half the pacing
+model prices in *years*, had a read step and a quiz and nothing in between.
+The interactive loop cannot close on a node with nothing to practise.
+
+**What was built.** A knowledge-drill engine: the *material* is authored
+(`data/practice/young.json`, 75 nodes), the *drill* stays procedural. One
+node's entry supplies groups, pairs, sequences and facts; the engine mints an
+unbounded stream out of them — category picks, matches either way round, and
+orderings the child produces rather than recognises. Each node gets its own
+registered generator (`know:<node id>`), so `list_generators()` sees them and
+`tools/check_generators.py` audits all 126 on identical terms.
+
+- **Coverage: 14 of 89 → 89 of 89.** No generator is reused across a node it
+  does not fit; every young node runs on its own material.
+- **Production, measured through the real `/api/quiz` path:** of the 38 papers
+  a fresh reader can draw, 100% carry a produced item — and 39% now draw it
+  from the node's own material rather than the generic domain fallback, which
+  was 0%. Produced items are 24% of all items, up from 17%.
+- Every item is spoken and tappable. Nothing below stage 2 requires reading or
+  typing — the rule `test_young_practice_never_requires_typing_and_is_voiced`
+  has enforced all along, and which caught the first thing I got wrong here.
+
+**What the auditors caught, and it was not a small list.** Authoring 75 nodes
+by hand produced defects at a steady rate, and every one was found by a tool
+rather than by reading it back:
+
+- Two template bugs. Running a forward prompt backwards gave *"How many are in
+  one 7 days?"*; a template that does not negate by rule gave *"Which one is
+  NOT a scale?"* against a list of things you weigh. Both directions are now
+  asked only where their own wording was authored.
+- A key-rank exploit in the fractions material (rank 3 at 57%, +32pp).
+- Six length tells, +10 to +13pp on pick-the-longest — including one caused by
+  my own distractor picker, which drained its "shorter" bucket first and so
+  put the key at the long end of every card it could. It round-robins now.
+- **`counting` wired to "Numbers to Twenty."** A node about the teens drilling
+  single digits; `test_young_practice_generators_are_topical` rejected it.
+- **`place-value` wired to a stage-1 node.** It mints *"In the number 7799,
+  what digit is in the hundreds place?"* with no spoken line — a six-year-old
+  reading a four-digit numeral off a screen. The voicing test caught it.
+- **A coin flip I reintroduced one level up.** The generator sampled its item
+  *shape*, so a four-item drill could come out all ordering, and whether that
+  drill was worth a review card then depended on the draw — exactly what
+  `is_durable_item` exists to have abolished.
+  `test_card_worthiness_is_declared_not_sampled` caught it. The shape now
+  rotates deterministically; content is still drawn. A side effect is worth
+  more than the fix: every drill of four now both asks the child to produce
+  something and asks for recall, where before that was merely likely.
+
+**What is locked.** `tests/test_young_practice.py` (313 cases): every young
+node has a registered generator, fills a whole six-item drill with distinct
+items, carries at least one orderable sequence, speaks every item, and never
+offers a duplicated option. The gap was curriculum authoring, which is exactly
+why it needed a test — nothing else stops it reopening with the next young
+node written.
+
+**Not verified:** the browser. Port 8748 holds another session's design
+sandbox pointed at the main checkout, not this worktree. The drills emit only
+`choice`, `order` and `tally` — three shapes the UI already renders — so there
+is no new front-end surface, but that is reasoning, not a screenshot.
+
+Blocker 2 (per-node minutes as a stage constant × prose density) is untouched
+and still a redesign rather than a repair.
+
+---
+
+## Round 25 — the board re-audits, and both scores go DOWN
+
+Round 24 closed a blocker and claimed the ground for it. Two adversarial
+auditors were then briefed one-directionally — find every reason this score is
+too high — and given the specific claims to break. Both scores fell.
+
+**Interactive Learning Loops: 6.0 → 5.0.** The auditor's sentence is the whole
+finding: *a loop that closes onto a false key is worse for meta-learning than
+no loop.* The 6.0 had been awarded over an absence, and an absence is neutral.
+
+- **Items with two right answers.** Fourteen members across six nodes belong to
+  two categories at once — red is both primary and warm — and the distractor
+  draw excluded by *group identity* rather than by membership. "Which one is a
+  warm colour?" offered red as a distractor for yellow and marked a child who
+  tapped it wrong. On `arts.0.colors`, 90.8% of category cards.
+- **Cards whose front does not determine their back.** `is_durable_item`
+  returned True for every `know:` item, so "Which one is a bird?" minted a card
+  whose answer was whichever member that draw happened to pick; the deck's
+  `UNIQUE(front, node_id)` then froze it. 247 of 1,127 fronts carried 985 backs
+  between them, one of them five.
+- **Nothing explained anything.** 0 of 9,000 minted items carried an
+  explanation, against 622 of 622 for the stage 0-1 authored items the drill
+  displaces. The spoken feedback was `'Not quite. The answer is ' + q.answer`.
+- **The auditing tool was structurally blind.** Both of `check_generators.py`'s
+  rank tests require `float(c)`, so on 75 word-answer generators they ran on
+  *zero* items. "0 problems across 126 generators" was an empty measurement. On
+  the axis the tool already believes in, measured by length, **58 of 75
+  exceeded its own 9pp tolerance**; worst, "always take the third shortest" at
+  64%.
+- Ten prompts were ungrammatical and spoken aloud as written — "Which one is a
+  insect?", "What sound does a owl make?" — and one node asked a six-year-old
+  "Which one does NOT keep you unhealthy?".
+
+**Mastery, Placement & Pacing: 7.5 → 6.5.** Two findings, and the second is
+mine from this round.
+
+- **The measured instructional rate was a no-op.** `reading_log.seconds` has
+  been in the schema since the first version and *nothing ever wrote to it* —
+  `log_reading()` takes a `seconds` argument and the one production caller
+  never passed one. So the term shipped as a documented per-reader correction
+  wired to a column of zeroes: `factor 1.0, measured False` for every reader,
+  verified through `/api/roadmap`. It was also structurally pinned: it divided
+  article-reading minutes by the node's whole *mastery* cost — about 478
+  modelled minutes per linked article against the book's own `ARTICLE_MINUTES`
+  of 6 — so every reader alive came out at the floor while the function
+  published `measured: True` over a constant. This is the identical defect the
+  same commit congratulated itself for finding in `deck`, one layer down.
+- **A live placement collapse.** `measured[(len - 1) // 2]` is the lower
+  median, and at n = 2 the lower median IS the minimum. Reproduced end to end:
+  ace math → stage 5; fail one history check → **stage 0**, which is the entire
+  pre-reader interface. Round 22's only CRITICAL, reachable in two sittings,
+  and Round 23 had scored it fixed.
+
+**The addendum that mattered more than either score.** The auditor ran the
+suite against the tree holding both defects: **1,255 passed, 3 skipped, 0
+failed**. Every test of the pacing term handed `instructional_rate` a literal
+dict on a synthetic graph, so none of them could see an empty column or a 478×
+denominator; no test had ever sat two placements in a row. Stated plainly for
+the record, because "suite green" has been the closing line of several rounds
+and it was green through all of this.
+
+### What was repaired
+
+Placement: a sitting may move the global stage at most one rung down;
+specialist fields are excluded from the general median, never recorded below
+their own floor, and no longer move the general reading level at all. The rate:
+rebuilt against like for like — minutes per article over `ARTICLE_MINUTES` —
+reporting `clamped` apart from `measured`, with `POST /api/reading/time` and a
+client reading clock actually filling the column, and the same outlier
+discipline `_per_item_seconds` uses. `/api/attempt` now returns the mark it
+recorded, so "one paper, one mark" reaches the practice splash too.
+
+Knowledge drills: distractors excluded by membership (0 two-answer items in
+22,262 draws); card-worthiness declared per shape from the material; **100% of
+items now explain themselves** — 334 fact explanations authored, plus
+structural ones for groups, pairs and orderings; the article and double-negative
+bugs fixed. `check_generators.py` now measures rank by length where the options
+are words, and the knowledge generators are **75 of 75 clean**, from 58
+failing. The same check exposed five pre-existing generators whose answers are
+mathematical expressions; they are recorded as a named open finding in
+`tests/test_generator_fairness.py` rather than hidden by a loosened tolerance.
+
+Tests now go through the real store, the real graph and HTTP
+(`tests/test_end_to_end_progression.py`). All five fail on the pre-fix tree.
+
+### Standing, and not to be read as settled
+
+Both scores are the board's verdict on commit `88cd908`. Everything above came
+after it, and none of it has been independently audited. The loops auditor's
+warning is recorded in full: it watched this worktree change underneath it,
+including the very tool whose blindness it had just reported, and it is right
+that a later "0 problems" from that tool is not independent evidence of
+anything. Two of its numbers also beat mine and stand corrected here: node-own
+production is **43.3%**, not the 39% Round 24 claimed (and the figure moves with
+a process-global counter rather than with the reader), and
+`test_young_practice.py` collects **319** cases, not 313.
+
+Not done, and named by the auditors as still standing between here and 8.0:
+production that is more than a median of two fixed sequences per node; ordering
+items admitted to the review loop under a stable front; adaptivity of any kind
+(the drill ignores `level` and does not prefer what this reader missed); the
+drill as a priced step of the day; rendering the roadmap's published workings
+anywhere the reader can see them; whether assumed placement credit should open a
+graduate gate; and a browser check.
+
+---
+
+## Round 26 — working the auditors' list
+
+The Round 25 auditors left a concrete list of what stood between each
+dimension and its target. This round works it, in the order that matters most
+to a young reader.
+
+**Interactive Learning Loops.**
+
+- **Production is no longer two memorised tap-sequences.** 162 orderings
+  authored: sequences per node from a median of 2 (54 nodes at two or fewer)
+  to a median of 5, minimum 3.
+- **Orderings can come back tomorrow.** 0 of 468 could mint a card, because
+  every generated `order` item is ephemeral by construction — the sequence is
+  drawn fresh, so one front maps to many backs. These sequences are authored
+  and finite, which is the case `quiz.py` already documents as durable for a
+  bank item. The prompt now names its own set — "Put the seasons in order:
+  autumn, spring, summer, winter" — a stable front with one stable back, and
+  durability is declared through `is_durable_item` rather than by a generated
+  item claiming `ephemeral: False`, which a guard test rightly forbids. 136 of
+  136 now card-worthy; `order-numbers`, `order-time` and `order-lifecycle`
+  stay ephemeral exactly as before.
+- **The drill responds to the reader.** `level` was accepted and ignored. A
+  Seedling now meets the tapping shape every third item rather than every
+  fourth and the shortest options first; a Sprout meets more of the facts.
+  And the drill **prefers what this reader has actually got wrong**: the deck
+  is precisely that record — every card was minted from a missed item — and
+  nothing had ever read it. Drawn three times wider than asked, sorted so the
+  sore spots lead, same paper size; a clean deck sees no change at all.
+- **A measurement bug in my own tooling.** Two generators came out clean alone
+  and dirty in the suite. The shape rotation is a process-global counter, so
+  an audit inside a long-lived process starts wherever the last caller left
+  it. Seeded auditors now reset it. A verdict that depends on how many items
+  were drawn before it is not a measurement.
+- Widening the material re-exposed length tells and **four answer spaces that
+  were two or three values wide** — `phys.0.float-sink`'s pairs answered only
+  "it floats" or "it sinks", so *always say it sinks* scored 35%. All widened
+  with the reason, not just the verdict. Knowledge generators: 75 of 75 clean.
+
+**Mastery, Placement & Pacing.**
+
+- **The workings are rendered.** `instructional_rate`, `srs_minutes_per_node`
+  and `nodes_assumed` were computed, published, and shown to nobody. The
+  roadmap now carries "How these hours were arrived at": the reader's measured
+  pace (or that it is not measured yet, and when it will be), the review cost
+  folded into each topic, and how much of the mastered count is assumed rather
+  than proved.
+
+**Still open from the list:** the drill as a priced step of the day; whether
+assumed placement credit should open a graduate gate; a browser check. And
+neither dimension has been re-audited since Round 25 — every number in this
+entry is mine.
+
+---
+
+## Round 27 — re-audited at d4312ea, and both scores fell again
+
+Two fresh auditors, each on its own pinned extraction of `d4312ea`, briefed
+one-directionally. **Interactive Learning Loops 5.0 → 4.5. Mastery, Placement
+& Pacing 6.5 → 5.5.** The Round 25 repairs held — every one was reproduced —
+and the Round 26 *features* were what fell.
+
+**Loops (4.5).** The headline "adaptivity" locked the loop for the child it
+was built for. The sore-first draw put the burned items FIRST — they are, by
+definition, the ones the reader missed — `_drop_burned` removed them at
+submit, and `record_attempt` refused the sitting for having too few items
+left. Measured over HTTP: a child who missed two of five was refused on **5 of
+5** honest retries; with the feature stubbed out, 2 of 5. The loop was not
+closing; it was locking, for a week. And `level` was honoured *backwards*: the
+ordering cadence and the recall rotation shared one counter, so at level 0 the
+ordering always landed on the phase where the category pick would have led —
+served **0.0%** of the time to a Seedling, whose whole drill shrank to sixteen
+distinct items. Also: 41 of 347 ordering fronts listed their members
+alphabetically, and 41 orderings *are* alphabetical, so the front printed the
+answer; ~44 of the 162 added orderings sat under a node prompt that did not
+describe them ("bedtime steps: dry them, rinse, soap, wet your hands");
+`bio.0.seasons` authored three rotations of one cycle — one front, three backs,
+the defect class Round 25 was scored on; 72.5% of explanations are templates;
+`big-o`'s fairness verdict depended on `PYTHONHASHSEED`.
+
+**Mastery (5.5).** "At most one rung down per sitting" converged towards a
+target that was still the minimum at two fields, so a Forest reader was walked
+to the nursery over four sittings **by acing maths four times**; the lone-field
+branch had no cap at all (one failed re-check: 5 → 0, and no later pass could
+raise it); sitting radiology first counted as "a prior measurement" and froze a
+later perfect maths placement at 0. The reading clock billed quiz time as
+reading, nulled itself on tab-hide and never resumed (undercounting is NOT the
+safe direction — fewer minutes read as a faster reader and a shorter plan),
+and sent from `pagehide` with a plain fetch the browser is free to cancel.
+`RATE_MIN_MINUTES = 60` let one hour of clocked reading move a five-thousand-
+hour plan by up to 79%. The e2e placement helper keyed on a field the API does
+not return, and the fixture imported `primer.server` before pointing it away
+from the live record.
+
+### Repaired
+
+One global-stage rule for every branch: median of the general fields (an even
+count splits the difference — {0, 5} is Grove, not preschool), at most one rung
+per sitting in *either* direction, and a sitting whose own result is at or
+above the current stage never lowers it. Specialist fields count for nothing
+either way. Four end-to-end tests sit the auditor's exact scenarios, and one
+asserts the one-rung invariant across six consecutive sittings.
+
+The sore-first draw excludes anything the burn has spent, and `missed_fronts`
+decays with the SRS — due, young, or recently lapsed cards only. An HTTP test
+misses two, then retries five times honestly: 0 refused. The recall rotation
+counts only non-ordering turns: level 0 now serves the category shape 23% of
+the time and 28 distinct items per node at both levels. Ordering fronts are
+listed in a stable order that is checked against the answer; 98 orderings
+carry their own prompt; the seasons are one cycle. The reading clock pauses
+for a paper and on tab-hide, resumes on return, and sends with `keepalive`.
+`RATE_MIN_ARTICLES = 20`, `RATE_MIN_MINUTES = 240`, longest sitting per title
+rather than the sum, thresholds published to the page, and the page says "at
+least" when the ceiling is hit. `big-o` draws from the seeded stream and is off
+the known-findings list. Tests set `PRIMER_DB` before the import.
+
+### Not repaired
+
+Explanations for pairs and orderings are still structural, not authored. The
+pair-item tells the auditor measured — the option without an article, the
+option sharing a word with the prompt — are not yet in the tool. The drill is
+not a priced step of the day. Assumed placement credit still opens graduate
+gates, a decision the board has asked to be made explicitly rather than
+shipped. No browser check. And these scores are the board's verdict on
+`d4312ea`; everything in "Repaired" is mine and unaudited.
+
+---
+
+## Round 28 — third audit at 4a66e20; the loop's design fault
+
+**Interactive Learning Loops 4.5 → 4.0** at `4a66e20`, on a pinned extraction.
+Round 27's repairs each held for the scenario their test encoded and failed one
+layer deeper under honest use — and the auditor found the fault underneath all
+of them.
+
+**The design fault.** Excluding burned items from the paper (Round 27's fix for
+the lock-out) meant excluding exactly the items the reader got wrong. Over a
+week her papers converged on what she already knew. Simulated over HTTP: a
+child who knew a fixed random half of `bio.0.animals` was **credited with
+mastery in 5–20 days on every seed**, having learned nothing; with the exclusion
+removed, never. And the lock-out was still reachable at higher miss rates — miss
+four of five for six sittings, then answer everything right: refused 3 of 3. The
+child refused was the one who had just learned it. Also: the sore-first
+preference served 0 sore items in 10 papers (sore ⊂ burned for a week) and
+changed time-to-mastery on 0 of 18 runs; 51 of 343 ordering fronts were the
+answer *backwards*; `lang.1.sentences` gave position one away by capitalisation;
+"s, t, o, p" has four valid words; ~20 sequences had no defensible order (dance
+steps, polite words, cycles started anywhere); the client attached no speaker
+to any ordering chip and never showed an ordering's explanation; and on a
+Seedling's two-option review the structural explanation on the card's back
+restated the front, so "tap the option that says the word in the question" won
+83%.
+
+**Repaired.** Exposure and evidence are separate now. The draw leads with the
+sore spots burned or not, then fills with items that can still count; a
+sitting with too few countable items is graded, explained, its misses become
+cards, and it records no mastery — **it is never refused**. Both simulations are
+permanent tests: honest practice at any miss rate over many sittings, 0
+refused; a half-knower over 21 days, never credited. Ordering fronts are checked
+against the answer and its mirror; 17 indefensible sequences dropped; sentence
+orderings lowercased and the voice says why. Ordering chips are spoken and the
+ordering's explanation reaches the screen. Structural explanations are flagged
+and kept off card backs.
+
+**Mastery, Placement & Pacing 5.5 → 6.0** at `4a66e20` — the first upward
+movement in the series. Every Round 27 scenario reproduced as repaired and the
+reading-time wire exists end to end. Three findings kept it from more:
+
+- **The one-rung cap throttled recovery as hard as demotion.** Fail maths once
+  (stage 0), re-check a week later acing every rung: stage **1**, with a
+  stage-5 result in hand, and four more weekly re-checks to reach 5. History 0
+  then maths 5: stage 1 on a median of 3. Exhaustive simulation to depth 8:
+  560,218 sitting-states at stage ≤ 1 while holding a ≥ 4 result.
+- **A second, uncapped writer.** `_check_ascension` wrote `max(stage, rank)`
+  with no cap, over the lower median of the *chosen* fields only, from
+  assumed credit — so history 0 was not evidence against a reader whose
+  chosen field was maths, and two passes on a preschool node moved them 1 → 5.
+- **The rate could only enter at its ceiling.** 240 min ÷ 20 articles = 12
+  min/article = raw 2.0, clamped to 1.8: the twentieth article moved an adult's
+  plan +78% in one step. And the clock: paused for a paper, resumed by nothing;
+  a tab switch during a quiz un-paused it.
+- The six-sitting test sat "bio" and "chem" — not field ids — so two sittings
+  were 409s and the invariant was asserted over four.
+
+**The decision the board asked for, made and written down.** Assumed placement
+credit opens every rung up to undergraduate work and does not open the
+graduate gate: `stage_gate_open` at stage 5 counts proven nodes only. Before:
+acing the maths interview opened 4 of 10 graduate maths nodes with nothing
+ever demonstrated. After: 0, and undergraduate work still opens.
+
+### Round 29 — repaired
+
+One writer for the stage, `_settle_stage`, with one policy: the cap is on
+distance from the evidence, not on velocity — upward moves go to the target,
+downward moves are one rung per sitting, and a sitting whose own result is at
+or above the current stage never lowers it. The placement settle and the
+ascension ceremony both call it, and ascension's evidence now includes every
+field the book has measured, chosen or not. Tests: fail-then-ace lands at
+Forest, not Seedling; history-then-maths lands at the median; a preschool pass
+cannot lift a reader past it; the six-sitting test sits six real fields; the
+graduate gate refuses assumed credit and undergraduate work still opens.
+
+`RATE_MIN_MINUTES` 240 → 100 (5 min/article, under the model's 6), so a reader
+of any pace crosses on articles alone. The clock's pause carries who asked for
+it: a paper's hold is released only by the paper closing, a tab's only by the
+tab returning; `pageshow` restarts a clock the back/forward cache stopped.
+
+Everything under "Repaired" is mine and unaudited.
+
+---
+
+## Round 30 — fourth audits at 3ab0e1f; the coin flip under the bar
+
+**Interactive Learning Loops 4.0 → 4.5.** Mastery, Placement & Pacing **6.0 →
+5.5.** Both on pinned extractions of `3ab0e1f`.
+
+**Loops (4.5).** The lock-out is confirmed gone and the learned child is
+credited. The lead finding is statistical, and the bar was mine to have seen:
+five four-choice items with one miss allowed is passed 38% of the time by a
+child who knows half and *taps the rest at random*, and two such passes were
+mastery. The Round 28 "half-knower never credited" test held only because it
+aged the card table and never moved the wall clock — a reader who knew
+everything was also never credited under it. With real taps and a real clock:
+credited **15 of 16 seeds** at 50% knowledge, and a pure guesser 5 of 16. Also:
+the `unscored` sitting was invisible on screen — the child heard "You got 5 out
+of 5. Wonderful work!" and read "Set down in the Book" over a paper that
+recorded nothing; ordering cards on a Seedling's two-option review were
+word-matchable at 89% (the back is the front's own members) and fact cards at
+78% (the explanation on the back echoes the prompt); and the seven-day burn
+window kept an honest Seedling's loop from closing in under a fortnight.
+
+**Mastery (5.5).** Every Round 29 scenario reproduced as repaired, and three
+holes remained. The first-general-measurement branch wrote the raw result and
+never called the writer, so a reader who had *earned* stage 2 by proving
+thirteen nodes sat their first placement, failed it, and went to 0 in one
+sitting. `/api/curriculum` — the route that draws the map — never received
+the proven set, so four graduate maths nodes were open on the map, locked on
+the node page, and the node page gave no reason (`unlock_requirements`
+reasoned from mastery even when handed `proven`). And `settings.rank` was a
+high-water mark: once a placement demoted a reader, mastery could never
+promote them back below the old rank. Also: one 89-minute sitting still moved
+a plan by half; tutor chat and the lightbox bill as reading; radiology's 84
+modules open on assumed credit through the empty-previous-stage branch.
+
+### Repaired
+
+**Evidence for the youngest two stages.** The drill is ten items, every one
+must be right, and it takes three spaced passes — `_evidence_bar`, threaded
+through `record_attempt` as a bar the caller may raise and never lower. Two
+tests with the wall clock actually advanced: a fixed half-knower tapping the
+rest at random over 45 daily sittings, not credited; an honest five-year-old
+who learns from each explanation, credited within a fortnight. The burn
+window is age-scaled like the proving gap (two days under seven). The
+unscored sitting says "Practised, not marked" in the reader's register,
+celebrates nothing, and the voice no longer praises it. On the two-option
+review the options are the answer alone, and an ordering's distractor is the
+same members in a different order.
+
+**The stage.** The first general measurement goes through `_settle_stage`
+like every other. `rank` is compared to the current stage, not to the last
+rank recorded. `/api/curriculum` passes `proven`; `unlock_requirements`
+reasons from it at the graduate gate; a test asserts map, node page and quiz
+lock agree on every graduate node after an aced interview. One sitting's
+weight in the rate is capped at thirty minutes. The specialist exception is
+stated in the gate's own code: a field with no ladder opens on assumed credit
+and is labelled assumed until proved.
+
+Everything under "Repaired" is mine and unaudited.

@@ -36,6 +36,95 @@ log = logging.getLogger("primer.learner")
 
 _lock = threading.Lock()
 
+# Tables that belong to the wiki cache rather than to the reader. They live in
+# the same SQLite file (server.py hands one path to both WikiService and
+# LearnerStore) but they are of a completely different kind: article and image
+# bytes that came from a ZIM archive or a URL and can come from there again.
+# A backup keeps the record and sheds these.
+_CACHE_TABLES = ("article_cache", "image_cache")
+# Backups smaller than this are left exactly as copied. The record alone is
+# ~100 KB; it is the caches that make the file hundreds of megabytes, so this
+# only needs to trigger where there is a great deal to reclaim. Set high on
+# purpose: shrinking costs an extra connection and a VACUUM temp file, and
+# under a long test run that pressure was enough to make *other* backups fail
+# with "disk I/O error". Reclaiming a few megabytes is never worth risking a
+# backup, so the threshold sits far above anything but a genuinely cache-heavy
+# database. Tests lower it to exercise the path.
+_SHRINK_BACKUP_ABOVE = 32_000_000
+
+
+def _shed_wiki_cache(path: str) -> None:
+    """Drop the cache tables from a finished backup and reclaim the space.
+
+    Takes a PATH, not a connection, and is called only after the copy has been
+    written, closed and verified: everything here is an optimisation on a file
+    that is already a good backup, so any failure must cost a larger backup and
+    nothing else. VACUUM in particular can fail for reasons that have nothing to
+    do with the reader's data — a full disk, an unwritable temp directory, an
+    exhausted file-descriptor table under a long test run — and none of those
+    are a reason to throw away a sound copy.
+
+    VACUUM also cannot run inside a transaction, and Python's sqlite3 opens one
+    implicitly unless isolation_level is None, so the commit and the isolation
+    change are both load-bearing rather than decoration.
+    """
+    # Only worth doing when there is something to reclaim. A backup of the
+    # record alone is ~100 KB; the caches are what make the file hundreds of
+    # megabytes. Below this there is nothing to win, and the cost is not zero:
+    # an extra connection and a VACUUM temp file per backup. Under a long test
+    # run those were enough to tip the process into "disk I/O error" and take
+    # unrelated backups down with them, which is a steep price for shrinking a
+    # file that was already small.
+    try:
+        if os.path.getsize(path) < _SHRINK_BACKUP_ABOVE:
+            return
+    except OSError:
+        return
+    conn = None
+    try:
+        conn = sqlite3.connect(path)
+        for table in _CACHE_TABLES:
+            conn.execute("DROP TABLE IF EXISTS {}".format(table))
+        conn.commit()
+        conn.isolation_level = None
+        conn.execute("VACUUM")
+        # A finished backup should be one file. The copy inherits WAL mode from
+        # the source and so landed with a -wal and a -shm beside it; those are
+        # what accumulated in the backup directory, and a restore that copies
+        # only the .db of a WAL-mode database is a restore missing whatever had
+        # not been checkpointed.
+        conn.execute("PRAGMA journal_mode=DELETE")
+    except Exception as exc:      # a bigger backup beats no backup
+        log.warning("could not shrink backup (keeping the full copy): %s: %s",
+                    exc.__class__.__name__, exc)
+    finally:
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception:
+                pass
+        for suffix in ("-wal", "-shm"):
+            try:
+                os.remove(path + suffix)
+            except OSError:
+                pass
+
+
+def _remove_backup(path: str) -> None:
+    """Delete a backup and the -wal/-shm sidecars SQLite leaves beside it.
+
+    Retention deleted only the `.db`, so every rotated-out generation left its
+    two sidecars behind for good: 672 orphans had accumulated in one backup
+    directory, and the two failure paths in `backup()` leaked them too, on
+    exactly the runs where something had already gone wrong.
+    """
+    for suffix in ("", "-wal", "-shm"):
+        try:
+            os.remove(path + suffix)
+        except OSError:
+            pass
+
+
 DAY = 86400.0
 PASS = 0.8                       # score that counts as a passing attempt
 MASTERY_MIN_INTERVAL = 2 * DAY   # min gap between 1st and 2nd pass to master (12+)
@@ -172,6 +261,29 @@ def _half_life(reinforcements: "float | None") -> float:
 # median with a number nobody spent.
 PACE_ITEM_MIN_SECONDS = 2.0
 PACE_ITEM_MAX_SECONDS = 300.0
+
+
+# The same untrusted clock, the same treatment, for a *reading* row. An article
+# left open overnight is not eight hours of reading, and an article opened and
+# shut in four seconds is not reading either. Both are discarded rather than
+# clamped, for the reason given above: a clamped forty-minute interruption is
+# still a number nobody spent.
+READ_MIN_SECONDS = 20.0
+READ_MAX_SECONDS = 60.0 * 90.0
+RATE_TITLE_CAP_SECONDS = 60.0 * 30.0
+
+
+def usable_reading_seconds(seconds: Optional[float]) -> Optional[float]:
+    """Seconds of reading worth recording, or None if the reading is not usable."""
+    try:
+        total = float(seconds)
+    except (TypeError, ValueError):
+        return None
+    if not math.isfinite(total):
+        return None
+    if total < READ_MIN_SECONDS or total > READ_MAX_SECONDS:
+        return None
+    return round(total, 1)
 
 
 def _per_item_seconds(seconds: Optional[float], items: int) -> Optional[float]:
@@ -875,8 +987,9 @@ class LearnerStore:
         """What this node still needs, in terms the book can explain."""
         with _lock, self._conn() as c:
             r = c.execute(
-                """SELECT level, passes, first_pass_at, mastered_at, assumed,
-                          strength, last_seen, reinforcements, first_mastered_at
+                """SELECT level, passes, attempts, first_pass_at, mastered_at,
+                          assumed, strength, last_seen, reinforcements,
+                          first_mastered_at
                    FROM mastery WHERE reader_id=? AND node_id=?""",
                 (reader_id, node_id)).fetchone()
             prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
@@ -887,7 +1000,8 @@ class LearnerStore:
         # reader a day and a half of credit they had already earned.
         prove_gap = _mastery_min_interval(prof_row["age"] if prof_row else None)
         if not r:
-            return {"passes": 0, "passes_needed": 2, "ready_at": None,
+            return {"passes": 0, "attempts": 0, "passes_needed": 2,
+                    "ready_at": None,
                     "mastered": False, "proven": False, "assumed": False,
                     "assumed_stale": False, "ever_proven": False, "faded": False}
         ready_at = None
@@ -922,6 +1036,13 @@ class LearnerStore:
         return {
             "level": round(r["level"] or 0, 2),
             "passes": r["passes"] or 0,
+            # How many times this has been SAT, not just how many landed. The
+            # node page had four state cards — proven, assumed, locked, and
+            # one-pass-in — and a reader who has failed the same lesson three
+            # times matches none of them, so the page they meet is byte for
+            # byte the page of a lesson they have never opened. The book knows
+            # they have been here; it just had no way to say so.
+            "attempts": r["attempts"] or 0,
             "passes_needed": 2,
             "ready_at": ready_at,
             "mastered": mastered,
@@ -1106,7 +1227,9 @@ class LearnerStore:
         return changed == 1
 
     def _apply_attempt(self, c, reader_id: int, node_id: str, score: float,
-                       assumed: bool, now: float):
+                       assumed: bool, now: float,
+                       pass_bar: Optional[float] = None,
+                       passes_needed: Optional[int] = None):
         """Apply one attempt, retrying if another instance changed its row.
 
         Turso's HTTP transport autocommits each statement, so the process-local
@@ -1116,12 +1239,23 @@ class LearnerStore:
         state instead of overwriting it.
         """
         while True:
-            applied = self._apply_attempt_once(c, reader_id, node_id, score, assumed, now)
+            applied = self._apply_attempt_once(c, reader_id, node_id, score, assumed, now,
+                                     pass_bar=pass_bar, passes_needed=passes_needed)
             if applied is not None:
                 return applied
 
     def _apply_attempt_once(self, c, reader_id: int, node_id: str, score: float,
-                            assumed: bool, now: float):
+                            assumed: bool, now: float,
+                            pass_bar: Optional[float] = None,
+                            passes_needed: Optional[int] = None):
+        # The bar and the count are the caller's to raise, never to lower. A
+        # five-item four-choice paper with one miss allowed is passed 38% of
+        # the time by a child who knows half and taps the rest at random, and
+        # two such passes are mastery: an auditor credited a half-knower on
+        # every seed. The young drill now asks for every item and three
+        # spaced passes; the defaults stay what they were for everything else.
+        bar = max(PASS, pass_bar if pass_bar is not None else PASS)
+        need = max(2, passes_needed if passes_needed is not None else 2)
         prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
                              (reader_id,)).fetchone()
         age = prof_row["age"] if prof_row else None
@@ -1179,14 +1313,14 @@ class LearnerStore:
             was_assumed = 1 if first_mastered_at is None else 0
             strength = max(prev_strength, 0.8)
         else:
-            if score >= PASS:
+            if score >= bar:
                 passes += 1
                 first_pass = first_pass or now
                 last_pass = now
-                # "Proven" means two passes, genuinely spaced. Until that is
+                # "Proven" means the passes, genuinely spaced. Until that is
                 # earned the node stays flagged `assumed`, even after a real
                 # attempt — placement credit must never launder into proof.
-                earned = (level >= PASS and passes >= 2
+                earned = (level >= PASS and passes >= need
                           and (now - first_pass) >= prove_gap)
                 if earned:
                     newly_mastered = mastered_at is None or bool(was_assumed)
@@ -1252,7 +1386,9 @@ class LearnerStore:
 
     def record_attempt(self, node_id: str, score: float, assumed: bool = False,
                        seconds: Optional[float] = None,
-                       items: int = 0, reader_id: int = 1) -> Dict:
+                       items: int = 0, reader_id: int = 1,
+                       pass_bar: Optional[float] = None,
+                       passes_needed: Optional[int] = None) -> Dict:
         """Record a graded attempt (score 0..1). Returns mastery + xp_gained.
 
         `seconds`/`items` are how long this paper took the reader and how many
@@ -1276,7 +1412,8 @@ class LearnerStore:
                 (reader_id, node_id)).fetchone()
             first_ever = not (_prior and _prior["first_mastered_at"])
             level, mastered, newly, lost = self._apply_attempt(
-                c, reader_id, node_id, score, assumed, now)
+                c, reader_id, node_id, score, assumed, now,
+                pass_bar=pass_bar, passes_needed=passes_needed)
             # The dated appointment this attempt just made, handed back at the
             # moment it is made instead of left for the next page to discover.
             # A first pass opens a spaced window (see `pending_proofs`), and
@@ -1401,14 +1538,34 @@ class LearnerStore:
         says otherwise the assumption has to go — otherwise a reader placed at
         stage 0 keeps 89 nodes marked known, and the book teaches around them.
 
-        Only `assumed` rows are touched: anything actually proven stands.
+        Only `assumed` rows are touched: anything actually proven stands — but
+        "assumed" and "has never been proved" are not the same row. `assumed`
+        stays 1 through a genuine passing attempt, because `_apply_attempt_once`
+        clears it only on the branch where mastery is actually EARNED (two
+        passes, spaced). So a placement-credited node the reader had since sat
+        and passed once still matched `assumed=1`, and the whole row went: the
+        pass, its timestamp, the attempt count, the strength — every trace that
+        the reader had done the work. The next placement to move them down did
+        not merely withdraw an assumption; it erased evidence, and the reader
+        had to earn that first pass a second time.
+
+        So revocation is surgical. A row with no passes is an assumption and
+        nothing else, and still goes. A row with a pass behind it keeps
+        everything the reader earned and loses only the credit: the assumption
+        flag, the mastery timestamp, and any standing above the mastery gate.
         """
         if not node_ids:
             return 0
         with _lock, self._conn() as c:
             c.executemany(
-                "DELETE FROM mastery WHERE reader_id=? AND node_id=? AND assumed=1",
+                "DELETE FROM mastery "
+                "WHERE reader_id=? AND node_id=? AND assumed=1 AND passes = 0",
                 [(reader_id, nid) for nid in node_ids])
+            c.executemany(
+                "UPDATE mastery SET assumed=0, mastered_at=NULL, "
+                "                   strength=MIN(strength, ?) "
+                "WHERE reader_id=? AND node_id=? AND assumed=1 AND passes > 0",
+                [(PASS - 0.01, reader_id, nid) for nid in node_ids])
             return c.total_changes
 
     def mastered_count(self, reader_id: int = 1) -> int:
@@ -1449,6 +1606,27 @@ class LearnerStore:
                 except Exception:
                     pass
         return added
+
+    def missed_fronts(self, node_id: str, limit: int = 40, reader_id: int = 1) -> List[str]:
+        """Card fronts for this node the reader STILL finds hard.
+
+        Every card was minted from a missed item, so the deck knows what this
+        reader got wrong — but a card the reader has since answered right and
+        right again is not a sore spot any more, and preferring it forever made
+        the same three fronts lead every paper indefinitely. So: only cards
+        that are due now, or were lapsed within the last fortnight, or are
+        still in their first steps (an interval under a week). A card the SRS
+        has pushed out to months is a thing the reader knows.
+        """
+        now = time.time()
+        with _lock, self._conn() as c:
+            rows = c.execute(
+                "SELECT front FROM srs_cards WHERE reader_id=? AND node_id=? "
+                "AND (due <= ? OR COALESCE(interval, 0) < 7 "
+                "     OR (COALESCE(lapses, 0) > 0 AND due <= ?)) "
+                "ORDER BY COALESCE(lapses, 0) DESC, due ASC LIMIT ?",
+                (reader_id, node_id, now, now + 14 * DAY, int(limit))).fetchall()
+        return [r["front"] for r in rows]
 
     def due_cards(self, limit: int = 20, reader_id: int = 1) -> List[Dict]:
         """Due cards, interleaved so you don't get a run of same-article cards."""
@@ -1665,7 +1843,36 @@ class LearnerStore:
             # correct must not make an old memory look fresh.
             touch_clock = False
 
-            if quality >= 4 and not reader_card:
+            # A success on a card still inside its relearning step is not
+            # spaced recall — it is the same answer, minutes later. On a lapse
+            # `review_card` sets reps and interval to 0 and makes the card due
+            # again in RELEARN_DELAY, so a reader who blanks a card and then
+            # passes it from short-term memory was handing the q>=4 branch a
+            # full restore: strength back to target, the decay clock restarted,
+            # and the node lifted back over the freshness gate the blank had
+            # just closed. Ten minutes of memory cannot undo the forgetting the
+            # blank measured.
+            #
+            # The discriminator has to be elapsed time, not the relearning
+            # state alone: a reader who blanks a card, closes the book and
+            # returns tomorrow is in exactly the same reps/lapses state, and
+            # that pass is genuine spaced recall after real forgetting.
+            # `srs_cards` keeps no last-graded column, but for a card still in
+            # its relearn step the previous grade is recoverable — it happened
+            # at `due - RELEARN_DELAY`.
+            #
+            # Such a pass is scheduled normally (the card advances; that half
+            # is already done before this runs) and simply buys no mastery
+            # credit: no restore, no floor, no clock, no reinforcement. It is
+            # not routed to the q==3 branch, because that branch's 0.5 floor
+            # would itself re-open the gate the lapse closed.
+            still_relearning = False
+            if ((card["reps"] or 0) == 0 and not (card["interval"] or 0)
+                    and (card["lapses"] or 0) > 0 and card["due"]):
+                previous_grade = card["due"] - RELEARN_DELAY
+                still_relearning = (now - previous_grade) < min_gap
+
+            if quality >= 4 and not reader_card and not still_relearning:
                 # Confident successful recall restores current standing. A
                 # small additive nudge converged below the freshness gate once
                 # SM-2 intervals outgrew it, so an on-schedule learner could be
@@ -1976,12 +2183,68 @@ class LearnerStore:
                 (reader_id, title)).fetchone() is None
             c.execute(
                 "INSERT INTO reading_log(reader_id, title, opened_at, seconds) VALUES(?,?,?,?)",
-                (reader_id, title, now, seconds))
+                (reader_id, title, now, seconds or 0))
             room = max(0, self.READ_XP_DAILY_CAP - self._read_xp_today(c, reader_id))
             xp = min(3, room) if first_ever else 0
             c.execute(
                 "INSERT INTO events(kind, payload, at, xp, reader_id) VALUES('read',?,?,?,?)",
                 (json.dumps({"title": title}), now, xp, reader_id))
+
+    def set_reading_seconds(self, title: str, seconds: float, reader_id: int = 1):
+        """Attach a duration to this reader's most recent open of `title`.
+
+        Updates rather than inserts: the row was already written when the
+        article was served, and a second row would count one read twice.
+        """
+        with _lock, self._conn() as c:
+            row = c.execute(
+                "SELECT id FROM reading_log WHERE reader_id=? AND title=? "
+                "ORDER BY opened_at DESC LIMIT 1", (reader_id, title)).fetchone()
+            if row is None:
+                c.execute(
+                    "INSERT INTO reading_log(reader_id, title, opened_at, seconds) "
+                    "VALUES(?,?,?,?)", (reader_id, title, time.time(), seconds))
+                return
+            # The longest sitting on that open wins: a reader who comes back to
+            # the same article in one visit sends a bigger number, not another
+            # row, and taking the max keeps re-sends idempotent.
+            c.execute(
+                "UPDATE reading_log SET seconds = MAX(COALESCE(seconds, 0), ?) "
+                "WHERE id = ?", (seconds, row["id"]))
+
+    def reading_minutes_by_title(self, reader_id: int = 1) -> Dict[str, float]:
+        """Minutes this reader spent on each article, per title.
+
+        The roadmap prices instructional time from a stage constant scaled by
+        prose density — a model of how long a node takes *somebody*. This is
+        the evidence for how long an article takes THIS reader. `pacing`
+        joins it to the graph, because the title-to-node mapping is the
+        curriculum's business and not this module's.
+
+        The LONGEST sitting on a title, not the sum. Summing billed a second
+        read of the same article as slower first reading, and "how long does
+        an article take you" is a question about one reading of it. Rows
+        outside the plausible band are dropped, not clamped — an article left
+        open overnight is not eight hours of reading, and neither is four
+        seconds.
+        """
+        with _lock, self._conn() as c:
+            rows = c.execute(
+                "SELECT title, seconds FROM reading_log WHERE reader_id=? "
+                "AND seconds > 0", (reader_id,)).fetchall()
+        out: Dict[str, float] = {}
+        for r in rows:
+            usable = usable_reading_seconds(r["seconds"])
+            if usable is None:
+                continue
+            # Capped per title for the RATE, tighter than the plausibility band
+            # that keeps the row. Ninety minutes is a believable sitting on an
+            # article; it is not believable as this reader's pace, and one
+            # such sitting moved a multi-year plan by half. Thirty minutes is
+            # five times the book's own figure — slow, and still a reading.
+            out[r["title"]] = max(out.get(r["title"], 0.0),
+                                  min(usable, RATE_TITLE_CAP_SECONDS) / 60.0)
+        return out
 
     def reading_stats(self, reader_id: int = 1) -> Dict:
         with _lock, self._conn() as c:
@@ -2255,7 +2518,8 @@ class LearnerStore:
         now = time.time()
         with _lock, self._conn() as c:
             r = c.execute(
-                "SELECT done, settled_at FROM placement WHERE reader_id=? AND domain=?",
+                "SELECT done, settled_at, asked FROM placement "
+                "WHERE reader_id=? AND domain=?",
                 (reader_id, domain)).fetchone()
             if not r or not r["done"]:
                 return False
@@ -2263,17 +2527,47 @@ class LearnerStore:
             # are by definition old enough, so treat them as past cooling.
             if r["settled_at"] and (now - r["settled_at"]) < cooling_days * DAY:
                 return False
+            # A marker, so the new staircase can tell its own rungs from the
+            # old ones. The history is kept deliberately — it is what stops the
+            # re-measurement repeating items the reader has already seen — but
+            # keeping it also meant the OLD passes went on setting the floor:
+            # `_placement_rung` and the settle both compute `max(passed) + 1`
+            # over the whole list, so a reader who had genuinely forgotten
+            # could be re-measured upward and never downward. A re-measurement
+            # that can only ratchet up is not a measurement.
+            try:
+                asked = json.loads(r["asked"]) if r["asked"] else []
+            except (TypeError, ValueError):
+                asked = []
+            if not isinstance(asked, list):
+                asked = []
+            asked.append({"reopened": True, "at": now})
             c.execute(
-                "UPDATE placement SET done=0, settled_at=NULL WHERE reader_id=? AND domain=?",
-                (reader_id, domain))
+                "UPDATE placement SET done=0, settled_at=NULL, asked=? "
+                "WHERE reader_id=? AND domain=?",
+                (json.dumps(asked), reader_id, domain))
             return True
 
     # ---------- maintenance ----------
 
     def backup(self, dest_dir: str, keep: int = 5):
-        """Consistent online backup of the whole learner record, rotating a few
+        """Consistent online backup of the learner record, rotating a few
         generations. The single DB is the reader's irreplaceable multi-year
-        history, so this runs at startup and daily."""
+        history, so this runs at startup and daily.
+
+        What is copied is deliberately narrower than what is stored. One SQLite
+        file holds two very different things: the record — profile, mastery,
+        events, srs_cards, sittings, reading_log — which cannot be reconstructed
+        from anything, and the wiki caches, which are article and image bytes
+        already sitting in a ZIM file or a URL away. The caches dwarf the
+        record, so every "backup of the irreplaceable learner record" was in
+        practice 319 MB of disposable page cache carrying about a megabyte of
+        the reader's actual life. Five generations of that is 1.6 GB, which is
+        exactly the sort of number that makes a reader move backups off a small
+        disk, or stop keeping them. The copy sheds the caches and keeps the
+        record; a restored file rebuilds the cache tables on first use, because
+        WikiService creates them IF NOT EXISTS.
+        """
         os.makedirs(dest_dir, exist_ok=True)
         stamp = time.strftime("%Y%m%d-%H%M%S", time.localtime())
         dest = os.path.join(dest_dir, "primer-{}.db".format(stamp))
@@ -2293,22 +2587,28 @@ class LearnerStore:
                 check.close()
             if status != "ok":
                 log.error("backup failed integrity check (%s): %s", status, dest)
-                os.remove(dest)
+                _remove_backup(dest)
                 return None
             log.info("backup verified: %s (%d mastery rows)", os.path.basename(dest), rows)
         except Exception as exc:
             log.error("backup failed: %s: %s", exc.__class__.__name__, exc)
-            try:
-                os.remove(dest)
-            except OSError:
-                pass
+            _remove_backup(dest)
             return None
+        # Shrinking comes LAST — after the copy is closed, verified, and out
+        # of the try that discards a failed backup. It is an optimisation on a
+        # file that is already a good backup, so a database that will not
+        # VACUUM (a full disk, an unwritable temp directory, an exhausted
+        # file-descriptor table under a long test run) must cost a larger
+        # backup and nothing else. Run inside that try, an unrelated I/O error
+        # threw away a perfectly sound copy and returned None.
+        try:
+            _shed_wiki_cache(dest)
+        except Exception as exc:   # belt and braces: the helper catches its own
+            log.warning("could not shrink backup: %s: %s",
+                        exc.__class__.__name__, exc)
         backups = sorted(f for f in os.listdir(dest_dir) if f.endswith(".db"))
         for old in backups[:-keep]:
-            try:
-                os.remove(os.path.join(dest_dir, old))
-            except OSError:
-                pass
+            _remove_backup(os.path.join(dest_dir, old))
         return dest
 
     # ---------------- readers & sessions (Google identity) ----------------
@@ -2425,6 +2725,31 @@ class LearnerStore:
                 (reader_id, kind, _local_midnight(time.time())),
             ).fetchone()
         return row is not None
+
+    def attempts_today(self, reader_id: int = 1) -> Dict[str, int]:
+        """Today's attempts, split by whether they actually landed.
+
+        The day's "Learn something new" step counted attempt EVENTS, and an
+        attempt is written whatever the score — so a paper sat at 17% ticked
+        the day's learning off and the crown said so, on the one day the reader
+        most needed a route rather than a compliment. The book already knew
+        better: it withholds the growth for the same paper. Now the tile can
+        agree with the ledger, and can also tell the two states apart, which a
+        bare count cannot.
+        """
+        with self._conn() as c:
+            rows = c.execute(
+                "SELECT payload FROM events "
+                "WHERE reader_id=? AND kind='attempt' AND at>=?",
+                (reader_id, _local_midnight(time.time()))).fetchall()
+        landed = 0
+        for row in rows:
+            try:
+                if float((json.loads(row["payload"]) or {}).get("score", 0)) >= PASS:
+                    landed += 1
+            except (ValueError, TypeError, json.JSONDecodeError):
+                continue          # an unreadable payload is not a pass
+        return {"sat": len(rows), "landed": landed}
 
     def events_today_count(self, kind: str, reader_id: int = 1) -> int:
         """How many events of this kind since local midnight.

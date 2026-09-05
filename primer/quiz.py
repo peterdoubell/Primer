@@ -766,6 +766,17 @@ def is_ephemeral_prompt(prompt: str, kind: str = "",
         if not practice.is_durable_item(gen, level, prompt):
             return True
     if kind == "order":
+        # Generated orderings are ephemeral by construction — the sequence is
+        # drawn fresh — with one declared exception: a generator whose
+        # orderings are AUTHORED and finite, and whose prompt names its own
+        # set, may say so through is_durable_item. The knowledge drills do
+        # ("Put the seasons in order: autumn, spring, summer, winter"): a
+        # stable front, one stable back, the same case as an authored bank
+        # ordering. Before this, 0 of 468 of the only shape that asks a young
+        # reader to PRODUCE could ever come back as a card.
+        if gen:
+            from . import practice
+            return not practice.is_durable_item(gen, level, prompt)
         return True
     p = (prompt or "").strip()
     if not p:
@@ -843,6 +854,11 @@ def cards_from_missed(questions: List[Dict], answers: List[str],
             # are full sentences) — 51 real bank items did exactly that, up to
             # 255 chars. Cap the total, budgeting whatever room the answer left.
             MAX_BACK = 220
+            # A structural explanation ("light goes with night.") only
+            # restates the card, and on the back it hands a listener the
+            # answer by word-matching. Authored ones teach; those stay.
+            if q.get("explain_structural"):
+                explain = ""
             if explain and explain != front:
                 budget = MAX_BACK - len(correct) - len(" — ")
                 first = re.split(r"(?<=[.!?])\s+", explain)[0].strip()
@@ -899,8 +915,18 @@ def cards_from_lesson(title: str, goal: str, kid_text: str = "",
         cards.append({"front": "What are you learning when you learn “{}”?".format(title),
                       "back": goal, "node_id": node_id, "article": title})
     if kid_text:
+        # `_sentences` is a cloze-MINING filter: it drops anything outside
+        # 40-240 chars, or carrying a colon, a semicolon, four commas, an
+        # example marker or a referent. Those rules are right for picking a
+        # sentence to blank a word out of, and wrong for picking one to put on
+        # the back of a card — and when the filter rejected every sentence, the
+        # fallback handed back the ENTIRE lesson. A card whose back is a
+        # six-sentence paragraph is not a card; it is a page with a question on
+        # the front, and it is shown to the youngest readers in the book.
+        # The first sentence is what "tell it back" means, filter or no filter.
         first = _sentences(kid_text)
-        sentence = first[0] if first else kid_text.strip()
+        sentence = (first[0] if first
+                    else re.split(r"(?<=[.!?])\s+", kid_text.strip())[0].strip())
         if sentence and sentence.lower() != (goal or "").lower():
             cards.append({"front": "Tell it back: what is {}?".format(title),
                           "back": sentence, "node_id": node_id, "article": title})

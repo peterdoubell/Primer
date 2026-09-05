@@ -84,6 +84,87 @@ def srs_minutes_per_node(deck: "Dict | None") -> float:
     est = SRS_REVIEW_MIN_PER_NODE * card_factor * lapse_factor
     return max(SRS_MIN_PER_NODE_FLOOR, min(SRS_MIN_PER_NODE_CEIL, est))
 
+# ---- the reader's own instructional rate ----
+#
+# Every node is priced at a stage constant scaled by its prose density: a model
+# of how long a node takes SOMEBODY. Several audits in a row read the bar's
+# "anchored to instructional time" as also requiring it to be anchored to THIS
+# reader, and they were right to. A reader who has consistently taken half the
+# modelled time still saw a plan built on the model, and a reader who takes
+# twice as long saw a promise the record already said they would miss.
+#
+# WHAT IS COMPARED TO WHAT. The first version of this divided recorded reading
+# minutes by the node's *mastery* total — the whole cost of reading, practising,
+# quizzing and reviewing a node to standing. Those are not the same quantity and
+# they are not close: measured on the real graph, the modelled cost per linked
+# article is about 478 minutes against the book's own reader-facing figure of
+# six (server.ARTICLE_MINUTES). Every reader alive came out at the floor, and
+# the function then published `measured: True` over a constant. So the ratio is
+# taken against the model of the same thing: minutes on an article, over the
+# minutes this book tells the reader an article takes.
+#
+# Shaped like the SRS term above, and for the same reasons: a floor and a
+# ceiling because it multiplies a whole curriculum, a minimum sample because
+# three articles is not a rate, and an unmeasured reader falling back to 1.0 —
+# "we have not measured this yet" must read as the model, never as zero. And
+# `clamped` is reported apart from `measured`, because a value that hit a bound
+# is a bound, not a measurement, and saying otherwise is the exact dishonesty
+# `learner.pace()` refuses when it returns None.
+ARTICLE_MODEL_MINUTES = 6.0  # server.ARTICLE_MINUTES, the book's own figure
+# Proportionate to what it rescales. An auditor measured one hour of clocked
+# reading moving a five-thousand-hour plan by up to 79%; that is not a rate,
+# it is a rumour. Twenty articles and four hours is still a small sample of a
+# decade, but it is a sample of something.
+# The two thresholds together set the SLOWEST pace a reader can be admitted
+# at: minutes ÷ articles. At 240 ÷ 20 that was 12 min/article — a raw ratio of
+# 2.0 — so the first reader to cross the line arrived already at the ceiling,
+# and nobody could enter measurement anywhere else in the band. An auditor
+# measured it: the twentieth article moved an adult's plan by +78% in one
+# step. 100 ÷ 20 is 5 min/article, under the model's 6, so a reader of any
+# pace crosses on articles alone.
+RATE_MIN_ARTICLES = 20       # fewer than this is a sample, not a rate
+RATE_MIN_MINUTES = 100.0     # ...and neither is a few minutes of reading
+RATE_FLOOR = 0.6             # a fast reader is not given a fifth of a curriculum
+RATE_CEIL = 1.8              # nor a slow one three times one they cannot finish
+
+
+def instructional_rate(graph: Dict, reading: "Dict[str, float] | None") -> Dict:
+    """How this reader's real reading minutes compare to the modelled ones.
+
+    `reading` is learner.reading_minutes_by_title(): per-title minutes, already
+    filtered to plausible sittings. Returns the workings, not just the number,
+    so the estimate can be audited instead of taken on faith. `factor` is
+    exactly 1.0 whenever `measured` is False.
+    """
+    out = {"factor": 1.0, "measured": False, "clamped": False, "articles": 0,
+           "minutes": 0.0, "modelled": 0.0, "per_article": None,
+           # The thresholds, so the page can say when the plan becomes the
+           # reader's own instead of hard-coding a number that drifts.
+           "min_articles": RATE_MIN_ARTICLES, "min_minutes": RATE_MIN_MINUTES}
+    if not reading:
+        return out
+    # Only articles this book actually assigns. Wiki-wandering off the
+    # curriculum is real reading, but it is not the reading the plan prices,
+    # and letting it in would move a curriculum estimate with time that
+    # curriculum never asked for.
+    assigned = {t for node in graph["nodes"] for t in (node.get("articles") or [])}
+    minutes = [m for title, m in reading.items() if title in assigned and m > 0]
+    real = sum(minutes)
+    out["articles"] = len(minutes)
+    out["minutes"] = round(real, 1)
+    out["modelled"] = round(len(minutes) * ARTICLE_MODEL_MINUTES, 1)
+    if len(minutes) < RATE_MIN_ARTICLES or real < RATE_MIN_MINUTES:
+        return out
+    per_article = real / len(minutes)
+    out["per_article"] = round(per_article, 1)
+    raw = per_article / ARTICLE_MODEL_MINUTES
+    factor = max(RATE_FLOOR, min(RATE_CEIL, raw))
+    out["factor"] = round(factor, 3)
+    out["clamped"] = abs(factor - raw) > 1e-9
+    out["measured"] = True
+    return out
+
+
 BREADTH_PLANS = {
     # domains carried to graduate stage : others carried to secondary stage
     "focused": {"deep_target": 5, "wide_target": 3, "label": "Focused — a few fields, all the way"},
@@ -93,7 +174,8 @@ BREADTH_PLANS = {
 
 
 def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
-            proven: "set | None" = None, deck: "Dict | None" = None) -> Dict:
+            proven: "set | None" = None, deck: "Dict | None" = None,
+            reading: "Dict[str, float] | None" = None) -> Dict:
     """graph: {domains: [{id,name}], nodes: [node]} — see curriculum.py.
 
     `mastery` must be the learner's decay-aware gate view (gate_map()), not
@@ -130,6 +212,7 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
     hours = max(float(profile.get("hours_per_week") or 6), 1.0)
     minutes_per_year = hours * 60 * WEEKS_PER_YEAR * EFFICIENCY
     srs_per_node = srs_minutes_per_node(deck)
+    rate = instructional_rate(graph, reading)
     domain_stage = (profile.get("settings") or {}).get("domain_stage") or {}
     current_stage = int(profile.get("stage") or 0)
 
@@ -156,7 +239,10 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
         # Instructional minutes plus the node's lifetime SRS maintenance —
         # see SRS_REVIEW_MIN_PER_NODE. Folding it in here keeps the years,
         # the timeline, and the per-stage hours all telling the same story.
-        node_minutes = node.get("minutes", 40) + srs_per_node
+        # The instructional half is scaled by this reader's measured rate; the
+        # maintenance half already has its own per-reader term and must not be
+        # scaled twice.
+        node_minutes = node.get("minutes", 40) * rate["factor"] + srs_per_node
         # Skipped for pacing (it's review, priced at 25%) once this domain's
         # own placed level has passed the node's stage.
         reader_stage_here = domain_stage.get(node["domain"], current_stage)
@@ -243,6 +329,10 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
             for b in stage_buckets if b["nodes"]
         ],
         "srs_minutes_per_node": round(srs_per_node, 1),
+        # The workings behind the instructional half, for the same reason the
+        # SRS figure is published: an estimate the reader cannot inspect is an
+        # estimate they have to take on trust.
+        "instructional_rate": rate,
         "nodes_mastered": mastered,
         "nodes_proven": nodes_proven,
         "nodes_assumed": nodes_assumed,

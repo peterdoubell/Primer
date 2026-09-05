@@ -7,10 +7,13 @@ Generators are keyed; curriculum nodes reference them by key. Levels run from
 preschool counting to undergraduate calculus and linear algebra.
 """
 
+import json
 import math
+import os
 import random
+import re
 from fractions import Fraction
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Optional
 
 R = random.Random()
 
@@ -83,6 +86,65 @@ def _mc(prompt: str, answer, distractors: List, explain: str = "", pad: bool = T
             "answer": str(answer), "explain": explain, "ephemeral": True}
 
 
+def _near_distractors(key: int, k: int = 3, lo: int = None, hi: int = None) -> List[int]:
+    """k distinct plausible neighbours of `key`, on a randomly chosen split.
+
+    The exploit these exist to close is the key's RANK once a reader sorts the
+    options by size. `_mc` shuffles the display order, which is what every
+    position audit measured — and sorting undoes a shuffle, so it was never the
+    protection it looked like. What was fixed was the recipe: g_counting offered
+    {n-2, n-1, n, n+1}, so the key was permanently the second largest;
+    g_patterns offered {nxt-step, nxt, nxt+1, nxt+step}, so for any step>1 it
+    was permanently the second smallest; g_shapes was worse again. "Always pick
+    the third smallest" scored 87% on counting and 90% on patterns against a 25%
+    chance rate, and cleared the 0.8 mastery gate on that alone.
+
+    So the number of neighbours drawn from below the key is chosen at random
+    rather than baked into the recipe. `lo`/`hi` bound the sensible range — a
+    counting drill must not offer minus one, which is separately why the
+    preschool bank was showing negative numbers among its answers.
+
+    A generic version of this once lived inside `_mc` and applied to every
+    numeric option set. It was measured and withdrawn: generators whose
+    distractors were already well spread (g_place_value draws three random
+    distinct digits) came out WORSE, because rebuilding from mirrored offsets
+    near the zero floor collapsed the below-side and pinned the key at rank 1 —
+    27% became 40%. The generators that need this are the ones with a fixed
+    recipe, and they are named here rather than guessed at. The arbiter for all
+    of them is tools/check_generators.py.
+    """
+    want_below = R.randint(0, k)
+    below, above = [], []
+    d = 1
+    while len(below) < want_below and d <= k + 3:
+        v = key - d
+        if lo is None or v >= lo:
+            below.append(v)
+        d += 1
+    d = 1
+    while len(above) < k - len(below) and d <= k + 3:
+        v = key + d
+        if hi is None or v <= hi:
+            above.append(v)
+        d += 1
+    # Short on one side (the key sits near a bound): make the count up from the
+    # other rather than returning fewer options than asked for.
+    d = 1
+    while len(below) + len(above) < k and d <= k + 6:
+        for v in (key - d, key + d):
+            if v == key or v in below or v in above:
+                continue
+            if lo is not None and v < lo:
+                continue
+            if hi is not None and v > hi:
+                continue
+            (below if v < key else above).append(v)
+            if len(below) + len(above) >= k:
+                break
+        d += 1
+    return below + above
+
+
 def _choice2(prompt: str, answer, other, explain: str = "", say: str = "") -> Dict:
     """A genuine binary choice (e.g. bigger/smaller) — exactly two options, no
     nonsense padding."""
@@ -106,11 +168,36 @@ def _num(prompt: str, answer, explain: str = "") -> Dict:
 
 COUNT_THINGS = ["🍎", "⭐", "🐟", "🌸", "🎈", "🐞", "🦋", "🐚", "🍄", "☂️"]
 
-def g_counting(_):
+def g_counting(level=0):
+    """Counting, asked both ways — and mostly asked as counting.
+
+    `g_count_tally` below is a real production instrument for pre-readers: the
+    objects themselves are the answering surface, so a child who counts five
+    apples correctly but cannot yet read the numeral 5 is marked right. It was
+    written, tested (tests/test_tally_generator.py), given a bespoke touch UI
+    in app.js and a validator in check_banks.py — and then wired to nothing.
+    `grep -rn count-tally` found it only in practice.py and its own test, so no
+    reader had ever met it.
+
+    That mattered more than one unused generator, because it was the ONLY
+    production item a young reader could have met anywhere: all 622 authored
+    items at stages 0-1 are multiple choice, and all twelve generators their
+    nodes reference returned choice items at level 0. For the Seedling and
+    Sprout years — which the pacing model prices in years, not weeks — the book
+    asked the reader to recognise an answer and never once to produce one.
+
+    So counting now mints the tally form most of the time for young readers,
+    and keeps the multiple-choice form as the minority case: recognising the
+    numeral is a real, separate skill worth practising, it just should not be
+    the whole of what "counting" means. Above Sprout the reader can read
+    numerals fluently and the choice form is the honest one.
+    """
+    if (level or 0) <= 1 and R.random() < 0.7:
+        return g_count_tally(level)
     n = R.randint(1, 10)
     thing = R.choice(COUNT_THINGS)
     q = _mc("How many do you see?\n\n" + (thing + " ") * n, n,
-            [max(1, n - 1), n + 1, max(1, n - 2)])
+            _near_distractors(n, 3, lo=1))
     q["say"] = "How many do you see? Count them out loud."
     q["speak_choices"] = True
     return q
@@ -310,7 +397,7 @@ def g_patterns(_):
     seq = [start + i * step for i in range(4)]
     nxt = seq[-1] + step
     q = _mc("What comes next?   {} , ___".format(" , ".join(map(str, seq))),
-            nxt, [nxt - step, nxt + step, nxt + 1],
+            nxt, _near_distractors(nxt, 3, lo=0),
             "The pattern counts up by {}.".format(step))
     q["say"] = "What comes next? {}".format(", ".join(map(str, seq)))
     q["speak_choices"] = True
@@ -321,7 +408,10 @@ def g_shapes(_):
     name, sides = R.choice(list(shapes.items()))
     if R.random() < 0.5:
         q = _mc("How many sides does a {} have?".format(name), sides,
-                [sides - 1, sides + 1, sides + 2])
+                # lo=1, not 3: a child's plausible wrong answers include one
+                # and two, and refusing them left a triangle with nothing below
+                # its own key, pinning it at rank 1 on every draw.
+                _near_distractors(sides, 3, lo=1))
         q["say"] = "How many sides does a {} have?".format(name)
     else:
         wrong = R.sample([k for k in shapes if shapes[k] != sides], 3)
@@ -333,17 +423,50 @@ def g_shapes(_):
 
 # ---------------- Stage 1: Sprout ----------------
 
+def _arith_tally(answer: int, story: str, say: str) -> Optional[Dict]:
+    """An arithmetic answer COUNTED OUT rather than picked from a list.
+
+    "Below stage 2 a learner should never have to type" was read for years as
+    "below stage 2 every item is multiple choice", and the two are not the same
+    sentence. The tally shape written for counting proves it: the objects are
+    the answering surface, so nothing has to be read or typed, and what is
+    scored is the act being taught. Addition and subtraction are the most
+    drilled generators in the book and were pure recognition for the readers
+    who most need to produce — a child who works out that five and two make
+    seven, then picks 7 from a list, has been asked to recognise a numeral at
+    the end of doing the real work.
+
+    A committed tally is a plain number, so quiz.py grades it exactly as it
+    grades a typed one and no new marking path exists.
+    """
+    if not (1 <= answer <= 9):
+        return None            # the tokens must all fit one small screen
+    thing, one, many = R.choice(TALLY_THINGS)
+    return {
+        "kind": "tally",
+        "prompt": "{}\n\nTouch each {}, then press the button.".format(story, one),
+        "items": [thing] * answer,
+        "answer": str(answer),
+        "say": say,
+        "explain": "There are {} — one number word for each one you touched.".format(answer),
+        "ephemeral": True,
+        "gen": "arith-tally",
+    }
+
+
 def _arith(prompt: str, answer: int, say: str, level: int) -> Dict:
     """Below stage 2 a learner should never have to type: offer spoken choices."""
     if level > 1:
         return _num(prompt, answer)
-    wrong = set()
-    while len(wrong) < 3:
-        d = R.choice([-3, -2, -1, 1, 2, 3, 10])
-        cand = answer + d
-        if cand >= 0 and cand != answer:
-            wrong.add(cand)
-    q = _mc(prompt, answer, sorted(wrong), pad=False)
+    # The old delta pool was [-3,-2,-1,1,2,3,10] — four of seven above the key —
+    # and the `cand >= 0` filter then dropped most of the rest, because at this
+    # level the answers are small. So the distractors piled up above the key and
+    # "always pick the second smallest" scored 49-56% across addition,
+    # subtraction, division and times-tables against a 25% chance rate. These
+    # are the most-drilled generators in the book, and the tell was invisible to
+    # every audit the project had, all of which measured display order — which
+    # _mc does shuffle, and which sorting undoes.
+    q = _mc(prompt, answer, _near_distractors(answer, 3, lo=0), pad=False)
     q["say"] = say
     q["speak_choices"] = True
     return q
@@ -351,13 +474,63 @@ def _arith(prompt: str, answer: int, say: str, level: int) -> Dict:
 def g_addition(level):
     hi = 10 if level <= 1 else 100
     a, b = R.randint(1, hi), R.randint(1, hi)
+    if (level or 0) <= 1 and R.random() < 0.5:
+        # Draw a sum that can actually be counted out on one screen. Left to
+        # the general 1-10 draw, four fifths of sums land above nine and fall
+        # straight back to multiple choice — the produced form would exist and
+        # almost never be reached. Small sums are the right material here
+        # anyway: counting on from five is the skill, not adding to twenty.
+        a = R.randint(1, 6)
+        b = R.randint(1, 9 - a) if a < 9 else 1
+        counted = _arith_tally(
+            a + b,
+            "{} and {} more.".format(a, b),
+            "{} and {} more. How many altogether? Touch each one.".format(a, b))
+        if counted:
+            return counted
     return _arith("{} + {} = ?".format(a, b), a + b,
                   "What is {} plus {}?".format(a, b), level)
 
 def g_subtraction(level):
     hi = 10 if level <= 1 else 100
-    a, b = R.randint(1, hi), R.randint(1, hi)
-    a, b = max(a, b), min(a, b)
+    if level <= 1:
+        # Draw the ANSWER first, then the operands that give it. Drawing two
+        # numbers and subtracting makes small differences far commoner than
+        # large ones (a difference of 0-2 came up three times as often as 7-9),
+        # which is both worse practice — the child mostly meets the easiest
+        # cases — and a surface tell: a key of 0, 1 or 2 has no room for three
+        # plausible options BELOW it once negatives are excluded, so the key
+        # sat at the bottom of the sorted list and "pick the smallest" beat
+        # chance by ten points.
+        # 1 to 9, not 0 to 9. A remainder of nought has no plausible option
+        # BELOW it once negative numbers are off the table for a five-year-old
+        # — and they are, deliberately — so every zero-answer card put the key
+        # at the bottom of the sorted list. Ten per cent of cards doing that is
+        # enough for "pick the smallest" to beat chance. The idea of a nought
+        # remainder is not lost: from Sapling up the answer is typed, where a
+        # distractor set does not arise.
+        answer = R.randint(1, 9)
+        b = R.randint(1, hi - answer)
+        a = answer + b
+    else:
+        a, b = R.randint(1, hi), R.randint(1, hi)
+        a, b = max(a, b), min(a, b)
+    if (level or 0) <= 1 and R.random() < 0.5:
+        # Operands drawn INSIDE the branch, so it always yields a countable
+        # remainder. Testing the general draw instead only took the branch when
+        # the remainder happened to fall in 1-9, which left the multiple-choice
+        # half over-supplied with remainders of ZERO — and a key of nought can
+        # have no plausible option below it, so the key sat at rank 1 and
+        # "always pick the smallest" beat chance by 11pp. The produced form
+        # must not bias the recognised one.
+        a = R.randint(2, 9)
+        b = R.randint(1, a - 1)
+        counted = _arith_tally(
+            a - b,
+            "There were {}, and {} went away.".format(a, b),
+            "There were {}, and {} went away. How many are left? Touch each one.".format(a, b))
+        if counted:
+            return counted
     return _arith("{} − {} = ?".format(a, b), a - b,
                   "What is {} take away {}?".format(a, b), level)
 
@@ -383,7 +556,31 @@ SIGHT_WORDS = ["the", "and", "said", "have", "with", "they", "this", "from", "wa
                "little", "could", "there", "about", "would", "because", "friend",
                "before", "again", "always", "together"]
 
-def g_spelling(_):
+def g_spelling(level=0):
+    """Spelling, asked as spelling about half the time.
+
+    "Which spelling is correct? [ugain / aagin / again / agian]" is the inverse
+    of the skill: it asks a child to RECOGNISE a misspelling, and it puts three
+    wrong spellings of a word they are still learning in front of their eyes.
+    Building the word from its own letters is the thing being taught, and the
+    ordering surface — tap in sequence, fully spoken, no typing — already
+    exists for exactly this kind of answer.
+
+    The recognition form is kept as the minority case: telling a right spelling
+    from a near-miss is its own real skill, it just should not be the whole of
+    what "spelling" means to a five-year-old.
+    """
+    if (level or 0) <= 1 and R.random() < 0.5:
+        # Short enough that every tile fits one row on a phone, and long enough
+        # that the order is not obvious from two letters.
+        buildable = [w for w in SIGHT_WORDS if 3 <= len(w) <= 6 and len(set(w)) == len(w)]
+        if buildable:
+            word = R.choice(buildable)
+            return _order(
+                "Put the letters in order to spell “{}”.".format(word),
+                list(word),
+                "Spell {}. Tap the letters in order.".format(word),
+                "{} — one letter at a time, in that order.".format(word))
     # Prefer words long enough to misspell in several distinct ways; short
     # words (the/and) can only be scrambled one way, so we also mine other
     # sight words as plausible distractors and cap the search.
@@ -504,9 +701,19 @@ def g_order_of_ops(_):
     return _num(expr + " = ?", ans,
                 "Multiply before adding unless parentheses say otherwise.")
 
+_PRIMES_TO_60 = [n for n in range(2, 61)
+                 if all(n % i for i in range(2, int(n ** 0.5) + 1))]
+_COMPOSITES_TO_60 = [n for n in range(2, 61) if n not in set(_PRIMES_TO_60)]
+
+
 def g_primes(_):
-    n = R.randint(2, 60)
-    is_prime = n > 1 and all(n % i for i in range(2, int(n ** 0.5) + 1))
+    # Drawing n first and asking whether it happens to be prime keys the item
+    # "no" by construction: there are 17 primes below 60 and 42 composites, so
+    # "always answer no" scored 71.7% against a 50% chance rate and passed 48%
+    # of six-item drill papers outright. Choose the answer first, then a number
+    # that has it, and the two keys come out even.
+    is_prime = R.random() < 0.5
+    n = R.choice(_PRIMES_TO_60 if is_prime else _COMPOSITES_TO_60)
     return _choice2("Is {} a prime number?".format(n), "yes" if is_prime else "no",
                     "no" if is_prime else "yes",
                     "A prime has exactly two divisors: 1 and itself.")
@@ -582,18 +789,37 @@ def g_logs(_):
     exp = R.randint(1, 4 if base == 10 else 6)
     return _num("log base {} of {} = ?".format(base, base ** exp), exp)
 
+# Keyed by the ANSWER, then a question that has it. Drawing the question first
+# is what made "1/4" the answer 40% of the time (both the coin and the card
+# branch keyed it) and then "1/2" 33% once those were varied: the key follows
+# whatever the question list happens to contain. Draw the key uniformly and the
+# imbalance cannot arise, whatever questions are added later.
+PROBABILITY_QUESTIONS = {
+    "1/6": ["A fair six-sided die is rolled. P(a six) = ?",
+            "A fair six-sided die is rolled. P(number ≤ 1) = ?"],
+    "1/3": ["A fair six-sided die is rolled. P(number ≤ 2) = ?",
+            "A fair six-sided die is rolled. P(a multiple of 3) = ?"],
+    "1/2": ["A fair six-sided die is rolled. P(number ≤ 3) = ?",
+            "Two fair coins are flipped. P(exactly one head) = ?",
+            "One card is drawn from a 52-card deck. P(a red card) = ?"],
+    "2/3": ["A fair six-sided die is rolled. P(number ≤ 4) = ?"],
+    "1/4": ["Two fair coins are flipped. P(both heads) = ?",
+            "Two fair coins are flipped. P(no heads) = ?",
+            "One card is drawn from a 52-card deck. P(a heart) = ?"],
+    "3/4": ["Two fair coins are flipped. P(at least one head) = ?"],
+    "1/13": ["One card is drawn from a 52-card deck. P(an ace) = ?"],
+    "3/13": ["One card is drawn from a 52-card deck. P(a face card) = ?"],
+}
+_PROBABILITY_KEYS = sorted(PROBABILITY_QUESTIONS)
+
+
 def g_probability(_):
-    mode = R.choice(["die", "cards", "coins"])
-    if mode == "die":
-        k = R.choice([1, 2, 3])
-        return _mc("A fair six-sided die is rolled. P(number ≤ {}) = ?".format(k),
-                   "{}/6".format(k) if k not in (2, 3) else {2: "1/3", 3: "1/2"}[k],
-                   ["1/6", "1/2", "1/3", "2/3"])
-    if mode == "coins":
-        return _mc("Two fair coins are flipped. P(both heads) = ?", "1/4",
-                   ["1/2", "1/3", "3/4"])
-    return _mc("One card is drawn from a 52-card deck. P(a heart) = ?", "1/4",
-               ["1/13", "1/2", "4/13"])
+    key = R.choice(_PROBABILITY_KEYS)
+    prompt = R.choice(PROBABILITY_QUESTIONS[key])
+    others = [k for k in _PROBABILITY_KEYS if k != key]
+    R.shuffle(others)
+    return _mc(prompt, key, others[:3], pad=False)
+
 
 def g_stats(_):
     nums = sorted(R.sample(range(1, 30), 5))
@@ -663,7 +889,18 @@ def g_limits(_):
         return _num("lim (x→{}) of  {}x² {} {}  = ?".format(
             x0, a, "+" if c >= 0 else "−", abs(c)), a * x0 * x0 + c)
     if mode == "sinx":
-        return _mc("lim (x→0) of  sin(x)/x  = ?", "1", ["0", "∞", "does not exist"])
+        # One hard-coded item whose key was both fixed at "1" and the shortest
+        # string on the card, so "pick the shortest" beat chance by 11pp.
+        k = R.randint(1, 4)
+        expr, key = R.choice([
+            ("sin({}x)/x".format(k), str(k)),
+            ("sin(x)/({}x)".format(k), "1/{}".format(k)),
+            ("(1 − cos(x))/x", "0"),
+            ("tan({}x)/x".format(k), str(k)),
+        ])
+        pool = [str(k), "1/{}".format(k), "0", "∞", str(k + 1), "1"]
+        return _mc("lim (x→0) of  {}  = ?".format(expr), key,
+                   [c for c in pool if c != key][:3], pad=False)
     r = R.randint(1, 5)
     return _num("lim (x→{r}) of  (x² − {r2}) / (x − {r})  = ?".format(r=r, r2=r * r),
                 2 * r, "Factor the numerator as (x−{r})(x+{r}).".format(r=r))
@@ -708,8 +945,15 @@ def g_bigo(_):
              ("nested loops over n items", "O(n²)"),
              ("visiting every node of a balanced tree", "O(n)")]
     task, ans = R.choice(pairs)
+    # Drawn from the seeded stream, not from set order. `list({...})[:3]`
+    # iterated a set, so which three distractors appeared — and therefore this
+    # generator's fairness verdict — changed with PYTHONHASHSEED: NEEDS WORK
+    # under five hash seeds out of six, CLEAN under the other. An auditor
+    # caught it; the audit tool could not, because it was measuring a
+    # different generator on every run.
+    others = sorted({o for _, o in pairs if o != ans})
     return _mc("Time complexity of {}: ?".format(task), ans,
-               list({o for _, o in pairs if o != ans})[:3], pad=False)
+               R.sample(others, min(3, len(others))), pad=False)
 
 
 # ---------------- Science & computing (stages 2–4) ----------------
@@ -774,13 +1018,22 @@ def g_molar_mass(_):
                 "Add the atomic masses: " +
                 " + ".join("{}×{}".format(k, MOLAR[e]) for e, k in parts) + ".")
 
+# Grouped by answer, not listed flat. The flat list held three acids, three
+# bases and one neutral, so drawing an ITEM at random keyed "acid" or "base"
+# 43% of the time each against a 33% chance rate. Draw the answer first, then
+# something that has it.
+PH_ITEMS = {
+    "acid": ["lemon juice", "vinegar", "battery acid", "orange juice", "black coffee"],
+    "base": ["soap", "baking soda solution", "bleach", "oven cleaner", "milk of magnesia"],
+    "neutral": ["pure water", "table salt solution", "blood plasma", "milk"],
+}
+
+
 def g_ph(_):
-    items = [("lemon juice", "acid"), ("soap", "base"), ("pure water", "neutral"),
-             ("vinegar", "acid"), ("baking soda solution", "base"),
-             ("battery acid", "acid"), ("bleach", "base")]
-    thing, kind = R.choice(items)
+    kind = R.choice(list(PH_ITEMS))
+    thing = R.choice(PH_ITEMS[kind])
     return _mc("Is {} an acid, a base, or neutral?".format(thing), kind,
-               [k for k in ["acid", "base", "neutral"] if k != kind], pad=False)
+               [k for k in PH_ITEMS if k != kind], pad=False)
 
 def g_binary(_):
     if R.random() < 0.5:
@@ -798,6 +1051,449 @@ def g_logic_gates(_):
     res = {"AND": a & b, "OR": a | b, "XOR": a ^ b, "NAND": 1 - (a & b)}[gate]
     return _choice2("{} gate: input {} and {} → output?".format(gate, a, b),
                     res, 1 - res, "Recall the truth table for {}.".format(gate))
+
+
+# ---------------- Knowledge drills for the young nodes ----------------
+#
+# Seventy-five of the eighty-nine stage 0-1 nodes had no practice generator at
+# all. Not because nobody had got to them, but because the generators here are
+# procedural — they compute an answer — and "Which one is a mammal?" has no
+# arithmetic to compute. So the youngest half of the book, the half whose
+# reader most needs to meet a thing more than once, had a read step and a quiz
+# and nothing in between: the interactive loop could not close on a node with
+# nothing to practise.
+#
+# The material a knowledge drill needs is authored (data/practice/young.json);
+# the *drill* is procedural, and that is the split that makes this worth
+# building rather than writing four thousand more bank items. One node's entry
+# supplies groups, pairs, sequences and facts; this code mints an unbounded
+# stream of items out of them — category picks and their negatives, matches
+# either way round, orderings the child produces rather than recognises.
+#
+# Every item is fully spoken and fully tappable: nothing here asks a
+# five-year-old to read or type.
+
+_YOUNG_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                           "data", "practice", "young.json")
+_YOUNG_CACHE: Optional[Dict[str, Dict]] = None
+
+
+def young_material() -> Dict[str, Dict]:
+    """The authored material behind the knowledge drills, loaded once."""
+    global _YOUNG_CACHE
+    if _YOUNG_CACHE is None:
+        try:
+            with open(_YOUNG_PATH, encoding="utf-8") as fh:
+                _YOUNG_CACHE = json.load(fh)
+        except (OSError, ValueError):
+            # A missing or broken file must not take the book down: the node
+            # keeps its authored bank and simply offers no drill.
+            _YOUNG_CACHE = {}
+    return _YOUNG_CACHE
+
+
+def _length_balanced(key: str, pool: List[str], k: int = 3) -> List[str]:
+    """Pick k distractors so the key's LENGTH RANK varies from item to item.
+
+    Length is the only rank a text answer has, and it is readable: an auditor
+    measured "always take the third shortest" at 60% against a 25% chance rate
+    on one of these nodes. The first version of this took one shorter, one
+    longer and one nearest, which is balanced on average and still parks the
+    key in the middle of the sorted-by-length four almost every time — a fixed
+    rank is a fixed rank whether it is first or third.
+
+    So the rank is *drawn*: pick how many distractors should be shorter than
+    the key (0 to k), take that many from below and the rest from above, and
+    fall back to whatever the pool has when it cannot oblige. Over a drill the
+    key lands at each rank about equally often, which is what makes the
+    position carry no information.
+    """
+    pool = [p for p in dict.fromkeys(pool) if p != key]
+    if len(pool) <= k:
+        return pool
+    n = len(key)
+    shorter = sorted([p for p in pool if len(p) < n], key=lambda p: n - len(p))
+    longer = sorted([p for p in pool if len(p) > n], key=lambda p: len(p) - n)
+    equal = [p for p in pool if len(p) == n]
+    want_shorter = R.randint(0, k)
+    R.shuffle(shorter)
+    R.shuffle(longer)
+    out = shorter[:want_shorter] + longer[:k - want_shorter]
+    # The pool did not have enough on one side; take whatever is nearest in
+    # length rather than leaving the item short.
+    if len(out) < k:
+        rest = [p for p in sorted(pool, key=lambda p: abs(len(p) - n)) if p not in out]
+        out += rest[:k - len(out)]
+    if len(out) < k:
+        out += [p for p in equal if p not in out][:k - len(out)]
+    return out[:k]
+
+
+def _length_rank(key: str, choices: List[str]) -> int:
+    """Where the key sits once the options are sorted shortest to longest."""
+    return sorted(choices, key=lambda c: (len(c), c)).index(key) + 1
+
+
+_ARTICLE = re.compile(r"^(an?|the)\s", re.IGNORECASE)
+_WORD = re.compile(r"[a-z]{3,}")
+# Function words are not a tell. "take air in and out" was flagged as the odd
+# one out against three distractors that all contained "the".
+_STOP = frozenset({"the","and","you","your","one","ones","what","which","does","with","that","this","they","them","its","are","was","for","from","into","onto","about","when","where","who","how","why","can","not","all","any","some","very","more","most","than","then","out","off","own","has","have","had","been","being","get","got","put","make","made","use","used","way","thing","things"})
+
+
+def _content_words(text: str) -> set:
+    return {w for w in _WORD.findall(text.lower()) if w not in _STOP}
+
+
+def _surface_tell(prompt: str, key: str, choices: List[str]) -> bool:
+    """True if the key can be picked off the card without reading it.
+
+    Two tells an auditor measured by hand that no rank test sees: the option
+    without an article beside three that have one ("a fox", "a bear", "grass",
+    "a deer" — grass is the odd one out, and the odd one out is the key), and
+    the option sharing a word with the prompt ("What does every living thing
+    need to do with food?" — "eat it to grow" is the only option that answers
+    the question's own noun). On one node the second strategy won 78% of the
+    time. Both are checked the same way: is the key alone on its side?
+    """
+    arts = [bool(_ARTICLE.match(c)) for c in choices]
+    if 0 < sum(arts) < len(choices):
+        minority = sum(arts) < len(choices) / 2
+        if [c for c, a in zip(choices, arts) if a == minority] == [key]:
+            return True
+    words = _content_words(prompt)
+    sharing = [c for c in choices if _content_words(c) & words]
+    if 0 < len(sharing) < len(choices):
+        # The key is a tell whenever it sits in the SMALLER group — sole
+        # sharer, sole non-sharer, or one of a pair against three.
+        mine = sharing if key in sharing else [c for c in choices if c not in sharing]
+        if len(mine) < len(choices) - len(mine):
+            return True
+    return False
+
+
+def _at_drawn_rank(build, tries: int = 20):
+    """Draw a target length rank, then keep drawing items until one lands there.
+
+    Some material simply cannot put its key at every rank: the words that rhyme
+    with "cat" are the shortest words in that lesson, so the key is the
+    shortest option on the card however the distractors are chosen. Rather than
+    invent filler to pad the card out, this re-draws the *item* — a different
+    category, a different pair — until one of them can sit where the draw asked
+    for. What cannot be balanced within a node is then reported by
+    tools/check_generators.py rather than hidden.
+    """
+    target = R.randint(1, 4)
+    fallback = None
+    for _ in range(tries):
+        q = build()
+        if q is None:
+            continue
+        fallback = fallback or q
+        choices = [str(c) for c in (q.get("choices") or [])]
+        if len(choices) < 2:
+            return q
+        key = str(q["answer"])
+        if _surface_tell(q.get("prompt", ""), key, choices):
+            continue
+        if fallback is q or _surface_tell(q.get("prompt", ""), str(fallback["answer"]),
+                                          [str(c) for c in fallback.get("choices") or []]):
+            fallback = q
+        if _length_rank(key, choices) == target:
+            return q
+    return fallback
+
+
+def _articled(text: str) -> str:
+    """"a insect" is not a sentence, and the book says these out loud.
+
+    The prompts are templates with the category dropped in, so the article is
+    written before anything knows what follows it. Ten of them came out
+    ungrammatical and were spoken to a five-year-old as written.
+    """
+    # "an one", "an unicorn": a vowel LETTER is not a vowel SOUND. The few
+    # common exceptions are spelt out rather than guessed at.
+    def swap(m):
+        word = m.group(1).lower()
+        if re.match(r"(one|once|uni|use|user|euro|ewe)", word):
+            return "a " + m.group(1)
+        return "an " + m.group(1)
+    return re.sub(r"\ba ([aeiouAEIOU]\w*)", swap, text)
+
+
+def _know_group(spec: Dict) -> Optional[Dict]:
+    groups = spec.get("groups") or {}
+    names = [g for g, members in groups.items() if len(members) >= 1]
+    if len(names) < 2:
+        return None
+    cat = R.choice(names)
+    # Distractors are excluded by MEMBERSHIP, not by which group they were
+    # listed under. Fourteen members across six nodes belong to two categories
+    # at once — red is both primary and warm — so "which of these is a warm
+    # colour?" was drawing red as a distractor for yellow and marking a child
+    # who tapped it wrong. On arts.0.colors that was 92% of category items.
+    # Same list, one line, and the item had two right answers on it.
+    inside = set(groups[cat])
+    others = [m for g, ms in groups.items() if g != cat
+              for m in ms if m not in inside]
+    # `extras` are authored wrong answers that belong to the lesson without
+    # belonging to any category. They exist so the length draw below has
+    # something to draw from: where every alternative is longer than the key,
+    # the key is the shortest option on every card, and "take the shortest" is
+    # a strategy.
+    others += [e for e in (spec.get("extras") or []) if e not in inside]
+    if len(others) < 3:
+        return None
+    # The negative is asked only for the categories whose own wording was
+    # written for it. Applying it to every category in the node produced
+    # "Which one does NOT keep you unhealthy?" — a double negative, spoken
+    # aloud, to a six-year-old.
+    not_prompt = spec.get("group_not_prompt")
+    not_cats = spec.get("group_not_cats") or []
+    if not_prompt and cat in not_cats and len(inside) >= 3 and R.random() < 0.3:
+        key = R.choice(others)
+        prompt = _articled(not_prompt.format(cat))
+        q = _mc(prompt, key, _length_balanced(key, sorted(inside)), pad=False)
+        q["explain"] = "%s is not %s." % (key, cat)
+        q["explain_structural"] = True
+    else:
+        key = R.choice(groups[cat])
+        prompt = _articled(spec.get("group_prompt", "Which one is a {}?").format(cat))
+        q = _mc(prompt, key, _length_balanced(key, others), pad=False)
+        # Something to take away rather than a verdict. Every authored bank
+        # item in the book explains itself; not one generated knowledge item
+        # did, and "Not quite. The answer is red" teaches nothing about how to
+        # get the next one.
+        q["explain"] = "%s belongs with %s." % (key, cat)
+        q["explain_structural"] = True
+    q["say"] = prompt
+    q["speak_choices"] = True
+    return q
+
+
+def _know_pair(spec: Dict) -> Optional[Dict]:
+    pairs = [p for p in (spec.get("pairs") or []) if len(p) == 2]
+    if len(pairs) < 4:
+        return None
+    left, right = R.choice(pairs)
+    back = spec.get("pair_back_prompt")
+    # The reverse direction is only asked when it has been authored. Running a
+    # forward template backwards produced "How many are in one 7 days?" — the
+    # sentence a template cannot survive being read from the wrong end.
+    if back and R.random() < 0.5:
+        prompt = _articled(back.format(right))
+        key, pool = left, [a for a, b in pairs if a != left]
+    else:
+        prompt = _articled(spec.get("pair_prompt", "What goes with {}?").format(left))
+        key, pool = right, [b for a, b in pairs if b != right]
+    pool = pool + [e for e in (spec.get("extras") or []) if e != key]
+    q = _mc(prompt, key, _length_balanced(key, pool), pad=False)
+    q["explain"] = "%s goes with %s." % (left, right)
+    # Structural: it restates the pair rather than teaching it, and must not
+    # ride on the back of a review card, where a Seedling's two-option choice
+    # became "tap the option that says the word in the question" — 83% by
+    # word-matching alone, an auditor measured.
+    q["explain_structural"] = True
+    q["say"] = prompt
+    q["speak_choices"] = True
+    return q
+
+
+def _know_fact(spec: Dict) -> Optional[Dict]:
+    facts = [f for f in (spec.get("facts") or []) if len(f.get("d") or []) >= 3]
+    if not facts:
+        return None
+    f = R.choice(facts)
+    key = str(f["a"])
+    authored = [str(d) for d in f["d"]]
+    # One of the three distractors is always an authored one; the other two are
+    # chosen for length, from the wrong answers written for this node's OTHER
+    # facts.
+    #
+    # With exactly three authored distractors there is nothing to choose
+    # between and the key's length rank is whatever the authoring happened to
+    # make it — which an auditor measured as "always take the third shortest,
+    # 49% against 25% chance" on one node. Every candidate here is a wrong
+    # answer somebody wrote for this same lesson, so the item stays plausible
+    # and stops being positional.
+    R.shuffle(authored)
+    if f.get("keep"):
+        # An either/or question ("the wheel or the car?") names its options
+        # in the prompt, so every distractor has to name them too or the one
+        # that does is the key. Those facts author all three distractors for
+        # exactly that reason, and the length lever must not swap them out
+        # for wrong answers from elsewhere that do not echo the prompt.
+        chosen = authored[:3]
+    else:
+        keep = authored[:1]
+        elsewhere = [str(d) for g in facts if g is not f for d in (g.get("d") or [])]
+        chosen = keep + _length_balanced(key, [c for c in authored[1:] + elsewhere
+                                               if c not in keep], 2)
+    q = _mc(f["q"], f["a"], chosen, f.get("explain") or "", pad=False)
+    q["say"] = f.get("say", f["q"])
+    q["speak_choices"] = True
+    return q
+
+
+def _front_order(seq: List[str]) -> List[str]:
+    """A stable listing of a sequence's members that is never the answer.
+
+    The front used to list them alphabetically. Forty-one of the orderings ARE
+    alphabetical — every dictionary drill, the binary numbers — so the front
+    printed the answer and the child could copy it off. Alphabetical when that
+    differs from the answer; otherwise by length then reverse-alphabetical,
+    which is stable, and is checked against the answer too.
+    """
+    backwards = list(reversed(seq))
+    # Neither the answer nor its mirror: 51 fronts were the answer backwards,
+    # which for "smallest first" is the answer.
+    for candidate in (sorted(seq), sorted(seq, key=lambda x: (len(x), x), reverse=True),
+                      sorted(seq, key=lambda x: (x[-1], x)), seq[1:] + seq[:1]):
+        if candidate != seq and candidate != backwards:
+            return candidate
+    return seq
+
+
+def _know_order(spec: Dict) -> Optional[Dict]:
+    """An ordering the child produces — and, unlike a generated one, a card.
+
+    Every generated order item in the book is ephemeral by construction: the
+    sequence is drawn fresh each time, so one fixed front ("Put them in order")
+    would map to a different back on every sitting. That is true of
+    `g_order_numbers`, which invents its numbers. It is NOT true here: these
+    sequences are authored and finite, exactly like an authored bank item, and
+    `quiz.is_ephemeral_prompt` already says an authored order item is durable
+    because "what is shuffled is only the presentation".
+
+    So the prompt names its own set. "Put the seasons in order: autumn,
+    spring, summer, winter" is a stable front with one stable back, it gives
+    nothing away (the chips are on screen anyway), and it means the one shape
+    that asks a young reader to PRODUCE can finally come back tomorrow when
+    they get it wrong. Before this, 0 of 468 ordering items could mint a card.
+    """
+    seqs = [s for s in (spec.get("sequences") or [])
+            if len([x for x in s if not isinstance(x, dict)]) >= 3]
+    if not seqs:
+        return None
+    chosen = R.choice(seqs)
+    # A sequence may carry its own prompt as a trailing {"prompt": ...} dict,
+    # for the orderings the node's shared criterion does not describe —
+    # "bedtime steps" is not what "wet, soap, rinse, dry" is an ordering of.
+    override = None
+    if isinstance(chosen[-1], dict):
+        override = chosen[-1].get("prompt")
+        chosen = chosen[:-1]
+    seq = [str(x) for x in chosen]
+    prompt = override or spec.get("sequence_prompt", "Put them in the right order")
+    prompt = "%s: %s" % (prompt, ", ".join(_front_order(seq)))
+    authored = spec.get("sequence_explain")
+    q = _order(prompt, seq,
+               spec.get("sequence_say", "Tap them in the right order."),
+               authored or ("The order is: " + ", ".join(seq) + "."))
+    if not authored:
+        q["explain_structural"] = True
+    # Still stamped `ephemeral: True` like every generated item — the guard
+    # that keeps a forgetful generator from being read as authored. Its
+    # durability is declared where a generated item's always is, in
+    # is_durable_item, which knows these orderings name their own set.
+    return q
+
+
+_GROUP_PROMPT_CACHE: Dict[str, frozenset] = {}
+
+
+def _group_prompts(gen_key: str) -> frozenset:
+    """Every prompt a node's CATEGORY PICK can produce.
+
+    Declared from the material rather than inferred from the text, so the same
+    item is judged the same way in every process — the property
+    `is_durable_item` exists to keep deterministic.
+    """
+    if gen_key not in _GROUP_PROMPT_CACHE:
+        spec = young_material().get(gen_key[len("know:"):]) or {}
+        groups = spec.get("groups") or {}
+        template = spec.get("group_prompt", "Which one is a {}?")
+        negative = spec.get("group_not_prompt")
+        not_cats = set(spec.get("group_not_cats") or [])
+        prompts = {_articled(template.format(cat)) for cat in groups}
+        if negative:
+            prompts |= {_articled(negative.format(cat))
+                        for cat in groups if cat in not_cats}
+        _GROUP_PROMPT_CACHE[gen_key] = frozenset(prompts)
+    return _GROUP_PROMPT_CACHE[gen_key]
+
+
+_ROTATIONS: List[Dict] = []
+
+
+def reset_rotation() -> None:
+    """Put every knowledge drill back to the start of its shape rotation.
+
+    The rotation counter is process-global — it has to be, since the shape has
+    to alternate across separate calls to `gen()` — which means an audit run
+    inside a long-lived process starts wherever the last caller left it. Two
+    generators came out clean alone and dirty in the suite for exactly that
+    reason, and a measurement that depends on how many items were drawn before
+    it is not a measurement. Seeded auditors call this straight after seeding.
+    """
+    for turn in _ROTATIONS:
+        turn["n"] = 0
+
+
+def make_knowledge_generator(node_id: str) -> Callable:
+    """One drill over one node's authored material.
+
+    Production is not an afterthought here. On a young paper an ordering item
+    — tap these in the order they happen — is the only shape that asks the
+    child to *make* the answer rather than spot it, so it is drawn first
+    whenever the node has a sequence to order.
+    """
+    turn = {"n": 0}
+    _ROTATIONS.append(turn)
+
+    def gen(level=0):
+        spec = young_material().get(node_id) or {}
+        # The SHAPE rotates; only the content is drawn. Sampling the shape too
+        # meant a four-item drill could come out all ordering, and whether that
+        # drill was worth a review card then depended on the draw — the exact
+        # coin-flip that `is_durable_item` exists to have stopped. Rotating
+        # also guarantees what sampling only made likely: every drill of four
+        # asks the child to produce something, and asks for recall as well.
+        turn["n"] += 1
+        i = turn["n"]
+        recall = [_know_group, _know_pair, _know_fact]
+        # `level` was accepted and then ignored, so a Seedling and a Sprout got
+        # the identical drill. A Seedling has fewer words and less patience for
+        # them: give them the tapping shape more often (every third item rather
+        # than every fourth) and put the two shapes with the shortest options
+        # first. A Sprout, who can read a sentence, meets more of the facts.
+        every = 3 if level <= 0 else 4
+        order_first = i % every == 0
+        if level <= 0:
+            recall = [_know_group, _know_pair, _know_fact]
+        else:
+            recall = [_know_fact, _know_group, _know_pair]
+        # The recall rotation counts only the turns that are NOT orderings.
+        # Rotating it on the same counter as the ordering cadence meant that
+        # at level 0 (`every = 3`) the ordering always landed on the phase
+        # where the category pick would have led — so a Seedling was served
+        # the category shape 0.0% of the time, and their whole drill shrank to
+        # sixteen distinct items. An auditor measured it; nothing here did.
+        r = (i - i // every) % 3
+        shapes = ([_know_order] if order_first else []) + \
+            recall[r:] + recall[:r] + \
+            ([] if order_first else [_know_order])
+        for shape in shapes:
+            if shape is _know_order:
+                q = shape(spec)
+            else:
+                q = _at_drawn_rank(lambda: shape(spec))
+            if q is not None:
+                return q
+        # Nothing authored for this node yet: say so rather than mint noise.
+        return None
+    gen.__name__ = "g_know_%s" % node_id.replace(".", "_").replace("-", "_")
+    return gen
 
 
 GENERATORS: Dict[str, Callable] = {
@@ -824,6 +1520,12 @@ GENERATORS: Dict[str, Callable] = {
     "binary": g_binary, "logic-gates": g_logic_gates,
 }
 
+# One drill per node that has authored material. Registered at import so
+# `list_generators()` — and therefore tools/check_generators.py — sees them
+# exactly like the procedural ones, and they are audited on the same terms.
+for _node_id in sorted(young_material()):
+    GENERATORS["know:" + _node_id] = make_knowledge_generator(_node_id)
+
 
 def generate_set(gen_key: str, n: int = 6, level: int = 1) -> List[Dict]:
     fn = GENERATORS.get(gen_key)
@@ -834,6 +1536,8 @@ def generate_set(gen_key: str, n: int = 6, level: int = 1) -> List[Dict]:
     while len(out) < n and guard < n * 12:
         guard += 1
         q = fn(level)
+        if q is None:      # a knowledge drill with no material for this node
+            break
         # Key on prompt+answer: some generators deliberately reuse one prompt
         # (e.g. "Which spelling is correct?") so the child must listen.
         key = (q["prompt"], q.get("answer"))
@@ -892,6 +1596,21 @@ def is_durable_item(gen_key: str, level: int, prompt: str) -> bool:
     Deterministic by construction: the same item is judged the same way in
     every process, on every run.
     """
+    if gen_key.startswith("know:"):
+        # NOT wholesale. A card's front has to determine its back, and a
+        # category pick's does not: "Which one is a bird?" is one fixed prompt
+        # over a set of members, so the first draw froze one arbitrary member
+        # as the answer (the deck's UNIQUE(front, node_id)) and the reader was
+        # then drilled towards it forever. A third of card-worthy items had a
+        # front mapping to more than one back, one of them to five.
+        #
+        # A fact and a forward pair each name their own answer in the prompt.
+        # Those are cards. The category pick is ephemeral by construction, for
+        # exactly the reason quiz.py already gives about "Which spelling is
+        # correct?".
+        # Orderings included: the prompt carries the sequence's own members,
+        # so the front is as fixed as an authored bank item's.
+        return prompt not in _group_prompts(gen_key)
     return gen_key in DURABLE_GENERATORS
 
 

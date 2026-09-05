@@ -246,7 +246,10 @@ def test_mastery_hands_over_the_page_without_turning_it(tmp_path):
         target = srv.STORY["chapters"][0]["leads_to"]
         assert target == "math.0.counting", "setup: the first chapter's lesson"
 
+        # A stage 0-1 lesson takes three spaced passes now (see
+        # server._evidence_bar): the first two hand nothing over.
         first = _pass_paper(client, srv, target)
+        _pass_paper(client, srv, target)
         assert first["mastery"]["newly_mastered"] is False, \
             "one pass is not proof — the gap has to be kept"
         assert first["story_unlocked"] is None
@@ -281,9 +284,13 @@ def test_mastering_some_other_lesson_does_not_turn_the_page(tmp_path):
         _pass_paper(client, srv, target)
         _age_the_proving_gap(srv, target)
         _pass_paper(client, srv, target)
+        _age_the_proving_gap(srv, target)
+        _pass_paper(client, srv, target)   # third: a stage 0-1 lesson takes three
 
         other = next(n for n in _frontier(srv, ["math"]) if n != target)
         _pass_paper(client, srv, other)
+        _age_the_proving_gap(srv, other)
+        _pass_paper(client, srv, other)   # three spaced passes for a stage 0-1 lesson
         _age_the_proving_gap(srv, other)
         result = _pass_paper(client, srv, other)
 
