@@ -170,6 +170,115 @@ def test_signing_in_opens_the_book_and_keeps_it_open(monkeypatch):
     assert locked.status_code == 401
 
 
+def test_the_unsuffixed_account_still_resolves_to_reader_one(monkeypatch):
+    """Slot 1 (PRIMER_ACCESS_USERNAME/PASSWORD, unsuffixed) is the original
+    single-tenant credential — signing in with it must land on reader_id=1,
+    the profile every deployment already had, exactly as before this
+    existed."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        account = client.get("/api/account").json()
+
+    assert account["reader_id"] == 1
+
+
+def test_a_second_account_opens_its_own_separate_profile(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        client.post("/api/profile", json={
+            "name": "First", "age": 8, "hours_per_week": 6,
+            "breadth": "balanced", "domains": ["math"]})
+        first_account = client.get("/api/account").json()
+
+        client.cookies.clear()
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+        client.post("/api/profile", json={
+            "name": "Second", "age": 10, "hours_per_week": 6,
+            "breadth": "balanced", "domains": ["math"]})
+        second_account = client.get("/api/account").json()
+
+    assert first_account["reader_id"] != second_account["reader_id"]
+    assert second_account["reader_id"] != 1, \
+        "the second account must not land on the first account's profile"
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        assert client.get("/api/state").json()["profile"]["name"] == "First"
+        client.cookies.clear()
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+        assert client.get("/api/state").json()["profile"]["name"] == "Second"
+
+
+def test_switching_accounts_on_one_browser_switches_the_active_reader(monkeypatch):
+    """Signing in again — even on the same cookie jar, without an explicit
+    sign-out first — must move the active reader to the new account, not
+    leave it pinned to whichever session cookie was set first."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        first_reader_id = client.get("/api/account").json()["reader_id"]
+
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+        second_reader_id = client.get("/api/account").json()["reader_id"]
+
+    assert first_reader_id != second_reader_id
+
+
+def test_a_static_account_is_not_google_signed_in_or_claimable(monkeypatch):
+    """A static account already has its own permanent, password-backed
+    identity — it must never read as a Google sign-in, and must never be
+    offered the "claim the legacy profile" action meant for an ambiguous
+    Google identity."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+        account = client.get("/api/account").json()
+        claim = client.post("/api/account/claim", json={"password": "secret"})
+
+    assert account["signed_in"] is False
+    assert account["claimable"] is False
+    assert claim.status_code == 400
+
+
+def test_rotating_one_accounts_password_does_not_sign_the_other_out(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+
+    with TestClient(srv.app, base_url="https://testserver") as first:
+        first.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        with TestClient(srv.app, base_url="https://testserver") as second:
+            second.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+            monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "a new secret")
+            second_after_rotation = second.get("/api/state")
+        first_after_rotation = first.get("/api/state")
+
+    assert second_after_rotation.status_code == 401
+    assert first_after_rotation.status_code == 200
+
+
 def test_a_wrong_word_is_refused_without_saying_which_half_was_wrong(monkeypatch):
     monkeypatch.setenv("VERCEL", "1")
     monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")

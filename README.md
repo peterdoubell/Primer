@@ -288,6 +288,19 @@ grey credential dialog, which is unstyleable and was the first thing a reader
 met. Basic credentials are still *accepted* on every route, unadvertised, so
 `curl -u` and CI need no cookie jar.
 
+**A second reader, no Google account needed.** `PRIMER_ACCESS_USERNAME2` /
+`PRIMER_ACCESS_PASSWORD2` (then `...3`, `...4`, ...) add more named
+accounts to the same gate above — each is checked the same way, and each
+gets its **own separate profile** (mastery, deck, streak, story) the first
+time anyone signs in with it, exactly as Google sign-in does, without any
+Google Cloud Console setup. The original, unsuffixed pair always resolves
+to `reader_id=1`, the profile every deployment already had, so nothing
+about a single-account install changes by adding this. Two people sharing
+one hosted copy need nothing more than a second username and password; a
+household that later wants real per-person accounts across devices can
+layer Google sign-in on top (see *Google sign-in*, below) without
+disturbing either static account.
+
 All of this lives in `primer/store.py`. It is a single seam — the learner, wiki
 and sittings stores each call one `connect()` — and it is deliberately
 asymmetric. With no variables set it hands back a genuine `sqlite3.Connection`
