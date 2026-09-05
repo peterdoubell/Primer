@@ -311,6 +311,38 @@ def _access_token(username: str, password: str) -> str:
                     hashlib.sha256).hexdigest()
 
 
+def _access_accounts() -> list:
+    """Every configured (username, password, slot) triple, in slot order.
+
+    Slot 1 — PRIMER_ACCESS_USERNAME/PRIMER_ACCESS_PASSWORD, unsuffixed — is
+    the original single-tenant credential and always resolves to
+    reader_id=1, the profile every deployment already had before this
+    existed; its slot is reported as None so callers never mistake it for a
+    provisioned static account. Slot 2, 3, ... (PRIMER_ACCESS_USERNAME2/
+    PRIMER_ACCESS_PASSWORD2, and so on) are additional named accounts — a
+    small household sharing one hosted copy without wanting Google sign-in.
+    Each gets its own reader the first time anyone signs in with it (see
+    `reader_for_static_account`); the credentials themselves are the only
+    thing distinguishing one from another, so misconfiguring two slots with
+    the same password would let either username open either account — a
+    deployer's mistake to avoid, not one this function can catch for them.
+    """
+    accounts = []
+    base_password = os.environ.get(ACCESS_PASSWORD_ENV)
+    if base_password:
+        accounts.append((os.environ.get(ACCESS_USERNAME_ENV) or "primer",
+                         base_password, None))
+    n = 2
+    while True:
+        password = os.environ.get(ACCESS_PASSWORD_ENV + str(n))
+        if not password:
+            break
+        username = os.environ.get(ACCESS_USERNAME_ENV + str(n)) or ("primer" + str(n))
+        accounts.append((username, password, n))
+        n += 1
+    return accounts
+
+
 def _safe_next(raw: Optional[str]) -> str:
     """Only ever bounce back to a path on this same book.
 
@@ -397,13 +429,12 @@ async def _hosted_access_guard(request, call_next):
     if path == "/healthz" or path in PUBLIC_ASSET_PATHS:
         return await call_next(request)
 
-    password = os.environ.get(ACCESS_PASSWORD_ENV)
+    accounts = _access_accounts()
     hosted = bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV"))
-    if not password:
+    if not accounts:
         return _access_challenge(503) if hosted else await call_next(request)
 
-    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
-    if _is_signed_in(request, username, password):
+    if _is_signed_in(request, accounts):
         response = await call_next(request)
         response.headers.setdefault("Vary", "Authorization, Cookie")
         return response
@@ -421,29 +452,34 @@ async def _hosted_access_guard(request, call_next):
     return _access_challenge()
 
 
-def _is_signed_in(request, username: str, password: str) -> bool:
-    """Either the cookie the sign-in page set, or a Basic header.
+def _is_signed_in(request, accounts: list) -> bool:
+    """Either the cookie the sign-in page set, or a Basic header — checked
+    against every configured account, not just one.
 
     Basic stays accepted — unadvertised — because the deployment's own health
     checks, curl and CI authenticate that way and should not have to hold a
-    cookie jar to do it.
+    cookie jar to do it. Every account is checked rather than stopping at the
+    first match, so which slot a cookie or header belongs to is never
+    revealed by how quickly this returns.
     """
-    expected_token = _access_token(username, password)
     cookie = request.cookies.get(ACCESS_COOKIE, "")
-    if cookie and secrets.compare_digest(cookie, expected_token):
-        return True
+    cookie_ok = cookie and any(
+        secrets.compare_digest(cookie, _access_token(username, password))
+        for username, password, _slot in accounts)
     try:
         scheme, encoded = request.headers.get("Authorization", "").split(" ", 1)
         if scheme.lower() != "basic" or len(encoded) > 8192:
             raise ValueError
         supplied_user, supplied_password = base64.b64decode(
             encoded, validate=True).split(b":", 1)
-        expected_user = username.encode("utf-8")
-        expected_password = password.encode("utf-8")
     except (ValueError, UnicodeEncodeError, binascii.Error):
-        return False
-    return (secrets.compare_digest(supplied_user, expected_user)
-            and secrets.compare_digest(supplied_password, expected_password))
+        basic_ok = False
+    else:
+        basic_ok = any(
+            secrets.compare_digest(supplied_user, username.encode("utf-8"))
+            and secrets.compare_digest(supplied_password, password.encode("utf-8"))
+            for username, password, _slot in accounts)
+    return bool(cookie_ok) or basic_ok
 
 
 # ---------------- google identity (inner layer) ----------------
@@ -465,6 +501,16 @@ READER_COOKIE = "primer_reader"
 READER_MAX_AGE = 60 * 60 * 24 * 180      # half a year between Google sign-ins
 _OAUTH_STATE_COOKIE = "primer_oauth_state"
 _OAUTH_STATE_MAX_AGE = 600               # the round trip to Google and back
+
+
+def _is_real_google_sub(sub: Optional[str]) -> bool:
+    """Whether a readers.google_sub value is an actual Google identity, as
+    opposed to the synthetic "static:N" key a static account is filed under
+    (see LearnerStore.reader_for_static_account). Google's own subject
+    values are purely numeric strings, never colon-separated, so the two can
+    never collide — this is what keeps a static account from reading as
+    Google-signed-in, or eligible to claim reader_id=1."""
+    return bool(sub) and not sub.startswith("static:")
 
 
 def current_reader(request: Request) -> int:
@@ -634,18 +680,22 @@ def account(request: Request):
     reader_id = current_reader(request)
     reader = learner.get_reader(reader_id)
     legacy = reader if reader_id == 1 else learner.get_reader(1)
+    google_sub = (reader or {}).get("google_sub")
     return {
         "reader_id": reader_id,
-        "signed_in": bool(reader and reader.get("google_sub")),
+        "signed_in": _is_real_google_sub(google_sub),
         "email": (reader or {}).get("email") or None,
         "name": (reader or {}).get("name") or None,
         # Offered only to a reader who has actually signed in with Google
         # AND whose sign-in is not already the one behind reader_id=1 —
         # reader_id=1 unclaimed is the one thing that makes the button do
-        # something.
+        # something. A static account (see _is_real_google_sub) never
+        # qualifies: it already has its own permanent, password-backed
+        # identity, and "claiming" was only ever about an ambiguous Google
+        # sign-in landing on the pre-existing single profile.
         "claimable": bool(
-            reader_id != 1 and reader and reader.get("google_sub")
-            and legacy and not legacy.get("google_sub")),
+            reader_id != 1 and _is_real_google_sub(google_sub)
+            and legacy and not _is_real_google_sub(legacy.get("google_sub"))),
     }
 
 
@@ -669,7 +719,7 @@ def claim_profile(body: ClaimIn, request: Request):
         return JSONResponse({"error": "that is not the word this copy knows"},
                             status_code=401)
     reader = learner.get_reader(reader_id)
-    if not reader or not reader.get("google_sub"):
+    if not reader or not _is_real_google_sub(reader.get("google_sub")):
         return JSONResponse({"error": "sign in with Google first"}, status_code=400)
     claimed = learner.claim_legacy_reader(
         reader_id, reader["google_sub"], reader.get("email", ""), reader.get("name", ""))
@@ -3355,9 +3405,7 @@ def _sign_in_page(error: str = "", status_code: int = 200):
 
 @app.get(SIGN_IN_PATH)
 def sign_in_form(next: str = "/"):
-    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
-    password = os.environ.get(ACCESS_PASSWORD_ENV)
-    if not password:
+    if not _access_accounts():
         # Nothing to sign in to: locally there is no gate, and a hosted
         # deployment without a password has already failed closed upstream.
         return RedirectResponse(_safe_next(next), status_code=303,
@@ -3367,8 +3415,8 @@ def sign_in_form(next: str = "/"):
 
 @app.post(SIGN_IN_PATH)
 async def sign_in(request: Request):
-    password = os.environ.get(ACCESS_PASSWORD_ENV)
-    if not password:
+    accounts = _access_accounts()
+    if not accounts:
         return RedirectResponse("/", status_code=303, headers=_no_store())
     # Parsed here rather than through request.form(): the form is urlencoded
     # and this keeps the multipart parser — and its dependency — out of the
@@ -3380,34 +3428,52 @@ async def sign_in(request: Request):
     next_path = _safe_next(request.query_params.get("next") or "/")
     supplied_user = (form.get("username") or "")[:512]
     supplied_password = (form.get("password") or "")[:1024]
-    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
-    ok = (secrets.compare_digest(supplied_user.encode("utf-8"),
-                                 username.encode("utf-8"))
-          and secrets.compare_digest(supplied_password.encode("utf-8"),
-                                     password.encode("utf-8")))
-    if not ok:
+    # Every account is checked, never stopping at the first match, so a wrong
+    # guess cannot learn which slot's credentials it came close to.
+    matched = None
+    for username, password, slot in accounts:
+        if (secrets.compare_digest(supplied_user.encode("utf-8"), username.encode("utf-8"))
+                and secrets.compare_digest(supplied_password.encode("utf-8"),
+                                           password.encode("utf-8"))):
+            matched = (username, password, slot)
+    if matched is None:
         # One message for a wrong reader and a wrong word alike: naming which
         # half was wrong tells an intruder which half to keep.
         log.info("sign-in refused")
         return _sign_in_page(
             "That is not the word this copy knows. Try again.", 401)
+    username, password, slot = matched
+    # reader_id=1 for the original, unsuffixed pair — the profile every
+    # deployment already had; a named slot (2, 3, ...) gets its own reader,
+    # created the first time anyone signs in with it.
+    reader_id = 1 if slot is None else learner.reader_for_static_account(
+        "static:" + str(slot), username)
     response = RedirectResponse(next_path, status_code=303, headers=_no_store())
+    secure = bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV"))
     response.set_cookie(
         ACCESS_COOKIE, _access_token(username, password),
         max_age=ACCESS_MAX_AGE, httponly=True, samesite="lax",
         # Secure only where there is TLS to be had: a Secure cookie is dropped
         # silently over plain http, which would lock out a local run behind a
         # password without ever saying why.
-        secure=bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV")),
-        path="/")
+        secure=secure, path="/")
+    # Always minted, even for the single, unsuffixed account: this is what
+    # makes switching accounts on one browser actually switch the active
+    # reader, rather than leaving current_reader() pinned to whichever
+    # session cookie was set first.
+    _set_reader_cookie(response, learner.create_session(reader_id))
     return response
 
 
 @app.post("/sign-out")
-def sign_out():
+def sign_out(request: Request):
     response = RedirectResponse(SIGN_IN_PATH, status_code=303,
                                 headers=_no_store())
     response.delete_cookie(ACCESS_COOKIE, path="/")
+    token = request.cookies.get(READER_COOKIE, "")
+    if token:
+        learner.delete_session(token)
+    response.delete_cookie(READER_COOKIE, path="/")
     return response
 
 
