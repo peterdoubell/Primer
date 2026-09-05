@@ -10,27 +10,27 @@
 }
 :root {
   color-scheme: light;
-  --paper: #f6f0e2;
-  --paper-2: #efe7d4;
-  --paper-edge: #e3d8bd;
-  --ink: #2b2419;
-  --ink-soft: #554b3a;
-  --ink-faint: #6e6350;   /* darkened to pass AA on parchment */
-  --gold: #a9852f;
-  --gold-ink: #7a5d13;    /* darker gold: passes AA at 12-13px */
-  --gold-bright: #c9a227;
-  --accent: #7a3b2e;
-  --accent-2: #3f639a;
-  --green: #337a4b;
-  --green-ink: #24603a;   /* green that passes AA as text on its own tint */
-  --ink-locked: #6a6152;  /* muted but AA: locked tiles are still operable */
-  --rule: #d8cba8;
-  --shadow: rgba(60, 45, 20, 0.18);
+  --paper: #f3ece3;
+  --paper-2: #e9dfd2;
+  --paper-edge: #cdb9a7;
+  --ink: #30201d;
+  --ink-soft: #58413a;
+  --ink-faint: #70594e;   /* darkened to pass AA on parchment */
+  --gold: #98734a;
+  --gold-ink: #75522f;    /* darker gold: passes AA at 12-13px */
+  --gold-bright: #c7a477;
+  --accent: #713c38;
+  --accent-2: #405f69;
+  --green: #3e6551;
+  --green-ink: #2f513e;   /* green that passes AA as text on its own tint */
+  --ink-locked: #6d594f;  /* muted but AA: locked tiles are still operable */
+  --rule: #cbb7a4;
+  --shadow: rgba(48, 22, 18, 0.2);
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --sans: "Optima", "Segoe UI", -apple-system, system-ui, sans-serif;
   --focus: #1f5fbf;
-  --paper-hi: #fbf6ea;
-  --field: #fffdf6;
+  --paper-hi: #faf5ee;
+  --field: #fffaf3;
   --field-hi: #ffffff;
   --ui-scale: 1;          /* bumped up in young-reader stage modes */
   /* Text that sits on a coloured fill (green tick, selected chip, domain dot).
@@ -38,12 +38,12 @@
      hard-coded to #fff fell to 2.00:1 on the completed-quest tick — the primary
      completion indicator on the Today screen — and 2.69:1 on the selected
      onboarding chip, which was *less* readable than the unselected one. */
-  --on-fill: #fffdf6;
+  --on-fill: #fffaf3;
   /* A perceivable boundary for inputs, choices and cards (SC 1.4.11 wants 3:1).
      --rule and --paper-edge are decorative hairlines at 1.25-1.54:1; they stay
      for dividers, but anything that is a control's edge uses this. */
-  --edge: #8a7f62;
-  --ink-place: #665c4d;   /* authored placeholder: the UA default fails in dark */
+  --edge: #8e7463;
+  --ink-place: #6c554b;   /* authored placeholder: the UA default fails in dark */
   --muted: var(--ink-faint); /* quiet status text; was referenced but never defined */
   /* ---- depth, motion, geometry: the book's physical grammar, stated once ----
      Corners had drifted into nine ad-hoc radii (7, 8, 9, 10, 12, 14…), so no two
@@ -76,14 +76,14 @@
   /* The ground of a surface that lets the page show through, blurred. Solid
      chrome stays the fallback: never translucency without the blur, which is
      just text on mud. Themed, so it carries a --dk-* partner below. */
-  --glass: rgba(43, 32, 15, 0.72);
+  --glass: rgba(42, 19, 19, 0.82);
   /* Translucent state washes. These were hardcoded light-palette RGB
      (rgba(51,122,75,…), rgba(201,162,39,…)) at every use site, so the green
      and gold tints stayed daylight-mixed on the night page. Declared as
      tokens with --dk-* counterparts so they turn with the palette. */
-  --tint-green: rgba(51, 122, 75, 0.12);
-  --tint-gold: rgba(201, 162, 39, 0.16);
-  --tint-gold-strong: rgba(201, 162, 39, 0.3);
+  --tint-green: rgba(62, 101, 81, 0.12);
+  --tint-gold: rgba(152, 115, 74, 0.13);
+  --tint-gold-strong: rgba(152, 115, 74, 0.28);
   /* The last three washes still hiding as raw light-palette RGB: the wikilink
      hover, the explain panel, and the wrong-answer fill. The wrong fill was
      the loudest miss — at night its border and text turn magenta while a
@@ -111,14 +111,13 @@
   /* Chrome that differs by theme, declared as values rather than as rules, so
      the shell can change character without duplicating a single selector. */
   --shell-bg:
-    radial-gradient(circle at 20% 10%, rgba(120, 90, 40, 0.25), transparent 60%),
-    radial-gradient(circle at 80% 90%, rgba(90, 60, 20, 0.3), transparent 55%),
-    linear-gradient(#2a2214, #1b160d);
-  --page-texture: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(180,150,90,0.05) 28px);
-  --seam: linear-gradient(90deg, rgba(120,90,40,0), rgba(120,90,40,0.18) 45%, rgba(255,255,255,0.4) 50%, rgba(120,90,40,0.18) 55%, rgba(120,90,40,0));
+    radial-gradient(circle at 20% 10%, rgba(105, 49, 39, 0.28), transparent 60%),
+    linear-gradient(#301a19, #1d1113);
+  --page-texture: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(110,70,55,0.035) 28px);
+  --seam: linear-gradient(90deg, rgba(100,55,43,0), rgba(100,55,43,0.18) 45%, rgba(255,255,255,0.4) 50%, rgba(100,55,43,0.18) 55%, rgba(100,55,43,0));
   --glow-soft: none;
   /* The travelling highlight on a loading skeleton line. */
-  --sk-sheen: #e9dcbb;
+  --sk-sheen: #e6d6c7;
   --glow-strong: none;
   --tile-glow: none;
   /* The always-dark surfaces (spine, tutor, toast, chapter card). In day mode
@@ -130,28 +129,27 @@
      when it was a muted brown-red, but at night it becomes hot magenta, and a
      page of encyclopedia prose turned into a field of pink. Split by meaning:
      amber is the book speaking, cyan is information you can follow, magenta is
-     reserved for when something is actually wrong. Light mode keeps its old
-     values, so the paper book is unchanged. */
+     reserved for when something is actually wrong. Daylight uses oxblood ink against parchment. */
   --link: var(--accent);
   --heading-accent: var(--accent);
-  --btn-fill: linear-gradient(#8a4436, #6d3327);
+  --btn-fill: linear-gradient(#79433c, #542824);
   --btn-ink: #fdf3e6;
   /* The gold CTA, as tokens rather than a literal gradient, so it can turn
      with the palette like every other fill. */
-  --btn-gold-fill: linear-gradient(#dcbe63, #bb9438);
-  --btn-gold-ink: #241a03;
-  --shell-base: #221c12;
-  --scrim: rgba(30,22,10,0.7);   /* candle-lit by day */
+  --btn-gold-fill: linear-gradient(#d3b58c, #b18a5f);
+  --btn-gold-ink: #2c1915;
+  --shell-base: #231313;
+  --scrim: rgba(30,14,15,0.74);   /* candle-lit by day */
   --lock-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4.8' y='10.5' width='14.4' height='9.7' rx='2'/><path d='M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7'/></svg>");
-  --chrome-bg: linear-gradient(160deg, #3c2c17, #241a0d);
-  --panel-bg: linear-gradient(170deg, #2f2413, #211809);
-  --chrome-ink: #e9dcc0;
-  --chrome-ink-soft: #d8c9a6;
-  --chrome-ink-dim: #b8a983;
-  --chrome-hi: #f2e6cb;
-  --chrome-rule: rgba(200,170,110,0.25);
-  --chrome-hover: rgba(200,170,110,0.14);
-  --chrome-active: rgba(201,162,39,0.22);
+  --chrome-bg: radial-gradient(ellipse at 0% 10%, rgba(137,72,54,.2), transparent 65%), linear-gradient(160deg, #482421, #241315);
+  --panel-bg: radial-gradient(ellipse at 85% 0%, rgba(143,77,57,.16), transparent 65%), linear-gradient(135deg, #482724, #281719);
+  --chrome-ink: #eddfce;
+  --chrome-ink-soft: #decbba;
+  --chrome-ink-dim: #c4aa95;
+  --chrome-hi: #fbefde;
+  --chrome-rule: rgba(204,165,119,0.28);
+  --chrome-hover: rgba(204,165,119,0.10);
+  --chrome-active: rgba(204,165,119,0.18);
 
   /* ---- the night palette, written once ----
      The Primer is a book that is also a machine. By day it is paper. By night
@@ -462,7 +460,8 @@ button { font-family: var(--sans); cursor: pointer; }
 .grid { display: grid; gap: 16px; }
 .grid.two { grid-template-columns: 1fr 1fr; }
 .grid.three { grid-template-columns: repeat(3, 1fr); }
-.grid.auto { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.grid.auto { grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr)); }
+.grid > * { min-width: 0; }
 
 .lesson-card { border-color: var(--edge); cursor: pointer; position: relative; overflow: hidden;
   transition: transform var(--dur-base) var(--spring), box-shadow var(--dur-base) var(--ease-out); }
@@ -471,9 +470,12 @@ button { font-family: var(--sans); cursor: pointer; }
    tactile half of the hover lift, without which a card feels like glass. */
 .lesson-card:active { transform: translateY(-1px) scale(.995);
   box-shadow: 0 3px 8px var(--shadow); transition-duration: .06s; }
-.lesson-card .domain-tag { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+.lesson-card .domain-tag { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
+/* Metadata wraps as a pair; neither label can paint over its neighbour. */
+.lesson-meta { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 10px; margin-bottom: 10px; }
+.lesson-card > .speak-btn { display: flex; margin: 8px 0 0 auto; }
 .lesson-card .goal { color: var(--ink-soft); font-size: 14px; }
-.lesson-card .stagepill { position: absolute; top: 12px; right: 12px; font-family: var(--sans); font-size: 11px; color: var(--ink-faint); }
+.lesson-card .stagepill { flex: none; margin-left: auto; white-space: nowrap; font-family: var(--sans); font-size: 11px; color: var(--ink-faint); }
 
 /* ---------- lesson plates and manipulatives ----------
    Authored pictures and executable explanations share one visual chapter,

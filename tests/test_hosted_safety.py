@@ -510,3 +510,43 @@ def test_another_origins_page_cannot_drive_this_book(tmp_path):
             assert c.get("/", headers={"Sec-Fetch-Site": "cross-site"}).status_code == 200
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
+def test_repeat_static_login_handles_http_constraint_error_shape(monkeypatch):
+    """Turso HTTP may return an error envelope the client reads as KeyError."""
+    from contextlib import contextmanager
+    import sqlite3
+
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+    reader_id = srv.learner.reader_for_static_account("static:2", "reader2")
+    original_conn = srv.learner._conn
+
+    class HttpErrorConnection:
+        def __init__(self, connection):
+            self.connection = connection
+
+        def execute(self, *args, **kwargs):
+            try:
+                return self.connection.execute(*args, **kwargs)
+            except sqlite3.IntegrityError:
+                raise KeyError("result")
+
+        def __getattr__(self, name):
+            return getattr(self.connection, name)
+
+    @contextmanager
+    def http_connection():
+        with original_conn() as connection:
+            yield HttpErrorConnection(connection)
+
+    monkeypatch.setattr(srv.learner, "_conn", http_connection)
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        for _ in range(2):
+            response = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
+                                   data={"username": "reader2", "password": "secret2"})
+            assert response.status_code == 303
+            assert client.get("/api/account").json()["reader_id"] == reader_id

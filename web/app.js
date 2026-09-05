@@ -1481,11 +1481,12 @@ function lessonCard(n) {
   const open = el('h3', { style: 'font-size:18px;margin:0' },
     btn({ class: 'unstyled card-open', onclick: () => go('node', n.id) }, n.title));
   c.append(
-    el('span', { class: 'stagepill' }, STAGE_NAMES[n.stage]),
-    // Domain hexes are authored for daylight in the curriculum JSON. Rather
-    // than re-authoring ten files per theme, --domain-lift raises the fill
-    // toward white at night (0% by day) so --on-fill keeps its contrast.
-    el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
+    el('div', { class: 'lesson-meta' },
+      // Domain hexes are authored for daylight in the curriculum JSON. Rather
+      // than re-authoring ten files per theme, --domain-lift raises the fill
+      // toward white at night (0% by day) so --on-fill keeps its contrast.
+      el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
+      el('span', { class: 'stagepill' }, STAGE_NAMES[n.stage])),
     open,
     el('p', { class: 'goal' }, n.goal || ''));
   // A lesson standing one earned pass short of mastery already has a dated
@@ -1503,7 +1504,6 @@ function lessonCard(n) {
   }
   if (S.stage <= 1) {
     const sp = speakBtn(() => n.title + '. ' + (n.goal || ''), 'Say ' + n.title);
-    sp.style.cssText = 'position:absolute;bottom:10px;right:10px';
     c.append(sp);
   }
   if (n.mastery) {
