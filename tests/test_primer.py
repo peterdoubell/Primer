@@ -1458,8 +1458,22 @@ def test_sanitizer_never_swallows_the_article_on_malformed_html():
 
 
 def test_sanitizer_keeps_rel_noopener_on_external_links():
+    """rel stays; target is gone on purpose.
+
+    The renderer used to hand every external link `target="_blank"`, so an
+    article's several hundred citation links were several hundred unannounced
+    exits: one tap and the reader was in a raw browser tab, outside the book's
+    typography and its offline guarantee. The destination is kept and marked —
+    `data-primer-outside` names the host and the client asks before going — and
+    `rel="noopener noreferrer"` still travels with it, because the client opens
+    the window itself and the anchor must stay safe if it is ever followed
+    directly.
+    """
     out = rewrite_article('<a href="https://example.com/x">ext</a>')
-    assert 'rel="noopener noreferrer"' in out and 'target="_blank"' in out
+    assert 'rel="noopener noreferrer"' in out
+    assert 'target=' not in out, "an unannounced exit from the book"
+    assert 'data-primer-outside="example.com"' in out
+    assert 'class="primer-outside"' in out
 
 
 def test_sanitizer_drops_unsafe_target_values():
@@ -1570,6 +1584,16 @@ def test_young_learners_get_cards_from_their_lesson():
     assert cards and all(c['back'] for c in cards)
 
 
+# Answer shapes a reader with no keyboard skills can still use: pick one, put
+# them in order, or touch each thing and commit. The rule is that a pre-reader
+# never has to TYPE — this listed only 'choice' because choice was once the
+# only shape that satisfied it, and that made a rule about the reader read like
+# a rule about the item kind. `tally` is the shape built for exactly these
+# readers (touch each apple, the book counting along), and asserting it away
+# was part of why it sat unused.
+YOUNG_ANSWER_SHAPES = ('choice', 'tally', 'order')
+
+
 def test_young_practice_never_requires_typing_and_is_voiced(curr):
     """A pre-reader must be able to answer by ear and by tapping."""
     young_gens = {n['practice'] for n in curr.nodes.values()
@@ -1577,8 +1601,29 @@ def test_young_practice_never_requires_typing_and_is_voiced(curr):
     assert young_gens
     for key in young_gens:
         for q in practice.generate_set(key, 4, level=1):
-            assert q['kind'] == 'choice', '{} asks a young reader to type'.format(key)
+            assert q['kind'] in YOUNG_ANSWER_SHAPES, (
+                '{} asks a young reader to type ({})'.format(key, q['kind']))
             assert q.get('say'), '{} has no spoken prompt'.format(key)
+
+
+def test_a_young_reader_is_asked_to_produce_and_not_only_to_recognise(curr):
+    """Recognition alone is not practice, and it was all there was.
+
+    Every one of the 622 authored items at stages 0-1 is multiple choice, and
+    every young generator returned choice too — so for the Seedling and Sprout
+    years, which the pacing model prices in years rather than weeks, the book
+    asked the reader to pick an answer and never once to make one. The
+    instrument for this existed the whole time: `g_count_tally` scores counting
+    AS counting, so a child who counts five apples but cannot yet read the
+    numeral 5 is marked right. It was simply wired to nothing.
+    """
+    produced = 0
+    for q in practice.generate_set('counting', 40, level=0):
+        if q['kind'] in ('tally', 'numeric', 'order'):
+            produced += 1
+    assert produced >= 10, (
+        'counting minted %d produced items in 40 — a young reader is still only '
+        'recognising' % produced)
 
 
 def test_young_practice_generators_are_topical(curr):
@@ -3108,14 +3153,19 @@ def test_stripping_an_attribute_cannot_reopen_the_tag():
     # the "target=x" the class value happens to contain: counting raw substrings
     # would find it, which is why the check is on parsed attributes.
     assert ("title", "onclick=alert(1) zz") in seen, seen
-    assert ("class", "external target=x") in seen, seen
-    # …and the renderer still states its own pair, exactly once each.
+    # The hostile `target=x` rides inside a value and stays there: it must never
+    # appear as an attribute of its own. (On an external anchor the article's
+    # class is now replaced by the book's own marker rather than preserved, so
+    # the surviving-value evidence is `title` above; what matters here is that
+    # nothing re-tokenised.)
+    assert ("class", "primer-outside") in seen, seen
+    assert not any(name == "target" for name, _ in seen), seen
     names = [name for name, _ in seen]
-    assert names.count("target") == 1 and names.count("rel") == 1, names
+    assert names.count("rel") == 1, names
 
-    # A value that really is target/rel is still stripped.
-    assert rewrite_article(
-        '<a href="https://example.com" target="_blank">x</a>').count("target=") == 1
+    # A value that really is target is stripped and not restated.
+    assert "target=" not in rewrite_article(
+        '<a href="https://example.com" target="_blank">x</a>')
 
 
 def test_an_unquoted_value_cannot_open_a_quoted_run():
@@ -3457,7 +3507,16 @@ def test_the_results_screen_keeps_focus():
     js = _web("app.js")
     assert js.count("class: 'result-heading'") >= 2, "quiz and placement both need one"
     i = js.index("async function finish(modal, close)")
-    assert "splashHead.focus()" in js[i:i + 900]
+    # Scoped to the function, not to a byte count. This read `js[i:i + 900]`,
+    # which asks "is the focus call within 900 characters of the declaration" —
+    # a question about comment length, not about behaviour. Adding five lines of
+    # comment inside `finish` pushed the call to character 901 and failed a test
+    # whose subject had not changed. The rule being kept is that focus moves to
+    # the results heading somewhere inside `finish`, so the window is `finish`.
+    rest = js[i:]
+    end = rest.index("\n  function ", 1) if "\n  function " in rest[1:] else len(rest)
+    assert "splashHead.focus()" in rest[:end], (
+        "finish() must move focus to the results heading")
 
 
 def test_a_wide_table_scrolls_without_widening_the_page():
@@ -3772,7 +3831,19 @@ def test_an_article_cannot_mint_the_renderers_own_markers():
     # article carrying its own produced the attribute twice, and browsers take
     # the first one.
     dup = rewrite_article('<a href="https://example.com" target="_blank" rel="noopener">x</a>')
-    assert dup.count("target=") == 1 and dup.count("rel=") == 1, dup
+    assert dup.count("target=") == 0 and dup.count("rel=") == 1, dup
+    # The marker on a door out of the book is the book's to state, like every
+    # other reserved class: an article must not be able to dress one of its own
+    # links as one, nor dress a door as ordinary prose.
+    forged_outside = rewrite_article(
+        '<a class="primer-outside" data-primer-outside="evil.test" '
+        'href="https://real.test/x">x</a>')
+    # The substring occurs twice legitimately — the attribute name and the class
+    # — so count the class, and check the forged HOST was replaced by the real
+    # destination rather than carried through.
+    assert forged_outside.count('class="primer-outside"') == 1, forged_outside
+    assert 'data-primer-outside="real.test"' in forged_outside, forged_outside
+    assert "evil.test" not in forged_outside, forged_outside
 
 
 def test_no_image_reaches_the_reader_on_an_upstream_url():

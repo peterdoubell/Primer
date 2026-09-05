@@ -110,7 +110,14 @@ LESSON_ILLUSTRATION_URLS = frozenset(LESSON_ILLUSTRATION_DIMENSIONS)
 # more. One-to-one adaptive tutoring is genuinely faster than a classroom — no
 # waiting for the group, no re-teaching for the median, nothing repeated that
 # the reader has already shown they know — so the Primer prices its curriculum
-# at roughly a third of the classroom equivalent: 6,496 hours.
+# at roughly a third of the classroom equivalent: about 6,500 hours across the
+# ten general fields. (Measured live rather than quoted: the general spine
+# currently prices at ~6,630 h and the whole book, radiology included, at
+# ~10,400 h. The figure written here was 6,496 for a long time after the
+# specialist field arrived, when the ten fields had in fact been pushed down to
+# ~5,490 by a shared density pool — see the pricing block below. Nothing the
+# reader sees was read off this comment; `pacing.roadmap` computes its hours,
+# years and weekly figure from `total_minutes` every time.)
 #
 # That is a real number with a real consequence, which the roadmap now states
 # plainly: the promise holds at 15-30 hours a week, and not at six.
@@ -592,10 +599,31 @@ class Curriculum:
         # stage's average, clamped so density never swings the estimate more
         # than ±50%. This is a real, measurable proxy (more explaining, more
         # worked cases, more to teach) — not an invented per-node number.
-        by_stage: Dict[int, List[Dict]] = {}
+        # The pool a node is measured against is its own kind of field, not the
+        # whole book. This averaged every domain together at each stage, which
+        # was harmless while the book held ten general fields of comparable
+        # authored depth — and stopped being harmless the moment a specialist
+        # field arrived. Radiology's 84 modules carry 3.7x the content of a
+        # general node, and at stage 5 they made up enough of the pool to pull
+        # the average up past every general node's density: 49 of the 52
+        # general graduate nodes landed on the 0.5 clamp floor, nine of the ten
+        # general domains had their ENTIRE graduate tier priced at half, and
+        # the tier the 6,496-hour instructional-time anchor is built on was
+        # quietly costing half what it claims.
+        #
+        # So the ten general fields are normalised against each other, and a
+        # specialist field against itself. Note what this deliberately does not
+        # do: fall back to the stage-wide pool for a small group. There are
+        # seven (stage, domain) groups below four nodes and one of them —
+        # (5, arts), three nodes — is a general graduate group, so a
+        # "too small, use the stage average" guard would put exactly the nodes
+        # this fixes straight back on the floor.
+        specialist = {d["id"] for d in self.domains if d.get("entry_stage", 0) > 0}
+        by_stage: Dict[tuple, List[Dict]] = {}
         for node in raw_nodes:
-            by_stage.setdefault(node["stage"], []).append(node)
-        for stage, nodes in by_stage.items():
+            pool = node["domain"] if node["domain"] in specialist else "*general*"
+            by_stage.setdefault((node["stage"], pool), []).append(node)
+        for (stage, _pool), nodes in by_stage.items():
             lens = [_content_chars(n) for n in nodes]
             avg = sum(lens) / len(lens) if lens else 0
             for node, length in zip(nodes, lens):
@@ -641,22 +669,49 @@ class Curriculum:
         curriculum node actually links it — see load()'s index."""
         return self._domain_by_article.get(title)
 
-    def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float]) -> bool:
+    # The decision the board asked for, written down. Placement credit is
+    # ASSUMED: a six-question interview at each rung, never a proof at the
+    # page. It is what lets a reader skip the nursery, and it opens every rung
+    # up to undergraduate work on that basis. It does not open the graduate
+    # gate. Measured before this: acing the maths interview seeded 49 assumed
+    # rows and 0 proven, and opened 4 of 10 graduate maths nodes with nothing
+    # ever demonstrated. An interview and a proof are interchangeable
+    # everywhere except at the one gate where they are not.
+    GRADUATE_GATE_NEEDS_PROOF = 5
+
+    def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float],
+                        proven: Optional[set] = None) -> bool:
         if stage == 0:
             return True
         prev = self._by_domain_stage.get(domain, {}).get(stage - 1, [])
         if not prev:
+            # A stage with nothing below it in its own field has no gate of
+            # its own. In this corpus that is radiology — a specialist field
+            # that is graduate work end to end, entered from the general spine
+            # by `POST /api/domain/open`, which credits that grounding as
+            # ASSUMED. So yes: assumed credit opens all of radiology, and that
+            # is the stated exception to the graduate-gate rule below, not an
+            # oversight. The rule below is about a field's OWN ladder — an
+            # interview at maths stage 4 must not open maths stage 5. A
+            # library has no ladder; its modules are labelled assumed on
+            # every surface until proved at the page, and the roadmap counts
+            # them as assumed, not proven.
             return True
-        done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
+        if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None:
+            done = sum(1 for n in prev if n["id"] in proven)
+        else:
+            done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
         return done / len(prev) >= STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
 
-    def unlocked(self, node: Dict, mastery: Dict[str, float]) -> bool:
+    def unlocked(self, node: Dict, mastery: Dict[str, float],
+                 proven: Optional[set] = None) -> bool:
         for p in node["prereqs"]:
             if mastery.get(p, 0) < 0.8:
                 return False
-        return self.stage_gate_open(node["domain"], node["stage"], mastery)
+        return self.stage_gate_open(node["domain"], node["stage"], mastery, proven)
 
-    def unlock_requirements(self, node: Dict, mastery: Dict[str, float]) -> List[str]:
+    def unlock_requirements(self, node: Dict, mastery: Dict[str, float],
+                            proven: Optional[set] = None) -> List[str]:
         """Human-readable list of what still stands between the reader and this
         node — so every locked tile is a legible quest marker, not a blank lock."""
         reqs = []
@@ -681,9 +736,11 @@ class Curriculum:
                         title, self._domain_names.get(pn["domain"], pn["domain"]))
                 reqs.append("Master “{}”".format(title))
         stage = node["stage"]
-        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery):
+        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery, proven):
             prev = self._by_domain_stage.get(node["domain"], {}).get(stage - 1, [])
-            done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
+            done = (sum(1 for n in prev if n["id"] in proven)
+                    if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None
+                    else sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8))
             gate = STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
             import math as _m
             need = max(0, _m.ceil(gate * len(prev)) - done)
@@ -693,16 +750,16 @@ class Curriculum:
                     need, STAGE_NAMES[stage - 1], "s" if need != 1 else ""))
         return reqs
 
-    def annotated_graph(self, mastery: Dict[str, float]) -> Dict:
+    def annotated_graph(self, mastery: Dict[str, float], proven: Optional[set] = None) -> Dict:
         nodes = []
         for node in self.nodes.values():
             n = dict(node)
             level = mastery.get(node["id"], 0)
             n["mastery"] = round(level, 2)
             n["mastered"] = level >= 0.8
-            n["unlocked"] = self.unlocked(node, mastery)
+            n["unlocked"] = self.unlocked(node, mastery, proven)
             if not n["unlocked"] and not n["mastered"]:
-                n["unlock_requirements"] = self.unlock_requirements(node, mastery)
+                n["unlock_requirements"] = self.unlock_requirements(node, mastery, proven)
             n.pop("quiz", None)  # keep the graph payload light
             n.pop("lesson_media", None)  # detail-only; plates and model copy are much larger
             nodes.append(n)
@@ -715,7 +772,7 @@ class Curriculum:
                     continue
                 done = sum(1 for n in ns if mastery.get(n["id"], 0) >= 0.8)
                 stages.append({"stage": s, "total": len(ns), "mastered": done,
-                               "open": self.stage_gate_open(d["id"], s, mastery)})
+                               "open": self.stage_gate_open(d["id"], s, mastery, proven)})
             dd = dict(d)
             dd["stages"] = stages
             dd["mastered"] = sum(1 for n in self.nodes.values()
@@ -724,6 +781,7 @@ class Curriculum:
         return {"domains": domains, "nodes": nodes}
 
     def next_lessons(self, mastery: Dict[str, float], domains: Optional[List[str]] = None,
+                     proven: Optional[set] = None,
                      per_domain: int = 2) -> List[Dict]:
         """The frontier: unlocked, unmastered nodes, lowest stage first."""
         picks: List[Dict] = []
@@ -739,7 +797,7 @@ class Curriculum:
                         break
                     if mastery.get(node["id"], 0) >= 0.8:
                         continue
-                    if self.unlocked(node, mastery):
+                    if self.unlocked(node, mastery, proven):
                         n = dict(node)
                         n["mastery"] = round(mastery.get(node["id"], 0), 2)
                         picks.append(n)

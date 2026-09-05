@@ -19,7 +19,7 @@ def isolated_stores(tmp_path, monkeypatch):
     # Capture a no-op as the thread target.  Merely swapping the stores is not
     # enough: the real maintenance thread can outlive fixture teardown and
     # look the module globals up again after they have been restored.
-    monkeypatch.setattr(srv, "_maintenance_loop", lambda: None)
+    monkeypatch.setattr(srv, "_maintenance_loop", lambda *args: None)
     try:
         yield
     finally:
@@ -463,3 +463,90 @@ def test_the_error_banner_renders_and_swallows_hostile_markup(monkeypatch):
     body = forged.body.decode()
     assert "<script>" not in body
     assert "&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;" in body
+
+
+def test_another_origins_page_cannot_drive_this_book(tmp_path):
+    """The book answers its own pages, not whatever else the reader has open.
+
+    Every state-changing route here is a plain same-site call with no token —
+    right for a local book, and it means any page in another tab could drive
+    this API through the reader's own browser: read the whole profile from
+    GET /api/state, re-open a settled placement with recheck=true, spend quiz
+    items. On 127.0.0.1 the way in is DNS rebinding; on the hosted copy it is
+    an ordinary cross-origin page. Nothing looked at where a request came from.
+
+    An absent header still passes: curl, this test client and older browsers
+    send none, and a guard that cannot tell them from an attacker must not
+    pretend otherwise.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            c.post("/api/profile", json={
+                "name": "Ada", "age": 11, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["math"]})
+
+            assert c.get("/api/state").status_code == 200, "no header must still work"
+            for site in ("same-origin", "none"):
+                r = c.get("/api/state", headers={"Sec-Fetch-Site": site})
+                assert r.status_code == 200, "%s is the book talking to itself" % site
+            for site in ("cross-site", "same-site"):
+                r = c.get("/api/state", headers={"Sec-Fetch-Site": site})
+                assert r.status_code == 403, "%s reached the record" % site
+                w = c.post("/api/profile/settings", json={"theme": "dark"},
+                           headers={"Sec-Fetch-Site": site})
+                assert w.status_code == 403, "%s wrote to the record" % site
+
+            # The book's own pages are not API routes and must keep loading.
+            assert c.get("/", headers={"Sec-Fetch-Site": "cross-site"}).status_code == 200
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
+def test_repeat_static_login_handles_http_constraint_error_shape(monkeypatch):
+    """Turso HTTP may return an error envelope the client reads as KeyError."""
+    from contextlib import contextmanager
+    import sqlite3
+
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+    reader_id = srv.learner.reader_for_static_account("static:2", "reader2")
+    original_conn = srv.learner._conn
+
+    class HttpErrorConnection:
+        def __init__(self, connection):
+            self.connection = connection
+
+        def execute(self, *args, **kwargs):
+            try:
+                return self.connection.execute(*args, **kwargs)
+            except sqlite3.IntegrityError:
+                raise KeyError("result")
+
+        def __getattr__(self, name):
+            return getattr(self.connection, name)
+
+    @contextmanager
+    def http_connection():
+        with original_conn() as connection:
+            yield HttpErrorConnection(connection)
+
+    monkeypatch.setattr(srv.learner, "_conn", http_connection)
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        for _ in range(2):
+            response = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
+                                   data={"username": "reader2", "password": "secret2"})
+            assert response.status_code == 303
+            assert client.get("/api/account").json()["reader_id"] == reader_id

@@ -604,7 +604,8 @@
      "width": 1600,
      "height": 1000
     }
-   ]
+   ],
+   "practice": "know:math.0.numbers20"
   },
   {
    "id": "math.1.addition",
@@ -976,7 +977,8 @@
      "width": 1600,
      "height": 1000
     }
-   ]
+   ],
+   "practice": "know:math.1.place-value"
   },
   {
    "id": "math.1.multiplication",
@@ -1338,7 +1340,8 @@
      "width": 1600,
      "height": 1000
     }
-   ]
+   ],
+   "practice": "know:math.1.measurement"
   },
   {
    "id": "math.1.time",
@@ -1458,7 +1461,8 @@
      "width": 1600,
      "height": 1000
     }
-   ]
+   ],
+   "practice": "know:math.1.time"
   },
   {
    "id": "math.1.fractions-intro",
@@ -1576,7 +1580,8 @@
      "width": 1600,
      "height": 1000
     }
-   ]
+   ],
+   "practice": "know:math.1.fractions-intro"
   },
   {
    "id": "math.2.fractions",
@@ -3637,10 +3642,9 @@
      "prompt": "The rule f(x) = x^2 sends both 3 and -3 to 9. Say why f is still a function, and why it has no inverse until its domain is cut down.",
      "answer": "A function may send different inputs to the same output; what it may not do is give one input two outputs. To obtain an inverse, restrict f to x ≥ 0, giving f⁻¹(x) = √x, or to x ≤ 0, giving f⁻¹(x) = −√x.",
      "keywords": [
-      "9",
-      "function",
-      "send",
-      "different"
+      "same output",
+      "two outputs",
+      "restrict"
      ],
      "explain": "Many-to-one is allowed for a function but fatal for an inverse. Restricting f(x) = x^2 to x ≥ 0 gives the inverse √x; restricting it to x ≤ 0 gives the inverse −√x."
     },
@@ -5629,10 +5633,9 @@
      "answer": "There are twelve months but thirteen people, so treating the months as pigeonholes and the people as pigeons means at least one month receives two or more people; whenever the number of items exceeds the number of categories, some category has to hold more than one item.",
      "keywords": [
       "twelve months",
-      "thirteen people",
-      "more items than categories",
-      "share a month",
-      "pigeonholes"
+      "two or more",
+      "exceeds",
+      "pigeons"
      ],
      "explain": "The principle needs only a count comparison, not any knowledge of birthday patterns."
     }
@@ -6878,11 +6881,9 @@
      "prompt": "A student wonders whether a nonzero normed space always carries bounded linear functionals that are not identically zero. Explain how Hahn-Banach settles this, starting from a one-dimensional subspace.",
      "answer": "Pick a nonzero vector v and define a functional on the line it spans by sending t times v to t times the norm of v; this has norm one on that subspace. Hahn-Banach extends it to the whole space without increasing the norm, giving a bounded functional that takes a nonzero value at v. So the dual space separates points.",
      "keywords": [
-      "norm",
-      "subspace",
-      "extend",
-      "functional",
-      "nonzero"
+      "norm one",
+      "without increasing",
+      "spans"
      ],
      "explain": "Hahn-Banach is what guarantees a rich dual space; without it, duality arguments and weak topologies would have nothing to work with."
     }

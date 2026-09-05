@@ -155,14 +155,10 @@ def _count_connections(monkeypatch, fn):
     HTTPS client and every statement on it is a round trip, so the count is
     the honest unit of cost for the deployed book.
 
-    Only this thread's opens are counted. `store.connect` is a module global,
-    and by the time these run a full suite has left several of the server's
-    daily-maintenance daemon threads alive (each TestClient lifespan starts
-    one, and `_shutdown` is a module-level Event that is never cleared, so a
-    later one runs a whole backup-and-prune pass before noticing it should
-    stop). Those threads open connections of their own against their own
-    databases. Counting them would make this test a measurement of whichever
-    files pytest happened to run first.
+    Only this thread's opens are counted. The maintenance worker can open
+    connections while a lifespan is active; including those would measure
+    scheduling noise rather than the operation under test. Each lifespan now
+    owns and stops its worker, so closed test clients leave no busy loop.
     """
     opened = []
     real = store_mod.connect

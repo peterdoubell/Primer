@@ -351,11 +351,29 @@ def test_settled_placement_can_be_remeasured_after_cooling(client, onboarded):
     assert r.status_code == 200
     # Re-measurement resumes at the settled frontier, not from scratch.
     assert r.json()["stage"] == 2
-    # And the submit path accepts the same rung it just served.
-    s = client.post("/api/placement/submit", json={
-        "domain": "math", "stage": r.json()["stage"],
-        "answers": [""] * len(r.json()["questions"]), "token": r.json()["token"]})
-    assert s.status_code == 200 and s.json()["settled"] is True
+    # And it re-walks from there on its OWN answers. This used to settle on the
+    # first failed rung, because `tried` and `max(passed)` were computed over
+    # the retained history — so a reader who failed the re-check kept the level
+    # the previous run had given them. A re-measurement that cannot lower a
+    # reader is not a measurement; it now steps down and lands where they are.
+    rungs, settled = [], None
+    for _ in range(8):
+        p = client.get("/api/placement/next?domain=math&recheck=true").json()
+        if not p.get("questions"):
+            break
+        rungs.append(p["stage"])
+        s = client.post("/api/placement/submit", json={
+            "domain": "math", "stage": p["stage"],
+            "answers": [""] * len(p["questions"]), "token": p["token"]})
+        assert s.status_code == 200
+        settled = s.json()
+        if settled["settled"]:
+            break
+    assert settled and settled["settled"] is True, "the re-measurement never settled"
+    assert rungs[0] == 2 and min(rungs) < 2, (
+        "a failing re-check never stepped below the old frontier: %s" % rungs)
+    placed = client.get("/api/state").json()["profile"]["settings"]["placed"]["math"]
+    assert placed < 2, "a reader who failed every rung kept their old level"
 
 
 def test_placement_next_advertises_reopen_support(client, onboarded):

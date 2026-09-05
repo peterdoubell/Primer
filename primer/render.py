@@ -96,7 +96,7 @@ VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input",
              "link", "meta", "source", "track", "wbr"}
 ALLOWED_ATTRS = {
     "href", "src", "alt", "title", "class", "colspan", "rowspan", "loading",
-    "dir", "lang", "width", "height", "scope", "target", "rel",
+    "dir", "lang", "width", "height", "scope", "rel",
 }
 # `target`/`rel` are allowed only in the exact safe forms we emit ourselves, so
 # an upstream article cannot aim links at named frames.
@@ -112,9 +112,15 @@ ALLOWED_ATTRS = {
 # link that middle-clicks straight out to whatever the article chose.
 RESERVED_CLASSES = {
     "table-scroll", "primer-navbox", "primer-article-guide", "primer-wikilink",
+    # Same reason as primer-wikilink: this class is what marks a door out of
+    # the book, and an article must not be able to dress a link as one — or,
+    # worse, dress a door as ordinary prose.
+    "primer-outside",
 }
 _ATTR_VALUE_WHITELIST = {
-    "target": {"_blank"},
+    # `target` is gone rather than restricted: the book emits none, so any that
+    # survives sanitising came from the article, and that is precisely the
+    # unannounced exit this pass exists to close.
     "rel": {"noopener noreferrer", "noopener", "noreferrer"},
 }
 # Only these URL shapes may appear in href/src (no javascript:, data:, …).
@@ -658,11 +664,27 @@ class _SanitizedTagPass(_StreamingHTMLPass):
                 kept.extend((("href", "#"), ("data-primer-title", title),
                              ("class", "primer-wikilink")))
             elif href.lower().startswith(("http://", "https://")):
+                # A link out of the book is still a link out of the book, and
+                # it should say so before it goes. This used to emit
+                # target="_blank", so an article's several hundred citation and
+                # source links were several hundred unmarked doors: a tap threw
+                # the reader into a raw browser tab, out of the book's typography
+                # and its offline guarantee, with no warning and nothing to come
+                # back to. The destination is kept — these links are worth
+                # having — but the client now says where it goes and asks first.
+                host = ""
+                match = re.match(r"https?://([^/?#]+)", href, re.IGNORECASE)
+                if match:
+                    host = match.group(1).lower()
+                    if host.startswith("www."):
+                        host = host[4:]
                 kept = [(name, value) for name, value in attrs
-                        if name.lower() not in ("href", "target", "rel",
-                                                "data-primer-title")]
-                kept.extend((("href", href), ("target", "_blank"),
-                             ("rel", "noopener noreferrer")))
+                        if name.lower() not in ("href", "target", "rel", "class",
+                                                "data-primer-title",
+                                                "data-primer-outside")]
+                kept.extend((("href", href), ("rel", "noopener noreferrer"),
+                             ("data-primer-outside", host or "another site"),
+                             ("class", "primer-outside")))
             else:
                 kept = [(name, value) for name, value in attrs
                         if name.lower() not in ("href", "data-primer-title")]

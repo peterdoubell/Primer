@@ -147,12 +147,28 @@ const HAPTICS = {
 // call; the CSS side now zeroes every motion token under reduced motion, and
 // this is the JS half of the same decision, so the two cannot drift apart.
 function reducedMotion() {
-  try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+  try {
+    // Tri-state, and it has to be: the book offers its own `reduce_motion`
+    // switch, and that switch was accepted by the API, written to the profile,
+    // and then read by nothing at all — a setting the reader could turn on and
+    // watch do nothing. An explicit choice now wins in BOTH directions (a
+    // reader who unticks it on a machine whose OS asks for reduced motion has
+    // said what they want, in this book, on purpose), and only an unset
+    // preference falls through to the system.
+    const set = ((S.state && S.state.profile && S.state.profile.settings) || {}).reduce_motion;
+    if (set === true) return true;
+    if (set === false) return false;
+    return matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e) { return false; }
 }
-function haptic(kind) {
+function haptic(kind, evenIfReduced) {
   try {
     if (!navigator.vibrate) return;
-    if (reducedMotion()) return;
+    // `prefers-reduced-motion` is about motion the eye tracks — vestibular,
+    // on-screen. A vibration is neither, and for a ceremony it is the only
+    // channel left once the animation is gone, so a ceremony may ask for it
+    // anyway. Ordinary feedback still stays quiet.
+    if (reducedMotion() && !evenIfReduced) return;
     navigator.vibrate(HAPTICS[kind] || []);
   } catch (e) { /* a silent motor is never worth an error */ }
 }
@@ -314,7 +330,11 @@ function parseHash() {
   if (!KNOWN_VIEWS.has(view)) return { view: 'today', arg: null, corrected: true };
   return { view, arg: null };
 }
-function go(view, arg) { location.hash = hashFor(view, arg); } // triggers hashchange → render
+function go(view, arg) {
+  const target = hashFor(view, arg);
+  if (location.hash === target) renderRoute();
+  else location.hash = target;
+}
 function renderRoute() {
   if (!S.state || !S.state.onboarded) return;
   // Any navigation unmounts whatever view was up — drop the review deck's
@@ -377,7 +397,11 @@ function renderRoute() {
     else if (!_modalStack.length) page.focus({ preventScroll: true });
   });
 }
-window.addEventListener('hashchange', renderRoute);
+window.addEventListener('hashchange', () => {
+  // Leaving the article ends its reading clock, whatever the destination.
+  if (typeof stopReadingClock === 'function') stopReadingClock();
+  renderRoute();
+});
 const TITLE_ROOT = 'The Primer';
 function setTitle(leaf) {
   const t = (leaf || '').trim();
@@ -654,34 +678,94 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
 function speakBtnAlways(getText) { const b = btn({ class: 'speak-btn', 'aria-label': 'Read aloud', onclick: () => { speakText(typeof getText === 'function' ? getText() : getText, () => b.classList.remove('speaking')); b.classList.add('speaking'); } }, glyph('speak', 16)); return b; }
 
 /* ---------------- placement check ---------------- */
+// Placement is measured per field, credited per field, and settled per field —
+// so it has to be *offered* per field. This used to read `domains[0]` and stop
+// there: a reader who chose three fields could be measured in one and had no
+// route to the other two but the Account slider, which is self-assertion, not
+// measurement. In a book that distinguishes "assumed" from "proved" on every
+// tile, leaving two thirds of a reader's fields to assertion was the wrong
+// default. Every chosen field now gets its own door, and the door says whether
+// the book has been through it already.
 function offerPlacement(domains) {
-  const domain = (domains && domains[0]) || 'math';
-  const d = domainById(domain);
+  const chosen = (domains && domains.length) ? domains.slice() : ['math'];
+  const placed = ((S.state && S.state.profile && S.state.profile.settings) || {}).placed || {};
+  const measuredAt = id => (Number.isFinite(placed[id]) ? placed[id] : null);
   openModal({
     label: 'Check your level', dismissable: true,
     build: (modal, close) => {
+      const only = chosen.length === 1 ? domainById(chosen[0]) : null;
       modal.append(
         el('div', { class: 'kicker' }, 'Optional'),
         el('h2', { style: 'margin-top:4px' }, 'Shall the book check your level?'),
-        el('p', { class: 'muted' }, 'The book starts at the beginning and assumes nothing. A few questions in ' + d.name +
-          ' can place you by what you actually know — you can skip this and do it any time.'),
-        el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
+        el('p', { class: 'muted' }, 'The book starts at the beginning and assumes nothing. A few questions' +
+          (only ? ' in ' + only.name : ', one field at a time,') +
+          ' can place you by what you actually know — you can skip this and do it any time.'));
+      if (only) {
+        modal.append(el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
           btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Skip for now'),
-          btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); runPlacement(domain, S.stage); } }, 'Check my level →')));
+          btn({ class: 'btn gold', style: 'flex:1',
+            onclick: () => { close(); runPlacement(only.id, S.stage, measuredAt(only.id) !== null); } },
+            'Check my level →')));
+        return;
+      }
+      const list = el('div', { class: 'placement-fields' });
+      chosen.forEach(id => {
+        const d = domainById(id);
+        const at = measuredAt(id);
+        list.append(btn({
+          class: 'btn ghost placement-field',
+          'aria-label': 'Check my level in ' + d.name +
+            (at === null ? ', not yet measured' : ', already measured at ' + STAGE_NAMES[at]),
+          onclick: () => { close(); runPlacement(id, S.stage, at !== null); }
+        },
+          el('b', {}, d.name),
+          el('span', { class: 'muted' }, at === null ? 'not yet measured' : 'measured — ' + STAGE_NAMES[at])));
+      });
+      modal.append(list);
+      modal.append(el('div', { style: 'display:flex;margin-top:16px' },
+        btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Skip for now')));
     }
   });
 }
 
-async function runPlacement(domain, stage) {
+async function runPlacement(domain, stage, recheck) {
   // Placement had neither of the fixes the quiz path got: no heading to move
   // focus to, no live region, and `modal.innerHTML = ''` on every question —
   // so focus fell to <body> from the second question onward.
   const ov = spinnerOverlay('Preparing a few questions…');
   let data;
-  try { data = await api.get('/api/placement/next?domain=' + encodeURIComponent(domain) + '&stage=' + stage + '&n=5'); }
-  catch (e) { ov.remove(); toast('The book cannot reach its questions just now — try again in a moment. Nothing is lost.'); return; }
+  try {
+    // A field the book has already settled needs `recheck` to be re-opened at
+    // all; without it the server answers 409 and always will. The server still
+    // owns the decision — it re-measures only after the field has had its week
+    // of rest — so asking is safe even when the answer is no.
+    data = await api.get('/api/placement/next?domain=' + encodeURIComponent(domain) +
+      '&stage=' + stage + '&n=5' + (recheck ? '&recheck=true' : ''));
+  }
+  catch (e) {
+    ov.remove();
+    // "Already settled" is not a network hiccup, and telling the reader to try
+    // again in a moment was false: the cooling period is a week, and the retry
+    // they were invited to make could not have succeeded. Say what is true.
+    const settled = e && typeof e.error === 'string' && e.error.indexOf('already settled') !== -1;
+    toast(settled
+      ? 'The book has already measured you in ' + domainById(domain).name +
+        ' — it rests a week before asking again, so that one bad morning cannot set your level for good.'
+      : 'The book cannot reach its questions just now — try again in a moment. Nothing is lost.');
+    return;
+  }
   ov.remove();
   if (!data.questions.length) { toast('The book has no questions at that level yet — nothing to prove today, nothing lost.'); return; }
+  // The server chooses the rung, not the caller: `/api/placement/next` runs
+  // `_placement_rung()` and serves that, logging a warning if it differs from
+  // what was asked for. The client used to keep asking with its own `stage`
+  // anyway — so the header named the wrong level ("Seedling" over genuine
+  // Sapling questions), and, worse, the final submit sent that stale number
+  // and came back 409 "that is not the rung this check is on". The reader had
+  // answered five questions and was told "likely the network, never you"
+  // while their result was dropped, every time, for good. Take the rung the
+  // book actually served; both the label and the submit read this.
+  stage = data.stage;
   const answers = [];
   let i = 0;
   openModal({
@@ -746,9 +830,16 @@ async function runPlacement(domain, stage) {
        The mark is a compass now, and both outcomes are the same good news
        said twice — the book knows where to open. */
     splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, glyph('atlas', 38)),
+      // "A little below Forest" is a kind sentence about a field that HAS a
+      // below. A specialist field does not: radiology begins where the general
+      // spine ends and every one of its modules is Forest, so telling a reader
+      // the book had found solid ground beneath it was simply untrue — and it
+      // was the only thing the book said to them in their whole first session.
       el('p', {}, r.passed
         ? 'You are comfortable at ' + STAGE_NAMES[stage] + ' level in ' + domainById(domain).name + '. That is worth knowing, and now the book knows it.'
-        : 'The book has found where to open in ' + domainById(domain).name + ' — a little below ' + STAGE_NAMES[stage] + ', so the ground is solid under you. Nothing here was a check you could fail.'));
+        : (r.single_rung
+          ? domainById(domain).name + ' begins at ' + STAGE_NAMES[r.field_floor] + ' — it is a field the book opens at the far end of the journey, and there is no ground below it to start you on. Nothing here was a check you could fail; the door stays where it is until you are ready for it.'
+          : 'The book has found where to open in ' + domainById(domain).name + ' — a little below ' + STAGE_NAMES[stage] + ', so the ground is solid under you. Nothing here was a check you could fail.')));
     if (r.suggest_stage != null && !r.settled) {
       splash.append(el('p', { class: 'muted' }, r.passed ? 'Let\'s try one level higher.' : 'Let\'s try one level down.'),
         btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, 'Continue →'));
@@ -840,7 +931,7 @@ function effectiveTheme() {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 function themeToggle() {
-  const b = btn({ id: 'theme-toggle', class: 'chrome-toggle', 'aria-label': 'Switch between day and night reading', onclick: () => {
+  const b = btn({ id: 'theme-toggle', class: 'chrome-toggle', onclick: () => {
     // Toggle relative to what the reader actually sees, so the first press
     // always visibly changes the page (even when following the OS setting).
     const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
@@ -857,6 +948,15 @@ function themeToggle() {
     const now = effectiveTheme();
     b.querySelector('.tt-label').textContent = now === 'dark' ? 'Night' : 'Day';
     b.querySelector('.tt-icon').textContent = now === 'dark' ? '☾' : '☀';
+    // The state has to live in the NAME. A fixed aria-label ("Switch between
+    // day and night reading") overrides the element's contents in the
+    // accessible-name computation, so the one word that says which mode is on
+    // — the visible 'Night'/'Day' right there in the button — never reached a
+    // screen reader at all, and the control announced identically in both
+    // states. Named rather than aria-pressed: a theme is not a pressed
+    // control, and a polarity has to be guessed to announce one.
+    b.setAttribute('aria-label', now === 'dark'
+      ? 'Night reading on — switch to day' : 'Day reading on — switch to night');
   }
   paint();
   return b;
@@ -1185,7 +1285,14 @@ async function renderToday(page) {
     const goal = q.goal | 0;
     const dc = Math.min(q.done_count | 0, goal);
     const counted = !q.excused && goal > 0;
+    // A paper that was sat but did not land says so. "0 of 1" beside a lesson
+    // the reader has just spent twenty minutes on reads as though nothing
+    // happened; the day's step should acknowledge the sitting and name what is
+    // still missing, which is a pass rather than an appearance.
     const status = q.excused ? (q.hint || 'nothing waiting today')
+      : (q.sat && !q.done)
+        ? (q.sat === 1 ? 'sat once — one pass and it counts'
+                       : q.sat + ' sittings — one pass and it counts')
       : counted ? dc + ' of ' + goal
       : q.done ? 'done' : 'today';
     // What this step costs, in minutes. The book had never told a reader what
@@ -1204,6 +1311,10 @@ async function renderToday(page) {
       item.append(el('div', { class: 'bar quest-bar', role: 'img',
         'aria-label': q.label + ': ' + dc + ' of ' + goal + ' done' },
         el('span', { style: `width:${Math.round(100 * dc / goal)}%` })));
+    }
+    if (q.key === "practice" && q.node_id && !q.done) {
+      item.append(btn({ class: "btn small", onclick: () =>
+        startPractice(q.node_id, q.generator, q.stage) }, "Practise"));
     }
     quest.append(item);
   });
@@ -1244,7 +1355,27 @@ async function renderToday(page) {
     page.append(row);
   }
   if (t.quest_done === t.quest_total) {
-    page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + t.xp_today + ' growth today. Beautifully done.'));
+    // The crown named a number that can honestly be zero. Both non-review
+    // channels pay nothing on their own terms and still tick their step: an
+    // attempt below half score writes its event but earns no growth, and a
+    // reading day with the daily cap already spent pays nothing either. So a
+    // reader who finished everything the day asked of them was congratulated
+    // with "0 growth today" — the one sentence that takes the day back off
+    // them. When the number is zero, name the work instead of the number;
+    // the steps are right there and know what they were.
+    const crownWork = (t.quest && Object.keys(t.quest).length)
+      ? Object.keys(t.quest)
+          .filter(k => t.quest[k] && t.quest[k].done && !t.quest[k].excused)
+          .map(k => ({ learn: 'a lesson sat', review: 'your memory strengthened', practice: 'a practice sitting',
+                       read: 'an article read' })[k])
+          .filter(Boolean)
+      : [];
+    const crownTail = t.xp_today > 0
+      ? t.xp_today + ' growth today. Beautifully done.'
+      : (crownWork.length
+          ? crownWork.join(', ').replace(/, ([^,]*)$/, ' and $1') + '. Beautifully done.'
+          : 'every step of it. Beautifully done.');
+    page.append(el('div', { class: 'quest-crown' }, glyph('crown', 17), ' Today\'s quest complete — ' + crownTail));
     // The crown used to end in a full stop. A day should have a tomorrow.
     const tl = tomorrowLine(t.tomorrow);
     if (tl) page.append(el('p', { class: 'tomorrow-line' }, tl));
@@ -1295,8 +1426,16 @@ async function renderToday(page) {
   if (t.pending && t.pending.length) {
     page.append(sectionLabel('Waiting to be proved'));
     const pr = el('div', { class: 'refresh-row' });
-    t.pending.forEach(w => pr.append(btn({ class: 'req-chip pending-chip', onclick: () => go('node', w.id) },
-      '◐ ' + w.title + ' · ' + (readyNow(w.ready_at) ? 'ready now' : 'ready ' + whenReady(w.ready_at)))));
+    // "ready now" was said whatever the gates thought, so a lesson re-locked by
+    // a failed sitting was still advertised as open and the lesson page then
+    // refused it. The server now says whether the appointment is actually open;
+    // when it is not, the chip names what is standing in front of it instead of
+    // a time that has already passed.
+    t.pending.forEach(w => pr.append(btn({ class: 'req-chip pending-chip' + (w.open === false ? ' blocked' : ''),
+      onclick: () => go('node', w.id) },
+      '◐ ' + w.title + ' · ' + (w.open === false
+        ? (w.blocked_by || 'waiting on earlier work')
+        : (readyNow(w.ready_at) ? 'ready now' : 'ready ' + whenReady(w.ready_at))))));
     page.append(pr);
   }
 
@@ -1342,11 +1481,12 @@ function lessonCard(n) {
   const open = el('h3', { style: 'font-size:18px;margin:0' },
     btn({ class: 'unstyled card-open', onclick: () => go('node', n.id) }, n.title));
   c.append(
-    el('span', { class: 'stagepill' }, STAGE_NAMES[n.stage]),
-    // Domain hexes are authored for daylight in the curriculum JSON. Rather
-    // than re-authoring ten files per theme, --domain-lift raises the fill
-    // toward white at night (0% by day) so --on-fill keeps its contrast.
-    el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
+    el('div', { class: 'lesson-meta' },
+      // Domain hexes are authored for daylight in the curriculum JSON. Rather
+      // than re-authoring ten files per theme, --domain-lift raises the fill
+      // toward white at night (0% by day) so --on-fill keeps its contrast.
+      el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
+      el('span', { class: 'stagepill' }, STAGE_NAMES[n.stage])),
     open,
     el('p', { class: 'goal' }, n.goal || ''));
   // A lesson standing one earned pass short of mastery already has a dated
@@ -1364,7 +1504,6 @@ function lessonCard(n) {
   }
   if (S.stage <= 1) {
     const sp = speakBtn(() => n.title + '. ' + (n.goal || ''), 'Say ' + n.title);
-    sp.style.cssText = 'position:absolute;bottom:10px;right:10px';
     c.append(sp);
   }
   if (n.mastery) {
@@ -1548,6 +1687,9 @@ async function renderNode(page, nodeId) {
   // fallback contributes no mark here rather than a character to mispronounce.
   page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + STAGE_NAMES[n.stage], n.title, n.goal || ''));
 
+  if (n.access_basis === "assumed_prerequisites") {
+    page.append(el("p", { class: "muted" }, "Open on assumed foundations. Your placement or field choice opened this lesson; its foundations have not all been proved."));
+  }
   if (n.proven) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:var(--tint-green)' },
       el('b', { style: 'color:var(--green-ink)' }, '✓ You have proved this one. Revisit it any time, or push further in the Atlas.')));
@@ -1558,8 +1700,8 @@ async function renderNode(page, nodeId) {
     let line = 'The book assumed you already know this, so it opened the lessons beyond it.';
     line += need === 1
       ? ' Pass it once to prove it' + (d.passes ? ' — ' + Math.min(d.passes, 1) + ' of 1 so far.' : '.')
-      : ' Pass it twice, a couple of days apart, to prove it' +
-        (d.passes ? ' — ' + d.passes + ' of 2 passes so far.' : '.');
+      : ' Pass it ' + need + ' times, with a gap between passes, to prove it' +
+        (d.passes ? ' — ' + d.passes + ' of ' + need + ' passes so far.' : '.');
     page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
       el('b', {}, '◐ Assumed, not yet proved'), el('p', { class: 'muted', style: 'margin:6px 0 0' }, line)));
   }
@@ -1584,8 +1726,38 @@ async function renderNode(page, nodeId) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
       el('b', {}, '◐ You started this one — ' + md.passes + ' of ' + need + ' passes'),
       el('p', { class: 'muted', style: 'margin:6px 0 0' }, ready
-        ? 'The waiting is over: pass it once more and it is sealed.'
-        : 'The two passes have to sit a little apart, so the book can tell it stuck. This one can be sealed after ' + whenReady(md.ready_at) + '.')));
+        ? 'The waiting is over: ' + (need - md.passes) + ' more spaced passes will seal it.'
+        : 'The passes sit a little apart, so the book can tell it stuck. The next can count after ' + whenReady(md.ready_at) + '.')));
+  }
+
+  // The reader who has sat this one more than once and not yet landed it. None
+  // of the four cards above match them — proven, assumed, locked, one-pass-in
+  // all fail when passes is 0 — so the page they met was byte for byte the page
+  // of a lesson they had never opened. The book knew they had been here three
+  // times; it simply never said so, and the only across-sitting response it had
+  // was the refusal that eventually closes the door. Say it, and point at the
+  // two things that are not another identical paper: the drill, which is
+  // unlimited and unburnt, and the article the lesson is built on.
+  else if (n.mastery_detail && !n.mastered && !n.proven
+           && (n.mastery_detail.passes | 0) === 0
+           && (n.mastery_detail.attempts | 0) >= 2) {
+    const tries = n.mastery_detail.attempts | 0;
+    const card = el('div', { class: 'card', style: 'border-color:var(--accent-2)' },
+      el('b', {}, '◑ You have sat this one ' + tries + ' times'),
+      el('p', { class: 'muted', style: 'margin:6px 0 10px' },
+        'That is not a verdict on you — it is the book telling you this one wants a '
+        + 'different approach before the next paper. Papers you have seen the answers '
+        + 'to cannot prove anything, so try it from another side first.'));
+    const acts = el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap' });
+    // startPractice(nodeId, gen, stage) — node first, generator second.
+    if (n.practice) acts.append(btn({ class: 'btn gold small',
+      onclick: () => startPractice(n.id, n.practice, n.stage) },
+      glyph('spark', 15), ' Practise it instead'));
+    if ((n.articles || []).length) acts.append(btn({ class: 'btn ghost small',
+      onclick: () => go('reader', { title: n.articles[0], node: n.id }) },
+      glyph('shelf', 15), ' Read it again'));
+    if (acts.children.length) card.append(acts);
+    page.append(card);
   }
 
   // Child-voiced mini-lesson for the youngest readers.
@@ -1677,6 +1849,85 @@ function showIndependentReaderContext(articleTitle) {
       el('span', { class: 'reader-context-reading' }, 'No lesson attached')),
     el('span', { class: 'reader-context-open', 'aria-hidden': 'true' }, 'Open')));
 }
+
+// How long an article was actually open, sent when the reader leaves it.
+//
+// `reading_log.seconds` has been in the schema from the start and nothing ever
+// filled it, so the roadmap's "measured instructional rate" was reading a
+// column of zeroes and reporting the model back as though it were the reader's
+// own number. This is the one end of that wire that was missing.
+//
+// Sent on leaving the article, on tab-hide, and on unload — a reader who
+// closes the laptop mid-article should still have the time counted. The server
+// takes the longest sitting rather than a sum, so re-sends are harmless.
+let readingClock = null;
+
+function startReadingClock(title) {
+  stopReadingClock();
+  readingClock = { title: title, at: Date.now(), sent: 0, paused: 0 };
+}
+
+// Pause without forgetting the title, so returning to the tab resumes the
+// count. The first version nulled the clock on tab-hide and called
+// undercounting "the safe direction" — it is the opposite: fewer minutes read
+// as a faster reader, and a faster reader is handed a shorter plan.
+// `why` says who paused it. A paper's pause is only undone by the paper
+// closing; tab-hide's pause is only undone by the tab returning. The first
+// version had one flag, so switching tabs during a quiz un-paused it and the
+// paper was billed as reading — and nothing at all resumed it after a paper
+// closed, so every minute read after a quiz went uncounted until the next
+// tab switch.
+function pauseReadingClock(why = 'hidden') {
+  const clock = readingClock;
+  if (!clock) return;
+  if (!clock.paused) { flushReadingClock(clock); clock.paused = Date.now(); }
+  clock.holds = clock.holds || {};
+  clock.holds[why] = true;
+}
+
+function resumeReadingClock(why = 'hidden') {
+  const clock = readingClock;
+  if (!clock || !clock.paused) return;
+  if (clock.holds) delete clock.holds[why];
+  if (clock.holds && Object.keys(clock.holds).length) return;   // still held
+  // Paused time is not reading time: shift the start forward by the pause.
+  clock.at += Date.now() - clock.paused;
+  clock.paused = 0;
+}
+
+function flushReadingClock(clock) {
+  const end = clock.paused || Date.now();
+  const seconds = Math.round((end - clock.at) / 1000);
+  // Below the server's own floor there is nothing to report; re-sending a
+  // figure no bigger than the last is just noise on the wire.
+  if (seconds >= 20 && seconds > clock.sent) {
+    clock.sent = seconds;
+    const body = JSON.stringify({ title: clock.title, seconds: seconds });
+    // `keepalive` so the send on tab-close is allowed to outlive the page; a
+    // plain fetch from pagehide is cancelled with the document.
+    fetch('/api/reading/time', { method: 'POST', keepalive: true,
+      headers: { 'Content-Type': 'application/json' }, body: body })
+      .catch(() => {});   // a lost duration must never interrupt reading
+  }
+}
+
+function stopReadingClock() {
+  const clock = readingClock;
+  if (!clock) return;
+  flushReadingClock(clock);
+  readingClock = null;
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') pauseReadingClock();
+  else resumeReadingClock();
+});
+window.addEventListener('pagehide', stopReadingClock);
+// A page restored from the back/forward cache comes back with its clock
+// already stopped; if an article is showing, start it again.
+window.addEventListener('pageshow', e => {
+  if (e.persisted && S.view === 'reader' && S.title) startReadingClock(S.title);
+});
 
 function prepareReaderContext(title, nodeId) {
   const slot = $('#reader-context-slot');
@@ -1825,6 +2076,7 @@ async function renderReader(page, arg) {
   layout.append(art, buildTutor(title));
   page.append(layout);
   prepareReaderContext(title, nodeId);
+  startReadingClock(title);
   const articlePromise = api.get('/api/article?title=' + encodeURIComponent(title));
   if (nodeId) {
     api.get('/api/curriculum/node/' + encodeURIComponent(nodeId) + '/navigation')
@@ -1852,7 +2104,47 @@ async function renderReader(page, arg) {
       if (t0) link.setAttribute('href', hashFor('reader', { title: t0, node: nodeId }));
       const goLink = e => { e.preventDefault(); const t = link.getAttribute('data-primer-title'); if (t) go('reader', { title: t, node: nodeId }); };
       link.addEventListener('click', goLink);
-      link.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') goLink(e); });
+      // No keydown handler, deliberately. `link` is a real <a href> (set just
+      // above), so Enter already fires a native click and lands in goLink. The
+      // handler that used to live here also caught Space and called
+      // preventDefault, which is the one key an anchor must NOT swallow: Space
+      // scrolls the page. A keyboard reader who tabbed to any link in an
+      // article — and a long article has hundreds — lost the ability to page
+      // down, and instead navigated away to that link's subject. The picture
+      // handler below already documents exactly this rule for its own anchors.
+    });
+    // Doors out of the book, marked and asked about. render.py used to give
+    // these target="_blank", so a long article carried several hundred silent
+    // exits: one tap and the reader was in a raw browser tab, outside the
+    // book's typography, outside its offline guarantee, with nothing saying
+    // where they had gone or how to come back. The link still works — these
+    // are sources, and they are worth reaching — but the book says where it
+    // leads and waits to be told to go.
+    art.querySelectorAll('a.primer-outside').forEach(link => {
+      const host = link.getAttribute('data-primer-outside') || 'another site';
+      if (!link.querySelector('.outside-mark')) {
+        link.append(el('span', { class: 'outside-mark', 'aria-hidden': 'true' }, '↗'));
+      }
+      const said = link.getAttribute('aria-label') || link.textContent.trim();
+      link.setAttribute('aria-label', said + ' — leaves the book, on ' + host);
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const href = link.getAttribute('href') || '';
+        if (!href) return;
+        openModal({ label: 'Leave the book?', dismissable: true, build: (modal, close) => {
+          modal.append(
+            el('div', { class: 'kicker' }, 'Outside the book'),
+            el('h2', { style: 'margin-top:4px' }, 'This one leads off the shelf'),
+            el('p', { class: 'muted' },
+              'It opens ' + host + ' in your browser — outside the book, and outside what it keeps for you offline. The page you are on stays exactly where it is.'),
+            el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
+              btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Stay here'),
+              btn({ class: 'btn gold', style: 'flex:1', onclick: () => {
+                close();
+                window.open(href, '_blank', 'noopener,noreferrer');
+              } }, 'Open ' + host + ' →')));
+        } });
+      });
     });
     attachPictureHandlers(art);
     // Where the page came from, said as a book says it. "(live)" is a word
@@ -2170,8 +2462,10 @@ function openLightbox(img, opener) {
   }
   openModal({
     label: caption ? 'Picture — ' + caption : 'Picture',
+    onClose: () => resumeReadingClock('picture'),
     dismissable: true, dismissLabel: 'Close picture',
     build: (modal, close) => {
+      pauseReadingClock('picture');
       modal.classList.add('wide');
       const box = el('div', { class: 'lightbox' });
       // Wikipedia ships most of its diagrams as black line-work marked
@@ -2268,7 +2562,25 @@ function buildTutor(title) {
     const q = input.value.trim(); if (!q) return; input.value = '';
     push('me', q); messages.push({ role: 'user', content: q });
     const thinking = push('book', el('span', { class: 'think-dots', 'aria-label': 'The book is thinking' }, el('i', {}), el('i', {}), el('i', {})), 'book think');
-    const excerpt = ($('#article') ? $('#article').textContent : '').slice(0, 2400);
+    // The tutor's grounding, taken the way the book reads the page to itself.
+    // This was `#article.textContent` — every string in the subtree, in DOM
+    // order, with no filtering at all: navbox link lists, infobox rows, the
+    // reference list, citation markers, and the book's own "from your shelf"
+    // footer, all of it before the prose. `articleBlocks()` was written for
+    // exactly this — its docblock names the tutor as its second caller — and it
+    // drops all of that and reads rendered text rather than raw nodes. The
+    // book's own voice, the default engine, was being grounded on furniture.
+    //
+    // And it starts where the READER is, as read-aloud does: grounding the
+    // answer in the top of an eight-thousand-word article the reader scrolled
+    // past ten minutes ago answers a question they did not ask.
+    const _blocks = articleBlocks();
+    let _from = 0;
+    if (docScrollTop() > 40) {
+      const at = _blocks.findIndex(b => b.el.getBoundingClientRect().bottom > 0);
+      if (at > 0) _from = at;
+    }
+    const excerpt = _blocks.slice(_from).map(b => b.text).join(' ').slice(0, 2400);
     try {
       const r = await api.post('/api/tutor', { messages, title, excerpt });
       thinking.remove(); tutorFails = 0; push('book', r.reply); messages.push({ role: 'assistant', content: r.reply });
@@ -2284,6 +2596,12 @@ function buildTutor(title) {
         : "Don't panic — my voice is not reaching you just now, which is almost certainly the network and never you. Everything you have read and learned is safely written down; keep reading, and ask me again when the book reconnects.");
     }
   }
+  panel.addEventListener('focusin', () => pauseReadingClock('tutor'));
+  panel.addEventListener('focusout', e => {
+    if (!panel.contains(e.relatedTarget)) resumeReadingClock('tutor');
+  });
+  panel.addEventListener('pointerenter', () => pauseReadingClock('tutor-pointer'));
+  panel.addEventListener('pointerleave', () => resumeReadingClock('tutor-pointer'));
   panel.append(el('div', { class: 'composer' }, input, btn({ onclick: send }, 'Ask')));
   return panel;
 }
@@ -2329,12 +2647,23 @@ function spinnerOverlay(msg) {
 }
 
 function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, token = '' }) {
+  // Time spent in a paper is not time spent reading the article beneath it.
+  pauseReadingClock('paper');
+  // Set by the submit handler, read by the splash and the voice: this
+  // sitting was practised, not marked.
+  let unscoredSitting = false;
+  let sittingSubmitted = false;
   const young = (stage != null ? stage : S.stage) <= 1;
   // The paper's own clock, started when it is handed over. See the note on
   // the deck's: untrusted, non-load-bearing, and the only reason the book can
   // ever say "about four minutes" and mean this reader's four minutes.
   const startedAt = Date.now();
   let i = 0, correct = 0; const answers = [], confidences = [], oks = []; let confidence = null;
+  // Items the book declines to mark — the closing reflection every paper from
+  // Sapling up carries. They are answered and worth answering, but they are not
+  // evidence, so they must not sit in the denominator, must not be told they are
+  // wrong, and must not join the "you missed these" retry.
+  const unmarkedIdx = new Set();
   // Ceremonies queue rather than collide. A stage ascension used to be fired on
   // a bare 900ms timer; with a page turn now also on offer in the same splash,
   // that timer could drop a second dialog on top of the chapter the reader had
@@ -2354,7 +2683,9 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     build: (modal, close) => { drawQuestion(modal, close); },
     // Closing the splash without turning the page must not cost the reader the
     // promotion ceremony altogether — it is a real change to their book.
-    onClose: () => { splashClosed = true; if (!turningPage) releaseAscension(300); },
+    onClose: () => { splashClosed = true; resumeReadingClock('paper');
+      if (sittingSubmitted && (S.view === 'node' || S.view === 'today')) renderRoute();
+      if (!turningPage) releaseAscension(300); },
   });
 
   function normalize(s) { return String(s).trim().toLowerCase().replace(/\s+/g, ''); }
@@ -2377,7 +2708,24 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // A retry batch carries no server token (its paper was already redeemed
     // by the first pass's submit) — grade it locally against the answer the
     // first pass already revealed to this reader for exactly these items.
-    if (!token) return { correct: normalize(given) === normalize(q.answer || ''), answer: q.answer || '', explain: q.explain || '' };
+    if (!token) {
+      // Exact string equality is the real rule for a choice or an ordering —
+      // the reader picked one of the offered strings, so comparing strings is
+      // comparing what they did. It is NOT the rule for anything they wrote.
+      // The server compares numerics by value ('0.5', '.50' and '1/2' all
+      // match) and marks short answers on keyword coverage at 0.6, so grading
+      // a retry in the browser marked corrected answers wrong: '2' against a
+      // key of '2.0', '1,000' against '1000', a good sentence against a model
+      // one. The reader was told they had failed the very item they had just
+      // got right, on the screen offered to them as a second chance.
+      // So the retry marks what it can mark honestly, and for produced
+      // answers shows the model answer with no verdict at all.
+      const producible = q.kind === 'short' || q.kind === 'numeric';
+      if (producible) return { ungraded: true, correct: null,
+                               answer: q.answer || '', explain: q.explain || '' };
+      return { correct: normalize(given) === normalize(q.answer || ''),
+               answer: q.answer || '', explain: q.explain || '' };
+    }
     try {
       return await api.post('/api/quiz/check', { token, id: q.id, answer: String(given) });
     } catch (e) {
@@ -2538,7 +2886,14 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
           const nxt = tray.querySelector('.order-chip:not(:disabled)');
           (nxt || check).focus();
         } }, v);
-        tray.append(b);
+        // The one shape that asks a pre-reader to PRODUCE handed them four
+        // unspoken text chips; `speak_choices` was set on every item and
+        // read by nothing on this branch. Every chip gets its own speaker.
+        if (q.speak_choices) {
+          tray.append(el('span', { class: 'order-chip-wrap' }, b, speakBtn(() => v, 'Read this one aloud')));
+        } else {
+          tray.append(b);
+        }
       });
       // Mount the live region first, then fill it. Calling redraw() before the
       // append meant the slot arrived in the document already containing its
@@ -2643,7 +2998,11 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // Never colour-only: always state the verdict in words as well.
     tell(card, m.correct ? '✓ That is the right order.'
                          : 'Not quite — the right order is: ' + m.answer);
-    reveal(m.correct, { ...q, answer: m.answer }, chosen.join(' '), card, modal, close);
+    // The ordering's explanation never reached the screen: the reveal was
+    // handed the answer and nothing else, so the spoken failure line was a
+    // bare "Not quite. The answer is spring summer autumn winter".
+    reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain || '' },
+           chosen.join(' '), card, modal, close);
   }
 
   async function submitTally(tokens, q, card, modal, close) {
@@ -2676,10 +3035,16 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     ta.disabled = true;
     holdFocus(card, 'Checking…');
     const m = await mark(q, given);
-    ta.style.borderColor = m.correct ? 'var(--green)' : 'var(--accent)';
-    tell(card, m.correct ? '✓ You covered the main ideas.'
-                         : 'Compare your answer with the model answer below.');
-    reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
+    // `ungraded` items get no verdict and no red border: the server has told us
+    // it did not mark this one, and painting it as a failure is how every
+    // reflection answer came back wrong however good it was.
+    const unmarked = !!(m.ungraded || q.ungraded);
+    ta.style.borderColor = unmarked ? 'var(--rule)' : (m.correct ? 'var(--green)' : 'var(--accent)');
+    tell(card, unmarked ? 'Not marked — this one is yours. Compare it with the model answer below.'
+                        : (m.correct ? '✓ You covered the main ideas.'
+                                     : 'Compare your answer with the model answer below.'));
+    reveal(unmarked ? null : m.correct,
+           { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
   }
 
   async function submitNum(inp, q, card, modal, close) {
@@ -2689,15 +3054,25 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     inp.disabled = true;
     holdFocus(card, 'Checking…');
     const m = await mark(q, given);
-    inp.style.borderColor = m.correct ? 'var(--green)' : 'var(--accent)';
+    // A retry has no token, and a number typed in the browser cannot be marked
+    // the way the server marks it (which compares by VALUE, so '2' and '2.0'
+    // and '1/2' and '0.5' all pass). Rather than mark it wrongly, show the
+    // answer beside what they wrote and let them judge.
+    const unmarked = !!m.ungraded;
+    inp.style.borderColor = unmarked ? 'var(--rule)'
+      : (m.correct ? 'var(--green)' : 'var(--accent)');
     // A green border was the whole verdict here (SC 1.4.1), and with no
     // explain to reveal the live region stayed on 'Checking…' forever
     // (SC 4.1.3). The other three answer types all say it in words; so does
     // this one now.
-    tell(card, m.correct ? '✓ Correct.'
-                         : (m.answer ? 'Not quite — the answer is ' + m.answer + '.' : 'Not quite.'));
-    if (!m.correct && m.answer) inp.value = given + '  →  ' + m.answer;
-    reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
+    tell(card, unmarked
+      ? (m.answer ? 'Not marked here — the answer is ' + m.answer + '. Compare it with yours.'
+                  : 'Not marked here — compare your answer with the model answer.')
+      : (m.correct ? '✓ Correct.'
+                   : (m.answer ? 'Not quite — the answer is ' + m.answer + '.' : 'Not quite.')));
+    if (!unmarked && !m.correct && m.answer) inp.value = given + '  →  ' + m.answer;
+    reveal(unmarked ? null : m.correct,
+           { ...q, answer: m.answer, explain: m.explain || q.explain }, given, card, modal, close);
   }
   function holdFocus(card, msg) {
     const region = card.querySelector('.q-live');
@@ -2720,9 +3095,13 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
       ? region.textContent + ' ' + msg : msg;
   }
   function reveal(ok, q, given, card, modal, close) {
-    haptic(ok ? 'ok' : 'no');
+    // `ok === null` means the book declined to mark this one. It is neither a
+    // pass nor a miss: no haptic verdict, no place in the score, no retry.
+    const unmarked = ok === null;
+    if (!unmarked) haptic(ok ? 'ok' : 'no');
     if (ok) correct++;
-    oks.push(!!ok);
+    if (unmarked) unmarkedIdx.add(i);
+    oks.push(unmarked ? null : !!ok);
     // Always submit the learner's real response. Echoing the canonical key on a
     // correct answer would reduce the server's scoring to rubber-stamping the
     // client's own verdict.
@@ -2733,13 +3112,16 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // object so a later retry of just the missed ones can be graded without
     // a server token (the original paper's token is spent by then).
     if (q.answer) questions[i].answer = q.answer;
-    if (confidence) {
+    if (confidence && !unmarked) {
       const mis = (confidence === 3 && !ok) || (confidence === 1 && ok);
       tell(card, mis ? (ok ? 'You knew more than you thought!'
                            : 'Confident but wrong — worth another look.')
                      : 'Well calibrated.', true);
     }
-    if (q.explain) tell(card, (ok ? '✓ ' : 'The answer: ') + q.explain, true);
+    // The unmarked item's own explain already opens "A good answer covers: …",
+    // so it is shown as written rather than prefixed with a verdict word.
+    if (q.explain) tell(card, unmarked ? q.explain
+                                       : (ok ? '✓ ' : 'The answer: ') + q.explain, true);
     const nextBtn = btn({ class: 'btn gold', style: 'width:100%;margin-top:16px', onclick: () => next(modal, close) },
       i + 1 < questions.length ? 'Next →' : 'See results');
     card.append(nextBtn);
@@ -2750,7 +3132,11 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
   }
   function next(modal, close) { i++; if (i < questions.length) drawQuestion(modal, close); else finish(modal, close); }
   async function finish(modal, close) {
-    const score = correct / questions.length;
+    // Score over what was actually marked. The reflection item is answered but
+    // never graded, so counting it in the denominator capped every paper from
+    // Sapling up at five out of six however well the reader did.
+    const graded = Math.max(1, questions.length - unmarkedIdx.size);
+    const score = correct / graded;
     modal.innerHTML = ''; modal.append(closeBtn(close));
     // Emptying the modal while "See results" had focus left it on <body> —
     // inside a dialog still claiming aria-modal, so the trap could not even
@@ -2759,11 +3145,36 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     const splashHead = el('h2', { tabindex: '-1', class: 'result-heading' }, 'What the book made of it');
     modal.append(splashHead);
     setTimeout(() => splashHead.focus(), 30);
-    const stars = score >= 0.9 ? '★★★' : score >= 0.7 ? '★★☆' : score >= 0.4 ? '★☆☆' : '☆☆☆';
+    // The book must show the score it actually grades. These three lines were
+    // built from the client's own tally of booleans, and the server does not
+    // mark that way: a short answer covering most of its keywords passes the
+    // item at 0.6 and is shown '✓ Correct', but contributes 0.6 — not 1 — to
+    // the score that PASS = 0.8 is measured against. So a paper of two picked
+    // answers and four good-but-partial short ones displayed "6 of 6 · 100% ·
+    // ★★★" while the server scored 0.73, recorded no pass, and left Today
+    // saying "sat once — one pass and it counts". The reader was told they got
+    // everything right and that nothing landed, in the same sitting.
+    //
+    // The splash is drawn before the submit returns, so it still opens on the
+    // local tally — and is corrected the moment the server's own {right,total,
+    // score} arrives, which it has always sent and nothing has ever read.
+    const starsFor = v => v >= 0.9 ? '★★★' : v >= 0.7 ? '★★☆' : v >= 0.4 ? '★☆☆' : '☆☆☆';
     const splash = el('div', { class: 'result-splash' });
-    splash.append(el('div', { class: 'stars', style: 'color:var(--gold)' }, stars));
-    if (!young) splash.append(el('div', { class: 'score' }, Math.round(score * 100) + '%'));
-    splash.append(el('p', {}, correct + ' of ' + questions.length + ' correct.'));
+    const starsEl = el('div', { class: 'stars', style: 'color:var(--gold)' }, starsFor(score));
+    const scoreEl = young ? null : el('div', { class: 'score' }, Math.round(score * 100) + '%');
+    const tallyEl = el('p', {}, correct + ' of ' + graded + ' correct.');
+    splash.append(starsEl);
+    if (scoreEl) splash.append(scoreEl);
+    splash.append(tallyEl);
+    const showServerScore = res => {
+      if (!res || typeof res.score !== 'number') return;
+      starsEl.textContent = starsFor(res.score);
+      if (scoreEl) scoreEl.textContent = Math.round(res.score * 100) + '%';
+      const whole = Math.abs(res.right - Math.round(res.right)) < 0.01;
+      tallyEl.textContent = whole
+        ? Math.round(res.right) + ' of ' + res.total + ' correct.'
+        : res.right.toFixed(1) + ' of ' + res.total + ' — partial credit counts.';
+    };
     let msg = '', msgTone = 'neutral', ascension = null, xp = 0, calibration = null, storyUnlocked = null;
     if (nodeId && !isRetry) {
       // A retry of only the missed items must not be scored as a fresh
@@ -2772,9 +3183,15 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         if (kind === 'quiz') {
           const r = await api.post('/api/quiz/submit', { node_id: nodeId, answers, make_cards: true, confidence: confidences, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.mastery.xp_gained || 0; ascension = r.ascension; calibration = r.calibration;
+          sittingSubmitted = true;
+          showServerScore(r.result);   // the marks the book actually recorded
           // null unless THIS lesson is the one the open chapter was waiting for.
           storyUnlocked = r.story_unlocked || null;
-          if (r.mastery.newly_mastered) { msg = r.mastery.proven
+          if (r.mastery.unscored) {
+            unscoredSitting = true;
+            msg = "Practised, not marked. These answers need a little time before they can count. What you missed will come back as cards.";
+          }
+          else if (r.mastery.newly_mastered) { msg = r.mastery.proven
             ? '✦ Mastered! You have proved this one — it is now truly yours.'
             : '✦ Mastered! This lesson is now complete.'; msgTone = 'good'; }
           else if (r.mastery.proven) msg = 'Reviewed — already proved.';
@@ -2807,19 +3224,49 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
               : 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery';
             const ra = r.mastery.ready_at;
             if (ra == null) msg += '.';
-            else if (readyNow(ra)) msg += ' — you have proved it once already, so the next pass seals it.';
-            else msg += ' — you have proved it once. Pass it again after ' + whenReady(ra) + ' and it is sealed.';
+            else if (readyNow(ra)) msg += ' — your next spaced pass can count now.';
+            else msg += ' — another pass can count after ' + whenReady(ra) + '.';
           }
           if (r.cards_added) msg += ' ' + r.cards_added + ' review card' + (r.cards_added > 1 ? 's' : '') + ' added.';
           if (r.mastery.newly_mastered) celebrate();
         } else {
           const r = await api.post('/api/attempt', { node_id: nodeId, answers, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.xp_gained || 0; ascension = r.ascension;
-          msg = 'Set down in the Book.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
-          if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
+          sittingSubmitted = true;
+          showServerScore(r.result);   // the marks the book actually recorded
+          if (r.unscored) {
+            // Practised, not marked. The server graded it, explained it and
+            // minted cards for the misses, but recorded no mastery because
+            // the book had already shown this reader most of these answers.
+            // The old copy said "Set down in the Book" over a paper that set
+            // nothing down, and the voice said "Wonderful work". Say what
+            // happened, in the reader's register, and celebrate nothing.
+            unscoredSitting = true;
+            msg = young
+              ? 'Good practising! This one was for practice, so the Book has not marked it yet.'
+              : 'Practised, not marked: the book had already shown you most of these answers, so this sitting counts as practice. What you missed will come back as cards.';
+            msgTone = 'neutral';
+          } else {
+            msg = r.newly_mastered ? '✦ Mastered! You have proved this one.'
+              : r.passes ? r.passes + ' of ' + r.passes_needed + ' spaced passes set down in the Book.'
+              : 'Practised and written down. A complete pass is still ahead.';
+            if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
+          }
+          if (r.cards_added) msg += ' ' + plural(r.cards_added, 'review card') + ' added.';
         }
       } catch (e) {
-        msg = 'Held in the margin for now — the book will copy it into the record the moment it can. Nothing is lost.';
+        // Not every refusal is the network. The book deliberately declines a
+        // sitting whose bank it has already spent — a reader failing the same
+        // lesson twice burns the items they were shown, and the third paper
+        // has too few unseen questions left to mean anything. That is an
+        // honest, considered "not today", and it was being delivered as
+        // "held in the margin… nothing is lost", which reads as a glitch and
+        // invites an immediate retry that will be refused in exactly the same
+        // way. The server tags it; say what it says.
+        msg = (e && e.reason === 'bank_spent')
+          ? 'The book has already shown you the answers to most of these, so this sitting cannot prove anything yet. Come back to this one in a few days — the questions you have not seen will be waiting.'
+          : 'Held in the margin for now — the book will copy it into the record the moment it can. Nothing is lost.';
+        if (e && e.reason === 'bank_spent') msgTone = 'warn';
       }
     } else if (isRetry) {
       msg = 'Good — those are the ones that needed another look.';
@@ -2838,7 +3285,9 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // comparison would both miss items the server never sent an answer key
     // for and mis-flag short-answer items the server graded as "close enough"
     // (a fuzzy match, not an exact one) as if they'd been missed.
-    const missedIdx = oks.map((ok, k) => ok ? -1 : k).filter(k => k >= 0);
+    // `ok === null` is an unmarked item, not a miss: `!ok` would have swept the
+    // reflection into every retry list and every burn notice.
+    const missedIdx = oks.map((ok, k) => ok === false ? k : -1).filter(k => k >= 0);
     const controls = el('div', { style: 'display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap' });
     // The page turns where it was earned — but the READER turns it. Advancing
     // is a write, and a chapter that opens itself is a chapter nobody chose to
@@ -2876,7 +3325,8 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     if (nodeId) controls.append(btn({ class: 'btn gold', onclick: () => { close(); go('node', nodeId); } }, 'Back to lesson'));
     splash.append(controls);
     modal.append(splash);
-    if (young) maybeSpeak('You got ' + correct + ' out of ' + questions.length + '. ' + (score >= 0.7 ? 'Wonderful work!' : 'Good try — let us practice a little more.'));
+    if (young && !unscoredSitting) maybeSpeak('You got ' + correct + ' out of ' + graded + '. ' + (score >= 0.7 ? 'Wonderful work!' : 'Good try — let us practice a little more.'));
+    else if (young) maybeSpeak('Good practising! The Book has not marked this one yet.');
     // Strictly sequenced: page turn first, stage ceremony behind it. With no
     // page turn on offer this is the same 900ms beat it always was.
     if (ascension) {
@@ -2899,7 +3349,17 @@ function flyXP(xp) {
   const p = el('div', { class: 'xp-pop' }, '+' + xp + ' growth');
   document.body.append(p); setTimeout(() => p.remove(), 1500);
 }
-function celebrate() { confetti(); }
+function celebrate() {
+  // Mastery is the one ceremony with no second channel. `streakCeremony` and
+  // `stageAscension` each fire confetti and then open a modal, so they still
+  // land when motion is suppressed; this was exactly `confetti()`, which
+  // returns at its first line under reduced motion — before it reaches even
+  // its own haptic. So the single beat the whole book builds toward happened
+  // in complete silence for a reader who had asked for less motion. They
+  // asked for less motion, not for less ceremony.
+  if (reducedMotion()) { haptic('fanfare', true); return; }
+  confetti();
+}
 function confetti() {
   if (reducedMotion()) return;
   // Two ceremonies can now land within a second of each other (mastery, then
@@ -3275,6 +3735,9 @@ async function renderAtlas(page) {
       said.push(n.assumed_stale ? 'assumed from your placement, and that credit has expired'
                                 : 'assumed from your placement, not yet proved');
     }
+    if (n.access_basis === 'assumed_prerequisites') {
+      marks.push('◇'); said.push('open on assumed foundations');
+    }
     if (frontier) said.push('the frontier of this field');
     if (cls === 'locked') said.push('open it to see what unlocks it');
     return btn({
@@ -3624,8 +4087,9 @@ async function renderReview(page, arg) {
        The distractor is drawn from the deck in hand, preferring a sibling from
        the same node or article (due_cards interleaves them, learner.py:1097) —
        a card from a wildly different topic makes the choice free. */
-    const distractor = S.stage <= 1 && data.cards.length > 1 ? distractorFor(c) : null;
-    const opts = distractor ? (Math.random() < 0.5 ? [c.back, distractor] : [distractor, c.back]) : null;
+    const distractor = S.stage <= 1 ? distractorFor(c) : null;
+    const key = backAnswer(c.back);
+    const opts = distractor ? (Math.random() < 0.5 ? [key, distractor] : [distractor, key]) : null;
     const askAloud = () => opts ? c.front + '. Is it ' + opts[0] + ', or ' + opts[1] + '?' : c.front;
     const promptRow = el('div', { class: 'speak-row' }, S.stage <= 2 ? speakBtn(askAloud, 'Read the card aloud') : null, el('div', { class: 'q-prompt', style: 'min-height:60px;flex:1' }, c.front));
     stage.append(promptRow);
@@ -3640,7 +4104,7 @@ async function renderReview(page, arg) {
       const recallRow = el('div', { class: 'recall-row', role: 'group', 'aria-label': 'Which one is it?' });
       opts.forEach((text, k) => {
         const b = btn({ class: 'recall-opt',
-          onclick: () => answerRecall(c, b, recallRow, answerRegion, sameText(text, c.back)) },
+          onclick: () => answerRecall(c, b, recallRow, answerRegion, sameText(text, backAnswer(c.back))) },
           el('span', { class: 'ro-key', 'aria-hidden': 'true' }, String(k + 1)),
           el('span', { class: 'ro-text' }, text));
         recallRow.append(b);
@@ -3699,19 +4163,40 @@ async function renderReview(page, arg) {
   }
   const sameText = (a, b) => String(a == null ? '' : a).trim().toLowerCase() === String(b == null ? '' : b).trim().toLowerCase();
   function writeInFor(st) { return st ? st.querySelector('.recall-write') : null; }
+  // The answer alone, never "answer — explanation": on a two-option review
+  // the explanation echoed the front, and "tap the option that says the word
+  // in the question" won 78% on fact cards.
+  function backAnswer(back) { return String(back || '').split(' — ')[0].trim(); }
   function distractorFor(c) {
-    const others = data.cards.filter(x => x.id !== c.id && !sameText(x.back, c.back));
+    const key = backAnswer(c.back);
+    // An ordering card's back IS the front's members, so a sibling card's
+    // back could be told apart by its words alone (89%). The distractor for
+    // an ordering is the same members in a different order.
+    const listed = String(c.front || '').split(': ').slice(-1)[0];
+    const parts = listed.split(', ').filter(Boolean);
+    if (parts.length >= 3 && parts.every(part => key.includes(part))) {
+      for (let tries = 0; tries < 8; tries++) {
+        const shuffled = parts.slice().sort(() => Math.random() - 0.5);
+        if (!sameText(shuffled.join(' '), key)) return shuffled.join(' ');
+      }
+      // Deterministic fallback: rotating distinct whole members changes order.
+      for (let offset = 1; offset < parts.length; offset++) {
+        const rotated = parts.slice(offset).concat(parts.slice(0, offset)).join(' ');
+        if (!sameText(rotated, key)) return rotated;
+      }
+    }
+    const others = data.cards.filter(x => x.id !== c.id && !sameText(backAnswer(x.back), key));
     if (!others.length) return null;
     const kin = others.filter(x => (c.node_id && x.node_id === c.node_id) || (c.article && x.article === c.article));
     const pool = kin.length ? kin : others;
-    return pool[Math.floor(Math.random() * pool.length)].back;
+    return backAnswer(pool[Math.floor(Math.random() * pool.length)].back);
   }
   function answerRecall(c, chosen, row, region, ok) {
     // Never colour-only: the chosen button takes a ✓ or ✗, and when it is wrong
     // the right one is marked too, so the card teaches rather than only scores.
     row.querySelectorAll('.recall-opt').forEach(b => {
       b.disabled = true;
-      const isKey = sameText(b.querySelector('.ro-text').textContent, c.back);
+      const isKey = sameText(b.querySelector('.ro-text').textContent, backAnswer(c.back));
       if (b === chosen) { b.classList.add(ok ? 'correct' : 'wrong'); b.prepend(ok ? '✓ ' : '✗ '); }
       else if (!ok && isKey) { b.classList.add('correct'); b.prepend('✓ '); }
     });
@@ -3921,6 +4406,14 @@ async function renderRoadmap(page) {
   page.append(el('div', { style: 'margin:18px 0' },
     btn({ class: 'btn ghost small', onclick: () => offerPlacement(S.state.profile.domains) },
       glyph('target', 16), ' Check my level again')));
+  // How the number above was arrived at. The server publishes its workings —
+  // the reader's measured reading rate, the maintenance cost per topic, how
+  // much of the mastered count is assumed rather than proven — and for a long
+  // time published them to nobody: computed, returned, and rendered nowhere.
+  // An estimate the reader cannot inspect is an estimate they have to take on
+  // trust, which is the one thing a book pricing ten years of their life must
+  // not ask.
+  page.append(pricingNote(r));
   page.append(sectionLabel('The Plan, year by year'));
   const tl = el('div', { class: 'timeline' });
   r.timeline.forEach(y => tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, 'Year ' + y.year), el('div', { class: 'ms' }, y.milestones.join(' · ')))));
@@ -3935,6 +4428,40 @@ async function renderRoadmap(page) {
     r.stages.forEach(s => g.append(el('div', { class: 'card' }, el('b', {}, s.name + ' — ' + s.span), el('p', { class: 'muted', style: 'margin:4px 0 0' }, s.nodes_remaining + ' topics · ~' + s.hours_remaining + ' hours'))));
     page.append(g);
   }
+}
+function pricingNote(r) {
+  const rate = r.instructional_rate || {};
+  const lines = [];
+  if (rate.measured) {
+    const pct = Math.round((rate.factor - 1) * 100);
+    const pace = pct === 0 ? 'at the pace the book expects'
+      : pct > 0 ? Math.abs(pct) + '% slower than the book expects'
+      : Math.abs(pct) + '% faster than the book expects';
+    lines.push('Your longest reading visits were ' + pace + ' — about ' + rate.per_article + ' minutes per title across '
+      + rate.articles + ' articles' + (rate.clamped ? ', held at the limit the plan allows' : '')
+      + ' — only assigned-article reading is adjusted. Visits do not establish article completion; returning to finish a piece can make this estimate too short.'
+      + (rate.clamped && rate.factor > 1
+         ? ' The reading allowance is capped; your reading may take longer.'
+         : ''));
+  } else {
+    const need = rate.min_articles || 20;
+    const mins = rate.min_minutes || 100;
+    lines.push('Your reading pace is not measured yet, so the hours above are priced at the '
+      + 'book\'s own figure. After about ' + need + ' articles and ' + Math.round(mins / 60)
+      + ' hours of reading its article allowance will use your pace.');
+  }
+  lines.push('An article starts at six minutes. Each topic also includes instruction, practice and assessment; those hours do not change with reading speed.');
+  if (typeof r.srs_minutes_per_node === 'number') {
+    lines.push('Each topic also carries about ' + Math.round(r.srs_minutes_per_node)
+      + ' minutes of later review, so that what is learned stays learned.');
+  }
+  if (typeof r.nodes_assumed === 'number' && r.nodes_assumed > 0) {
+    lines.push(r.nodes_assumed + ' of the topics counted as covered are assumed from your placement '
+      + 'rather than proved at the page. They can be checked at any time.');
+  }
+  return el('details', { class: 'card pricing-note' },
+    el('summary', {}, 'How these hours were arrived at'),
+    ...lines.map(t => el('p', { class: 'muted', style: 'margin:6px 0 0' }, t)));
 }
 function statCard(big, label, color) { return el('div', { class: 'card', style: 'text-align:center' }, el('div', { style: `font-size:40px;color:${color};font-weight:600` }, big), el('div', { class: 'muted' }, label)); }
 
@@ -4107,15 +4634,21 @@ async function renderStory(page) {
   page.append(el('p', { class: 'muted', style: 'margin-top:-8px' },
     earned + ' of ' + total + ' chapters earned.'));
   st.chapters.forEach((c, i) => {
+    // The reader's own chapter number, counted by the server over the reader's
+    // own story. Numbering from the raw array index let the page head a card
+    // "Chapter 19" while the line above it said the story was 15 chapters long.
+    const no = Number.isFinite(c.number) ? c.number : (i + 1);
     if (c.set_aside) {
       page.append(el('div', { class: 'card card-quiet' },
-        el('div', { class: 'kicker' }, 'Chapter ' + (i + 1) + ' · set aside'),
+        // No number: a chapter belonging to a field this reader never chose is
+        // not their chapter seven, it is outside their story altogether.
+        el('div', { class: 'kicker' }, 'Set aside'),
         btn({ class: 'unstyled card-open', onclick: () => openStory(c, false, null) },
           el('h3', { style: 'font-size:18px;margin:0' }, glyph('moon', 16), ' ' + c.title)),
         el('p', { class: 'muted' }, 'This one belongs to a field you did not choose — open it any time.')));
     } else if (c.read) {
       const card = el('div', { class: 'card lesson-card' });
-      card.append(el('div', { class: 'kicker' }, 'Chapter ' + (i + 1) + ' · read'),
+      card.append(el('div', { class: 'kicker' }, 'Chapter ' + no + ' · read'),
         btn({ class: 'unstyled card-open', onclick: () => openStory(c, false, null) },
           el('h3', { style: 'font-size:19px' }, glyph('story', 17), ' ' + c.title)),
         el('p', { class: 'muted' }, (c.text[0] || '').slice(0, 120) + '…'));
@@ -4126,7 +4659,7 @@ async function renderStory(page) {
       // panel. It was hardcoded brown, which left it the one muddy tile on
       // an otherwise phosphor page once the night palette turned.
       const card = el('div', { class: 'card story-current' });
-      card.append(el('div', { class: 'kicker' }, 'Chapter ' + (i + 1) + ' · you are here'),
+      card.append(el('div', { class: 'kicker' }, 'Chapter ' + no + ' · you are here'),
         el('h3', {}, c.title),
         el('p', {}, (c.text[0] || '').slice(0, 160) + '…'),
         btn({ class: 'btn gold', style: 'margin-top:8px', onclick: () => openStory(c, st.can_advance, st.needs) }, glyph('story', 16), ' Read this chapter'));
@@ -4135,7 +4668,7 @@ async function renderStory(page) {
       page.append(card);
     } else {
       page.append(el('div', { class: 'card card-quiet' },
-        el('div', { class: 'kicker' }, 'Chapter ' + (i + 1)),
+        el('div', { class: 'kicker' }, 'Chapter ' + no),
         el('h3', { style: 'font-size:18px' }, glyph('lock', 17), ' Not yet written'),
         el('p', { class: 'muted' }, 'Keep learning — this page is waiting for you.')));
     }
