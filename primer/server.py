@@ -759,24 +759,75 @@ def _public_node(node: dict, include_detail: bool = False) -> dict:
     return out
 
 
+def _settle_stage(current: int, target: int, own_result: Optional[int] = None) -> int:
+    """The one policy for moving a reader's global stage, whoever is asking.
+
+    Two handlers used to write this column with contradictory rules: the
+    placement settle capped every move at one rung in either direction, and
+    the ascension ceremony wrote `max(stage, rank)` with no cap at all over a
+    lower median the board had already condemned. "At most one rung" was true
+    of neither the reader nor the column, and an auditor moved a reader from
+    1 to 5 with two passes on a preschool node.
+
+    The cap is on DISTANCE FROM THE EVIDENCE, not on velocity. Downward moves
+    are one rung per sitting, because a single bad paper must not rewrite a
+    reading level; upward moves go straight to the target, because a reader
+    whose only measurement is Forest is not a Seedling for any length of
+    time — the earlier version parked exactly that reader in the pre-reader
+    interface for a month of weekly re-checks. And a sitting whose own result
+    is at or above the current stage never lowers it.
+    """
+    if target >= current:
+        return target
+    if own_result is not None and own_result >= current:
+        return current
+    return max(current - 1, target)
+
+
+def _general_target(per_domain: Dict[str, int]) -> Optional[int]:
+    """Median of the general fields, an even count splitting the difference."""
+    measured = sorted(v for d, v in per_domain.items() if not _is_specialist(d))
+    if not measured:
+        return None
+    n = len(measured)
+    if n % 2:
+        return measured[n // 2]
+    return int((measured[n // 2 - 1] + measured[n // 2] + 1) // 2)
+
+
 def _check_ascension(prof: dict, reader_id: int) -> Optional[dict]:
     """If the reader has newly opened a higher stage in any domain, record a
     stage-ascension ceremony and return it once."""
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     # The reader's level is the lower median over the domains they CHOSE —
     # one strong domain cannot promote them, and domains they never opted
     # into are not evidence against them.
     domains = prof.get("domains") or [d["id"] for d in curr.domains]
-    per_domain = sorted(curr.domain_stage_estimate(d, gates) for d in domains)
-    rank = per_domain[(len(per_domain) - 1) // 2] if per_domain else 0
+    estimates = {d: curr.domain_stage_estimate(d, gates) for d in domains}
+    # ...and every field the book has actually MEASURED, chosen or not. The
+    # rank used to run over the chosen fields alone, so a history placement
+    # of 0 was not evidence against a reader whose only chosen field was
+    # maths, and two passes on a preschool node lifted them from 3 to 5.
+    # A measurement the reader sat is evidence whether or not they opted
+    # into the field afterwards.
+    placed = (prof.get("settings") or {}).get("placed") or {}
+    for d, v in placed.items():
+        if d not in estimates:
+            estimates[d] = int(v)
+    # The same median the placement settle uses, over the same kind of
+    # evidence, through the same writer. A rank from mastery is evidence of
+    # ability and may promote; it never demotes.
+    rank = _general_target(estimates) or 0
     prev = int(prof.get("settings", {}).get("rank", prof.get("stage", 0)))
     if rank > prev:
         settings = dict(prof.get("settings", {}))
         settings["rank"] = rank
+        current = int(prof["stage"] or 0)
         # Actually promote the reader: the ceremony announced a new stage, so
         # the sidebar, the UI mode and the story window must all move with it.
         learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
-                             prof["breadth"], max(int(prof["stage"] or 0), rank),
+                             prof["breadth"], _settle_stage(current, max(current, rank)),
                              prof["domains"], settings, reader_id=reader_id)
         info = {"stage": rank, "name": STAGE_NAMES[min(rank, 5)],
                 "title": STAGE_TITLES[min(rank, 5)]}
@@ -1195,6 +1246,7 @@ def curriculum_node(node_id: str, request: Request):
     if not node:
         return JSONResponse({"error": "no such node"}, status_code=404)
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     out = _public_node(node, include_detail=True)
     out["mastery"] = round(learner.mastery_map(reader_id=reader_id).get(node_id, 0), 2)
     out["mastered"] = node_id in learner.mastered_set(reader_id=reader_id)
@@ -1205,9 +1257,9 @@ def curriculum_node(node_id: str, request: Request):
                       and not out["ever_proven"])
     out["assumed_stale"] = node_id in learner.assumed_stale_set(reader_id=reader_id)
     out["mastery_detail"] = learner.mastery_detail(node_id, reader_id=reader_id)
-    out["unlocked"] = curr.unlocked(node, gates)
+    out["unlocked"] = curr.unlocked(node, gates, learner.proven_set(reader_id=reader_id))
     if not out["unlocked"] and not out["mastered"]:
-        out["unlock_requirements"] = curr.unlock_requirements(node, gates)
+        out["unlock_requirements"] = curr.unlock_requirements(node, gates, proven)
     # Two-way tissue: a lesson should say which chapter it opens.
     prof = learner.get_profile(reader_id=reader_id)
     if prof:
@@ -1244,6 +1296,7 @@ def curriculum_node_navigation(node_id: str, request: Request):
         return JSONResponse({"error": "no such domain"}, status_code=404)
 
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     mastered = learner.mastered_set(reader_id=reader_id)
     lessons = []
     for sibling in curr.nodes.values():
@@ -1255,7 +1308,7 @@ def curriculum_node_navigation(node_id: str, request: Request):
             "stage": sibling["stage"],
             "stage_name": STAGE_NAMES[sibling["stage"]],
             "section": sibling.get("section", ""),
-            "unlocked": curr.unlocked(sibling, gates),
+            "unlocked": curr.unlocked(sibling, gates, learner.proven_set(reader_id=reader_id)),
             "mastered": sibling["id"] in mastered,
         })
     return {
@@ -1567,8 +1620,9 @@ def today(request: Request):
     if not prof:
         return JSONResponse({"error": "no profile"}, status_code=400)
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     domains = prof["domains"] or [d["id"] for d in curr.domains]
-    lessons = [_public_node(n) for n in curr.next_lessons(gates, domains, per_domain=1)]
+    lessons = [_public_node(n) for n in curr.next_lessons(gates, domains, proven=proven, per_domain=1)]
     # Stable order for the day (no reshuffle on refresh), but varied day to day.
     rng = random.Random(_daily_seed() + int(prof.get("created_at", 0)))
     rng.shuffle(lessons)
@@ -1621,9 +1675,9 @@ def today(request: Request):
         node = curr.node(nid)
         entry = {"id": nid, "title": (node or {}).get("title", nid),
                  "ready_at": p["ready_at"],
-                 "open": bool(node) and curr.unlocked(node, gates)}
+                 "open": bool(node) and curr.unlocked(node, gates, learner.proven_set(reader_id=reader_id))}
         if node is not None and not entry["open"]:
-            needs = curr.unlock_requirements(node, gates)
+            needs = curr.unlock_requirements(node, gates, proven)
             if needs:
                 entry["blocked_by"] = needs[0]
         pending.append(entry)
@@ -1845,7 +1899,8 @@ def _locked_lesson_response(node: dict, reader_id: int) -> Optional[JSONResponse
     else must satisfy the same decay-aware curriculum gates shown by the UI.
     """
     gates = learner.gate_map(reader_id=reader_id)
-    if gates.get(node["id"], 0) >= 0.8 or curr.unlocked(node, gates):
+    proven = learner.proven_set(reader_id=reader_id)
+    if gates.get(node["id"], 0) >= 0.8 or curr.unlocked(node, gates, learner.proven_set(reader_id=reader_id)):
         return None
     return JSONResponse({
         "error": "this lesson is still locked",
@@ -1888,23 +1943,25 @@ def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
     # asked for, then sorted so the sore spots come first; the paper is still
     # the same size, and a reader with a clean deck sees no change at all.
     if node_id and n >= QUIZ_MIN_ITEMS:
+        # Exposure and evidence are two different things, and the draw has to
+        # serve both. A burned item — one whose key this reader has already
+        # been shown — cannot COUNT (see _drop_burned), but it is exactly the
+        # thing she needs to MEET again. The previous draw excluded burned
+        # items from the paper altogether, so over a week a struggling reader's
+        # papers converged on what she already knew: an auditor simulated a
+        # child who knew half of bio.0.animals and watched her master it in
+        # six days without learning a thing. So: the sore spots lead, burned
+        # or not, and the rest of the paper is filled with items that can
+        # still count, so honest evidence stays possible on every sitting.
         sore = set(learner.missed_fronts(node_id, reader_id=reader_id))
-        # ...but never an item whose key this reader has already been shown.
-        # The first version of this put the burned items FIRST — they are, by
-        # definition, the ones the reader missed — and then `_drop_burned`
-        # removed every one of them at submit and `record_attempt` refused the
-        # sitting for having too few items left. A child who missed two was
-        # told "come back in a few days" on every retry for a week. The loop
-        # was not closing; it was locking.
         burned = learner.burned_map(node_id, reader_id=reader_id)
         wider = practice.generate_set(gen_key, n * 3, level)
         if len(wider) >= n:
-            fresh = [q for q in wider if _fingerprint(q) not in burned]
-            if len(fresh) >= n:
-                wider = fresh
-            if sore:
-                wider.sort(key=lambda q: 0 if q.get("prompt") in sore else 1)
-            qs = wider[:n]
+            lead = [q for q in wider if q.get("prompt") in sore][:max(1, n // 3)]
+            rest = [q for q in wider if q not in lead]
+            countable = [q for q in rest if _fingerprint(q) not in burned]
+            spent = [q for q in rest if _fingerprint(q) in burned]
+            qs = (lead + countable + spent)[:n]
             for i, q in enumerate(qs):
                 q["id"] = i
     if not qs:
@@ -1951,16 +2008,17 @@ def record_attempt(a: AttemptIn, request: Request):
             return locked
     given = _final_answers(entry, a.answers)
     scorable, scorable_given, _spent = _drop_burned(graded, given, a.node_id, reader_id, entry)
-    if len(scorable) < min(QUIZ_MIN_ITEMS, len(graded)):
-        return JSONResponse(
-            {"error": "the book has already shown you the answers to most of "
-                      "these. Come back to this one in a few days.",
-             # A stable tag beside the prose. The client used to have to match
-             # the sentence itself to know what had happened, which couples its
-             # copy to this file's wording character for character; the reader
-             # got the generic offline card instead, and was told a refusal the
-             # book had made on purpose was probably their network.
-             "reason": "bank_spent"}, status_code=409)
+    # A practice sitting is never refused. The 409 here existed to stop a
+    # reader harvesting keys and posting them back as a pass, and it still
+    # does that — but it did it by refusing the whole sitting, which meant the
+    # child who had just LEARNED the items she kept missing was told "come
+    # back in a few days" on the sitting where she finally got them right.
+    # Evidence and exposure are separate: a paper with too few countable items
+    # is graded, explained, and its misses become cards, and simply records
+    # no mastery. Nothing is harvested and nobody is locked out.
+    unscored = len(scorable) < min(QUIZ_MIN_ITEMS, len(graded))
+    if unscored:
+        scorable, scorable_given = graded, given
     marks = quiz.score_quiz(scorable, scorable_given)
     score = marks["score"]
     # The marks the book actually recorded, so the practice splash can show the
@@ -1979,8 +2037,16 @@ def record_attempt(a: AttemptIn, request: Request):
     if not a.node_id or node is None:
         return {"score": score, "result": result, "xp_gained": 0,
                 "unlessoned": True, "cards_added": 0, "ascension": None}
-    res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
-                                 items=len(a.answers), reader_id=reader_id)
+    if unscored:
+        res = {"node_id": a.node_id, "score": round(score, 3), "xp_gained": 0,
+               "mastered": False, "newly_mastered": False, "unscored": True,
+               "reason": "bank_spent",
+               "note": "Practised, not marked: the book had already shown you "
+                       "most of these answers. Everything you missed will come "
+                       "back as a card."}
+    else:
+        res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
+                                     items=len(a.answers), reader_id=reader_id)
     # Practice is a study event too: whatever was missed should come back.
     cards_added = 0
     if graded and given:
@@ -2815,29 +2881,7 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
                 # evidence against. Take the measurement.
                 overall = measured[0]
             else:
-                # ONE rule from here on, whatever the branch. Four earlier
-                # versions each had their own, and an auditor walked a reader
-                # through the seams: the lower median is the minimum at two
-                # fields, so a Forest reader was walked down to the nursery one
-                # rung per sitting by ACING maths four times; the lone-field
-                # branch had no cap at all, so one failed re-check went 5 -> 0
-                # and no later pass could raise it.
-                #
-                # The target is the median of the general fields, with an even
-                # count splitting the difference rather than taking the lower
-                # value — {0, 5} is Grove, not preschool. The stage moves at
-                # most one rung per sitting in EITHER direction, so no single
-                # paper rewrites a reading level. And a sitting whose own
-                # result is at or above the current stage never lowers it:
-                # passing evidence is not grounds for demotion.
-                n = len(measured)
-                if n % 2:
-                    target = measured[n // 2]
-                else:
-                    target = int((measured[n // 2 - 1] + measured[n // 2] + 1) // 2)
-                overall = max(current - 1, min(current + 1, target))
-                if placed >= current and overall < current:
-                    overall = current
+                overall = _settle_stage(current, _general_target(general), own_result=placed)
             learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
                                  prof["breadth"], overall, prof["domains"], settings,
                                  reader_id=reader_id)
@@ -2915,9 +2959,10 @@ def domain_open(s: DomainOpenIn, request: Request):
     learner.log_event("domain_opened", {"domain": s.domain, "credited": outside},
                       reader_id=reader_id)
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     return {"domain": s.domain,
             "credited": [{"id": p, "title": curr.nodes[p]["title"]} for p in outside],
-            "opened": sum(1 for n in own if curr.unlocked(n, gates)),
+            "opened": sum(1 for n in own if curr.unlocked(n, gates, proven)),
             "total": len(own)}
 
 

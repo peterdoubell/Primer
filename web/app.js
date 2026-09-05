@@ -1860,17 +1860,26 @@ function startReadingClock(title) {
 // count. The first version nulled the clock on tab-hide and called
 // undercounting "the safe direction" — it is the opposite: fewer minutes read
 // as a faster reader, and a faster reader is handed a shorter plan.
-function pauseReadingClock() {
+// `why` says who paused it. A paper's pause is only undone by the paper
+// closing; tab-hide's pause is only undone by the tab returning. The first
+// version had one flag, so switching tabs during a quiz un-paused it and the
+// paper was billed as reading — and nothing at all resumed it after a paper
+// closed, so every minute read after a quiz went uncounted until the next
+// tab switch.
+function pauseReadingClock(why = 'hidden') {
   const clock = readingClock;
-  if (!clock || clock.paused) return;
-  flushReadingClock(clock);
-  clock.paused = Date.now();
+  if (!clock) return;
+  if (!clock.paused) { flushReadingClock(clock); clock.paused = Date.now(); }
+  clock.holds = clock.holds || {};
+  clock.holds[why] = true;
 }
 
-function resumeReadingClock() {
+function resumeReadingClock(why = 'hidden') {
   const clock = readingClock;
   if (!clock || !clock.paused) return;
-  // Hidden time is not reading time: shift the start forward by the pause.
+  if (clock.holds) delete clock.holds[why];
+  if (clock.holds && Object.keys(clock.holds).length) return;   // still held
+  // Paused time is not reading time: shift the start forward by the pause.
   clock.at += Date.now() - clock.paused;
   clock.paused = 0;
 }
@@ -1903,6 +1912,11 @@ document.addEventListener('visibilitychange', () => {
   else resumeReadingClock();
 });
 window.addEventListener('pagehide', stopReadingClock);
+// A page restored from the back/forward cache comes back with its clock
+// already stopped; if an article is showing, start it again.
+window.addEventListener('pageshow', e => {
+  if (e.persisted && S.view === 'reader' && S.title) startReadingClock(S.title);
+});
 
 function prepareReaderContext(title, nodeId) {
   const slot = $('#reader-context-slot');
@@ -2615,7 +2629,7 @@ function spinnerOverlay(msg) {
 
 function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, token = '' }) {
   // Time spent in a paper is not time spent reading the article beneath it.
-  pauseReadingClock();
+  pauseReadingClock('paper');
   const young = (stage != null ? stage : S.stage) <= 1;
   // The paper's own clock, started when it is handed over. See the note on
   // the deck's: untrusted, non-load-bearing, and the only reason the book can
@@ -2646,7 +2660,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     build: (modal, close) => { drawQuestion(modal, close); },
     // Closing the splash without turning the page must not cost the reader the
     // promotion ceremony altogether — it is a real change to their book.
-    onClose: () => { splashClosed = true; if (!turningPage) releaseAscension(300); },
+    onClose: () => { splashClosed = true; resumeReadingClock('paper'); if (!turningPage) releaseAscension(300); },
   });
 
   function normalize(s) { return String(s).trim().toLowerCase().replace(/\s+/g, ''); }
@@ -2847,7 +2861,14 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
           const nxt = tray.querySelector('.order-chip:not(:disabled)');
           (nxt || check).focus();
         } }, v);
-        tray.append(b);
+        // The one shape that asks a pre-reader to PRODUCE handed them four
+        // unspoken text chips; `speak_choices` was set on every item and
+        // read by nothing on this branch. Every chip gets its own speaker.
+        if (q.speak_choices) {
+          tray.append(el('span', { class: 'order-chip-wrap' }, b, speakBtn(() => v, 'Read this one aloud')));
+        } else {
+          tray.append(b);
+        }
       });
       // Mount the live region first, then fill it. Calling redraw() before the
       // append meant the slot arrived in the document already containing its
@@ -2952,7 +2973,11 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // Never colour-only: always state the verdict in words as well.
     tell(card, m.correct ? '✓ That is the right order.'
                          : 'Not quite — the right order is: ' + m.answer);
-    reveal(m.correct, { ...q, answer: m.answer }, chosen.join(' '), card, modal, close);
+    // The ordering's explanation never reached the screen: the reveal was
+    // handed the answer and nothing else, so the spoken failure line was a
+    // bare "Not quite. The answer is spring summer autumn winter".
+    reveal(m.correct, { ...q, answer: m.answer, explain: m.explain || q.explain || '' },
+           chosen.join(' '), card, modal, close);
   }
 
   async function submitTally(tokens, q, card, modal, close) {

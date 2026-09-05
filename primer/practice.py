@@ -1134,6 +1134,44 @@ def _length_rank(key: str, choices: List[str]) -> int:
     return sorted(choices, key=lambda c: (len(c), c)).index(key) + 1
 
 
+_ARTICLE = re.compile(r"^(an?|the)\s", re.IGNORECASE)
+_WORD = re.compile(r"[a-z]{3,}")
+# Function words are not a tell. "take air in and out" was flagged as the odd
+# one out against three distractors that all contained "the".
+_STOP = frozenset({"the","and","you","your","one","ones","what","which","does","with","that","this","they","them","its","are","was","for","from","into","onto","about","when","where","who","how","why","can","not","all","any","some","very","more","most","than","then","out","off","own","has","have","had","been","being","get","got","put","make","made","use","used","way","thing","things"})
+
+
+def _content_words(text: str) -> set:
+    return {w for w in _WORD.findall(text.lower()) if w not in _STOP}
+
+
+def _surface_tell(prompt: str, key: str, choices: List[str]) -> bool:
+    """True if the key can be picked off the card without reading it.
+
+    Two tells an auditor measured by hand that no rank test sees: the option
+    without an article beside three that have one ("a fox", "a bear", "grass",
+    "a deer" — grass is the odd one out, and the odd one out is the key), and
+    the option sharing a word with the prompt ("What does every living thing
+    need to do with food?" — "eat it to grow" is the only option that answers
+    the question's own noun). On one node the second strategy won 78% of the
+    time. Both are checked the same way: is the key alone on its side?
+    """
+    arts = [bool(_ARTICLE.match(c)) for c in choices]
+    if 0 < sum(arts) < len(choices):
+        minority = sum(arts) < len(choices) / 2
+        if [c for c, a in zip(choices, arts) if a == minority] == [key]:
+            return True
+    words = _content_words(prompt)
+    sharing = [c for c in choices if _content_words(c) & words]
+    if 0 < len(sharing) < len(choices):
+        # The key is a tell whenever it sits in the SMALLER group — sole
+        # sharer, sole non-sharer, or one of a pair against three.
+        mine = sharing if key in sharing else [c for c in choices if c not in sharing]
+        if len(mine) < len(choices) - len(mine):
+            return True
+    return False
+
+
 def _at_drawn_rank(build, tries: int = 20):
     """Draw a target length rank, then keep drawing items until one lands there.
 
@@ -1152,10 +1190,16 @@ def _at_drawn_rank(build, tries: int = 20):
         if q is None:
             continue
         fallback = fallback or q
-        choices = q.get("choices") or []
+        choices = [str(c) for c in (q.get("choices") or [])]
         if len(choices) < 2:
             return q
-        if _length_rank(str(q["answer"]), [str(c) for c in choices]) == target:
+        key = str(q["answer"])
+        if _surface_tell(q.get("prompt", ""), key, choices):
+            continue
+        if fallback is q or _surface_tell(q.get("prompt", ""), str(fallback["answer"]),
+                                          [str(c) for c in fallback.get("choices") or []]):
+            fallback = q
+        if _length_rank(key, choices) == target:
             return q
     return fallback
 
@@ -1167,7 +1211,14 @@ def _articled(text: str) -> str:
     written before anything knows what follows it. Ten of them came out
     ungrammatical and were spoken to a five-year-old as written.
     """
-    return re.sub(r"\ba (?=[aeiouAEIOU])", "an ", text)
+    # "an one", "an unicorn": a vowel LETTER is not a vowel SOUND. The few
+    # common exceptions are spelt out rather than guessed at.
+    def swap(m):
+        word = m.group(1).lower()
+        if re.match(r"(one|once|uni|use|user|euro|ewe)", word):
+            return "a " + m.group(1)
+        return "an " + m.group(1)
+    return re.sub(r"\ba ([aeiouAEIOU]\w*)", swap, text)
 
 
 def _know_group(spec: Dict) -> Optional[Dict]:
@@ -1204,6 +1255,7 @@ def _know_group(spec: Dict) -> Optional[Dict]:
         prompt = _articled(not_prompt.format(cat))
         q = _mc(prompt, key, _length_balanced(key, sorted(inside)), pad=False)
         q["explain"] = "%s is not %s." % (key, cat)
+        q["explain_structural"] = True
     else:
         key = R.choice(groups[cat])
         prompt = _articled(spec.get("group_prompt", "Which one is a {}?").format(cat))
@@ -1213,6 +1265,7 @@ def _know_group(spec: Dict) -> Optional[Dict]:
         # did, and "Not quite. The answer is red" teaches nothing about how to
         # get the next one.
         q["explain"] = "%s belongs with %s." % (key, cat)
+        q["explain_structural"] = True
     q["say"] = prompt
     q["speak_choices"] = True
     return q
@@ -1236,6 +1289,11 @@ def _know_pair(spec: Dict) -> Optional[Dict]:
     pool = pool + [e for e in (spec.get("extras") or []) if e != key]
     q = _mc(prompt, key, _length_balanced(key, pool), pad=False)
     q["explain"] = "%s goes with %s." % (left, right)
+    # Structural: it restates the pair rather than teaching it, and must not
+    # ride on the back of a review card, where a Seedling's two-option choice
+    # became "tap the option that says the word in the question" — 83% by
+    # word-matching alone, an auditor measured.
+    q["explain_structural"] = True
     q["say"] = prompt
     q["speak_choices"] = True
     return q
@@ -1259,11 +1317,19 @@ def _know_fact(spec: Dict) -> Optional[Dict]:
     # answer somebody wrote for this same lesson, so the item stays plausible
     # and stops being positional.
     R.shuffle(authored)
-    keep = authored[:1]
-    elsewhere = [str(d) for g in facts if g is not f for d in (g.get("d") or [])]
-    rest = _length_balanced(key, [c for c in authored[1:] + elsewhere
-                                  if c not in keep], 2)
-    q = _mc(f["q"], f["a"], keep + rest, f.get("explain") or "", pad=False)
+    if f.get("keep"):
+        # An either/or question ("the wheel or the car?") names its options
+        # in the prompt, so every distractor has to name them too or the one
+        # that does is the key. Those facts author all three distractors for
+        # exactly that reason, and the length lever must not swap them out
+        # for wrong answers from elsewhere that do not echo the prompt.
+        chosen = authored[:3]
+    else:
+        keep = authored[:1]
+        elsewhere = [str(d) for g in facts if g is not f for d in (g.get("d") or [])]
+        chosen = keep + _length_balanced(key, [c for c in authored[1:] + elsewhere
+                                               if c not in keep], 2)
+    q = _mc(f["q"], f["a"], chosen, f.get("explain") or "", pad=False)
     q["say"] = f.get("say", f["q"])
     q["speak_choices"] = True
     return q
@@ -1278,11 +1344,14 @@ def _front_order(seq: List[str]) -> List[str]:
     differs from the answer; otherwise by length then reverse-alphabetical,
     which is stable, and is checked against the answer too.
     """
+    backwards = list(reversed(seq))
+    # Neither the answer nor its mirror: 51 fronts were the answer backwards,
+    # which for "smallest first" is the answer.
     for candidate in (sorted(seq), sorted(seq, key=lambda x: (len(x), x), reverse=True),
-                      list(reversed(seq))):
-        if candidate != seq:
+                      sorted(seq, key=lambda x: (x[-1], x)), seq[1:] + seq[:1]):
+        if candidate != seq and candidate != backwards:
             return candidate
-    return seq   # three identical members cannot be reordered at all
+    return seq
 
 
 def _know_order(spec: Dict) -> Optional[Dict]:
@@ -1317,10 +1386,12 @@ def _know_order(spec: Dict) -> Optional[Dict]:
     seq = [str(x) for x in chosen]
     prompt = override or spec.get("sequence_prompt", "Put them in the right order")
     prompt = "%s: %s" % (prompt, ", ".join(_front_order(seq)))
+    authored = spec.get("sequence_explain")
     q = _order(prompt, seq,
                spec.get("sequence_say", "Tap them in the right order."),
-               spec.get("sequence_explain",
-                        "The order is: " + ", ".join(seq) + "."))
+               authored or ("The order is: " + ", ".join(seq) + "."))
+    if not authored:
+        q["explain_structural"] = True
     # Still stamped `ephemeral: True` like every generated item — the guard
     # that keeps a forgetful generator from being read as authored. Its
     # durability is declared where a generated item's always is, in

@@ -264,8 +264,11 @@ def test_the_stage_never_moves_more_than_one_rung_across_many_sittings(app_clien
     """The invariant, asserted across a run of sittings rather than one pair."""
     prev, _ = _stage(app_client)
     first = True
+    # Real field ids. An auditor found "bio" and "chem" here: both returned
+    # 409 "already settled", the helper returned {}, the stage did not move,
+    # and the six-sitting invariant was asserted over four sittings.
     for domain, ace in [("math", True), ("history", False), ("physics", True),
-                        ("bio", False), ("chem", True), ("earth", False)]:
+                        ("biology", False), ("chemistry", True), ("earth", False)]:
         _sit_placement(app_client, domain, ace)
         cur, placed = _stage(app_client)
         if not first:
@@ -304,3 +307,111 @@ def test_a_child_who_misses_two_is_not_locked_out(app_client, monkeypatch):
         if r.status_code == 409:
             refused += 1
     assert refused == 0, "%d of 5 honest retries were refused" % refused
+
+
+def _sit_practice(client, node_id, answer_for):
+    """One honest practice sitting: check each answer as given, then submit."""
+    import primer.server as srv
+    gen = srv.curr.nodes[node_id]["practice"]
+    paper = client.get("/api/practice/%s?n=5&level=0&node_id=%s" % (gen, node_id)).json()
+    served = srv._SERVED.get(paper["token"])["questions"]
+    answers = []
+    for i, q in enumerate(served):
+        a = answer_for(i, q)
+        client.post("/api/quiz/check", json={"node_id": node_id, "token": paper["token"],
+                                             "id": q["id"], "answer": a})
+        answers.append(a)
+    return client.post("/api/attempt", json={"node_id": node_id, "answers": answers,
+                                             "token": paper["token"], "seconds": 60})
+
+
+def test_honest_practice_is_never_refused_at_any_miss_rate(app_client, monkeypatch):
+    """The third audit reached past the two-miss test: miss four of five for
+    six sittings, then answer everything right, and the reader who had just
+    LEARNED the items was refused 3 of 3 times. Evidence and exposure are
+    separate now — a sitting with too few countable items is graded, its
+    misses become cards, and it records no mastery. Nobody is refused."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    node_id = "bio.0.animals"
+    for miss in (5, 4, 3, 2):
+        for _ in range(4):
+            r = _sit_practice(app_client, node_id,
+                              lambda i, q, m=miss: "zzz" if i < m else str(q.get("answer", "")))
+            assert r.status_code == 200, (miss, r.status_code, r.json())
+    for _ in range(3):
+        r = _sit_practice(app_client, node_id, lambda i, q: str(q.get("answer", "")))
+        assert r.status_code == 200, r.json()
+
+
+def test_a_reader_who_knows_half_cannot_be_credited_with_mastery(app_client, monkeypatch):
+    """The draw used to exclude burned items — the ones she got wrong — so
+    her papers converged on what she knew, and a child who knew half of the
+    material was credited with mastery in under a week without learning
+    anything. Burned items are excluded from EVIDENCE, never from EXPOSURE."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    node_id = "bio.0.plants"
+    knows = lambda i, q: (str(q.get("answer", "")) if hash(("half", q["prompt"])) % 2 == 0 else "zzz")
+    for day in range(21):
+        with srv.learner._conn() as c:
+            c.execute("UPDATE srs_cards SET due = due - 86400")
+        r = _sit_practice(app_client, node_id, knows).json()
+        assert not r.get("newly_mastered") and not r.get("proven"), \
+            "credited with mastery on day %d while knowing half" % day
+
+
+def test_a_reader_measured_at_forest_is_not_parked_in_the_nursery(app_client):
+    """The one-rung cap throttled recovery as hard as demotion: fail maths
+    once (stage 0), re-check a week later acing every rung, and the reader
+    sat at stage 1 — the pre-reader interface — with a stage-5 result in
+    hand, for a month of weekly re-checks. The cap is on distance from the
+    evidence, not on velocity: upward moves go to the target."""
+    _sit_placement(app_client, "math", ace=False)
+    assert _stage(app_client)[0] == 0
+    _recheck(app_client, "math", ace=True)
+    stage, placed = _stage(app_client)
+    assert stage >= 4, "a Forest result left the reader at stage %s (%s)" % (stage, placed)
+
+
+def test_history_then_maths_lands_at_the_median_not_one_rung_up(app_client):
+    _sit_placement(app_client, "history", ace=False)
+    _sit_placement(app_client, "math", ace=True)
+    stage, placed = _stage(app_client)
+    # {0, 5}: the even count splits the difference. Grove, not Seedling.
+    assert stage == 3, (stage, placed)
+
+
+def test_ascension_writes_the_stage_through_the_same_policy(app_client, monkeypatch):
+    """A second, uncapped writer: the ascension ceremony wrote max(stage,
+    rank) over a lower median of assumed credit, and moved a reader from 1
+    to 5 with two passes on a preschool node. One writer, one policy."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    _sit_placement(app_client, "history", ace=False)
+    _sit_placement(app_client, "math", ace=True)
+    before, _ = _stage(app_client)
+    # Two passes on a stage-0 node: real evidence, but preschool evidence.
+    node_id = "math.0.counting"
+    for _ in range(2):
+        with srv.learner._conn() as c:
+            c.execute("UPDATE mastery SET first_pass_at = first_pass_at - 86400*2 WHERE node_id=?", (node_id,))
+        _sit_practice(app_client, node_id, lambda i, q: str(q.get("answer", "")))
+    after, placed = _stage(app_client)
+    assert after <= max(before, 3), "a preschool pass moved the stage %d -> %d (%s)" % (before, after, placed)
+
+
+def test_assumed_credit_does_not_open_the_graduate_gate(app_client):
+    """The decision, written down: placement credit opens every rung up to
+    undergraduate work; the graduate gate counts proven nodes only."""
+    import primer.server as srv
+    _sit_placement(app_client, "math", ace=True)
+    gates = srv.learner.gate_map()
+    proven = srv.learner.proven_set()
+    assert not proven
+    grad = [n for n in srv.curr.nodes.values() if n["domain"] == "math" and n["stage"] == 5]
+    opened = [n["id"] for n in grad if srv.curr.unlocked(n, gates, proven)]
+    assert not opened, "graduate nodes opened on assumed credit alone: %s" % opened[:3]
+    under = [n for n in srv.curr.nodes.values() if n["domain"] == "math" and n["stage"] == 4]
+    assert any(srv.curr.unlocked(n, gates, proven) for n in under), \
+        "placement should still open undergraduate work"

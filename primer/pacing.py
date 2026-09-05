@@ -115,8 +115,15 @@ ARTICLE_MODEL_MINUTES = 6.0  # server.ARTICLE_MINUTES, the book's own figure
 # reading moving a five-thousand-hour plan by up to 79%; that is not a rate,
 # it is a rumour. Twenty articles and four hours is still a small sample of a
 # decade, but it is a sample of something.
+# The two thresholds together set the SLOWEST pace a reader can be admitted
+# at: minutes ÷ articles. At 240 ÷ 20 that was 12 min/article — a raw ratio of
+# 2.0 — so the first reader to cross the line arrived already at the ceiling,
+# and nobody could enter measurement anywhere else in the band. An auditor
+# measured it: the twentieth article moved an adult's plan by +78% in one
+# step. 100 ÷ 20 is 5 min/article, under the model's 6, so a reader of any
+# pace crosses on articles alone.
 RATE_MIN_ARTICLES = 20       # fewer than this is a sample, not a rate
-RATE_MIN_MINUTES = 240.0     # ...and neither is an afternoon of reading
+RATE_MIN_MINUTES = 100.0     # ...and neither is a few minutes of reading
 RATE_FLOOR = 0.6             # a fast reader is not given a fifth of a curriculum
 RATE_CEIL = 1.8              # nor a slow one three times one they cannot finish
 

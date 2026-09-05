@@ -82,10 +82,11 @@
     "a": "a metre",
     "d": [
      "a centimetre",
-     "they are the same",
-     "nobody can tell"
+     "a metre and a centimetre are the same",
+     "neither a metre nor a centimetre"
     ],
-    "explain": "A hundred centimetres make one metre."
+    "explain": "A hundred centimetres make one metre.",
+    "keep": true
    },
    {
     "q": "How many centimetres are in a metre?",
@@ -102,10 +103,11 @@
     "a": "a kilogram",
     "d": [
      "a gram",
-     "they are the same",
-     "it depends on the colour"
+     "a kilogram and a gram weigh the same",
+     "neither a kilogram nor a gram"
     ],
-    "explain": "A kilogram is a thousand grams."
+    "explain": "A kilogram is a thousand grams.",
+    "keep": true
    },
    {
     "q": "What do we use to measure how heavy something is?",
@@ -368,7 +370,8 @@
      "they are the same size",
      "a quarter is double"
     ],
-    "explain": "Cut into two, the pieces are bigger than if you cut into four."
+    "explain": "Cut into two, the pieces are bigger than if you cut into four.",
+    "keep": true
    },
    {
     "q": "A cake is cut into one huge piece and one tiny piece. Are those halves?",
@@ -475,12 +478,6 @@
   "sequence_say": "Tap the words in the order they are sung.",
   "sequences": [
    [
-    "twinkle",
-    "twinkle",
-    "little",
-    "star"
-   ],
-   [
     "one",
     "two",
     "buckle",
@@ -568,31 +565,39 @@
     "a singer"
    ]
   },
-  "pair_prompt": "Who is the main character in {}?",
+  "pair_prompt": "Who is the story of {} about?",
   "pairs": [
    [
     "The Three Little Pigs",
-    "the three pigs"
+    "three pigs and a wolf"
    ],
    [
     "Goldilocks",
-    "Goldilocks"
+    "a girl and three bears"
    ],
    [
     "The Gingerbread Man",
-    "the gingerbread man"
+    "a runaway biscuit"
    ],
    [
     "Cinderella",
-    "Cinderella"
+    "a girl and a glass slipper"
    ],
    [
     "The Ugly Duckling",
-    "the duckling"
+    "a duckling who was a swan"
    ],
    [
     "Jack and the Beanstalk",
-    "Jack"
+    "a boy and a giant"
+   ],
+   [
+    "Little Red Riding Hood",
+    "a girl and a wolf"
+   ],
+   [
+    "The Three Bears",
+    "three bears and a girl"
    ]
   ],
   "sequence_prompt": "Put the story in order",
@@ -733,23 +738,9 @@
   "sequence_say": "Tap the words in the order you would say them.",
   "sequences": [
    [
-    "hello",
-    "please",
-    "thank you",
-    "goodbye"
-   ],
-   [
     "excuse me",
     "may I",
     "thank you"
-   ],
-   [
-    "hello",
-    "how are you",
-    "goodbye",
-    {
-     "prompt": "Put the words in the order you say them"
-    }
    ],
    [
     "put your hand up",
@@ -882,11 +873,6 @@
   "sequence_say": "Tap the letters in order to build the word.",
   "sequences": [
    [
-    "c",
-    "a",
-    "t"
-   ],
-   [
     "s",
     "u",
     "n"
@@ -901,12 +887,6 @@
     "i",
     "s",
     "h"
-   ],
-   [
-    "s",
-    "t",
-    "o",
-    "p"
    ]
   ],
   "facts": [
@@ -1013,28 +993,28 @@
   ],
   "pair_back_prompt": "A sentence ending with {} is doing what?",
   "sequence_prompt": "Put the words in order to make a sentence",
-  "sequence_say": "Tap the words in order so they make a sentence.",
+  "sequence_say": "Tap the words in order so they make a sentence. The capital letter is left off on purpose.",
   "sequences": [
    [
-    "The",
+    "the",
     "dog",
     "ran",
     "fast"
    ],
    [
-    "I",
+    "i",
     "like",
     "warm",
     "soup"
    ],
    [
-    "We",
+    "we",
     "went",
     "to",
     "school"
    ],
    [
-    "She",
+    "she",
     "found",
     "a",
     "shell"
@@ -1248,27 +1228,27 @@
   "pairs": [
    [
     "The Very Hungry Caterpillar",
-    "a caterpillar"
+    "a small creature who eats and eats"
    ],
    [
     "Charlotte's Web",
-    "a pig and a spider"
+    "a pig and the friend who saves him"
    ],
    [
     "The Tale of Peter Rabbit",
-    "a naughty rabbit"
+    "a naughty little animal in a garden"
    ],
    [
     "Winnie-the-Pooh",
-    "a bear and his friends"
+    "a bear and his friends in a wood"
    ],
    [
     "The Wind in the Willows",
-    "animals by a river"
+    "four friends who live by a river"
    ],
    [
     "Where the Wild Things Are",
-    "a boy and the wild things"
+    "a boy who sails to an island of monsters"
    ],
    [
     "The Jungle Book",
@@ -1602,12 +1582,12 @@
   ],
   "facts": [
    {
-    "q": "What order are the words in a dictionary?",
-    "a": "alphabet order",
+    "q": "How is a dictionary arranged?",
+    "a": "in alphabet order",
     "d": [
-     "longest word first",
-     "newest word first",
-     "shortest word first"
+     "longest entry first",
+     "newest entry first",
+     "in the order they were invented"
     ],
     "explain": "Alphabet order is what lets you find a word without reading every page."
    },
@@ -1615,9 +1595,9 @@
     "q": "What does a dictionary tell you about a word?",
     "a": "what it means",
     "d": [
-     "who wrote it",
-     "where you bought it",
-     "what colour it is"
+     "who said the word first",
+     "where you bought the word",
+     "what colour the word is"
     ],
     "explain": "A dictionary gives a word's meaning, and often how to say it."
    },
@@ -1626,10 +1606,11 @@
     "a": "ball",
     "d": [
      "bat",
-     "they are the same",
-     "neither is in there"
+     "bat and ball come together",
+     "neither bat nor ball is in there"
     ],
-    "explain": "Both start 'ba', so you compare the third letter: l comes before t."
+    "explain": "Both start 'ba', so you compare the third letter: l comes before t.",
+    "keep": true
    },
    {
     "q": "The words at the top of a dictionary page are called what?",
@@ -1746,7 +1727,8 @@
      "a sound",
      "a colour"
     ],
-    "explain": "Push and pull are both forces."
+    "explain": "Push and pull are both forces.",
+    "keep": true
    },
    {
     "q": "A bigger push makes a ball go how?",
@@ -1776,7 +1758,8 @@
      "neither one",
      "both at once"
     ],
-    "explain": "You pull the door towards you to open it."
+    "explain": "You pull the door towards you to open it.",
+    "keep": true
    },
    {
     "q": "To make a heavy box move, what do you need?",
@@ -1891,9 +1874,9 @@
     "q": "Can you have a shadow in a completely dark room?",
     "a": "no, you need light",
     "d": [
-     "yes, always",
-     "only if you shout",
-     "only if you stand still"
+     "yes, a dark room always has shadows",
+     "only if you shout in the dark room",
+     "only if you stand still in the dark"
     ],
     "explain": "No light, no shadow — a shadow is made of missing light."
    },
@@ -1921,15 +1904,21 @@
     "q": "What is the biggest source of light for the Earth?",
     "a": "the Sun",
     "d": [
-     "the Moon",
-     "a lamp",
-     "a star chart"
+     "the Moon's light",
+     "a lamp's light",
+     "the light from the stars"
     ],
     "explain": "Nearly all our light arrives from the Sun."
    }
   ],
   "group_not_cats": [
    "light"
+  ],
+  "extras": [
+   "fog",
+   "a wet towel",
+   "a warm summer evening",
+   "a bright shining silver spoon on the table"
   ]
  },
  "phys.0.hot-cold": {
@@ -2187,7 +2176,8 @@
      "both the same",
      "neither one"
     ],
-    "explain": "Spread flat it pushes more water aside than the same clay squeezed small."
+    "explain": "Spread flat it pushes more water aside than the same clay squeezed small.",
+    "keep": true
    }
   ],
   "extras": [
@@ -2422,14 +2412,6 @@
     "stand the ramp",
     "slide the box",
     "reach the top"
-   ],
-   [
-    "a lever",
-    "a wheel",
-    "a pulley",
-    {
-     "prompt": "Put them in the order the book met them"
-    }
    ]
   ],
   "facts": [
@@ -2527,7 +2509,7 @@
    ],
    [
     "a magnet and a nail",
-    "the nail jumps to the magnet"
+    "they jump together"
    ],
    [
     "a magnet and a plastic spoon",
@@ -2535,15 +2517,15 @@
    ],
    [
     "a magnet and a wooden block",
-    "the block does not move"
+    "nothing moves at all"
    ],
    [
     "a magnet and a steel pin",
-    "the pin sticks fast"
+    "they stick fast"
    ],
    [
     "a magnet and a paper card",
-    "the card ignores it"
+    "neither one moves"
    ]
   ],
   "sequence_prompt": "Put them in order, weakest pull first",
@@ -2798,7 +2780,8 @@
      "its shape",
      "its weight"
     ],
-    "explain": "Pitch is how high or low a sound is; volume is how loud."
+    "explain": "Pitch is how high or low a sound is; volume is how loud.",
+    "keep": true
    }
   ]
  },
@@ -3182,43 +3165,47 @@
   "facts": [
    {
     "q": "Do living things grow?",
-    "a": "yes, they all grow",
+    "a": "yes, all living things grow",
     "d": [
-     "no, they stay the same",
-     "only when it rains",
-     "only in the dark"
+     "no, living things never grow",
+     "living things grow only in rain",
+     "living things grow only at night"
     ],
-    "explain": "Growing is one of the things every living thing does."
+    "explain": "Growing is one of the things every living thing does.",
+    "keep": true
    },
    {
     "q": "Is a car alive?",
-    "a": "no, it is not alive",
+    "a": "no, a car is not alive",
     "d": [
-     "yes, it moves along",
-     "yes, it drinks fuel",
-     "yes, when it is on"
+     "yes, a car is alive",
+     "a car is alive when it is moving",
+     "a car is alive when it is warm"
     ],
-    "explain": "A car moves, but it does not grow, eat or have young — moving is not being alive."
+    "explain": "A car moves, but it does not grow, eat or have young — moving is not being alive.",
+    "keep": true
    },
    {
     "q": "What do all living things do at the end?",
-    "a": "they die",
+    "a": "all living things die",
     "d": [
-     "they turn to stone",
-     "they float away",
-     "they go back to seeds"
+     "all living things turn to stone",
+     "all living things float away",
+     "all living things go back to seeds"
     ],
-    "explain": "Everything alive eventually dies. That is part of being alive, not a fault."
+    "explain": "Everything alive eventually dies. That is part of being alive, not a fault.",
+    "keep": true
    },
    {
     "q": "A plant is a living thing. How can you tell?",
-    "a": "it grows and needs water",
+    "a": "a plant grows and needs water",
     "d": [
-     "it is green in colour",
-     "it stays in one place",
-     "it is quiet all day"
+     "a plant is green in colour",
+     "a plant stays in one place",
+     "a plant is quiet all day"
     ],
-    "explain": "It grows, it takes in water, and it makes seeds — all things living things do."
+    "explain": "It grows, it takes in water, and it makes seeds — all things living things do.",
+    "keep": true
    }
   ]
  },
@@ -3701,15 +3688,6 @@
     "winter"
    ],
    [
-    "bare branches",
-    "buds",
-    "leaves",
-    "falling leaves",
-    {
-     "prompt": "Put a tree's year in order"
-    }
-   ],
-   [
     "planting",
     "growing",
     "harvesting",
@@ -4183,23 +4161,23 @@
   "pairs": [
    [
     "heart",
-    "pump the blood round"
+    "pump blood round the body"
    ],
    [
     "lungs",
-    "take in the air"
+    "take air in and out"
    ],
    [
     "stomach",
-    "break down the food"
+    "break the food down"
    ],
    [
     "brain",
-    "think and control"
+    "think and give the orders"
    ],
    [
     "skin",
-    "cover and protect you"
+    "cover and protect the inside"
    ],
    [
     "kidneys",
@@ -4207,7 +4185,7 @@
    ],
    [
     "muscles",
-    "pull the bones about"
+    "pull on the bones to move you"
    ]
   ],
   "sequence_prompt": "Put them in order, from first to last",
@@ -5054,35 +5032,35 @@
   "pairs": [
    [
     "melting butter",
-    "one you can undo, it is still butter"
+    "one you can undo"
    ],
    [
     "burning paper",
-    "one you cannot undo, the paper is gone"
+    "one you cannot undo"
    ],
    [
     "freezing water",
-    "one you can undo, it is still water"
+    "one you can undo"
    ],
    [
     "cooking an egg",
-    "one you cannot undo, the egg has set"
+    "one you cannot undo"
    ],
    [
     "dissolving sugar",
-    "one you can undo, dry it and it returns"
+    "one you can undo, dry it out"
    ],
    [
     "baking bread",
-    "one you cannot undo, the dough has become bread"
+    "one you cannot undo, it has set"
    ],
    [
     "boiling a kettle",
-    "one you can undo, the steam is still water"
+    "one you can undo, it cools back"
    ],
    [
     "rusting a nail",
-    "one you cannot undo, the iron has changed"
+    "one you cannot undo, the iron changed"
    ]
   ],
   "sequence_prompt": "Put the steps in order",
@@ -5152,8 +5130,8 @@
     "a": "a chemical change",
     "d": [
      "a physical change",
-     "a shape change",
-     "a colour choice"
+     "a change of shape",
+     "a change of colour"
     ],
     "explain": "A chemical change makes a new substance; a physical one only changes the form."
    },
@@ -6096,20 +6074,22 @@
     "a": "an input",
     "d": [
      "an output",
-     "neither one",
-     "both at once"
+     "both an input and an output",
+     "neither an input nor an output"
     ],
-    "explain": "A mouse puts your choices in; that makes it an input."
+    "explain": "A mouse puts your choices in; that makes it an input.",
+    "keep": true
    },
    {
     "q": "Is a printer an input or an output?",
     "a": "an output",
     "d": [
      "an input",
-     "neither one",
-     "both at once"
+     "both an input and an output",
+     "neither an input nor an output"
     ],
-    "explain": "A printer takes what is inside and puts it out onto paper."
+    "explain": "A printer takes what is inside and puts it out onto paper.",
+    "keep": true
    }
   ]
  },
@@ -6232,10 +6212,11 @@
     "a": "younger",
     "d": [
      "older",
-     "the same",
-     "it changes"
+     "the same age as your grandparents",
+     "nobody is older or younger"
     ],
-    "explain": "Your grandparents were born long before you were."
+    "explain": "Your grandparents were born long before you were.",
+    "keep": true
    }
   ],
   "extras": [
@@ -6967,26 +6948,12 @@
     "evening"
    ],
    [
-    "night",
-    "dawn",
-    "morning",
-    "midday"
-   ],
-   [
     "dark",
     "dim",
     "bright",
     "dazzling",
     {
      "prompt": "Put them in order, darkest first"
-    }
-   ],
-   [
-    "the Moon rises",
-    "the Moon is high",
-    "the Moon sets",
-    {
-     "prompt": "Put them in order through the night"
     }
    ]
   ],
@@ -7197,23 +7164,23 @@
   "pairs": [
    [
     "river",
-    "water running to the sea"
+    "flowing to the sea"
    ],
    [
     "lake",
-    "water with land all round"
+    "still, with shore all round"
    ],
    [
     "island",
-    "land with water all round"
+    "dry ground with sea all round"
    ],
    [
     "mountain",
-    "very high steep land"
+    "very high steep ground"
    ],
    [
     "valley",
-    "low land between hills"
+    "low ground between hills"
    ],
    [
     "beach",
@@ -7221,7 +7188,7 @@
    ],
    [
     "desert",
-    "land with hardly any rain"
+    "dry ground with hardly any rain"
    ]
   ],
   "sequence_prompt": "Put them in order, smallest first",
@@ -7267,10 +7234,11 @@
     "a": "more water",
     "d": [
      "more land",
-     "exactly the same",
-     "nobody has counted"
+     "the same amount of land and water",
+     "nobody has measured the land or the water"
     ],
-    "explain": "Water covers about seven tenths of the Earth."
+    "explain": "Water covers about seven tenths of the Earth.",
+    "keep": true
    },
    {
     "q": "Where do most rivers end up?",
@@ -7287,10 +7255,11 @@
     "a": "salty",
     "d": [
      "fresh",
-     "sweet",
-     "fizzy"
+     "the sea is half salty and half fresh",
+     "the sea is neither salty nor fresh"
     ],
-    "explain": "Sea water carries salt washed off the land over millions of years."
+    "explain": "Sea water carries salt washed off the land over millions of years.",
+    "keep": true
    },
    {
     "q": "What is a very dry place with sand called?",
@@ -7520,7 +7489,7 @@
     "d": [
      "the Earth",
      "the Moon",
-     "Jupiter"
+     "the biggest planet, Jupiter"
     ],
     "explain": "Everything in the solar system orbits the Sun."
    },
@@ -7548,9 +7517,9 @@
     "q": "Why does the Moon shine?",
     "a": "it reflects the sunlight",
     "d": [
-     "it burns like a fire",
-     "it is made of white ice",
-     "it is lit up from inside"
+     "the Moon burns like a fire",
+     "the Moon is made of white ice",
+     "the Moon is lit from inside"
     ],
     "explain": "The Moon makes no light of its own; it reflects the Sun's."
    }
@@ -7778,12 +7747,6 @@
   "sequence_say": "Tap the steps in the order water travels round.",
   "sequences": [
    [
-    "the sun warms the sea",
-    "water rises up",
-    "clouds form",
-    "rain falls"
-   ],
-   [
     "rain falls",
     "it runs to a river",
     "the river reaches the sea"
@@ -7801,14 +7764,6 @@
     "the sea",
     {
      "prompt": "Put them in the order water travels"
-    }
-   ],
-   [
-    "evaporation",
-    "condensation",
-    "precipitation",
-    {
-     "prompt": "Put the water cycle in order"
     }
    ]
   ],
@@ -8315,18 +8270,6 @@
   "sequence_prompt": "Put the dance steps in order",
   "sequence_say": "Tap the dance steps in the order they are danced.",
   "sequences": [
-   [
-    "step",
-    "step",
-    "turn",
-    "stop"
-   ],
-   [
-    "clap",
-    "stamp",
-    "clap",
-    "spin"
-   ],
    [
     "walk",
     "jog",
@@ -8994,19 +8937,9 @@
   "sequence_say": "Tap the steps in the order that makes it fair.",
   "sequences": [
    [
-    "you go first",
-    "then I go",
-    "then you again"
-   ],
-   [
     "ask",
     "wait",
     "take your turn"
-   ],
-   [
-    "my turn",
-    "your turn",
-    "my turn again"
    ],
    [
     "ask",
@@ -9702,11 +9635,6 @@
     "notice",
     "stop",
     "choose better"
-   ],
-   [
-    "ask",
-    "agree",
-    "keep to it"
    ]
   ],
   "facts": [
@@ -9775,36 +9703,7 @@
    ]
   },
   "pair_prompt": "Which came first, {}?",
-  "pairs": [
-   [
-    "the wheel or the car",
-    "the wheel"
-   ],
-   [
-    "Ancient Rome or the Middle Ages",
-    "Ancient Rome"
-   ],
-   [
-    "the candle or the light bulb",
-    "the candle"
-   ],
-   [
-    "the letter or the telephone",
-    "the letter"
-   ],
-   [
-    "the horse or the aeroplane",
-    "the horse"
-   ],
-   [
-    "stone tools or iron tools",
-    "stone tools"
-   ],
-   [
-    "the printing press or the computer",
-    "the printing press"
-   ]
-  ],
+  "pairs": [],
   "sequence_prompt": "Put them on the timeline, earliest first",
   "sequence_say": "Tap them in order, from the earliest to the most recent.",
   "sequences": [
@@ -9830,15 +9729,6 @@
     "your grandparent was born",
     "your parent was born",
     "you were born"
-   ],
-   [
-    "morning",
-    "afternoon",
-    "evening",
-    "night",
-    {
-     "prompt": "Put them in order through the day"
-    }
    ],
    [
     "a candle",
@@ -9896,6 +9786,83 @@
      "before the last war"
     ],
     "explain": "BC counts backwards from the year one — the bigger the number, the longer ago."
+   },
+   {
+    "q": "Which came first, the wheel or the car?",
+    "a": "the wheel",
+    "d": [
+     "the car",
+     "the car and the wheel together",
+     "neither the car nor the wheel"
+    ],
+    "explain": "Carts had wheels thousands of years before anyone built a car.",
+    "keep": true
+   },
+   {
+    "q": "Which came first, Ancient Rome or the Middle Ages?",
+    "a": "Ancient Rome",
+    "d": [
+     "the Middle Ages",
+     "Rome and the Middle Ages together",
+     "neither Rome nor the Middle Ages"
+    ],
+    "explain": "The Middle Ages are the centuries after Rome fell.",
+    "keep": true
+   },
+   {
+    "q": "Which came first, the candle or the light bulb?",
+    "a": "the candle",
+    "d": [
+     "the light bulb",
+     "the candle and the bulb together",
+     "neither the candle nor the bulb"
+    ],
+    "explain": "Candles lit homes for thousands of years before electric light.",
+    "keep": true
+   },
+   {
+    "q": "Which came first, the letter or the telephone?",
+    "a": "the letter",
+    "d": [
+     "the telephone",
+     "the letter and the telephone together",
+     "neither the letter nor the telephone"
+    ],
+    "explain": "People wrote letters for centuries before a voice could travel down a wire.",
+    "keep": true
+   },
+   {
+    "q": "Which came first, the horse or the aeroplane?",
+    "a": "the horse",
+    "d": [
+     "the aeroplane",
+     "the horse and the aeroplane together",
+     "neither the horse nor the aeroplane"
+    ],
+    "explain": "Horses carried people for thousands of years; the aeroplane is barely a century old.",
+    "keep": true
+   },
+   {
+    "q": "Which came first, stone tools or iron tools?",
+    "a": "stone tools",
+    "d": [
+     "iron tools",
+     "stone and iron tools together",
+     "neither stone nor iron tools"
+    ],
+    "explain": "Stone can be picked up and chipped; iron has to be smelted, which came much later.",
+    "keep": true
+   },
+   {
+    "q": "Which came first, the printing press or the computer?",
+    "a": "the printing press",
+    "d": [
+     "the computer",
+     "the press and the computer together",
+     "neither the press nor the computer"
+    ],
+    "explain": "Printing is five hundred years old; the computer is less than a hundred.",
+    "keep": true
    }
   ]
  },
@@ -10055,25 +10022,25 @@
   ]
  },
  "math.1.place-value": {
-  "group_prompt": "Which one shows a {}?",
+  "group_prompt": "Which picture shows {}?",
   "groups": {
-   "one": [
-    "a single cube",
-    "a lone counter",
+   "a single unit": [
+    "a lone cube",
+    "a single counter",
     "a spare bead",
     "one loose brick"
    ],
-   "ten": [
-    "a stick of ten cubes",
-    "a row of ten beads",
-    "a bundle of ten straws",
-    "a tower of ten bricks"
+   "a ten": [
+    "a stick of cubes",
+    "a row of beads",
+    "a bundle of straws",
+    "a tower of bricks"
    ],
-   "hundred": [
-    "a flat of ten sticks",
-    "a square of a hundred",
+   "a hundred": [
+    "a flat of sticks",
+    "a big square of cubes",
     "ten bundles tied up",
-    "a hundred square"
+    "a full square of beads"
    ]
   },
   "pair_prompt": "How many tens are in {}?",
@@ -10174,8 +10141,8 @@
     "a": "one ten",
     "d": [
      "one hundred",
-     "two tens",
-     "one ones"
+     "two tens of ones",
+     "ten hundreds"
     ],
     "explain": "Ten ones bundle up into one ten."
    },
@@ -10194,18 +10161,19 @@
     "a": "forty is bigger",
     "d": [
      "fourteen is bigger",
-     "they are the same",
-     "neither is bigger"
+     "forty and fourteen are the same",
+     "neither forty nor fourteen"
     ],
-    "explain": "Forty is four tens; fourteen is one ten and four."
+    "explain": "Forty is four tens; fourteen is one ten and four.",
+    "keep": true
    },
    {
     "q": "Which digit in a two-digit number counts the tens?",
-    "a": "the first one",
+    "a": "the first digit",
     "d": [
-     "the second one",
-     "either of them",
-     "neither of them"
+     "the second digit",
+     "either digit",
+     "neither digit"
     ],
     "explain": "In a two-digit number the left digit counts tens, the right counts ones."
    }
@@ -10344,7 +10312,8 @@
      "they are the same",
      "neither is bigger"
     ],
-    "explain": "Eleven is further along when you count up."
+    "explain": "Eleven is further along when you count up.",
+    "keep": true
    },
    {
     "q": "How many fingers are on two hands?",

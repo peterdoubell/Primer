@@ -28,6 +28,7 @@ regression fails the suite rather than waiting for someone to run this.
 """
 
 import collections
+import re
 import sys
 import os
 
@@ -63,6 +64,12 @@ def profile(gen_key, samples=SAMPLES, seed=None):
     ranks = collections.Counter()
     len_ranks = collections.Counter()
     n_len_ranked = 0
+    # Two more tells an auditor measured by hand on the knowledge drills and
+    # this tool could not see: the option WITHOUT an article beside three with
+    # one ("a fox", "a bear", "grass", "a deer"), and the option that shares a
+    # word with the prompt ("What does a caterpillar eat?" / "green leaves").
+    article_hits = article_n = 0.0
+    overlap_hits = overlap_n = 0.0
     keys = collections.Counter()
     lengths = collections.Counter()
     n_ranked = n_keyed = n_len = 0
@@ -118,6 +125,20 @@ def profile(gen_key, samples=SAMPLES, seed=None):
                     numeric = True
                 except (TypeError, ValueError):
                     numeric = False
+                if not numeric:
+                    arts = [bool(re.match(r"(an?|the)\s", c.lower())) for c in choices]
+                    if 0 < sum(arts) < len(choices):
+                        odd = [c for c, a in zip(choices, arts)
+                               if a == (sum(arts) < len(choices) / 2)]
+                        article_n += 1
+                        article_hits += (1.0 / len(odd)) if answer in odd else 0.0
+                    # The same content-word rule the engine uses; function
+                    # words are not a tell.
+                    words = practice._content_words(q.get("prompt") or "")
+                    sharing = [c for c in choices if practice._content_words(c) & words]
+                    if 0 < len(sharing) < len(choices):
+                        overlap_n += 1
+                        overlap_hits += (1.0 / len(sharing)) if answer in sharing else 0.0
                 lens_only = [len(c) for c in choices]
                 if not numeric and len(set(lens_only)) > 1:
                     by_len = sorted(choices, key=lambda c: (len(c), c))
@@ -148,6 +169,7 @@ def profile(gen_key, samples=SAMPLES, seed=None):
             break
     return {"ranks": ranks, "keys": keys, "lengths": lengths, "negatives": negatives,
             "len_ranks": len_ranks, "n_len_ranked": n_len_ranked,
+            "article": (article_hits, article_n), "overlap": (overlap_hits, overlap_n),
             "n_ranked": n_ranked, "n_keyed": n_keyed, "n_len": n_len, "drawn": drawn}
 
 
@@ -201,6 +223,24 @@ def audit(gen_key, verbose=True):
         if edge > RANK_TOLERANCE:
             problems.append(("key sits at a fixed rank by length", gen_key,
                              "rank %d at %.0f%% (%+.0fpp)" % (best_rank, best * 100, edge * 100)))
+
+    for name, label in (("article", "the odd one out by article"),
+                        ("overlap", "the option sharing a word with the prompt")):
+        hits, n = p[name]
+        if n >= MIN_FOR_VERDICT:
+            # Chance here is "pick the odd one(s) out at random", which the
+            # fractional hit already encodes; the strategy beats guessing when
+            # the odd option is the key more often than a uniform draw over
+            # the whole card would give.
+            rate = hits / n
+            edge = rate - 0.25
+            if verbose:
+                print("  %-30s wins %.0f%% of %d such items vs 25%% chance (%+.0fpp)  %s"
+                      % (label + ":", rate * 100, n, edge * 100,
+                         "ok" if edge <= RANK_TOLERANCE else "EXPLOITABLE"))
+            if edge > RANK_TOLERANCE:
+                problems.append((label + " is a tell", gen_key,
+                                 "wins %.0f%% of %d (%+.0fpp)" % (rate * 100, n, edge * 100)))
 
     if p["n_len"] >= MIN_FOR_VERDICT:
         chance = p["lengths"]["chance"] / p["n_len"]

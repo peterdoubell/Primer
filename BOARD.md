@@ -5226,3 +5226,86 @@ not a priced step of the day. Assumed placement credit still opens graduate
 gates, a decision the board has asked to be made explicitly rather than
 shipped. No browser check. And these scores are the board's verdict on
 `d4312ea`; everything in "Repaired" is mine and unaudited.
+
+---
+
+## Round 28 — third audit at 4a66e20; the loop's design fault
+
+**Interactive Learning Loops 4.5 → 4.0** at `4a66e20`, on a pinned extraction.
+Round 27's repairs each held for the scenario their test encoded and failed one
+layer deeper under honest use — and the auditor found the fault underneath all
+of them.
+
+**The design fault.** Excluding burned items from the paper (Round 27's fix for
+the lock-out) meant excluding exactly the items the reader got wrong. Over a
+week her papers converged on what she already knew. Simulated over HTTP: a
+child who knew a fixed random half of `bio.0.animals` was **credited with
+mastery in 5–20 days on every seed**, having learned nothing; with the exclusion
+removed, never. And the lock-out was still reachable at higher miss rates — miss
+four of five for six sittings, then answer everything right: refused 3 of 3. The
+child refused was the one who had just learned it. Also: the sore-first
+preference served 0 sore items in 10 papers (sore ⊂ burned for a week) and
+changed time-to-mastery on 0 of 18 runs; 51 of 343 ordering fronts were the
+answer *backwards*; `lang.1.sentences` gave position one away by capitalisation;
+"s, t, o, p" has four valid words; ~20 sequences had no defensible order (dance
+steps, polite words, cycles started anywhere); the client attached no speaker
+to any ordering chip and never showed an ordering's explanation; and on a
+Seedling's two-option review the structural explanation on the card's back
+restated the front, so "tap the option that says the word in the question" won
+83%.
+
+**Repaired.** Exposure and evidence are separate now. The draw leads with the
+sore spots burned or not, then fills with items that can still count; a
+sitting with too few countable items is graded, explained, its misses become
+cards, and it records no mastery — **it is never refused**. Both simulations are
+permanent tests: honest practice at any miss rate over many sittings, 0
+refused; a half-knower over 21 days, never credited. Ordering fronts are checked
+against the answer and its mirror; 17 indefensible sequences dropped; sentence
+orderings lowercased and the voice says why. Ordering chips are spoken and the
+ordering's explanation reaches the screen. Structural explanations are flagged
+and kept off card backs.
+
+**Mastery, Placement & Pacing 5.5 → 6.0** at `4a66e20` — the first upward
+movement in the series. Every Round 27 scenario reproduced as repaired and the
+reading-time wire exists end to end. Three findings kept it from more:
+
+- **The one-rung cap throttled recovery as hard as demotion.** Fail maths once
+  (stage 0), re-check a week later acing every rung: stage **1**, with a
+  stage-5 result in hand, and four more weekly re-checks to reach 5. History 0
+  then maths 5: stage 1 on a median of 3. Exhaustive simulation to depth 8:
+  560,218 sitting-states at stage ≤ 1 while holding a ≥ 4 result.
+- **A second, uncapped writer.** `_check_ascension` wrote `max(stage, rank)`
+  with no cap, over the lower median of the *chosen* fields only, from
+  assumed credit — so history 0 was not evidence against a reader whose
+  chosen field was maths, and two passes on a preschool node moved them 1 → 5.
+- **The rate could only enter at its ceiling.** 240 min ÷ 20 articles = 12
+  min/article = raw 2.0, clamped to 1.8: the twentieth article moved an adult's
+  plan +78% in one step. And the clock: paused for a paper, resumed by nothing;
+  a tab switch during a quiz un-paused it.
+- The six-sitting test sat "bio" and "chem" — not field ids — so two sittings
+  were 409s and the invariant was asserted over four.
+
+**The decision the board asked for, made and written down.** Assumed placement
+credit opens every rung up to undergraduate work and does not open the
+graduate gate: `stage_gate_open` at stage 5 counts proven nodes only. Before:
+acing the maths interview opened 4 of 10 graduate maths nodes with nothing
+ever demonstrated. After: 0, and undergraduate work still opens.
+
+### Round 29 — repaired
+
+One writer for the stage, `_settle_stage`, with one policy: the cap is on
+distance from the evidence, not on velocity — upward moves go to the target,
+downward moves are one rung per sitting, and a sitting whose own result is at
+or above the current stage never lowers it. The placement settle and the
+ascension ceremony both call it, and ascension's evidence now includes every
+field the book has measured, chosen or not. Tests: fail-then-ace lands at
+Forest, not Seedling; history-then-maths lands at the median; a preschool pass
+cannot lift a reader past it; the six-sitting test sits six real fields; the
+graduate gate refuses assumed credit and undergraduate work still opens.
+
+`RATE_MIN_MINUTES` 240 → 100 (5 min/article, under the model's 6), so a reader
+of any pace crosses on articles alone. The clock's pause carries who asked for
+it: a paper's hold is released only by the paper closing, a tab's only by the
+tab returning; `pageshow` restarts a clock the back/forward cache stopped.
+
+Everything under "Repaired" is mine and unaudited.

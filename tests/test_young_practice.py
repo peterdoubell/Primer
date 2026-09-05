@@ -164,7 +164,10 @@ def test_prompts_are_grammatical(node_id):
             q = shape(practice.young_material()[node_id])
             if not q:
                 continue
-            assert not re.search(r"\ba [aeiouAEIOU]", q["prompt"]), q["prompt"]
+            # "a one", "a unit": vowel letters that are not vowel sounds are
+            # correct with "a", and the engine's own list is the reference.
+            assert not re.search(r"\ba (?!(one|once|uni|use|user|euro|ewe))[aeiouAEIOU]",
+                                 q["prompt"], re.IGNORECASE), q["prompt"]
             assert q["prompt"] == q["say"]
 
 

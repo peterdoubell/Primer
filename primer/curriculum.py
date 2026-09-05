@@ -669,22 +669,38 @@ class Curriculum:
         curriculum node actually links it — see load()'s index."""
         return self._domain_by_article.get(title)
 
-    def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float]) -> bool:
+    # The decision the board asked for, written down. Placement credit is
+    # ASSUMED: a six-question interview at each rung, never a proof at the
+    # page. It is what lets a reader skip the nursery, and it opens every rung
+    # up to undergraduate work on that basis. It does not open the graduate
+    # gate. Measured before this: acing the maths interview seeded 49 assumed
+    # rows and 0 proven, and opened 4 of 10 graduate maths nodes with nothing
+    # ever demonstrated. An interview and a proof are interchangeable
+    # everywhere except at the one gate where they are not.
+    GRADUATE_GATE_NEEDS_PROOF = 5
+
+    def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float],
+                        proven: Optional[set] = None) -> bool:
         if stage == 0:
             return True
         prev = self._by_domain_stage.get(domain, {}).get(stage - 1, [])
         if not prev:
             return True
-        done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
+        if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None:
+            done = sum(1 for n in prev if n["id"] in proven)
+        else:
+            done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
         return done / len(prev) >= STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
 
-    def unlocked(self, node: Dict, mastery: Dict[str, float]) -> bool:
+    def unlocked(self, node: Dict, mastery: Dict[str, float],
+                 proven: Optional[set] = None) -> bool:
         for p in node["prereqs"]:
             if mastery.get(p, 0) < 0.8:
                 return False
-        return self.stage_gate_open(node["domain"], node["stage"], mastery)
+        return self.stage_gate_open(node["domain"], node["stage"], mastery, proven)
 
-    def unlock_requirements(self, node: Dict, mastery: Dict[str, float]) -> List[str]:
+    def unlock_requirements(self, node: Dict, mastery: Dict[str, float],
+                            proven: Optional[set] = None) -> List[str]:
         """Human-readable list of what still stands between the reader and this
         node — so every locked tile is a legible quest marker, not a blank lock."""
         reqs = []
@@ -709,7 +725,7 @@ class Curriculum:
                         title, self._domain_names.get(pn["domain"], pn["domain"]))
                 reqs.append("Master “{}”".format(title))
         stage = node["stage"]
-        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery):
+        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery, proven):
             prev = self._by_domain_stage.get(node["domain"], {}).get(stage - 1, [])
             done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
             gate = STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
@@ -721,14 +737,14 @@ class Curriculum:
                     need, STAGE_NAMES[stage - 1], "s" if need != 1 else ""))
         return reqs
 
-    def annotated_graph(self, mastery: Dict[str, float]) -> Dict:
+    def annotated_graph(self, mastery: Dict[str, float], proven: Optional[set] = None) -> Dict:
         nodes = []
         for node in self.nodes.values():
             n = dict(node)
             level = mastery.get(node["id"], 0)
             n["mastery"] = round(level, 2)
             n["mastered"] = level >= 0.8
-            n["unlocked"] = self.unlocked(node, mastery)
+            n["unlocked"] = self.unlocked(node, mastery, proven)
             if not n["unlocked"] and not n["mastered"]:
                 n["unlock_requirements"] = self.unlock_requirements(node, mastery)
             n.pop("quiz", None)  # keep the graph payload light
@@ -743,7 +759,7 @@ class Curriculum:
                     continue
                 done = sum(1 for n in ns if mastery.get(n["id"], 0) >= 0.8)
                 stages.append({"stage": s, "total": len(ns), "mastered": done,
-                               "open": self.stage_gate_open(d["id"], s, mastery)})
+                               "open": self.stage_gate_open(d["id"], s, mastery, proven)})
             dd = dict(d)
             dd["stages"] = stages
             dd["mastered"] = sum(1 for n in self.nodes.values()
@@ -752,6 +768,7 @@ class Curriculum:
         return {"domains": domains, "nodes": nodes}
 
     def next_lessons(self, mastery: Dict[str, float], domains: Optional[List[str]] = None,
+                     proven: Optional[set] = None,
                      per_domain: int = 2) -> List[Dict]:
         """The frontier: unlocked, unmastered nodes, lowest stage first."""
         picks: List[Dict] = []
@@ -767,7 +784,7 @@ class Curriculum:
                         break
                     if mastery.get(node["id"], 0) >= 0.8:
                         continue
-                    if self.unlocked(node, mastery):
+                    if self.unlocked(node, mastery, proven):
                         n = dict(node)
                         n["mastery"] = round(mastery.get(node["id"], 0), 2)
                         picks.append(n)

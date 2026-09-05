@@ -854,6 +854,11 @@ def cards_from_missed(questions: List[Dict], answers: List[str],
             # are full sentences) — 51 real bank items did exactly that, up to
             # 255 chars. Cap the total, budgeting whatever room the answer left.
             MAX_BACK = 220
+            # A structural explanation ("light goes with night.") only
+            # restates the card, and on the back it hands a listener the
+            # answer by word-matching. Authored ones teach; those stay.
+            if q.get("explain_structural"):
+                explain = ""
             if explain and explain != front:
                 budget = MAX_BACK - len(correct) - len(" — ")
                 first = re.split(r"(?<=[.!?])\s+", explain)[0].strip()
