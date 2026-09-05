@@ -224,13 +224,14 @@ def needs(curr, learner, chapter: Optional[dict], reader_id: int = 1) -> Optiona
     node = curr.node(target)
     if not node:
         return None
-    info = learner.mastery_detail(target, reader_id=reader_id)
+    requirement = 3 if node["stage"] <= 1 else 2
+    info = learner.mastery_detail(target, reader_id=reader_id, passes_needed=requirement)
     # A lesson the reader was placed past opens on one honest pass; anything
     # ahead of them needs the full two, spaced. Say which.
     prof = learner.get_profile(reader_id=reader_id) or {}
     domain_stage = (prof.get("settings") or {}).get("domain_stage") or {}
     placed_past = node["stage"] < domain_stage.get(node["domain"], int(prof.get("stage") or 0))
-    needed = 1 if placed_past else 2
+    needed = 1 if placed_past else requirement
     # A faded lesson's lifetime pass count is stale evidence — reporting it
     # verbatim reads as "almost there" on a page that is in fact shut until
     # the reader proves it again.

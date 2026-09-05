@@ -19,7 +19,7 @@ def isolated_stores(tmp_path, monkeypatch):
     # Capture a no-op as the thread target.  Merely swapping the stores is not
     # enough: the real maintenance thread can outlive fixture teardown and
     # look the module globals up again after they have been restored.
-    monkeypatch.setattr(srv, "_maintenance_loop", lambda: None)
+    monkeypatch.setattr(srv, "_maintenance_loop", lambda *args: None)
     try:
         yield
     finally:

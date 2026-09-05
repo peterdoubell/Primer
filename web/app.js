@@ -330,7 +330,11 @@ function parseHash() {
   if (!KNOWN_VIEWS.has(view)) return { view: 'today', arg: null, corrected: true };
   return { view, arg: null };
 }
-function go(view, arg) { location.hash = hashFor(view, arg); } // triggers hashchange → render
+function go(view, arg) {
+  const target = hashFor(view, arg);
+  if (location.hash === target) renderRoute();
+  else location.hash = target;
+}
 function renderRoute() {
   if (!S.state || !S.state.onboarded) return;
   // Any navigation unmounts whatever view was up — drop the review deck's
@@ -1308,6 +1312,10 @@ async function renderToday(page) {
         'aria-label': q.label + ': ' + dc + ' of ' + goal + ' done' },
         el('span', { style: `width:${Math.round(100 * dc / goal)}%` })));
     }
+    if (q.key === "practice" && q.node_id && !q.done) {
+      item.append(btn({ class: "btn small", onclick: () =>
+        startPractice(q.node_id, q.generator, q.stage) }, "Practise"));
+    }
     quest.append(item);
   });
   page.append(quest);
@@ -1358,7 +1366,7 @@ async function renderToday(page) {
     const crownWork = (t.quest && Object.keys(t.quest).length)
       ? Object.keys(t.quest)
           .filter(k => t.quest[k] && t.quest[k].done && !t.quest[k].excused)
-          .map(k => ({ learn: 'a lesson sat', review: 'your memory strengthened',
+          .map(k => ({ learn: 'a lesson sat', review: 'your memory strengthened', practice: 'a practice sitting',
                        read: 'an article read' })[k])
           .filter(Boolean)
       : [];
@@ -1679,6 +1687,9 @@ async function renderNode(page, nodeId) {
   // fallback contributes no mark here rather than a character to mispronounce.
   page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + STAGE_NAMES[n.stage], n.title, n.goal || ''));
 
+  if (n.access_basis === "assumed_prerequisites") {
+    page.append(el("p", { class: "muted" }, "Open on assumed foundations. Your placement or field choice opened this lesson; its foundations have not all been proved."));
+  }
   if (n.proven) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:var(--tint-green)' },
       el('b', { style: 'color:var(--green-ink)' }, '✓ You have proved this one. Revisit it any time, or push further in the Atlas.')));
@@ -1689,8 +1700,8 @@ async function renderNode(page, nodeId) {
     let line = 'The book assumed you already know this, so it opened the lessons beyond it.';
     line += need === 1
       ? ' Pass it once to prove it' + (d.passes ? ' — ' + Math.min(d.passes, 1) + ' of 1 so far.' : '.')
-      : ' Pass it twice, a couple of days apart, to prove it' +
-        (d.passes ? ' — ' + d.passes + ' of 2 passes so far.' : '.');
+      : ' Pass it ' + need + ' times, with a gap between passes, to prove it' +
+        (d.passes ? ' — ' + d.passes + ' of ' + need + ' passes so far.' : '.');
     page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
       el('b', {}, '◐ Assumed, not yet proved'), el('p', { class: 'muted', style: 'margin:6px 0 0' }, line)));
   }
@@ -1715,8 +1726,8 @@ async function renderNode(page, nodeId) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
       el('b', {}, '◐ You started this one — ' + md.passes + ' of ' + need + ' passes'),
       el('p', { class: 'muted', style: 'margin:6px 0 0' }, ready
-        ? 'The waiting is over: pass it once more and it is sealed.'
-        : 'The two passes have to sit a little apart, so the book can tell it stuck. This one can be sealed after ' + whenReady(md.ready_at) + '.')));
+        ? 'The waiting is over: ' + (need - md.passes) + ' more spaced passes will seal it.'
+        : 'The passes sit a little apart, so the book can tell it stuck. The next can count after ' + whenReady(md.ready_at) + '.')));
   }
 
   // The reader who has sat this one more than once and not yet landed it. None
@@ -2451,8 +2462,10 @@ function openLightbox(img, opener) {
   }
   openModal({
     label: caption ? 'Picture — ' + caption : 'Picture',
+    onClose: () => resumeReadingClock('picture'),
     dismissable: true, dismissLabel: 'Close picture',
     build: (modal, close) => {
+      pauseReadingClock('picture');
       modal.classList.add('wide');
       const box = el('div', { class: 'lightbox' });
       // Wikipedia ships most of its diagrams as black line-work marked
@@ -2583,6 +2596,12 @@ function buildTutor(title) {
         : "Don't panic — my voice is not reaching you just now, which is almost certainly the network and never you. Everything you have read and learned is safely written down; keep reading, and ask me again when the book reconnects.");
     }
   }
+  panel.addEventListener('focusin', () => pauseReadingClock('tutor'));
+  panel.addEventListener('focusout', e => {
+    if (!panel.contains(e.relatedTarget)) resumeReadingClock('tutor');
+  });
+  panel.addEventListener('pointerenter', () => pauseReadingClock('tutor-pointer'));
+  panel.addEventListener('pointerleave', () => resumeReadingClock('tutor-pointer'));
   panel.append(el('div', { class: 'composer' }, input, btn({ onclick: send }, 'Ask')));
   return panel;
 }
@@ -2633,6 +2652,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
   // Set by the submit handler, read by the splash and the voice: this
   // sitting was practised, not marked.
   let unscoredSitting = false;
+  let sittingSubmitted = false;
   const young = (stage != null ? stage : S.stage) <= 1;
   // The paper's own clock, started when it is handed over. See the note on
   // the deck's: untrusted, non-load-bearing, and the only reason the book can
@@ -2663,7 +2683,9 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     build: (modal, close) => { drawQuestion(modal, close); },
     // Closing the splash without turning the page must not cost the reader the
     // promotion ceremony altogether — it is a real change to their book.
-    onClose: () => { splashClosed = true; resumeReadingClock('paper'); if (!turningPage) releaseAscension(300); },
+    onClose: () => { splashClosed = true; resumeReadingClock('paper');
+      if (sittingSubmitted && (S.view === 'node' || S.view === 'today')) renderRoute();
+      if (!turningPage) releaseAscension(300); },
   });
 
   function normalize(s) { return String(s).trim().toLowerCase().replace(/\s+/g, ''); }
@@ -3161,10 +3183,15 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         if (kind === 'quiz') {
           const r = await api.post('/api/quiz/submit', { node_id: nodeId, answers, make_cards: true, confidence: confidences, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.mastery.xp_gained || 0; ascension = r.ascension; calibration = r.calibration;
+          sittingSubmitted = true;
           showServerScore(r.result);   // the marks the book actually recorded
           // null unless THIS lesson is the one the open chapter was waiting for.
           storyUnlocked = r.story_unlocked || null;
-          if (r.mastery.newly_mastered) { msg = r.mastery.proven
+          if (r.mastery.unscored) {
+            unscoredSitting = true;
+            msg = "Practised, not marked. These answers need a little time before they can count. What you missed will come back as cards.";
+          }
+          else if (r.mastery.newly_mastered) { msg = r.mastery.proven
             ? '✦ Mastered! You have proved this one — it is now truly yours.'
             : '✦ Mastered! This lesson is now complete.'; msgTone = 'good'; }
           else if (r.mastery.proven) msg = 'Reviewed — already proved.';
@@ -3197,14 +3224,15 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
               : 'Progress: ' + Math.round(r.mastery.level * 100) + '% toward mastery';
             const ra = r.mastery.ready_at;
             if (ra == null) msg += '.';
-            else if (readyNow(ra)) msg += ' — you have proved it once already, so the next pass seals it.';
-            else msg += ' — you have proved it once. Pass it again after ' + whenReady(ra) + ' and it is sealed.';
+            else if (readyNow(ra)) msg += ' — your next spaced pass can count now.';
+            else msg += ' — another pass can count after ' + whenReady(ra) + '.';
           }
           if (r.cards_added) msg += ' ' + r.cards_added + ' review card' + (r.cards_added > 1 ? 's' : '') + ' added.';
           if (r.mastery.newly_mastered) celebrate();
         } else {
           const r = await api.post('/api/attempt', { node_id: nodeId, answers, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.xp_gained || 0; ascension = r.ascension;
+          sittingSubmitted = true;
           showServerScore(r.result);   // the marks the book actually recorded
           if (r.unscored) {
             // Practised, not marked. The server graded it, explained it and
@@ -3219,9 +3247,12 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
               : 'Practised, not marked: the book had already shown you most of these answers, so this sitting counts as practice. What you missed will come back as cards.';
             msgTone = 'neutral';
           } else {
-            msg = 'Set down in the Book.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
+            msg = r.newly_mastered ? '✦ Mastered! You have proved this one.'
+              : r.passes ? r.passes + ' of ' + r.passes_needed + ' spaced passes set down in the Book.'
+              : 'Practised and written down. A complete pass is still ahead.';
             if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
           }
+          if (r.cards_added) msg += ' ' + plural(r.cards_added, 'review card') + ' added.';
         }
       } catch (e) {
         // Not every refusal is the network. The book deliberately declines a
@@ -3704,6 +3735,9 @@ async function renderAtlas(page) {
       said.push(n.assumed_stale ? 'assumed from your placement, and that credit has expired'
                                 : 'assumed from your placement, not yet proved');
     }
+    if (n.access_basis === 'assumed_prerequisites') {
+      marks.push('◇'); said.push('open on assumed foundations');
+    }
     if (frontier) said.push('the frontier of this field');
     if (cls === 'locked') said.push('open it to see what unlocks it');
     return btn({
@@ -4053,7 +4087,7 @@ async function renderReview(page, arg) {
        The distractor is drawn from the deck in hand, preferring a sibling from
        the same node or article (due_cards interleaves them, learner.py:1097) —
        a card from a wildly different topic makes the choice free. */
-    const distractor = S.stage <= 1 && data.cards.length > 1 ? distractorFor(c) : null;
+    const distractor = S.stage <= 1 ? distractorFor(c) : null;
     const key = backAnswer(c.back);
     const opts = distractor ? (Math.random() < 0.5 ? [key, distractor] : [distractor, key]) : null;
     const askAloud = () => opts ? c.front + '. Is it ' + opts[0] + ', or ' + opts[1] + '?' : c.front;
@@ -4138,11 +4172,17 @@ async function renderReview(page, arg) {
     // An ordering card's back IS the front's members, so a sibling card's
     // back could be told apart by its words alone (89%). The distractor for
     // an ordering is the same members in a different order.
-    const parts = key.split(/,\s+|\s+/).filter(Boolean);
-    if (/^Put /.test(c.front || '') && parts.length >= 3) {
+    const listed = String(c.front || '').split(': ').slice(-1)[0];
+    const parts = listed.split(', ').filter(Boolean);
+    if (parts.length >= 3 && parts.every(part => key.includes(part))) {
       for (let tries = 0; tries < 8; tries++) {
         const shuffled = parts.slice().sort(() => Math.random() - 0.5);
-        if (shuffled.join(' ') !== parts.join(' ')) return shuffled.join(' ');
+        if (!sameText(shuffled.join(' '), key)) return shuffled.join(' ');
+      }
+      // Deterministic fallback: rotating distinct whole members changes order.
+      for (let offset = 1; offset < parts.length; offset++) {
+        const rotated = parts.slice(offset).concat(parts.slice(0, offset)).join(' ');
+        if (!sameText(rotated, key)) return rotated;
       }
     }
     const others = data.cards.filter(x => x.id !== c.id && !sameText(backAnswer(x.back), key));
@@ -4397,19 +4437,20 @@ function pricingNote(r) {
     const pace = pct === 0 ? 'at the pace the book expects'
       : pct > 0 ? Math.abs(pct) + '% slower than the book expects'
       : Math.abs(pct) + '% faster than the book expects';
-    lines.push('You read ' + pace + ' — about ' + rate.per_article + ' minutes an article across '
+    lines.push('Your longest reading visits were ' + pace + ' — about ' + rate.per_article + ' minutes per title across '
       + rate.articles + ' articles' + (rate.clamped ? ', held at the limit the plan allows' : '')
-      + ' — and the hours above are priced at your pace, not the average reader\'s.'
+      + ' — only assigned-article reading is adjusted. Visits do not establish article completion; returning to finish a piece can make this estimate too short.'
       + (rate.clamped && rate.factor > 1
-         ? ' The plan cannot price slower than this, so read the years above as at least that many.'
+         ? ' The reading allowance is capped; your reading may take longer.'
          : ''));
   } else {
     const need = rate.min_articles || 20;
     const mins = rate.min_minutes || 100;
     lines.push('Your reading pace is not measured yet, so the hours above are priced at the '
       + 'book\'s own figure. After about ' + need + ' articles and ' + Math.round(mins / 60)
-      + ' hours of reading it will be priced at yours.');
+      + ' hours of reading its article allowance will use your pace.');
   }
+  lines.push('An article starts at six minutes. Each topic also includes instruction, practice and assessment; those hours do not change with reading speed.');
   if (typeof r.srs_minutes_per_node === 'number') {
     lines.push('Each topic also carries about ' + Math.round(r.srs_minutes_per_node)
       + ' minutes of later review, so that what is learned stays learned.');

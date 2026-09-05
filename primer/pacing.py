@@ -140,7 +140,9 @@ def instructional_rate(graph: Dict, reading: "Dict[str, float] | None") -> Dict:
            "minutes": 0.0, "modelled": 0.0, "per_article": None,
            # The thresholds, so the page can say when the plan becomes the
            # reader's own instead of hard-coding a number that drifts.
-           "min_articles": RATE_MIN_ARTICLES, "min_minutes": RATE_MIN_MINUTES}
+           "min_articles": RATE_MIN_ARTICLES, "min_minutes": RATE_MIN_MINUTES,
+           "scope": "assigned_article_reading",
+           "article_model_minutes": ARTICLE_MODEL_MINUTES}
     if not reading:
         return out
     # Only articles this book actually assigns. Wiki-wandering off the
@@ -239,10 +241,13 @@ def roadmap(profile: Dict, graph: Dict, mastery: Dict[str, float],
         # Instructional minutes plus the node's lifetime SRS maintenance —
         # see SRS_REVIEW_MIN_PER_NODE. Folding it in here keeps the years,
         # the timeline, and the per-stage hours all telling the same story.
-        # The instructional half is scaled by this reader's measured rate; the
-        # maintenance half already has its own per-reader term and must not be
-        # scaled twice.
-        node_minutes = node.get("minutes", 40) * rate["factor"] + srs_per_node
+        # SRS already has its own per-reader rate; adjust only article reading.
+        baseline = node.get("minutes", 40)
+        # Reading speed measures reading only. A six-minute article cannot
+        # rescale hundreds of minutes of experiments, instruction and practice.
+        reading_minutes = min(baseline, len(set(node.get("articles") or []))
+                              * ARTICLE_MODEL_MINUTES)
+        node_minutes = baseline + reading_minutes * (rate["factor"] - 1) + srs_per_node
         # Skipped for pacing (it's review, priced at 25%) once this domain's
         # own placed level has passed the node's stage.
         reader_stage_here = domain_stage.get(node["domain"], current_stage)

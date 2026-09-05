@@ -37,7 +37,7 @@ from .curriculum import Curriculum
 from .learner import (LearnerStore, STAGE_NAMES, STAGE_SPAN, STAGE_TITLES,
                       _end_of_tomorrow, _local_day, _remove_backup,
                       usable_reading_seconds)
-from .pacing import roadmap
+from .pacing import roadmap, instructional_rate
 from .render import rewrite_article
 from .wiki import WikiService, ROOT
 
@@ -228,10 +228,11 @@ def _run_maintenance_once():
         log.info("backed up learner record to %s", os.path.basename(dest))
 
 
-def _maintenance_loop():
+def _maintenance_loop(stop=None):
     """Back up the irreplaceable learner record and prune old logs — at
     startup and then daily. The whole multi-year history lives in one file."""
-    while True:
+    stop = stop if stop is not None else _shutdown
+    while not stop.is_set():
         try:
             _run_maintenance_once()
         except Exception as exc:  # never let maintenance crash the app
@@ -242,8 +243,8 @@ def _maintenance_loop():
         # skipping a backup day. Waking hourly and checking the clock means a
         # missed day is noticed as soon as the machine is awake again.
         target = time.time() + 24 * 3600
-        while not _shutdown.is_set() and time.time() < target:
-            if _shutdown.wait(min(3600.0, max(1.0, target - time.time()))):
+        while not stop.is_set() and time.time() < target:
+            if stop.wait(min(3600.0, max(1.0, target - time.time()))):
                 return
 
 
@@ -260,11 +261,16 @@ async def _lifespan(_app):
         (log.warning if bk["off_disk"] is False else log.info)(
             "backups -> %s (%d kept) | %s",
             bk["dir"], bk["copies"], bk["advice"])
-    threading.Thread(target=_maintenance_loop, daemon=True).start()
-    yield
-    # Let the maintenance thread finish its wait and return rather than being
-    # killed mid-backup when the process exits.
-    _shutdown.set()
+    # Each lifespan owns its stop signal: closing one client must not turn
+    # another lifespan into a busy backup loop or disable its maintenance.
+    stop = threading.Event()
+    worker = threading.Thread(target=_maintenance_loop, args=(stop,), daemon=True)
+    worker.start()
+    try:
+        yield
+    finally:
+        stop.set()
+        worker.join(timeout=2)
 
 
 app.router.lifespan_context = _lifespan
@@ -790,9 +796,10 @@ def _general_target(per_domain: Dict[str, int]) -> Optional[int]:
     if not measured:
         return None
     n = len(measured)
-    if n % 2:
-        return measured[n // 2]
-    return int((measured[n // 2 - 1] + measured[n // 2] + 1) // 2)
+    target = measured[n // 2] if n % 2 else (measured[n // 2 - 1] + measured[n // 2] + 1) // 2
+    # Advanced evidence rules out a pre-reader interface even when several
+    # other fields are new. It does not claim mastery in those fields.
+    return max(target, 2 if max(measured) >= 4 else 0)
 
 
 def _check_ascension(prof: dict, reader_id: int) -> Optional[dict]:
@@ -1173,11 +1180,21 @@ def zim_asset(archive_id: str, path: str):
 
 # ---------------- curriculum ----------------
 
+def _access_basis(node, gates, proven):
+    """Name assumed prerequisites without calling the open lesson mastered."""
+    if not curr.unlocked(node, gates, proven):
+        return "locked"
+    if any(gates.get(p, 0) >= 0.999 and p not in proven for p in node.get("prereqs", [])):
+        return "assumed_prerequisites"
+    return "open"
+
+
 @app.get("/api/curriculum")
 def curriculum(request: Request):
     reader_id = current_reader(request)
     graph = curr.annotated_graph(learner.gate_map(reader_id=reader_id),
                                  learner.proven_set(reader_id=reader_id))
+    gates = learner.gate_map(reader_id=reader_id)
     proven = learner.proven_set(reader_id=reader_id)
     ever = learner.ever_proven_set(reader_id=reader_id)
     credited = learner.credited_set(reader_id=reader_id)
@@ -1198,6 +1215,7 @@ def curriculum(request: Request):
         # past — "your placement credit has expired", not silence.
         n["assumed"] = nid in credited and not n["proven"] and not n["ever_proven"]
         n["assumed_stale"] = nid in stale
+        n["access_basis"] = _access_basis(curr.nodes[nid], gates, proven)
     return graph
 
 
@@ -1261,8 +1279,10 @@ def curriculum_node(node_id: str, request: Request):
     out["assumed"] = (node_id in learner.credited_set(reader_id=reader_id) and not out["proven"]
                       and not out["ever_proven"])
     out["assumed_stale"] = node_id in learner.assumed_stale_set(reader_id=reader_id)
-    out["mastery_detail"] = learner.mastery_detail(node_id, reader_id=reader_id)
+    out["mastery_detail"] = learner.mastery_detail(node_id, reader_id=reader_id,
+                                                      passes_needed=_evidence_bar(node).get("passes_needed", 2))
     out["unlocked"] = curr.unlocked(node, gates, learner.proven_set(reader_id=reader_id))
+    out["access_basis"] = _access_basis(node, gates, proven)
     if not out["unlocked"] and not out["mastered"]:
         out["unlock_requirements"] = curr.unlock_requirements(node, gates, proven)
     # Two-way tissue: a lesson should say which chapter it opens.
@@ -1645,7 +1665,8 @@ def today(request: Request):
     # reshuffle-on-refresh bug the seeded rng exists to prevent, wearing a
     # different hat.
     now = time.time()
-    pend = {p["node_id"]: p for p in learner.pending_proofs(reader_id=reader_id)}
+    pend = {p["node_id"]: p for p in learner.pending_proofs(reader_id=reader_id,
+        spaced_nodes={nid for nid, node in curr.nodes.items() if _young(node)})}
     for n in lessons:
         appointment = pend.get(n["id"])
         if appointment:
@@ -1725,6 +1746,8 @@ def today(request: Request):
                 "excused": not done and goal == 0,
                 "hint": hint if not done and goal == 0 else None}
 
+    practice_nodes = [n for n in lessons if n.get("practice")]
+    practiced_today = learner.events_today_count("practice", reader_id=reader_id)
     reviewed_today = learner.events_today_count("review", reader_id=reader_id)
     quest = {
         "review": step("Strengthen your memory", reviewed_today,
@@ -1740,11 +1763,18 @@ def today(request: Request):
                       min(len(lessons), 1), len(lessons),
                       "You are at the frontier of every subject you chose — "
                       "add another from your profile, or review to keep it solid"),
+        "practice": step("Practise what needs another try", practiced_today,
+                         min(len(practice_nodes), 1), len(practice_nodes),
+                         "No drill waiting — explore a lesson or keep your memory fresh"),
         # No count to exhaust: an article is always available to read, so this
         # step can never be excused. `None` is not zero.
         "read": step("Read one article",
                      learner.events_today_count("read", reader_id=reader_id), 1, None),
     }
+    if practice_nodes:
+        quest["practice"]["node_id"] = practice_nodes[0]["id"]
+        quest["practice"]["generator"] = practice_nodes[0]["practice"]
+        quest["practice"]["stage"] = practice_nodes[0]["stage"]
     # A paper sat that did not land is neither "not started" nor "done", and the
     # reader should be told which of the two they are in. The tile carries the
     # fact; the client turns it into a sentence and a route to the drill.
@@ -1756,6 +1786,8 @@ def today(request: Request):
     # What the day costs, in minutes, priced per step. Only steps the reader
     # still has to do are counted: a day two-thirds finished should say what is
     # LEFT, which is the number a reader deciding whether to sit down needs.
+    article_rate = instructional_rate(curr.graph(),
+        learner.reading_minutes_by_title(reader_id=reader_id))
     card_s = learner.pace("review", reader_id=reader_id)
     quiz_s = learner.pace("attempt", reader_id=reader_id)
     # Two independent clocks, and the label has to speak for the numbers
@@ -1774,13 +1806,17 @@ def today(request: Request):
         left = max(0, (q["goal"] or 0) - (q["done_count"] or 0))
         if key == "review":
             step_minutes[key] = _round_minutes(left * card_s / 60.0)
-        elif key == "learn":
-            step_minutes[key] = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+        elif key in ("learn", "practice"):
+            priced_nodes = practice_nodes if key == "practice" else lessons
+            items = (YOUNG_DRILL_ITEMS if priced_nodes and priced_nodes[0]["stage"] <= 1
+                     else QUIZ_QUESTIONS)
+            step_minutes[key] = _round_minutes(items * quiz_s / 60.0)
         else:
-            step_minutes[key] = ARTICLE_MINUTES
+            step_minutes[key] = _round_minutes(ARTICLE_MINUTES * article_rate["factor"])
     # `measured` is true only when every kind still being priced is priced
     # from the reader's own record; `partly` says the honest middle out loud.
-    flags = {"review": card_measured, "learn": quiz_measured}
+    flags = {"review": card_measured, "learn": quiz_measured,
+             "practice": quiz_measured, "read": article_rate["measured"] and not article_rate["clamped"]}
     relevant = [k for k, q in quest.items()
                 if not q["done"] and not q["excused"] and k in flags]
     measured = bool(relevant) and all(flags[k] for k in relevant)
@@ -1804,7 +1840,7 @@ def today(request: Request):
         short_minutes = _round_minutes(short_cards * card_s / 60.0)
     elif "learn" in owed:
         short_kind = "learn"
-        short_minutes = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+        short_minutes = step_minutes["learn"]
     else:
         # Only the article is left (or nothing is). There is no shorter version
         # of "read one article" than reading one article, so no door is drawn.
@@ -1920,7 +1956,7 @@ def _locked_lesson_response(node: dict, reader_id: int) -> Optional[JSONResponse
 def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
                  node_id: str = ""):
     reader_id = current_reader(request)
-    # A young lesson's drill is eight items, whatever the client asked for:
+    # A young lesson's drill is ten items, whatever the client asked for:
     # see _evidence_bar. The client may ask for more, never fewer.
     if node_id and _young(curr.node(node_id)):
         n = max(n, YOUNG_DRILL_ITEMS)
@@ -1963,27 +1999,28 @@ def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
         # or not, and the rest of the paper is filled with items that can
         # still count, so honest evidence stays possible on every sitting.
         sore = set(learner.missed_fronts(node_id, reader_id=reader_id))
-        burned = learner.burned_map(node_id, window_days=_burn_days(reader_id), reader_id=reader_id)
-        wider = practice.generate_set(gen_key, n * 3, level)
-        if len(wider) >= n:
-            lead = [q for q in wider if q.get("prompt") in sore][:max(1, n // 3)]
-            rest = [q for q in wider if q not in lead]
-            countable = [q for q in rest if _fingerprint(q) not in burned]
-            spent = [q for q in rest if _fingerprint(q) in burned]
-            # One prompt per paper. A category pick asks the same question
-            # of a different member, so the wide draw can carry "Which one is
-            # a bird?" twice with two keys — fine across sittings, odd on one
-            # page, and it made a ten-item paper eight questions long.
-            qs, seen = [], set()
-            for q in lead + countable + spent:
-                if q.get("prompt") in seen:
-                    continue
-                seen.add(q.get("prompt"))
-                qs.append(q)
-                if len(qs) == n:
-                    break
-            for i, q in enumerate(qs):
-                q["id"] = i
+        if sore or len({q.get("prompt") for q in qs}) < len(qs):
+            burned = learner.burned_map(node_id, window_days=_burn_days(reader_id), reader_id=reader_id)
+            wider = practice.generate_set(gen_key, n * 2, level)
+            if len(wider) >= n:
+                lead = [q for q in wider if q.get("prompt") in sore][:max(1, n // 3)]
+                rest = [q for q in wider if q not in lead]
+                countable = [q for q in rest if _fingerprint(q) not in burned]
+                spent = [q for q in rest if _fingerprint(q) in burned]
+                # One prompt per paper. A category pick asks the same question
+                # of a different member, so the wide draw can carry "Which one is
+                # a bird?" twice with two keys — fine across sittings, odd on one
+                # page, and it made a ten-item paper eight questions long.
+                qs, seen = [], set()
+                for q in lead + countable + spent:
+                    if q.get("prompt") in seen:
+                        continue
+                    seen.add(q.get("prompt"))
+                    qs.append(q)
+                    if len(qs) == n:
+                        break
+                for i, q in enumerate(qs):
+                    q["id"] = i
     if not qs:
         return JSONResponse({"error": "unknown generator", "available": practice.list_generators()},
                             status_code=404)
@@ -2036,7 +2073,7 @@ def record_attempt(a: AttemptIn, request: Request):
     # Evidence and exposure are separate: a paper with too few countable items
     # is graded, explained, and its misses become cards, and simply records
     # no mastery. Nothing is harvested and nobody is locked out.
-    unscored = len(scorable) < min(QUIZ_MIN_ITEMS, len(graded))
+    unscored = len(scorable) < (YOUNG_DRILL_ITEMS if _young(node) else QUIZ_MIN_ITEMS)
     if unscored:
         scorable, scorable_given = graded, given
     marks = quiz.score_quiz(scorable, scorable_given)
@@ -2068,6 +2105,11 @@ def record_attempt(a: AttemptIn, request: Request):
         res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
                                      items=len(a.answers), reader_id=reader_id,
                                      **_evidence_bar(node))
+    # Completion is practice, not a claim of mastery. Count even an unmarked
+    # sitting, but only once: _recall consumes the issued paper.
+    if len(given) == len(graded) and all(str(answer).strip() for answer in given):
+        learner.log_event("practice", {"node_id": a.node_id, "unscored": unscored},
+                          reader_id=reader_id)
     # Practice is a study event too: whatever was missed should come back.
     cards_added = 0
     if graded and given:
@@ -2209,7 +2251,8 @@ def quiz_for_node(node_id: str, request: Request, n: int = 6):
     locked = _locked_lesson_response(node, reader_id)
     if locked is not None:
         return locked
-    n = max(QUIZ_MIN_ITEMS, min(int(n), QUIZ_MAX_ITEMS))
+    n = max(YOUNG_DRILL_ITEMS if _young(node) else QUIZ_MIN_ITEMS,
+            min(int(n), QUIZ_MAX_ITEMS))
     stage = node["stage"]
 
     bank = list(node.get("quiz", []))
@@ -2324,7 +2367,9 @@ def _drop_burned(questions: list, given: list, node_id: str, reader_id: int,
     committed = (entry or {}).get("committed") or {}
     keep_q, keep_a = [], []
     for i, q in enumerate(questions):
-        burn_at = burned.get(_fingerprint(q))
+        stamps = [burned.get(_fingerprint(q)),
+                  burned.get(learner.review_fingerprint(q.get("prompt", "")))]
+        burn_at = min((at for at in stamps if at is not None), default=None)
         if burn_at is not None:
             mine = committed.get(q.get("id"))
             # No commitment on this paper, or one made after the reveal: the
@@ -2452,16 +2497,20 @@ def submit_quiz(s: QuizSubmitIn, request: Request):
     # at serve time let a burnt-out bank be graded on the one or two procedural
     # top-ups that were left — a thirteen-item paper marked `total: 1`, and
     # random guessing proved undergraduate calculus in seven sittings.
-    if len(scorable) < QUIZ_MIN_ITEMS:
+    unscored = _young(node) and len(scorable) < YOUNG_DRILL_ITEMS
+    if len(scorable) < QUIZ_MIN_ITEMS and not unscored:
         return JSONResponse(
             {"error": "the book has already shown you the answers to most of "
                       "these. Come back to this one in a few days.",
              "reason": "bank_spent", "spent": spent}, status_code=409)
+    if unscored:
+        scorable, scorable_given = questions, given
     result = quiz.score_quiz(scorable, scorable_given)
-    mastery = learner.record_attempt(s.node_id, result["score"],
+    mastery = ({"unscored": True, "mastered": False, "newly_mastered": False,
+                "xp_gained": 0, "reason": "bank_spent"} if unscored else learner.record_attempt(s.node_id, result["score"],
                                      seconds=s.seconds, items=len(s.answers),
                                      reader_id=reader_id,
-                                     **_evidence_bar(node))
+                                     **_evidence_bar(node)))
     cards_added = 0
     if s.make_cards:
         article = node["articles"][0] if node and node["articles"] else ""

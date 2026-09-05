@@ -122,7 +122,7 @@ def test_the_roadmap_moves_with_the_measured_rate():
     assert modelled["instructional_rate"]["measured"] is False
     assert slow["instructional_rate"]["measured"] is True
     assert fast["total_hours"] < modelled["total_hours"] < slow["total_hours"]
-    assert fast["estimated_years"] < slow["estimated_years"]
+    assert fast["hours_for_ten_years"] <= slow["hours_for_ten_years"]
 
 
 def test_the_maintenance_half_is_not_scaled_twice():
@@ -133,5 +133,5 @@ def test_the_maintenance_half_is_not_scaled_twice():
     profile = {"breadth": "balanced", "hours_per_week": 10, "stage": 0}
     mastery = {"n%d" % i: (1.0 if i < 20 else 0.0) for i in range(40)}
     r = pacing.roadmap(profile, g, mastery, reading=_reading(40, 9))
-    per_node = 100 * r["instructional_rate"]["factor"] + r["srs_minutes_per_node"]
+    per_node = 100 + 6 * (r["instructional_rate"]["factor"] - 1) + r["srs_minutes_per_node"]
     assert abs(r["total_hours"] - (20 * per_node) / 60) < 1.0

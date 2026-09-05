@@ -16,6 +16,7 @@ Design commitments (from the review board):
   "freezes" mean one busy day doesn't erase months of habit.
 """
 
+import hashlib
 import bisect
 import datetime
 import functools
@@ -281,9 +282,11 @@ def usable_reading_seconds(seconds: Optional[float]) -> Optional[float]:
         return None
     if not math.isfinite(total):
         return None
-    if total < READ_MIN_SECONDS or total > READ_MAX_SECONDS:
+    if total < READ_MIN_SECONDS:
         return None
-    return round(total, 1)
+    # Preserve long active sittings at a bounded weight rather than making
+    # a 91-minute reader disappear while a 89-minute reader counts.
+    return round(min(total, READ_MAX_SECONDS), 1)
 
 
 def _per_item_seconds(seconds: Optional[float], items: int) -> Optional[float]:
@@ -983,11 +986,11 @@ class LearnerStore:
                 if self._strength_now(r["strength"] or 0, r["last_seen"], now,
                                       r["reinforcements"]) >= FRESH_GATE}
 
-    def mastery_detail(self, node_id: str, reader_id: int = 1) -> Dict:
+    def mastery_detail(self, node_id: str, reader_id: int = 1, passes_needed: int = 2) -> Dict:
         """What this node still needs, in terms the book can explain."""
         with _lock, self._conn() as c:
             r = c.execute(
-                """SELECT level, passes, attempts, first_pass_at, mastered_at,
+                """SELECT level, passes, attempts, first_pass_at, last_pass_at, mastered_at,
                           assumed, strength, last_seen, reinforcements,
                           first_mastered_at
                    FROM mastery WHERE reader_id=? AND node_id=?""",
@@ -1000,13 +1003,13 @@ class LearnerStore:
         # reader a day and a half of credit they had already earned.
         prove_gap = _mastery_min_interval(prof_row["age"] if prof_row else None)
         if not r:
-            return {"passes": 0, "attempts": 0, "passes_needed": 2,
+            return {"passes": 0, "attempts": 0, "passes_needed": passes_needed,
                     "ready_at": None,
                     "mastered": False, "proven": False, "assumed": False,
                     "assumed_stale": False, "ever_proven": False, "faded": False}
         ready_at = None
         if r["first_pass_at"]:
-            ready = r["first_pass_at"] + prove_gap
+            ready = (r["last_pass_at"] if passes_needed >= 3 else r["first_pass_at"]) + prove_gap
             ready_at = ready if ready > time.time() else None
         now = time.time()
         fresh = self._standing_strength(r, now) >= FRESH_GATE
@@ -1043,7 +1046,7 @@ class LearnerStore:
             # byte the page of a lesson they have never opened. The book knows
             # they have been here; it just had no way to say so.
             "attempts": r["attempts"] or 0,
-            "passes_needed": 2,
+            "passes_needed": passes_needed,
             "ready_at": ready_at,
             "mastered": mastered,
             "proven": proven,
@@ -1061,7 +1064,7 @@ class LearnerStore:
             "assumed_stale": stale_credit,
         }
 
-    def pending_proofs(self, reader_id: int = 1) -> List[Dict]:
+    def pending_proofs(self, reader_id: int = 1, spaced_nodes=None) -> List[Dict]:
         """Every node standing one earned pass short of mastery, with the
         moment its second pass becomes possible.
 
@@ -1101,7 +1104,7 @@ class LearnerStore:
         now = time.time()
         with _lock, self._conn() as c:
             rows = c.execute(
-                """SELECT node_id, passes, first_pass_at, strength, last_seen,
+                """SELECT node_id, passes, first_pass_at, last_pass_at, strength, last_seen,
                           reinforcements
                      FROM mastery
                     WHERE reader_id=? AND passes >= 1 AND mastered_at IS NULL
@@ -1115,7 +1118,8 @@ class LearnerStore:
         # have already earned; the two must never be computed differently.
         prove_gap = _mastery_min_interval(prof_row["age"] if prof_row else None)
         out = [{"node_id": r["node_id"], "passes": r["passes"] or 0,
-                "ready_at": r["first_pass_at"] + prove_gap}
+                "ready_at": (r["last_pass_at"] if r["node_id"] in (spaced_nodes or ())
+                             else r["first_pass_at"]) + prove_gap}
                for r in rows
                if self._strength_now(r["strength"] or 0, r["last_seen"], now,
                                      r["reinforcements"]) >= FRESH_GATE]
@@ -1314,9 +1318,10 @@ class LearnerStore:
             strength = max(prev_strength, 0.8)
         else:
             if score >= bar:
-                passes += 1
-                first_pass = first_pass or now
-                last_pass = now
+                if need < 3 or last_pass is None or now - last_pass >= prove_gap:
+                    passes += 1
+                    first_pass = first_pass or now
+                    last_pass = now
                 # "Proven" means the passes, genuinely spaced. Until that is
                 # earned the node stays flagged `assumed`, even after a real
                 # attempt — placement credit must never launder into proof.
@@ -1422,13 +1427,14 @@ class LearnerStore:
             # nothing left to seal — and None for an attempt that never
             # passed, which has no window yet.
             _pend = c.execute(
-                "SELECT first_pass_at, mastered_at FROM mastery WHERE reader_id=? AND node_id=?",
+                "SELECT first_pass_at, last_pass_at, mastered_at, passes FROM mastery WHERE reader_id=? AND node_id=?",
                 (reader_id, node_id)).fetchone()
             _prof = c.execute("SELECT age FROM profile WHERE reader_id=?",
                              (reader_id,)).fetchone()
             ready_at = None
             if _pend and _pend["first_pass_at"] and _pend["mastered_at"] is None:
-                ready_at = _pend["first_pass_at"] + _mastery_min_interval(
+                ready_at = (_pend["last_pass_at"] if (passes_needed or 2) >= 3
+                            else _pend["first_pass_at"]) + _mastery_min_interval(
                     _prof["age"] if _prof else None)
             xp = 0
             if not assumed:
@@ -1463,7 +1469,7 @@ class LearnerStore:
                 xp = ((round(score * 12) if effort_claimed else 0)
                       + (60 if newly and first_ever else 0))
                 payload = {"node": node_id, "score": round(score, 2),
-                           "mastered": newly}
+                           "mastered": newly, "passed": score >= max(PASS, pass_bar or PASS)}
                 per = _per_item_seconds(seconds, items)
                 if per is not None:
                     payload["per_item"] = per
@@ -1475,7 +1481,8 @@ class LearnerStore:
         return {"node_id": node_id, "level": round(level, 3),
                 "mastered": mastered, "newly_mastered": newly,
                 "proven": proven, "lost_mastery": lost, "xp_gained": xp,
-                "ready_at": ready_at}
+                "ready_at": ready_at, "passes": _pend["passes"] if _pend else 0,
+                "passes_needed": max(2, passes_needed or 2)}
 
     def seed_assumed(self, node_ids: List[str], reader_id: int = 1):
         """Bulk placement credit (assumed known)."""
@@ -1483,6 +1490,13 @@ class LearnerStore:
         with _lock, self._conn() as c:
             for nid in node_ids:
                 self._apply_attempt(c, reader_id, nid, 0.85, True, now)
+
+    @staticmethod
+    def review_fingerprint(front: str) -> str:
+        # Legacy cards may abbreviate keys or append explanations. The durable
+        # question front is preserved even when its display answer is not.
+        front = str(front).replace("Fill in the blank:\n\n", "").strip()
+        return "front:" + hashlib.sha256(front.encode("utf-8")).hexdigest()[:16]
 
     def burn_item(self, node_id: str, fingerprint: str, reader_id: int = 1):
         """Record that the book has shown this item's answer to this reader.
@@ -1966,6 +1980,17 @@ class LearnerStore:
                             (card_id, reader_id)).fetchone()
             if not row:
                 return {"error": "no such card"}
+            # Failed recall reveals the durable key again. A correct recall
+            # teaches no new answer, matching the quiz feedback policy.
+            if quality < 3 and row["node_id"]:
+                raw = (str(row["front"]) + "\x00" + str(row["back"])).encode("utf-8")
+                fingerprint = hashlib.sha256(raw).hexdigest()[:16]
+                c.execute("""INSERT INTO burned(reader_id,node_id,fingerprint,at) VALUES(?,?,?,?)
+                             ON CONFLICT(reader_id,node_id,fingerprint) DO UPDATE SET at=excluded.at""",
+                          (reader_id, row["node_id"], fingerprint, now))
+                c.execute("""INSERT INTO burned(reader_id,node_id,fingerprint,at) VALUES(?,?,?,?)
+                             ON CONFLICT(reader_id,node_id,fingerprint) DO UPDATE SET at=excluded.at""",
+                          (reader_id, row["node_id"], self.review_fingerprint(row["front"]), now))
             prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
                                  (reader_id,)).fetchone()
             age = prof_row["age"] if prof_row else None
@@ -2733,7 +2758,8 @@ class LearnerStore:
         landed = 0
         for row in rows:
             try:
-                if float((json.loads(row["payload"]) or {}).get("score", 0)) >= PASS:
+                payload = json.loads(row["payload"]) or {}
+                if payload.get("passed", float(payload.get("score", 0)) >= PASS):
                     landed += 1
             except (ValueError, TypeError, json.JSONDecodeError):
                 continue          # an unreadable payload is not a pass

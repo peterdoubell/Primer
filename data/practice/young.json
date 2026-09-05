@@ -129,7 +129,9 @@
     ],
     "explain": "A bed is about two metres — centimetres would be a huge number."
    }
-  ]
+  ],
+  "pair_explain": "Choose a unit for the kind of thing you measure: length, weight, time or volume. A ruler cannot tell you how heavy something is.",
+  "sequence_explain": "Compare the same kind of size each time. Find the smallest, then compare what is left."
  },
  "math.1.time": {
   "group_prompt": "Which one happens in the {}?",
@@ -205,7 +207,10 @@
     "spring",
     "summer",
     "autumn",
-    "winter"
+    "winter",
+    {
+     "prompt": "Put the seasons in yearly order, starting with spring"
+    }
    ],
    [
     "January",
@@ -265,7 +270,9 @@
     ],
     "explain": "January to December is twelve months."
    }
-  ]
+  ],
+  "pair_explain": "A clock counts seconds into minutes and minutes into hours. A calendar groups days into weeks and months.",
+  "sequence_explain": "Think about what happens before the next event can begin. Tell the little story from its beginning."
  },
  "math.1.fractions-intro": {
   "group_prompt": "A shape is cut into equal pieces and you take one. Which cut gives you a {}?",
@@ -403,7 +410,9 @@
     ],
     "explain": "Three sharing fairly means three equal pieces: thirds."
    }
-  ]
+  ],
+  "pair_explain": "The pieces must be equal. More equal pieces in the same whole means each piece is smaller.",
+  "sequence_explain": "Imagine cutting identical cakes. Compare the size of one piece, not just the number in its name."
  },
  "lang.0.rhymes": {
   "group_prompt": "Which word rhymes with {}?",
@@ -541,7 +550,9 @@
    "chair",
    "window",
    "letter"
-  ]
+  ],
+  "pair_explain": "Say both words aloud. Rhyming words share their ending sound even when their first sounds differ.",
+  "sequence_explain": "Say the rhyme aloud with its rhythm. Listen for the words that complete each line."
  },
  "lang.0.stories": {
   "group_prompt": "Which one is part of a {}?",
@@ -679,7 +690,9 @@
    "a queue",
    "a receipt",
    "the weather forecast"
-  ]
+  ],
+  "pair_explain": "A story's title can name its character, but the events tell you whose story it is. Remember who acts in it.",
+  "sequence_explain": "Ask what happened first and what that caused. A story needs its beginning before its ending."
  },
  "lang.0.speaking": {
   "group_prompt": "Which one is good {}?",
@@ -737,11 +750,6 @@
   "sequence_prompt": "Put the polite words in order",
   "sequence_say": "Tap the words in the order you would say them.",
   "sequences": [
-   [
-    "excuse me",
-    "may I",
-    "thank you"
-   ],
    [
     "put your hand up",
     "wait",
@@ -808,7 +816,9 @@
    "turn away",
    "shut both your eyes",
    "talk over the top of whoever is speaking"
-  ]
+  ],
+  "pair_explain": "Choose words that fit what the other person needs to hear. Thanks shows appreciation; sorry takes responsibility.",
+  "sequence_explain": "Say the whole phrase aloud. Each word helps the next one make sense."
  },
  "lang.1.reading": {
   "group_prompt": "Which word has the {} sound?",
@@ -948,7 +958,9 @@
    "a whisper",
    "a paintbrush",
    "the alphabet song"
-  ]
+  ],
+  "pair_explain": "Stretch the word slowly and count the sounds you hear. Two letters can work together to make one sound.",
+  "sequence_explain": "Say the target word slowly, then choose the letters for its sounds in that order."
  },
  "lang.1.sentences": {
   "group_prompt": "Which one is a {}?",
@@ -1005,7 +1017,11 @@
     "i",
     "like",
     "warm",
-    "soup"
+    "soup",
+    {
+     "prompt": "Make a sentence with the describing word before the thing it describes",
+     "explain": "Here warm describes soup. Place the adjective warm before the noun soup."
+    }
    ],
    [
     "we",
@@ -1061,7 +1077,9 @@
     ],
     "explain": "The subject is who or what the sentence is about."
    }
-  ]
+  ],
+  "pair_explain": "A question asks something; a statement tells something. The ending mark helps your voice show the difference.",
+  "sequence_explain": "Find who or what the sentence is about, then what happens. Read it aloud to check it makes sense."
  },
  "lang.1.handwriting": {
   "group_prompt": "Which letter is a {}?",
@@ -1123,41 +1141,13 @@
    ]
   ],
   "pair_back_prompt": "What is the capital letter for {}?",
-  "sequence_prompt": "Put the strokes in the order you write them",
-  "sequence_say": "Tap the strokes in the order your pencil makes them.",
+  "sequence_prompt": "Write a single vertical stroke, starting at the top",
+  "sequence_say": "Write a single vertical stroke, starting at the top.",
   "sequences": [
    [
     "start at the top",
-    "come down",
-    "lift off"
-   ],
-   [
-    "round first",
-    "then down",
-    "then the tail"
-   ],
-   [
-    "a dot",
-    "a short line",
-    "a long line",
-    "a letter",
-    {
-     "prompt": "Put them in order, smallest first"
-    }
-   ],
-   [
-    "a letter",
-    "a word",
-    "a sentence",
-    "a page",
-    {
-     "prompt": "Put them in order, smallest first"
-    }
-   ],
-   [
-    "hold the pencil",
-    "rest your hand",
-    "write"
+    "draw straight down",
+    "lift the pencil"
    ]
   ],
   "facts": [
@@ -1221,7 +1211,9 @@
     ],
     "explain": "Your other hand holds the paper still so the writing stays straight."
    }
-  ]
+  ],
+  "pair_explain": "A capital and a small letter can look different but stand for the same letter. Compare their shapes as well as their names.",
+  "sequence_explain": "Touch down at the top, draw downward, then lift off when the stroke is complete."
  },
  "lang.1.childrens-lit": {
   "pair_prompt": "Who is the story of {} about?",
@@ -1304,14 +1296,6 @@
     "and then",
     "at last",
     "the end"
-   ],
-   [
-    "a poem",
-    "a picture book",
-    "a chapter book",
-    {
-     "prompt": "Put them in order, shortest first"
-    }
    ]
   ],
   "facts": [
@@ -1355,7 +1339,9 @@
     ],
     "explain": "Fiction is a made-up story. Non-fiction is about real things."
    }
-  ]
+  ],
+  "pair_explain": "Remember the character's actions, not just a word in the title. Those actions connect the name to the story.",
+  "sequence_explain": "Retell the story aloud. One event sets up the next, so its ending belongs after its beginning."
  },
  "lang.1.writing-stories": {
   "group_prompt": "Which one belongs in the {} of a story?",
@@ -1434,15 +1420,6 @@
     }
    ],
    [
-    "who",
-    "where",
-    "what happens",
-    "how it ends",
-    {
-     "prompt": "Put the story plan in order"
-    }
-   ],
-   [
     "draft it",
     "read it",
     "change it",
@@ -1497,7 +1474,9 @@
    "a receipt",
    "a train timetable",
    "a shopping list"
-  ]
+  ],
+  "pair_explain": "Try the new word in a sentence. Similar words should keep the meaning you want, even if they change its feeling.",
+  "sequence_explain": "First decide what you want to tell. A draft gives you something to reread and improve."
  },
  "lang.1.dictionary": {
   "group_prompt": "Which word would you find on the {} pages?",
@@ -1630,7 +1609,9 @@
    "a phone book",
    "a shopping list",
    "an instruction leaflet"
-  ]
+  ],
+  "pair_explain": "Use the meaning in a sentence of your own. If the sentence makes sense, you have checked more than the sound of the word.",
+  "sequence_explain": "Compare the first letters. If they match, compare the next letters until you find a difference."
  },
  "phys.0.push-pull": {
   "group_prompt": "Which one is a {}?",
@@ -1683,38 +1664,17 @@
   "sequence_say": "Tap them in order, from the gentlest push to the strongest.",
   "sequences": [
    [
-    "a tap",
-    "a nudge",
-    "a shove"
+    "a gentle push",
+    "a medium push",
+    "a strong push"
    ],
    [
-    "blowing",
-    "pushing",
-    "kicking"
-   ],
-   [
-    "a feather blown",
-    "a marble rolled",
-    "a ball kicked",
-    "a door slammed",
+    "the trolley is still",
+    "start pushing the trolley",
+    "the trolley begins moving",
     {
-     "prompt": "Put them in order, gentlest push first"
-    }
-   ],
-   [
-    "it is still",
-    "it moves",
-    "it speeds up",
-    {
-     "prompt": "Put them in the order they happen"
-    }
-   ],
-   [
-    "press",
-    "push",
-    "shove",
-    {
-     "prompt": "Put them in order, gentlest first"
+     "prompt": "Put this trolley experiment in order",
+     "explain": "The trolley begins at rest. Applying a sufficient push starts its movement."
     }
    ]
   ],
@@ -1771,7 +1731,9 @@
     ],
     "explain": "The heavier the thing, the more force it takes to shift it."
    }
-  ]
+  ],
+  "pair_explain": "A push is a force away from you. What moves depends on the object's shape and whether anything holds it still.",
+  "sequence_explain": "Compare the strength named in each example. A gentle push gives less of a change than a strong push on the same object."
  },
  "phys.0.light-shadow": {
   "group_prompt": "Which one gives off its own {}?",
@@ -1790,73 +1752,44 @@
    ]
   },
   "group_not_prompt": "Which one does NOT give off {}?",
-  "pair_prompt": "Can light go through {}?",
+  "pair_prompt": "What happens behind {} when a torch shines on it?",
   "pairs": [
    [
     "clear glass",
-    "yes, straight through"
+    "a clear beam gets through"
    ],
    [
     "a brick wall",
-    "no, not at all"
+    "no beam gets through"
    ],
    [
     "thin paper",
-    "some of it gets through"
+    "a scattered glow gets through"
    ],
    [
     "a wooden door",
-    "no, not at all"
+    "no beam gets through"
    ],
    [
     "clean water",
-    "yes, straight through"
+    "a clear beam gets through"
    ],
    [
     "frosted glass",
-    "some of it gets through"
+    "a scattered glow gets through"
    ],
    [
     "a metal tin",
-    "no, not at all"
+    "no beam gets through"
    ]
   ],
-  "sequence_prompt": "Put them in order, smallest shadow first",
-  "sequence_say": "Tap them in order, from the smallest shadow to the biggest.",
+  "sequence_prompt": "A fixed torch shines at a fixed wall. Move the same object between them: order its positions by shadow size, smallest first",
+  "sequence_say": "A fixed torch shines at a fixed wall. Move the same object between them: order its positions by shadow size, smallest first.",
   "sequences": [
    [
-    "a coin",
-    "a hand",
-    "a person",
-    "a tree"
-   ],
-   [
-    "midday",
-    "afternoon",
-    "sunset"
-   ],
-   [
-    "a pin",
-    "a pencil",
-    "a chair",
-    "a house"
-   ],
-   [
-    "a bright torch",
-    "a candle",
-    "a dim glow",
-    {
-     "prompt": "Put them in order, brightest first"
-    }
-   ],
-   [
-    "light",
-    "shade",
-    "shadow",
-    "darkness",
-    {
-     "prompt": "Put them in order, brightest first"
-    }
+    "the object is far from the torch",
+    "the object is halfway to the torch",
+    "the object is close to the torch"
    ]
   ],
   "facts": [
@@ -1914,12 +1847,9 @@
   "group_not_cats": [
    "light"
   ],
-  "extras": [
-   "fog",
-   "a wet towel",
-   "a warm summer evening",
-   "a bright shining silver spoon on the table"
-  ]
+  "extras": [],
+  "pair_explain": "Transparent things let much light through; opaque things block it. Try looking for what you can see through the material.",
+  "sequence_explain": "Closer to the torch, the object blocks a wider cone of light and makes a larger shadow on the wall."
  },
  "phys.0.hot-cold": {
   "group_prompt": "Which one is usually {}?",
@@ -2000,15 +1930,6 @@
     "chilled",
     "room warm",
     "steaming"
-   ],
-   [
-    "snow",
-    "rain",
-    "sunshine",
-    "fire",
-    {
-     "prompt": "Put them in order, coldest first"
-    }
    ]
   ],
   "facts": [
@@ -2052,7 +1973,9 @@
     ],
     "explain": "It gives its heat to the cooler room until they match."
    }
-  ]
+  ],
+  "pair_explain": "Heating transfers energy into something. Some materials melt; others soften or change in a different way.",
+  "sequence_explain": "Compare temperatures, not how large the objects look. Cold water can warm before it becomes hot water."
  },
  "phys.0.float-sink": {
   "group_prompt": "Which one usually {} in water?",
@@ -2105,36 +2028,13 @@
     "it floats high, it is full of tiny air pockets"
    ]
   ],
-  "sequence_prompt": "Put them in order, most floaty first",
-  "sequence_say": "Tap them in order, from the one that floats best to the one that sinks fastest.",
+  "sequence_prompt": "Order these observed positions in a water tank, highest first",
+  "sequence_say": "Order these observed positions in a water tank, highest first.",
   "sequences": [
-   [
-    "a cork",
-    "a wooden block",
-    "a plastic brick",
-    "a stone"
-   ],
-   [
-    "a feather",
-    "a cork",
-    "a candle",
-    "a stone"
-   ],
-   [
-    "an empty bottle",
-    "a half-full bottle",
-    "a full bottle",
-    {
-     "prompt": "Put them in order, most floaty first"
-    }
-   ],
    [
     "floats high",
     "floats low",
-    "sinks",
-    {
-     "prompt": "Put them in order, most floaty first"
-    }
+    "rests on the bottom"
    ]
   ],
   "facts": [
@@ -2149,14 +2049,14 @@
     "explain": "The air inside makes the whole ship light for its size."
    },
    {
-    "q": "What happens if you fill a floating bottle with water?",
+    "q": "An empty glass bottle floats with its lid on. What happens if it fills completely with water?",
     "a": "it sinks",
     "d": [
      "it floats higher",
      "it turns over",
      "it stays the same"
     ],
-    "explain": "Full of water it is no lighter than the water around it."
+    "explain": "The glass and water together weigh more than the water the full bottle pushes aside, so it sinks."
    },
    {
     "q": "Something that floats is doing what to the water?",
@@ -2169,25 +2069,20 @@
     "explain": "A floating thing pushes water aside, and the water pushes back."
    },
    {
-    "q": "Which is more likely to float, a flat shape or a tight ball of clay?",
-    "a": "the flat shape",
+    "q": "Which shape helps clay float: an open hollow boat or a solid ball?",
+    "a": "the open hollow boat",
     "d": [
-     "the tight ball",
-     "both the same",
-     "neither one"
+     "the solid ball",
+     "both float equally well",
+     "neither shape can ever float"
     ],
-    "explain": "Spread flat it pushes more water aside than the same clay squeezed small.",
+    "explain": "A hollow boat holds air and can push aside enough water to support its weight. A solid ball of the same clay sinks.",
     "keep": true
    }
   ],
-  "extras": [
-   "a song",
-   "a smell",
-   "a shadow",
-   "a warm breeze",
-   "a sunny morning",
-   "a loud noise"
-  ]
+  "extras": [],
+  "pair_explain": "Floating depends on how an object and its trapped air compare with the water it pushes aside. Heavy objects can float too.",
+  "sequence_explain": "Compare where the object actually rests. Floating depends on the object and the water, not just its material name."
  },
  "phys.1.motion": {
   "group_prompt": "Which one is {}?",
@@ -2242,8 +2137,8 @@
     "the air pushing back"
    ]
   ],
-  "sequence_prompt": "Put them in order, slowest first",
-  "sequence_say": "Tap them in order, from the slowest to the fastest.",
+  "sequence_prompt": "Compare typical examples moving as named, slowest first",
+  "sequence_say": "Compare typical examples moving as named, slowest first.",
   "sequences": [
    [
     "a snail",
@@ -2270,12 +2165,6 @@
     {
      "prompt": "Put them in the order they happen"
     }
-   ],
-   [
-    "a snail",
-    "a tortoise",
-    "a person",
-    "a horse"
    ]
   ],
   "facts": [
@@ -2329,7 +2218,9 @@
     ],
     "explain": "Friction is the rubbing between two surfaces."
    }
-  ]
+  ],
+  "pair_explain": "Friction and other opposing forces slow moving things. Look for what touches or resists the moving object.",
+  "sequence_explain": "Compare distance travelled in the same time. The one that covers less distance is slower."
  },
  "phys.1.machines": {
   "group_prompt": "Which one is a {}?",
@@ -2475,7 +2366,9 @@
     ],
     "explain": "They trade a big effort over a short way for a small one over a long way."
    }
-  ]
+  ],
+  "pair_explain": "Simple machines change how a force is applied. A ramp spreads lifting over a longer distance; a lever turns around a support.",
+  "sequence_explain": "Set up the tool before using it. Each action needs the result of the action before it."
  },
  "phys.1.magnets": {
   "group_prompt": "Which one {} a magnet?",
@@ -2483,8 +2376,8 @@
    "sticks to": [
     "an iron nail",
     "a steel paperclip",
-    "a tin lid",
-    "a fridge door"
+    "a tin-plated steel lid",
+    "a steel fridge door"
    ],
    "does not stick to": [
     "a wooden peg",
@@ -2497,35 +2390,35 @@
   "pairs": [
    [
     "two north poles",
-    "they push apart"
+    "repel each other"
    ],
    [
     "two south poles",
-    "they shove each other away"
+    "repel each other"
    ],
    [
     "a north and a south pole",
-    "they snap together"
+    "attract each other"
    ],
    [
     "a magnet and a nail",
-    "they jump together"
+    "attract each other"
    ],
    [
     "a magnet and a plastic spoon",
-    "nothing happens at all"
+    "show no attraction"
    ],
    [
     "a magnet and a wooden block",
-    "nothing moves at all"
+    "show no attraction"
    ],
    [
     "a magnet and a steel pin",
-    "they stick fast"
+    "attract each other"
    ],
    [
     "a magnet and a paper card",
-    "neither one moves"
+    "show no attraction"
    ]
   ],
   "sequence_prompt": "Put them in order, weakest pull first",
@@ -2535,22 +2428,6 @@
     "far away",
     "a little closer",
     "touching"
-   ],
-   [
-    "a plastic peg",
-    "a wooden peg",
-    "a steel pin",
-    {
-     "prompt": "Put them in order, least magnetic first"
-    }
-   ],
-   [
-    "through air",
-    "through paper",
-    "touching",
-    {
-     "prompt": "Put them in order, weakest pull first"
-    }
    ],
    [
     "no pull",
@@ -2607,20 +2484,14 @@
     "a": "the north",
     "d": [
      "the south",
-     "the sunrise",
-     "the nearest hill"
+     "the east",
+     "the west"
     ],
     "explain": "The needle is a magnet lining up with the Earth's own magnetism."
    }
   ],
-  "extras": [
-   "a leaf",
-   "a song",
-   "a shadow",
-   "a paper hat",
-   "a woollen sock",
-   "a glass of water"
-  ]
+  "pair_explain": "Like magnetic poles repel and unlike poles attract. Turn one magnet around to change which poles face each other.",
+  "sequence_explain": "Compare the pull in the conditions given. A magnet generally pulls less strongly when it is farther away."
  },
  "phys.1.sound": {
   "group_prompt": "Which one is a {} sound?",
@@ -2685,8 +2556,8 @@
     "the metal"
    ]
   ],
-  "sequence_prompt": "Put them in order, quietest first",
-  "sequence_say": "Tap them in order, from the quietest to the loudest.",
+  "sequence_prompt": "Compare typical sounds heard from the same distance, quietest first",
+  "sequence_say": "Compare typical sounds heard from the same distance, quietest first.",
   "sequences": [
    [
     "a whisper",
@@ -2695,22 +2566,10 @@
     "a thunderclap"
    ],
    [
-    "a mouse",
-    "a cat",
-    "a dog",
-    "a lion"
-   ],
-   [
     "a pin dropping",
     "a footstep",
     "a clap",
     "a bang"
-   ],
-   [
-    "a squeak",
-    "a voice",
-    "a drum",
-    "a foghorn"
    ],
    [
     "strike it",
@@ -2783,7 +2642,9 @@
     "explain": "Pitch is how high or low a sound is; volume is how loud.",
     "keep": true
    }
-  ]
+  ],
+  "pair_explain": "Sound begins with a vibration. Find the part that moves back and forth, then think how that motion reaches the air.",
+  "sequence_explain": "Compare loudness in the examples given. Loudness is different from pitch: a low note can be quiet."
  },
  "phys.1.light": {
   "group_prompt": "Which colour is in the {} of a rainbow?",
@@ -2932,7 +2793,9 @@
    "a bell",
    "a thick woollen scarf",
    "the noise a lorry makes going past the window"
-  ]
+  ],
+  "pair_explain": "Mixing coloured light adds light to your eye. It works differently from mixing paints that absorb light.",
+  "sequence_explain": "A rainbow spreads white light into colours. Follow the colour band from its red end towards violet."
  },
  "phys.1.energy": {
   "group_prompt": "Which one gives us {}?",
@@ -3071,7 +2934,9 @@
     ],
     "explain": "The energy left the battery and became light, heat and movement."
    }
-  ]
+  ],
+  "pair_explain": "Energy comes from a source and can change form. Trace back what supplies the light, warmth or movement.",
+  "sequence_explain": "Follow the energy from its source to the thing it powers. The effect comes after the transfer."
  },
  "bio.0.living": {
   "group_prompt": "Which one is {}?",
@@ -3082,17 +2947,17 @@
     "a beetle",
     "a person"
    ],
-   "not living": [
-    "a rock",
-    "a spoon",
-    "a chair",
-    "a pebble"
-   ],
    "once living": [
     "a log",
-    "a fallen leaf",
-    "a seashell",
-    "a feather"
+    "a dried leaf",
+    "a dried flower",
+    "a dead insect"
+   ],
+   "not living and has never been alive": [
+    "a rock",
+    "a steel spoon",
+    "a steel chair",
+    "a pebble"
    ]
   },
   "pair_prompt": "What does every living thing need to do with {}?",
@@ -3133,19 +2998,10 @@
     "an ant",
     "a mouse",
     "a dog",
-    "an elephant"
-   ],
-   [
-    "a seed",
-    "a shoot",
-    "a plant",
-    "a tree"
-   ],
-   [
-    "a seed",
-    "a seedling",
-    "a bush",
-    "a tree"
+    "an elephant",
+    {
+     "prompt": "Compare typical adult examples, smallest first"
+    }
    ],
    [
     "an egg",
@@ -3159,7 +3015,10 @@
     "a baby",
     "a toddler",
     "a child",
-    "a grown-up"
+    "a grown-up",
+    {
+     "prompt": "Put the human growth stages in order, starting with a baby"
+    }
    ]
   ],
   "facts": [
@@ -3207,7 +3066,18 @@
     "explain": "It grows, it takes in water, and it makes seeds — all things living things do.",
     "keep": true
    }
-  ]
+  ],
+  "pair_explain": "Living things need resources to grow and keep their bodies working. Think about what the resource helps them do.",
+  "sequence_explain": "Compare the sizes described, or follow the growth stages. A young living thing changes as it grows.",
+  "pair_questions": {
+   "food": "Why does an animal need food?",
+   "water": "Why does an animal need water?",
+   "air": "What does an animal do with air?",
+   "rest": "What can an animal do when tired?",
+   "warmth": "What helps an animal when it is cold?",
+   "space": "Why does a growing plant need space?",
+   "young": "What does reproducing mean?"
+  }
  },
  "bio.0.animals": {
   "group_prompt": "Which one is a {}?",
@@ -3268,41 +3138,14 @@
     "a croak"
    ]
   ],
-  "sequence_prompt": "Put them in order, smallest first",
-  "sequence_say": "Tap the animals in order, from the smallest to the biggest.",
+  "sequence_prompt": "Compare typical adults of a house mouse, house cat, horse and elephant, smallest first",
+  "sequence_say": "Compare typical adults of a house mouse, house cat, horse and elephant, smallest first.",
   "sequences": [
    [
     "a mouse",
     "a cat",
     "a horse",
     "an elephant"
-   ],
-   [
-    "an ant",
-    "a bee",
-    "a bird",
-    "an eagle"
-   ],
-   [
-    "an ant",
-    "a beetle",
-    "a frog",
-    "a fox"
-   ],
-   [
-    "a chick",
-    "a hen",
-    "a goose",
-    "a swan",
-    {
-     "prompt": "Put them in order, smallest first"
-    }
-   ],
-   [
-    "a minnow",
-    "a trout",
-    "a salmon",
-    "a shark"
    ]
   ],
   "facts": [
@@ -3356,7 +3199,9 @@
     ],
     "explain": "A kangaroo's baby is tiny at birth and finishes growing in the pouch."
    }
-  ]
+  ],
+  "pair_explain": "Listen to an animal's call and imitate it. Different calls help animals communicate, although one animal can make several sounds.",
+  "sequence_explain": "Compare typical grown animals in these examples. Real individuals vary, so use the sizes described."
  },
  "bio.0.plants": {
   "group_prompt": "Which one does a plant need to {}?",
@@ -3490,7 +3335,9 @@
    "a plastic bag",
    "a pile of bricks",
    "a rusty old nail"
-  ]
+  ],
+  "pair_explain": "A plant has parts with different jobs. Roots take in water; leaves use light to help make food.",
+  "sequence_explain": "A seed must begin growing before it can become a mature plant. Trace what changes at each step."
  },
  "bio.0.body": {
   "group_prompt": "Which one is part of your {}?",
@@ -3629,7 +3476,9 @@
     ],
     "explain": "Without a skeleton you would have no shape to stand up in."
    }
-  ]
+  ],
+  "pair_explain": "Your senses collect different kinds of information. Match the action to what your body needs to detect.",
+  "sequence_explain": "Picture a person standing upright. Start at the head and move down towards the feet."
  },
  "bio.0.seasons": {
   "group_prompt": "Which one happens in {}?",
@@ -3685,7 +3534,10 @@
     "spring",
     "summer",
     "autumn",
-    "winter"
+    "winter",
+    {
+     "prompt": "Put the seasons in yearly order, starting with spring"
+    }
    ],
    [
     "planting",
@@ -3737,7 +3589,9 @@
     ],
     "explain": "Spring brings warmth and rain together, which is what a seed needs."
    }
-  ]
+  ],
+  "pair_explain": "Trees respond to changes in light and temperature. Many trees lose leaves before the colder part of the year.",
+  "sequence_explain": "The seasons repeat in a cycle. Start at the season named and follow the next one around the year."
  },
  "bio.1.habitats": {
   "group_prompt": "Which animal lives in the {}?",
@@ -3798,25 +3652,13 @@
     "a badger's home"
    ]
   ],
-  "sequence_prompt": "Put them in order, smallest home first",
-  "sequence_say": "Tap them in order, from the smallest home to the biggest.",
+  "sequence_prompt": "Compare typical examples of these bodies of water, smallest first",
+  "sequence_say": "Compare typical examples of these bodies of water, smallest first.",
   "sequences": [
-   [
-    "a nest",
-    "a tree",
-    "a wood",
-    "a forest"
-   ],
    [
     "a rock pool",
     "a bay",
     "an ocean"
-   ],
-   [
-    "a burrow",
-    "a hedge",
-    "a field",
-    "a whole valley"
    ],
    [
     "a puddle",
@@ -3826,12 +3668,6 @@
     {
      "prompt": "Put them in order, smallest first"
     }
-   ],
-   [
-    "a nest",
-    "a branch",
-    "a tree",
-    "a wood"
    ]
   ],
   "facts": [
@@ -3875,7 +3711,9 @@
     ],
     "explain": "The food, water and shelter go with it, so the animals have to move or die."
    }
-  ]
+  ],
+  "pair_explain": "A habitat supplies shelter, food and suitable conditions. Think about what the animal needs in its home.",
+  "sequence_explain": "Compare the extent of the homes described, from a small shelter to a wider habitat."
  },
  "bio.1.food-chains": {
   "group_prompt": "Which one is a {}?",
@@ -3992,7 +3830,9 @@
     ],
     "explain": "Nothing is eating them, so more rabbits survive to have young."
    }
-  ]
+  ],
+  "pair_explain": "Food transfers energy between living things. Find what the animal can actually eat in its habitat.",
+  "sequence_explain": "Begin with the producer, then the animal that eats it, then its consumer. The arrows follow food energy."
  },
  "bio.1.plants-parts": {
   "group_prompt": "Which one is a plant's {}?",
@@ -4066,7 +3906,11 @@
     "a seed",
     "a root",
     "a stem",
-    "a leaf"
+    "a leaf",
+    {
+     "prompt": "Put these stages of germination in order, starting with a seed",
+     "explain": "The first root emerges from the seed before the shoot develops a stem and leaves."
+    }
    ],
    [
     "a bud",
@@ -4127,7 +3971,9 @@
     ],
     "explain": "The fruit is the plant's way of getting its seeds carried somewhere new."
    }
-  ]
+  ],
+  "pair_explain": "Match the job to the structure. Roots anchor and absorb; stems support and carry; leaves collect light.",
+  "sequence_explain": "Picture the plant rooted in the soil. Work upwards from the buried parts towards the top."
  },
  "bio.1.human-body": {
   "group_prompt": "Which organ is part of the {}?",
@@ -4226,7 +4072,8 @@
     "the lungs",
     "the blood",
     {
-     "prompt": "Put them in the order air travels"
+     "prompt": "Trace inhaled oxygen from the nose into the bloodstream",
+     "explain": "Air carries oxygen to the lungs. Oxygen crosses from the lungs into blood; the air itself does not enter the bloodstream."
     }
    ]
   ],
@@ -4281,7 +4128,9 @@
     ],
     "explain": "Skin covers all of you, keeps water in and germs out."
    }
-  ]
+  ],
+  "pair_explain": "Body parts work together. Ask what enters that part, what it does, and where the result goes.",
+  "sequence_explain": "Trace the path through the body. One part passes material or information to the next."
  },
  "bio.1.health": {
   "group_prompt": "Which one keeps you {}?",
@@ -4337,27 +4186,12 @@
   "sequence_say": "Tap the steps in the order you do them.",
   "sequences": [
    [
-    "have dinner",
-    "take a bath",
-    "brush your teeth",
-    "go to sleep"
-   ],
-   [
     "wet your hands",
     "use the soap",
     "rinse them off",
     "dry them",
     {
      "prompt": "Put the hand-washing steps in order"
-    }
-   ],
-   [
-    "wake up",
-    "wash",
-    "dress",
-    "eat breakfast",
-    {
-     "prompt": "Put the morning steps in order"
     }
    ],
    [
@@ -4450,7 +4284,9 @@
    "a paint set",
    "a football sticker",
    "a bag of marbles"
-  ]
+  ],
+  "pair_explain": "Healthy habits have reasons: cleaning removes dirt and germs, rest helps recovery, and movement exercises the body.",
+  "sequence_explain": "Think about what must happen first for the next step to work. Rinsing comes after washing, and drying after rinsing."
  },
  "chem.0.materials": {
   "group_prompt": "Which one is made of {}?",
@@ -4529,41 +4365,13 @@
     "twisted fibre"
    ]
   ],
-  "sequence_prompt": "Put them in order, softest first",
-  "sequence_say": "Tap them in order, from the softest to the hardest.",
+  "sequence_prompt": "Follow a dry sponge as it is put into water",
+  "sequence_say": "Follow a dry sponge as it is put into water.",
   "sequences": [
    [
-    "a feather",
-    "a sponge",
-    "wood",
-    "stone"
-   ],
-   [
-    "cotton",
-    "paper",
-    "plastic",
-    "metal"
-   ],
-   [
-    "wool",
-    "paper",
-    "wood",
-    "stone"
-   ],
-   [
-    "a feather",
-    "a leaf",
-    "a coin",
-    "a brick"
-   ],
-   [
-    "cotton",
-    "rubber",
-    "glass",
-    "steel",
-    {
-     "prompt": "Put them in order, softest first"
-    }
+    "a dry sponge",
+    "a sponge soaking up water",
+    "a wet sponge"
    ]
   ],
   "facts": [
@@ -4607,7 +4415,9 @@
     ],
     "explain": "You need to see out, and you cannot see through wood."
    }
-  ]
+  ],
+  "pair_explain": "Choose a material by its useful properties. The same object can sometimes be made from several materials.",
+  "sequence_explain": "The sponge absorbs water into its spaces. Its material stays the same while its water content changes."
  },
  "chem.0.mixing": {
   "group_prompt": "Which one {} in water?",
@@ -4681,7 +4491,8 @@
     "mixed",
     "dissolved",
     {
-     "prompt": "Put them in the order it happens"
+     "prompt": "Follow a little sugar stirred into enough water until it dissolves",
+     "explain": "Mixing brings sugar and water together. Dissolving spreads sugar particles through the water; not every mixture dissolves."
     }
    ],
    [
@@ -4698,9 +4509,9 @@
     "q": "When sugar dissolves, where has it gone?",
     "a": "spread through the water",
     "d": [
-     "turned into the water",
-     "vanished from the world",
-     "stuck to the spoon"
+     "changed into water",
+     "vanished forever",
+     "stuck in a layer under the spoon"
     ],
     "explain": "It has broken into pieces too small to see, spread all through the water."
    },
@@ -4708,9 +4519,9 @@
     "q": "How can you get salt back from salty water?",
     "a": "let the water dry up",
     "d": [
-     "stir it round faster",
-     "add a lot more salt",
-     "pour it into a jug"
+     "stir it faster",
+     "add more salt to the water",
+     "pour it carefully into a different jug"
     ],
     "explain": "The water leaves as vapour and the salt cannot, so the salt stays behind."
    },
@@ -4718,9 +4529,9 @@
     "q": "What happens if you leave oil and water to stand?",
     "a": "they split into layers",
     "d": [
-     "they join up for good",
-     "they both disappear",
-     "they turn into ice"
+     "join up for good",
+     "disappear completely from the container",
+     "freeze without being cooled"
     ],
     "explain": "Oil is lighter than water and does not mix into it, so it floats on top."
    },
@@ -4728,29 +4539,16 @@
     "q": "What helps sugar dissolve faster?",
     "a": "warm water and stirring",
     "d": [
-     "cold water and waiting",
-     "adding a lot of sand",
-     "covering it with a lid"
+     "cold water and no stirring",
+     "a spoonful of coarse dry sand",
+     "a closed lid without any stirring"
     ],
     "explain": "Warmth and stirring both keep pushing the water past the sugar."
    }
   ],
-  "extras": [
-   "a rock",
-   "a nail",
-   "a brick",
-   "a wooden spoon",
-   "a paper napkin",
-   "a rubber band",
-   "ice",
-   "foam",
-   "a dry cloth",
-   "a spoonful of dry sand",
-   "the smell of the kitchen when something is baking",
-   "it turns into a completely different substance that cannot be separated again",
-   "the water disappears altogether and leaves nothing at all behind in the jar",
-   "everything settles into neat coloured layers you can lift out one at a time"
-  ]
+  "extras": [],
+  "pair_explain": "Mixing brings materials together. Some dissolve, some stay separate, and some make a new substance.",
+  "sequence_explain": "Gather the materials before combining them. Observe the mixture after you have mixed it."
  },
  "chem.0.water-states": {
   "group_prompt": "Which one is water as a {}?",
@@ -4808,39 +4606,14 @@
     "it bubbles into steam"
    ]
   ],
-  "sequence_prompt": "Put them in order, coldest first",
-  "sequence_say": "Tap them in order, from the coldest to the hottest.",
+  "sequence_prompt": "Follow ice heated steadily in an open pan at ordinary air pressure",
+  "sequence_say": "Follow ice heated steadily in an open pan at ordinary air pressure.",
   "sequences": [
    [
-    "ice",
-    "cold water",
-    "warm water",
-    "steam"
-   ],
-   [
-    "a snowflake",
-    "a puddle",
-    "a cloud of steam"
-   ],
-   [
-    "an icicle",
-    "a puddle",
-    "a kettle",
-    "steam"
-   ],
-   [
-    "frozen",
-    "melting",
-    "warm",
-    "boiling",
-    {
-     "prompt": "Put them in order, coldest first"
-    }
-   ],
-   [
-    "ice",
-    "water",
-    "vapour"
+    "ice begins to melt",
+    "all the ice has become liquid",
+    "the liquid warms",
+    "the water boils"
    ]
   ],
   "facts": [
@@ -4884,7 +4657,9 @@
     ],
     "explain": "Ice is the same water, just held still. Melt it and you have the water back."
    }
-  ]
+  ],
+  "pair_explain": "Cooling can freeze water; warming can melt ice. Water stays water when its state changes.",
+  "sequence_explain": "Heat first melts the ice. After melting, further heating raises the liquid temperature until it boils. Water vapour can also exist at lower temperatures."
  },
  "chem.1.matter": {
   "group_prompt": "Which one is a {}?",
@@ -4908,65 +4683,44 @@
     "our breath"
    ]
   },
-  "pair_prompt": "Does a {} keep its own shape?",
+  "pair_prompt": "How does {} behave?",
   "pairs": [
    [
     "solid",
-    "yes, it holds its shape"
+    "keeps its own shape"
    ],
    [
     "liquid",
-    "no, it takes the shape of the cup"
+    "flows but keeps its volume"
    ],
    [
     "gas",
-    "no, it fills the whole room"
+    "spreads through available space"
    ],
    [
     "brick",
-    "yes, it holds its shape"
+    "keeps its own shape"
    ],
    [
     "glass of milk",
-    "no, it takes the shape of the cup"
+    "flows but keeps its volume"
    ],
    [
     "balloon of air",
-    "no, it fills the whole balloon"
+    "spreads through available space"
    ],
    [
     "wooden block",
-    "yes, it holds its shape"
+    "keeps its own shape"
    ]
   ],
-  "sequence_prompt": "Put them in order, most packed first",
-  "sequence_say": "Tap them in order, from the most tightly packed to the loosest.",
+  "sequence_prompt": "Put the states in order as ice is heated, melts, then boils",
+  "sequence_say": "Follow the changes as ice is heated, melts, then boils.",
   "sequences": [
    [
-    "solid",
-    "liquid",
-    "gas"
-   ],
-   [
     "ice",
-    "water",
-    "steam"
-   ],
-   [
-    "a brick",
-    "milk",
-    "the air",
-    {
-     "prompt": "Put them in order, most tightly packed first"
-    }
-   ],
-   [
-    "packed tight",
-    "sliding past",
-    "flying apart",
-    {
-     "prompt": "Put them in order, most tightly packed first"
-    }
+    "liquid water",
+    "water vapour"
    ]
   ],
   "facts": [
@@ -4981,14 +4735,14 @@
     "explain": "Solid, liquid and gas."
    },
    {
-    "q": "In which state are the tiny pieces packed tightest?",
+    "q": "In which state do particles vibrate around fixed positions?",
     "a": "in a solid",
     "d": [
      "in a liquid",
      "in a gas",
      "in a vapour"
     ],
-    "explain": "In a solid the pieces are packed tight and cannot move past each other."
+    "explain": "Particles in a solid vibrate but keep their places relative to one another. In liquids they can move past one another."
    },
    {
     "q": "What shape does a liquid take?",
@@ -5010,7 +4764,9 @@
     ],
     "explain": "A gas spreads out to fill whatever it is in, however big."
    }
-  ]
+  ],
+  "pair_explain": "A solid keeps its shape; a liquid flows to fit a container; a gas spreads through available space.",
+  "sequence_explain": "Heating ice melts it into liquid water. Further heating to boiling changes liquid water into water vapour."
  },
  "chem.1.changes": {
   "group_prompt": "Which one is a change you {}?",
@@ -5158,7 +4914,9 @@
    "the smell of it",
    "a very long afternoon nap",
    "the sound a kettle makes when it boils"
-  ]
+  ],
+  "pair_explain": "Ask whether a new substance forms. A change of shape or state alone does not make a new substance.",
+  "sequence_explain": "Follow the cause before its result. Heating or mixing must happen before you observe the change it makes."
  },
  "chem.1.materials-props": {
   "group_prompt": "Which material is {}?",
@@ -5219,41 +4977,13 @@
     "it soaks the water up"
    ]
   ],
-  "sequence_prompt": "Put them in order, weakest first",
-  "sequence_say": "Tap them in order, from the weakest to the strongest.",
+  "sequence_prompt": "Follow a strength test as identical weights are added one at a time",
+  "sequence_say": "Follow a strength test as identical weights are added one at a time.",
   "sequences": [
    [
-    "tissue paper",
-    "card",
-    "wood",
-    "steel"
-   ],
-   [
-    "a sponge",
-    "rubber",
-    "glass",
-    "diamond"
-   ],
-   [
-    "a sponge",
-    "rubber",
-    "wood",
-    "stone"
-   ],
-   [
-    "paper",
-    "card",
-    "plywood",
-    "steel plate"
-   ],
-   [
-    "a thread",
-    "a string",
-    "a rope",
-    "a cable",
-    {
-     "prompt": "Put them in order, weakest first"
-    }
+    "the sample supports one weight",
+    "the sample supports two weights",
+    "the sample breaks under three weights"
    ]
   ],
   "facts": [
@@ -5297,7 +5027,9 @@
     ],
     "explain": "Wood is slow to carry heat, so the handle stays cool while the pan is hot."
    }
-  ]
+  ],
+  "pair_explain": "A useful material has properties that fit its job. Waterproof, flexible and strong describe different abilities.",
+  "sequence_explain": "Strength is measured under stated conditions. Add equal loads and record when the sample fails; material names alone do not determine the result."
  },
  "cs.0.instructions": {
   "group_prompt": "Which one is a good {}?",
@@ -5350,12 +5082,6 @@
   "sequence_say": "Tap the instructions in the order you would do them.",
   "sequences": [
    [
-    "get the bread",
-    "spread the butter",
-    "cut it in half",
-    "eat it up"
-   ],
-   [
     "put on socks",
     "put on shoes",
     "tie the laces"
@@ -5364,6 +5090,7 @@
     "turn on the tap",
     "wet your hands",
     "use the soap",
+    "rinse off the soap",
     "dry them"
    ]
   ],
@@ -5408,7 +5135,9 @@
     ],
     "explain": "A set of instructions is the whole job written out step by step."
    }
-  ]
+  ],
+  "pair_explain": "An instruction tells someone exactly what to do. Check what the previous step leaves ready for the next one.",
+  "sequence_explain": "Try acting out the steps. If a step needs something you have not done yet, it belongs later."
  },
  "cs.0.sorting": {
   "group_prompt": "Which one could you sort things by {}?",
@@ -5526,7 +5255,9 @@
     ],
     "explain": "Putting them in order means arranging them along one measure, like size."
    }
-  ]
+  ],
+  "pair_explain": "Choose one rule, such as colour or shape, and apply it to every object. Changing the rule halfway makes mixed groups.",
+  "sequence_explain": "Compare each item by the same rule. Select the smallest remaining item each time."
  },
  "cs.1.algorithms": {
   "group_prompt": "Which one is a step in {}?",
@@ -5664,7 +5395,9 @@
     ],
     "explain": "The steps have to be clear enough for anyone, or anything, to follow."
    }
-  ]
+  ],
+  "pair_explain": "An algorithm is a sequence of clear steps. The first step prepares what later steps need.",
+  "sequence_explain": "Pretend you are a machine following only the instructions given. Put each prerequisite before the action that needs it."
  },
  "cs.1.binary": {
   "group_prompt": "Which one is like a {}?",
@@ -5812,7 +5545,9 @@
    "a sound clip",
    "a paper letter",
    "a hand-drawn map"
-  ]
+  ],
+  "pair_explain": "Binary places count ones, twos, fours and eights. Add the place values whose digits are one.",
+  "sequence_explain": "Work out each value by adding its one bits. Then compare the values, not the number of ink marks."
  },
  "cs.1.blocks": {
   "group_prompt": "Which block would you use to make a sprite {}?",
@@ -5878,21 +5613,13 @@
   "sequences": [
    [
     "when flag clicked",
-    "go forward ten",
-    "turn right",
-    "say hello"
-   ],
-   [
-    "when flag clicked",
-    "repeat four",
-    "go forward",
-    "turn right"
-   ],
-   [
-    "when flag clicked",
     "say hello",
     "wait one second",
-    "hide"
+    "hide",
+    {
+     "prompt": "Build a program that starts on the flag, greets you, pauses, then disappears",
+     "explain": "The event starts the program. The greeting must appear before the pause, and hiding ends the display."
+    }
    ],
    [
     "choose a sprite",
@@ -5954,7 +5681,9 @@
     ],
     "explain": "The computer did exactly what you wrote; a bug means what you wrote was wrong."
    }
-  ]
+  ],
+  "pair_explain": "A block is an instruction with a particular job. Repeating, moving and choosing are different kinds of job.",
+  "sequence_explain": "Read the blocks as a program. Starting comes first; actions inside a repeat happen when that repeat runs."
  },
  "cs.1.parts": {
   "group_prompt": "Which part is used to {}?",
@@ -6091,7 +5820,9 @@
     "explain": "A printer takes what is inside and puts it out onto paper.",
     "keep": true
    }
-  ]
+  ],
+  "pair_explain": "Computer parts have different jobs: input brings information in, processing works on it, and output presents a result.",
+  "sequence_explain": "Follow information from the input through processing to the output. The result needs the input first."
  },
  "hist.0.family": {
   "group_prompt": "Which one is from {}?",
@@ -6150,10 +5881,10 @@
     "child"
    ],
    [
-    "a baby",
-    "a child",
+    "an old person",
     "a grown-up",
-    "an old person"
+    "a child",
+    "a baby"
    ],
    [
     "your great-grandparent",
@@ -6162,9 +5893,9 @@
     "you"
    ],
    [
-    "a baby",
+    "a grown-up",
     "a child",
-    "a grown-up"
+    "a baby"
    ],
    [
     "long ago",
@@ -6228,7 +5959,9 @@
    "a games console",
    "toast",
    "a rocket that can fly to the Moon and back"
-  ]
+  ],
+  "pair_explain": "Trace one family link at a time. Your mother's relative is related to you through her.",
+  "sequence_explain": "Compare generations before ages within a generation. Use the people and ages specified in the question."
  },
  "hist.0.community": {
   "group_prompt": "Who works in a {}?",
@@ -6376,7 +6109,9 @@
    "the town clock",
    "a very long queue at the post office",
    "the sound of the school bell at the end of the day"
-  ]
+  ],
+  "pair_explain": "Community helpers have different training and tools. Match the problem to the person whose work addresses it.",
+  "sequence_explain": "Identify the problem before seeking help. Follow the safe steps stated rather than rushing to the result."
  },
  "hist.0.longago": {
   "group_prompt": "Which one is from {}?",
@@ -6433,17 +6168,6 @@
     "a steam train",
     "a motor car",
     "an aeroplane"
-   ],
-   [
-    "a candle",
-    "an oil lamp",
-    "an electric bulb"
-   ],
-   [
-    "a cave",
-    "a hut",
-    "a house",
-    "a tower block"
    ]
   ],
   "facts": [
@@ -6487,7 +6211,9 @@
     ],
     "explain": "A historian studies the past using the evidence it left."
    }
-  ]
+  ],
+  "pair_explain": "People solved the same needs with different tools in the past. Compare the job of the old tool with the newer one.",
+  "sequence_explain": "Look for which invention or period existed earlier. Older means earlier in time, not less useful."
  },
  "hist.1.ancient": {
   "group_prompt": "Which one comes from Ancient {}?",
@@ -6634,7 +6360,9 @@
     ],
     "explain": "Hieroglyphs are picture-signs standing for sounds and things."
    }
-  ]
+  ],
+  "pair_explain": "Buildings can show what mattered to a society, such as water, worship or defence. Connect the structure with that purpose.",
+  "sequence_explain": "Use the historical periods or dates. Civilisations can overlap, so follow the specific events named."
  },
  "hist.1.maps": {
   "group_prompt": "Which one would you find on a map of a {}?",
@@ -6761,7 +6489,9 @@
     ],
     "explain": "Africa, Antarctica, Asia, Australia, Europe, North America, South America."
    }
-  ]
+  ],
+  "pair_explain": "A map key explains its symbols and colours. These are common conventions, but always check the key on the actual map.",
+  "sequence_explain": "Think about places inside larger places. A town can lie within a region, and a region within a country."
  },
  "hist.1.inventions": {
   "group_prompt": "Which invention helps us {}?",
@@ -6832,11 +6562,6 @@
     "the computer"
    ],
    [
-    "a candle",
-    "an oil lamp",
-    "a light bulb"
-   ],
-   [
     "a letter",
     "a telephone",
     "the internet"
@@ -6883,7 +6608,9 @@
     ],
     "explain": "Almost every invention is a long line of attempts that did not work."
    }
-  ]
+  ],
+  "pair_explain": "An invention is designed to solve a problem. Name the job it made easier and compare it with what came before.",
+  "sequence_explain": "Think about what technology was available first. Later inventions may depend on earlier discoveries."
  },
  "earth.0.sky": {
   "group_prompt": "Which one do you see in the {}?",
@@ -6998,7 +6725,9 @@
     ],
     "explain": "The stars are still there; daylight in the air simply outshines them."
    }
-  ]
+  ],
+  "pair_explain": "Earth's rotation makes the Sun appear to move across the sky. Its position changes how much daylight reaches you.",
+  "sequence_explain": "Follow one day from its stated beginning. Sunrise comes before the Sun is high, and sunset after it."
  },
  "earth.0.weather": {
   "group_prompt": "Which one is {} weather?",
@@ -7059,46 +6788,14 @@
     "boots with grip"
    ]
   ],
-  "sequence_prompt": "Put them in order, driest first",
-  "sequence_say": "Tap them in order, from the driest weather to the wettest.",
+  "sequence_prompt": "Put the wind descriptions in order, calmest first",
+  "sequence_say": "Put the wind descriptions in order, calmest first.",
   "sequences": [
    [
-    "sunshine",
-    "cloud",
-    "drizzle",
-    "heavy rain"
-   ],
-   [
-    "a breeze",
-    "a strong wind",
-    "a gale",
-    "a storm"
-   ],
-   [
     "still air",
-    "a breeze",
-    "a wind",
-    "a gale",
-    {
-     "prompt": "Put them in order, calmest first"
-    }
-   ],
-   [
-    "clear",
-    "cloudy",
-    "overcast",
-    "stormy",
-    {
-     "prompt": "Put them in order, clearest first"
-    }
-   ],
-   [
-    "frost",
-    "sleet",
-    "snow",
-    {
-     "prompt": "Put them in order, least snowy first"
-    }
+    "a light breeze",
+    "a strong wind",
+    "a gale"
    ]
   ],
   "facts": [
@@ -7142,7 +6839,9 @@
     ],
     "explain": "A meteorologist studies the weather and works out what it will do next."
    }
-  ]
+  ],
+  "pair_explain": "Clothes help your body stay comfortable and protected. Match protection from rain, sun or cold to the weather.",
+  "sequence_explain": "Wind strength describes moving air. A gale is stronger than a breeze; it is not a measure of how much rain falls."
  },
  "earth.0.land-water": {
   "group_prompt": "Which one is a kind of {}?",
@@ -7279,7 +6978,9 @@
    "a car park",
    "a shopping street",
    "a garden shed"
-  ]
+  ],
+  "pair_explain": "Landforms are named by their shapes and surroundings. Ask where the land and water are in relation to each other.",
+  "sequence_explain": "Compare the scale described. A stream is usually smaller than the river it joins."
  },
  "earth.1.seasons": {
   "group_prompt": "Which one happens in {}?",
@@ -7392,7 +7093,9 @@
     ],
     "explain": "The distance barely changes. It is the tilt that does it."
    }
-  ]
+  ],
+  "pair_explain": "Earth's tilt changes daylight through the year. Opposite hemispheres have opposite seasons.",
+  "sequence_explain": "Compare daylight length for the place described. Winter has shorter days and summer longer ones away from the equator."
  },
  "earth.1.solar-system": {
   "group_prompt": "Which one is a {}?",
@@ -7523,7 +7226,9 @@
     ],
     "explain": "The Moon makes no light of its own; it reflects the Sun's."
    }
-  ]
+  ],
+  "pair_explain": "Each world has distinguishing features. Planets orbit the Sun; moons orbit planets.",
+  "sequence_explain": "Start at the Sun and move outward through the planetary orbits. Distance from Earth is a different ordering."
  },
  "earth.1.rocks": {
   "group_prompt": "Which one is a {}?",
@@ -7585,13 +7290,10 @@
     "a grain of sand",
     "a pebble",
     "a stone",
-    "a boulder"
-   ],
-   [
-    "soil",
-    "gravel",
-    "rock",
-    "cliff"
+    "a boulder",
+    {
+     "prompt": "Compare typical loose pieces, smallest first"
+    }
    ],
    [
     "dust",
@@ -7606,14 +7308,6 @@
     "soil",
     {
      "prompt": "Put them in the order it happens"
-    }
-   ],
-   [
-    "mud",
-    "clay",
-    "brick",
-    {
-     "prompt": "Put them in the order it is made"
     }
    ]
   ],
@@ -7692,7 +7386,9 @@
    "a fern",
    "chalk dust",
    "a very old, very slow-moving river of ice that grinds the valley floor beneath it"
-  ]
+  ],
+  "pair_explain": "Rock properties determine useful jobs. Hardness, texture and how it breaks matter more than its colour alone.",
+  "sequence_explain": "Compare the sizes named in these examples. A fragment can be part of a much larger rock formation."
  },
  "earth.1.water-cycle": {
   "group_prompt": "Which one is part of {}?",
@@ -7755,7 +7451,10 @@
     "the sea",
     "water vapour",
     "a cloud",
-    "rain"
+    "rain",
+    {
+     "prompt": "Trace water from the sea through evaporation and clouds to rainfall, starting in the sea"
+    }
    ],
    [
     "rain",
@@ -7808,7 +7507,9 @@
     ],
     "explain": "Rivers carry it back down, and the cycle starts again."
    }
-  ]
+  ],
+  "pair_explain": "Water changes state and moves between air, land and sea. Each process names a different part of that journey.",
+  "sequence_explain": "Start at the place named, then follow the water. Evaporation sends water into air; condensation forms droplets."
  },
  "arts.0.colors": {
   "group_prompt": "Which one is a {} colour?",
@@ -7927,7 +7628,9 @@
     ],
     "explain": "Black swallows the light a colour would otherwise send back."
    }
-  ]
+  ],
+  "pair_explain": "When mixing paints, each paint changes which light is reflected. Try a little of each colour and observe the mixture.",
+  "sequence_explain": "Picture the rainbow as one continuous band, moving from red towards violet."
  },
  "arts.0.drawing": {
   "group_prompt": "Which one is a {}?",
@@ -7997,15 +7700,6 @@
     "add the small marks"
    ],
    [
-    "choose the paper",
-    "sharpen the pencil",
-    "draw",
-    "sign it",
-    {
-     "prompt": "Put the drawing steps in order"
-    }
-   ],
-   [
     "a dot",
     "a line",
     "a shape",
@@ -8073,7 +7767,9 @@
    "a garden rake",
    "a bicycle pump",
    "a pair of boots"
-  ]
+  ],
+  "pair_explain": "A simple shape can stand for the main form of an object. Add details after finding that large shape.",
+  "sequence_explain": "Build from the main shape towards details. You can refine a drawing after you have something on the page."
  },
  "arts.0.singing": {
   "group_prompt": "Which one is a {} sound?",
@@ -8130,38 +7826,14 @@
     "the beat"
    ]
   ],
-  "sequence_prompt": "Put the song in order",
-  "sequence_say": "Tap the parts of the song in the order they are sung.",
+  "sequence_prompt": "Put the start of an ascending major scale in order, starting with do",
+  "sequence_say": "Put the start of an ascending major scale in order, starting with do.",
   "sequences": [
-   [
-    "the introduction",
-    "the verse",
-    "the chorus",
-    "the ending"
-   ],
    [
     "do",
     "re",
     "mi",
     "fa"
-   ],
-   [
-    "breathe in",
-    "open your mouth",
-    "sing",
-    "breathe again",
-    {
-     "prompt": "Put the singing steps in order"
-    }
-   ],
-   [
-    "a whisper",
-    "a talking voice",
-    "a singing voice",
-    "a shout",
-    {
-     "prompt": "Put them in order, quietest first"
-    }
    ],
    [
     "do",
@@ -8210,7 +7882,9 @@
     ],
     "explain": "The beat is what everyone in a room can clap together."
    }
-  ]
+  ],
+  "pair_explain": "Songs have patterns and sections. Listen for what repeats and what changes between sections.",
+  "sequence_explain": "These solfege names follow consecutive rising notes of the major scale. Songs can use them in many different orders."
  },
  "arts.0.dance": {
   "group_prompt": "Which one is a {} movement?",
@@ -8274,18 +7948,20 @@
     "walk",
     "jog",
     "run",
-    "sprint"
+    "sprint",
+    {
+     "prompt": "Put these movements in order, slowest first",
+     "explain": "Walking is slower than jogging; running and sprinting increase the pace."
+    }
    ],
    [
-    "stand still",
-    "sway",
-    "spin",
-    "leap"
-   ],
-   [
-    "tiptoe",
-    "step",
-    "stamp"
+    "start the music",
+    "dance to the beat",
+    "finish the routine",
+    {
+     "prompt": "Put this performance in order",
+     "explain": "The music starts before the dance; finishing comes after dancing."
+    }
    ]
   ],
   "facts": [
@@ -8329,7 +8005,9 @@
     ],
     "explain": "The rhythm can come from you — clapping, stamping, counting."
    }
-  ]
+  ],
+  "pair_explain": "Movement can follow music's speed and feeling. There can be many expressive choices; this is one fitting example.",
+  "sequence_explain": "Use the order requested in the question."
  },
  "arts.1.crafts": {
   "group_prompt": "Which tool would you use for {}?",
@@ -8394,12 +8072,6 @@
   "sequence_say": "Tap the steps in the order you would make it.",
   "sequences": [
    [
-    "plan it out",
-    "gather the bits",
-    "make it",
-    "tidy up"
-   ],
-   [
     "cut the shapes",
     "glue them down",
     "let it dry",
@@ -8409,7 +8081,11 @@
     "fold the paper",
     "press the crease",
     "cut the shape",
-    "open it out"
+    "open it out",
+    {
+     "prompt": "Make a symmetrical paper cut-out by cutting folded paper, then opening it",
+     "explain": "Fold and crease first. Cutting through both layers makes matching shapes when the paper is opened."
+    }
    ],
    [
     "choose the wool",
@@ -8468,7 +8144,9 @@
     ],
     "explain": "Firing drives the water out of clay for good, so it hardens and stays hard."
    }
-  ]
+  ],
+  "pair_explain": "Materials offer different possibilities: paper folds, clay moulds and thread stitches. Match the action to the material.",
+  "sequence_explain": "Prepare and shape the pieces before joining or decorating them. Let glue or paint dry when the instructions require it."
  },
  "arts.1.instruments": {
   "group_prompt": "Which instrument is a {}?",
@@ -8529,8 +8207,8 @@
     "shake it or tap it"
    ]
   ],
-  "sequence_prompt": "Put them in order, lowest sound first",
-  "sequence_say": "Tap them in order, from the lowest sound to the highest.",
+  "sequence_prompt": "Put these instruments in order of their usual lowest notes, lowest first",
+  "sequence_say": "Compare their usual lowest notes, from lowest to highest.",
   "sequences": [
    [
     "a double bass",
@@ -8544,23 +8222,10 @@
     "a trumpet"
    ],
    [
-    "a piccolo",
-    "a flute",
+    "a bassoon",
     "a clarinet",
-    "a bassoon"
-   ],
-   [
-    "a triangle",
-    "a snare drum",
-    "a bass drum"
-   ],
-   [
-    "pluck",
-    "strum",
-    "bow",
-    {
-     "prompt": "Put them in order, one string first"
-    }
+    "a flute",
+    "a piccolo"
    ]
   ],
   "facts": [
@@ -8604,7 +8269,9 @@
     ],
     "explain": "A short string shakes faster, and faster shaking sounds higher."
    }
-  ]
+  ],
+  "pair_explain": "Find what vibrates: a string, a membrane or air. Your action starts that vibration.",
+  "sequence_explain": "Compare pitch rather than loudness. Slower vibrations produce lower sounds."
  },
  "arts.1.beat": {
   "group_prompt": "Which one keeps the {}?",
@@ -8734,7 +8401,9 @@
     ],
     "explain": "Clapping lands on the pulse, not on the words."
    }
-  ]
+  ],
+  "pair_explain": "Tempo names the speed of the beat. Tap a steady pulse to feel the difference between slow and fast.",
+  "sequence_explain": "Keep an even pulse and gradually speed it up. Order the tempo markings by beat speed."
  },
  "mind.0.feelings": {
   "group_prompt": "Which one might make you feel {}?",
@@ -8872,7 +8541,9 @@
     ],
     "explain": "Feelings come and go, even the very big ones."
    }
-  ]
+  ],
+  "pair_explain": "Feelings give information, and actions are choices. Pause and choose an action that keeps you and others safe.",
+  "sequence_explain": "Give your body time to settle before deciding what to do. Slow breathing can help make that pause."
  },
  "mind.0.fair": {
   "group_prompt": "Which one is {}?",
@@ -8999,7 +8670,9 @@
     ],
     "explain": "Saying sorry and meaning it is how you repair something you broke."
    }
-  ]
+  ],
+  "pair_explain": "Notice what the other person needs, not just what you want. A fair response gives them a voice too.",
+  "sequence_explain": "Listen to the problem before agreeing on a solution. Then try the agreement and check whether it helps."
  },
  "mind.0.choices": {
   "group_prompt": "Which one is a {} choice?",
@@ -9132,7 +8805,9 @@
     ],
     "explain": "The truth is easier to live with, and easier to remember."
    }
-  ]
+  ],
+  "pair_explain": "Pause to think about what might happen. A safe choice considers both yourself and other people.",
+  "sequence_explain": "Name your choices, think through their consequences, then decide. You can reflect afterwards."
  },
  "mind.1.thinking": {
   "group_prompt": "Which one is a {}?",
@@ -9272,7 +8947,9 @@
    "a bus ticket",
    "a paper bag",
    "a woolly hat"
-  ]
+  ],
+  "pair_explain": "A claim needs a reason or evidence. Asking how someone knows is a way to investigate, not to be unkind.",
+  "sequence_explain": "Ask the question first, look for evidence, then compare explanations before deciding."
  },
  "mind.1.friendship": {
   "group_prompt": "Which one is a good way to {}?",
@@ -9331,35 +9008,12 @@
   "sequence_say": "Tap the steps in the order that mends a fall-out.",
   "sequences": [
    [
-    "calm down",
-    "talk it over",
-    "say sorry",
-    "play again"
-   ],
-   [
-    "listen",
-    "understand",
-    "agree",
-    "move on"
-   ],
-   [
     "say hello",
     "play together",
     "become friends",
     {
      "prompt": "Put them in the order they happen"
     }
-   ],
-   [
-    "a fall-out",
-    "a talk",
-    "a sorry",
-    "friends again"
-   ],
-   [
-    "listen",
-    "understand",
-    "help"
    ]
   ],
   "facts": [
@@ -9421,7 +9075,9 @@
    "a long walk",
    "a bus timetable",
    "a bar of soap"
-  ]
+  ],
+  "pair_explain": "Good friends listen and respect each other's boundaries. Ask what would help rather than guessing for them.",
+  "sequence_explain": "This describes one friendship beginning with a greeting and shared play. Friendships can begin in other ways too."
  },
  "mind.1.money-sense": {
   "group_prompt": "Which one is something you {}?",
@@ -9495,12 +9151,6 @@
     }
    ],
    [
-    "earn",
-    "save",
-    "choose",
-    "buy"
-   ],
-   [
     "want it",
     "wait",
     "still want it",
@@ -9554,7 +9204,9 @@
   ],
   "group_not_cats": [
    "need"
-  ]
+  ],
+  "pair_explain": "Money can be earned, spent, saved or shared. These choices change what remains available later.",
+  "sequence_explain": "Choose a goal before making a saving plan. Add savings over time, then check whether you have enough."
  },
  "mind.1.rules": {
   "group_prompt": "Which one is a rule about being {}?",
@@ -9678,7 +9330,9 @@
     ],
     "explain": "A promise is a thing you have said you will do, and people plan around it."
    }
-  ]
+  ],
+  "pair_explain": "A useful rule protects people or helps them cooperate. Connect the rule with what could happen without it.",
+  "sequence_explain": "Understand the situation before acting. Follow the safe procedure and check the result afterwards."
  },
  "hist.1.timelines": {
   "group_prompt": "Which one belongs {}?",
@@ -9729,11 +9383,6 @@
     "your grandparent was born",
     "your parent was born",
     "you were born"
-   ],
-   [
-    "a candle",
-    "an oil lamp",
-    "a light bulb"
    ]
   ],
   "facts": [
@@ -9864,7 +9513,9 @@
     "explain": "Printing is five hundred years old; the computer is less than a hundred.",
     "keep": true
    }
-  ]
+  ],
+  "pair_explain": "A timeline places events by when they happened. Compare dates or periods instead of how familiar an event feels.",
+  "sequence_explain": "Start with the earliest event and move forward in time. Check each neighbour is later than the one before it."
  },
  "bio.1.lifecycles": {
   "group_prompt": "Which one is a stage of a {} life cycle?",
@@ -9936,36 +9587,60 @@
     "an egg",
     "a caterpillar",
     "a chrysalis",
-    "a butterfly"
+    "a butterfly",
+    {
+     "prompt": "Put these growth stages in order, starting with an egg",
+     "explain": "Follow one individual as it develops from the named starting stage. Its offspring begin another generation."
+    }
    ],
    [
     "frogspawn",
     "a tadpole",
     "a froglet",
-    "a frog"
+    "a frog",
+    {
+     "prompt": "Put these growth stages in order, starting with frogspawn",
+     "explain": "Follow one individual as it develops from the named starting stage. Its offspring begin another generation."
+    }
    ],
    [
     "a seed",
     "a shoot",
     "a seedling",
-    "a flowering plant"
+    "a flowering plant",
+    {
+     "prompt": "Put these growth stages in order, starting with a seed",
+     "explain": "Follow one individual as it develops from the named starting stage. Its offspring begin another generation."
+    }
    ],
    [
     "an egg",
     "a chick",
     "a fledgling",
-    "a grown bird"
+    "a grown bird",
+    {
+     "prompt": "Put these growth stages in order, starting with an egg",
+     "explain": "Follow one individual as it develops from the named starting stage. Its offspring begin another generation."
+    }
    ],
    [
     "a baby",
     "a child",
     "a grown-up",
-    "an old person"
+    "an old person",
+    {
+     "prompt": "Put these growth stages in order, starting with a baby",
+     "explain": "Follow one individual as it develops from the named starting stage. Its offspring begin another generation."
+    }
    ],
    [
     "an acorn",
     "a sapling",
-    "an oak tree"
+    "an oak tree",
+    {
+     "prompt": "Put these growth stages in order, starting with an acorn",
+     "explain": "Follow one individual as it develops from the named starting stage. Its offspring begin another generation."
+    }
    ]
   ],
   "facts": [
@@ -10019,7 +9694,9 @@
     ],
     "explain": "Water and warmth wake a seed up; without them it just waits."
    }
-  ]
+  ],
+  "pair_explain": "Young organisms change as they grow. Some look like small adults; others change body form dramatically.",
+  "sequence_explain": "Begin at the stage named and follow development. A cycle repeats, so its starting point must be stated."
  },
  "math.1.place-value": {
   "group_prompt": "Which picture shows {}?",
@@ -10177,7 +9854,9 @@
     ],
     "explain": "In a two-digit number the left digit counts tens, the right counts ones."
    }
-  ]
+  ],
+  "pair_explain": "Ten ones make one ten. The place of a digit tells you how many groups of that size it represents.",
+  "sequence_explain": "Compare the highest place first. If those digits match, move to the next place."
  },
  "math.0.numbers20": {
   "group_prompt": "Which number is in the {}?",
@@ -10355,6 +10034,8 @@
     ],
     "explain": "Counting back, the number before twenty is nineteen."
    }
-  ]
+  ],
+  "pair_explain": "Counting on adds one. Say the next number in the counting sequence, even when crossing from nine to ten.",
+  "sequence_explain": "Count forward one step at a time. Compare the numbers' values rather than how long their names look."
  }
 }

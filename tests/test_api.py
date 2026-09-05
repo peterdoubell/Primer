@@ -328,7 +328,7 @@ def test_today_returns_a_stable_daily_quest(client, onboarded):
     a = client.get("/api/today").json()
     b = client.get("/api/today").json()
     assert [l["id"] for l in a["lessons"]] == [l["id"] for l in b["lessons"]]
-    assert set(a["quest"]) == {"review", "learn", "read"}
+    assert set(a["quest"]) == {"review", "practice", "learn", "read"}
     assert a["quest"]["review"]["done"] is False
 
 
@@ -372,8 +372,9 @@ def test_the_daily_quest_is_completable_on_a_day_with_nothing_due(tmp_path):
             assert review["excused"] is True and review["hint"], \
                 "with nothing due there must be no outstanding task, and a reason given"
 
-            # An honest first day: one lesson, one article.
+            # An honest first day: one lesson, one practice sitting, one article.
             srv.learner.record_attempt("math.2.fractions", 0.9)
+            srv.learner.log_event("practice", {"node_id": "math.2.fractions"})
             with srv.learner._conn() as conn:
                 conn.execute("INSERT INTO events(kind,payload,at,xp) VALUES('read',?,?,0)",
                              (json.dumps({"title": "Fractions"}), time.time()))
@@ -494,8 +495,8 @@ def test_a_focused_reader_can_still_ascend(tmp_path):
                     assert srv.learner.get_profile()["stage"] == 5, \
                         "and the promotion must actually take effect"
                 else:
-                    assert rose is None, \
-                        "one strong domain out of ten must not promote a broad reader"
+                    assert rose and rose["stage"] == 2, \
+                        "advanced evidence preserves the stage-2 floor, without promoting the broad reader to stage 5"
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
 

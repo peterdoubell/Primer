@@ -140,16 +140,16 @@ def test_reading_time_is_actually_recorded_and_actually_moves_the_plan(app_clien
     assert rate["measured"] is True
     assert rate["clamped"] is False, "an ordinary reader must not land on a bound"
     assert rate["factor"] > 1.0
-    assert after["estimated_years"] > before["estimated_years"], \
+    assert after["total_hours"] > before["total_hours"], \
         "a slower reader was given the same plan as an average one"
 
 
-def test_an_implausible_reading_row_is_refused_not_clamped(app_client):
-    """The clock is the reader's browser. An article left open overnight is not
-    eight hours of reading, and clamping it to the ceiling would still put a
-    number nobody spent into the estimate."""
+def test_long_reading_is_capped_and_brief_openings_are_not_reading(app_client):
+    """A long open contributes at most the bounded allowance; brief accidental
+    opens contribute nothing. The separate rate estimator caps each title again."""
     r = app_client.post("/api/reading/time", json={"title": "Anything", "seconds": 8 * 3600})
-    assert r.json()["recorded"] is False
+    assert r.json()["recorded"] is True
+    assert r.json()["seconds"] == 90 * 60
     r = app_client.post("/api/reading/time", json={"title": "Anything", "seconds": 3})
     assert r.json()["recorded"] is False
 
@@ -364,8 +364,10 @@ def _days_pass(monkeypatch, days):
 
 def _run_days(app_client, monkeypatch, node_id, answer_for, days=45):
     import primer.server as srv
+    import time
+    base = time.time()
     for day in range(days):
-        _days_pass(monkeypatch, day)
+        monkeypatch.setattr(srv.time, "time", lambda: base + day * 86400)
         r = _sit_practice(app_client, node_id, answer_for).json()
         if r.get("newly_mastered") or r.get("proven"):
             return day
@@ -491,15 +493,16 @@ def test_assumed_credit_does_not_open_the_graduate_gate(app_client):
         "placement should still open undergraduate work"
 
 
-def _prove(client, node_id, times=3):
-    """Prove a node by spaced passes, back-dating each so the next counts.
-    Three, because a stage 0-1 node now takes three (see _evidence_bar)."""
+def _prove_nodes(client, nodes, monkeypatch):
+    """Three real sittings per node, on three separated wall-clock days."""
     import primer.server as srv
-    for _ in range(times):
-        with srv.learner._conn() as c:
-            c.execute("UPDATE mastery SET first_pass_at = first_pass_at - 86400*3 WHERE node_id=?",
-                      (node_id,))
-        _sit_practice(client, node_id, lambda i, q: str(q.get("answer", "")))
+    now = [srv.time.time()]
+    monkeypatch.setattr(srv.time, "time", lambda: now[0])
+    for day in range(3):
+        if day:
+            now[0] += 3 * 86400
+        for node_id in nodes:
+            _sit_practice(client, node_id, lambda i, q: str(q.get("answer", "")))
 
 
 def test_an_earned_stage_is_not_erased_by_a_first_failed_placement(app_client, monkeypatch):
@@ -508,8 +511,8 @@ def test_an_earned_stage_is_not_erased_by_a_first_failed_placement(app_client, m
     nodes sat their first placement, failed it, and went to 0 in one sitting."""
     import primer.server as srv
     monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
-    for n in [n for n in srv.curr.nodes.values() if n["domain"] == "math" and n["stage"] <= 1]:
-        _prove(app_client, n["id"])
+    _prove_nodes(app_client, [n["id"] for n in srv.curr.nodes.values()
+                              if n["domain"] == "math" and n["stage"] <= 1], monkeypatch)
     earned, _ = _stage(app_client)
     assert earned >= 1, "proving the nursery and stage 1 should have ascended the reader"
     _sit_placement(app_client, "history", ace=False)
@@ -533,8 +536,8 @@ def test_mastery_can_promote_a_reader_a_placement_demoted(app_client, monkeypatc
     low, _ = _stage(app_client)
     assert low <= 1 < high
     # Now the evidence path: prove the nursery and stage 1 in maths.
-    for n in [n for n in srv.curr.nodes.values() if n["domain"] == "math" and n["stage"] <= 1]:
-        _prove(app_client, n["id"])
+    _prove_nodes(app_client, [n["id"] for n in srv.curr.nodes.values()
+                              if n["domain"] == "math" and n["stage"] <= 1], monkeypatch)
     after, placed = _stage(app_client)
     assert after > low, "mastery could not promote a demoted reader (%d, %s)" % (after, placed)
 

@@ -781,8 +781,8 @@ def g_trig(_):
              ("cos", 0): 1, ("cos", 60): "1/2", ("cos", 90): 0,
              ("tan", 0): 0, ("tan", 45): 1}
     (fn, deg), val = R.choice(list(table.items()))
-    return _mc("{}({}°) = ?".format(fn, deg), val,
-               [v for v in ["0", "1", "1/2", "√2/2", "√3/2"] if str(v) != str(val)][:3])
+    return _num("{}({}°) = ? Give a number or fraction.".format(fn, deg), val,
+                "Use the standard-angle values on the unit circle: sine is height, cosine is horizontal position, and tangent is their ratio.")
 
 def g_logs(_):
     base = R.choice([2, 3, 10])
@@ -856,8 +856,7 @@ def g_derivatives(_):
     if mode == "trig":
         pair = R.choice([("sin x", "cos x"), ("cos x", "−sin x"), ("tan x", "sec² x")])
         return _mc("d/dx of  {}  = ?".format(pair[0]), pair[1],
-                   [p for p in ["cos x", "−sin x", "sec² x", "sin x", "−cos x"]
-                    if p != pair[1]][:3])
+                   ["2(" + pair[1] + ")", "−2(" + pair[1] + ")", "3(" + pair[1] + ")"])
     if mode == "exp":
         pair = R.choice([("e^x", "e^x"), ("ln x", "1/x"), ("e^(2x)", "2e^(2x)")])
         return _mc("d/dx of  {}  = ?".format(pair[0]), pair[1],
@@ -865,7 +864,7 @@ def g_derivatives(_):
                     if p != pair[1]][:3])
     k = R.randint(2, 5)
     return _mc("d/dx of  sin({}x)  = ?".format(k), "{}cos({}x)".format(k, k),
-               ["cos({}x)".format(k), "−{}cos({}x)".format(k, k), "{}sin({}x)".format(k, k)])
+               ["cos({}x)".format(k), "−{}cos({}x)".format(k, k), "{}cos({}x)".format(k + 1, k)])
 
 def g_integrals(_):
     mode = R.choice(["power", "trig", "exp"])
@@ -877,8 +876,8 @@ def g_integrals(_):
     if mode == "trig":
         pair = R.choice([("cos x", "sin x + C"), ("sin x", "−cos x + C")])
         return _mc("∫ {} dx  = ?".format(pair[0]), pair[1],
-                   [p for p in ["sin x + C", "−cos x + C", "cos x + C", "−sin x + C"]
-                    if p != pair[1]][:3])
+                   ["2(" + pair[1][:-4] + ") + C", "−2(" + pair[1][:-4] + ") + C",
+                    "3(" + pair[1][:-4] + ") + C"])
     return _mc("∫ e^x dx  = ?", "e^x + C", ["x·e^x + C", "e^(x+1)/(x+1) + C", "ln x + C"])
 
 def g_limits(_):
@@ -1108,6 +1107,9 @@ def _length_balanced(key: str, pool: List[str], k: int = 3) -> List[str]:
     key lands at each rank about equally often, which is what makes the
     position carry no information.
     """
+    # Balance what will actually be displayed, after article normalisation.
+    key = _ARTICLE.sub("", str(key))
+    pool = [_ARTICLE.sub("", str(p)) for p in pool]
     pool = [p for p in dict.fromkeys(pool) if p != key]
     if len(pool) <= k:
         return pool
@@ -1172,7 +1174,7 @@ def _surface_tell(prompt: str, key: str, choices: List[str]) -> bool:
     return False
 
 
-def _at_drawn_rank(build, tries: int = 20):
+def _at_drawn_rank(build, tries: int = 80):
     """Draw a target length rank, then keep drawing items until one lands there.
 
     Some material simply cannot put its key at every rank: the words that rhyme
@@ -1183,23 +1185,29 @@ def _at_drawn_rank(build, tries: int = 20):
     for. What cannot be balanced within a node is then reported by
     tools/check_generators.py rather than hidden.
     """
-    target = R.randint(1, 4)
+    target = R.random()
     fallback = None
     for _ in range(tries):
         q = build()
         if q is None:
             continue
-        fallback = fallback or q
+        # Articles are grammatical framing, not an answer cue. Use the same
+        # noun-phrase style for every choice in a knowledge drill.
+        if q.get("choices"):
+            q["choices"] = [_ARTICLE.sub("", str(c)) for c in q["choices"]]
+            q["answer"] = _ARTICLE.sub("", str(q["answer"]))
         choices = [str(c) for c in (q.get("choices") or [])]
         if len(choices) < 2:
             return q
         key = str(q["answer"])
-        if _surface_tell(q.get("prompt", ""), key, choices):
+        words = _content_words(q.get("prompt", ""))
+        shares = [bool(_content_words(c) & words) for c in choices]
+        # Reject both a positive cue and its complement: never rewarding the
+        # odd answer simply teaches a child to avoid it.
+        if any(shares) and not all(shares):
             continue
-        if fallback is q or _surface_tell(q.get("prompt", ""), str(fallback["answer"]),
-                                          [str(c) for c in fallback.get("choices") or []]):
-            fallback = q
-        if _length_rank(key, choices) == target:
+        fallback = fallback or q
+        if _length_rank(key, choices) == 1 + int(target * len(choices)):
             return q
     return fallback
 
@@ -1284,11 +1292,12 @@ def _know_pair(spec: Dict) -> Optional[Dict]:
         prompt = _articled(back.format(right))
         key, pool = left, [a for a, b in pairs if a != left]
     else:
-        prompt = _articled(spec.get("pair_prompt", "What goes with {}?").format(left))
+        prompt = _articled((spec.get("pair_questions") or {}).get(left) or
+                           spec.get("pair_prompt", "What goes with {}?").format(left))
         key, pool = right, [b for a, b in pairs if b != right]
     pool = pool + [e for e in (spec.get("extras") or []) if e != key]
     q = _mc(prompt, key, _length_balanced(key, pool), pad=False)
-    q["explain"] = "%s goes with %s." % (left, right)
+    q["explain"] = spec.get("pair_explain") or ("%s goes with %s." % (left, right))
     # Structural: it restates the pair rather than teaching it, and must not
     # ride on the back of a review card, where a Seedling's two-option choice
     # became "tap the option that says the word in the question" — 83% by
@@ -1380,18 +1389,20 @@ def _know_order(spec: Dict) -> Optional[Dict]:
     # for the orderings the node's shared criterion does not describe —
     # "bedtime steps" is not what "wet, soap, rinse, dry" is an ordering of.
     override = None
+    metadata = {}
     if isinstance(chosen[-1], dict):
-        override = chosen[-1].get("prompt")
+        metadata = chosen[-1]
+        override = metadata.get("prompt")
         chosen = chosen[:-1]
     seq = [str(x) for x in chosen]
     prompt = override or spec.get("sequence_prompt", "Put them in the right order")
     prompt = "%s: %s" % (prompt, ", ".join(_front_order(seq)))
-    authored = spec.get("sequence_explain")
+    authored = metadata.get("explain") or spec.get("sequence_explain")
     q = _order(prompt, seq,
-               spec.get("sequence_say", "Tap them in the right order."),
+               metadata.get("say") or (override + "." if override else spec.get("sequence_say", "Tap them in the right order.")),
                authored or ("The order is: " + ", ".join(seq) + "."))
-    if not authored:
-        q["explain_structural"] = True
+    # Teaching belongs to the feedback, never in the selectable review key.
+    q["explain_structural"] = True
     # Still stamped `ephemeral: True` like every generated item — the guard
     # that keeps a forgetful generator from being read as authored. Its
     # durability is declared where a generated item's always is, in
@@ -1531,7 +1542,7 @@ def generate_set(gen_key: str, n: int = 6, level: int = 1) -> List[Dict]:
     fn = GENERATORS.get(gen_key)
     if fn is None:
         return []
-    out, guard = [], 0
+    out, guard, stalled = [], 0, 0
     seen = set()
     while len(out) < n and guard < n * 12:
         guard += 1
@@ -1542,6 +1553,7 @@ def generate_set(gen_key: str, n: int = 6, level: int = 1) -> List[Dict]:
         # (e.g. "Which spelling is correct?") so the child must listen.
         key = (q["prompt"], q.get("answer"))
         if key not in seen:
+            stalled = 0
             seen.add(key)
             q["id"] = len(out)
             # Where this item came from, so a card minted later can ask the
@@ -1549,6 +1561,13 @@ def generate_set(gen_key: str, n: int = 6, level: int = 1) -> List[Dict]:
             q["gen"] = gen_key
             q["level"] = level
             out.append(q)
+        else:
+            stalled += 1
+            # Finite knowledge banks can run out before a wide draw fills.
+            # Stop after a full run of repeats, not hundreds of fruitless
+            # retries through every distractor-balancing candidate.
+            if gen_key.startswith("know:") and stalled >= max(24, n):
+                break
     return out
 
 

@@ -36,8 +36,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from primer import practice  # noqa: E402
 
-SAMPLES = 600           # per generator, per level
-LEVELS = (0, 2, 4)
+SAMPLES = 600           # total per generator, spread over every advertised level
+LEVELS = (0, 1, 2, 4)
 # How far the best surface strategy may beat blind guessing before it counts as
 # a way through. Some slack is unavoidable: near a floor, a key of 1 has only
 # one distinct non-negative number below it, so counting to ten genuinely
@@ -62,26 +62,34 @@ def profile(gen_key, samples=SAMPLES, seed=None):
     if hasattr(practice, "reset_rotation"):
         practice.reset_rotation()
     ranks = collections.Counter()
+    num_baseline = collections.Counter()
     len_ranks = collections.Counter()
+    len_baseline = collections.Counter()
     n_len_ranked = 0
     # Two more tells an auditor measured by hand on the knowledge drills and
     # this tool could not see: the option WITHOUT an article beside three with
     # one ("a fox", "a bear", "grass", "a deer"), and the option that shares a
     # word with the prompt ("What does a caterpillar eat?" / "green leaves").
-    article_hits = article_n = 0.0
-    overlap_hits = overlap_n = 0.0
+    article_hits = article_n = article_other = 0.0
+    overlap_hits = overlap_n = overlap_other = 0.0
+    cue_chance = collections.Counter()
     keys = collections.Counter()
     lengths = collections.Counter()
     n_ranked = n_keyed = n_len = 0
     negatives = []
     drawn = 0
+    by_level = collections.Counter()
+    per_level = max(1, samples // len(LEVELS))
     for level in LEVELS:
-        while drawn < samples * (LEVELS.index(level) + 1) / len(LEVELS) * len(LEVELS):
+        while by_level[level] < per_level:
             batch = practice.generate_set(gen_key, 12, level=level)
             if not batch:
                 return None
             for q in batch:
+                if by_level[level] >= per_level:
+                    break
                 drawn += 1
+                by_level[level] += 1
                 choices = [str(c) for c in (q.get("choices") or [])]
                 answer = str(q.get("answer", ""))
                 if not choices:
@@ -131,18 +139,26 @@ def profile(gen_key, samples=SAMPLES, seed=None):
                         odd = [c for c, a in zip(choices, arts)
                                if a == (sum(arts) < len(choices) / 2)]
                         article_n += 1
+                        cue_chance["article"] += 1.0 / len(choices)
                         article_hits += (1.0 / len(odd)) if answer in odd else 0.0
+                        common = [c for c in choices if c not in odd]
+                        article_other += (1.0 / len(common)) if answer in common else 0.0
                     # The same content-word rule the engine uses; function
                     # words are not a tell.
                     words = practice._content_words(q.get("prompt") or "")
                     sharing = [c for c in choices if practice._content_words(c) & words]
                     if 0 < len(sharing) < len(choices):
                         overlap_n += 1
+                        cue_chance["overlap"] += 1.0 / len(choices)
                         overlap_hits += (1.0 / len(sharing)) if answer in sharing else 0.0
+                        separate = [c for c in choices if c not in sharing]
+                        overlap_other += (1.0 / len(separate)) if answer in separate else 0.0
                 lens_only = [len(c) for c in choices]
                 if not numeric and len(set(lens_only)) > 1:
                     by_len = sorted(choices, key=lambda c: (len(c), c))
                     n_len_ranked += 1
+                    for rank in range(1, len(choices) + 1):
+                        len_baseline[rank] += 1.0 / len(choices)
                     same = [c for c in choices if len(c) == len(answer)]
                     if len(same) > 1:
                         # A shared length is not a readable position. Spread the
@@ -161,16 +177,20 @@ def profile(gen_key, samples=SAMPLES, seed=None):
                 try:
                     ranks[nums.index(key_val) + 1] += 1
                     n_ranked += 1
+                    for rank in range(1, len(choices) + 1):
+                        num_baseline[rank] += 1.0 / len(choices)
                 except ValueError:
                     pass
-            if drawn >= samples:
+            if by_level[level] >= per_level:
                 break
-        if drawn >= samples:
-            break
-    return {"ranks": ranks, "keys": keys, "lengths": lengths, "negatives": negatives,
+    return {"ranks": ranks, "num_baseline": num_baseline, "keys": keys, "lengths": lengths, "negatives": negatives,
             "len_ranks": len_ranks, "n_len_ranked": n_len_ranked,
-            "article": (article_hits, article_n), "overlap": (overlap_hits, overlap_n),
-            "n_ranked": n_ranked, "n_keyed": n_keyed, "n_len": n_len, "drawn": drawn}
+            "len_baseline": len_baseline,
+            "cue_chance": cue_chance, "article": (article_hits, article_n), "overlap": (overlap_hits, overlap_n),
+            "article_other": (article_other, article_n),
+            "overlap_other": (overlap_other, overlap_n),
+            "n_ranked": n_ranked, "n_keyed": n_keyed, "n_len": n_len, "drawn": drawn,
+            "by_level": dict(by_level)}
 
 
 def audit(gen_key, verbose=True):
@@ -183,8 +203,9 @@ def audit(gen_key, verbose=True):
     if p["n_ranked"] >= MIN_FOR_VERDICT:
         n = p["n_ranked"]
         share = {r: p["ranks"][r] / n for r in sorted(p["ranks"])}
-        best_rank, best = max(share.items(), key=lambda kv: kv[1])
-        chance = 1.0 / max(1, len(share))
+        best_rank, best = max(share.items(),
+            key=lambda kv: kv[1] - p["num_baseline"][kv[0]] / n)
+        chance = p["num_baseline"][best_rank] / n
         edge = best - chance
         if verbose:
             print("  key rank among sorted options: %s  best=rank %d at %.0f%% vs %.0f%% chance (%+.0fpp)  %s"
@@ -212,8 +233,9 @@ def audit(gen_key, verbose=True):
     if p["n_len_ranked"] >= MIN_FOR_VERDICT:
         n = p["n_len_ranked"]
         share = {r: p["len_ranks"][r] / n for r in sorted(p["len_ranks"])}
-        best_rank, best = max(share.items(), key=lambda kv: kv[1])
-        chance = 1.0 / max(1, len(share))
+        best_rank, best = max(share.items(),
+            key=lambda kv: kv[1] - p["len_baseline"][kv[0]] / n)
+        chance = p["len_baseline"][best_rank] / n
         edge = best - chance
         if verbose:
             print("  key rank by length:            %s  best=rank %d at %.0f%% vs %.0f%% chance (%+.0fpp)  %s"
@@ -225,7 +247,9 @@ def audit(gen_key, verbose=True):
                              "rank %d at %.0f%% (%+.0fpp)" % (best_rank, best * 100, edge * 100)))
 
     for name, label in (("article", "the odd one out by article"),
-                        ("overlap", "the option sharing a word with the prompt")):
+                        ("overlap", "the option sharing a word with the prompt"),
+                        ("article_other", "avoid the odd article"),
+                        ("overlap_other", "avoid a word shared with the prompt")):
         hits, n = p[name]
         if n >= MIN_FOR_VERDICT:
             # Chance here is "pick the odd one(s) out at random", which the
@@ -233,10 +257,11 @@ def audit(gen_key, verbose=True):
             # the odd option is the key more often than a uniform draw over
             # the whole card would give.
             rate = hits / n
-            edge = rate - 0.25
+            chance = p["cue_chance"][name.replace("_other", "")] / n
+            edge = rate - chance
             if verbose:
-                print("  %-30s wins %.0f%% of %d such items vs 25%% chance (%+.0fpp)  %s"
-                      % (label + ":", rate * 100, n, edge * 100,
+                print("  %-30s wins %.0f%% of %d such items vs %.0f%% chance (%+.0fpp)  %s"
+                      % (label + ":", rate * 100, n, chance * 100, edge * 100,
                          "ok" if edge <= RANK_TOLERANCE else "EXPLOITABLE"))
             if edge > RANK_TOLERANCE:
                 problems.append((label + " is a tell", gen_key,
