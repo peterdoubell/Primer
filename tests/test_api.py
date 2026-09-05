@@ -2761,7 +2761,8 @@ def test_roadmap_assumed_count_never_goes_negative_when_proven_nodes_fade(tmp_pa
             assert r.status_code == 200
 
             node = "math.0.counting"
-            for _ in range(2):
+            # Three spaced passes for a stage 0-1 lesson (server._evidence_bar).
+            for _ in range(3):
                 paper = client.get("/api/quiz/{}?n=5".format(node)).json()
                 served = srv._SERVED[paper["token"]]["questions"]
                 answers = [q.get("answer", "") for q in served]

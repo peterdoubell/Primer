@@ -2630,6 +2630,9 @@ function spinnerOverlay(msg) {
 function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, token = '' }) {
   // Time spent in a paper is not time spent reading the article beneath it.
   pauseReadingClock('paper');
+  // Set by the submit handler, read by the splash and the voice: this
+  // sitting was practised, not marked.
+  let unscoredSitting = false;
   const young = (stage != null ? stage : S.stage) <= 1;
   // The paper's own clock, started when it is handed over. See the note on
   // the deck's: untrusted, non-load-bearing, and the only reason the book can
@@ -3203,8 +3206,22 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
           const r = await api.post('/api/attempt', { node_id: nodeId, answers, token, seconds: (Date.now() - startedAt) / 1000 });
           xp = r.xp_gained || 0; ascension = r.ascension;
           showServerScore(r.result);   // the marks the book actually recorded
-          msg = 'Set down in the Book.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
-          if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
+          if (r.unscored) {
+            // Practised, not marked. The server graded it, explained it and
+            // minted cards for the misses, but recorded no mastery because
+            // the book had already shown this reader most of these answers.
+            // The old copy said "Set down in the Book" over a paper that set
+            // nothing down, and the voice said "Wonderful work". Say what
+            // happened, in the reader's register, and celebrate nothing.
+            unscoredSitting = true;
+            msg = young
+              ? 'Good practising! This one was for practice, so the Book has not marked it yet.'
+              : 'Practised, not marked: the book had already shown you most of these answers, so this sitting counts as practice. What you missed will come back as cards.';
+            msgTone = 'neutral';
+          } else {
+            msg = 'Set down in the Book.' + (r.newly_mastered ? ' ✦ Mastered!' : '');
+            if (r.newly_mastered) { msgTone = 'good'; celebrate(); }
+          }
         }
       } catch (e) {
         // Not every refusal is the network. The book deliberately declines a
@@ -3277,7 +3294,8 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     if (nodeId) controls.append(btn({ class: 'btn gold', onclick: () => { close(); go('node', nodeId); } }, 'Back to lesson'));
     splash.append(controls);
     modal.append(splash);
-    if (young) maybeSpeak('You got ' + correct + ' out of ' + graded + '. ' + (score >= 0.7 ? 'Wonderful work!' : 'Good try — let us practice a little more.'));
+    if (young && !unscoredSitting) maybeSpeak('You got ' + correct + ' out of ' + graded + '. ' + (score >= 0.7 ? 'Wonderful work!' : 'Good try — let us practice a little more.'));
+    else if (young) maybeSpeak('Good practising! The Book has not marked this one yet.');
     // Strictly sequenced: page turn first, stage ceremony behind it. With no
     // page turn on offer this is the same 900ms beat it always was.
     if (ascension) {
@@ -4036,7 +4054,8 @@ async function renderReview(page, arg) {
        the same node or article (due_cards interleaves them, learner.py:1097) —
        a card from a wildly different topic makes the choice free. */
     const distractor = S.stage <= 1 && data.cards.length > 1 ? distractorFor(c) : null;
-    const opts = distractor ? (Math.random() < 0.5 ? [c.back, distractor] : [distractor, c.back]) : null;
+    const key = backAnswer(c.back);
+    const opts = distractor ? (Math.random() < 0.5 ? [key, distractor] : [distractor, key]) : null;
     const askAloud = () => opts ? c.front + '. Is it ' + opts[0] + ', or ' + opts[1] + '?' : c.front;
     const promptRow = el('div', { class: 'speak-row' }, S.stage <= 2 ? speakBtn(askAloud, 'Read the card aloud') : null, el('div', { class: 'q-prompt', style: 'min-height:60px;flex:1' }, c.front));
     stage.append(promptRow);
@@ -4051,7 +4070,7 @@ async function renderReview(page, arg) {
       const recallRow = el('div', { class: 'recall-row', role: 'group', 'aria-label': 'Which one is it?' });
       opts.forEach((text, k) => {
         const b = btn({ class: 'recall-opt',
-          onclick: () => answerRecall(c, b, recallRow, answerRegion, sameText(text, c.back)) },
+          onclick: () => answerRecall(c, b, recallRow, answerRegion, sameText(text, backAnswer(c.back))) },
           el('span', { class: 'ro-key', 'aria-hidden': 'true' }, String(k + 1)),
           el('span', { class: 'ro-text' }, text));
         recallRow.append(b);
@@ -4110,19 +4129,34 @@ async function renderReview(page, arg) {
   }
   const sameText = (a, b) => String(a == null ? '' : a).trim().toLowerCase() === String(b == null ? '' : b).trim().toLowerCase();
   function writeInFor(st) { return st ? st.querySelector('.recall-write') : null; }
+  // The answer alone, never "answer — explanation": on a two-option review
+  // the explanation echoed the front, and "tap the option that says the word
+  // in the question" won 78% on fact cards.
+  function backAnswer(back) { return String(back || '').split(' — ')[0].trim(); }
   function distractorFor(c) {
-    const others = data.cards.filter(x => x.id !== c.id && !sameText(x.back, c.back));
+    const key = backAnswer(c.back);
+    // An ordering card's back IS the front's members, so a sibling card's
+    // back could be told apart by its words alone (89%). The distractor for
+    // an ordering is the same members in a different order.
+    const parts = key.split(/,\s+|\s+/).filter(Boolean);
+    if (/^Put /.test(c.front || '') && parts.length >= 3) {
+      for (let tries = 0; tries < 8; tries++) {
+        const shuffled = parts.slice().sort(() => Math.random() - 0.5);
+        if (shuffled.join(' ') !== parts.join(' ')) return shuffled.join(' ');
+      }
+    }
+    const others = data.cards.filter(x => x.id !== c.id && !sameText(backAnswer(x.back), key));
     if (!others.length) return null;
     const kin = others.filter(x => (c.node_id && x.node_id === c.node_id) || (c.article && x.article === c.article));
     const pool = kin.length ? kin : others;
-    return pool[Math.floor(Math.random() * pool.length)].back;
+    return backAnswer(pool[Math.floor(Math.random() * pool.length)].back);
   }
   function answerRecall(c, chosen, row, region, ok) {
     // Never colour-only: the chosen button takes a ✓ or ✗, and when it is wrong
     // the right one is marked too, so the card teaches rather than only scores.
     row.querySelectorAll('.recall-opt').forEach(b => {
       b.disabled = true;
-      const isKey = sameText(b.querySelector('.ro-text').textContent, c.back);
+      const isKey = sameText(b.querySelector('.ro-text').textContent, backAnswer(c.back));
       if (b === chosen) { b.classList.add(ok ? 'correct' : 'wrong'); b.prepend(ok ? '✓ ' : '✗ '); }
       else if (!ok && isKey) { b.classList.add('correct'); b.prepend('✓ '); }
     });
@@ -4371,7 +4405,7 @@ function pricingNote(r) {
          : ''));
   } else {
     const need = rate.min_articles || 20;
-    const mins = rate.min_minutes || 240;
+    const mins = rate.min_minutes || 100;
     lines.push('Your reading pace is not measured yet, so the hours above are priced at the '
       + 'book\'s own figure. After about ' + need + ' articles and ' + Math.round(mins / 60)
       + ' hours of reading it will be priced at yours.');

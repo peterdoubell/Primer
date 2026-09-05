@@ -819,11 +819,15 @@ def _check_ascension(prof: dict, reader_id: int) -> Optional[dict]:
     # evidence, through the same writer. A rank from mastery is evidence of
     # ability and may promote; it never demotes.
     rank = _general_target(estimates) or 0
-    prev = int(prof.get("settings", {}).get("rank", prof.get("stage", 0)))
-    if rank > prev:
+    current = int(prof["stage"] or 0)
+    # Against the CURRENT stage, not against the last rank recorded. The old
+    # `rank` was a high-water mark: once a placement had demoted a reader,
+    # mastery could never promote them back to any stage at or below it, and
+    # the only road home was another placement after a week of cooling. The
+    # evidence path must always be open from below.
+    if rank > current:
         settings = dict(prof.get("settings", {}))
         settings["rank"] = rank
-        current = int(prof["stage"] or 0)
         # Actually promote the reader: the ceremony announced a new stage, so
         # the sidebar, the UI mode and the story window must all move with it.
         learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
@@ -1172,7 +1176,8 @@ def zim_asset(archive_id: str, path: str):
 @app.get("/api/curriculum")
 def curriculum(request: Request):
     reader_id = current_reader(request)
-    graph = curr.annotated_graph(learner.gate_map(reader_id=reader_id))
+    graph = curr.annotated_graph(learner.gate_map(reader_id=reader_id),
+                                 learner.proven_set(reader_id=reader_id))
     proven = learner.proven_set(reader_id=reader_id)
     ever = learner.ever_proven_set(reader_id=reader_id)
     credited = learner.credited_set(reader_id=reader_id)
@@ -1915,6 +1920,10 @@ def _locked_lesson_response(node: dict, reader_id: int) -> Optional[JSONResponse
 def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
                  node_id: str = ""):
     reader_id = current_reader(request)
+    # A young lesson's drill is eight items, whatever the client asked for:
+    # see _evidence_bar. The client may ask for more, never fewer.
+    if node_id and _young(curr.node(node_id)):
+        n = max(n, YOUNG_DRILL_ITEMS)
     # Binding the token to a *caller-supplied* subject repeats the mistake it was
     # meant to fix. If this paper is to count towards a lesson, the drill must be
     # that lesson's own drill, at that lesson's own level — otherwise six ducks
@@ -1954,14 +1963,25 @@ def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
         # or not, and the rest of the paper is filled with items that can
         # still count, so honest evidence stays possible on every sitting.
         sore = set(learner.missed_fronts(node_id, reader_id=reader_id))
-        burned = learner.burned_map(node_id, reader_id=reader_id)
+        burned = learner.burned_map(node_id, window_days=_burn_days(reader_id), reader_id=reader_id)
         wider = practice.generate_set(gen_key, n * 3, level)
         if len(wider) >= n:
             lead = [q for q in wider if q.get("prompt") in sore][:max(1, n // 3)]
             rest = [q for q in wider if q not in lead]
             countable = [q for q in rest if _fingerprint(q) not in burned]
             spent = [q for q in rest if _fingerprint(q) in burned]
-            qs = (lead + countable + spent)[:n]
+            # One prompt per paper. A category pick asks the same question
+            # of a different member, so the wide draw can carry "Which one is
+            # a bird?" twice with two keys — fine across sittings, odd on one
+            # page, and it made a ten-item paper eight questions long.
+            qs, seen = [], set()
+            for q in lead + countable + spent:
+                if q.get("prompt") in seen:
+                    continue
+                seen.add(q.get("prompt"))
+                qs.append(q)
+                if len(qs) == n:
+                    break
             for i, q in enumerate(qs):
                 q["id"] = i
     if not qs:
@@ -2046,7 +2066,8 @@ def record_attempt(a: AttemptIn, request: Request):
                        "back as a card."}
     else:
         res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
-                                     items=len(a.answers), reader_id=reader_id)
+                                     items=len(a.answers), reader_id=reader_id,
+                                     **_evidence_bar(node))
     # Practice is a study event too: whatever was missed should come back.
     cards_added = 0
     if graded and given:
@@ -2230,6 +2251,55 @@ class CheckIn(BaseModel):
     answer: str = Field("", max_length=2000)
 
 
+# Ten taps, every one right, three times over spaced sittings. Eight and
+# three left a fixed half-knower who taps the rest at random credited on about
+# one run in twelve over 45 daily sittings (2.3% per sitting, three needed);
+# ten takes one sitting to 0.9% and the run to under one in a hundred. The
+# honest learner is not slowed by it: she gets them right.
+YOUNG_DRILL_ITEMS = 10
+
+
+def _young(node) -> bool:
+    return bool(node) and int(node.get("stage", 0) or 0) <= 1
+
+
+def _evidence_bar(node) -> dict:
+    """What a sitting has to be before it counts as a pass, by stage.
+
+    A five-item four-choice paper with one miss allowed is passed 38% of the
+    time by a child who knows half and taps the rest at random, and two such
+    passes were mastery: an auditor credited a half-knower on every seed. For
+    the two youngest stages, where every item is a tap among four, the paper
+    is longer (YOUNG_DRILL_ITEMS), every item must be right, and it takes
+    three spaced passes. Everything above stage 1 keeps the bar it had.
+    """
+    if _young(node):
+        return {"pass_bar": 1.0, "passes_needed": 3}
+    return {}
+
+
+def _burn_days(reader_id: int) -> float:
+    """How long a shown key keeps an item out of the evidence, by age.
+
+    Seven days is the right window for an adult and the wrong one for a
+    five-year-old, whose proving gap is six hours: a Seedling who learned an
+    item from its explanation could not have it count for a week, so the
+    honest loop closed in a fortnight when it should close in days. Scaled
+    like the proving gap.
+    """
+    prof = learner.get_profile(reader_id=reader_id) or {}
+    age = prof.get("age")
+    try:
+        age = float(age)
+    except (TypeError, ValueError):
+        return 7.0
+    if age < 7:
+        return 2.0
+    if age < 12:
+        return 4.0
+    return 7.0
+
+
 def _drop_burned(questions: list, given: list, node_id: str, reader_id: int,
                  entry: dict = None):
     """Keep only the items this reader answered without having been told.
@@ -2248,7 +2318,7 @@ def _drop_burned(questions: list, given: list, node_id: str, reader_id: int,
     """
     if not node_id:
         return questions, given, 0
-    burned = learner.burned_map(node_id, reader_id=reader_id)
+    burned = learner.burned_map(node_id, window_days=_burn_days(reader_id), reader_id=reader_id)
     if not burned:
         return questions, given, 0
     committed = (entry or {}).get("committed") or {}
@@ -2390,7 +2460,8 @@ def submit_quiz(s: QuizSubmitIn, request: Request):
     result = quiz.score_quiz(scorable, scorable_given)
     mastery = learner.record_attempt(s.node_id, result["score"],
                                      seconds=s.seconds, items=len(s.answers),
-                                     reader_id=reader_id)
+                                     reader_id=reader_id,
+                                     **_evidence_bar(node))
     cards_added = 0
     if s.make_cards:
         article = node["articles"][0] if node and node["articles"] else ""
@@ -2858,7 +2929,6 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
             # sitting radiology FIRST used to count as "a prior measurement",
             # which skipped the first-measurement rule and froze a later
             # perfect maths placement at 0.
-            had_prior_general = any(not _is_specialist(d) for d in per_domain)
             if not_placed:
                 # Below the field's own floor there is no level to record. The
                 # reader has not entered the field; that is not a measurement
@@ -2874,13 +2944,17 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
                 # This sitting added no evidence about general reading level,
                 # so it moves nothing.
                 overall = current
-            elif not had_prior_general:
-                # The first general measurement the book has ever taken. With
-                # nothing else measured, 0 is not neutrality; it is a claim that
-                # the reader is a preschooler, and it is the one claim we have
-                # evidence against. Take the measurement.
-                overall = measured[0]
             else:
+                # The first general measurement and every later one go through
+                # the same writer. The first used to write the raw result: with
+                # nothing else measured, 0 was "not neutrality but a claim the
+                # reader is a preschooler", so the measurement was simply taken
+                # — and that bypassed the one-rung cap for exactly the reader it
+                # protects least. A reader who had EARNED stage 2 by proving
+                # thirteen nodes sat their first placement, failed it, and was
+                # written to 0 in one sitting. Upward the writer already goes
+                # straight to the evidence, so the first-measurement case loses
+                # nothing by using it.
                 overall = _settle_stage(current, _general_target(general), own_result=placed)
             learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
                                  prof["breadth"], overall, prof["domains"], settings,

@@ -270,6 +270,7 @@ PACE_ITEM_MAX_SECONDS = 300.0
 # still a number nobody spent.
 READ_MIN_SECONDS = 20.0
 READ_MAX_SECONDS = 60.0 * 90.0
+RATE_TITLE_CAP_SECONDS = 60.0 * 30.0
 
 
 def usable_reading_seconds(seconds: Optional[float]) -> Optional[float]:
@@ -1226,7 +1227,9 @@ class LearnerStore:
         return changed == 1
 
     def _apply_attempt(self, c, reader_id: int, node_id: str, score: float,
-                       assumed: bool, now: float):
+                       assumed: bool, now: float,
+                       pass_bar: Optional[float] = None,
+                       passes_needed: Optional[int] = None):
         """Apply one attempt, retrying if another instance changed its row.
 
         Turso's HTTP transport autocommits each statement, so the process-local
@@ -1236,12 +1239,23 @@ class LearnerStore:
         state instead of overwriting it.
         """
         while True:
-            applied = self._apply_attempt_once(c, reader_id, node_id, score, assumed, now)
+            applied = self._apply_attempt_once(c, reader_id, node_id, score, assumed, now,
+                                     pass_bar=pass_bar, passes_needed=passes_needed)
             if applied is not None:
                 return applied
 
     def _apply_attempt_once(self, c, reader_id: int, node_id: str, score: float,
-                            assumed: bool, now: float):
+                            assumed: bool, now: float,
+                            pass_bar: Optional[float] = None,
+                            passes_needed: Optional[int] = None):
+        # The bar and the count are the caller's to raise, never to lower. A
+        # five-item four-choice paper with one miss allowed is passed 38% of
+        # the time by a child who knows half and taps the rest at random, and
+        # two such passes are mastery: an auditor credited a half-knower on
+        # every seed. The young drill now asks for every item and three
+        # spaced passes; the defaults stay what they were for everything else.
+        bar = max(PASS, pass_bar if pass_bar is not None else PASS)
+        need = max(2, passes_needed if passes_needed is not None else 2)
         prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
                              (reader_id,)).fetchone()
         age = prof_row["age"] if prof_row else None
@@ -1299,14 +1313,14 @@ class LearnerStore:
             was_assumed = 1 if first_mastered_at is None else 0
             strength = max(prev_strength, 0.8)
         else:
-            if score >= PASS:
+            if score >= bar:
                 passes += 1
                 first_pass = first_pass or now
                 last_pass = now
-                # "Proven" means two passes, genuinely spaced. Until that is
+                # "Proven" means the passes, genuinely spaced. Until that is
                 # earned the node stays flagged `assumed`, even after a real
                 # attempt — placement credit must never launder into proof.
-                earned = (level >= PASS and passes >= 2
+                earned = (level >= PASS and passes >= need
                           and (now - first_pass) >= prove_gap)
                 if earned:
                     newly_mastered = mastered_at is None or bool(was_assumed)
@@ -1372,7 +1386,9 @@ class LearnerStore:
 
     def record_attempt(self, node_id: str, score: float, assumed: bool = False,
                        seconds: Optional[float] = None,
-                       items: int = 0, reader_id: int = 1) -> Dict:
+                       items: int = 0, reader_id: int = 1,
+                       pass_bar: Optional[float] = None,
+                       passes_needed: Optional[int] = None) -> Dict:
         """Record a graded attempt (score 0..1). Returns mastery + xp_gained.
 
         `seconds`/`items` are how long this paper took the reader and how many
@@ -1396,7 +1412,8 @@ class LearnerStore:
                 (reader_id, node_id)).fetchone()
             first_ever = not (_prior and _prior["first_mastered_at"])
             level, mastered, newly, lost = self._apply_attempt(
-                c, reader_id, node_id, score, assumed, now)
+                c, reader_id, node_id, score, assumed, now,
+                pass_bar=pass_bar, passes_needed=passes_needed)
             # The dated appointment this attempt just made, handed back at the
             # moment it is made instead of left for the next page to discover.
             # A first pass opens a spaced window (see `pending_proofs`), and
@@ -2220,7 +2237,13 @@ class LearnerStore:
             usable = usable_reading_seconds(r["seconds"])
             if usable is None:
                 continue
-            out[r["title"]] = max(out.get(r["title"], 0.0), usable / 60.0)
+            # Capped per title for the RATE, tighter than the plausibility band
+            # that keeps the row. Ninety minutes is a believable sitting on an
+            # article; it is not believable as this reader's pace, and one
+            # such sitting moved a multi-year plan by half. Thirty minutes is
+            # five times the book's own figure — slow, and still a reading.
+            out[r["title"]] = max(out.get(r["title"], 0.0),
+                                  min(usable, RATE_TITLE_CAP_SECONDS) / 60.0)
         return out
 
     def reading_stats(self, reader_id: int = 1) -> Dict:

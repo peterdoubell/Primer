@@ -685,6 +685,17 @@ class Curriculum:
             return True
         prev = self._by_domain_stage.get(domain, {}).get(stage - 1, [])
         if not prev:
+            # A stage with nothing below it in its own field has no gate of
+            # its own. In this corpus that is radiology — a specialist field
+            # that is graduate work end to end, entered from the general spine
+            # by `POST /api/domain/open`, which credits that grounding as
+            # ASSUMED. So yes: assumed credit opens all of radiology, and that
+            # is the stated exception to the graduate-gate rule below, not an
+            # oversight. The rule below is about a field's OWN ladder — an
+            # interview at maths stage 4 must not open maths stage 5. A
+            # library has no ladder; its modules are labelled assumed on
+            # every surface until proved at the page, and the roadmap counts
+            # them as assumed, not proven.
             return True
         if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None:
             done = sum(1 for n in prev if n["id"] in proven)
@@ -727,7 +738,9 @@ class Curriculum:
         stage = node["stage"]
         if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery, proven):
             prev = self._by_domain_stage.get(node["domain"], {}).get(stage - 1, [])
-            done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
+            done = (sum(1 for n in prev if n["id"] in proven)
+                    if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None
+                    else sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8))
             gate = STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
             import math as _m
             need = max(0, _m.ceil(gate * len(prev)) - done)
@@ -746,7 +759,7 @@ class Curriculum:
             n["mastered"] = level >= 0.8
             n["unlocked"] = self.unlocked(node, mastery, proven)
             if not n["unlocked"] and not n["mastered"]:
-                n["unlock_requirements"] = self.unlock_requirements(node, mastery)
+                n["unlock_requirements"] = self.unlock_requirements(node, mastery, proven)
             n.pop("quiz", None)  # keep the graph payload light
             n.pop("lesson_media", None)  # detail-only; plates and model copy are much larger
             nodes.append(n)

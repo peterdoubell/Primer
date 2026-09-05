@@ -5309,3 +5309,63 @@ it: a paper's hold is released only by the paper closing, a tab's only by the
 tab returning; `pageshow` restarts a clock the back/forward cache stopped.
 
 Everything under "Repaired" is mine and unaudited.
+
+---
+
+## Round 30 — fourth audits at 3ab0e1f; the coin flip under the bar
+
+**Interactive Learning Loops 4.0 → 4.5.** Mastery, Placement & Pacing **6.0 →
+5.5.** Both on pinned extractions of `3ab0e1f`.
+
+**Loops (4.5).** The lock-out is confirmed gone and the learned child is
+credited. The lead finding is statistical, and the bar was mine to have seen:
+five four-choice items with one miss allowed is passed 38% of the time by a
+child who knows half and *taps the rest at random*, and two such passes were
+mastery. The Round 28 "half-knower never credited" test held only because it
+aged the card table and never moved the wall clock — a reader who knew
+everything was also never credited under it. With real taps and a real clock:
+credited **15 of 16 seeds** at 50% knowledge, and a pure guesser 5 of 16. Also:
+the `unscored` sitting was invisible on screen — the child heard "You got 5 out
+of 5. Wonderful work!" and read "Set down in the Book" over a paper that
+recorded nothing; ordering cards on a Seedling's two-option review were
+word-matchable at 89% (the back is the front's own members) and fact cards at
+78% (the explanation on the back echoes the prompt); and the seven-day burn
+window kept an honest Seedling's loop from closing in under a fortnight.
+
+**Mastery (5.5).** Every Round 29 scenario reproduced as repaired, and three
+holes remained. The first-general-measurement branch wrote the raw result and
+never called the writer, so a reader who had *earned* stage 2 by proving
+thirteen nodes sat their first placement, failed it, and went to 0 in one
+sitting. `/api/curriculum` — the route that draws the map — never received
+the proven set, so four graduate maths nodes were open on the map, locked on
+the node page, and the node page gave no reason (`unlock_requirements`
+reasoned from mastery even when handed `proven`). And `settings.rank` was a
+high-water mark: once a placement demoted a reader, mastery could never
+promote them back below the old rank. Also: one 89-minute sitting still moved
+a plan by half; tutor chat and the lightbox bill as reading; radiology's 84
+modules open on assumed credit through the empty-previous-stage branch.
+
+### Repaired
+
+**Evidence for the youngest two stages.** The drill is ten items, every one
+must be right, and it takes three spaced passes — `_evidence_bar`, threaded
+through `record_attempt` as a bar the caller may raise and never lower. Two
+tests with the wall clock actually advanced: a fixed half-knower tapping the
+rest at random over 45 daily sittings, not credited; an honest five-year-old
+who learns from each explanation, credited within a fortnight. The burn
+window is age-scaled like the proving gap (two days under seven). The
+unscored sitting says "Practised, not marked" in the reader's register,
+celebrates nothing, and the voice no longer praises it. On the two-option
+review the options are the answer alone, and an ordering's distractor is the
+same members in a different order.
+
+**The stage.** The first general measurement goes through `_settle_stage`
+like every other. `rank` is compared to the current stage, not to the last
+rank recorded. `/api/curriculum` passes `proven`; `unlock_requirements`
+reasons from it at the graduate gate; a test asserts map, node page and quiz
+lock agree on every graduate node after an aced interview. One sitting's
+weight in the rate is capped at thirty minutes. The specialist exception is
+stated in the gate's own code: a field with no ladder opens on assumed credit
+and is labelled assumed until proved.
+
+Everything under "Repaired" is mine and unaudited.

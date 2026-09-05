@@ -126,8 +126,9 @@ def test_reading_time_is_actually_recorded_and_actually_moves_the_plan(app_clien
     assert before["instructional_rate"]["measured"] is False
     assert before["instructional_rate"]["factor"] == 1.0
 
-    # Thirty articles at nine minutes is 270 minutes: past the four-hour
-    # minimum the rate now demands before it will move a plan at all.
+    # Thirty articles at nine minutes is 270 minutes: past both minimums
+    # (twenty articles, a hundred minutes) the rate demands before it will
+    # move a plan at all.
     for title in titles[:30]:
         r = app_client.post("/api/reading/time", json={"title": title, "seconds": 9 * 60})
         assert r.json()["recorded"] is True
@@ -199,7 +200,9 @@ def test_the_drill_prefers_what_this_reader_got_wrong(app_client, monkeypatch):
 
 
 def test_a_clean_deck_changes_nothing(app_client, monkeypatch):
-    """A reader who has missed nothing must see exactly the old drill."""
+    """A reader who has missed nothing sees a plain drill — at the young
+    paper length, which is the floor for a stage 0-1 lesson whatever the
+    client asked for (see _evidence_bar)."""
     import primer.server as srv
     monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
     node_id = "bio.0.plants"
@@ -207,7 +210,8 @@ def test_a_clean_deck_changes_nothing(app_client, monkeypatch):
     assert srv.learner.missed_fronts(node_id) == []
     paper = app_client.get("/api/practice/%s?n=6&level=0&node_id=%s"
                            % (gen, node_id)).json()
-    assert len(paper["questions"]) == 6
+    assert len(paper["questions"]) == srv.YOUNG_DRILL_ITEMS
+    assert len({q["prompt"] for q in paper["questions"]}) == srv.YOUNG_DRILL_ITEMS
 
 
 def _recheck(client, domain, ace):
@@ -344,21 +348,91 @@ def test_honest_practice_is_never_refused_at_any_miss_rate(app_client, monkeypat
         assert r.status_code == 200, r.json()
 
 
-def test_a_reader_who_knows_half_cannot_be_credited_with_mastery(app_client, monkeypatch):
-    """The draw used to exclude burned items — the ones she got wrong — so
-    her papers converged on what she knew, and a child who knew half of the
-    material was credited with mastery in under a week without learning
-    anything. Burned items are excluded from EVIDENCE, never from EXPOSURE."""
+def _days_pass(monkeypatch, days):
+    """Advance the WALL CLOCK, not just the card table. The first version of
+    the half-knower test aged `srs_cards.due` by SQL and never moved
+    `time.time`, so the proving gap could never elapse and "never credited"
+    was a property of the clock. A reader who knew everything was also never
+    credited under it; the assertion could not fail."""
+    import time as _t
+    import primer.learner as L
+    import primer.server as srv
+    base = _t.time()
+    monkeypatch.setattr(L.time, "time", lambda: base + days * 86400)
+    monkeypatch.setattr(srv.time, "time", lambda: base + days * 86400)
+
+
+def _run_days(app_client, monkeypatch, node_id, answer_for, days=45):
+    import primer.server as srv
+    for day in range(days):
+        _days_pass(monkeypatch, day)
+        r = _sit_practice(app_client, node_id, answer_for).json()
+        if r.get("newly_mastered") or r.get("proven"):
+            return day
+    return None
+
+
+def test_a_reader_who_knows_half_and_taps_the_rest_is_not_credited(app_client, monkeypatch):
+    """The auditor's scenario, with the clock actually running and the
+    unknowns answered the only way a child can answer them on a tap screen:
+    by tapping one of the four. Under a five-item, one-miss, two-pass bar
+    that reader was credited on every seed. The young bar is eight items,
+    every one right, three spaced passes."""
+    import random
     import primer.server as srv
     monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
     node_id = "bio.0.plants"
-    knows = lambda i, q: (str(q.get("answer", "")) if hash(("half", q["prompt"])) % 2 == 0 else "zzz")
-    for day in range(21):
+    credited = []
+    for seed in (1, 2):
+        rnd = random.Random(seed)
+        # A FIXED half, decided per item once and never growing: this reader
+        # learns nothing from any sitting. (A first draft let the known set
+        # grow by chance on every sitting, which is a learner, not a
+        # half-knower — and a learner should be credited.)
+        known = {}
+
+        def knows(prompt):
+            if prompt not in known:
+                known[prompt] = rnd.random() < 0.5
+            return known[prompt]
+
+        def answer_for(i, q):
+            if knows(q["prompt"]):
+                return str(q.get("answer", ""))
+            return rnd.choice(q.get("choices") or [str(q.get("answer", ""))])
+
+        day = _run_days(app_client, monkeypatch, node_id, answer_for)
+        credited.append(day)
         with srv.learner._conn() as c:
-            c.execute("UPDATE srs_cards SET due = due - 86400")
-        r = _sit_practice(app_client, node_id, knows).json()
-        assert not r.get("newly_mastered") and not r.get("proven"), \
-            "credited with mastery on day %d while knowing half" % day
+            for t in ("mastery", "srs_cards", "attempts"):
+                try:
+                    c.execute("DELETE FROM %s WHERE node_id=?" % t, (node_id,))
+                except Exception:
+                    pass
+    assert credited == [None, None], "credited with mastery on days %s" % credited
+
+
+def test_a_reader_who_learns_from_the_explanations_is_credited_in_days(app_client, monkeypatch):
+    """The other side of the bar: a Seedling who learns every item she is
+    shown, reviews daily, and answers honestly must be credited — in days,
+    not a fortnight. Age 5, so the burn window is two days."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    app_client.post("/api/profile", json={"name": "Ada", "age": 5, "hours_per_week": 3,
+                                          "breadth": "balanced", "domains": ["biology"],
+                                          "pronouns": "she"})
+    node_id = "bio.0.plants"
+    learned = set()
+
+    def answer_for(i, q):
+        if q["prompt"] in learned:
+            return str(q.get("answer", ""))
+        learned.add(q["prompt"])   # shown the answer and its explanation
+        return "zzz"
+
+    day = _run_days(app_client, monkeypatch, node_id, answer_for, days=30)
+    assert day is not None and day <= 14, "an honest learner was credited on day %s" % day
+
 
 
 def test_a_reader_measured_at_forest_is_not_parked_in_the_nursery(app_client):
@@ -415,3 +489,71 @@ def test_assumed_credit_does_not_open_the_graduate_gate(app_client):
     under = [n for n in srv.curr.nodes.values() if n["domain"] == "math" and n["stage"] == 4]
     assert any(srv.curr.unlocked(n, gates, proven) for n in under), \
         "placement should still open undergraduate work"
+
+
+def _prove(client, node_id, times=3):
+    """Prove a node by spaced passes, back-dating each so the next counts.
+    Three, because a stage 0-1 node now takes three (see _evidence_bar)."""
+    import primer.server as srv
+    for _ in range(times):
+        with srv.learner._conn() as c:
+            c.execute("UPDATE mastery SET first_pass_at = first_pass_at - 86400*3 WHERE node_id=?",
+                      (node_id,))
+        _sit_practice(client, node_id, lambda i, q: str(q.get("answer", "")))
+
+
+def test_an_earned_stage_is_not_erased_by_a_first_failed_placement(app_client, monkeypatch):
+    """The first-measurement branch wrote the raw result and never called the
+    writer, so a reader who had EARNED stage 2 by proving thirteen maths
+    nodes sat their first placement, failed it, and went to 0 in one sitting."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    for n in [n for n in srv.curr.nodes.values() if n["domain"] == "math" and n["stage"] <= 1]:
+        _prove(app_client, n["id"])
+    earned, _ = _stage(app_client)
+    assert earned >= 1, "proving the nursery and stage 1 should have ascended the reader"
+    _sit_placement(app_client, "history", ace=False)
+    after, placed = _stage(app_client)
+    assert after >= earned - 1, "first failed placement dropped %d -> %d (%s)" % (earned, after, placed)
+
+
+def test_mastery_can_promote_a_reader_a_placement_demoted(app_client, monkeypatch):
+    """`settings.rank` was a high-water mark: once a placement demoted a
+    reader, mastery could never promote them back to any stage at or below
+    the old rank. The evidence path must always be open from below."""
+    import primer.server as srv
+    monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+    _sit_placement(app_client, "math", ace=True)
+    high, _ = _stage(app_client)
+    # Walk the reader down one rung a week until the pre-reader interface.
+    for _ in range(6):
+        _recheck(app_client, "math", ace=False)
+        if _stage(app_client)[0] <= 1:
+            break
+    low, _ = _stage(app_client)
+    assert low <= 1 < high
+    # Now the evidence path: prove the nursery and stage 1 in maths.
+    for n in [n for n in srv.curr.nodes.values() if n["domain"] == "math" and n["stage"] <= 1]:
+        _prove(app_client, n["id"])
+    after, placed = _stage(app_client)
+    assert after > low, "mastery could not promote a demoted reader (%d, %s)" % (after, placed)
+
+
+def test_every_surface_agrees_on_the_graduate_gate(app_client):
+    """The map said open, the node page said locked, and the node page gave
+    no reason. After an aced interview with nothing proved, every surface
+    must say the same thing about every stage-5 node."""
+    import primer.server as srv
+    _sit_placement(app_client, "math", ace=True)
+    graph = app_client.get("/api/curriculum").json()
+    by_id = {n["id"]: n for n in graph["nodes"]}
+    grad = [n for n in srv.curr.nodes.values() if n["domain"] == "math" and n["stage"] == 5]
+    assert grad
+    for n in grad:
+        on_map = by_id[n["id"]]["unlocked"]
+        page = app_client.get("/api/curriculum/node/" + n["id"]).json()
+        quiz = app_client.get("/api/quiz/" + n["id"] + "?n=4").status_code
+        assert on_map is False, "%s open on the map on assumed credit" % n["id"]
+        assert page["unlocked"] is False, "%s open on the node page" % n["id"]
+        assert quiz == 409, "%s quiz issued on assumed credit" % n["id"]
+        assert page.get("unlock_requirements"), "%s locked with no reason given" % n["id"]
