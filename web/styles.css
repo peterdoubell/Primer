@@ -73,6 +73,32 @@
   --elev-1: 0 1px 2px var(--shadow), 0 8px 24px -12px var(--shadow);
   --elev-2: 0 2px 4px var(--shadow), 0 14px 32px -12px var(--shadow);
   --elev-3: 0 1px 3px var(--shadow), 0 24px 64px -16px var(--shadow);
+  /* ---- material: the book as a thing with thickness ----
+     Elevation says how far a surface floats; these say what it is made of.
+     `--emboss` is a lit top edge and a shaded bottom edge, one pixel each —
+     the difference between a card drawn on the page and a card lying on it.
+     `--well` is the opposite: a recess, for anything the reader writes into.
+     `--gilt` is a specular band laid over the gold fill so the CTA reads as
+     leaf catching light rather than a flat yellow rectangle. `--grain` is a
+     whisper of paper fibre (an SVG turbulence field, ~4% opacity — far below
+     anything that could move a contrast ratio) laid over every paper surface;
+     `--grain-chrome` is the same idea on the leather. All of it is written as
+     tokens, and every one carries a --dk-* twin below, so the night palette
+     turns the paper into a machine without a second set of rules. */
+  --hi: rgba(255, 252, 240, 0.85);      /* the lit edge on paper */
+  --lo: rgba(60, 45, 20, 0.14);         /* the shaded edge on paper */
+  --emboss: inset 0 1px 0 var(--hi), inset 0 -1px 0 var(--lo);
+  --well: inset 0 1px 3px rgba(60, 45, 20, 0.16), inset 0 0 0 1px rgba(60, 45, 20, 0.04);
+  --gilt: linear-gradient(112deg, rgba(255, 248, 220, 0) 0%, rgba(255, 248, 220, 0.42) 38%, rgba(255, 248, 220, 0.08) 52%, rgba(120, 85, 20, 0.10) 100%);
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.27 0 0 0 0 0.12 0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  --grain-chrome: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.85 0 0 0 0 0.6 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  /* The page's fore-edge: a soft vignette at the far margin where the leaves
+     stack, and the raised board of the cover along the spine side. */
+  --fore-edge: inset -14px 0 22px -16px rgba(60, 45, 20, 0.18);
+  --board-edge: inset 1px 0 0 rgba(255, 245, 220, 0.10), inset -1px 0 0 rgba(0, 0, 0, 0.35);
+  /* The lift a hovered object takes off the page, as a token so the press can
+     be its exact inverse. */
+  --lift: -3px;
   /* The ground of a surface that lets the page show through, blurred. Solid
      chrome stays the fallback: never translucency without the blur, which is
      just text on mud. Themed, so it carries a --dk-* partner below. */
@@ -115,11 +141,16 @@
     linear-gradient(#301a19, #1d1113);
   --page-texture: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(110,70,55,0.035) 28px);
   --seam: linear-gradient(90deg, rgba(100,55,43,0), rgba(100,55,43,0.18) 45%, rgba(255,255,255,0.4) 50%, rgba(100,55,43,0.18) 55%, rgba(100,55,43,0));
-  --glow-soft: none;
+  /* By day these were `none`, which kept the paper book untouched but left the
+     gilding matte — leaf that never catches the light. A faint warm bloom, at
+     the intensity of candlelight on gold, lets the same tokens that phosphoresce
+     at night merely glint by day. Kept well under anything that could read as
+     a glow: this is a highlight, not an emission. */
+  --glow-soft: 0 0 6px rgba(201, 162, 39, 0.22);
   /* The travelling highlight on a loading skeleton line. */
   --sk-sheen: #e6d6c7;
-  --glow-strong: none;
-  --tile-glow: none;
+  --glow-strong: 0 0 10px rgba(201, 162, 39, 0.30);
+  --tile-glow: 0 0 8px rgba(201, 162, 39, 0.14);
   /* The always-dark surfaces (spine, tutor, toast, chapter card). In day mode
      these are the book's tooled-leather cover; at night they are the machine's
      own housing. They were hardcoded brown, so they went on being brown after
@@ -229,6 +260,19 @@
   --dk-chrome-rule: rgba(79,216,232,0.22);
   --dk-chrome-hover: rgba(79,216,232,0.12);
   --dk-chrome-active: rgba(255,176,32,0.18);
+  /* Night material. Paper fibre would be a lie on a screen tuned to a dead
+     channel, so the grain becomes the machine's own: a fine phosphor scanline
+     field, and the lit edge on every surface takes a cyan cast — the same
+     light the lattice is drawn in. Gilt becomes phosphor bloom, not leaf. */
+  --dk-hi: rgba(79, 216, 232, 0.16);
+  --dk-lo: rgba(0, 0, 0, 0.55);
+  --dk-emboss: inset 0 1px 0 var(--dk-hi), inset 0 -1px 0 var(--dk-lo);
+  --dk-well: inset 0 1px 3px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(79, 216, 232, 0.08);
+  --dk-gilt: linear-gradient(112deg, rgba(255, 230, 160, 0) 0%, rgba(255, 236, 180, 0.34) 38%, rgba(255, 236, 180, 0.06) 52%, rgba(0, 0, 0, 0.18) 100%);
+  --dk-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><rect width='6' height='3' fill='rgb(79,216,232)' fill-opacity='0.028'/></svg>");
+  --dk-grain-chrome: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><rect width='6' height='3' fill='rgb(79,216,232)' fill-opacity='0.035'/></svg>");
+  --dk-fore-edge: inset -14px 0 22px -16px rgba(0, 0, 0, 0.55);
+  --dk-board-edge: inset 1px 0 0 rgba(79, 216, 232, 0.10), inset -1px 0 0 rgba(0, 0, 0, 0.7);
 }
 
 
@@ -266,6 +310,9 @@
     --chrome-ink-dim: var(--dk-chrome-ink-dim); --chrome-hi: var(--dk-chrome-hi);
     --chrome-rule: var(--dk-chrome-rule); --chrome-hover: var(--dk-chrome-hover);
     --chrome-active: var(--dk-chrome-active);
+    --hi: var(--dk-hi); --lo: var(--dk-lo); --emboss: var(--dk-emboss); --well: var(--dk-well);
+    --gilt: var(--dk-gilt); --grain: var(--dk-grain); --grain-chrome: var(--dk-grain-chrome);
+    --fore-edge: var(--dk-fore-edge); --board-edge: var(--dk-board-edge);
   }
 }
 :root[data-theme="light"] { color-scheme: light; }
@@ -299,6 +346,9 @@
     --chrome-ink-dim: var(--dk-chrome-ink-dim); --chrome-hi: var(--dk-chrome-hi);
     --chrome-rule: var(--dk-chrome-rule); --chrome-hover: var(--dk-chrome-hover);
     --chrome-active: var(--dk-chrome-active);
+    --hi: var(--dk-hi); --lo: var(--dk-lo); --emboss: var(--dk-emboss); --well: var(--dk-well);
+    --gilt: var(--dk-gilt); --grain: var(--dk-grain); --grain-chrome: var(--dk-grain-chrome);
+    --fore-edge: var(--dk-fore-edge); --board-edge: var(--dk-board-edge);
 }
 * { box-sizing: border-box; }
 html, body {
@@ -330,9 +380,13 @@ button { font-family: var(--sans); cursor: pointer; }
   display: grid;
   grid-template-columns: var(--rail) 1fr;
   background: var(--paper);
-  background-image: var(--page-texture),
+  /* Fibre first, then the rule, then the light falling across the leaf: the
+     grain has to sit on top of the gradient or the gradient washes it out. */
+  background-image: var(--grain), var(--page-texture),
     radial-gradient(circle at 50% 0%, var(--paper-hi), var(--paper));
-  box-shadow: 0 0 60px rgba(0,0,0,0.55);
+  /* The block of the book on the desk (outer), and the leaves stacking at the
+     fore-edge (inner) — a page that is one of many, not a single sheet. */
+  box-shadow: var(--fore-edge), 0 0 60px rgba(0,0,0,0.55), 0 30px 80px -30px rgba(0,0,0,0.6);
   position: relative;
 }
 #book::before {
@@ -345,11 +399,14 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- sidebar ---------- */
 #sidebar {
-  background: var(--chrome-bg);
+  /* Tooled leather: a grain laid over the cover gradient, and a lit hairline
+     down the inner board where it meets the page — the spine has thickness. */
+  background: var(--grain-chrome), var(--chrome-bg);
   color: var(--chrome-ink);
   padding: 22px 16px;
   display: flex; flex-direction: column; gap: 4px;
   position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  box-shadow: var(--board-edge);
 }
 #sidebar .brand {
   font-family: var(--serif);
@@ -409,7 +466,11 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 .navbtn .ic { width: 20px; text-align: center; font-size: 16px; opacity: 0.9; }
 .navbtn:hover { background: var(--chrome-hover); color: var(--chrome-hi); }
-.navbtn.active { background: var(--chrome-active); color: var(--chrome-hi); box-shadow: inset 3px 0 0 var(--gold-bright); }
+/* The current page's tab is pressed into the leather: the gold filament down
+   its edge stays, and a shallow recess joins it, so "you are here" is a thing
+   the finger could find. */
+.navbtn.active { background: var(--chrome-active); color: var(--chrome-hi);
+  box-shadow: inset 3px 0 0 var(--gold-bright), inset 0 1px 2px rgba(0, 0, 0, 0.35); }
 #sidebar .spacer { flex: 1; }
 /* The foot of the spine. The record and the chrome are two different kinds of
    thing and now read as two: a block of stats, a hairline, then the settings
@@ -454,7 +515,9 @@ button { font-family: var(--sans); cursor: pointer; }
   background: var(--paper-2); border: 1px solid var(--paper-edge);
   color: var(--ink);            /* buttons must not inherit UA buttontext */
   border-radius: var(--r-card); padding: 18px 20px; margin-bottom: 16px;
-  box-shadow: var(--elev-1);
+  /* Emboss under elevation: the lit top edge says the card has a thickness,
+     the shadow says it rests on the page. Either alone reads as a sticker. */
+  box-shadow: var(--emboss), var(--elev-1);
 }
 .card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; }
 .grid { display: grid; gap: 16px; }
@@ -2007,20 +2070,29 @@ button { font-family: var(--sans); cursor: pointer; }
      near-white label text on a pale salmon fill (2.46:1). */
   background: var(--btn-fill); color: var(--btn-ink); border: none;
   padding: 11px 20px; border-radius: var(--r-ctl); font-size: 15px; font-weight: 600;
-  box-shadow: 0 1px 2px var(--shadow), 0 4px 10px -6px var(--shadow);
-  transition: filter var(--dur-fast), transform var(--dur-base) var(--spring);
+  /* A key, not a label: lit along its top edge, shaded along its bottom, and
+     standing a hair off the page. */
+  box-shadow: var(--emboss), 0 1px 2px var(--shadow), 0 4px 10px -6px var(--shadow);
+  transition: filter var(--dur-fast), transform var(--dur-base) var(--spring),
+              box-shadow var(--dur-base) var(--ease-out);
 }
-.btn:hover { filter: brightness(1.08); }
+.btn:hover { filter: brightness(1.08); transform: translateY(-1px);
+  box-shadow: var(--emboss), 0 2px 3px var(--shadow), 0 8px 16px -8px var(--shadow); }
 /* The press compresses instead of sliding: the whole control gives a little
    under the finger and springs back — the difference between pressing a key
    and nudging a tile. The short duration is the down-stroke; the spring is
-   the release. */
-.btn:active { transform: scale(0.965); transition-duration: var(--dur-fast); }
+   the release. It also sinks: the lift comes off, the shadow tightens to a
+   contact line, and the lit edge inverts, so the key visibly goes down. */
+.btn:active { transform: translateY(1px) scale(0.975); transition-duration: var(--dur-fast);
+  box-shadow: inset 0 1px 0 var(--lo), inset 0 -1px 0 var(--hi), 0 1px 1px var(--shadow); }
 /* The primary CTA. Its gradient was a fixed daylight pair, so the loudest
    gold object on the page stayed leaf-gilt on a page of phosphor; themed like
    --btn-fill, with near-black ink by day and night-paper ink on the brighter
    night gold so the label keeps its contrast either way. */
-.btn.gold { background: var(--btn-gold-fill); color: var(--btn-gold-ink); }
+/* Gilt, not yellow: a specular band laid over the gold fill so the CTA reads
+   as leaf catching the light. The band is a second background layer, so the
+   themed fill underneath still turns to phosphor at night. */
+.btn.gold { background: var(--gilt), var(--btn-gold-fill); color: var(--btn-gold-ink); }
 .btn.ghost { background: transparent; color: var(--link); border: 1.5px solid var(--link); box-shadow: none; }
 .btn.small { padding: 6px 12px; font-size: 13px; }
 .btn:disabled { opacity: 0.5; cursor: default; }
@@ -2031,7 +2103,13 @@ label.field span { display: block; margin-bottom: 5px; font-weight: 600; letter-
 input[type=text], input[type=password], input[type=number], input[type=search], select {
   width: 100%; padding: 10px 12px; border: 1px solid var(--edge); border-radius: 7px;
   font-size: 15px; font-family: var(--serif); background: var(--field); color: var(--ink);
+  /* A well, not a box: recessed into the page, so the place the reader writes
+     is visibly the one surface that sits below the others. */
+  box-shadow: var(--well);
+  transition: box-shadow var(--dur-fast), border-color var(--dur-fast);
 }
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus,
+input[type=search]:focus, select:focus { border-color: var(--gold); }
 /* Sliders, in the book's own hand. The UA defaults render a grey plastic
    control at the exact moment the book is asking the reader's age — the
    first conversation it ever has. Track as a hairline rule, thumb as a
@@ -2055,9 +2133,15 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 .chip {
   font-family: var(--sans); font-size: 13px; padding: 7px 13px; border-radius: 20px;
   border: 1.5px solid var(--rule); background: var(--field); color: var(--ink-soft);
-  user-select: none; transition: all 0.12s;
+  user-select: none; box-shadow: var(--emboss);
+  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast),
+              box-shadow var(--dur-fast), transform var(--dur-base) var(--spring);
 }
-.chip.on { background: var(--link); color: var(--on-fill); border-color: var(--link); }
+.chip:hover { transform: translateY(-1px); }
+/* A chosen chip is pressed in, not lit up: the lit edge inverts to a shaded
+   one and the lift comes off, so "on" is a state the finger can read. */
+.chip.on { background: var(--link); color: var(--on-fill); border-color: var(--link);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28); transform: none; }
 
 /* ---------- reader ---------- */
 .reader-toolbar {
@@ -2486,9 +2570,9 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #tutor {
   position: sticky; top: 20px; align-self: start; height: calc(100vh - 40px);
   display: flex; flex-direction: column;
-  background: var(--panel-bg);
+  background: var(--grain-chrome), var(--panel-bg);
   border-radius: 12px; color: var(--chrome-ink); overflow: hidden;
-  box-shadow: 0 4px 16px var(--shadow);
+  box-shadow: var(--board-edge), var(--elev-2);
 }
 #tutor .th { padding: 14px 16px; border-bottom: 1px solid var(--chrome-rule); }
 #tutor .th .mark { color: var(--gold-bright); font-size: 22px; }
@@ -2605,10 +2689,14 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .node-dot {
   font-family: var(--sans); font-size: 12px; padding: 5px 10px; border-radius: var(--r-ctl);
   border: 1px solid var(--rule); background: var(--field); color: var(--ink-soft); cursor: pointer;
+  /* Each tile is a small raised tessera: lit top edge, shaded bottom edge, so
+     the wall of the Atlas has relief before any state colour is applied. */
+  box-shadow: var(--emboss);
   transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast),
               transform var(--dur-base) var(--spring);
 }
-.node-dot:hover { border-color: var(--link); transform: translateY(-1px); }
+.node-dot:hover { border-color: var(--link); transform: translateY(-1px);
+  box-shadow: var(--emboss), 0 3px 8px -3px var(--shadow); }
 .node-dot:active { transform: scale(0.96); transition-duration: var(--dur-fast); }
 /* A mastered tile carries a hairline of gilt along its top edge — the one
    place the book allows itself a lit edge — so the wall of the Atlas reads as
@@ -2735,7 +2823,8 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 #overlay { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 100;
   backdrop-filter: blur(12px) saturate(1.3); -webkit-backdrop-filter: blur(12px) saturate(1.3); }
 #overlay .modal { background: var(--paper); border-radius: var(--r-sheet); padding: 30px; max-width: 560px; width: 92%; max-height: 88vh; overflow-y: auto;
-  box-shadow: var(--elev-3); animation: sheet-pop var(--dur-slow) var(--spring); }
+  /* A held-up sheet: it has an edge as well as a distance from the page. */
+  box-shadow: var(--emboss), var(--elev-3); animation: sheet-pop var(--dur-slow) var(--spring); }
 /* Arrives like a sheet, not a slide: a touch small and a touch low, springing
    to rest. Reduced motion zeroes --dur-slow and this collapses with it. */
 @keyframes sheet-pop { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
@@ -3056,7 +3145,8 @@ h3 > .card-open { font: inherit; color: inherit; }
 .quest { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 20px; }
 .quest-item { flex: 1 1 180px; background: var(--paper-2); border: 1.5px solid var(--paper-edge);
   border-radius: var(--r-card); padding: 14px 16px; display: flex; align-items: center; gap: 12px;
-  transition: border-color var(--dur-base), background var(--dur-base); }
+  box-shadow: var(--emboss), var(--elev-1);
+  transition: border-color var(--dur-base), background var(--dur-base), box-shadow var(--dur-base); }
 .quest-item .tick { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--edge);
   display: grid; place-items: center; font-size: 15px; color: transparent; flex: none;
   transition: transform var(--dur-slow) var(--spring), color var(--dur-base), background var(--dur-base), border-color var(--dur-base); }
@@ -3192,14 +3282,22 @@ body[data-stage="0"] .resume-note, body[data-stage="1"] .resume-note { padding-r
 /* Sidebar chrome toggles (theme, voice). */
 .chrome-toggle { background: rgba(255,255,255,0.08); border: 1px solid var(--chrome-rule);
   color: var(--chrome-ink-soft); border-radius: 8px; padding: 7px 10px; font-family: var(--sans); font-size: 12px;
-  display: flex; align-items: center; gap: 8px; transition: background .15s ease, color .15s ease; }
+  display: flex; align-items: center; gap: 8px;
+  /* A switch set into the leather: lit along its top edge like every other
+     raised control, so it reads as a thing with a travel, not a label. */
+  box-shadow: var(--emboss);
+  transition: background var(--dur-fast), color var(--dur-fast), box-shadow var(--dur-fast),
+              transform var(--dur-base) var(--spring); }
 .chrome-toggle:hover { background: var(--chrome-hover); color: var(--chrome-hi); }
 .chrome-toggle:active { transform: translateY(1px); }
 /* A toggle that is on should look lit, not merely labelled: the voice control
    already tells assistive tech via aria-pressed, and this is the same fact
    made visible — a filament of gold. */
 .chrome-toggle[aria-pressed="true"] { background: var(--chrome-active); color: var(--chrome-hi);
-  border-color: var(--gold); box-shadow: var(--glow-soft); }
+  border-color: var(--gold);
+  /* On is pressed in AND lit: the emboss inverts to a recess, and the gold
+     filament glows from inside it. */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45), var(--glow-soft); }
 @media (prefers-reduced-motion: reduce) { .chrome-toggle:active { transform: none; } }
 
 .assumed-tag { font-size: 11px; color: var(--ink-faint); font-family: var(--sans); }
@@ -3512,7 +3610,16 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 /* ---------------- phosphor ----------------
    In day mode every one of these resolves to `none`, so the paper book is
    untouched; at night the gilding reads as emitted light rather than ink. */
-#sidebar .brand .mark { text-shadow: var(--glow-strong); }
+/* The living artifact: the book's mark breathes — a slow swell of its own
+   light, the one motion on the page that is not a response to the reader.
+   The period is built from the motion tokens, so reduced-motion zeroes the
+   duration and the breath simply stops, glow held at rest. */
+#sidebar .brand .mark { text-shadow: var(--glow-strong);
+  animation: breathe calc(var(--dur-slow) * 11) ease-in-out infinite; }
+@keyframes breathe {
+  0%, 100% { filter: drop-shadow(0 0 0px transparent); opacity: 1; }
+  50% { filter: drop-shadow(0 0 7px var(--gold-bright)); opacity: 0.94; }
+}
 #sidebar .brand h1 { text-shadow: var(--glow-soft); }
 .pagehead h2 { text-shadow: var(--glow-soft); }
 .navbtn.active { text-shadow: var(--glow-soft); }
@@ -3531,7 +3638,8 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 /* The chapter card and the story modal: the book's own voice, on the book's
    own stock. Styled here rather than inline so they follow the palette
    instead of being permanently the colour of 2024's brown. */
-.chapter-card { background: var(--panel-bg); color: var(--chrome-ink); border: none; }
+.chapter-card { background: var(--grain-chrome), var(--panel-bg); color: var(--chrome-ink); border: none;
+  box-shadow: var(--board-edge), var(--elev-2); }
 .chapter-title { color: var(--chrome-hi); font-size: 24px; margin: 6px 0;
   text-shadow: var(--glow-soft); }
 .chapter-waiting { color: var(--chrome-ink-dim); font-family: var(--sans);
@@ -3571,8 +3679,8 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 /* The chapter you are reading now: the book's own dark leaf, set into the
    page. Uses the shared chrome vars so it turns with the rest of the night
    palette instead of staying brown. */
-.story-current { background: var(--panel-bg); color: var(--chrome-ink); border: none;
-  box-shadow: 0 4px 16px var(--shadow); }
+.story-current { background: var(--grain-chrome), var(--panel-bg); color: var(--chrome-ink); border: none;
+  box-shadow: var(--board-edge), var(--elev-2); }
 .story-current .kicker { color: var(--gold-bright); }
 .story-current h3 { color: var(--chrome-hi); font-size: 22px; margin: 6px 0; }
 .story-current p { color: var(--chrome-ink-soft); }
@@ -3704,7 +3812,9 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
    boxing it in. */
 .section-label::after {
   content: ""; flex: 1; height: 1px;
-  background: linear-gradient(90deg, var(--rule), transparent);
+  /* Gilt where it leaves the label, fading to the rule and then to nothing —
+     a ruled line drawn with a gold nib, not a border. */
+  background: linear-gradient(90deg, var(--gold), var(--rule) 32%, transparent);
 }
 
 /* Changing how the book speaks about you, kept where it is read rather than
