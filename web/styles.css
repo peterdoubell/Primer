@@ -253,10 +253,8 @@
   --dk-chrome-rule: rgba(79,216,232,0.22);
   --dk-chrome-hover: rgba(79,216,232,0.12);
   --dk-chrome-active: rgba(255,176,32,0.18);
-  /* Night material. Paper fibre would be a lie on a screen tuned to a dead
-     channel, so the grain becomes the machine's own: a fine phosphor scanline
-     field, and the lit edge on every surface takes a cyan cast — the same
-     light the lattice is drawn in. Gilt becomes phosphor bloom, not leaf. */
+  /* Night material keeps its cool lit edges, recessed fields and phosphor
+     gilt. The background grain stays irregular rather than forming lines. */
   --dk-hi: rgba(79, 216, 232, 0.16);
   --dk-lo: rgba(0, 0, 0, 0.55);
   --dk-emboss: inset 0 1px 0 var(--dk-hi), inset 0 -1px 0 var(--dk-lo);
@@ -383,8 +381,7 @@ button { font-family: var(--sans); cursor: pointer; }
   display: grid;
   grid-template-columns: var(--rail) 1fr;
   background: var(--paper);
-  /* Fibre first, then the rule, then the light falling across the leaf: the
-     grain has to sit on top of the gradient or the gradient washes it out. */
+  /* Static grain above the light falling across the leaf, beneath content. */
   background-image: var(--page-texture),
     radial-gradient(circle at 50% 0%, var(--paper-hi), var(--paper));
   /* The block of the book on the desk (outer), and the leaves stacking at the
