@@ -1,13 +1,4 @@
 /* The Primer — an illuminated, book-like interface. */
-/* Reduced motion, decided once. Zeroing the duration tokens and flattening
-   the spring silences every transition and animation written against them —
-   including ones not yet written — instead of adding a thirteenth scattered
-   per-component guard. The functional motion that must survive (the spinner,
-   the skeleton sheen, the read-aloud marker) does not use these tokens and
-   keeps its own existing guards. */
-@media (prefers-reduced-motion: reduce) {
-  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; --stagger: 0ms; --spring: linear; --ease-out: linear; }
-}
 :root {
   color-scheme: light;
   --paper: #f3ece3;
@@ -19,7 +10,7 @@
   --gold: #98734a;
   --gold-ink: #75522f;    /* darker gold: passes AA at 12-13px */
   --gold-bright: #c7a477;
-  --accent: #713c38;
+  --accent: #633c30;
   --accent-2: #405f69;
   --green: #3e6551;
   --green-ink: #2f513e;   /* green that passes AA as text on its own tint */
@@ -70,8 +61,8 @@
      wide, faint ambient wash. A single mid-distance shadow reads as a sticker;
      the pair reads as a thing actually resting on the page. Built on --shadow,
      so the night palette darkens them without a second set of rules. */
-  --elev-1: 0 1px 2px var(--shadow), 0 8px 24px -12px var(--shadow);
-  --elev-2: 0 2px 4px var(--shadow), 0 14px 32px -12px var(--shadow);
+  --elev-1: 0 2px 3px -1px var(--shadow), 0 10px 22px -12px var(--shadow);
+  --elev-2: 0 3px 5px -2px var(--shadow), 0 18px 32px -12px var(--shadow);
   --elev-3: 0 1px 3px var(--shadow), 0 24px 64px -16px var(--shadow);
   /* ---- material: the book as a thing with thickness ----
      Elevation says how far a surface floats; these say what it is made of.
@@ -79,19 +70,13 @@
      the difference between a card drawn on the page and a card lying on it.
      `--well` is the opposite: a recess, for anything the reader writes into.
      `--gilt` is a specular band laid over the gold fill so the CTA reads as
-     leaf catching light rather than a flat yellow rectangle. `--grain` is a
-     whisper of paper fibre (an SVG turbulence field, ~4% opacity — far below
-     anything that could move a contrast ratio) laid over every paper surface;
-     `--grain-chrome` is the same idea on the leather. All of it is written as
-     tokens, and every one carries a --dk-* twin below, so the night palette
-     turns the paper into a machine without a second set of rules. */
+     leaf catching light rather than a flat yellow rectangle. Surface textures
+     are composed in --page-texture, --chrome-bg and --panel-bg below. */
   --hi: rgba(255, 252, 240, 0.85);      /* the lit edge on paper */
   --lo: rgba(60, 45, 20, 0.14);         /* the shaded edge on paper */
   --emboss: inset 0 1px 0 var(--hi), inset 0 -1px 0 var(--lo);
   --well: inset 0 1px 3px rgba(60, 45, 20, 0.16), inset 0 0 0 1px rgba(60, 45, 20, 0.04);
   --gilt: linear-gradient(112deg, rgba(255, 248, 220, 0) 0%, rgba(255, 248, 220, 0.42) 38%, rgba(255, 248, 220, 0.08) 52%, rgba(120, 85, 20, 0.10) 100%);
-  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.27 0 0 0 0 0.12 0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
-  --grain-chrome: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.85 0 0 0 0 0.6 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
   /* The page's fore-edge: a soft vignette at the far margin where the leaves
      stack, and the raised board of the cover along the spine side. */
   --fore-edge: inset -14px 0 22px -16px rgba(60, 45, 20, 0.18);
@@ -102,7 +87,7 @@
   /* The ground of a surface that lets the page show through, blurred. Solid
      chrome stays the fallback: never translucency without the blur, which is
      just text on mud. Themed, so it carries a --dk-* partner below. */
-  --glass: rgba(42, 19, 19, 0.82);
+  --glass: rgba(34, 25, 20, 0.86);
   /* Translucent state washes. These were hardcoded light-palette RGB
      (rgba(51,122,75,…), rgba(201,162,39,…)) at every use site, so the green
      and gold tints stayed daylight-mixed on the night page. Declared as
@@ -137,9 +122,17 @@
   /* Chrome that differs by theme, declared as values rather than as rules, so
      the shell can change character without duplicating a single selector. */
   --shell-bg:
-    radial-gradient(circle at 20% 10%, rgba(105, 49, 39, 0.28), transparent 60%),
-    linear-gradient(#301a19, #1d1113);
-  --page-texture: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(110,70,55,0.035) 28px);
+    radial-gradient(circle at 20% 10%, rgba(95, 66, 43, 0.24), transparent 60%),
+    linear-gradient(#281c15, #17110f);
+  /* Small static SVG tiles are background paint: no overlay over text or controls.
+     Irregular fibres replace the ruled/grid texture in both reading modes. */
+  --paper-grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22256%22%20height%3D%22256%22%3E%3Cfilter%20id%3D%22grain%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.78%22%20numOctaves%3D%223%22%20seed%3D%2217%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%201%201%201%200%20-1.05%22%20result%3D%22noise%22%2F%3E%3CfeFlood%20flood-color%3D%22%23503c2e%22%2F%3E%3CfeComposite%20in2%3D%22noise%22%20operator%3D%22in%22%2F%3E%3C%2Ffilter%3E%3Cpath%20fill%3D%22%23503c2e%22%20opacity%3D%220.055%22%20filter%3D%22url%28%23grain%29%22%20d%3D%22M0%200h256v256H0z%22%2F%3E%3C%2Fsvg%3E");
+  --leather-grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22256%22%20height%3D%22256%22%3E%3Cfilter%20id%3D%22grain%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.42%22%20numOctaves%3D%223%22%20seed%3D%2223%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%201%201%201%200%20-1.05%22%20result%3D%22noise%22%2F%3E%3CfeFlood%20flood-color%3D%22%23dec8a8%22%2F%3E%3CfeComposite%20in2%3D%22noise%22%20operator%3D%22in%22%2F%3E%3C%2Ffilter%3E%3Cpath%20fill%3D%22%23dec8a8%22%20opacity%3D%220.065%22%20filter%3D%22url%28%23grain%29%22%20d%3D%22M0%200h256v256H0z%22%2F%3E%3C%2Fsvg%3E");
+  --page-texture: var(--paper-grain);
+  --surface-light: rgba(255, 251, 238, 0.62);
+  --surface-shade: rgba(66, 39, 23, 0.10);
+  --surface-relief: inset 0 1px 0 var(--surface-light), inset 0 -1px 0 var(--surface-shade);
+  --control-relief: inset 0 1px 0 rgba(255,245,221,.24), inset 0 -2px 0 rgba(0,0,0,.22);
   --seam: linear-gradient(90deg, rgba(100,55,43,0), rgba(100,55,43,0.18) 45%, rgba(255,255,255,0.4) 50%, rgba(100,55,43,0.18) 55%, rgba(100,55,43,0));
   /* By day these were `none`, which kept the paper book untouched but left the
      gilding matte — leaf that never catches the light. A faint warm bloom, at
@@ -163,17 +156,17 @@
      reserved for when something is actually wrong. Daylight uses oxblood ink against parchment. */
   --link: var(--accent);
   --heading-accent: var(--accent);
-  --btn-fill: linear-gradient(#79433c, #542824);
+  --btn-fill: linear-gradient(160deg, #624234, #3c261f);
   --btn-ink: #fdf3e6;
   /* The gold CTA, as tokens rather than a literal gradient, so it can turn
      with the palette like every other fill. */
   --btn-gold-fill: linear-gradient(#d3b58c, #b18a5f);
   --btn-gold-ink: #2c1915;
-  --shell-base: #231313;
+  --shell-base: #1e1612;
   --scrim: rgba(30,14,15,0.74);   /* candle-lit by day */
   --lock-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4.8' y='10.5' width='14.4' height='9.7' rx='2'/><path d='M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7'/></svg>");
-  --chrome-bg: radial-gradient(ellipse at 0% 10%, rgba(137,72,54,.2), transparent 65%), linear-gradient(160deg, #482421, #241315);
-  --panel-bg: radial-gradient(ellipse at 85% 0%, rgba(143,77,57,.16), transparent 65%), linear-gradient(135deg, #482724, #281719);
+  --chrome-bg: var(--leather-grain), radial-gradient(ellipse at 0% 0%, rgba(154,112,71,.16), transparent 65%), linear-gradient(150deg, #38271f, #1d1512);
+  --panel-bg: var(--leather-grain), radial-gradient(ellipse at 12% 0%, rgba(168,120,74,.14), transparent 70%), linear-gradient(140deg, #3b2921, #211813);
   --chrome-ink: #eddfce;
   --chrome-ink-soft: #decbba;
   --chrome-ink-dim: #c4aa95;
@@ -229,12 +222,12 @@
     radial-gradient(circle at 18% 8%, rgba(79, 216, 232, 0.10), transparent 55%),
     radial-gradient(circle at 82% 88%, rgba(255, 92, 138, 0.09), transparent 55%),
     linear-gradient(#070c12, #02050a);
-  /* Faint cyan rule-grid instead of paper grain: the page as a lattice. */
-  --dk-page-texture:
-    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(79,216,232,0.045) 28px),
-    repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(79,216,232,0.028) 28px);
-  --dk-seam: linear-gradient(90deg, rgba(79,216,232,0), rgba(79,216,232,0.25) 45%, rgba(160,245,255,0.75) 50%, rgba(79,216,232,0.25) 55%, rgba(79,216,232,0));
-  --dk-glow-soft: 0 0 10px rgba(79, 216, 232, 0.35);
+  /* Quiet mineral grain, without scanlines or a geometric grid. */
+  --dk-page-texture: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22256%22%20height%3D%22256%22%3E%3Cfilter%20id%3D%22grain%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.78%22%20numOctaves%3D%223%22%20seed%3D%2217%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%201%201%201%200%20-1.05%22%20result%3D%22noise%22%2F%3E%3CfeFlood%20flood-color%3D%22%23b2c7d4%22%2F%3E%3CfeComposite%20in2%3D%22noise%22%20operator%3D%22in%22%2F%3E%3C%2Ffilter%3E%3Cpath%20fill%3D%22%23b2c7d4%22%20opacity%3D%220.055%22%20filter%3D%22url%28%23grain%29%22%20d%3D%22M0%200h256v256H0z%22%2F%3E%3C%2Fsvg%3E");
+  --dk-surface-light: rgba(192, 218, 237, 0.085);
+  --dk-surface-shade: rgba(0, 0, 0, 0.30);
+  --dk-seam: linear-gradient(90deg, transparent, rgba(0,0,0,.38) 40%, rgba(147,177,196,.1) 52%, rgba(0,0,0,.3) 62%, transparent);
+  --dk-glow-soft: 0 0 12px rgba(79, 216, 232, 0.16);
   --dk-sk-sheen: rgba(79, 216, 232, 0.30);
   --dk-glow-strong: 0 0 16px rgba(255, 176, 32, 0.45);
   --dk-tile-glow: 0 0 12px rgba(255, 176, 32, 0.22);
@@ -251,26 +244,22 @@
   --dk-shell-base: #03060a;
   --dk-scrim: rgba(2,6,12,0.74);  /* the room lights off at night */
   --dk-glass: rgba(10, 18, 27, 0.66);
-  --dk-chrome-bg: linear-gradient(165deg, #0c1420, #04080e);
-  --dk-panel-bg: linear-gradient(170deg, #0e1823, #05090f);
+  --dk-chrome-bg: var(--leather-grain), radial-gradient(ellipse at 0% 0%, rgba(85,120,146,.09), transparent 70%), linear-gradient(165deg, #101923, #060a10);
+  --dk-panel-bg: var(--leather-grain), radial-gradient(ellipse at 12% 0%, rgba(116,151,171,.10), transparent 70%), linear-gradient(155deg, #16212c, #090e15);
   --dk-chrome-ink: #cfe0ee;
   --dk-chrome-ink-soft: #9db3c6;
-  --dk-chrome-ink-dim: #859bae;
+  --dk-chrome-ink-dim: #94aabb;
   --dk-chrome-hi: #eaf4fb;
   --dk-chrome-rule: rgba(79,216,232,0.22);
   --dk-chrome-hover: rgba(79,216,232,0.12);
   --dk-chrome-active: rgba(255,176,32,0.18);
-  /* Night material. Paper fibre would be a lie on a screen tuned to a dead
-     channel, so the grain becomes the machine's own: a fine phosphor scanline
-     field, and the lit edge on every surface takes a cyan cast — the same
-     light the lattice is drawn in. Gilt becomes phosphor bloom, not leaf. */
+  /* Night material keeps its cool lit edges, recessed fields and phosphor
+     gilt. The background grain stays irregular rather than forming lines. */
   --dk-hi: rgba(79, 216, 232, 0.16);
   --dk-lo: rgba(0, 0, 0, 0.55);
   --dk-emboss: inset 0 1px 0 var(--dk-hi), inset 0 -1px 0 var(--dk-lo);
   --dk-well: inset 0 1px 3px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(79, 216, 232, 0.08);
   --dk-gilt: linear-gradient(112deg, rgba(255, 230, 160, 0) 0%, rgba(255, 236, 180, 0.34) 38%, rgba(255, 236, 180, 0.06) 52%, rgba(0, 0, 0, 0.18) 100%);
-  --dk-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><rect width='6' height='3' fill='rgb(79,216,232)' fill-opacity='0.028'/></svg>");
-  --dk-grain-chrome: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><rect width='6' height='3' fill='rgb(79,216,232)' fill-opacity='0.035'/></svg>");
   --dk-fore-edge: inset -14px 0 22px -16px rgba(0, 0, 0, 0.55);
   --dk-board-edge: inset 1px 0 0 rgba(79, 216, 232, 0.10), inset -1px 0 0 rgba(0, 0, 0, 0.7);
 }
@@ -302,6 +291,7 @@
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim); --glass: var(--dk-glass);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
+    --surface-light: var(--dk-surface-light); --surface-shade: var(--dk-surface-shade);
     --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
     --sk-sheen: var(--dk-sk-sheen);
     --tile-glow: var(--dk-tile-glow);
@@ -311,7 +301,7 @@
     --chrome-rule: var(--dk-chrome-rule); --chrome-hover: var(--dk-chrome-hover);
     --chrome-active: var(--dk-chrome-active);
     --hi: var(--dk-hi); --lo: var(--dk-lo); --emboss: var(--dk-emboss); --well: var(--dk-well);
-    --gilt: var(--dk-gilt); --grain: var(--dk-grain); --grain-chrome: var(--dk-grain-chrome);
+    --gilt: var(--dk-gilt);
     --fore-edge: var(--dk-fore-edge); --board-edge: var(--dk-board-edge);
   }
 }
@@ -338,6 +328,7 @@
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim); --glass: var(--dk-glass);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
+    --surface-light: var(--dk-surface-light); --surface-shade: var(--dk-surface-shade);
     --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
     --sk-sheen: var(--dk-sk-sheen);
     --tile-glow: var(--dk-tile-glow);
@@ -347,9 +338,19 @@
     --chrome-rule: var(--dk-chrome-rule); --chrome-hover: var(--dk-chrome-hover);
     --chrome-active: var(--dk-chrome-active);
     --hi: var(--dk-hi); --lo: var(--dk-lo); --emboss: var(--dk-emboss); --well: var(--dk-well);
-    --gilt: var(--dk-gilt); --grain: var(--dk-grain); --grain-chrome: var(--dk-grain-chrome);
+    --gilt: var(--dk-gilt);
     --fore-edge: var(--dk-fore-edge); --board-edge: var(--dk-board-edge);
 }
+/* Reduced motion, decided once. Zeroing the duration tokens and flattening
+   the spring silences every transition and animation written against them —
+   including ones not yet written — instead of adding a thirteenth scattered
+   per-component guard. The functional motion that must survive (the spinner,
+   the skeleton sheen, the read-aloud marker) does not use these tokens and
+   keeps its own existing guards. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; --stagger: 0ms; --spring: linear; --ease-out: linear; }
+}
+
 * { box-sizing: border-box; }
 html, body {
   margin: 0; padding: 0; height: 100%;
@@ -380,9 +381,8 @@ button { font-family: var(--sans); cursor: pointer; }
   display: grid;
   grid-template-columns: var(--rail) 1fr;
   background: var(--paper);
-  /* Fibre first, then the rule, then the light falling across the leaf: the
-     grain has to sit on top of the gradient or the gradient washes it out. */
-  background-image: var(--grain), var(--page-texture),
+  /* Static grain above the light falling across the leaf, beneath content. */
+  background-image: var(--page-texture),
     radial-gradient(circle at 50% 0%, var(--paper-hi), var(--paper));
   /* The block of the book on the desk (outer), and the leaves stacking at the
      fore-edge (inner) — a page that is one of many, not a single sheet. */
@@ -401,12 +401,12 @@ button { font-family: var(--sans); cursor: pointer; }
 #sidebar {
   /* Tooled leather: a grain laid over the cover gradient, and a lit hairline
      down the inner board where it meets the page — the spine has thickness. */
-  background: var(--grain-chrome), var(--chrome-bg);
+  background: var(--chrome-bg);
   color: var(--chrome-ink);
   padding: 22px 16px;
   display: flex; flex-direction: column; gap: 4px;
   position: sticky; top: 0; height: 100vh; overflow-y: auto;
-  box-shadow: var(--board-edge);
+  box-shadow: var(--board-edge), inset -10px 0 24px rgba(0,0,0,.16);
 }
 #sidebar .brand {
   font-family: var(--serif);
@@ -480,6 +480,7 @@ button { font-family: var(--sans); cursor: pointer; }
 #sidebar .stat {
   font-family: var(--sans); font-size: 12px; color: var(--chrome-ink-dim);
   background: rgba(0,0,0,0.2); border-radius: 8px; padding: 8px 10px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.25), 0 1px 0 var(--chrome-rule);
   display: flex; justify-content: space-between; gap: 10px;
 }
 #sidebar .stat b { color: var(--gold-bright); }
@@ -512,12 +513,12 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- cards ---------- */
 .card {
-  background: var(--paper-2); border: 1px solid var(--paper-edge);
+  background: var(--page-texture), linear-gradient(145deg, color-mix(in srgb, var(--paper-hi) 55%, var(--paper-2)), var(--paper-2)); border: 1px solid var(--paper-edge);
   color: var(--ink);            /* buttons must not inherit UA buttontext */
   border-radius: var(--r-card); padding: 18px 20px; margin-bottom: 16px;
   /* Emboss under elevation: the lit top edge says the card has a thickness,
      the shadow says it rests on the page. Either alone reads as a sticker. */
-  box-shadow: var(--emboss), var(--elev-1);
+  box-shadow: var(--surface-relief), var(--elev-1);
 }
 .card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; }
 .grid { display: grid; gap: 16px; }
@@ -528,7 +529,7 @@ button { font-family: var(--sans); cursor: pointer; }
 
 .lesson-card { border-color: var(--edge); cursor: pointer; position: relative; overflow: hidden;
   transition: transform var(--dur-base) var(--spring), box-shadow var(--dur-base) var(--ease-out); }
-.lesson-card:hover { transform: translateY(-3px); box-shadow: var(--elev-2); }
+.lesson-card:hover { transform: translateY(-3px); box-shadow: var(--surface-relief), var(--elev-2); }
 /* The press: the page settles back under the finger, ink meeting paper — the
    tactile half of the hover lift, without which a card feels like glass. */
 .lesson-card:active { transform: translateY(-1px) scale(.995);
@@ -2068,7 +2069,7 @@ button { font-family: var(--sans); cursor: pointer; }
 .btn {
   /* Fixed dark stops in both themes: --accent lightens in dark mode, which put
      near-white label text on a pale salmon fill (2.46:1). */
-  background: var(--btn-fill); color: var(--btn-ink); border: none;
+  background: var(--leather-grain), var(--btn-fill); color: var(--btn-ink); border: none;
   padding: 11px 20px; border-radius: var(--r-ctl); font-size: 15px; font-weight: 600;
   /* A key, not a label: lit along its top edge, shaded along its bottom, and
      standing a hair off the page. */
@@ -2092,7 +2093,7 @@ button { font-family: var(--sans); cursor: pointer; }
 /* Gilt, not yellow: a specular band laid over the gold fill so the CTA reads
    as leaf catching the light. The band is a second background layer, so the
    themed fill underneath still turns to phosphor at night. */
-.btn.gold { background: var(--gilt), var(--btn-gold-fill); color: var(--btn-gold-ink); }
+.btn.gold { background: var(--leather-grain), var(--gilt), var(--btn-gold-fill); color: var(--btn-gold-ink); }
 .btn.ghost { background: transparent; color: var(--link); border: 1.5px solid var(--link); box-shadow: none; }
 .btn.small { padding: 6px 12px; font-size: 13px; }
 .btn:disabled { opacity: 0.5; cursor: default; }
@@ -2570,7 +2571,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #tutor {
   position: sticky; top: 20px; align-self: start; height: calc(100vh - 40px);
   display: flex; flex-direction: column;
-  background: var(--grain-chrome), var(--panel-bg);
+  background: var(--panel-bg);
   border-radius: 12px; color: var(--chrome-ink); overflow: hidden;
   box-shadow: var(--board-edge), var(--elev-2);
 }
@@ -3143,9 +3144,9 @@ h3 > .card-open { font: inherit; color: inherit; }
 
 /* Daily quest checklist. */
 .quest { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 20px; }
-.quest-item { flex: 1 1 180px; background: var(--paper-2); border: 1.5px solid var(--paper-edge);
+.quest-item { flex: 1 1 180px; background: var(--page-texture), var(--paper-2); border: 1.5px solid var(--paper-edge);
   border-radius: var(--r-card); padding: 14px 16px; display: flex; align-items: center; gap: 12px;
-  box-shadow: var(--emboss), var(--elev-1);
+  box-shadow: inset 0 2px 4px var(--surface-shade), 0 1px 0 var(--surface-light);
   transition: border-color var(--dur-base), background var(--dur-base), box-shadow var(--dur-base); }
 .quest-item .tick { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--edge);
   display: grid; place-items: center; font-size: 15px; color: transparent; flex: none;
@@ -3638,8 +3639,8 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 /* The chapter card and the story modal: the book's own voice, on the book's
    own stock. Styled here rather than inline so they follow the palette
    instead of being permanently the colour of 2024's brown. */
-.chapter-card { background: var(--grain-chrome), var(--panel-bg); color: var(--chrome-ink); border: none;
-  box-shadow: var(--board-edge), var(--elev-2); }
+.chapter-card { background: var(--panel-bg); color: var(--chrome-ink); border: 1px solid var(--chrome-rule);
+  box-shadow: inset 0 1px 0 var(--chrome-rule), inset 0 0 0 5px rgba(0,0,0,.08), var(--elev-2); }
 .chapter-title { color: var(--chrome-hi); font-size: 24px; margin: 6px 0;
   text-shadow: var(--glow-soft); }
 .chapter-waiting { color: var(--chrome-ink-dim); font-family: var(--sans);
@@ -3679,7 +3680,7 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 /* The chapter you are reading now: the book's own dark leaf, set into the
    page. Uses the shared chrome vars so it turns with the rest of the night
    palette instead of staying brown. */
-.story-current { background: var(--grain-chrome), var(--panel-bg); color: var(--chrome-ink); border: none;
+.story-current { background: var(--panel-bg); color: var(--chrome-ink); border: none;
   box-shadow: var(--board-edge), var(--elev-2); }
 .story-current .kicker { color: var(--gold-bright); }
 .story-current h3 { color: var(--chrome-hi); font-size: 22px; margin: 6px 0; }
