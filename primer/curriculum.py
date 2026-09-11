@@ -521,6 +521,130 @@ def _validate_lesson_media(node: Dict) -> None:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))
 
 
+# Sources an authored reference block may send the reader to. A specialist
+# field is a reference work, and a reference work cites: every framework here
+# carries the page it was taken from, so a threshold can be checked against
+# its source rather than trusted because the book said it. The list is a
+# whitelist for the same reason lesson images must be local — authored data is
+# still data, and a link is the one thing in a node that leaves the book.
+REFERENCE_HOSTS = (
+    "radiologyassistant.nl",
+    "radiopaedia.org",
+    "acr.org",
+    "rsna.org",
+    "pubs.rsna.org",
+    "scct.org",
+    "acsearch.acr.org",
+    "nice.org.uk",
+    "escardio.org",
+)
+
+
+def _validate_reference(node: Dict) -> None:
+    """Fail closed when an authored reporting framework does not match its schema.
+
+    `reference` is what makes a specialist module usable at the moment of
+    dictation rather than at the moment of study: the search pattern, what to
+    measure, the classification table, the words to say, and the traps. It is
+    authored medical content, so the schema insists on two things the rest of
+    the node does not — a citable source, and no empty scaffolding. A block
+    with a heading and nothing under it reads as authoritative and says
+    nothing, which is worse than no block at all.
+    """
+    ref = node.get("reference")
+    if ref is None:
+        return
+    nid = node.get("id")
+    if not isinstance(ref, dict):
+        raise ValueError("{} reference must be an object".format(nid))
+    allowed = {"source", "approach", "measure", "classify", "modifiers",
+               "template", "pitfalls"}
+    unknown = set(ref) - allowed
+    if unknown:
+        raise ValueError("{} reference has unknown keys: {}".format(nid, sorted(unknown)))
+
+    def text(container: Dict, key: str, where: str) -> str:
+        value = container.get(key)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("{} reference {} needs {}".format(nid, where, key))
+        return value
+
+    source = ref.get("source")
+    if not isinstance(source, dict):
+        raise ValueError("{} reference needs a source".format(nid))
+    if set(source) - {"title", "url", "publisher"}:
+        raise ValueError("{} reference source has unknown keys".format(nid))
+    text(source, "title", "source")
+    text(source, "publisher", "source")
+    url = text(source, "url", "source")
+    if not url.startswith("https://"):
+        raise ValueError("{} reference source must be https".format(nid))
+    host = url[len("https://"):].split("/", 1)[0].split("@")[-1].split(":")[0].lower()
+    if host.startswith("www."):
+        host = host[4:]
+    if host not in REFERENCE_HOSTS:
+        raise ValueError("{} reference source host {} is not a cited source".format(nid, host))
+
+    body = 0
+    for key, keys in (("approach", ("step", "detail")), ("measure", ("what", "how", "cutoff"))):
+        rows = ref.get(key)
+        if rows is None:
+            continue
+        if not isinstance(rows, list) or not rows:
+            raise ValueError("{} reference {} must be a non-empty list".format(nid, key))
+        for row in rows:
+            if not isinstance(row, dict) or set(row) - set(keys):
+                raise ValueError("{} reference {} row has unknown keys".format(nid, key))
+            for k in keys[:2]:
+                text(row, k, key)
+        body += 1
+
+    classify = ref.get("classify")
+    if classify is not None:
+        if not isinstance(classify, dict) or set(classify) - {"name", "columns", "rows", "note"}:
+            raise ValueError("{} reference classify has unknown keys".format(nid))
+        text(classify, "name", "classify")
+        columns = classify.get("columns")
+        if not isinstance(columns, list) or len(columns) < 2 \
+                or not all(isinstance(c, str) and c.strip() for c in columns):
+            raise ValueError("{} reference classify needs at least two named columns".format(nid))
+        rows = classify.get("rows")
+        if not isinstance(rows, list) or not rows:
+            raise ValueError("{} reference classify needs rows".format(nid))
+        for row in rows:
+            # A ragged table renders as a table with holes in it, and a hole in
+            # a grading table is the cell a reader most needs.
+            if not isinstance(row, list) or len(row) != len(columns) \
+                    or not all(isinstance(c, str) and c.strip() for c in row):
+                raise ValueError("{} reference classify row does not fill its columns".format(nid))
+        body += 1
+
+    modifiers = ref.get("modifiers")
+    if modifiers is not None:
+        if not isinstance(modifiers, list) or not modifiers:
+            raise ValueError("{} reference modifiers must be a non-empty list".format(nid))
+        for row in modifiers:
+            if not isinstance(row, dict) or set(row) - {"code", "meaning"}:
+                raise ValueError("{} reference modifier has unknown keys".format(nid))
+            text(row, "code", "modifiers")
+            text(row, "meaning", "modifiers")
+        body += 1
+
+    if "template" in ref:
+        text(ref, "template", "reference")
+        body += 1
+
+    pitfalls = ref.get("pitfalls")
+    if pitfalls is not None:
+        if not isinstance(pitfalls, list) or not pitfalls \
+                or not all(isinstance(p, str) and p.strip() for p in pitfalls):
+            raise ValueError("{} reference pitfalls must be non-empty strings".format(nid))
+        body += 1
+
+    if not body:
+        raise ValueError("{} reference cites a source and says nothing".format(nid))
+
+
 def _content_chars(node: Dict) -> int:
     """Rough proxy for how much there is to teach in a node: characters of
     authored quiz prompt/explanation/answer text, plus any kid_text lesson."""
@@ -579,6 +703,7 @@ class Curriculum:
                 node.setdefault("kid_text", "")
                 node.setdefault("lesson_media", [])
                 _validate_lesson_media(node)
+                _validate_reference(node)
                 # Provenance, recorded once, where authored items enter the
                 # app. A human wrote these: fixed prompt, fixed answer, the
                 # same tomorrow as today. The generators in practice.py stamp

@@ -1636,6 +1636,137 @@ function lessonLongDescription(item) {
   };
 }
 
+// Every anchor that leaves the book, wherever it is drawn, gets the same
+// treatment: a mark, a spoken warning, and the door. Factored out of the
+// reader when specialist modules began citing their sources on the lesson
+// page — the handler was bound to `#article` and nothing outside it was
+// wired, so a citation there would have dropped the reader into a raw tab.
+function wireOutsideLinks(root) {
+  if (!root) return;
+  root.querySelectorAll('a.primer-outside').forEach(link => {
+    if (link.dataset.outsideWired) return;
+    link.dataset.outsideWired = '1';
+    const host = link.getAttribute('data-primer-outside') || 'another site';
+    if (!link.querySelector('.outside-mark')) {
+      link.append(el('span', { class: 'outside-mark', 'aria-hidden': 'true' }, '↗'));
+    }
+    const said = link.getAttribute('aria-label') || link.textContent.trim();
+    link.setAttribute('aria-label', said + ' — leaves the book, on ' + host);
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const href = link.getAttribute('href') || '';
+      if (!href) return;
+      openModal({ label: 'Leave the book?', dismissable: true, build: (modal, close) => {
+        modal.append(
+          el('div', { class: 'kicker' }, 'Outside the book'),
+          el('h2', { style: 'margin-top:4px' }, 'This one leads off the shelf'),
+          el('p', { class: 'muted' },
+            'It opens ' + host + ' in your browser — outside the book, and outside what it keeps for you offline. The page you are on stays exactly where it is.'),
+          el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
+            btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Stay here'),
+            btn({ class: 'btn gold', style: 'flex:1', onclick: () => {
+              close();
+              window.open(href, '_blank', 'noopener,noreferrer');
+            } }, 'Open ' + host + ' →')));
+      } });
+    });
+  });
+}
+
+// The reporting framework for a specialist module: the order to look in, what
+// to measure, the table to land in, the words to say, and the traps. This is
+// what a reference work is FOR — it is read standing up, mid-dictation, not
+// studied — so it sits above the reading list rather than below it, and the
+// template can be lifted in one tap.
+function renderReference(ref, nodeTitle) {
+  if (!ref || !ref.source) return null;
+  const wrap = el('div', { class: 'card reference-card' });
+  const host = (ref.source.url || '').replace(/^https:\/\/(www\.)?/, '').split('/')[0];
+
+  wrap.append(el('div', { class: 'speak-row', style: 'margin-bottom:10px' },
+    el('b', { style: 'font-family:var(--sans);font-size:13px;letter-spacing:.08em;color:var(--gold-ink)' },
+      'AT THE WORKSTATION')));
+
+  if (ref.approach && ref.approach.length) {
+    wrap.append(el('h3', { class: 'ref-h' }, 'Look in this order'));
+    const ol = el('ol', { class: 'ref-steps' });
+    ref.approach.forEach(s => ol.append(el('li', {},
+      el('b', {}, s.step), s.detail ? el('span', { class: 'muted' }, ' — ' + s.detail) : null)));
+    wrap.append(ol);
+  }
+
+  if (ref.measure && ref.measure.length) {
+    wrap.append(el('h3', { class: 'ref-h' }, 'Measure it like this'));
+    const ul = el('ul', { class: 'ref-measure' });
+    ref.measure.forEach(m => ul.append(el('li', {},
+      el('b', {}, m.what), ' — ', m.how,
+      m.cutoff ? el('span', { class: 'ref-cut' }, m.cutoff) : null)));
+    wrap.append(ul);
+  }
+
+  if (ref.classify && ref.classify.rows) {
+    wrap.append(el('h3', { class: 'ref-h' }, ref.classify.name));
+    const scroll = el('div', { class: 'ref-scroll' });
+    const table = el('table', { class: 'ref-table' });
+    const thead = el('thead', {}); const htr = el('tr', {});
+    ref.classify.columns.forEach(c => htr.append(el('th', {}, c)));
+    thead.append(htr); table.append(thead);
+    const tbody = el('tbody', {});
+    ref.classify.rows.forEach(r => {
+      const tr = el('tr', {});
+      r.forEach((cell, i) => tr.append(el('td', i === 0 ? { class: 'ref-key' } : {}, cell)));
+      tbody.append(tr);
+    });
+    table.append(tbody); scroll.append(table); wrap.append(scroll);
+    if (ref.classify.note) wrap.append(el('p', { class: 'muted ref-note' }, ref.classify.note));
+  }
+
+  if (ref.modifiers && ref.modifiers.length) {
+    wrap.append(el('h3', { class: 'ref-h' }, 'Modifiers'));
+    const dl = el('div', { class: 'ref-mods' });
+    ref.modifiers.forEach(m => dl.append(
+      el('span', { class: 'ref-code' }, m.code), el('span', { class: 'ref-mean' }, m.meaning)));
+    wrap.append(dl);
+  }
+
+  if (ref.template) {
+    const head = el('div', { class: 'ref-template-head' }, el('h3', { class: 'ref-h' }, 'Say it like this'));
+    // A template you cannot lift is a template you retype, and a retyped
+    // template drifts from the one the classification assumes.
+    const copy = btn({ class: 'btn ghost small', onclick: () => {
+      const done = () => toast('Template copied — paste it into your report.');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ref.template).then(done).catch(() => selectTemplate());
+      } else selectTemplate();
+    } }, glyph('shelf', 14), ' Copy');
+    head.append(copy);
+    const pre = el('pre', { class: 'ref-template', tabindex: '0' }, ref.template);
+    function selectTemplate() {
+      const r = document.createRange(); r.selectNodeContents(pre);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      toast('Selected — press ⌘C to copy.');
+    }
+    wrap.append(head, pre);
+  }
+
+  if (ref.pitfalls && ref.pitfalls.length) {
+    wrap.append(el('h3', { class: 'ref-h' }, 'Where it goes wrong'));
+    const ul = el('ul', { class: 'ref-pitfalls' });
+    ref.pitfalls.forEach(p => ul.append(el('li', {}, p)));
+    wrap.append(ul);
+  }
+
+  // The citation, always last and always present: the schema refuses a
+  // framework that does not say where it came from.
+  const cite = el('p', { class: 'ref-source' }, 'From ',
+    el('a', { href: ref.source.url, class: 'primer-outside', 'data-primer-outside': host,
+      rel: 'noopener noreferrer' }, ref.source.title),
+    ' · ' + ref.source.publisher);
+  wrap.append(cite);
+  wireOutsideLinks(wrap);
+  return wrap;
+}
+
 function renderLessonMedia(items) {
   if (!Array.isArray(items) || !items.length) return null;
   const media = el('div', { class: 'lesson-media' });
@@ -1759,6 +1890,12 @@ async function renderNode(page, nodeId) {
     if (acts.children.length) card.append(acts);
     page.append(card);
   }
+
+  // A specialist module is opened mid-dictation, so its framework comes
+  // first — before the reading list, before the plate. Everything below this
+  // is for the reader who has time; this is for the one who does not.
+  const reference = renderReference(n.reference, n.title);
+  if (reference) page.append(reference);
 
   // Child-voiced mini-lesson for the youngest readers.
   if (n.kid_text && S.stage <= 1) {
@@ -2120,32 +2257,7 @@ async function renderReader(page, arg) {
     // where they had gone or how to come back. The link still works — these
     // are sources, and they are worth reaching — but the book says where it
     // leads and waits to be told to go.
-    art.querySelectorAll('a.primer-outside').forEach(link => {
-      const host = link.getAttribute('data-primer-outside') || 'another site';
-      if (!link.querySelector('.outside-mark')) {
-        link.append(el('span', { class: 'outside-mark', 'aria-hidden': 'true' }, '↗'));
-      }
-      const said = link.getAttribute('aria-label') || link.textContent.trim();
-      link.setAttribute('aria-label', said + ' — leaves the book, on ' + host);
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const href = link.getAttribute('href') || '';
-        if (!href) return;
-        openModal({ label: 'Leave the book?', dismissable: true, build: (modal, close) => {
-          modal.append(
-            el('div', { class: 'kicker' }, 'Outside the book'),
-            el('h2', { style: 'margin-top:4px' }, 'This one leads off the shelf'),
-            el('p', { class: 'muted' },
-              'It opens ' + host + ' in your browser — outside the book, and outside what it keeps for you offline. The page you are on stays exactly where it is.'),
-            el('div', { style: 'display:flex;gap:10px;margin-top:16px' },
-              btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Stay here'),
-              btn({ class: 'btn gold', style: 'flex:1', onclick: () => {
-                close();
-                window.open(href, '_blank', 'noopener,noreferrer');
-              } }, 'Open ' + host + ' →')));
-        } });
-      });
-    });
+    wireOutsideLinks(art);
     attachPictureHandlers(art);
     // Where the page came from, said as a book says it. "(live)" is a word
     // about wires; "copied in from Wikipedia as you turned to it" is the same

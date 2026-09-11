@@ -4087,3 +4087,66 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
    inside, and it should not go anywhere without saying so first. */
 .primer-outside { border-bottom: 1px dotted currentColor; text-decoration: none; }
 .outside-mark { font-size: 0.8em; margin-left: 2px; opacity: 0.75; }
+
+/* ---------- the reporting framework on a specialist module ----------
+   A reference work is read standing up, mid-dictation. This card is built for
+   that reading: the table is the thing, the template can be lifted in one tap,
+   and every colour comes from the existing paper tokens so both themes and the
+   print stylesheet follow without a second definition. */
+.reference-card { border-left: 3px solid var(--gold); }
+.reference-card .ref-h {
+  font-family: var(--sans); font-size: 13px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--gold-ink);
+  margin: 18px 0 8px; padding-bottom: 4px; border-bottom: 1px solid var(--rule);
+}
+.reference-card .ref-h:first-of-type { margin-top: 4px; }
+.ref-steps { margin: 0; padding-left: 1.3em; }
+.ref-steps li { margin-bottom: 6px; }
+.ref-measure { margin: 0; padding-left: 1.1em; list-style: none; }
+.ref-measure li { margin-bottom: 8px; position: relative; }
+.ref-measure li::before {
+  content: "·"; position: absolute; left: -0.9em; color: var(--gold-ink); font-weight: 700;
+}
+.ref-cut {
+  display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 3px;
+  background: var(--paper-2); border: 1px solid var(--rule);
+  font-family: var(--sans); font-size: 13px; font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+/* Wide tables scroll inside their own box; the page never moves sideways. */
+.ref-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; }
+.ref-table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+.ref-table th, .ref-table td {
+  text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.ref-table thead th {
+  font-family: var(--sans); font-size: 12px; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--gold-ink); background: var(--paper-2);
+  white-space: nowrap;
+}
+.ref-table tbody tr:last-child td { border-bottom: 0; }
+.ref-table td.ref-key { font-weight: 600; white-space: nowrap; }
+.ref-note { font-size: 13px; margin: 6px 0 0; }
+.ref-mods { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; align-items: baseline; }
+.ref-code {
+  font-family: var(--sans); font-weight: 700; color: var(--gold-ink);
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.ref-mean { color: var(--ink-soft); }
+.ref-template-head { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+.ref-template-head .ref-h { flex: 1; }
+.ref-template {
+  background: var(--field); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 12px 14px; margin: 0; white-space: pre-wrap; overflow-x: auto;
+  font-family: "SF Mono", "Menlo", "Consolas", ui-monospace, monospace;
+  font-size: 13.5px; line-height: 1.6; color: var(--ink);
+}
+.ref-pitfalls { margin: 0; padding-left: 1.3em; }
+.ref-pitfalls li { margin-bottom: 6px; color: var(--ink-soft); }
+.ref-source { font-size: 13px; color: var(--ink-soft); margin: 16px 0 0; }
+@media (max-width: 560px) {
+  .ref-table { font-size: 13.5px; }
+  .ref-mods { grid-template-columns: 1fr; gap: 2px 0; }
+  .ref-mods .ref-mean { margin-bottom: 8px; }
+}
