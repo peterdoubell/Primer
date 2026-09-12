@@ -145,6 +145,40 @@ def test_an_untrusted_citation_is_refused(url, why):
         _validate_reference(node)
 
 
+def test_secondary_sources_are_held_to_the_same_standard():
+    """A module often spans several articles. The extra citations are
+    provenance, so they get the same host check as the first — otherwise
+    `also` becomes the hole in the whitelist."""
+    _validate_reference(_ok(also=[{"title": "Second", "publisher": "The Radiology Assistant",
+                                   "url": "https://radiologyassistant.nl/y"}]))
+    with pytest.raises(ValueError):
+        _validate_reference(_ok(also=[{"title": "Bad", "publisher": "P",
+                                       "url": "https://example.com/y"}]))
+    with pytest.raises(ValueError):
+        _validate_reference(_ok(also=[]))
+
+
+def test_the_same_page_is_not_cited_twice():
+    with pytest.raises(ValueError):
+        _validate_reference(_ok(also=[{"title": "Same", "publisher": "The Radiology Assistant",
+                                       "url": "https://radiologyassistant.nl/x"}]))
+
+
+def test_the_index_digest_carries_the_framework_name(referenced):
+    """The Atlas route cannot afford 300 KB of reference blocks, but the index
+    has to be searchable by the name the reader thinks in. The digest is what
+    makes "LI-RADS" find The Liver Lesion."""
+    import primer.server as srv
+
+    node = srv.curr.node("rad.4.liver")
+    listed = srv._public_node(node)
+    assert "reference" not in listed, "the full block is riding on the Atlas route"
+    assert listed["framework"]["name"], "no framework name for the index to match"
+    assert "LI-RADS" in listed["framework"]["name"]
+    detail = srv._public_node(node, include_detail=True)
+    assert "reference" in detail, "the detail route must still carry the block"
+
+
 def test_a_ragged_grading_table_is_refused():
     with pytest.raises(ValueError):
         _validate_reference(_ok(classify={

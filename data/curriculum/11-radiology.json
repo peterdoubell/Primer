@@ -315,7 +315,8 @@
           "Using the portal venous phase to look for a hypervascular lesion. Peak hypervascular enhancement is at 35–40 sec; by 70–80 sec the lesion is isodense to liver.",
           "Using a fixed delay in a patient with poor cardiac output. Circulation time is the variable that ruins timing — bolus track on the target vessel instead.",
           "Scanning the kidneys in the arterial phase. The nephrogenic phase at 100 sec is the one in which a renal lesion is either there or is not."
-        ]
+        ],
+        "template": "TECHNIQUE\n[CT region], [non-contrast / single-phase / multiphase].\nAccess: [n]-gauge cannula, [site].\nContrast: [agent], [100 / 120 / 150] mL at [3–4 / 5] mL/s, weight [n] kg, followed by a [n] mL saline chaser.\nTiming: [bolus tracking, ROI in [vessel], trigger 150 HU / test bolus / fixed delay [n] s].\nPhases acquired: [early arterial 15–20 s / late arterial 35–40 s / hepatic-late portal 70–80 s / nephrogenic 100 s / delayed 6–10 min].\n\nDIAGNOSTIC QUALITY\nVascular opacification: [adequate / suboptimal — reason].\nParenchymal enhancement: [adequate / suboptimal].\nExtravasation or injection incident: [none / describe, site, estimated volume, action taken].\n\nFINDINGS\n[Report body.]\n\nIMPRESSION\n1. [Answer to the clinical question.]\n2. [State any phase that was mistimed or missing, and what could not be assessed as a result.]\n3. [Recommendation, including any repeat phase needed.]"
       }
     },
     {
@@ -505,7 +506,154 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "ACR Appropriateness Criteria — Relative Radiation Level designations",
+          "url": "https://acsearch.acr.org/docs/69449/Narrative",
+          "publisher": "American College of Radiology"
+        },
+        "also": [
+          {
+            "title": "Radiation effects on embryonic and fetal development",
+            "url": "https://radiopaedia.org/articles/radiation-effects-on-embryonic-and-fetal-development",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Effective dose",
+            "url": "https://radiopaedia.org/articles/effective-dose",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Diagnostic reference level",
+            "url": "https://radiopaedia.org/articles/diagnostic-reference-level",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "As low as reasonably achievable (ALARA)",
+            "url": "https://radiopaedia.org/articles/as-low-as-reasonably-achievable-alara",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "Justify before you optimise",
+            "detail": "Ask what the answer will change. An unjustified exposure cannot be optimised into an acceptable one, and the zero-dose alternatives — ultrasound and MRI — carry no ionising radiation at all."
+          },
+          {
+            "step": "Place the study on the relative radiation level scale",
+            "detail": "Work in bands, not in decimal points. Ultrasound and MRI are O. A chest radiograph is one symbol. Single-phase body CT is three. A multiphase CT or an embolisation procedure is four."
+          },
+          {
+            "step": "Drop the phases you do not need",
+            "detail": "CT abdomen and pelvis with contrast sits at ☢☢☢; adding a non-contrast phase moves the same patient to ☢☢☢☢. Each extra pass is a doubling you have to justify by name."
+          },
+          {
+            "step": "Apply ALARA to the acquisition",
+            "detail": "As low as reasonably achievable — or ALARP in the UK — while still producing image quality adequate for the diagnosis. Reducing dose below diagnostic quality is not optimisation, it is a wasted exposure."
+          },
+          {
+            "step": "Audit against the diagnostic reference level, not against the patient",
+            "detail": "DRLs are set from audit data across many patients — DAP and entrance skin dose in radiography and fluoroscopy, CTDI and DLP in CT. They are not limits and they are not applied to an individual. Consistent excursion above or below one triggers an investigation of technique or equipment."
+          },
+          {
+            "step": "Ask about pregnancy, and about age",
+            "detail": "The embryo is extremely radiosensitive because of rapid proliferation, migration and differentiation. Children carry the same disadvantage plus more years in which a stochastic effect can appear — the paediatric dose bands sit roughly threefold below the adult ones for the same level of concern."
+          },
+          {
+            "step": "Put the risk in proportion when you counsel",
+            "detail": "Most diagnostic x-ray and nuclear medicine examinations are under 50 mSv and have not been shown to affect fetal growth or development. Up to 100 mSv the risk is deemed low against the background risks of pregnancy — the spontaneous incidence of abnormality is about 6%."
+          }
+        ],
+        "measure": [
+          {
+            "what": "Effective dose",
+            "how": "Sum of organ equivalent doses weighted by tissue weighting factors. Use it for order-of-magnitude comparison between techniques only — it ignores age, sex and size and is not meaningful for an individual patient.",
+            "cutoff": "Always lower than the equivalent dose of the same partial-body exposure"
+          },
+          {
+            "what": "Diagnostic reference level",
+            "how": "Median (not mean) of audited patient doses for a named procedure, locally or nationally.",
+            "cutoff": "ESD and DAP in radiography and fluoroscopy · CTDI and DLP in CT"
+          },
+          {
+            "what": "Diagnostic exposures in pregnancy",
+            "how": "Compare the study's effective dose against the thresholds below before you refuse it.",
+            "cutoff": "Most diagnostic studies < 50 mSv · risk deemed low up to 100 mSv"
+          },
+          {
+            "what": "Pre-implantation exposure (fertilisation to day 9)",
+            "how": "All-or-nothing: intrauterine death and resorption, usually undetected, or a normal pregnancy.",
+            "cutoff": "Threshold ≈ 100 mSv"
+          },
+          {
+            "what": "Organogenesis (3rd–8th week after conception)",
+            "how": "Deterministic risk of congenital malformation, most of it CNS. Growth restriction can occur beyond 4 weeks gestation.",
+            "cutoff": "Probable threshold > 100 mSv; malformation especially at 20–40 days"
+          },
+          {
+            "what": "Fetal growth stage (beyond 8 weeks)",
+            "how": "Little malformation risk; the concerns shift to IQ and to childhood cancer.",
+            "cutoff": "Reduced IQ mainly 8–25 weeks · childhood cancer mainly after 25 weeks"
+          }
+        ],
+        "classify": {
+          "name": "ACR relative radiation level bands",
+          "columns": [
+            "RRL",
+            "Adult effective dose",
+            "Paediatric effective dose",
+            "Examples verified from ACR variant tables"
+          ],
+          "rows": [
+            [
+              "O",
+              "0 mSv",
+              "0 mSv",
+              "Ultrasound (transabdominal, transvaginal, duplex Doppler, endoscopic); MRI with or without contrast, including MRCP"
+            ],
+            [
+              "☢",
+              "< 0.1 mSv",
+              "< 0.03 mSv",
+              "Chest radiography"
+            ],
+            [
+              "☢☢",
+              "0.1–1 mSv",
+              "0.03–0.3 mSv",
+              "—"
+            ],
+            [
+              "☢☢☢",
+              "1–10 mSv",
+              "0.3–3 mSv",
+              "CT chest with, without, or without and with contrast; CTA chest; CT abdomen and pelvis with or without contrast; CT pelvis with or without contrast"
+            ],
+            [
+              "☢☢☢☢",
+              "10–30 mSv",
+              "3–10 mSv",
+              "CT abdomen and pelvis without and with contrast; CT pelvis without and with contrast; bronchial arteriography with embolisation"
+            ],
+            [
+              "☢☢☢☢☢",
+              "30–100 mSv",
+              "10–30 mSv",
+              "—"
+            ]
+          ],
+          "note": "Where patient dose varies too much with body region or guidance technique to band it, the ACR designates the examination \"Varies\". Bands marked — had no example in the variant tables consulted; do not fill them from memory."
+        },
+        "pitfalls": [
+          "Quoting an effective dose to a patient as their personal risk. It is a rough whole-body equivalence built on arbitrary weighting factors that ignore age, sex and size — good for comparing techniques, meaningless for one person.",
+          "Treating a diagnostic reference level as a dose limit. It is an optimisation aid derived from audit; the patient in front of you may legitimately need more.",
+          "Assuming a lower dose is always better. Below diagnostic image quality the exposure delivers risk and no answer, which is the worst possible trade.",
+          "Refusing a justified CT in pregnancy. Diagnostic examinations sit well below the ≈100 mSv thresholds at which deterministic fetal effects begin; interventional pelvic procedures and radiotherapy are the exposures that can reach them.",
+          "Adding an unenhanced phase by habit. It moves a body CT up a whole radiation level for the same clinical question.",
+          "Forgetting that children are not small adults for dose. The ACR paediatric band for a given level of concern is roughly a third of the adult figure, and there are more years ahead in which a stochastic effect can appear."
+        ]
+      }
     },
     {
       "id": "rad.3.ct-image",
@@ -682,7 +830,167 @@
           "ephemeral": false
         }
       ],
-      "section": "Foundations"
+      "section": "Foundations",
+      "reference": {
+        "source": {
+          "title": "Windowing (CT)",
+          "url": "https://radiopaedia.org/articles/windowing-ct",
+          "publisher": "Radiopaedia"
+        },
+        "also": [
+          {
+            "title": "Hounsfield unit",
+            "url": "https://radiopaedia.org/articles/hounsfield-unit",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "CT artifacts",
+            "url": "https://radiopaedia.org/articles/ct-artifacts",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "Choose the window before you look",
+            "detail": "The window decides what exists on the screen. A lesion outside the displayed range is invisible, not absent — review every chest CT on lung and mediastinal windows, every head CT on brain and bone."
+          },
+          {
+            "step": "Work out the grey levels the window gives you",
+            "detail": "Upper grey level is WL + (WW ÷ 2), lower is WL − (WW ÷ 2). A brain window of W:80 L:40 whites out everything above 80 HU and blacks out everything below 0."
+          },
+          {
+            "step": "Widen for adjacent extremes, narrow for similar tissues",
+            "detail": "A wide window (400–2000 HU) suits lung and cortical bone where air sits beside vessel. A narrow window (50–350 HU) separates soft tissues of similar attenuation — early infarct is the classic use."
+          },
+          {
+            "step": "Put an ROI on anything you are going to name",
+            "detail": "Fat, fluid, blood, calcium and contrast are distinguished by number, not by grey. Measure rather than describe as \"low attenuation\"."
+          },
+          {
+            "step": "Check the ROI is honest",
+            "detail": "Place it well inside the structure, away from an edge, and on a slice where partial volume averaging is not mixing two tissues into a middle number."
+          },
+          {
+            "step": "Name the artefact rather than reporting it as disease",
+            "detail": "Decide whether what you are looking at is patient-based (motion, clothing, jewellery), physics-based (beam hardening, metal, partial volume, quantum mottle, photon starvation) or hardware-based (ring, windmill, stair step)."
+          }
+        ],
+        "measure": [
+          {
+            "what": "Attenuation of a structure",
+            "how": "Electronic ROI over the region, on non-contrast images where the question is intrinsic density.",
+            "cutoff": "Water 0 HU · air −1000 HU"
+          },
+          {
+            "what": "Fat",
+            "how": "ROI in subcutaneous fat as your internal control, then compare.",
+            "cutoff": "Subcutaneous fat −100 to −115 HU"
+          },
+          {
+            "what": "Solid organs",
+            "how": "ROI away from vessels and the capsule.",
+            "cutoff": "Liver 45–50 · spleen 40–45 · muscle 45–50 · renal cortex 25–30 HU"
+          },
+          {
+            "what": "Brain grey and white matter",
+            "how": "Symmetrical ROIs, compared side to side rather than against an absolute.",
+            "cutoff": "Grey 40 HU · white 30 HU"
+          },
+          {
+            "what": "Bone and metal",
+            "how": "ROI within cortex or trabecula; expect metal to sit off the conventional scale.",
+            "cutoff": "Cortical > 1000 · trabecular 300–800 · metal > 3000 HU"
+          },
+          {
+            "what": "Lung parenchyma",
+            "how": "ROI in aerated lung on a lung window.",
+            "cutoff": "−950 to −650 HU"
+          },
+          {
+            "what": "Hepatic steatosis",
+            "how": "Liver-to-spleen attenuation ratio on non-contrast CT.",
+            "cutoff": "Fatty liver if ratio < 1.0 (or < 0.8)"
+          }
+        ],
+        "classify": {
+          "name": "Window width and level presets (W:WW L:WL, in HU)",
+          "columns": [
+            "Region",
+            "Study",
+            "Setting"
+          ],
+          "rows": [
+            [
+              "Head and neck",
+              "Brain",
+              "W:80 L:40"
+            ],
+            [
+              "Head and neck",
+              "Subdural",
+              "W:130–300 L:50–100"
+            ],
+            [
+              "Head and neck",
+              "Stroke",
+              "W:8 L:32, or W:40 L:40"
+            ],
+            [
+              "Head and neck",
+              "Temporal bones",
+              "W:2800 L:600, or W:4000 L:700"
+            ],
+            [
+              "Head and neck",
+              "Soft tissues",
+              "W:350–400 L:20–60"
+            ],
+            [
+              "Chest",
+              "Lungs",
+              "W:1500 L:−600"
+            ],
+            [
+              "Chest",
+              "Mediastinum",
+              "W:350 L:50"
+            ],
+            [
+              "Chest",
+              "Vascular / heart",
+              "W:600 L:200, or W:1000 L:400"
+            ],
+            [
+              "Abdomen",
+              "Soft tissues",
+              "W:400 L:50"
+            ],
+            [
+              "Abdomen",
+              "Liver",
+              "W:150 L:30"
+            ],
+            [
+              "Spine",
+              "Soft tissues",
+              "W:250 L:50"
+            ],
+            [
+              "Spine",
+              "Bone",
+              "W:1800 L:400"
+            ]
+          ],
+          "note": "Values vary between institutions and vendors. Treat these as the starting point you then adjust, not as fixed truth."
+        },
+        "pitfalls": [
+          "Reading a subdural on standard brain windows. W:80 L:40 whites out everything above 80 HU, and a thin collection layered against the inner table disappears into the bone. Widen to a subdural window on every head CT.",
+          "Trusting an ROI that straddles a boundary. Partial volume averaging returns the mean of two tissues, so a calcified focus on the edge of a slice reads as soft tissue, and a small fat-containing lesion reads as fluid.",
+          "Calling a low-attenuation liver fatty without the spleen. The diagnosis is a ratio, not an absolute number, and the whole scale shifts with contrast.",
+          "Blaming the patient for a hardware artefact. Ring, windmill, stair step and zebra artefacts do not move when the patient does — recognising them stops a pointless repeat scan.",
+          "Reading HU off a post-contrast series as if it were unenhanced. Every attenuation figure above is a non-contrast value; enhancement invalidates the comparison."
+        ]
+      }
     },
     {
       "id": "rad.3.mri-sequences",
@@ -884,7 +1192,130 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "MRI sequences (overview)",
+          "url": "https://radiopaedia.org/articles/mri-sequences-overview",
+          "publisher": "Radiopaedia"
+        },
+        "approach": [
+          {
+            "step": "Look at the fluid first",
+            "detail": "CSF, urine or joint fluid black means T1, FLAIR or DWI. White means T2 or proton density."
+          },
+          {
+            "step": "Then look at the fat",
+            "detail": "Fat white on both T1 and T2. Fat black with fluid still bright means the sequence is fat suppressed — chemical saturation or STIR."
+          },
+          {
+            "step": "If fluid is dark, settle T1 against FLAIR on the grey-white contrast",
+            "detail": "On T1 white matter is brighter than grey. On T2-weighted sequences, fluid attenuated or not, white matter is darker than grey. That single comparison separates T1 from FLAIR, which otherwise look alike."
+          },
+          {
+            "step": "Identify the diffusion set",
+            "detail": "Three series travel together: DWI, ADC and b=0. DWI is low resolution with dark CSF; ADC is its greyscale inverse with bright CSF; b=0 exists only to compute the ADC."
+          },
+          {
+            "step": "Read DWI and ADC together, never DWI alone",
+            "detail": "True restriction is bright on DWI and dark on ADC. Bright on both is T2 shine-through, because DWI carries a T2 component."
+          },
+          {
+            "step": "Ask what the add-ons were for",
+            "detail": "Gadolinium plus fat suppression to expose enhancement; fat suppression on T2 to expose soft-tissue oedema; FLAIR to expose parenchymal oedema beside bright CSF; T2* or SWI to expose blood products and calcium."
+          }
+        ],
+        "classify": {
+          "name": "Identifying the sequence in front of you",
+          "columns": [
+            "Sequence",
+            "Fluid (CSF, urine)",
+            "Fat",
+            "Brain grey vs white",
+            "Acquired to answer"
+          ],
+          "rows": [
+            [
+              "T1",
+              "Low (black)",
+              "High (white)",
+              "White matter brighter than grey",
+              "Anatomy — the sequence that most resembles the tissue macroscopically"
+            ],
+            [
+              "T1 + gadolinium",
+              "Low",
+              "High unless suppressed",
+              "As T1",
+              "Where are the leaky vessels — tumour, inflammation, infection"
+            ],
+            [
+              "T1 fat suppressed",
+              "Low",
+              "Low (black)",
+              "As T1",
+              "Prove a lesion is fat, or make enhancement conspicuous after contrast"
+            ],
+            [
+              "T2",
+              "High (white)",
+              "High (white)",
+              "White matter darker than grey",
+              "Where is the fluid and the pathology"
+            ],
+            [
+              "T2 fat suppressed / STIR",
+              "High",
+              "Low (black)",
+              "White matter darker than grey",
+              "Soft-tissue oedema in fatty tissue"
+            ],
+            [
+              "FLAIR",
+              "Low (attenuated)",
+              "High",
+              "White matter darker than grey",
+              "Parenchymal oedema without the glare of CSF"
+            ],
+            [
+              "T2* / SWI",
+              "Variable",
+              "High",
+              "Sensitive to field perturbation",
+              "Blood products and calcium; SWI is the most sensitive and can tell the two apart"
+            ],
+            [
+              "Proton density",
+              "High (white)",
+              "High (white)",
+              "Intermediate",
+              "Joints — separates fluid, hyaline cartilage (grey) and fibrocartilage (black)"
+            ],
+            [
+              "DWI",
+              "Low (black)",
+              "Little signal",
+              "White matter slightly darker than grey",
+              "Restricted diffusion — stroke, cellular tumour, pus (bright)"
+            ],
+            [
+              "ADC",
+              "High (white)",
+              "Little signal",
+              "White matter slightly brighter than grey",
+              "The diffusion value without T2 effects; restriction is dark"
+            ]
+          ],
+          "note": "Gadolinium doses are typically 5–15 mL intravenously, imaged a few minutes after administration."
+        },
+        "pitfalls": [
+          "Calling a FLAIR a T1 because the CSF is black. Check the grey-white contrast: white brighter than grey is T1, darker is any T2-weighted sequence including FLAIR.",
+          "Reporting restriction off the DWI alone. T2 shine-through makes T2-bright tissue bright on DWI with no diffusion abnormality — the ADC must be dark before you say restricted.",
+          "Saying \"density\" of an MRI signal. On MRI it is intensity; density belongs to CT.",
+          "Writing \"hyperintense\" without naming the comparator. A lesion in the ventricle described as hypointense could mean darker than CSF or darker than brain — say which.",
+          "Expecting fat-containing lesions to be conspicuous on DWI. Fat gives little diffusion signal because it holds little water."
+        ]
+      }
     },
     {
       "id": "rad.2.modalities",
@@ -1074,7 +1505,144 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "ACR Appropriateness Criteria — Relative Radiation Level designations",
+          "url": "https://acsearch.acr.org/docs/3196038/Narrative",
+          "publisher": "American College of Radiology"
+        },
+        "also": [
+          {
+            "title": "Hounsfield unit",
+            "url": "https://radiopaedia.org/articles/hounsfield-unit",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "MRI sequences (overview)",
+            "url": "https://radiopaedia.org/articles/mri-sequences-overview",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Positron emission tomography",
+            "url": "https://radiopaedia.org/articles/pet-ct",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Acoustic shadowing",
+            "url": "https://radiopaedia.org/articles/acoustic-shadowing",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "State the question as a physical property",
+            "detail": "Attenuation, proton behaviour, acoustic impedance, glucose metabolism, receptor expression. A modality can only answer a question that maps onto what it measures."
+          },
+          {
+            "step": "Rule out the modality the physics forbids",
+            "detail": "Ultrasound cannot see through bone or gas — a soft tissue/air interface reflects nearly the whole beam and leaves a shadow. CT cannot separate two tissues of the same attenuation whatever the window. Structural imaging cannot report metabolism."
+          },
+          {
+            "step": "Take the free answer first",
+            "detail": "Ultrasound and MRI are relative radiation level O across every ACR variant table: transabdominal, transvaginal, duplex Doppler and endoscopic ultrasound, and MRI with or without contrast including MRCP. If one of them answers the question, the radiation debate does not arise."
+          },
+          {
+            "step": "Count the contrast cost separately from the radiation cost",
+            "detail": "They are independent. CT abdomen and pelvis with contrast and without contrast both sit at ☢☢☢; doing both moves the patient to ☢☢☢☢. MRI without contrast and MRI with contrast are both O."
+          },
+          {
+            "step": "Match resolution to lesion size",
+            "detail": "PET resolution is limited by the 2–3 mm the positron travels before annihilation and by detector element size; FDG sensitivity and specificity fall below 7 mm. Do not send a 5 mm question to a functional study."
+          },
+          {
+            "step": "Decide whether you need anatomy with the function",
+            "detail": "PET and SPECT data are noisy and poorly resolved, which is why they are hybridised with CT. Scintigraphy is planar and two-dimensional; SPECT and PET reconstruct in three."
+          },
+          {
+            "step": "Say why the alternative was not chosen",
+            "detail": "The line that makes a recommendation useful is not \"CT is recommended\" but \"ultrasound cannot answer this because the target lies behind bowel gas\"."
+          }
+        ],
+        "measure": [
+          {
+            "what": "CT attenuation",
+            "how": "ROI in Hounsfield units on a linear transformation of measured attenuation coefficients. No other structural modality has an equivalent quantitative scale.",
+            "cutoff": "Water 0 HU · air −1000 HU · cortical bone > 1000 HU · metal > 3000 HU"
+          },
+          {
+            "what": "PET spatial resolution",
+            "how": "Set by positron range before annihilation and by detector element size.",
+            "cutoff": "Positron travels 2–3 mm before annihilation; photons detected at 511 keV"
+          },
+          {
+            "what": "FDG lesion size floor",
+            "how": "Below this, a negative PET is weak evidence.",
+            "cutoff": "Sensitivity and specificity fall below 7 mm"
+          },
+          {
+            "what": "Radiation cost of adding a phase",
+            "how": "Compare the single-phase and multiphase entries in the same ACR variant table.",
+            "cutoff": "CT abdomen and pelvis with contrast ☢☢☢ → without and with contrast ☢☢☢☢"
+          }
+        ],
+        "classify": {
+          "name": "What each modality actually measures, and what it costs",
+          "columns": [
+            "Modality",
+            "Physical property measured",
+            "Radiation (ACR RRL)",
+            "What it is blind to"
+          ],
+          "rows": [
+            [
+              "Radiography",
+              "X-ray attenuation, projected into two dimensions",
+              "☢ (chest radiography)",
+              "Anything superimposed; small differences between soft tissues"
+            ],
+            [
+              "CT",
+              "X-ray attenuation, resolved in three dimensions and quantified in Hounsfield units",
+              "☢☢☢ single phase chest or abdomen/pelvis; ☢☢☢☢ without and with contrast",
+              "Tissues of matched attenuation; anything outside the chosen window; function"
+            ],
+            [
+              "Ultrasound",
+              "Reflection of sound at interfaces of differing acoustic impedance",
+              "O",
+              "Anything beyond bone or gas — a soft tissue/air mismatch reflects nearly the whole beam"
+            ],
+            [
+              "MRI",
+              "Proton behaviour, weighted by sequence: T1, T2, proton density, diffusion, flow, susceptibility",
+              "O",
+              "Cortical bone detail; the patient who cannot lie still or hold an implant safely"
+            ],
+            [
+              "Scintigraphy",
+              "Gamma emission from a targeted tracer, as planar two-dimensional data",
+              "Ionising; not banded in the sources consulted",
+              "Depth and precise anatomical location"
+            ],
+            [
+              "PET (hybridised with CT)",
+              "Positron annihilation at 511 keV from a metabolic or receptor-targeted tracer",
+              "Ionising; not banded in the sources consulted",
+              "Lesions under about 7 mm; anatomy without the CT component"
+            ]
+          ],
+          "note": "RRL bands: O is 0 mSv, ☢ under 0.1 mSv, ☢☢ 0.1–1, ☢☢☢ 1–10, ☢☢☢☢ 10–30, ☢☢☢☢☢ 30–100 mSv in adults. Paediatric bands are roughly threefold lower. Examples are taken from ACR Appropriateness Criteria variant tables; two rows are left unbanded because the sources consulted did not give a figure — do not fill them from memory."
+        },
+        "pitfalls": [
+          "Choosing the modality by availability and then reasoning backwards. If the physics cannot answer the question, a normal study means nothing.",
+          "Treating contrast and radiation as the same trade. Unenhanced and contrast-enhanced CT of the same region occupy the same radiation band; it is the extra phase, not the contrast, that raises the dose.",
+          "Sending a small nodule to PET. Both sensitivity and specificity deteriorate below 7 mm, so the answer will not be actionable either way.",
+          "Assuming ultrasound has failed when it has been defeated. Bowel gas and bone shadow the beam by physics, not by operator error — say which structure was obscured so the next test is chosen properly.",
+          "Reading a functional study without its anatomical partner. PET and SPECT are noisy and poorly resolved; the hybrid CT exists because localisation is otherwise guesswork.",
+          "Recommending a test without saying what it will change. The value of the recommendation lies in naming the question the chosen modality can answer and the ones it cannot."
+        ]
+      }
     },
     {
       "id": "rad.5.ultrasound-physics",
@@ -1269,7 +1837,166 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "Ultrasound artifacts",
+          "url": "https://radiopaedia.org/articles/ultrasound-artifacts",
+          "publisher": "Radiopaedia"
+        },
+        "also": [
+          {
+            "title": "Aliasing phenomenon (ultrasound)",
+            "url": "https://radiopaedia.org/articles/aliasing-artifact-ultrasound",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Twinkling artifact",
+            "url": "https://radiopaedia.org/articles/twinkling-artifact",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Mirror image artifact",
+            "url": "https://radiopaedia.org/articles/mirror-image-artifact-ultrasound",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Anisotropy",
+            "url": "https://radiopaedia.org/articles/anisotropy",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Acoustic enhancement",
+            "url": "https://radiopaedia.org/articles/acoustic-enhancement",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Acoustic shadowing",
+            "url": "https://radiopaedia.org/articles/acoustic-shadowing",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Reverberation artifact",
+            "url": "https://radiopaedia.org/articles/reverberation-artifact",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "Decide what the artefact is telling you before you try to remove it",
+            "detail": "Shadowing makes the gallstone, enhancement makes the cyst, mirroring through the diaphragm excludes a pleural effusion, twinkling finds the stone you could not shadow. Some artefacts are the finding."
+          },
+          {
+            "step": "Set the focal zone against the question",
+            "detail": "Bring the focus to the level of the object. A shadow deepens as the focal zone approaches the shadowing surface; twinkling is more obvious when the focal zone sits below the rough reflector rather than above it."
+          },
+          {
+            "step": "Change the angle before you change the machine",
+            "detail": "Reverberation, mirroring and multipath all depend on the geometry between probe and reflector. Rocking the probe to alter the angle of insonation abolishes all three."
+          },
+          {
+            "step": "On tendons, keep the beam perpendicular",
+            "detail": "A fibrillar structure returns maximum echo only at 90°. Off-axis it goes black and reads as tendinosis or tear. Heel-toe the probe and watch the hypoechogenicity come and go."
+          },
+          {
+            "step": "Set the velocity scale to the flow, not the other way round",
+            "detail": "Colour aliasing disappears the moment the upper margin of the velocity scale is raised above peak flow velocity. On spectral Doppler, drop the baseline or raise the PRF."
+          },
+          {
+            "step": "Keep the angle of insonation small for velocity",
+            "detail": "An inappropriate angle of insonation, a large sample volume, a higher-frequency transducer and greater depth all push you towards aliasing."
+          }
+        ],
+        "measure": [
+          {
+            "what": "Nyquist limit",
+            "how": "Half the pulse repetition frequency. Doppler shifts above it are recorded with the wrong direction and velocity.",
+            "cutoff": "Nyquist = PRF ÷ 2"
+          },
+          {
+            "what": "Assumed speed of sound",
+            "how": "The machine converts return time to depth on a fixed velocity in soft tissue; every depth error, including speed displacement, follows from it.",
+            "cutoff": "c = 1540 m/s"
+          },
+          {
+            "what": "Colour Doppler aliasing threshold",
+            "how": "Watch for red and blue directly adjacent with no intervening black line of no flow.",
+            "cutoff": "Flow above about 0.4–0.7 m/s"
+          },
+          {
+            "what": "Colour scale for renal twinkling",
+            "how": "Set the colour velocity scale high enough that intrarenal arterial aliasing does not mimic twinkle. Colour gain, not PRF, reliably alters twinkling itself.",
+            "cutoff": "Colour velocity scale ≥ 60 cm/s"
+          },
+          {
+            "what": "Why fluid enhances",
+            "how": "Time gain compensation overcompensates through a weakly attenuating structure, brightening what lies deep to it.",
+            "cutoff": "At 1 MHz water attenuates ~2000× less than soft tissue"
+          }
+        ],
+        "classify": {
+          "name": "Reading the artefact",
+          "columns": [
+            "Artefact",
+            "What you see",
+            "Mechanism",
+            "What to do"
+          ],
+          "rows": [
+            [
+              "Acoustic shadowing",
+              "Absent signal deep to an interface",
+              "Nearly all the beam reflected or absorbed — dense solid or a soft tissue/air impedance mismatch",
+              "Use it: it makes the gallstone. Move the focal zone up to the object to deepen the shadow."
+            ],
+            [
+              "Acoustic enhancement",
+              "Brighter tissue deep to a fluid-filled structure",
+              "Weak attenuation through fluid, overcompensated by TGC",
+              "Supports a cyst — but some solid masses, lymphoma especially, enhance too."
+            ],
+            [
+              "Reverberation",
+              "Equally spaced repeating echoes at increasing depth",
+              "Beam bouncing between two strong parallel reflectors, later returns read as deeper",
+              "Change the angle of insonation. Comet tail is the short-train variant, e.g. cholesterol crystals in adenomyomatosis."
+            ],
+            [
+              "Mirror image",
+              "A duplicate structure on the far side of a strong reflector, classically across the diaphragm",
+              "Multiply reflected echo assumed to have travelled a single longer path",
+              "Reposition and change the angle. Used deliberately, liver mirrored through the diaphragm excludes a pleural effusion."
+            ],
+            [
+              "Anisotropy",
+              "A normal tendon or ligament turns hypoechoic",
+              "Fibrils reflect the beam away from the transducer when it is not perpendicular",
+              "Angle back to 90°. If the darkening reverses with angle, the tendon is normal."
+            ],
+            [
+              "Twinkling",
+              "Alternating colour behind a rough reflector, mimicking turbulent flow",
+              "Phase (clock) jitter in the Doppler electronics",
+              "More sensitive for small stones than shadowing, but roughly 50% false positive against unenhanced CT in the kidney — corroborate."
+            ],
+            [
+              "Aliasing",
+              "Colour wrap with no black line between hues; spectral peak cut off and wrapped to the bottom of the scale",
+              "Doppler shift exceeds the Nyquist limit",
+              "Raise the velocity scale or PRF, lower the baseline, reduce depth, reduce the angle. Power Doppler does not alias — it displays no velocity."
+            ]
+          ],
+          "note": "Aliasing is also used deliberately: the PISA method in mitral regurgitation takes the aliasing velocity as a known number."
+        },
+        "pitfalls": [
+          "Calling a hypoechoic tendon abnormal without heel-toeing the probe. Anisotropy manufactures tendinosis and tears at the slightest off-axis angle.",
+          "Reporting a renal twinkle as a stone. About half of renal twinkling artefacts are false positives against unenhanced CT, and low PRF settings raise intrarenal arterial aliasing that mimics it.",
+          "Mistaking aliasing for true flow reversal. True reversal has a black band of no flow between the colours; aliasing has red abutting blue.",
+          "Diagnosing a pleural effusion from an anechoic space above the diaphragm without checking the angle. Mirrored ascites does exactly this.",
+          "Assuming a lesion with posterior enhancement must be cystic. Lymphoma is the standing exception.",
+          "Chasing an artefact with gain when the fix is geometric. Reverberation, mirroring and anisotropy all answer to the angle of insonation, not the gain knob."
+        ]
+      }
     },
     {
       "id": "rad.5.biopsy-safety",
@@ -1474,7 +2201,161 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "Periprocedural anticoagulation",
+          "url": "https://radiopaedia.org/articles/periprocedural-anticoagulation",
+          "publisher": "Radiopaedia"
+        },
+        "approach": [
+          {
+            "step": "Place the procedure in a bleeding-risk category first",
+            "detail": "Everything downstream — whether you screen, what you correct to, which drugs you hold — follows from low, moderate or high risk. Decide it before you look at the drug chart."
+          },
+          {
+            "step": "Weigh the thrombotic risk against the bleeding risk, explicitly",
+            "detail": "Three things go into the decision: the procedure's bleeding risk, the drugs altering coagulation or platelet function, and the patient's own thromboembolic risk. Skipping the third is how a stent thromboses for a thyroid biopsy."
+          },
+          {
+            "step": "Screen selectively, not reflexively",
+            "detail": "High risk: INR, aPTT, platelet count and haematocrit. Moderate risk: INR routinely. Low risk: no routine testing. Screen anyone with unexplained previous haemorrhage, renal, liver or haematological disease whatever the category."
+          },
+          {
+            "step": "Correct to the target for the category, then stop",
+            "detail": "Low risk INR < 2.0. Moderate and high risk INR < 1.5 with aPTT < 1.5 × control. Platelets transfused below 50,000/μL at every level."
+          },
+          {
+            "step": "Ask who else has to agree",
+            "detail": "Cardiology for previous PCI, mechanical valves or high-risk atrial fibrillation. Haematology for thrombophilia, coagulopathy or reversal. The operator and the departmental guideline outrank any general table, including this one."
+          },
+          {
+            "step": "Plan the tract before the needle",
+            "detail": "Choose the modality that shows the lesion in real time, then choose a route that avoids bowel, pleura and major vessels — bearing in mind that a new tract, as in biliary intervention, is itself what makes a procedure high risk."
+          },
+          {
+            "step": "Fix the restart before the patient leaves",
+            "detail": "Aspirin at 24 hours. ADP inhibitors at 24–48 hours. Warfarin at 12–24 hours. DOACs at 24–48 hours. Write it on the plan, because the omitted restart causes as much harm as the omitted hold."
+          }
+        ],
+        "measure": [
+          {
+            "what": "Coagulation target, low-risk procedure",
+            "how": "Correct before proceeding.",
+            "cutoff": "INR < 2.0 · transfuse platelets if < 50,000/μL"
+          },
+          {
+            "what": "Coagulation target, moderate and high-risk procedure",
+            "how": "Correct before proceeding.",
+            "cutoff": "INR < 1.5 · aPTT < 1.5 × control · transfuse platelets if < 50,000/μL"
+          },
+          {
+            "what": "Aspirin",
+            "how": "Withhold for high-risk procedures; generally continue for low and moderate. Only platelet transfusion or desmopressin expedites reversal.",
+            "cutoff": "Hold 5 days · restart 24 h"
+          },
+          {
+            "what": "ADP inhibitors — clopidogrel, ticagrelor, ticlopidine",
+            "how": "Withhold for low, moderate and high risk, though some continue for low risk where stopping is itself hazardous.",
+            "cutoff": "Hold 5 days (7 days for high-risk procedures) · restart 24–48 h"
+          },
+          {
+            "what": "Prasugrel",
+            "how": "Greater platelet inhibition than the other ADP inhibitors.",
+            "cutoff": "Hold 7 days"
+          },
+          {
+            "what": "NSAIDs",
+            "how": "Generally only for high-risk procedures; the hold follows the agent's half-life.",
+            "cutoff": "Short half-life (diclofenac, ibuprofen) 24 h · medium (naproxen, celecoxib) 2–3 days · restart 24 h"
+          },
+          {
+            "what": "Warfarin",
+            "how": "Withhold and confirm the INR. Vitamin K, fresh frozen plasma or prothrombin complex concentrate for faster reversal.",
+            "cutoff": "Low risk: hold 3–5 days to INR < 2.0 · moderate/high: hold 5 days to INR < 1.5 · restart 12–24 h"
+          },
+          {
+            "what": "Rivaroxaban",
+            "how": "Withhold for moderate and high-risk procedures; renally excreted, so extend with impaired function.",
+            "cutoff": "3–4 days · CKD 3: 5 days · CKD 4: 7 days"
+          },
+          {
+            "what": "Apixaban",
+            "how": "Withhold for moderate and high-risk procedures.",
+            "cutoff": "3–4 days · with renal disease ≥ 5 days"
+          },
+          {
+            "what": "Dabigatran",
+            "how": "Withhold for moderate and high-risk procedures.",
+            "cutoff": "4–5 days · with renal disease 6–7 days"
+          },
+          {
+            "what": "LMWH, prophylactic dose",
+            "how": "No hold needed for low-risk procedures.",
+            "cutoff": "Moderate/high: hold 12–24 h · restart at 24 h"
+          },
+          {
+            "what": "LMWH, therapeutic dose",
+            "how": "Monitor with anti-factor Xa; aPTT is unreliable.",
+            "cutoff": "Low risk: hold 12–24 h, restart 6 h · moderate/high: hold 24 h, restart 24–48 h"
+          },
+          {
+            "what": "Unfractionated heparin, intravenous therapeutic",
+            "how": "Withhold for all risk levels; check aPTT; protamine reverses rapidly.",
+            "cutoff": "Hold 4 h · aim aPTT < 1.5 × control · restart 6–48 h"
+          },
+          {
+            "what": "Unfractionated heparin, subcutaneous prophylactic (5000 U 8–12 hourly)",
+            "how": "Withhold for moderate and high-risk procedures.",
+            "cutoff": "Hold 12–24 h · restart 24 h"
+          },
+          {
+            "what": "Dual antiplatelet therapy after coronary stenting",
+            "how": "Do not interrupt inside these windows without a cardiology opinion.",
+            "cutoff": "Bare metal stent: at least 6 weeks, ideally 3 months · drug-eluting stent: 6–12 months"
+          }
+        ],
+        "classify": {
+          "name": "Procedural bleeding risk, screening and targets",
+          "columns": [
+            "Risk",
+            "Procedures",
+            "Preprocedural screening",
+            "Coagulation target"
+          ],
+          "rows": [
+            [
+              "Low",
+              "PICC placement; drainage catheter exchange; central line removal; IVC filter placement; thoracocentesis or paracentesis; superficial aspiration or biopsy; joint injection or aspiration; thyroid biopsy",
+              "None routinely",
+              "INR < 2.0; platelets ≥ 50,000/μL"
+            ],
+            [
+              "Moderate",
+              "Facet joint block; lumbar puncture; lung biopsy; radiofrequency ablation; epidural injection; gastrostomy insertion; liver biopsy; uterine fibroid embolisation; chemoembolisation; angiography; venous intervention; intra-abdominal, thoracic wall or retroperitoneal abscess drainage",
+              "INR routinely",
+              "INR < 1.5; aPTT < 1.5 × control; platelets ≥ 50,000/μL"
+            ],
+            [
+              "High",
+              "TIPS; biliary intervention involving a new tract; complex radiofrequency ablation; renal biopsy; nephrostomy placement",
+              "INR, aPTT, platelet count and haematocrit",
+              "INR < 1.5; aPTT < 1.5 × control; platelets ≥ 50,000/μL"
+            ]
+          ],
+          "note": "A general guide only. It does not supersede departmental guidelines or the operator's preference, and the interventional radiologist performing the procedure should be consulted on the plan."
+        },
+        "template": "PROCEDURE PLAN\nProcedure: [named], bleeding risk [low / moderate / high].\nIndication: [ ]. Consent: [risks discussed — bleeding, infection, injury to adjacent structure, non-diagnostic sample].\n\nHAEMOSTASIS\nAnticoagulant / antiplatelet: [agent, last dose, planned hold], cleared with [cardiology / haematology / n/a].\nBloods: INR [n], aPTT [n] ([n] × control), platelets [n]/μL, haematocrit [n]. Group and save [done / not required].\nCorrection given: [none / vitamin K / FFP / PCC / platelets].\nTargets met: [yes / no — state why proceeding].\n\nTECHNIQUE\nGuidance: [ultrasound / CT / fluoroscopy]. Position: [ ]. Local anaesthetic [n] mL [agent]. Sedation: [ ].\nTract: [described — structures deliberately avoided].\nDevice: [needle gauge / catheter size and type]. Passes: [n]. Specimens: [n] to [histology / microbiology / cytology].\n\nPOST-PROCEDURE\nImmediate imaging: [no complication / describe].\nObservation: [n] hours, [observations and their frequency].\nRestart anticoagulation: [agent] at [n] hours.\nEscalation: [named contact] if [pain, hypotension, falling haemoglobin, bleeding at the site].",
+        "pitfalls": [
+          "Categorising by how the procedure feels rather than by the list. A renal biopsy and a nephrostomy are high risk; a liver biopsy is moderate; a thyroid biopsy is low. The instinct that all biopsies are alike is wrong.",
+          "Stopping dual antiplatelet therapy inside the stent window. Bare metal stents need at least 6 weeks and ideally 3 months uninterrupted; drug-eluting stents 6–12 months. Ask cardiology before you touch it.",
+          "Using the INR to check that a DOAC has worn off. It is not a reliable measure — a normal or slightly raised aPTT for dabigatran, or anti-Xa activity for rivaroxaban and apixaban, is the reassurance available, and none of it is a true reversal assay.",
+          "Forgetting renal function when holding a DOAC. All are renally excreted; rivaroxaban goes from 3–4 days to 7 days in CKD stage 4.",
+          "Monitoring LMWH with the aPTT. It does not reflect the effect; the anti-factor Xa assay does.",
+          "Bridging by reflex. Bridging is for mechanical valves, high-risk atrial fibrillation (CHADS2 5–6), VTE within 3 months or severe thrombophilia, and recent coronary stenting after a cardiology opinion — the BRIDGE and PERIOP2 trials have cast doubt on the practice more widely, and DOAC patients almost never need it.",
+          "Holding aspirin for everything. It can generally be continued for low and moderate-risk procedures, and once stopped it takes 5 days, with only platelets or desmopressin to shorten that."
+        ]
+      }
     },
     {
       "id": "rad.4.oncology-response",
@@ -1685,7 +2566,7 @@
           },
           {
             "step": "Check the criteria still apply",
-            "detail": "RECIST 1.1 does not apply to lymphoma, GIST on imatinib, hepatocellular carcinoma or malignant brain tumours. Those have their own criteria."
+            "detail": "Lymphoma has Lugano, GIST on imatinib has Choi, HCC has mRECIST, immunotherapy has iRECIST. RECIST 1.1 is not barred in those settings, but the trial or MDT will usually expect the disease-specific system — say which you applied."
           },
           {
             "step": "Select target lesions at baseline",
@@ -1711,7 +2592,7 @@
         "measure": [
           {
             "what": "Solid target lesion",
-            "how": "Longest diameter, in the same imaging plane as at baseline. Include a hypervascular rim.",
+            "how": "Longest diameter of the whole lesion, including any necrotic centre, in the same imaging plane as at baseline.",
             "cutoff": "≥ 10 mm on CT or MRI · ≥ 20 mm on chest radiograph"
           },
           {
@@ -2286,7 +3167,138 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "Embolisation agents",
+          "url": "https://radiopaedia.org/articles/embolisation-agents",
+          "publisher": "Radiopaedia"
+        },
+        "also": [
+          {
+            "title": "Seldinger technique",
+            "url": "https://radiopaedia.org/articles/seldinger-technique",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Periprocedural anticoagulation",
+            "url": "https://radiopaedia.org/articles/periprocedural-anticoagulation",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "Fix the bleeding-risk category before the drapes go on",
+            "detail": "Angiography, chemoembolisation, uterine fibroid embolisation and venous intervention are moderate risk — INR routinely, target INR < 1.5, aPTT < 1.5 × control, platelets ≥ 50,000/μL. TIPS, biliary intervention through a new tract, complex ablation, renal biopsy and nephrostomy are high risk, and need INR, aPTT, platelets and haematocrit."
+          },
+          {
+            "step": "Get access under image guidance, by Seldinger",
+            "detail": "Hollow needle into the lumen, soft curved-tip wire advanced through it, needle removed over the held wire, sheath passed over the wire, wire withdrawn. Everything afterwards goes through the sheath. Modified Seldinger advances a catheter over the needle instead, then uses it as the conduit for the wire."
+          },
+          {
+            "step": "Never let go of the wire",
+            "detail": "The complication list of vascular access is short and mostly mechanical: failed access, haemorrhage, infection, visceral perforation, guidewire embolus and pseudoaneurysm. Wire discipline prevents two of the six."
+          },
+          {
+            "step": "Do not puncture blind",
+            "detail": "Double-wall puncture — through the anterior and posterior wall, then withdrawing into the lumen — is obsolete under image guidance and causes haematoma, arteriovenous fistula and retroperitoneal haemorrhage."
+          },
+          {
+            "step": "Decide the level of occlusion before you choose the agent",
+            "detail": "Proximal occlusion with coils or a plug preserves distal tissue and permits collateral supply. Distal occlusion with particles or a liquid devascularises the bed and is what you want for a tumour — and what you must avoid where non-target tissue shares the supply."
+          },
+          {
+            "step": "Then decide permanent or temporary",
+            "detail": "Gelfoam and autologous clot are temporary and appropriate where the bleeding will stop and the organ should recover. PVA, microspheres, coils, glue and EVOH copolymers are permanent."
+          },
+          {
+            "step": "Name the non-target territory out loud before you inject",
+            "detail": "Run the angiogram from the position you will embolise from, at the flow rate you will use, and identify every branch the agent could reflux into."
+          },
+          {
+            "step": "Plan the post-procedure watch",
+            "detail": "Set the observation period, the parameters that trigger escalation, and the restart time for anticoagulation before the patient leaves the room."
+          }
+        ],
+        "measure": [
+          {
+            "what": "Coagulation before a moderate-risk vascular intervention",
+            "how": "Angiography, chemoembolisation, uterine fibroid embolisation, venous intervention. INR checked routinely.",
+            "cutoff": "INR < 1.5 · aPTT < 1.5 × control · platelets ≥ 50,000/μL"
+          },
+          {
+            "what": "Coagulation before a high-risk intervention",
+            "how": "TIPS, biliary intervention through a new tract, complex radiofrequency ablation, nephrostomy. Full screen: INR, aPTT, platelets, haematocrit.",
+            "cutoff": "INR < 1.5 · aPTT < 1.5 × control · platelets ≥ 50,000/μL"
+          },
+          {
+            "what": "Intravenous heparin around access",
+            "how": "Held before the procedure, aPTT checked, protamine available for rapid reversal.",
+            "cutoff": "Hold 4 h · aPTT < 1.5 × control · restart 6–48 h"
+          },
+          {
+            "what": "Dual antiplatelet therapy after coronary stenting",
+            "how": "Do not interrupt inside the window without a cardiology opinion.",
+            "cutoff": "Bare metal: ≥ 6 weeks, ideally 3 months · drug-eluting: 6–12 months"
+          }
+        ],
+        "classify": {
+          "name": "Embolic agents by permanence and class",
+          "columns": [
+            "Permanence",
+            "Class",
+            "Agents"
+          ],
+          "rows": [
+            [
+              "Temporary",
+              "Haemostatic and particulate",
+              "Autologous blood clot; gelfoam sponge or powder; starch microspheres; microfibrillar collagen haemostat (Avitene); thrombin phase-change nanoparticles"
+            ],
+            [
+              "Permanent",
+              "Microparticles",
+              "Polyvinyl alcohol (PVA); trisacryl gelatin microspheres; drug-eluting beads"
+            ],
+            [
+              "Permanent",
+              "Coils",
+              "Pushable; injectable; detachable"
+            ],
+            [
+              "Permanent",
+              "Liquid — glue",
+              "Cyanoacrylate (Glubran, Glubran 2, Magic Glue)"
+            ],
+            [
+              "Permanent",
+              "Liquid — copolymer",
+              "EVOH copolymers (Onyx, Squid, Menox, LAVA); PHIL; EasyX; OBSIDIO"
+            ],
+            [
+              "Permanent",
+              "Sclerosants",
+              "Absolute alcohol; sodium tetradecyl sulfate; polidocanol; ethanolamine oleate; bleomycin; doxycycline"
+            ],
+            [
+              "Permanent",
+              "Devices",
+              "Amplatz plug; caterpillar device; LOBO braided occluder; IMPEDE cross-polymer plug; EMBA Hourglass; balloons"
+            ]
+          ],
+          "note": "PVA works by adhering to the vessel wall and provoking thrombus rather than by plugging the lumen mechanically. The first embolic agent used was autologous clot, in 1974."
+        },
+        "template": "PROCEDURE\n[Named procedure], [elective / emergency]. Indication: [ ]. Operator: [ ]. Consent obtained for [bleeding, non-target embolisation, contrast reaction, renal impairment, access-site injury, failure of the procedure].\n\nHAEMOSTASIS AND PREPARATION\nBleeding risk: [moderate / high]. INR [n], aPTT [n], platelets [n]/μL, haematocrit [n]. Anticoagulant held: [agent, duration]. Antibiotic prophylaxis: [ ]. Sedation / anaesthesia: [ ].\n\nACCESS\nSite and side: [common femoral / radial / brachial / other], under [ultrasound / fluoroscopic] guidance, Seldinger technique. Sheath: [n] Fr. Systemic heparin: [n] units.\n\nPROCEDURE\nDiagnostic angiogram: [vessels catheterised, findings, target identified].\nNon-target branches identified and protected: [ ].\nCatheter / microcatheter position at embolisation: [ ].\nAgent: [name], [size or concentration], [volume or number]. Endpoint: [stasis / near-stasis / target occluded].\nCompletion angiogram: [target occluded, no non-target embolisation / describe].\n\nCLOSURE\n[Manual compression for (n) minutes / closure device (name)]. Haemostasis achieved. Distal pulses [present and unchanged].\n\nPOST-PROCEDURE\nObservations: [frequency and duration]. Escalate for [pain out of proportion, hypotension, falling haemoglobin, expanding groin swelling, absent distal pulse].\nRestart anticoagulation: [agent] at [n] hours.\nFollow-up imaging: [modality and interval].",
+        "pitfalls": [
+          "Choosing the agent before choosing the level. Particles and liquids travel distally and devascularise the bed; coils and plugs occlude proximally and leave collaterals to fill. The wrong level either fails to stop the bleeding or infarcts an organ.",
+          "Using a permanent agent where the organ has to recover. Gelfoam and autologous clot exist for exactly that case.",
+          "Blind double-wall puncture. It belongs to the pre-imaging era and causes haematoma, arteriovenous fistula and retroperitoneal haemorrhage.",
+          "Losing wire control during an exchange. Guidewire embolus is on the standard complication list of the Seldinger technique, alongside failed access, haemorrhage, infection, visceral perforation and pseudoaneurysm.",
+          "Embolising from a position you have not angiographically cleared. The completion run is not the place to discover a branch you should have protected.",
+          "Treating an embolisation as low risk because it is percutaneous. Chemoembolisation and fibroid embolisation are moderate-risk procedures for coagulation purposes; TIPS and new-tract biliary work are high risk.",
+          "Discharging without a restart plan. The omitted resumption of anticoagulation causes as much harm as the omitted hold."
+        ]
+      }
     },
     {
       "id": "rad.5.airways",
@@ -2556,7 +3568,8 @@
           "Calling any expiratory narrowing tracheomalacia without a true expiratory series — inspiratory technique alone cannot make this diagnosis.",
           "Reporting mosaic attenuation as \"infiltrative\" without an expiratory series to check for air trapping — the two causes need opposite work-ups.",
           "Attributing a smooth, tapered post-intubation stricture to malignancy because of its location, rather than to the cuff or stoma site and the patient's ventilation history."
-        ]
+        ],
+        "template": "TECHNIQUE\nCT chest, [inspiratory volumetric ± matched expiratory series], [contrast / non-contrast], [n] mm reconstructions with coronal, sagittal and minIP reformats.\n\nFINDINGS — LARGE AIRWAY\nTrachea: calibre [n] mm coronal x [n] mm sagittal; [normal / narrowed / widened].\nNarrowing: [absent / present] — [focal / diffuse], length [n] mm, [n] mm from the carina.\nCross-sectional shape: [hourglass / circumferential / horseshoe sparing the posterior wall / eccentric].\nWall: [smooth / irregular / calcified], thickness [n] mm.\nFocal lesion: [absent / present] — site, size [n] mm, [fat attenuation / pedunculated / smooth submucosal / irregular invasive / hypervascular].\nDynamic behaviour: [fixed — unchanged on expiration / collapses on expiration, [n]% reduction in cross-sectional area].\nMain and lobar bronchi: [ ].\n\nFINDINGS — SMALL AIRWAY\nMosaic attenuation on inspiration: [absent / present, distribution].\nExpiratory series: [no air trapping / air trapping, [lobular / segmental / lobar], distribution].\nBronchiectasis: [absent / present] — [cylindrical / varicose / cystic], distribution, mucus plugging [ ], bronchial wall thickening [ ].\n\nIMPRESSION\n1. [Iatrogenic / benign tumour / malignant tumour / inflammatory / congenital] large airway disease — [named entity, or the pattern if unnamed].\n2. Small airways: [normal / obstructive small-airways disease with air trapping / no air trapping — the mosaic is infiltrative].\n3. [Recommendation: bronchoscopy, tissue, or interval CT.]"
       }
     },
     {
@@ -2870,7 +3883,8 @@
           "Missing air trapping because no expiratory series was run when the inspiratory scan showed mosaic attenuation.",
           "Ignoring ground-glass as \"probably nothing\" — the majority of GGO represents active, potentially treatable disease, not an artefact.",
           "Assigning a random-pattern differential (miliary, metastases) to nodules that are actually centrilobular and airway-related."
-        ]
+        ],
+        "template": "TECHNIQUE\nHRCT of the chest, volumetric inspiratory series [± prone series] [± matched expiratory series], [n] mm reconstructions.\n\nFINDINGS\nDominant pattern: [reticular / nodular / high-attenuation (ground glass, consolidation) / low-attenuation (cystic, mosaic)].\nReticulation: [absent / present] — distribution, traction bronchiectasis [absent / present].\nHoneycombing: [absent / present] — subpleural, multilayered, [zonal extent].\nGround glass: [absent / present] — vessels remain visible; distribution.\nConsolidation: [absent / present] — vessels obscured, air bronchograms [ ], distribution.\nNodules: [absent / perilymphatic / centrilobular / random], size [n] mm, distribution.\nCysts: [absent / present] — wall [n] mm (< 4 mm), distribution.\nMosaic attenuation: [absent / present]. Expiratory series: [air trapping / no air trapping].\nZonal predominance: [upper / mid / lower]. Axial: [central / peripheral / subpleural / bronchovascular].\nSecondary findings: pleural effusion [ ], pleural thickening [ ], lymphadenopathy [ ], oesophageal dilatation [ ].\n\nIMPRESSION\n1. Dominant HRCT pattern: [pattern], [zonal and axial] predominance.\n2. [Named pattern where the criteria are met — e.g. honeycombing in a subpleural, basal distribution consistent with UIP.]\n3. Differential: [ ], [ ], [ ].\n4. [Recommendation: MDT discussion, clinical and serological correlation, interval CT, or biopsy.]"
       }
     },
     {
@@ -3165,7 +4179,8 @@
           "Reporting \"mediastinal lymphadenopathy\" without a station number — the surgeon cannot plan a nodal dissection from that sentence.",
           "Forgetting the thymus as a normal anterior structure in a young adult and calling it a mass.",
           "Missing fat or fluid content on a routine window — narrow windows over the mass before concluding it is solid."
-        ]
+        ],
+        "template": "TECHNIQUE\n[CT / MRI] chest, [contrast phase], [n] mm reconstructions with coronal and sagittal reformats.\n\nFINDINGS\nCompartment: [anterior / middle / posterior].\nLocalising sign: [obliterated retrosternal clear space / hilum overlay / displaced azygo-oesophageal recess / cervicothoracic sign].\nLesion: [n] x [n] x [n] mm, centred at [level], [well-defined / infiltrative].\nTissue characteristics: [fat / fluid / soft tissue / calcification], attenuation [n] HU, enhancement [none / homogeneous / heterogeneous, [n] HU].\nRelation to structures: great vessels [abutment / encasement, [n]° of circumference], trachea [ ], oesophagus [ ], pericardium [ ], chest wall and vertebra [ ], neural foramina [ ].\nNodal stations (IASLC): [1 / 2R / 2L / 3A / 3P / 4R / 4L / 5 / 6 / 7 / 8 / 9 / 10–14] — give short axis for each involved station.\nLungs, pleura and upper abdomen: [ ].\n\nIMPRESSION\n1. [Anterior / middle / posterior] mediastinal mass, [n] mm, with [tissue] characteristics.\n2. Differential: [ ], [ ], [ ] — ordered by the compartment differential.\n3. Nodal disease: stations [ ], [ ] — hilar and lobar stations 10–14 are N1, not mediastinal.\n4. [Recommendation: tissue sampling and the safest route, or MDT discussion.]"
       }
     },
     {
@@ -3369,7 +4384,141 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "Pleural effusion",
+          "url": "https://radiopaedia.org/articles/pleural-effusion",
+          "publisher": "Radiopaedia"
+        },
+        "also": [
+          {
+            "title": "Pneumothorax",
+            "url": "https://radiopaedia.org/articles/pneumothorax",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Malignant pleural disease",
+            "url": "https://radiopaedia.org/articles/malignant-pleural-disease",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "Establish the patient's position before you judge the volume",
+            "detail": "Erect, supine and decubitus each hide fluid differently. A supine film can carry a large effusion as nothing more than a veil-like density over the hemithorax, and bilateral equal effusions are the hardest of all because both sides match."
+          },
+          {
+            "step": "Follow the fluid where it goes first",
+            "detail": "Costophrenic then cardiophrenic angle blunting, fluid tracking in the horizontal or oblique fissure, then the meniscus sloping down and medially. On the lateral, the posterior costophrenic angles are deepest and show fluid earliest."
+          },
+          {
+            "step": "Ask which way the mediastinum has moved",
+            "detail": "A large effusion shifts the mediastinum away. Shift towards the effusion means collapse is dominating, and that changes the diagnosis, not just the size."
+          },
+          {
+            "step": "Take the probe to it",
+            "detail": "Ultrasound resolves loculated fluid from thickened pleura, shows the spine sign where fluid conducts sound above the diaphragm, and finds the intercostal vessels before you puncture."
+          },
+          {
+            "step": "For air, name the convention before you name the size",
+            "detail": "BTS measures chest wall to lung edge at the level of the hilum, ACCP measures thoracic cupola to lung apex. The two thresholds are different numbers for different lines — say which you used."
+          },
+          {
+            "step": "On CT, look at the pleura in the portal-venous phase",
+            "detail": "The pleura enhances maximally in the portal-venous (pleural) phase. That is the series on which nodularity, circumferential thickening and mediastinal involvement declare themselves."
+          },
+          {
+            "step": "Separate air artefact from air",
+            "detail": "Skin fold, scapular border, clothing, monitoring leads and giant bullous emphysema all imitate a pneumothorax. A skin fold is a band of increased attenuation sharply outlined laterally, often running beyond the chest cavity."
+          }
+        ],
+        "measure": [
+          {
+            "what": "Normal pleural fluid volume",
+            "how": "Your baseline for what counts as an effusion at all.",
+            "cutoff": "0.1–0.2 mL/kg, about 5–15 mL"
+          },
+          {
+            "what": "Fluid detectable on an erect chest radiograph",
+            "how": "Costophrenic blunting on PA or AP erect.",
+            "cutoff": "250–600 mL before it is evident"
+          },
+          {
+            "what": "Fluid detectable on ultrasound",
+            "how": "Coronal view, mid to posterior axillary line.",
+            "cutoff": "3–5 mL, against > 50 mL for a lateral decubitus radiograph"
+          },
+          {
+            "what": "Pneumothorax size, BTS 2010",
+            "how": "Chest wall to lung edge, measured at the level of the hilum.",
+            "cutoff": "< 2 cm small · ≥ 2 cm large"
+          },
+          {
+            "what": "Pneumothorax size, ACCP 2001",
+            "how": "Thoracic cupola to lung apex.",
+            "cutoff": "< 3 cm small · ≥ 3 cm large"
+          },
+          {
+            "what": "Traumatic pneumothorax, the 35 mm rule",
+            "how": "Largest air pocket between parietal and visceral pleura, measured perpendicular to the chest wall on axial CT, in a stable non-intubated patient.",
+            "cutoff": "< 35 mm — about 10% need a drain in the first week"
+          },
+          {
+            "what": "Parietal pleural thickening on CT",
+            "how": "Perpendicular to the chest wall, portal-venous phase.",
+            "cutoff": "> 1 cm favours malignancy"
+          }
+        ],
+        "classify": {
+          "name": "Benign versus malignant pleural thickening on CT",
+          "columns": [
+            "Feature",
+            "Reading"
+          ],
+          "rows": [
+            [
+              "Circumferential pleural thickening",
+              "Malignant"
+            ],
+            [
+              "Nodular pleural thickening",
+              "Malignant"
+            ],
+            [
+              "Parietal pleural thickening > 1 cm",
+              "Malignant"
+            ],
+            [
+              "Mediastinal pleural thickening or nodularity",
+              "Malignant"
+            ],
+            [
+              "Interruption of pleural thickening",
+              "Malignant"
+            ],
+            [
+              "Diffuse pleural calcification overlying the thickening",
+              "Benign"
+            ],
+            [
+              "Extrapleural fat hypertrophy",
+              "Chronic inflammation"
+            ]
+          ],
+          "note": "CT is highly specific — close to 100% in reported series — but insensitive. A normal-looking pleura does not exclude malignancy. Malignant pleural disease is metastatic carcinoma in 58%, mesothelioma in 28%, non-Hodgkin lymphoma in 8%."
+        },
+        "template": "TECHNIQUE\n[Erect PA / supine AP / lateral decubitus, side down] chest radiograph. [CT chest, portal-venous phase.] [Thoracic ultrasound, curvilinear probe.]\n\nFINDINGS\nSide and character: [right / left / bilateral] pleural [fluid / gas / both].\nVolume or size: [effusion — blunting of the costophrenic angle / meniscus to the level of the (n)th rib]. [Pneumothorax — (n) cm chest wall to lung edge at the hilum (BTS), or (n) cm cupola to apex (ACCP); state which.]\nMediastinum: [central / shifted away — mass effect / shifted towards — collapse dominant].\nFluid character on ultrasound: [anechoic / septated / echogenic swirling]; [loculated / free].\nPleura: [smooth / nodular / circumferential]; maximum parietal thickness [n] mm; [mediastinal pleura involved / spared]; [calcification present].\nLung and elsewhere: [underlying consolidation, mass, collapse]; [chest wall invasion]; [nodal or bone disease].\n\nIMPRESSION\n1. [Effusion / pneumothorax], [size by named convention].\n2. [Simple versus complicated or malignant — cite the features you are relying on.]\n3. [Recommendation: observation, aspiration, intercostal drain, image-guided pleural biopsy.]\n4. [If drainage is planned: proposed site, with a safe window and the intercostal vessels identified on ultrasound.]",
+        "pitfalls": [
+          "Quoting a pneumothorax size without saying which convention you used. BTS at the hilum and ACCP at the apex are different lines with different cut-offs, and the choice moves patients across the small/large boundary.",
+          "Excluding a large effusion on a supine film. Fluid layers posteriorly with no meniscus; bilateral equal effusions cancel each other out entirely.",
+          "Missing a subpulmonic effusion. Look for the peak of the right hemidiaphragm displaced laterally, or an increased gap between lower lobe air and the gastric bubble on the left.",
+          "Calling a hydropneumothorax an effusion because you looked for a meniscus. There is no meniscus once there is air above the fluid — there is a flat air-fluid level.",
+          "Trusting Light's criteria to exclude malignancy. They misclassify 5–10% of malignant pleural effusions as transudates.",
+          "Reading FDG uptake in the pleura as proof of tumour. It is falsely positive in inflammatory disease and after pleurodesis.",
+          "Reporting a skin fold as a pneumothorax. The fold is a band of increased attenuation with a sharp lateral edge, often extending outside the chest, with lung markings still visible beyond it."
+        ]
+      }
     },
     {
       "id": "rad.5.chest-infection",
@@ -3663,7 +4812,8 @@
           "Missing tree-in-bud on chest X-ray — it is far better seen on CT and signals active endobronchial spread.",
           "Calling miliary nodules \"probably infective\" without registering how uncommon but specific the pattern is for haematogenous TB spread.",
           "Reporting a CO-RADS category without a distribution description in the impression — the category alone does not tell the clinician where the disease is."
-        ]
+        ],
+        "template": "TECHNIQUE\n[CT chest, non-contrast, volumetric / CTPA]. Symptom duration [n] days. PCR status: [positive / negative / not available].\n\nFINDINGS\nPattern: [ground glass / consolidation / mixed], [unifocal / multifocal].\nDistribution: [unilateral / bilateral], [peripheral / posterior / central], [upper / lower] zone predominance.\nAdditional COVID-type features: vascular thickening [ ], subpleural bands [ ], crazy paving [ ].\nCavitation: [absent / present] — site, wall thickness [n] mm.\nTree-in-bud: [absent / present] — distribution.\nApical fibrosis, calcification, volume loss: [absent / present].\nLymphadenopathy: [absent / present] — stations and short axis [n] mm.\nPleural effusion: [absent / present, side, size]. Pericardial effusion: [ ].\nOther findings: [ ].\n\nIMPRESSION\n1. CO-RADS [1–6] — [very low / low / indeterminate / high / very high / confirmed] suspicion for pulmonary COVID-19 involvement, scored on the CT alone.\n2. [Tuberculosis assessment: features of active disease (cavitation, tree-in-bud, consolidation) / features of healed, inactive disease (apical fibrosis, calcification, volume loss) / no features of tuberculosis.]\n3. [Alternative or additional diagnosis, with the pattern supporting it.]\n4. [Recommendation: isolation and sampling, sputum for AFB, or clinical correlation.]"
       }
     },
     {
@@ -3958,7 +5108,8 @@
           "Missing chronic thromboembolic disease because there is no discrete filling defect — vessel tapering, webs and mosaic attenuation are the clues, not a clot.",
           "Diagnosing pulmonary hypertension from CT alone — the CT signs (MPA size, RV/LV ratio) are surrogates; the diagnosis is haemodynamic, made at catheterisation.",
           "Missing the anatomical detail (central versus distal) that decides whether the patient is an endarterectomy or angioplasty candidate."
-        ]
+        ],
+        "template": "TECHNIQUE\nCT pulmonary angiogram, bolus-tracked, [n] mL contrast at [n] mL/s. Opacification of the pulmonary arteries: [diagnostic / suboptimal — reason].\n\nFINDINGS — THROMBOEMBOLIC DISEASE\nFilling defects: [absent / present] — most proximal level [main / lobar / segmental / subsegmental], side, and lobes involved.\nMorphology: clot-wall angle [acute / obtuse]; vessel calibre [normal or slightly increased / tapered]; intraluminal webs or bands [absent / present].\nBronchial arteries: [not dilated / dilated collaterals].\nMosaic attenuation: [absent / present].\nLung parenchyma: infarction [absent / present, site], effusion [ ], other [ ].\n\nFINDINGS — RIGHT HEART AND PULMONARY VASCULATURE\nRV/LV ratio on axial images: [n] (strain if > 1).\nMain pulmonary artery: [n] mm (enlarged > 30 mm). MPA/ascending aorta ratio: [n] (enlarged > 1).\nRight atrium maximum transverse diameter: [n] mm (enlarged ≥ 65 mm in women, ≥ 70 mm in men).\nRight ventricle maximum transverse diameter: [n] mm (enlarged ≥ 55 mm in women, ≥ 60 mm in men).\nSeptal configuration, contrast reflux into the IVC and hepatic veins: [ ].\n\nIMPRESSION\n1. [Acute pulmonary embolism / chronic thromboembolic disease / no pulmonary embolism], most proximal to the [ ] level.\n2. Right heart strain: [absent / present — RV/LV [n]].\n3. CT features of pulmonary hypertension: [absent / present — MPA [n] mm, MPA/Ao [n]]. Note that the haemodynamic diagnosis (mPAP ≥ 20 mmHg at rest) requires right heart catheterisation.\n4. [If chronic: state whether disease is central to the segmental level (endarterectomy territory) or more distal (balloon pulmonary angioplasty territory).]\n5. [Communication: who was told, when.]"
       }
     },
     {
@@ -4177,7 +5328,7 @@
       ],
       "reference": {
         "source": {
-          "title": "Lung Cancer — TNM Classification, 9th Edition",
+          "title": "Lung Cancer — TNM Classification (9th edition, as published on the page)",
           "url": "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
           "publisher": "The Radiology Assistant"
         },
@@ -4216,7 +5367,7 @@
           "rows": [
             [
               "T1mi",
-              "Minimally invasive adenocarcinoma, ≤ 3 cm"
+              "Minimally invasive adenocarcinoma: total size ≤ 3 cm with an invasive component ≤ 5 mm"
             ],
             [
               "T1a",
@@ -4592,7 +5743,8 @@
           "Measuring the cardiothoracic ratio on a supine or AP film; magnification inflates the heart size and the 0.5 cutoff no longer applies.",
           "Calling consolidation without checking the silhouette sign to localise it — the lobe you can name changes the differential.",
           "Skipping the comparison film. A stable abnormality and a new one look identical on a single study."
-        ]
+        ],
+        "template": "TECHNIQUE\nChest radiograph, [PA erect / AP semi-erect / AP supine], [with lateral / no lateral]. Comparison: [date / none available].\n\nQUALITY\nRotation [ ], inspiration [n] posterior ribs, penetration [ ], projection [ ]. [State any technical limitation before the findings.]\n\nFINDINGS\nTrachea and central airways: position [central / deviated to [side]], calibre [ ].\nMediastinum and heart: contour [ ], cardiothoracic ratio [n] (enlarged > 0.5 on an erect PA film only), aortic arch [ ].\nHila: [normal / enlarged / displaced], comparing the two.\nLungs: [zone-by-zone — opacity, lucency, consolidation, nodules, interstitial pattern].\nSilhouette sign: [none / loss of the [right heart border / left heart border / ascending aorta / descending aorta / hemidiaphragm]], localising to [lobe/segment].\nPleura: effusion [ ], pneumothorax [ ], thickening [ ].\nDiaphragm: [contour and height each side], costophrenic angles [ ].\nBones, soft tissues and upper abdomen: [ ].\nLines, tubes and devices: [position of each].\n\nIMPRESSION\n1. [Principal finding, localised by the silhouette sign or the lateral.]\n2. [Change from the comparison film, or state that none is available.]\n3. [Recommendation: interval film, CT, or clinical correlation.]"
       }
     },
     {
@@ -4815,8 +5967,8 @@
             "detail": "A typical perifissural nodule is attached to a fissure, homogeneous, solid, smooth-margined — it needs no follow-up at all."
           },
           {
-            "step": "Measure by convention",
-            "detail": "Manual 2D measurement as the average of the long- and short-axis diameters (Fleischner 2017), or volumetry where your PACS supports it."
+            "step": "Measure by convention — and keep to one pathway",
+            "detail": "This block is the BTS pathway: size by volumetry where your PACS supports it, otherwise maximum diameter. Fleischner 2017 instead averages the long and short axis. Do not mix them — averaging against BTS thresholds systematically undersizes the nodule."
           },
           {
             "step": "Classify solid versus subsolid",
@@ -4870,9 +6022,9 @@
           ],
           "rows": [
             [
-              "Typical or atypical perifissural nodule",
+              "Typical perifissural nodule",
               "Any size",
-              "No follow-up"
+              "Discharge. A perifissural nodule > 10 mm or with atypical features warrants consideration of follow-up."
             ],
             [
               "Solid, small",
@@ -4902,7 +6054,8 @@
           "Running the Brock model on a subsolid nodule before it has proven persistent at 3 months — transient infective or haemorrhagic nodules are excluded first.",
           "Stopping surveillance at 1 year on manual 2D measurements — that duration is only validated for volumetric follow-up; 2D measurement needs the full 2 years.",
           "Reaching for a Lung-RADS category — Lung-RADS is a US lung-cancer-screening scheme, not part of this guideline or the Fleischner 2017 incidental-nodule guideline; do not mix the two frameworks in one report."
-        ]
+        ],
+        "template": "TECHNIQUE\nCT chest, [non-contrast / contrast], volumetric, [n] mm reconstructions. Measurement method: [manual 2D — average of long and short axis / semi-automated volumetry]. Comparison: [date] on [same / different] technique.\n\nFINDINGS\nNodule 1: [lobe, segment], series [n] image [n].\n  Type: [solid / part-solid / pure ground glass].\n  Size: [n] mm (average of [n] x [n] mm) [and volume [n] mm³].\n  Margin: [smooth / lobulated / spiculated]. Perifissural: [yes — attached to a fissure, homogeneous, solid, smooth / no].\n  Prior: [n] mm / [n] mm³ on [date]. Volume change [n]% (growth ≥ 25%). Volume doubling time [n] days.\nAdditional nodules: [list with lobe, type, size].\nEmphysema: [absent / present, extent]. Fibrosis: [ ]. Lymphadenopathy: [ ]. Pleura: [ ].\n\nRISK ASSESSMENT\nBrock model applied: [yes — [n]% / no — below the size threshold / no — subsolid nodule not yet proven persistent at 3 months].\nPET-CT: [not performed / performed — [FDG-avid, SUVmax [n] / not FDG-avid]]. Herder model: [n]%.\n\nIMPRESSION\n1. [Perifissural nodule — no follow-up required / Solid nodule < 5 mm — no follow-up required / Solid nodule 5–8 mm — follow-up CT to assess stability / Solid nodule > 8 mm — Brock model applied / Subsolid nodule — repeat CT at 3 months to confirm persistence].\n2. [Stability or growth, stated as the volume change and doubling time where volumetry was used.]\n3. Recommendation: [next CT at [n] months / discharge — VDT > 600 days / higher-risk pathway — VDT < 400 days / MDT discussion]. Total surveillance: [1 year with volumetry / 2 years with manual 2D measurement]."
       }
     },
     {
@@ -6001,7 +7154,8 @@
           "Assuming a ventricle's identity from its position rather than confirming it with internal morphology — this fails in discordant or complex connections.",
           "Reporting 'normal situs and connections' as a default rather than a stated observation in a referral for suspected congenital disease.",
           "Missing an arch-sidedness or branching anomaly because the arch was not specifically checked as its own step."
-        ]
+        ],
+        "template": "TECHNIQUE\n[ECG-gated / non-gated] cardiac CT angiography, [n] mL contrast at [n] mL/s, [injection route], [n] mm reconstructions with multiplanar and 3-D reformats. Age [n]. Prior surgery: [none / list, with dates].\n\nFINDINGS — SEGMENTAL SEQUENTIAL ANALYSIS\nSystemic venous return: [normal / describe — persistent left SVC, interrupted IVC with azygos continuation].\nRight atrium: [ ]. Atrial septum: [intact / defect, type and size [n] mm].\nAtrioventricular connections: [concordant / discordant / other — describe].\nRight ventricle (identified by the moderator band and coarse trabeculation): [size, wall thickness, outflow].\nVentricular septum: [intact / defect, location and size [n] mm].\nPulmonary valve and pulmonary arteries: [ ] — main [n] mm, right [n] mm, left [n] mm.\nPulmonary venous return: [normal, four veins to the left atrium / anomalous — describe].\nLeft atrium and left ventricle: [ ].\nVentriculo-arterial connections: [concordant / discordant / double outlet / other].\nAortic valve and aortic root: [ ].\nAortic arch: sidedness [left / right], branching pattern [ ], coarctation [absent / present, [n] mm at [site]].\nVascular ring or pulmonary sling: [absent / present — describe the ring and the structures compressed].\nCoronary origins and course: [ ].\nShunts, collaterals and surgical conduits: [ ].\nExtracardiac: lungs, airway, situs of the abdominal viscera [ ].\n\nIMPRESSION\n1. [Segmental diagnosis, connection by connection.]\n2. [Arch sidedness and branching; any vascular ring or sling, and what it compresses.]\n3. [Findings relevant to the planned intervention.]\n4. [Recommendation: MDT discussion, further imaging, communication.]"
       }
     },
     {
@@ -6390,12 +7544,12 @@
           {
             "what": "Plaque burden by calcium score",
             "how": "Agatston from the non-contrast series. Raise the P category if there is appreciable non-calcified plaque the score cannot see.",
-            "cutoff": "P1 1–100 · P2 101–300 · P3 301–999 · P4 > 1000"
+            "cutoff": "P1 1–100 · P2 101–300 · P3 301–999 · P4 ≥ 1000"
           },
           {
             "what": "Plaque burden by segment involvement score",
             "how": "One point for each of the 16 segments carrying any plaque.",
-            "cutoff": "P1 ≤ 2 · P2 3–4 · P3 5–7 · P4 ≥ 8"
+            "cutoff": "P1 1–2 · P2 3–4 · P3 5–7 · P4 ≥ 8 (SIS 0 is CAD-RADS 0, which carries no P)"
           }
         ],
         "classify": {
@@ -7954,7 +9108,8 @@
           "Mistaking enlarged perivascular spaces for lacunes. Virchow-Robin spaces follow CSF signal on every sequence.",
           "Assuming a fixed PICA territory. PICA and AICA trade territory — one is large when the other is small.",
           "Missing deep cerebral venous thrombosis in a young woman with mild symptoms; the page calls it underdiagnosed."
-        ]
+        ],
+        "template": "TECHNIQUE\n[Non-contrast CT / MRI brain with DWI / CT angiography / CT perfusion]. Comparison: [date / none].\n\nFINDINGS\nLesion 1: [side], [lobe or deep structure], series [n] image [n].\n  Extent: [cortex plus subcortical white matter / deep grey and internal capsule only].\n  Diffusion: [restricted — acute / no restriction], ADC [low / normal / high].\nTerritory: [ACA / medial lenticulostriates / MCA cortical branches / lateral lenticulostriates / PCA cortical branches / posterior thalamoperforators / anterior choroidal / basilar perforators / PICA / SCA].\nBorderzone pattern: [absent / cortical borderzone at the ACA-MCA or MCA-PCA junction / internal borderzone chain in centrum semiovale and corona radiata].\nNon-arterial distribution: [no / yes — bilateral parasagittal or bilateral thalamic and basal ganglia; consider venous].\nPerivascular spaces versus lacunes: [enlarged perivascular spaces, following CSF on every sequence / lacune, not following CSF].\nHaemorrhage, mass effect and midline shift: [ ].\nVessels: [large vessel occlusion at [site] / patent] [carotids: [ ]].\n\nIMPRESSION\n1. [Acute / subacute / chronic] infarct in the [named] territory, [side].\n2. Mechanism implied by the pattern: [embolic or large-vessel / lacunar single deep penetrator / hypoperfusion — borderzone / venous].\n3. [Consequent action: examine the carotids, CT venogram, or referral for thrombectomy.]"
       }
     },
     {
@@ -8276,7 +9431,8 @@
           "Looking for leptomeningeal disease on T1 post-contrast alone. Contrast-enhanced FLAIR shows meningitis and carcinomatosis that T1 does not.",
           "Toxoplasmosis over-called as a generic ring lesion. The eccentric target sign, low T2 signal and absent central restriction are the discriminators.",
           "Forgetting the cranial nerves when leptomeningeal enhancement is present — bilateral facial nerve enhancement in Lyme, sugarcoating in carcinomatosis."
-        ]
+        ],
+        "template": "TECHNIQUE\nMRI brain: T1 pre- and post-gadolinium, T2, FLAIR [and contrast-enhanced FLAIR], DWI/ADC, SWI. [± perfusion.]\n\nFINDINGS\nLesion(s): number, site, size [n] mm, series [n] image [n].\nCompartment of enhancement: [dural / leptomeningeal / ependymal / perivascular / parenchymal]. Note that dura, pineal, vessels, pituitary stalk and gland, choroid plexus and area postrema enhance normally.\nPattern: [diffuse dural / focal dural / leptomeningeal / gyral / periventricular-ependymal / perivascular / nodular / smooth ring / irregular ring / open ring / cyst with mural nodule].\nDiffusion through the centre of any ring: [restricted — pus / not restricted — necrotic tumour].\nDouble rim sign on T2: [absent / present] (present in 75% of pyogenic abscesses).\nPerfusion: rCBV [low — abscess / high — tumour / not performed].\nOedema relative to lesion bulk: [proportionate / little oedema for the bulk — consider lymphoma, which is hyperdense on CT, T2-dark and restricts].\nDistribution: [grey-white interface and watershed — haematogenous / basal cisterns — TB or sarcoid / temporal and insular limbic — herpes / periventricular — lymphoma].\nHydrocephalus, ventriculitis, venous thrombosis, infarction: [ ].\n\nIMPRESSION\n1. [Named pattern] enhancement in the [compartment], [site].\n2. Most likely: [ ]. Differential: [ ], [ ].\n3. [If a ring lesion: state the central diffusion, the rCBV and which way they point. Do not exclude metastasis because there is a single lesion — 25–45% are solitary.]\n4. [Recommendation: lumbar puncture, contrast-enhanced FLAIR for leptomeningeal disease, neurosurgical referral, interval MRI.]"
       }
     },
     {
@@ -8801,9 +9957,9 @@
             "cutoff": "0 closed sulci · 1 mild widening · 2 substantial · 3 end-stage knife-blade"
           },
           {
-            "what": "Fazekas — white matter hyperintensity",
-            "how": "Transverse FLAIR or T2.",
-            "cutoff": "0 none/very few punctate · 1 multiple punctate (normal in the elderly) · 2 beginning confluence — pathological · 3 large confluent — pathological"
+            "what": "Fazekas — white matter hyperintensity (score the two arms separately)",
+            "how": "Periventricular and deep white matter are graded on separate 0–3 scales; report both, because an unqualified \"Fazekas 2\" is ambiguous.",
+            "cutoff": "Periventricular: 0 none · 1 caps or thin lining · 2 smooth halo · 3 irregular, extending into deep white matter. Deep: 0 none · 1 punctate · 2 beginning confluence · 3 large confluent"
           },
           {
             "what": "MTA sensitivity in Alzheimer's",
@@ -9050,7 +10206,8 @@
           "Omitting T2* or SWI. A cavernoma may be the whole answer and it can be invisible on T1 and FLAIR.",
           "Missing focal cortical dysplasia because you looked for a mass. The findings are blurring of the grey-white interface, abnormal cortical thickness and the transmantle sign.",
           "Calling subependymal heterotopia a lesion of the ventricle wall. It is normal grey matter in the wrong place, and it follows cortex on every sequence."
-        ]
+        ],
+        "template": "TECHNIQUE\nDedicated epilepsy MRI protocol, not a routine brain study: volumetric T1 for cortical thickness and the grey-white interface, [3-D / coronal oblique] FLAIR perpendicular to the hippocampal long axis, T2, and T2* or SWI. [± contrast.] Seizure semiology and EEG localisation: [ ].\n\nFINDINGS\nHippocampi (coronal, side-by-side comparison):\n  Volume: right [ ], left [ ]. Internal architecture: right [preserved / lost], left [preserved / lost].\n  T2/FLAIR signal: right [normal / raised], left [normal / raised].\n  Temporal horn: [symmetric / dilated on the [side]]. Collateral white matter and fornix: [ ].\nCortical ribbon (walk lobe by lobe):\n  Grey-white interface: [crisp throughout / blurred at [site]].\n  Cortical thickness: [normal / abnormally thick at [site]].\n  Transmantle sign: [absent / present at [site]].\nHeterotopic grey matter: [absent / subependymal / subcortical, at [site]].\nGyral pattern: [normal / polymicrogyria at [site] / other malformation].\nCortical tumour: [absent / cortically based lesion at [site], [n] mm — consider DNET or ganglioglioma].\nT2*/SWI: [no blood products / cavernoma at [site], [n] mm / other haemosiderin].\nRemainder of the brain, including the contralateral side: [ ].\n\nIMPRESSION\n1. [No epileptogenic lesion identified on a dedicated protocol / lesion identified: name and site.]\n2. [Concordance with the seizure semiology and EEG localisation, or the lack of it.]\n3. [Recommendation: epilepsy surgery MDT, repeat at higher field or with post-processing, functional imaging.]"
       }
     },
     {
@@ -10259,7 +11416,7 @@
             ],
             [
               "Herniation",
-              "Focal displacement of disc material, under 25% of the disc circumference, beyond the limits of the disc space",
+              "Displacement of disc material beyond the disc space: focal < 25% of the circumference, broad-based 25–50%",
               "The umbrella term; always subclassify it"
             ],
             [
@@ -10304,7 +11461,7 @@
           {
             "what": "Bulge versus herniation",
             "how": "Judge the arc of displaced disc on the axial image.",
-            "cutoff": "Herniation < 25% of the circumference"
+            "cutoff": "50–100% of the circumference is a bulge · 25–50% is a broad-based herniation · < 25% is focal"
           },
           {
             "what": "Asymmetric bulge",
@@ -10623,7 +11780,8 @@
           "Missing level VII because it sits above and behind the standard axial slab most people scroll through quickly.",
           "Reporting 'enlarged node' without a level — the level is what tells the clinician which primary to hunt for.",
           "Treating retropharyngeal nodes as untouchable by neck dissection — they still need reporting because they change the radiotherapy field even when surgery can't reach them."
-        ]
+        ],
+        "template": "TECHNIQUE\n[CT / MRI] neck with contrast, [n] mm reconstructions, axial with coronal and sagittal reformats. Known or suspected primary: [site / unknown].\n\nFINDINGS — PRIMARY\n[Site, size, extent, or: no primary lesion identified.]\n\nFINDINGS — NODES, BY LEVEL AND SIDE\nLevel Ia: [none / n nodes, largest [n] mm short axis].\nLevel Ib: right [ ], left [ ].\nLevel IIa / IIb (split at the posterior edge of the internal jugular vein): right [ ], left [ ].\nLevel III: right [ ], left [ ].\nLevel IVa / IVb (split 2 cm above the sternoclavicular joint): right [ ], left [ ].\nLevel V: right [ ], left [ ].\nLevel VIa / VIb: [ ].\nLevel VIIa retropharyngeal (skull base to hyoid): [ ]. Level VIIb retrostyloid: [ ].\nFor each involved node give: side, level, short axis [n] mm, series [n] image [n], and describe [shape, central low attenuation, margins, relation to vessels and muscle].\n\nIMPRESSION\n1. Nodal disease at level(s) [ ], [side(s)]; largest [n] mm short axis at level [ ].\n2. Retropharyngeal (VIIa) and retrostyloid (VIIb) nodes: [involved / not involved] — these sit outside the standard neck dissection levels.\n3. [Primary site, or: the level pattern points to a primary in [ ] — direct endoscopic search there.]\n4. [Recommendation: MDT discussion, sampling, or PET-CT.]"
       }
     },
     {
@@ -10919,7 +12077,8 @@
           "Forcing a transspatial process (venolymphatic malformation, SCC, infection) into a single space rather than naming the spaces it crosses.",
           "Assuming space names carry straight through the hyoid — the suprahyoid masticator/parotid/carotid/pharyngeal-mucosal set gives way to the infrahyoid visceral/carotid/posterior-cervical/perivertebral set.",
           "Missing perineural spread along V3 through the masticator space because the primary lesion itself looks unremarkable."
-        ]
+        ],
+        "template": "TECHNIQUE\n[MRI neck with contrast / CT neck with contrast], axial, coronal and sagittal, [suprahyoid and infrahyoid coverage].\n\nFINDINGS\nParapharyngeal fat (the landmark): [preserved and symmetric / effaced / displaced].\nDirection of displacement: [anterolateral — retropharyngeal / posteromedial — masticator / medial or anteromedial — parotid / anterior or anteromedial — carotid / posterolateral — pharyngeal mucosal].\nSpace of origin: [buccal / parapharyngeal / masticator / parotid / carotid / pharyngeal mucosal / retropharyngeal / perivertebral / visceral / posterior cervical].\nLesion: [n] x [n] x [n] mm, [well-defined / infiltrative], signal or attenuation [ ], enhancement [none / homogeneous / heterogeneous / rim].\nTransspatial extension: [confined to one space / crosses fascial planes — consider venolymphatic malformation, squamous cell carcinoma or infection].\nRelation to critical structures: carotid and jugular [abutment / encasement, [n]° of circumference], skull base and foramina [ ], V3 and other nerves [normal / perineural spread along [ ]], airway [patent / narrowed], bone [ ].\nInfrahyoid extension: [absent / present — re-state the space below the hyoid].\nNodes: [levels and short axis].\n\nIMPRESSION\n1. [Space] lesion, [n] mm, [side], with the parapharyngeal fat displaced [direction].\n2. Differential for that space: [ ], [ ], [ ].\n3. [Transspatial behaviour and what it implies.]\n4. [Recommendation: sampling and the safest route, MDT discussion, or surgical referral with the structures at risk named.]"
       }
     },
     {
@@ -11193,7 +12352,8 @@
           "Missing a small anterior chamber or subtle lens density change that is the only sign of an open globe on CT.",
           "Reporting a choroidal process as retinal because it has crossed the ora serrata or the optic nerve.",
           "Blurring preseptal and postseptal cellulitis in the report when the orbital septum is identifiable and the distinction changes the antibiotic route."
-        ]
+        ],
+        "template": "TECHNIQUE\n[CT orbits, thin section, bone and soft tissue algorithm / MRI orbits with fat-saturated post-contrast sequences]. Indication: [trauma / proptosis / visual loss / suspected infection].\n\nFINDINGS\nCompartment: [globe / intraconal / conal / extraconal].\nGlobe: contour [normal / posterior flattening], anterior chamber depth [normal / shallow] and density [normal / raised — haemorrhage], lens [in position, normal density / decreased density — traumatic cataract / dislocated], vitreous [clear / haemorrhage].\nDetachment: [absent / retinal — does not extend past the ora serrata / choroidal — crosses the optic nerve, not bound by the ora serrata].\nExtraocular muscles: [normal / enlarged — name the muscles], tendinous insertion [spared — favours thyroid eye disease / involved — favours pseudotumour]. Muscle diameters: [n] mm.\nOptic nerve and sheath: [ ]. Orbital apex crowding: [absent / present].\nLacrimal gland: [ ]. Orbital walls and periosteum: [intact / fracture at [site], [n] mm, with [herniation of fat / muscle entrapment]].\nInfection: [absent / preseptal — superficial to the orbital septum / postseptal — deep to the septum], subperiosteal collection [absent / present, [n] mm at [wall]].\nMass: site, size [n] mm, margins, enhancement [ ], calcification [ ], bone remodelling or destruction [ ].\nSinuses and intracranial extension: [ ].\n\nIMPRESSION\n1. [Compartment] abnormality, [side].\n2. Category (VITAN-C): [vascular / infectious / traumatic / acquired — thyroid eye disease / neoplastic / congenital]. Most likely: [ ].\n3. [Sight-threatening features: globe rupture, orbital apex crowding, postseptal infection — state explicitly.]\n4. [Recommendation and communication: ophthalmology referral, IV antibiotics for postseptal infection, surgical opinion. Record who was told and when.]"
       }
     },
     {
@@ -11458,7 +12618,8 @@
           "Missing an inverted papilloma because the middle-meatus origin was not specifically sought.",
           "Treating unilateral sinus disease as routine sinusitis — true unilateral sinusitis alone is uncommon and should prompt a search for an obstructing lesion.",
           "Forgetting the sphenoethmoidal recess in suspected allergic fungal sinusitis."
-        ]
+        ],
+        "template": "TECHNIQUE\n[CT paranasal sinuses, thin section, coronal reformats for the surgeon / MRI sinuses, T1, T2 and post-contrast fat-saturated]. Indication: [pre-endoscopic planning / unilateral disease / suspected mass / complication].\n\nFINDINGS — ANATOMY AND VARIANTS\nNasal septum: [midline / deviated to [side]]. Turbinates: [ ], concha bullosa [absent / present, side].\nOstiomeatal complex: [patent / obstructed, side]. Infundibulum: [ ].\nUncinate process attachment: [ ]. Agger nasi and Haller cells: [ ].\nCribriform plate and lateral lamella depth: [ ]. Fovea ethmoidalis asymmetry: [ ].\nOnodi cell: [absent / present]. Optic nerve and internal carotid dehiscence in the sphenoid: [absent / present, side].\nSphenoethmoidal recess: [clear / opacified] (involved characteristically in allergic fungal sinusitis).\n\nFINDINGS — DISEASE\nOpacified sinuses: [list, with side].\nLaterality: [bilateral / unilateral — raises suspicion of an obstructing lesion such as inverted papilloma at the middle meatus, or silent sinus syndrome from infundibular occlusion].\nCT density of the contents: [n] HU — [hyperdense, favouring inspissated secretion / not hyperdense].\nT2 signal: [bright — favours retained mucus / intermediate solid — favours tumour].\nPost-contrast: [no enhancement — secretions / solid enhancement — tumour must be excluded].\nBone: [intact / remodelled / eroded at [site]]. Orbital or intracranial extension: [absent / present].\n\nIMPRESSION\n1. [Inflammatory sinus disease / findings favouring tumour — solid enhancement within an opacified [sinus]].\n2. [Laterality, and the obstructing lesion sought if unilateral.]\n3. Surgically relevant anatomy: [list the variants the surgeon needs — dehiscent optic nerve or carotid, Onodi cell, low cribriform plate].\n4. [Recommendation: contrast study if not already given, MRI to separate secretions from mass, ENT referral.]"
       }
     },
     {
@@ -11717,7 +12878,8 @@
           "Missing early fenestral otosclerosis because the fissula ante fenestram lucency is subtle and easy to scroll past.",
           "Forcing every temporal bone fracture into 'longitudinal' or 'transverse' when many fractures cross both patterns — describe the structures actually crossed instead.",
           "Signing off a cochlear implant work-up without explicitly stating mastoid pneumatisation, middle-ear inflammation status, cochlear patency and 8th nerve presence."
-        ]
+        ],
+        "template": "TECHNIQUE\n[CT temporal bones, sub-millimetre, bone algorithm, axial with coronal reformats / MRI internal auditory meati including heavily T2-weighted and diffusion-weighted sequences]. Indication: [conductive loss / sensorineural loss / cholesteatoma / trauma / cochlear implant work-up].\n\nFINDINGS\nExternal auditory canal: [ ].\nMiddle ear soft tissue: [absent / present] — [discrete non-dependent mass, e.g. in Prussak's space / thickened dependent mucosal lining, not a discrete mass]. Size [n] mm.\nBony erosion at the predilection sites: scutum [intact / eroded], lateral semicircular canal [intact / eroded / fistula], tegmen tympani [intact / dehiscent], long process of incus [intact / eroded].\nOssicular chain: [intact / eroded — name the ossicles / displaced / discontinuous].\nFacial nerve canal: [intact / dehiscent, segment].\nOtic capsule: fissula ante fenestram [normal / lucent — fenestral otosclerosis], pericochlear lucency [absent / present — combined disease], circumferential otospongiotic foci [absent / present — fourth ring of Valvassori].\nTrauma: fracture line [absent / present] — list every structure it crosses: otic capsule [ ], ossicular chain [ ], facial nerve canal [ ], carotid canal [ ], tegmen [ ]. Pneumolabyrinth or haemotympanum [ ].\nCochlear implant work-up: mastoid pneumatisation [ ], middle ear inflammation [absent / present], cochlear calcification or fibrous obliteration [absent / present, turn involved], eighth nerve [present / absent — absence precludes implantation].\n\nIMPRESSION\n1. [Cholesteatoma — discrete non-dependent mass with erosion at [sites] / chronic otitis media — mucosal thickening without discrete mass or predilection-site erosion].\n2. [Otosclerosis: fenestral / combined, with the fourth ring of Valvassori.]\n3. [Trauma: describe the fracture by the structures it crosses, not as longitudinal or transverse.]\n4. [Recommendation and communication: ENT referral, surgical planning, and the specific answers to the implant team's questions.]"
       }
     },
     {
@@ -13811,9 +14973,9 @@
             "cutoff": "Within 10 HU of the vessel"
           },
           {
-            "what": "Subcapsular liver haematoma",
-            "how": "Maximal dimension on the portal venous phase.",
-            "cutoff": "> 10 cm = AAST grade 4"
+            "what": "Liver haematoma",
+            "how": "Subcapsular haematomas are graded by the proportion of surface area they cover; intraparenchymal haematomas by maximal dimension. Portal venous phase.",
+            "cutoff": "Subcapsular > 50% of surface area, or ruptured, or intraparenchymal > 10 cm = AAST grade III · grade IV is parenchymal disruption of 25–75% of a lobe"
           }
         ],
         "classify": {
@@ -14455,17 +15617,17 @@
           "rows": [
             [
               "Resectable",
-              "≤ 180° contact without vessel contour irregularity",
+              "No contact with the coeliac axis, SMA or common hepatic artery; and no SMV/PV contact, or ≤ 180° venous contact without contour irregularity",
               "Upfront surgery"
             ],
             [
               "Borderline resectable",
-              "> 180° contact (encasement), or any involvement with morphological change suggesting invasion",
+              "Arterial: ≤ 180° contact with the SMA or coeliac axis, or CHA contact without extension to the coeliac axis or hepatic bifurcation. Venous: > 180° SMV/PV contact, ≤ 180° with contour irregularity, or short-segment occlusion with reconstructible vessel above and below",
               "Neoadjuvant therapy then reassessment"
             ],
             [
               "Locally advanced / unresectable",
-              "Complete 360° encasement, vessel occlusion, or involvement precluding reconstruction",
+              "> 180° contact with the SMA or coeliac axis, aortic involvement, or unreconstructible SMV/PV occlusion",
               "Non-surgical management"
             ]
           ],
@@ -15059,12 +16221,12 @@
           {
             "what": "Mesorectal node",
             "how": "Short axis, with signal and border morphology.",
-            "cutoff": "Suspicious ≥ 9 mm or mucinous signal; < 5 mm benign unless mucinous"
+            "cutoff": "≥ 9 mm short axis suspicious regardless of morphology · 5–8 mm if ≥ 2 of round, irregular border, heterogeneous signal · < 5 mm only if all 3 · any mucinous node at any size"
           },
           {
             "what": "Lateral node (internal iliac, obturator)",
             "how": "Short axis in each compartment, reported separately from mesorectal nodes.",
-            "cutoff": "Suspicious ≥ 7 mm; 5–7 mm needs morphology"
+            "cutoff": "Internal iliac ≥ 7 mm short axis · obturator ≥ 9 mm — the compartments carry different thresholds"
           }
         ],
         "classify": {
@@ -15703,7 +16865,7 @@
           {
             "what": "Threshold growth",
             "how": "Against a prior study of the same modality and technique.",
-            "cutoff": "> 50% growth in less than 6 months"
+            "cutoff": "≥ 50% size increase in ≤ 6 months"
           },
           {
             "what": "Non-rim APHE",
@@ -15751,13 +16913,13 @@
             ],
             [
               "LR-4",
-              "Probably HCC — APHE with fewer additional major features than LR-5 demands for its size",
+              "Probably HCC — non-rim APHE with fewer additional major features than LR-5 requires at that size; at 10–19 mm, APHE with an enhancing capsule alone",
               "About 74%",
               "Multidisciplinary discussion; further imaging or biopsy"
             ],
             [
               "LR-5",
-              "Definitely HCC — > 20 mm with non-rim APHE and one additional major feature",
+              "Definitely HCC — ≥ 10 mm with non-rim APHE and non-peripheral washout or threshold growth; or ≥ 20 mm with non-rim APHE and any one additional major feature; or non-rim APHE with two or more additional major features at any size ≥ 10 mm",
               "95%",
               "Treat as HCC without biopsy"
             ],
@@ -15793,7 +16955,7 @@
         "template": "TECHNIQUE\n[Multiphase CT / MRI with extracellular contrast / MRI with hepatobiliary agent]: pre-contrast, late arterial, portal venous and delayed phases[, hepatobiliary phase at 20 min][, DWI].\n\nFINDINGS\nBackground liver: [cirrhotic / chronic hepatitis B / other]. Portal vein: [patent / tumour in vein].\nObservation [n]: segment [ ], size [n] mm.\n  Non-rim APHE: [present / absent].\n  Non-peripheral washout: [present / absent].\n  Enhancing capsule: [present / absent].\n  Threshold growth: [not applicable / present — n mm to n mm over n months].\n  Ancillary features: [ ].\n  Category: LR-[NC / 1 / 2 / 3 / 4 / 5 / M / TIV].\nAscites, varices, splenomegaly: [ ].\n\nIMPRESSION\n1. LI-RADS [category] observation in segment [ ], [n] mm.\n2. [What that means in plain words and the recommended next step.]\n3. [Stigmata of cirrhosis and portal hypertension.]",
         "pitfalls": [
           "Applying LI-RADS outside its population. It is for cirrhosis and chronic hepatitis B, and it should not be used where the cirrhosis is due to a vascular disorder — benign hyperplastic nodules will be called HCC.",
-          "Calling LR-5 on arterial hyperenhancement alone. Above 20 mm you still need one additional major feature; between 10 and 20 mm you need two.",
+          "Calling LR-5 on arterial hyperenhancement alone. At 20 mm or more you still need one additional major feature; between 10 and 19 mm APHE with non-peripheral washout or threshold growth is LR-5, but APHE with only an enhancing capsule is LR-4.",
           "Using rim arterial enhancement as APHE. Rim enhancement with peripheral washout is targetoid — that is LR-M, and it is usually cholangiocarcinoma.",
           "Forgetting to look at the veins. LR-TIV is assigned on unequivocal soft tissue in a vein whether or not you can find a parenchymal mass.",
           "Claiming threshold growth from a study done on another modality or technique. The definition is more than 50% growth in under six months, measured comparably.",
@@ -16369,7 +17531,8 @@
           "Not scanning the contralateral testis. Torsion is a comparative diagnosis on Doppler — you need the normal side as your reference.",
           "Delaying the call to phone the surgeon while the salvage window (5-6 hours) runs. This is one of the few paediatric ultrasound findings that should interrupt the list.",
           "Mistaking a torsed appendage for a small, indolent finding. It is the most common cause of acute scrotal pain in children but still needs a confident Doppler exclusion of true testicular torsion first."
-        ]
+        ],
+        "template": "TECHNIQUE\nScrotal ultrasound, high-frequency linear transducer, grey-scale and colour Doppler, both testes imaged side by side in the same field with identical settings. Age [n]. Onset of pain: [n] hours ago.\n\nFINDINGS\nSymptomatic side: [right / left].\nTestis, symptomatic side: volume [n] mL, echogenicity [normal / heterogeneous / asymmetrically reduced], contour [ ].\nTestis, asymptomatic side: volume [n] mL, echogenicity [normal].\nColour Doppler, symptomatic testis: [normal flow / reduced relative to the contralateral side / complete absence of intratesticular flow].\nColour Doppler, asymptomatic testis: [normal flow] — the comparison the diagnosis rests on.\nSpermatic cord: [normal / whirlpool sign / twisted].\nEpididymis: [normal / swollen and heterogeneous with increased flow].\nAppendage: [normal / small hypoechoic nodule adjacent to the epididymal head, [n] mm].\nHydrocele: [absent / present, size]. Scrotal wall thickening: [absent / present].\nFocal testicular lesion: [absent / present] — size [n] mm, [solid / cystic], echogenicity, vascularity, microlithiasis [ ].\n\nIMPRESSION\n1. [Testicular torsion — complete absence of intratesticular flow with normal flow in the contralateral asymptomatic testis / torsion not excluded — flow is present but reduced, and preserved flow does not exclude incomplete or intermittent torsion / epididymitis / torsion of an appendage / testicular mass].\n2. Testicular echogenicity: [symmetric / asymmetrically altered]. Any asymmetric change correlates with reduced salvageability — state this to the surgical team.\n3. Time from onset of pain: [n] hours. Untreated ischaemia progresses to necrosis by 5–6 hours.\n4. Communicated to [name, role] at [time] on [date]."
       }
     },
     {
@@ -16664,7 +17827,8 @@
           "Treating chemical shift signal drop as quantitative. The finding is qualitative — diffuse or heterogeneous signal loss on opposed-phase — not a numeric cutoff.",
           "Ignoring growth because the density looks benign. A lesion enlarging by ≥5 mm over 6-12 months needs reassessment even with a reassuring density.",
           "Stopping at 'indeterminate' without stating what would resolve it — say whether chemical shift MRI, follow-up, or biopsy is the next step."
-        ]
+        ],
+        "template": "TECHNIQUE\n[CT abdomen — non-contrast [± portal venous ± 15-minute delayed] / chemical shift MRI with in-phase and opposed-phase sequences]. Comparison: [date / none].\n\nFINDINGS\nSide: [right / left / bilateral]. Confirmed adrenal — the lesion moves with the adrenal limb, not the kidney, on all planes: [yes / no].\nSize: [n] x [n] x [n] mm. Prior [n] mm on [date]; interval change [n] mm.\nMorphology: [homogeneous / heterogeneous], [round and well-defined / irregular], necrosis [ ], calcification [ ], macroscopic fat [ ].\nUnenhanced density: [n] HU, ROI placed over the solid, non-cystic, non-haemorrhagic portion.\nChemical shift MRI (if performed): [no signal drop / diffuse or heterogeneous signal drop on opposed phase, indicating microscopic fat].\nWashout CT (only if genuinely indeterminate): unenhanced [n] HU, enhanced [n] HU, delayed [n] HU. Absolute washout [n]% (adenoma ≥ 60%). Relative washout [n]% (adenoma ≥ 40%).\nContralateral adrenal, and the rest of the study including any known primary: [ ].\n\nIMPRESSION\n1. [Left / right] adrenal lesion, [n] mm, unenhanced density [n] HU.\n2. [≤ 10 HU — lipid-rich adenoma, no further work-up / 11–20 HU in a lesion ≤ 4 cm — lipid-poor adenoma, can be considered benign in the appropriate context / 21–30 HU — indeterminate, chemical shift MRI sometimes useful / > 30 HU — indeterminate to suspicious].\n3. Size and growth: [> 4 cm, especially > 6 cm, is worrisome; growth ≥ 5 mm over 6–12 months is significant].\n4. Density and washout characterise lipid content, not malignant potential outright. [State what remains unanswered and recommend: clinical and biochemical correlation, chemical shift MRI, interval CT, or MDT discussion.]"
       }
     },
     {
@@ -17223,7 +18387,8 @@
           "Calling a haemorrhagic cyst indeterminate on a single study. Its classic reticular or lace-like internal pattern and lack of internal flow are diagnostic; recommend short-interval follow-up rather than escalation.",
           "Ignoring peritoneal and nodal findings because the ovarian lesion itself looks simple. Ascites, lymphadenopathy or peritoneal implants override a reassuring ovarian appearance.",
           "Treating postmenopausal status alone as high-risk. The great majority of cystic ovarian lesions remain benign even after menopause — risk factors and morphology drive the category, not age alone."
-        ]
+        ],
+        "template": "TECHNIQUE\nTransabdominal and transvaginal ultrasound with colour Doppler. [± MRI pelvis.] Menopausal status: [pre- / post-menopausal]. Age [n]. Symptoms: [ ].\n\nFINDINGS\nStep 1 — origin: right ovary [normal / contains the lesion / not separately identified], left ovary [normal / contains the lesion / not separately identified]. The lesion [is / is not] separable from the ovary, so it is [ovarian / non-ovarian] in origin.\nLesion: side, [n] x [n] x [n] mm, largest diameter [n] mm.\nStep 2 — pattern: [simple cyst / haemorrhagic cyst / endometrioma / mature cystic teratoma / none of these — indeterminate].\nMorphology: wall [thin and smooth / thick / irregular], septations [absent / thin / thick], solid component [absent / present, [n] mm], papillary projections [absent / present, number and size], internal echoes [ ].\nColour Doppler: [avascular / flow within the solid component or septations].\nBeyond the ovary: ascites [absent / present], peritoneal implants [absent / present], lymphadenopathy [absent / present].\nStep 3 — risk group: [low risk — premenopausal, no additional risk factors / high risk].\n\nIMPRESSION\n1. [Ovarian / non-ovarian] lesion, [side], [n] mm.\n2. [Classic benign pattern — [named], no further work-up / Indeterminate lesion].\n3. Size: [≤ 3 cm in a reproductive-age woman — no description or follow-up needed / ≤ 7 cm — almost certainly benign / > 7 cm — consider MRI or surgical evaluation].\n4. Plan, combining morphology, risk group, symptoms and any ascites, nodes or implants: [ignore / follow up at [n] months / refer for excision].\n5. [If a formal O-RADS category is required, assign it against the O-RADS lexicon rather than this roadmap.]"
       }
     },
     {
@@ -17790,7 +18955,7 @@
           {
             "what": "Pelvic sidewall involvement",
             "how": "Distance from tumour to the obturator internus, levator ani, piriformis muscles or iliac vessels.",
-            "cutoff": "< 3 mm or frank invasion = stage IIIB"
+            "cutoff": "FIGO IIIB = extension to the pelvic sidewall, and/or hydronephrosis or a non-functioning kidney. Tumour within 3 mm of the sidewall muscle is a proximity sign, not the stage"
           },
           {
             "what": "Vaginal involvement",
@@ -17845,7 +19010,8 @@
           "Missing sidewall involvement because the abutment distance was not explicitly measured — 'close to' the sidewall muscles is not a stage without the 3 mm assessment.",
           "Conflating endometrial and cervical staging systems — endometrial cancer stage depends on myometrial invasion depth (the 50% threshold) and nodal status in a way cervical staging does not.",
           "Missing deep infiltrating endometriosis or a Müllerian anomaly on the same study because attention was fixed on the tumour — both change the surgical plan and are easy to overlook on a staging-focused read."
-        ]
+        ],
+        "template": "TECHNIQUE\nMRI pelvis: high-resolution T2W in three planes, one orthogonal to the cervical canal, [± DWI ± dynamic contrast]. [± antispasmodic ± vaginal gel.]\n\nFINDINGS\nTumour: site [ ], size [n] x [n] x [n] mm, longest diameter on T2W [n] mm (< 4 cm is the threshold for upfront surgery).\nCervical stromal ring: [intact hypointense ring / interrupted at [clock position], with tumour signal extending into the [right / left / bilateral] parametrium].\nVagina: [not involved / upper two-thirds involved / lower third involved].\nPelvic sidewall: distance from tumour to obturator internus [n] mm, levator ani [n] mm, piriformis [n] mm, iliac vessels [n] mm (< 3 mm or frank invasion = stage IIIB).\nBladder and rectum: [not involved / mucosal involvement at [site]].\nUterine corpus and endometrium: [ ]. If the primary may be endometrial, state myometrial invasion depth: [< 50% superficial / > 50% deep].\nHydronephrosis: [absent / present, side].\nNodes: pelvic [ ], common iliac [ ], para-aortic below the renal veins [ ], above the renal veins [ ] — short axis [n] mm for each.\nPeritoneum and distant organs: [ ].\n\nIMPRESSION\n1. Cervical tumour, [n] mm longest diameter on T2W.\n2. FIGO 2018 stage on MR: [I / IIA / IIB / IIIB / IV].\n3. Management implication: [tumour < 4 cm, stage I or IIA — potentially eligible for upfront surgery / stage IIB or IIIB — concurrent chemoradiotherapy / stage IV — systemic treatment].\n4. Nodal status, reported separately from the FIGO stage: [ ].\n5. [Recommendation: gynaecological oncology MDT.]"
       }
     },
     {
@@ -18110,7 +19276,7 @@
               "Benign — no follow-up"
             ],
             [
-              "Round/punctate",
+              "Round (≥ 0.5 mm) / punctate (< 0.5 mm)",
               "Small (0.5–1 mm), scattered",
               "Benign — no follow-up"
             ],
@@ -18146,7 +19312,8 @@
           "Confusing coarse heterogeneous with fine pleomorphic by eye rather than by size and conspicuity — the distinction changes the reported risk band.",
           "Calling calcifications 'skin' without confirming the tattoo sign on a second view.",
           "Under-reading a segmental distribution as regional — segmental distribution (a duct system, apex toward the nipple) is the pattern that most needs full-field sampling."
-        ]
+        ],
+        "template": "CLINICAL\nAge [n]. Indication: [screening recall / diagnostic / follow-up]. Comparison: [date / none available].\n\nTECHNIQUE\n[Bilateral / unilateral] mammography, [CC and MLO], with [magnification CC and magnification horizontal-beam lateral] views of the [right / left] [quadrant / clock position].\n\nFINDINGS\nSide: [right / left]. Location: [quadrant / clock position], [n] cm from the nipple. Depth: [anterior / middle / posterior].\nMorphology (read this before distribution): [skin / vascular / coarse popcorn / large rod-like / round-punctate / milk of calcium / amorphous / coarse heterogeneous / fine pleomorphic / fine linear or branching].\nParticle size: [> 0.5 mm — amorphous or coarse heterogeneous / < 0.5 mm — fine pleomorphic or fine linear-branching].\nDistribution: [diffuse or scattered / regional / grouped / linear / segmental].\nNumber: approximately [n] particles over [n] mm.\nTattoo sign for suspected skin calcification: [confirmed — identical configuration on orthogonal views / not confirmed].\nLayering on the horizontal-beam lateral view: [absent / present — milk of calcium].\nAssociated findings: mass [ ], architectural distortion [ ], asymmetry [ ].\nComparison: [new / increased in number or extent / unchanged since [date]]. Note that stability does not outrank morphology — around 25% of malignant clusters in the cited literature were stable for 8–63 months.\n\nIMPRESSION\n1. [Morphology] calcifications in a [distribution] distribution, [side], [location].\n2. [Benign — no follow-up / intermediate concern / suspicious for DCIS], based on morphology first and distribution second.\n3. Recommendation: [routine screening / no follow-up required / biopsy]."
       }
     },
     {
@@ -18423,7 +19590,8 @@
           "Missing enhancing internal septations because dark septations (typical of fibroadenoma) set the expectation.",
           "Reporting a mass without stating shape and margin — spiculated margin alone carries a very different risk (~80%) from a round, circumscribed one.",
           "Recommending MRI-guided biopsy by default instead of first attempting a targeted second-look ultrasound."
-        ]
+        ],
+        "template": "CLINICAL\nAge [n]. Indication: [problem-solving for a finding unresolved on mammography and ultrasound / high-risk screening / staging a newly diagnosed cancer / monitoring response to chemotherapy]. Menstrual cycle day [n]. Comparison: [date / none].\n\nTECHNIQUE\nBilateral breast MRI, prone, dedicated coil. T1, T2 [± fat-saturated], DWI, and dynamic contrast-enhanced series with delayed phases. Contrast: [agent, dose].\n\nFINDINGS\nBackground parenchymal enhancement: [ ].\nSide and location: [right / left], [quadrant / clock position], [n] cm from the nipple, series [n] image [n].\nEnhancing abnormality: [focus — < 5 mm, too small to characterise by shape and margin / mass — a 3-D lesion / non-mass enhancement — no distinct 3-D shape].\nIf a mass: size [n] x [n] x [n] mm; shape [round / oval / lobulated / irregular — about 32% malignant]; margin [circumscribed / spiculated — about 80% malignant].\nInternal enhancement: [dark non-enhancing septations — typical of fibroadenoma / enhancing septations / rim enhancement — about 40% malignant if not a simple cyst / central enhancement — associated with high-grade cancer / homogeneous / heterogeneous].\nKinetic curve on the delayed phase: [Type 1 persistent, ~6% / Type 2 plateau, intermediate / Type 3 washout, 29–77%].\nDWI: [restricted / not restricted].\nExtent for staging: index lesion [n] mm, multifocal [ ], multicentric [ ], contralateral disease [ ], nipple and skin [ ], chest wall and pectoralis [ ], internal mammary and axillary nodes [ ].\nSecond-look ultrasound: [correlate found at [site] — biopsy can be done under ultrasound / no correlate — MRI-guided sampling required].\n\nIMPRESSION\n1. [Right / left] breast [focus / mass / non-mass enhancement], [n] mm, at [location].\n2. Shape [ ], margin [ ], internal enhancement [ ], kinetic curve [Type 1 / 2 / 3].\n3. Assessment category: [ ].\n4. Recommendation: [second-look ultrasound and ultrasound-guided biopsy / MRI-guided biopsy / short-interval MRI / routine high-risk screening]. [For staging: state how the MRI changes the surgical plan.]"
       }
     },
     {
@@ -18683,18 +19851,28 @@
             ],
             [
               "3 — Probably benign",
-              "Assigned only after a complete diagnostic evaluation",
+              "≤ 2% likelihood of malignancy; assigned only after a complete diagnostic evaluation",
               "Short-interval follow-up imaging at 6, 12 and 24 months"
             ],
             [
-              "4 — Suspicious abnormality",
-              "Suspicion for malignancy sufficient to warrant tissue diagnosis",
-              "Biopsy"
+              "4A — Low suspicion",
+              "> 2–10% likelihood of malignancy",
+              "Tissue diagnosis"
+            ],
+            [
+              "4B — Moderate suspicion",
+              "> 10–50% likelihood of malignancy",
+              "Tissue diagnosis"
+            ],
+            [
+              "4C — High suspicion",
+              "> 50 to < 95% likelihood of malignancy",
+              "Tissue diagnosis"
             ],
             [
               "5 — Highly suggestive of malignancy",
-              "A combination of suspicious imaging features",
-              "Biopsy / tissue diagnosis"
+              "≥ 95% likelihood of malignancy",
+              "Tissue diagnosis; a benign biopsy result is discordant and must be acted on"
             ],
             [
               "6 — Known biopsy-proven malignancy",
@@ -18702,7 +19880,7 @@
               "Staging / treatment monitoring"
             ]
           ],
-          "note": "Version on the page is the BI-RADS v2025 Manual. If your reporting habit still calls Category 3 'six-month follow-up' only, note the v2025 wording specifies short-interval follow-up at 6, 12 AND 24 months."
+          "note": "Version on the page is the BI-RADS v2025 Manual. If your reporting habit still calls Category 3 'six-month follow-up' only, note the v2025 wording specifies short-interval follow-up at 6, 12 AND 24 months. Category 4 is subdivided because the biopsy conversation differs across it: 4A, 4B and 4C all get a needle, but a benign result is concordant in 4A and discordant in 4C."
         },
         "modifiers": [
           {
@@ -18740,7 +19918,8 @@
           "Calling a high-density mass low-suspicion — density above the surrounding fibroglandular tissue carries a meaningfully higher malignancy likelihood.",
           "Under-reading a segmental calcification distribution as merely 'grouped' — segmental distribution follows a duct system and changes the differential toward DCIS.",
           "Treating Category 6 as a diagnostic decision rather than a staging label for an already biopsy-proven cancer."
-        ]
+        ],
+        "template": "CLINICAL\nAge [n]. Indication: [screening / diagnostic — symptom and side / recall from screening]. Comparison: [date / none available].\n\nTECHNIQUE\n[Bilateral / unilateral [right / left]] digital mammography, [CC and MLO] [± tomosynthesis] [± supplementary views: spot compression, magnification, true lateral] [± targeted ultrasound of the [side] [quadrant]].\n\nBREAST COMPOSITION\n[ ] — state the effect on sensitivity.\n\nFINDINGS\nSide: [right / left]. Location: [quadrant / clock position], [n] cm from the nipple. Depth: [anterior / middle / posterior].\nMass: [none / present] — size [n] x [n] mm; shape [oval / round / lobulated / irregular]; margin [circumscribed / obscured / indistinct / spiculated]; density [fat-containing / low / equal / high — a high-density mass carries about a 70% likelihood of malignancy].\nCalcifications: [none / benign: skin, vascular, coarse popcorn, round, large rod-like, layering milk of calcium / suspicious: amorphous, coarse heterogeneous, fine pleomorphic, fine linear or branching]. Distribution: [diffuse / regional > 2 cm / grouped, typically ≥ 5 within 1–2 cm / linear / segmental, triangular with the apex toward the nipple].\nAsymmetry: [none / asymmetry — one projection only / focal asymmetry — two projections, less than a quarter of the breast / global asymmetry — more than a quarter, no contralateral match].\nArchitectural distortion: [absent / present at [site]].\nAssociated features: skin thickening or retraction [ ], nipple retraction [ ], trabecular thickening [ ], axillary nodes [ ].\nUltrasound correlate: [none performed / no correlate / correlate at [site], [n] mm, describe].\nComparison: [new / increased / unchanged since [date]].\n\nIMPRESSION\n1. [Right / left] breast: [finding in lexicon terms, with location].\n2. BI-RADS [0–6] — [incomplete / negative / benign / probably benign / suspicious / highly suggestive of malignancy / known biopsy-proven malignancy].\n3. Recommendation: [complete diagnostic work-up / routine screening interval / short-interval follow-up imaging at 6, 12 and 24 months / biopsy / staging and treatment monitoring]."
       }
     },
     {
@@ -20902,7 +22081,8 @@
           "Suppressing fat for a question that needs the fat. Capsular thickening and fibrosis are best seen on non-fat-sat T2 or T1.",
           "Relying on three orthogonal planes for an obliquely running tendon. The peroneal and tibialis posterior tendons need planes perpendicular to their own course.",
           "Assuming 3T changes the protocol. The same standard axial, coronal and sagittal planes are used at 1.5T and 3T — field strength is not a substitute for the right plane."
-        ]
+        ],
+        "template": "TECHNIQUE\nMRI [joint or region] at [1.5T / 3T]. Standard axial, coronal and sagittal planes. Fat-saturated fluid-sensitive sequences for [bone marrow oedema screening / ligamentous injury]; non-fat-saturated [T2 / T1] for [capsular thickening / fibrotic soft tissue]. Additional oblique planes perpendicular to the [peroneal / tibialis posterior / other] tendons: [performed / not performed]. [± contrast ± arthrogram.]\n\nFINDINGS\nBones and marrow (fat-saturated fluid-sensitive): [normal / marrow oedema at [site], extent [n] mm], fracture [ ], subchondral change [ ], lesion [ ].\nCartilage: [ ].\nLigaments (fat-saturated fluid-sensitive): [name each ligament — intact / sprain / partial tear / full-thickness tear], with the surrounding oedema described.\nTendons: [name each — normal / tendinosis / partial tear / full-thickness tear / subluxation], measured on the [orthogonal / oblique perpendicular] plane.\nSignal checked for artefact: any hyperintense tendon lying near 55° to B0 on the short TE sequence was re-assessed on a long TE image — [confirmed abnormal / magic angle artefact, tendon normal].\nBright rim adjacent to a ligament attachment: [absent / present — chemical shift from subcortical fatty marrow exposed to joint fluid at a full-thickness tear].\nCapsule and synovium (non-fat-saturated): [normal / thickened, [n] mm], effusion [ ].\nMuscles: [ ]. Nerves and vessels: [ ]. Subcutaneous soft tissues: [ ].\n\nIMPRESSION\n1. [Principal structural abnormality, named, with grade and location.]\n2. [Secondary findings.]\n3. Technique limitations: [none / the [tendon] was assessed only on orthogonal planes / no expiratory or oblique series / motion].\n4. [Recommendation: additional sequence or plane, arthrogram, clinical correlation, surgical referral.]"
       }
     },
     {
@@ -21149,7 +22329,7 @@
           {
             "what": "Acromiohumeral distance",
             "how": "On the AP radiograph, between the undersurface of the acromion and the humeral head.",
-            "cutoff": "> 6 mm normal · < 5 mm pathological"
+            "cutoff": "Hamada 1 is ≥ 6 mm · Hamada 2 is ≤ 5 mm"
           },
           {
             "what": "Tangent sign",
@@ -22094,6 +23274,26 @@
           {
             "step": "State the type and the side",
             "detail": "Report Graf type for each hip separately — dysplasia is frequently asymmetric."
+          },
+          {
+            "step": "On an elbow study, start with the lateral and the fat pads",
+            "detail": "On a true lateral of an elbow flexed at 90°, an elevated anterior lucency or any visible posterior lucency is a positive fat pad sign; displacement of the posterior fat pad is virtually pathognomonic of a fracture."
+          },
+          {
+            "step": "Draw the anterior humeral line",
+            "detail": "On the lateral, a line along the anterior surface of the humerus should pass through the middle third of the capitellum; in a supracondylar fracture it passes through the anterior third or anterior to the capitellum."
+          },
+          {
+            "step": "Draw the radiocapitellar line on every projection",
+            "detail": "A line through the centre of the radial neck should pass through the centre of the capitellum whatever the positioning; if it does not, the radial head is dislocated."
+          },
+          {
+            "step": "Count the ossification centres against CRITOE",
+            "detail": "Check that the centres present follow capitellum, radius, internal (medial) epicondyle, trochlea, olecranon, external (lateral) epicondyle — a fragment out of order is an avulsion, not a variant."
+          },
+          {
+            "step": "Run the missed-fracture checklist before you sign off",
+            "detail": "On every child's elbow radiograph look specifically for a minimally displaced supracondylar fracture, a lateral condyle fracture, a slipped radial epiphysis, a radial dislocation, and the position of the medial epicondyle."
           }
         ],
         "measure": [
@@ -22109,8 +23309,33 @@
           },
           {
             "what": "Beta angle",
-            "how": "Angle between the baseline and the cartilage roof line, used to separate type IIc from type D.",
-            "cutoff": "Clearly below 55° in a well-covered type I hip; used comparatively to distinguish IIc (still covered) from D (decentring), rather than against one fixed number"
+            "how": "Angle between the baseline and the cartilage roof line. It separates the two hips that share the critical alpha zone.",
+            "cutoff": "Type I: β < 55° is Ia, β > 55° is Ib · in the critical zone (α 43–49°), β < 77° is type IIc and β > 77° is type D"
+          },
+          {
+            "what": "Elbow ossification order (CRITOE)",
+            "how": "Capitellum, radius, internal (medial) epicondyle, trochlea, olecranon, external (lateral) epicondyle. A centre at the trochlea with no medial epicondyle in place means the medial epicondyle has been avulsed.",
+            "cutoff": "As a general guide 1-3-5-7-9-11 years — highly variable between individuals"
+          },
+          {
+            "what": "Anterior humeral line",
+            "how": "On the lateral view, drawn along the anterior surface of the humerus.",
+            "cutoff": "Should pass through the middle third of the capitellum; anterior third or anterior to it indicates a supracondylar fracture"
+          },
+          {
+            "what": "Radiocapitellar line",
+            "how": "Drawn through the centre of the radial neck on each projection.",
+            "cutoff": "Should pass through the centre of the capitellum; if it does not, the radial head is dislocated"
+          },
+          {
+            "what": "Fat pad sign",
+            "how": "True lateral radiograph of an elbow flexed at 90°.",
+            "cutoff": "Elevated anterior lucency or visible posterior lucency = positive; posterior displacement is virtually pathognomonic of fracture"
+          },
+          {
+            "what": "Radial neck angulation",
+            "how": "Tilt of the radial head fragment, usually a Salter-Harris II injury.",
+            "cutoff": "< 30° tilt treated conservatively · > 30° needs closed reduction, K-wire if unsuccessful"
           }
         ],
         "classify": {
@@ -22142,19 +23367,58 @@
             ],
             [
               "IIc / D",
-              "Around or just below 50° (example given: 46°)",
+              "α 43–49°",
               "Any age",
-              "Critical zone — beta angle needed to separate a still-covered IIc hip from a decentring type D hip"
+              "Critical zone — β < 77° is IIc (still covered); β > 77° is type D (decentring)"
             ]
           ],
-          "note": "Graf III and IV (subluxated and dislocated hips) are defined by loss of femoral head coverage and a deformed, flattened acetabular roof rather than by the alpha angle alone; measure and describe coverage explicitly at that point rather than relying on angle numbers."
+          "note": "Graf III and IV both have α < 43°. They are separated from each other by the cartilaginous roof — displaced cranially in III, inverted and pressed between head and ilium in IV — not by a further angle. Describe coverage explicitly at that point."
         },
         "pitfalls": [
           "Measuring on an oblique image. If the iliac line is not straight and horizontal, both angles are unreliable — repeat the acquisition rather than measure a bad image.",
           "Applying the adult 60° cutoff rigidly to a neonate. Up to 12 weeks of age, an alpha angle below 60° can still be normal if it is on a maturing trajectory.",
           "Confusing IIc and D on alpha angle alone. These two types can share a similar alpha angle — the beta angle and dynamic coverage are what separate a hip that still needs watching from one that needs treatment now.",
           "Scanning only one hip. Developmental dysplasia is frequently asymmetric — report each side on its own Graf type.",
-          "Treating a single static image as sufficient when instability is suspected clinically — a stress manoeuvre showing subluxation changes the management even with reassuring static angles."
+          "Treating a single static image as sufficient when instability is suspected clinically — a stress manoeuvre showing subluxation changes the management even with reassuring static angles.",
+          "Calling a child's elbow normal because no cortical break is visible. A displaced posterior fat pad on a true lateral is virtually pathognomonic of a fracture — treat it as an occult injury.",
+          "Reading a fragment at the trochlea as a normal centre. The medial epicondyle always ossifies before the trochlea, so a trochlear-looking fragment with an empty medial epicondyle is the avulsed epicondyle, often intra-articular after a dislocation.",
+          "Treating the CRITOE ages as fixed. 1-3-5-7-9-11 years is a general guide only and is highly variable between individuals; the order is what you rely on.",
+          "Checking the radiocapitellar line on one view. It should pass through the centre of the capitellum on every projection regardless of positioning — a radial dislocation is one of the classically missed injuries.",
+          "Under-calling a lateral condyle fracture. It is the second most common distal humerus fracture in children aged 4 to 10, and a displaced one needs surgical reduction within the first 48 hours."
+        ],
+        "template": "CLINICAL\nAge [n] weeks. Indication: [breech / family history / clinical instability / abnormal examination]. Side(s) imaged: [both hips].\n\nTECHNIQUE\nInfant hip ultrasound, high-frequency linear transducer, standard coronal plane. The iliac line is a straight horizontal line and the labrum is visible on the images measured: [yes / no — repeat performed]. Dynamic stress view: [performed / not performed].\n\nFINDINGS — RIGHT HIP\nBaseline, bony roof line and cartilage roof line drawn on the standard coronal image.\nAlpha angle: [n]°. Beta angle: [n]°.\nBony roof: [well formed / deficient]. Bony rim: [angular / rounded / flat]. Cartilage roof: [covering the head / displaced].\nFemoral head coverage, static: [n]%. Dynamic stress view: [stable / subluxes / dislocates].\n\nFINDINGS — LEFT HIP\nAlpha angle: [n]°. Beta angle: [n]°.\nBony roof: [ ]. Bony rim: [ ]. Cartilage roof: [ ].\nFemoral head coverage, static: [n]%. Dynamic stress view: [stable / subluxes / dislocates].\n\nIMPRESSION\n1. Right hip: Graf type [I / IIa / IIb / IIc / D / III / IV], alpha [n]° at [n] weeks of age.\n2. Left hip: Graf type [I / IIa / IIb / IIc / D / III / IV], alpha [n]° at [n] weeks of age.\n3. [Where alpha is in the critical zone around 50°, state the beta angle and say whether the head remains covered (IIc) or is decentring (D). Where coverage is lost, describe the coverage and the acetabular roof shape rather than relying on the angle.]\n4. [Interpret the angle against age: below 60° can be acceptable up to 3 months provided the trajectory reaches 60° by 12 weeks.]\n5. Recommendation: [routine / repeat ultrasound at [n] weeks / orthopaedic referral].\n\n--- ELBOW RADIOGRAPH (child) ---\n\nCLINICAL\nAge [n] years. Mechanism: [fall on outstretched hand / pull on the arm / direct blow]. Side: [right / left].\n\nTECHNIQUE\nAP and true lateral of the elbow flexed at 90°. Additional views: [internal oblique / comparison view of the uninjured elbow / none].\n\nFINDINGS\nFat pads: anterior [normal / elevated], posterior [not visible / visible].\nAnterior humeral line: passes through the [middle third / anterior third / anterior to] the capitellum.\nRadiocapitellar line: passes through the centre of the capitellum on [both / not all] projections.\nOssification centres present: [capitellum / radius / internal epicondyle / trochlea / olecranon / external epicondyle] — order [follows CRITOE / a fragment is out of sequence at [site]].\nFracture: [none identified / supracondylar / lateral condyle / medial epicondyle avulsion / radial neck / olecranon], displacement [n] mm.\nChecklist reviewed: minimally displaced supracondylar fracture, lateral condyle fracture, slipped radial epiphysis, radial dislocation, position of the medial epicondyle.\n\nIMPRESSION\n1. [Fracture and site], Gartland type [I / II / III] where supracondylar.\n2. [Positive posterior fat pad with no visible fracture: treat as occult fracture — immobilise and review.]\n3. Recommendation: [cast / percutaneous fixation / reduction and pinning / surgical reduction within 48 hours / repeat radiographs].",
+        "also": [
+          {
+            "title": "Elbow fractures in Children",
+            "url": "https://radiologyassistant.nl/pediatrics/hip/fractures-in-children-1",
+            "publisher": "The Radiology Assistant"
+          }
+        ],
+        "modifiers": [
+          {
+            "code": "Gartland I",
+            "meaning": "Supracondylar fracture with only minimal displacement — often difficult to see on radiographs. Treated with casting."
+          },
+          {
+            "code": "Gartland II",
+            "meaning": "Displacement with the posterior cortex intact. Some need percutaneous fixation if a long-arm cast does not adequately hold the reduction."
+          },
+          {
+            "code": "Gartland III",
+            "meaning": "Completely dislocated. Reduction by closed or if necessary open means, stabilised with two lateral pins or a medial-lateral cross pin technique."
+          },
+          {
+            "code": "Lateral condyle fracture",
+            "meaning": "Second most common distal humerus fracture in children, between the ages of 4 and 10 years. Undisplaced: long-arm cast. Displaced: surgical reduction within the first 48 hours."
+          },
+          {
+            "code": "Medial epicondyle avulsion",
+            "meaning": "80% occur in boys, peak age in early adolescence, with a 50% incidence of associated elbow dislocation. Say where the fragment lies."
+          },
+          {
+            "code": "Olecranon fracture",
+            "meaning": "Less common than in adults, and associated with radial neck fractures and radial dislocations — look for both when you find one."
+          }
         ]
       }
     },
@@ -22624,7 +23888,8 @@
           "Skipping the two-week follow-up survey. Healing rib and metaphyseal injuries invisible on day one are often the findings that confirm the diagnosis.",
           "Accepting a technically inadequate radiograph because the child was distressed. Poor positioning is exactly what hides the findings that matter most in this indication.",
           "Writing a report that lists fractures without stating their specificity or reasoning — a report that will be read in court needs the inference made explicit, not left implicit."
-        ]
+        ],
+        "template": "CLINICAL\nAge [n] months. Referrer and safeguarding lead: [names]. Stated mechanism of injury: [verbatim from the referral]. Developmental stage: [ ]. Prior imaging reviewed: [dates / none].\n\nTECHNIQUE\nFull skeletal survey to the standard view series (a babygram is not an acceptable substitute), performed in every child under 2 years with suspected abuse. Views obtained: [list]. Views repeated for positioning or collimation: [list / none]. Any view of inadequate technical quality: [none / list, and state that subtle metaphyseal and rib injuries may be missed on it].\n[± CT head ± MRI brain ± additional coned views.]\n\nFINDINGS — FRACTURE BY FRACTURE\nFor each: site and side, description, estimated age of injury from the healing changes, and specificity for abuse.\n1. [Site] — [classic metaphyseal lesion — corner or bucket-handle / rib fracture / scapular / sternal / spinous process / complex, multiple, bilateral or growing skull fracture / simple linear skull fracture / diaphyseal long bone fracture]. Healing stage: [acute, no periosteal reaction / periosteal new bone / callus / remodelling]. Estimated age: [ ]. Specificity for abuse: [high / moderate / low].\n2. [ ]\n3. [ ]\nNo fracture identified: [state explicitly if so.]\nOther findings: intracranial injury [ ], visceral injury [ ], bone density and any metabolic bone disease [ ].\n\nIMPRESSION\n1. [n] fracture(s) identified. High specificity for abuse: [list / none]. Moderate: [list / none]. Low: [list / none].\n2. [The classic metaphyseal lesion is virtually pathognomonic for abuse; rib fractures in a child under 2 are highly specific. Simple linear skull fractures and diaphyseal long bone fractures occur in both accidental and non-accidental injury and cannot diagnose abuse alone.]\n3. Consistency with the stated mechanism and the child's developmental stage: [consistent / inconsistent — set out why]. An inconsistent pattern raises concern regardless of the specificity of any single fracture.\n4. Specificity ranking guides the weight given to each finding; it does not replace correlation with history, developmental stage and the pattern of injury as a whole. [State the reasoning behind the conclusion in full — this report may be read in court.]\n5. Follow-up skeletal survey booked for [date], two weeks from this study, to detect healing injuries not visible acutely.\n6. Communication: findings discussed with [name, role] at [time] on [date], by [telephone / in person]. Safeguarding team informed: [name, time, date]."
       }
     },
     {
@@ -22896,7 +24161,7 @@
             ],
             [
               "3",
-              "Haemorrhage fills and dilates the lateral ventricle, with associated venous infarction"
+              "Haemorrhage fills and distends the lateral ventricle, with ventricular dilatation but no parenchymal involvement"
             ],
             [
               "4",
@@ -22911,7 +24176,8 @@
           "Measuring ventricular size with the wrong index for gestational age — the Levene index and the post-40-week ventricular index are not interchangeable.",
           "Missing a mild germinal matrix bleed because only the ventricles, not the caudothalamic groove itself, were checked.",
           "Assuming any pelvic cystic lesion in a neonatal girl needs urgent characterisation — confirm two separate normal ovaries before escalating, since simple neonatal ovarian cysts are common and usually resolve."
-        ]
+        ],
+        "template": "CLINICAL\nGestational age at birth [n] weeks. Corrected age at scan [n] weeks. Indication: [routine preterm screening / suspected haemorrhage / follow-up / abdominal mass]. Comparison: [date / none].\n\nTECHNIQUE\nNeonatal cranial ultrasound through the anterior (greater) fontanelle in coronal and sagittal planes with a sector probe, and a linear probe for the superficial structures. Additional windows: [lesser fontanelle / sphenoidal / mastoid / not required].\n\nFINDINGS\nCaudothalamic groove (the germinal matrix — check this first): right [normal / echogenic haemorrhage, [n] mm], left [normal / echogenic haemorrhage, [n] mm].\nLateral ventricles: right [n] mm, left [n] mm. Intraventricular blood: [absent / present, side], ventricular dilatation [absent / present].\nParenchyma: [normal / periventricular echogenicity / venous haemorrhagic infarction at [site], [n] mm], cystic change [absent / present].\nVentricular measurement, used consistently on serial scans: [Levene index [n] mm — up to 40 weeks / ventricular index, ventricular width to biparietal diameter ratio [n] — after 40 weeks].\nSubarachnoid space over the frontal convexity, coronal: [n] mm (normal < 3 mm).\nMidline structures, corpus callosum, posterior fossa: [ ].\n\nABDOMINAL MASS (if that is the question)\nAge and sex: [n], [female / male]. Organ of origin: [renal — claw sign present / adrenal / hepatic / ovarian / bowel / retroperitoneal / not determined].\nLesion: [n] x [n] x [n] mm, [cystic / solid / mixed], vascularity [ ], calcification [ ]. In a female neonate a cystic mass is very likely ovarian.\n\nIMPRESSION\n1. Germinal matrix / intraventricular haemorrhage: [none / grade 1 — confined to the caudothalamic groove / grade 2 — ventricular extension without dilatation / grade 3 — fills and dilates the ventricle with venous infarction / grade 4].\n2. [Where grade 4: state that this is a distinct venous haemorrhagic infarction from venous compression, not simply a larger version of grades 1–3.]\n3. Ventricular size: [index] [n], [stable / increasing] since [date]. Subarachnoid space [n] mm.\n4. [Abdominal mass: organ of origin and differential by age and sex.]\n5. Recommendation: repeat ultrasound at [n] [days / weeks]; [MRI / paediatric surgical or oncology referral]."
       }
     },
     {
@@ -23194,7 +24460,8 @@
           "Missing an air leak because attention was fixed on the parenchymal pattern. Pneumothorax, pneumomediastinum and pulmonary interstitial emphysema need a specific, separate check.",
           "Ignoring postnatal age and respiratory support. The same film can represent a different stage of disease, or a superimposed complication of ventilation, depending on how long the infant has been supported.",
           "Treating TTN and mild RDS as radiographically distinguishable with confidence when the pattern is subtle — gestational age and clinical trajectory often settle it, not the film alone."
-        ]
+        ],
+        "template": "CLINICAL\nGestational age at birth [n] weeks. Postnatal age [n] [hours / days]. Respiratory support: [air / CPAP / ventilated, settings] [± surfactant given at [n] hours]. Clinical signs of infection: [present / absent].\n\nTECHNIQUE\n[AP supine chest radiograph / with lateral]. Comparison: [date and time / none].\n\nFINDINGS\nLung volume: [normal / hypo-inflated / hyper-inflated], [n] posterior ribs.\nParenchymal pattern: [fine granular / coarse patchy / linear / clear], [symmetric / asymmetric], distribution [ ].\nAir bronchograms: [absent / present].\nPleural effusion: [absent / present, side].\nAir leak: pneumothorax [absent / present, side, size, tension features], pneumomediastinum [absent / present], pulmonary interstitial emphysema [absent / present, side].\nHeart size and mediastinum: [ ]. Thymus: [ ].\nLines and tubes: endotracheal tube tip at [level], umbilical arterial catheter tip at [level], umbilical venous catheter tip at [level], nasogastric tube [ ], drains [ ].\nSkeleton and upper abdomen: [ ].\nChange since [date and time]: [ ].\n\nIMPRESSION\n1. [Respiratory distress syndrome — preterm only, low volume, air bronchograms, symmetric fine granular opacities, grade [n] of four / transient tachypnoea of the newborn — full term, increased volume, parahilar linear densities, pleural effusions / meconium aspiration — term or post-term, coarse asymmetric densities with atelectasis and air trapping / neonatal pneumonia].\n2. Interpreted against a gestational age of [n] weeks and a postnatal age of [n] [hours / days] — the same pattern means different things at different ages.\n3. [Do not call pneumonia from the film alone: consolidation without clinical signs of infection is unlikely to represent pneumonia. State the correlation made.]\n4. Air leak: [none / describe and communicate urgently].\n5. [Line and tube positions needing adjustment, and to whom this was communicated, with time.]"
       }
     },
     {
@@ -23502,7 +24769,8 @@
           "Confusing the double bubble of duodenal atresia with the triple bubble of jejunal atresia — the absence of distal bowel gas and a third dilated loop is the distinguishing feature.",
           "Diagnosing Hirschsprung disease from the recto-sigmoid index alone on a single early contrast enema — the classic transition zone can be absent in the neonatal period.",
           "Treating pyloric stenosis measurements as fixed absolutes in a very small or premature infant — use them as the standard threshold but correlate with clinical findings (a palpable olive, projectile vomiting) when the measurements are borderline."
-        ]
+        ],
+        "template": "CLINICAL\nAge [n] [hours / days / months]. Vomiting: [absent / non-bilious — suggests obstruction proximal to the ampulla of Vater / bilious, green — suggests obstruction distal to the ampulla]. Meconium passed: [yes, at [n] hours / not passed by 48 hours — points to a low obstruction]. Abdominal distension: [ ].\n\nTECHNIQUE\nSupine [± lateral decubitus / horizontal-beam lateral] abdominal radiograph — the first study in every neonate with a suspected acute abdomen. [± upper GI contrast study ± colon enema ± ultrasound.]\n\nFINDINGS — RADIOGRAPH, SIX FEATURES\n1. Bowel dilatation: [absent / present].\n2. Number of dilated loops: [few — high obstruction / many — low obstruction].\n3. Small bowel versus colon: [ ].\n4. Rectal air: [present / absent].\n5. Pneumatosis intestinalis: [absent / present, site].\n6. Free air or ascites: [absent / present].\nClassic signs: [none / double bubble / triple bubble without distal gas / other].\n\nFINDINGS — CONTRAST STUDY OR ULTRASOUND\nUpper GI (for an equivocal high obstruction; avoid in a typical complete obstruction): duodenojejunal flexure position [normal / abnormal], [corkscrew / reversed-3 sign present or absent].\nColon enema (for a suspected low obstruction): microcolon [absent / present], transition point at [ ], recto-sigmoid index [n] (< 1 is abnormal).\nUltrasound: superior mesenteric vessel relationship [normal / whirlpool sign]; pylorus — single muscle wall thickness [n] mm (> 3 mm), transverse diameter [n] mm (> 14 mm), channel length [n] mm.\n\nIMPRESSION\n1. [High / low] obstruction, localised by [vomiting colour / meconium timing] before any imaging sign.\n2. [Duodenal atresia — double bubble / jejunal atresia — triple bubble without distal gas / malrotation with volvulus — corkscrew or reversed-3 / Hirschsprung disease — recto-sigmoid index < 1 with a disproportionately small rectum / necrotising enterocolitis — pneumatosis intestinalis / hypertrophic pyloric stenosis — muscle wall > 3 mm and transverse diameter > 14 mm / no obstruction identified].\n3. [Free air, pneumatosis or volvulus — state as a surgical emergency.]\n4. Recommendation and communication: [next study / paediatric surgical referral]. Discussed with [name, role] at [time]."
       }
     },
     {
@@ -23735,7 +25003,169 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "Bone scintigraphy",
+          "url": "https://radiopaedia.org/articles/bone-scan",
+          "publisher": "Radiopaedia"
+        },
+        "also": [
+          {
+            "title": "V/Q scan",
+            "url": "https://radiopaedia.org/articles/vq-scan",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Thyroid scintigraphy (I-123)",
+            "url": "https://radiopaedia.org/articles/thyroid-scintigraphy",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Lymphoscintigraphy",
+            "url": "https://radiopaedia.org/articles/lymphoscintigraphy",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "Ask which phase answers the question before you book the scan",
+            "detail": "A single delayed bone scan answers \"are there metastases\". Only the three-phase study separates cellulitis from osteomyelitis, because you need flow and blood pool as well as the delayed image."
+          },
+          {
+            "step": "Check the preparation for the study you are reading",
+            "detail": "Bone scan: hydration, metal removed, bladder emptied immediately before imaging. Thyroid: four hours fasted, amiodarone, potassium iodide and iodinated contrast excluded. V/Q: a chest radiograph within 12–24 hours, reviewed first."
+          },
+          {
+            "step": "Read the bone scan by phase, in order",
+            "detail": "Flow — is there hyperaemia. Blood pool — is there capillary dilatation and inflammation. Delayed — is there new bone formation. Only the pattern across all three is diagnostic."
+          },
+          {
+            "step": "Look at the kidneys on a bone scan",
+            "detail": "Faint or absent renal uptake is usually renal insufficiency; in a patient with normal renal function it is most often widespread metastatic disease — the superscan."
+          },
+          {
+            "step": "On V/Q, decide matched or mismatched, not just abnormal",
+            "detail": "Reflex vasoconstriction produces a perfusion defect wherever the airway is obstructed, so a matched defect is airway disease. Mismatch is the finding — acute or chronic pulmonary embolism, tumour obstructing an artery, or previous radiotherapy."
+          },
+          {
+            "step": "Check for a right-to-left shunt on the perfusion study",
+            "detail": "Renal or cerebral activity from Tc-99m MAA that has bypassed the pulmonary capillary bed."
+          },
+          {
+            "step": "On thyroid scintigraphy, take the uptake value and the pattern together",
+            "detail": "High uptake homogeneous is Graves; high and heterogeneous is toxic multinodular goitre; a single focus with the rest of the gland suppressed is a toxic adenoma."
+          },
+          {
+            "step": "For lymphoscintigraphy, image until the drainage is complete, then hand it over",
+            "detail": "Dynamic or static acquisition out to 45–60 minutes, a cobalt-57 flood source to outline the body, and SPECT-CT where the anatomy is complex, as in the head and neck. The surgeon then uses a handheld gamma probe on the highest-activity node."
+          }
+        ],
+        "measure": [
+          {
+            "what": "Bone scan tracer dose",
+            "how": "Tc-99m diphosphonate (usually MDP) intravenously in an adult.",
+            "cutoff": "740–925 MBq (20–25 mCi)"
+          },
+          {
+            "what": "Skeletal uptake fraction",
+            "how": "Why the delayed phase is timed where it is.",
+            "cutoff": "About 50% of the injected dose in bone by 2–6 hours"
+          },
+          {
+            "what": "Bone scan phase timing",
+            "how": "Flow, blood pool, delayed, and optionally delayed/delayed.",
+            "cutoff": "Flow 2–5 s frames over 60 s · blood pool 5 min · delayed 2–4 h · delayed/delayed 24 h"
+          },
+          {
+            "what": "V/Q performance against CTPA or DSA",
+            "how": "For the diagnosis of pulmonary embolism.",
+            "cutoff": "Sensitivity 77.4% · specificity 97.7%"
+          },
+          {
+            "what": "Thyroid I-123 dose and timing",
+            "how": "Oral capsule; scan at one of the two standard time points.",
+            "cutoff": "3.7–14.8 MBq (100–400 μCi); scan at 4–6 h or 24 h"
+          },
+          {
+            "what": "Normal thyroid radioiodine uptake",
+            "how": "Percentage of administered activity in the gland at the stated time.",
+            "cutoff": "4 h: 6–18% · 24 h: 10–35%"
+          },
+          {
+            "what": "Thyroid imaging technique",
+            "how": "Pinhole collimator, gland filling about two-thirds of the field, anterior plus 45° LAO and RAO.",
+            "cutoff": "3–6 mm pinhole · 20% window at 159 keV · 100–250,000 counts per view"
+          },
+          {
+            "what": "Lymphoscintigraphy for cutaneous lesions",
+            "how": "Intradermal, 25- or 27-gauge needle nearly tangential to the skin, 5–10 mm from the lesion margin, two to four sites.",
+            "cutoff": "0.1–0.2 mL per site · total 7.4–37 MBq (200–1000 μCi)"
+          },
+          {
+            "what": "Lymphoscintigraphy for breast, perilesional route",
+            "how": "Intraparenchymal, around the lesion.",
+            "cutoff": "3–4 mL containing 7.4–111 MBq (200–3000 μCi)"
+          }
+        ],
+        "classify": {
+          "name": "Choosing among the common single-photon studies",
+          "columns": [
+            "Study",
+            "Tracer and route",
+            "Timing",
+            "Question it answers"
+          ],
+          "rows": [
+            [
+              "Bone scintigraphy, delayed only",
+              "Tc-99m MDP intravenously, 740–925 MBq",
+              "2–4 hours",
+              "Skeletal metastases and their follow-up; radiographically occult stress or insufficiency fracture; Paget disease"
+            ],
+            [
+              "Bone scintigraphy, three-phase",
+              "Tc-99m MDP intravenously",
+              "Flow over 60 s, blood pool at 5 min, delayed at 2–4 h",
+              "Osteomyelitis; complex regional pain syndrome; infection versus loosening around a hip prosthesis"
+            ],
+            [
+              "Ventilation study",
+              "Tc-99m DTPA aerosol by non-rebreathing mask, supine, imaged upright",
+              "Initial breath, equilibrium, washout",
+              "Regional ventilation — the denominator against which perfusion is judged"
+            ],
+            [
+              "Perfusion study",
+              "Tc-99m MAA intravenously, supine, lodging in pre-capillary arterioles",
+              "Immediately",
+              "Pulmonary embolism where CTPA is contraindicated; lung function before pneumonectomy; graft function after lung transplant"
+            ],
+            [
+              "Thyroid scintigraphy",
+              "I-123 orally, 3.7–14.8 MBq (or Tc-99m pertechnetate intravenously)",
+              "4–6 h or 24 h (pertechnetate peaks at about 20 min)",
+              "Functional status of a nodule; the cause of thyrotoxicosis; residual tissue or recurrence after thyroidectomy"
+            ],
+            [
+              "Lymphoscintigraphy",
+              "Tc-99m colloid — sulfur colloid, nanocolloid albumin, antimony trisulfide or tilmanocept, by region",
+              "Dynamic and static to 45–60 min",
+              "Which node the tumour drains to, for sentinel node surgery"
+            ]
+          ],
+          "note": "Tc-99m pertechnetate is trapped by follicular cells but not organified, which is why it must be imaged early and why it is not interchangeable with iodine."
+        },
+        "pitfalls": [
+          "Reading a bone scan against a poor renal excretion pattern. Tc-99m MDP is renally excreted, so impaired function leaves tracer in the soft tissues and degrades every image — hydrate and check the kidneys before you blame the technique.",
+          "Missing the superscan. Faint or absent renal activity in a patient without renal disease usually means widespread skeletal metastases, not a good scan.",
+          "Forgetting iron. Thalassaemia major and haemochromatosis raise renal and hepatic uptake and lower skeletal uptake, and the scan reads as falsely reassuring.",
+          "Reading a V/Q without the chest radiograph. Atelectasis and consolidation produce perfusion defects of their own; the film should be within 12–24 hours and looked at first.",
+          "Calling every perfusion defect embolic. Airway obstruction causes reflex vasoconstriction and a matched defect; only mismatch supports embolism, and even mismatch includes tumour and prior radiotherapy.",
+          "Sending a patient for thyroid scintigraphy after iodinated contrast. CT or angiographic contrast, amiodarone, potassium iodide and some supplements all block uptake, and inadequate preparation falsely lowers the I-123 uptake into the hypofunctioning range.",
+          "Injecting lymphoscintigraphy tracer too far from the lesion. For a cutaneous primary the needle goes intradermally, nearly tangential, 5–10 mm from the lesion margin — deeper or further out maps the wrong basin."
+        ]
+      }
     },
     {
       "id": "rad.5.pet-ct",
@@ -23971,7 +25401,154 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "Deauville five-point scale",
+          "url": "https://radiopaedia.org/articles/deauville-five-point-scale",
+          "publisher": "Radiopaedia"
+        },
+        "also": [
+          {
+            "title": "Positron emission tomography",
+            "url": "https://radiopaedia.org/articles/pet-ct",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Standardised uptake value (SUV)",
+            "url": "https://radiopaedia.org/articles/standardised-uptake-value-suv",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "F-18 fluorodeoxyglucose",
+            "url": "https://radiopaedia.org/articles/f-18-fluorodeoxyglucose",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "Check the preparation before you read a single voxel",
+            "detail": "Fasted 4–6 hours (diabetic patients overnight, 12 hours), blood glucose below 150 mg/dL, no strenuous activity for 24 hours, no speech for 20 minutes before injection, imaging at 60 minutes post-injection. A failure in any of these changes what the study can exclude."
+          },
+          {
+            "step": "Read the CT first, then the PET, then the fusion",
+            "detail": "The whole-body CT is acquired first and supplies the attenuation map. Anything you find on PET must be placed on an anatomical structure you can name on the CT."
+          },
+          {
+            "step": "Set your two internal reference points",
+            "detail": "Mediastinal blood pool and liver. Both hold relatively constant uptake on serial imaging, and every visual judgement in lymphoma is made against them rather than against an absolute number."
+          },
+          {
+            "step": "Walk the sites of physiological uptake deliberately",
+            "detail": "Brain (basal ganglia, posterior cingulate, visual cortex), myocardium, kidneys and bladder, liver, Waldeyer ring, thymus, spleen and marrow, salivary glands, brown fat in neck and mediastinum, bowel wall on metformin, muscle after exertion, larynx after speech, breast in lactation, spinal cord at T11–L1 and C4."
+          },
+          {
+            "step": "Interrogate anything focal against the attenuation-correction artefacts",
+            "detail": "The respiratory 'mushroom effect' at the lung bases, prosthesis artefact where the correction cannot handle high density, and truncation when arms are down and the CT field of view is narrower than the PET."
+          },
+          {
+            "step": "Score each FDG-avid lesion independently in lymphoma",
+            "detail": "Deauville is applied lesion by lesion, not as a single global impression, and then translated into a response category."
+          },
+          {
+            "step": "Judge incidental uptake by size and by plausible cause",
+            "detail": "Sensitivity and specificity both fall below 7 mm. Granulomatous disease, abscess, surgical change, foreign-body reaction including talc pleurodesis, fat necrosis and inflammation all light up — say which is more likely before you generate a cancer pathway."
+          }
+        ],
+        "measure": [
+          {
+            "what": "SUV",
+            "how": "Tissue radioactivity concentration in the ROI divided by injected dose per kilogram of body weight. Report which flavour you used — max, mean or peak — and keep to one.",
+            "cutoff": "Benign/malignant cut-off falls in the range SUV 2.0–2.5"
+          },
+          {
+            "what": "Lesion size floor",
+            "how": "Below this, absence of uptake does not exclude disease.",
+            "cutoff": "Sensitivity and specificity fall for lesions < 7 mm"
+          },
+          {
+            "what": "Blood glucose at injection",
+            "how": "Measured before the tracer goes in; competitive inhibition by glucose degrades the study.",
+            "cutoff": "< 150 mg/dL"
+          },
+          {
+            "what": "Fasting",
+            "how": "Before injection.",
+            "cutoff": "4–6 hours · diabetic patients overnight, 12 hours"
+          },
+          {
+            "what": "Uptake time",
+            "how": "Injection to acquisition. Keep it constant if the SUV is going to be compared.",
+            "cutoff": "60 minutes"
+          },
+          {
+            "what": "Deauville 5 threshold",
+            "how": "Markedly increased uptake, defined against the liver.",
+            "cutoff": "2–3× the maximum SUV in the liver, or any new lesion"
+          },
+          {
+            "what": "Residual mass after complete metabolic response in DLBCL",
+            "how": "Measure the residual mass on CT even when the PET is Deauville 1.",
+            "cutoff": "> 2 cm carries increased risk of recurrence"
+          },
+          {
+            "what": "F-18 physical half-life",
+            "how": "Governs scheduling and the dose that actually arrives.",
+            "cutoff": "110 minutes, renal excretion"
+          }
+        ],
+        "classify": {
+          "name": "Deauville five-point scale",
+          "columns": [
+            "Score",
+            "Uptake",
+            "Response category"
+          ],
+          "rows": [
+            [
+              "1",
+              "No uptake, or no residual uptake when used at interim",
+              "Complete metabolic response"
+            ],
+            [
+              "2",
+              "Slight uptake, at or below mediastinal blood pool",
+              "Complete metabolic response"
+            ],
+            [
+              "3",
+              "Uptake above mediastinum but at or below liver",
+              "Complete metabolic response"
+            ],
+            [
+              "4",
+              "Uptake moderately higher than liver",
+              "Partial response if uptake is down from baseline with no structural progression on CT; stable disease if unchanged; progressive disease if rising"
+            ],
+            [
+              "5",
+              "Markedly increased uptake (2–3× maximum liver SUV), or any new lesion on response evaluation",
+              "Partial response if uptake is down from baseline with no structural progression on CT; stable disease if unchanged; progressive disease if rising or if a new FDG-avid focus consistent with lymphoma appears"
+            ],
+            [
+              "X",
+              "Any new area of uptake not overtly attributable to lymphoma",
+              "Reported separately, not a response category"
+            ]
+          ],
+          "note": "Complete metabolic response requires scores 1–3 together with the absence of FDG-avid bone marrow lesions, and holds irrespective of a persistent mass on CT. The scale is recommended for Hodgkin lymphoma of any type, DLBCL, marginal zone NHL with aggressive transformation, and FDG-avid nodal lymphomas generally — but not CLL, small lymphocytic lymphoma, lymphoplasmacytic lymphoma/Waldenström, or mycosis fungoides. It is incorporated into the Lugano criteria."
+        },
+        "template": "TECHNIQUE\nFDG PET/CT from [skull base to mid-thigh / vertex to toes]. Fasted [n] hours. Blood glucose [n] mg/dL. [n] MBq F-18 FDG intravenously; uptake time [n] minutes. [Diagnostic / low-dose] CT [with / without] intravenous contrast. Comparison: [date and type].\n\nFINDINGS\nQuality: [adequate / limited by (hyperglycaemia, motion, truncation, brown fat, prosthesis artefact)].\nReference organs: mediastinal blood pool SUVmax [n]; liver SUVmax [n].\nIndex lesion: [site], [size] mm, SUVmax [n] (previously [n]).\nNodal disease: [stations involved, above and below the diaphragm], most avid SUVmax [n].\nExtranodal: [organ], [size], SUVmax [n].\nBone marrow: [no FDG-avid marrow lesion / focal lesions at ...].\nPhysiological and non-malignant uptake accounted for: [brown fat / bowel on metformin / muscle / larynx / post-surgical / other].\nCT-only findings of note: [ ].\n\nIMPRESSION\n1. [Lymphoma: Deauville score (1-5) — (complete metabolic response / partial response / stable disease / progressive disease).] [Other tumours: metabolic response in plain words with the SUVmax then and now.]\n2. [Sites of active disease, named.]\n3. [Incidental uptake: what it probably is, and whether it needs anything.]\n4. [Recommendation and the interval.]",
+        "pitfalls": [
+          "Comparing SUVs across scanners or across methods. SUV moves with blood glucose, noise, resolution and ROI placement — serial comparison is only reliable on the same scanner with the same method and the same uptake time.",
+          "Calling a Deauville 4 or 5 progressive disease on the score alone. Both scores are compatible with partial response if uptake has fallen from baseline and CT shows no structural progression; it is the direction of change that decides.",
+          "Reading a persistent mass on CT as residual disease. Scores 1–3 with no FDG-avid marrow lesion are a complete metabolic response whatever the mass looks like — though in DLBCL a residual mass over 2 cm still carries an increased risk of recurrence.",
+          "Applying Deauville where it does not apply. CLL, small lymphocytic lymphoma, lymphoplasmacytic lymphoma/Waldenström and mycosis fungoides are outside the scale, and primary extranodal and cutaneous lymphomas have separate proposed criteria.",
+          "Chasing sub-centimetre uptake. Both sensitivity and specificity deteriorate below 7 mm, so a small hot focus is a weak finding in both directions.",
+          "Missing the preparation failure that explains the study. Diffuse symmetrical muscle uptake, brown fat in the neck, laryngeal activity and bowel uptake on metformin are all preparation, not disease.",
+          "Trusting fused position over an artefact. The mushroom effect at the lung bases, prosthesis artefact and truncation with arms down all come from attenuation correction, not from the patient."
+        ]
+      }
     },
     {
       "id": "rad.5.theranostics",
@@ -24205,7 +25782,142 @@
           "width": 1600,
           "height": 1000
         }
-      ]
+      ],
+      "reference": {
+        "source": {
+          "title": "Krenning score of neuroendocrine tumour uptake",
+          "url": "https://radiopaedia.org/articles/krenning-score",
+          "publisher": "Radiopaedia"
+        },
+        "also": [
+          {
+            "title": "Gallium-68 DOTATATE",
+            "url": "https://radiopaedia.org/articles/gallium-68-dotatate",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "PSMA theranostics",
+            "url": "https://radiopaedia.org/articles/psma-theranostics",
+            "publisher": "Radiopaedia"
+          },
+          {
+            "title": "Lutetium-177 vipivotide tetraxetan",
+            "url": "https://radiopaedia.org/articles/lutetium-177-vipivotide-tetraxetan",
+            "publisher": "Radiopaedia"
+          }
+        ],
+        "approach": [
+          {
+            "step": "Establish what the scan is for — selection, localisation or follow-up",
+            "detail": "The imaging arm of a theranostic pair exists to decide whether the therapeutic arm will bind. Say explicitly whether the study supports treatment, and on what evidence."
+          },
+          {
+            "step": "On somatostatin-receptor imaging, find the lesion with the highest uptake",
+            "detail": "The Krenning score is assigned to that single lesion, compared against liver and spleen — or the kidney where the spleen is not available."
+          },
+          {
+            "step": "Learn the normal DOTATATE biodistribution before you call a lesion",
+            "detail": "High-intensity uptake in the spleen physiologically. Moderate in liver, uncinate process of the pancreas, pituitary, adrenals and bowel. Mild in salivary and thyroid glands. Almost none in the brain apart from focal pituitary activity. Urinary excretion."
+          },
+          {
+            "step": "Name the ligand, not just \"a PSMA scan\"",
+            "detail": "68Ga-PSMA-11 (Illuccix), 68Ga gozetotide (Locametz), 18F piflufolastat (Pylarify), 18F flotufolastat (Posluma) — VISION selected patients on 68Ga PSMA-11. The therapeutic agent is 177Lu-PSMA-617."
+          },
+          {
+            "step": "Confirm PSMA expression before therapy is offered",
+            "detail": "PSMA is upregulated on about 95% of prostate cancer cells, but selection for radioligand therapy requires demonstrated expression on an approved PET agent, not an assumption."
+          },
+          {
+            "step": "Follow up on the same axis you selected on",
+            "detail": "Response is monitored with PSMA PET/CT, or with SPECT/CT using the 208 keV gamma emission of Lu-177 after each administration."
+          },
+          {
+            "step": "Say where the dose lands in normal tissue",
+            "detail": "For 177Lu-PSMA the highest absorbed doses go to salivary glands, lacrimal glands, kidneys and bladder wall. That is where xerostomia, dry eyes and renal toxicity come from, and it is what the patient should be warned about."
+          },
+          {
+            "step": "Give protection advice grounded in the physics of the isotope you used",
+            "detail": "Lu-177 has a 6.65-day half-life, emits a 208 keV gamma, and is excreted renally. Household precautions and their duration are set by your local radiation protection adviser — quote theirs, not a remembered number."
+          }
+        ],
+        "measure": [
+          {
+            "what": "Lu-177 physical half-life",
+            "how": "Governs the interval between doses and the duration of any protection advice.",
+            "cutoff": "6.65 days"
+          },
+          {
+            "what": "Lu-177 beta range",
+            "how": "Determines how much normal tissue around a deposit is irradiated.",
+            "cutoff": "Average penetration 0.67 mm, maximum 2 mm"
+          },
+          {
+            "what": "Lu-177 gamma for post-therapy imaging",
+            "how": "Set the SPECT window to it.",
+            "cutoff": "208 keV"
+          },
+          {
+            "what": "177Lu-PSMA-617 regimen",
+            "how": "Intravenous, with dose modification, interruption or discontinuation graded by CTCAE and the prescribing information.",
+            "cutoff": "7.4 GBq (200 mCi) every 6 weeks, up to 6 doses"
+          },
+          {
+            "what": "PSMA expression in prostate cancer",
+            "how": "The biological reason the target works at all.",
+            "cutoff": "Upregulated on about 95% of prostate cancer cells"
+          },
+          {
+            "what": "Ga-68 DOTATATE binding",
+            "how": "Binds somatostatin receptor subtype 2. DOTATOC targets subtype 3; DOTANOC subtypes 3 and 5.",
+            "cutoff": "100× more avid than indium-111 pentetreotide"
+          },
+          {
+            "what": "VISION trial benefit",
+            "how": "The number to quote when a patient asks what the treatment buys.",
+            "cutoff": "Median survival 11.3 → 15.3 months; PFS 3.4 → 8.7 months (831 patients)"
+          }
+        ],
+        "classify": {
+          "name": "Krenning score — somatostatin-receptor uptake",
+          "columns": [
+            "Score",
+            "Uptake in the most avid lesion"
+          ],
+          "rows": [
+            [
+              "0",
+              "None"
+            ],
+            [
+              "1",
+              "Very low uptake"
+            ],
+            [
+              "2",
+              "Uptake less than or equal to liver"
+            ],
+            [
+              "3",
+              "Uptake greater than liver"
+            ],
+            [
+              "4",
+              "Uptake greater than spleen"
+            ]
+          ],
+          "note": "Scored against liver and spleen — or kidney where the spleen is unavailable — on the single lesion with the highest uptake. Designed for indium-111 DTPA planar or SPECT imaging and carried over unchanged to SSTR PET as the modified Krenning score; the determination is identical. Its commonest present use is assessing candidacy for peptide receptor radionuclide therapy. Scores run higher on PET than on planar or SPECT imaging, particularly for lesions under 2 cm."
+        },
+        "template": "TECHNIQUE\n[Ga-68 DOTATATE / Ga-68 PSMA-11 / F-18 piflufolastat] PET/CT, [n] MBq intravenously, uptake time [n] minutes, [skull base to mid-thigh / vertex to toes]. [Low-dose / diagnostic] CT. Comparison: [date and agent — state if the agent differs].\n\nFINDINGS\nPhysiological biodistribution: [as expected / altered by ...].\nMost avid lesion: [site], [size] mm, SUVmax [n].\nSSTR studies — Krenning score of the most avid lesion: [0-4], referenced to [liver / spleen / kidney].\nPSMA studies — sites of PSMA-expressing disease: [prostate bed / nodal stations / bone / visceral], most avid SUVmax [n].\nDisease not expressing the target: [none / describe — this is what the therapy will not treat].\nOrgans at risk: [salivary and lacrimal glands, kidneys, bladder wall — note any abnormality].\n\nIMPRESSION\n1. [Target-expressing disease: extent, in plain words.]\n2. [SSTR: Krenning (0-4).] [PSMA: expression present and sufficient / insufficient / discordant.]\n3. Suitability for [PRRT / 177Lu-PSMA-617]: [supported / not supported], because [reason].\n4. [Baseline for response assessment; recommended interval and modality.]",
+        "pitfalls": [
+          "Scoring Krenning off an average or a summed impression. It is assigned to the single most avid lesion, against liver and spleen.",
+          "Comparing a Krenning score from planar or SPECT imaging with one from PET. PET scores run higher, especially for lesions under 2 cm, and a patient can appear to have progressed on modality alone.",
+          "Calling splenic uptake abnormal on DOTATATE. High-intensity splenic activity is physiological, as is moderate uptake in the uncinate process, pituitary, adrenals and bowel.",
+          "Reporting \"a PSMA scan\" without the agent. Selection evidence differs by ligand — VISION used 68Ga-PSMA-11 — and serial comparison across agents is not like for like.",
+          "Ignoring disease that does not express the target. Non-expressing lesions are precisely the ones radioligand therapy will not touch, and they belong in the impression.",
+          "Treating actinium-225 PSMA therapy as established. It emits alpha particles and remains under research; it is not approved by the FDA or EMA.",
+          "Quoting a household restriction period from memory. Take the interval from your radiation protection adviser; the isotope's 6.65-day half-life and 208 keV gamma are the physics, not the policy."
+        ]
+      }
     }
   ]
 }
