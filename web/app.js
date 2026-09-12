@@ -1762,6 +1762,14 @@ function renderReference(ref, nodeTitle) {
     el('a', { href: ref.source.url, class: 'primer-outside', 'data-primer-outside': host,
       rel: 'noopener noreferrer' }, ref.source.title),
     ' · ' + ref.source.publisher);
+  // A module that draws on more than one article says so. The reader checking
+  // a threshold needs the page it came from, not the page most of it came from.
+  (ref.also || []).forEach(s => {
+    const h = (s.url || '').replace(/^https:\/\/(www\.)?/, '').split('/')[0];
+    cite.append(el('span', {}, ' · also '),
+      el('a', { href: s.url, class: 'primer-outside', 'data-primer-outside': h,
+        rel: 'noopener noreferrer' }, s.title));
+  });
   wrap.append(cite);
   wireOutsideLinks(wrap);
   return wrap;
@@ -3955,8 +3963,13 @@ function quickAccess(page, g) {
   const search = el('input', { type: 'search', class: 'qa-search',
     placeholder: 'Filter modules — “stroke”, “LI-RADS”, “paediatric”…',
     'aria-label': 'Filter radiology modules' });
+  // The reader at the workstation wants the modules that answer a reporting
+  // question, not the whole shelf. One tick narrows eighty-four to those.
+  const fwOnly = el('input', { type: 'checkbox', id: 'qa-fw-only' });
+  const fwLabel = el('label', { class: 'qa-fw-only', for: 'qa-fw-only' },
+    fwOnly, el('span', {}, 'Only modules with a reporting framework'));
   const count = el('div', { class: 'qa-count', role: 'status', 'aria-live': 'polite' });
-  box.append(search, count);
+  box.append(search, fwLabel, count);
 
   const groups = [];
   sections.forEach(sec => {
@@ -3967,8 +3980,14 @@ function quickAccess(page, g) {
     const rows = sec.nodes.map(n => {
       const state = n.mastered ? ['mastered', '✓ mastered'] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
       const row = el('div', { class: 'qa-row' });
+      const fw = n.framework;
       row.append(el('div', { class: 'qa-title' },
         el('b', {}, n.title), el('span', { class: 'qa-state ' + state[0] }, state[1]),
+        // The framework's own name, because that is what the reader is
+        // looking for: nobody searches for "The Liver Lesion", they search
+        // for LI-RADS.
+        fw ? el('span', { class: 'qa-fw', title: 'Reporting framework — from ' + fw.source },
+          fw.name + (fw.template ? ' · template' : '')) : null,
         n.goal ? el('p', { class: 'muted' }, n.goal) : null));
       row.append(el('div', { class: 'qa-acts' },
         // Eighty identical "Lesson" buttons read as eighty identical buttons to
@@ -3981,7 +4000,9 @@ function quickAccess(page, g) {
         onclick: () => go('reader', { title: a, node: n.id }) }, a)));
       if (arts.children.length) row.append(arts);
       wrap.append(row);
-      return { row: row, hay: (n.title + ' ' + sec.name + ' ' + (n.goal || '')).toLowerCase() };
+      return { row: row, framework: !!fw,
+        hay: (n.title + ' ' + sec.name + ' ' + (n.goal || '')
+          + ' ' + (fw ? fw.terms || (fw.name + ' ' + fw.source) : '')).toLowerCase() };
     });
     groups.push({ wrap: wrap, rows: rows });
     box.append(wrap);
@@ -3989,11 +4010,12 @@ function quickAccess(page, g) {
 
   function filter() {
     const q = search.value.trim().toLowerCase();
+    const only = fwOnly.checked;
     let shown = 0;
     groups.forEach(gr => {
       let here = 0;
       gr.rows.forEach(r => {
-        const hit = !q || r.hay.includes(q);
+        const hit = (!q || r.hay.includes(q)) && (!only || r.framework);
         r.row.hidden = !hit;
         if (hit) here++;
       });
@@ -4004,9 +4026,10 @@ function quickAccess(page, g) {
     });
     count.textContent = q
       ? shown + (shown === 1 ? ' module matches “' : ' modules match “') + search.value.trim() + '”.'
-      : '';
+      : (only ? shown + ' modules carry a reporting framework.' : '');
   }
   search.addEventListener('input', filter);
+  fwOnly.addEventListener('change', filter);
   page.append(box);
 }
 

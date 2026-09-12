@@ -540,6 +540,34 @@ REFERENCE_HOSTS = (
 )
 
 
+def framework_digest(ref: Dict) -> Dict:
+    """The one line about a reporting framework that an index needs.
+
+    The blocks themselves come to 300 KB across the specialist field, which is
+    heavier than the rest of the Atlas payload put together, so the graph
+    carries this instead. `terms` is the part that earns its bytes: a
+    radiologist searches for the eponym — Fazekas, Lauge-Hansen, Bosniak — and
+    the eponym is as likely to sit in a row label or a measurement as in the
+    table's own name. Without it the filter box invites a search it cannot
+    answer.
+    """
+    classify = ref.get("classify") or {}
+    terms = [classify.get("name") or "", ref["source"]["title"]]
+    terms += [s["title"] for s in ref.get("also") or []]
+    terms += [str(row[0]) for row in classify.get("rows") or [] if row]
+    terms += [m.get("what", "") for m in ref.get("measure") or []]
+    terms += [m.get("code", "") for m in ref.get("modifiers") or []]
+    joined = " ".join(t for t in terms if t)
+    return {
+        "name": classify.get("name") or ref["source"]["title"],
+        "source": ref["source"]["title"],
+        "template": bool(ref.get("template")),
+        # Capped: this rides on every node of the graph, and a filter does not
+        # need the whole table to match a word in it.
+        "terms": joined[:600],
+    }
+
+
 def _validate_reference(node: Dict) -> None:
     """Fail closed when an authored reporting framework does not match its schema.
 
@@ -557,7 +585,7 @@ def _validate_reference(node: Dict) -> None:
     nid = node.get("id")
     if not isinstance(ref, dict):
         raise ValueError("{} reference must be an object".format(nid))
-    allowed = {"source", "approach", "measure", "classify", "modifiers",
+    allowed = {"source", "also", "approach", "measure", "classify", "modifiers",
                "template", "pitfalls"}
     unknown = set(ref) - allowed
     if unknown:
@@ -569,21 +597,41 @@ def _validate_reference(node: Dict) -> None:
             raise ValueError("{} reference {} needs {}".format(nid, where, key))
         return value
 
+    def cited(entry: Dict, where: str) -> None:
+        if not isinstance(entry, dict):
+            raise ValueError("{} reference needs a {}".format(nid, where))
+        if set(entry) - {"title", "url", "publisher"}:
+            raise ValueError("{} reference {} has unknown keys".format(nid, where))
+        text(entry, "title", where)
+        text(entry, "publisher", where)
+        url = text(entry, "url", where)
+        if not url.startswith("https://"):
+            raise ValueError("{} reference {} must be https".format(nid, where))
+        host = url[len("https://"):].split("/", 1)[0].split("@")[-1].split(":")[0].lower()
+        if host.startswith("www."):
+            host = host[4:]
+        if host not in REFERENCE_HOSTS:
+            raise ValueError("{} reference {} host {} is not a cited source".format(nid, where, host))
+
     source = ref.get("source")
-    if not isinstance(source, dict):
-        raise ValueError("{} reference needs a source".format(nid))
-    if set(source) - {"title", "url", "publisher"}:
-        raise ValueError("{} reference source has unknown keys".format(nid))
-    text(source, "title", "source")
-    text(source, "publisher", "source")
-    url = text(source, "url", "source")
-    if not url.startswith("https://"):
-        raise ValueError("{} reference source must be https".format(nid))
-    host = url[len("https://"):].split("/", 1)[0].split("@")[-1].split(":")[0].lower()
-    if host.startswith("www."):
-        host = host[4:]
-    if host not in REFERENCE_HOSTS:
-        raise ValueError("{} reference source host {} is not a cited source".format(nid, host))
+    cited(source, "source")
+
+    # A module often spans several articles — the elbow and the hip are one
+    # module here but two pages there, and a staging module may take its T from
+    # one page and its nodes from another. With only one citation allowed, the
+    # honest move was to drop the un-citable half, and an author did exactly
+    # that rather than file it under the wrong URL. `also` is where the rest of
+    # the provenance goes, held to the same standard as the first.
+    also = ref.get("also")
+    if also is not None:
+        if not isinstance(also, list) or not also:
+            raise ValueError("{} reference also must be a non-empty list".format(nid))
+        seen = {source["url"]}
+        for entry in also:
+            cited(entry, "also")
+            if entry["url"] in seen:
+                raise ValueError("{} reference cites {} twice".format(nid, entry["url"]))
+            seen.add(entry["url"])
 
     body = 0
     for key, keys in (("approach", ("step", "detail")), ("measure", ("what", "how", "cutoff"))):
@@ -887,6 +935,14 @@ class Curriculum:
                 n["unlock_requirements"] = self.unlock_requirements(node, mastery, proven)
             n.pop("quiz", None)  # keep the graph payload light
             n.pop("lesson_media", None)  # detail-only; plates and model copy are much larger
+            # The reporting frameworks come to 300 KB across the specialist
+            # field — heavier than everything else on this route put together.
+            # The Atlas gets the one line it needs to file and find a module by
+            # the name a radiologist thinks in; the block itself travels with
+            # the lesson that was actually opened.
+            ref = n.pop("reference", None)
+            if ref:
+                n["framework"] = framework_digest(ref)
             nodes.append(n)
         domains = []
         for d in self.domains:

@@ -33,7 +33,7 @@ from pydantic import BaseModel, Field, field_validator
 from . import library, practice, quiz, store, tutor
 from . import sittings as sittings_mod
 from . import story as story_mod
-from .curriculum import Curriculum
+from .curriculum import Curriculum, framework_digest
 from .learner import (LearnerStore, STAGE_NAMES, STAGE_SPAN, STAGE_TITLES,
                       _end_of_tomorrow, _local_day, _remove_backup,
                       usable_reading_seconds)
@@ -801,7 +801,7 @@ async def _security_headers(request, call_next):
 # Fields of a curriculum node that must never leave the server. `quiz` carries
 # every `answer` and `explain` in the bank.
 _NODE_PRIVATE = ("quiz",)
-_NODE_DETAIL_ONLY = ("lesson_media",)
+_NODE_DETAIL_ONLY = ("lesson_media", "reference")
 
 
 def _public_node(node: dict, include_detail: bool = False) -> dict:
@@ -812,6 +812,10 @@ def _public_node(node: dict, include_detail: bool = False) -> dict:
     hidden = _NODE_PRIVATE if include_detail else _NODE_PRIVATE + _NODE_DETAIL_ONLY
     out = {k: v for k, v in node.items() if k not in hidden}
     out["question_count"] = len(node.get("quiz") or [])
+    # Same digest the Atlas route builds, so the two surfaces file a module
+    # under the same name.
+    if node.get("reference"):
+        out["framework"] = framework_digest(node["reference"])
     return out
 
 

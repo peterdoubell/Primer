@@ -4150,3 +4150,18 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
   .ref-mods { grid-template-columns: 1fr; gap: 2px 0; }
   .ref-mods .ref-mean { margin-bottom: 8px; }
 }
+
+/* The framework name on an index row: what the reader is actually scanning
+   for. Quiet enough not to compete with the module title, specific enough to
+   be the thing they hit. */
+.qa-fw {
+  display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 3px;
+  background: var(--paper-2); border: 1px solid var(--rule);
+  font-family: var(--sans); font-size: 11.5px; letter-spacing: .02em;
+  color: var(--gold-ink); vertical-align: middle;
+}
+.qa-fw-only {
+  display: flex; align-items: center; gap: 8px; margin: 8px 0 0;
+  font-family: var(--sans); font-size: 13.5px; color: var(--ink-soft); cursor: pointer;
+}
+.qa-fw-only input { cursor: pointer; }
