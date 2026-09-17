@@ -8,7 +8,8 @@ const path = require('node:path');
 const os = require('node:os');
 const assert = require('node:assert/strict');
 const { createHash } = require('node:crypto');
-const input = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+// Read the manifest on stdin; no caller-selected filesystem path is opened.
+const input = JSON.parse(fs.readFileSync(0, 'utf8'));
 const root = fs.realpathSync(path.resolve(__dirname, '..'));
 assert.equal(path.resolve(input.basePath), root);
 const files = input.files;
