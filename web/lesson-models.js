@@ -5147,6 +5147,7 @@
   }
 
   const RENDERERS = Object.freeze({
+    'spatial-3d': (item, hooks) => window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null,
     'doppler-angle-lab': renderDopplerAngle,
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,

@@ -128,7 +128,9 @@ DEFAULT_MINUTES = [180, 360, 660, 1080, 1680, 2700]
 # demand a much fuller foundation.
 STAGE_GATE = 0.6
 STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
+SPATIAL_MODEL_SCENARIOS = frozenset({"rad.3.ct-image", "rad.5.tavi-ct", "rad.3.fracture-description"})
 LESSON_MODEL_RENDERERS = frozenset({
+    "spatial-3d",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
@@ -268,7 +270,12 @@ def _validate_lesson_media(node: Dict) -> None:
             props = entry.get("props")
             if not isinstance(props, dict):
                 raise ValueError("{} model {} props must be an object".format(node.get("id"), media_id))
-            if renderer == "counter":
+            if renderer == "spatial-3d":
+                scenario = props.get("scenario")
+                if set(props) != {"scenario"} or not isinstance(scenario, str) \
+                        or scenario not in SPATIAL_MODEL_SCENARIOS or scenario != node.get("id"):
+                    raise ValueError("{} spatial model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "counter":
                 if set(props) != {"total"} or isinstance(props.get("total"), bool) \
                         or not isinstance(props.get("total"), int) or not 1 <= props["total"] <= 20:
                     raise ValueError("{} counter model needs total 1..20".format(node.get("id")))

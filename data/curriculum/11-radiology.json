@@ -689,6 +689,16 @@
             "level": 40,
             "width": 400
           }
+        },
+        {
+          "id": "rad-3-ct-image-spatial-3d",
+          "kind": "model",
+          "renderer": "spatial-3d",
+          "title": "Connect a section to its volume",
+          "instructions": "Choose a section plane, move it through the target, then rotate to inspect the intersection.",
+          "props": {
+            "scenario": "rad.3.ct-image"
+          }
         }
       ],
       "prereqs": [
@@ -1843,7 +1853,9 @@
           "renderer": "doppler-angle-lab",
           "title": "Doppler: the beam angle is not the correction angle",
           "instructions": "Move the beam while holding flow speed fixed. Then change only the assumed correction angle. Match the two angles and compare the recovered speed; try 90° to see why absent Doppler shift does not prove absent flow.",
-          "props": { "scenario": "ideal-single-speed-flow" }
+          "props": {
+            "scenario": "ideal-single-speed-flow"
+          }
         }
       ],
       "reference": {
@@ -8161,6 +8173,16 @@
           },
           "width": 1600,
           "height": 1000
+        },
+        {
+          "id": "rad-5-tavi-ct-spatial-3d",
+          "kind": "model",
+          "renderer": "spatial-3d",
+          "title": "Measure perpendicular to the vessel",
+          "instructions": "Tilt the measurement plane and compare its long axis with the true lumen diameter. Return to zero tilt.",
+          "props": {
+            "scenario": "rad.5.tavi-ct"
+          }
         }
       ],
       "reference": {
@@ -21099,6 +21121,16 @@
           },
           "width": 1600,
           "height": 1000
+        },
+        {
+          "id": "rad-3-fracture-description-spatial-3d",
+          "kind": "model",
+          "renderer": "spatial-3d",
+          "title": "Separate translation from angulation",
+          "instructions": "Change the distal fragment’s translation and angle independently. Switch direction, then rotate to inspect both projections.",
+          "props": {
+            "scenario": "rad.3.fracture-description"
+          }
         }
       ],
       "reference": {
