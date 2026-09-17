@@ -468,6 +468,9 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'cs.5.complexity': (5, 'complexity-certificate-lab'),
         'bio.5.developmental': (5, 'morphogen-gradient-lab'),
         'rad.3.ct-image': (5, 'ct-window-lab'),
+        'rad.5.ultrasound-physics': (5, 'doppler-angle-lab'),
+        'rad.5.tavi-ct': (5, 'spatial-3d'),
+        'rad.3.fracture-description': (5, 'spatial-3d'),
     }
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
@@ -482,9 +485,13 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     for nid, node in with_models.items():
         assert node['stage'] == expected[nid][0], nid
         kinds = [entry['kind'] for entry in node['lesson_media']]
-        assert kinds == ['illustration', 'model'], nid
-        model = node['lesson_media'][-1]
-        assert model['renderer'] == expected[nid][1]
+        renderers = [entry['renderer'] for entry in node['lesson_media'] if entry['kind'] == 'model']
+        if nid == 'rad.3.ct-image':
+            assert kinds == ['illustration', 'model', 'model'], nid
+            assert renderers == ['ct-window-lab', 'spatial-3d']
+        else:
+            assert kinds == ['illustration', 'model'], nid
+            assert renderers == [expected[nid][1]]
         plate = node['lesson_media'][0]
         assert plate['alt'].strip() and plate['caption'].strip()
         assert (plate['width'], plate['height']) == (1600, 1000)

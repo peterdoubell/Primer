@@ -689,6 +689,16 @@
             "level": 40,
             "width": 400
           }
+        },
+        {
+          "id": "rad-3-ct-image-spatial-3d",
+          "kind": "model",
+          "renderer": "spatial-3d",
+          "title": "Connect a section to its volume",
+          "instructions": "Choose a section plane, move it through the target, then rotate to inspect the intersection.",
+          "props": {
+            "scenario": "rad.3.ct-image"
+          }
         }
       ],
       "prereqs": [
@@ -1836,6 +1846,16 @@
           },
           "width": 1600,
           "height": 1000
+        },
+        {
+          "id": "rad-5-ultrasound-doppler-angle",
+          "kind": "model",
+          "renderer": "doppler-angle-lab",
+          "title": "Doppler: the beam angle is not the correction angle",
+          "instructions": "Move the beam while holding flow speed fixed. Then change only the assumed correction angle. Match the two angles and compare the recovered speed; try 90° to see why absent Doppler shift does not prove absent flow.",
+          "props": {
+            "scenario": "ideal-single-speed-flow"
+          }
         }
       ],
       "reference": {
@@ -1845,6 +1865,11 @@
           "publisher": "Radiopaedia"
         },
         "also": [
+          {
+            "title": "Recommendations for the Identification and Mitigation of Cardiac Ultrasound Artifacts (2026)",
+            "url": "https://www.asecho.org/wp-content/uploads/2026/05/PIIS0894731726000386.pdf",
+            "publisher": "American Society of Echocardiography"
+          },
           {
             "title": "Aliasing phenomenon (ultrasound)",
             "url": "https://radiopaedia.org/articles/aliasing-artifact-ultrasound",
@@ -1900,11 +1925,11 @@
           },
           {
             "step": "Set the velocity scale to the flow, not the other way round",
-            "detail": "Colour aliasing disappears the moment the upper margin of the velocity scale is raised above peak flow velocity. On spectral Doppler, drop the baseline or raise the PRF."
+            "detail": "Raise the PRF/velocity scale to increase the unaliased frequency range. Moving the spectral baseline reallocates the displayed range between directions; it does not raise the sampling rate."
           },
           {
             "step": "Keep the angle of insonation small for velocity",
-            "detail": "An inappropriate angle of insonation, a large sample volume, a higher-frequency transducer and greater depth all push you towards aliasing."
+            "detail": "A small beam-to-flow angle supports velocity accuracy but increases the Doppler shift at a fixed speed. A higher transmit frequency also increases the shift; greater depth limits the available PRF. Do not sacrifice angle accuracy simply to hide aliasing."
           }
         ],
         "measure": [
@@ -1983,7 +2008,7 @@
               "Aliasing",
               "Colour wrap with no black line between hues; spectral peak cut off and wrapped to the bottom of the scale",
               "Doppler shift exceeds the Nyquist limit",
-              "Raise the velocity scale or PRF, lower the baseline, reduce depth, reduce the angle. Power Doppler does not alias — it displays no velocity."
+              "Raise PRF/velocity scale, reduce sampling depth where possible, or use a lower transmit frequency. Baseline shift reallocates the display range without increasing PRF. Reducing the beam-to-flow angle increases the shift, not the aliasing limit. Conventional power Doppler does not encode velocity or direction."
             ]
           ],
           "note": "Aliasing is also used deliberately: the PISA method in mitral regurgitation takes the aliasing velocity as a known number."
@@ -8148,6 +8173,16 @@
           },
           "width": 1600,
           "height": 1000
+        },
+        {
+          "id": "rad-5-tavi-ct-spatial-3d",
+          "kind": "model",
+          "renderer": "spatial-3d",
+          "title": "Measure perpendicular to the vessel",
+          "instructions": "Tilt the measurement plane and compare its long axis with the true lumen diameter. Return to zero tilt.",
+          "props": {
+            "scenario": "rad.5.tavi-ct"
+          }
         }
       ],
       "reference": {
@@ -21086,6 +21121,16 @@
           },
           "width": 1600,
           "height": 1000
+        },
+        {
+          "id": "rad-3-fracture-description-spatial-3d",
+          "kind": "model",
+          "renderer": "spatial-3d",
+          "title": "Separate translation from angulation",
+          "instructions": "Change the distal fragment’s translation and angle independently. Switch direction, then rotate to inspect both projections.",
+          "props": {
+            "scenario": "rad.3.fracture-description"
+          }
         }
       ],
       "reference": {
@@ -21987,7 +22032,7 @@
               {
                 "heading": "Artefact check",
                 "label": "Artefact check",
-                "detail": "Direction, hardware and magic-angle behaviour expose mimics."
+                "detail": "Phase ghosts follow their encoding direction; short-TE magic-angle tendon signal and susceptibility each need their own test."
               }
             ],
             "takeaway": "Sequence selection and artefact recognition prevent normal physics becoming disease."
@@ -22919,7 +22964,7 @@
               {
                 "heading": "CARPAL ALIGNMENT",
                 "label": "Check alignment",
-                "detail": "Trace arcs and measure key carpal relationships."
+                "detail": "Trace all three Gilula arcs and measure key carpal relationships."
               },
               {
                 "heading": "OCCULT FRACTURE",
@@ -23230,12 +23275,12 @@
               {
                 "heading": "Older hip",
                 "label": "Older hip",
-                "detail": "Radiographic lines and symmetry reveal displacement."
+                "detail": "A bilateral pelvis, Hilgenreiner and Perkin lines, and Shenton arcs reveal displacement and asymmetry."
               },
               {
                 "heading": "Child elbow",
                 "label": "Child elbow",
-                "detail": "Ossification order and alignment lines uncover subtle fracture."
+                "detail": "Ossification order plus correctly constructed anterior-humeral and radiocapitellar lines uncover subtle fracture."
               }
             ],
             "takeaway": "Age-appropriate landmarks turn changing paediatric anatomy into reliable alignment tests."
@@ -23805,7 +23850,7 @@
               {
                 "heading": "STANDARD SURVEY",
                 "label": "Acquire completely",
-                "detail": "Required projections and identifiers make the survey auditable."
+                "detail": "For suspected physical abuse, use the local age-gated child-protection protocol and its named region-specific projections."
               },
               {
                 "heading": "PATTERN & CONTEXT",
@@ -24096,7 +24141,7 @@
               {
                 "heading": "Use ultrasound",
                 "label": "Use ultrasound",
-                "detail": "Fontanelle and posterior elements provide safe acoustic windows."
+                "detail": "In neonates and young infants, fontanelles and incompletely ossified posterior elements can provide acoustic windows."
               }
             ],
             "takeaway": "Age and organ of origin narrow childhood masses before signal features do."
@@ -24995,7 +25040,7 @@
               {
                 "heading": "Sentinel node",
                 "label": "Sentinel node",
-                "detail": "Tracer travels from the injection site along lymphatic channels to the first draining nodal basin."
+                "detail": "Tracer travels from the injection site along lymphatic channels to the first draining node or nodes within a basin."
               }
             ],
             "takeaway": "Tracer choice and time pattern turn uptake into a physiological answer."
@@ -25383,7 +25428,7 @@
               {
                 "heading": "PREPARATION",
                 "label": "Prepare",
-                "detail": "Glucose, uptake time and recent treatment affect biodistribution."
+                "detail": "Confirm fasting and serum glucose before FDG, standardise uptake time, and record recent treatment."
               },
               {
                 "heading": "ANATOMIC MATCH",

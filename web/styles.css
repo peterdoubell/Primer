@@ -497,6 +497,7 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- page area ---------- */
 #page {
+  min-width: 0;
   padding: clamp(22px, 2.1vw, 52px) clamp(18px, 2.4vw, 60px) 80px;
   min-height: 100vh; position: relative;
   animation: fade 0.4s ease;
@@ -545,7 +546,7 @@ button { font-family: var(--sans); cursor: pointer; }
    Authored pictures and executable explanations share one visual chapter,
    but remain real figures/sections in the document rather than a clickable
    image with meaning trapped inside it. */
-.lesson-media { display: grid; gap: 18px; width: 100%; max-width: 960px; margin: 0 auto 28px; }
+.lesson-media { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; width: 100%; max-width: 960px; margin: 0 auto 28px; }
 .lesson-media > .card { margin-bottom: 0; }
 .lesson-illustration { padding: 0; margin: 0; overflow: hidden; }
 .lesson-illustration picture { display: block; }
@@ -4165,3 +4166,40 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
   font-family: var(--sans); font-size: 13.5px; color: var(--ink-soft); cursor: pointer;
 }
 .qa-fw-only input { cursor: pointer; }
+/* Radiology manipulatives inherit the book's paper, ink, gold and teal. */
+.radiology-angle-svg { display:block; width:100%; max-width:100%; min-width:0; height:auto; color:var(--ink); }
+.lesson-model[data-renderer="doppler-angle-lab"] { min-width:0; }
+.lesson-model[data-renderer="doppler-angle-lab"] .model-status { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.radiology-angle-control { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; margin:12px 0; }
+.radiology-angle-control input { grid-column:1; width:100%; min-width:0; accent-color:var(--gold); }
+.radiology-angle-control output { grid-column:2; grid-row:2; font-variant-numeric:tabular-nums; }
+.radiology-angle-actions { display:flex; flex-wrap:wrap; gap:8px; }
+
+/* Spatial lesson models use the same paper, labels and controls as the plates. */
+.spatial-model { container-type: inline-size; }
+.spatial-badge { color: var(--link); border: 1px solid var(--rule); border-radius: 20px; padding: 4px 10px; font: 11px/1.4 var(--sans); white-space: nowrap; }
+.spatial-canvas { padding: 0; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: #f5efdf; }
+.spatial-svg { display: block; width: 100%; height: auto; touch-action: none; cursor: grab; }
+.spatial-svg:active { cursor: grabbing; }
+.spatial-svg:focus-visible { outline: 3px solid #317e78; outline-offset: -4px; }
+.spatial-label { font: 600 20px var(--sans); fill: #263b46; paint-order: stroke fill; stroke: #f5efdf; stroke-width: 3px; stroke-linejoin: round; }
+.spatial-orientation { display: block; padding: 9px 12px; text-align: center; color: #38505a; font: 12px/1.5 var(--sans); border-top: 1px solid #d1c7b3; }
+.spatial-help { color: var(--ink-soft); font: 13px/1.6 var(--sans); margin: 12px 0; }
+.spatial-camera-controls { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+.spatial-camera-controls .btn { min-height: 40px; }
+.spatial-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; }
+.spatial-parameter { display: flex; flex-direction: column; gap: 8px; min-width: 0; font: 13px/1.5 var(--sans); color: var(--ink); }
+.spatial-parameter > span { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
+.spatial-parameter output { color: var(--link); font-variant-numeric: tabular-nums; }
+.spatial-parameter input[type=range] { width: 100%; min-height: 32px; accent-color: #317e78; cursor: pointer; }
+.spatial-parameter select { width: 100%; min-width: 0; min-height: 42px; color: var(--ink); background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px; padding: 7px 10px; font: inherit; }
+.spatial-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; list-style: none; padding: 0; margin: 20px 0 8px; color: var(--ink-soft); font: 13px/1.6 var(--sans); }
+.spatial-legend li { display: flex; gap: 7px; align-items: center; }
+.spatial-swatch { width: 11px; height: 11px; flex: none; border-radius: 3px; }
+.spatial-readout { line-height: 1.7; }
+.spatial-note { color: var(--ink-soft); font: 13px/1.7 var(--sans); margin-bottom: 0; }
+@container (max-width: 540px) {
+  .spatial-controls { grid-template-columns: 1fr; }
+  .spatial-camera-controls .btn { flex: 1 1 110px; min-height: 44px; }
+  .spatial-label { font-size: 24px; }
+}

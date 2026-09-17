@@ -2,7 +2,10 @@
 
 These plates are deterministic reasoning diagrams, not synthetic diagnostic
 images.  Each one makes the lesson's acquisition, visible sign, discriminating
-relationship, or management consequence inspectable in source.
+relationship, or management consequence inspectable in source.  Every one of
+the 83 generator-owned lessons has its own bespoke composition; the generic
+drawing grammar remains only as an explicit fail-safe and is regression-tested
+out of the shipped curriculum.
 
 The drawing grammar uses semantic marks for clinically honest schematics (for
 example, aortic wall syndromes, haemorrhage compartments, organ anatomy,
