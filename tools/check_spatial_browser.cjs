@@ -9,9 +9,8 @@ const path = require('node:path');
 const { createHash } = require('node:crypto');
 const { chromium } = require('playwright');
 const base = process.argv[2] || 'http://127.0.0.1:8768';
-const out = process.argv[3];
-if (!out) throw new Error('Provide a screenshot output directory');
-fs.mkdirSync(out, { recursive: true });
+const out = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'primer-spatial-qa-'));
+console.log('Screenshots: ' + out);
 const curriculum = path.resolve(__dirname, '../data/curriculum');
 const entries = fs.readdirSync(curriculum).filter(f => /^\d.*\.json$/.test(f))
   .flatMap(f => JSON.parse(fs.readFileSync(path.join(curriculum, f), 'utf8')).nodes)

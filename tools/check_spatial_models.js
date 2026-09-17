@@ -5,13 +5,11 @@
 const assert = require('assert/strict');
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
-const context = vm.createContext({ window: {} });
-['spatial-models.js', 'spatial-radiology.js'].forEach(file => {
-  vm.runInContext(fs.readFileSync(path.join(ROOT, 'web', file), 'utf8'), context, { filename: file });
-});
-const api = context.window.PrimerSpatial;
+global.window = {};
+require('../web/spatial-models.js');
+require('../web/spatial-radiology.js');
+const api = global.window.PrimerSpatial;
 const expected = ['rad.3.ct-image', 'rad.5.tavi-ct', 'rad.3.fracture-description'].sort();
 assert.equal(JSON.stringify([...api.supported].sort()), JSON.stringify(expected));
 const nodes = fs.readdirSync(path.join(ROOT, 'data/curriculum')).filter(file => /^\d.*\.json$/.test(file))

@@ -10,7 +10,7 @@ const assert = require('node:assert/strict');
 const { createHash } = require('node:crypto');
 const input = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const root = fs.realpathSync(path.resolve(__dirname, '..'));
-assert.equal(fs.realpathSync(input.basePath), root);
+assert.equal(path.resolve(input.basePath), root);
 const files = input.files;
 const forbidden = /(^|\/)(content|\.git|\.venv|\.vercel|\.env[^/]*|\.agents|\.claude|\.github|\.pytest_cache|__pycache__|docs|tests|tools)(\/|$)|\.db(?:-|$)| 2\./;
 for (const file of files) {

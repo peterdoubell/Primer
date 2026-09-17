@@ -5,9 +5,10 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
-const base = process.argv[2], out = process.argv[3];
-if (!base || !out) throw new Error('Usage: URL screenshot-directory');
-fs.mkdirSync(out, { recursive: true });
+const base = process.argv[2];
+if (!base) throw new Error('Usage: URL');
+const out = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'primer-radiology-qa-'));
+console.log('Screenshots: ' + out);
 const nodes = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculum/11-radiology.json'))).nodes;
 (async () => {
   const browser = await chromium.launch({ headless: true });
