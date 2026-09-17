@@ -497,6 +497,7 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- page area ---------- */
 #page {
+  min-width: 0;
   padding: clamp(22px, 2.1vw, 52px) clamp(18px, 2.4vw, 60px) 80px;
   min-height: 100vh; position: relative;
   animation: fade 0.4s ease;
@@ -545,7 +546,7 @@ button { font-family: var(--sans); cursor: pointer; }
    Authored pictures and executable explanations share one visual chapter,
    but remain real figures/sections in the document rather than a clickable
    image with meaning trapped inside it. */
-.lesson-media { display: grid; gap: 18px; width: 100%; max-width: 960px; margin: 0 auto 28px; }
+.lesson-media { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; width: 100%; max-width: 960px; margin: 0 auto 28px; }
 .lesson-media > .card { margin-bottom: 0; }
 .lesson-illustration { padding: 0; margin: 0; overflow: hidden; }
 .lesson-illustration picture { display: block; }
@@ -4165,3 +4166,11 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
   font-family: var(--sans); font-size: 13.5px; color: var(--ink-soft); cursor: pointer;
 }
 .qa-fw-only input { cursor: pointer; }
+/* Radiology manipulatives inherit the book's paper, ink, gold and teal. */
+.radiology-angle-svg { display:block; width:100%; max-width:100%; min-width:0; height:auto; color:var(--ink); }
+.lesson-model[data-renderer="doppler-angle-lab"] { min-width:0; }
+.lesson-model[data-renderer="doppler-angle-lab"] .model-status { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.radiology-angle-control { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; margin:12px 0; }
+.radiology-angle-control input { grid-column:1; width:100%; min-width:0; accent-color:var(--gold); }
+.radiology-angle-control output { grid-column:2; grid-row:2; font-variant-numeric:tabular-nums; }
+.radiology-angle-actions { display:flex; flex-wrap:wrap; gap:8px; }

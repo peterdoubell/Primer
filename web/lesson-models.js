@@ -5072,7 +5072,82 @@
     return frame.root;
   }
 
+  function renderDopplerAngle(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const state = { angle: 45, correction: 45, speed: 60 };
+    const initial = { ...state }, inputs = {}, outputs = {};
+    const svg = svgNode('svg', { viewBox: '0 0 640 280', role: 'img',
+      'aria-label': 'A horizontal vessel with a movable ultrasound beam and a separate angle-correction line' });
+    svg.classList.add('radiology-angle-svg');
+    const label = (x, y, text, color = 'currentColor') => {
+      const t = svgNode('text', { x, y, fill: color, 'font-size': 26 });
+      t.textContent = text; svg.append(t);
+    };
+    const line = (x1, y1, x2, y2, color, dash) => svg.append(svgNode('line', {
+      x1, y1, x2, y2, stroke: color, 'stroke-width': 4,
+      ...(dash ? { 'stroke-dasharray': '8 6' } : {}),
+    }));
+    frame.canvas.append(svg);
+    function refresh(announce = false) {
+      const radians = a => a * Math.PI / 180;
+      const cosine = state.angle === 90 ? 0 : Math.cos(radians(state.angle));
+      const shift = 2 * 5000000 * (state.speed / 100) * cosine / 1540;
+      const estimated = cosine === 0 ? null : state.speed * cosine / Math.cos(radians(state.correction));
+      svg.replaceChildren();
+      svg.append(svgNode('rect', { x: 25, y: 170, width: 590, height: 66, rx: 30,
+        fill: 'var(--paper-2)', stroke: 'var(--accent-2)', 'stroke-width': 2 }));
+      line(320, 203, 565, 203, 'var(--accent-2)');
+      line(565, 203, 548, 191, 'var(--accent-2)');
+      line(565, 203, 548, 215, 'var(--accent-2)');
+      // Both angles are measured to the same horizontal flow axis. The solid
+      // beam changes acquisition; the dashed line changes only reconstruction.
+      line(320, 203, 320 + 180 * Math.cos(radians(state.angle)),
+        203 - 180 * Math.sin(radians(state.angle)), 'var(--gold)');
+      line(320, 203, 320 + 150 * Math.cos(radians(state.correction)),
+        203 - 150 * Math.sin(radians(state.correction)), 'var(--accent-2)', true);
+      label(25, 30, 'Solid: beam ' + state.angle + '°');
+      label(25, 60, 'Dashed: correction ' + state.correction + '°');
+      label(25, 268, 'True flow → ' + state.speed + ' cm/s');
+      for (const key of Object.keys(inputs)) {
+        const unit = key === 'speed' ? ' cm/s' : '°';
+        outputs[key].textContent = state[key] + unit;
+        inputs[key].setAttribute('aria-valuetext', state[key] + unit);
+      }
+      const readout = 'Frequency-shift magnitude: ' + shift.toFixed(0) + ' Hz. ' +
+        (estimated === null ? 'At 90° the model detects no Doppler shift despite ongoing flow; velocity cannot be recovered from this signal.' :
+          'Angle-corrected estimate: ' + estimated.toFixed(1) + ' cm/s, versus true speed ' + state.speed +
+          ' cm/s (' + ((estimated / state.speed - 1) * 100).toFixed(1) + '% error).');
+      frame.readout.textContent = readout;
+      if (announce) frame.status.textContent = readout;
+    }
+    for (const [key, title, min, max] of [
+      ['angle', 'Beam-to-flow angle', 0, 90],
+      ['correction', 'Assumed correction angle', 0, 85],
+      ['speed', 'True flow speed', 10, 200],
+    ]) {
+      const input = node('input', { type: 'range', min, max, step: 1,
+        value: state[key], 'aria-label': title,
+        oninput: event => { state[key] = clampNumber(event.target.value, min, max, initial[key]); refresh(true); },
+      });
+      inputs[key] = input; outputs[key] = node('output');
+      frame.controls.append(node('label', { class: 'radiology-angle-control' }, title, input, outputs[key]));
+    }
+    const set = values => { Object.assign(state, values); for (const key of Object.keys(inputs)) inputs[key].value = state[key]; refresh(true); };
+    frame.controls.append(node('div', { class: 'radiology-angle-actions' },
+      node('button', { type: 'button', class: 'btn ghost small', onclick: () => set({ correction: Math.min(state.angle, 85) }) }, 'Match angle (up to 85°)'),
+      node('button', { type: 'button', class: 'btn ghost small', onclick: () => set(initial) }, 'Reset')));
+    frame.root.append(node('p', { class: 'model-instructions' },
+      'Ideal single-speed flow: |Δf| = 2 f₀ v cos θ / c. Fixed f₀ = 5 MHz and c = 1540 m/s. '+
+      'Changing correction does not change the acquired shift. High angles amplify angle-setting error. '+
+      'No aliasing, noise, sample-volume or spectral broadening is simulated. Not a clinical velocity calculator.'),
+      node('a', { href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC5024856/', target: '_blank', rel: 'noopener noreferrer' },
+        'Source: RBC motion and the basis of ultrasound Doppler instrumentation'));
+    refresh();
+    return frame.root;
+  }
+
   const RENDERERS = Object.freeze({
+    'doppler-angle-lab': renderDopplerAngle,
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
     'shadow-lab': renderShadowLab,

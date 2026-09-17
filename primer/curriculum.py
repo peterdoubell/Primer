@@ -136,7 +136,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "truth-table-lab", "stack-queue-lab", "matrix-transform-lab",
     "venturi-flow-lab", "gene-expression-stepper", "tcp-packet-tracer",
     "heat-equation-lab", "complexity-certificate-lab",
-    "morphogen-gradient-lab", "ct-window-lab",
+    "morphogen-gradient-lab", "ct-window-lab", "doppler-angle-lab",
     "alphabet-explorer", "inclusive-family-timeline",
     "day-night-rotation-lab", "classroom-paint-mixer",
     "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
@@ -426,6 +426,9 @@ def _validate_lesson_media(node: Dict) -> None:
                         type(props.get(key)) is not int for key in expected):
                     raise ValueError("{} morphogen gradient lab has unknown settings".format(
                         node.get("id")))
+            elif renderer == "doppler-angle-lab":
+                if props != {"scenario": "ideal-single-speed-flow"}:
+                    raise ValueError("{} Doppler angle lab has unknown settings".format(node.get("id")))
             elif renderer == "ct-window-lab":
                 expected = {
                     "phantom": "synthetic-hu-reference", "level": 40, "width": 400,
@@ -528,6 +531,7 @@ def _validate_lesson_media(node: Dict) -> None:
 # whitelist for the same reason lesson images must be local — authored data is
 # still data, and a link is the one thing in a node that leaves the book.
 REFERENCE_HOSTS = (
+    "asecho.org",
     "radiologyassistant.nl",
     "radiopaedia.org",
     "acr.org",

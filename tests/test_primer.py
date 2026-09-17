@@ -468,6 +468,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'cs.5.complexity': (5, 'complexity-certificate-lab'),
         'bio.5.developmental': (5, 'morphogen-gradient-lab'),
         'rad.3.ct-image': (5, 'ct-window-lab'),
+        'rad.5.ultrasound-physics': (5, 'doppler-angle-lab'),
     }
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')

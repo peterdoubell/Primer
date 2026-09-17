@@ -1825,6 +1825,19 @@ async function renderNode(page, nodeId) {
   // pagehead's kicker is also its spoken text, so it stays a string: the
   // fallback contributes no mark here rather than a character to mispronounce.
   page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + STAGE_NAMES[n.stage], n.title, n.goal || ''));
+  if (n.domain === 'radiology' && (n.lesson_media || []).length) {
+    page.append(el('button', { class: 'btn ghost small', type: 'button', onclick: () => {
+      const visuals = page.querySelector('.lesson-media');
+      if (visuals) {
+        visuals.scrollIntoView({ block: 'start' });
+        if (window.matchMedia('(max-width: 900px)').matches) {
+          const header = document.getElementById('sidebar');
+          window.scrollBy(0, -(header ? header.getBoundingClientRect().height + 12 : 0));
+        }
+        visuals.focus({ preventScroll: true });
+      }
+    } }, 'View diagrams and models'));
+  }
 
   if (n.access_basis === "assumed_prerequisites") {
     page.append(el("p", { class: "muted" }, "Open on assumed foundations. Your placement or field choice opened this lesson; its foundations have not all been proved."));
@@ -1916,7 +1929,8 @@ async function renderNode(page, nodeId) {
 
   const lessonMedia = renderLessonMedia(n.lesson_media);
   if (lessonMedia) {
-    page.append(sectionLabel(S.stage <= 1 ? 'Try it' : 'Explore the idea'), lessonMedia);
+    if (n.domain === 'radiology') lessonMedia.setAttribute('tabindex', '-1');
+    page.append(sectionLabel(n.domain === 'radiology' ? 'Visual reference' : (S.stage <= 1 ? 'Try it' : 'Explore the idea')), lessonMedia);
   }
 
   const young = S.stage <= 1;
