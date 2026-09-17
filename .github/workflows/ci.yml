@@ -47,7 +47,7 @@ jobs:
           cache-dependency-path: requirements.lock.txt
 
       - name: Install locked dependencies
-        run: python -m pip install --disable-pip-version-check --requirement requirements.lock.txt
+        run: python -m pip install --disable-pip-version-check --requirement requirements.lock.txt --requirement tools/requirements.txt
 
       - name: Check dependency consistency
         run: python -m pip check
