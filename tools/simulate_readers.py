@@ -16,7 +16,7 @@ Run it:
 
     python3 tools/simulate_readers.py            # a fortnight, five readers
     python3 tools/simulate_readers.py --days 30 --seed 7
-    python3 tools/simulate_readers.py --json out.json
+    python3 tools/simulate_readers.py --json > out.json
 
 It exits 0 when no invariant was violated, 1 when one was. Findings are
 reported, never raised: one run should surface everything it can see, not stop
@@ -509,7 +509,8 @@ def check_outcomes(readers, findings):
 # run
 # --------------------------------------------------------------------------
 
-def simulate(days, seed, quiet=True):
+def simulate(days, seed, quiet=True, out=None):
+    out = out or sys.stdout
     tmp = tempfile.mkdtemp(prefix="primer-sim-")
     db = os.path.join(tmp, "sim.db")
     # Before primer.server is imported: that module attaches to the reader's
@@ -548,7 +549,7 @@ def simulate(days, seed, quiet=True):
                     r.sit_placement(domain)
                 stage, _, _ = r.stage()
                 print("  placed %-6s age %-3s -> stage %s  (%s)"
-                      % (r.p.name, r.p.age, stage, r.p.note))
+                      % (r.p.name, r.p.age, stage, r.p.note), file=out)
 
             for day in range(1, days + 1):
                 before = {}
@@ -586,45 +587,55 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--days", type=int, default=14)
     ap.add_argument("--seed", type=int, default=1)
-    ap.add_argument("--json", default="")
+    # A flag, not a path. The report goes to stdout and the shell decides
+    # where it lands — which is both more flexible than a --json PATH (any
+    # destination, a pipe, another process) and the reason there is no
+    # caller-controlled path in this file to get wrong.
+    ap.add_argument("--json", action="store_true",
+                    help="write the run as JSON on stdout; redirect it where you like")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
 
-    print("Five readers, %d days, seed %d" % (args.days, args.seed))
-    summary, findings = simulate(args.days, args.seed, quiet=not args.verbose)
+    # With --json, stdout belongs to the report alone: anything else on it
+    # would have to be stripped back out by whatever is reading.
+    out = sys.stderr if args.json else sys.stdout
+    print("Five readers, %d days, seed %d" % (args.days, args.seed), file=out)
+    summary, findings = simulate(args.days, args.seed, quiet=not args.verbose,
+                                 out=out)
 
     print("\n%-7s %-4s %-6s %-7s %-7s %-8s %-8s %s"
-          % ("reader", "age", "stage", "days", "quizzes", "passed", "mastered", "xp"))
+          % ("reader", "age", "stage", "days", "quizzes", "passed", "mastered", "xp"),
+          file=out)
     for row in summary:
         print("%-7s %-4s %-6s %-7s %-7s %-8s %-8s %s"
               % (row["reader"], row["age"], row["stage"], row["days_attended"],
-                 row["quizzes"], row["passes"], row["mastered"], row["xp"]))
+                 row["quizzes"], row["passes"], row["mastered"], row["xp"]), file=out)
 
     if findings.items:
-        print("\n%d finding(s):" % len(findings))
+        print("\n%d finding(s):" % len(findings), file=out)
         seen = {}
         for item in findings.items:
             key = (item["reader"], item["what"])
             seen.setdefault(key, []).append(item["detail"])
         for (reader, what), details in seen.items():
-            print("  [%s] %s (x%d)" % (reader, what, len(details)))
+            print("  [%s] %s (x%d)" % (reader, what, len(details)), file=out)
             if details[0]:
-                print("        %s" % details[0])
+                print("        %s" % details[0], file=out)
     else:
-        print("\nNo invariant violated.")
+        print("\nNo invariant violated.", file=out)
 
     if findings.observations:
-        print("\n%d thing(s) worth a look (not failures):" % len(findings.observations))
+        print("\n%d thing(s) worth a look (not failures):" % len(findings.observations),
+              file=out)
         for item in findings.observations:
-            print("  [%s] %s" % (item["reader"], item["what"]))
+            print("  [%s] %s" % (item["reader"], item["what"]), file=out)
             if item["detail"]:
-                print("        %s" % item["detail"])
+                print("        %s" % item["detail"], file=out)
 
     if args.json:
-        with open(args.json, "w", encoding="utf-8") as fh:
-            json.dump({"summary": summary, "findings": findings.items,
-                   "observations": findings.observations}, fh, indent=2)
-        print("\nwrote %s" % args.json)
+        json.dump({"summary": summary, "findings": findings.items,
+                   "observations": findings.observations}, sys.stdout, indent=2)
+        sys.stdout.write("\n")
 
     return 1 if findings.items else 0
 
