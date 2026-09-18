@@ -941,7 +941,14 @@ class ProfileIn(BaseModel):
     # the neutral set is the default, and the reader says otherwise if they
     # wish. Rendered by primer.story.personalize into every chapter.
     pronouns: Literal["she", "he"] = story_mod.DEFAULT_PRONOUNS
-    domains: List[str] = []
+    # Checked against the real fields, for the reason `breadth` above is: an
+    # id this book does not have was persisted verbatim and then silently
+    # matched nothing, so the reader's day was quietly built from fewer fields
+    # than they chose and nothing ever said so. A simulated reader who asked
+    # for "mathematics" was given a book with no maths in it and no error
+    # (tools/simulate_readers.py). `domain_stage` in SettingsIn has been
+    # checked this way all along; this is the same check at the other door.
+    domains: List[str] = Field(default_factory=list, max_length=32)
 
     @field_validator("name")
     @classmethod
@@ -949,6 +956,15 @@ class ProfileIn(BaseModel):
         v = v.strip()
         if not v:
             raise ValueError("a name cannot be only spaces")
+        return v
+
+    @field_validator("domains")
+    @classmethod
+    def _domains_exist(cls, v: List[str]) -> List[str]:
+        known = {d["id"] for d in curr.domains}
+        unknown = sorted(set(v) - known)
+        if unknown:
+            raise ValueError("no such field: %s" % ", ".join(unknown[:3]))
         return v
 
 
