@@ -560,3 +560,62 @@ def test_every_surface_agrees_on_the_graduate_gate(app_client):
         assert page["unlocked"] is False, "%s open on the node page" % n["id"]
         assert quiz == 409, "%s quiz issued on assumed credit" % n["id"]
         assert page.get("unlock_requirements"), "%s locked with no reason given" % n["id"]
+
+
+def test_a_reader_placed_at_graduate_is_still_given_something_to_do(app_client):
+    """Two correct rules that between them left a reader with an empty book.
+
+    Placement credits everything below the rung it settles at as ASSUMED, and
+    `next_lessons` drops anything already credited. The graduate gate, quite
+    rightly, counts only PROVEN stage-4 nodes — an interview must not open
+    stage 5. So a reader who aced the interview held assumed credit for the
+    whole of stage 4, was filtered off the frontier by that credit, and was
+    locked out of stage 5 for want of the proof the frontier would no longer
+    let them produce. Not a slow path: no path. A simulated seventeen-year-old
+    who answered every question correctly was offered nothing at all, in any
+    field, for fourteen consecutive days (tools/simulate_readers.py).
+    """
+    _sit_placement(app_client, "math", ace=True)
+    stage, placed = _stage(app_client)
+    assert placed.get("math") == 5, "expected a graduate placement, got %s" % placed
+
+    lessons = app_client.get("/api/today").json()["lessons"]
+    assert lessons, "a reader placed at graduate opened the book to an empty day"
+    # And what they are offered has to be the work that opens the gate above.
+    assert any(n["stage"] == 4 for n in lessons), \
+        "the day offers nothing that could produce the proof stage 5 asks for: %s" % \
+        [(n["id"], n["stage"]) for n in lessons]
+
+
+def test_the_frontier_lets_a_graduate_reader_go(app_client):
+    """The other half of the same fix. Keeping unproved stage-4 nodes on the
+    frontier while the gate is shut must not keep them there once it opens, or
+    a reader who has proved their way into stage 5 is held on stage-4 revision
+    for ever — the same empty-book failure wearing the opposite face."""
+    import primer.server as srv
+
+    stage4 = [n for n in srv.curr.nodes.values()
+              if n["domain"] == "math" and n["stage"] == 4]
+    # seed_mastery_for_stage returns ids, which is what placement credits.
+    gates = {nid: 1.0 for nid in srv.curr.seed_mastery_for_stage(5, ["math"])}
+
+    shut = srv.curr.next_lessons(gates, ["math"], proven=set(), per_domain=3)
+    assert shut, "the frontier is empty while the graduate gate is shut"
+    assert all(n["stage"] == 4 for n in shut), \
+        "the gate is shut, so only the rung below it should be on offer"
+
+    proven = {n["id"] for n in stage4}
+    open_now = srv.curr.next_lessons(gates, ["math"], proven=proven, per_domain=3)
+    assert open_now, "the frontier is empty once the gate is open"
+    assert all(n["stage"] == 5 for n in open_now), \
+        "proved stage-4 work is still being offered back: %s" % \
+        [(n["id"], n["stage"]) for n in open_now]
+
+    # And a reader credited with the graduate rung as well has nothing left to
+    # unlock, so the frontier must read as exhausted rather than handing back
+    # stage-4 revision with no door behind it.
+    everything = dict(gates)
+    everything.update({n["id"]: 1.0 for n in srv.curr.nodes.values()
+                       if n["domain"] == "math"})
+    assert srv.curr.next_lessons(everything, ["math"], proven=set(), per_domain=3) == [], \
+        "an exhausted field is still offering lessons"

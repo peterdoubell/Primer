@@ -980,6 +980,29 @@ class Curriculum:
         for d in self.domains:
             if domains and d["id"] not in domains:
                 continue
+            # Credit that cannot open the rung above it is not finished work.
+            # `stage_gate_open` counts PROVEN nodes at the rung below graduate,
+            # never assumed ones — so a reader placed straight into stage 5
+            # holds assumed credit for the whole of stage 4, is filtered off
+            # the frontier BY that credit, and can never sit the thing the gate
+            # is asking to see. The field goes silent, permanently: a simulated
+            # 17-year-old who aced every placement was offered nothing at all
+            # for fourteen days (tools/simulate_readers.py). While that gate is
+            # shut, stage-4 nodes standing on assumed credit stay on the
+            # frontier; once it opens they drop off again, so this cannot hold
+            # a graduate reader down on work they have already proved.
+            # ...but only while there is something up there to open. A reader
+            # credited with the graduate rung too has nothing left to unlock,
+            # and offering them the rung below would be revision with no door
+            # behind it — an exhausted frontier is supposed to read as
+            # exhausted (see the quest-step excusal in server.py).
+            owed = None
+            if proven is not None and not self.stage_gate_open(
+                    d["id"], self.GRADUATE_GATE_NEEDS_PROOF, mastery, proven):
+                above = self._by_domain_stage.get(d["id"], {}).get(
+                    self.GRADUATE_GATE_NEEDS_PROOF, [])
+                if any(mastery.get(n["id"], 0) < 0.8 for n in above):
+                    owed = self.GRADUATE_GATE_NEEDS_PROOF - 1
             count = 0
             for s in range(6):
                 if count >= per_domain:
@@ -987,7 +1010,9 @@ class Curriculum:
                 for node in self._by_domain_stage.get(d["id"], {}).get(s, []):
                     if count >= per_domain:
                         break
-                    if mastery.get(node["id"], 0) >= 0.8:
+                    if (mastery.get(node["id"], 0) >= 0.8
+                            and not (node["stage"] == owed
+                                     and node["id"] not in proven)):
                         continue
                     if self.unlocked(node, mastery, proven):
                         n = dict(node)

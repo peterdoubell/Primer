@@ -4,7 +4,9 @@ import pytest
 from pydantic import ValidationError
 
 from primer import quiz
-from primer.server import AttemptIn, CheckIn, PlacementSubmitIn, QuizSubmitIn
+from primer.server import (
+    AttemptIn, CheckIn, PlacementSubmitIn, ProfileIn, QuizSubmitIn,
+)
 
 
 @pytest.mark.parametrize(
@@ -70,3 +72,22 @@ def test_settings_strings_and_domain_keys_are_bounded(tmp_path):
             assert ok.json()["settings"]["domain_stage"]["math"] == 3
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
+def test_the_fields_a_reader_chooses_have_to_exist():
+    """`breadth` used to be a free string, persisted verbatim and then quietly
+    treated as "balanced"; it was bounded for that reason. `domains` was the
+    same hole left open, and worse, because nothing downstream falls back: an
+    id this book does not have simply matches no node, so the reader's day is
+    built from fewer fields than they chose and nothing anywhere says so. A
+    simulated reader who asked for "mathematics" instead of "math" was given a
+    book with no maths in it, silently (tools/simulate_readers.py).
+    """
+    ok = ProfileIn(name="Ada", age=9, hours_per_week=6, domains=["math", "biology"])
+    assert ok.domains == ["math", "biology"]
+    # No fields at all is a real choice — the server reads it as "every field".
+    assert ProfileIn(name="Ada", age=9, hours_per_week=6).domains == []
+    with pytest.raises(ValidationError):
+        ProfileIn(name="Ada", age=9, hours_per_week=6, domains=["mathematics"])
+    with pytest.raises(ValidationError):
+        ProfileIn(name="Ada", age=9, hours_per_week=6, domains=["math", "astrology"])
