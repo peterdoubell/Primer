@@ -38,6 +38,57 @@ from .core import (
 DOMAIN = "history"
 
 
+def _draw_fair_turns(plate: Plate) -> None:
+    pill(plate, (800, 225), "THREE CHILDREN AGREE TO TRY TWO-MINUTE TURNS", color=TEAL, size=24)
+    # One shared resource, pictured separately from the proposed allocation.
+    panel(plate, (120, 285, 610, 780), outline=BLUE)
+    plate.draw.line((190, 600, 275, 370, 455, 370, 540, 600), fill=BLUE, width=12, joint="curve")
+    for x in (325, 405):
+        plate.draw.line((x, 375, x, 555), fill=INK_SOFT, width=5)
+    plate.draw.rounded_rectangle((305, 550, 425, 575), radius=7, fill=GOLD)
+    plate.text((365, 655), "ONE SHARED SWING", size=25, bold=True, anchor="mm")
+    box_text(plate, (150, 690, 580, 760), "Hear everyone's needs before agreeing on the rule.", size=24)
+    panel(plate, (660, 285, 1480, 780), outline=TEAL)
+    pill(plate, (1070, 330), "PROPOSED SCHEDULE — NOT A TEST RESULT", color=TEAL, size=21)
+    left, step = 735, 220
+    for i, (name, tone) in enumerate((("ARI", BLUE), ("BO", TEAL), ("CAM", PLUM))):
+        x = left+i*step
+        plate.draw.rectangle((x, 420, x+step, 540), fill=tone)
+        plate.text((x+step/2, 480), name, size=27, bold=True, fill=PAPER_LIGHT, anchor="mm")
+        plate.text((x, 575), str(i*2), size=24, anchor="mm")
+    plate.text((left+3*step, 575), "6", size=24, anchor="mm")
+    plate.text((1070, 625), "MINUTES FROM START", size=23, bold=True, anchor="mm")
+    box_text(plate, (700, 674, 1440, 756), "Equal time is one proposal. Check safety, access and whether each child gets a usable turn.", size=24)
+    footer(plate, "Try the agreed rule, hear feedback, then revise. Equal time alone does not prove fairness.")
+
+
+def _draw_ancient_resources(plate: Plate) -> None:
+    pill(plate, (800, 220), "INTERACTING NEEDS — NOT FOUR INEVITABLE STEPS", color=TEAL, size=24)
+    for cx, label, tone in ((430, "WATER + CROPS", BLUE), (1170, "STORAGE + RECORDS", PLUM)):
+        panel(plate, (cx-300, 270, cx+300, 785), outline=tone)
+        pill(plate, (cx, 310), label, color=tone, size=25)
+    plate.draw.line((220, 365, 270, 430, 245, 510, 280, 595, 245, 640), fill=BLUE, width=30, joint="curve")
+    plate.draw.line((260, 490, 390, 490), fill=BLUE, width=12)
+    for x in (420, 500, 580):
+        plate.draw.line((x, 590, x, 420), fill=GREEN, width=5)
+        for y in (445, 480, 515):
+            plate.draw.ellipse((x-25, y-20, x, y+5), fill=GOLD)
+            plate.draw.ellipse((x, y-20, x+25, y+5), fill=GOLD)
+    box_text(plate, (165, 665, 695, 756), "Water management could support crops; floods also brought risks.", size=25)
+    plate.draw.rounded_rectangle((955, 400, 1115, 620), radius=48, fill=GOLD_LIGHT, outline=GOLD, width=5)
+    plate.draw.ellipse((955, 382, 1115, 432), fill=GOLD, outline=INK_SOFT, width=3)
+    plate.draw.rounded_rectangle((1210, 400, 1390, 615), radius=17, fill=GOLD_LIGHT, outline=PLUM, width=5)
+    for y in (450, 500, 550):
+        for x in (1245, 1295, 1345):
+            plate.draw.line((x, y, x+15, y-15), fill=PLUM, width=5)
+    plate.text((1035, 650), "grain store", size=21, anchor="mm")
+    plate.text((1300, 650), "record", size=21, anchor="mm")
+    box_text(plate, (905, 687, 1435, 763), "Stored goods needed coordination; records helped track them.", size=25)
+    plate.arrow((740, 500), (860, 500), fill=TEAL, width=5, head=16)
+    plate.arrow((860, 565), (740, 565), fill=TEAL, width=5, head=16)
+    footer(plate, "Schematic examples, not an excavated site. Egypt and Mesopotamia had different histories.")
+
+
 def flow(node_id: str, title: str, stage: int, plate_id: str, alt: str,
          caption: str, steps: Sequence[Tuple[str, str]], conclusion: str) -> Spec:
     return spec(node_id, title, stage, DOMAIN, plate_id, alt, caption,
@@ -99,12 +150,12 @@ def _draw_rule_of_law(plate: Plate) -> None:
         plate,
         [
             ("RULE OF LAW", "Published rules bind officials and citizens; decisions need reasons and review.",
-             "Predictability • hearing • appeal • equal protection"),
+             "Human rights • independent review • equal protection"),
             ("RULE BY POWER", "A ruler uses legal forms selectively while remaining above meaningful constraint.",
              "Arbitrary exceptions • weak review • unequal treatment"),
         ],
-        "A legal system approaches justice when power itself is answerable to public rules.",
-        relation="THE SAME COURTROOM — TWO DIFFERENT RELATIONSHIPS TO POWER",
+        "Accountable power, independent courts and human rights—not merely a government using laws.",
+        relation="TWO DIFFERENT RELATIONSHIPS BETWEEN LAW AND POWER",
     )
 
 
@@ -118,7 +169,7 @@ def _draw_geography(plate: Plate) -> None:
                        fill="#dce6c5", outline=GREEN)
     plate.draw.line((330, 640, 390, 560, 460, 500, 535, 455, 630, 380),
                     fill=BLUE, width=13)
-    plate.text((446, 531), "river basin", size=22, bold=True, fill=BLUE, anchor="mm")
+    plate.text((370, 490), "river", size=22, bold=True, fill=BLUE, anchor="mm")
     plate.draw.line((550, 650, 610, 570, 670, 645, 730, 555, 800, 630),
                     fill=CORAL, width=8)
     plate.text((690, 692), "mountain range", size=21, bold=True, fill=CORAL, anchor="mm")
@@ -167,7 +218,7 @@ def _draw_anthropology(plate: Plate) -> None:
         box_text(plate, (820, y0, 1035, y0 + 88), head, size=21, minimum=15,
                  bold=True, fill=(BLUE, TEAL, PLUM, CORAL)[index])
         box_text(plate, (1050, y0, 1445, y0 + 88), detail, size=18, minimum=13, align="left")
-    footer(plate, "Archaeological meaning comes from provenience, association and method—not treasure alone.")
+    footer(plate, "Invented, undisturbed layers: position gives relative order; object type alone does not establish age.")
 
 
 def _draw_economic_theory(plate: Plate) -> None:
@@ -245,56 +296,162 @@ def _draw_economic_theory(plate: Plate) -> None:
                  f"B  {gamble}", size=19, minimum=13, bold=True)
         box_text(plate, (1082, top + 145, 1438, top + 185), equation,
                  size=18, minimum=13, bold=True, fill=color)
-    footer(plate, "Strategy, causal identification and observed choice answer different economic questions.")
+    footer(plate, "Three toy examples: strategic payoffs, causal assumptions and hypothetical choices—not measured behavior.")
+
+
+def _draw_community_tools(plate: Plate) -> None:
+    for i, (heading, action, result, color, pale) in enumerate([
+        ("HEALTH WORKER", "Listen and check", "Work out what care is needed", BLUE, BLUE_LIGHT),
+        ("FIREFIGHTERS", "Protect and coordinate", "A trained team responds to danger", TEAL, TEAL_LIGHT),
+        ("LIBRARIAN", "Find and check sources", "Help answer a question", GOLD, GOLD_LIGHT),
+    ]):
+        x = 120 + 465 * i
+        panel(plate, (x, 240, x + 430, 780), fill=pale, outline=color)
+        pill(plate, (x + 215, 285), heading, color=color, size=18)
+        if i == 0:
+            # A stethoscope's listening ends join a tube and chestpiece.
+            plate.draw.arc((x + 95, 330, x + 245, 495), 0, 180, fill=INK_SOFT, width=12)
+            for dx in (95, 245):
+                plate.draw.line((x + dx, 412, x + dx, 362), fill=INK_SOFT, width=9)
+                plate.dot((x + dx, 358), 10, fill=INK)
+            plate.polyline([(x + 170, 495), (x + 170, 535), (x + 295, 535),
+                            (x + 295, 465)], fill=BLUE, width=13)
+            plate.dot((x + 295, 455), 27, fill=PAPER_LIGHT, outline=INK_SOFT, width=7)
+            plate.dot((x + 295, 455), 15, fill=BLUE_LIGHT)
+        elif i == 1:
+            # Helmet and radio emphasize trained protection and teamwork,
+            # not a universal fire-extinguishing technique for children.
+            plate.draw.pieslice((x + 60, 355, x + 265, 530), 180, 360,
+                                fill=GOLD_LIGHT, outline=GOLD, width=5)
+            plate.draw.rounded_rectangle((x + 50, 435, x + 275, 461), radius=8,
+                                         fill=GOLD_LIGHT, outline=GOLD, width=4)
+            plate.draw.rounded_rectangle((x + 292, 398, x + 365, 555), radius=10,
+                                         fill=INK_SOFT, outline=INK, width=4)
+            plate.draw.line((x + 350, 397, x + 350, 340), fill=INK, width=8)
+            plate.draw.rectangle((x + 306, 416, x + 351, 451), fill=TEAL_LIGHT)
+            for y in (480, 492, 504):
+                plate.draw.line((x + 309, y, x + 349, y), fill=PAPER_LIGHT, width=3)
+        else:
+            # An open book is being inspected, not treated as automatically true.
+            plate.draw.polygon([(x + 65, 380), (x + 210, 405), (x + 355, 380),
+                                (x + 355, 555), (x + 210, 575), (x + 65, 555)],
+                               fill=PAPER_LIGHT, outline=GOLD)
+            plate.draw.line((x + 210, 405, x + 210, 575), fill=GOLD, width=4)
+            for y in (440, 465, 490, 515):
+                plate.draw.line((x + 90, y, x + 180, y + 10), fill=INK_SOFT, width=3)
+            plate.dot((x + 285, 450), 47, fill=GOLD_LIGHT, outline=INK_SOFT, width=7)
+            plate.draw.line((x + 320, 484, x + 367, 531), fill=INK_SOFT, width=14)
+            plate.text((x + 285, 450), "?", size=43, bold=True, anchor="mm")
+        box_text(plate, (x + 20, 598, x + 410, 650), action, size=27, minimum=23, bold=True, fill=color)
+        box_text(plate, (x + 25, 672, x + 405, 750), result, size=25, minimum=22)
+    footer(plate, "Tools support a helper's knowledge. Helpers also listen and work together.")
+
+
+def _draw_message_history(plate: Plate) -> None:
+    for i, (heading, color, pale) in enumerate([
+        ("BRITAIN, 1840", BLUE, BLUE_LIGHT),
+        ("A PRESENT-DAY OPTION", TEAL, TEAL_LIGHT),
+        ("HOW DO WE KNOW?", GOLD, GOLD_LIGHT),
+    ]):
+        x = 120 + i * 465
+        panel(plate, (x, 240, x + 430, 780), fill=pale, outline=color)
+        pill(plate, (x + 215, 285), heading, color=color, size=18)
+        if i == 0:
+            plate.draw.rectangle((x + 55, 360, x + 375, 535), fill=PAPER_LIGHT, outline=BLUE, width=4)
+            plate.draw.rectangle((x + 304, 379, x + 354, 436), fill=INK)
+            plate.text((x + 329, 408), "1d", size=22, fill=PAPER_LIGHT, anchor="mm")
+            plate.text((x + 195, 465), "Meet at two.", size=26, anchor="mm")
+            box_text(plate, (x + 25, 568, x + 405, 647), "A stamped letter travels through the post.", size=26, minimum=23, bold=True)
+            box_text(plate, (x + 25, 673, x + 405, 750), "The Penny Black prepaid postage.", size=24, minimum=21)
+        elif i == 1:
+            plate.draw.rounded_rectangle((x + 128, 333, x + 302, 554), radius=18,
+                                         fill=INK, outline=INK_SOFT, width=4)
+            plate.draw.rounded_rectangle((x + 141, 354, x + 289, 523), radius=7, fill=PAPER_LIGHT)
+            plate.draw.rounded_rectangle((x + 153, 394, x + 278, 456), radius=12, fill=TEAL_LIGHT)
+            box_text(plate, (x + 155, 397, x + 276, 452), "Meet at 2.", size=25, minimum=22, pad=4)
+            plate.dot((x + 215, 540), 6, fill=PAPER_LIGHT)
+            box_text(plate, (x + 25, 568, x + 405, 647), "A phone message travels through a network.", size=26, minimum=23, bold=True)
+            box_text(plate, (x + 25, 673, x + 405, 750), "It needs power and a connection.", size=24, minimum=21)
+        else:
+            plate.draw.rectangle((x + 75, 353, x + 355, 540), fill=PAPER_LIGHT, outline=GOLD, width=4)
+            plate.draw.rectangle((x + 102, 380, x + 171, 458), fill=INK)
+            plate.text((x + 136, 420), "1d", size=25, fill=PAPER_LIGHT, anchor="mm")
+            for y in (397, 422, 447):
+                plate.draw.line((x + 197, y, x + 321, y), fill=INK_SOFT, width=4)
+            plate.text((x + 215, 503), "1840", size=27, bold=True, anchor="mm")
+            box_text(plate, (x + 25, 568, x + 405, 647), "Surviving stamps and letters are evidence.", size=26, minimum=23, bold=True)
+            box_text(plate, (x + 25, 673, x + 405, 750), "Museum records give dates and context.", size=24, minimum=21)
+    footer(plate, "One example, not one story for everyone. People still send paper letters.")
+
+
+MAP_SCALE_PIXELS = 100
+MAP_SCALE_KM = 2
+MAP_ROUTE = ((310, 650), (310, 350))
+
+
+def _draw_worked_map(plate: Plate) -> None:
+    panel(plate, (120, 240, 915, 780), fill=PAPER_LIGHT, outline=BLUE)
+    pill(plate, (510, 277), "ONE INVENTED MAP", color=BLUE, size=20)
+    # A straight route spans exactly three copies of the graphical scale bar.
+    plate.polyline([(610, 310), (565, 395), (610, 480), (575, 570), (620, 680)],
+                   fill=BLUE, width=17)
+    plate.draw.line((*MAP_ROUTE[0], *MAP_ROUTE[1]), fill=CORAL, width=8)
+    for y in range(350, 651, MAP_SCALE_PIXELS):
+        plate.draw.line((290, y, 330, y), fill=CORAL, width=4)
+    plate.draw.rectangle((294, 634, 326, 666), fill=GOLD_LIGHT, outline=GOLD, width=4)
+    plate.dot((310, 350), 18, fill=TEAL_LIGHT, outline=TEAL, width=4)
+    plate.text((365, 350), "Park", size=27, fill=TEAL, anchor="lm")
+    plate.text((365, 650), "School", size=27, fill=GOLD, anchor="lm")
+    plate.text((422, 485), "3 scale lengths", size=25, anchor="mm")
+    plate.text((422, 520), "= 6 km", size=30, bold=True, anchor="mm", fill=CORAL)
+    plate.arrow((790, 442), (790, 340), fill=INK, width=6, head=18)
+    plate.text((790, 320), "N", size=27, bold=True, anchor="mm")
+    plate.text((730, 495), "North is up", size=24, anchor="mm")
+    plate.text((730, 527), "on this map.", size=24, anchor="mm")
+    plate.draw.rectangle((260, 710, 260 + MAP_SCALE_PIXELS, 723), fill=INK)
+    for x, value in ((260, "0"), (360, "2 km")):
+        plate.draw.line((x, 703, x, 730), fill=INK, width=3)
+        plate.text((x, 754), value, size=22, anchor="mm")
+    plate.text((580, 724), "Use this bar, not screen centimetres.", size=23, anchor="mm")
+    panel(plate, (960, 240, 1480, 780), fill=TEAL_LIGHT, outline=TEAL)
+    pill(plate, (1220, 280), "READ THE KEY", color=TEAL, size=20)
+    for y, name, color in ((370, "School", GOLD), (460, "Park", TEAL),
+                            (550, "River", BLUE), (640, "Walking route", CORAL)):
+        if name == "School":
+            plate.draw.rectangle((1014, y - 16, 1046, y + 16), fill=GOLD_LIGHT, outline=color, width=4)
+        elif name == "Park":
+            plate.dot((1030, y), 18, fill=TEAL_LIGHT, outline=color, width=4)
+        else:
+            plate.draw.line((1005, y, 1055, y), fill=color, width=9)
+        plate.text((1100, y), name, size=29, anchor="lm", fill=INK)
+    box_text(plate, (990, 695, 1450, 754), "Symbols are defined for this map.", size=24, minimum=22)
+    footer(plate, "The school-to-park route goes north. A map selects details; this is not a real place.")
 
 
 _ITEMS = [
-    compare(
-        "hist.0.community", "People Who Help", 0, "community-needs-helpers-plate",
-        "Three linked examples pair a community need with a trained helper and the result: illness with a health worker and care, a fire with firefighters and safety, and a question with a librarian and reliable information.",
+    spec(
+        "hist.0.community", "People Who Help", 0, DOMAIN, "community-needs-helpers-plate",
+        "A stethoscope, a protective helmet with a radio, and a book under a magnifying glass connect three helpers to their work: health workers listen and check, firefighters protect and coordinate, and librarians find and check sources.",
         "Community roles connect a need, relevant training and a public benefit; one person may help in several ways and helpers also rely on one another.",
-        [
-            ("ILLNESS", "Health worker assesses and treats.", "Need → relevant skill → care"),
-            ("FIRE", "Firefighters contain danger and rescue.", "Need → coordinated response → safety"),
-            ("QUESTION", "Librarian helps locate and evaluate sources.", "Need → information skill → knowledge"),
-        ],
-        "Helpers match knowledge and cooperation to a community need.",
-        relation="NEED → TRAINED HELPER → COMMUNITY OUTCOME",
+        _draw_community_tools,
     ),
-    compare(
-        "hist.0.longago", "Long, Long Ago", 0, "before-modern-tools-plate",
-        "Three panels compare sending a message and moving a load long ago with today: a carried letter versus a phone call, and a handcart or animal-powered cart versus a motor vehicle, followed by a panel naming evidence sources.",
-        "People long ago solved familiar needs with different tools. Historians learn about those tools from objects, pictures, buildings and stories rather than by guessing.",
-        [
-            ("SEND A MESSAGE", "Then: messenger and letter. Now: phone or network.", "Same need; different speed, reach and infrastructure"),
-            ("MOVE A LOAD", "Then: people, animals and carts. Now: engines and vehicles.", "Same task; different energy source and capacity"),
-            ("HOW WE KNOW", "Artifacts, images, buildings and accounts survive unevenly.", "Evidence supports an inference; gaps remain"),
-        ],
-        "Changing tools alter how a task is done, while evidence lets us reconstruct the change.",
+    spec(
+        "hist.0.longago", "Long, Long Ago", 0, DOMAIN, "before-modern-tools-plate",
+        "A schematic British stamped letter from 1840 and a present-day phone carry the same invented meeting message. A museum-record panel connects surviving stamps and letters to evidence about the past.",
+        "The Penny Black introduced prepaid adhesive postage in Britain in 1840. This bounded example compares a physical postal route with an electronic network, not a universal replacement of old tools. Drawings are schematic, the message is invented, and paper letters remain in use.",
+        _draw_message_history,
     ),
-    flow(
-        "hist.1.ancient", "Ancient Peoples", 1, "river-city-chain-plate",
-        "A four-step chain shows seasonal rivers and managed water supporting crops, harvest surpluses supporting specialized work, growing settlements needing coordination, and administrators using records and writing, with Egypt and Mesopotamia named as different river societies.",
+    spec(
+        "hist.1.ancient", "Ancient Peoples", 1, DOMAIN, "river-city-chain-plate",
+        "A schematic water channel reaches cereal plants; beside it a grain store and a marked tablet represent storage and record keeping. Opposing arrows link the two panels as interacting needs, not inevitable stages. The drawings do not reconstruct an excavated site or transcribe real writing.",
         "Ancient Egypt and Mesopotamia developed differently, but in both regions rivers, farming, specialization and administration interacted in the growth of cities.",
-        [
-            ("RIVERS + WATER", "Nile and Tigris–Euphrates communities adapted to different floods and landscapes."),
-            ("FOOD SURPLUS", "Stored harvests could support some people doing work beyond farming."),
-            ("SPECIALIZATION", "Craft, trade, building, ritual and defense linked larger settlements."),
-            ("RECORDS", "Accounting and writing helped institutions track goods, labor and decisions."),
-        ],
-        "A city is not caused by one invention: environment, labor, exchange and institutions interact.",
+        _draw_ancient_resources,
     ),
-    compare(
-        "hist.1.maps", "Maps and Places", 1, "map-reading-tools-plate",
-        "Three panels explain a map's north arrow, symbol legend and scale: an upward route gives direction, a blue line and star are decoded by a legend, and one map centimeter corresponds to two real kilometers.",
-        "Direction, a legend and scale turn marks on a page into spatial claims. A map selects information for a purpose and cannot show everything.",
-        [
-            ("DIRECTION", "A north arrow or compass rose orients the page; up is north only when declared.", "Route: school → north → park"),
-            ("LEGEND", "Symbols stand for features: blue line = river; ★ = capital.", "Read the key before interpreting marks"),
-            ("SCALE", "1 cm on this example map represents 2 km on the ground.", "3 cm route → 6 km actual distance"),
-        ],
-        "Read orientation, legend and scale together before drawing a conclusion from a map.",
-        relation="THREE TOOLS TURN MAP MARKS INTO MEANING",
+    spec(
+        "hist.1.maps", "Maps and Places", 1, DOMAIN, "map-reading-tools-plate",
+        "An invented map shows a school south of a park, a river to their east, a north arrow and a symbol key. The straight school-to-park route spans three copies of the two-kilometre scale bar, giving six kilometres.",
+        "Read direction, symbols and scale together. The graphical scale stays proportional when the picture resizes; physical screen centimetres do not. This invented map selects a few features and is not a navigation guide to a real place.",
+        _draw_worked_map,
     ),
     timeline(
         "hist.1.inventions", "Great Inventions", 1, "inventions-needs-effects-plate",
@@ -302,7 +459,7 @@ _ITEMS = [
         "Controlled fire, wheel-and-axle systems and writing emerged through long collective histories; each changed what communities could cook, move or record.",
         [
             ("deep prehistory", "Controlled fire", "Heat, light, protection and cooking; evidence predates written history."),
-            ("c. 4th millennium BCE", "Wheel + axle", "Rotating parts reduced friction for pottery and transport in some regions."),
+            ("c. 4th millennium BCE", "Wheeled transport", "Wheels rolled loads rather than dragging them; rotating pottery tools had a different use."),
             ("c. 3400–3200 BCE", "Early writing", "Marks recorded goods and language; systems developed in more than one region."),
         ],
         "Inventions solve needs, depend on earlier knowledge and often evolve across many makers.",
@@ -318,7 +475,7 @@ _ITEMS = [
             [
                 ("MEDITERRANEAN", [("Hellenistic kingdoms", "Greek-speaking successor states"), ("Roman Republic", "expanding alliances and conquest")]),
                 ("SOUTH ASIA", [("Maurya Empire", "large state; Ashoka later ruled c. 268–232 BCE"), ("regional networks", "trade, cities and diverse traditions")]),
-                ("EAST ASIA", [("late Zhou", "competing states and philosophies"), ("Qin unification", "unified China in 221 BCE; short-lived dynasty")]),
+                ("EAST ASIA", [("late Zhou", "competing states and philosophies"), ("Qin state", "one competing state; unification came later, in 221 BCE")]),
                 ("AMERICAS", [("Maya centers", "developing cities in Mesoamerica"), ("Zapotec Monte Albán", "urban and regional power")]),
             ],
             "Contemporaneity makes comparison possible without ranking societies on a single scale.",
@@ -346,7 +503,7 @@ _ITEMS = [
     spec(
         "hist.2.exploration", "Exploration and Trade", 2, DOMAIN,
         "exchange-routes-consequences-plate",
-        "A reciprocal network links Silk Road routes, Indian Ocean sea lanes, Atlantic crossings and local ports to a central exchange system; labels name movement of goods and ideas as well as disease, conquest and coerced labor.",
+        "A conceptual network links Silk Road routes, Indian Ocean sea lanes, Atlantic crossings after 1492 and local communities to connected exchange. Labels name goods and ideas alongside disease, conquest and coerced labor. Arrows show relationships, not geographic routes or equal benefits.",
         "Trade and exploration connected existing networks rather than empty spaces. Contact moved goods and knowledge, but also disease, violence, enslavement and imperial control.",
         lambda plate: draw_network(
             plate,
@@ -364,21 +521,15 @@ _ITEMS = [
     spec(
         "hist.2.geography", "World Geography", 2, DOMAIN,
         "geographic-scale-layers-plate",
-        "A layered map shows a river basin and mountain range crossing a political border, a capital inside one country, and definitions of place, region, country and system at the side.",
+        "An invented map shows a river crossing a political border, a mountain range east of it and a capital on one side. Adjacent definitions distinguish place, region, country and system. The river line is not a drainage-basin boundary, and the map does not depict real countries.",
         "Countries and capitals are political geography; rivers, mountains and climates are physical geography. Their boundaries often cross and influence one another.",
         _draw_geography,
     ),
-    flow(
-        "hist.2.civics-intro", "Rules and Fairness", 2, "fair-rule-review-plate",
-        "A four-step playground example moves from a shared problem of three children and one swing to hearing needs, agreeing on timed turns with equal access, and reviewing whether the rule works, linking rights to responsibilities.",
+    spec(
+        "hist.2.civics-intro", "Rules and Fairness", 2, DOMAIN, "fair-rule-review-plate",
+        "A shared swing stands beside an invented six-minute schedule: Ari from zero to two, Bo from two to four and Cam from four to six minutes. Equal-width blocks represent equal time, but labels require checking safety, access and usable turns before judging fairness.",
         "A fair rule starts from a shared problem, protects relevant rights, assigns responsibilities and can be reviewed when its effects are unequal or unexpected.",
-        [
-            ("SHARED PROBLEM", "Three children want one swing at the same time."),
-            ("HEAR NEEDS", "Each person gets a voice; safety and access matter."),
-            ("MAKE A RULE", "Take timed turns: right to access ↔ responsibility to yield."),
-            ("REVIEW EFFECTS", "Did everyone get a real chance? Adjust for relevant needs."),
-        ],
-        "Fairness is not blind sameness: a rule should address the reason people differ.",
+        _draw_fair_turns,
     ),
     timeline(
         "hist.3.early-modern", "Renaissance to Revolution", 3,
@@ -386,11 +537,11 @@ _ITEMS = [
         "A dated sequence links Renaissance humanism and print, the Reformation after 1517, seventeenth-century scientific inquiry, Enlightenment debate and the American, Haitian and French Revolutions, with cautious labels such as circulated and influenced rather than a single-cause arrow.",
         "Print, religious conflict, new inquiry and arguments about authority circulated across institutions and empires; they influenced revolutions without mechanically causing them.",
         [
-            ("c. 1400s", "Renaissance + print", "Humanist study and movable-type print widened some intellectual networks."),
+            ("c. 1400s", "European humanism", "Humanist study and expanding print widened networks in Europe; printing had earlier Asian histories."),
             ("from 1517", "Reformation", "Religious authority fractured amid political and social conflict."),
             ("1600s", "Scientific inquiry", "Observation, mathematics and institutions reshaped claims about nature."),
             ("1700s", "Enlightenment debate", "Writers contested sovereignty, rights and toleration."),
-            ("1776–1804", "Atlantic revolutions", "American, French and Haitian upheavals made different claims and exclusions."),
+            ("1770s–1804", "Atlantic revolutions", "American, French and Haitian upheavals made different claims and exclusions."),
         ],
         "Ideas matter through people, institutions and material conflicts—not as an automatic domino chain.",
         qualifier="OVERLAPPING DEVELOPMENTS — ARROWS SHOW INFLUENCE, NOT INEVITABILITY",
@@ -415,13 +566,13 @@ _ITEMS = [
     ),
     timeline(
         "hist.3.modern-world", "The Modern World", 3, "modern-world-branches-plate",
-        "A timeline shows World War I from 1914 to 1918, crisis and fascism in the interwar years, World War II from 1939 to 1945, and places decolonization from the 1940s to 1970s beside the overlapping Cold War from about 1947 to 1991.",
+        "A selected timeline shows World War I in 1914–1918, interwar crisis, World War II in 1939–1945, a major decolonization wave in the 1940s–1970s and the overlapping Cold War around 1947–1991. Decolonization explicitly began earlier and continued later.",
         "World war, imperial crisis, decolonization and superpower rivalry overlapped. Newly independent states had their own projects and were not merely pieces on a Cold War board.",
         [
             ("1914–1918", "World War I", "Mass mobilization and imperial war destabilized states and borders."),
             ("1918–1939", "Interwar crisis", "Uneven recovery, depression, fascism and anticolonial organizing."),
             ("1939–1945", "World War II", "Global war and genocide transformed power and legitimacy."),
-            ("1940s–1970s", "Decolonization", "Independence movements dismantled formal empires through varied struggles."),
+            ("1940s–1970s", "Decolonization wave", "A major wave of independence; struggles began earlier and continued later."),
             ("c. 1947–1991", "Cold War", "US–Soviet rivalry intersected with local and postcolonial conflicts."),
         ],
         "Period labels overlap; follow whose agency and which geography each label centers.",
@@ -438,7 +589,7 @@ _ITEMS = [
             ("VOTE + EXECUTIVE", "Legislature passes or rejects; executive may sign or veto."),
             ("REVIEW + FEEDBACK", "Courts may test legality; citizens observe effects and seek change."),
         ],
-        "Democracy is an ongoing feedback system, not only a vote on election day.",
+        "One constitutional pattern, not a universal sequence: powers and procedures differ by country.",
     ),
     spec(
         "hist.3.economics-intro", "How Economies Work", 3, DOMAIN,
@@ -500,7 +651,7 @@ _ITEMS = [
     spec(
         "hist.4.economics", "Economics", 4, DOMAIN,
         "micro-macro-feedback-plate",
-        "A reciprocal network places an economy at the center and links households, firms, government and macroeconomic aggregates, distinguishing individual choices from output, inflation and unemployment and noting that GDP is not total wellbeing.",
+        "A conceptual network links households, firms, policy at both micro and macro scales, and economy-wide aggregates. The footer distinguishes GDP, which includes some nonmarket production, from total wellbeing and sustainability. Arrows represent relationships, not measured flow sizes.",
         "Microeconomics studies choices and markets; macroeconomics studies aggregates and policy. Individual decisions build aggregates, while aggregate conditions feed back into individual options.",
         lambda plate: draw_network(
             plate,
@@ -508,10 +659,10 @@ _ITEMS = [
             [
                 ("HOUSEHOLDS — MICRO", "labor, consumption, saving and constraints"),
                 ("FIRMS — MICRO", "production, hiring, investment and pricing"),
-                ("GOVERNMENT — MACRO", "tax, spending, regulation and redistribution"),
+                ("POLICY — BOTH SCALES", "market rules and incentives; aggregate tax and spending effects"),
                 ("AGGREGATES — MACRO", "output, inflation, unemployment and external balance"),
             ],
-            "GDP tracks priced production, not the complete distribution, sustainability or quality of life.",
+            "GDP measures production, including some nonmarket output—not total wellbeing or sustainability.",
             edge_word="INDIVIDUAL CHOICES ↔ AGGREGATE CONDITIONS",
         ),
     ),
@@ -536,7 +687,7 @@ _ITEMS = [
     spec(
         "hist.4.geopolitics", "The Contemporary World", 4, DOMAIN,
         "global-interdependence-network-plate",
-        "A reciprocal network links a port disruption at the center to trade and supply chains, security alliances, climate and energy, and international institutions, showing how a local shock propagates unevenly across borders.",
+        "A conceptual network links a hypothetical port disruption to supply chains, security, energy and climate, and international institutions. Arrows suggest possible feedback relationships, not measured magnitudes or a forecast about a named event.",
         "Contemporary geopolitics joins territorial power to interdependence. Trade, security, climate and institutions transmit shocks, but states and communities experience them unequally.",
         lambda plate: draw_network(
             plate,
@@ -554,7 +705,7 @@ _ITEMS = [
     spec(
         "hist.4.law", "Law and Justice", 4, DOMAIN,
         "rule-of-law-contrast-plate",
-        "Two courtroom columns contrast rule of law, with published rules, hearing, equal protection and appeal, against rule by power, with arbitrary exceptions, weak review and unequal treatment.",
+        "Two comparison columns contrast rule of law, including public rules, human rights, independent review and equal protection, with rule by power, including arbitrary exceptions, weak review and unequal treatment. This is a conceptual comparison, not a depiction of a courtroom or jurisdiction-specific procedure.",
         "Law can restrain power or become its instrument. Public rules, procedural fairness, independent review and effective remedies are central rule-of-law safeguards.",
         _draw_rule_of_law,
     ),
@@ -574,14 +725,14 @@ _ITEMS = [
             ("ORIGINAL POSITION", "People reason together under fair bargaining conditions."),
             ("VEIL OF IGNORANCE", "No one knows their class, race, sex, abilities or conception of the good."),
             ("CHOOSE PRINCIPLES", "Rawls argues for equal basic liberties and tightly constrained inequality."),
-            ("TEST INSTITUTIONS", "Ask whether offices are fairly open and inequalities benefit the least advantaged."),
+            ("TEST INSTITUTIONS", "Fair opportunity; inequalities must give the greatest benefit to the least advantaged."),
         ],
         "A thought experiment clarifies a principle; rival theories still contest liberty, equality and desert.",
     ),
     spec(
         "hist.5.anthropology", "Anthropology & Archaeology", 5, DOMAIN,
         "archaeological-context-inference-plate",
-        "A stratigraphic trench places later material above charcoal and pottery and earlier stone tools and bone, beside a four-step method of recording context, dating, comparing evidence and making a bounded inference.",
+        "An invented undisturbed stratigraphic section labels four layers, including charcoal and pottery above stone tools and bone in this example only. An upward arrow indicates generally later deposits. Adjacent steps cover context, dating, comparison and bounded inference; object type alone does not determine age.",
         "Archaeology builds claims from provenience, association, dating and comparison. Anthropology adds biological, linguistic, social and community knowledge while respecting uncertainty and descendant communities.",
         _draw_anthropology,
     ),
@@ -594,7 +745,7 @@ _ITEMS = [
             plate,
             [
                 ("INDIAN OCEAN", [("1000–1500", "monsoon ports; merchant diasporas"), ("1500–1800", "armed European entry into older networks"), ("1800–present", "steam, empire and container shipping")]),
-                ("ATLANTIC", [("1000–1500", "regional seas before sustained ocean crossing"), ("1500–1800", "colonization, slave trade and Columbian exchange"), ("1800–present", "emancipation, migration and unequal trade")]),
+                ("ATLANTIC", [("1000–1500", "regional seafaring; sustained transatlantic expansion from 1492"), ("1500–1800", "colonization, slave trade and Columbian exchange"), ("1800–present", "emancipation, migration and unequal trade")]),
                 ("ENERGY + INDUSTRY", [("1000–1500", "biomass-based production"), ("1500–1800", "commercial expansion and proto-industry"), ("1800–present", "fossil energy, factories and planetary effects")]),
             ],
             "Comparison explains changing relationships; it does not rank civilizations on a universal ladder.",

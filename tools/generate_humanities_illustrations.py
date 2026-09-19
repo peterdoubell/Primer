@@ -49,7 +49,7 @@ CURRICULUM_FILES = {
 # key, value, order or nested property changes.
 AUTHORED_MEDIA_FINGERPRINTS = {
     "hist.0.family": "2b20d85e11094d891d92654517da027cf5fbd7552796e5c48a19f740626a0494",
-    "hist.1.timelines": "37b8881ac688a64472a07a9f223a6d7522fd6d0031b8ad3ff571608b6dccf9af",
+    "hist.1.timelines": "0603d1df6e2a01fc5dc0b8b0cfc07eadeb1c47e5cee220c5cb4db877ab036774",
     "arts.0.colors": "41fa1207cdf9f6af316b2a8560e861aabcfe63d0855bea18c49c516a9cd2fdbb",
     "arts.1.elements": "569b9419bb2b07a53fdb7e5d6859198d97476cb1db12377c94ed2834fa1a8c38",
     "mind.2.logic-intro": "4e14b5dd9734af0e0bff0fd57ee96b16df34c950d095c34c3940a19d0421d3a0",

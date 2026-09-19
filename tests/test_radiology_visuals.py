@@ -172,4 +172,24 @@ def test_radiology_contact_sheet_reviews_authored_and_generated_plates(tmp_path)
     assert result.returncode == 0, result.stdout + result.stderr
     assert destination.is_file()
     with Image.open(destination) as sheet:
-        assert sheet.size == (5 * 320, math.ceil(84 / 5) * (200 + 38))
+        assert sheet.size == (5 * 320, math.ceil(87 / 5) * (200 + 38))
+
+
+def test_overview_regeneration_preserves_companion_plates(tmp_path, monkeypatch):
+    sys.path.insert(0, str(TOOLS))
+    try:
+        import generate_radiology_illustrations as generator
+        from radiology_illustrations.companions import entries
+    finally:
+        sys.path.pop(0)
+    curriculum = generator.load_curriculum()
+    monkeypatch.setattr(generator, 'CURRICULUM_PATH', tmp_path / 'curriculum.json')
+    for node in curriculum['nodes']:
+        if node['id'] in entries():
+            node['lesson_media'][0]['caption'] = 'Stale overview caption'
+    generator.sync_curriculum(curriculum, generator.bound_specs(curriculum))
+    for node in curriculum['nodes']:
+        if node['id'] in entries():
+            assert node['lesson_media'][-1] == entries()[node['id']]
+    assert generator.sync_curriculum(curriculum, generator.bound_specs(curriculum)) == 0
+    generator.verify(curriculum)

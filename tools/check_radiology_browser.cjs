@@ -22,7 +22,8 @@ const nodes = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculu
         const image = document.querySelector('.lesson-illustration img');
         return image.complete && image.naturalWidth > 0;
       });
-      assert.equal(await page.locator('.lesson-illustration img').count(), 1, n.id);
+      assert.equal(await page.locator('.lesson-illustration img').count(), n.lesson_media.filter(m => m.kind === 'illustration').length, n.id);
+      await page.waitForFunction(() => [...document.querySelectorAll('.lesson-illustration img')].every(i => i.complete && i.naturalWidth > 0));
       if (n.reference) assert.equal(await page.locator('.reference-card').count(), 1, n.id);
     }
     await page.goto(base + '/#/node/rad.5.ultrasound-physics');

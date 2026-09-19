@@ -45,7 +45,7 @@ def draw_classical(plate: Plate) -> None:
     plate.dot(end, 13, fill=INK, outline=INK, width=1)
     for bend, color, label in (((390, 300), GRID, "trial A"),
                                ((440, 710), GRID, "trial B"),
-                               ((450, 505), TEAL, "physical path: δS = 0")):
+                               ((447.5, 520), TEAL, "physical path: δS = 0")):
         bx, by = bend
         points = []
         for i in range(81):
@@ -54,17 +54,25 @@ def draw_classical(plate: Plate) -> None:
             y = start[1] * (1 - t) ** 2 + 2 * by * t * (1 - t) + end[1] * t ** 2
             points.append((x, y))
         plate.polyline(points, fill=color, width=8 if color == TEAL else 4)
-        plate.text((bx, by - 26), label, size=17, bold=color == TEAL, fill=color, anchor="mm")
+    plate.text((390, 350), "trial A", size=20, fill=INK_SOFT, anchor="mm")
+    plate.text((440, 690), "trial B", size=20, fill=INK_SOFT, anchor="mm")
+    plate.text((520, 570), "physical path: δS = 0", size=22, bold=True, fill=TEAL, anchor="mm")
     plate.text((445, 756), "stationary does not always mean minimum", size=18, anchor="mm")
 
-    transform = axes(plate, (880, 340, 1410, 730), x_label="position q", y_label="momentum p",
-                     x_range=(-2, 2), y_range=(-2, 2))
+    def transform(q, p):
+        return (1145 + q * 132.5, 535 - p * 97.5)
+    plate.arrow((880, 535), (1410, 535), fill=INK_SOFT, width=3, head=13)
+    plate.arrow((1145, 730), (1145, 340), fill=INK_SOFT, width=3, head=13)
+    plate.text((1400, 570), "q", size=23, anchor="mm")
+    plate.text((1175, 350), "p", size=23, anchor="mm")
     for energy, color in ((0.7, BLUE_LIGHT), (1.15, BLUE), (1.65, PLUM)):
         points = [(energy * math.cos(i / 100 * 2 * math.pi),
                    energy * 0.75 * math.sin(i / 100 * 2 * math.pi)) for i in range(101)]
         plot_curve(plate, transform, points, fill=color, width=5)
-    plate.arrow(transform(1.1, 0.15), transform(1.0, 0.55), fill=CORAL, width=5, head=15)
-    plate.text((1145, 770), "one orbit = constant Hamiltonian H", size=19, bold=True, anchor="mm")
+    plate.arrow(transform(1.15 * math.cos(.6), 1.15 * .75 * math.sin(.6)),
+                transform(1.15 * math.cos(.2), 1.15 * .75 * math.sin(.2)),
+                fill=CORAL, width=5, head=15)
+    plate.text((1145, 770), "oscillator: each orbit has constant H", size=19, bold=True, anchor="mm")
     footer(plate, "Equivalent formulations reveal paths in configuration space and conserved flow in phase space.", size=25)
 
 
@@ -114,6 +122,8 @@ def draw_quantum(plate: Plate) -> None:
                      x_range=(-3, 3), y_range=(-1.2, 1.2))
     psi = [(x / 40, math.sin(2 * math.pi * (x / 40 + 3) / 6)) for x in range(-120, 121, 3)]
     prob = [(x / 40, math.sin(2 * math.pi * (x / 40 + 3) / 6) ** 2) for x in range(-120, 121, 3)]
+    plate.dashed_line(transform(-3, 0), transform(3, 0), fill=GRID, width=3)
+    plate.text((150, transform(0, 0)[1]), "0", size=19, anchor="mm")
     plot_curve(plate, transform, psi, fill=PLUM, width=5)
     plot_curve(plate, transform, prob, fill=TEAL, width=7)
     plate.text((200, 315), "scaled ψ: sign matters", size=17, bold=True, fill=PLUM)
@@ -127,7 +137,7 @@ def draw_quantum(plate: Plate) -> None:
         height = count * 10
         plate.draw.rectangle((x, baseline - height, x + 42, baseline),
                              fill=TEAL_LIGHT, outline=TEAL, width=3)
-    plate.text((1145, 340), "reproducible example: 96 trials", size=19, bold=True, anchor="mm")
+    plate.text((1145, 340), "synthetic example: 96 detections", size=19, bold=True, anchor="mm")
     plate.text((1145, 760), "individual outcomes vary; the distribution follows |ψ|²", size=18, anchor="mm")
     footer(plate, "The relative |ψ|² shape predicts where detections accumulate; normalization supplies absolute density.", size=23)
 
@@ -137,6 +147,7 @@ def draw_statmech(plate: Plate) -> None:
     panel(plate, left, "16 MICROSTATES")
     panel(plate, right, "MULTIPLICITY → ENTROPY")
     states = [(a, b, c, d) for a in (0, 1) for b in (0, 1) for c in (0, 1) for d in (0, 1)]
+    plate.text((445, 300), "gold = heads; blue = tails", size=20, bold=True, anchor="mm")
     for index, state in enumerate(states):
         x0 = 165 + (index % 4) * 140
         y0 = 345 + (index // 4) * 100
@@ -145,7 +156,7 @@ def draw_statmech(plate: Plate) -> None:
             plate.dot((x, y0), 10, fill=GOLD_LIGHT if value else BLUE_LIGHT,
                       outline=GOLD if value else BLUE, width=2)
         plate.text((x0 + 42, y0 + 27), str(sum(state)), size=14, fill=INK_SOFT, anchor="mm")
-    plate.text((445, 760), "each row is one exact arrangement", size=18, anchor="mm")
+    plate.text((445, 760), "each four-coin group is one arrangement", size=18, anchor="mm")
 
     multiplicities = (1, 4, 6, 4, 1)
     baseline = 700
@@ -165,8 +176,12 @@ def draw_relativity(plate: Plate) -> None:
     left, right = two_panel_boxes()
     panel(plate, left, "LIGHT CONE")
     panel(plate, right, "BARN–POLE SIMULTANEITY")
-    transform = axes(plate, (170, 350, 720, 730), x_label="x", y_label="ct",
-                     x_range=(-2, 2), y_range=(0, 3))
+    def transform(x, ct):
+        return (445 + x * 137.5, 730 - ct * (380 / 3))
+    plate.arrow((170, 730), (720, 730), fill=INK, width=4, head=14)
+    plate.arrow((445, 730), (445, 350), fill=INK, width=4, head=14)
+    plate.text((710, 752), "x", size=21, anchor="mm")
+    plate.text((470, 350), "ct", size=21, anchor="mm")
     plate.polyline((transform(-2, 2), transform(0, 0), transform(2, 2)), fill=GOLD, width=8)
     plate.draw.polygon((transform(-2, 2), transform(0, 0), transform(2, 2)),
                        fill=hex_rgba(GOLD_LIGHT, 70))
@@ -204,9 +219,9 @@ def draw_solid_state(plate: Plate) -> None:
         for index in range(carriers):
             plate.dot((x - 95 + index * 38, 410), 8, fill=TEAL_LIGHT, outline=TEAL, width=2)
         for index in range(holes):
-            plate.dot((x - 95 + index * 38, 518 + gap), 8,
+            plate.dot((x - 95 + index * 38, 495 + gap), 8,
                       fill=PAPER_LIGHT, outline=CORAL, width=3)
-            plate.text((x - 95 + index * 38, 518 + gap), "+", size=12,
+            plate.text((x - 95 + index * 38, 495 + gap), "+", size=12,
                        bold=True, fill=CORAL, anchor="mm")
         plate.text((x, 742),
                    "wide gap" if gap > 100 else ("thermal carriers" if carriers == 2 else "donor carriers"),
@@ -244,7 +259,7 @@ def draw_particles(plate: Plate) -> None:
         plate.arrow((1160, y), (1220, y), fill=GRID, width=4, head=13)
         plate.text((1385, y), after, size=18, anchor="ra")
     plate.text((1145, 742), "allowed channels conserve every required quantum number", size=18, anchor="mm")
-    footer(plate, "Particle identities are constrained by additive charges and conservation laws at every interaction.", size=24)
+    footer(plate, "This beta decay preserves the listed charges; energy, momentum, spin and dynamics also constrain channels.", size=24)
 
 
 def draw_experiment(plate: Plate) -> None:
@@ -259,6 +274,8 @@ def draw_experiment(plate: Plate) -> None:
         plate.dot((true_x + dx, 430 + index * 48), 10, fill=BLUE, outline=BLUE, width=1)
     for index, dx in enumerate((92, 110, 78, 103, 88)):
         plate.dot((true_x + dx, 430 + index * 48), 9, fill=CORAL, outline=CORAL, width=1)
+    plate.text((300, 390), "scatter", size=21, bold=True, fill=BLUE, anchor="mm")
+    plate.text((575, 390), "biased", size=21, bold=True, fill=CORAL, anchor="mm")
     plate.text((445, 752), "averaging reduces random uncertainty; bias remains", size=16,
                bold=True, anchor="mm")
 
@@ -336,10 +353,11 @@ def draw_gr_cosmo(plate: Plate) -> None:
         plate.polyline(points, fill=GRID, width=3)
     plate.draw.ellipse((385, 470, 505, 590), fill=INK, outline=PLUM, width=8)
     plate.draw.ellipse((360, 445, 530, 615), outline=GOLD, width=5)
+    plate.draw.rectangle((175, 698, 720, 785), fill=PAPER_LIGHT)
     plate.text((445, 720), "stress-energy sources curvature", size=18, bold=True, anchor="mm")
     plate.text((445, 760), "schematic coordinate grid—not a physical sheet", size=16, anchor="mm")
 
-    epochs = ((960, 470, 38), (1145, 530, 62), (1350, 650, 90))
+    epochs = ((960, 470, 38), (1145, 530, 57), (1350, 625, 76))
     for x, y, radius in epochs:
         plate.draw.ellipse((x - radius, y - radius, x + radius, y + radius),
                            fill=hex_rgba(BLUE_LIGHT, 70), outline=BLUE, width=3)
@@ -350,9 +368,9 @@ def draw_gr_cosmo(plate: Plate) -> None:
     plate.arrow((1010, 500), (1090, 520), fill=TEAL, width=6, head=16)
     plate.arrow((1210, 565), (1280, 610), fill=TEAL, width=6, head=16)
     wave(plate, (900, 330, 1390, 410), cycles=4, amplitude=20, fill=PLUM, width=4)
-    wave(plate, (900, 715, 1390, 795), cycles=2, amplitude=20, fill=CORAL, width=4)
+    wave(plate, (900, 710, 1390, 750), cycles=2, amplitude=15, fill=CORAL, width=4)
     plate.text((1145, 300), "short λ early", size=17, bold=True, anchor="mm")
-    plate.text((1145, 810), "larger a stretches λ; expansion has no center", size=17, bold=True, anchor="mm")
+    plate.text((1145, 780), "larger a stretches λ; expansion has no center", size=17, bold=True, anchor="mm")
     footer(plate, "Einstein's equation links stress-energy to geometry; cosmic expansion stretches unbound separations and wavelengths.", size=22)
 
 
@@ -365,7 +383,7 @@ def draw_condensed(plate: Plate) -> None:
     for x in (350, 410, 470, 530):
         plate.arrow((x, 330), (x, 740), fill=PLUM, width=4, head=14)
     plate.text((445, 760), "history-dependent trapped flux", size=18, bold=True, anchor="mm")
-    plate.text((445, 340), "field present before cooling", size=18, bold=True, anchor="mm")
+    plate.text((445, 305), "field present before cooling", size=18, bold=True, anchor="mm")
 
     plate.draw.rounded_rectangle((1000, 390, 1290, 680), radius=30,
                                  fill=TEAL_LIGHT, outline=TEAL, width=5)
@@ -385,7 +403,7 @@ def draw_quantum_info(plate: Plate) -> None:
     panel(plate, left, "TELEPORTATION: WHAT TRAVELS?")
     panel(plate, right, "CORRELATION ≠ SIGNAL")
     plate.dot((180, 420), 18, fill=GOLD, outline=GOLD, width=1)
-    plate.text((180, 382), "unknown |psi>", size=16, bold=True, anchor="mm")
+    plate.text((245, 330), "unknown |ψ⟩", size=22, bold=True, anchor="mm")
     plate.draw.rounded_rectangle((300, 370, 470, 500), radius=15,
                                  fill=PLUM_LIGHT, outline=PLUM, width=4)
     plate.text((385, 435), "Bell measure", size=18, bold=True, anchor="mm")
@@ -423,14 +441,15 @@ def draw_frontier(plate: Plate) -> None:
     left, right = two_panel_boxes()
     panel(plate, left, "ROTATION-CURVE INFERENCE")
     panel(plate, right, "BULLET CLUSTER EVIDENCE")
-    transform = axes(plate, (170, 350, 720, 720), x_label="radius", y_label="orbital speed",
+    transform = axes(plate, (170, 350, 720, 720), x_label="", y_label="orbital speed",
                      x_range=(0, 10), y_range=(0, 10))
     visible = [(x / 10, 8 / math.sqrt(max(.7, x / 10))) for x in range(8, 101, 2)]
     observed = [(x / 10, 7.0 + .15 * math.sin(x / 7)) for x in range(8, 101, 2)]
     plot_curve(plate, transform, visible, fill=CORAL, width=5)
     plot_curve(plate, transform, observed, fill=TEAL, width=7)
     plate.text((470, 420), "observed: nearly flat", size=18, bold=True, fill=TEAL)
-    plate.text((470, 610), "visible mass prediction", size=18, bold=True, fill=CORAL)
+    plate.text((470, 655), "visible mass prediction", size=18, bold=True, fill=CORAL)
+    plate.text((700, 690), "radius", size=18, bold=True, anchor="rm")
     plate.text((445, 760), "the gap motivates extra mass or modified dynamics", size=17, anchor="mm")
 
     for x, color in ((1010, CORAL_LIGHT), (1280, CORAL_LIGHT)):
@@ -448,8 +467,8 @@ def draw_frontier(plate: Plate) -> None:
 SPECS: dict[str, Spec] = {
     "phys.4.classical": spec("phys.4.classical", "Classical Mechanics (Advanced)", 4,
         "phys-action-hamiltonian-phase-space",
-        "Trial trajectories approach a stationary-action path beside closed constant-Hamiltonian orbits in phase space.",
-        "Lagrangian and Hamiltonian views encode the same dynamics while exposing different constraints and conserved structure.", draw_classical),
+        "Fixed-endpoint trial paths contrast with a stationary-action free-particle path. A separate harmonic-oscillator phase portrait shows clockwise constant-Hamiltonian contours about the zero axes.",
+        "The free-particle paths and harmonic-oscillator contours are two illustrative examples. Stationary action is not always a minimum, and closed phase orbits are not a universal property of Hamiltonian systems.", draw_classical),
     "phys.4.em-maxwell": spec("phys.4.em-maxwell", "Electrodynamics", 4,
         "phys-maxwell-displacement-wave",
         "A capacitor-gap top view shows changing through-page electric flux and circular magnetic field beside an orthogonal electromagnetic wave.",
@@ -457,11 +476,11 @@ SPECS: dict[str, Spec] = {
     "phys.4.quantum": spec("phys.4.quantum", "Quantum Mechanics", 4,
         "phys-wavefunction-probability-histogram",
         "A scaled signed wavefunction and relative squared-magnitude shape are compared with repeated position detections.",
-        "The state supplies amplitudes; the normalized squared magnitude predicts the distribution of measurement outcomes.", draw_quantum),
+        "The signed state shape and its nonnegative square are relatively scaled, not normalized densities. The 96-detection histogram is a synthetic example, not experimental data.", draw_quantum),
     "phys.4.statmech": spec("phys.4.statmech", "Statistical Mechanics", 4,
         "phys-microstates-multiplicity-entropy",
         "Sixteen four-coin microstates produce the one-four-six-four-one multiplicity distribution over macrostates.",
-        "Entropy grows with multiplicity, making the balanced macrostate most probable without making any microstate more likely.", draw_statmech),
+        "For four independent fair coins, all 16 microstates are equally likely. The two-head macrostate has six arrangements and therefore the largest probability and multiplicity entropy.", draw_statmech),
     "phys.4.relativity": spec("phys.4.relativity", "Relativity", 4,
         "phys-light-cone-simultaneity",
         "A Minkowski light cone and barn-pole event diagram distinguish invariant causality from frame-dependent simultaneity.",
@@ -473,11 +492,11 @@ SPECS: dict[str, Spec] = {
     "phys.4.particles": spec("phys.4.particles", "Particle Physics", 4,
         "phys-quark-charge-decay-conservation",
         "Quark charges add to proton and neutron charges beside a beta-decay ledger for three conserved quantum numbers.",
-        "Allowed composite particles and decay channels satisfy additive charge, baryon-number, and lepton-number constraints.", draw_particles),
+        "This beta-decay ledger preserves charge, baryon number and lepton number. These are necessary checks here, not sufficient proof that a proposed channel is physically allowed.", draw_particles),
     "phys.4.experiment": spec("phys.4.experiment", "The Art of Experiment", 4,
         "phys-experiment-bias-residuals",
         "Repeated readings contrast random scatter and systematic bias beside a calibration fit with residuals and an outlier.",
-        "A sound experiment separates imprecision from bias, calibrates its scale, and tests residual structure rather than appearance.", draw_experiment),
+        "The plotted readings and calibration line are synthetic teaching examples. Separating scatter from bias and examining residuals tests measurement quality beyond visual fit.", draw_experiment),
     "phys.5.qft": spec("phys.5.qft", "Quantum Field Theory", 5,
         "phys-qft-field-quanta-amplitudes",
         "One bosonic spatial mode sits above occupation-number energy levels beside a Feynman contribution with external and internal lines.",
@@ -497,5 +516,5 @@ SPECS: dict[str, Spec] = {
     "phys.5.frontier": spec("phys.5.frontier", "Open Problems", 5,
         "phys-dark-matter-evidence-comparison",
         "A flat observed rotation curve differs from visible-mass prediction beside separated gas and lensing peaks in a cluster collision.",
-        "Dark-matter inference combines mismatched rotation speeds with lensing and collision evidence while retaining model uncertainty.", draw_frontier),
+        "The rotation curves and cluster shapes are schematic, not measurements or a sky image. Dark-matter inference combines dynamics, lensing and collision evidence while testing alternative models.", draw_frontier),
 }

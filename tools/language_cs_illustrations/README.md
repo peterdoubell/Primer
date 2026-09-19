@@ -1,8 +1,10 @@
 # Language and computer-science illustration pipeline
 
-These plates are deterministic explanatory diagrams. Each image encodes a
-lesson-specific trace, hierarchy, comparison, causal sequence, state machine,
-or evidence relationship; no generative-image service is involved.
+These plates are deterministic explanatory diagrams. Every generator-owned
+lesson is bound to its own composition: a trace, hierarchy, comparison, causal
+sequence, state machine, linguistic analysis, or evidence relationship. Shared
+layout code remains only a low-level drawing primitive; no generative-image
+service is involved.
 
 From the repository root:
 

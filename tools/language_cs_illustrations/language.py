@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from . import core as _core
 from .core import spec
 
 
@@ -65,7 +66,7 @@ SPECS = {
         ),
         S(
             "lang.1.handwriting", "Handwriting", 1, "legible-letter-process",
-            "A handwriting sequence shows a relaxed grip, baseline and midline guides, the ordered strokes for a lowercase a, and a final check for size and spacing.",
+            "Baseline and midline guides align a two-stroke single-storey lowercase a with three repeated forms and equal spacing; a pencil-angle inset accompanies the specimen.",
             "Legibility comes from repeatable letter formation, alignment, spacing, and a comfortable grip. Checking the result matters more than writing quickly.",
             "flow", steps=(("SET UP", "gentle grip; paper steady"), ("USE GUIDES", "midline ----- baseline"), ("FORM a", "round stroke, then downstroke"), ("CHECK", "even size and a clear gap")),
             footer="consistent strokes + alignment + spacing make writing readable",
@@ -102,14 +103,14 @@ SPECS = {
         S(
             "lang.2.paragraphs", "Paragraphs and Essays", 2, "paragraph-logic",
             "A paragraph plan connects a topic sentence about street trees to temperature evidence, explains the shade mechanism, and links the result back to the claim.",
-            "A coherent paragraph does more than list facts: its evidence must support the topic sentence, and its explanation must make that relevance explicit.",
+            "This fictional example uses an illustrative four-degree sensor difference, not a reported study. A paragraph connects evidence to its claim and acknowledges limits; one shaded reading alone does not establish neighbourhood-wide cooling.",
             "flow", steps=(("CLAIM", "Street trees cool a block"), ("EVIDENCE", "shaded pavement measured cooler"), ("EXPLAIN", "leaves block radiation and release water"), ("LINK", "so planting changes local heat")),
             footer="claim -> evidence -> explanation -> warranted link",
         ),
         S(
             "lang.2.poetry", "Poetry", 2, "poetic-patterns",
-            "Three aligned panels distinguish two repeated metrical feet, a shared final sound, and the image a silver path across the sea, then connect them to an effect.",
-            "Meter organizes stressed and unstressed syllables, sound patterning links words acoustically, and imagery evokes sensory experience. These devices can reinforce one another without being identical.",
+            "A four-line poem marks sea/me and stone/alone as ABAB rhymes; separate panels suggest spoken stresses and evoke silver light on water.",
+            "This invented poem separates ABAB rhyme, one possible stressed reading and imagery. The marked phrases are not a claim of regular metrical feet; readers may vary their spoken emphasis.",
             "compare", columns=(("RHYTHM", ("da-DUM | da-DUM", "two repeated feet")), ("SOUND", ("light / night", "shared final sound")), ("IMAGE", ("a silver path across the sea", "visual detail"))),
             footer="form shapes how an image is heard and remembered",
         ),
@@ -123,7 +124,7 @@ SPECS = {
         ),
         S(
             "lang.2.novels", "Reading Novels", 2, "novel-tracking",
-            "A novel tracker links a character's changing goal, three causally connected plot events, and a setting shift from village to city across chapters.",
+            "A fictional four-chapter tracker aligns four plot events, a changing attitude to help, and settings from village through road to city.",
             "Long-form reading becomes manageable when character, plot, and setting are tracked together. An event matters because it changes a goal, relationship, or later possibility.",
             "layers", layers=(("CHARACTER", "Asha wants independence -> learns to accept help"), ("PLOT", "letter arrives -> journey begins -> choice is tested"), ("SETTING", "village, then city: new constraints and opportunities"), ("SYNTHESIS", "the new setting pressures the character's goal")),
             footer="track change across chapters, not isolated events",
@@ -131,7 +132,7 @@ SPECS = {
         S(
             "lang.2.research", "Finding Things Out", 2, "source-corroboration",
             "A bridge-date question compares an archive plan, a newspaper report, and a dated museum photograph before separating construction from opening dates.",
-            "Reliable research compares relevant, traceable sources and checks whether they are independent. Agreement is stronger when sources do not merely copy one another.",
+            "These fictional sources show works visible in 1929 and an opening reported in 1930. A 1928 plan does not establish a construction start date. Check provenance and independence rather than assuming different formats mean independent evidence.",
             "network", columns=(("QUESTION", (("q", "When was the bridge built?"),)), ("SOURCES", (("a", "archive plan: 1928"), ("b", "newspaper: opened 1930"), ("c", "museum photo: 1929 works"))), ("ANSWER", (("z", "built 1928-29; opened 1930"),))), edges=(("q", "a", "search"), ("q", "b", "search"), ("q", "c", "search"), ("a", "z", "combine"), ("b", "z", "combine"), ("c", "z", "combine")),
             footer="separate construction evidence from the opening date",
         ),
@@ -145,14 +146,14 @@ SPECS = {
         S(
             "lang.2.speaking", "Public Speaking", 2, "speech-argument",
             "A short talk moves from a clear claim through one concrete example and an explanation to a concise takeaway directed to the audience.",
-            "A listener can follow a talk when its signposts expose the reasoning. Evidence becomes persuasive only after the speaker explains how it supports the claim.",
+            "This fictional talk uses an illustrative 30-degree water reading to practise claim, example, reason and takeaway. The reading alone does not establish a pond's needs; real recommendations require ecological context and relevant evidence.",
             "flow", steps=(("CLAIM", "Our pond needs shade"), ("EXAMPLE", "summer water reached 30 C"), ("REASON", "shade reduces solar heating"), ("TAKEAWAY", "plant suitable bank trees")),
             footer="tell listeners where the argument is going",
         ),
         S(
             "lang.3.literature", "Literature", 3, "close-reading",
             "A repeated locked-door image connects two quoted details to a pattern of exclusion and then to a qualified thematic interpretation about belonging.",
-            "Close reading moves from observable language to pattern and interpretation. A theme is an argued meaning supported by multiple details, not a hidden label attached to one symbol.",
+            "This invented passage models movement from observable language to pattern and interpretation. Mara is the character, not the narrator. A theme is an argued meaning supported by details, not a hidden label attached to one symbol.",
             "flow", steps=(("DETAIL 1", "the door stayed locked"), ("DETAIL 2", "again, the key turns away"), ("PATTERN", "repeated barriers exclude the speaker"), ("INTERPRET", "belonging is made conditional")),
             footer="interpretation is strongest when the textual chain stays visible",
             footer_size=25,
@@ -203,7 +204,7 @@ SPECS = {
         S(
             "lang.3.second-language", "A Second Language", 3, "language-practice-loop",
             "A daily learning loop connects comprehensible input, noticing a useful phrase, retrieving it from memory, using it in conversation and receiving corrective feedback.",
-            "Frequent retrieval and meaningful use strengthen access to a second language. Feedback updates a learner's hypothesis, while spaced return is more useful than one long exposure.",
+            "The loop illustrates input, noticing, retrieval, use and feedback with spaced return. The rising bars are a conceptual sketch, not measured scores or a guarantee of steady improvement; learners and practice conditions differ.",
             "cycle", steps=(("INPUT", "hear a phrase in context"), ("NOTICE", "connect form and meaning"), ("RETRIEVE", "recall without copying"), ("USE + FEEDBACK", "speak, adjust, return later")),
             footer="short, spaced cycles turn recognition into usable language",
         ),
@@ -252,7 +253,7 @@ SPECS = {
         ),
         S(
             "lang.5.philology", "Philology and Textual Criticism", 5, "manuscript-stemma",
-            "A manuscript stemma connects a lost archetype to two intermediate copies and three surviving witnesses; B and C share one copied error while D preserves another reading.",
+            "A hypothetical manuscript stemma connects a lost archetype to two inferred intermediate copies and three surviving witnesses; B and C share sea while D reads see, without establishing which reading is correct.",
             "Textual critics compare variants and shared errors to infer relationships among witnesses. A stemma is a revisable historical hypothesis, and the oldest surviving manuscript is not automatically best.",
             "network", columns=(("INFERRED", (("a", "*A: lost archetype"),)), ("COPIES", (("x", "*x: introduces shared error"), ("y", "*y: different branch"))), ("WITNESSES", (("b", "B: ...sea..."), ("c", "C: ...sea..."), ("d", "D: ...see...")))), edges=(("a", "x", "copy"), ("a", "y", "copy"), ("x", "b", "copy"), ("x", "c", "copy"), ("y", "d", "copy")),
             footer="shared innovations reveal descent; readings still need evaluation",
@@ -276,7 +277,7 @@ SPECS = {
         S(
             "lang.5.comp-ling", "Computational Linguistics", 5, "corpus-to-analysis",
             "A computational pipeline moves from a documented corpus through tokenization and representation to a dependency parser or next-token model, then evaluates held-out predictions and errors.",
-            "Computational linguistics turns linguistic hypotheses into representations and measurable tasks. Performance on held-out data is evidence about a model under that dataset, not proof of human-like understanding.",
+            "The bars are illustrative metric placeholders, not measured performance or comparable scales. Held-out evaluation supports claims about a task and dataset, not proof of human-like understanding; training and evaluation data remain separate.",
             "layers", layers=(("CORPUS", "sampled texts + metadata + usage rights"), ("REPRESENT", "tokens, features, embeddings, or linguistic annotations"), ("MODEL", "estimate a parse or probability of the next token"), ("EVALUATE", "held-out accuracy, calibration, subgroup errors")),
             footer="a model claim is bounded by its task, data, and evaluation",
         ),
@@ -289,3 +290,15 @@ SPECS = {
         ),
     )
 }
+
+
+from .language_advanced_detail import RENDERERS as ADVANCED_RENDERERS  # noqa: E402
+from .language_early_detail import RENDERERS as EARLY_RENDERERS  # noqa: E402
+
+
+LANGUAGE_RENDERERS = {**EARLY_RENDERERS, **ADVANCED_RENDERERS}
+
+if set(LANGUAGE_RENDERERS) != set(SPECS):
+    raise ValueError("Bespoke Language renderer inventory does not match specs")
+
+_core.register_node_renderers(LANGUAGE_RENDERERS)

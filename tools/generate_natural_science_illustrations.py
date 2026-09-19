@@ -128,7 +128,12 @@ def verify_preexisting(curricula: Mapping[str, Dict[str, object]]) -> None:
             if node_id not in PREEXISTING_ILLUSTRATED_IDS:
                 continue
             found.add(node_id)
-            actual = canonical_media_hash(node.get("lesson_media", []))
+            # A complementary spatial scene does not replace the frozen plate
+            # or its original manipulative; those still match byte for byte.
+            actual = canonical_media_hash([
+                entry for entry in node.get("lesson_media", [])
+                if entry.get("renderer") != "spatial-3d"
+            ])
             if actual != PREEXISTING_MEDIA_SHA256[node_id]:
                 raise ValueError("Authored lesson media changed for {}".format(node_id))
     if found != PREEXISTING_ILLUSTRATED_IDS:
@@ -277,9 +282,24 @@ def verify(curricula: Mapping[str, Dict[str, object]], specs: Mapping[str, Spec]
         raise ValueError("Generated raster uniqueness check is incomplete")
 
 
-def write_contact_sheet(specs: Mapping[str, Spec], destination: Path) -> None:
+def write_contact_sheet(curricula: Mapping[str, Dict[str, object]], destination: Path,
+                        domain: str | None = None) -> None:
+    """Render a review sheet from lesson media, including authored plates.
+
+    The earlier implementation iterated only generator-owned specs, which hid
+    eight of the strongest natural-science plates (including five biology
+    lessons) from the very artifact used to judge cohort consistency.
+    """
     thumb_w, thumb_h, label_h, columns = 320, 200, 38, 5
-    items = sorted(specs.values(), key=lambda item: (str(item["domain"]), int(item["stage"]), str(item["id"])))
+    selected_domains = [domain] if domain else list(CURRICULA)
+    items = []
+    for domain_id in selected_domains:
+        for node in curricula[domain_id]["nodes"]:
+            illustration = next(
+                entry for entry in node.get("lesson_media", [])
+                if entry.get("kind") == "illustration"
+            )
+            items.append((domain_id, node, illustration))
     rows = (len(items) + columns - 1) // columns
     sheet = Image.new("RGB", (columns * thumb_w, rows * (thumb_h + label_h)), "#efe7d2")
     draw = ImageDraw.Draw(sheet)
@@ -287,15 +307,15 @@ def write_contact_sheet(specs: Mapping[str, Spec], destination: Path) -> None:
                  if os.path.isfile("/System/Library/Fonts/Supplemental/Arial.ttf")
                  else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
     face = ImageFont.truetype(font_path, 17)
-    for index, item in enumerate(items):
-        source = asset_paths(OUTPUT_ROOT, item)[1]
+    for index, (_domain_id, node, illustration) in enumerate(items):
+        source = ROOT / "web" / str(illustration["src"]).removeprefix("/app/")
         with Image.open(source) as opened:
             thumb = ImageOps.fit(opened.convert("RGB"), (thumb_w, thumb_h),
                                  method=Image.Resampling.LANCZOS)
         x = index % columns * thumb_w
         y = index // columns * (thumb_h + label_h)
         sheet.paste(thumb, (x, y))
-        draw.text((x + 8, y + thumb_h + 8), str(item["id"]), font=face, fill="#24303a")
+        draw.text((x + 8, y + thumb_h + 8), str(node["id"]), font=face, fill="#24303a")
     destination.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(destination)
 
@@ -309,6 +329,8 @@ def parse_args() -> argparse.Namespace:
                         help="Skip the source-to-raster determinism rerender")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--contact-sheet", type=Path)
+    parser.add_argument("--contact-sheet-domain", choices=tuple(CURRICULA),
+                        help="Limit the review sheet to one complete curriculum domain")
     return parser.parse_args()
 
 
@@ -332,7 +354,7 @@ def main() -> None:
             qualifier, sum(EXPECTED_NODE_COUNTS.values()), len(specs),
             sum(EXPECTED_NODE_COUNTS.values()) * 2))
     if args.contact_sheet:
-        write_contact_sheet(specs, args.contact_sheet)
+        write_contact_sheet(curricula, args.contact_sheet, args.contact_sheet_domain)
         print("Wrote {}".format(args.contact_sheet))
     if not any((args.render, args.sync_curriculum, args.check,
                 args.quick_check, args.contact_sheet)):

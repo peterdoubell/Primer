@@ -9,10 +9,11 @@ from __future__ import annotations
 
 import io
 import math
+import os
 from pathlib import Path
-from typing import Dict, Iterable, List, Mapping, Sequence, Tuple
+from typing import Callable, Dict, Iterable, List, Mapping, Sequence, Tuple
 
-from PIL import Image
+from PIL import Image, ImageFont
 
 from math_illustrations.core import (
     BLUE,
@@ -69,6 +70,37 @@ def _symbol_text(value: str) -> bool:
     return any(ord(character) > 127 for character in value)
 
 
+_UNICODE_SANS_CANDIDATES = (
+    "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+)
+_UNICODE_SANS_BOLD_CANDIDATES = (
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
+)
+
+
+def _unicode_sans_path(*, bold: bool = False) -> str | None:
+    candidates = _UNICODE_SANS_BOLD_CANDIDATES if bold else _UNICODE_SANS_CANDIDATES
+    return next((candidate for candidate in candidates if os.path.isfile(candidate)), None)
+
+
+def _science_font(value: str, size: int, *, bold: bool = False,
+                  math_face: bool = False) -> ImageFont.FreeTypeFont:
+    """Keep prose sans-serif when a label contains one scientific symbol.
+
+    The former all-or-nothing fallback sent complete phrases such as
+    ``O₂ returns`` to the serif mathematics face.  A Unicode-capable sans face
+    keeps the plate typography coherent while still rendering subscripts,
+    Greek letters, arrows, and inequality signs correctly.
+    """
+    if not math_face and _symbol_text(value):
+        path = _unicode_sans_path(bold=bold)
+        if path:
+            return ImageFont.truetype(path, size=size)
+    return font(size, bold=bold, math_face=math_face)
+
+
 class SciencePlate(_BasePlate):
     """Primer plate with symbol-font fallback and a domain identifier."""
 
@@ -82,19 +114,30 @@ class SciencePlate(_BasePlate):
     def text(self, xy: Point, value: str, *, size: int = 36,
              bold: bool = False, math_face: bool = False, fill: str = INK,
              anchor: str = "la", stroke_width: int = 0) -> None:
-        super().text(xy, value, size=size, bold=bold,
-                     math_face=math_face or _symbol_text(value), fill=fill,
-                     anchor=anchor, stroke_width=stroke_width)
+        face = _science_font(value, size, bold=bold, math_face=math_face)
+        # Arial Unicode has no separate bold face. A restrained one-pixel
+        # stroke restores heading weight without changing the glyph metrics.
+        unicode_bold = bold and _symbol_text(value) and not os.path.isfile(
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
+        actual_stroke = max(stroke_width, 1 if unicode_bold else 0)
+        self.draw.text(
+            xy, value, font=face, fill=fill, anchor=anchor,
+            stroke_width=actual_stroke, stroke_fill=fill,
+        )
 
     def label(self, xy: Point, value: str, *, size: int = 28,
               fill: str | None = None, text_fill: str = PAPER_LIGHT) -> None:
-        face = font(size, bold=True, math_face=_symbol_text(value))
+        face = _science_font(value, size, bold=True)
+        unicode_bold = _symbol_text(value) and not os.path.isfile(
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
         left, top, right, bottom = self.draw.textbbox(xy, value, font=face, anchor="mm")
         self.draw.rounded_rectangle(
             (left - 17, top - 9, right + 17, bottom + 9), radius=15,
             fill=fill or self.accent,
         )
-        self.draw.text(xy, value, font=face, fill=text_fill, anchor="mm")
+        self.draw.text(xy, value, font=face, fill=text_fill, anchor="mm",
+                       stroke_width=1 if unicode_bold else 0,
+                       stroke_fill=text_fill)
 
 
 def science_spec(node_id: str, title: str, stage: int, domain: str,
@@ -150,7 +193,7 @@ def validate_specs(specs: Mapping[str, Spec], expected_ids: Iterable[str]) -> No
 def _wrapped_center(plate: SciencePlate, box: Box, value: str, *, size: int = 23,
                     bold: bool = False, fill: str = INK, line_gap: int = 6) -> None:
     x0, y0, x1, y1 = box
-    face = font(size, bold=bold, math_face=_symbol_text(value))
+    face = _science_font(value, size, bold=bold)
     words = value.split()
     lines: List[str] = []
     line = ""
@@ -166,18 +209,24 @@ def _wrapped_center(plate: SciencePlate, box: Box, value: str, *, size: int = 23
     leading = size + line_gap
     y = (y0 + y1 - (len(lines) * leading - line_gap)) / 2
     for line in lines:
+        stroke = 1 if bold and _symbol_text(line) and not os.path.isfile(
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf") else 0
         plate.draw.text(((x0 + x1) / 2, y), line, font=face, fill=fill,
-                        anchor="ma")
+                        anchor="ma", stroke_width=stroke, stroke_fill=fill)
         y += leading
 
 
 def _pill(plate: SciencePlate, center: Point, text: str, *, fill: str,
           size: int = 21) -> None:
-    face = font(size, bold=True, math_face=_symbol_text(text))
+    face = _science_font(text, size, bold=True)
     box = plate.draw.textbbox(center, text, font=face, anchor="mm")
     plate.draw.rounded_rectangle((box[0] - 15, box[1] - 8, box[2] + 15, box[3] + 8),
                                  radius=14, fill=hex_rgba(fill, 225))
-    plate.draw.text(center, text, font=face, fill=PAPER_LIGHT, anchor="mm")
+    unicode_bold = _symbol_text(text) and not os.path.isfile(
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
+    plate.draw.text(center, text, font=face, fill=PAPER_LIGHT, anchor="mm",
+                    stroke_width=1 if unicode_bold else 0,
+                    stroke_fill=PAPER_LIGHT)
 
 
 def _footer(plate: SciencePlate, value: str) -> None:
@@ -774,11 +823,31 @@ RENDERERS = {
     "matrix": _draw_matrix,
 }
 
+# Domain modules provide a lesson-specific composition whenever a generic
+# cards/flow/network grammar would flatten the subject into interchangeable
+# boxes. The mapping is keyed by curriculum node id, giving every generated
+# natural-science lesson the same bespoke, auditable treatment as mathematics.
+NODE_RENDERERS: Dict[str, Callable[[SciencePlate, Mapping[str, object]], None]] = {}
+
+
+def register_node_renderers(
+    renderers: Mapping[str, Callable[[SciencePlate, Mapping[str, object]], None]],
+) -> None:
+    conflicts = {
+        node_id for node_id, renderer in renderers.items()
+        if node_id in NODE_RENDERERS and NODE_RENDERERS[node_id] is not renderer
+    }
+    if conflicts:
+        raise ValueError("Duplicate natural-science node renderers: {}".format(
+            sorted(conflicts)))
+    NODE_RENDERERS.update(renderers)
+
 
 def render_image(item: Spec) -> Image.Image:
     plate = SciencePlate(str(item["id"]), str(item["title"]), int(item["stage"]),
                          str(item["domain"]))
-    RENDERERS[str(item["layout"])](plate, item["content"])
+    renderer = NODE_RENDERERS.get(str(item["id"]), RENDERERS[str(item["layout"])])
+    renderer(plate, item["content"])
     return plate.image
 
 

@@ -2,7 +2,7 @@
 """Render, integrate, and exhaustively verify language and CS illustrations.
 
 The generator owns the previously unillustrated lessons plus the deliberately
-upgraded Step by Step plate. Remaining authored media are immutable: a
+upgraded Step by Step and Computational Complexity plates. Remaining authored media are immutable: a
 conflicting entry causes a hard failure instead of replacement.
 
 From the repository root::
@@ -47,7 +47,6 @@ PREEXISTING_ILLUSTRATED_IDS = {
     "cs.1.algorithms",
     "cs.3.data-structures",
     "cs.4.networks",
-    "cs.5.complexity",
 }
 
 
