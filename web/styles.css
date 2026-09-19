@@ -4203,3 +4203,19 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
   .spatial-camera-controls .btn { flex: 1 1 110px; min-height: 44px; }
   .spatial-label { font-size: 24px; }
 }
+
+/* Graded music study uses the book's existing paper and type scale. */
+.music-grade-path { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 20px; }
+.music-grade-path a { padding: 7px 12px; border: 1px solid var(--rule); border-radius: 8px; min-height: 42px; display: inline-flex; align-items: center; }
+.music-grade-path a[aria-current="page"] { background: var(--paper-2); border-color: var(--gold-ink); font-weight: bold; }
+.music-unit { margin: 24px 0; }
+.music-unit h4, .music-practice-grid h4 { margin-bottom: 8px; }
+.music-task { border-left: 3px solid var(--gold-ink); padding-left: 14px; }
+.music-practice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; }
+.music-routine { padding: 14px 0; }
+.music-routine summary { cursor: pointer; }
+.music-checkpoint { padding-top: 16px; border-top: 1px solid var(--rule); }
+@media (max-width: 600px) { .music-practice-grid { grid-template-columns: 1fr; } }
+
+.music-audio-controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.music-audio-answer[hidden] { display: none; }

@@ -24,7 +24,7 @@ cannot carry comments:
   reader works from the linked articles themselves — learning to read the
   real literature is part of the curriculum, so a simplified shadow text
   would work against the goal, not toward it.
-- Domain node counts are uneven by design (math 59, arts 25). Node count
+- Domain node counts are uneven by design (math 59, arts 33). Node count
   tracks how much *gated, sequential* structure a field has, not how big or
   worthy the field is: mathematics is a long dependency chain where each rung
   must be held before the next, while arts and earth science branch shallow
@@ -130,6 +130,7 @@ STAGE_GATE = 0.6
 STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
 SPATIAL_MODEL_SCENARIOS = frozenset({"rad.3.ct-image", "rad.5.tavi-ct", "rad.3.fracture-description"})
 LESSON_MODEL_RENDERERS = frozenset({
+    "music-listening-lab",
     "spatial-3d",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
@@ -270,7 +271,11 @@ def _validate_lesson_media(node: Dict) -> None:
             props = entry.get("props")
             if not isinstance(props, dict):
                 raise ValueError("{} model {} props must be an object".format(node.get("id"), media_id))
-            if renderer == "spatial-3d":
+            if renderer == "music-listening-lab":
+                grade = props.get("grade")
+                if set(props) != {"grade"} or isinstance(grade, bool) or not isinstance(grade, int) or not 1 <= grade <= 8 or grade != node.get("music_grade"):
+                    raise ValueError("Music listening model needs its own lesson grade")
+            elif renderer == "spatial-3d":
                 scenario = props.get("scenario")
                 if set(props) != {"scenario"} or not isinstance(scenario, str) \
                         or scenario not in SPATIAL_MODEL_SCENARIOS or scenario != node.get("id"):
@@ -579,6 +584,41 @@ def framework_digest(ref: Dict) -> Dict:
     }
 
 
+def _validate_music_study(node: Dict) -> None:
+    """Grade study plans are authored tasks, never practical exam certificates."""
+    strand = node.get("strand")
+    if strand is not None and (strand != "music" or node.get("domain") != "arts"):
+        raise ValueError("Unsupported curriculum strand")
+    study = node.get("music_study")
+    grade = node.get("music_grade")
+    if study is None:
+        if grade is not None:
+            raise ValueError("Music grade needs a study plan")
+        return
+    if isinstance(grade, bool) or not isinstance(grade, int) or not 1 <= grade <= 8:
+        raise ValueError("Music study needs grade 1..8")
+    if strand != "music" or node.get("stage") not in (2, 3):
+        raise ValueError("Music grades belong to the pre-undergraduate music strand")
+    fields = {"scope", "units", "aural", "practical", "sight_reading", "composition", "checkpoint", "routine", "source"}
+    if not isinstance(study, dict) or set(study) != fields:
+        raise ValueError("Music study has unexpected fields")
+    for field in fields - {"units", "routine", "source"}:
+        if not isinstance(study[field], str) or not study[field].strip():
+            raise ValueError("Music study needs " + field)
+    if not isinstance(study["units"], list) or len(study["units"]) < 3:
+        raise ValueError("Music study needs at least three teaching units")
+    for unit in study["units"]:
+        if not isinstance(unit, dict) or set(unit) != {"title", "explanation", "task"} or any(
+                not isinstance(v, str) or not v.strip() for v in unit.values()):
+            raise ValueError("Music study unit is incomplete")
+    if not isinstance(study["routine"], list) or not study["routine"] or any(
+            not isinstance(v, str) or not v.strip() for v in study["routine"]):
+        raise ValueError("Music study needs a practice routine")
+    source = study["source"]
+    if not isinstance(source, dict) or set(source) != {"title", "url"} or not source["title"] or not source["url"].startswith("https://www.abrsm.org/"):
+        raise ValueError("Music study needs an ABRSM syllabus source")
+
+
 def _validate_reference(node: Dict) -> None:
     """Fail closed when an authored reporting framework does not match its schema.
 
@@ -763,6 +803,7 @@ class Curriculum:
                 node.setdefault("lesson_media", [])
                 _validate_lesson_media(node)
                 _validate_reference(node)
+                _validate_music_study(node)
                 # Provenance, recorded once, where authored items enter the
                 # app. A human wrote these: fixed prompt, fixed answer, the
                 # same tomorrow as today. The generators in practice.py stamp
@@ -864,10 +905,12 @@ class Curriculum:
     GRADUATE_GATE_NEEDS_PROOF = 5
 
     def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float],
-                        proven: Optional[set] = None) -> bool:
+                        proven: Optional[set] = None, strand: Optional[str] = None) -> bool:
         if stage == 0:
             return True
         prev = self._by_domain_stage.get(domain, {}).get(stage - 1, [])
+        if strand is not None:
+            prev = [n for n in prev if n.get("strand") == strand]
         if not prev:
             # A stage with nothing below it in its own field has no gate of
             # its own. In this corpus that is radiology — a specialist field
@@ -892,7 +935,7 @@ class Curriculum:
         for p in node["prereqs"]:
             if mastery.get(p, 0) < 0.8:
                 return False
-        return self.stage_gate_open(node["domain"], node["stage"], mastery, proven)
+        return self.stage_gate_open(node["domain"], node["stage"], mastery, proven, node.get("strand"))
 
     def unlock_requirements(self, node: Dict, mastery: Dict[str, float],
                             proven: Optional[set] = None) -> List[str]:
@@ -920,8 +963,10 @@ class Curriculum:
                         title, self._domain_names.get(pn["domain"], pn["domain"]))
                 reqs.append("Master “{}”".format(title))
         stage = node["stage"]
-        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery, proven):
+        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery, proven, node.get("strand")):
             prev = self._by_domain_stage.get(node["domain"], {}).get(stage - 1, [])
+            if node.get("strand"):
+                prev = [n for n in prev if n.get("strand") == node["strand"]]
             done = (sum(1 for n in prev if n["id"] in proven)
                     if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None
                     else sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8))
@@ -945,6 +990,8 @@ class Curriculum:
             if not n["unlocked"] and not n["mastered"]:
                 n["unlock_requirements"] = self.unlock_requirements(node, mastery, proven)
             n.pop("quiz", None)  # keep the graph payload light
+            n.pop("music_study", None)
+            n.pop("music_path", None)
             n.pop("lesson_media", None)  # detail-only; plates and model copy are much larger
             # The reporting frameworks come to 300 KB across the specialist
             # field — heavier than everything else on this route put together.
@@ -964,7 +1011,8 @@ class Curriculum:
                     continue
                 done = sum(1 for n in ns if mastery.get(n["id"], 0) >= 0.8)
                 stages.append({"stage": s, "total": len(ns), "mastered": done,
-                               "open": self.stage_gate_open(d["id"], s, mastery, proven)})
+                               "open": self.stage_gate_open(d["id"], s, mastery, proven) or any(
+                                   n.get("strand") and self.unlocked(n, mastery, proven) for n in ns)})
             dd = dict(d)
             dd["stages"] = stages
             dd["mastered"] = sum(1 for n in self.nodes.values()

@@ -5147,6 +5147,7 @@
   }
 
   const RENDERERS = Object.freeze({
+    'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
     'spatial-3d': (item, hooks) => window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null,
     'doppler-angle-lab': renderDopplerAngle,
     counter: renderCounter,

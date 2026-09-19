@@ -473,6 +473,10 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'rad.3.fracture-description': (5, 'spatial-3d'),
     }
     expected.update({
+        n['id']: (n['stage'], 'music-listening-lab')
+        for n in curr.nodes.values() if n.get('music_grade')
+    })
+    expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
         for node_id in PHYSICS_MODEL_SCENARIOS
     })
@@ -605,7 +609,7 @@ def test_every_curriculum_lesson_has_one_unique_explanatory_plate():
     from tools.check_curriculum_illustrations import audit
 
     result = audit()
-    assert result['lessons'] == 432
+    assert result['lessons'] == 440
     assert result['illustrated'] == result['lessons']
     assert result['missing'] == 0
     assert result['plates'] == result['lessons'] + 3

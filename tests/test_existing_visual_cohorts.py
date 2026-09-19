@@ -36,7 +36,7 @@ def test_existing_high_quality_cohorts_stay_lesson_specific_and_complete():
     for specs, expected_count in (
         (math_specs, 54),
         (physics_specs, 36),
-        (humanities_specs, 77),
+        (humanities_specs, 85),
     ):
         assert len(specs) == expected_count
         assert len({id(item["draw"]) for item in specs.values()}) == expected_count

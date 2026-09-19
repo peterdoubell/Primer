@@ -65,7 +65,7 @@ def test_invalid_records_fail(reviewer, example):
 
 
 def test_actual_inventory_is_exhaustive(reviewer):
-    assert reviewer.audit()["lessons"] == 432
+    assert reviewer.audit()["lessons"] == 440
 
 
 def test_companion_requires_its_own_review(reviewer, example):

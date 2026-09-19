@@ -1678,6 +1678,38 @@ function wireOutsideLinks(root) {
 // what a reference work is FOR — it is read standing up, mid-dictation, not
 // studied — so it sits above the reading list rather than below it, and the
 // template can be lifted in one tap.
+function renderMusicStudy(n) {
+  if (!n.music_path && !n.music_study) return null;
+  const wrap = el('section', { class: 'card music-study', 'aria-label': 'Music study path' });
+  wrap.append(el('h3', {}, n.music_grade ? 'Grade ' + n.music_grade + ' · Study and practise' : 'Your music path: Grades 1–8'));
+  const nav = el('nav', { class: 'music-grade-path', 'aria-label': 'Music grades' });
+  (n.music_path || []).forEach(item => nav.append(el('a', {
+    href: hashFor('node', item.id), 'aria-current': item.id === n.id ? 'page' : null,
+    'aria-label': item.title,
+  }, 'Grade ' + item.grade)));
+  wrap.append(nav);
+  const study = n.music_study;
+  if (!study) {
+    wrap.append(el('p', {}, 'Begin with clear notation, then work through the eight grades. Each grade combines written understanding with listening, sight-reading, making music and composition.'));
+    return wrap;
+  }
+  wrap.append(el('p', { class: 'muted' }, study.scope));
+  study.units.forEach((unit, i) => wrap.append(el('section', { class: 'music-unit' },
+    el('h4', {}, (i + 1) + '. ' + unit.title), el('p', {}, unit.explanation),
+    el('p', { class: 'music-task' }, el('b', {}, 'Work it out: '), unit.task))));
+  const practice = el('div', { class: 'music-practice-grid' });
+  [['aural', 'Listen and sing'], ['sight_reading', 'Read at sight'], ['practical', 'Play or sing'], ['composition', 'Compose and revise']].forEach(([key, title]) =>
+    practice.append(el('section', {}, el('h4', {}, title), el('p', {}, study[key]))));
+  wrap.append(practice);
+  const routine = el('details', { class: 'music-routine' }, el('summary', {}, 'A balanced practice session'));
+  const list = el('ol', {}); study.routine.forEach(task => list.append(el('li', {}, task)));
+  routine.append(list); wrap.append(routine);
+  wrap.append(el('p', { class: 'music-checkpoint' }, el('b', {}, 'Before moving on: '), study.checkpoint));
+  wrap.append(el('p', { class: 'muted' }, 'Primer quiz mastery records written understanding. Use separate musical feedback for performance, aural response and composition.'));
+  wrap.append(el('a', { href: study.source.url, target: '_blank', rel: 'noopener noreferrer' }, study.source.title));
+  return wrap;
+}
+
 function renderReference(ref, nodeTitle) {
   if (!ref || !ref.source) return null;
   const wrap = el('div', { class: 'card reference-card' });
@@ -1825,7 +1857,7 @@ async function renderNode(page, nodeId) {
   // pagehead's kicker is also its spoken text, so it stays a string: the
   // fallback contributes no mark here rather than a character to mispronounce.
   page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + STAGE_NAMES[n.stage], n.title, n.goal || ''));
-  if (n.domain === 'radiology' && (n.lesson_media || []).length) {
+  if ((n.domain === 'radiology' || n.strand === 'music') && (n.lesson_media || []).length) {
     page.append(el('button', { class: 'btn ghost small', type: 'button', onclick: () => {
       const visuals = page.querySelector('.lesson-media');
       if (visuals) {
@@ -1836,7 +1868,7 @@ async function renderNode(page, nodeId) {
         }
         visuals.focus({ preventScroll: true });
       }
-    } }, 'View diagrams and models'));
+    } }, n.strand === 'music' ? 'View notation and listening' : 'View diagrams and models'));
   }
 
   if (n.access_basis === "assumed_prerequisites") {
@@ -1844,7 +1876,7 @@ async function renderNode(page, nodeId) {
   }
   if (n.proven) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:var(--tint-green)' },
-      el('b', { style: 'color:var(--green-ink)' }, '✓ You have proved this one. Revisit it any time, or push further in the Atlas.')));
+      el('b', { style: 'color:var(--green-ink)' }, n.music_grade ? '✓ Written-knowledge checks proved. Continue the practical, listening and composition work with musical feedback.' : '✓ You have proved this one. Revisit it any time, or push further in the Atlas.')));
   } else if (n.mastered) {
     // Placement credit — honest about the difference.
     const d = n.mastery_detail || {};
@@ -1915,6 +1947,8 @@ async function renderNode(page, nodeId) {
   // A specialist module is opened mid-dictation, so its framework comes
   // first — before the reading list, before the plate. Everything below this
   // is for the reader who has time; this is for the one who does not.
+  const musicStudy = renderMusicStudy(n);
+  if (musicStudy) page.append(musicStudy);
   const reference = renderReference(n.reference, n.title);
   if (reference) page.append(reference);
 
@@ -1929,7 +1963,7 @@ async function renderNode(page, nodeId) {
 
   const lessonMedia = renderLessonMedia(n.lesson_media);
   if (lessonMedia) {
-    if (n.domain === 'radiology') lessonMedia.setAttribute('tabindex', '-1');
+    if (n.domain === 'radiology' || n.strand === 'music') lessonMedia.setAttribute('tabindex', '-1');
     page.append(sectionLabel(n.domain === 'radiology' ? 'Visual reference' : (S.stage <= 1 ? 'Try it' : 'Explore the idea')), lessonMedia);
   }
 
