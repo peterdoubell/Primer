@@ -831,7 +831,9 @@ def draw_probability(plate: Plate) -> None:
             _diamond(plate, node, 23, fill=fill)
         else:
             plate.dot(node, 23, fill=fill)
-        plate.text((node[0] + 36, node[1]), label, size=21, bold=True, anchor="lm")
+        # Keep node descriptions outside the narrow outgoing branch wedge.
+        label_y = node[1] - 65 if node == red_first else node[1] + 65
+        plate.text((node[0], label_y), label, size=21, bold=True, anchor="mm")
     labels = ("RR", "RB", "BR", "BB")
     for endpoint, label in zip(endpoints, labels):
         plate.draw.rounded_rectangle((endpoint[0] - 35, endpoint[1] - 25,
@@ -876,9 +878,9 @@ def _dot_plot(plate: Plate, box: Box, values: Iterable[int], *, title: str, sd: 
 
 def draw_statistics(plate: Plate) -> None:
     _dot_plot(plate, (120, 225, 775, 825), (9, 10, 10, 11), title="TIGHT CLUSTER: 9, 10, 10, 11",
-              sd="standard deviation ≈ 0.7", fill=BLUE, shape="circle")
+              sd="population SD ≈ 0.7", fill=BLUE, shape="circle")
     _dot_plot(plate, (825, 225, 1480, 825), (2, 8, 12, 18), title="WIDER SPREAD: 2, 8, 12, 18",
-              sd="standard deviation ≈ 5.8", fill=CORAL, shape="diamond")
+              sd="population SD ≈ 5.8", fill=CORAL, shape="diamond")
     plate.label((800, 855), "same mean, different spread", fill=TEAL)
 
 
@@ -1031,7 +1033,7 @@ SPECS: Dict[str, Spec] = {
     ),
     "math.2.geometry": _spec(
         "math.2.geometry", "Area, Perimeter and Volume", 2, "measurement-dimensions-plate",
-        "Two shapes share a perimeter but have different areas, beside a cuboid made from 24 unit cubes.",
+        "An eight-by-two rectangle and a five-by-five square both have perimeter twenty but areas sixteen and twenty-five. Two four-by-three layer plans represent the twenty-four unit cubes in a four-by-three-by-two cuboid.",
         "Length uses units, area square units, and volume cubic units.", draw_geometry,
     ),
     "math.2.exponents": _spec(
@@ -1113,7 +1115,7 @@ SPECS: Dict[str, Spec] = {
     "math.3.statistics": _spec(
         "math.3.statistics", "Statistics", 3, "statistics-spread-plate",
         "Two distributions share a mean, but one has values much farther from it and a larger standard deviation.",
-        "Centre and spread describe different features; neither alone tells the whole distribution.", draw_statistics,
+        "Centre and spread describe different features. These population standard deviations divide the squared deviations by four, the number of displayed values; sample standard deviations would use three instead.", draw_statistics,
     ),
     "math.3.vectors": _spec(
         "math.3.vectors", "Vectors", 3, "vector-resultant-plate",

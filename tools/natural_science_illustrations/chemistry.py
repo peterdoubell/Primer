@@ -108,7 +108,7 @@ _LIST = [
             ["Air", "Gas mixture", "Fills space; compresses", "Breathing or inflated tyre"],
         ],
         "footer":"A material is identified by a pattern of properties. The same object can contain several materials chosen for different jobs.",
-    }, "A table compares wood, metal, water, and air by state, observable properties, and practical uses that depend on those properties.",
+    }, "Four pictured examples compare wood grain, a heated metal pan, flowing water and compressed air, connecting each material's properties with practical uses.",
        "Materials are not sorted only by appearance: repeatable properties such as flow, stiffness, conductivity, and compressibility explain suitable uses."),
 
     S("chem.0.mixing", "Mixing", 0, "branch", {
@@ -149,7 +149,7 @@ _LIST = [
             ["Burning wood", "Atoms rearrange into gases and ash", "Yes", "Products cannot simply be cooled back"],
         ],
         "footer":"Reversibility is a useful clue, not a perfect definition. Chemical change is established by identifying substances before and after.",
-    }, "A comparison table distinguishes melting, dissolving, and burning through particle rearrangement, formation of new substances, and possible reversal.",
+    }, "Three particle-level comparisons show water molecules before and after melting, salt ions before and after dissolving, and carbon reacting with oxygen to form carbon dioxide.",
        "Physical changes preserve molecular identity; chemical reactions conserve atoms while reconnecting them into different substances."),
 
     S("chem.1.materials-props", "Properties of Materials", 1, "matrix", {
@@ -158,10 +158,10 @@ _LIST = [
             ["Window", "Transparent + rigid", "Transmits visible light while holding shape"],
             ["Pan base", "Thermally conductive + high melting point", "Moves heat to food without melting"],
             ["Raincoat", "Flexible + water-resistant", "Bends with the body while blocking liquid water"],
-            ["Fridge handle", "Low thermal conductivity", "Slows heat flow to the hand"],
+            ["Pan handle", "Low thermal conductivity", "Slows heat flow to the hand"],
         ],
         "footer":"Engineering starts with constraints: the best material is the one whose measured properties fit the job and its trade-offs.",
-    }, "A design table matches windows, pan bases, raincoats, and refrigerator handles to transparency, conductivity, melting point, flexibility, and water resistance.",
+    }, "Four design examples show light passing through a window, heat spreading through a pan base, droplets outside a raincoat, and an insulating pan handle slowing heat flow from the hot attachment.",
        "Choosing a material is causal reasoning from required function to relevant property, not a ranking of materials from universally best to worst."),
 
     S("chem.2.molecules", "Molecules and Compounds", 2, "matrix", {
@@ -182,7 +182,7 @@ _LIST = [
             {"heading":"MISCIBLE LIQUIDS", "icon":"water", "edge":"boiling points", "detail":"Fractional distillation enriches the more volatile component first."},
         ],
         "footer":"Separation exploits a physical-property difference—size, solubility, boiling point, magnetism—not an arbitrary recipe.",
-    }, "A separation decision tree chooses filtration, evaporation or distillation, and fractional distillation from particle size, solubility, and boiling-point differences.",
+    }, "Three apparatus schematics show filtration retaining a solid residue, distillation collecting solvent while salt remains, and a fractionating column enriching the lower-boiling component first.",
        "Mixture components retain properties that can be exploited; the correct separation method follows from which property differs."),
 
     S("chem.2.reactions-intro", "Chemical Reactions", 2, "matrix", {
@@ -228,7 +228,7 @@ _LIST = [
             {"heading":"NUCLEUS", "detail":"Protons set atomic number; neutrons distinguish isotopes", "color":CORAL},
         ],
         "footer":"Shell pictures are energy-level maps, not tiny planetary orbits. Electron probability distributions are orbitals with quantised states.",
-    }, "Nested atomic energy shells surround a proton-and-neutron nucleus, with annotations for the 1s, second-shell, and higher-shell orbital structure.",
+    }, "A spherical 1s density and two-lobed 2p phase sketch sit beside an energy-level diagram for 1s, 2s, 2p and 3s, with orbital counts and electron capacities.",
        "Atomic identity comes from proton number, isotope from neutron count, and chemistry largely from electrons occupying quantum states."),
 
     S("chem.3.bonding", "Chemical Bonding", 3, "cards", {
@@ -282,7 +282,7 @@ _LIST = [
         ],
         "icon":"energy", "callout_heading":"RATE ≠ ΔH", "callout":"Peak height controls activation barrier and rate; endpoint difference is reaction enthalpy. A catalyst lowers the barrier, not ΔH.",
         "footer":"Exothermic reactions transfer heat to surroundings (ΔH < 0); endothermic reactions absorb it (ΔH > 0) under constant pressure.",
-    }, "Reaction-coordinate curves distinguish an exothermic drop and endothermic rise while separating activation-energy peaks from enthalpy changes.",
+    }, "Catalysed and uncatalysed pathways share the same reactant and product enthalpies in an exothermic example. The catalysed curve has a lower activation barrier while the enthalpy drop remains unchanged.",
        "Thermodynamic energy change and kinetic reaction rate answer different questions; a large energy release can still occur slowly."),
 
     S("chem.3.organic-intro", "Carbon Chemistry", 3, "branch", {
@@ -376,7 +376,7 @@ _LIST = [
              "label_at":7, "label_dx":-120, "label_dy":-22},
         ],
         "icon":"enzyme", "callout_heading":"READ Km FROM GUIDES", "callout":"The vertical Km guide meets the curve where the horizontal Vmax/2 guide ends. At high [S], rate approaches the Vmax asymptote without crossing it.",
-        "footer":"Protein sequence shapes a dynamic energy landscape; folding, binding, catalysis, and allostery depend on ensembles, not one rigid structure.",
+        "footer":"In this initial-rate model, [S] = Km gives half Vmax; adding more substrate approaches the capacity of the available enzyme.",
     }, "A saturating Michaelis–Menten rate curve connects half-maximal velocity at Km and the high-substrate plateau to enzyme active-site occupancy.",
        "Enzyme kinetics converts molecular binding and turnover into measurable rates, while deviations reveal inhibition, cooperativity, or mechanism complexity."),
 
@@ -398,8 +398,8 @@ _LIST = [
             {"heading":"4 · VALIDATE", "icon":"beaker", "detail":"Compare against higher-level calculations and independent experiments."},
         ],
         "footer":"Simulation is an experiment on a mathematical model. Time step, sampling, basis, parameters, and finite size bound what it can claim.",
-    }, "A computational chemistry workflow moves from an explicit molecular model through numerical sampling to uncertain predictions and experimental validation.",
-       "Agreement is meaningful only within a declared model domain; convergence and validation distinguish chemical insight from attractive molecular animation."),
+    }, "A torsional energy curve contrasts samples trapped near one minimum with broader sampling across barriers, beside an illustrative predicted spectrum and comparison points.",
+       "Agreement is meaningful only within a declared model domain; convergence and validation matter. Both plots and their comparison points are illustrative, not experimental measurements."),
 
     S("chem.5.frontier", "Frontiers of Chemistry", 5, "matrix", {
         "columns":["DESIGN LEVER", "TARGET METRIC", "FAILURE TEST"],
@@ -409,7 +409,7 @@ _LIST = [
             ["Molecular machine", "Biased motion through a cycle", "Work per fuel / photon input", "Random motion mistaken for direction"],
         ],
         "footer":"Frontier chemistry optimises whole systems: activity without selectivity, durability, scalable synthesis, and life-cycle accounting is not a solution.",
-    }, "A design matrix evaluates catalysts, green processes, and molecular machines through mechanism, performance metric, and a specific failure test.",
+    }, "A catalytic-cycle schematic tracks feedstock and energy inputs, desired and side products, catalyst deactivation, and solvent/catalyst recycling within a whole-system accounting boundary.",
        "Chemical innovation becomes credible when molecular performance survives selectivity, durability, scale, resource, and full-system impact constraints."),
 ]
 
@@ -418,3 +418,15 @@ SPECS = {item["id"]: item for item in _LIST}
 
 if len(SPECS) != len(_LIST):
     raise ValueError("Duplicate chemistry illustration identifier")
+
+
+from .chemistry_advanced_detail import RENDERERS as ADVANCED_RENDERERS  # noqa: E402
+from .chemistry_early_detail import RENDERERS as EARLY_RENDERERS  # noqa: E402
+
+
+CHEMISTRY_RENDERERS = {**EARLY_RENDERERS, **ADVANCED_RENDERERS}
+
+if set(CHEMISTRY_RENDERERS) != set(SPECS):
+    raise ValueError("Bespoke chemistry renderer inventory does not match specs")
+
+_core.register_node_renderers(CHEMISTRY_RENDERERS)

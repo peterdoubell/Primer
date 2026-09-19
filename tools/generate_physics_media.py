@@ -147,7 +147,8 @@ def sync_curriculum(curriculum: Dict[str, object], specs: Dict[str, Spec]) -> Tu
             continue
         media = node.setdefault("lesson_media", [])
         illustrations = [item for item in media if item.get("kind") == "illustration"]
-        models = [item for item in media if item.get("kind") == "model"]
+        models = [item for item in media if item.get("kind") == "model"
+                  and item.get("renderer") != "spatial-3d"]
         expected_illustration = illustration_entry(specs[node_id])
         expected_model = model_entry(node_id)
         if illustrations and illustrations != [expected_illustration]:
@@ -175,7 +176,8 @@ def verify(curriculum: Dict[str, object], specs: Dict[str, Spec]) -> None:
     seen_media_ids = set()
     for node in nodes:
         node_id = node["id"]
-        media = node.get("lesson_media", [])
+        media = [item for item in node.get("lesson_media", [])
+                 if item.get("renderer") != "spatial-3d"]
         if [item.get("kind") for item in media] != ["illustration", "model"]:
             raise ValueError("{} does not have exactly illustration then model".format(node_id))
         illustration, model = media

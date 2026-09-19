@@ -608,7 +608,8 @@ def test_every_curriculum_lesson_has_one_unique_explanatory_plate():
     assert result['lessons'] == 432
     assert result['illustrated'] == result['lessons']
     assert result['missing'] == 0
-    assert result['responsive_webps'] == result['lessons'] * 2
+    assert result['plates'] == result['lessons'] + 3
+    assert result['responsive_webps'] == result['plates'] * 2
     assert not result['errors'], '\n'.join(result['errors'][:20])
     assert all(domain['illustrated'] == domain['lessons']
                for domain in result['domains'])
@@ -642,8 +643,10 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'relative density (peak = 1)',
         'fixed 24 μs axis',
         'absolute temperatures in kelvin',
-        'normalized squared magnitude',
-        'total kinetic energy is conserved only',
+        'relatively scaled, not normalized densities',
+        'synthetic example, not experimental data',
+        'momentum remains 8 kg m/s; kinetic energy falls from 16 j to 10⅔ j',
+        'remaining 5⅓ j becomes internal energy',
         'photon arrival-rate scale',
         'resolution/√12',
         'fusion of light nuclei and fission of heavy nuclei',
