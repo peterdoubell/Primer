@@ -362,44 +362,8 @@ def _draw_color_composition(plate: Plate) -> None:
 
 
 def _draw_music_reading(plate: Plate) -> None:
-    panel(plate, (120, 230, 1480, 780), fill=PAPER_LIGHT, outline=BLUE)
-    pill(plate, (800, 270), "A COMPLETE 4/4 BAR", color=BLUE, size=19)
-    ys = _staff(plate, (255, 366, 1400, 535))
-
-    # A vector treble clef: its lower loop wraps the staff's G line.
-    plate.draw.arc((280, 330, 360, 455), 72, 332, fill=PLUM, width=8)
-    plate.draw.line((336, 350, 310, 542), fill=PLUM, width=8)
-    plate.draw.ellipse((282, ys[3] - 34, 344, ys[3] + 34),
-                       outline=PLUM, width=7)
-    plate.dot((313, ys[3]), 7, fill=PLUM, outline=PLUM)
-    box_text(plate, (245, 300, 390, 340), "TREBLE CLEF", size=16,
-             minimum=12, bold=True, fill=PLUM)
-    plate.text((420, 440), "4\n4", size=38, bold=True, math_face=True, anchor="mm")
-
-    # Quarter; two beamed eighths; half. Brackets bind symbols to durations.
-    _note(plate, 560, ys[3], color=BLUE)
-    _note(plate, 760, ys[2], color=TEAL)
-    _note(plate, 860, ys[1], color=TEAL)
-    plate.draw.line((774, ys[2] - 90, 874, ys[1] - 90), fill=TEAL, width=8)
-    _note(plate, 1120, ys[1], color=PLUM, filled=False)
-    plate.draw.line((1134, ys[1], 1134, ys[1] - 92), fill=PLUM, width=5)
-    plate.draw.line((1400, 342, 1400, 550), fill=INK, width=8)
-
-    def duration_bracket(x0: float, x1: float, label: str, color: str) -> None:
-        y = 576
-        plate.draw.line((x0, y, x1, y), fill=color, width=5)
-        plate.draw.line((x0, y - 14, x0, y + 14), fill=color, width=5)
-        plate.draw.line((x1, y - 14, x1, y + 14), fill=color, width=5)
-        box_text(plate, (x0 - 12, y + 14, x1 + 12, y + 62), label,
-                 size=19, minimum=14, bold=True, fill=color)
-
-    duration_bracket(500, 620, "quarter = 1 beat", BLUE)
-    duration_bracket(690, 930, "two eighths = 1 beat", TEAL)
-    duration_bracket(1010, 1270, "half = 2 beats", PLUM)
-    box_text(plate, (330, 668, 1270, 735),
-             "1 + (½ + ½) + 2 = 4 beats", size=31,
-             minimum=23, bold=True, fill=GOLD)
-    footer(plate, "The staff locates pitch; note shapes encode duration; the time signature organizes beats.")
+    from .music_notation import reading_plate
+    reading_plate(plate)
 
 
 def _draw_photography(plate: Plate) -> None:
@@ -842,7 +806,7 @@ _ITEMS = [
     spec(
         "arts.2.music-reading", "Reading Music", 2, DOMAIN,
         "four-four-measure-plate",
-        "A treble-clef five-line staff in four-four time contains a quarter note, two beamed eighth notes and a half note; brackets bind the symbols to one beat, one combined beat and two beats, and the equation one plus one-half plus one-half plus two equals four.",
+        "Engraved treble and bass clefs locate G4 and F3 on their reference lines; ledger lines locate middle C in both clefs. A crotchet, two beamed quavers and a minim make four crotchet beats.",
         "Notation coordinates pitch and duration. In this worked 4/4 measure, one quarter plus two eighths plus one half fills all four beats.",
         _draw_music_reading,
     ),
@@ -963,3 +927,6 @@ _ITEMS = [
 
 
 SPECS: Dict[str, Spec] = {item["id"]: item for item in _ITEMS}
+
+from .music_grades import SPECS as MUSIC_GRADE_SPECS
+SPECS.update(MUSIC_GRADE_SPECS)

@@ -801,7 +801,7 @@ async def _security_headers(request, call_next):
 # Fields of a curriculum node that must never leave the server. `quiz` carries
 # every `answer` and `explain` in the bank.
 _NODE_PRIVATE = ("quiz",)
-_NODE_DETAIL_ONLY = ("lesson_media", "reference")
+_NODE_DETAIL_ONLY = ("lesson_media", "reference", "music_study", "music_path")
 
 
 def _public_node(node: dict, include_detail: bool = False) -> dict:
@@ -3387,6 +3387,7 @@ def app_shell():
     with open(os.path.join(WEB_DIR, "index.html")) as fh:
         html = fh.read()
     html = html.replace("/app/styles.css", "/app/styles.css?v=" + _asset_tag("styles.css"))
+    html = html.replace("/app/music-listening.js", "/app/music-listening.js?v=" + _asset_tag("music-listening.js"))
     html = html.replace("/app/lesson-models.js", "/app/lesson-models.js?v=" + _asset_tag("lesson-models.js"))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})

@@ -23,7 +23,7 @@ for (const file of files) {
   assert.equal(stat.size, file.size, 'Size changed: ' + file.path);
   if (file.sha) assert.equal(createHash('sha1').update(fs.readFileSync(absolute)).digest('hex'), file.sha, 'Content changed: ' + file.path);
 }
-assert.equal(files.filter(f => f.path.endsWith('.webp')).length, 870);
+assert.equal(files.filter(f => f.path.endsWith('.webp')).length, 886);
 const release = fs.mkdtempSync(path.join(os.tmpdir(), 'primer-release-'));
 for (const file of files) {
   const destination = path.join(release, file.path);

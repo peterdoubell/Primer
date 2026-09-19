@@ -6,7 +6,7 @@ This package contains deterministic, lesson-specific explanatory plates for:
 - `09-arts.json` (`arts.py`)
 - `10-mind-society.json` (`mind_society.py`)
 
-The 77 generated plates complement six pre-existing authored plates. Each is
+The 85 generated plates complement six pre-existing authored plates. Each is
 rendered at 1600×1000 and 800×500 as WebP. The visuals encode chronology,
 causation, comparison, evidence, argument, feedback, musical structure or a
 worked example; they are not decorative topic cards.
@@ -22,7 +22,12 @@ python3 tools/generate_humanities_illustrations.py --contact-sheet-dir /tmp/prim
 
 The inventory check requires specs for every previously unillustrated lesson.
 The integrity check requires exactly one illustration and two unique responsive
-WebPs for all 83 lessons. Canonical fingerprints protect each earlier authored
+WebPs for all 91 lessons. Canonical fingerprints protect each earlier authored
 illustration/model pair from accidental edits. The determinism check renders all
 77 owned plates into a temporary directory and byte-compares both sizes against
 the committed assets.
+
+Music notation is engraved through `music_notation.py` with the bundled Bravura
+font under `tools/fonts/bravura/`. `music_grades.py` adds eight worked grade
+plates; display titles are shortened for the frame while curriculum titles
+remain complete. Music clefs are anchored to their SMuFL reference pitches.
