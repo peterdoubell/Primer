@@ -416,7 +416,7 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 #sidebar .brand .mark { font-size: 40px; color: var(--gold-bright); line-height: 1; }
 #sidebar .brand h1 { font-size: 21px; margin: 8px 0 2px; letter-spacing: 0.5px; color: var(--chrome-hi); }
-#sidebar .brand .sub { font-size: 11px; color: var(--chrome-ink-dim); font-family: var(--sans); letter-spacing: 1.5px; text-transform: uppercase; }
+#sidebar .brand .sub { font-size: 12px; color: var(--chrome-ink-dim); font-family: var(--sans); letter-spacing: 1.5px; text-transform: uppercase; }
 /* An article can be many screens deep, while its curriculum context used to
    exist only on the page that launched it. This compact disclosure trigger is
    part of the sticky spine, so the field, stage and lesson remain visible at
@@ -479,7 +479,7 @@ button { font-family: var(--sans); cursor: pointer; }
    and left the last control hard against the bottom edge at short heights. */
 .statrow { display: flex; flex-direction: column; gap: 6px; }
 #sidebar .stat {
-  font-family: var(--sans); font-size: 12px; color: var(--chrome-ink-dim);
+  font-family: var(--sans); font-size: 13px; color: var(--chrome-ink-dim);
   background: rgba(0,0,0,0.2); border-radius: 8px; padding: 8px 10px;
   box-shadow: inset 0 1px 3px rgba(0,0,0,.25), 0 1px 0 var(--chrome-rule);
   display: flex; justify-content: space-between; gap: 10px;
@@ -495,6 +495,12 @@ button { font-family: var(--sans); cursor: pointer; }
    spine. */
 .chrome-row .chrome-toggle { flex: 1 1 0; min-width: 0; justify-content: center; }
 .chrome-row .tt-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Three switches in a narrow spine truncated to "V… N… A…": stack each icon
+   over its word so the whole word always fits, instead of eliding it. */
+@media (min-width: 901px) {
+  .chrome-row .chrome-toggle { flex-direction: column; gap: 3px; padding: 7px 4px; line-height: 1.15; }
+  .chrome-row .tt-label { font-size: 12px; overflow: visible; text-overflow: clip; }
+}
 
 /* ---------- page area ---------- */
 #page {
@@ -505,7 +511,7 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 @keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform:none;} }
 .pagehead { border-bottom: 2px solid var(--rule); padding-bottom: 12px; margin-bottom: 24px; }
-.pagehead .kicker { font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-ink); font-weight: 700; }
+.pagehead .kicker { font-family: var(--sans); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-ink); font-weight: 700; }
 .pagehead h2 { font-size: 34px; margin: 4px 0 0; font-weight: 500; }
 .pagehead p { color: var(--ink-soft); margin: 6px 0 0; font-size: 15px; }
 .dropcap::first-letter {
@@ -536,12 +542,12 @@ button { font-family: var(--sans); cursor: pointer; }
    tactile half of the hover lift, without which a card feels like glass. */
 .lesson-card:active { transform: translateY(-1px) scale(.995);
   box-shadow: 0 3px 8px var(--shadow); transition-duration: .06s; }
-.lesson-card .domain-tag { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
+.lesson-card .domain-tag { font-family: var(--sans); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
 /* Metadata wraps as a pair; neither label can paint over its neighbour. */
 .lesson-meta { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 10px; margin-bottom: 10px; }
 .lesson-card > .speak-btn { display: flex; margin: 8px 0 0 auto; }
 .lesson-card .goal { color: var(--ink-soft); font-size: 14px; }
-.lesson-card .stagepill { flex: none; margin-left: auto; white-space: nowrap; font-family: var(--sans); font-size: 11px; color: var(--ink-faint); }
+.lesson-card .stagepill { flex: none; margin-left: auto; white-space: nowrap; font-family: var(--sans); font-size: 12px; color: var(--ink-faint); }
 
 /* ---------- lesson plates and manipulatives ----------
    Authored pictures and executable explanations share one visual chapter,
@@ -637,10 +643,10 @@ button { font-family: var(--sans); cursor: pointer; }
   border-color: var(--gold); background: var(--tint-gold); color: var(--ink);
   box-shadow: inset 0 -3px 0 var(--gold);
 }
-.math-stage-name { min-width: 0; font-size: 12px; font-weight: 700; }
+.math-stage-name { min-width: 0; font-size: 13px; font-weight: 700; }
 .math-stage-count {
   flex: 0 0 auto; min-width: 25px; padding: 3px 6px; border-radius: 20px;
-  background: var(--paper-2); color: var(--gold-ink); font-size: 12px; text-align: center;
+  background: var(--paper-2); color: var(--gold-ink); font-size: 13px; text-align: center;
 }
 .math-stage-option.picked .math-stage-count { background: var(--field); }
 .math-gallery-live {
@@ -804,7 +810,7 @@ button { font-family: var(--sans); cursor: pointer; }
 .shadow-model-svg.is-lamp-off .shadow-screen { opacity: .68; }
 .model-slider { display: grid; gap: 4px; color: var(--ink-soft); font-family: var(--sans); }
 .model-slider-title { color: var(--ink); font-weight: 700; }
-.model-slider-ends { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
+.model-slider-ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
 .lesson-model input[type=range] { height: 44px; }
 .lesson-model input[type=range]::-webkit-slider-thumb { width: 24px; height: 24px; margin-top: -10.5px; }
 .lesson-model input[type=range]::-moz-range-thumb { width: 22px; height: 22px; }
@@ -1131,7 +1137,7 @@ button { font-family: var(--sans); cursor: pointer; }
   overflow-wrap: anywhere;
 }
 .timeline-order-visual-card strong { color: var(--accent-2); font-size: 15px; line-height: 1.2; }
-.timeline-order-visual-card small { color: var(--ink-soft); font-size: 12px; line-height: 1.35; }
+.timeline-order-visual-card small { color: var(--ink-soft); font-size: 13px; line-height: 1.35; }
 .timeline-order-scene.is-chronological .timeline-order-visual-card {
   border: 5px double var(--green-ink); background: var(--tint-green);
   box-shadow: 0 2px 5px var(--shadow);
@@ -1331,7 +1337,7 @@ button { font-family: var(--sans); cursor: pointer; }
   .timeline-order-track { gap: 5px; }
   .timeline-order-visual-card { min-height: 104px; padding: 7px; }
   .timeline-order-visual-card strong { font-size: 14px; }
-  .timeline-order-visual-card small { font-size: 11px; }
+  .timeline-order-visual-card small { font-size: 12px; }
   .timeline-order-item { grid-template-columns: 1fr; }
   .timeline-order-event { grid-template-columns: minmax(54px, .28fr) minmax(0, 1fr); }
   .timeline-order-moves { justify-content: flex-start; }
@@ -1723,7 +1729,7 @@ button { font-family: var(--sans); cursor: pointer; }
   border-radius: 50%; background: var(--accent-2); color: var(--paper-hi); font-weight: 900;
 }
 .circulation-station-copy { display: grid; gap: 4px; min-width: 0; }
-.circulation-station-copy small { color: var(--ink-soft); font-size: 11px; font-weight: 700; }
+.circulation-station-copy small { color: var(--ink-soft); font-size: 12px; font-weight: 700; }
 
 /* Tree — formal logic: a native table exposes all rows; colour is only a
    secondary cue beside the explicit True/False words. */
@@ -1825,7 +1831,7 @@ button { font-family: var(--sans); cursor: pointer; }
   display: grid; gap: 4px; min-width: 0; padding: 9px; border: 1px solid var(--paper-edge);
   border-radius: 9px; background: var(--field); color: var(--ink); font-family: var(--sans);
 }
-.venturi-metric small { color: var(--ink-soft); font-size: 11px; }
+.venturi-metric small { color: var(--ink-soft); font-size: 12px; }
 .venturi-metric strong { font-size: 14px; }
 
 /* Grove — gene expression: compartments and disabled native controls make
@@ -1849,7 +1855,7 @@ button { font-family: var(--sans); cursor: pointer; }
   display: grid; gap: 4px; min-width: 0; padding: 9px; border: 2px solid var(--paper-edge);
   border-radius: 9px; background: var(--paper-2); color: var(--ink); font-family: var(--sans);
 }
-.gene-molecule small, .gene-peptide small { color: var(--ink-soft); font-size: 11px; }
+.gene-molecule small, .gene-peptide small { color: var(--ink-soft); font-size: 12px; }
 .gene-molecule strong { overflow-wrap: break-word; font-size: 13px; }
 .gene-molecule.is-muted { border-style: dashed; opacity: .62; }
 .gene-molecule.is-active { border: 4px double var(--green); }
@@ -1948,7 +1954,7 @@ button { font-family: var(--sans); cursor: pointer; }
   display: grid; gap: 3px; min-width: 0; padding: 8px; border: 1px solid var(--paper-edge);
   border-radius: 8px; background: var(--paper-2); font-family: var(--sans);
 }
-.heat-equation-metrics small { color: var(--ink-soft); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+.heat-equation-metrics small { color: var(--ink-soft); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; }
 .heat-equation-metrics strong { color: var(--ink); font-size: 14px; }
 
 /* Forest — representative growth counts and certificate verification share a
@@ -2014,7 +2020,7 @@ button { font-family: var(--sans); cursor: pointer; }
   min-height: 92px; border: 2px solid var(--edge); border-radius: 46%;
   background: var(--paper-2); color: var(--ink); font-family: var(--sans);
 }
-.morphogen-cell strong { font-size: 12px; }
+.morphogen-cell strong { font-size: 13px; }
 .morphogen-cell small { max-width: 100%; overflow: hidden; font-size: 8px; }
 .morphogen-cell.fate-high { border: 5px double var(--green-ink); background: var(--tint-green); }
 .morphogen-cell.fate-middle { border-style: solid; background: var(--tint-gold); }
@@ -2039,8 +2045,8 @@ button { font-family: var(--sans); cursor: pointer; }
   border-radius: 9px; background: var(--paper-2); }
 .ct-insert-swatch { display: block; width: 54px; height: 54px; border: 3px double var(--edge); border-radius: 50%; }
 .ct-insert > span { display: grid; gap: 3px; min-width: 0; color: var(--ink); font-family: var(--sans); }
-.ct-insert strong { overflow-wrap: break-word; font-size: 11px; }
-.ct-insert small { color: var(--ink-soft); font-size: 10px; }
+.ct-insert strong { overflow-wrap: break-word; font-size: 12px; }
+.ct-insert small { color: var(--ink-soft); font-size: 11.5px; }
 .ct-window-range { padding: 9px; border: 5px double var(--edge); border-radius: 8px;
   background: var(--field); color: var(--ink); font: 800 12px/1.35 var(--sans); text-align: center; }
 
@@ -2420,7 +2426,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #article table.wikitable :is(td, th) { border: 1px solid var(--rule); padding: 6px 10px; }
 #article table.wikitable th { background: var(--paper-2); font-weight: 600; }
 #article caption {
-  font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint);
+  font-family: var(--sans); font-size: 13.5px; color: var(--ink-faint);
   padding-bottom: 7px; text-align: left;
 }
 
@@ -2442,7 +2448,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #article :is(.infobox, .navbox) :is(th, td) { overflow-wrap: break-word; }
 #article :is(.infobox-image, .infobox-caption, .infobox-full-data) { text-align: center; }
 #article .infobox-caption {
-  font-family: var(--sans); font-size: 12px; color: var(--ink-faint);
+  font-family: var(--sans); font-size: 13px; color: var(--ink-faint);
 }
 #article .infobox img { margin: 4px auto; }
 #article .infobox-header { background: var(--paper-hi); text-align: center; }
@@ -2451,7 +2457,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
    the line-height rather than the font size to stay readable. */
 #article ol.references { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
 #article ol.references li { margin-bottom: 0.45em; break-inside: avoid; }
-#article .mw-cite-backlink { font-size: 12px; }
+#article .mw-cite-backlink { font-size: 13px; }
 #article sup.reference { font-size: 0.72em; }
 #article .cite-bracket { color: var(--ink-faint); }
 /* Citation templates emit maintenance notes addressed to whoever edits the
@@ -2581,15 +2587,15 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 #tutor .th { padding: 14px 16px; border-bottom: 1px solid var(--chrome-rule); }
 #tutor .th .mark { color: var(--gold-bright); font-size: 22px; }
 #tutor .th b { display: block; font-size: 16px; color: var(--chrome-hi); }
-#tutor .th small { font-family: var(--sans); font-size: 11px; color: var(--chrome-ink-dim); }
+#tutor .th small { font-family: var(--sans); font-size: 12px; color: var(--chrome-ink-dim); }
 /* The remote-tutor disclosure: quiet, chrome-toned, one line under the head.
    A fact the reader deserves, at the volume of a colophon note. */
 /* The opt-out is a quiet dotted link in the disclosure's own ink — an
    action, so it must read as one, but never louder than the disclosure. */
 .tutor-optout { color: var(--chrome-ink-soft); text-decoration: underline dotted;
-  font-size: 11px; cursor: pointer; }
+  font-size: 12px; cursor: pointer; }
 .tutor-optout:hover { color: var(--chrome-hi); }
-.tutor-disclosure { font-family: var(--sans); font-size: 11px; line-height: 1.45;
+.tutor-disclosure { font-family: var(--sans); font-size: 12px; line-height: 1.45;
   color: var(--chrome-ink-dim); margin-top: 5px; }
 #tutor-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 .msg { padding: 10px 13px; border-radius: 12px; font-size: 14.5px; line-height: 1.5; max-width: 92%; }
@@ -2686,12 +2692,12 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .domain-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .domain-head .ic { font-size: 26px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 10px; color: var(--on-fill); }
 .domain-head h3 { margin: 0; font-size: 22px; }
-.domain-head .tag { font-family: var(--sans); font-size: 12px; color: var(--ink-faint); }
+.domain-head .tag { font-family: var(--sans); font-size: 13px; color: var(--ink-faint); }
 .stage-row { display: grid; grid-template-columns: 90px 1fr; gap: 10px; align-items: center; margin-bottom: 7px; }
-.stage-label { font-family: var(--sans); font-size: 11px; color: var(--ink-faint); text-align: right; }
+.stage-label { font-family: var(--sans); font-size: 12px; color: var(--ink-faint); text-align: right; }
 .node-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .node-dot {
-  font-family: var(--sans); font-size: 12px; padding: 5px 10px; border-radius: var(--r-ctl);
+  font-family: var(--sans); font-size: 13px; padding: 5px 10px; border-radius: var(--r-ctl);
   border: 1px solid var(--rule); background: var(--field); color: var(--ink-soft); cursor: pointer;
   /* Each tile is a small raised tessera: lit top edge, shaded bottom edge, so
      the wall of the Atlas has relief before any state colour is applied. */
@@ -2728,7 +2734,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .qa-head .ic { font-size: 22px; width: 38px; height: 38px; display: grid; place-items: center;
   border-radius: 9px; color: var(--on-fill); }
 .qa-head h3 { margin: 0; font-size: 19px; }
-.qa-head .tag { font-family: var(--sans); font-size: 12px; color: var(--ink-faint); }
+.qa-head .tag { font-family: var(--sans); font-size: 13px; color: var(--ink-faint); }
 .qa-row { display: grid; grid-template-columns: 1fr auto; gap: 8px 14px; align-items: start;
   padding: 12px 0; border-top: 1px solid var(--rule); }
 /* The filter sets `hidden` on non-matching rows, but the class above already
@@ -2741,7 +2747,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .qa-title p { margin: 3px 0 0; font-size: 14px; }
 .qa-acts { display: flex; gap: 8px; align-items: center; }
 .qa-arts { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
-.qa-state { font-family: var(--sans); font-size: 11px; margin-left: 8px; padding: 2px 7px;
+.qa-state { font-family: var(--sans); font-size: 12px; margin-left: 8px; padding: 2px 7px;
   border-radius: 5px; border: 1px solid var(--rule); color: var(--ink-faint); vertical-align: 2px; }
 .qa-state.mastered { background: var(--tint-green); border-color: var(--green); color: var(--green-ink); }
 .qa-state.available { border-color: var(--gold); color: var(--gold-ink); }
@@ -2749,9 +2755,9 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
    shut until asked for — eighty modules laid flat is a wall, not an index. */
 .qa-open { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
   padding: 10px 0 14px; border-bottom: 1px solid var(--rule); }
-.qa-open .muted { font-family: var(--sans); font-size: 12px; }
+.qa-open .muted { font-family: var(--sans); font-size: 13px; }
 .qa-search { margin: 14px 0 4px; }
-.qa-count { font-family: var(--sans); font-size: 12px; color: var(--ink-faint);
+.qa-count { font-family: var(--sans); font-size: 13px; color: var(--ink-faint);
   min-height: 16px; margin-bottom: 4px; }
 .qa-section { border-top: 1px solid var(--rule); }
 .qa-section > summary { cursor: pointer; padding: 11px 2px; font-family: var(--sans);
@@ -2766,7 +2772,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .qa-section[open] > summary::before { transform: rotate(90deg); }
 .qa-section > summary:hover { color: var(--link); }
 .qa-section > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-.qa-section .qa-n { font-size: 11px; color: var(--ink-faint); border: 1px solid var(--rule);
+.qa-section .qa-n { font-size: 12px; color: var(--ink-faint); border: 1px solid var(--rule);
   border-radius: 5px; padding: 1px 7px; }
 .qa-section .qa-row:first-of-type { border-top: 1px solid var(--rule); }
 @media (prefers-reduced-motion: reduce) {
@@ -2778,7 +2784,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 
 /* The Shelf's colophon — a credit line, set the way a book sets one: small,
    quiet, and beneath the shelf rather than beside it. */
-.colophon { font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint);
+.colophon { font-family: var(--sans); font-size: 13.5px; color: var(--ink-faint);
   margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--rule); }
 
 /* ---------- search ---------- */
@@ -2798,7 +2804,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   border-left: 3px solid transparent; transition: background .15s ease, border-color .15s ease; }
 .search-result:hover, .search-result:focus-visible { background: var(--paper-2); border-left-color: var(--link); }
 .search-result b { font-size: 16px; }
-.search-result .src { font-family: var(--sans); font-size: 11px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 1px; }
+.search-result .src { font-family: var(--sans); font-size: 12px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 1px; }
 #searchbox input:focus-visible { box-shadow: var(--glow-soft); }
 
 /* ---------- library ---------- */
@@ -2806,7 +2812,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .lib-item .meta { flex: 1; }
 .lib-item .meta b { font-size: 16px; }
 .lib-item .meta p { margin: 3px 0 0; font-size: 13px; color: var(--ink-soft); }
-.badge { font-family: var(--sans); font-size: 11px; padding: 3px 9px; border-radius: 20px; }
+.badge { font-family: var(--sans); font-size: 12px; padding: 3px 9px; border-radius: 20px; }
 .badge.installed { background: var(--tint-green); color: var(--green-ink); }
 /* The last daylight-mixed wash in the file: a raw day-gold RGB tint that
    stayed warm brown while the page around it went to phosphor. It is the
@@ -2817,7 +2823,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .timeline { position: relative; margin-left: 20px; padding-left: 26px; border-left: 3px solid var(--rule); }
 .tl-year { position: relative; margin-bottom: 22px; }
 .tl-year::before { content: ""; position: absolute; left: -34px; top: 3px; width: 15px; height: 15px; border-radius: 50%; background: var(--gold); border: 3px solid var(--paper); }
-.tl-year .yr { font-family: var(--sans); font-size: 12px; letter-spacing: 1px; color: var(--gold-ink); text-transform: uppercase; }
+.tl-year .yr { font-family: var(--sans); font-size: 13px; letter-spacing: 1px; color: var(--gold-ink); text-transform: uppercase; }
 .tl-year .ms { margin-top: 3px; }
 
 /* ---------- overlay / toast ---------- */
@@ -2890,7 +2896,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   #sidebar .brand .mark { line-height: 0; }
   #sidebar .brand .mark svg { width: 24px; height: 24px; }
   #sidebar .brand h1 { font-size: 17px; margin: 0; }
-  #sidebar .brand .sub { font-size: 10px; margin-left: auto; }
+  #sidebar .brand .sub { font-size: 11.5px; margin-left: auto; }
   #sidebar .spacer { display: none; }
   #reader-context-slot { margin: 0; }
   .reader-context-toggle { min-height: 50px; padding: 7px 10px; align-items: center; }
@@ -3129,7 +3135,7 @@ h3 > .card-open { font: inherit; color: inherit; }
    reader cannot stop is a failure, and a twenty-minute read is very much audio
    the reader may want to stop). */
 .read-aloud { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.read-status { font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint); }
+.read-status { font-family: var(--sans); font-size: 13.5px; color: var(--ink-faint); }
 /* The place the voice is at, for a finger to follow. Never colour alone: a
    rule down the left edge and a weight change carry it as well as the wash.
    The negative margin cancels the padding exactly, so the content box does not
@@ -3190,7 +3196,7 @@ h3 > .card-open { font: inherit; color: inherit; }
 .lesson-card.resume { border-color: var(--gold); background: var(--tint-gold); }
 .resume-note { font-family: var(--sans); font-size: 13px; color: var(--ink-soft);
   margin: 10px 0 0; padding-top: 8px; border-top: 1px solid var(--gold); }
-.resume-note b { display: block; font-size: 12px; letter-spacing: .08em;
+.resume-note b { display: block; font-size: 13px; letter-spacing: .08em;
   text-transform: uppercase; color: var(--gold-ink); margin-bottom: 2px; }
 .resume-note.ready { color: var(--gold-ink); font-weight: 600; }
 /* The young reader's speak button is absolutely positioned bottom-right of the
@@ -3256,7 +3262,7 @@ body[data-stage="0"] .resume-note, body[data-stage="1"] .resume-note { padding-r
 .unlock-reqs li { margin: 3px 0; }
 .req-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--paper-2);
   border: 1px solid var(--rule); border-radius: 20px; padding: 4px 12px; font-family: var(--sans);
-  font-size: 12.5px; color: var(--ink-soft); margin: 3px 4px 0 0; }
+  font-size: 13.5px; color: var(--ink-soft); margin: 3px 4px 0 0; }
 
 /* Refresh chips (deck-driven). */
 .refresh-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
@@ -3285,7 +3291,7 @@ body[data-stage="0"] .resume-note, body[data-stage="1"] .resume-note { padding-r
 
 /* Sidebar chrome toggles (theme, voice). */
 .chrome-toggle { background: rgba(255,255,255,0.08); border: 1px solid var(--chrome-rule);
-  color: var(--chrome-ink-soft); border-radius: 8px; padding: 7px 10px; font-family: var(--sans); font-size: 12px;
+  color: var(--chrome-ink-soft); border-radius: 8px; padding: 7px 10px; font-family: var(--sans); font-size: 13px;
   display: flex; align-items: center; gap: 8px;
   /* A switch set into the leather: lit along its top edge like every other
      raised control, so it reads as a thing with a travel, not a label. */
@@ -3304,7 +3310,7 @@ body[data-stage="0"] .resume-note, body[data-stage="1"] .resume-note { padding-r
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45), var(--glow-soft); }
 @media (prefers-reduced-motion: reduce) { .chrome-toggle:active { transform: none; } }
 
-.assumed-tag { font-size: 11px; color: var(--ink-faint); font-family: var(--sans); }
+.assumed-tag { font-size: 12px; color: var(--ink-faint); font-family: var(--sans); }
 .node-dot.assumed { border-style: dashed; }
 
 /* Tap-to-order: the second early-stage assessment format. */
@@ -3428,7 +3434,7 @@ body[data-stage="4"] .node-dot::after, body[data-stage="5"] .node-dot::after {
 /* Halos on wrapped rows must not annex a neighbour's click: the row gap
    grows to match the twelve invisible pixels each dot now carries. */
 body[data-stage="4"] .node-row, body[data-stage="5"] .node-row { gap: 12px 8px; }
-body[data-stage="4"] .badge, body[data-stage="5"] .badge { font-size: 10px; }
+body[data-stage="4"] .badge, body[data-stage="5"] .badge { font-size: 11.5px; }
 /* The stars and the seal are for children. Adults get the number. */
 body[data-stage="4"] .result-splash .stars, body[data-stage="5"] .result-splash .stars { display: none; }
 body[data-stage="4"] .result-splash .score, body[data-stage="5"] .result-splash .score { font-size: 46px; }
@@ -3453,7 +3459,7 @@ body[data-stage="5"] .domain-tag {
   font-weight: 600; letter-spacing: .05em;
 }
 body[data-stage="5"] .seal, body[data-stage="5"] .jbadge { display: none; }
-body[data-stage="5"] .kicker { font-size: 10px; letter-spacing: .14em; }
+body[data-stage="5"] .kicker { font-size: 11.5px; letter-spacing: .14em; }
 body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 
 /* Feedback region: on the page from the start, written into as the reader
@@ -3533,11 +3539,15 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 .wrote-line { font-size: 13px; margin: 8px 0 0; }
 .burn-note { font-size: 13px; max-width: 62ch; margin: 10px auto 0; }
 
-.pace-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-  margin: 10px 0 4px; font-family: var(--sans); font-size: 13px; }
+.pace-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+  margin: 14px 0 6px; font-family: var(--sans); font-size: 15px; line-height: 1.45; }
 .pace-total { color: var(--ink-soft); font-weight: 600; }
 .pace-total svg { vertical-align: -2px; color: var(--gold-ink); }
-.pace-note { font-size: 12px; }
+.pace-note { font-size: 14px; color: var(--ink-soft); }
+/* The small door is a secondary action in a sentence, not a stage-sized
+   primary: the per-stage .btn floors (min-height 44–52px) made it the
+   loudest thing on the row. Kept at a comfortable 36px touch height. */
+body .pace-row .btn.small { min-height: 36px; padding: 6px 14px; font-size: 14px; }
 
 /* ---------------- the world coming and going ---------------- */
 /* Not an alarm. A slip of paper laid across the top of the book saying where
@@ -3607,7 +3617,7 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 /* Marked AFTER the title, never instead of the padlock: every other locked
    tile in the Atlas carries 🔒, and a frontier that quietly dropped it would
    read as "open" to the one reader most likely to try it. */
-.node-dot.frontier::after { content: " ◈"; font-style: normal; font-size: 10px;
+.node-dot.frontier::after { content: " ◈"; font-style: normal; font-size: 11.5px;
   color: var(--gold); }
 .node-dot.frontier:hover { border-style: solid; background: var(--tint-gold); }
 
@@ -3666,7 +3676,7 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 
 /* Key hints on the review deck. Drawn like typewriter keys, inherit the
    button's ink, and vanish on touch screens where there are no keys. */
-kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
+kbd.key-hint { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
   padding: 1px 5px; border-radius: 4px; border: 1px solid currentColor;
   opacity: .65; margin-left: 4px; vertical-align: 1px; }
 @media (hover: none) { kbd.key-hint { display: none; } }
@@ -3696,7 +3706,7 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
    about. State now rides a class, and the picked card says so in words. */
 .pick { text-align: left; cursor: pointer; margin: 0; border-width: 2px; }
 .pick.picked { border-color: var(--gold); background: var(--paper-hi); }
-.pick .pick-mark { display: none; font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-top: 8px; }
+.pick .pick-mark { display: none; font-family: var(--sans); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-top: 8px; }
 .pick.picked .pick-mark { display: block; }
 /* The pronoun question is a radiogroup of three short labels, so it reads as
    a row rather than the breadth chooser's stack of paragraphs. */
@@ -3714,12 +3724,12 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
    mark that tells a reader which option they picked. --ink-soft is 6.04:1 on
    the same ground and 7.59:1 at night, so one token carries both themes. (A
    size bump would not have helped: 11px is still small text under WCAG.) */
-.conf-opt .conf-mark { display: none; font-family: var(--sans); font-size: 10px;
+.conf-opt .conf-mark { display: none; font-family: var(--sans); font-size: 11.5px;
   letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-left: 7px; }
 .conf-opt.picked .conf-mark { display: inline; }
 
 .onboard-steps { display: flex; justify-content: center; gap: 18px; margin-bottom: 22px; font-family: var(--sans); }
-.onboard-step { font-size: 11px; letter-spacing: .08em; color: var(--ink-place); position: relative; padding-bottom: 8px; }
+.onboard-step { font-size: 12px; letter-spacing: .08em; color: var(--ink-place); position: relative; padding-bottom: 8px; }
 .onboard-step::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 4px; height: 4px; border-radius: 50%;
   background: var(--ink-place); transform: translateX(-50%); }
 .onboard-step.done { color: var(--ink-soft); }
@@ -3823,9 +3833,9 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 
 /* Changing how the book speaks about you, kept where it is read rather than
    buried in a settings page: the frame story uses it on every page. */
-.pronoun-line { font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint);
+.pronoun-line { font-family: var(--sans); font-size: 13.5px; color: var(--ink-faint);
   margin: -6px 0 14px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.pronoun-swap { font-family: var(--sans); font-size: 12.5px; padding: 3px 10px;
+.pronoun-swap { font-family: var(--sans); font-size: 13.5px; padding: 3px 10px;
   border-radius: 20px; border: 1px solid var(--edge); background: transparent;
   color: var(--ink-soft); cursor: pointer; }
 .pronoun-swap:hover { border-color: var(--gold); color: var(--ink); }
@@ -3905,12 +3915,12 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 .node-dot.assumed-stale { border-style: dashed; border-color: var(--edge); }
 /* Full contrast, not a faded flourish: this mark is one of the two non-colour
    carriers of the tile's state (the other is the border style). */
-.dot-mark { font-size: 11px; margin-left: 3px; }
+.dot-mark { font-size: 12px; margin-left: 3px; }
 
 .atlas-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 6px; }
 .filter-opt.picked { background: var(--paper-edge); border-color: var(--gold); }
 /* Same 4.36:1 failure as .conf-mark above, same one-token remedy. */
-.filter-opt .filter-mark { display: none; font-family: var(--sans); font-size: 10px;
+.filter-opt .filter-mark { display: none; font-family: var(--sans); font-size: 11.5px;
   letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-left: 7px; }
 .filter-opt.picked .filter-mark { display: inline; }
 /* The spoken count. Sighted readers see the map shrink, so it stays quiet on
@@ -3931,7 +3941,7 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 /* 10px is the smallest type anywhere in the book (.conf-mark, .qa-state); the
    strip does not go below its own floor, and role="img" carries the whole
    sentence for anyone who cannot read it at any size. */
-.ss-cell b { position: relative; font-family: var(--sans); font-size: 10px; font-weight: 700;
+.ss-cell b { position: relative; font-family: var(--sans); font-size: 11.5px; font-weight: 700;
   letter-spacing: .04em; color: var(--ink-soft); }
 /* A shut gate says so with a hatch as well as a paler ground. */
 .ss-cell.shut { border-style: dashed; }
@@ -3960,7 +3970,7 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
   border-color: var(--gold); background: var(--tint-gold);
   box-shadow: inset 0 0 0 1.5px var(--gold); font-weight: 600;
 }
-.choice .sel-mark { display: none; font-family: var(--sans); font-size: 10px;
+.choice .sel-mark { display: none; font-family: var(--sans); font-size: 11.5px;
   letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-left: 8px; }
 .choice.selected .sel-mark { display: inline; }
 /* Only ever drawn at stage 0-1, so it is sized to the same 58px floor the
@@ -4079,7 +4089,7 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .placement-fields { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
 .placement-field { display: flex; justify-content: space-between; align-items: baseline;
   gap: 14px; width: 100%; text-align: left; }
-.placement-field .muted { font-family: var(--sans); font-size: 12px; }
+.placement-field .muted { font-family: var(--sans); font-size: 13px; }
 
 /* A pending appointment that is currently gated. It keeps its place in the row
    — the reminder is the point — but should not read as an invitation. */
@@ -4124,7 +4134,7 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
   vertical-align: top;
 }
 .ref-table thead th {
-  font-family: var(--sans); font-size: 12px; letter-spacing: .05em;
+  font-family: var(--sans); font-size: 13px; letter-spacing: .05em;
   text-transform: uppercase; color: var(--gold-ink); background: var(--paper-2);
   white-space: nowrap;
 }
@@ -4160,7 +4170,7 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .qa-fw {
   display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 3px;
   background: var(--paper-2); border: 1px solid var(--rule);
-  font-family: var(--sans); font-size: 11.5px; letter-spacing: .02em;
+  font-family: var(--sans); font-size: 12.5px; letter-spacing: .02em;
   color: var(--gold-ink); vertical-align: middle;
 }
 .qa-fw-only {
