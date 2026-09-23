@@ -132,10 +132,10 @@ PERSONAS = [
     Persona("mira", "Mira", age=4, hours=3, domains=["math", "biology"],
             skill=0.75, level=0, diligence=0.6, attends=0.8, learns=0.22,
             note="pre-reader; short attention, answers by picture"),
-    Persona("jonah", "Jonah", age=9, hours=6, domains=["math", "physics", "language"],
+    Persona("jonah", "Jonah", age=9, hours=6, domains=["math", "physics", "language", "arts"],
             skill=0.7, level=2, diligence=0.9, attends=0.9, learns=0.3,
             note="solid primary reader, works steadily"),
-    Persona("tess", "Tess", age=14, hours=8, domains=["math", "cs", "history"],
+    Persona("tess", "Tess", age=14, hours=8, domains=["math", "cs", "history", "arts"],
             skill=0.45, level=2, diligence=0.5, attends=0.55, learns=0.12,
             note="struggling teenager; patchy attendance, often wrong"),
     Persona("wren", "Wren", age=17, hours=12, domains=["math", "physics", "cs", "chemistry"],
@@ -205,6 +205,7 @@ class Reader:
         self.mastered_seen = set()
         self.xp = 0
         self.learned = {}           # node_id -> how much of it they now hold
+        self.lapsed = set()         # mastered, then lost on a failed sitting
 
     # --- plumbing -------------------------------------------------------
     def _cookies(self):
@@ -307,6 +308,11 @@ class Reader:
             self.clock.advance_minutes(6)
 
         self._work_deck(row)
+        self._read_the_story(row)
+        for path in ("/api/roadmap", "/api/journal"):
+            r = self.get(path)
+            self.f.check(r.status_code == 200, self.p.key, path + " would not open",
+                         "%s %s" % (r.status_code, r.text[:120]))
 
         stage, xp, _ = self.stage()
         row["stage"] = stage
@@ -337,9 +343,51 @@ class Reader:
             self.f.check(first == second, key, "the day reshuffled on refresh",
                          "%s vs %s" % (first, second))
 
+    # What the wire copy of a paper must never carry. The server keeps the key;
+    # a paper that ships it hands the reader's device the marking scheme.
+    _KEY_FIELDS = ("answer", "keywords", "explain")
+
+    def _check_wire_copy(self, where, questions):
+        for q in questions or []:
+            leaked = [k for k in self._KEY_FIELDS if k in q]
+            self.f.check(not leaked, self.p.key, "the answer key rode out on a " + where,
+                         "%s: %s" % (leaked, str(q.get("prompt", ""))[:60]))
+
+    def _work_drill(self, node, row):
+        """The lesson's own drill, sat before its quiz, the way the page offers it."""
+        gen = node.get("practice")
+        if not gen:
+            return
+        node_id = node["id"]
+        paper = self.get("/api/practice/%s?node_id=%s" % (gen, node_id))
+        if paper.status_code != 200:
+            return
+        body = paper.json()
+        self._check_wire_copy("drill", body.get("questions"))
+        served = self._served(body.get("token", ""))
+        if not served:
+            self.f.note(self.p.key, "a drill served a paper the book did not keep", node_id)
+            return
+        answers = self._answer(served, node.get("stage", 0), node_id)
+        out = self.post("/api/attempt", {"node_id": node_id, "token": body["token"],
+                                         "answers": answers, "seconds": 120})
+        if out.status_code == 200:
+            row["drills"] = row.get("drills", 0) + 1
+            res = out.json()
+            if res.get("lost_mastery"):
+                self.lapsed.add(node_id)
+            if res.get("newly_mastered"):
+                row["mastered"] += 1
+                self._check_mastery_is_earned(node_id, res.get("score", 0), res)
+
     def _work_lesson(self, node, row):
         node_id = node["id"]
         stage = node.get("stage", 0)
+        detail = self.get("/api/curriculum/node/" + node_id)
+        if detail.status_code == 200:
+            self.f.check("quiz" not in detail.json(), self.p.key,
+                         "the lesson page shipped its question bank", node_id)
+        self._work_drill(node, row)
         # Read it first, the way the reader would.
         for title in (node.get("articles") or [])[:1]:
             self.get("/api/article", params={"title": title})
@@ -352,6 +400,7 @@ class Reader:
             self.f.note(self.p.key, "a lesson offered today would not open",
                         "%s %s" % (node_id, paper.text[:160]))
             return
+        self._check_wire_copy("quiz", paper.json().get("questions"))
         served = self._served(paper.json()["token"])
         if not served:
             self.f.note(self.p.key, "quiz served a paper the book did not keep", node_id)
@@ -377,6 +426,8 @@ class Reader:
         score = res.get("result", {}).get("score", verdict.get("level", 0))
         if score >= 0.8:
             row["passes"] += 1
+        if verdict.get("lost_mastery"):
+            self.lapsed.add(node_id)
         if verdict.get("newly_mastered"):
             row["mastered"] += 1
             self._check_mastery_is_earned(node_id, score, verdict)
@@ -387,8 +438,20 @@ class Reader:
         first-sitting mastery, and any mastery at all for the guesser, is a
         hole in the thing the whole record rests on."""
         key = self.p.key
-        self.f.check(node_id not in self.mastered_seen, key,
-                     "the same lesson was newly mastered twice", node_id)
+        # Mastery can be lost — a failed sitting on a mastered lesson clears
+        # it — and re-proving it is reported as newly mastered again, which is
+        # right. What must not happen is re-mastery with no loss in between,
+        # or a re-mastery that pays the first-mastery bonus a second time
+        # (learner.record_attempt's `first_ever` exists to stop exactly that).
+        if node_id in self.mastered_seen:
+            self.f.check(node_id in self.lapsed, key,
+                         "a lesson was newly mastered twice without being lost between",
+                         node_id)
+            self.f.check((verdict.get("xp_gained") or 0) < 60, key,
+                         "re-proving a lapsed lesson paid the first-mastery bonus again",
+                         "%s: %s xp" % (node_id, verdict.get("xp_gained")))
+            self.relearned = getattr(self, "relearned", 0) + 1
+        self.lapsed.discard(node_id)
         self.mastered_seen.add(node_id)
         self.f.check(self.p.honesty > 0.3, key,
                      "a reader who never read anything mastered a lesson",
@@ -404,6 +467,27 @@ class Reader:
                          "%s: %d of %d" % (node_id, passes, needed))
         self.f.check(verdict.get("proven") is not False, key,
                      "a lesson was newly mastered without being proven", node_id)
+
+    def _read_the_story(self, row):
+        """The story only turns a page on earned work. Both halves are checked:
+        a page it says is ready has to turn, and one it says is not must not."""
+        story = self.get("/api/story")
+        if story.status_code != 200:
+            return
+        view = story.json()
+        ready = bool(view.get("can_advance"))
+        before = view.get("progress")
+        turned = self.post("/api/story/advance")
+        if turned.status_code != 200:
+            return
+        got = turned.json()
+        self.f.check(bool(got.get("advanced")) == ready, self.p.key,
+                     "the story's promise and its page-turn disagree",
+                     "can_advance=%s advanced=%s" % (ready, got.get("advanced")))
+        if got.get("advanced"):
+            row["pages"] = row.get("pages", 0) + 1
+            self.f.check(got.get("progress", 0) > (before or 0), self.p.key,
+                         "the story turned a page and did not move", got)
 
     def _work_deck(self, row):
         due = self.get("/api/review/due?limit=20")
@@ -536,6 +620,18 @@ def simulate(days, seed, quiet=True, out=None):
 
         findings = Findings()
         rng = random.Random(seed)
+        # The server draws papers and shuffles options with the module-level
+        # `random`. Left unseeded, the same --seed produced a different life on
+        # every run, and a finding could not be replayed to be looked at — the
+        # first re-mastery finding this tool reported vanished on replay for
+        # exactly that reason.
+        random.seed(seed)
+        # ...and the book's own generators, which keep private Random()
+        # instances seeded from the OS at import and ignore the module-level
+        # seed entirely: every drill and every shuffled option came from these.
+        from primer import practice as _practice, quiz as _quiz, tutor as _tutor
+        for i, gen in enumerate((_practice.R, _quiz.R, _tutor.R)):
+            gen.seed(seed * 101 + i)
         with TestClient(srv.app) as client:
             readers = []
             for persona in PERSONAS:
@@ -577,6 +673,9 @@ def simulate(days, seed, quiet=True, out=None):
                     "passes": sum(row["passes"] for row in r.history),
                     "mastered": len(r.mastered_seen),
                     "reviews": sum(row["reviews"] for row in r.history),
+                    "drills": sum(row.get("drills", 0) for row in r.history),
+                    "pages": sum(row.get("pages", 0) for row in r.history),
+                    "relearned": getattr(r, "relearned", 0),
                 })
         return summary, findings
     finally:
@@ -584,6 +683,15 @@ def simulate(days, seed, quiet=True, out=None):
 
 
 def main():
+    # Sets of node ids iterate in an order that changes with every process
+    # unless the string hash is pinned, and several of the book's choices read
+    # a set. Seeding `random` alone left the same --seed living a different
+    # fortnight on each run. The hash seed can only be fixed before the
+    # interpreter starts, hence the one re-exec.
+    if os.environ.get("PYTHONHASHSEED") != "0":
+        os.environ["PYTHONHASHSEED"] = "0"
+        os.execv(sys.executable, [sys.executable] + sys.argv)
+
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--days", type=int, default=14)
     ap.add_argument("--seed", type=int, default=1)
@@ -603,13 +711,14 @@ def main():
     summary, findings = simulate(args.days, args.seed, quiet=not args.verbose,
                                  out=out)
 
-    print("\n%-7s %-4s %-6s %-7s %-7s %-8s %-8s %s"
-          % ("reader", "age", "stage", "days", "quizzes", "passed", "mastered", "xp"),
-          file=out)
+    print("\n%-7s %-4s %-6s %-5s %-7s %-7s %-7s %-8s %-6s %s"
+          % ("reader", "age", "stage", "days", "drills", "quizzes", "passed", "mastered",
+             "pages", "xp"), file=out)
     for row in summary:
-        print("%-7s %-4s %-6s %-7s %-7s %-8s %-8s %s"
+        print("%-7s %-4s %-6s %-5s %-7s %-7s %-7s %-8s %-6s %s"
               % (row["reader"], row["age"], row["stage"], row["days_attended"],
-                 row["quizzes"], row["passes"], row["mastered"], row["xp"]), file=out)
+                 row["drills"], row["quizzes"], row["passes"], row["mastered"],
+                 row["pages"], row["xp"]), file=out)
 
     if findings.items:
         print("\n%d finding(s):" % len(findings), file=out)

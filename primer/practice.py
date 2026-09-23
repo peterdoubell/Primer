@@ -1196,6 +1196,10 @@ def _at_drawn_rank(build, tries: int = 80):
         if q.get("choices"):
             q["choices"] = [_ARTICLE.sub("", str(c)) for c in q["choices"]]
             q["answer"] = _ARTICLE.sub("", str(q["answer"]))
+            # Stripping can make two options one. Whatever built the card, a
+            # card with a repeated option is never served: draw another item.
+            if len(set(q["choices"])) != len(q["choices"]):
+                continue
         choices = [str(c) for c in (q.get("choices") or [])]
         if len(choices) < 2:
             return q
@@ -1336,8 +1340,15 @@ def _know_fact(spec: Dict) -> Optional[Dict]:
     else:
         keep = authored[:1]
         elsewhere = [str(d) for g in facts if g is not f for d in (g.get("d") or [])]
+        # Excluded by their stripped form. The card strips articles later
+        # (_at_drawn_rank), so "the ramp" kept here and "ramp" drawn from
+        # another fact passed an exact-string check as two options and landed
+        # on a five-year-old's card as "ramp" twice — one in every twenty-odd
+        # draws of the seesaw item (found by tests/test_young_practice.py
+        # failing intermittently, then measured).
+        bare = {_ARTICLE.sub("", c) for c in keep}
         chosen = keep + _length_balanced(key, [c for c in authored[1:] + elsewhere
-                                               if c not in keep], 2)
+                                               if _ARTICLE.sub("", c) not in bare], 2)
     q = _mc(f["q"], f["a"], chosen, f.get("explain") or "", pad=False)
     q["say"] = f.get("say", f["q"])
     q["speak_choices"] = True

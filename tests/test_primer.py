@@ -3501,6 +3501,41 @@ def test_every_short_item_can_be_passed_by_its_own_model_answer():
     assert not failures, "model answer fails its own item: {}".format(failures[:5])
 
 
+def test_no_short_answer_key_is_unmeetable():
+    """Every key has to be something SOME answer could hit.
+
+    The test above checks the model answer's total against the pass line, and
+    a dead key hides under that total: the Grade 1 music item keyed on "G" —
+    the note a treble clef names, and the whole point of the question — scored
+    0.67 on its other two keys and passed, while the scorer's three-letter
+    token floor meant no reader could ever be credited for G at all. Radiology
+    had "CT" and "S" dead the same way. Found by a simulated perfect reader
+    answering every item from the book's own key (tools/simulate_readers.py).
+    A key given back as the whole answer must score in full.
+    """
+    dead = []
+    for name, d in _banks():
+        for n in d["nodes"]:
+            for q in n.get("quiz") or []:
+                if q.get("kind") != "short":
+                    continue
+                for key in q.get("keywords") or []:
+                    if quiz.score_short_answer(str(key), [key]) < 1.0:
+                        dead.append((n["id"], key))
+    assert not dead, "keys no answer can ever meet: {}".format(dead[:8])
+
+
+def test_a_one_letter_key_is_met_by_the_word_and_not_by_a_fragment():
+    """The short-key path is exact on purpose: a possessive's "s", the letters
+    of "e.g.", or a word merely starting with the key must not credit it."""
+    s = quiz.score_short_answer
+    assert s("The treble clef identifies G on the second line", ["G"]) == 1.0
+    assert s("Order a CT of the abdomen", ["CT"]) == 1.0
+    assert s("the patient's scan", ["S"]) == 0.0
+    assert s("e.g. the second line", ["G"]) == 0.0
+    assert s("a ctenophore", ["CT"]) == 0.0
+
+
 def test_the_short_answer_scorer_still_refuses_a_run_on():
     """The multi-word fix must not re-open the substring cheat that started all
     this: "photosynthesisrespirationnutrients" once scored a perfect 1.0."""
