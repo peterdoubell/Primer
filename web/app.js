@@ -108,6 +108,13 @@ const GLYPHS = {
   spark: '<path d="M12 3.4c.9 4.1 2.6 5.8 6.7 6.7-4.1.9-5.8 2.6-6.7 6.7-.9-4.1-2.6-5.8-6.7-6.7 4.1-.9 5.8-2.6 6.7-6.7z"/><path d="M18.2 15.4c.4 1.8 1.1 2.5 2.9 2.9-1.8.4-2.5 1.1-2.9 2.9-.4-1.8-1.1-2.5-2.9-2.9 1.8-.4 2.5-1.1 2.9-2.9z"/>',
   // A single stroke of certainty: the check, for "I know it".
   known: '<path d="M4.5 13l5 5L19.5 6.5"/>',
+  // Its opposite: a crossed stroke, for the wrong verdict. Drawn so ✓ and ✗
+  // share one weight instead of two fonts' ideas of a tick.
+  wrong: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+  // A sun with eight short rays: day reading.
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/>',
+  // A fleuron: a chapter's closing ornament — two leaves off one stem.
+  fleuron: '<path d="M2 12h6M16 12h6"/><path d="M12 12c-2.6-1-4-3.4-3.2-6.4 2.8.6 4 3.2 3.2 6.4z"/><path d="M12 12c2.6 1 4 3.4 3.2 6.4-2.8-.6-4-3.2-3.2-6.4z"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/>',
   // A head and shoulders: whose book this is.
   account: '<circle cx="12" cy="8.6" r="3.4"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/>',
 };
@@ -119,6 +126,13 @@ function glyph(name, size) {
     html: '<svg viewBox="0 0 24 24" width="' + s + '" height="' + s + '" fill="none" '
         + 'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
         + 'stroke-linejoin="round">' + GLYPHS[name] + '</svg>' });
+}
+// The ✓/✗ a marked choice wears. Still never colour-only — the shape is the
+// verdict — but drawn at the icon weight rather than borrowed from the font.
+function verdictMark(ok) {
+  const g = glyph(ok ? 'known' : 'wrong', 14);
+  g.classList.add('verdict-mark');
+  return g;
 }
 // The fallback for an unknown domain must not break the two systems every
 // real domain obeys: icons are drawn glyph-adjacent marks (not emoji), and
@@ -610,7 +624,7 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
           n.classList.toggle('picked', on);
         }); } },
         el('b', {}, label),
-        el('span', { class: 'pick-mark', 'aria-hidden': 'true' }, '✓ Chosen')));
+        el('span', { class: 'pick-mark', 'aria-hidden': 'true' }, glyph('known', 13), ' Chosen')));
     });
     wrap.append(box);
     return wrap;
@@ -643,7 +657,7 @@ function field2(label, out, input) { const l = el('label', { class: 'field' }); 
         el('b', { style: 'font-size:17px' }, name), el('p', { class: 'muted', style: 'margin:5px 0 0' }, desc),
         // aria-hidden: aria-checked already tells assistive tech; the written
         // mark is for eyes that would otherwise be squinting at border weight.
-        el('span', { class: 'pick-mark', 'aria-hidden': 'true' }, '✓ Chosen'));
+        el('span', { class: 'pick-mark', 'aria-hidden': 'true' }, glyph('known', 13), ' Chosen'));
       box.append(c);
     });
     return box;
@@ -943,11 +957,11 @@ function themeToggle() {
       S.restoreFocus = 'theme-toggle';   // honoured once the view has rebuilt
       renderShell(); renderRoute();
     } else paint();
-  } }, el('span', { class: 'tt-icon', 'aria-hidden': 'true' }, '☾'), el('span', { class: 'tt-label' }, ''));
+  } }, el('span', { class: 'tt-icon', 'aria-hidden': 'true' }, glyph('moon', 15)), el('span', { class: 'tt-label' }, ''));
   function paint() {
     const now = effectiveTheme();
     b.querySelector('.tt-label').textContent = now === 'dark' ? 'Night' : 'Day';
-    b.querySelector('.tt-icon').textContent = now === 'dark' ? '☾' : '☀';
+    b.querySelector('.tt-icon').replaceChildren(glyph(now === 'dark' ? 'moon' : 'sun', 15));
     // The state has to live in the NAME. A fixed aria-label ("Switch between
     // day and night reading") overrides the element's contents in the
     // accessible-name computation, so the one word that says which mode is on
@@ -1302,7 +1316,7 @@ async function renderToday(page) {
     // pace block in /api/today) so the tile and the deck quote one number.
     const mins = (t.pace && t.pace.steps && t.pace.steps[q.key]) || 0;
     const item = el('div', { class: 'quest-item' + (q.done ? ' done' : q.excused ? ' excused' : '') },
-      el('span', { class: 'tick', 'aria-hidden': 'true' }, q.done ? '✓' : q.excused ? '—' : '✓'),
+      el('span', { class: 'tick', 'aria-hidden': 'true' }, q.excused && !q.done ? '—' : glyph('known', 15)),
       el('span', { class: 'qt' }, el('b', {}, q.label), status
         + (mins ? ' · about ' + mins + ' min' : '')));
     if (counted) {
@@ -1404,7 +1418,7 @@ async function renderToday(page) {
       el('h3', { class: 'chapter-title' }, s.title),
       el('p', { class: 'chapter-lede' }, s.text[0]),
       btn({ class: 'btn gold', style: 'margin-top:8px', onclick: () => openStory(s, t.story_can_advance, t.story_needs) }, glyph('story', 18), ' Read the chapter'));
-    if (t.story_can_advance) sc.append(el('p', { style: 'color:var(--gold-bright);font-family:var(--sans);font-size:13px;margin:10px 0 0' }, '✦ You have earned the next chapter.'));
+    if (t.story_can_advance) sc.append(el('p', { style: 'color:var(--gold-bright);font-family:var(--sans);font-size:13px;margin:10px 0 0' }, glyph('spark', 13), ' You have earned the next chapter.'));
     else if (t.story_needs) {
       const n = t.story_needs;
       let waiting = n.faded ? storyWaitingText(n) : 'The next chapter opens when you prove ' + storyWaitingText(n) + '.';
@@ -1558,7 +1572,7 @@ function openStory(s, canAdvance, needs, onClose) {
       // gold, the way the Primer's own pages would ink it.
       s.text.forEach((par, i) => modal.append(
         el('p', { class: 'story-par' + (i === 0 ? ' story-first' : '') }, par)));
-      modal.append(el('div', { class: 'story-fleuron', 'aria-hidden': 'true' }, '❦'));
+      modal.append(el('div', { class: 'story-fleuron', 'aria-hidden': 'true' }, glyph('fleuron', 40)));
       modal.append(el('p', { class: 'story-prompt' }, s.prompt));
       const controls = el('div', { style: 'display:flex;gap:10px;margin-top:18px;flex-wrap:wrap' },
         btn({ class: 'btn ghost small', style: 'color:var(--gold-bright);border-color:var(--gold)', onclick: () => speakText(chapterSay(s)) }, glyph('speak', 16), ' Read aloud'));
@@ -2322,7 +2336,7 @@ async function renderReader(page, arg) {
     // .reader-source: the book's own footnote about where the page came from,
     // not a sentence of the article. articleBlocks skips it, so read-aloud does
     // not end a twenty-minute reading with "from your shelf".
-    art.append(el('p', { class: 'muted reader-source', style: 'margin-top:30px;border-top:1px solid var(--rule);padding-top:10px' }, '✦ ' + badge + (a.simple ? ' · Simple English' : '')));
+    art.append(el('p', { class: 'muted reader-source', style: 'margin-top:30px;border-top:1px solid var(--rule);padding-top:10px' }, glyph('spark', 12), ' ' + badge + (a.simple ? ' · Simple English' : '')));
     // Back to where the eye was, once the article has been laid out. This is
     // safe to do in a single frame because fix_img stamps an intrinsic width
     // and height on every image (render.py), so nothing reflows underneath the
@@ -2962,7 +2976,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
             e.currentTarget.classList.add('picked');
             e.currentTarget.setAttribute('aria-checked', 'true');
             e.currentTarget.setAttribute('tabindex', '0');
-          } }, ...[].concat(lab), el('span', { class: 'conf-mark' }, '✓ Chosen'))));
+          } }, ...[].concat(lab), el('span', { class: 'conf-mark' }, glyph('known', 13), ' Chosen'))));
     }
 
     if (q.kind === 'choice') {
@@ -3003,7 +3017,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
           // region says the same thing out loud for a reader who is listening.
           maybeSpeak(ch);
           tell(card, 'You chose ' + ch + '. Press “Check it” when you are ready.');
-        } }, ch, el('span', { class: 'sel-mark' }, '✓ Chosen'));
+        } }, ch, el('span', { class: 'sel-mark' }, glyph('known', 13), ' Chosen'));
         b._value = ch;   // never re-read textContent
         if (q.speak_choices) {
           // The speaker sits beside the choice, not inside it: a button may not
@@ -3148,9 +3162,9 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // well as tint, and always say the verdict in words in the live region —
     // even when the question ships no explanation.
     b.classList.add(m.correct ? 'correct' : 'wrong');
-    b.prepend((m.correct ? '✓ ' : '✗ '));
+    b.prepend(verdictMark(m.correct));
     if (!m.correct && m.answer) boxEl.querySelectorAll('.choice').forEach(x => {
-      if (normalize(x._value) === normalize(m.answer)) { x.classList.add('correct'); x.prepend('✓ '); } });
+      if (normalize(x._value) === normalize(m.answer)) { x.classList.add('correct'); x.prepend(verdictMark(true)); } });
     const key = m.answer || q.answer || '';
     tell(card, m.correct ? '✓ Correct.'
                          : ('Not quite' + (key ? ' — the answer is ' + key + '.' : '.')));
@@ -4380,8 +4394,8 @@ async function renderReview(page, arg) {
     row.querySelectorAll('.recall-opt').forEach(b => {
       b.disabled = true;
       const isKey = sameText(b.querySelector('.ro-text').textContent, backAnswer(c.back));
-      if (b === chosen) { b.classList.add(ok ? 'correct' : 'wrong'); b.prepend(ok ? '✓ ' : '✗ '); }
-      else if (!ok && isKey) { b.classList.add('correct'); b.prepend('✓ '); }
+      if (b === chosen) { b.classList.add(ok ? 'correct' : 'wrong'); b.prepend(verdictMark(ok)); }
+      else if (!ok && isKey) { b.classList.add('correct'); b.prepend(verdictMark(true)); }
     });
     const show = stage.querySelector('.js-show-answer');
     if (show) show.disabled = true;
@@ -4668,7 +4682,7 @@ async function renderJourney(page) {
     if (it.kind === 'ascension') {
       // An ascension is an epoch boundary in the chronicle, not one more
       // entry — inscribed larger, ringed in gold, the timeline's punctuation.
-      tl.append(el('div', { class: 'tl-year tl-epoch' }, el('div', { class: 'yr' }, '✦ A New Epoch'), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, glyph('crown', 15)), 'You became a ' + it.name + ' — ' + (it.title || ''))));
+      tl.append(el('div', { class: 'tl-year tl-epoch' }, el('div', { class: 'yr' }, glyph('spark', 14), ' A New Epoch'), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, glyph('crown', 15)), 'You became a ' + it.name + ' — ' + (it.title || ''))));
     } else if (it.kind === 'chapter') {
       tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, 'Chapter ' + (it.number || '')), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, glyph('story', 15)), it.title || 'A chapter of your story')));
     } else {
