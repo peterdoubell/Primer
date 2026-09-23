@@ -84,6 +84,7 @@
   /* The lift a hovered object takes off the page, as a token so the press can
      be its exact inverse. */
   --lift: -3px;
+  --tick-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M4.5 13l5 5L19.5 6.5'/></svg>");
   /* The ground of a surface that lets the page show through, blurred. Solid
      chrome stays the fallback: never translucency without the blur, which is
      just text on mud. Themed, so it carries a --dk-* partner below. */
@@ -760,7 +761,8 @@ button { font-family: var(--sans); cursor: pointer; }
   border: 4px double var(--gold-ink); background: var(--tint-gold-strong);
 }
 .model-pebble.is-counted .pebble-surface::after {
-  content: "✓"; font-family: var(--sans); font-size: 19px; font-weight: 900; color: var(--gold-ink);
+  content: ""; width: 20px; height: 20px; background: var(--gold-ink);
+  -webkit-mask: var(--tick-mask) center / contain no-repeat; mask: var(--tick-mask) center / contain no-repeat;
 }
 .model-counter-scene.is-mixed .model-pebble:nth-child(1) { transform: translate(8px, 16px) rotate(-8deg); }
 .model-counter-scene.is-mixed .model-pebble:nth-child(2) { transform: translate(-4px, -8px) rotate(6deg); }
@@ -4219,3 +4221,10 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 
 .music-audio-controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
 .music-audio-answer[hidden] { display: none; }
+
+/* Drawn marks replacing typed symbols: the verdict tick/cross on a choice,
+   the quest tick, the chapter fleuron. Sized to the text they sit in. */
+.verdict-mark { margin-right: 6px; vertical-align: -0.15em; }
+.quest-item .tick .glyph svg { width: 15px; height: 15px; }
+.story-fleuron .glyph { color: var(--gold-ink); filter: drop-shadow(var(--glow-soft)); }
+.pick-mark .glyph, .conf-mark .glyph, .sel-mark .glyph, .reader-source .glyph, .tl-epoch .yr .glyph { vertical-align: -0.12em; }
