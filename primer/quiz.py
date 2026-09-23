@@ -1010,6 +1010,16 @@ def score_short_answer(given: str, keywords: List[str]) -> float:
     text = (given or "").lower()
     words = {_lemma(w) for w in re.findall(r"[^\W\d_]{3,}", text, re.UNICODE)}
     nums = set(re.findall(r"-?\d+(?:\.\d+)?", text))
+    # One- and two-letter words, kept apart from `words` and consulted only for
+    # a key that is itself that short. The three-letter floor above is right
+    # for fuzzy matching and it made such keys unmeetable: "G" (the note a
+    # treble clef names), "CT", "S" (a CAD-RADS modifier) produced no token
+    # at all, so no answer could ever hit them and the model answer quietly
+    # lost a share of its own marks. Exact standalone tokens only — the
+    # lookarounds keep the "s" of "patient's" out, and "e.g."/"i.e." are
+    # removed first so an abbreviation cannot manufacture a stray letter.
+    short = set(re.findall(r"(?<![\w'\u2019])[^\W\d_]{1,2}(?![\w'\u2019])",
+                           re.sub(r"\b(?:e\.g|i\.e)\.?", " ", text), re.UNICODE))
 
     def known(word):
         """Whether the reader produced this word, allowing for word-building.
@@ -1065,7 +1075,10 @@ def score_short_answer(given: str, keywords: List[str]) -> float:
                     and all(d in nums for d in digits))
         if digits:
             return digits[0] in nums
-        return known(parts[0]) if parts else False
+        if parts:
+            return known(parts[0])
+        bare = re.findall(r"[^\W\d_]+", key, re.UNICODE)
+        return len(bare) == 1 and bare[0] in short
 
     coverage = sum(1 for k in keywords if hit(k)) / len(keywords)
 
