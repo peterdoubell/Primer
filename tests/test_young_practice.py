@@ -88,6 +88,28 @@ def test_knowledge_options_are_never_duplicated(node_id):
             assert str(q["answer"]) in choices
 
 
+def test_no_young_card_ever_repeats_an_option_across_many_draws():
+    """The test above samples ONE random draw per node, which is how a real
+    defect showed up as a flaky test instead of a failing one: roughly one
+    draw in twenty-two of the seesaw item put "ramp" on a five-year-old's card
+    twice. The kept distractor "the ramp" and another fact's "ramp" were
+    de-duplicated before the card stripped its articles. Seeded and repeated,
+    so a defect that lives in the draw cannot hide in it.
+    """
+    import random
+    bad = []
+    for node_id in sorted(practice.young_material()):
+        for seed in range(150):
+            random.seed(seed)
+            for q in practice.generate_set("know:" + node_id, 6, level=0):
+                choices = q.get("choices")
+                if choices and (len(choices) != len(set(choices))
+                                or str(q["answer"]) not in choices):
+                    bad.append((node_id, seed, q["prompt"][:50], choices))
+                    break
+    assert not bad, "cards with a repeated option or no key: %s" % bad[:4]
+
+
 def test_a_fact_is_worth_a_review_card_and_a_category_pick_is_not():
     """A card's front has to determine its back.
 
