@@ -156,13 +156,10 @@ def _count_connections(monkeypatch, fn):
     the honest unit of cost for the deployed book.
 
     Only this thread's opens are counted. `store.connect` is a module global,
-    and by the time these run a full suite has left several of the server's
-    daily-maintenance daemon threads alive (each TestClient lifespan starts
-    one, and `_shutdown` is a module-level Event that is never cleared, so a
-    later one runs a whole backup-and-prune pass before noticing it should
-    stop). Those threads open connections of their own against their own
-    databases. Counting them would make this test a measurement of whichever
-    files pytest happened to run first.
+    and a live server may run its daily-maintenance worker concurrently with
+    a request. That worker opens its own connections. Counting them here would
+    measure scheduling rather than this request's database work. Lifespans
+    now stop their own workers instead of leaving a shared shutdown event set.
     """
     opened = []
     real = store_mod.connect

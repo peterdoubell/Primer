@@ -29,27 +29,35 @@ The Primer is three things woven together:
    serves and permanently caches live Wikipedia, so the book grows toward
    completeness as it is used.
 
-2. **A curriculum spine from preschool to the frontier.** A hand-authored graph
-   of **348 concepts across 10 domains**, each mapped to real encyclopedia
+2. **A curriculum spine from age three to master's-level study.** An authored graph
+   of **550 lessons across 19 broad fields**, each mapped to encyclopedia
    articles, arranged in six stages:
 
    | Stage | Name | Level |
    |------:|------|-------|
-   | 0 | Seedling | preschool & kindergarten |
-   | 1 | Sprout | primary school |
-   | 2 | Sapling | middle school |
-   | 3 | Tree | secondary school |
+   | 0 | Seedling | ages 3–5 · preschool & kindergarten |
+   | 1 | Sprout | ages 6–9 · primary school |
+   | 2 | Sapling | ages 10–13 · middle school |
+   | 3 | Tree | ages 14–17 · secondary school |
    | 4 | Grove | undergraduate |
-   | 5 | Forest | graduate & the frontier |
+   | 5 | Forest | master's · research & synthesis |
 
    Domains: Mathematics · Language & Literature · Physics · Life Sciences ·
    Chemistry · Computer Science · History & Civics · Earth & Space · Arts &
-   Music · Mind, Society & Philosophy.
+   Music · Mind, Society & Philosophy · Radiology · Engineering · Health ·
+   Environment & Agriculture · Architecture & Design · Business & Economics ·
+   Law & Civics · Education · Communication & Media.
+
+   Every field spans all six stages. The 106 newly added lessons include
+   teaching explanations, examples, activities, reflections and assessments.
+   Every lesson has photographic context, an explanatory illustration and an
+   interactive 3D study. The 30 AI-generated photographs are shared contexts;
+   diagrams and model explanations are attached to individual lessons. These
+   are learning pathways, not accredited or exhaustive degree programs.
+   See [the expansion guide](docs/learning-expansion.md) for scope and maintenance.
 
    Concepts unlock as their prerequisites are mastered. The graph is a
-   **lattice, not a chain**: 926 prerequisite edges, 98% of post-Seedling
-   concepts resting on two or more strands, including **221 cross-domain
-   edges** — so quantum
+   **lattice, not a chain**, with prerequisites crossing fields — so quantum
    mechanics genuinely requires linear algebra *and* differential equations,
    and biochemistry requires organic chemistry.
 
@@ -58,6 +66,11 @@ The Primer is three things woven together:
 
 ## What it does
 
+- **Memory Garden.** Play five- or ten-card spaced-repetition rounds from
+  **Review → Play Memory Garden**. Recall, reveal and rate your answer to grow
+  a garden, earn the existing review XP, and see the next scheduled visit.
+  Read-aloud and larger controls support younger learners; keyboard controls
+  and mobile layouts support everyone. [Game details](docs/memory-garden.md).
 - **Onboards and places you.** Tell it your age, weekly hours, breadth of
   ambition, and favourite fields. Every new reader starts at Stage 0 with no
   assumed knowledge. A short server-scored placement check can then credit what
@@ -73,8 +86,8 @@ The Primer is three things woven together:
   guiding you to answers rather than handing them over. It answers locally by
   default; Claude voices it only once remote answering is explicitly switched
   on (see *Optional: a smarter tutor*).
-- **Assesses honestly.** **3,212 expert-authored questions cover every single
-  concept**, weighted toward application and transfer, each with an explanation.
+- **Assesses with authored questions covering every concept**, including
+  application and transfer, each with an explanation.
   Papers are sampled at random and options shuffled on every serve, and they are
   length- and position-balanced, so no surface strategy ("pick the longest",
   "pick the first", "pick the one echoing the title") beats chance. Grading
@@ -215,8 +228,8 @@ primer/
   library.py     Kiwix archive catalogue + background resumable downloader
   server.py      FastAPI app tying it all together
 data/
-  curriculum/    10 domain files · 348 concepts · 926 prerequisite edges
-                 89 child-voiced lessons · 3,212 authored questions
+  curriculum/    19 field files · 550 lessons · six stages from age 3 to master's
+                 teaching text, authored assessments, diagrams and model bindings
   story/         the 19-chapter frame story
 web/             book-styled single-page app (vanilla JS, no build, WCAG-AA, dark mode)
 tests/           pytest regression suite (unit + HTTP layer)
@@ -362,7 +375,7 @@ change (exempting the file's path from the access gate, or a meta tag on
 
 ## Design notes & honest limits
 
-- The curriculum graph is a **spine, not a cage.** Beyond the 348 authored
+- The curriculum graph is a **spine, not a cage.** Beyond the 550 authored
   concepts, every one of Wikipedia's millions of articles is reachable by search
   and by following links — and reading any of them logs progress and can feed
   your review deck.
@@ -381,8 +394,9 @@ change (exempting the file's path from the access gate, or a meta tag on
   that evidence the last place they appeared, the unmarked self-check for free
   reading, was **retired** rather than shipped behind a warning label. The
   generator survives only as the audit's measurement apparatus; nothing in the
-  app calls it. Every one of the 348 curriculum concepts carries its own
-  authored item bank, so nothing that moves mastery is machine-written.
+  app calls it. Every one of the 550 curriculum lessons carries a fixed,
+  versioned item bank. The new expansion includes AI-assisted authored content;
+  it is not generated afresh when a learner opens a quiz.
 - **Backups are same-disk until you say otherwise.** The learner record is
   copied daily into `content/backups/` on a tiered schedule (~5 daily, 4
   weekly, 12 monthly). That protects against mistakes, not against a dead
@@ -392,10 +406,10 @@ change (exempting the file's path from the access gate, or a meta tag on
   `/api/state` as `backup.off_disk` — decided by comparing filesystem device
   ids, so pointing the variable at another folder on the same drive is
   correctly reported as still same-disk.
-- **Knowing nothing scores like knowing nothing.** Always picking the longest
-  option, the first, the second-longest, or mining the served JSON for a leaked
-  answer all sit at chance and master zero of the 348 concepts. A test sits real
-  papers with each strategy and fails if any of them beats a guess.
+- **Assessment checks target surface clues.** Regression tests sample real
+  papers and check that choosing by option position or length cannot reliably
+  pass the mastery threshold. Answer keys stay on the server. These checks
+  complement subject review; they do not establish educational validity alone.
 - The book has been reviewed by a standing **expert board** (educators, a
   learning scientist, a game designer, a UX designer and an engineer) against
   ten benchmarks — see [BOARD.md](BOARD.md) for the rubric, scores and change log.

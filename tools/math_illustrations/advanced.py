@@ -471,7 +471,7 @@ def _draw_diffeq(plate: Plate) -> None:
         return capacity / (1 + factor * math.exp(-rate * time))
 
     starts = ((120.0, BLUE, "below K: rises", 62),
-              (350.0, TEAL, "below K: rises", 26),
+              (350.0, TEAL, "below K: rises", 8),
               (650.0, CORAL, "above K: falls", -95))
     for initial, color, label, label_offset in starts:
         points = [point(time, logistic(initial, time)) for time in
@@ -1143,6 +1143,7 @@ def _draw_numerical(plate: Plate) -> None:
                fill=BLUE, anchor="mm")
     newton_box = (160, 282, 775, 620)
     newton = plate.axes(newton_box, x_range=(0, 2.2), y_range=(-2, 2.8), grid_step=1)
+    plate.text((205, 326), "f(x) = x² − 2", size=26, math_face=True, fill=INK)
     plate.polyline(_curve_points(newton, lambda x: x * x - 2, 0, 2.18), fill=INK, width=9)
     tangent = lambda x: 2 * x - 3
     plate.draw.line((*newton(0.45, tangent(0.45)), *newton(2.1, tangent(2.1))),
@@ -1172,6 +1173,7 @@ def _draw_numerical(plate: Plate) -> None:
     bisect_box = (900, 282, 1435, 548)
     bisect = plate.axes(bisect_box, x_range=(0.75, 2.1), y_range=(-1.5, 2.5), grid_step=1,
                         labels=False)
+    plate.text((1020, 315), "f(x) = x² − 2", size=26, math_face=True, fill=INK)
     plate.polyline(_curve_points(bisect, lambda x: x * x - 2, 0.75, 2.08), fill=INK, width=9)
     for x, label, style in ((1.0, "a", BLUE), (2.0, "b", CORAL), (1.5, "m1", GOLD)):
         px = bisect(x, 0)[0]

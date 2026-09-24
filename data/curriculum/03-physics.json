@@ -495,7 +495,7 @@
      "src": "/app/illustrations/seedling/physics/phys-0-float-sink-800.webp",
      "srcset": "/app/illustrations/seedling/physics/phys-0-float-sink-800.webp 800w, /app/illustrations/seedling/physics/phys-0-float-sink-1600.webp 1600w",
      "alt": "Water tanks compare balanced buoyancy and weight, sinking when weight wins, and a clay boat displacing more water.",
-     "caption": "Floating depends on average density and displaced water, so reshaping the same mass can change whether it floats.",
+          "caption": "A hollow hull excludes more water for the same clay mass. This cross-section is schematic, not a volume-scale drawing; floating requires buoyancy to balance weight.",
      "width": 1600,
      "height": 1000
     },
@@ -2506,8 +2506,8 @@
      "kind": "illustration",
      "src": "/app/illustrations/tree/physics/phys-3-energy-work-800.webp",
      "srcset": "/app/illustrations/tree/physics/phys-3-energy-work-800.webp 800w, /app/illustrations/tree/physics/phys-3-energy-work-1600.webp 1600w",
-     "alt": "A rolling energy bar and two-body collision distinguish energy transfers from momentum accounting.",
-     "caption": "Total momentum is conserved in isolated collisions, whereas total kinetic energy is conserved only in an elastic collision.",
+     "alt": "An illustrative downhill energy account preserves ten units. A 2 kg body at 4 m/s sticks to a stationary 1 kg body; the combined 3 kg moves at 8/3 m/s, conserving momentum while kinetic energy decreases.",
+     "caption": "In this isolated sticking collision, momentum remains 8 kg m/s; kinetic energy falls from 16 J to 10⅔ J. The remaining 5⅓ J becomes internal energy and other non-kinetic forms.",
      "width": 1600,
      "height": 1000
     },
@@ -3637,8 +3637,8 @@
      "kind": "illustration",
      "src": "/app/illustrations/grove/physics/phys-4-classical-800.webp",
      "srcset": "/app/illustrations/grove/physics/phys-4-classical-800.webp 800w, /app/illustrations/grove/physics/phys-4-classical-1600.webp 1600w",
-     "alt": "Trial trajectories approach a stationary-action path beside closed constant-Hamiltonian orbits in phase space.",
-     "caption": "Lagrangian and Hamiltonian views encode the same dynamics while exposing different constraints and conserved structure.",
+     "alt": "Fixed-endpoint trial paths contrast with a stationary-action free-particle path. A separate harmonic-oscillator phase portrait shows clockwise constant-Hamiltonian contours about the zero axes.",
+     "caption": "The free-particle paths and harmonic-oscillator contours are two illustrative examples. Stationary action is not always a minimum, and closed phase orbits are not a universal property of Hamiltonian systems.",
      "width": 1600,
      "height": 1000
     },
@@ -3792,6 +3792,16 @@
      "props": {
       "scenario": "phys.4.em-maxwell"
      }
+    },
+    {
+     "id": "phys-4-em-maxwell-spatial-3d",
+     "kind": "model",
+     "renderer": "spatial-3d",
+     "title": "Turn an electromagnetic wave in 3D",
+     "instructions": "Rotate the scene, advance time and turn the polarization to see E, B and propagation remain perpendicular.",
+     "props": {
+      "scenario": "phys.4.em-maxwell"
+     }
     }
    ]
   },
@@ -3921,7 +3931,7 @@
      "src": "/app/illustrations/grove/physics/phys-4-quantum-800.webp",
      "srcset": "/app/illustrations/grove/physics/phys-4-quantum-800.webp 800w, /app/illustrations/grove/physics/phys-4-quantum-1600.webp 1600w",
      "alt": "A scaled signed wavefunction and relative squared-magnitude shape are compared with repeated position detections.",
-     "caption": "The state supplies amplitudes; the normalized squared magnitude predicts the distribution of measurement outcomes.",
+     "caption": "The signed state shape and its nonnegative square are relatively scaled, not normalized densities. The 96-detection histogram is a synthetic example, not experimental data.",
      "width": 1600,
      "height": 1000
     },
@@ -4062,7 +4072,7 @@
      "src": "/app/illustrations/grove/physics/phys-4-statmech-800.webp",
      "srcset": "/app/illustrations/grove/physics/phys-4-statmech-800.webp 800w, /app/illustrations/grove/physics/phys-4-statmech-1600.webp 1600w",
      "alt": "Sixteen four-coin microstates produce the one-four-six-four-one multiplicity distribution over macrostates.",
-     "caption": "Entropy grows with multiplicity, making the balanced macrostate most probable without making any microstate more likely.",
+     "caption": "For four independent fair coins, all 16 microstates are equally likely. The two-head macrostate has six arrangements and therefore the largest probability and multiplicity entropy.",
      "width": 1600,
      "height": 1000
     },
@@ -4352,6 +4362,16 @@
      "props": {
       "scenario": "phys.4.solid-state"
      }
+    },
+    {
+     "id": "phys-4-solid-state-spatial-3d",
+     "kind": "model",
+     "renderer": "spatial-3d",
+     "title": "Explore cubic crystal unit cells",
+     "instructions": "Compare simple, body-centered and face-centered cubic cells. Switch to touching spheres and count each atom's share of the cell.",
+     "props": {
+      "scenario": "phys.4.solid-state"
+     }
     }
    ]
   },
@@ -4480,7 +4500,7 @@
      "src": "/app/illustrations/grove/physics/phys-4-particles-800.webp",
      "srcset": "/app/illustrations/grove/physics/phys-4-particles-800.webp 800w, /app/illustrations/grove/physics/phys-4-particles-1600.webp 1600w",
      "alt": "Quark charges add to proton and neutron charges beside a beta-decay ledger for three conserved quantum numbers.",
-     "caption": "Allowed composite particles and decay channels satisfy additive charge, baryon-number, and lepton-number constraints.",
+     "caption": "This beta-decay ledger preserves charge, baryon number and lepton number. These are necessary checks here, not sufficient proof that a proposed channel is physically allowed.",
      "width": 1600,
      "height": 1000
     },
@@ -4616,7 +4636,7 @@
      "src": "/app/illustrations/grove/physics/phys-4-experiment-800.webp",
      "srcset": "/app/illustrations/grove/physics/phys-4-experiment-800.webp 800w, /app/illustrations/grove/physics/phys-4-experiment-1600.webp 1600w",
      "alt": "Repeated readings contrast random scatter and systematic bias beside a calibration fit with residuals and an outlier.",
-     "caption": "A sound experiment separates imprecision from bias, calibrates its scale, and tests residual structure rather than appearance.",
+     "caption": "The plotted readings and calibration line are synthetic teaching examples. Separating scatter from bias and examining residuals tests measurement quality beyond visual fit.",
      "width": 1600,
      "height": 1000
     },
@@ -5326,7 +5346,7 @@
      "src": "/app/illustrations/forest/physics/phys-5-frontier-800.webp",
      "srcset": "/app/illustrations/forest/physics/phys-5-frontier-800.webp 800w, /app/illustrations/forest/physics/phys-5-frontier-1600.webp 1600w",
      "alt": "A flat observed rotation curve differs from visible-mass prediction beside separated gas and lensing peaks in a cluster collision.",
-     "caption": "Dark-matter inference combines mismatched rotation speeds with lensing and collision evidence while retaining model uncertainty.",
+     "caption": "The rotation curves and cluster shapes are schematic, not measurements or a sky image. Dark-matter inference combines dynamics, lensing and collision evidence while testing alternative models.",
      "width": 1600,
      "height": 1000
     },

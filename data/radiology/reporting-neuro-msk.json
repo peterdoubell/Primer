@@ -1,0 +1,3925 @@
+{
+  "rad.4.stroke": {
+    "protocol": [
+      "Confirm last-known-well, deficit and acquisition times; record noncontrast CT, arch-to-vertex CTA and perfusion or MRI components actually obtained.",
+      "For MRI, review DWI with ADC, FLAIR and susceptibility; assess perfusion motion, bolus and coverage before using maps."
+    ],
+    "checklist": [
+      {
+        "label": "Haemorrhage",
+        "detail": "Inspect parenchyma, subarachnoid spaces and extra-axial compartments before describing ischaemia."
+      },
+      {
+        "label": "Parenchyma",
+        "detail": "Localise early change or diffusion restriction by side, arterial territory and strategic structures."
+      },
+      {
+        "label": "Occlusion",
+        "detail": "Name artery and segment, tandem cervical disease and distal reconstitution."
+      },
+      {
+        "label": "Collaterals",
+        "detail": "State acquisition type, distribution and delay relative to the opposite side."
+      },
+      {
+        "label": "Tissue and complications",
+        "detail": "Report available core/delay estimates, mass effect, hydrocephalus and relevant alternative diagnoses."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "ASPECTS",
+        "method": "For an applicable MCA-territory examination, record modality, side and affected regions; score 10 minus affected regions.",
+        "pitfall": "Do not apply MCA ASPECTS to posterior circulation or treat a score as an independent treatment decision."
+      },
+      {
+        "name": "Perfusion volumes",
+        "method": "Record software, thresholds, estimated core and delayed tissue in mL, mismatch volume and ratio if valid.",
+        "pitfall": "Motion, poor bolus, truncation and reperfusion can invalidate estimates."
+      }
+    ],
+    "classification": {
+      "name": "ASPECTS",
+      "version": "10-region MCA score; name CT or DWI application",
+      "applicability": "Anterior-circulation ischaemic change in the MCA territory.",
+      "summary": "Record the affected regions with the score. Posterior circulation and perfusion use separate assessments; the score does not alone determine treatment."
+    },
+    "pitfalls": [
+      "A normal early CT does not exclude infarction.",
+      "Single-phase CTA may underrepresent delayed collateral filling; describe technique.",
+      "Treatment selection depends on the clinical pathway, not a standalone volume or time cutoff."
+    ],
+    "impression_prompts": [
+      "Is haemorrhage present, and where?",
+      "What artery is occluded and how much established injury is visible?",
+      "What critical limitation or urgent complication affects the next decision?"
+    ],
+    "escalation": [
+      "Immediately communicate acute haemorrhage, large-vessel occlusion or threatening mass effect to the stroke team with time and recipient."
+    ],
+    "template_sections": [
+      {
+        "heading": "BRAIN PARENCHYMA",
+        "body": "Acute ischaemic change: [absent / present / indeterminate]; side/territory [ ]. Involved structures [ ]. ASPECTS if applicable [__/10]; regions [ ]; modality [ ]."
+      },
+      {
+        "heading": "HAEMORRHAGE",
+        "body": "Intracranial blood: [absent / present]; compartment/site [ ]; extent [ ]. Haemorrhagic transformation [absent / petechial / haematoma / not applicable]."
+      },
+      {
+        "heading": "ARTERIAL FINDINGS",
+        "body": "Occlusion [none / artery and segment]; tandem lesion [ ]. Cervical arteries [ ]; distal reconstitution [ ]; relevant stenosis/dissection [ ]."
+      },
+      {
+        "heading": "COLLATERALS AND PERFUSION",
+        "body": "CTA phase [single / multiphase]; collateral description [ ]. Perfusion [not acquired / valid / limited]; software/thresholds [ ]; core __ mL; delayed tissue __ mL; mismatch [ ]."
+      },
+      {
+        "heading": "MASS EFFECT AND OTHER FINDINGS",
+        "body": "Midline shift __ mm; basal cisterns [ ]; ventricles [ ]; herniation [absent / specify]. Alternative explanation or incidental actionable finding [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Imaging in Acute Stroke",
+        "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/imaging-in-acute-stroke"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.brain-tumour": {
+    "protocol": [
+      "Review prior surgery, radiotherapy and systemic treatment with dates. Obtain multiplanar T1, T2/FLAIR, DWI/ADC, susceptibility and pre/postcontrast T1 when indicated.",
+      "Use matched planes and sequence parameters for follow-up; describe perfusion or spectroscopy only when acquired and technically adequate."
+    ],
+    "checklist": [
+      {
+        "label": "Epicentre",
+        "detail": "Identify intra-axial, extra-axial, intraventricular or skull-based origin and all involved compartments."
+      },
+      {
+        "label": "Components",
+        "detail": "Separate enhancing solid tissue, nonenhancing signal abnormality, necrosis, cyst and haemorrhage."
+      },
+      {
+        "label": "Advanced imaging",
+        "detail": "Describe diffusion and perfusion in the viable component with artefact limitations."
+      },
+      {
+        "label": "Extent",
+        "detail": "Inspect ventricular or leptomeningeal spread, multiplicity, eloquent structures and vessels."
+      },
+      {
+        "label": "Pressure effect",
+        "detail": "Report oedema, midline shift, cisternal crowding and obstructive hydrocephalus."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion dimensions",
+        "method": "Record three orthogonal dimensions in mm, plane/sequence and series/image; separate enhancing and nonenhancing components.",
+        "pitfall": "Do not include surrounding oedema in a solid-tumour measurement."
+      },
+      {
+        "name": "Interval change",
+        "method": "Match the same component and reference timepoint; name baseline/nadir if response criteria are applied.",
+        "pitfall": "Steroids, treatment effect and postoperative blood can change enhancement without reflecting viable tumour."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Diffusion restriction is not specific to abscess; some cellular tumours restrict.",
+      "An imaging differential does not establish molecular tumour type or WHO grade."
+    ],
+    "impression_prompts": [
+      "Where is the lesion and what is the leading supported differential?",
+      "Which structures are involved and what urgent pressure effect is present?",
+      "Is interval change convincing, and is response classification applicable?"
+    ],
+    "escalation": [
+      "Urgently communicate obstructive hydrocephalus or impending herniation."
+    ],
+    "template_sections": [
+      {
+        "heading": "LESION MAP",
+        "body": "Lesion number [ ]; epicentre [ ]; compartment [ ]; side/lobe [ ]. Dominant lesion __ × __ × __ mm on [series/image]."
+      },
+      {
+        "heading": "SIGNAL AND ENHANCEMENT",
+        "body": "T1 [ ]; T2/FLAIR [ ]; enhancement [none / homogeneous / heterogeneous / nodular / ring]; necrosis/cyst [ ]; haemorrhage/calcification [ ]."
+      },
+      {
+        "heading": "DIFFUSION AND PHYSIOLOGY",
+        "body": "DWI/ADC [ ]; perfusion [not acquired / findings]; spectroscopy [not acquired / findings]; technical limitations [ ]."
+      },
+      {
+        "heading": "EXTENT AND DISSEMINATION",
+        "body": "Corpus callosum/deep nuclei/brainstem involvement [ ]; dural or skull involvement [ ]; ventricular/leptomeningeal disease [ ]; additional lesions [ ]."
+      },
+      {
+        "heading": "OEDEMA AND PRESSURE EFFECT",
+        "body": "Oedema [ ]; ventricular compression [ ]; hydrocephalus [ ]; midline shift __ mm; cisterns/herniation [ ]."
+      },
+      {
+        "heading": "TREATMENT COMPARISON",
+        "body": "Treatment and dates [ ]; enhancing component change [ ]; nonenhancing component change [ ]; postoperative cavity [ ]; treatment effect versus progression [supported interpretation / indeterminate]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Systematic Approach to Brain Tumors",
+        "url": "https://radiologyassistant.nl/neuroradiology/brain-tumor/systematic-approach"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.brain-anatomy": {
+    "protocol": [
+      "Use multiplanar brain images with side markers and anatomic orientation verified. Add angiographic correlation when the question is vascular.",
+      "This is a localisation worksheet; select an appropriate disease-specific report for a clinical abnormality."
+    ],
+    "checklist": [
+      {
+        "label": "Surface",
+        "detail": "Name lobe, gyrus/sulcus and cortical versus subcortical position."
+      },
+      {
+        "label": "Deep structures",
+        "detail": "Check basal ganglia, thalamus, internal capsule and corpus callosum."
+      },
+      {
+        "label": "Posterior fossa",
+        "detail": "Localise midbrain, pons, medulla, cerebellar hemisphere and peduncles."
+      },
+      {
+        "label": "Spaces",
+        "detail": "Trace ventricles, cisterns, extra-axial spaces and midline relationships."
+      },
+      {
+        "label": "Supply",
+        "detail": "Distinguish arterial territories, border zones and venous drainage without assuming fixed boundaries."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion localisation",
+        "method": "Record three orthogonal dimensions and relation to a reproducible landmark.",
+        "pitfall": "Anatomic localisation alone does not determine cause."
+      },
+      {
+        "name": "Midline position",
+        "method": "If abnormal, measure perpendicular displacement from the expected midline at a named level in mm.",
+        "pitfall": "Oblique reformats or pre-existing asymmetry can mislead."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Vascular territory borders vary with arterial anatomy.",
+      "A lesion spanning arterial territories warrants a differential beyond arterial infarction."
+    ],
+    "impression_prompts": [
+      "What precise structure and compartment contain the finding?",
+      "What functionally important adjacent structure is affected?",
+      "Which disease-specific module should complete interpretation?"
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "CORTEX AND WHITE MATTER",
+        "body": "Side [ ]; lobe [ ]; gyrus/sulcus [ ]; cortical/subcortical/deep white matter [ ]; relationship to central sulcus [ ]."
+      },
+      {
+        "heading": "DEEP GREY AND CAPSULES",
+        "body": "Basal ganglia [ ]; thalamus [ ]; internal capsule limb [ ]; corpus callosum segment [ ]; finding [ ]."
+      },
+      {
+        "heading": "BRAINSTEM AND CEREBELLUM",
+        "body": "Level [midbrain / pons / medulla]; cerebellar side/lobule/peduncle [ ]; fourth ventricle relationship [ ]."
+      },
+      {
+        "heading": "VENTRICLES AND CISTERNS",
+        "body": "Ventricular anatomy [ ]; basal cisterns [ ]; extra-axial compartment [ ]; midline position [ ]."
+      },
+      {
+        "heading": "VASCULAR LOCALISATION",
+        "body": "Likely arterial/venous territory [ ]; variant supply [not evaluated / specify]; border-zone relationship [ ]; angiographic correlation [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Brain Anatomy",
+        "url": "https://radiologyassistant.nl/neuroradiology/brain/anatomy"
+      },
+      {
+        "title": "Vascular territories of the Brain",
+        "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/vascular-territories"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.cns-infection": {
+    "protocol": [
+      "Record immune status, microbiology, recent surgery and treatment. Review DWI/ADC, FLAIR, susceptibility and pre/postcontrast images.",
+      "Assess spine or angiography only when indicated by the clinical question or findings."
+    ],
+    "checklist": [
+      {
+        "label": "Enhancement compartment",
+        "detail": "Separate pachymeningeal, leptomeningeal, ependymal, parenchymal and cranial-nerve patterns."
+      },
+      {
+        "label": "Focal lesions",
+        "detail": "Characterise rim, central diffusion, oedema and multiplicity."
+      },
+      {
+        "label": "Ventricles",
+        "detail": "Inspect debris, ependymal enhancement and CSF obstruction."
+      },
+      {
+        "label": "Vessels",
+        "detail": "Check infarction, haemorrhage and suspected venous or arterial complications."
+      },
+      {
+        "label": "Source and spread",
+        "detail": "Review sinuses, mastoids, skull and operative corridors within coverage."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Collection size",
+        "method": "Measure three dimensions of drainable-appearing cavity and describe location.",
+        "pitfall": "Restricted diffusion and rim enhancement support but do not prove purulence."
+      },
+      {
+        "name": "Mass effect",
+        "method": "Record midline shift in mm and ventricular calibre with prior comparison.",
+        "pitfall": "Small strategically located lesions may cause severe obstruction."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Normal imaging does not exclude meningitis.",
+      "Seizure-related change, tumour and autoimmune disease can mimic infection."
+    ],
+    "impression_prompts": [
+      "Which compartment and pattern are involved?",
+      "Is a collection, ventriculitis or vascular complication present?",
+      "What is the confidence and appropriate microbiological correlation?"
+    ],
+    "escalation": [
+      "Communicate suspected empyema/abscess with mass effect, hydrocephalus or acute vascular complication promptly."
+    ],
+    "template_sections": [
+      {
+        "heading": "MENINGES AND CRANIAL NERVES",
+        "body": "Enhancement [none / pachymeningeal / leptomeningeal / mixed]; distribution [ ]; cranial nerves [ ]."
+      },
+      {
+        "heading": "PARENCHYMAL LESIONS",
+        "body": "Site/number [ ]; lesion __ × __ × __ mm; rim [ ]; central DWI/ADC [ ]; surrounding FLAIR abnormality [ ]."
+      },
+      {
+        "heading": "EXTRA-AXIAL COLLECTIONS",
+        "body": "Collection [none / subdural / epidural]; site [ ]; thickness __ mm; diffusion [ ]; adjacent bone [ ]."
+      },
+      {
+        "heading": "VENTRICLES AND CSF",
+        "body": "Ependymal enhancement [ ]; dependent debris [ ]; hydrocephalus [ ]; obstruction level [ ]."
+      },
+      {
+        "heading": "VASCULAR AND SOURCE FINDINGS",
+        "body": "Infarct/haemorrhage [ ]; venous or arterial abnormality [ ]; sinonasal/mastoid/operative source [ ]; mass effect [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Enhancement Patterns in CNS disease",
+        "url": "https://radiologyassistant.nl/neuroradiology/enhancement-patterns/enhancement-patterns-in-cns-diseases"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.venous-csf": {
+    "protocol": [
+      "Choose and identify the pathway: suspected venous thrombosis, hydrocephalus or intracranial hypotension. Use contrast venography or MRI sequences suited to that question.",
+      "For suspected CSF leak, record brain and spine coverage; leak localisation usually requires a separate targeted examination."
+    ],
+    "checklist": [
+      {
+        "label": "Venous lumen",
+        "detail": "Inspect superficial and deep veins and sinuses with source images; distinguish thrombus from flow artefact."
+      },
+      {
+        "label": "Parenchyma",
+        "detail": "Assess nonarterial-territory oedema, venous infarction and haemorrhage."
+      },
+      {
+        "label": "CSF pathways",
+        "detail": "Describe ventricle pattern, obstruction site and transependymal fluid."
+      },
+      {
+        "label": "Low-pressure pattern",
+        "detail": "Look for brain sag, diffuse dural enhancement, venous engorgement and subdural collections."
+      },
+      {
+        "label": "Cause and limitations",
+        "detail": "Separate supportive signs from confirmed thrombus or localised spinal leak."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Ventricular comparison",
+        "method": "Use the same axial plane and named ventricular dimension in mm on serial studies.",
+        "pitfall": "Ventriculomegaly alone does not establish symptomatic hydrocephalus."
+      },
+      {
+        "name": "Collection thickness",
+        "method": "Measure maximal subdural thickness perpendicular to the inner table.",
+        "pitfall": "Do not attribute every subdural collection to low CSF pressure."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A hypoplastic transverse sinus and time-of-flight signal loss can mimic thrombosis.",
+      "Normal brain MRI does not exclude a spinal CSF leak.",
+      "Low-lying tonsils can be acquired from brain sag; assess the entire pattern."
+    ],
+    "impression_prompts": [
+      "Is there convincing thrombosis, obstruction or a low-pressure pattern?",
+      "What parenchymal or pressure complication is present?",
+      "Is further venography or targeted leak localisation needed and why?"
+    ],
+    "escalation": [
+      "Communicate acute venous thrombosis with haemorrhage/infarction or decompensated hydrocephalus urgently."
+    ],
+    "template_sections": [
+      {
+        "heading": "EXAMINATION PATHWAY",
+        "body": "Primary question [venous thrombosis / hydrocephalus / CSF leak]; venography [none / CTV / contrast MRV / noncontrast MRV]; spinal coverage [ ]."
+      },
+      {
+        "heading": "VENOUS SYSTEM",
+        "body": "Sinuses/deep veins [patent / thrombus suspected / thrombosed / limited]; affected segments [ ]; filling defect/expansion/collaterals [ ]."
+      },
+      {
+        "heading": "VENOUS PARENCHYMAL EFFECTS",
+        "body": "Oedema/infarction [ ]; haemorrhage [ ]; distribution [ ]; mass effect [ ]."
+      },
+      {
+        "heading": "VENTRICLES AND OBSTRUCTION",
+        "body": "Lateral/third/fourth ventricle pattern [ ]; obstruction level [ ]; transependymal fluid [ ]; interval calibre [ ]."
+      },
+      {
+        "heading": "INTRACRANIAL HYPOTENSION PATTERN",
+        "body": "Dural enhancement [ ]; brain sag [ ]; venous engorgement [ ]; subdural collections [ ]; pituitary fullness [ ]; pattern [supportive / absent / indeterminate]."
+      },
+      {
+        "heading": "SPINAL LEAK ASSESSMENT",
+        "body": "Spinal longitudinal extradural collection [not assessed / absent / present]; levels [ ]; leak site [not localised / confirmed at __]; method [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Cerebral Venous Sinus Thrombosis",
+        "url": "https://radiologyassistant.nl/neuroradiology/sinus-thrombosis/cerebral-venous-thrombosis"
+      },
+      {
+        "title": "Spontaneous Intracranial Hypotension",
+        "url": "https://radiologyassistant.nl/neuroradiology/white-matter-disease-1/spontaneous-intracranial-hypotension"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.dementia": {
+    "protocol": [
+      "Review age, cognitive phenotype, tempo and prior imaging; use 3D T1, FLAIR/T2, DWI/ADC and susceptibility.",
+      "If monitoring disease-modifying treatment, use the separate therapy-specific safety protocol and comparison requirements."
+    ],
+    "checklist": [
+      {
+        "label": "Atrophy",
+        "detail": "Describe global and regional volume loss, symmetry and age context."
+      },
+      {
+        "label": "Medial temporal structures",
+        "detail": "Assess both hippocampi on comparable coronal planes."
+      },
+      {
+        "label": "Vascular burden",
+        "detail": "Record white-matter disease, lacunes, strategic and territorial infarcts."
+      },
+      {
+        "label": "Blood products",
+        "detail": "Describe microbleed count/distribution and cortical superficial siderosis."
+      },
+      {
+        "label": "Treatable mimics",
+        "detail": "Exclude mass, hydrocephalus, collection and acute diffusion abnormality."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "MTA score",
+        "method": "Report right and left 0–4 visual scores on standard coronal T1 planes.",
+        "pitfall": "Interpret with age and clinical phenotype; MTA is not specific for Alzheimer disease."
+      },
+      {
+        "name": "Fazekas score",
+        "method": "Record deep/periventricular white-matter burden using the stated visual scale.",
+        "pitfall": "FLAIR intensity alone does not establish vascular aetiology."
+      },
+      {
+        "name": "Microbleeds",
+        "method": "Count or describe burden and lobar/deep/infratentorial distribution on the same susceptibility technique.",
+        "pitfall": "Different field strength or sequence sensitivity can mimic interval increase."
+      }
+    ],
+    "classification": {
+      "name": "Visual atrophy and white-matter scales",
+      "version": "MTA 0–4; Fazekas 0–3; name any additional scale",
+      "applicability": "Descriptive structural MRI assessment in cognitive impairment.",
+      "summary": "Report individual scores and their anatomic context. They describe burden and pattern; they do not replace clinical diagnosis or biomarker assessment."
+    },
+    "pitfalls": [
+      "An atrophy pattern supports a differential; it does not independently diagnose dementia subtype.",
+      "Rapidly progressive symptoms require a different differential even when atrophy is present."
+    ],
+    "impression_prompts": [
+      "Is atrophy disproportionate for age, and what is its distribution?",
+      "What is the cerebrovascular and haemorrhagic burden?",
+      "Is there a structural alternative or urgent finding?"
+    ],
+    "escalation": [
+      "Escalate acute infarction, mass effect or unexpected rapid-progressive diffusion abnormalities in the clinical context."
+    ],
+    "template_sections": [
+      {
+        "heading": "GLOBAL AND REGIONAL VOLUME",
+        "body": "Global atrophy [none / mild / moderate / severe]; predominant region [ ]; symmetry [ ]; age appropriateness [ ]."
+      },
+      {
+        "heading": "MEDIAL TEMPORAL AND POSTERIOR ATROPHY",
+        "body": "MTA right __/4, left __/4; hippocampal symmetry [ ]; posterior parietal/precuneus atrophy [ ]; scale if used [ ]."
+      },
+      {
+        "heading": "SMALL-VESSEL AND ISCHAEMIC DISEASE",
+        "body": "White-matter distribution [ ]; Fazekas [ ]; lacunes [ ]; strategic/territorial infarcts [ ]."
+      },
+      {
+        "heading": "HAEMORRHAGIC MARKERS",
+        "body": "Microbleed count/burden [ ]; distribution [lobar / deep / infratentorial / mixed]; superficial siderosis [ ]; prior macrohaemorrhage [ ]."
+      },
+      {
+        "heading": "ALTERNATIVE STRUCTURAL CAUSES",
+        "body": "Diffusion abnormality [ ]; mass/collection [ ]; ventricular configuration [ ]; hydrocephalus features [ ]; other explanatory finding [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dementia - Role of MRI - 2026 update",
+        "url": "https://radiologyassistant.nl/neuroradiology/dementia/update"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.epilepsy-mri": {
+    "protocol": [
+      "Use HARNESS structural sequences: isotropic 3D T1, isotropic 3D FLAIR and high-resolution coronal T2 perpendicular to the hippocampal long axis; add sequences for the clinical question.",
+      "Review seizure semiology, EEG localisation and timing of recent seizures; consider age-related myelination when adapting paediatric protocols."
+    ],
+    "checklist": [
+      {
+        "label": "Hippocampi",
+        "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+      },
+      {
+        "label": "Cortical development",
+        "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+      },
+      {
+        "label": "Dual pathology",
+        "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+      },
+      {
+        "label": "Other substrates",
+        "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+      },
+      {
+        "label": "Concordance",
+        "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion dimensions",
+        "method": "Measure a suspected epileptogenic structural lesion in three planes and identify sequences.",
+        "pitfall": "Transient peri-ictal swelling can alter apparent extent."
+      },
+      {
+        "name": "Hippocampal asymmetry",
+        "method": "Use visual comparison or validated volumetry with age-appropriate reference data.",
+        "pitfall": "Oblique planes and segmentation errors can create false asymmetry."
+      }
+    ],
+    "classification": {
+      "name": "HARNESS-MRI",
+      "version": "ILAE 2019 structural protocol",
+      "applicability": "Dedicated structural epilepsy MRI; adapt for infants and specific clinical questions.",
+      "summary": "A standard acquisition protocol, not a diagnostic severity score. A normal study does not exclude epilepsy."
+    },
+    "pitfalls": [
+      "Normal MRI does not exclude epilepsy or subtle focal cortical dysplasia.",
+      "Peri-ictal diffusion and FLAIR change may be reversible; use the clinical timeline."
+    ],
+    "impression_prompts": [
+      "Is there a structural lesion plausibly relevant to seizures?",
+      "Which side/region and associated second lesion are involved?",
+      "Is the examination adequate or is targeted expert review warranted?"
+    ],
+    "escalation": [
+      "Communicate acute haemorrhage, infarction, encephalitis pattern or a mass with threatening pressure effect."
+    ],
+    "template_sections": [
+      {
+        "heading": "MESIAL TEMPORAL STRUCTURES",
+        "body": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+      },
+      {
+        "heading": "CORTEX AND MIGRATION",
+        "body": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+      },
+      {
+        "heading": "FOCAL LESIONS",
+        "body": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ × __ × __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+      },
+      {
+        "heading": "SKULL BASE AND DUAL PATHOLOGY",
+        "body": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+      },
+      {
+        "heading": "ACUTE AND ELECTROCLINICAL CORRELATION",
+        "body": "Peri-ictal appearing change [ ]; supplied EEG/semiology localisation [ ]; concordance [concordant / discordant / not assessable]; remaining limitation [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "ILAE structural MRI recommendations / HARNESS",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+      },
+      {
+        "title": "Radiology Assistant: Epilepsy MRI",
+        "url": "https://radiologyassistant.nl/neuroradiology/epilepsy/role-of-mri"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.head-trauma": {
+    "protocol": [
+      "Review unenhanced CT in brain, subdural and bone windows with multiplanar reformats; document relevant comparison and interval since injury.",
+      "Use CTA/CTV or MRI for a specific suspected vascular or occult injury, rather than treating routine CT as an exclusion test for all trauma."
+    ],
+    "checklist": [
+      {
+        "label": "Extra-axial blood",
+        "detail": "Identify epidural, subdural and subarachnoid blood and its distribution."
+      },
+      {
+        "label": "Parenchymal injury",
+        "detail": "Inspect inferior frontal/temporal surfaces, contrecoup sites and grey-white junctions."
+      },
+      {
+        "label": "Pressure",
+        "detail": "Assess ventricles, cisterns, shift and herniation."
+      },
+      {
+        "label": "Fracture",
+        "detail": "Trace calvarial/skull-base fractures and relation to vascular canals, sinuses and air spaces."
+      },
+      {
+        "label": "Secondary findings",
+        "detail": "Check pneumocephalus, scalp injury, visible orbits and device position."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Haematoma thickness",
+        "method": "Measure extra-axial blood perpendicular to the adjacent skull in mm.",
+        "pitfall": "A tangential plane overestimates thickness."
+      },
+      {
+        "name": "Shift and contusions",
+        "method": "Measure shift at a named level; document dominant contusion in three dimensions.",
+        "pitfall": "Early contusions can enlarge; unchanged shift does not mean stable blood volume."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "CT can miss diffuse axonal injury and small nonhaemorrhagic lesions.",
+      "A fracture crossing a vascular canal or venous sinus warrants explicit attention to vascular injury."
+    ],
+    "impression_prompts": [
+      "Which traumatic injuries are present and have they changed?",
+      "Is there mass effect, hydrocephalus or herniation?",
+      "Does fracture location or clinical discordance require additional evaluation?"
+    ],
+    "escalation": [
+      "Immediately communicate significant acute haemorrhage, herniation or suspected vascular injury."
+    ],
+    "template_sections": [
+      {
+        "heading": "EXTRA-AXIAL HAEMORRHAGE",
+        "body": "Epidural [ ]; subdural [ ]; subarachnoid [ ]; side/site [ ]; maximum thickness __ mm; interval change [ ]."
+      },
+      {
+        "heading": "PARENCHYMAL INJURY",
+        "body": "Contusions [ ]; dominant focus __ × __ × __ mm; shear-pattern haemorrhage [ ]; intraventricular blood [ ]."
+      },
+      {
+        "heading": "MASS EFFECT",
+        "body": "Midline shift __ mm at [ ]; basal cisterns [ ]; ventricular size [ ]; herniation [absent / type]."
+      },
+      {
+        "heading": "SKULL AND SKULL BASE",
+        "body": "Fracture [absent / site and course]; depression __ mm; vascular canal/sinus involvement [ ]; pneumocephalus [ ]."
+      },
+      {
+        "heading": "ASSOCIATED FINDINGS",
+        "body": "Scalp [ ]; orbits [ ]; mastoids/sinuses [ ]; tubes/drains [ ]; examination limitation [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant: Traumatic intracranial haemorrhage",
+        "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/traumatic-intracranial-haemorrhage"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.intracranial-haemorrhage": {
+    "protocol": [
+      "State traumatic versus spontaneous context, anticoagulation and symptom onset when supplied; review CT or MRI susceptibility with prior imaging.",
+      "Use CTA, CTV or contrast MRI when the location, age or clinical question raises a secondary cause."
+    ],
+    "checklist": [
+      {
+        "label": "Compartment",
+        "detail": "Map intraparenchymal, subarachnoid, intraventricular and extra-axial blood separately."
+      },
+      {
+        "label": "Distribution",
+        "detail": "Distinguish deep, lobar, posterior fossa and convexity patterns."
+      },
+      {
+        "label": "Complications",
+        "detail": "Look for expansion, active contrast extravasation if acquired, shift and hydrocephalus."
+      },
+      {
+        "label": "Cause",
+        "detail": "Inspect vascular lesions, venous thrombosis, underlying mass and infarction."
+      },
+      {
+        "label": "Background",
+        "detail": "Record microbleed distribution and superficial siderosis when susceptibility imaging is available."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Haematoma size/volume",
+        "method": "Record three diameters; if using ABC/2, label volume approximate and specify cm units for mL output.",
+        "pitfall": "ABC/2 is less reliable for irregular, multilobulated or multifocal haemorrhage."
+      },
+      {
+        "name": "Mass effect",
+        "method": "Measure shift in mm and describe ventricular obstruction and cisterns.",
+        "pitfall": "Posterior fossa compression can be critical without supratentorial shift."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Acute blood may obscure an underlying lesion.",
+      "Do not assign aetiology solely from location; use age, history and vascular imaging."
+    ],
+    "impression_prompts": [
+      "What compartment, location and extent of bleeding are present?",
+      "What pressure effect and interval expansion are present?",
+      "Is a secondary cause suspected or unresolved?"
+    ],
+    "escalation": [
+      "Immediately communicate acute haemorrhage with clinical significance, expansion, obstructive hydrocephalus or herniation."
+    ],
+    "template_sections": [
+      {
+        "heading": "HAEMORRHAGE DISTRIBUTION",
+        "body": "Context [traumatic / spontaneous / uncertain]; compartment(s) [ ]; dominant site [ ]; additional foci [ ]."
+      },
+      {
+        "heading": "DOMINANT HAEMATOMA",
+        "body": "Dimensions __ × __ × __ mm; approximate volume __ mL by [method / not estimated]; density/signal [ ]; interval change [ ]."
+      },
+      {
+        "heading": "VENTRICULAR AND SUBARACHNOID EXTENSION",
+        "body": "Intraventricular blood [ ]; subarachnoid distribution [ ]; obstructed CSF pathway [ ]; hydrocephalus [ ]."
+      },
+      {
+        "heading": "MASS EFFECT",
+        "body": "Oedema [ ]; midline shift __ mm; brainstem/cisternal compression [ ]; herniation [ ]."
+      },
+      {
+        "heading": "UNDERLYING CAUSE AND BACKGROUND",
+        "body": "CTA/CTV/MRI evidence of vascular lesion, thrombosis, tumour or infarct [not assessed / findings]; microbleeds/siderosis [ ]; unresolved cause [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Traumatic Intracranial Hemorrhage",
+        "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/traumatic-intracranial-haemorrhage"
+      },
+      {
+        "title": "Non-traumatic Intracranial Hemorrhage",
+        "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.ms-white-matter": {
+    "protocol": [
+      "Use comparable brain T2/FLAIR and T1 sequences; add spinal cord, optic-nerve and susceptibility-sensitive sequences according to the diagnostic question.",
+      "Record prior examination, treatment and contrast use; distinguish baseline diagnostic evaluation from activity surveillance."
+    ],
+    "checklist": [
+      {
+        "label": "Typical regions",
+        "detail": "Describe periventricular, cortical/juxtacortical, infratentorial, cord and optic-nerve involvement actually assessed."
+      },
+      {
+        "label": "Morphology",
+        "detail": "Record lesion shape, orientation and callosal or U-fibre relationship."
+      },
+      {
+        "label": "Activity",
+        "detail": "Count unequivocally new/enlarging T2 lesions and enhancing lesions on comparable studies."
+      },
+      {
+        "label": "Specificity markers",
+        "detail": "Report central-vein or paramagnetic-rim findings only with suitable acquisition and explicit assessment."
+      },
+      {
+        "label": "Mimics",
+        "detail": "Consider vascular, migraine-related, infective, metabolic and alternative inflammatory patterns."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Interval lesion burden",
+        "method": "Record new/enlarged T2 and enhancing lesion counts, locations and comparison date.",
+        "pitfall": "Scanner, slice and sequence changes can create false interval activity."
+      },
+      {
+        "name": "Cord lesion extent",
+        "method": "Describe vertebral levels, length in segments and cross-sectional position.",
+        "pitfall": "Confluent lesions and artefact can distort apparent length; confirm on axial images."
+      }
+    ],
+    "classification": {
+      "name": "McDonald diagnostic criteria",
+      "version": "2024 revision",
+      "applicability": "Clinical MS diagnostic pathway after appropriate exclusion of alternatives.",
+      "summary": "The revision includes optic nerve as a fifth topographic region and additional biomarker pathways. Report observed regions and activity; full diagnosis requires the applicable clinical and laboratory criteria."
+    },
+    "pitfalls": [
+      "Nonspecific white-matter foci are not sufficient for MS diagnosis.",
+      "A radiology report should describe criteria-relevant evidence, not diagnose MS without the required clinical/laboratory context.",
+      "Central-vein and rim markers cannot be assessed on every routine sequence."
+    ],
+    "impression_prompts": [
+      "Is the morphology/distribution typical of demyelination or nonspecific?",
+      "Is there new or enhancing activity versus the named comparison?",
+      "What missing imaging or atypical feature limits application of diagnostic criteria?"
+    ],
+    "escalation": [
+      "Escalate unexpected extensive cord disease or a treatment-associated opportunistic-infection pattern to the treating team."
+    ],
+    "template_sections": [
+      {
+        "heading": "BRAIN LESION MAP",
+        "body": "Periventricular [ ]; cortical/juxtacortical [ ]; infratentorial [ ]; callosal involvement [ ]; morphology [ ]; overall burden [ ]."
+      },
+      {
+        "heading": "CORD AND OPTIC PATHWAYS",
+        "body": "Cord [not imaged / findings]; levels/length [ ]; axial position [ ]; optic nerve [not assessed / findings]."
+      },
+      {
+        "heading": "INTERVAL ACTIVITY",
+        "body": "Comparison [ ]; new T2 lesions [number and sites / none / not assessable]; enlarged lesions [ ]; enhancing lesions [ ]; contrast [given / not given]."
+      },
+      {
+        "heading": "SUSCEPTIBILITY MARKERS",
+        "body": "Suitable sequence [yes / no]; central-vein sign [not assessed / method and result]; paramagnetic-rim lesions [not assessed / number and sites]."
+      },
+      {
+        "heading": "ALTERNATIVE PATTERN",
+        "body": "Microvascular features [ ]; diffusion/haemorrhagic abnormality [ ]; atypical features [ ]; alternative differential [ ]; criteria-relevant limitations [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Multiple Sclerosis 3.0",
+        "url": "https://radiologyassistant.nl/neuroradiology/multiple-sclerosis/diagnosis-and-differential-diagnosis-3-1"
+      },
+      {
+        "title": "McDonald criteria 2024 revision (published 2025)",
+        "url": "https://doi.org/10.1016/S1474-4422(25)00270-4"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.spine-imaging": {
+    "protocol": [
+      "State region, prior surgery and indication; use sagittal T1/T2/fluid-sensitive and targeted axial images. Add contrast or CT where infection, tumour, postoperative complication or fracture warrants it.",
+      "Count levels using a documented reference; flag transitional anatomy before assigning procedural levels."
+    ],
+    "checklist": [
+      {
+        "label": "Alignment and bone",
+        "detail": "Inspect fracture, marrow lesion, listhesis and posterior element injury."
+      },
+      {
+        "label": "Discs and stenosis",
+        "detail": "Describe level, herniation morphology and central/lateral recess/foraminal effect."
+      },
+      {
+        "label": "Neural structures",
+        "detail": "Check cord, conus, cauda equina and nerve-root compression."
+      },
+      {
+        "label": "Ligaments and epidural space",
+        "detail": "Assess disruption, haematoma, abscess and tumour."
+      },
+      {
+        "label": "Extraspinal findings",
+        "detail": "Review paraspinal soft tissues and clinically relevant visible structures."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Stenosis",
+        "method": "Describe compartment and qualitative severity with actual root/cord effect; measure if useful.",
+        "pitfall": "A canal diameter alone does not establish symptomatic compression."
+      },
+      {
+        "name": "Fracture deformity",
+        "method": "Measure height loss, retropulsion and angulation using named references.",
+        "pitfall": "Neurological status and ligament integrity cannot be inferred from body height loss."
+      }
+    ],
+    "classification": {
+      "name": "Lumbar disc nomenclature / trauma systems",
+      "version": "Lumbar Disc Nomenclature 2.0 (2014); TLICS/AO only when relevant",
+      "applicability": "Use disc nomenclature for lumbar degenerative disease; a named trauma system for the appropriate spinal region.",
+      "summary": "Keep morphology, ligament findings and clinical neurological data separate. Do not assign an automatic composite trauma score."
+    },
+    "pitfalls": [
+      "Disc bulge is not synonymous with focal herniation.",
+      "TLICS requires clinical neurological information; do not fabricate a complete score from imaging alone."
+    ],
+    "impression_prompts": [
+      "Which level and side best explain the supplied symptoms?",
+      "Is there cord/cauda equina compression or acute unstable injury?",
+      "What numbering or technical limitation affects intervention?"
+    ],
+    "escalation": [
+      "Immediately communicate suspected cord/cauda equina compression, epidural abscess or unstable traumatic injury."
+    ],
+    "template_sections": [
+      {
+        "heading": "NUMBERING AND ALIGNMENT",
+        "body": "Numbering reference [ ]; transitional vertebra [ ]; alignment [ ]; prior instrumentation [ ]."
+      },
+      {
+        "heading": "VERTEBRAE AND MARROW",
+        "body": "Fracture/marrow lesion [ ]; level [ ]; height loss [ ]; retropulsion __ mm; posterior elements [ ]."
+      },
+      {
+        "heading": "LEVEL-BY-LEVEL DEGENERATION",
+        "body": "Level [ ]: disc [normal / bulge / protrusion / extrusion / sequestration]; canal [ ]; recess side/root [ ]; foramina [ ]; facets/ligamentum flavum [ ]. Repeat for relevant levels."
+      },
+      {
+        "heading": "CORD, CONUS AND ROOTS",
+        "body": "Cord signal/calibre [ ]; conus level [ ]; root compression [ ]; cauda equina [ ]."
+      },
+      {
+        "heading": "LIGAMENTS AND EPIDURAL SPACE",
+        "body": "Traumatic ligament findings [ ]; epidural collection/mass [ ]; extent [ ]; neural effect [ ]."
+      },
+      {
+        "heading": "PARASPINAL AND POSTOPERATIVE FINDINGS",
+        "body": "Paraspinal oedema/collection [ ]; operative bed [ ]; hardware-related limitation [ ]; other findings [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Spine fractures - TLICS Classification",
+        "url": "https://radiologyassistant.nl/musculoskeletal/spine/tlics-classification-1"
+      },
+      {
+        "title": "AO Spine Classification of Thoracolumbar Fractures",
+        "url": "https://radiologyassistant.nl/musculoskeletal/spine/ao-classification"
+      },
+      {
+        "title": "Cervical injury",
+        "url": "https://radiologyassistant.nl/neuroradiology/spine/cervical-injury"
+      },
+      {
+        "title": "Lumbar Disc Herniation",
+        "url": "https://radiologyassistant.nl/neuroradiology/spine/lumbar-disc-herniation"
+      },
+      {
+        "title": "Lumbar Disc Nomenclature 2.0",
+        "url": "https://radiologyassistant.nl/neuroradiology/spine/lumbar-disc-nomenclature-2-0"
+      },
+      {
+        "title": "Myelopathy",
+        "url": "https://radiologyassistant.nl/neuroradiology/spine/myelopathy"
+      },
+      {
+        "title": "Thoracolumbar injury",
+        "url": "https://radiologyassistant.nl/neuroradiology/spine/thoracolumbar-injury"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.sella": {
+    "protocol": [
+      "Use small-field coronal and sagittal sellar T1/T2 and pre/postcontrast imaging; dynamic imaging only when indicated.",
+      "Record endocrine/visual presentation, prior treatment and whether whole-brain coverage is available."
+    ],
+    "checklist": [
+      {
+        "label": "Epicentre",
+        "detail": "Identify gland, stalk or extrasellar origin before calling a pituitary lesion."
+      },
+      {
+        "label": "Lesion tissue",
+        "detail": "Describe dimensions, enhancement, cystic change and haemorrhage."
+      },
+      {
+        "label": "Visual pathway",
+        "detail": "Assess chiasm/optic nerves and suprasellar extension."
+      },
+      {
+        "label": "Lateral extension",
+        "detail": "Describe cavernous sinus relationship and carotid encasement/narrowing."
+      },
+      {
+        "label": "Surgical anatomy",
+        "detail": "Review sellar floor, sphenoid sinus and adjacent skull base."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion size",
+        "method": "Measure AP, transverse and craniocaudal dimensions in mm on named planes.",
+        "pitfall": "Do not use gland height as a substitute for lesion dimensions."
+      },
+      {
+        "name": "Chiasm relationship",
+        "method": "Record contact, elevation or compression and measurable separation when useful.",
+        "pitfall": "Contact is not proof of visual dysfunction; correlate clinically."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Imaging cannot determine hormonal secretion.",
+      "Exclude a vascular lesion when the appearance or flow-related signal raises aneurysm."
+    ],
+    "impression_prompts": [
+      "What is the lesion epicentre and supported differential?",
+      "Are the optic pathway or cavernous sinuses involved?",
+      "Is there haemorrhage or another feature requiring urgent review?"
+    ],
+    "escalation": [
+      "Urgently communicate suspected apoplexy with acute presentation or significant optic-pathway compression."
+    ],
+    "template_sections": [
+      {
+        "heading": "GLAND AND LESION",
+        "body": "Gland [ ]; lesion epicentre [ ]; side [ ]; size __ × __ × __ mm; solid/cystic components [ ]."
+      },
+      {
+        "heading": "SIGNAL AND ENHANCEMENT",
+        "body": "T1/T2 [ ]; enhancement [ ]; haemorrhage [ ]; diffusion [if acquired]; dynamic finding [not acquired / specify]."
+      },
+      {
+        "heading": "STALK AND SUPRASELLAR REGION",
+        "body": "Stalk position/thickness [ ]; posterior pituitary signal [ ]; suprasellar extension [ ]; hypothalamic relationship [ ]."
+      },
+      {
+        "heading": "OPTIC PATHWAY",
+        "body": "Chiasm [clear / contacted / elevated / compressed]; optic nerves/tracts [ ]; separation __ mm if useful."
+      },
+      {
+        "heading": "CAVERNOUS SINUS AND SKULL BASE",
+        "body": "Right/left cavernous sinus relationship [ ]; ICA encasement/narrowing [ ]; sellar floor/sphenoid/clivus [ ]; vascular mimic [excluded / unresolved]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Sella Turcica and Parasellar Region",
+        "url": "https://radiologyassistant.nl/neuroradiology/sella-turcica/sella-turcica-and-parasellar-region"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.neck-nodes": {
+    "protocol": [
+      "Review contrast-enhanced neck images from skull base through the relevant lower neck; state tumour site, treatment and map used.",
+      "For ultrasound, record the surveyed compartments and correlate selected nodes with cross-sectional imaging when available."
+    ],
+    "checklist": [
+      {
+        "label": "Map",
+        "detail": "Assign side and nodal level using explicit anatomic boundaries."
+      },
+      {
+        "label": "Burden",
+        "detail": "Describe number, distribution, largest and most suspicious nodes."
+      },
+      {
+        "label": "Morphology",
+        "detail": "Assess necrosis, cystic change, calcification, shape and hilum where visible."
+      },
+      {
+        "label": "Extranodal spread",
+        "detail": "Describe irregular capsule, infiltrative adjacent tissue and vascular involvement with confidence."
+      },
+      {
+        "label": "Primary and pathway",
+        "detail": "Review mucosal, thyroid and salivary sites; nodal staging depends on the primary and its staging system."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Nodal dimensions",
+        "method": "Record short axis and longest dimension in mm with series/image for index nodes.",
+        "pitfall": "Size thresholds differ by level and disease; small nodes may be malignant."
+      },
+      {
+        "name": "Conglomerate extent",
+        "method": "Measure a nodal mass in three planes and describe vessel/skin involvement.",
+        "pitfall": "Do not equate matted nodes with histologically proven extranodal extension."
+      }
+    ],
+    "classification": {
+      "name": "Cervical nodal map",
+      "version": "Explicitly named surgical or extended radiotherapy map",
+      "applicability": "Anatomic nodal localisation; staging remains primary-specific.",
+      "summary": "Give level plus descriptive location when conventions differ, particularly central, retropharyngeal and lower-neck groups."
+    },
+    "pitfalls": [
+      "Cystic lateral neck nodes in adults should not automatically be labelled benign congenital cysts.",
+      "The extended radiotherapy node map and surgical level conventions differ; name the map and descriptive location."
+    ],
+    "impression_prompts": [
+      "Which side/levels contain suspicious nodes?",
+      "Is extranodal extension suspected, and what structures are threatened?",
+      "What primary-specific staging or sampling question remains?"
+    ],
+    "escalation": [
+      "Promptly communicate airway compromise, vascular complication or a deep infected collection."
+    ],
+    "template_sections": [
+      {
+        "heading": "NODAL MAP",
+        "body": "Map used [ ]; right levels [ ]; left levels [ ]; retropharyngeal/parotid/other chains [descriptive location]."
+      },
+      {
+        "heading": "INDEX NODES",
+        "body": "Node 1: side/level [ ], __ mm short axis × __ mm long axis, series/image [ ]. Node 2 [ ]."
+      },
+      {
+        "heading": "NODAL MORPHOLOGY",
+        "body": "Necrosis/cystic change [ ]; calcification [ ]; shape/hilum [ ]; conglomeration [ ]; interval change [ ]."
+      },
+      {
+        "heading": "EXTRANODAL AND VASCULAR RELATIONSHIP",
+        "body": "Extranodal extension [not seen / suspected / indeterminate]; supporting findings [ ]; carotid/IJV/skin/muscle relationship [ ]."
+      },
+      {
+        "heading": "PRIMARY AND ADDITIONAL FINDINGS",
+        "body": "Known/suspected primary [ ]; mucosal/salivary/thyroid findings [ ]; airway [ ]; primary-specific staging system and unresolved component [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Cervical Lymph Node Map",
+        "url": "https://radiologyassistant.nl/head-neck/cervical-node-mapping/cervical-node-map"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.deep-neck-spaces": {
+    "protocol": [
+      "Use contrast CT for an urgent deep-neck infection question; select MRI for tissue planes, skull-base or perineural assessment when appropriate.",
+      "Document dental artefact, airway coverage and inferior extent into the mediastinum."
+    ],
+    "checklist": [
+      {
+        "label": "Epicentre",
+        "detail": "Localise the mass/collection to a neck space and identify displacement of adjacent fat and vessels."
+      },
+      {
+        "label": "Contents",
+        "detail": "Assess enhancement, fluid, gas, fat and calcification."
+      },
+      {
+        "label": "Spread",
+        "detail": "Trace fascial, skull-base, foraminal and mediastinal extension."
+      },
+      {
+        "label": "Airway and vessels",
+        "detail": "Assess narrowing, thrombosis, encasement and haemorrhagic features."
+      },
+      {
+        "label": "Origin",
+        "detail": "Look for dental, tonsillar, salivary, congenital or neoplastic source and regional nodes."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Mass/collection size",
+        "method": "Measure three orthogonal dimensions and state the fluid component separately.",
+        "pitfall": "Rim enhancement alone does not prove a drainable abscess."
+      },
+      {
+        "name": "Airway effect",
+        "method": "Describe site and length of narrowing; measure residual lumen only when reliable.",
+        "pitfall": "Static imaging does not replace clinical airway assessment."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Retropharyngeal oedema is not synonymous with abscess.",
+      "An infiltrating lesion can cross spaces; identify the likely origin and secondary extension separately."
+    ],
+    "impression_prompts": [
+      "What is the space of origin and leading process?",
+      "Is there a likely collection, airway effect or vascular complication?",
+      "How far does disease extend and what source is visible?"
+    ],
+    "escalation": [
+      "Immediately communicate threatened airway, descending mediastinal infection or major vascular complication."
+    ],
+    "template_sections": [
+      {
+        "heading": "SPACE OF ORIGIN",
+        "body": "Epicentre [ ]; supra/infrahyoid extent [ ]; adjacent fat/vessel displacement [ ]; mass __ × __ × __ mm."
+      },
+      {
+        "heading": "LESION COMPOSITION",
+        "body": "Enhancement [ ]; fluid component __ × __ × __ mm; gas [ ]; fat/calcification [ ]; diffusion if acquired [ ]."
+      },
+      {
+        "heading": "SPREAD",
+        "body": "Retropharyngeal/danger-space extension [ ]; skull-base/foraminal extension [ ]; perineural findings [ ]; mediastinal extent [ ]."
+      },
+      {
+        "heading": "AIRWAY AND VASCULAR EFFECT",
+        "body": "Airway [ ]; carotid relationship [ ]; IJV patency [ ]; arterial complication [ ]."
+      },
+      {
+        "heading": "SOURCE AND NODES",
+        "body": "Dental/tonsillar/salivary source [ ]; mucosal lesion [ ]; regional nodes [ ]; alternative origin [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Infrahyoid Neck - MR Anatomy and Pathology",
+        "url": "https://radiologyassistant.nl/head-neck/infrahyoid-neck/MR-anatomy-and-pathology"
+      },
+      {
+        "title": "Suprahyoid Neck - MR Anatomy and Pathology",
+        "url": "https://radiologyassistant.nl/head-neck/infrahyoid-neck/Suprahyoid-neck-MR-Pathology"
+      },
+      {
+        "title": "Head Neck tumors - When to think of malignancy",
+        "url": "https://radiologyassistant.nl/head-neck/neck-masses/head-neck-tumors"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.orbit": {
+    "protocol": [
+      "Use thin-section CT with bone reformats for trauma or foreign body; contrast CT/MRI for inflammatory or mass questions as appropriate.",
+      "For MRI, include fat-suppressed orbital planes and optic pathways; establish safety when a metallic foreign body is possible."
+    ],
+    "checklist": [
+      {
+        "label": "Compartment",
+        "detail": "Localise preseptal, extraconal, intraconal, conal, globe or optic-nerve origin."
+      },
+      {
+        "label": "Globe",
+        "detail": "Assess contour, lens, vitreous, retina and visible foreign material."
+      },
+      {
+        "label": "Muscles and nerve",
+        "detail": "Describe extraocular muscle/tendon and optic nerve/sheath findings."
+      },
+      {
+        "label": "Apex and extension",
+        "detail": "Inspect optic canal, superior orbital fissure, cavernous sinus and intracranial spread."
+      },
+      {
+        "label": "Bone and infection",
+        "detail": "Review fractures, entrapment features, sinus source and collections."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion/collection",
+        "method": "Record three dimensions and relation to globe and optic nerve.",
+        "pitfall": "Small apical lesions may have major visual consequences."
+      },
+      {
+        "name": "Proptosis comparison",
+        "method": "Measure each globe relative to the same interzygomatic reference plane if clinically useful.",
+        "pitfall": "Head rotation and baseline facial asymmetry affect the comparison."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Muscle herniation on CT does not alone establish clinical entrapment.",
+      "Exclude an intraocular metallic foreign body before MRI in the appropriate trauma setting."
+    ],
+    "impression_prompts": [
+      "What compartment and structures are involved?",
+      "Is vision threatened by apical compression, infection or globe injury?",
+      "What bone, sinus or intracranial extension changes management?"
+    ],
+    "escalation": [
+      "Immediately communicate suspected globe rupture, orbital compartment syndrome pattern or orbital-apical/intracranial infection."
+    ],
+    "template_sections": [
+      {
+        "heading": "GLOBES AND PRESEPTAL TISSUES",
+        "body": "Globe contour [ ]; lens [ ]; intraocular material/haemorrhage [ ]; preseptal swelling [ ]; foreign body [ ]."
+      },
+      {
+        "heading": "ORBITAL COMPARTMENTS",
+        "body": "Lesion/collection [ ]; compartment [ ]; size __ × __ × __ mm; enhancement/diffusion [ ]; proptosis [ ]."
+      },
+      {
+        "heading": "MUSCLES AND OPTIC NERVES",
+        "body": "Extraocular muscle/tendon involvement [ ]; optic nerve/sheath [ ]; displacement/compression [ ]."
+      },
+      {
+        "heading": "APEX AND INTRACRANIAL EXTENT",
+        "body": "Orbital apex [ ]; optic canal [ ]; superior orbital fissure/cavernous sinus [ ]; intracranial extension [ ]."
+      },
+      {
+        "heading": "BONES AND SINUSES",
+        "body": "Fracture and defect [ ]; herniated contents [ ]; entrapment-suggesting configuration [ ]; sinus source [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "CT and MRI of the Eye",
+        "url": "https://radiologyassistant.nl/head-neck/orbita/pathology"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.sinuses": {
+    "protocol": [
+      "Use thin-section multiplanar CT for bony anatomy and surgical mapping. Add contrast MRI/CT for suspected invasive infection, tumour or complications.",
+      "State prior surgery and whether the examination is for routine inflammatory disease or a focal aggressive process."
+    ],
+    "checklist": [
+      {
+        "label": "Disease distribution",
+        "detail": "Describe each sinus and drainage pathway, including unilateral patterns."
+      },
+      {
+        "label": "Surgical anatomy",
+        "detail": "Inspect skull-base height/asymmetry, lamina papyracea and relevant optic/carotid relationships."
+      },
+      {
+        "label": "Bone response",
+        "detail": "Distinguish smooth remodelling, sclerosis, dehiscence and destructive erosion."
+      },
+      {
+        "label": "Tissue character",
+        "detail": "Separate secretions from an enhancing mass and assess restricted diffusion where available."
+      },
+      {
+        "label": "Spread",
+        "detail": "Review orbit, pterygopalatine fossa, skull base and intracranial compartments."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Focal lesion extent",
+        "method": "Measure enhancing tissue or expansile lesion in three dimensions.",
+        "pitfall": "Protein-rich secretions may be T1 bright or T2 dark without tumour."
+      },
+      {
+        "name": "Surgical defect/variant",
+        "method": "Document location and size of a relevant bony defect on orthogonal planes.",
+        "pitfall": "Partial volume can mimic dehiscence; confirm on thin sections."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Mucosal thickening alone does not diagnose symptomatic acute bacterial sinusitis.",
+      "Invasive spread may occur through neurovascular pathways with little bony destruction."
+    ],
+    "impression_prompts": [
+      "What pattern and drainage pathway are involved?",
+      "Is there a focal mass, aggressive process or complication?",
+      "Which operative variants or defects need explicit communication?"
+    ],
+    "escalation": [
+      "Urgently communicate suspected invasive infection, orbital abscess or intracranial extension."
+    ],
+    "template_sections": [
+      {
+        "heading": "SINUS DISTRIBUTION",
+        "body": "Frontal R/L [ ]; ethmoid R/L [ ]; maxillary R/L [ ]; sphenoid R/L [ ]; contents [mucosal thickening / fluid / complete opacification / mass]."
+      },
+      {
+        "heading": "DRAINAGE AND NASAL CAVITY",
+        "body": "Ostiomeatal units [ ]; frontal/sphenoethmoidal recesses [ ]; septum/turbinates [ ]; dental source [ ]."
+      },
+      {
+        "heading": "OPERATIVE ANATOMY",
+        "body": "Skull-base asymmetry [ ]; lamina papyracea [ ]; optic nerve/carotid canal relationship [ ]; relevant cells/variants [ ]; prior surgery [ ]."
+      },
+      {
+        "heading": "FOCAL TISSUE AND BONE",
+        "body": "Enhancing mass [ ]; size [ ]; remodelling/erosion [ ]; diffusion/signal [ ]; secretion distinction [ ]."
+      },
+      {
+        "heading": "EXTRASINUS EXTENSION",
+        "body": "Orbit/apex [ ]; pterygopalatine/infratemporal fossae [ ]; cavernous sinus [ ]; dura/brain [ ]; complication [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "MRI of the Paranasal Sinuses",
+        "url": "https://radiologyassistant.nl/head-neck/paranasal-sinuses/mri-examination"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.temporal-bone": {
+    "protocol": [
+      "Review thin-section temporal-bone CT with reformats for bony detail; use MRI with suitable diffusion for a cholesteatoma question or dedicated IAC MRI for neural disease.",
+      "Record side, hearing-loss type, trauma and prior surgery/implant."
+    ],
+    "checklist": [
+      {
+        "label": "External/middle ear",
+        "detail": "Assess canal, tympanic membrane, scutum, ossicles and recesses."
+      },
+      {
+        "label": "Mastoid and tegmen",
+        "detail": "Describe aeration, erosions and roof defects."
+      },
+      {
+        "label": "Inner ear",
+        "detail": "Inspect otic capsule, cochlea, vestibule and semicircular canals."
+      },
+      {
+        "label": "Critical channels",
+        "detail": "Review facial nerve canal, carotid canal, jugular bulb and sigmoid plate."
+      },
+      {
+        "label": "Trauma/postoperative",
+        "detail": "Describe otic-capsule violation, ossicular disruption, prosthesis and surgical cavity."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Soft tissue/erosion",
+        "method": "Measure a focal lesion in mm and map its recesses and eroded structures.",
+        "pitfall": "Nonspecific middle-ear opacification cannot establish cholesteatoma."
+      },
+      {
+        "name": "Bony defect",
+        "method": "Measure a suspected dehiscence on appropriate orthogonal canal-aligned reformats.",
+        "pitfall": "Very thin bone and partial volume can simulate a defect."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Mastoid opacification alone does not prove acute coalescent mastoiditis.",
+      "A negative small-lesion diffusion study does not absolutely exclude residual cholesteatoma."
+    ],
+    "impression_prompts": [
+      "Which ear compartment is involved and what structures are eroded?",
+      "Is there a surgical-risk variant or critical complication?",
+      "Does CT answer the question or is targeted MRI needed?"
+    ],
+    "escalation": [
+      "Promptly communicate otic-capsule/vascular canal injury, intracranial infectious extension or destructive complication."
+    ],
+    "template_sections": [
+      {
+        "heading": "EXTERNAL AND MIDDLE EAR",
+        "body": "External canal [ ]; tympanic membrane [ ]; epitympanum/mesotympanum/hypotympanum [ ]; scutum [ ]; ossicular chain [ ]."
+      },
+      {
+        "heading": "MASTOID AND TEGMEN",
+        "body": "Mastoid aeration [ ]; septal erosion [ ]; tegmen defect [ ]; mastoid cortex [ ]; postoperative cavity [ ]."
+      },
+      {
+        "heading": "INNER EAR",
+        "body": "Cochlea/vestibule [ ]; semicircular canals [ ]; otic capsule [ ]; oval/round windows [ ]; vestibular aqueduct [ ]."
+      },
+      {
+        "heading": "NEUROVASCULAR CHANNELS",
+        "body": "Facial nerve canal [ ]; carotid canal [ ]; jugular bulb/sigmoid plate [ ]; IAC if covered [ ]."
+      },
+      {
+        "heading": "FOCAL LESION, TRAUMA OR DEVICE",
+        "body": "Lesion size/extent [ ]; diffusion if acquired [ ]; fracture course [ ]; otic-capsule involvement [ ]; implant/prosthesis position [ ]; complication [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Temporal Bone Anatomy 1.0",
+        "url": "https://radiologyassistant.nl/head-neck/temporal-bone/anatomy"
+      },
+      {
+        "title": "Temporal Bone Anatomy 2.0",
+        "url": "https://radiologyassistant.nl/head-neck/temporal-bone/anatomy-2-0"
+      },
+      {
+        "title": "Temporal Bone Pathology",
+        "url": "https://radiologyassistant.nl/head-neck/temporal-bone/pathology"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.thyroid-tirads": {
+    "protocol": [
+      "Survey thyroid and cervical nodes with grayscale and Doppler as appropriate; record prior FNA/cytology and treatment.",
+      "Assign a stable nodule number and location for follow-up; adult ACR TI-RADS recommendations require clinical context."
+    ],
+    "checklist": [
+      {
+        "label": "Nodule identification",
+        "detail": "Record side, pole and three dimensions for each selected clinically relevant nodule."
+      },
+      {
+        "label": "Five features",
+        "detail": "Score composition, echogenicity, shape, margin and echogenic foci using the ACR lexicon."
+      },
+      {
+        "label": "Extension",
+        "detail": "Assess extrathyroidal extension and relationship to trachea or adjacent structures."
+      },
+      {
+        "label": "Nodes",
+        "detail": "Survey for suspicious cervical lymph nodes separately from thyroid nodule scoring."
+      },
+      {
+        "label": "Recommendation",
+        "detail": "Combine category, size, prior biopsy and clinical context; state an explicit action and interval if indicated."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Nodule size",
+        "method": "Measure three orthogonal dimensions, using the maximum diameter for the ACR size recommendation.",
+        "pitfall": "Do not mix different nodules or planes on follow-up."
+      },
+      {
+        "name": "Growth",
+        "method": "Significant growth: at least 20% in two dimensions with at least 2 mm increase, or at least 50% volume increase.",
+        "pitfall": "Compare consistent technique and account for cystic change."
+      }
+    ],
+    "classification": {
+      "name": "ACR TI-RADS",
+      "version": "2017 ACR system; current ACR atlas",
+      "applicability": "Adult thyroid nodules evaluated by ultrasound, with clinical and cytology context.",
+      "summary": "TR1–2: no routine FNA/follow-up. TR3: FNA ≥2.5 cm, follow ≥1.5 cm. TR4: FNA ≥1.5 cm, follow ≥1 cm. TR5: FNA ≥1 cm, follow ≥0.5 cm. Confirm schedule and exceptions in the ACR reference."
+    },
+    "pitfalls": [
+      "A suspicious node or invasive feature needs dedicated assessment even if the nodule is small.",
+      "The ACR algorithm does not prescribe management of already-biopsied nodules without incorporating cytology."
+    ],
+    "impression_prompts": [
+      "What is each index nodule’s point total and TR category?",
+      "Does its size and clinical context meet FNA or follow-up criteria?",
+      "Are suspicious nodes or invasive features present?"
+    ],
+    "escalation": [
+      "Promptly flag invasive findings or suspicious nodes for the appropriate thyroid/neck pathway."
+    ],
+    "template_sections": [
+      {
+        "heading": "THYROID BACKGROUND",
+        "body": "Right lobe __ × __ × __ mm; left __ × __ × __ mm; isthmus __ mm; parenchyma [homogeneous / heterogeneous]; vascularity [ ]."
+      },
+      {
+        "heading": "INDEX NODULE",
+        "body": "Nodule [number]; side/pole [ ]; dimensions __ × __ × __ mm; prior __ × __ × __ mm on [date]. Repeat for relevant nodules."
+      },
+      {
+        "heading": "ACR FEATURE SCORING",
+        "body": "Composition [ ] points __; echogenicity [ ] points __; shape [ ] points __; margin [ ] points __; echogenic foci [ ] points __; total __; TR[1/2/3/4/5]."
+      },
+      {
+        "heading": "EXTRATHYROIDAL AND NODAL FINDINGS",
+        "body": "Extrathyroidal extension [ ]; tracheal relationship [ ]; suspicious nodes [none / side, level, morphology and dimensions]."
+      },
+      {
+        "heading": "NODULE-SPECIFIC ACTION",
+        "body": "Prior cytology [none / result/date]; growth [yes / no / not assessable]; recommendation [no ACR follow-up / ultrasound at __ / FNA / individualised pathway]; reason [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "ACR TI-RADS resources",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/TI-RADS"
+      },
+      {
+        "title": "ACR TI-RADS ultrasound reporting template",
+        "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/TI-RADS/TI-RADS-Ultrasound-Reporting-Template.pdf"
+      },
+      {
+        "title": "Radiology Assistant: TI-RADS",
+        "url": "https://radiologyassistant.nl/head-neck/ti-rads/ti-rads"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.esophagus-swallowing": {
+    "protocol": [
+      "Identify examination: videofluoroscopic swallow, oesophagram or leak study; document contrast, bolus, position and limitations.",
+      "For functional swallowing, record the speech-language therapist’s participation and manoeuvres where applicable."
+    ],
+    "checklist": [
+      {
+        "label": "Oral/pharyngeal phase",
+        "detail": "Describe propulsion, symmetry, residue and upper oesophageal opening."
+      },
+      {
+        "label": "Airway invasion",
+        "detail": "Separate penetration from aspiration and specify bolus and timing."
+      },
+      {
+        "label": "Structure",
+        "detail": "Localise web, ring, diverticulum, stricture or mass."
+      },
+      {
+        "label": "Transit",
+        "detail": "Describe motility and clearance under the tested conditions."
+      },
+      {
+        "label": "Leak and complications",
+        "detail": "State the leak site, extent and whether the relevant segment was adequately distended."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Stricture",
+        "method": "Record level, length and minimum distended calibre when measurable.",
+        "pitfall": "Poor distension can simulate narrowing."
+      },
+      {
+        "name": "Retention/diverticulum",
+        "method": "Measure pouch dimensions or timed barium column only when that protocol was performed.",
+        "pitfall": "Do not infer emptying rates from untimed static images."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Absence of observed aspiration during limited sampled swallows does not exclude intermittent aspiration.",
+      "A negative leak study may be limited by inadequate opacification or a contained small defect."
+    ],
+    "impression_prompts": [
+      "Is dysfunction predominantly oropharyngeal or oesophageal?",
+      "What structural or airway-invasion finding explains symptoms?",
+      "What limitation or next evaluation is clinically relevant?"
+    ],
+    "escalation": [
+      "Communicate significant aspiration during the examination or a demonstrated perforation/leak promptly."
+    ],
+    "template_sections": [
+      {
+        "heading": "EXAMINATION AND BOLUSES",
+        "body": "Study type [ ]; position [ ]; contrast/consistencies/volumes [ ]; manoeuvres [ ]; segments adequately assessed [ ]."
+      },
+      {
+        "heading": "ORAL AND PHARYNGEAL FUNCTION",
+        "body": "Oral propulsion [ ]; pharyngeal symmetry [ ]; residue [site and degree]; cricopharyngeal opening [ ]."
+      },
+      {
+        "heading": "AIRWAY INVASION",
+        "body": "Penetration [ ]; aspiration [ ]; before/during/after swallow [ ]; bolus [ ]; cough/clearance [ ]; response to manoeuvre [ ]."
+      },
+      {
+        "heading": "OESOPHAGEAL STRUCTURE",
+        "body": "Lesion level [ ]; morphology [ ]; length __ mm; minimum calibre __ mm; diverticulum [ ]; mucosal abnormality [ ]."
+      },
+      {
+        "heading": "TRANSIT AND LEAK",
+        "body": "Motility/clearance [ ]; timed measurement if performed [ ]; leak [absent / present / limited exclusion]; site/extent [ ]; reflux observed [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Esophagus I: anatomy, rings, inflammation",
+        "url": "https://radiologyassistant.nl/chest/esophagus/esophagus-i-anatomy-rings-inflammation"
+      },
+      {
+        "title": "Esophagus II: Strictures, Acute syndromes, Neoplasms and Vascular impressions",
+        "url": "https://radiologyassistant.nl/chest/esophagus/esophagus-ii-strictures-acute-syndromes-neoplasms-and-vascular-impressions"
+      },
+      {
+        "title": "Swallowing disorders update",
+        "url": "https://radiologyassistant.nl/head-neck/swallowing/swallowing-disorders-update"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.tinnitus": {
+    "protocol": [
+      "Record pulsatile versus non-pulsatile symptom, side and hearing findings. Select temporal-bone, IAC or arterial/venous imaging accordingly.",
+      "State what the acquired examination can assess; suspected shunting may require a specialist vascular pathway despite nondiagnostic routine imaging."
+    ],
+    "checklist": [
+      {
+        "label": "IAC and CPA",
+        "detail": "Inspect vestibulocochlear nerves and masses."
+      },
+      {
+        "label": "Temporal bone",
+        "detail": "Assess middle-ear soft tissue and vascular canal dehiscence/variants."
+      },
+      {
+        "label": "Arteries",
+        "detail": "Review stenosis, dissection, aneurysm and aberrant course when covered."
+      },
+      {
+        "label": "Veins/shunts",
+        "detail": "Inspect sinus calibre, diverticulum, jugular bulb and signs of abnormal arteriovenous transit."
+      },
+      {
+        "label": "Concordance",
+        "detail": "Match side and symptom type; distinguish possible contributor from incidental variant."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Focal lesion",
+        "method": "Measure IAC/CPA or middle-ear lesion in three planes.",
+        "pitfall": "Size does not alone establish symptom causation."
+      },
+      {
+        "name": "Vascular abnormality",
+        "method": "Measure a diverticulum or lesion on orthogonal source images when useful.",
+        "pitfall": "No universal size cutoff establishes the cause of tinnitus."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A vascular loop/contact is common and may be incidental.",
+      "Routine negative MRI does not exclude all dural arteriovenous fistulas."
+    ],
+    "impression_prompts": [
+      "Is a plausible ipsilateral cause visible?",
+      "Is there a concerning vascular or skull-base lesion?",
+      "What remains unassessed by this protocol?"
+    ],
+    "escalation": [
+      "Promptly escalate suspected dural arteriovenous fistula, dissection or other significant vascular lesion."
+    ],
+    "template_sections": [
+      {
+        "heading": "SYMPTOM-TARGETED COVERAGE",
+        "body": "Phenotype [pulsatile / non-pulsatile]; side [ ]; temporal-bone/IAC/arterial/venous coverage [ ]."
+      },
+      {
+        "heading": "IAC AND CPA",
+        "body": "IAC/CPA mass [ ]; nerve morphology/enhancement [ ]; size if lesion __ × __ × __ mm."
+      },
+      {
+        "heading": "MIDDLE EAR AND BONE",
+        "body": "Middle-ear lesion [ ]; carotid/jugular/sigmoid plate relationship [ ]; bony dehiscence [ ]; other temporal-bone finding [ ]."
+      },
+      {
+        "heading": "ARTERIAL AND VENOUS FINDINGS",
+        "body": "Arterial abnormality [ ]; sinus stenosis/diverticulum [ ]; jugular bulb [ ]; shunting signs [not assessed / absent / present]."
+      },
+      {
+        "heading": "CONCORDANCE AND LIMITS",
+        "body": "Finding concordant with side/phenotype [ ]; alternative contributor [ ]; unresolved vascular question [ ]; suggested targeted evaluation [if indicated]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Pulsatile and non-pulsatile tinnitus",
+        "url": "https://radiologyassistant.nl/head-neck/tinnitus/pulsatile-and-non-pulsatile-tinnitus"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.trigeminal": {
+    "protocol": [
+      "Use high-resolution 3D heavily T2 cisternal images, vascular correlation and appropriate pre/postcontrast imaging through the entire symptomatic nerve course.",
+      "Document neuralgia versus sensory/motor neuropathy and relevant malignancy or inflammatory history."
+    ],
+    "checklist": [
+      {
+        "label": "Brainstem",
+        "detail": "Inspect trigeminal nuclei/root entry zone for infarct, demyelination or mass."
+      },
+      {
+        "label": "Cisternal nerve",
+        "detail": "Describe vessel contact, exact site and nerve displacement/atrophy."
+      },
+      {
+        "label": "Meckel cave",
+        "detail": "Assess nerve/ganglion size, signal and enhancement."
+      },
+      {
+        "label": "Cavernous and foraminal course",
+        "detail": "Trace V1/V2/V3 pathways and skull-base foramina."
+      },
+      {
+        "label": "Peripheral spread",
+        "detail": "Review perineural tumour spread, denervation and extracranial cause within coverage."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Contact localisation",
+        "method": "Describe distance from root entry zone or specific segment when reproducible.",
+        "pitfall": "Contact alone is not proof of symptomatic compression."
+      },
+      {
+        "name": "Mass or nerve enlargement",
+        "method": "Measure a focal mass or abnormal nerve segment in mm with side comparison.",
+        "pitfall": "Normal enhancement varies by segment; do not apply a universal thickness cutoff."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Neurovascular contact is frequent without symptoms; describe morphological nerve change.",
+      "A cisternal-only study can miss distal perineural disease."
+    ],
+    "impression_prompts": [
+      "Is there compressive neurovascular conflict or simple contact?",
+      "Is there a secondary cause along the nerve?",
+      "Does coverage adequately include the symptomatic division?"
+    ],
+    "escalation": [
+      "Promptly communicate unexpected tumour/perineural spread or acute brainstem pathology in the clinical context."
+    ],
+    "template_sections": [
+      {
+        "heading": "BRAINSTEM AND ROOT ENTRY ZONE",
+        "body": "Side [ ]; nucleus/root-entry lesion [ ]; diffusion/FLAIR finding [ ]; demyelinating features [ ]."
+      },
+      {
+        "heading": "CISTERNAL SEGMENT",
+        "body": "Contact [absent / present]; vessel [ ]; site [ ]; nerve displacement/indentation/atrophy [ ]; contralateral comparison [ ]."
+      },
+      {
+        "heading": "MECKEL CAVE",
+        "body": "Nerve/ganglion size [ ]; CSF space [ ]; abnormal enhancement/mass [ ]; dimensions [ ]."
+      },
+      {
+        "heading": "CAVERNOUS SINUS AND FORAMINA",
+        "body": "V1/V2/V3 segment findings [ ]; foramen rotundum/ovale [ ]; cavernous sinus [ ]."
+      },
+      {
+        "heading": "PERIPHERAL AND DENERVATION FINDINGS",
+        "body": "Extracranial nerve course [ ]; perineural spread [ ]; masticator denervation [ ]; coverage limitation [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Trigeminal neuralgia",
+        "url": "https://radiologyassistant.nl/head-neck/trigeminus/trigeminal-neuralgia-and-neuropathy"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.ankle-foot": {
+    "protocol": [
+      "Review orthogonal radiographs including a true mortise; use CT for articular detail and MRI for the specified tendon, ligament or occult-injury question.",
+      "Record weight-bearing/stress status and obtain proximal fibular coverage when the injury pattern warrants it."
+    ],
+    "checklist": [
+      {
+        "label": "Malleoli and mortise",
+        "detail": "Inspect medial, lateral and posterior malleoli and talar alignment."
+      },
+      {
+        "label": "Syndesmosis",
+        "detail": "Assess distal tibiofibular alignment and associated proximal fibular injury."
+      },
+      {
+        "label": "Articular surface",
+        "detail": "Describe impaction, step and osteochondral injury."
+      },
+      {
+        "label": "Foot columns",
+        "detail": "For foot symptoms, assess tarsometatarsal alignment, navicular, fifth metatarsal and hindfoot."
+      },
+      {
+        "label": "Soft tissue",
+        "detail": "Name ligament/tendon abnormalities and distinguish partial from complete discontinuity."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Fracture displacement",
+        "method": "Measure gap, articular step, posterior fragment extent and talar shift on appropriate planes.",
+        "pitfall": "A fragment percentage alone does not determine management."
+      },
+      {
+        "name": "Mortise alignment",
+        "method": "Record medial clear space or syndesmotic measurements with view and load status.",
+        "pitfall": "Rotation and non-weight-bearing technique can conceal or simulate instability."
+      }
+    ],
+    "classification": {
+      "name": "Weber / Lauge-Hansen",
+      "version": "Named conventional ankle fracture systems",
+      "applicability": "Ankle fractures; not a general foot injury classification.",
+      "summary": "Weber A/B/C describes fibular level below/at/above the syndesmosis. Report the complete injury and observed instability features; mechanism-based staging requires supporting findings."
+    },
+    "pitfalls": [
+      "A Weber B fracture is not automatically stable.",
+      "A proximal fibular injury may accompany medial ankle/syndesmotic injury despite a normal distal fibula."
+    ],
+    "impression_prompts": [
+      "What fracture/soft-tissue injury and alignment abnormality are present?",
+      "Is articular impaction or syndesmotic injury suspected?",
+      "What relevant area was not covered or needs targeted assessment?"
+    ],
+    "escalation": [
+      "Urgently communicate fracture-dislocation, threatened skin or a critical unstable pattern in the acute setting."
+    ],
+    "template_sections": [
+      {
+        "heading": "MALLEOLAR FRACTURES",
+        "body": "Fibula level relative to syndesmosis [ ]; medial malleolus [ ]; posterior malleolus [ ]; gap/step __ mm; comminution [ ]."
+      },
+      {
+        "heading": "MORTISE AND SYNDESMOSIS",
+        "body": "Talar alignment [ ]; medial clear space __ mm on [view/load]; syndesmotic relationship [ ]; proximal fibula [not covered / findings]."
+      },
+      {
+        "heading": "TALAR AND HINDFOOT SURFACES",
+        "body": "Talar dome [ ]; plafond impaction [ ]; calcaneus/subtalar joint [ ]; osteochondral lesion [site/size]."
+      },
+      {
+        "heading": "MIDFOOT AND FOREFOOT",
+        "body": "Tarsometatarsal alignment [ ]; Lisfranc region [ ]; navicular/fifth metatarsal [ ]; other focal injury [ ]; weight-bearing status [ ]."
+      },
+      {
+        "heading": "LIGAMENTS AND TENDONS",
+        "body": "Assessed ligaments [ ]; tendon [name, segment, tendinosis/partial/full tear]; retraction __ mm; soft-tissue injury [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ankle Fracture Mechanism and Radiography",
+        "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography"
+      },
+      {
+        "title": "Algoritm for Ankle Fractures 2.0",
+        "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fractures-video-lesson-1"
+      },
+      {
+        "title": "Ankle fractures - Weber and Lauge-Hansen Classification",
+        "url": "https://radiologyassistant.nl/musculoskeletal/ankle/weber-and-lauge-hansen-classification"
+      },
+      {
+        "title": "Special Ankle Fractures",
+        "url": "https://radiologyassistant.nl/musculoskeletal/ankle/special-fracture-cases"
+      },
+      {
+        "title": "MRI examination of the ankle",
+        "url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination"
+      },
+      {
+        "title": "Foot and Ankle cases",
+        "url": "https://radiologyassistant.nl/musculoskeletal/wrist-1/foot"
+      },
+      {
+        "title": "Foot and ankle cases (Wrist archive)",
+        "url": "https://radiologyassistant.nl/musculoskeletal/wrist/foot-1"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.marrow-muscle": {
+    "protocol": [
+      "Identify the pathway: stress injury, marrow disorder, muscle injury or diabetic-foot infection. Include T1 and fluid-sensitive planes tailored to the site.",
+      "Mark a skin ulcer when relevant; contrast can help define abscess or devitalised tissue when indicated."
+    ],
+    "checklist": [
+      {
+        "label": "Marrow pattern",
+        "detail": "Distinguish focal/diffuse replacement, oedema-like signal and fracture line using T1 plus fluid-sensitive images."
+      },
+      {
+        "label": "Stress injury",
+        "detail": "State exact bone, side/cortex and fracture completeness or displacement."
+      },
+      {
+        "label": "Muscle/tendon injury",
+        "detail": "Map myofascial, myotendinous or intratendinous injury and retraction."
+      },
+      {
+        "label": "Diabetic-foot pathway",
+        "detail": "Trace each ulcer/sinus to bone/joint; assess confluent marrow replacement and neuropathic distribution."
+      },
+      {
+        "label": "Complications",
+        "detail": "Describe collection, nonenhancing tissue, septic joint or threatened tendon continuity."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Stress lesion",
+        "method": "Record fracture length/extent, cortical side and displacement where present.",
+        "pitfall": "Marrow oedema extent alone is not fracture severity."
+      },
+      {
+        "name": "Muscle/tendon injury",
+        "method": "Measure retraction, tear dimensions and longitudinal oedema separately.",
+        "pitfall": "Oedema can overstate structural disruption."
+      },
+      {
+        "name": "Collection",
+        "method": "Measure three dimensions and relation to ulcer, bone and compartments.",
+        "pitfall": "Fluid signal without supporting features does not prove abscess."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Neuropathic arthropathy and infection can coexist.",
+      "Reactive marrow oedema adjacent to an ulcer is not automatically osteomyelitis.",
+      "Diffuse muscle oedema has traumatic, denervation, inflammatory and vascular causes."
+    ],
+    "impression_prompts": [
+      "Which pathway-specific diagnosis is supported and at what site?",
+      "Is there structural failure, infection spread or a collection?",
+      "What finding needs urgent specialist assessment or targeted correlation?"
+    ],
+    "escalation": [
+      "Escalate a displaced/high-risk stress fracture or suspected deep infection with abscess/devitalisation."
+    ],
+    "template_sections": [
+      {
+        "heading": "PATHWAY AND MARROW",
+        "body": "Question [stress injury / marrow lesion / muscle injury / diabetic foot]; bone/site [ ]; T1 signal [ ]; fluid-sensitive signal [ ]; focal replacement [ ]."
+      },
+      {
+        "heading": "STRESS INJURY",
+        "body": "Fracture line [absent / present]; bone/cortex [ ]; completeness [ ]; displacement [ ]; articular involvement [ ]; high-risk location [ ]. Delete when not applicable."
+      },
+      {
+        "heading": "MUSCLE AND TENDON INJURY",
+        "body": "Muscle/tendon [ ]; site [myofascial / myotendinous / intratendinous]; disruption [ ]; retraction __ mm; oedema length __ mm; haematoma [ ]."
+      },
+      {
+        "heading": "ULCER AND BONE INFECTION",
+        "body": "Ulcer site [ ]; tract destination [ ]; confluent T1 marrow replacement [ ]; cortical erosion [ ]; affected bones/joints [ ]; neuropathic changes [ ]. Delete when not applicable."
+      },
+      {
+        "heading": "COLLECTIONS AND VIABILITY",
+        "body": "Collection __ × __ × __ mm at [ ]; enhancement/diffusion [ ]; devitalised tissue [ ]; joint/tendon-sheath extension [ ]; neurovascular relationship [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "MRI examination",
+        "url": "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination"
+      },
+      {
+        "title": "MRI traumatic changes",
+        "url": "https://radiologyassistant.nl/musculoskeletal/muscle/mri-traumatic-changes"
+      },
+      {
+        "title": "Non-traumatic changes",
+        "url": "https://radiologyassistant.nl/musculoskeletal/muscle/non-traumatic-changes"
+      },
+      {
+        "title": "Hamstring injury",
+        "url": "https://radiologyassistant.nl/musculoskeletal/muscle/hamstring-injury"
+      },
+      {
+        "title": "Stress fractures",
+        "url": "https://radiologyassistant.nl/musculoskeletal/unsorted/stress-fractures"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.bone-tumours": {
+    "protocol": [
+      "Start with radiographs and age/known cancer history; use CT for matrix/cortex and MRI for local extent when indicated.",
+      "For suspected primary malignancy, include the whole involved bone/adjacent joints according to the local sarcoma pathway before biopsy planning."
+    ],
+    "checklist": [
+      {
+        "label": "Site",
+        "detail": "Name bone, epiphyseal/metaphyseal/diaphyseal and medullary/cortical/surface location."
+      },
+      {
+        "label": "Biological behaviour",
+        "detail": "Describe margin, zone of transition, cortex and periosteal response."
+      },
+      {
+        "label": "Matrix",
+        "detail": "Characterise lucent/sclerotic/mixed pattern and mineralised matrix."
+      },
+      {
+        "label": "Local staging",
+        "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+      },
+      {
+        "label": "Multiplicity",
+        "detail": "Look for additional lesions or skip lesions within coverage and compare growth."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion extent",
+        "method": "Measure intramedullary and soft-tissue components separately in three planes.",
+        "pitfall": "Reactive oedema is not the same as tumour margin."
+      },
+      {
+        "name": "Cortical involvement",
+        "method": "Describe thinning, breach and endosteal scalloping with site/extent when relevant.",
+        "pitfall": "No single size measurement distinguishes all benign from malignant cartilage lesions."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "An aggressive imaging pattern does not establish histology.",
+      "Biopsy route can affect definitive surgery; coordinate suspected sarcoma before intervention."
+    ],
+    "impression_prompts": [
+      "Does the lesion appear nonaggressive, indeterminate or aggressive?",
+      "What is the local extent and fracture/neurovascular risk?",
+      "What focused next step is justified rather than an unranked differential?"
+    ],
+    "escalation": [
+      "Expedite specialist review for an aggressive lesion, pathological fracture or threatened neurological structure."
+    ],
+    "template_sections": [
+      {
+        "heading": "LOCATION AND MORPHOLOGY",
+        "body": "Bone/site [ ]; skeletal maturity [ ]; medullary/cortical/surface [ ]; lucent/sclerotic/mixed [ ]; margin/transition zone [ ]."
+      },
+      {
+        "heading": "MATRIX AND BONE RESPONSE",
+        "body": "Matrix [ ]; periosteal reaction [ ]; cortical thinning/scalloping/breach [ ]; pathological fracture [ ]."
+      },
+      {
+        "heading": "LOCAL DIMENSIONS",
+        "body": "Marrow lesion __ × __ × __ mm; extraosseous component __ × __ × __ mm; oedema extent [ ]; measurement series/image [ ]."
+      },
+      {
+        "heading": "CRITICAL RELATIONSHIPS",
+        "body": "Joint/physis involvement [ ]; neurovascular relationship [ ]; compartment extension [ ]; skin/soft-tissue involvement [ ]."
+      },
+      {
+        "heading": "MULTIPLICITY AND COMPARISON",
+        "body": "Additional/skip lesions [ ]; whole-bone coverage [ ]; interval growth [ ]; prior treatment [ ]; recommended sarcoma-pathway correlation [if relevant]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Bone tumors in alphabetical order",
+        "url": "https://radiologyassistant.nl/musculoskeletal/bone-tumors/alphabetical-order"
+      },
+      {
+        "title": "Bone tumors - Differential diagnosis",
+        "url": "https://radiologyassistant.nl/musculoskeletal/bone-tumors/differential-diagnosis"
+      },
+      {
+        "title": "Osteolytic - ill defined bone tumors",
+        "url": "https://radiologyassistant.nl/musculoskeletal/bone-tumors/osteolytic-ill-defined"
+      },
+      {
+        "title": "Osteolytic - well defined bone tumors",
+        "url": "https://radiologyassistant.nl/musculoskeletal/bone-tumors/osteolytic-well-defined"
+      },
+      {
+        "title": "Sclerotic bone tumors",
+        "url": "https://radiologyassistant.nl/musculoskeletal/bone-tumors/sclerotic-tumors"
+      },
+      {
+        "title": "Cartilage tumors",
+        "url": "https://radiologyassistant.nl/musculoskeletal/bone-tumors/chondrotumors-1"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.3.fracture-description": {
+    "protocol": [
+      "Confirm side, site and at least two appropriate projections; review nearby joints and prior reduction/fixation.",
+      "Use CT for unresolved articular geometry or MRI for an occult fracture question when appropriate."
+    ],
+    "checklist": [
+      {
+        "label": "Identity",
+        "detail": "Name bone and segment, articular and physeal involvement."
+      },
+      {
+        "label": "Pattern",
+        "detail": "Describe transverse, oblique, spiral, comminuted, avulsion or impaction morphology."
+      },
+      {
+        "label": "Displacement",
+        "detail": "Describe translation, angulation, shortening and rotation where assessable."
+      },
+      {
+        "label": "Alignment",
+        "detail": "Check joint congruity and associated dislocation."
+      },
+      {
+        "label": "Associated injury",
+        "detail": "Review other fractures, soft tissues, hardware and possible pathological substrate."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Translation and shortening",
+        "method": "Measure displacement in mm or proportion of shaft width and shortening in mm.",
+        "pitfall": "State the direction of the distal fragment relative to the proximal fragment."
+      },
+      {
+        "name": "Angulation and joint step",
+        "method": "Measure angulation on appropriate planes and articular step/gap in mm.",
+        "pitfall": "Projection can conceal deformity; name the plane and direction."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Open fracture is primarily a clinical diagnosis; soft-tissue gas is suggestive, not definitive.",
+      "A normal radiograph does not exclude occult fracture when clinical suspicion remains."
+    ],
+    "impression_prompts": [
+      "What bone, segment and fracture pattern are involved?",
+      "What displacement, joint involvement and alignment matter for treatment?",
+      "What associated injury or uncertainty needs attention?"
+    ],
+    "escalation": [
+      "Communicate fracture-dislocation or a pattern with immediate neurovascular/skin risk in the acute setting."
+    ],
+    "template_sections": [
+      {
+        "heading": "FRACTURE IDENTITY",
+        "body": "Side/bone/segment [ ]; fracture [complete / incomplete]; pattern [ ]; articular extension [ ]; physis [open / closed / involved]."
+      },
+      {
+        "heading": "DISPLACEMENT",
+        "body": "Distal-fragment translation __ mm toward [ ]; shortening __ mm; angulation __° with apex [ ]; rotation [not assessable / specify]."
+      },
+      {
+        "heading": "ARTICULAR SURFACE",
+        "body": "Joint [ ]; step __ mm; gap __ mm; impaction/depression [ ]; congruity [ ]."
+      },
+      {
+        "heading": "ASSOCIATED INJURY",
+        "body": "Additional fractures [ ]; dislocation/subluxation [ ]; soft-tissue gas/swelling [ ]; visible foreign body [ ]."
+      },
+      {
+        "heading": "BONE QUALITY AND FOLLOW-UP",
+        "body": "Underlying lesion/demineralisation [ ]; callus/healing [ ]; hardware [ ]; change after reduction [ ]; unresolved occult injury [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant: fracture patterns and associated injury",
+        "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography"
+      },
+      {
+        "title": "Radiology Assistant: wrist fractures",
+        "url": "https://radiologyassistant.nl/musculoskeletal/wrist/fractures"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.hip": {
+    "protocol": [
+      "Identify native hip, impingement, trauma or arthroplasty question. Compare standardised radiographs; use tailored MRI/CT for labrum, occult fracture or prosthetic complications.",
+      "State weight-bearing/projection and use metal-artifact reduction when relevant."
+    ],
+    "checklist": [
+      {
+        "label": "Alignment and bone",
+        "detail": "Assess fracture, osteonecrosis, collapse and joint congruity."
+      },
+      {
+        "label": "Native morphology",
+        "detail": "Describe femoral head-neck and acetabular morphology in appropriate planes."
+      },
+      {
+        "label": "Joint surfaces",
+        "detail": "Assess cartilage, labrum, effusion and degenerative disease."
+      },
+      {
+        "label": "Periarticular structures",
+        "detail": "Review gluteal/iliopsoas/hamstring tendons and bursae."
+      },
+      {
+        "label": "Arthroplasty branch",
+        "detail": "Assess component position, migration, interface lucency, osteolysis and surrounding tissue."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Native-hip morphology",
+        "method": "Record alpha or lateral centre-edge angle with the exact view/plane and method when relevant.",
+        "pitfall": "Positioning affects angles; morphology alone is not impingement syndrome."
+      },
+      {
+        "name": "Prosthesis comparison",
+        "method": "Measure component migration/subsidence against fixed landmarks on comparable images.",
+        "pitfall": "Projection differences can simulate migration."
+      },
+      {
+        "name": "Focal lesion/tear",
+        "method": "Measure osteonecrotic segment or tendon tear/retraction using consistent planes.",
+        "pitfall": "Do not substitute oedema extent for structural injury."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Femoroacetabular impingement syndrome requires symptoms and clinical signs as well as morphology.",
+      "Periprosthetic lucency alone does not distinguish aseptic loosening from infection."
+    ],
+    "impression_prompts": [
+      "What finding best explains the specific hip question?",
+      "Is there fracture, collapse, major tear or component complication?",
+      "What comparison or clinical correlation is needed?"
+    ],
+    "escalation": [
+      "Urgently flag occult displaced fracture, prosthetic dislocation or a concerning acute complication."
+    ],
+    "template_sections": [
+      {
+        "heading": "BONE AND ALIGNMENT",
+        "body": "Native/prosthetic hip [ ]; fracture [ ]; femoral head contour/osteonecrosis [ ]; congruity [ ]."
+      },
+      {
+        "heading": "NATIVE HIP MORPHOLOGY",
+        "body": "Cam/pincer/dysplastic morphology [ ]; alpha angle __° on [ ]; centre-edge angle __° on [ ]; version assessment [not performed / method/result]."
+      },
+      {
+        "heading": "CARTILAGE AND LABRUM",
+        "body": "Cartilage loss [site/depth]; labral lesion [site/morphology]; paralabral cyst [ ]; effusion/synovitis [ ]."
+      },
+      {
+        "heading": "TENDONS AND SOFT TISSUES",
+        "body": "Gluteal/iliopsoas/hamstring findings [ ]; tear/retraction [ ]; bursae [ ]; muscle atrophy [ ]."
+      },
+      {
+        "heading": "ARTHROPLASTY ASSESSMENT",
+        "body": "Components [ ]; position [ ]; interface lucency/osteolysis [zones]; migration/subsidence [ ]; fracture [ ]; periarticular collection [ ]. Delete for native hip."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Arthroplasty of the Hip",
+        "url": "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty"
+      },
+      {
+        "title": "Femoroacetabular impingement syndrome",
+        "url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.knee": {
+    "protocol": [
+      "Review multiplanar T1 or PD and fluid-sensitive images with known surgery and injury mechanism.",
+      "Record graft/reconstruction or meniscal surgery because postoperative criteria differ."
+    ],
+    "checklist": [
+      {
+        "label": "Menisci",
+        "detail": "Inspect both menisci, roots and meniscocapsular attachments for tear and displaced fragments."
+      },
+      {
+        "label": "Cruciates/collaterals",
+        "detail": "Assess continuity, tear location and associated avulsion."
+      },
+      {
+        "label": "Cartilage and bone",
+        "detail": "Map chondral loss, osteochondral lesions, contusions and subchondral fracture."
+      },
+      {
+        "label": "Extensor mechanism",
+        "detail": "Review quadriceps/patellar tendons and patellofemoral stabilisers."
+      },
+      {
+        "label": "Joint and corners",
+        "detail": "Assess effusion, loose bodies, posteromedial/lateral structures and cysts."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Meniscal extrusion/tear",
+        "method": "Measure extrusion on a standard coronal plane and describe tear location/morphology.",
+        "pitfall": "Extrusion alone does not prove a root tear; inspect the attachment."
+      },
+      {
+        "name": "Cartilage/osteochondral defect",
+        "method": "Measure AP/transverse extent and depth; report instability signs.",
+        "pitfall": "Partial-volume signal is not a full-thickness defect."
+      },
+      {
+        "name": "Tendon or ligament gap",
+        "method": "Measure retraction/gap when complete structural discontinuity is present.",
+        "pitfall": "Oedema is not equivalent to fibre disruption."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Postoperative meniscal signal may persist without recurrent tear.",
+      "Normal variants and intermeniscal ligaments can mimic tears."
+    ],
+    "impression_prompts": [
+      "What dominant internal derangement is present?",
+      "Which associated injuries or unstable/displaced fragments matter?",
+      "Is postoperative interpretation limited?"
+    ],
+    "escalation": [
+      "Promptly communicate an occult fracture or dislocation-pattern multiligament injury with potential neurovascular implications."
+    ],
+    "template_sections": [
+      {
+        "heading": "MENISCI",
+        "body": "Medial [ ]; lateral [ ]; tear segment/morphology [ ]; root attachment [ ]; extrusion __ mm; displaced fragment [ ]."
+      },
+      {
+        "heading": "LIGAMENTS",
+        "body": "ACL [ ]; PCL [ ]; MCL [ ]; LCL/posterolateral corner [ ]; tear site/grade description [ ]; avulsion [ ]."
+      },
+      {
+        "heading": "CARTILAGE AND SUBCHONDRAL BONE",
+        "body": "Compartment [ ]; defect site __ × __ mm, depth [ ]; osteochondral instability signs [ ]; contusion/subchondral fracture [ ]."
+      },
+      {
+        "heading": "EXTENSOR AND PATELLOFEMORAL STRUCTURES",
+        "body": "Quadriceps/patellar tendons [ ]; patellar alignment [ ]; MPFL/retinacula [ ]; trochlear morphology [ ]."
+      },
+      {
+        "heading": "JOINT AND POSTERIOR STRUCTURES",
+        "body": "Effusion/synovitis [ ]; loose bodies [ ]; popliteal cyst [ ]; posteromedial structures [ ]; postoperative findings [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Meniscal pathology",
+        "url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscal-pathology"
+      },
+      {
+        "title": "Non-Meniscal pathology",
+        "url": "https://radiologyassistant.nl/musculoskeletal/knee/non-meniscal-pathology"
+      },
+      {
+        "title": "Meniscus special cases",
+        "url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscus-special-cases"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.msk-mri": {
+    "protocol": [
+      "Select a joint, soft-tissue mass or bone/muscle pathway before reporting; use T1 plus fluid-sensitive sequences in appropriate planes.",
+      "Include the symptomatic site with a marker when useful; document metal artefact, incomplete coverage and contrast indication."
+    ],
+    "checklist": [
+      {
+        "label": "Localisation",
+        "detail": "Identify exact bone, joint, tendon or soft-tissue compartment corresponding to symptoms."
+      },
+      {
+        "label": "Marrow and cortex",
+        "detail": "Assess fracture, replacement, osteonecrosis and cortical destruction."
+      },
+      {
+        "label": "Joint branch",
+        "detail": "Review cartilage, fibrocartilage, ligaments, tendons and effusion using the relevant joint-specific module."
+      },
+      {
+        "label": "Soft-tissue branch",
+        "detail": "Describe fascial depth, composition, enhancement and neurovascular relationship for a mass."
+      },
+      {
+        "label": "Actionable limits",
+        "detail": "State structures not assessed and whether a dedicated protocol is required."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Focal lesion",
+        "method": "Record three orthogonal dimensions on reproducible sequences with series/image.",
+        "pitfall": "Separate lesion from reactive oedema."
+      },
+      {
+        "name": "Structural defect",
+        "method": "Measure tear/retraction or articular defect only for the relevant pathway.",
+        "pitfall": "Do not apply a single grading system across different joints or tissues."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Fluid-sensitive signal is sensitive but nonspecific; inspect matching T1 and morphology.",
+      "A survey MRI does not replace a tailored study for every joint or mass question."
+    ],
+    "impression_prompts": [
+      "What structure and process best answer the question?",
+      "What structural failure or concerning mass feature is present?",
+      "Which targeted assessment remains necessary?"
+    ],
+    "escalation": [
+      "Escalate unexpected aggressive mass, fracture or deep infection according to the finding."
+    ],
+    "template_sections": [
+      {
+        "heading": "REGION AND CLINICAL TARGET",
+        "body": "Region/side [ ]; pathway [joint / bone / muscle-tendon / soft-tissue mass]; marker/site [ ]; coverage [ ]."
+      },
+      {
+        "heading": "BONE AND MARROW",
+        "body": "Marrow signal [ ]; fracture/cortex [ ]; osteonecrosis [ ]; focal lesion dimensions [ ]."
+      },
+      {
+        "heading": "JOINT-SPECIFIC STRUCTURES",
+        "body": "Joint [ ]; cartilage [ ]; fibrocartilage [ ]; named ligaments [ ]; synovium/effusion [ ]; dedicated reference module [ ]."
+      },
+      {
+        "heading": "TENDONS, MUSCLES AND NERVES",
+        "body": "Named structure [ ]; continuity [ ]; tear/retraction [ ]; muscle oedema/atrophy [ ]; nerve [ ]."
+      },
+      {
+        "heading": "SOFT-TISSUE MASS BRANCH",
+        "body": "Mass site/depth [ ]; size __ × __ × __ mm; T1/T2 [ ]; enhancement [ ]; fat/fluid/haemorrhage [ ]; neurovascular/bone relationship [ ]. Delete when absent."
+      },
+      {
+        "heading": "LIMITS AND ADDITIONAL FINDINGS",
+        "body": "Unassessed structures [ ]; artefact effect [ ]; additional relevant finding [ ]; targeted follow-up question [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant: MSK regional reference library",
+        "url": "https://radiologyassistant.nl/musculoskeletal"
+      },
+      {
+        "title": "Radiology Assistant: Bone tumour approach",
+        "url": "https://radiologyassistant.nl/musculoskeletal/bone-tumors/differential-diagnosis"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.shoulder": {
+    "protocol": [
+      "Use planes aligned to the supraspinatus and glenoid; document arthrogram status, prior surgery and instability versus cuff indication.",
+      "For recurrent instability, assess bone loss with an appropriate method when requested and technically feasible."
+    ],
+    "checklist": [
+      {
+        "label": "Cuff",
+        "detail": "Name involved tendon, tear surface/depth, AP extent and retraction."
+      },
+      {
+        "label": "Muscle",
+        "detail": "Describe atrophy and fatty infiltration for each affected cuff muscle."
+      },
+      {
+        "label": "Biceps",
+        "detail": "Review anchor, pulley, intra-articular segment and groove position."
+      },
+      {
+        "label": "Labrum/instability",
+        "detail": "Map labral injury, capsuloligamentous findings and glenoid/humeral defects."
+      },
+      {
+        "label": "Joint/outlet",
+        "detail": "Assess cartilage, bursae, AC joint and associated osseous abnormality."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Cuff tear",
+        "method": "Measure AP width, mediolateral retraction and partial-thickness depth in mm or proportion.",
+        "pitfall": "Delamination may make a single retraction measurement incomplete."
+      },
+      {
+        "name": "Bone loss",
+        "method": "State en-face glenoid best-fit-circle or other method and humeral defect measurements if performed.",
+        "pitfall": "Glenoid-track assessment requires both glenoid and humeral measurements and a specified method."
+      },
+      {
+        "name": "Muscle quality",
+        "method": "Use a named fatty-infiltration/atrophy scale if helpful and identify each muscle.",
+        "pitfall": "Do not infer reparability from tear size alone."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Magic-angle signal on short-TE images can mimic tendinopathy.",
+      "Sublabral variants should not be called a labral tear without supporting morphology."
+    ],
+    "impression_prompts": [
+      "What tendon/labral injury is present and how extensive is it?",
+      "What muscle quality, bone loss or biceps abnormality affects planning?",
+      "What incidental findings are unlikely to explain symptoms?"
+    ],
+    "escalation": [
+      "Promptly communicate acute fracture-dislocation or an unexpected significant destructive process."
+    ],
+    "template_sections": [
+      {
+        "heading": "ROTATOR CUFF",
+        "body": "Supraspinatus [ ]; infraspinatus [ ]; subscapularis [ ]; teres minor [ ]; tear surface/depth [ ]; AP width __ mm; retraction __ mm; delamination [ ]."
+      },
+      {
+        "heading": "MUSCLE QUALITY",
+        "body": "Atrophy [muscle and degree]; fatty infiltration [muscle, named scale/grade or description]; oedema [ ]."
+      },
+      {
+        "heading": "BICEPS AND PULLEY",
+        "body": "Long-head biceps continuity/signal [ ]; groove position [ ]; pulley/subscapularis relationship [ ]; anchor [ ]."
+      },
+      {
+        "heading": "LABRUM AND INSTABILITY",
+        "body": "Labral lesion [clock-face/location and type]; capsule/IGHL [ ]; glenoid bone loss [method/result]; Hill-Sachs [ ]; track assessment [not performed / method/result]."
+      },
+      {
+        "heading": "JOINT AND OUTLET",
+        "body": "Cartilage [ ]; glenohumeral effusion [ ]; subacromial-subdeltoid bursa [ ]; AC joint [ ]; acromial/osseous findings [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Shoulder Anatomy and Variants on MRI",
+        "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy"
+      },
+      {
+        "title": "Shoulder instability - MRI",
+        "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/instability"
+      },
+      {
+        "title": "Shoulder  Rotator cuff injury",
+        "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/rotator-cuff-injury"
+      },
+      {
+        "title": "Shoulder Ultrasound",
+        "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.arthritis": {
+    "protocol": [
+      "Review distribution across the imaged joints and comparable priors; state weight-bearing status and clinical inflammatory/crystal/infective context.",
+      "Use ultrasound/MRI for the specific active synovitis, tendon or occult infection question when indicated."
+    ],
+    "checklist": [
+      {
+        "label": "Distribution",
+        "detail": "Describe symmetry and which joint groups are involved or spared."
+      },
+      {
+        "label": "Cartilage space",
+        "detail": "Distinguish uniform from nonuniform joint-space loss."
+      },
+      {
+        "label": "Bone response",
+        "detail": "Assess marginal/central erosions, osteophytes, periostitis and mineralisation."
+      },
+      {
+        "label": "Alignment",
+        "detail": "Look for subluxation, deformity and ankylosis."
+      },
+      {
+        "label": "Soft tissue and change",
+        "detail": "Describe swelling, calcification/tophi and interval structural progression."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Joint-space comparison",
+        "method": "Measure a reproducible minimum joint space only when it answers the question, using the same view/load.",
+        "pitfall": "Projection and loading affect apparent narrowing."
+      },
+      {
+        "name": "Erosion/lesion change",
+        "method": "Record site and dimensions of a relevant erosion or tophus on matching studies.",
+        "pitfall": "Small apparent changes can be technical rather than true progression."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "An arthritis pattern is not a substitute for clinical and laboratory diagnosis.",
+      "Septic arthritis may have little early radiographic abnormality."
+    ],
+    "impression_prompts": [
+      "Is the pattern degenerative, inflammatory, crystal-associated or indeterminate?",
+      "Which joints show progression or major structural damage?",
+      "Is an urgent infective or instability complication suspected?"
+    ],
+    "escalation": [
+      "Escalate suspected septic arthritis or clinically important cervical instability."
+    ],
+    "template_sections": [
+      {
+        "heading": "DISTRIBUTION",
+        "body": "Joints involved [ ]; symmetry [ ]; spared joints [ ]; dominant pattern [ ]."
+      },
+      {
+        "heading": "JOINT SPACES",
+        "body": "Uniform/nonuniform loss [ ]; worst compartment [ ]; weight-bearing/projection [ ]; interval change [ ]."
+      },
+      {
+        "heading": "EROSIONS AND BONE RESPONSE",
+        "body": "Marginal/central erosions [ ]; osteophytes [ ]; periosteal/new bone [ ]; mineralisation [ ]; sclerosis/cysts [ ]."
+      },
+      {
+        "heading": "ALIGNMENT",
+        "body": "Subluxation/dislocation [ ]; deformity [ ]; ankylosis [ ]; cervical findings if covered [ ]."
+      },
+      {
+        "heading": "SOFT TISSUES AND PROGRESSION",
+        "body": "Swelling [ ]; chondrocalcinosis/other calcification [ ]; tophi [ ]; new erosions [ ]; other interval structural change [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Arthritis",
+        "url": "https://radiologyassistant.nl/musculoskeletal/arthritis/fractures-video-lesson"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.wrist-hand": {
+    "protocol": [
+      "Confirm correctly positioned PA, lateral and relevant targeted views; record stress or loading views. Use CT/MRI for the specified occult fracture or soft-tissue question.",
+      "Review both fracture and carpal alignment, including associated ligament injury."
+    ],
+    "checklist": [
+      {
+        "label": "Alignment",
+        "detail": "Inspect Gilula arcs and radius-lunate-capitate relationship on true lateral."
+      },
+      {
+        "label": "Fracture",
+        "detail": "Check scaphoid, triquetrum, distal radius/ulna and metacarpal/phalangeal injury."
+      },
+      {
+        "label": "Ligaments",
+        "detail": "Assess scapholunate/lunotriquetral intervals and intrinsic ligament components if MRI."
+      },
+      {
+        "label": "TFCC/DRUJ",
+        "detail": "Describe ulnar variance, distal radioulnar congruity and TFCC findings."
+      },
+      {
+        "label": "Soft tissue",
+        "detail": "Review tendons, nerve spaces and joint degeneration."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Carpal alignment",
+        "method": "Measure scapholunate interval and scapholunate angle on named standardised views if relevant.",
+        "pitfall": "Malrotation can falsely widen intervals or alter angles."
+      },
+      {
+        "name": "Ulnar variance",
+        "method": "Measure on a standard neutral PA projection with positioning recorded.",
+        "pitfall": "Grip, forearm rotation and elbow position affect variance."
+      },
+      {
+        "name": "Fracture deformity",
+        "method": "Record gap, displacement and articular step in mm.",
+        "pitfall": "A normal initial scaphoid radiograph does not exclude occult fracture."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Distinguish lunate from perilunate dislocation by the lunate-radius relationship.",
+      "Degenerative ligament signal is not necessarily a mechanically unstable tear."
+    ],
+    "impression_prompts": [
+      "What fracture or carpal malalignment is present?",
+      "What ligament/TFCC or tendon abnormality is relevant?",
+      "What occult injury or technical limitation remains?"
+    ],
+    "escalation": [
+      "Immediately communicate lunate/perilunate dislocation or an acute critical fracture-dislocation."
+    ],
+    "template_sections": [
+      {
+        "heading": "BONE AND FRACTURES",
+        "body": "Fracture [bone/site]; gap/displacement __ mm; articular step __ mm; scaphoid proximal pole [ ]; occult marrow injury [if MRI]."
+      },
+      {
+        "heading": "CARPAL ALIGNMENT",
+        "body": "Gilula arcs [ ]; radius-lunate-capitate alignment [ ]; scapholunate interval __ mm; angle __° on [view]; DISI/VISI pattern [ ]."
+      },
+      {
+        "heading": "INTRINSIC LIGAMENTS",
+        "body": "Scapholunate [dorsal/volar/membranous components]; lunotriquetral [ ]; tear/disruption [ ]; stress-view finding [ ]."
+      },
+      {
+        "heading": "TFCC AND DRUJ",
+        "body": "TFCC [central/peripheral/foveal finding]; DRUJ congruity [ ]; ulnar variance __ mm on [ ]; ulnocarpal impaction features [ ]."
+      },
+      {
+        "heading": "TENDONS, NERVES AND JOINTS",
+        "body": "Flexor/extensor tendon [ ]; tenosynovitis [ ]; carpal tunnel/Guyon canal [ ]; cartilage/arthritis [ ]; other soft tissue [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Carpal instability",
+        "url": "https://radiologyassistant.nl/musculoskeletal/wrist/carpal-instability"
+      },
+      {
+        "title": "Fractures",
+        "url": "https://radiologyassistant.nl/musculoskeletal/wrist/fractures"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.elbow-mri": {
+    "protocol": [
+      "Acquire orthogonal planes aligned to the epicondyles with T1/PD and fluid-sensitive sequences; note arthrogram and prior repair.",
+      "Review throwing/instability, tendon rupture, osteochondral or nerve symptoms as distinct questions."
+    ],
+    "checklist": [
+      {
+        "label": "Tendons",
+        "detail": "Assess common flexor/extensor, distal biceps and triceps at their insertions."
+      },
+      {
+        "label": "Ligaments",
+        "detail": "Name UCL and lateral collateral complex components and tear sites."
+      },
+      {
+        "label": "Osteochondral surface",
+        "detail": "Inspect capitellum/trochlea, marrow and loose bodies."
+      },
+      {
+        "label": "Nerves",
+        "detail": "Trace ulnar, median and radial branches with secondary denervation."
+      },
+      {
+        "label": "Joint mechanics",
+        "detail": "Review alignment, impingement features, effusion and postoperative structures."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Tendon tear",
+        "method": "Measure partial tear extent or full-thickness retraction in mm.",
+        "pitfall": "An intact lacertus fibrosus may limit retraction after distal biceps rupture."
+      },
+      {
+        "name": "Osteochondral lesion",
+        "method": "Measure width, depth and detached fragment; describe fluid interface and cartilage integrity.",
+        "pitfall": "Normal posterior capitellar contour can mimic a defect."
+      },
+      {
+        "name": "Nerve abnormality",
+        "method": "Record segment, calibre change and any compressing lesion dimensions.",
+        "pitfall": "Signal alone is nonspecific and dynamic subluxation may require ultrasound."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "The posterior capitellar pseudodefect is a normal variant.",
+      "An accessory ossicle or synovial fold may simulate a loose body."
+    ],
+    "impression_prompts": [
+      "Which tendon/ligament component is injured and how severely?",
+      "Is there an unstable osteochondral fragment or significant retraction?",
+      "Is neuropathy supported and is its cause visible?"
+    ],
+    "escalation": [
+      "Promptly flag complete acute tendon avulsion, unstable fracture/fragment or unexpected aggressive lesion when clinically consequential."
+    ],
+    "template_sections": [
+      {
+        "heading": "TENDONS",
+        "body": "Common extensor [ ]; common flexor [ ]; distal biceps [ ]; triceps [ ]; tear site/extent [ ]; retraction __ mm; lacertus fibrosus [ ]."
+      },
+      {
+        "heading": "LIGAMENT COMPLEXES",
+        "body": "UCL [component/site]; radial collateral [ ]; lateral ulnar collateral [ ]; annular ligament [ ]; avulsion [ ]."
+      },
+      {
+        "heading": "CARTILAGE AND BONE",
+        "body": "Capitellum/trochlea [ ]; osteochondral defect __ × __ × __ mm; cartilage integrity [ ]; instability signs [ ]; marrow/fracture [ ]."
+      },
+      {
+        "heading": "NERVES AND MUSCLES",
+        "body": "Ulnar nerve/cubital tunnel [ ]; radial/PIN [ ]; median [ ]; compressing lesion [ ]; denervation [ ]."
+      },
+      {
+        "heading": "JOINT AND RECESSES",
+        "body": "Alignment [ ]; effusion/synovitis [ ]; loose bodies [number/location]; impingement features [ ]; prior repair [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "MRI examination of the Elbow",
+        "url": "https://radiologyassistant.nl/musculoskeletal/elbow/mri-examination"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.paeds-hip-elbow": {
+    "protocol": [
+      "Select the DDH ultrasound, painful-child-hip or elbow-trauma pathway; record chronological/corrected age and side.",
+      "For hip ultrasound obtain a valid standard coronal plane and dynamic assessment when indicated; for elbow use correctly positioned AP/lateral images."
+    ],
+    "checklist": [
+      {
+        "label": "Hip plane",
+        "detail": "Confirm straight iliac line, lower ilium and labrum before measuring."
+      },
+      {
+        "label": "Hip development",
+        "detail": "Report coverage, roof morphology and stability separately for each side."
+      },
+      {
+        "label": "Painful hip",
+        "detail": "Assess effusion, physeal alignment and femoral head changes with the age-specific differential."
+      },
+      {
+        "label": "Elbow alignment",
+        "detail": "Check radiocapitellar alignment, anterior humeral line and fat pads."
+      },
+      {
+        "label": "Growth plates",
+        "detail": "Identify age-appropriate ossification centres, fractures and displacement without mistaking variants for injury."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Hip ultrasound",
+        "method": "Record alpha angle and femoral head coverage on a validated plane for each hip.",
+        "pitfall": "Graf interpretation is age-dependent; an oblique plane invalidates the angle."
+      },
+      {
+        "name": "Elbow alignment",
+        "method": "Use an age-appropriate true lateral for anterior humeral line/capitellar relationship; quantify fracture displacement when present.",
+        "pitfall": "In young children the relationship differs and the capitellum may be incompletely ossified."
+      }
+    ],
+    "classification": {
+      "name": "Graf ultrasound classification",
+      "version": "Conventional age-dependent Graf system",
+      "applicability": "Infant DDH ultrasound in a valid standard plane; does not apply to elbow injuries.",
+      "summary": "Record alpha angle, roof morphology, age and dynamic stability before assigning a type. Use the linked classification for the applicable age; do not assign from angle alone."
+    },
+    "pitfalls": [
+      "Do not combine DDH and elbow trauma into one classification.",
+      "Paediatric hip pain may be referred to the knee; image and interpret the actual clinical question."
+    ],
+    "impression_prompts": [
+      "Which hip or elbow pathway was assessed, and what is abnormal?",
+      "Is alignment/stability appropriate for age?",
+      "Is urgent orthopaedic review or pathway-specific follow-up needed?"
+    ],
+    "escalation": [
+      "Urgently communicate suspected slipped capital femoral epiphysis, septic hip in the clinical context, or displaced elbow injury."
+    ],
+    "template_sections": [
+      {
+        "heading": "PATHWAY AND DEVELOPMENT",
+        "body": "Question [DDH / painful hip / elbow injury]; side [ ]; age/corrected age [ ]; skeletal maturity/ossification [ ]."
+      },
+      {
+        "heading": "DDH ULTRASOUND — RIGHT",
+        "body": "Standard plane [adequate / limited]; alpha __°; coverage __%; roof/labrum [ ]; dynamic stability [ ]; Graf category with age [ ]. Delete for other pathways."
+      },
+      {
+        "heading": "DDH ULTRASOUND — LEFT",
+        "body": "Standard plane [adequate / limited]; alpha __°; coverage __%; roof/labrum [ ]; dynamic stability [ ]; Graf category with age [ ]. Delete for other pathways."
+      },
+      {
+        "heading": "PAINFUL HIP BRANCH",
+        "body": "Effusion [ ]; femoral head contour/perfusion if assessed [ ]; physis/alignment [ ]; metaphysis [ ]; adjacent soft tissues [ ]. Delete if not examined."
+      },
+      {
+        "heading": "ELBOW TRAUMA BRANCH",
+        "body": "Radiocapitellar line [ ]; anterior humeral line [ ]; fat pads [ ]; fracture site/displacement [ ]; ossification centres [ ]; associated injury [ ]. Delete if not examined."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Elbow fractures in Children",
+        "url": "https://radiologyassistant.nl/musculoskeletal/elbow/fractures-in-children"
+      },
+      {
+        "title": "Developmental Dysplasia of the Hip",
+        "url": "https://radiologyassistant.nl/pediatrics/hip/developmental-dysplasia-of-the-hip-ultrasound"
+      },
+      {
+        "title": "Hip pathology in Children",
+        "url": "https://radiologyassistant.nl/pediatrics/hip/hip-pathology-in-children"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.paediatric": {
+    "protocol": [
+      "Tailor modality, coverage and acquisition to age/size and the specific question; record sedation or immobilisation only when used.",
+      "Choose the matching regional module; this worksheet provides age-aware reporting checks, not a substitute for a complete organ-specific report."
+    ],
+    "checklist": [
+      {
+        "label": "Context",
+        "detail": "Record gestational/postnatal age where relevant and the supplied clinical question."
+      },
+      {
+        "label": "Technique",
+        "detail": "State limitations from motion, acoustic window, cooperation or low-dose acquisition."
+      },
+      {
+        "label": "Development",
+        "detail": "Distinguish normal growth/ossification from pathology."
+      },
+      {
+        "label": "Primary finding",
+        "detail": "Localise and describe the abnormality with an age-appropriate differential."
+      },
+      {
+        "label": "Communication",
+        "detail": "Address urgency, comparison and any justified further imaging explicitly."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Organ size",
+        "method": "Use a named age/height/body-size reference and the same measurement plane as that reference.",
+        "pitfall": "Adult cutoffs should not be applied to children."
+      },
+      {
+        "name": "Interval growth",
+        "method": "Compare the same structure/lesion in mm or mL with dates and body-size change when relevant.",
+        "pitfall": "Normal growth and different technique may explain apparent enlargement."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A technically limited negative examination may not exclude the suspected disease.",
+      "Developmental variants and normal thymus/ossification can imitate a mass or injury."
+    ],
+    "impression_prompts": [
+      "Does the study answer the clinical question for this age?",
+      "What is abnormal after accounting for development?",
+      "What limitation or specific next step matters?"
+    ],
+    "escalation": [
+      "Communicate any time-critical finding directly to the responsible paediatric team."
+    ],
+    "template_sections": [
+      {
+        "heading": "AGE AND CLINICAL CONTEXT",
+        "body": "Chronological age [ ]; gestational/corrected age [if relevant]; size/height [if relevant]; clinical target [ ]."
+      },
+      {
+        "heading": "AGE-APPROPRIATE ANATOMY",
+        "body": "Developmental/ossification stage [ ]; relevant normal variant [ ]; organ/site [ ]; age-adjusted assessment [ ]."
+      },
+      {
+        "heading": "TARGET ORGAN FINDINGS",
+        "body": "Organ/structure [ ]; morphology [ ]; focal/diffuse abnormality [ ]; vascularity or function assessed [ ]; regional module used [ ]."
+      },
+      {
+        "heading": "MEASUREMENTS AND REFERENCE",
+        "body": "Structure [ ]; dimension __ [unit]; plane [ ]; age/height reference [ ]; percentile/range if available [ ]; prior measurement/date [ ]."
+      },
+      {
+        "heading": "ASSOCIATED FINDINGS AND LIMITS",
+        "body": "Associated anomaly/complication [ ]; motion/window limitation [ ]; structures not visualised [ ]; remaining clinical question [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Normal Values in Pediatric Ultrasound",
+        "url": "https://radiologyassistant.nl/pediatrics/normal-values/normal-values-ultrasound"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.child-abuse": {
+    "protocol": [
+      "Use the age-appropriate safeguarding imaging protocol and document complete skeletal-survey views, repeats and any omitted images with reasons.",
+      "Record history as supplied, comparison dates and supplementary neuro/visceral imaging separately; maintain exact side/site labelling."
+    ],
+    "checklist": [
+      {
+        "label": "Survey completeness",
+        "detail": "Check skull, chest/ribs, spine, pelvis and individual limbs according to protocol."
+      },
+      {
+        "label": "Fractures",
+        "detail": "Describe each injury objectively by side, bone, segment, morphology and displacement."
+      },
+      {
+        "label": "Healing",
+        "detail": "Describe periosteal reaction/callus/remodelling without assigning an exact injury date."
+      },
+      {
+        "label": "Differential",
+        "detail": "Assess bone mineralisation, dysplasia and normal developmental mimics."
+      },
+      {
+        "label": "Associated injury",
+        "detail": "Review neurological/visceral studies actually obtained and communicate through the safeguarding pathway."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Injury localisation",
+        "method": "Record precise bone/segment and dimensions/displacement where useful.",
+        "pitfall": "Do not use lesion size to infer mechanism or intent."
+      },
+      {
+        "name": "Serial comparison",
+        "method": "Record whether each described injury is newly visible, unchanged or healing with dates.",
+        "pitfall": "Visibility may change as healing develops; it does not establish exact timing."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Imaging cannot determine intent, perpetrator or an exact injury date.",
+      "Metaphyseal variants and physiological periosteal reaction require age-aware interpretation."
+    ],
+    "impression_prompts": [
+      "What injuries are demonstrated, with objective morphology and sites?",
+      "What healing features and relevant alternatives are visible?",
+      "What additional imaging or direct safeguarding communication is required?"
+    ],
+    "escalation": [
+      "Communicate concerning injuries promptly through the local safeguarding team and document recipient/time.",
+      "Escalate acute intracranial or visceral injury according to its clinical urgency."
+    ],
+    "template_sections": [
+      {
+        "heading": "SURVEY COMPLETENESS",
+        "body": "Protocol [ ]; required views completed [ ]; repeated/additional views [ ]; omitted/limited views and reason [ ]; comparison dates [ ]."
+      },
+      {
+        "heading": "FRACTURE INVENTORY",
+        "body": "Injury [number]: side [ ], bone/segment [ ], morphology [ ], displacement [ ], articular/physeal involvement [ ], image reference [ ]. Repeat per injury."
+      },
+      {
+        "heading": "HEALING FEATURES",
+        "body": "Periosteal reaction [ ]; callus [ ]; remodelling [ ]; prior visibility [ ]; timing statement limited to observed features [ ]."
+      },
+      {
+        "heading": "BONE AND DEVELOPMENTAL FINDINGS",
+        "body": "Mineralisation [ ]; dysplasia/metabolic features [ ]; developmental variants [ ]; alternative explanation supported by imaging [ ]."
+      },
+      {
+        "heading": "ASSOCIATED STUDIES",
+        "body": "Neuroimaging [not obtained / examination and findings]; spine [ ]; visceral injury [ ]; other imaging [ ]."
+      },
+      {
+        "heading": "SAFEGUARDING HANDOVER",
+        "body": "Objective imaging concern [ ]; named recipient/team [ ]; communication time [ ]; further imaging according to local pathway [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Child abuse - Diagnostic Imaging 2.0",
+        "url": "https://radiologyassistant.nl/pediatrics/child-abuse/diagnostic-imaging-in-child-abuse"
+      },
+      {
+        "title": "ACR Suspected Physical Abuse–Child, update 2025",
+        "url": "https://acsearch.acr.org/list/TopicNarrativePdf?topicId=101"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.paeds-masses-neuro": {
+    "protocol": [
+      "Choose a paediatric mass or neonatal cranial ultrasound pathway; do not combine their classifications. Record age and the actual examination.",
+      "For masses define organ of origin and vascular relationships; for cranial US acquire standard coronal/sagittal views and additional windows when indicated."
+    ],
+    "checklist": [
+      {
+        "label": "Mass origin",
+        "detail": "Use organ displacement and continuity to establish origin before an age-specific differential."
+      },
+      {
+        "label": "Mass extent",
+        "detail": "Assess composition, vessels, nodes and spread within coverage."
+      },
+      {
+        "label": "Cranial US ventricles",
+        "detail": "Measure both sides on standard planes with gestational-age comparison."
+      },
+      {
+        "label": "Cranial US haemorrhage",
+        "detail": "Inspect caudothalamic grooves, ventricular blood and parenchymal involvement separately."
+      },
+      {
+        "label": "Cranial US parenchyma",
+        "detail": "Review white matter, deep nuclei, midline and posterior fossa; state window limitations."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Mass dimensions",
+        "method": "Record three dimensions and organ/vascular relationship.",
+        "pitfall": "Do not use an adult mass rule for a childhood lesion without checking applicability."
+      },
+      {
+        "name": "Ventricular index",
+        "method": "Measure right/left Levene ventricular index on the standard coronal plane and compare with gestational-age charts.",
+        "pitfall": "Oblique planes and different indices are not interchangeable."
+      },
+      {
+        "name": "Ventricular dilatation follow-up",
+        "method": "Record anterior horn width and thalamo-occipital distance where part of the local neonatal protocol.",
+        "pitfall": "Use the same plane, method and serial reference; a single value is not a complete treatment decision."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "An apparent adrenal/renal mass may arise from an adjacent compartment.",
+      "Neonatal periventricular echogenicity requires distribution, persistence and serial context; do not equate every flare with injury."
+    ],
+    "impression_prompts": [
+      "For a mass: what origin, extent and age-appropriate differential are supported?",
+      "For cranial US: what haemorrhage, ventricular or parenchymal abnormality is present?",
+      "What urgent complication or follow-up comparison is required?"
+    ],
+    "escalation": [
+      "Escalate a mass with vascular/airway compromise or rapidly increasing ventricular dilatation/major neonatal brain injury."
+    ],
+    "template_sections": [
+      {
+        "heading": "EXAMINATION PATHWAY",
+        "body": "Study [mass imaging / neonatal cranial US]; age/gestation [ ]; region/windows [ ]; pathway-specific clinical question [ ]."
+      },
+      {
+        "heading": "MASS ORIGIN AND COMPOSITION",
+        "body": "Organ/compartment [ ]; dimensions __ × __ × __ mm; solid/cystic/fat/calcification [ ]; enhancement/vascularity [ ]. Delete for cranial-only study."
+      },
+      {
+        "heading": "MASS EXTENT",
+        "body": "Vessel displacement/encasement/thrombus [ ]; organ invasion [ ]; nodes [ ]; spread [ ]; spinal extension if relevant [ ]. Delete for cranial-only study."
+      },
+      {
+        "heading": "CRANIAL US VENTRICLES",
+        "body": "Right/left ventricular index __/__ mm; anterior horn width __/__ mm; thalamo-occipital distance __/__ mm if obtained; chart/gestational age [ ]; interval trend [ ]."
+      },
+      {
+        "heading": "CRANIAL US HAEMORRHAGE",
+        "body": "Germinal matrix [ ]; intraventricular blood [ ]; ventricular dilatation [ ]; parenchymal haemorrhagic injury [side/site]; named grading if used [ ]."
+      },
+      {
+        "heading": "CRANIAL US PARENCHYMA",
+        "body": "White matter echogenicity/cysts [ ]; deep nuclei [ ]; midline anatomy [ ]; posterior fossa [ ]; window limitation [ ]; comparison [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Neck Masses in Children",
+        "url": "https://radiologyassistant.nl/head-neck/neck-masses/neck-masses-in-children"
+      },
+      {
+        "title": "Cystic Abdominal Masses in Children",
+        "url": "https://radiologyassistant.nl/pediatrics/abdominal-masses/cystic-abdominal-masses-in-children"
+      },
+      {
+        "title": "Solid Abdominal Masses in Children",
+        "url": "https://radiologyassistant.nl/pediatrics/abdominal-masses/malignant-abdominal-tumors-in-children"
+      },
+      {
+        "title": "Renal Tumors in Children",
+        "url": "https://radiologyassistant.nl/pediatrics/abdominal-masses/renal-tumors-in-children"
+      },
+      {
+        "title": "Neonatal Brain US",
+        "url": "https://radiologyassistant.nl/pediatrics/spine/neonatal-brain-us"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.paeds-chest": {
+    "protocol": [
+      "Record gestational/postnatal age, respiratory support and treatment timing; review projection, rotation and inflation.",
+      "For CT, state the specific airway, congenital, infective or mass question and age-appropriate acquisition."
+    ],
+    "checklist": [
+      {
+        "label": "Lines and tubes",
+        "detail": "Trace each device through its full visible course and state tip relative to anatomic landmarks."
+      },
+      {
+        "label": "Lung volume/pattern",
+        "detail": "Describe inflation and diffuse versus focal parenchymal abnormalities."
+      },
+      {
+        "label": "Pleura and air leak",
+        "detail": "Check pneumothorax, effusion, interstitial emphysema and mediastinal air."
+      },
+      {
+        "label": "Heart/mediastinum",
+        "detail": "Assess cardiothymic contour, situs and any focal mass."
+      },
+      {
+        "label": "Congenital/other findings",
+        "detail": "Review diaphragms, visible upper abdomen and bones with age context."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Device position",
+        "method": "Report tip level or distance from a named landmark with patient/head position.",
+        "pitfall": "Neck position and limb movement can change tube/line tip position."
+      },
+      {
+        "name": "Focal lesion",
+        "method": "Measure a mass, cavity or congenital lesion on appropriate cross-sectional images.",
+        "pitfall": "AP projection magnification limits exact radiographic size comparisons."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "The normal thymus can resemble a mass or opacity.",
+      "Neonatal diffuse lung patterns overlap; use gestation, timing, support and response."
+    ],
+    "impression_prompts": [
+      "Are support devices appropriately positioned?",
+      "What lung pattern or complication explains the clinical change?",
+      "Is there an urgent air leak or congenital/mediastinal concern?"
+    ],
+    "escalation": [
+      "Immediately communicate a critical malpositioned device, tension-pattern pneumothorax or other major acute complication."
+    ],
+    "template_sections": [
+      {
+        "heading": "SUPPORT DEVICES",
+        "body": "ET tube tip [level/distance from carina]; enteric tube course/tip [ ]; UVC/UAC/PICC or other catheter [course/tip]; interval change [ ]."
+      },
+      {
+        "heading": "LUNG VOLUME AND PARENCHYMA",
+        "body": "Inflation [low / appropriate / high]; pattern [granular / streaky / focal airspace / cystic / other]; distribution [ ]; air bronchograms [ ]."
+      },
+      {
+        "heading": "PLEURA AND AIR LEAK",
+        "body": "Pneumothorax [ ]; mediastinal shift [ ]; interstitial emphysema [ ]; pneumomediastinum [ ]; effusion [ ]."
+      },
+      {
+        "heading": "CARDIOMEDIASTINAL STRUCTURES",
+        "body": "Situs [ ]; heart size allowing for projection [ ]; thymus [ ]; mediastinal lesion [ ]; vascularity [ ]."
+      },
+      {
+        "heading": "DIAPHRAGMS AND ADDITIONAL FINDINGS",
+        "body": "Diaphragm position/continuity [ ]; visible bowel gas [ ]; congenital lesion if assessed [ ]; bones [ ]; comparison to support/treatment timing [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Lines and tubes in Neonates",
+        "url": "https://radiologyassistant.nl/pediatrics/abdominal-masses/lines-and-tubes-in-neonates"
+      },
+      {
+        "title": "Nonvascular Mediastinal Masses",
+        "url": "https://radiologyassistant.nl/pediatrics/pediatric-chest-ct/nonvascular-mediastinal-masses"
+      },
+      {
+        "title": "Neonatal Chest X-Ray",
+        "url": "https://radiologyassistant.nl/pediatrics/pediatric-chest-ct/neonatal-chest"
+      },
+      {
+        "title": "Pediatric Chest CT 2",
+        "url": "https://radiologyassistant.nl/pediatrics/pediatric-chest-ct/pediatric-chest-ct-2"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.paeds-abdomen": {
+    "protocol": [
+      "Use age, bilious vomiting, distension, pain and clinical stability to choose radiograph, targeted ultrasound or contrast examination.",
+      "Record the actual rotation, intussusception, pyloric or neonatal-inflammation pathway; a normal gas pattern does not end an urgent clinical workup."
+    ],
+    "checklist": [
+      {
+        "label": "Gas distribution",
+        "detail": "Describe distended loops, distal/rectal gas and the pattern of obstruction."
+      },
+      {
+        "label": "Bowel wall/perfusion",
+        "detail": "Look for pneumatosis, portal venous gas, wall thinning/thickening and Doppler perfusion."
+      },
+      {
+        "label": "Targeted cause",
+        "detail": "Identify intussusception, malrotation/volvulus or pyloric abnormality when evaluated."
+      },
+      {
+        "label": "Perforation/fluid",
+        "detail": "Inspect for free gas, ascites and focal collection."
+      },
+      {
+        "label": "Other organs",
+        "detail": "Review appendix, urinary tract and sex-specific pelvic causes when relevant and covered."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Pylorus if examined",
+        "method": "Measure muscle thickness and channel length on a true longitudinal plane, with dynamic passage assessment.",
+        "pitfall": "Measurements depend on age/size and technique; pylorospasm can mimic fixed obstruction."
+      },
+      {
+        "name": "Intussusception if present",
+        "method": "Record site, transverse size and length, lead point and perfusion.",
+        "pitfall": "Short transient small-bowel intussusceptions differ from ileocolic disease."
+      },
+      {
+        "name": "Bowel/collection",
+        "method": "Measure affected wall or collection on a reproducible plane with distension documented.",
+        "pitfall": "A single wall thickness cannot establish bowel viability."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Normal SMA/SMV orientation alone does not exclude malrotation.",
+      "Absent radiographic pneumatosis does not exclude necrotising enterocolitis."
+    ],
+    "impression_prompts": [
+      "What age-specific obstruction or inflammatory pattern is present?",
+      "Is there volvulus, perforation or compromised bowel?",
+      "Does the study adequately answer the urgent question?"
+    ],
+    "escalation": [
+      "Immediately communicate suspected volvulus, perforation, compromised bowel or clinically significant intussusception."
+    ],
+    "template_sections": [
+      {
+        "heading": "BOWEL GAS AND OBSTRUCTION",
+        "body": "Dilated loops [ ]; distribution [ ]; distal/rectal gas [ ]; obstruction level suspected [ ]; persistent fixed loop [ ]."
+      },
+      {
+        "heading": "WALL, GAS AND PERFUSION",
+        "body": "Pneumatosis [ ]; portal venous gas [ ]; wall appearance [ ]; Doppler perfusion [not assessed / findings]; free air [ ]."
+      },
+      {
+        "heading": "ROTATION AND VOLVULUS BRANCH",
+        "body": "Method [US / upper GI / other]; duodenal course/DJ junction [ ]; mesenteric whirl [ ]; vessel relationship [ ]; adequacy [ ]. Delete if not assessed."
+      },
+      {
+        "heading": "INTUSSUSCEPTION AND PYLORUS BRANCH",
+        "body": "Intussusception [site/type/size]; lead point [ ]; perfusion [ ]; pyloric muscle __ mm, length __ mm, passage [ ] if examined."
+      },
+      {
+        "heading": "FLUID AND OTHER CAUSES",
+        "body": "Ascites [ ]; collection [ ]; appendix [not assessed / findings]; urinary/pelvic cause [ ]; other age-specific finding [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Acute Abdomen in Neonates",
+        "url": "https://radiologyassistant.nl/pediatrics/abdominal-masses/acute-abdomen-in-neonates"
+      },
+      {
+        "title": "Necrotizing Enterocolitis",
+        "url": "https://radiologyassistant.nl/pediatrics/abdominal-masses/necrotizing-enterocolitis"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.neonatal-spine": {
+    "protocol": [
+      "Record age, cutaneous marker and acoustic-window quality; acquire longitudinal and transverse views through conus, filum and abnormal skin tract.",
+      "Document vertebral counting method and any transitional anatomy; MRI may be needed if ultrasound is limited or abnormal."
+    ],
+    "checklist": [
+      {
+        "label": "Numbering",
+        "detail": "Establish vertebral levels with reproducible landmarks."
+      },
+      {
+        "label": "Conus",
+        "detail": "Describe termination, shape, position and motion."
+      },
+      {
+        "label": "Filum/roots",
+        "detail": "Assess filum appearance and cauda equina mobility."
+      },
+      {
+        "label": "Dysraphism",
+        "detail": "Trace tract, lipoma, split cord and posterior element defect."
+      },
+      {
+        "label": "Associated findings",
+        "detail": "Review syrinx/hydromyelia and soft-tissue extent within coverage."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Conus level",
+        "method": "State vertebral body/disc level and how levels were counted.",
+        "pitfall": "Miscounting from a transitional vertebra can falsely imply a low conus."
+      },
+      {
+        "name": "Filum thickness",
+        "method": "Measure in a true transverse plane at a named level in mm if visible.",
+        "pitfall": "Obliquity, an adjacent nerve root or poor resolution can overestimate thickness."
+      },
+      {
+        "name": "Tract/mass",
+        "method": "Measure lesion dimensions and trace any spinal-canal communication.",
+        "pitfall": "Failure to see a tract on limited ultrasound does not exclude one."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A simple coccygeal pit differs from a higher or complex cutaneous marker; use the clinical description.",
+      "Tethering is not diagnosed from a single uncertain conus level without morphology and clinical context."
+    ],
+    "impression_prompts": [
+      "Is conus position and motion appropriate with reliable numbering?",
+      "Is there a tract, lipoma or other dysraphic abnormality?",
+      "Is MRI or specialist assessment needed because of findings or limitations?"
+    ],
+    "escalation": [
+      "Promptly refer a concerning dermal sinus/canal connection, low fixed cord or other significant dysraphism through the appropriate pathway."
+    ],
+    "template_sections": [
+      {
+        "heading": "LANDMARKS AND NUMBERING",
+        "body": "Counting method [ ]; transitional anatomy [ ]; visualised levels [ ]; acoustic window [ ]."
+      },
+      {
+        "heading": "CONUS",
+        "body": "Termination at [ ]; shape [ ]; position [ ]; pulsation/motion [ ]; cord calibre [ ]."
+      },
+      {
+        "heading": "FILUM AND CAUDA EQUINA",
+        "body": "Filum __ mm at [ ]; echogenicity [ ]; roots [ ]; mobility [ ]; fatty appearance [ ]."
+      },
+      {
+        "heading": "CUTANEOUS TRACT AND POSTERIOR ELEMENTS",
+        "body": "Marker site [ ]; tract [absent / present / incompletely seen]; destination [ ]; posterior defect [ ]; canal communication [ ]."
+      },
+      {
+        "heading": "ASSOCIATED DYSRAPHISM",
+        "body": "Lipoma/mass __ × __ × __ mm [if present]; split cord [ ]; central canal/syrinx [ ]; other anomaly [ ]; limitation requiring MRI [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ultrasound of the Neonatal spine",
+        "url": "https://radiologyassistant.nl/pediatrics/spine/ultrasound-of-the-neonatal-spine"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.craniosynostosis": {
+    "protocol": [
+      "Record age, head-shape concern and prior surgery. Use an age-appropriate suture assessment; if CT is needed, use an optimised low-dose craniofacial protocol.",
+      "Evaluate source images with 3D rendering; surface reconstructions alone are insufficient to establish every suture finding."
+    ],
+    "checklist": [
+      {
+        "label": "Sutures",
+        "detail": "Assess metopic, sagittal, both coronal and both lambdoid sutures individually."
+      },
+      {
+        "label": "Shape",
+        "detail": "Describe the associated vault shape and symmetry."
+      },
+      {
+        "label": "Skull base/orbits",
+        "detail": "Inspect orbital and cranial-base asymmetry and foraminal crowding where evaluable."
+      },
+      {
+        "label": "Intracranial context",
+        "detail": "Describe ventricles and other visible abnormality within the limits of the study."
+      },
+      {
+        "label": "Pattern",
+        "detail": "Distinguish single-suture, multisuture and positional deformation with age context."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Head-shape metrics",
+        "method": "Report cephalic index or asymmetry only with named landmarks/method if used for planning.",
+        "pitfall": "A shape metric alone does not establish synostosis."
+      },
+      {
+        "name": "Suture abnormality",
+        "method": "Describe length/location of fusion and associated ridge on source images.",
+        "pitfall": "Physiological metopic closure must be interpreted by age and head shape."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A closed metopic suture alone is not equivalent to pathological trigonocephaly.",
+      "3D segmentation can erase a thin patent suture or introduce an apparent gap."
+    ],
+    "impression_prompts": [
+      "Which sutures are fused, patent or indeterminate?",
+      "What vault/orbital/base pattern accompanies the finding?",
+      "Is there multisuture disease or another feature requiring specialist assessment?"
+    ],
+    "escalation": [
+      "Refer confirmed or strongly suspected craniosynostosis to the craniofacial pathway; urgently flag a consequential intracranial abnormality."
+    ],
+    "template_sections": [
+      {
+        "heading": "SUTURE INVENTORY",
+        "body": "Metopic [ ]; sagittal [ ]; R/L coronal [ ]; R/L lambdoid [ ]; other sutures [ ]; status [patent / fused / indeterminate]."
+      },
+      {
+        "heading": "FUSION DETAIL",
+        "body": "Affected suture segment [ ]; length/extent [ ]; ridge/sclerosis [ ]; source-image confirmation [ ]; prior surgery [ ]."
+      },
+      {
+        "heading": "VAULT SHAPE",
+        "body": "Shape pattern [ ]; frontal/occipital asymmetry [ ]; compensatory expansion [ ]; positional features [ ]; metric/method if used [ ]."
+      },
+      {
+        "heading": "ORBITS AND SKULL BASE",
+        "body": "Orbital asymmetry [ ]; anterior/middle/posterior fossa shape [ ]; skull-base findings [ ]; foramen magnum if assessed [ ]."
+      },
+      {
+        "heading": "INTRACRANIAL AND ASSOCIATED FINDINGS",
+        "body": "Ventricular appearance [ ]; parenchyma within study limits [ ]; associated anomaly [ ]; assessment limitation [ ]; single/multisuture pattern [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Craniosynostosis",
+        "url": "https://radiologyassistant.nl/pediatrics/head-neck/craniosynosthosis"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.nuclear-general": {
+    "protocol": [
+      "Name the actual examination and record radiopharmaceutical, administered activity, route, injection/acquisition times and acquisitions obtained.",
+      "Select only the applicable bone, V/Q, thyroid or sentinel-node branch; describe SPECT/CT registration and the CT component’s limitations."
+    ],
+    "checklist": [
+      {
+        "label": "Technical validity",
+        "detail": "Check injection site, contamination, motion, timing and expected biodistribution."
+      },
+      {
+        "label": "Bone branch",
+        "detail": "Map focal versus diffuse skeletal uptake and correlate with anatomy, trauma and treatment."
+      },
+      {
+        "label": "V/Q branch",
+        "detail": "Describe ventilation and perfusion distribution, matched/mismatched defects and technical adequacy."
+      },
+      {
+        "label": "Thyroid branch",
+        "detail": "Relate uptake pattern and measured uptake to tracer, time, local reference and biochemical context."
+      },
+      {
+        "label": "Sentinel branch",
+        "detail": "Describe injection sites, dynamic drainage, nodal basins and localisation for surgery without inferring histology."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Radioiodine uptake",
+        "method": "Report percentage at stated time with background correction and laboratory reference interval.",
+        "pitfall": "Recent iodine exposure or medication may alter uptake; do not apply a universal interval."
+      },
+      {
+        "name": "V/Q distribution",
+        "method": "Record defect number, location and segmental extent; quantify relative function only if calculated by an appropriate method.",
+        "pitfall": "Planar and SPECT interpretation schemes are not interchangeable."
+      },
+      {
+        "name": "Focal lesion correlation",
+        "method": "Measure the anatomic correlate when visible and clinically relevant.",
+        "pitfall": "Uptake intensity is not a reliable universal discriminator of benign versus malignant disease."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Bone turnover, inflammation and healing can produce intense uptake.",
+      "A thyroid cold nodule is not a histological diagnosis.",
+      "A mapped sentinel node may or may not contain tumour."
+    ],
+    "impression_prompts": [
+      "What does this specific tracer study demonstrate?",
+      "Which focal findings are supported by anatomic correlation?",
+      "What study-specific limitation or urgent result needs communication?"
+    ],
+    "escalation": [
+      "Promptly communicate a clinically significant positive PE result or another unexpected urgent finding."
+    ],
+    "template_sections": [
+      {
+        "heading": "RADIOPHARMACEUTICAL AND DISTRIBUTION",
+        "body": "Study [ ]; tracer [ ]; activity __ MBq; route/site [ ]; injection time [ ]; imaging time [ ]; expected distribution [ ]; artefact/contamination [ ]."
+      },
+      {
+        "heading": "BONE SCAN BRANCH",
+        "body": "Acquisitions [flow / blood pool / delayed / SPECT-CT]; abnormal sites [ ]; pattern [ ]; CT/radiographic correlate [ ]; diffuse/superscan pattern [ ]. Delete if not performed."
+      },
+      {
+        "heading": "V/Q BRANCH",
+        "body": "Ventilation [ ]; perfusion [ ]; defects [site, number, segmental extent]; mismatch [ ]; method/criteria [ ]; result [PE present / absent / nondiagnostic according to chosen criteria]. Delete if not performed."
+      },
+      {
+        "heading": "THYROID BRANCH",
+        "body": "Tracer/timing [ ]; uptake __% at __ h, local range [ ]; gland location/size [ ]; diffuse/focal pattern [ ]; nodule correlation [ ]; confounders [ ]. Delete if not performed."
+      },
+      {
+        "heading": "SENTINEL NODE BRANCH",
+        "body": "Primary site [ ]; injection sites [ ]; dynamic drainage [ ]; first-echelon nodes [number/basin]; SPECT-CT location [ ]; skin marking [ ]; surgical handover [ ]. Delete if not performed."
+      },
+      {
+        "heading": "ANATOMIC CORRELATION",
+        "body": "CT type/coverage [ ]; relevant structural findings [ ]; discordant focus [ ]; limitation or additional targeted question [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "EANM bone scintigraphy practice guideline",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4932135/"
+      },
+      {
+        "title": "EANM V/P SPECT guideline",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6813289/"
+      },
+      {
+        "title": "SNMMI/EANM thyroid scintigraphy and uptake",
+        "url": "https://snmmi.org/Web/Web/Clinical-Practice/Procedure-Standards/Standards/EANM%20SNMMI%20guideline-for-Radio-Iodine-Uptake--RAIU--and-Scintigraphy.aspx"
+      },
+      {
+        "title": "SNMMI lymphoscintigraphy appropriate-use guidance",
+        "url": "https://snmmi.org/Web/Clinical-Practice/Appropriate-Use-Criteria/Articles/Appropriate-Use-Criteria-for-Lymphoscintigraphy-in-Sentinel-Node-Mapping-and-Lymphedema-Lipedema"
+      },
+      {
+        "title": "Joint V/Q pulmonary scintigraphy guideline executive summary (2026)",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42754348/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.pet-ct": {
+    "protocol": [
+      "Record tumour type, treatment dates, fasting/glucose, FDG activity, uptake time and coverage; identify diagnostic versus attenuation-correction CT.",
+      "For serial assessment, document technical comparability and the named response framework appropriate to histology and therapy."
+    ],
+    "checklist": [
+      {
+        "label": "Quality",
+        "detail": "Assess injection infiltration, motion/misregistration, glucose and physiological uptake."
+      },
+      {
+        "label": "Disease map",
+        "detail": "Describe primary, regional nodes and distant sites with anatomical correlation."
+      },
+      {
+        "label": "Index lesions",
+        "detail": "Use reproducible lesions and matching measurements on the comparison study."
+      },
+      {
+        "label": "Response",
+        "detail": "Separate residual mass from metabolic activity and explain equivocal or new uptake."
+      },
+      {
+        "label": "Incidental findings",
+        "detail": "Review CT independently for relevant non-avid lesions and urgent complications."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion uptake",
+        "method": "Record SUVmax or SULpeak with the metric, lesion site and acquisition context.",
+        "pitfall": "Values depend on uptake time, calibration, reconstruction, glucose and lesion size."
+      },
+      {
+        "name": "Lesion size",
+        "method": "Measure anatomic dimensions on an appropriate CT/MRI component and identify the comparison.",
+        "pitfall": "Low-dose noncontrast CT may be inadequate for formal size-based response."
+      },
+      {
+        "name": "Reference uptake",
+        "method": "Record liver and mediastinal blood-pool reference where required by the chosen response system.",
+        "pitfall": "Diffuse liver disease or altered biodistribution may compromise the reference."
+      }
+    ],
+    "classification": {
+      "name": "Lugano / Deauville or another named response framework",
+      "version": "Lugano 2014 five-point scale when applicable; acquisition guidance EANM FDG v3.0 (2025)",
+      "applicability": "Deauville for appropriate FDG-avid lymphoma assessment; use a disease/therapy-specific framework elsewhere.",
+      "summary": "Describe uptake relative to mediastinum/liver, new lesions and change from baseline; integrate the protocol and interim/end-treatment context. A score alone is not a universal treatment instruction."
+    },
+    "pitfalls": [
+      "Inflammation, infection and treatment effects can be FDG avid.",
+      "Small or low-FDG-avid malignancies may be falsely negative.",
+      "Do not apply Deauville as a general solid-tumour response score."
+    ],
+    "impression_prompts": [
+      "What is the supported distribution of metabolically active disease?",
+      "What response category applies under the named criteria and timepoint?",
+      "Which equivocal focus, CT-only finding or technical limitation matters?"
+    ],
+    "escalation": [
+      "Communicate unexpected acute structural complications or other urgent incidental findings directly."
+    ],
+    "template_sections": [
+      {
+        "heading": "PREPARATION AND QUANTITATIVE QUALITY",
+        "body": "Glucose __ [unit]; activity __ MBq; uptake time __ min; injection site [ ]; coverage [ ]; CT [diagnostic / low dose]; comparability [ ]."
+      },
+      {
+        "heading": "PRIMARY AND REGIONAL DISEASE",
+        "body": "Primary site [ ]; dimensions [ ]; uptake [metric/value]; regional nodal sites [ ]; representative node [size, uptake, image]."
+      },
+      {
+        "heading": "DISTANT DISEASE",
+        "body": "Nonregional nodes [ ]; lungs/pleura [ ]; liver/other viscera [ ]; bone/marrow [ ]; additional sites [ ]."
+      },
+      {
+        "heading": "INDEX LESION COMPARISON",
+        "body": "Lesion [site/image]: current size/uptake [ ], prior [ ], date [ ]; reference liver [ ], blood pool [ ]; new lesions [ ]."
+      },
+      {
+        "heading": "RESPONSE ASSESSMENT",
+        "body": "Histology/treatment/timepoint [ ]; criteria/version [ ]; Deauville if applicable [1–5 with reasoning]; overall response [ ]; equivocal uptake and alternative cause [ ]."
+      },
+      {
+        "heading": "CT AND INCIDENTAL FINDINGS",
+        "body": "Relevant non-avid structural findings [ ]; acute complications [ ]; findings outside PET sensitivity [ ]; targeted follow-up if justified [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "EANM FDG PET/CT tumour imaging guideline v3.0 (2025)",
+        "url": "https://doi.org/10.1016/j.eanmj.2025.100006"
+      },
+      {
+        "title": "Lugano classification consensus (2014)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4979083/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.theranostics": {
+    "protocol": [
+      "Identify tracer/target and indication: PSMA prostate-cancer imaging or SSTR neuroendocrine-tumour imaging; record relevant treatment and injection/acquisition details.",
+      "Review prior anatomic and other-tracer studies for discordant disease. Treatment suitability follows the relevant multidisciplinary pathway."
+    ],
+    "checklist": [
+      {
+        "label": "Technical context",
+        "detail": "Assess biodistribution, urinary activity, motion and tracer-specific limitations."
+      },
+      {
+        "label": "PSMA branch",
+        "detail": "Map prostate/prostate-bed, pelvic and extrapelvic nodes, bone and visceral findings."
+      },
+      {
+        "label": "SSTR branch",
+        "detail": "Map primary, nodal, hepatic, osseous and other disease with reference-organ comparison."
+      },
+      {
+        "label": "Heterogeneity",
+        "detail": "Identify lesions with absent/low target expression or discordant FDG/anatomic progression."
+      },
+      {
+        "label": "Treatment relevance",
+        "detail": "Describe target expression and organ findings that may affect evaluation without independently declaring treatment eligibility."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Index uptake",
+        "method": "Record SUV metric, lesion and reference tissue using the same tracer/method for comparison.",
+        "pitfall": "Different tracers and uptake times are not directly interchangeable."
+      },
+      {
+        "name": "Anatomic burden",
+        "method": "Measure selected lesions on diagnostic-quality anatomic imaging and record site/series.",
+        "pitfall": "An avid focus without a definite structural correlate may remain indeterminate."
+      },
+      {
+        "name": "Target heterogeneity",
+        "method": "Describe relative uptake across representative lesions and discordant sites.",
+        "pitfall": "A single highest-uptake lesion does not represent all disease or define eligibility."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "PSMA uptake is not exclusive to prostate cancer; ganglia and benign bone findings may be pitfalls.",
+      "Physiological SSTR uptake, including pancreatic uncinate uptake, can mimic tumour.",
+      "Target-positive imaging alone does not establish suitability for radionuclide therapy."
+    ],
+    "impression_prompts": [
+      "What tracer-specific disease distribution is supported?",
+      "Is target expression heterogeneous or discordant with other imaging?",
+      "Which uncertain focus or relevant organ finding should inform multidisciplinary review?"
+    ],
+    "escalation": [
+      "Communicate structural complications such as impending cord compression or significant urinary obstruction promptly."
+    ],
+    "template_sections": [
+      {
+        "heading": "TRACER AND REFERENCE UPTAKE",
+        "body": "Tracer/target [ ]; activity __ MBq; uptake time __ min; relevant therapy dates [ ]; biodistribution [ ]; reference-organ uptake [ ]; technical limitation [ ]."
+      },
+      {
+        "heading": "PSMA DISEASE MAP",
+        "body": "Prostate/bed [ ]; pelvic nodes [ ]; extrapelvic nodes [ ]; bone [ ]; viscera [ ]; miTNM only if explicitly applied [system/version and components]. Delete for SSTR-only study."
+      },
+      {
+        "heading": "SSTR DISEASE MAP",
+        "body": "Known primary [ ]; nodes [ ]; liver [ ]; bone [ ]; other sites [ ]; uptake relative to reference organs [ ]; anatomic correlation [ ]. Delete for PSMA-only study."
+      },
+      {
+        "heading": "INDEX LESIONS AND HETEROGENEITY",
+        "body": "Index lesion [site/size/SUV metric]; additional representative lesion [ ]; low/non-avid structural lesions [ ]; discordant FDG sites [not available / findings]."
+      },
+      {
+        "heading": "PITFALLS AND ORGAN FINDINGS",
+        "body": "Indeterminate focus [site and reason]; physiological/benign explanation [ ]; renal/urinary findings [ ]; marrow/other relevant structural findings [ ]."
+      },
+      {
+        "heading": "MULTIDISCIPLINARY ASSESSMENT INPUT",
+        "body": "Target-expression summary [ ]; unresolved discordance [ ]; current imaging limitations [ ]; treatment-pathway question for team [ ]; no imaging-only eligibility determination [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "EANM/SNMMI PSMA PET/CT guideline v2.0 (2023)",
+        "url": "https://doi.org/10.1007/s00259-022-06089-w"
+      },
+      {
+        "title": "SNMMI/EANM SSTR PET guideline (2023)",
+        "url": "https://jnm.snmjournals.org/content/64/2/204"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  }
+}

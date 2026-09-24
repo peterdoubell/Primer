@@ -250,6 +250,14 @@
      "caption": "Weather is not produced by clouds alone: moving energy, water, and air pressure create the changing conditions we observe.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-0-weather-observations-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Weather has more than one measurement",
+     "instructions": "Choose an example day and compare temperature, rain, snowfall or wind. These four invented observations are not a forecast. Rain and snowfall use separate measurements.",
+     "props": { "scenario": "earth.0.weather" }
     }
    ]
   },
@@ -368,6 +376,14 @@
      "caption": "Gravity connects landforms and water: drainage pathways both follow the landscape and gradually reshape it.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-0-land-water-route-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Where will the raindrop go?",
+     "instructions": "Choose where rain lands. Advance its downhill route, then add a basin and compare where it stops. This invented surface route leaves out soaking in, evaporation and basin overflow.",
+     "props": { "scenario": "earth.0.land-water" }
     }
    ]
   },
@@ -401,6 +417,16 @@
       "scenario": "earth-tilt-four-positions",
       "start_position": "june-solstice",
       "start_hemisphere": "north"
+     }
+    },
+    {
+     "id": "earth-1-seasons-spatial-3d",
+     "kind": "model",
+     "renderer": "spatial-3d",
+     "title": "Follow Earth's tilted axis through the year",
+     "instructions": "Move Earth around a constant-distance orbit and compare daylight north, south and at the equator. Rotate to inspect the axis and sunlight.",
+     "props": {
+      "scenario": "earth.1.seasons"
      }
     }
    ],
@@ -614,10 +640,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/sprout/earth-space/earth-1-solar-system-800.webp",
      "srcset": "/app/illustrations/sprout/earth-space/earth-1-solar-system-800.webp 800w, /app/illustrations/sprout/earth-space/earth-1-solar-system-1600.webp 1600w",
-     "alt": "An ordered Solar System line names Mercury through Neptune and distinguishes four rocky planets, two gas giants, and two ice giants.",
+     "alt": "Two folded rows name Mercury through Neptune in order and label their orbital distances in astronomical units. Inner and outer planets are separated, with icon sizes and spacing explicitly not to scale.",
      "caption": "The sequence is reliable while the compressed drawing is not distance or size scale—a crucial distinction when reading Solar System diagrams.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-1-solar-system-distance-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Planet order is not a distance scale",
+     "instructions": "Select a planet and switch between equal spacing and linear Sun distance. Observe how the inner planets crowd together. Markers are not planet sizes or current orbital positions.",
+     "props": { "scenario": "earth.1.solar-system" }
     }
    ]
   },
@@ -738,6 +772,12 @@
      "caption": "Any rock can enter multiple pathways when conditions change; the cycle is a network over long time, not one compulsory sequence.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "rock-process-route-model", "kind": "model", "renderer": "concept-lab",
+     "title": "Choose a process, not a compulsory cycle",
+     "instructions": "Choose starting material and a process. Compare the product, or identify a direct route outside this simple model. The textures are explanatory cues, not a rock-identification key.",
+     "props": { "scenario": "earth.1.rocks" }
     }
    ]
   },
@@ -860,6 +900,12 @@
      "caption": "Water is conserved while changing state and reservoir; energy and gravity drive the transfers at very different rates.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "water-store-conservation-model", "kind": "model", "renderer": "concept-lab",
+     "title": "Follow water without losing any",
+     "instructions": "Move water through one possible route. Change how much travels and how much soaks into the ground, then compare all five stores. The total is fixed at 20 arbitrary water units, not Earth’s actual proportions.",
+     "props": { "scenario": "earth.1.water-cycle" }
     }
    ]
   },
@@ -1000,6 +1046,14 @@
      "caption": "Tectonic hazards are surface expressions of moving lithospheric plates and accumulated stress, not random events scattered evenly over Earth.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-2-geology-motion-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Read the relative motion at a boundary",
+     "instructions": "Move two markers attached to neighboring plates. Compare separation across the boundary with sliding along it. This top view explains motion, not deformation or hazard prediction.",
+     "props": { "scenario": "earth.2.geology" }
     }
    ]
   },
@@ -1135,9 +1189,17 @@
      "src": "/app/illustrations/sapling/earth-space/earth-2-atmosphere-800.webp",
      "srcset": "/app/illustrations/sapling/earth-space/earth-2-atmosphere-800.webp 800w, /app/illustrations/sapling/earth-space/earth-2-atmosphere-1600.webp 1600w",
      "alt": "A vertical atmosphere profile places weather in the troposphere, ozone heating in the stratosphere, meteors in the mesosphere, and thin thermospheric air above.",
-     "caption": "Atmospheric layers differ in temperature trend and composition; climate describes long-term statistics of the variable weather below.",
+     "caption": "Layer heights are approximate, the temperature trace is qualitative, and altitude spacing above 85 km is compressed. Climate describes long-term statistics of variable weather.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-2-atmosphere-reference-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "One cold day is not a climate average",
+     "instructions": "Compare a day with an invented 30-year reference for that calendar date. Change the reference climate and today’s departure independently. These are teaching records, not a forecast or observed trend.",
+     "props": { "scenario": "earth.2.atmosphere" }
     }
    ]
   },
@@ -1265,6 +1327,14 @@
      "caption": "Planet categories reveal formation patterns without erasing diversity: nearby size or distance alone does not determine a world's history.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-2-planets-size-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Compare worlds on one size scale",
+     "instructions": "Choose two planets. Their outlines share a diameter scale; compare the diameter ratio with the spherical-volume ratio. This compares physical sizes, not mass or appearance in the sky.",
+     "props": { "scenario": "earth.2.planets" }
     }
    ]
   },
@@ -1391,6 +1461,14 @@
      "caption": "Stars and galaxies occupy different hierarchy levels: the Sun is one star inside a galaxy, not a separate kind of object from other stars.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-2-stars-flux-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "A brighter-looking star need not emit more",
+     "instructions": "Change emitted light and distance independently. Compare received light from the same idealized star at different distances. Relative units and transparent space are assumed.",
+     "props": { "scenario": "earth.2.stars" }
     }
    ]
   },
@@ -1526,9 +1604,17 @@
      "src": "/app/illustrations/sapling/earth-space/earth-2-oceans-800.webp",
      "srcset": "/app/illustrations/sapling/earth-space/earth-2-oceans-800.webp 800w, /app/illustrations/sapling/earth-space/earth-2-oceans-1600.webp 1600w",
      "alt": "An ocean network separates wind-driven surface currents and density-driven sinking and return flow from a distinct Moon-to-tides gravitational branch.",
-     "caption": "Ocean motion combines multiple mechanisms; identifying the driver prevents tides, waves, currents, and river flow from being treated as one process.",
+     "caption": "Surface currents, density circulation and tides have different drivers. The dashed thermocline marks rapid temperature change with depth, not a physical wall.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-2-oceans-alignment-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Why spring and neap tidal ranges differ",
+     "instructions": "Change the Sun–Moon angle and inspect a direction around Earth. Compare the idealized tidal profile and its high-to-low range. This angular model is not a coastal tide forecast or safety guide.",
+     "props": { "scenario": "earth.2.oceans" }
     }
    ]
   },
@@ -1663,10 +1749,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/sapling/earth-space/earth-2-environment-800.webp",
      "srcset": "/app/illustrations/sapling/earth-space/earth-2-environment-800.webp 800w, /app/illustrations/sapling/earth-space/earth-2-environment-1600.webp 1600w",
-     "alt": "An environmental action matrix links climate emissions, water pollution, and habitat loss to source-level interventions and measurable ecological responses.",
+     "alt": "A shared landscape shows an emissions-source retrofit, a vegetated water buffer with a sampler, and a wildlife crossing over a road, each paired with a named response to monitor.",
      "caption": "Effective care targets causes and tracks outcomes; visible clean-up alone may leave the upstream pressure unchanged.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-2-environment-stock-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Stop new pollution and track existing waste",
+     "instructions": "Compare reducing new waste with collecting existing waste. Track the remaining stock and managed storage. Collected waste is moved, not destroyed; this invented accounting model is not a cleanup plan.",
+     "props": { "scenario": "earth.2.environment" }
     }
    ]
   },
@@ -1799,6 +1893,16 @@
      "caption": "Earth's rock cycle couples internal heat and plate tectonics to surface water, atmosphere, gravity, and immense geological time.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-3-earth-science-spatial-3d",
+     "kind": "model",
+     "renderer": "spatial-3d",
+     "title": "Open Earth's interior in 3D",
+     "instructions": "Open the wedge and rotate Earth to inspect the crust, mantle, liquid outer core and solid inner core at approximate radial scale.",
+     "props": {
+      "scenario": "earth.3.earth-science"
+     }
     }
    ]
   },
@@ -1925,6 +2029,14 @@
      "caption": "Astronomy infers life cycles by comparing many stars and uses overlapping distance methods to establish the scale of the cosmos.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-3-astronomy-hr-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Temperature alone cannot tell a star’s luminosity",
+     "instructions": "Change effective temperature and radius independently. Compare constant-radius guides on a logarithmic temperature–luminosity diagram. These guides are not evolutionary tracks and do not determine a star’s age.",
+     "props": { "scenario": "earth.3.astronomy" }
     }
    ]
   },
@@ -2054,10 +2166,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/tree/earth-space/earth-3-climate-sci-800.webp",
      "srcset": "/app/illustrations/tree/earth-space/earth-3-climate-sci-800.webp 800w, /app/illustrations/tree/earth-space/earth-3-climate-sci-1600.webp 1600w",
-     "alt": "An energy network traces sunlight to Earth's surface, infrared through greenhouse gases to space, and carbon dioxide plus water and ice feedbacks.",
-     "caption": "The greenhouse effect is radiative energy balance, not a solid lid; climate change follows a forcing, response, and feedback chain measured in multiple records.",
+     "alt": "An energy diagram contrasts incoming sunlight, reflected sunlight and thermal infrared. A schematic spectrum shows reduced outgoing infrared in a carbon dioxide absorption band immediately after adding carbon dioxide.",
+     "caption": "The greenhouse effect changes radiative energy balance, not a solid lid. The 100/30/70 energy accounting is approximate and the spectral curves are illustrative, not measured spectra.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-3-climate-sci-balance-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "A warmer surface can still balance space",
+     "instructions": "Change reflected sunlight and infrared absorption. Compare surface emission with what escapes to space at equilibrium. This single-layer radiative model omits feedbacks and is not a CO₂ forecast.",
+     "props": { "scenario": "earth.3.climate-sci" }
     }
    ]
   },
@@ -2187,10 +2307,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/tree/earth-space/earth-3-ecology-earth-800.webp",
      "srcset": "/app/illustrations/tree/earth-space/earth-3-ecology-earth-800.webp 800w, /app/illustrations/tree/earth-space/earth-3-ecology-earth-1600.webp 1600w",
-     "alt": "A biome matrix compares rainforest, grassland, desert, and tundra by temperature, water availability, and the ecological constraint shaping life.",
-     "caption": "Climate filters which strategies persist, while organisms feed back on the physical Earth through nutrient cycling, fire, soils, and carbon storage.",
+     "alt": "Overlapping schematic biome ranges are plotted against mean annual temperature and precipitation, showing broad climatic constraints on tundra, forests, grassland and desert.",
+     "caption": "The biome ranges are schematic, not sharp empirical boundaries. Soils, fire, seasonality and history also shape vegetation, which feeds back on carbon, water and nutrient cycles.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-3-ecology-earth-water-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Equal annual rain can give different dry seasons",
+     "instructions": "Keep annual rainfall fixed while changing its timing. Compare soil-water storage and actual evapotranspiration with monthly demand. This invented bucket model is not a biome classifier or irrigation guide.",
+     "props": { "scenario": "earth.3.ecology-earth" }
     }
    ]
   },
@@ -2320,10 +2448,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/tree/earth-space/earth-3-space-exploration-800.webp",
      "srcset": "/app/illustrations/tree/earth-space/earth-3-space-exploration-800.webp 800w, /app/illustrations/tree/earth-space/earth-3-space-exploration-1600.webp 1600w",
-     "alt": "A mission sequence distinguishes launch thrust, sideways orbital free-fall, timed transfer burns, and the resource trade-offs of spacecraft operation.",
+     "alt": "Earth sits at a focus of an elliptical transfer orbit tangent to a smaller circular orbit. Prograde burns at periapsis and apoapsis raise the far side and circularise; the final circular orbit is not shown.",
      "caption": "Spaceflight is controlled momentum and energy accounting: engines change velocity, while gravity governs the long coasting arcs between burns.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-3-space-exploration-mass-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Rocket velocity change depends on mass ratio",
+     "instructions": "Change dry mass, propellant and exhaust speed. Burn part of the propellant and track remaining and expelled mass. Ideal Δv is a velocity change, not altitude or proof of reaching orbit; gravity and drag are excluded.",
+     "props": { "scenario": "earth.3.space-exploration" }
     }
    ]
   },
@@ -2447,10 +2583,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/grove/earth-space/earth-4-geophysics-800.webp",
      "srcset": "/app/illustrations/grove/earth-space/earth-4-geophysics-800.webp 800w, /app/illustrations/grove/earth-space/earth-4-geophysics-1600.webp 1600w",
-     "alt": "A seismogram separates earlier compressional P-wave motion from later shear S-wave motion and links S-wave absence to Earth's liquid outer core.",
-     "caption": "Geophysics infers inaccessible interiors by combining wave travel, gravity, magnetism, and chemical constraints rather than relying on a single measurement.",
+     "alt": "Schematic P-wave rays pass through the liquid outer core while S-wave paths stop at its boundary. A synthetic seismogram marks earlier P and later S arrivals.",
+     "caption": "These ray paths and the seismogram are schematic, not station measurements. Interior structure is inferred by combining seismic, gravitational, magnetic and chemical evidence.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-4-geophysics-arrival-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Arrival-time gaps constrain distance, not direction",
+     "instructions": "Compare P and S travel times through a uniform medium. Change distance and speeds, then test a liquid path. This straight-path model is not a seismic warning tool; one station does not determine direction.",
+     "props": { "scenario": "earth.4.geophysics" }
     }
    ]
   },
@@ -2574,9 +2718,17 @@
      "src": "/app/illustrations/grove/earth-space/earth-4-astrophysics-800.webp",
      "srcset": "/app/illustrations/grove/earth-space/earth-4-astrophysics-800.webp 800w, /app/illustrations/grove/earth-space/earth-4-astrophysics-1600.webp 1600w",
      "alt": "A Hertzsprung–Russell-style plot places the main sequence diagonally, luminous cool giants above, and hot faint white dwarfs below.",
-     "caption": "The H–R diagram turns light measurements into a physical map where location constrains stellar radius, evolutionary state, and mass-dependent lifetime.",
+     "caption": "Illustrative stellar samples locate the main sequence, giants and white dwarfs; dashed radius guides obey L ∝ R²T⁴. Luminosity is logarithmic and temperature decreases to the right. These are not measured stars or evolutionary tracks.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-4-astrophysics-spectrum-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "A redder spectrum need not mean a cooler source",
+     "instructions": "Change temperature and redshift separately. Compare per-wavelength emitted and observed spectra, each normalized to peak one. Absolute brightness is not compared, and the source does not cool when redshift changes.",
+     "props": { "scenario": "earth.4.astrophysics" }
     }
    ]
   },
@@ -2707,9 +2859,17 @@
      "src": "/app/illustrations/grove/earth-space/earth-4-planetary-800.webp",
      "srcset": "/app/illustrations/grove/earth-space/earth-4-planetary-800.webp 800w, /app/illustrations/grove/earth-space/earth-4-planetary-1600.webp 1600w",
      "alt": "A planet-formation sequence moves from a temperature-structured disk through accretion and impact heating to differentiation and long-term geological evolution.",
-     "caption": "Worlds inherit starting materials from disks, then diverge through mass-dependent heat retention, atmospheric escape, impacts, and internal activity.",
+     "caption": "The radial ruler is logarithmic; the snow line at 3 AU is an illustrative disk condition, not a fixed universal boundary. Mass, composition and history shape later planetary evolution.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-4-planetary-retention-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Thermal motion competes with gravitational binding",
+     "instructions": "Compare escape and RMS molecular speeds at an upper-atmosphere level. Vary gravity, temperature and particle mass. RMS speed is not a sharp escape cutoff, and this comparison does not predict an atmosphere’s lifetime.",
+     "props": { "scenario": "earth.4.planetary" }
     }
    ]
   },
@@ -2840,9 +3000,17 @@
      "src": "/app/illustrations/grove/earth-space/earth-4-climatology-800.webp",
      "srcset": "/app/illustrations/grove/earth-space/earth-4-climatology-800.webp 800w, /app/illustrations/grove/earth-space/earth-4-climatology-1600.webp 1600w",
      "alt": "A central near-linear warming-versus-cumulative-carbon curve lies between explicit lower and upper response bounds, explaining why a chosen temperature limit implies an uncertain finite carbon budget.",
-     "caption": "Climate models combine physical conservation laws with observations; ensembles quantify scenario and parameter uncertainty rather than eliminating it.",
+     "caption": "The slopes use the IPCC AR6 CO₂ response estimate: 0.45°C per 1,000 GtCO₂, with a likely range of 0.27–0.63°C. This baseline-relative teaching example is not today's remaining carbon budget.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-4-climatology-cumulative-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Falling emissions still add to cumulative CO₂",
+     "instructions": "Choose a linear emissions decline to zero. Compare annual and cumulative emissions with an assumed CO₂-only warming response. This is an invented scenario, not a dated carbon budget or a full climate forecast.",
+     "props": { "scenario": "earth.4.climatology" }
     }
    ]
   },
@@ -2972,10 +3140,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/grove/earth-space/earth-4-oceanatmos-800.webp",
      "srcset": "/app/illustrations/grove/earth-space/earth-4-oceanatmos-800.webp 800w, /app/illustrations/grove/earth-space/earth-4-oceanatmos-1600.webp 1600w",
-     "alt": "A rotating-fluid network links unequal heating to pressure gradients and winds, then labels ideal depth-integrated Ekman transport as right of the wind in the Northern Hemisphere and left in the Southern Hemisphere before coastal upwelling.",
+     "alt": "A top-view inset shows ideal Northern Hemisphere depth-integrated Ekman transport to the right of the wind. A coastal cross-section shows offshore surface transport, rising deep water and a shoaling thermocline.",
      "caption": "Ekman transport is an idealised, hemispherically signed result of wind stress, rotation, and friction; boundaries and stratification shape the observed air–sea circulation.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-4-oceanatmos-geostrophic-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Geostrophic flow balances pressure and rotation",
+     "instructions": "Reverse latitude or pressure acceleration. Compare opposing accelerations and perpendicular velocity. This frictionless geostrophic balance is not Ekman transport; its inversion is unavailable at the equator.",
+     "props": { "scenario": "earth.4.oceanatmos" }
     }
    ]
   },
@@ -3098,10 +3274,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/forest/earth-space/earth-5-cosmology-800.webp",
      "srcset": "/app/illustrations/forest/earth-space/earth-5-cosmology-800.webp 800w, /app/illustrations/forest/earth-space/earth-5-cosmology-1600.webp 1600w",
-     "alt": "An explicitly not-to-time-scale cosmic timeline orders the hot early universe, first-minutes nucleosynthesis, cosmic microwave background release, galaxy growth, late accelerated expansion, and the present at 13.8 billion years.",
-     "caption": "The compressed positions show sequence only: Big Bang cosmology describes expansion from a hot dense state, not an explosion from one location into pre-existing empty space.",
+     "alt": "A logarithmic cosmic timeline marks early nuclei, CMB release, first stars, late acceleration and the present. Three schematic patches show increasing separation without a privileged central galaxy.",
+     "caption": "Timeline positions use logarithmic time; the upper patches illustrate expansion, not galaxy formation dates or an explosion into pre-existing empty space.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-5-cosmology-expansion-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Expansion can accelerate while H decreases",
+     "instructions": "Change the present matter fraction in a flat matter-plus-Λ universe. Inspect expansion rate, density fractions and acceleration at different scale factors.",
+     "props": { "scenario": "earth.5.cosmology" }
     }
    ]
   },
@@ -3230,10 +3414,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/forest/earth-space/earth-5-astrobiology-800.webp",
      "srcset": "/app/illustrations/forest/earth-space/earth-5-astrobiology-800.webp 800w, /app/illustrations/forest/earth-space/earth-5-astrobiology-1600.webp 1600w",
-     "alt": "An astrobiology evidence tree separates potentially habitable conditions from a contextual biosignature and the multiple tests required for confirmation.",
-     "caption": "Life detection is an inference problem: credible claims must outperform abiotic explanations and survive instrument, stellar, geological, and contamination checks.",
+     "alt": "A simulated transmission spectrum labels candidate oxygen, water, methane and carbon dioxide features with uncertainty bars, beside competing stellar, abiotic and biological explanations.",
+     "caption": "The spectrum and error bars are simulated teaching examples, not detections. No single gas proves life: atmospheric context and tests of abiotic, stellar and instrumental explanations are essential.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-5-astrobiology-inference-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "A positive signal is not the probability of life",
+     "instructions": "Change an assumed life prior and a hypothetical test’s sensitivity and specificity. Compare biological and abiotic positive signals before interpreting a detection.",
+     "props": { "scenario": "earth.5.astrobiology" }
     }
    ]
   },
@@ -3363,10 +3555,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/forest/earth-space/earth-5-earth-systems-800.webp",
      "srcset": "/app/illustrations/forest/earth-space/earth-5-earth-systems-800.webp 800w, /app/illustrations/forest/earth-space/earth-5-earth-systems-1600.webp 1600w",
-     "alt": "A four-row Earth-system matrix separates atmosphere–ocean and land–biosphere exchanges, the cryosphere's sunlight reflection to space, and human greenhouse and land-use forcing.",
-     "caption": "The stock–flux–effect columns distinguish material exchange from radiative feedback: less ice lowers albedo, increases absorbed sunlight, and amplifies warming.",
+     "alt": "A coupled-system diagram links atmosphere, land, ocean and human activity, with a separate ice-albedo response. One-way runoff enters the ocean; other labelled exchanges connect reservoirs.",
+     "caption": "Stocks record amounts and exchanges describe transfers. Ice loss reduces reflected sunlight; this radiative feedback differs from transporting carbon or water between reservoirs.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-5-earth-systems-feedback-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Ice–albedo feedback can create two stable climates",
+     "instructions": "Compare cold and warm initial states under identical forcing. Toggle temperature-dependent albedo to isolate how feedback changes the long-term outcome.",
+     "props": { "scenario": "earth.5.earth-systems" }
     }
    ]
   },
@@ -3496,10 +3696,18 @@
      "kind": "illustration",
      "src": "/app/illustrations/forest/earth-space/earth-5-frontier-800.webp",
      "srcset": "/app/illustrations/forest/earth-space/earth-5-frontier-800.webp 800w, /app/illustrations/forest/earth-space/earth-5-frontier-1600.webp 1600w",
-     "alt": "A cosmic-frontier matrix separates direct observations, supported physical inferences, and still-open mechanisms for gravitational waves, dark matter, and dark energy.",
-     "caption": "Modern cosmology has strong evidence for several phenomena while their deeper causes remain unknown; those are different levels of uncertainty.",
+     "alt": "Three schematic plots contrast a gravitational-wave chirp, a nearly flat galactic rotation curve and distance residuals against a non-accelerating reference.",
+     "caption": "These synthetic curves illustrate evidence patterns, not measured events or fitted data. Supported inferences about phenomena must be distinguished from still-open questions about their mechanisms.",
      "width": 1600,
      "height": 1000
+    },
+    {
+     "id": "earth-5-frontier-polarization-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Detector orientation selects gravitational-wave response",
+     "instructions": "Inspect a transverse ring of freely falling test masses. Change polarization, phase and detector orientation to compare stretching with the differential arm response.",
+     "props": { "scenario": "earth.5.frontier" }
     }
    ]
   }

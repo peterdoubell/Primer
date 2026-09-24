@@ -1,15 +1,28 @@
 # Never upload the reader's data or the gigabyte archives.
-content/
+content
 data/primer.db
 data/primer.db-shm
 data/primer.db-wal
+**/*.db
+**/*.db-shm
+**/*.db-wal
+.env*
+**/.env*
+
+# Local duplicate/recovery copies are not runtime assets.
+**/* 2.*
+**/.DS_Store
 
 # Not needed at runtime
-.git/
-.venv/
-.pytest_cache/
-__pycache__/
-tests/
-tools/
+.git
+.venv
+.pytest_cache
+__pycache__
+tests
+tools
 BOARD.md
-.claude/
+.claude
+.agents
+.github
+docs
+artifacts

@@ -11,7 +11,6 @@ from primer.wiki import WikiService
 @pytest.fixture(autouse=True)
 def isolated_stores(tmp_path, monkeypatch):
     """Never let an app lifespan in this module touch the reader's real DB."""
-    shutdown_was_set = srv._shutdown.is_set()
     db_path = str(tmp_path / "primer.db")
     monkeypatch.setattr(srv, "learner", LearnerStore(db_path))
     monkeypatch.setattr(srv, "wiki", WikiService(db_path))
@@ -19,12 +18,8 @@ def isolated_stores(tmp_path, monkeypatch):
     # Capture a no-op as the thread target.  Merely swapping the stores is not
     # enough: the real maintenance thread can outlive fixture teardown and
     # look the module globals up again after they have been restored.
-    monkeypatch.setattr(srv, "_maintenance_loop", lambda: None)
-    try:
-        yield
-    finally:
-        if not shutdown_was_set:
-            srv._shutdown.clear()
+    monkeypatch.setattr(srv, "_maintenance_loop", lambda *_args: None)
+    yield
 
 
 def test_vercel_fails_closed_without_an_access_password(monkeypatch):
@@ -110,6 +105,25 @@ def test_mathematics_illustration_dashboard_stays_behind_the_hosted_gate(monkeyp
     assert denied.status_code == 401
     assert allowed.status_code == 200
     assert allowed.json()["count"] == 59
+    assert allowed.headers["vary"] == "Authorization, Cookie"
+
+
+def test_curriculum_visual_gallery_stays_behind_the_hosted_gate(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    path = "/api/curriculum/visuals"
+
+    with TestClient(srv.app) as client:
+        denied = client.get(path)
+        allowed = client.get(path, auth=("reader", "secret"))
+
+    assert denied.status_code == 401
+    assert allowed.status_code == 200
+    assert allowed.json()["counts"] == {
+        "lessons": 550, "illustrations": 550, "photographs": 550,
+        "models": 799, "items": 1899,
+    }
     assert allowed.headers["vary"] == "Authorization, Cookie"
 
 

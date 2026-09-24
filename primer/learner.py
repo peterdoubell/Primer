@@ -280,7 +280,7 @@ STAGE_SPAN = [
     "ages 10–13 · middle school",
     "ages 14–17 · secondary school",
     "undergraduate level",
-    "graduate level & the frontier",
+    "master’s level · research & synthesis",
 ]
 STAGE_TITLES = [
     "Curious Seedling", "Bright Sprout", "Growing Sapling",
@@ -1744,11 +1744,23 @@ class LearnerStore:
 
     def review_card(self, card_id: int, quality: int,
                     seconds: Optional[float] = None,
-                    reader_id: int = 1) -> Dict:
+                    reader_id: int = 1, expected_due: Optional[float] = None,
+                    expected_reviews: Optional[int] = None) -> Dict:
         """SM-2. quality: 0 (blank) .. 5 (perfect). A lapse also lowers the
         related node's strength and can flag it for refresh."""
         now = time.time()
         quality = max(0, min(5, quality))
+        guarded = expected_due is not None or expected_reviews is not None
+        if guarded and (expected_due is None or expected_reviews is None):
+            raise ValueError("A game review needs both card revision fields")
+
+        def stale(card):
+            due = card["due"] or now
+            return {"id": card_id, "accepted": False, "stale": True,
+                    "xp_gained": 0, "next_due": due,
+                    "next_days": round(max(0, (due - now) / DAY), 2),
+                    "lapses": self._lapses_of(card)}
+
         with _lock, self._conn() as c:
             # Scoped by reader as well as id: srs_cards.id is a plain
             # autoincrement, not unique per reader, so without this a reader
@@ -1759,6 +1771,12 @@ class LearnerStore:
                             (card_id, reader_id)).fetchone()
             if not row:
                 return {"error": "no such card"}
+            # A game submits the revision it displayed. This precheck handles
+            # stale tabs and lost-response retries; the guarded UPDATE below
+            # also protects the race between this read and a concurrent save.
+            if guarded and ((row["reviews"] or 0) != expected_reviews
+                            or row["due"] != expected_due or row["due"] > now):
+                return stale(row)
             prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
                                  (reader_id,)).fetchone()
             age = prof_row["age"] if prof_row else None
@@ -1789,7 +1807,8 @@ class LearnerStore:
             counts = (row["due"] or 0) <= now or quality < 3
             if not counts:
                 return {"id": card_id, "next_days": round(((row["due"] or now) - now) / DAY, 1),
-                        "xp_gained": 0, "lapses": self._lapses_of(row), "early": True}
+                        "next_due": row["due"], "xp_gained": 0,
+                        "lapses": self._lapses_of(row), "early": True}
             ef, interval, reps, lapses = row["ef"], row["interval"], row["reps"], row["lapses"] or 0
             # Every grade that counts increments this, and nothing ever resets
             # it. `reps` cannot do this job: the lapse branch below sets it to
@@ -1834,11 +1853,16 @@ class LearnerStore:
             if quality >= 3:
                 ef = max(1.3, ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
             due = now + max(interval, 10 / 1440) * DAY
-            c.execute(
-                "UPDATE srs_cards SET ef=?, interval=?, reps=?, lapses=?, reviews=?, due=? "
-                "WHERE id=? AND reader_id=?",
-                (ef, interval, reps, lapses, reviews, due, card_id, reader_id),
-            )
+            update = "UPDATE srs_cards SET ef=?, interval=?, reps=?, lapses=?, reviews=?, due=? WHERE id=? AND reader_id=?"
+            params = (ef, interval, reps, lapses, reviews, due, card_id, reader_id)
+            if guarded:
+                update += " AND due=? AND COALESCE(reviews,0)=?"
+                params += (expected_due, expected_reviews)
+            changed = c.execute(update, params).rowcount
+            if guarded and changed != 1:
+                current = c.execute("SELECT * FROM srs_cards WHERE id=? AND reader_id=?",
+                                    (card_id, reader_id)).fetchone()
+                return stale(current) if current else {"error": "no such card"}
             # Feed the outcome back to node mastery strength — the deck is the
             # memory, so repeated lapses can un-master a node entirely.
             node_id = row["node_id"]
@@ -1867,8 +1891,11 @@ class LearnerStore:
                 "INSERT INTO events(kind, payload, at, xp, reader_id) "
                 "VALUES('review',?,?,?,?)",
                 (json.dumps(payload), now, xp, reader_id))
-        return {"id": card_id, "next_days": round(max((due - now) / DAY, 0.01), 2),
-                "xp_gained": xp, "lapses": lapses}
+        result = {"id": card_id, "next_days": round(max((due - now) / DAY, 0.01), 2),
+                  "next_due": due, "xp_gained": xp, "lapses": lapses}
+        if guarded:
+            result["accepted"] = True
+        return result
 
     def deck_stats(self, reader_id: int = 1) -> Dict:
         now = time.time()

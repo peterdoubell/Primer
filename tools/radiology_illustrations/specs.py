@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from typing import Dict, List, Tuple
 
+from . import core as _core
+
 
 def I(label: str, detail: str, mark: str = "") -> Dict[str, str]:
     return {"label": label, "detail": detail, "mark": mark}
@@ -421,7 +423,7 @@ _RECORDS: List[Dict[str, object]] = [
       "Sequence selection and artefact recognition prevent normal physics becoming disease.",
       I("T1 anatomy", "Marrow fat and structural boundaries provide the baseline.", "marrow"),
       I("Fluid-sensitive", "Oedema and fluid become conspicuous when fat is suppressed.", "joint"),
-      I("Artefact check", "Direction, hardware and magic-angle behaviour expose mimics.", "stress")),
+      I("Artefact check", "Phase ghosts follow their encoding direction; short-TE magic-angle tendon signal and susceptibility each need their own test.", "stress")),
     R("rad.5.shoulder", "compare", "bone",
       "Shoulder imaging turns tear morphology and bone loss into an operative plan.",
       I("Cuff", "Tendon, retraction, muscle and atrophy determine repairability.", "shoulder-cuff"),
@@ -434,15 +436,15 @@ _RECORDS: List[Dict[str, object]] = [
       I("Crystal / proliferative", "Characteristic sites and mineralisation redirect the diagnosis.", "lesion")),
     R("rad.5.wrist-hand", "flow", "bone",
       "Carpal arcs and angles expose instability even when no fracture is obvious.",
-      I("Check alignment", "Trace arcs and measure key carpal relationships.", "wrist-carpal-arcs"),
+      I("Check alignment", "Trace all three Gilula arcs and measure key carpal relationships.", "wrist-carpal-arcs"),
       I("Find occult fracture", "Mechanism and focal tenderness direct repeat or cross-sectional imaging.", "wrist-occult-fracture"),
       I("Report decision", "Displacement, instability and vascular risk inform urgency and operative discussion alongside examination and patient factors.", "wrist-instability"),
       headings=("CARPAL ALIGNMENT", "OCCULT FRACTURE", "MANAGEMENT FEATURE")),
     R("rad.5.paeds-hip-elbow", "compare", "bone",
       "Age-appropriate landmarks turn changing paediatric anatomy into reliable alignment tests.",
       I("Infant hip", "Ultrasound tests coverage and stability before ossification dominates.", "infant-hip-ultrasound"),
-      I("Older hip", "Radiographic lines and symmetry reveal displacement.", "older-hip-lines"),
-      I("Child elbow", "Ossification order and alignment lines uncover subtle fracture.", "child-elbow-lines")),
+      I("Older hip", "A bilateral pelvis, Hilgenreiner and Perkin lines, and Shenton arcs reveal displacement and asymmetry.", "older-hip-lines"),
+      I("Child elbow", "Ossification order plus correctly constructed anterior-humeral and radiocapitellar lines uncover subtle fracture.", "child-elbow-lines")),
 
     # Paediatrics and safeguarding
     R("rad.4.paediatric", "flow", "scanner",
@@ -453,7 +455,7 @@ _RECORDS: List[Dict[str, object]] = [
       headings=("CHOOSE TEST", "COMPLETE SEARCH", "SAFEGUARD")),
     R("rad.5.child-abuse", "flow", "bone",
       "A standardised complete survey preserves evidence and protects the child.",
-      I("Acquire completely", "Required projections and identifiers make the survey auditable.", "bone"),
+      I("Acquire completely", "For suspected physical abuse, use the local age-gated child-protection protocol and its named region-specific projections.", "bone"),
       I("Interpret patterns", "Specific fractures, healing stages and clinical history are integrated.", "fracture"),
       I("Document and escalate", "Clear reporting and multidisciplinary communication close the duty.", "trauma"),
       headings=("STANDARD SURVEY", "PATTERN & CONTEXT", "DOCUMENT & ESCALATE")),
@@ -461,7 +463,7 @@ _RECORDS: List[Dict[str, object]] = [
       "Age and organ of origin narrow childhood masses before signal features do.",
       I("Age prior", "Likely tumours change sharply across infancy and childhood.", "signal"),
       I("Find origin", "Displaced organs and vessels reveal where a mass began.", "ct"),
-      I("Use ultrasound", "Fontanelle and posterior elements provide safe acoustic windows.", "signal")),
+      I("Use ultrasound", "In neonates and young infants, fontanelles and incompletely ossified posterior elements can provide acoustic windows.", "signal")),
     R("rad.5.paeds-chest", "compare", "lungs",
       "Lines, air leaks and lung pattern are one linked neonatal chest search.",
       I("Device and tip", "Trace umbilical, endotracheal and enteric devices to the correct age-specific tip landmark; malposition can cause immediate harm.", "paeds-device-tip"),
@@ -478,10 +480,10 @@ _RECORDS: List[Dict[str, object]] = [
       "Tracer choice and time pattern turn uptake into a physiological answer.",
       I("Bone / VQ", "Bone turnover and ventilation-perfusion mismatch are different tracer maps answering different questions.", "bone-vq"),
       I("Thyroid", "Uptake in the neck shows the distribution and intensity of functioning thyroid tissue.", "thyroid-neck"),
-      I("Sentinel node", "Tracer travels from the injection site along lymphatic channels to the first draining nodal basin.", "sentinel-lymph-drainage")),
+      I("Sentinel node", "Tracer travels from the injection site along lymphatic channels to the first draining node or nodes within a basin.", "sentinel-lymph-drainage")),
     R("rad.5.pet-ct", "flow", "tracer",
       "Preparation, physiology and treatment timing prevent FDG uptake from becoming a false diagnosis.",
-      I("Prepare", "Glucose, uptake time and recent treatment affect biodistribution.", "pet"),
+      I("Prepare", "Confirm fasting and serum glucose before FDG, standardise uptake time, and record recent treatment.", "pet"),
       I("Match anatomy", "Every focus is located and compared with expected physiology.", "pet"),
       I("Act proportionately", "Stage-changing disease differs from incidental uptake needing context.", "bone"),
       headings=("PREPARATION", "ANATOMIC MATCH", "PROPORTIONATE ACTION")),
@@ -494,9 +496,50 @@ _RECORDS: List[Dict[str, object]] = [
 ]
 
 
+from .reference_expansion import RECORDS as REFERENCE_RECORDS, RENDERERS as REFERENCE_RENDERERS
+_RECORDS.extend(REFERENCE_RECORDS)
+
 SPECS: Dict[str, Dict[str, object]] = {str(item["id"]): item for item in _RECORDS}
 if len(SPECS) != len(_RECORDS):
     raise ValueError("Duplicate radiology illustration specification")
 for _record in _RECORDS:
     if _record["mode"] == "flow" and len(_record.get("headings", ())) != 3:
         raise ValueError("Flow plate {} needs three role-specific headings".format(_record["id"]))
+
+
+# Importing the specification inventory installs the exact lesson-specific
+# drawing dispatch used by the generator.  Keeping the union here makes a
+# missing, duplicate, or orphan renderer fail before any clinical asset can be
+# written.
+from .abdomen_breast_detail import RENDERERS as ABDOMEN_BREAST_RENDERERS
+from .cardio_neuro_detail import RENDERERS as CARDIO_NEURO_RENDERERS
+from .foundations_thorax_detail import RENDERERS as FOUNDATIONS_THORAX_RENDERERS
+from .msk_paeds_nuclear_detail import RENDERERS as MSK_PAEDS_NUCLEAR_RENDERERS
+
+
+RADIOLOGY_RENDERERS = {
+    **FOUNDATIONS_THORAX_RENDERERS,
+    **CARDIO_NEURO_RENDERERS,
+    **ABDOMEN_BREAST_RENDERERS,
+    **MSK_PAEDS_NUCLEAR_RENDERERS,
+    **REFERENCE_RENDERERS,
+}
+if set(RADIOLOGY_RENDERERS) != set(SPECS):
+    raise ValueError(
+        "Radiology renderer mismatch; missing={}, extra={}".format(
+            sorted(set(SPECS) - set(RADIOLOGY_RENDERERS)),
+            sorted(set(RADIOLOGY_RENDERERS) - set(SPECS)),
+        )
+    )
+if len(RADIOLOGY_RENDERERS) != sum(
+    len(cohort)
+    for cohort in (
+        FOUNDATIONS_THORAX_RENDERERS,
+        CARDIO_NEURO_RENDERERS,
+        ABDOMEN_BREAST_RENDERERS,
+        MSK_PAEDS_NUCLEAR_RENDERERS,
+        REFERENCE_RENDERERS,
+    )
+):
+    raise ValueError("Duplicate radiology renderer id across detail modules")
+_core.register_node_renderers(RADIOLOGY_RENDERERS)

@@ -66,15 +66,25 @@ def draw_forces(plate: Plate) -> None:
     plate.text((332, 742), "ΣF = 0 → a = 0", size=22, bold=True, anchor="mm")
 
     _block(plate, (800, 520), "crate")
-    arrow_label(plate, (730, 520), (642, 520), "friction 4 N", fill=CORAL, width=7)
-    arrow_label(plate, (870, 520), (970, 520), "push 9 N", fill=TEAL, width=7)
+    arrow_label(plate, (730, 520), (686, 520), "", fill=CORAL, width=7)
+    arrow_label(plate, (870, 520), (969, 520), "", fill=TEAL, width=7)
+    plate.text((685, 430), "friction 4 N", size=22, bold=True, fill=CORAL, anchor="mm")
+    plate.text((915, 430), "push 9 N", size=22, bold=True, fill=TEAL, anchor="mm")
     plate.text((800, 664), "ΣF = 5 N right", size=22, bold=True, anchor="mm")
     plate.text((800, 742), "speed changes", size=21, anchor="mm")
 
-    plate.draw.ellipse((1224, 425, 1312, 513), fill=PLUM_LIGHT, outline=PLUM, width=4)
-    plate.draw.line((1268, 513, 1268, 615), fill=PLUM, width=8)
-    plate.draw.line((1268, 548, 1208, 590), fill=PLUM, width=7)
-    plate.draw.line((1268, 548, 1328, 590), fill=PLUM, width=7)
+    # Helmet and a filled jumpsuit distinguish a falling person from a stick
+    # marker without changing the balanced force lengths.
+    plate.draw.ellipse((1242, 465, 1294, 517), fill=GOLD_LIGHT, outline=PLUM, width=4)
+    plate.draw.rounded_rectangle((1242, 517, 1294, 582), radius=12,
+                                 fill=PLUM_LIGHT, outline=PLUM, width=3)
+    for points in (
+        ((1245, 521), (1230, 516), (1200, 552), (1214, 566), (1254, 542)),
+        ((1291, 521), (1306, 516), (1336, 552), (1322, 566), (1282, 542)),
+        ((1244, 573), (1265, 573), (1260, 612), (1233, 612)),
+        ((1271, 573), (1292, 573), (1303, 612), (1276, 612)),
+    ):
+        plate.draw.polygon(points, fill=PLUM_LIGHT, outline=PLUM, width=3)
     _vertical_force(plate, 1268, 452, 105, "drag", True, TEAL)
     _vertical_force(plate, 1268, 615, 105, "weight", False, CORAL)
     plate.text((1268, 742), "moving with ΣF = 0", size=21, bold=True, anchor="mm")
@@ -98,10 +108,11 @@ def draw_gravity(plate: Plate) -> None:
 
     plate.draw.ellipse((1162, 394, 1374, 606), fill=BLUE_LIGHT, outline=BLUE, width=5)
     plate.dot((1420, 500), 18, fill=GOLD_LIGHT, outline=GOLD, width=4)
-    arrow_label(plate, (1415, 500), (1358, 500), "gravity", fill=CORAL, width=7)
-    arrow_label(plate, (1420, 500), (1420, 405), "sideways speed", fill=TEAL, width=7,
-                offset=(-78, 0))
     plate.draw.arc((1115, 348, 1421, 654), 270, 90, fill=PLUM, width=5)
+    plate.arrow((1415, 500), (1358, 500), fill=CORAL, width=7)
+    plate.arrow((1420, 500), (1420, 405), fill=TEAL, width=7)
+    plate.text((1268, 315), "tangent velocity", size=22, bold=True, fill=TEAL, anchor="mm")
+    plate.text((1268, 675), "gravity inward", size=22, bold=True, fill=CORAL, anchor="mm")
     plate.text((1268, 720), "continuous free fall", size=21, bold=True, anchor="mm")
     footer(plate, "Gravity changes weight and bends motion; it does not change mass.", size=27)
 
@@ -120,7 +131,8 @@ def _bulb(plate: Plate, x: float, y: float, label: str = "") -> None:
     plate.draw.line((x - 18, y - 18, x + 18, y + 18), fill=GOLD, width=4)
     plate.draw.line((x + 18, y - 18, x - 18, y + 18), fill=GOLD, width=4)
     if label:
-        plate.text((x, y + 48), label, size=17, anchor="ma")
+        label_x = x + 48 if label.startswith("branch") else x - 48 if label == "off" else x
+        plate.text((label_x, y + 48), label, size=17, anchor="ma")
 
 
 def draw_electricity(plate: Plate) -> None:
@@ -143,7 +155,10 @@ def draw_electricity(plate: Plate) -> None:
     _bulb(plate, 884, 410, "V₂")
     plate.text((800, 730), "V = V₁ + V₂", size=21, bold=True, anchor="mm", math_face=True)
     # Parallel
-    plate.draw.line((1100, 523, 1100, 410, 1436, 410, 1436, 660, 1100, 660, 1100, 547), fill=INK, width=6)
+    # Two rails terminate at the second bulb branch: no direct wire shunts
+    # the battery or bypasses both loads.
+    plate.draw.line((1100, 523, 1100, 410, 1332, 410), fill=INK, width=6)
+    plate.draw.line((1100, 547, 1100, 660, 1332, 660), fill=INK, width=6)
     _battery(plate, 1100, 535)
     plate.draw.line((1200, 410, 1200, 505), fill=INK, width=5)
     plate.draw.line((1200, 565, 1200, 660), fill=INK, width=5)
@@ -201,7 +216,7 @@ def draw_waves(plate: Plate) -> None:
     wave(plate, (865, 350, 1435, 500), cycles=3, amplitude=28, fill=PLUM)
     wave(plate, (865, 610, 1435, 760), cycles=3, amplitude=68, fill=CORAL)
     plate.text((1150, 535), "same f and λ", size=20, bold=True, anchor="mm")
-    plate.text((1150, 790), "more energy, not more speed", size=20, bold=True, anchor="mm")
+    plate.text((1150, 770), "more energy, not more speed", size=20, bold=True, anchor="mm")
     footer(plate, "At fixed wave speed, frequency and wavelength trade inversely; amplitude does not.", size=26)
 
 
@@ -209,12 +224,12 @@ def draw_matter(plate: Plate) -> None:
     boxes = three_panel_boxes()
     for box, heading in zip(boxes, ("SOLID", "LIQUID", "GAS")):
         panel(plate, box, heading)
-    solid = [(205 + c * 64, 400 + r * 64) for r in range(4) for c in range(5)]
+    solid = [(278 + c * 27, 560 + r * 27) for r in range(4) for c in range(5)]
     liquid_offsets = ((0, 8), (9, -7), (-8, 4), (6, -4), (-5, 9),
                       (7, -9), (-6, 7), (10, 1), (-9, -5), (4, 6),
                       (-3, -8), (8, 5), (-10, 9), (5, -6), (0, 2),
                       (9, 7), (-7, -3), (4, -9), (-2, 6), (7, -5))
-    liquid = [(674 + (i % 5) * 62 + dx, 410 + (i // 5) * 73 + dy)
+    liquid = [(743 + (i % 5) * 27 + dx * .3, 550 + (i // 5) * 29 + dy * .3)
               for i, (dx, dy) in enumerate(liquid_offsets)]
     gas_offsets = ((0, 0), (18, -12), (-12, 15), (8, -4),
                    (20, 10), (-14, -8), (15, 5), (-5, 14),
@@ -223,9 +238,9 @@ def draw_matter(plate: Plate) -> None:
                    (-16, 4), (6, -9), (17, 9), (-4, -3))
     gas = [(1148 + (i % 4) * 82 + dx, 390 + (i // 4) * 64 + dy)
            for i, (dx, dy) in enumerate(gas_offsets)]
-    particle_box(plate, (172, 350, 492, 690), solid, fill=BLUE_LIGHT, outline=BLUE, radius=13)
-    particle_box(plate, (640, 350, 960, 690), liquid, fill=TEAL_LIGHT, outline=TEAL, radius=13)
-    particle_box(plate, (1108, 350, 1428, 690), gas, fill=GOLD_LIGHT, outline=GOLD, radius=13)
+    particle_box(plate, (172, 350, 492, 690), solid, fill=BLUE_LIGHT, outline=BLUE, radius=11)
+    particle_box(plate, (640, 350, 960, 690), liquid, fill=BLUE_LIGHT, outline=BLUE, radius=11)
+    particle_box(plate, (1108, 350, 1428, 690), gas, fill=BLUE_LIGHT, outline=BLUE, radius=11)
     plate.text((332, 740), "fixed neighbors", size=20, bold=True, anchor="mm")
     plate.text((800, 740), "neighbors change", size=20, bold=True, anchor="mm")
     plate.text((1268, 740), "far apart; compressible", size=20, bold=True, anchor="mm")
@@ -239,6 +254,8 @@ def draw_units(plate: Plate) -> None:
     for i in range(11):
         x = 180 + i * 30
         plate.draw.line((x, 510, x, 510 - (48 if i % 5 == 0 else 28)), fill=INK, width=4)
+        if i % 5 == 0:
+            plate.text((x, 545), str(i), size=20, anchor="mm")
     plate.arrow((368, 400), (368, 490), fill=CORAL, width=6, head=16)
     plate.text((332, 610), "6.3 ± 0.1 cm", size=24, bold=True, anchor="mm")
     plate.text((332, 722), "digits follow the scale", size=19, anchor="mm")
@@ -286,21 +303,28 @@ def draw_energy_work(plate: Plate) -> None:
     left, right = two_panel_boxes()
     panel(plate, left, "ENERGY LEDGER")
     panel(plate, right, "COLLISION LEDGER")
-    plate.draw.arc((180, 355, 730, 815), 180, 350, fill=INK, width=9)
-    plate.dot((220, 490), 24, fill=GOLD_LIGHT, outline=GOLD, width=4)
-    plate.dot((690, 685), 24, fill=BLUE_LIGHT, outline=BLUE, width=4)
+    plate.draw.line((210, 420, 690, 660), fill=INK, width=9)
+    plate.dot((250, 416), 24, fill=GOLD_LIGHT, outline=GOLD, width=4)
+    plate.dot((650, 616), 24, fill=BLUE_LIGHT, outline=BLUE, width=4)
     energy_bar(plate, (190, 710, 690, 770),
                (("GPE 2", 2, GOLD_LIGHT), ("KE 6", 6, BLUE_LIGHT),
                 ("internal 2", 2, CORAL_LIGHT)))
-    plate.text((450, 325), "gravitational → kinetic + internal", size=21,
+    plate.text((450, 325), "illustrative 10-unit energy account", size=21,
                bold=True, anchor="mm")
+    plate.text((300, 530), "start: GPE 10", size=23, bold=True, anchor="mm")
 
-    _block(plate, (985, 480), "2 kg", fill=BLUE_LIGHT, outline=BLUE)
-    _block(plate, (1285, 480), "1 kg", fill=GOLD_LIGHT, outline=GOLD)
-    arrow_label(plate, (1055, 480), (1155, 480), "4 m/s", fill=BLUE, width=7)
-    plate.arrow((1135, 610), (1135, 680), fill=INK_SOFT, width=5, head=16)
-    plate.text((1135, 705), "momentum conserved", size=20, bold=True, anchor="mm")
-    plate.text((1135, 752), "total kinetic energy conserved only if elastic", size=17, anchor="mm")
+    _block(plate, (985, 400), "2 kg", fill=BLUE_LIGHT, outline=BLUE)
+    _block(plate, (1285, 400), "1 kg", fill=GOLD_LIGHT, outline=GOLD)
+    plate.text((1285, 320), "initially at rest", size=21, anchor="mm")
+    arrow_label(plate, (1055, 400), (1155, 400), "4 m/s", fill=BLUE, width=7)
+    plate.text((1150, 495), "p = 2 × 4 + 1 × 0 = 8 kg m/s", size=23,
+               bold=True, anchor="mm")
+    _block(plate, (1020, 610), "3 kg", fill=PLUM_LIGHT, outline=PLUM)
+    plate.text((1020, 540), "stick together", size=21, anchor="mm")
+    plate.arrow((1095, 610), (1095 + (8/3) * 25, 610), fill=PLUM, width=7)
+    plate.text((1280, 590), "v = 8/3 m/s", size=23, bold=True, fill=PLUM, anchor="mm")
+    plate.text((1150, 705), "p = 3 × 8/3 = 8 kg m/s", size=23, bold=True, anchor="mm")
+    plate.text((1150, 755), "KE: 16 J → 10⅔ J; 5⅓ J transferred", size=21, anchor="mm")
     footer(plate, "Work transfers energy; momentum always balances in an isolated collision.", size=27)
 
 
@@ -382,10 +406,14 @@ def draw_thermo(plate: Plate) -> None:
     arrow_label(plate, (574, 555), (700, 555), "W ≤ 50 J", fill=TEAL, width=8)
     arrow_label(plate, (450, 614), (450, 704), "Q_c >= 50 J", fill=BLUE, width=8, offset=(75, 0))
 
-    mapping = axes(plate, (900, 350, 1400, 730), x_label="Tcold / Thot", y_label="ηmax",
+    mapping = axes(plate, (900, 350, 1400, 730), x_label="", y_label="ηmax",
                    x_range=(0, 1), y_range=(0, 1))
     plot_curve(plate, mapping, ((x / 50, 1 - x / 50) for x in range(51)), fill=PLUM)
-    plate.text((1150, 765), "eta_max = 1 - T_c/T_h", size=22, bold=True, math_face=True, anchor="mm")
+    plate.text((1150, 640), "ηmax = 1 − Tc/Th", size=24, bold=True, math_face=True, anchor="mm")
+    plate.text((900, 755), "0", size=20, anchor="mm")
+    plate.text((1400, 755), "1", size=20, anchor="mm")
+    plate.text((870, 350), "1", size=20, anchor="mm")
+    plate.text((1150, 775), "Tcold / Thot", size=22, bold=True, anchor="mm")
     footer(plate, "Every engine rejects heat; no real engine exceeds the Carnot bound.", size=27)
 
 
@@ -508,8 +536,8 @@ SPECS: dict[str, Spec] = {
         "Zero net force means constant velocity—not necessarily rest; nonzero net force produces acceleration, and interaction forces act on different bodies.", draw_mechanics),
     "phys.3.energy-work": spec("phys.3.energy-work", "Work, Energy and Momentum", 3,
         "phys-energy-momentum-ledgers",
-        "A rolling energy bar and two-body collision distinguish energy transfers from momentum accounting.",
-        "Total momentum is conserved in isolated collisions, whereas total kinetic energy is conserved only in an elastic collision.", draw_energy_work),
+        "An illustrative downhill energy account preserves ten units. A 2 kg body at 4 m/s sticks to a stationary 1 kg body; the combined 3 kg moves at 8/3 m/s, conserving momentum while kinetic energy decreases.",
+        "In this isolated sticking collision, momentum remains 8 kg m/s; kinetic energy falls from 16 J to 10⅔ J. The remaining 5⅓ J becomes internal energy and other non-kinetic forms.", draw_energy_work),
     "phys.3.em": spec("phys.3.em", "Electricity and Magnetism", 3,
         "phys-induction-changing-flux",
         "A moving magnet and stationary magnet face identical coils, but only changing magnetic flux induces an emf.",

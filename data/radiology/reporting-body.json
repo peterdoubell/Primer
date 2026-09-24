@@ -1,0 +1,4736 @@
+{
+  "rad.3.contrast": {
+    "protocol": [
+      "Choose the enhancement phase for the clinical target; document route, agent and actual administered volume.",
+      "Use the current local contrast safety protocol and record patient-specific restrictions."
+    ],
+    "checklist": [
+      {
+        "label": "Clinical benefit",
+        "detail": "State which diagnostic question requires enhancement."
+      },
+      {
+        "label": "Renal context",
+        "detail": "Record available eGFR date and acute kidney injury status."
+      },
+      {
+        "label": "Previous reaction",
+        "detail": "Identify agent, symptoms, severity and timing rather than an unspecified allergy."
+      },
+      {
+        "label": "Administration",
+        "detail": "Check access, injection completion and phase adequacy."
+      },
+      {
+        "label": "Adverse event",
+        "detail": "Record observations, interventions and disposition if a reaction or extravasation occurs."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Delivered volume",
+        "method": "Record actual mL and concentration from the injector record.",
+        "pitfall": "Do not substitute planned volume for a partial injection."
+      },
+      {
+        "name": "Enhancement timing",
+        "method": "Record acquisition delay or bolus trigger and resulting phase.",
+        "pitfall": "Low cardiac output can alter enhancement despite nominally correct delay."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A shellfish allergy alone does not identify an iodinated contrast reaction.",
+      "Creatinine-based estimates can be misleading during evolving acute kidney injury."
+    ],
+    "impression_prompts": [
+      "State whether enhancement answered the clinical question.",
+      "Identify the affected phase or territory if delivery failed.",
+      "Summarise any adverse event and documented follow-up."
+    ],
+    "escalation": [
+      "If a significant reaction or neurovascular compromise after extravasation occurs, activate the local response and document direct handover."
+    ],
+    "template_sections": [
+      {
+        "heading": "CLINICAL BENEFIT",
+        "body": "Target: [vascular lumen / organ enhancement / excretion / other]. Contrast benefit: [ ]. Alternative considered: [ ]."
+      },
+      {
+        "heading": "PATIENT ASSESSMENT",
+        "body": "eGFR: [ ] mL/min/1.73m² on [date]. AKI: [absent / suspected / present / unknown]. Relevant pregnancy or medication context: [ ]."
+      },
+      {
+        "heading": "REACTION HISTORY",
+        "body": "Prior agent: [none / name / unknown]. Reaction phenotype and severity: [ ]. Precautions used: [ ]."
+      },
+      {
+        "heading": "ADMINISTRATION",
+        "body": "Agent/concentration: [ ]. Route/access: [ ]. Actual volume: [ ] mL. Rate: [ ] mL/s. Injection completion: [complete / partial]."
+      },
+      {
+        "heading": "QUALITY AND EVENT RECORD",
+        "body": "Target phase: [adequate / limited]. Reaction/extravasation: [none / details]. Observations, treatment, outcome and handover: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — CT contrast injection and protocols",
+        "url": "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+      },
+      {
+        "title": "ESUR contrast safety guidelines 2025",
+        "url": "https://www.esur.org/esur-guidelines-2025/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.2.radiation-safety": {
+    "protocol": [
+      "Tailor scan length and phases to the clinical question and patient size.",
+      "Review the dose report together with diagnostic quality and the reason for repeats."
+    ],
+    "checklist": [
+      {
+        "label": "Justification",
+        "detail": "Identify the question, prior imaging and useful non-ionising alternatives."
+      },
+      {
+        "label": "Coverage",
+        "detail": "Check start/end positions and avoid unneeded overlap."
+      },
+      {
+        "label": "Phases",
+        "detail": "Account for each acquisition, including repeats."
+      },
+      {
+        "label": "Optimisation",
+        "detail": "Record size-adjusted protocol and dose-reduction techniques."
+      },
+      {
+        "label": "Dose review",
+        "detail": "Compare the appropriate examination group with local diagnostic reference levels."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "CTDIvol",
+        "method": "Record mGy and the reference phantom for each CT acquisition.",
+        "pitfall": "This is a scanner output index, not individual organ dose."
+      },
+      {
+        "name": "DLP",
+        "method": "Record mGy·cm per acquisition and examination total.",
+        "pitfall": "Different anatomy and scan lengths prevent simple like-for-like comparison."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A diagnostic reference level is an optimisation tool, not a patient dose limit.",
+      "Reducing dose until the target is obscured can lead to unnecessary repeat scanning."
+    ],
+    "impression_prompts": [
+      "Was the acquisition justified and diagnostic?",
+      "Which phase or coverage change would improve the next comparable examination?",
+      "Record the reason for any dose alert or repeat acquisition."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "JUSTIFICATION",
+        "body": "Question: [ ]. Prior relevant imaging: [ ]. Non-ionising alternative: [suitable / unsuitable: reason]."
+      },
+      {
+        "heading": "PATIENT FACTORS",
+        "body": "Age/size: [ ]. Pregnancy enquiry where relevant: [ ]. Positioning limitation: [ ]."
+      },
+      {
+        "heading": "ACQUISITIONS",
+        "body": "Coverage: [ ]. Phases: [ ]. Repeat acquisition: [none / reason and range]."
+      },
+      {
+        "heading": "DOSE RECORD",
+        "body": "CTDIvol: [ ] mGy; phantom: [16 / 32 cm]. DLP total: [ ] mGy·cm. Other modality dose metric: [ ]."
+      },
+      {
+        "heading": "OPTIMISATION REVIEW",
+        "body": "Automatic exposure control: [ ]. Reconstruction: [ ]. Diagnostic quality: [adequate / limited]. Local reference comparison and action: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "IAEA — Radiation protection in computed tomography",
+        "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/computed-tomography"
+      },
+      {
+        "title": "IAEA — Quality Assurance Programme for Computed Tomography",
+        "url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub1393_web.pdf"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.3.ct-image": {
+    "protocol": [
+      "Review thin source images and orthogonal reformats in appropriate soft-tissue, lung and bone windows.",
+      "Identify contrast phase before making attenuation comparisons."
+    ],
+    "checklist": [
+      {
+        "label": "Orientation",
+        "detail": "Confirm laterality, anatomy and coverage."
+      },
+      {
+        "label": "Windows",
+        "detail": "Inspect the same region using windows suited to tissue and question."
+      },
+      {
+        "label": "Attenuation",
+        "detail": "Place reproducible ROIs away from edges, calcification and vessels."
+      },
+      {
+        "label": "Enhancement",
+        "detail": "Compare matched precontrast and postcontrast tissue when available."
+      },
+      {
+        "label": "Artefact",
+        "detail": "Localise beam hardening, motion or partial volume and describe its consequence."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Attenuation",
+        "method": "Record mean HU, ROI size and acquisition phase.",
+        "pitfall": "Tiny or edge ROIs exaggerate noise and partial volume."
+      },
+      {
+        "name": "Enhancement difference",
+        "method": "Subtract unenhanced HU from matched postcontrast HU.",
+        "pitfall": "A single postcontrast measurement cannot establish enhancement."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Apparent density changes can result from different windows or reconstruction kernels.",
+      "A thick slice may hide a small lesion or combine fluid and enhancing tissue."
+    ],
+    "impression_prompts": [
+      "Localise the dominant finding with a reproducible image reference.",
+      "State tissue behaviour and enhancement confidence.",
+      "Identify the specific diagnostic uncertainty caused by artefact."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "ACQUISITION",
+        "body": "Coverage: [ ]. Slice thickness/interval: [ ] mm. Kernel: [ ]. Contrast phase: [ ]."
+      },
+      {
+        "heading": "WINDOW REVIEW",
+        "body": "Soft tissue: [ ]. Lung window: [ ]. Bone window: [ ]. Relevant window-specific finding: [ ]."
+      },
+      {
+        "heading": "ATTENUATION",
+        "body": "Structure/ROI: [ ]. Unenhanced: [ ] HU. Postcontrast phase/value: [ ] / [ ] HU. ROI area: [ ] mm²."
+      },
+      {
+        "heading": "LOCALISATION",
+        "body": "Side/organ/segment: [ ]. Dimensions: [ ] mm. Axial series/image: [ ]. Coronal/sagittal relationship: [ ]."
+      },
+      {
+        "heading": "ARTEFACT",
+        "body": "Type: [none / motion / metal / beam hardening / partial volume]. Affected region: [ ]. Effect on interpretation: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "IAEA — Radiation protection in computed tomography",
+        "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/computed-tomography"
+      },
+      {
+        "title": "IAEA — Diagnostic Radiology Physics handbook",
+        "url": "https://www-pub.iaea.org/mtcd/publications/pdf/pub1564webnew-74666420.pdf"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.3.mri-sequences": {
+    "protocol": [
+      "Identify sequence weighting from acquisition information and tissue behaviour; compare matched planes.",
+      "Review DWI with ADC and precontrast images with postcontrast or subtraction images."
+    ],
+    "checklist": [
+      {
+        "label": "Anatomic sequence",
+        "detail": "Distinguish T1, T2 and fluid-sensitive fat-suppressed images."
+      },
+      {
+        "label": "Fat and blood",
+        "detail": "Check fat suppression, chemical shift and intrinsic T1 hyperintensity."
+      },
+      {
+        "label": "Diffusion",
+        "detail": "Confirm high-b signal and corresponding ADC reduction in the same location."
+      },
+      {
+        "label": "Enhancement",
+        "detail": "Exclude misregistration before accepting subtraction signal."
+      },
+      {
+        "label": "Quality",
+        "detail": "Describe motion, susceptibility and failed fat suppression by region."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "ADC",
+        "method": "Record ROI value, units and b values when clinically useful.",
+        "pitfall": "Scanner, sequence and tissue differences prevent a universal malignant threshold."
+      },
+      {
+        "name": "Lesion size",
+        "method": "Measure on the sequence that best defines its boundary and identify that sequence.",
+        "pitfall": "Different contrast mechanisms may portray different lesion extents."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "High DWI signal with high ADC may reflect T2 shine-through.",
+      "Subtraction misregistration can create false enhancement."
+    ],
+    "impression_prompts": [
+      "Summarise the lesion’s signal pattern across sequences.",
+      "State whether diffusion restriction and enhancement are demonstrable.",
+      "Identify the sequence limitation and the question it leaves unresolved."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "SEQUENCE INVENTORY",
+        "body": "T1: [ ]. T2/fluid-sensitive: [ ]. Fat suppression: [ ]. DWI/ADC: [ ]. Postcontrast: [ ]."
+      },
+      {
+        "heading": "T1 AND T2 PATTERN",
+        "body": "Target: [ ]. T1 relative to [reference]: [low / intermediate / high]. T2: [low / intermediate / high]."
+      },
+      {
+        "heading": "FAT AND SUSCEPTIBILITY",
+        "body": "Chemical-shift signal loss: [absent / present / not acquired]. Fat suppression: [successful / failed]. Susceptibility/blood products: [ ]."
+      },
+      {
+        "heading": "DIFFUSION",
+        "body": "b values: [ ] s/mm². DWI: [ ]. ADC: [ ] ×10⁻³ mm²/s. Concordance: [restriction / shine-through / indeterminate]."
+      },
+      {
+        "heading": "ENHANCEMENT AND QUALITY",
+        "body": "Intrinsic T1 signal: [ ]. Enhancement: [none / pattern / indeterminate]. Subtraction alignment: [adequate / limited]. Motion effect: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "ACR MR safety resources",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/radiology-safety/mr-safety"
+      },
+      {
+        "title": "IAEA — Diagnostic Radiology Physics handbook",
+        "url": "https://www-pub.iaea.org/mtcd/publications/pdf/pub1564webnew-74666420.pdf"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.2.modalities": {
+    "protocol": [
+      "Start with a specific diagnostic question and select an examination capable of answering it in this patient.",
+      "Use an indication-specific appropriateness pathway rather than an unqualified modality ranking."
+    ],
+    "checklist": [
+      {
+        "label": "Target",
+        "detail": "Distinguish structure, perfusion, flow, tissue characterisation and metabolic activity."
+      },
+      {
+        "label": "Availability",
+        "detail": "Consider urgency and whether a diagnostic acquisition is feasible."
+      },
+      {
+        "label": "Preparation",
+        "detail": "Check contrast, fasting, cooperation and monitoring requirements."
+      },
+      {
+        "label": "Safety",
+        "detail": "Verify implanted-device conditions, radiation and contrast considerations."
+      },
+      {
+        "label": "Blind spots",
+        "detail": "State what the chosen modality cannot assess reliably."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Spatial sampling",
+        "method": "Record section thickness or transducer frequency when resolution limits the target.",
+        "pitfall": "Nominal pixel size does not equal true diagnostic resolution."
+      },
+      {
+        "name": "Temporal sampling",
+        "method": "Record dynamic phase timing or cine frame information when relevant.",
+        "pitfall": "A single phase can miss intermittent or dynamic disease."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A normal study cannot exclude pathology outside the acquired field or modality capability.",
+      "An alternative examination is useful only if it resolves a named uncertainty."
+    ],
+    "impression_prompts": [
+      "Does the examination answer the requested question?",
+      "Name any clinically relevant blind spot.",
+      "If needed, specify the next modality and the unresolved target."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "DIAGNOSTIC TARGET",
+        "body": "Question: [ ]. Required information: [anatomy / flow / perfusion / tissue / metabolism]."
+      },
+      {
+        "heading": "MODALITY CHOICE",
+        "body": "Chosen examination: [ ]. Reason: [ ]. Alternative: [ ] with reason for not selecting it [ ]."
+      },
+      {
+        "heading": "PREPARATION",
+        "body": "Contrast/tracer: [none / required]. Fasting/cooperation/monitoring: [ ]. Device verification: [not applicable / completed / unresolved]."
+      },
+      {
+        "heading": "ACQUISITION REQUIREMENTS",
+        "body": "Coverage: [ ]. Spatial detail: [ ]. Dynamic phases: [ ]. Expected artefact: [ ]."
+      },
+      {
+        "heading": "CAPABILITY AND LIMITS",
+        "body": "Question answered: [yes / partially / no]. Non-evaluable target: [ ]. Additional information needed: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "ACR Appropriateness Criteria",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Appropriateness-Criteria"
+      },
+      {
+        "title": "ACR MR safety resources",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/radiology-safety/mr-safety"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.ultrasound-physics": {
+    "protocol": [
+      "Use the highest suitable frequency for target depth; optimise focus, gain and compression.",
+      "Set Doppler scale, wall filter and sample position to the expected flow before interpreting absent signal."
+    ],
+    "checklist": [
+      {
+        "label": "Grayscale",
+        "detail": "Optimise depth and focal zone for the actual target."
+      },
+      {
+        "label": "Beam angle",
+        "detail": "Test angle-dependent tendon or interface appearances in another plane."
+      },
+      {
+        "label": "Doppler",
+        "detail": "Use colour/power and spectral sampling appropriate to the question."
+      },
+      {
+        "label": "Artefact",
+        "detail": "Recognise shadowing, enhancement, reverberation and aliasing."
+      },
+      {
+        "label": "Documentation",
+        "detail": "Save labelled orthogonal images with settings and dynamic observations."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Doppler velocity",
+        "method": "Record cm/s with angle correction parallel to flow and the angle used.",
+        "pitfall": "Poor alignment, aliasing and stenotic turbulence distort velocity."
+      },
+      {
+        "name": "Resistive index",
+        "method": "When indicated use (PSV−EDV)/PSV on a representative waveform.",
+        "pitfall": "RI is context dependent and cannot alone diagnose obstruction or rejection."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "No colour signal with a high scale or wall filter is not proof of absent perfusion.",
+      "Anisotropy can simulate a tendon tear."
+    ],
+    "impression_prompts": [
+      "Identify the target and whether grayscale and flow assessment were adequate.",
+      "Separate a true tissue finding from an angle- or setting-dependent artefact.",
+      "State the specific acoustic limitation."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "TRANSDUCER AND TARGET",
+        "body": "Probe/frequency: [ ] MHz. Target/depth: [ ] / [ ] cm. Position/compression: [ ]."
+      },
+      {
+        "heading": "GRAYSCALE SETTINGS",
+        "body": "Focus: [ ]. Gain: [ ]. Harmonics: [on / off]. Orthogonal appearance: [ ]."
+      },
+      {
+        "heading": "COLOUR DOPPLER",
+        "body": "Scale/PRF: [ ]. Wall filter: [ ]. Gain: [ ]. Flow: [present / absent after optimisation / indeterminate]."
+      },
+      {
+        "heading": "SPECTRAL DOPPLER",
+        "body": "Vessel/site: [ ]. Angle: [ ]°. PSV: [ ] cm/s. EDV: [ ] cm/s. Waveform: [ ]."
+      },
+      {
+        "heading": "ARTEFACT AND LIMITS",
+        "body": "Artefact: [shadow / enhancement / reverberation / anisotropy / aliasing / none]. Verification manoeuvre: [ ]. Remaining limitation: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "AIUM — Prudent clinical use and safety of diagnostic ultrasound",
+        "url": "https://www.aium.org/resources/official-statements/view/prudent-clinical-use-and-safety-of-diagnostic-ultrasound"
+      },
+      {
+        "title": "AIUM — Point-of-care ultrasound practice parameter",
+        "url": "https://www.aium.org/docs/default-source/resources/guidelines/pointofcare.pdf?sfvrsn=6c9ad906_1"
+      },
+      {
+        "title": "IAEA — Diagnostic Radiology Physics handbook",
+        "url": "https://www-pub.iaea.org/mtcd/publications/pdf/pub1564webnew-74666420.pdf"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.biopsy-safety": {
+    "protocol": [
+      "Plan the route using current imaging and the tissue or drainage question.",
+      "Record the procedural safety review, target verification, specimen handling and observation plan."
+    ],
+    "checklist": [
+      {
+        "label": "Target",
+        "detail": "Confirm lesion and viable component, including prior pathology."
+      },
+      {
+        "label": "Route",
+        "detail": "Review pleura, bowel, major vessels and surgically relevant compartments."
+      },
+      {
+        "label": "Preparation",
+        "detail": "Document consent, anticoagulant plan, relevant laboratory review and infection precautions."
+      },
+      {
+        "label": "Sampling",
+        "detail": "Record needle, passes, specimen medium and requested analyses."
+      },
+      {
+        "label": "Aftercare",
+        "detail": "Describe immediate imaging, symptoms, haemostasis and handover."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Target dimensions",
+        "method": "Measure the viable target and record series/image.",
+        "pitfall": "Necrotic centre and enhancing rim may yield different samples."
+      },
+      {
+        "name": "Access depth",
+        "method": "Measure planned skin-to-target distance and route on the procedural position.",
+        "pitfall": "A planning scan may not reproduce the final patient position."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A technically successful needle placement does not prove diagnostic tissue adequacy.",
+      "Specimens for microbiology and histology may require different handling."
+    ],
+    "impression_prompts": [
+      "State target, guidance, route and procedure performed.",
+      "Document specimen destination or drained material.",
+      "Record immediate complications and the agreed aftercare plan."
+    ],
+    "escalation": [
+      "Communicate significant haemorrhage, pneumothorax or suspected sepsis immediately through the procedural pathway."
+    ],
+    "template_sections": [
+      {
+        "heading": "PREPROCEDURE",
+        "body": "Target/indication: [ ]. Consent/time-out: [ ]. Coagulation/medication review: [ ]."
+      },
+      {
+        "heading": "ROUTE AND GUIDANCE",
+        "body": "Position: [ ]. Guidance: [US / CT / fluoroscopy]. Entry/route: [ ]. Structures avoided: [ ]."
+      },
+      {
+        "heading": "DEVICE AND SAMPLING",
+        "body": "Needle/catheter: [ ]. Passes/cores: [ ]. Aspirate: [ ] mL, appearance [ ]. Specimen tests/medium: [ ]."
+      },
+      {
+        "heading": "TECHNICAL RESULT",
+        "body": "Needle tip or drain position: [ ]. Sample adequacy assessment: [not performed / result]. Residual collection: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS AND AFTERCARE",
+        "body": "Immediate complication: [none observed / details]. Haemostasis: [ ]. Observation/drain plan: [ ]. Responsible team: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "CIRSE Clinical Practice Manual",
+        "url": "https://www.cirse.org/publications/standards-of-practice/clinical-practice-manual/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.oncology-response": {
+    "protocol": [
+      "Compare with dated baseline and nadir using consistent technique and lesion identifiers.",
+      "Select the response system appropriate to the malignancy and treatment before measuring."
+    ],
+    "checklist": [
+      {
+        "label": "Baseline",
+        "detail": "Record therapy, start date and qualifying pretreatment study."
+      },
+      {
+        "label": "Targets",
+        "detail": "Maintain the same measurable lesions, up to five total and two per organ for RECIST 1.1."
+      },
+      {
+        "label": "Measurements",
+        "detail": "Use longest diameter for non-nodal targets and short axis for nodes."
+      },
+      {
+        "label": "Other disease",
+        "detail": "Assess non-target progression and unequivocal new lesions separately."
+      },
+      {
+        "label": "Overall response",
+        "detail": "Combine all components; label uncertainty instead of forcing a category."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Sum of diameters",
+        "method": "Record baseline, nadir and current sums in mm with stable lesion IDs.",
+        "pitfall": "PR compares baseline; PD compares the smallest prior sum."
+      },
+      {
+        "name": "Percentage change",
+        "method": "Calculate (current−reference)/reference ×100 and absolute change.",
+        "pitfall": "RECIST target PD also requires at least 5 mm absolute increase."
+      }
+    ],
+    "classification": {
+      "name": "RECIST",
+      "version": "1.1",
+      "applicability": "Measurable solid-tumour response when the clinical or trial pathway specifies RECIST.",
+      "summary": "PR requires ≥30% reduction from baseline; target PD requires ≥20% increase from nadir plus ≥5 mm absolute increase. New and non-target disease affect overall response."
+    },
+    "pitfalls": [
+      "A suspicious but equivocal new focus is not automatically unequivocal progression.",
+      "Do not substitute RECIST for an indication requiring a different named response system."
+    ],
+    "impression_prompts": [
+      "State the selected criteria and overall response.",
+      "Provide current sum and change against the relevant reference.",
+      "Identify the finding that determines progression or the uncertainty preventing categorisation."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "THERAPY AND REFERENCES",
+        "body": "Malignancy: [ ]. Treatment/start date: [ ]. Baseline: [ ]. Nadir study: [ ]. Criteria: [ ]."
+      },
+      {
+        "heading": "TARGET LESIONS",
+        "body": "ID/site/series-image: [ ]. Baseline diameter: [ ] mm. Nadir: [ ] mm. Current: [ ] mm. Repeat for each target."
+      },
+      {
+        "heading": "TARGET SUM",
+        "body": "Baseline sum: [ ] mm. Nadir sum: [ ] mm. Current sum: [ ] mm. Change from baseline/nadir: [ ]% / [ ]%."
+      },
+      {
+        "heading": "NON-TARGET AND NEW DISEASE",
+        "body": "Non-target sites/status: [ ]. New lesion: [none / unequivocal / indeterminate: site and evidence]."
+      },
+      {
+        "heading": "OVERALL RESPONSE",
+        "body": "Target response: [CR / PR / SD / PD / not evaluable]. Non-target response: [ ]. Overall category: [ ]. Limiting uncertainty: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — RECIST 1.1 - examples",
+        "url": "https://radiologyassistant.nl/more/recist-1-1/recist-1-1-examples"
+      },
+      {
+        "title": "Radiology Assistant — RECIST 1.1 - and more",
+        "url": "https://radiologyassistant.nl/more/recist-1-1/recist-1-1"
+      },
+      {
+        "title": "Radiology Assistant — RECIST 1.1 - the basics",
+        "url": "https://radiologyassistant.nl/more/recist-1-1/recist-1-1-1"
+      },
+      {
+        "title": "RECIST Working Group — RECIST 1.1",
+        "url": "https://recist.eortc.org/recist-1-1/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.structured-reporting": {
+    "protocol": [
+      "Select an organ- and question-specific template, then remove unused alternatives before finalisation.",
+      "Use stable lesion labels and explicit units so future comparison is reproducible."
+    ],
+    "checklist": [
+      {
+        "label": "Question",
+        "detail": "Make the indication and report conclusion address the same issue."
+      },
+      {
+        "label": "Evidence",
+        "detail": "Link each important conclusion to an observation and image."
+      },
+      {
+        "label": "Completeness",
+        "detail": "Check organ-specific negatives and required staging fields."
+      },
+      {
+        "label": "Consistency",
+        "detail": "Reconcile side, lesion number, measurements and classification across sections."
+      },
+      {
+        "label": "Communication",
+        "detail": "Separate the impression, justified next step and any direct handover."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion dimensions",
+        "method": "Use a stated plane, unit and method across timepoints.",
+        "pitfall": "Changing axes can create false interval growth."
+      },
+      {
+        "name": "Comparison interval",
+        "method": "Record exact examination dates and treatment context.",
+        "pitfall": "Relative labels such as previous obscure the reference study."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "An unfilled prompt must never be interpreted as a negative finding.",
+      "A classification label cannot repair missing evidence or an ineligible patient group."
+    ],
+    "impression_prompts": [
+      "Answer the clinical question first.",
+      "State the decisive finding and confidence.",
+      "Describe the unresolved issue and a reasoned next step only when needed."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "QUESTION AND CONTEXT",
+        "body": "Requested answer: [ ]. Relevant treatment: [ ]. Specific comparison date: [ ]."
+      },
+      {
+        "heading": "PRINCIPAL OBSERVATION",
+        "body": "Finding/side/site: [ ]. Morphology: [ ]. Size/method: [ ]. Series/image: [ ]."
+      },
+      {
+        "heading": "REQUIRED NEGATIVES",
+        "body": "Question-specific absent findings: [ ]. Structures not assessed and reason: [ ]."
+      },
+      {
+        "heading": "CLASSIFICATION EVIDENCE",
+        "body": "System/version: [not applicable / ]. Eligibility: [ ]. Features supporting category: [ ]."
+      },
+      {
+        "heading": "REPORT RECONCILIATION",
+        "body": "Lesion IDs and laterality checked: [ ]. Measurement consistency: [ ]. Final conclusion/required direct communication: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "ACR Reporting and Data Systems",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems"
+      },
+      {
+        "title": "ACR Appropriateness Criteria",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Appropriateness-Criteria"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.ir-basics": {
+    "protocol": [
+      "Define the intended technical endpoint and clinical objective before access.",
+      "Record the safety review, procedure chronology, devices and immediate aftercare."
+    ],
+    "checklist": [
+      {
+        "label": "Access",
+        "detail": "Document site, ultrasound guidance and haemostasis method."
+      },
+      {
+        "label": "Baseline anatomy",
+        "detail": "Identify target vessel or cavity and relevant collateral pathways."
+      },
+      {
+        "label": "Intervention",
+        "detail": "List treated sites and implanted or delivered material."
+      },
+      {
+        "label": "Endpoint",
+        "detail": "Document final flow, excluded bleeding or drain position using images."
+      },
+      {
+        "label": "Outcome",
+        "detail": "Separate technical endpoint from clinical success and later complications."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Fluoroscopy dose",
+        "method": "Record air kerma and dose-area product with units when available.",
+        "pitfall": "Fluoroscopy time alone is not a complete dose estimate."
+      },
+      {
+        "name": "Treated segment or cavity",
+        "method": "Record lesion length, device size or drainage volume as relevant.",
+        "pitfall": "Use the appropriate procedural measurement rather than a generic success percentage."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Loss of visible extravasation may reflect spasm or intermittent bleeding.",
+      "A drain can be correctly positioned yet fail to drain loculated material."
+    ],
+    "impression_prompts": [
+      "Summarise indication, access and procedure.",
+      "State achieved endpoint and residual target abnormality.",
+      "Record complications, devices left in place and the agreed clinical review."
+    ],
+    "escalation": [
+      "Escalate persistent haemorrhage, new ischaemia or an access complication directly to the responsible clinical team."
+    ],
+    "template_sections": [
+      {
+        "heading": "ACCESS",
+        "body": "Site/side: [ ]. Guidance: [ ]. Sheath/device: [ ]. Haemostasis: [ ]."
+      },
+      {
+        "heading": "PRETREATMENT FINDINGS",
+        "body": "Target vessel/cavity: [ ]. Bleeding/occlusion/collection: [ ]. Collaterals or vulnerable branches: [ ]."
+      },
+      {
+        "heading": "INTERVENTION",
+        "body": "Catheters/wires: [ ]. Treated site: [ ]. Embolic/device/material and sizes: [ ]."
+      },
+      {
+        "heading": "COMPLETION",
+        "body": "Flow/extravasation: [ ]. Residual lesion: [ ]. Drain position/output: [ ]. Final image reference: [ ]."
+      },
+      {
+        "heading": "POSTPROCEDURE",
+        "body": "Immediate complication: [none observed / details]. Dose metrics: [ ]. Monitoring/device care: [ ]. Responsible follow-up team: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "CIRSE Clinical Practice Manual",
+        "url": "https://www.cirse.org/publications/standards-of-practice/clinical-practice-manual/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.airways": {
+    "protocol": [
+      "Use thin-section inspiratory CT and multiplanar airway views.",
+      "Add clinically indicated expiratory or dynamic imaging when assessing air trapping or airway collapse."
+    ],
+    "checklist": [
+      {
+        "label": "Central lumen",
+        "detail": "Follow trachea and main/lobar bronchi for narrowing, intraluminal material and extrinsic compression."
+      },
+      {
+        "label": "Bronchiectasis",
+        "detail": "Describe distribution, morphology, lack of tapering and peripheral visibility."
+      },
+      {
+        "label": "Small airways",
+        "detail": "Map centrilobular nodules, tree-in-bud change and mucus plugging."
+      },
+      {
+        "label": "Mosaic pattern",
+        "detail": "Compare expiratory attenuation and vessel calibre before attributing mosaic change to air trapping."
+      },
+      {
+        "label": "Consequences",
+        "detail": "Look for collapse, infection and obstructing mass."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Airway narrowing",
+        "method": "Measure minimum orthogonal lumen and length of stenosis.",
+        "pitfall": "An oblique section exaggerates calibre."
+      },
+      {
+        "name": "Bronchoarterial relationship",
+        "method": "Compare bronchial lumen with its accompanying artery at the same level.",
+        "pitfall": "Arterial size varies with perfusion; use multiple bronchiectasis signs."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Dependent secretions can mimic an endobronchial lesion.",
+      "Traction bronchiectasis should be interpreted with the surrounding fibrosis."
+    ],
+    "impression_prompts": [
+      "State the dominant airway abnormality and distribution.",
+      "Identify an obstruction and its downstream effect.",
+      "Report whether expiratory assessment supports air trapping."
+    ],
+    "escalation": [
+      "Communicate severe central airway compromise promptly when newly identified."
+    ],
+    "template_sections": [
+      {
+        "heading": "CENTRAL AIRWAYS",
+        "body": "Trachea/main bronchi: [patent / narrowed: level]. Cause: [mural / intraluminal / extrinsic]. Narrowing length/minimum calibre: [ ] mm / [ ] mm."
+      },
+      {
+        "heading": "BRONCHIECTASIS",
+        "body": "Lobes: [ ]. Morphology: [cylindrical / varicose / cystic]. Tapering: [preserved / reduced]. Associated fibrosis: [ ]."
+      },
+      {
+        "heading": "SMALL AIRWAYS",
+        "body": "Tree-in-bud/centrilobular nodules: [absent / distribution]. Mucus plugging: [ ]."
+      },
+      {
+        "heading": "EXPIRATORY FINDINGS",
+        "body": "Expiration: [adequate / limited / not acquired]. Air trapping: [none / distribution]. Dynamic central collapse: [not assessed / findings]."
+      },
+      {
+        "heading": "SECONDARY FINDINGS",
+        "body": "Atelectasis/consolidation: [ ]. Obstructing mass: [ ]. Nodes/pleura: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Large airway disease",
+        "url": "https://radiologyassistant.nl/chest/airways/large-airway-disease"
+      },
+      {
+        "title": "Radiology Assistant — Lung Segments and Bronchi",
+        "url": "https://radiologyassistant.nl/chest/lung-anatomy/lung-segments"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.hrct": {
+    "protocol": [
+      "Review volumetric thin-section inspiratory images; use prone or expiratory acquisitions when they resolve a specific uncertainty.",
+      "Compare with the earliest relevant and most recent CT using matched levels."
+    ],
+    "checklist": [
+      {
+        "label": "Pattern",
+        "detail": "Identify reticulation, ground glass, consolidation, nodules or cysts before assigning a disease."
+      },
+      {
+        "label": "Distribution",
+        "detail": "Describe upper/lower, central/peripheral and peribronchovascular/subpleural predominance."
+      },
+      {
+        "label": "Fibrosis",
+        "detail": "Look for distortion, traction bronchiectasis, volume loss and honeycombing."
+      },
+      {
+        "label": "Discriminators",
+        "detail": "Assess air trapping, emphysema, pleural plaques and oesophageal dilatation."
+      },
+      {
+        "label": "Comparison",
+        "detail": "Separate progression of fibrosis from superimposed acute opacity."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Extent",
+        "method": "Estimate lobar or whole-lung extent using a stated visual method.",
+        "pitfall": "A visual percentage is approximate, not quantitative segmentation."
+      },
+      {
+        "name": "Interval change",
+        "method": "Compare matched inspiratory slices and lung volumes.",
+        "pitfall": "Different inspiration can mimic worsening ground glass."
+      }
+    ],
+    "classification": {
+      "name": "HRCT UIP pattern framework",
+      "version": "ATS/ERS/JRS/ALAT 2022",
+      "applicability": "Suspected fibrotic interstitial lung disease; integrate clinical causes and multidisciplinary assessment.",
+      "summary": "Use UIP, probable UIP, indeterminate for UIP, or an alternative diagnosis pattern after assessing distribution and fibrotic signs."
+    },
+    "pitfalls": [
+      "Dependent atelectasis can mimic basal interstitial abnormality.",
+      "A UIP imaging pattern does not itself establish idiopathic pulmonary fibrosis."
+    ],
+    "impression_prompts": [
+      "Describe dominant pattern and distribution.",
+      "State the fibrosis pattern category only when applicable.",
+      "Separate progression and acute superimposed complications."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "PATTERN",
+        "body": "Reticulation: [ ]. Ground glass: [ ]. Consolidation: [ ]. Nodules/cysts: [ ]."
+      },
+      {
+        "heading": "DISTRIBUTION",
+        "body": "Craniocaudal: [upper / basal / diffuse]. Axial: [subpleural / central / random]. Symmetry: [ ]."
+      },
+      {
+        "heading": "FIBROTIC FEATURES",
+        "body": "Traction bronchiectasis: [ ]. Honeycombing: [ ]. Architectural distortion/volume loss: [ ]. Estimated extent: [ ]."
+      },
+      {
+        "heading": "DISCRIMINATING FINDINGS",
+        "body": "Air trapping: [ ]. Emphysema: [ ]. Pleural plaques: [ ]. Prone persistence: [not assessed / findings]."
+      },
+      {
+        "heading": "PATTERN AND CHANGE",
+        "body": "Fibrosis category: [UIP / probable UIP / indeterminate / alternative pattern / not applicable]. Supporting features: [ ]. Change since [date]: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — HRCT - Basic Interpretation",
+        "url": "https://radiologyassistant.nl/chest/hrct/basic-interpretation"
+      },
+      {
+        "title": "Radiology Assistant — HRCT - Common diagnoses",
+        "url": "https://radiologyassistant.nl/chest/hrct/common-diseases"
+      },
+      {
+        "title": "Radiology Assistant — HRCT – Patterns of pulmonary fibrosis in ILD",
+        "url": "https://radiologyassistant.nl/chest/hrct/fibrosis-of-the-lung-on-hrct-imaging"
+      },
+      {
+        "title": "ATS/ERS/JRS/ALAT — IPF and progressive pulmonary fibrosis guideline (2022)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9851481/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.mediastinum": {
+    "protocol": [
+      "Review contrast CT with multiplanar localisation; use MRI for an unresolved cystic, fat-containing or thymic question when appropriate.",
+      "Assign nodal stations using landmarks rather than a visual guess from the node position."
+    ],
+    "checklist": [
+      {
+        "label": "Compartment",
+        "detail": "Locate the lesion in prevascular, visceral or paravertebral mediastinum."
+      },
+      {
+        "label": "Composition",
+        "detail": "Assess fluid, fat, soft tissue, calcium and enhancement."
+      },
+      {
+        "label": "Relationship",
+        "detail": "Describe airway, vascular, pericardial or spinal involvement."
+      },
+      {
+        "label": "Nodes",
+        "detail": "Record stations, short-axis size and morphology."
+      },
+      {
+        "label": "Context",
+        "detail": "Compare interval change and look for a primary process or systemic distribution."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Mass size",
+        "method": "Record three orthogonal dimensions and the dominant solid component.",
+        "pitfall": "Include a consistent plane for follow-up."
+      },
+      {
+        "name": "Nodal short axis",
+        "method": "Measure perpendicular to the longest axis and record IASLC station.",
+        "pitfall": "Enlargement alone does not establish metastasis."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Thymic tissue and a cyst may be mislabelled as a solid mass without appropriate characterisation.",
+      "Loss of a fat plane alone does not prove invasion."
+    ],
+    "impression_prompts": [
+      "Name the compartment, composition and leading differential.",
+      "Identify a consequential compression or invasion concern.",
+      "Report relevant nodal stations and uncertainty."
+    ],
+    "escalation": [
+      "Directly communicate significant airway compromise or suspected acute SVC obstruction."
+    ],
+    "template_sections": [
+      {
+        "heading": "COMPARTMENT",
+        "body": "Epicentre: [prevascular / visceral / paravertebral]. Side/level: [ ]. Dimensions: [ ] mm."
+      },
+      {
+        "heading": "COMPOSITION",
+        "body": "Attenuation/signal: [ ]. Fat: [ ]. Calcium: [ ]. Fluid/solid components and enhancement: [ ]."
+      },
+      {
+        "heading": "RELATIONSHIPS",
+        "body": "Airway: [ ]. Great vessels/SVC: [ ]. Pericardium: [ ]. Neural foramen/spinal canal: [ ]."
+      },
+      {
+        "heading": "NODAL MAP",
+        "body": "Station/side: [ ]. Short axis: [ ] mm. Morphology: [homogeneous / necrotic / calcified / other]. Repeat as needed."
+      },
+      {
+        "heading": "ASSOCIATED FINDINGS",
+        "body": "Thymus/thyroid continuity: [ ]. Lung primary: [ ]. Additional nodes: [ ]. Interval change: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Mediastinal Lymph Node Map",
+        "url": "https://radiologyassistant.nl/chest/mediastinum/mediastinum-lymph-node-map"
+      },
+      {
+        "title": "Radiology Assistant — Mediastinal Masses - differential diagnosis",
+        "url": "https://radiologyassistant.nl/chest/mediastinum/masses-differential-diagnosis"
+      },
+      {
+        "title": "Radiology Assistant — Thymic masses and mimics",
+        "url": "https://radiologyassistant.nl/chest/thymus/thymus"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.pleura": {
+    "protocol": [
+      "Review CT or radiography with the patient position recorded; ultrasound can characterise and localise fluid.",
+      "Inspect pleural surfaces, lung expansion and any drain throughout its course."
+    ],
+    "checklist": [
+      {
+        "label": "Contents",
+        "detail": "Distinguish fluid, air and pleural soft tissue."
+      },
+      {
+        "label": "Distribution",
+        "detail": "State side, extent and loculation."
+      },
+      {
+        "label": "Pleura",
+        "detail": "Assess thickening, nodules, enhancement and fissural involvement."
+      },
+      {
+        "label": "Adjacent structures",
+        "detail": "Look for chest wall, diaphragm, lung and mediastinal extension."
+      },
+      {
+        "label": "Devices",
+        "detail": "Check side-hole position and residual undrained compartments."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Collection",
+        "method": "Measure maximal orthogonal dimensions or sonographic depth and position.",
+        "pitfall": "A depth measurement is not a precise fluid volume."
+      },
+      {
+        "name": "Pleural lesion",
+        "method": "Measure thickness perpendicular to pleura at a reproducible site.",
+        "pitfall": "Fluid and adjacent collapsed lung can inflate the measurement."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Pleural enhancement supports inflammation but is not specific for infection.",
+      "A small supine pneumothorax may collect anteriorly or basally."
+    ],
+    "impression_prompts": [
+      "State the principal pleural process, side and extent.",
+      "Identify loculation, lung entrapment concern or invasive features.",
+      "Report drain position and significant residual collection."
+    ],
+    "escalation": [
+      "Communicate tension physiology concern, a large new pneumothorax or a consequential drain malposition immediately."
+    ],
+    "template_sections": [
+      {
+        "heading": "PLEURAL CONTENTS",
+        "body": "Effusion: [none / side and extent]. Pneumothorax: [none / side and extent]. Position: [upright / supine / other]."
+      },
+      {
+        "heading": "PLEURAL SURFACES",
+        "body": "Thickening: [ ]. Nodules: [ ]. Enhancement: [ ]. Fissural/mediastinal pleura: [ ]."
+      },
+      {
+        "heading": "LOCULATION AND INFECTION FEATURES",
+        "body": "Locules/septa: [ ]. Gas: [ ]. Extrapleural inflammatory change: [ ]."
+      },
+      {
+        "heading": "EXTENSION AND LUNG",
+        "body": "Lung expansion: [ ]. Adjacent consolidation: [ ]. Chest wall/diaphragm involvement: [ ]."
+      },
+      {
+        "heading": "DRAINS",
+        "body": "Drain type/course: [none / ]. Side holes: [in pleural space / extrapleural / uncertain]. Residual collection: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Thoracic Ultrasound in Acute Abdomen",
+        "url": "https://radiologyassistant.nl/abdomen/chest-radiology-for-abdominal-radiologists/chest-radiology-for-abdominal-radiologists"
+      },
+      {
+        "title": "British Thoracic Society — Pleural disease guideline (2023)",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37433578/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.chest-infection": {
+    "protocol": [
+      "Match radiography or CT to the clinical question, immune status and treatment timing.",
+      "Use contrast where a suspected pleural, mediastinal or parenchymal complication requires it."
+    ],
+    "checklist": [
+      {
+        "label": "Pattern",
+        "detail": "Separate airspace consolidation, ground glass, small-airway spread and miliary nodules."
+      },
+      {
+        "label": "Distribution",
+        "detail": "Identify lobes, laterality and central/peripheral predominance."
+      },
+      {
+        "label": "Destruction",
+        "detail": "Look for cavitation, necrosis and abscess."
+      },
+      {
+        "label": "Spread",
+        "detail": "Assess pleura, nodes, airways and extrapulmonary extension."
+      },
+      {
+        "label": "Comparison",
+        "detail": "Distinguish new infection from residual scarring and a persistent obstructing lesion."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Cavity/collection",
+        "method": "Record maximum diameter, wall features and location.",
+        "pitfall": "A cavity does not identify its organism."
+      },
+      {
+        "name": "Extent",
+        "method": "Record involved lobes and a reproducible severity description.",
+        "pitfall": "Radiological extent is not a substitute for clinical severity."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Imaging cannot distinguish primary from reactivated tuberculosis reliably.",
+      "CO-RADS was developed for suspected COVID-19 and does not confirm infection or apply to every pneumonia."
+    ],
+    "impression_prompts": [
+      "Describe the infection-compatible pattern and extent.",
+      "Report cavitation, pleural infection or another complication.",
+      "Identify an alternative diagnosis or unresolved focal opacity."
+    ],
+    "escalation": [
+      "Communicate new findings suspicious for transmissible pulmonary TB through the local clinical and infection-control pathway."
+    ],
+    "template_sections": [
+      {
+        "heading": "PARENCHYMAL PATTERN",
+        "body": "Consolidation: [ ]. Ground glass: [ ]. Tree-in-bud: [ ]. Miliary/random nodules: [ ]."
+      },
+      {
+        "heading": "DISTRIBUTION",
+        "body": "Lobes: [ ]. Central/peripheral: [ ]. Dependent predominance: [ ]."
+      },
+      {
+        "heading": "CAVITATION AND NECROSIS",
+        "body": "Cavity location/size: [ ] / [ ] mm. Wall: [ ]. Non-enhancement/abscess: [ ]."
+      },
+      {
+        "heading": "PLEURA AND NODES",
+        "body": "Pleural fluid/loculation: [ ]. Nodal stations/morphology: [ ]. Airway obstruction: [ ]."
+      },
+      {
+        "heading": "COMPARISON AND DIFFERENTIAL",
+        "body": "Change since [date]: [ ]. Residual scar: [ ]. Leading imaging possibilities: [ ]. Microbiological correlation needed: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — COVID-19  CO-RADS classification",
+        "url": "https://radiologyassistant.nl/chest/covid-19/corads-classification"
+      },
+      {
+        "title": "Radiology Assistant — Imaging findings in TB",
+        "url": "https://radiologyassistant.nl/chest/tb/tuberculosis"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.pe-pulm-htn": {
+    "protocol": [
+      "Review thin CTPA source images with coronal/sagittal confirmation; specify the most distal reliably evaluable arterial level.",
+      "Assess acute emboli, chronic vascular change, right-heart morphology and alternative causes together."
+    ],
+    "checklist": [
+      {
+        "label": "Adequacy",
+        "detail": "Check arterial opacification, motion and mixing artefact by territory."
+      },
+      {
+        "label": "Thrombus",
+        "detail": "Report laterality and the most proximal affected arterial segment."
+      },
+      {
+        "label": "Chronicity",
+        "detail": "Look for webs, eccentric wall-adherent material, vessel narrowing and collaterals."
+      },
+      {
+        "label": "Right heart",
+        "detail": "Measure RV/LV and describe septal configuration and contrast reflux."
+      },
+      {
+        "label": "Consequences",
+        "detail": "Inspect infarction, pleura, parenchymal disease and shunt anatomy when relevant."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "RV/LV ratio",
+        "method": "Measure maximal transverse chamber diameters using the same stated method.",
+        "pitfall": "A ratio reflects morphology and must be interpreted with haemodynamics and prior imaging."
+      },
+      {
+        "name": "Main pulmonary artery",
+        "method": "Measure orthogonal to the vessel and compare with ascending aorta at the same level.",
+        "pitfall": "Dilatation alone cannot diagnose pulmonary hypertension."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A poorly opacified or motion-degraded segment cannot be reported as negative.",
+      "CT signs suggest pulmonary hypertension; pressure confirmation is clinical/hemodynamic."
+    ],
+    "impression_prompts": [
+      "State PE presence, proximal level and technical confidence.",
+      "Describe right-heart strain signs and relevant comparison.",
+      "Identify chronic thromboembolic features or another cause of symptoms."
+    ],
+    "escalation": [
+      "Communicate acute PE and significant associated right-heart findings directly according to local urgency pathways."
+    ],
+    "template_sections": [
+      {
+        "heading": "ARTERIAL QUALITY",
+        "body": "Opacification: [adequate / limited]. Motion: [ ]. Evaluable through: [main / lobar / segmental / subsegmental]."
+      },
+      {
+        "heading": "EMBOLI",
+        "body": "PE: [absent / present / indeterminate]. Side/vessels: [ ]. Most proximal level: [ ]. Occlusive component: [ ]."
+      },
+      {
+        "heading": "CHRONIC FEATURES",
+        "body": "Webs/bands: [ ]. Eccentric chronic material: [ ]. Stenosis/recanalisation: [ ]. Bronchial collaterals: [ ]."
+      },
+      {
+        "heading": "RIGHT HEART AND PULMONARY ARTERY",
+        "body": "RV: [ ] mm; LV: [ ] mm; ratio: [ ]. Method: [axial / four-chamber]. Septum/reflux: [ ]. Main PA: [ ] mm."
+      },
+      {
+        "heading": "LUNGS AND ASSOCIATED CAUSES",
+        "body": "Infarct: [ ]. Mosaic perfusion: [ ]. Pleura: [ ]. Left-heart/lung disease or congenital shunt features: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Pulmonary Hypertension and Thromboembolic disease",
+        "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta-1/acute-aortic-syndrome-1"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.lung-cancer": {
+    "protocol": [
+      "Use staging chest CT with adequate upper abdominal coverage; integrate other staging tests only when available.",
+      "Name the TNM edition and distinguish pretreatment staging from post-treatment assessment."
+    ],
+    "checklist": [
+      {
+        "label": "Primary",
+        "detail": "Record site, total size and solid component for a part-solid lesion."
+      },
+      {
+        "label": "T descriptors",
+        "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+      },
+      {
+        "label": "Nodal map",
+        "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+      },
+      {
+        "label": "Metastases",
+        "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+      },
+      {
+        "label": "Confidence",
+        "detail": "Identify findings whose confirmation would change stage."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Primary diameter",
+        "method": "Measure maximal tumour extent; record the solid component separately in a part-solid primary.",
+        "pitfall": "Do not include adjacent atelectasis as tumour without evidence."
+      },
+      {
+        "name": "Nodal short axis",
+        "method": "Measure each consequential station in mm.",
+        "pitfall": "Neither size nor FDG avidity is histological confirmation."
+      }
+    ],
+    "classification": {
+      "name": "Lung cancer TNM",
+      "version": "9th edition (2025)",
+      "applicability": "Applicable lung carcinoma histologies; use clinical or post-treatment prefix as appropriate.",
+      "summary": "N2a is single-station N2 and N2b is multiple-station N2. M1c1 and M1c2 distinguish one versus multiple extrathoracic organ systems. Document the actual sites."
+    },
+    "pitfalls": [
+      "Station 1 nodes are N3 on either side.",
+      "Imaging must not assign a pathological pTNM stage without the appropriate pathological evidence."
+    ],
+    "impression_prompts": [
+      "State primary location and imaging T descriptor.",
+      "State nodal distribution and imaging N category with confidence.",
+      "Describe metastatic findings and the edition-specific clinical stage limitations."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "PRIMARY",
+        "body": "Lobe/segment: [ ]. Total maximum diameter: [ ] mm. Solid component: [ ] mm. Morphology: [ ]."
+      },
+      {
+        "heading": "LOCAL EXTENT",
+        "body": "Airway/atelectasis: [ ]. Pleura/chest wall: [ ]. Mediastinum/great vessels: [ ]. Separate nodules and lobes: [ ]."
+      },
+      {
+        "heading": "REGIONAL NODES",
+        "body": "Stations: [ ]. Short axes: [ ] mm. N2 distribution: [none / one station / multiple stations]. Contralateral/supraclavicular: [ ]."
+      },
+      {
+        "heading": "DISTANT DISEASE",
+        "body": "Pleural/pericardial deposits: [ ]. Contralateral lung: [ ]. Extrathoracic sites: [ ]. Indeterminate lesions: [ ]."
+      },
+      {
+        "heading": "IMAGING STAGE",
+        "body": "TNM edition: [9]. Context: [c / yc]. T: [ ]; N: [ ]; M: [ ]. Stage-changing uncertainty and evidence needed: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Lung Adenocarcinoma",
+        "url": "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma"
+      },
+      {
+        "title": "Radiology Assistant — TNM classification 9ᵗʰ edition",
+        "url": "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1"
+      },
+      {
+        "title": "IASLC — Thoracic oncology staging cards, ninth edition",
+        "url": "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.3.chest-xray": {
+    "protocol": [
+      "Confirm projection, patient position and prior examination before interpreting cardiomediastinal size.",
+      "Review lungs, pleura, mediastinum, bones and every visible device systematically."
+    ],
+    "checklist": [
+      {
+        "label": "Quality",
+        "detail": "Check rotation, inspiration, exposure and field coverage."
+      },
+      {
+        "label": "Airways and mediastinum",
+        "detail": "Inspect trachea, hila, heart and aortic contours."
+      },
+      {
+        "label": "Lungs",
+        "detail": "Assess distribution of opacity, vascularity and volume loss."
+      },
+      {
+        "label": "Pleura",
+        "detail": "Look at apices, costophrenic angles and supine pneumothorax signs."
+      },
+      {
+        "label": "Devices and review areas",
+        "detail": "Trace all lines; inspect retrocardiac lung, apices and below the diaphragm."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Cardiothoracic ratio",
+        "method": "Use a well-inspired PA film when appropriate.",
+        "pitfall": "AP magnification and low inspiration invalidate routine size inference."
+      },
+      {
+        "name": "Device tip distance",
+        "method": "Record tip position relative to a named landmark in cm.",
+        "pitfall": "Position and respiration can change apparent tip location."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Low inspiration can mimic pulmonary congestion and basal opacity.",
+      "A normal radiograph does not exclude PE or subtle early infection."
+    ],
+    "impression_prompts": [
+      "Lead with the acute cardiopulmonary finding or absence of a demonstrated acute abnormality.",
+      "Specify the side and distribution of opacity or pleural disease.",
+      "Identify a consequential device position or interval change."
+    ],
+    "escalation": [
+      "Directly communicate a critical tube/line malposition, tension pneumothorax concern or unexpected free intraperitoneal gas."
+    ],
+    "template_sections": [
+      {
+        "heading": "PROJECTION AND QUALITY",
+        "body": "Projection/position: [PA / AP / lateral; erect / supine]. Rotation: [ ]. Inspiration/exposure: [ ]."
+      },
+      {
+        "heading": "AIRWAYS AND CARDIOMEDIASTINUM",
+        "body": "Trachea: [ ]. Hila: [ ]. Heart size: [ ]. Mediastinal contours: [ ]."
+      },
+      {
+        "heading": "LUNGS",
+        "body": "Opacity location/pattern: [ ]. Volume loss: [ ]. Vascular/interstitial pattern: [ ]."
+      },
+      {
+        "heading": "PLEURA AND DIAPHRAGM",
+        "body": "Effusion: [ ]. Pneumothorax: [ ]. Diaphragm/free subdiaphragmatic gas: [ ]."
+      },
+      {
+        "heading": "DEVICES AND BONES",
+        "body": "Tube/line tip and landmark: [ ]. Device complication: [ ]. Bones/chest wall: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Chest X-Ray - Basic Interpretation",
+        "url": "https://radiologyassistant.nl/chest/chest-x-ray/basic-interpretation"
+      },
+      {
+        "title": "Radiology Assistant — Chest X-Ray - Heart Failure",
+        "url": "https://radiologyassistant.nl/chest/chest-x-ray/heart-failure"
+      },
+      {
+        "title": "Radiology Assistant — Chest X-Ray - Lung disease",
+        "url": "https://radiologyassistant.nl/chest/chest-x-ray/lung-disease"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.pulmonary-nodule": {
+    "protocol": [
+      "Use thin sections of 1.5 mm or less and compare all available prior CTs.",
+      "Choose the incidental, screening or known-malignancy pathway before proposing follow-up."
+    ],
+    "checklist": [
+      {
+        "label": "Eligibility",
+        "detail": "Check age, immune status, cancer history and screening context."
+      },
+      {
+        "label": "Nodule type",
+        "detail": "Distinguish solid, pure ground glass and part-solid."
+      },
+      {
+        "label": "Morphology",
+        "detail": "Assess margins, fat, calcium, perifissural shape and cystic change."
+      },
+      {
+        "label": "Measurement",
+        "detail": "Document location, mean diameter or consistent volume, and solid component."
+      },
+      {
+        "label": "Growth",
+        "detail": "Use comparable reconstructions and identify the most suspicious lesion in multiple nodules."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Mean diameter",
+        "method": "Average long and perpendicular short axes in the plane of greatest dimension; report mm.",
+        "pitfall": "Thick sections can create false ground-glass components."
+      },
+      {
+        "name": "Solid component",
+        "method": "Measure separately in a part-solid nodule on a consistent technique.",
+        "pitfall": "Whole-nodule stability does not negate growth of the solid component."
+      }
+    ],
+    "classification": {
+      "name": "Incidental pulmonary nodule framework",
+      "version": "Fleischner Society 2017",
+      "applicability": "Adults ≥35 with incidental nodules, excluding screening, immunocompromise and known cancer.",
+      "summary": "Select the relevant solid or subsolid, single or multiple nodule table and integrate risk; do not apply one size rule to all nodules."
+    },
+    "pitfalls": [
+      "Fleischner guidance does not cover screening, patients under 35, immunocompromise or known primary cancer.",
+      "A smooth perifissural nodule requires the complete benign morphology, not fissural proximity alone."
+    ],
+    "impression_prompts": [
+      "Identify nodule type, site, size and change.",
+      "Name the selected pathway and why it applies.",
+      "Give an individualised follow-up statement only after checking risk and guideline category."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "PATHWAY",
+        "body": "Context: [incidental / screening / known malignancy / other]. Age/risk: [ ]. Exclusions: [ ]."
+      },
+      {
+        "heading": "NODULE INVENTORY",
+        "body": "ID/lobe/segment: [ ]. Type: [solid / pure ground glass / part-solid]. Series/image: [ ]."
+      },
+      {
+        "heading": "SIZE AND MORPHOLOGY",
+        "body": "Long/short axes: [ ]/[ ] mm; mean: [ ] mm. Solid component: [ ] mm. Margins/fat/calcium: [ ]."
+      },
+      {
+        "heading": "INTERVAL CHANGE",
+        "body": "Prior date: [ ]. Previous size/volume: [ ]. Growth: [none / present / uncertain]. Reconstruction comparability: [ ]."
+      },
+      {
+        "heading": "ASSESSMENT",
+        "body": "Most suspicious nodule: [ ]. Benign-pattern evidence: [ ]. Applicable guideline/version and recommendation rationale: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Fleischner 2017 guideline",
+        "url": "https://radiologyassistant.nl/chest/plumonary-nodules/fleischner-2017-guideline"
+      },
+      {
+        "title": "Radiology Assistant — Pulmonary nodule - Benign versus Malignant",
+        "url": "https://radiologyassistant.nl/chest/solitary-pulmonary-nodule/benign-versus-malignant"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.aorta": {
+    "protocol": [
+      "Review unenhanced images when obtained for mural haemorrhage and arterial CTA through the clinically relevant aorta and branches.",
+      "Use ECG-gated root images where available and centreline-orthogonal measurements."
+    ],
+    "checklist": [
+      {
+        "label": "Process",
+        "detail": "Distinguish dissection, intramural haematoma, penetrating ulcer and aneurysm complication."
+      },
+      {
+        "label": "Extent",
+        "detail": "Explicitly state ascending-aortic involvement and entry/termination levels."
+      },
+      {
+        "label": "Lumens",
+        "detail": "Describe true/false lumen patency and thrombus."
+      },
+      {
+        "label": "Branches",
+        "detail": "Identify branch origin, narrowing and organ perfusion."
+      },
+      {
+        "label": "Complications",
+        "detail": "Search for rupture, haemopericardium, coronary involvement and malperfusion."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Aortic diameter",
+        "method": "Measure outer-wall diameter orthogonal to centreline at named levels; document convention.",
+        "pitfall": "Oblique axial measurements overestimate aortic size."
+      },
+      {
+        "name": "Ulcer or haematoma",
+        "method": "Record ulcer depth/width or maximum wall-haematoma thickness in mm.",
+        "pitfall": "Distinguish ulcer-related change from an irregular atherosclerotic surface."
+      }
+    ],
+    "classification": {
+      "name": "Stanford dissection description",
+      "version": "Anatomic classification",
+      "applicability": "Aortic dissection; describe arch-only and other atypical patterns anatomically.",
+      "summary": "Type A involves the ascending aorta; type B does not. Always state the actual extent and complications."
+    },
+    "pitfalls": [
+      "Root motion can simulate a dissection flap.",
+      "An uncomplicated/complicated distinction requires complications and clinical findings, not Stanford type alone."
+    ],
+    "impression_prompts": [
+      "State acute aortic process and proximal/distal extent.",
+      "Name threatened branches and malperfused organs.",
+      "Report rupture/pericardial findings and direct communication."
+    ],
+    "escalation": [
+      "Communicate suspected acute aortic syndrome, rupture or malperfusion immediately and document recipient/time."
+    ],
+    "template_sections": [
+      {
+        "heading": "AORTIC PROCESS",
+        "body": "Dissection: [ ]. Intramural haematoma: [ ]. Penetrating ulcer: [ ]. Ascending aorta involved: [yes / no / uncertain]."
+      },
+      {
+        "heading": "EXTENT AND LUMENS",
+        "body": "Entry: [ ]. Proximal/distal extent: [ ]. True/false lumen patency: [ ]."
+      },
+      {
+        "heading": "MEASUREMENTS",
+        "body": "Root: [ ] mm. Ascending: [ ] mm. Arch/descending/abdominal maximum: [ ] mm at [level]. Convention/plane: [ ]."
+      },
+      {
+        "heading": "BRANCHES AND PERFUSION",
+        "body": "Coronaries: [ ]. Arch branches: [ ]. Coeliac/SMA/renal/iliac vessels: [ ]. Organ perfusion: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS",
+        "body": "Rupture/extravasation: [ ]. Haemopericardium/haemothorax: [ ]. Periaortic haematoma: [ ]. Other threatened structure: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Aortic Aneurysm Rupture",
+        "url": "https://radiologyassistant.nl/abdomen/aorta/aneurysm-rupture"
+      },
+      {
+        "title": "Radiology Assistant — Acute Aortic Syndrome",
+        "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.cardiac-mri": {
+    "protocol": [
+      "Review cine stack for complete ventricular coverage and ECG/motion artefact.",
+      "Match tissue-characterisation and late-enhancement images in orthogonal planes; use local mapping reference ranges."
+    ],
+    "checklist": [
+      {
+        "label": "Function",
+        "detail": "Quantify both ventricles and identify regional wall-motion abnormalities."
+      },
+      {
+        "label": "Geometry",
+        "detail": "Assess chamber size, wall thickness and atria."
+      },
+      {
+        "label": "Tissue",
+        "detail": "Review oedema, native mapping and extracellular volume if acquired."
+      },
+      {
+        "label": "Scar",
+        "detail": "Map LGE by segment, layer, transmurality and vascular distribution."
+      },
+      {
+        "label": "Ancillary",
+        "detail": "Inspect valves, pericardium, thrombus and relevant extracardiac findings."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Ventricular volumes and EF",
+        "method": "Contour end diastole/end systole; report indexed EDV/ESV and EF=(EDV−ESV)/EDV ×100.",
+        "pitfall": "Basal slice and trabeculation conventions alter results."
+      },
+      {
+        "name": "Mapping",
+        "method": "Report T1/T2 in ms with field strength, sequence and local reference interval.",
+        "pitfall": "Values from another scanner are not an interchangeable threshold."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "An LGE pattern supports an aetiology but is not histological proof.",
+      "Poor myocardial nulling or motion can mimic scar."
+    ],
+    "impression_prompts": [
+      "State biventricular size and systolic function.",
+      "Summarise tissue/LGE pattern and the supported differential.",
+      "Identify clinically consequential thrombus, valve or pericardial findings."
+    ],
+    "escalation": [
+      "Communicate an unexpected intracardiac thrombus or another acutely consequential finding directly."
+    ],
+    "template_sections": [
+      {
+        "heading": "VENTRICULAR FUNCTION",
+        "body": "LV EDVi/ESVi: [ ]/[ ] mL/m²; LVEF: [ ]%. RV EDVi/ESVi: [ ]/[ ] mL/m²; RVEF: [ ]%."
+      },
+      {
+        "heading": "MORPHOLOGY AND MOTION",
+        "body": "LV wall thickness/site: [ ] mm / [ ]. Mass index: [ ] g/m². Regional motion by segment: [ ]."
+      },
+      {
+        "heading": "OEDEMA AND MAPPING",
+        "body": "T2 oedema: [ ]. Native T1/T2: [ ]/[ ] ms. Local reference: [ ]. ECV/haematocrit if measured: [ ]."
+      },
+      {
+        "heading": "LATE ENHANCEMENT",
+        "body": "Segments: [ ]. Layer: [subendocardial / midwall / subepicardial / transmural]. Extent/transmurality: [ ]. Microvascular obstruction: [ ]."
+      },
+      {
+        "heading": "OTHER CARDIAC FINDINGS",
+        "body": "Atria: [ ]. Valves: [ ]. Thrombus: [ ]. Pericardium: [ ]. Extracardiac: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Cardiac Anatomy",
+        "url": "https://radiologyassistant.nl/cardiovascular/anatomy/cardiac-anatomy"
+      },
+      {
+        "title": "Radiology Assistant — Ischemic and non-ischemic cardiomyopathy",
+        "url": "https://radiologyassistant.nl/cardiovascular/cardiomyopathy/ischemic-and-non-ischemic-cardiomyopathy"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.cardiac-masses-devices": {
+    "protocol": [
+      "Use available echocardiographic, CT and MRI findings to localise the lesion or device.",
+      "Review delayed enhancement/filling when distinguishing thrombus, slow flow and tissue."
+    ],
+    "checklist": [
+      {
+        "label": "Localisation",
+        "detail": "Identify chamber, wall, valve and attachment."
+      },
+      {
+        "label": "Composition",
+        "detail": "Assess fat, calcium, perfusion and enhancement."
+      },
+      {
+        "label": "Mobility",
+        "detail": "Use cine or echocardiography when available; do not infer mobility from a static CT."
+      },
+      {
+        "label": "Devices",
+        "detail": "Trace leads, catheters, occluders and prostheses to their endpoints."
+      },
+      {
+        "label": "Consequences",
+        "detail": "Assess obstruction, embolic change, perforation and effusion."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Mass dimensions",
+        "method": "Measure in orthogonal planes and document attachment width.",
+        "pitfall": "A prominent normal structure can mimic a mass."
+      },
+      {
+        "name": "Device position",
+        "method": "Measure relevant tip or protrusion relative to an anatomic landmark.",
+        "pitfall": "Metal artefact may obscure the true boundary."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A filling defect during early contrast transit may be mixing artefact.",
+      "Tumour type cannot generally be established by enhancement alone."
+    ],
+    "impression_prompts": [
+      "Describe lesion or device location and principal abnormality.",
+      "State features favouring thrombus, pseudomass or neoplasm with confidence.",
+      "Report obstruction, perforation or other consequential complication."
+    ],
+    "escalation": [
+      "Directly communicate suspected device perforation, obstructive mass or newly identified intracardiac thrombus."
+    ],
+    "template_sections": [
+      {
+        "heading": "LOCATION",
+        "body": "Chamber/valve/wall: [ ]. Attachment: [ ]. Size: [ ] mm."
+      },
+      {
+        "heading": "TISSUE FEATURES",
+        "body": "Fat/calcium: [ ]. Perfusion: [ ]. Delayed enhancement/filling: [ ]."
+      },
+      {
+        "heading": "MOBILITY AND EFFECT",
+        "body": "Mobility: [not assessed / findings]. Valve/outflow obstruction: [ ]. Embolic findings: [ ]."
+      },
+      {
+        "heading": "DEVICE REVIEW",
+        "body": "Type: [ ]. Lead/catheter course and tip: [ ]. Continuity: [intact / abnormal / limited]. Prosthesis/occluder relationship: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS",
+        "body": "Perforation: [ ]. Effusion: [ ]. Thrombus/infection-associated finding: [ ]. Extracardiac extension: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Cardiovascular devices",
+        "url": "https://radiologyassistant.nl/cardiovascular/devices/cardiovascular-devices"
+      },
+      {
+        "title": "Radiology Assistant — Cardiac Masses: Tumors and Mimics",
+        "url": "https://radiologyassistant.nl/cardiovascular/cardiac-masses1/cardiac-masses"
+      },
+      {
+        "title": "Radiology Assistant — Cardiovascular Pearls on Chest CT...",
+        "url": "https://radiologyassistant.nl/cardiovascular/pearls/cardiovascular-pearls-on-chest-ct"
+      },
+      {
+        "title": "Radiology Assistant — Cardiovascular Pearls on Chest CT.",
+        "url": "https://radiologyassistant.nl/chest/pearls/cardiovascular-pearls-on-chest-ct-2"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.congenital-ct": {
+    "protocol": [
+      "Tailor contrast timing to the venous connections, shunt and surgical question.",
+      "Use sequential segmental analysis and include relevant prior operative anatomy."
+    ],
+    "checklist": [
+      {
+        "label": "Situs",
+        "detail": "Establish visceroatrial arrangement and systemic veins."
+      },
+      {
+        "label": "Connections",
+        "detail": "Describe atrioventricular and ventriculoarterial connections independently."
+      },
+      {
+        "label": "Septation",
+        "detail": "Identify septal defects and chamber relationships."
+      },
+      {
+        "label": "Great vessels",
+        "detail": "Trace arch, pulmonary arteries, pulmonary veins and coronary origins."
+      },
+      {
+        "label": "Repair",
+        "detail": "Describe conduits, baffles, shunts and areas of narrowing or compression."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Vessel calibre",
+        "method": "Measure orthogonal minimum diameters at named segments.",
+        "pitfall": "Use age/body-size context instead of adult thresholds in children."
+      },
+      {
+        "name": "Defect or conduit",
+        "method": "Record dimensions and anatomic relationship to valves/vessels.",
+        "pitfall": "Anatomic defect size on CT is not a direct shunt-flow measurement."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Ventricular morphology cannot be assigned from left/right position alone.",
+      "A single contrast phase may under-opacify a connected but delayed-filling vein."
+    ],
+    "impression_prompts": [
+      "Summarise segmental anatomy and the principal congenital abnormality.",
+      "Describe pulmonary/systemic venous and coronary connections.",
+      "Identify the repair-related problem or compressed structure."
+    ],
+    "escalation": [
+      "Communicate severe conduit obstruction, critical vascular narrowing or major airway compression promptly."
+    ],
+    "template_sections": [
+      {
+        "heading": "SITUS AND VEINS",
+        "body": "Visceroatrial situs: [ ]. SVC/IVC: [ ]. Pulmonary venous connections: [ ]."
+      },
+      {
+        "heading": "CARDIAC CONNECTIONS",
+        "body": "Atria/ventricular morphology: [ ]. AV connection: [ ]. VA connection: [ ]."
+      },
+      {
+        "heading": "SEPTA AND CHAMBERS",
+        "body": "ASD/VSD: [none / site/size]. Chamber sizes: [ ]. Valve relationship: [ ]."
+      },
+      {
+        "heading": "GREAT VESSELS AND CORONARIES",
+        "body": "Arch side/branching: [ ]. Pulmonary arteries: [ ]. Coronary origins/course: [ ]. Airway relationship: [ ]."
+      },
+      {
+        "heading": "POSTOPERATIVE ANATOMY",
+        "body": "Operation/conduits: [ ]. Baffles/shunts: [ ]. Narrowing/thrombus: [ ]. Collaterals: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Vascular Anomalies of Aorta, Pulmonary and Systemic vessels",
+        "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/vascular-anomalies-of-aorta-pulmonary-and-systemic-vessels"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.coronary-ct": {
+    "protocol": [
+      "Review ECG phase quality, source images, curved MPR and orthogonal lumen cross-sections.",
+      "Use the comprehensive CCTA template below, keeping anatomical stenosis, plaque burden and physiology separate."
+    ],
+    "checklist": [
+      {
+        "label": "Quality",
+        "detail": "Name each non-evaluable segment and its effect on excluding significant stenosis."
+      },
+      {
+        "label": "Anatomy",
+        "detail": "Establish dominance, origins, proximal course and coronary anomalies."
+      },
+      {
+        "label": "Stenosis",
+        "detail": "Record vessel/segment, plaque composition and highest confident stenosis."
+      },
+      {
+        "label": "Burden",
+        "detail": "Assess CAC/SIS/visual burden with the method identified; no plaque is not P1."
+      },
+      {
+        "label": "Additional findings",
+        "detail": "Assess stents/grafts, physiology when available and extracoronary findings."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Stenosis",
+        "method": "Compare the minimum orthogonal lumen with an appropriate reference segment.",
+        "pitfall": "Calcific blooming and motion can overestimate narrowing."
+      },
+      {
+        "name": "Plaque burden",
+        "method": "Record CAC and/or plaque-containing segment count; use the most severe reliable burden method.",
+        "pitfall": "Zero CAC does not exclude non-calcified plaque."
+      },
+      {
+        "name": "CT-FFR",
+        "method": "Record lesion-specific value 1–2 cm beyond the lesion and distinguish the distal nadir.",
+        "pitfall": "The lowest distal value alone should not drive lesion attribution."
+      }
+    ],
+    "classification": {
+      "name": "CAD-RADS",
+      "version": "2.0 (2022)",
+      "applicability": "Coronary CTA interpreted with the full diagnostic quality and clinical context.",
+      "summary": "Report stenosis category with plaque burden and applicable N, HRP, I, S, G or E modifiers. CAD-RADS 0 has no plaque burden category."
+    },
+    "pitfalls": [
+      "HRP requires at least two specified high-risk plaque features in a plaque.",
+      "When a relevant segment is non-diagnostic, apply the N category/modifier rules rather than treating it as normal."
+    ],
+    "impression_prompts": [
+      "State the most important stenosis and its vessel/segment.",
+      "Summarise plaque burden and the complete applicable CAD-RADS 2.0 notation.",
+      "Describe anomaly, graft/stent, physiology and significant extracardiac findings."
+    ],
+    "escalation": [
+      "Communicate a suspected acute coronary complication or critical unexpected coronary anatomy in the relevant clinical context."
+    ],
+    "template_sections": [
+      {
+        "heading": "ANATOMY",
+        "body": "Dominance: [right / left / co-dominant]. Origins/course: [ ]. Bridge/anomaly: [ ]."
+      },
+      {
+        "heading": "SEGMENT FINDINGS",
+        "body": "LM: [ ]. LAD/D: [ ]. LCx/OM: [ ]. RCA/PDA/PLV: [ ]. Worst stenosis and image: [ ]."
+      },
+      {
+        "heading": "PLAQUE AND BURDEN",
+        "body": "Composition: [ ]. HRP features: [ ]. CAC: [ ]. SIS: [ ]. Reliable P category: [none / P1 / P2 / P3 / P4]."
+      },
+      {
+        "heading": "STENTS GRAFTS AND PHYSIOLOGY",
+        "body": "Stents/grafts: [ ]. Patency: [ ]. CT-FFR lesion/value: [ ]. Perfusion: [ ]."
+      },
+      {
+        "heading": "CLASSIFICATION AND OTHER FINDINGS",
+        "body": "CAD-RADS 2.0: [ ]. Non-diagnostic segments: [ ]. Cardiac/extracardiac findings: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Coronary anatomy and anomalies",
+        "url": "https://radiologyassistant.nl/cardiovascular/anatomy/coronary-anatomy-and-anomalies"
+      },
+      {
+        "title": "Radiology Assistant — Coronary Artery Disease-Reporting and Data System 2.0",
+        "url": "https://radiologyassistant.nl/cardiovascular/cad-rads/coronary-artery-disease-reporting-and-data-system"
+      },
+      {
+        "title": "SCCT/ACC/ACR/NASCI CAD-RADS 2.0 consensus",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9627235/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.peripheral-vascular": {
+    "protocol": [
+      "Select carotid, limb or mesenteric protocol explicitly and evaluate inflow through the required outflow.",
+      "Review source images alongside MIP/centreline views; check contrast timing and calcium artefact."
+    ],
+    "checklist": [
+      {
+        "label": "Territory",
+        "detail": "Record side, symptoms and clinical vascular bed."
+      },
+      {
+        "label": "Lesion",
+        "detail": "State stenosis/occlusion location, length and morphology."
+      },
+      {
+        "label": "Reference",
+        "detail": "Use NASCET only for appropriate extracranial ICA measurements, not all vessels."
+      },
+      {
+        "label": "Outflow",
+        "detail": "Describe distal reconstitution, runoff and collaterals."
+      },
+      {
+        "label": "Consequences",
+        "detail": "Assess distal perfusion, bowel injury, tissue loss or associated aneurysm."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "ICA stenosis",
+        "method": "NASCET %=100×(1−minimum lumen/normal distal cervical ICA diameter).",
+        "pitfall": "Do not calculate a misleading routine percentage in near-occlusion with distal collapse."
+      },
+      {
+        "name": "Occlusion length/runoff",
+        "method": "Measure along the vessel and name reconstitution and patent distal vessels.",
+        "pitfall": "Slow flow or early timing can mimic occlusion."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "MIP images can hide lumen within heavy calcium.",
+      "Carotid near-occlusion and complete occlusion require careful distal vessel assessment."
+    ],
+    "impression_prompts": [
+      "State the vascular bed and principal obstructive lesion.",
+      "Describe runoff or collateral supply relevant to the clinical question.",
+      "Identify tissue jeopardy, aneurysm or technical uncertainty."
+    ],
+    "escalation": [
+      "Communicate suspected acute limb or mesenteric ischaemia, dissection with threatened perfusion, or a symptomatic carotid occlusion through the appropriate acute pathway."
+    ],
+    "template_sections": [
+      {
+        "heading": "INFLOW",
+        "body": "Territory/side: [ ]. Proximal vessels: [ ]. Inflow stenosis/occlusion: [ ]."
+      },
+      {
+        "heading": "LESION MAP",
+        "body": "Vessel/segment: [ ]. Plaque/wall abnormality: [ ]. Stenosis method/category: [ ]. Length: [ ] mm."
+      },
+      {
+        "heading": "CAROTID FIELDS IF APPLICABLE",
+        "body": "NASCET lumen/reference: [ ]/[ ] mm. Distal ICA collapse: [ ]. Dissection/tandem lesion: [ ]."
+      },
+      {
+        "heading": "OUTFLOW",
+        "body": "Reconstitution level: [ ]. Runoff vessels: [ ]. Collaterals: [ ]. Distal timing quality: [ ]."
+      },
+      {
+        "heading": "TISSUES AND OTHER VESSELS",
+        "body": "Bowel or limb perfusion findings: [ ]. Aneurysm: [ ]. Thrombus: [ ]. Relevant nonvascular finding: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Contrast-enhanced MRA of peripheral vessels",
+        "url": "https://radiologyassistant.nl/cardiovascular/peripheral-mra/contrast-enhanced-mra-of-peripheral-vessels"
+      },
+      {
+        "title": "Radiology Assistant — How to Differentiate Carotid Obstructions",
+        "url": "https://radiologyassistant.nl/neuroradiology/carotid-pathology/differentiating-carotid-pathology"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.tavi-ct": {
+    "protocol": [
+      "Use the best systolic gated phase for annular assessment and CTA coverage of proposed access routes.",
+      "Define the annular plane through the leaflet hinge points; document phase and measurement convention."
+    ],
+    "checklist": [
+      {
+        "label": "Annulus",
+        "detail": "Record area, perimeter and minimum/maximum diameters."
+      },
+      {
+        "label": "Valve/LVOT",
+        "detail": "Describe cusp morphology, raphe and calcium distribution."
+      },
+      {
+        "label": "Coronaries",
+        "detail": "Measure ostial heights and note leaflet/coronary relationships."
+      },
+      {
+        "label": "Root",
+        "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+      },
+      {
+        "label": "Access",
+        "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Annulus",
+        "method": "Measure area in mm², perimeter in mm and paired diameters on a double-oblique systolic plane.",
+        "pitfall": "An off-axis or diastolic plane can change sizing."
+      },
+      {
+        "name": "Coronary heights",
+        "method": "Measure from annular plane to the inferior coronary ostial margin.",
+        "pitfall": "Use the ostium, not an arbitrarily selected proximal coronary section."
+      },
+      {
+        "name": "Access lumen",
+        "method": "Record minimum orthogonal lumen along each candidate route.",
+        "pitfall": "Outer vessel diameter is not access lumen diameter."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Valve sizing depends on the complete anatomy and device-specific heart-team planning.",
+      "An isolated coronary-height value is insufficient to characterise obstruction risk."
+    ],
+    "impression_prompts": [
+      "Summarise annular and root measurements with image quality.",
+      "Highlight calcium and coronary-obstruction risk anatomy.",
+      "Compare access routes and name the limiting segment."
+    ],
+    "escalation": [
+      "Highlight prohibitive access anatomy or important coronary-obstruction concerns directly for heart-team planning."
+    ],
+    "template_sections": [
+      {
+        "heading": "ANNULUS",
+        "body": "Phase: [ ]%. Area: [ ] mm². Perimeter: [ ] mm. Min/max diameters: [ ]/[ ] mm."
+      },
+      {
+        "heading": "VALVE AND LVOT",
+        "body": "Cusps/raphe: [ ]. Leaflet calcium: [ ]. LVOT calcium: [ ]. LVOT dimensions: [ ]."
+      },
+      {
+        "heading": "CORONARIES",
+        "body": "Left/right ostial heights: [ ]/[ ] mm. Origins: [ ]. Obstruction-risk anatomy: [ ]."
+      },
+      {
+        "heading": "AORTIC ROOT",
+        "body": "Sinus dimensions: [ ] mm. STJ: [ ] mm, height [ ] mm. Ascending aorta: [ ] mm. Angulation: [ ]."
+      },
+      {
+        "heading": "ACCESS ROUTES",
+        "body": "Right/left minimum lumen and location: [ ]. Calcification: [ ]. Tortuosity: [ ]. Alternative access anatomy: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — TAVI / TAVR",
+        "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.pancreas-acute": {
+    "protocol": [
+      "Record symptom onset and the reason for CT/MRI; early imaging can underestimate necrosis.",
+      "Review enhancement, collections, vessels and adjacent bowel; select additional phases for a specific complication."
+    ],
+    "checklist": [
+      {
+        "label": "Pancreas",
+        "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+      },
+      {
+        "label": "Collections",
+        "detail": "Describe location, content, encapsulation and time from onset."
+      },
+      {
+        "label": "Vessels",
+        "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+      },
+      {
+        "label": "Duct and cause",
+        "detail": "Review biliary obstruction, stones and duct disruption clues."
+      },
+      {
+        "label": "Other organs",
+        "detail": "Assess bowel, ascites, pleura and distant complications."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Necrosis extent",
+        "method": "Estimate the affected pancreatic portion and describe extrapancreatic necrosis separately.",
+        "pitfall": "Early or poorly timed CT can falsely suggest preserved or reduced perfusion."
+      },
+      {
+        "name": "Collection size",
+        "method": "Measure three dimensions and describe solid debris/wall maturity.",
+        "pitfall": "Size alone does not distinguish pseudocyst from walled-off necrosis."
+      }
+    ],
+    "classification": {
+      "name": "Revised Atlanta morphology",
+      "version": "2012 revision",
+      "applicability": "Acute pancreatitis and its local complications; clinical severity requires organ-failure information.",
+      "summary": "Describe interstitial oedematous or necrotising pancreatitis; distinguish acute fluid/necrotic collections from mature pseudocyst or walled-off necrosis."
+    },
+    "pitfalls": [
+      "Use collection names according to content and maturity, not time alone.",
+      "Imaging morphology does not establish clinical organ-failure severity."
+    ],
+    "impression_prompts": [
+      "State interstitial oedematous versus necrotising morphology.",
+      "Name and localise collections with their content and maturity.",
+      "Report vascular, ductal or bowel complications."
+    ],
+    "escalation": [
+      "Communicate active haemorrhage, pseudoaneurysm, bowel ischaemia or a suspected infected necrotic complication promptly."
+    ],
+    "template_sections": [
+      {
+        "heading": "PANCREATIC MORPHOLOGY",
+        "body": "Onset: [date / unknown]. Enhancement: [preserved / reduced / absent]. Necrosis distribution/extent: [ ]."
+      },
+      {
+        "heading": "COLLECTIONS",
+        "body": "Site: [ ]. Size: [ ] mm. Content: [fluid only / necrotic debris / uncertain]. Wall: [absent / developing / mature]. Gas: [ ]."
+      },
+      {
+        "heading": "VASCULAR COMPLICATIONS",
+        "body": "Splenic/portal/SMV patency: [ ]. Pseudoaneurysm: [ ]. Active bleeding: [ ]."
+      },
+      {
+        "heading": "DUCTAL AND BILIARY FINDINGS",
+        "body": "Main duct: [ ]. Disruption concern: [ ]. Gallstones/CBD obstruction: [ ]."
+      },
+      {
+        "heading": "EXTRAPANCREATIC EFFECTS",
+        "body": "Bowel involvement: [ ]. Ascites/pleura: [ ]. Obstruction/fistula: [ ]. Collection terminology and supporting features: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Acute Pancreatitis",
+        "url": "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.appendicitis": {
+    "protocol": [
+      "For ultrasound, trace the appendix from caecal base to tip using graded compression and Doppler.",
+      "For CT, review the full appendix and adjacent bowel, urinary tract and pelvis."
+    ],
+    "checklist": [
+      {
+        "label": "Identification",
+        "detail": "State complete, partial or absent visualisation."
+      },
+      {
+        "label": "Appendiceal wall",
+        "detail": "Assess calibre, compressibility, enhancement/flow and focal tip abnormality."
+      },
+      {
+        "label": "Surrounding tissue",
+        "detail": "Look for fat inflammation, local fluid and caecal reaction."
+      },
+      {
+        "label": "Complication",
+        "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+      },
+      {
+        "label": "Mimics",
+        "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Appendiceal diameter",
+        "method": "Measure outer wall to outer wall on a true short axis.",
+        "pitfall": "Diameter alone does not distinguish a faeces-filled normal appendix from inflammation."
+      },
+      {
+        "name": "Abscess",
+        "method": "Measure three dimensions and document location and adjacent structures.",
+        "pitfall": "Phlegmon without liquefaction is not a drainable fluid collection."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A non-visualised appendix is not equivalent to a normal appendix.",
+      "An appendicolith alone does not establish acute appendicitis."
+    ],
+    "impression_prompts": [
+      "State appendicitis confidence and visualisation adequacy.",
+      "Describe complicated features and appendicolith when present.",
+      "Identify the most likely alternative or unresolved uncertainty."
+    ],
+    "escalation": [
+      "Communicate perforation, abscess or another urgent alternative when identified."
+    ],
+    "template_sections": [
+      {
+        "heading": "APPENDIX IDENTIFICATION",
+        "body": "Location: [ ]. Visualisation: [complete / partial / not seen]. Tip included: [yes / no]."
+      },
+      {
+        "heading": "WALL AND LUMEN",
+        "body": "Diameter: [ ] mm. Compressibility: [ ]. Wall enhancement/flow: [ ]. Appendicolith: [ ]."
+      },
+      {
+        "heading": "PERIAPPENDICEAL CHANGE",
+        "body": "Fat inflammation: [ ]. Local fluid: [ ]. Caecal reaction: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS",
+        "body": "Wall defect/extraluminal gas: [ ]. Abscess site/size: [ ]. Phlegmon: [ ]. Obstruction: [ ]."
+      },
+      {
+        "heading": "ALTERNATIVE FINDINGS",
+        "body": "Terminal ileum/colon: [ ]. Epiploic fat: [ ]. Urinary tract: [ ]. Adnexa/pelvis: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Appendicitis and Mimics",
+        "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics"
+      },
+      {
+        "title": "Radiology Assistant — Appendicitis - US findings",
+        "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings"
+      },
+      {
+        "title": "Radiology Assistant — Appendicitis - Pitfalls in US and CT diagnosis",
+        "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.biliary": {
+    "protocol": [
+      "Use fasting ultrasound when feasible, with duct tracing and positional assessment of mobile contents.",
+      "MRCP/contrast CT should answer the level/cause of obstruction or a specific complication."
+    ],
+    "checklist": [
+      {
+        "label": "Gallbladder",
+        "detail": "Assess distension, stones, sludge, wall and focal tenderness."
+      },
+      {
+        "label": "Ducts",
+        "detail": "State intra/extrahepatic distribution and the obstruction level."
+      },
+      {
+        "label": "Cause",
+        "detail": "Look for intraductal stone, stricture, mass or extrinsic compression."
+      },
+      {
+        "label": "Complications",
+        "detail": "Assess perforation, abscess, emphysematous change and vascular relationships."
+      },
+      {
+        "label": "Context",
+        "detail": "Record prior surgery/stents and systemic causes of wall thickening."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "CBD calibre",
+        "method": "Measure inner-to-inner diameter perpendicular to the duct at a named level.",
+        "pitfall": "Interpret with age, surgery and symptoms; calibre alone does not establish obstruction."
+      },
+      {
+        "name": "Gallbladder wall",
+        "method": "Measure the anterior wall perpendicular to its surface when adequately distended.",
+        "pitfall": "Contraction, ascites and systemic oedema can thicken the wall."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Diffuse gallbladder wall thickening is nonspecific.",
+      "A negative ultrasound may not fully evaluate the distal CBD."
+    ],
+    "impression_prompts": [
+      "State presence, level and likely cause of obstruction.",
+      "Describe the evidence for gallbladder inflammation and complications.",
+      "Identify an unresolved duct segment or mass requiring clarification."
+    ],
+    "escalation": [
+      "Communicate suspected complicated cholecystitis or obstruction with an urgent clinical cholangitis concern."
+    ],
+    "template_sections": [
+      {
+        "heading": "GALLBLADDER CONTENTS",
+        "body": "Distension: [ ]. Stones/mobile sludge: [ ]. Impacted neck/cystic duct stone: [ ]."
+      },
+      {
+        "heading": "WALL AND TENDERNESS",
+        "body": "Wall: [ ] mm. Hyperaemia: [ ]. Pericholecystic fluid: [ ]. Sonographic Murphy sign: [positive / negative / not assessable]."
+      },
+      {
+        "heading": "BILIARY TREE",
+        "body": "Intrahepatic ducts: [ ]. CBD: [ ] mm at [level]. Distal duct visualisation: [ ]."
+      },
+      {
+        "heading": "OBSTRUCTION",
+        "body": "Level/length: [ ]. Cause: [stone / stricture / mass / uncertain]. Pancreatic duct: [ ]. Stent: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS AND CONTEXT",
+        "body": "Perforation/abscess/gas: [ ]. Vascular involvement: [ ]. Prior cholecystectomy: [ ]. Ascites/systemic oedema: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Common Bile Duct Stones - Ultrasound",
+        "url": "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg-2"
+      },
+      {
+        "title": "Radiology Assistant — Gallbladder obstruction",
+        "url": "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg"
+      },
+      {
+        "title": "Radiology Assistant — Biliary duct pathology",
+        "url": "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology"
+      },
+      {
+        "title": "Radiology Assistant — Gallbladder wall thickening",
+        "url": "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.bowel-ischaemia": {
+    "protocol": [
+      "For suspected acute vascular bowel ischaemia, review arterial and venous information from the appropriate CTA protocol.",
+      "Compare mural enhancement with adjacent loops and assess the entire mesenteric circulation."
+    ],
+    "checklist": [
+      {
+        "label": "Vessels",
+        "detail": "Identify arterial or venous occlusion, stenosis and distribution."
+      },
+      {
+        "label": "Bowel",
+        "detail": "Map length, wall thickness, distension and enhancement abnormality."
+      },
+      {
+        "label": "Advanced signs",
+        "detail": "Look for pneumatosis, portal venous gas and perforation in context."
+      },
+      {
+        "label": "Mesentery",
+        "detail": "Assess congestion, oedema, haemorrhage and free fluid."
+      },
+      {
+        "label": "Mechanism",
+        "detail": "Consider occlusive, venous, low-flow and strangulating causes."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Affected length",
+        "method": "Measure or estimate along the involved segment and name bowel territory.",
+        "pitfall": "Skipped or collapsed segments can obscure the full extent."
+      },
+      {
+        "name": "Vascular lesion",
+        "method": "Record site, length and residual patency with distal reconstitution.",
+        "pitfall": "Patent large vessels do not exclude non-occlusive ischaemia."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Normal or increased enhancement does not exclude early ischaemia or reperfusion injury.",
+      "Pneumatosis is not by itself proof of transmural infarction."
+    ],
+    "impression_prompts": [
+      "State imaging concern for ischaemia and its likely mechanism.",
+      "Localise vessel and bowel involvement.",
+      "Report perforation, non-enhancement and other signs of threatened bowel."
+    ],
+    "escalation": [
+      "Immediately communicate suspected acute mesenteric ischaemia, threatened bowel or perforation."
+    ],
+    "template_sections": [
+      {
+        "heading": "MESENTERIC ARTERIES",
+        "body": "Coeliac/SMA/IMA: [ ]. Occlusion/stenosis level: [ ]. Distal reconstitution: [ ]."
+      },
+      {
+        "heading": "MESENTERIC VEINS",
+        "body": "SMV/portal vein: [patent / thrombus]. Extent: [ ]. Venous congestion: [ ]."
+      },
+      {
+        "heading": "BOWEL PATTERN",
+        "body": "Segment/length: [ ]. Wall: [thin / thickened]. Enhancement: [preserved / increased / reduced / absent]. Dilatation: [ ]."
+      },
+      {
+        "heading": "GAS AND MESENTERY",
+        "body": "Pneumatosis: [ ]. Portomesenteric gas: [ ]. Mesenteric oedema/haemorrhage: [ ]. Free fluid: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS AND MECHANISM",
+        "body": "Free gas: [ ]. Closed-loop pattern: [ ]. Other organ hypoperfusion: [ ]. Favoured mechanism/confidence: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Bowel Ischemia - Video Lectures",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/bowel-ischemia"
+      },
+      {
+        "title": "Radiology Assistant — CT-pattern of Bowel wall thickening",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.bowel-obstruction": {
+    "protocol": [
+      "Trace bowel through transition points on multiplanar CT; assess wall enhancement with available contrast phases.",
+      "Review prior surgery, hernia sites and malignancy context."
+    ],
+    "checklist": [
+      {
+        "label": "Level",
+        "detail": "Identify small versus large bowel and proximal/distal calibre change."
+      },
+      {
+        "label": "Transition",
+        "detail": "Find one or two transition points and describe the cause."
+      },
+      {
+        "label": "Closed loop",
+        "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+      },
+      {
+        "label": "Viability",
+        "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+      },
+      {
+        "label": "Complication",
+        "detail": "Search for perforation and an obstructing hernia or tumour."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Calibre",
+        "method": "Measure maximum bowel diameter and name the segment.",
+        "pitfall": "Diameter alone does not distinguish ileus from mechanical obstruction."
+      },
+      {
+        "name": "Transition/lesion",
+        "method": "Record level, lesion length and separate transition points.",
+        "pitfall": "A subtle second point may establish a closed loop."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A closed loop can involve only a short segment without generalised dilatation.",
+      "Preserved enhancement does not exclude evolving strangulation."
+    ],
+    "impression_prompts": [
+      "State obstruction level, degree and likely cause.",
+      "Explicitly report whether a closed loop is present or suspected.",
+      "Describe ischaemic or perforation features."
+    ],
+    "escalation": [
+      "Communicate suspected closed-loop obstruction, strangulation or perforation immediately."
+    ],
+    "template_sections": [
+      {
+        "heading": "BOWEL CALIBRE",
+        "body": "Dilated bowel: [small / large / both]. Maximum: [ ] mm at [segment]. Distal decompression: [ ]."
+      },
+      {
+        "heading": "TRANSITION",
+        "body": "Transition site(s): [ ]. Cause: [adhesion suspected / hernia / mass / volvulus / other]."
+      },
+      {
+        "heading": "CLOSED-LOOP FEATURES",
+        "body": "Two transition points: [ ]. Loop configuration: [ ]. Mesenteric swirl/convergence: [ ]."
+      },
+      {
+        "heading": "WALL AND MESENTERY",
+        "body": "Enhancement: [ ]. Wall thickening/pneumatosis: [ ]. Mesenteric oedema/free fluid: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS",
+        "body": "Free gas: [ ]. Hernia contents/neck: [ ]. Obstructing mass: [ ]. Additional transition: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Closed Loop in Small bowel obstruction",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction"
+      },
+      {
+        "title": "Radiology Assistant — Closed Loop Obstruction with video",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.abdominal-trauma": {
+    "protocol": [
+      "Review trauma mechanism, haemodynamic context and the phases actually acquired.",
+      "Use arterial/venous comparison for vascular injury and appropriate delayed evaluation for suspected urinary leakage."
+    ],
+    "checklist": [
+      {
+        "label": "Solid organs",
+        "detail": "Map laceration, haematoma, devascularisation and hilar injury."
+      },
+      {
+        "label": "Bleeding",
+        "detail": "Distinguish active extravasation from contained pseudoaneurysm using phase change."
+      },
+      {
+        "label": "Bowel/mesentery",
+        "detail": "Look for wall defect, reduced enhancement, free gas and mesenteric injury."
+      },
+      {
+        "label": "Urinary tract",
+        "detail": "Assess renal collecting system and bladder within protocol limits."
+      },
+      {
+        "label": "Associated injury",
+        "detail": "Review diaphragm, vessels, bones and penetrating trajectory."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Organ injury",
+        "method": "Measure laceration depth and haematoma extent using organ-specific grading definitions.",
+        "pitfall": "One depth threshold cannot be reused across organs."
+      },
+      {
+        "name": "Haemorrhage",
+        "method": "Record site and extent; compare focal contrast across phases.",
+        "pitfall": "Single-phase imaging may not distinguish active bleeding from a vascular lesion."
+      }
+    ],
+    "classification": {
+      "name": "AAST organ injury scales",
+      "version": "Organ-specific revision; state the year used",
+      "applicability": "Traumatic injury to the organ covered by the selected scale.",
+      "summary": "Assign grade from the complete organ-specific anatomic and vascular findings; CT grade does not alone determine treatment."
+    },
+    "pitfalls": [
+      "A negative early CT does not exclude all bowel or pancreatic duct injury.",
+      "Routine excretory contrast in the bladder is not equivalent to a properly performed CT cystogram."
+    ],
+    "impression_prompts": [
+      "Lead with active bleeding and immediately consequential injury.",
+      "Describe organ injury features before any named grade.",
+      "State urinary/bowel assessment limits and associated injuries."
+    ],
+    "escalation": [
+      "Immediately communicate active haemorrhage, major vascular injury, hollow-viscus injury or urinary tract disruption."
+    ],
+    "template_sections": [
+      {
+        "heading": "SOLID ORGANS",
+        "body": "Liver/spleen/kidneys/pancreas: [injury and location]. Laceration depth: [ ] cm. Devascularisation: [ ]."
+      },
+      {
+        "heading": "VASCULAR INJURY",
+        "body": "Active extravasation: [ ]. Pseudoaneurysm/AV fistula: [ ]. Hilar/major vessel injury: [ ]."
+      },
+      {
+        "heading": "HAEMORRHAGE",
+        "body": "Haemoperitoneum distribution: [ ]. Retroperitoneal haematoma: [ ]. Sentinel clot/site: [ ]."
+      },
+      {
+        "heading": "BOWEL AND URINARY TRACT",
+        "body": "Bowel/mesentery: [ ]. Free gas: [ ]. Collecting-system leak: [ ]. Bladder assessment/protocol: [ ]."
+      },
+      {
+        "heading": "ASSOCIATED INJURY AND GRADE",
+        "body": "Diaphragm/bones/trajectory: [ ]. AAST organ-specific scale/year: [ ]. Grade/evidence: [ ]. Incomplete assessment: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — CT in Abdominal Trauma",
+        "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/ct-in-trauma"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.ibd": {
+    "protocol": [
+      "Record enterography distension and motion, or ultrasound coverage and compressibility.",
+      "Map disease by segment and compare with the same baseline disease sites."
+    ],
+    "checklist": [
+      {
+        "label": "Distribution",
+        "detail": "Describe affected small/large bowel segments and skip areas."
+      },
+      {
+        "label": "Activity",
+        "detail": "Assess wall oedema, enhancement/hyperaemia, ulcers and mesenteric inflammation."
+      },
+      {
+        "label": "Stricture",
+        "detail": "Describe narrowed segment, wall features and upstream dilatation."
+      },
+      {
+        "label": "Penetrating disease",
+        "detail": "Trace sinus, fistula and abscess with endpoints."
+      },
+      {
+        "label": "Extraintestinal",
+        "detail": "Assess perianal disease if covered, biliary disease and sacroiliac changes."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Wall and length",
+        "method": "Measure maximum wall thickness perpendicular to adequately distended bowel and affected length.",
+        "pitfall": "Collapsed bowel can mimic mural thickening."
+      },
+      {
+        "name": "Prestenotic dilatation",
+        "method": "Measure maximum upstream calibre and stricture length.",
+        "pitfall": "Inflammation and fibrosis often coexist and cannot be cleanly separated by one sign."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Restricted diffusion alone is not a complete activity assessment.",
+      "Do not call a tract a fistula without describing its communicating endpoints or uncertainty."
+    ],
+    "impression_prompts": [
+      "Summarise location, length and activity features.",
+      "State stricturing disease and the degree of upstream effect.",
+      "Map penetrating complications and relevant interval change."
+    ],
+    "escalation": [
+      "Communicate abscess, high-grade obstruction or suspected perforation promptly."
+    ],
+    "template_sections": [
+      {
+        "heading": "DISEASE MAP",
+        "body": "Segments: [ ]. Involved length: [ ] cm. Skip areas: [ ]. Distension/US coverage: [ ]."
+      },
+      {
+        "heading": "MURAL ACTIVITY",
+        "body": "Thickness: [ ] mm. Oedema: [ ]. Ulcers: [ ]. Enhancement/Doppler hyperaemia: [ ]."
+      },
+      {
+        "heading": "STRICTURES",
+        "body": "Segment/length: [ ]. Minimum lumen: [ ]. Upstream diameter: [ ] mm. Inflammatory features: [ ]."
+      },
+      {
+        "heading": "PENETRATING DISEASE",
+        "body": "Sinus/fistula endpoints: [ ]. Abscess site/size: [ ]. Associated inflammatory mass: [ ]."
+      },
+      {
+        "heading": "MESENTERY AND OTHER FINDINGS",
+        "body": "Vascular engorgement/fat change: [ ]. Nodes: [ ]. Perianal/extraintestinal findings: [ ]. Change since [date]: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Crohn's disease - role of MRI",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/crohn-s-disease"
+      },
+      {
+        "title": "Radiology Assistant — Crohn's disease - role of Ultrasound",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease"
+      },
+      {
+        "title": "Radiology Assistant — US of Mimics of Inflammatory Bowel Disease",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.pancreas-tumour": {
+    "protocol": [
+      "Use pancreatic-protocol CT or an appropriate MRI/MRCP for solid versus cystic lesion assessment.",
+      "Review vascular contact on multiplanar images and state the resectability framework only if used."
+    ],
+    "checklist": [
+      {
+        "label": "Primary",
+        "detail": "Record pancreatic location, size, enhancement and ductal obstruction."
+      },
+      {
+        "label": "Arterial contact",
+        "detail": "Describe contact angle/length and narrowing for SMA, coeliac and hepatic arteries."
+      },
+      {
+        "label": "Venous contact",
+        "detail": "Describe SMV/PV contact, contour, thrombosis and reconstructable segments."
+      },
+      {
+        "label": "Spread",
+        "detail": "Search liver, peritoneum, nodes and adjacent organ invasion."
+      },
+      {
+        "label": "Cystic pathway",
+        "detail": "Assess duct communication, main duct calibre, mural nodule and solid component independently."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Tumour size",
+        "method": "Measure the best-defined solid tumour or cyst dimensions and sequence/phase.",
+        "pitfall": "Isoattenuating tumour may be inferred from duct cutoff but should not receive an invented size."
+      },
+      {
+        "name": "Vascular contact",
+        "method": "Record circumferential angle and longitudinal extent for each relevant vessel.",
+        "pitfall": "Post-treatment soft tissue may not represent viable tumour."
+      },
+      {
+        "name": "Cyst nodule/duct",
+        "method": "Measure enhancing mural nodule and main duct separately.",
+        "pitfall": "Dependent debris should not be labelled an enhancing nodule."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Resectability is not determined by tumour size alone.",
+      "Cyst risk criteria and pancreatic adenocarcinoma staging are different frameworks."
+    ],
+    "impression_prompts": [
+      "State solid/cystic lesion type, site and duct effects.",
+      "Describe the decisive vascular and metastatic findings.",
+      "For cysts, identify enhancing nodules, ductal involvement and change."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "PRIMARY AND DUCTS",
+        "body": "Location: [ ]. Dimensions: [ ] mm. Enhancement: [ ]. MPD/CBD calibre: [ ]/[ ] mm. Cutoff/atrophy: [ ]."
+      },
+      {
+        "heading": "ARTERIES",
+        "body": "SMA/coeliac/CHA contacts: [vessel; degrees; length]. Narrowing/variant artery: [ ]."
+      },
+      {
+        "heading": "VEINS",
+        "body": "SMV/PV contact: [ ]. Contour/occlusion: [ ]. Proximal/distal patent segments: [ ]."
+      },
+      {
+        "heading": "SPREAD",
+        "body": "Liver/peritoneum: [ ]. Nodes/stations: [ ]. Adjacent organs/mesocolon: [ ]."
+      },
+      {
+        "heading": "CYSTIC LESION FIELDS",
+        "body": "Cyst type/morphology: [ ]. Duct communication: [ ]. Enhancing mural nodule: [ ] mm. Solid component: [ ]. Interval change: [ ]."
+      },
+      {
+        "heading": "STAGING CONTEXT",
+        "body": "Resectability framework/version if used: [ ]. Category and defining findings: [ ]. Post-treatment limitations: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Pancreatic Cancer - CT staging 2.0",
+        "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1"
+      },
+      {
+        "title": "Radiology Assistant — Pancreatic cystic Lesions",
+        "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-cystic-lesions"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.peritoneum": {
+    "protocol": [
+      "Review all peritoneal recesses, mesenteric root and abdominal wall in multiplanar views.",
+      "Relate findings to prior surgery, malignancy, inflammation or a hernia question."
+    ],
+    "checklist": [
+      {
+        "label": "Distribution",
+        "detail": "Map fluid, thickening and nodules by compartment."
+      },
+      {
+        "label": "Mesentery",
+        "detail": "Assess root involvement, vascular relationships and bowel tethering."
+      },
+      {
+        "label": "Omentum",
+        "detail": "Describe nodularity or confluent soft tissue with representative measurements."
+      },
+      {
+        "label": "Wall",
+        "detail": "Locate hernia defect, contents and relationship to scars or mesh."
+      },
+      {
+        "label": "Consequences",
+        "detail": "Look for obstruction, strangulation, fistula or a drainable collection."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Deposit",
+        "method": "Measure reproducible representative deposits and name compartment.",
+        "pitfall": "Small-volume peritoneal disease may be below CT detection."
+      },
+      {
+        "name": "Hernia defect",
+        "method": "Measure orthogonal fascial defect dimensions and sac contents.",
+        "pitfall": "Supine rest imaging can underestimate a reducible defect."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Peritoneal thickening and ascites are not specific for carcinomatosis.",
+      "CT can underestimate serosal and small mesenteric deposits."
+    ],
+    "impression_prompts": [
+      "State the predominant peritoneal/mesenteric pattern and distribution.",
+      "Describe bowel, vascular or surgically relevant compartment involvement.",
+      "For hernia, state defect, contents and complications."
+    ],
+    "escalation": [
+      "Communicate an incarcerated hernia with obstruction or ischaemic concern immediately."
+    ],
+    "template_sections": [
+      {
+        "heading": "PERITONEAL MAP",
+        "body": "Upper abdomen/paracolic gutters/pelvis: [ ]. Nodules/thickening: [ ]. Ascites: [ ]."
+      },
+      {
+        "heading": "OMENTUM AND MESENTERY",
+        "body": "Omental deposits: [ ]. Root involvement: [ ]. Vascular encasement: [ ]. Bowel tethering: [ ]."
+      },
+      {
+        "heading": "REPRESENTATIVE DISEASE",
+        "body": "Site/size: [ ] / [ ] mm. Small-bowel serosa: [ ]. Diaphragm/porta hepatis: [ ]."
+      },
+      {
+        "heading": "ABDOMINAL WALL",
+        "body": "Defect site/dimensions: [ ]. Sac contents: [ ]. Scar/mesh relationship: [ ]. Reducibility if dynamic: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS",
+        "body": "Obstruction: [ ]. Reduced enhancement/strangulation: [ ]. Collection/fistula: [ ]. Interval change: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Abdominal wall hernias",
+        "url": "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias"
+      },
+      {
+        "title": "Radiology Assistant — Anatomy of Peritoneum and Mesentery",
+        "url": "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery"
+      },
+      {
+        "title": "Radiology Assistant — Peritoneal Carcinomatosis",
+        "url": "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis"
+      },
+      {
+        "title": "Radiology Assistant — Peritoneal Pathology",
+        "url": "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.rectal-mr": {
+    "protocol": [
+      "Select baseline cancer, post-treatment cancer or fistula pathway before reporting.",
+      "Use high-resolution T2 planes perpendicular/parallel to the lesion or anal canal; correlate DWI with ADC in restaging."
+    ],
+    "checklist": [
+      {
+        "label": "Tumour localisation",
+        "detail": "Record lower border, length, clock-face location and peritoneal reflection relationship."
+      },
+      {
+        "label": "Local cancer extent",
+        "detail": "Assess extramural depth, mesorectal fascia, EMVI and sphincter/organ involvement."
+      },
+      {
+        "label": "Nodes",
+        "detail": "Describe mesorectal and lateral pelvic nodes by station and morphology."
+      },
+      {
+        "label": "Restaging",
+        "detail": "Compare original tumour bed and nodes; distinguish fibrosis, residual intermediate T2 and concordant restriction."
+      },
+      {
+        "label": "Fistula map",
+        "detail": "Locate internal opening and sphincter crossing; describe branches, abscess and supralevator extent."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Cancer distances",
+        "method": "Measure lower tumour border from anal verge, extramural depth and shortest distance to MRF.",
+        "pitfall": "Name the tumour deposit/node/EMVI component closest to the fascia."
+      },
+      {
+        "name": "Fistula anatomy",
+        "method": "Record internal opening clock position/height and abscess dimensions.",
+        "pitfall": "Clock-face orientation must be consistent with the stated anal convention."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "MRI complete response is not equivalent to a clinical complete response established by the multidisciplinary pathway.",
+      "Do not mix Parks fistula categories with rectal cancer staging.",
+      "Post-treatment fibrosis can remain close to the fascia without definite viable tumour."
+    ],
+    "impression_prompts": [
+      "For cancer, summarise local extent, MRF relationship, EMVI and nodal findings.",
+      "For restaging, state residual tumour evidence and treatment-response uncertainty.",
+      "For fistula, state tract type, opening, branches and abscess location."
+    ],
+    "escalation": [
+      "Communicate an abscess or significant supralevator extension relevant to urgent drainage planning."
+    ],
+    "template_sections": [
+      {
+        "heading": "PATHWAY AND LOCALISATION",
+        "body": "Pathway: [baseline cancer / restaging / fistula]. Cancer lower edge from anal verge: [ ] cm. Length: [ ] cm. Clock-face/peritoneal reflection: [ ]."
+      },
+      {
+        "heading": "BASELINE CANCER EXTENT",
+        "body": "mrT descriptor: [ ]. Extramural depth: [ ] mm. Shortest MRF distance: [ ] mm from [component]. EMVI: [ ]. Sphincter/adjacent organ: [ ]."
+      },
+      {
+        "heading": "NODES AND DEPOSITS",
+        "body": "Mesorectal nodes: [ ]. Lateral pelvic station/side/short axis: [ ]. Morphology: [ ]. Tumour deposits: [ ]."
+      },
+      {
+        "heading": "RESTAGING ONLY",
+        "body": "Treatment/end date: [ ]. Tumour-bed fibrosis: [ ]. Residual intermediate T2: [ ]. Matched high-b/ADC restriction: [ ]. Nodal response: [ ]. MRF/EMVI change: [ ]."
+      },
+      {
+        "heading": "FISTULA ONLY",
+        "body": "Internal opening clock/height: [ ]. Main tract: [intersphincteric / transsphincteric / suprasphincteric / extrasphincteric / superficial]. External opening: [ ]."
+      },
+      {
+        "heading": "FISTULA EXTENSIONS",
+        "body": "Secondary branches/horseshoe: [ ]. Abscess location/size: [ ]. Supralevator extension: [ ]. Sphincter defect/seton: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Rectal Cancer  MR staging and restaging- update 2026",
+        "url": "https://radiologyassistant.nl/abdomen/rectum/rectal-cancer-mr-staging-1-1"
+      },
+      {
+        "title": "Radiology Assistant — Perianal Fistulas",
+        "url": "https://radiologyassistant.nl/abdomen/rectum/perianal-fistulas"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.3.acute-abdomen": {
+    "protocol": [
+      "Localise the clinical question and select ultrasound, CT or another focused study accordingly.",
+      "Review the full acquired field for an alternative cause and state a noncontrast or limited-coverage constraint."
+    ],
+    "checklist": [
+      {
+        "label": "Primary site",
+        "detail": "Identify the organ or bowel segment responsible for symptoms."
+      },
+      {
+        "label": "Inflammation",
+        "detail": "Describe distribution, wall change and surrounding fat/fluid."
+      },
+      {
+        "label": "Obstruction",
+        "detail": "Review bowel and urinary tract transitions."
+      },
+      {
+        "label": "Perfusion and leak",
+        "detail": "Search for ischaemia, active bleeding and perforation."
+      },
+      {
+        "label": "Alternatives",
+        "detail": "Check lower chest, abdominal wall and pelvic organs."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Primary lesion",
+        "method": "Measure the causative inflamed segment, stone or mass with units.",
+        "pitfall": "A size measurement alone does not determine urgency."
+      },
+      {
+        "name": "Collection",
+        "method": "Record location and three-dimensional size when a collection is present.",
+        "pitfall": "Differentiate organised fluid from non-liquefied inflammatory change."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A normal or limited ultrasound does not exclude every acute abdominal cause.",
+      "An incidental finding should not be presented as the cause without supporting evidence."
+    ],
+    "impression_prompts": [
+      "State the most likely imaging explanation for symptoms.",
+      "Describe the feature that changes urgency or intervention planning.",
+      "Name a relevant alternative or unresolved limitation."
+    ],
+    "escalation": [
+      "Immediately communicate suspected perforation, threatened bowel, active haemorrhage or another time-critical cause."
+    ],
+    "template_sections": [
+      {
+        "heading": "PRIMARY ABNORMALITY",
+        "body": "Organ/segment: [ ]. Inflammatory/obstructive/vascular pattern: [ ]. Extent: [ ]."
+      },
+      {
+        "heading": "BOWEL",
+        "body": "Dilatation/transition: [ ]. Wall enhancement: [ ]. Appendix/diverticula: [ ]."
+      },
+      {
+        "heading": "SOLID ORGANS AND BILIARY",
+        "body": "Liver/gallbladder/ducts: [ ]. Pancreas: [ ]. Spleen: [ ]."
+      },
+      {
+        "heading": "URINARY AND PELVIC",
+        "body": "Calculus/hydronephrosis: [ ]. Bladder: [ ]. Uterus/adnexa or prostate: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS AND ALTERNATIVES",
+        "body": "Free gas/fluid: [ ]. Collection: [ ]. Bleeding/ischaemia: [ ]. Lower chest/wall: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Practical approach to Acute Abdomen",
+        "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/practical-approach-to-acute-abdomen"
+      },
+      {
+        "title": "Radiology Assistant — Transvaginal Ultrasound for Non-Gynaecological Conditions",
+        "url": "https://radiologyassistant.nl/abdomen/ultrasound/transvaginal-ultrasound-for-non-gynaecological-conditions"
+      },
+      {
+        "title": "Radiology Assistant — Ultrasound in Acute Abdomen",
+        "url": "https://radiologyassistant.nl/abdomen/ultrasound/role-of-ultrasound-in-acute-abdomen"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.liver": {
+    "protocol": [
+      "Characterise lesions on appropriate multiphase CT/MRI and document cirrhosis/HBV or other relevant risk context.",
+      "Determine whether diagnostic LI-RADS is applicable before assigning a category."
+    ],
+    "checklist": [
+      {
+        "label": "Background",
+        "detail": "Assess chronic liver disease, steatosis and portal hypertension."
+      },
+      {
+        "label": "Lesion map",
+        "detail": "Number observations and identify segment, size and prior change."
+      },
+      {
+        "label": "Enhancement",
+        "detail": "Describe arterial pattern, portal/delayed behaviour and hepatobiliary phase if acquired."
+      },
+      {
+        "label": "Ancillary features",
+        "detail": "Assess fat, blood, T2 signal and diffusion without substituting them for major criteria."
+      },
+      {
+        "label": "Extension",
+        "detail": "Review tumour in vein, bile ducts, nodes and extrahepatic disease."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Observation size",
+        "method": "Use the phase/sequence that best defines the whole lesion without perilesional enhancement.",
+        "pitfall": "Transient perfusion change is not automatically a mass."
+      },
+      {
+        "name": "Enhancement comparison",
+        "method": "Compare observation to liver on named phases and note contrast agent.",
+        "pitfall": "Washout assessment depends on the agent and permitted phase."
+      }
+    ],
+    "classification": {
+      "name": "CT/MRI LI-RADS diagnostic algorithm",
+      "version": "v2018; separate treatment-response algorithms have later revisions",
+      "applicability": "Untreated observations in the specified adult population at risk for HCC; verify exclusions.",
+      "summary": "Use size and eligible major features with LR-M and tumour-in-vein assessment. A treated lesion requires the separate appropriate treatment-response algorithm."
+    },
+    "pitfalls": [
+      "LI-RADS diagnostic categories do not apply to every incidental lesion in a healthy liver.",
+      "Do not label tumour in vein solely from non-enhancing bland thrombus."
+    ],
+    "impression_prompts": [
+      "State the most likely lesion diagnosis or applicable LI-RADS category with evidence.",
+      "Summarise important lesion number, distribution and growth.",
+      "Report vascular invasion, extrahepatic disease or a characterisation limitation."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "BACKGROUND LIVER",
+        "body": "Morphology: [ ]. Steatosis: [ ]. Portal hypertension: [ ]. LI-RADS eligibility/risk context: [ ]."
+      },
+      {
+        "heading": "OBSERVATION MAP",
+        "body": "ID/segment: [ ]. Size: [ ] mm. Series/image: [ ]. Prior size/date: [ ]."
+      },
+      {
+        "heading": "ENHANCEMENT",
+        "body": "Arterial: [non-rim hyperenhancement / rim / none / limited]. Washout phase/pattern: [ ]. Capsule appearance: [ ]."
+      },
+      {
+        "heading": "TISSUE FEATURES",
+        "body": "T2: [ ]. Diffusion: [ ]. Fat/haemorrhage: [ ]. Hepatobiliary phase if acquired: [ ]."
+      },
+      {
+        "heading": "EXTENT AND CATEGORY",
+        "body": "Portal/hepatic veins: [ ]. Biliary involvement: [ ]. Extrahepatic findings: [ ]. Applicable system/version/category and evidence: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Characterisation of liver masses",
+        "url": "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses"
+      },
+      {
+        "title": "Radiology Assistant — Common Liver Tumors",
+        "url": "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors"
+      },
+      {
+        "title": "Radiology Assistant — Incidentalomas in the liver",
+        "url": "https://radiologyassistant.nl/abdomen/liver/incidentalomas"
+      },
+      {
+        "title": "Radiology Assistant — Liver - Segmental Anatomy",
+        "url": "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+      },
+      {
+        "title": "Radiology Assistant — LI-RADS",
+        "url": "https://radiologyassistant.nl/abdomen/liver/li-rads"
+      },
+      {
+        "title": "ACR LI-RADS",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.kidney": {
+    "protocol": [
+      "Use renal mass CT/MRI with a reliable unenhanced comparison when enhancement determines characterisation.",
+      "Separate predominantly cystic masses from solid enhancing lesions."
+    ],
+    "checklist": [
+      {
+        "label": "Location",
+        "detail": "Record side, pole, cortical/central and exophytic/endophytic relationships."
+      },
+      {
+        "label": "Enhancement",
+        "detail": "Assess tissue or septal/nodular enhancement with suitable phases/subtraction."
+      },
+      {
+        "label": "Cyst structure",
+        "detail": "Describe wall, septa, nodules and calcification for Bosniak assessment."
+      },
+      {
+        "label": "Extent",
+        "detail": "Check sinus, collecting system, renal vein/IVC and adjacent organs."
+      },
+      {
+        "label": "Other findings",
+        "detail": "Inspect contralateral kidney, nodes and distant disease in the field."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Mass size",
+        "method": "Measure maximum diameter and orthogonal dimensions on a reproducible phase.",
+        "pitfall": "Do not include adjacent normal cortex in an endophytic lesion."
+      },
+      {
+        "name": "CT enhancement",
+        "method": "Compare matched unenhanced and enhanced ROIs; unequivocal increase ≥20 HU supports enhancement, 10–20 HU is equivocal.",
+        "pitfall": "Pseudoenhancement and partial volume particularly affect small lesions."
+      },
+      {
+        "name": "Cyst wall/nodule",
+        "method": "Measure enhancing wall/septal thickness and protrusions accurately.",
+        "pitfall": "Non-enhancing debris is not an enhancing mural nodule."
+      }
+    ],
+    "classification": {
+      "name": "Bosniak cystic renal mass classification",
+      "version": "v2019",
+      "applicability": "Cystic renal masses characterised with an appropriate CT/MRI protocol, after excluding infection, vascular causes and necrotic solid masses.",
+      "summary": "Classify from enhancing wall, septa and nodules using v2019 definitions; record the feature driving the category."
+    },
+    "pitfalls": [
+      "Bosniak v2019 is for cystic renal masses after relevant mimics are excluded.",
+      "Macroscopic fat strongly informs the differential, but calcification or atypical features need careful review."
+    ],
+    "impression_prompts": [
+      "State solid versus cystic lesion and enhancement confidence.",
+      "Give Bosniak v2019 only when applicable with defining features.",
+      "Describe local venous extension and other staging findings."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "MASS LOCATION",
+        "body": "Side/pole: [ ]. Size: [ ] mm. Exophytic/endophytic: [ ]. Sinus/collecting-system distance: [ ]."
+      },
+      {
+        "heading": "ENHANCEMENT AND CONTENT",
+        "body": "Unenhanced: [ ] HU. Enhanced phase/value: [ ]/[ ] HU. MRI subtraction: [ ]. Fat/haemorrhage: [ ]."
+      },
+      {
+        "heading": "CYSTIC FEATURES",
+        "body": "Wall: [smooth / irregular; thickness]. Septa number/thickness: [ ]. Enhancing nodule: [ ]. Calcification: [ ]."
+      },
+      {
+        "heading": "LOCAL EXTENT",
+        "body": "Renal sinus/collecting system: [ ]. Renal vein/IVC: [ ]. Adjacent organ extension: [ ]."
+      },
+      {
+        "heading": "OTHER KIDNEY AND ASSESSMENT",
+        "body": "Contralateral kidney: [ ]. Nodes/metastases: [ ]. Bosniak v2019 if applicable: [ ]. Defining features/uncertainty: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Bosniak Classification 2019",
+        "url": "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019"
+      },
+      {
+        "title": "Radiology Assistant — Solid Renal Masses",
+        "url": "https://radiologyassistant.nl/abdomen/kidney/solid-masses"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.anal-cancer": {
+    "protocol": [
+      "Use small-field high-resolution pelvic MRI aligned to the anal canal plus appropriate nodal coverage.",
+      "Establish the primary epicentre and distinguish anal from rectal cancer pathways."
+    ],
+    "checklist": [
+      {
+        "label": "Primary",
+        "detail": "Document site, maximum size and circumferential extent."
+      },
+      {
+        "label": "Sphincters",
+        "detail": "Map internal/external sphincters and intersphincteric plane."
+      },
+      {
+        "label": "Adjacent organs",
+        "detail": "Check vagina, urethra, bladder and other directly invaded structures."
+      },
+      {
+        "label": "Nodes",
+        "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+      },
+      {
+        "label": "Extent",
+        "detail": "Assess cranial extension and the limits of MRI for distant staging."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Tumour dimension",
+        "method": "Record the greatest tumour dimension and craniocaudal length.",
+        "pitfall": "Anal T assessment differs from rectal extramural-depth staging."
+      },
+      {
+        "name": "Nodes",
+        "method": "Record short axis, side and station with morphology.",
+        "pitfall": "Small suspicious nodes and reactive enlarged nodes require context."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Sphincter involvement should be described but is not alone synonymous with adjacent-organ T4 disease.",
+      "Nodal maps for anal and rectal primaries are not interchangeable."
+    ],
+    "impression_prompts": [
+      "Describe anal primary site, size and local extent.",
+      "State the involved sphincter and adjacent organ relationships.",
+      "Map suspicious nodes and name the edition if assigning TNM."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "PRIMARY",
+        "body": "Epicentre: [anal canal / margin / uncertain]. Greatest size: [ ] cm. Length: [ ] cm. Circumference/clock: [ ]."
+      },
+      {
+        "heading": "SPHINCTER COMPLEX",
+        "body": "Internal sphincter: [ ]. Intersphincteric plane: [ ]. External sphincter/puborectalis: [ ]."
+      },
+      {
+        "heading": "ADJACENT ORGANS",
+        "body": "Vagina/prostate/urethra/bladder: [ ]. Direct invasion evidence: [ ]. Skin/perineal extension: [ ]."
+      },
+      {
+        "heading": "NODAL STATIONS",
+        "body": "Mesorectal: [ ]. Internal iliac/obturator: [ ]. External iliac: [ ]. Inguinal: [ ]. Side/short-axis/morphology: [ ]. Nonregional nodes: [ ]."
+      },
+      {
+        "heading": "STAGING",
+        "body": "Imaging T/N with named TNM edition: [ ]. Distant staging available: [ ]. Indeterminate extent: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Anal cancer staging",
+        "url": "https://radiologyassistant.nl/abdomen/anal-cancer-2/anal"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.gi-tumours-foreign-bodies": {
+    "protocol": [
+      "Choose tumour characterisation or foreign-body localisation as the primary pathway.",
+      "Review multiplanar thin images and bowel enhancement; include the object’s possible trajectory."
+    ],
+    "checklist": [
+      {
+        "label": "Site",
+        "detail": "Establish true bowel segment and luminal versus mural/exophytic origin."
+      },
+      {
+        "label": "Morphology",
+        "detail": "Describe tumour enhancement or object shape/material."
+      },
+      {
+        "label": "Local effect",
+        "detail": "Assess narrowing, upstream dilation, ulceration or adjacent inflammation."
+      },
+      {
+        "label": "Spread",
+        "detail": "For tumour assess mesentery, vessels, nodes and liver/peritoneum."
+      },
+      {
+        "label": "Complications",
+        "detail": "Search carefully for focal perforation, fistula or abscess."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion/object size",
+        "method": "Record three tumour dimensions or foreign-body length and orientation.",
+        "pitfall": "Object visibility depends on material and imaging technique."
+      },
+      {
+        "name": "Involved segment",
+        "method": "Record mural length and relation to a transition point or perforation.",
+        "pitfall": "Minimal free gas does not exclude a sharp-object perforation."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A sharp foreign body may perforate with little or no free intraperitoneal gas.",
+      "A large exophytic lesion may have a subtle bowel-wall attachment."
+    ],
+    "impression_prompts": [
+      "State bowel location and leading lesion type or exact foreign-body position.",
+      "Describe local effect and tumour spread when applicable.",
+      "Identify perforation or another urgent complication."
+    ],
+    "escalation": [
+      "Communicate a sharp-object perforation, threatened adjacent vessel or obstructing lesion with ischaemic concern."
+    ],
+    "template_sections": [
+      {
+        "heading": "LOCATION",
+        "body": "Bowel segment: [ ]. Origin: [intraluminal / mural / exophytic]. Site confidence: [ ]."
+      },
+      {
+        "heading": "TUMOUR FIELDS",
+        "body": "Size: [ ] mm. Enhancement: [ ]. Necrosis/ulceration: [ ]. Mesenteric response: [ ]."
+      },
+      {
+        "heading": "FOREIGN-BODY FIELDS",
+        "body": "Object/material: [ ]. Length: [ ] mm. Orientation: [ ]. Tip relationship to bowel wall/adjacent organ: [ ]."
+      },
+      {
+        "heading": "LUMEN AND SPREAD",
+        "body": "Obstruction/transition: [ ]. Mesenteric vessels: [ ]. Nodes: [ ]. Liver/peritoneal deposits: [ ]."
+      },
+      {
+        "heading": "COMPLICATIONS",
+        "body": "Focal wall defect: [ ]. Gas: [ ]. Collection/fistula: [ ]. Local inflammatory tract: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Small Bowel Tumors",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors"
+      },
+      {
+        "title": "Radiology Assistant — Sharp foreign bodies in GI tract",
+        "url": "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.pelvic-floor": {
+    "protocol": [
+      "Record patient position, rectal preparation and rest, squeeze, strain and evacuation phases.",
+      "Use consistent anatomic reference lines and report whether adequate evacuation was achieved."
+    ],
+    "checklist": [
+      {
+        "label": "Landmarks",
+        "detail": "Identify pubococcygeal line and relevant organ points."
+      },
+      {
+        "label": "Anterior compartment",
+        "detail": "Assess bladder-base descent and urethral relationship."
+      },
+      {
+        "label": "Middle compartment",
+        "detail": "Assess uterine/vaginal vault descent and enterocele."
+      },
+      {
+        "label": "Posterior compartment",
+        "detail": "Assess rectocele, intussusception and anorectal opening."
+      },
+      {
+        "label": "Function",
+        "detail": "Document pelvic-floor motion, evacuation and retained contrast."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Organ descent",
+        "method": "Measure perpendicular distance below/above the stated reference line at maximal effort.",
+        "pitfall": "Different reference lines or poor effort change the result."
+      },
+      {
+        "name": "Rectocele/hiatus",
+        "method": "Measure rectocele depth and H/M lines when using that system.",
+        "pitfall": "Do not mix thresholds from different techniques or positions."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Supine MRI and seated fluoroscopy do not reproduce identical physiology.",
+      "Inadequate strain/evacuation may underestimate prolapse."
+    ],
+    "impression_prompts": [
+      "Summarise compartment-specific descent.",
+      "Describe the structural or functional evacuation abnormality.",
+      "State effort and technique limitations affecting confidence."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "REFERENCE AND EFFORT",
+        "body": "Position: [ ]. Reference line: [ ]. Strain: [adequate / limited]. Evacuation: [complete / partial / failed]."
+      },
+      {
+        "heading": "ANTERIOR COMPARTMENT",
+        "body": "Bladder-base descent at rest/strain: [ ]/[ ] cm. Cystocele: [ ]. Urethral change: [ ]."
+      },
+      {
+        "heading": "MIDDLE COMPARTMENT",
+        "body": "Cervix/vault descent: [ ] cm. Enterocele/sigmoidocele: [ ]. Contents: [ ]."
+      },
+      {
+        "heading": "POSTERIOR COMPARTMENT",
+        "body": "Rectocele depth: [ ] cm. Intussusception: [none / intrarectal / intra-anal / external]. Anorectal angle/motion: [ ]."
+      },
+      {
+        "heading": "HIATUS AND EVACUATION",
+        "body": "H/M line if used: [ ]/[ ] cm. Retained contrast: [ ]. Paradoxical contraction concern: [ ]. Limitation: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Dynamic Rectal examination",
+        "url": "https://radiologyassistant.nl/abdomen/rectum/dynamic-rectal-examination"
+      },
+      {
+        "title": "ESUR/ESGAR — MRI of pelvic floor dysfunction recommendations",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5374191/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.gi-ultrasound": {
+    "protocol": [
+      "Survey with a curvilinear probe, then use a high-frequency probe and graded compression for the target.",
+      "Save orthogonal images and cine/flow observations while documenting unexamined segments."
+    ],
+    "checklist": [
+      {
+        "label": "Segment identification",
+        "detail": "Follow bowel continuity and landmarks."
+      },
+      {
+        "label": "Wall",
+        "detail": "Assess thickness, layering and symmetry under suitable distension."
+      },
+      {
+        "label": "Dynamic behaviour",
+        "detail": "Record compressibility, peristalsis and luminal contents."
+      },
+      {
+        "label": "Perfusion",
+        "detail": "Optimise Doppler before assessing mural hyperaemia."
+      },
+      {
+        "label": "Surrounding tissue",
+        "detail": "Inspect mesenteric fat, nodes, fluid and complications."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Wall thickness",
+        "method": "Measure a single wall perpendicular to the lumen in a documented segment.",
+        "pitfall": "Collapsed or oblique bowel can appear falsely thickened."
+      },
+      {
+        "name": "Affected length",
+        "method": "Trace the abnormal segment and record length plus upstream calibre.",
+        "pitfall": "Gas may prevent complete assessment of both ends."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "A non-visualised segment cannot be declared normal.",
+      "Bowel wall thickness depends on distension, pressure and imaging plane."
+    ],
+    "impression_prompts": [
+      "Identify the abnormal segment and wall pattern.",
+      "Summarise activity and mechanical/penetrating complications.",
+      "State the limits of visualisation and diagnostic confidence."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "COVERAGE",
+        "body": "Segments examined: [ ]. Non-visualised segments: [ ]. Compression tolerance: [ ]."
+      },
+      {
+        "heading": "WALL",
+        "body": "Segment: [ ]. Thickness: [ ] mm. Layering: [preserved / lost]. Symmetry: [ ]."
+      },
+      {
+        "heading": "LUMEN AND MOTILITY",
+        "body": "Diameter: [ ] mm. Contents: [ ]. Peristalsis: [ ]. Compressibility: [ ]."
+      },
+      {
+        "heading": "DOPPLER",
+        "body": "Settings adequate: [yes / no]. Mural flow: [normal / increased / absent / indeterminate]. Mesenteric vascularity: [ ]."
+      },
+      {
+        "heading": "SURROUNDING FINDINGS",
+        "body": "Fat reaction: [ ]. Nodes: [ ]. Free fluid: [ ]. Collection/tract: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — US of the GI tract - Technique",
+        "url": "https://radiologyassistant.nl/abdomen/ultrasound/lk-jg-1-1-1"
+      },
+      {
+        "title": "Radiology Assistant — US of the GI tract - Normal Anatomy",
+        "url": "https://radiologyassistant.nl/abdomen/ultrasound/lk-jg-1-1"
+      },
+      {
+        "title": "AIUM — Prudent clinical use and safety of diagnostic ultrasound",
+        "url": "https://www.aium.org/resources/official-statements/view/prudent-clinical-use-and-safety-of-diagnostic-ultrasound"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.scrotum": {
+    "protocol": [
+      "Examine both testes with high-frequency grayscale and optimised colour/power and spectral Doppler.",
+      "Assess the spermatic cord and compare symptomatic with contralateral perfusion without delaying urgent clinical care."
+    ],
+    "checklist": [
+      {
+        "label": "Testes",
+        "detail": "Record size, echotexture, lie and focal lesions bilaterally."
+      },
+      {
+        "label": "Perfusion",
+        "detail": "Optimise low-flow sensitivity and compare arterial/venous waveforms."
+      },
+      {
+        "label": "Cord",
+        "detail": "Look for twisting, abnormal course and hernia."
+      },
+      {
+        "label": "Epididymis",
+        "detail": "Assess enlargement, hyperaemia and focal collections."
+      },
+      {
+        "label": "Extratesticular tissues",
+        "detail": "Evaluate hydrocele, scrotal wall, veins and mass origin."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Testicular size",
+        "method": "Record three orthogonal dimensions; use the stated formula if calculating volume.",
+        "pitfall": "Avoid treating one volume formula as interchangeable with another."
+      },
+      {
+        "name": "Focal lesion",
+        "method": "Measure three axes and record intra- or extratesticular origin.",
+        "pitfall": "An infarct or inflammatory lesion may mimic tumour and requires contextual interpretation."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Preserved intratesticular flow does not exclude partial or intermittent torsion.",
+      "Peripheral hyperaemia must not be mistaken for preserved central testicular perfusion."
+    ],
+    "impression_prompts": [
+      "State whether findings raise torsion/ischaemia concern and the evidence.",
+      "Describe inflammatory disease or mass location and vascularity.",
+      "State examination limitations and direct communication for acute concern."
+    ],
+    "escalation": [
+      "Immediately communicate suspected torsion or testicular ischaemia; equivocal imaging should not delay urgent clinical assessment."
+    ],
+    "template_sections": [
+      {
+        "heading": "TESTES",
+        "body": "Right dimensions/texture: [ ]. Left dimensions/texture: [ ]. Lie: [ ]."
+      },
+      {
+        "heading": "DOPPLER",
+        "body": "Right/left perfusion: [ ]. Arterial/venous waveforms: [ ]. Settings/contralateral comparison: [ ]."
+      },
+      {
+        "heading": "CORD AND EPIDIDYMIS",
+        "body": "Cord twist: [absent / present / not demonstrated]. Epididymal size/flow: [ ]. Hernia: [ ]."
+      },
+      {
+        "heading": "FOCAL LESION",
+        "body": "Side/site: [ ]. Origin: [intratesticular / extratesticular]. Size: [ ] mm. Solid/cystic/vascularity: [ ]."
+      },
+      {
+        "heading": "EXTRATESTICULAR FINDINGS",
+        "body": "Hydrocele: [ ]. Scrotal wall: [ ]. Collection: [ ]. Varicocele and dynamic assessment: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Acute Scrotum in Children",
+        "url": "https://radiologyassistant.nl/pediatrics/abdominal-masses/acute-scrotum-in-children"
+      },
+      {
+        "title": "AIUM Scrotal ultrasound practice parameter (2025)",
+        "url": "https://www.aium.org/resources/practice-parameters/scrotal"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.adrenal": {
+    "protocol": [
+      "Review prior studies and distinguish a true incidentaloma from an oncology or endocrine investigation.",
+      "Use unenhanced CT or chemical-shift MRI for lipid characterisation; interpret any washout only with its actual protocol and context."
+    ],
+    "checklist": [
+      {
+        "label": "Context",
+        "detail": "Record known cancer, symptoms and prior size."
+      },
+      {
+        "label": "Morphology",
+        "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+      },
+      {
+        "label": "Lipid",
+        "detail": "Measure unenhanced attenuation or paired chemical-shift signal."
+      },
+      {
+        "label": "Behaviour",
+        "detail": "Compare growth using consistent planes and review local invasion."
+      },
+      {
+        "label": "Integration",
+        "detail": "Separate imaging characterisation from biochemical function."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Unenhanced attenuation",
+        "method": "Place a large representative ROI avoiding edges, necrosis and calcification.",
+        "pitfall": "A postcontrast HU value cannot be used as an unenhanced lipid criterion."
+      },
+      {
+        "name": "Growth",
+        "method": "Report absolute mm change and percentage using dated comparable studies.",
+        "pitfall": "Different planes and partial volume may produce apparent growth."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Hormonal activity cannot be excluded by benign imaging morphology.",
+      "Washout overlap occurs in non-adenomas; do not diagnose an adenoma from washout alone in a discordant lesion."
+    ],
+    "impression_prompts": [
+      "State whether imaging demonstrates a benign lipid-rich lesion or remains indeterminate.",
+      "Describe growth, heterogeneity or invasion that changes concern.",
+      "Relate any recommendation to the incidental, oncologic or endocrine context."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "CLINICAL CONTEXT",
+        "body": "Discovery: [incidental / oncology / endocrine workup]. Known malignancy: [ ]. Prior study/date: [ ]."
+      },
+      {
+        "heading": "MORPHOLOGY",
+        "body": "Side: [ ]. Maximum diameter: [ ] mm. Homogeneity: [ ]. Fat/haemorrhage/necrosis: [ ]."
+      },
+      {
+        "heading": "LIPID CHARACTERISATION",
+        "body": "Unenhanced attenuation: [ ] HU, ROI [ ]. Chemical-shift loss: [present / absent / not performed]."
+      },
+      {
+        "heading": "ADDITIONAL CHARACTERISATION",
+        "body": "Contrast phases/timing if used: [ ]. Washout values/method if obtained: [ ]. Discordant features: [ ]."
+      },
+      {
+        "heading": "CHANGE AND EXTENT",
+        "body": "Prior/current dimensions: [ ]. Growth: [ ] mm / [ ]%. Local invasion/nodes: [ ]. Contralateral adrenal: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Characterization of Adrenal lesions - Update",
+        "url": "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1"
+      },
+      {
+        "title": "ESE/ENSAT adrenal incidentaloma guideline (2023)",
+        "url": "https://doi.org/10.1093/ejendo/lvad066"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.bladder-virads": {
+    "protocol": [
+      "Review bladder distension, motion and timing relative to biopsy/TURBT or intravesical treatment.",
+      "Correlate small-field T2, DWI/ADC and early contrast images at each lesion’s deepest interface."
+    ],
+    "checklist": [
+      {
+        "label": "Lesion map",
+        "detail": "Number lesions and record wall location and size."
+      },
+      {
+        "label": "Morphology",
+        "detail": "Describe papillary/sessile form, stalk and underlying wall."
+      },
+      {
+        "label": "Muscle interface",
+        "detail": "Assess continuity of the low-T2 muscular layer."
+      },
+      {
+        "label": "Functional sequences",
+        "detail": "Look for concordant tumour extension on diffusion and early enhancement."
+      },
+      {
+        "label": "Beyond bladder",
+        "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Tumour size",
+        "method": "Record maximum dimension and base/wall relationship.",
+        "pitfall": "An underfilled bladder can mimic thickening."
+      },
+      {
+        "name": "Nodal assessment",
+        "method": "Measure short axis by named station and describe morphology.",
+        "pitfall": "MRI nodal staging has limitations for microscopic disease."
+      }
+    ],
+    "classification": {
+      "name": "VI-RADS",
+      "version": "Original consensus (2018)",
+      "applicability": "Multiparametric MRI evaluation of bladder-tumour muscle invasion, with treatment timing and quality considered.",
+      "summary": "Scores 1–5 express increasing likelihood of muscle invasion; combine T2 structure with diffusion and contrast findings using the published algorithm."
+    },
+    "pitfalls": [
+      "Post-TURBT inflammation can mimic muscle or perivesical invasion.",
+      "VI-RADS estimates muscle-invasion likelihood; it is not histological staging."
+    ],
+    "impression_prompts": [
+      "State the index lesion’s site, size and VI-RADS score with sequence evidence.",
+      "Describe any extravesical or adjacent-organ invasion.",
+      "Report nodes, obstruction and technical/post-treatment limitations."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "LESION INVENTORY",
+        "body": "ID/location: [ ]. Maximum size: [ ] mm. Multiplicity: [ ]. Morphology/stalk: [ ]."
+      },
+      {
+        "heading": "T2 INTERFACE",
+        "body": "Inner layer: [ ]. Muscular line: [continuous / interrupted / not assessable]. Structural score: [ ]."
+      },
+      {
+        "heading": "DIFFUSION",
+        "body": "High-b/ADC tumour: [ ]. Muscle/perivesical extension: [ ]. DWI score: [ ]."
+      },
+      {
+        "heading": "DYNAMIC ENHANCEMENT",
+        "body": "Early enhancement pattern: [ ]. Extension through muscle: [ ]. DCE score: [ ]."
+      },
+      {
+        "heading": "EXTENT AND VI-RADS",
+        "body": "Overall VI-RADS: [1 / 2 / 3 / 4 / 5 / not applicable]. Perivesical/organ invasion: [ ]. Ureteric obstruction: [ ]. Nodes: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Bladder Cancer - VI-RADS",
+        "url": "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads"
+      },
+      {
+        "title": "VI-RADS development consensus",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/29755006/"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.ovarian-orads": {
+    "protocol": [
+      "Use transvaginal plus transabdominal ultrasound as appropriate; document incomplete visualisation.",
+      "Use MRI characterisation with appropriate tissue sequences and enhancement assessment for a lesion requiring it."
+    ],
+    "checklist": [
+      {
+        "label": "Origin",
+        "detail": "Confirm ovarian versus paraovarian, tubal or uterine origin."
+      },
+      {
+        "label": "Morphology",
+        "detail": "Describe cystic/solid components, locules, wall and septa."
+      },
+      {
+        "label": "Solid tissue",
+        "detail": "Assess papillary projections and vascularity; on MRI determine actual enhancement."
+      },
+      {
+        "label": "Context",
+        "detail": "Record menopausal status, symptoms and comparison."
+      },
+      {
+        "label": "Spread",
+        "detail": "Inspect ascites, peritoneum and relevant nodes."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion dimensions",
+        "method": "Measure three axes and maximum diameter, including relevant solid component.",
+        "pitfall": "A separately measured mural projection must not be confused with overall lesion size."
+      },
+      {
+        "name": "Doppler or enhancement",
+        "method": "Record US colour score or MRI enhancement behaviour according to the chosen system.",
+        "pitfall": "US and MRI descriptors/categories are not interchangeable algorithms."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "O-RADS risk assessment does not replace urgent evaluation of torsion or acute infection.",
+      "Non-enhancing clot or debris should not be called enhancing solid tissue on MRI."
+    ],
+    "impression_prompts": [
+      "State lesion origin, morphology and modality-specific O-RADS category if applicable.",
+      "Describe the features driving risk and interval change.",
+      "Identify extraovarian disease or an acute complication separately."
+    ],
+    "escalation": [
+      "Communicate suspected torsion, tubo-ovarian abscess or haemorrhagic complication through the acute pelvic pathway."
+    ],
+    "template_sections": [
+      {
+        "heading": "CONTEXT AND ORIGIN",
+        "body": "Menopausal status: [ ]. Symptoms: [ ]. Side/origin: [ ]. Ovary separately seen: [ ]."
+      },
+      {
+        "heading": "MORPHOLOGY",
+        "body": "Size: [ ] mm. [Unilocular / bilocular / multilocular / solid]. Wall/septa: [ ]. Contents: [ ]."
+      },
+      {
+        "heading": "ULTRASOUND FIELDS",
+        "body": "Papillary projections: [number/size]. Solid component: [ ]. Colour score: [1 / 2 / 3 / 4]. Acoustic shadowing: [ ]."
+      },
+      {
+        "heading": "MRI FIELDS",
+        "body": "T1/T2 content: [ ]. Fat/haemorrhage: [ ]. Enhancing solid tissue: [ ]. Diffusion: [ ]. Enhancement curve/comparator: [ ]."
+      },
+      {
+        "heading": "EXTRAOVARIAN AND ASSESSMENT",
+        "body": "Ascites/peritoneal nodules: [ ]. Nodes: [ ]. Acute complication: [ ]. System: [O-RADS US v2022 / O-RADS MRI / other]. Category/evidence: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Ovarian cystic lesions",
+        "url": "https://radiologyassistant.nl/abdomen/unsorted/common-ovarian-cystic-lesions"
+      },
+      {
+        "title": "Radiology Assistant — Roadmap to evaluate ovarian cysts",
+        "url": "https://radiologyassistant.nl/abdomen/unsorted/roadmap-to-evaluate-ovarian-cysts"
+      },
+      {
+        "title": "ACR O-RADS US v2022",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/O-RADS/Ultrasound"
+      },
+      {
+        "title": "ACR O-RADS MRI",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/O-RADS/MRI"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.prostate-mri": {
+    "protocol": [
+      "Check T2, high-b DWI/ADC and DCE quality separately and record prior biopsy/treatment.",
+      "Use the comprehensive prostate template; match lesion numbers and sector locations across every sequence."
+    ],
+    "checklist": [
+      {
+        "label": "Clinical context",
+        "detail": "Record PSA/date, gland volume, prior biopsy and relevant treatment."
+      },
+      {
+        "label": "Zonal anatomy",
+        "detail": "Locate each lesion by zone, side, level and sector."
+      },
+      {
+        "label": "Scoring",
+        "detail": "Use DWI as dominant in peripheral zone and T2 in transition zone with v2.1 adjustment rules."
+      },
+      {
+        "label": "Local extension",
+        "detail": "Assess capsule, neurovascular bundles, seminal vesicles and adjacent organs."
+      },
+      {
+        "label": "Beyond gland",
+        "detail": "Review pelvic nodes and imaged bones, acknowledging their assessment limits."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Gland volume and PSA density",
+        "method": "Use ellipsoid AP×transverse×longitudinal×0.52 in cm or segmentation; PSA density=PSA/volume.",
+        "pitfall": "Record the PSA date and volume method; density is not a PI-RADS scoring input."
+      },
+      {
+        "name": "Lesion dimension",
+        "method": "Measure largest dimension on ADC for PZ or T2 for TZ where adequately defined; record plane/sequence.",
+        "pitfall": "DWI score 5 needs the specified ≥1.5 cm size or definite invasive behaviour criterion."
+      },
+      {
+        "name": "Capsular contact",
+        "method": "Record contact length and direct extension findings separately.",
+        "pitfall": "Contact length alone does not prove extraprostatic extension."
+      }
+    ],
+    "classification": {
+      "name": "PI-RADS",
+      "version": "v2.1 (2019)",
+      "applicability": "Detection and localisation of clinically significant prostate cancer in the untreated prostate using an adequate examination.",
+      "summary": "Use the zone-specific dominant sequence and published adjustment rules. The category expresses suspicion, separately from PSA density, stage and management."
+    },
+    "pitfalls": [
+      "Prostatitis, BPH nodules and haemorrhage can imitate cancer.",
+      "PI-RADS v2.1 is not the post-treatment recurrence scoring system."
+    ],
+    "impression_prompts": [
+      "State index lesion number, sector and PI-RADS category.",
+      "Summarise local extension and pelvic findings separately from suspicion score.",
+      "Record gland volume, PSA density when available and material image-quality limits."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "GLAND AND CONTEXT",
+        "body": "PSA/date: [ ]. Volume/method: [ ]. PSA density: [ ]. Haemorrhage/BPH: [ ]."
+      },
+      {
+        "heading": "LESION MAP",
+        "body": "ID: [ ]. Zone/side/base-mid-apex/sector: [ ]. Size: [ ] mm. Series/image: [ ]."
+      },
+      {
+        "heading": "SEQUENCE SCORES",
+        "body": "T2: [1–5]. DWI: [1–5]. DCE: [positive / negative / not evaluable]. PI-RADS v2.1: [1–5]."
+      },
+      {
+        "heading": "LOCAL EXTENSION",
+        "body": "Capsular contact: [ ] mm. Direct EPE: [ ]. NVB: [ ]. Seminal vesicles: [ ]. Bladder neck/sphincter: [ ]."
+      },
+      {
+        "heading": "PELVIC SURVEY",
+        "body": "Nodes/stations: [ ]. Imaged bones: [ ]. Other pelvic findings: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Prostate Cancer - PI-RADS v2.1",
+        "url": "https://radiologyassistant.nl/abdomen/prostate/prostate-cancer-pi-rads-v2-1"
+      },
+      {
+        "title": "Radiology Assistant — Prostate Anatomy",
+        "url": "https://radiologyassistant.nl/abdomen/prostate/prostate-cancer-pi-rads-v2-1-1"
+      },
+      {
+        "title": "ACR PI-RADS v2.1",
+        "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/PI-RADS/PIRADS-2019.pdf"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.uterine-mr": {
+    "protocol": [
+      "Select the cervical cancer, endometrial cancer, endometriosis or congenital-anomaly pathway.",
+      "Align high-resolution T2 to the uterus/cervix or lesion and correlate DWI/contrast when appropriate to the question."
+    ],
+    "checklist": [
+      {
+        "label": "Organ and lesion",
+        "detail": "Define uterine position, primary epicentre and dimensions."
+      },
+      {
+        "label": "Endometrial pathway",
+        "detail": "Assess myometrial depth, cervical stroma, serosa/adnexa and nodes."
+      },
+      {
+        "label": "Cervical pathway",
+        "detail": "Assess stromal ring, parametrium, vagina, sidewall and urinary obstruction."
+      },
+      {
+        "label": "Endometriosis pathway",
+        "detail": "Map compartments, ovaries, bowel, bladder and ureters."
+      },
+      {
+        "label": "Anomaly pathway",
+        "detail": "Describe external fundal contour, cavities, cervices/vagina and associated urinary anatomy."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Tumour size/depth",
+        "method": "Measure three axes and, for endometrial primary, depth relative to total myometrial thickness.",
+        "pitfall": "Adenomyosis or fibroids may obscure the interface."
+      },
+      {
+        "name": "Deep endometriosis",
+        "method": "Measure lesion length/depth and affected bowel/ureter relationship.",
+        "pitfall": "A normal MRI cannot exclude superficial endometriosis."
+      },
+      {
+        "name": "Uterine morphology",
+        "method": "Record fundal cleft and cavity geometry in the correct coronal plane when classifying an anomaly.",
+        "pitfall": "Classifications use different thresholds; name the system if applied."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Endometrial FIGO 2023 staging includes pathology/molecular factors unavailable from MRI alone.",
+      "Cervical expansion with an intact stromal ring is not itself parametrial invasion.",
+      "Endometriosis and congenital anomalies do not use oncologic TNM staging."
+    ],
+    "impression_prompts": [
+      "State the selected pathway and principal finding.",
+      "Describe the pathway-specific extent or organ involvement.",
+      "Name the classification edition only with sufficient evidence and state missing non-imaging information."
+    ],
+    "escalation": [
+      "Communicate significant ureteric obstruction or another consequential pelvic complication promptly."
+    ],
+    "template_sections": [
+      {
+        "heading": "UTERUS AND PRIMARY",
+        "body": "Pathway: [ ]. Uterine dimensions/position: [ ]. Primary epicentre/size: [ ]."
+      },
+      {
+        "heading": "ENDOMETRIAL CANCER ONLY",
+        "body": "Myometrial invasion: [none / <50% / ≥50% / uncertain]; depth/total thickness [ ]/[ ] mm. Cervical stroma: [ ]. Serosa/adnexa: [ ]."
+      },
+      {
+        "heading": "CERVICAL CANCER ONLY",
+        "body": "Stromal ring: [ ]. Parametria: [ ]. Vagina upper/lower extent: [ ]. Pelvic sidewall: [ ]. Bladder/rectal mucosa: [ ]."
+      },
+      {
+        "heading": "ENDOMETRIOSIS ONLY",
+        "body": "Ovaries/endometriomas: [ ]. Anterior/posterior compartments: [ ]. Uterosacral ligaments: [ ]. Bowel/bladder/ureter involvement: [ ]."
+      },
+      {
+        "heading": "ANOMALY ONLY",
+        "body": "External fundal contour: [ ]. Cavities: [ ]. Cervices/vaginal septum: [ ]. Renal/urinary anatomy: [ ]. Classification system if used: [ ]."
+      },
+      {
+        "heading": "NODES AND COMPLICATIONS",
+        "body": "Nodal stations/short axes: [ ]. Hydroureteronephrosis: [ ]. Peritoneal/other spread: [ ]. Stage/version and unavailable pathology inputs: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Acute Abdomen in Gynaecology - Ultrasound",
+        "url": "https://radiologyassistant.nl/abdomen/unsorted/us-of-acute-gynaecology"
+      },
+      {
+        "title": "Radiology Assistant — Endometriosis - MRI detection",
+        "url": "https://radiologyassistant.nl/abdomen/unsorted/endometriosis-mri-detection"
+      },
+      {
+        "title": "Radiology Assistant — Cervical Cancer - MR staging",
+        "url": "https://radiologyassistant.nl/abdomen/unsorted/mr-in-cervical-cancer-1"
+      },
+      {
+        "title": "Radiology Assistant — Endometrial Cancer - MR staging",
+        "url": "https://radiologyassistant.nl/abdomen/unsorted/mr-in-endometrial-cancer"
+      },
+      {
+        "title": "Radiology Assistant — Müllerian duct anomalies",
+        "url": "https://radiologyassistant.nl/abdomen/unsorted/mullerian-duct-anomalies"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.breast-calcifications": {
+    "protocol": [
+      "Review magnification and appropriate orthogonal views with prior studies.",
+      "Use current mammographic descriptors and correlate any associated mass or distortion."
+    ],
+    "checklist": [
+      {
+        "label": "Localisation",
+        "detail": "Record side, quadrant/clock, depth and distribution."
+      },
+      {
+        "label": "Morphology",
+        "detail": "Distinguish typically benign morphology from suspicious calcifications."
+      },
+      {
+        "label": "Extent",
+        "detail": "Measure the full span and separate additional groups."
+      },
+      {
+        "label": "Associated findings",
+        "detail": "Assess mass, distortion, asymmetry and skin/nipple change."
+      },
+      {
+        "label": "Assessment",
+        "detail": "Integrate interval change and assign a concordant final assessment/recommendation."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Calcification span",
+        "method": "Measure maximum extent and orthogonal dimension on adequate magnification views.",
+        "pitfall": "Measure the full suspicious distribution, not just its densest cluster."
+      },
+      {
+        "name": "Site/depth",
+        "method": "Record position and image references suitable for biopsy localisation.",
+        "pitfall": "Different projections can make one group appear as multiple groups."
+      }
+    ],
+    "classification": {
+      "name": "BI-RADS breast assessment",
+      "version": "v2025",
+      "applicability": "Mammographic assessment after the indicated diagnostic workup.",
+      "summary": "Base the assessment on morphology, distribution, associated findings and context; ensure the recommendation agrees with the final category."
+    },
+    "pitfalls": [
+      "Stability alone does not make suspicious morphology benign.",
+      "Distribution is interpreted with morphology; there is no universal distribution-only risk ladder."
+    ],
+    "impression_prompts": [
+      "Describe morphology, distribution, side and span.",
+      "State significant change or associated finding.",
+      "Give BI-RADS assessment with the reasoned, concordant recommendation."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "SITE",
+        "body": "Side: [ ]. Quadrant/clock/depth: [ ]. Image references: [ ]."
+      },
+      {
+        "heading": "MORPHOLOGY",
+        "body": "Descriptor: [typically benign type / amorphous / coarse heterogeneous / fine pleomorphic / fine linear or branching]. Mixed morphology: [ ]."
+      },
+      {
+        "heading": "DISTRIBUTION AND EXTENT",
+        "body": "Distribution: [diffuse / regional / grouped / linear / segmental]. Span: [ ] × [ ] mm. Additional groups: [ ]."
+      },
+      {
+        "heading": "ASSOCIATED FINDINGS",
+        "body": "Mass: [ ]. Distortion/asymmetry: [ ]. Skin/nipple change: [ ]."
+      },
+      {
+        "heading": "CHANGE AND ASSESSMENT",
+        "body": "Prior date/change: [ ]. BI-RADS v2025 assessment: [ ]. Recommendation and target/method if relevant: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Differential of Breast Calcifications",
+        "url": "https://radiologyassistant.nl/breast/calcifications/differential-of-breast-calcifications"
+      },
+      {
+        "title": "ACR BI-RADS v2025",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.breast-mri": {
+    "protocol": [
+      "Review bilateral coverage, motion, fat suppression and subtraction registration.",
+      "Correlate MRI lesions with ultrasound/mammography and treatment timing; evaluate each modality using its own descriptors."
+    ],
+    "checklist": [
+      {
+        "label": "Background",
+        "detail": "State fibroglandular tissue and background parenchymal enhancement."
+      },
+      {
+        "label": "Lesion map",
+        "detail": "Number findings with side, clock/quadrant, depth and nipple distance."
+      },
+      {
+        "label": "MRI morphology",
+        "detail": "Describe mass or non-mass enhancement and extent before kinetics."
+      },
+      {
+        "label": "Ultrasound correlation",
+        "detail": "Document shape, orientation, margins, echo pattern and vascularity when performed."
+      },
+      {
+        "label": "Extent and nodes",
+        "detail": "Assess multifocality, skin/nipple, pectoralis/chest wall and regional nodes."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Enhancing lesion extent",
+        "method": "Measure three axes and overall extent of related enhancement.",
+        "pitfall": "Background enhancement and subtraction artefact may inflate extent."
+      },
+      {
+        "name": "Nodal cortex",
+        "method": "Measure suspicious cortical thickness where appropriate and describe hilum/shape.",
+        "pitfall": "No single cortical measurement establishes metastatic disease."
+      }
+    ],
+    "classification": {
+      "name": "BI-RADS breast assessment",
+      "version": "v2025",
+      "applicability": "MRI and ultrasound use their respective lexicons; integrate clinical and other imaging findings.",
+      "summary": "Use lesion morphology and distribution with functional features and comparisons, then state final assessment and a concordant recommendation."
+    },
+    "pitfalls": [
+      "Kinetics or diffusion alone do not determine malignancy.",
+      "A negative MRI does not negate a suspicious finding requiring sampling on another modality."
+    ],
+    "impression_prompts": [
+      "State the index finding and total disease extent.",
+      "Describe additional ipsilateral/contralateral findings and relevant nodes.",
+      "Give modality-appropriate BI-RADS assessments with an integrated recommendation."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "BACKGROUND AND QUALITY",
+        "body": "Fibroglandular tissue: [ ]. BPE: [minimal / mild / moderate / marked]. Motion/subtraction: [ ]."
+      },
+      {
+        "heading": "MRI FINDING",
+        "body": "ID/side/site: [ ]. [Mass / non-mass enhancement / other]. Size: [ ] mm. Shape/margin or distribution/internal enhancement: [ ]."
+      },
+      {
+        "heading": "FUNCTIONAL FEATURES",
+        "body": "Initial/delayed enhancement: [ ]. Diffusion/ADC: [ ]. T2 signal: [ ]."
+      },
+      {
+        "heading": "ULTRASOUND CORRELATE",
+        "body": "Site/nipple distance: [ ]. Size: [ ]. Shape/orientation/margin/echo pattern: [ ]. Doppler: [ ]. Concordance: [ ]."
+      },
+      {
+        "heading": "EXTENT AND ASSESSMENT",
+        "body": "Total span: [ ] mm. Skin/nipple/chest wall: [ ]. Regional nodes: [ ]. BI-RADS v2025 by modality and recommendation: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — BI-RADS v2025 Manual - Ultrasound",
+        "url": "https://radiologyassistant.nl/breast/bi-rads/BI-RADS-v2025-Ultrasound"
+      },
+      {
+        "title": "Radiology Assistant — Staging and Treatment of Breast Cancer",
+        "url": "https://radiologyassistant.nl/breast/breast-cancer/staging-and-treatment-of-breast-cancer"
+      },
+      {
+        "title": "Radiology Assistant — MRI of the Breast",
+        "url": "https://radiologyassistant.nl/breast/mri/mri-of-the-breast"
+      },
+      {
+        "title": "Radiology Assistant — Ultrasound of the Breast",
+        "url": "https://radiologyassistant.nl/breast/ultrasound/ultrasound-of-the-breast"
+      },
+      {
+        "title": "ACR BI-RADS v2025",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.4.breast": {
+    "protocol": [
+      "Confirm screening versus diagnostic purpose, views/DBT and the comparison interval.",
+      "Review both breasts systematically, including prior surgery and the clinical site of concern."
+    ],
+    "checklist": [
+      {
+        "label": "Composition",
+        "detail": "Record breast composition using the current A–D framework."
+      },
+      {
+        "label": "Mass",
+        "detail": "Describe location, shape, margin and density."
+      },
+      {
+        "label": "Other findings",
+        "detail": "Assess asymmetry, distortion and calcification morphology/distribution."
+      },
+      {
+        "label": "Change",
+        "detail": "Confirm new or increasing findings on comparable projections."
+      },
+      {
+        "label": "Assessment",
+        "detail": "Reconcile findings, clinical concern and final BI-RADS category."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Finding size",
+        "method": "Measure the maximum dimension on the view best showing its boundary.",
+        "pitfall": "Magnification and projection changes affect apparent size."
+      },
+      {
+        "name": "Distribution/span",
+        "method": "Measure calcification or related abnormality extent and record depth.",
+        "pitfall": "A single mass measurement may underestimate total abnormal tissue."
+      }
+    ],
+    "classification": {
+      "name": "BI-RADS breast assessment",
+      "version": "v2025",
+      "applicability": "Screening or diagnostic mammography with relevant comparisons and workup status stated.",
+      "summary": "Document composition, standardised findings, final assessment and a concordant recommendation; category 0 means further evaluation is needed."
+    },
+    "pitfalls": [
+      "Summation tissue and a developing asymmetry require different reasoning and workup.",
+      "Dense tissue can mask a lesion; a negative mammogram does not resolve every palpable abnormality."
+    ],
+    "impression_prompts": [
+      "Lead with the finding that determines assessment.",
+      "State side, site, size and interval change.",
+      "Give a final assessment with the matching action and clinical correlation."
+    ],
+    "escalation": [],
+    "template_sections": [
+      {
+        "heading": "COMPOSITION",
+        "body": "Density: [A / B / C / D]. Relevant asymmetry of composition: [ ]."
+      },
+      {
+        "heading": "MASSES",
+        "body": "Side/site/depth: [ ]. Size: [ ] mm. Shape: [ ]. Margin: [ ]. Density: [ ]."
+      },
+      {
+        "heading": "ASYMMETRY AND DISTORTION",
+        "body": "Asymmetry type/site: [ ]. Architectural distortion: [ ]. Persistence on additional views/DBT: [ ]."
+      },
+      {
+        "heading": "CALCIFICATIONS AND ASSOCIATED SIGNS",
+        "body": "Morphology/distribution/span: [ ]. Skin/nipple/trabecular change: [ ]. Axillary finding: [ ]."
+      },
+      {
+        "heading": "CORRELATION AND ASSESSMENT",
+        "body": "Clinical site correlation: [ ]. Prior interval change: [ ]. BI-RADS v2025: [ ]. Recommendation: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — BI-RADS v2025 Manual - Mammography.",
+        "url": "https://radiologyassistant.nl/breast/bi-rads/bi-rads-for-mammography-and-ultrasound-2013-1-1"
+      },
+      {
+        "title": "ACR BI-RADS v2025",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "rad.5.breast-implants-male": {
+    "protocol": [
+      "Identify whether the question is implant integrity, malignancy assessment or a symptomatic male breast.",
+      "For implants use appropriate silicone-sensitive imaging when indicated; use a separate cancer protocol if required."
+    ],
+    "checklist": [
+      {
+        "label": "Implant history",
+        "detail": "Document type, position, age and symptoms when known."
+      },
+      {
+        "label": "Integrity",
+        "detail": "Assess shell, folds and intra/extracapsular silicone."
+      },
+      {
+        "label": "Peri-implant tissues",
+        "detail": "Describe fluid, capsule, masses and regional nodes."
+      },
+      {
+        "label": "Male breast pattern",
+        "detail": "Distinguish centred glandular tissue from a discrete eccentric mass."
+      },
+      {
+        "label": "Correlation",
+        "detail": "Address the palpable/symptomatic site and assign breast assessment where applicable."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Peri-implant fluid/mass",
+        "method": "Record collection dimensions or maximal mass size and location.",
+        "pitfall": "Small simple fluid can be physiological; volume alone cannot establish the cause."
+      },
+      {
+        "name": "Male focal lesion",
+        "method": "Measure three axes and relationship to nipple/skin.",
+        "pitfall": "A gynecomastia pattern and a separate suspicious lesion can coexist."
+      }
+    ],
+    "classification": null,
+    "pitfalls": [
+      "Normal radial folds should not be called implant rupture.",
+      "Implant integrity imaging and contrast-enhanced cancer assessment answer different questions.",
+      "Imaging cannot establish implant-associated lymphoma from fluid alone."
+    ],
+    "impression_prompts": [
+      "State implant integrity by side and any extracapsular silicone.",
+      "Describe peri-implant fluid/mass and the specific unresolved diagnostic issue.",
+      "For male breast findings, state gynecomastia pattern versus focal lesion and a concordant assessment."
+    ],
+    "escalation": [
+      "Promptly communicate a new late peri-implant collection or capsular mass needing dedicated clinical investigation."
+    ],
+    "template_sections": [
+      {
+        "heading": "IMPLANT DETAILS",
+        "body": "Side/type: [ ]. Position: [prepectoral / retropectoral / other]. Implant age/symptoms: [ ]."
+      },
+      {
+        "heading": "SHELL AND CONTENT",
+        "body": "Contour/folds: [ ]. Intracapsular rupture signs: [ ]. Extracapsular silicone: [ ]."
+      },
+      {
+        "heading": "PERI-IMPLANT TISSUES",
+        "body": "Fluid site/size: [ ]. Capsule: [ ]. Mass: [ ]. Regional nodes/silicone: [ ]."
+      },
+      {
+        "heading": "MALE BREAST FIELDS",
+        "body": "Symptomatic site: [ ]. Retroareolar glandular pattern: [ ]. Eccentric focal lesion and dimensions: [ ]. Skin/nipple: [ ]."
+      },
+      {
+        "heading": "ASSESSMENT AND CORRELATION",
+        "body": "Integrity conclusion by side: [ ]. Palpable-site concordance: [ ]. BI-RADS if applicable: [ ]. Recommended evaluation and rationale: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Breast Implants",
+        "url": "https://radiologyassistant.nl/breast/breast-prosthesis/breast-prosthesis-imaging"
+      },
+      {
+        "title": "Radiology Assistant — Pathology of the Male Breast",
+        "url": "https://radiologyassistant.nl/breast/male-breast/pathology-of-the-male-breast"
+      },
+      {
+        "title": "ACR BI-RADS v2025",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  }
+}

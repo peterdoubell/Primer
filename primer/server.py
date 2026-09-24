@@ -2,6 +2,7 @@
 practice, quizzes, tutor and pacing into a single interactive book.
 """
 
+import asyncio
 import base64
 import binascii
 import contextvars
@@ -10,6 +11,7 @@ import hashlib
 import hmac
 import json
 import logging
+import math
 import os
 import random
 import re
@@ -206,12 +208,13 @@ def backup_status() -> dict:
     }
 
 
-_shutdown = threading.Event()
-
-
-def _run_maintenance_once():
+def _run_maintenance_once(learner_store=None, backup_dir=None):
     """Run one retention pass, using only operations the backend supports."""
-    if learner.get_profile() is None:
+    # A lifespan binds its own store and directory. A finishing backup must
+    # not follow later module-global replacements into a different database.
+    active_learner = learner if learner_store is None else learner_store
+    active_dir = BACKUP_DIR if backup_dir is None else backup_dir
+    if active_learner.get_profile() is None:
         return
     dest = None
     if not store.using_turso():
@@ -219,20 +222,20 @@ def _run_maintenance_once():
         # rotation can never hit, then apply the tiered policy in
         # _prune_backups. Remote Turso databases cannot use sqlite's local
         # online-backup API.
-        dest = learner.backup(BACKUP_DIR, keep=10 ** 6)
-        if os.path.isdir(BACKUP_DIR):
-            _prune_backups(BACKUP_DIR)
-    learner.prune()
+        dest = active_learner.backup(active_dir, keep=10 ** 6)
+        if os.path.isdir(active_dir):
+            _prune_backups(active_dir)
+    active_learner.prune()
     if dest:
         log.info("backed up learner record to %s", os.path.basename(dest))
 
 
-def _maintenance_loop():
+def _maintenance_loop(shutdown, learner_store, backup_dir):
     """Back up the irreplaceable learner record and prune old logs — at
     startup and then daily. The whole multi-year history lives in one file."""
-    while True:
+    while not shutdown.is_set():
         try:
-            _run_maintenance_once()
+            _run_maintenance_once(learner_store, backup_dir)
         except Exception as exc:  # never let maintenance crash the app
             log.warning("maintenance failed: %s", exc)
         # Wait on an Event rather than sleeping: a bare sleep(24h) cannot be
@@ -241,8 +244,8 @@ def _maintenance_loop():
         # skipping a backup day. Waking hourly and checking the clock means a
         # missed day is noticed as soon as the machine is awake again.
         target = time.time() + 24 * 3600
-        while not _shutdown.is_set() and time.time() < target:
-            if _shutdown.wait(min(3600.0, max(1.0, target - time.time()))):
+        while not shutdown.is_set() and time.time() < target:
+            if shutdown.wait(min(3600.0, max(1.0, target - time.time()))):
                 return
 
 
@@ -259,11 +262,20 @@ async def _lifespan(_app):
         (log.warning if bk["off_disk"] is False else log.info)(
             "backups -> %s (%d kept) | %s",
             bk["dir"], bk["copies"], bk["advice"])
-    threading.Thread(target=_maintenance_loop, daemon=True).start()
-    yield
-    # Let the maintenance thread finish its wait and return rather than being
-    # killed mid-backup when the process exits.
-    _shutdown.set()
+    shutdown = threading.Event()
+    worker = threading.Thread(target=_maintenance_loop,
+                              args=(shutdown, learner, BACKUP_DIR),
+                              name="primer-maintenance", daemon=True)
+    worker.start()
+    try:
+        yield
+    finally:
+        shutdown.set()
+        # Wake a waiting worker and allow an in-flight pass to finish, without
+        # blocking the event loop or hanging server shutdown on a stuck backend.
+        await asyncio.to_thread(worker.join, 5.0)
+        if worker.is_alive():
+            log.warning("maintenance pass still finishing after shutdown grace period")
 
 
 app.router.lifespan_context = _lifespan
@@ -367,7 +379,9 @@ def _access_challenge(status_code: int = 401) -> JSONResponse:
 # otherwise serve an identical, unprotected copy of the app shell.
 CSP = (
     "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
-    "img-src 'self' data:; connect-src 'self'; object-src 'none'; "
+    "img-src 'self' data: https://radiologyassistant.nl/assets/ "
+    "https://radiologyassistant.nl/img/ https://upload.wikimedia.org/wikipedia/commons/; "
+    "connect-src 'self'; object-src 'none'; "
     "base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
 )
 
@@ -710,7 +724,8 @@ async def _security_headers(request, call_next):
 # Fields of a curriculum node that must never leave the server. `quiz` carries
 # every `answer` and `explain` in the bank.
 _NODE_PRIVATE = ("quiz",)
-_NODE_DETAIL_ONLY = ("lesson_media",)
+_NODE_DETAIL_ONLY = ("lesson_media", "radiology_reference", "lesson", "learning_outcomes",
+                     "visual_spec", "model_family", "model_context")
 
 
 def _public_node(node: dict, include_detail: bool = False) -> dict:
@@ -945,6 +960,11 @@ def article(request: Request, title: str, simple: Optional[bool] = None,
     prefer_simple = simple if simple is not None else (stage is not None and stage <= 1)
     art = wiki.get_article(title, prefer_simple=bool(prefer_simple))
     if not art:
+        remaining = wiki._live_fetch_blocked_until - time.time()
+        if remaining > 0:
+            return JSONResponse(
+                {"error": "article temporarily unavailable", "title": title},
+                status_code=503, headers={"Retry-After": str(max(1, math.ceil(remaining)))})
         return JSONResponse({"error": "not found", "title": title}, status_code=404)
     art["rendered"] = rewrite_article(art["html"], art.get("base", ""))
     del art["html"]
@@ -1110,6 +1130,123 @@ def mathematics_illustrations():
             "illustrations": illustrations}
 
 
+@app.get("/api/curriculum/visuals")
+def curriculum_visuals():
+    """Return the complete, answer-free catalogue of lesson visuals.
+
+    The full curriculum graph also carries quiz banks, reading metadata and
+    adaptive state.  The gallery needs none of that: this deliberately small
+    projection exposes one record per explanatory plate and interactive model
+    while keeping model props and every assessment field out of the response.
+    """
+    domain_names = {domain["id"]: domain["name"] for domain in curr.domains}
+    domain_counts = {
+        domain["id"]: {
+            "id": domain["id"],
+            "name": domain["name"],
+            "illustrations": 0,
+            "photographs": 0,
+            "models": 0,
+            "items": 0,
+        }
+        for domain in curr.domains
+    }
+    items = []
+    illustration_count = 0
+    photograph_count = 0
+    model_count = 0
+    for node in curr.nodes.values():
+        plates = [entry for entry in node.get("lesson_media", [])
+                  if entry.get("kind") == "illustration"]
+        # The global gallery promises exact lesson coverage.  As with the
+        # original mathematics endpoint, a future omission must fail loudly
+        # instead of quietly lowering the number printed in the interface.
+        if len(plates) != 1:
+            raise RuntimeError("{} has {} illustrations; expected 1".format(
+                node["id"], len(plates)))
+        domain_id = node["domain"]
+        common = {
+            "lesson_id": node["id"],
+            "lesson_title": node["title"],
+            "domain": domain_id,
+            "domain_name": domain_names[domain_id],
+            "stage": node["stage"],
+            "stage_name": STAGE_NAMES[node["stage"]],
+            "goal": node["goal"],
+        }
+        plate = plates[0]
+        items.append(dict(common, **{
+            "kind": "illustration",
+            "media_id": plate["id"],
+            "src": plate["src"],
+            "srcset": plate["srcset"],
+            "alt": plate["alt"],
+            "caption": plate["caption"],
+            "long_description": plate.get("long_description"),
+            "width": plate["width"],
+            "height": plate["height"],
+        }))
+        illustration_count += 1
+        domain_counts[domain_id]["illustrations"] += 1
+        domain_counts[domain_id]["items"] += 1
+
+        for photo in (entry for entry in node.get("lesson_media", [])
+                      if entry.get("kind") == "photograph"):
+            items.append(dict(common, **{
+                "kind": "photograph",
+                "media_id": photo["id"],
+                "src": photo["src"], "srcset": photo["srcset"],
+                "alt": photo["alt"], "caption": photo["caption"],
+                "width": photo["width"], "height": photo["height"],
+                "credit": photo["credit"], "source_type": photo["source_type"],
+            }))
+            photograph_count += 1
+            domain_counts[domain_id]["photographs"] += 1
+            domain_counts[domain_id]["items"] += 1
+
+        for model in (entry for entry in node.get("lesson_media", [])
+                      if entry.get("kind") == "model"):
+            items.append(dict(common, **{
+                "kind": "model",
+                "media_id": model["id"],
+                "title": model["title"],
+                "instructions": model["instructions"],
+                "renderer": model["renderer"],
+            }))
+            model_count += 1
+            domain_counts[domain_id]["models"] += 1
+            domain_counts[domain_id]["items"] += 1
+
+    return {
+        "counts": {
+            "lessons": len(curr.nodes),
+            "illustrations": illustration_count,
+            "photographs": photograph_count,
+            "models": model_count,
+            "items": len(items),
+        },
+        "domains": list(domain_counts.values()),
+        "items": items,
+    }
+
+
+@app.get("/api/radiology/modules")
+def radiology_reference_index():
+    """A small reporting index, independent of learning progression and quizzes."""
+    from .radiology_catalog import index
+    return index(curr)
+
+
+@app.get("/api/radiology/modules/{node_id}")
+def radiology_reporting_reference(node_id: str):
+    """Reporting content without quiz keys, mastery gating or live wiki fetching."""
+    from .radiology_catalog import detail, resolve
+    investigation = resolve(node_id)
+    if not investigation:
+        return JSONResponse({"error": "no such radiology module"}, status_code=404)
+    return detail(curr, investigation)
+
+
 @app.get("/api/curriculum/node/{node_id}")
 def curriculum_node(node_id: str, request: Request):
     reader_id = current_reader(request)
@@ -1140,7 +1277,16 @@ def curriculum_node(node_id: str, request: Request):
             out["passes_needed"] = needs.get("passes_needed")
     cards = []
     for title in node["articles"][:6]:
-        s = wiki.get_summary(title)
+        # The local lesson, illustrations and models must not depend on a
+        # live Wikipedia summary. A cold/overloaded upstream previously held
+        # this entire response for several serial summary + article fetches.
+        try:
+            s = wiki.get_cached_summary(title)
+        except Exception as exc:
+            # Optional decoration must not hide the authored lesson when its
+            # separate cache is unavailable or being migrated.
+            log.info("optional article-card cache unavailable: %s", exc.__class__.__name__)
+            s = None
         cards.append({"title": title, "summary": (s or {}).get("extract", "")[:280],
                       "thumb": (s or {}).get("thumbnail", "")})
     out["article_cards"] = cards
@@ -2215,6 +2361,7 @@ SHORT_DOSE_CARDS = 5
 @app.get("/api/review/due")
 def review_due(request: Request, limit: int = 20, dose: str = ""):
     reader_id = current_reader(request)
+    limit = max(1, min(50, limit))
     # The deck ships the day's ask with the cards, from the same function the
     # quest tile is priced by — a deck that stops at a different number from
     # the one the tile promised would be worse than a deck that never stops.
@@ -2242,6 +2389,21 @@ def review(r: ReviewIn, request: Request):
     reader_id = current_reader(request)
     return learner.review_card(r.card_id, max(0, min(5, r.quality)),
                                seconds=r.seconds, reader_id=reader_id)
+
+
+class ReviewGameIn(ReviewIn):
+    quality: int = Field(ge=0, le=5)
+    expected_due: float = Field(ge=0, allow_inf_nan=False)
+    expected_reviews: int = Field(ge=0)
+
+
+@app.post("/api/review/game")
+def review_game(r: ReviewGameIn, request: Request):
+    """Save a due-card game turn at most once, including after a lost reply."""
+    return learner.review_card(r.card_id, r.quality, seconds=r.seconds,
+                               reader_id=current_reader(request),
+                               expected_due=r.expected_due,
+                               expected_reviews=r.expected_reviews)
 
 
 class CardIn(BaseModel):
@@ -2469,10 +2631,8 @@ class DomainOpenIn(BaseModel):
 def domain_open(s: DomainOpenIn, request: Request):
     """Let a reader who already has the grounding open a specialist field.
 
-    The ten general fields are a journey: they start at preschool and every
-    lesson is earned from the one before it. A specialist field is not that.
-    Radiology begins where the general spine ends, and the reader who wants it
-    is a clinician, not a child working upward — they arrive already holding
+    General learning pathways start with concrete foundations. The clinical
+    reference stage also supports readers arriving already holding
     the anatomy and the physics its modules are gated on. Making them prove
     Systems Physiology to the book before it will show them PI-RADS is a ritual
     that teaches nobody anything.
@@ -2484,19 +2644,21 @@ def domain_open(s: DomainOpenIn, request: Request):
     growth is paid, and the reader can prove any of it later, at which point the
     assumption is replaced by the real thing.
 
-    Only a field that declares an `entry_stage` above zero can be opened this
-    way. The general spine has no door of this kind, by design: a reader cannot
+    Only a declared specialist entry or reference stage can be opened this
+    way. The introductory spine has no door of this kind: a reader cannot
     skip their own education by asserting it.
     """
     domain = next((d for d in curr.domains if d["id"] == s.domain), None)
     if domain is None:
         return JSONResponse({"error": "no such field"}, status_code=404)
-    if int(domain.get("entry_stage", 0)) <= 0:
+    reference_stage = int(domain.get("reference_stage", domain.get("entry_stage", 0)))
+    if reference_stage <= 0:
         return JSONResponse(
             {"error": "this field is travelled from the beginning, not opened"},
             status_code=409)
 
-    own = [n for n in curr.nodes.values() if n["domain"] == s.domain]
+    own = [n for n in curr.nodes.values()
+           if n["domain"] == s.domain and n["stage"] >= reference_stage]
     # Only what stands OUTSIDE the field: crediting its own nodes would be
     # crediting the very thing the reader came to learn.
     outside = sorted({p for n in own for p in n["prereqs"]
@@ -2725,6 +2887,10 @@ def app_shell():
         html = fh.read()
     html = html.replace("/app/styles.css", "/app/styles.css?v=" + _asset_tag("styles.css"))
     html = html.replace("/app/lesson-models.js", "/app/lesson-models.js?v=" + _asset_tag("lesson-models.js"))
+    for filename in ("spatial-models.js", "spatial-math.js", "spatial-molecular.js", "spatial-physical.js",
+                     "spatial-cross-subject.js", "spatial-radiology.js", "spatial-module-objects.js",
+                     "radiology-reference-models.js", "radiology-detailed-anatomy.js", "concept-models.js"):
+        html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
 

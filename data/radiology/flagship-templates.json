@@ -1,0 +1,280 @@
+{
+  "rad.5.coronary-ct": {
+    "overview": "Use coronary CT angiography to describe anatomy, stenosis, total plaque burden and any available physiology. Read the linked Radiology Assistant chapters alongside the original CAD-RADS 2.0 consensus. The structured report below expands the supplied CCTA example and keeps image quality, segment findings and classification together.",
+    "learning_points": [
+      "Follow each artery from its ostium to the distal evaluable branches, reviewing source images alongside multiplanar reconstructions.",
+      "Explain the limitation when an apparently important narrowing may reflect motion, calcification or stent artefact.",
+      "Keep plaque burden, lumen narrowing and physiological significance as separate observations before integrating the impression.",
+      "Use the key-image checklist to make the dominant finding and its anatomical context easy to review."
+    ],
+    "report_templates": [
+      {
+        "id": "ccta-cad-rads-2",
+        "title": "CT CORONARY ANGIOGRAM",
+        "description": "Comprehensive coronary CTA report with CAD-RADS 2.0, segment findings, image references and optional contextual management wording.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "[Stable chest pain / acute chest pain / CAD assessment / anomaly / post-PCI / post-CABG / other].\nClinical question: [ ]. Relevant symptoms/risk context: [ ].\nComparison: [none / examination and date]."
+          },
+          {
+            "heading": "TECHNIQUE",
+            "body": "Acquisition: [prospective ECG-triggered / retrospective ECG-gated / other].\nHeart rate/rhythm: [ ]. Contrast: [agent, volume and injection rate].\nMedication administered: [none / rate control / sublingual nitrate: details].\nReconstruction phases: [ ]. Dose metrics: CTDIvol [ ] mGy; DLP [ ] mGy·cm."
+          },
+          {
+            "heading": "IMAGE QUALITY",
+            "body": "[Excellent / good / diagnostic / limited / non-diagnostic].\nLimitation: [none / motion / calcification / poor opacification / arrhythmia / stent artefact / other].\nNon-evaluable coronary segments: [none / list segments and reason].\nEffect on the clinical answer: [none / significant stenosis cannot be excluded in ___]."
+          },
+          {
+            "heading": "KEY IMAGES",
+            "body": "[IMG 1: 3D VR coronary origins/dominance]\n[IMG 2: cMPR LM/LAD ± culprit lesion]\n[IMG 3: cMPR LCx/OM]\n[IMG 4: cMPR RCA/PDA/PLV]\n[IMG 5: anomaly/bridge/fistula/stent/graft if present]\n[IMG 6: extracardiac finding if relevant]\n[IMG 7: orthogonal lumen views at the maximal stenosis and reference segment]\n[IMG 8: lesion-specific CT-FFR or stress/rest perfusion if performed]\nRecord the series/image reference for each retained image."
+          },
+          {
+            "heading": "CALCIUM SCORE",
+            "body": "CAC: [not performed / total ___ Agatston units].\nLM ___ | LAD ___ | LCx ___ | RCA ___.\nPercentile, if supplied by a validated reference: [ ].\nA zero CAC score does not exclude non-calcified plaque."
+          },
+          {
+            "heading": "CORONARY DOMINANCE",
+            "body": "[Right / left / co-dominant]. PDA from [RCA / LCx / both].\nPosterolateral supply: [ ]."
+          },
+          {
+            "heading": "CORONARY ORIGINS / COURSE",
+            "body": "Origins: [normal / anomalous: specify artery, sinus and ostium].\nCourse: [normal / interarterial / intramural / retroaortic / prepulmonic / septal-subpulmonic].\nHigh-risk anomaly features: [none / slit-like ostium / acute take-off / intramural segment / interarterial Ao–PA course / proximal narrowing].\nMyocardial bridge: [absent / present: vessel, segment, length/depth].\nFistula/aneurysm/ectasia/dissection/vasculitis/extrinsic compression: [absent / present: specify location, dimensions and relationships]."
+          },
+          {
+            "heading": "STENOSIS SCALE",
+            "body": "0% none | 1–24% minimal | 25–49% mild | 50–69% moderate | 70–99% severe | 100% occluded.\nUse [non-diagnostic] when artefact prevents a confident estimate."
+          },
+          {
+            "heading": "CORONARY FINDINGS",
+            "body": "For each segment record [plaque type; stenosis category/%; lesion length if relevant; series/image].\nLM: [normal / findings].\nLAD: proximal [ ]; mid [ ]; distal [ ]; D1 [ ]; D2 [ ].\nLCx: proximal [ ]; mid/distal [ ]; OM1 [ ]; OM2 [ ].\nRamus: [absent / present: ___].\nRCA: proximal [ ]; mid [ ]; distal [ ]; PDA [ ]; PLV [ ].\nOther evaluable branches: [ ].\nOcclusion, if present: [site, length, distal reconstitution and collateral findings]."
+          },
+          {
+            "heading": "PLAQUE",
+            "body": "Plaque type: [calcified / non-calcified / partially calcified (mixed)].\nHigh-risk plaque features: [none / positive remodelling / low attenuation / spotty calcification / napkin-ring sign].\nLocation and features: [ ].\nHRP modifier: [absent / present: at least two HRP features in a plaque]."
+          },
+          {
+            "heading": "PLAQUE BURDEN",
+            "body": "Method: [CAC / SIS / visual / quantitative: specify method].\nSIS: [__] segments containing plaque.\nP1 mild: CAC 1–100 or SIS 1–2.\nP2 moderate: CAC 101–300 or SIS 3–4.\nP3 severe: CAC 301–999 or SIS 5–7.\nP4 extensive: CAC ≥1000 or SIS ≥8.\nOverall plaque burden: [no plaque / P1 / P2 / P3 / P4 / not reliably assessable].\nIf reliable methods disagree, use the most severe plaque assessment and document the contributing methods. CAD-RADS 0 has no P category; zero plaque is not P1."
+          },
+          {
+            "heading": "STENTS / GRAFTS",
+            "body": "Stents: [none / present: vessel, segment, patent/restenosis/occluded/non-diagnostic].\nGrafts: [none / present].\nLIMA [ ] | RIMA [ ] | SVG [ ] | other conduit [ ].\nFor each graft: origin [ ]; course [ ]; body [ ]; distal anastomosis [ ]; distal runoff [ ].\nNative vessels and ungrafted territories: [ ]."
+          },
+          {
+            "heading": "CT-FFR / CT PERFUSION",
+            "body": "[Not performed / performed / non-diagnostic].\nCT-FFR lesion-specific value: [__] measured 1–2 cm distal to [vessel/segment lesion].\nCT-FFR lowest value: [__] in [vessel/segment]; distinguish this from the lesion-specific value.\nPerfusion: [no reversible defect / reversible defect / fixed defect / borderline]; territory and extent [ ].\nIschaemia modifier: [I+ / I− / I± / none].\nCT-FFR guide: I+ ≤0.75; I− >0.80; I± 0.76–0.80. Use lesion-specific interpretation and anatomical correlation; the lowest distal value alone should not drive catheterisation referral."
+          },
+          {
+            "heading": "EXTRACORONARY CARDIAC FINDINGS",
+            "body": "Cardiac chambers: [normal / enlarged: specify].\nLV function/wall motion if assessable: [normal / reduced / RWMA: specify / not assessed].\nPericardium: [normal / effusion / thickening / calcification].\nValves: [unremarkable / calcified aortic valve / mitral annular calcification / other].\nAorta: root [__ mm], ascending aorta [__ mm]; measurement plane [ ].\nPulmonary arteries: [normal / enlarged / other].\nOther cardiac findings: [ ]."
+          },
+          {
+            "heading": "EXTRACARDIAC FINDINGS",
+            "body": "Mediastinum/hila: [unremarkable / abnormal].\nLungs/pleura: [unremarkable / nodule / consolidation / emphysema / effusion / other].\nUpper abdomen/bones/chest wall: [unremarkable / abnormal].\nIncidental follow-up finding: [none / specify finding, comparison and applicable follow-up rationale]."
+          },
+          {
+            "heading": "CAD-RADS 2.0",
+            "body": "CAD-RADS category:\n0: no plaque or stenosis.\n1: 1–24% stenosis, or plaque with positive remodelling but no luminal narrowing.\n2: 25–49%.\n3: 50–69%.\n4A: 70–99% in one or two vessels.\n4B: LM ≥50% or severe three-vessel disease.\n5: total occlusion.\nN: non-diagnostic.\nFinal CAD-RADS: CAD-RADS [0/1/2/3/4A/4B/5/N] / [P1/P2/P3/P4 when applicable] / [N / HRP / I+ / I− / I± / S / G / E as applicable].\nIf a relevant segment >1.5 mm is non-evaluable and evaluable segments show only <50% stenosis, use category N. If ≥50% stenosis is demonstrated elsewhere, retain the stenosis category and append N. Report P only if reliable."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. [Right / left / co-dominant] coronary circulation.\n2. Coronary origins/course: [normal / anomaly described].\n3. CAD: [none / minimal / mild / moderate / severe / obstructive]. Most significant lesion: [vessel/segment], [plaque type], [stenosis category/%].\n4. Plaque burden: [no plaque / P1 / P2 / P3 / P4 / indeterminate]. HRP: [absent / present].\n5. Stents/grafts: [none / findings].\n6. CAD-RADS 2.0: CAD-RADS [ ] / [P category if applicable] / [modifiers]. Physiology, if performed: [ ].\n7. Non-coronary findings: [none significant / specify].\n8. Diagnostic limitation affecting interpretation, if any: [ ]."
+          },
+          {
+            "heading": "OPTIONAL MANAGEMENT LINE",
+            "body": "Clinical setting: [stable / acute chest pain / other]. Suggested next step: [ ], considering symptoms, ECG/troponin where relevant, prior treatment, comorbidity and patient preference.\nStable chest pain prompts: [0: usually no additional CAD testing / 1–2: preventive risk discussion / 3: consider functional assessment / 4A: consider ICA or functional assessment / 4B: consider ICA / 5: consider ICA with viability/functional assessment where appropriate / N: additional evaluation if clinically indicated].\nAcute chest pain prompt: [integrate stenosis and image quality with the ACS pathway; do not diagnose or exclude ACS from CAD-RADS alone].\nDocument the individualised recommendation and rationale; delete unused options."
+          }
+        ],
+        "notes": [
+          "Complete bracketed fields and remove unused alternatives before issuing a report. Use the study’s own de-identified images in the final report; the gallery contains independent published teaching examples.",
+          "The user-supplied CCTA example provides the report foundation. Classification clarifications are referenced to CAD-RADS 2.0.",
+          "S and G record the presence of stents and bypass grafts. E identifies a relevant non-atherosclerotic coronary exception that requires a narrative description.",
+          "A fixed perfusion defect should be described separately from reversible ischaemia. Record failed or non-diagnostic physiology explicitly."
+        ],
+        "sources": [
+          {
+            "title": "Radiology Assistant — CAD-RADS 2.0",
+            "url": "https://radiologyassistant.nl/cardiovascular/cad-rads/coronary-artery-disease-reporting-and-data-system"
+          },
+          {
+            "title": "SCCT/ACC/ACR/NASCI — CAD-RADS 2.0 consensus (2022)",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9627235/"
+          },
+          {
+            "title": "Radiology Assistant — Coronary anatomy and anomalies",
+            "url": "https://radiologyassistant.nl/cardiovascular/anatomy/coronary-anatomy-and-anomalies"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ccta-img-1",
+        "label": "IMG 1 · Coronary origins and dominance",
+        "description": "Placeholder for a labelled 3D volume rendering; identify origins, PDA and dominant circulation."
+      },
+      {
+        "id": "ccta-img-2",
+        "label": "IMG 2 · LM and LAD",
+        "description": "Placeholder for LM/LAD curved multiplanar reconstruction with the principal lesion and series/image reference."
+      },
+      {
+        "id": "ccta-img-3",
+        "label": "IMG 3 · LCx and OM branches",
+        "description": "Placeholder for LCx/OM curved multiplanar reconstruction and any important focal lesion."
+      },
+      {
+        "id": "ccta-img-4",
+        "label": "IMG 4 · RCA, PDA and PLV",
+        "description": "Placeholder for RCA reconstruction showing the distal branch anatomy and relevant stenoses."
+      },
+      {
+        "id": "ccta-img-5",
+        "label": "IMG 5 · Anomaly, bridge, fistula, stent or graft",
+        "description": "Placeholder for the reconstruction that best demonstrates any additional coronary finding."
+      },
+      {
+        "id": "ccta-img-6",
+        "label": "IMG 6 · Extracardiac finding",
+        "description": "Placeholder for a clinically relevant extracardiac finding, with appropriate window and anatomical context."
+      },
+      {
+        "id": "ccta-img-7",
+        "label": "IMG 7 · Stenosis in cross-section",
+        "description": "Placeholder for orthogonal lumen images through the maximal narrowing and an adjacent reference segment."
+      },
+      {
+        "id": "ccta-img-8",
+        "label": "IMG 8 · Physiology correlation",
+        "description": "Placeholder for lesion-specific CT-FFR or CT perfusion with labelled territory and measurements."
+      }
+    ]
+  },
+  "rad.5.prostate-mri": {
+    "overview": "A prostate MRI report should connect the clinical question, examination quality, lesion map and local extent. Use the Radiology Assistant chapter for illustrated learning and ACR PI-RADS v2.1 for formal scoring. This original worksheet provides the reporting structure and image checklist.",
+    "learning_points": [
+      "Identify the lesion's zone of origin before scoring and correlate the same location across T2, ADC, high-b-value DWI and DCE.",
+      "Describe BPH, inflammation and haemorrhage when they explain an apparent lesion or reduce confidence.",
+      "Keep PI-RADS suspicion separate from extension/staging findings, PSA density and subsequent management.",
+      "Use consistent lesion numbers, sector labels and image references so that comparison and biopsy targeting remain reproducible."
+    ],
+    "report_templates": [
+      {
+        "id": "prostate-mri-pi-rads-21",
+        "title": "MRI PROSTATE — PI-RADS v2.1",
+        "description": "Structured diagnostic prostate MRI report with lesion mapping, staging observations and eight study-image references.",
+        "sections": [
+          {
+            "heading": "INDICATION / COMPARISON",
+            "body": "Question: [ ]. PSA [ ] ng/mL on [date]; trend [ ].\nPrior biopsy [date, site, grade group / none]; treatment [ ].\nComparison MRI [date / none]."
+          },
+          {
+            "heading": "PROTOCOL / QUALITY",
+            "body": "Field strength [ ]; coil [ ]; T1 [ ]; T2 planes [ ]; DWI/ADC and b values [ ]; DCE [performed / omitted: reason].\nOverall quality [ ]; motion/distortion [ ]; affected sequences/regions [ ].\nHaemorrhage [none / location and impact]."
+          },
+          {
+            "heading": "KEY IMAGES",
+            "body": "[IMG 1: gland dimensions and volume]\n[IMG 2: annotated lesion sector map]\n[IMG 3: index lesion on axial T2]\n[IMG 4: matching ADC and high-b-value DWI]\n[IMG 5: DCE correlation if acquired]\n[IMG 6: capsule/neurovascular bundle relationship]\n[IMG 7: seminal vesicles and bladder neck]\n[IMG 8: additional lesion, node or bone finding]"
+          },
+          {
+            "heading": "GLAND / PSA DENSITY",
+            "body": "AP [ ] × transverse [ ] × craniocaudal [ ] cm.\nVolume [ ] mL; method [segmentation / ellipsoid: 0.52 × three dimensions].\nPSA density [ ] ng/mL/mL = PSA ÷ volume; [not calculated: missing PSA/volume].\nPeripheral zone background [ ]; transition zone/BPH [ ]."
+          },
+          {
+            "heading": "LESION WORKSHEET — REPEAT FOR EACH REPORTED LESION",
+            "body": "Lesion [number]; index [yes/no].\nLocation [side, base/mid/apex, zone and sector(s)].\nSize [ ] mm; sequence/plane [ ]; series/image [ ].\nT2 appearance [ ]; score [1–5].\nADC/high-b DWI appearance [ ]; DWI score [1–5].\nDCE [positive / negative / not assessable / not acquired].\nMargin contact [ ]; extension [ ].\nOverall PI-RADS [1–5]; scoring rationale [ ].\nComparison change [ ]."
+          },
+          {
+            "heading": "SCORING CHECK",
+            "body": "PZ: DWI determines the category; DWI 3 becomes PI-RADS 4 only with positive DCE. Positive DCE requires focal early enhancement corresponding to the suspicious finding.\nTZ: T2 determines the category, except T2 2 with DWI ≥4 becomes PI-RADS 3, and T2 3 with DWI 5 becomes PI-RADS 4. DCE does not upgrade TZ lesions.\nA score-4-pattern lesion is score 5 on the relevant sequence at ≥1.5 cm or with definite extraprostatic extension/invasion.\nNo DCE means no DCE-based upgrade. If DWI is inadequate, consult the PI-RADS alternative-assessment table and state the limitation."
+          },
+          {
+            "heading": "LOCAL EXTENT",
+            "body": "Extraprostatic extension [absent / equivocal / present: site and evidence].\nNeurovascular bundles [ ]; seminal vesicles [ ]; bladder neck [ ]; external sphincter [ ]; adjacent organs [ ].\nMRI local-stage assessment when applicable [ ]."
+          },
+          {
+            "heading": "NODES / BONES / OTHER PELVIC FINDINGS",
+            "body": "Suspicious nodes [none / station, short axis and morphology].\nBones within coverage [ ]. Other pelvic findings [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Index lesion [site, size], PI-RADS [ ]; additional lesions [ ].\n2. Local extension [ ]; suspicious nodes/bone findings [ ].\n3. Volume [ ] mL; PSA density [ ].\n4. Comparison and material limitation [ ].\n5. Individualised next-step discussion, if appropriate [ ]."
+          }
+        ],
+        "notes": [
+          "PI-RADS categories express imaging suspicion: 1 very low; 2 low; 3 equivocal; 4 high; 5 very high likelihood of clinically significant cancer. They do not independently prescribe biopsy or treatment.",
+          "Choose the index lesion by highest PI-RADS category; resolve ties by extraprostatic extension, then size. Map up to four principal suspicious lesions and identify all sectors involved.",
+          "Measure AP and longitudinal gland dimensions on mid-sagittal T2, transverse on axial T2. Avoid mixing millimetres and centimetres in the ellipsoid formula.",
+          "PI-RADS diagnostic scoring is not a post-treatment recurrence system. A negative MRI does not exclude clinically significant cancer; interpret with clinical risk.",
+          "If both DWI and DCE are unavailable or inadequate, do not imply a complete PI-RADS assessment; the formal guidance limits assessment to staging for extraprostatic extension.",
+          "Use actual study images in the image slots and retain matching series/image references in the report."
+        ],
+        "sources": [
+          {
+            "title": "Radiology Assistant — Prostate Cancer, PI-RADS v2.1",
+            "url": "https://radiologyassistant.nl/abdomen/prostate/prostate-cancer-pi-rads-v2-1"
+          },
+          {
+            "title": "ACR — PI-RADS resources and current reference documents",
+            "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/PI-RADS"
+          },
+          {
+            "title": "ACR/ESUR/AdMeTech — PI-RADS v2.1 specification (2019)",
+            "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/PI-RADS/PIRADS-2019.pdf"
+          },
+          {
+            "title": "ACR — PI-RADS v2.1 report template",
+            "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/PI-RADS/PIRADS-Report-Template.pdf"
+          },
+          {
+            "title": "ACR — PI-RADS release and reporting resources",
+            "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/PI-RADS"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "prostate-img-1",
+        "label": "IMG 1 · Gland measurements",
+        "description": "Placeholder for the measured gland on sagittal and axial T2 images."
+      },
+      {
+        "id": "prostate-img-2",
+        "label": "IMG 2 · Lesion map",
+        "description": "Placeholder for numbered lesions on a labelled sector map."
+      },
+      {
+        "id": "prostate-img-3",
+        "label": "IMG 3 · Index lesion morphology",
+        "description": "Placeholder for axial T2 with lesion boundaries and size."
+      },
+      {
+        "id": "prostate-img-4",
+        "label": "IMG 4 · Diffusion correlation",
+        "description": "Placeholder for matched ADC and high-b-value DWI at the index lesion."
+      },
+      {
+        "id": "prostate-img-5",
+        "label": "IMG 5 · Enhancement",
+        "description": "Placeholder for DCE at the same location, when acquired."
+      },
+      {
+        "id": "prostate-img-6",
+        "label": "IMG 6 · Prostate margin",
+        "description": "Placeholder showing the lesion's relationship to the margin and neurovascular bundle."
+      },
+      {
+        "id": "prostate-img-7",
+        "label": "IMG 7 · Local extent",
+        "description": "Placeholder for seminal-vesicle, bladder-neck or sphincter relationships."
+      },
+      {
+        "id": "prostate-img-8",
+        "label": "IMG 8 · Additional finding",
+        "description": "Placeholder for another lesion or a significant nodal, bone or pelvic finding."
+      }
+    ]
+  }
+}

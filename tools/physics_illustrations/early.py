@@ -109,12 +109,16 @@ def draw_float_sink(plate: Plate) -> None:
     plate.text((800, 738), "weight is larger", size=22, bold=True, anchor="mm")
 
     _water(plate, (1104, 420, 1432, 690))
-    plate.draw.ellipse((1185, 375, 1265, 455), fill=PLUM_LIGHT, outline=PLUM, width=4)
-    plate.text((1225, 494), "clay ball", size=20, anchor="mm")
-    plate.arrow((1276, 420), (1344, 420), fill=INK_SOFT, width=5, head=16)
-    plate.draw.polygon(((1322, 418), (1368, 418), (1355, 476), (1335, 476)),
+    plate.draw.ellipse((1142, 532, 1198, 588), fill=PLUM_LIGHT, outline=PLUM, width=4)
+    plate.text((1170, 625), "clay ball", size=20, anchor="mm")
+    # A hollow broad hull excludes water below the waterline while its rim
+    # remains above it. This is a section schematic, not a volume-scale drawing.
+    plate.draw.polygon(((1260, 385), (1420, 385), (1385, 480), (1295, 480)),
                        fill=PLUM_LIGHT, outline=PLUM)
-    plate.text((1345, 514), "same clay, boat shape", size=18, anchor="mm")
+    plate.draw.polygon(((1272, 385), (1408, 385), (1378, 466), (1302, 466)),
+                       fill=PAPER_LIGHT, outline=PLUM)
+    centered_note(plate, (1240, 510, 1430, 585), "same clay, hollow boat", size=20)
+    plate.arrow((1198, 520), (1260, 475), fill=INK_SOFT, width=4, head=13)
     plate.text((1268, 738), "more water displaced", size=22, bold=True, anchor="mm")
     footer(plate, "Floating depends on average density: shape can change volume, not mass.", size=27)
 
@@ -152,16 +156,24 @@ def draw_machines(plate: Plate) -> None:
         panel(plate, box, heading)
     plate.draw.polygon(((164, 690), (500, 690), (500, 360)),
                        fill=hex_rgba(BLUE_LIGHT, 100), outline=BLUE)
-    plate.draw.rounded_rectangle((360, 473, 444, 557), radius=8,
-                                 fill=GOLD_LIGHT, outline=GOLD, width=4)
-    arrow_label(plate, (270, 635), (370, 535), "smaller force", fill=TEAL, width=7)
+    # The load's bottom edge follows the ramp rather than cutting through it.
+    slope = -330 / 336
+    base = ((365, 690 + (365 - 164) * slope),
+            (424, 690 + (424 - 164) * slope))
+    normal = (-58, -59)
+    plate.draw.polygon((base[0], base[1],
+                        (base[1][0] + normal[0], base[1][1] + normal[1]),
+                        (base[0][0] + normal[0], base[0][1] + normal[1])),
+                       fill=GOLD_LIGHT, outline=GOLD, width=4)
+    arrow_label(plate, (260, 600), (350, 510), "smaller force", fill=TEAL, width=7)
     plate.text((332, 748), "more distance", size=22, bold=True, anchor="mm")
 
     plate.draw.polygon(((764, 690), (836, 690), (800, 613)), fill=CORAL_LIGHT,
                        outline=CORAL)
     plate.draw.line((638, 574, 944, 648), fill=INK, width=14)
     plate.draw.ellipse((899, 570, 963, 634), fill=GOLD_LIGHT, outline=GOLD, width=4)
-    arrow_label(plate, (662, 502), (638, 570), "small effort", fill=TEAL, width=7)
+    arrow_label(plate, (662, 502), (638, 570), "small effort", fill=TEAL, width=7,
+                offset=(35, -18))
     plate.text((800, 748), "long arm × small force", size=21, bold=True, anchor="mm")
 
     plate.draw.ellipse((1200, 352, 1336, 488), fill=PAPER_LIGHT, outline=BLUE, width=10)
@@ -195,7 +207,9 @@ def draw_magnets(plate: Plate) -> None:
         panel(plate, box, heading)
     _magnet(plate, (160, 435, 308, 525), "N", "S")
     _magnet(plate, (356, 435, 504, 525), "N", "S")
-    arrow_label(plate, (322, 590), (348, 590), "pull together", fill=TEAL, width=6)
+    plate.arrow((220, 590), (290, 590), fill=TEAL, width=6)
+    plate.arrow((444, 590), (374, 590), fill=TEAL, width=6)
+    plate.text((332, 560), "pull together", size=22, bold=True, fill=TEAL, anchor="mm")
     plate.text((332, 708), "opposite poles", size=22, bold=True, anchor="mm")
 
     _magnet(plate, (628, 435, 776, 525), "N", "S")
@@ -205,13 +219,27 @@ def draw_magnets(plate: Plate) -> None:
     plate.text((800, 708), "like poles", size=22, bold=True, anchor="mm")
 
     _magnet(plate, (1170, 455, 1366, 545), "N", "S")
-    for radius in (90, 132, 172):
-        plate.draw.arc((1268 - radius, 500 - radius, 1268 + radius, 500 + radius),
-                       195, 345, fill=PLUM, width=4)
-        plate.draw.arc((1268 - radius, 500 - radius, 1268 + radius, 500 + radius),
-                       15, 165, fill=PLUM, width=4)
+    for y, control_y in ((470, 285), (530, 690)):
+        points = _closed_field_loop(y, control_y)
+        plate.draw.line(points, fill=PLUM, width=4, joint="curve")
+        # External N→S, internal S→N: both paths genuinely close.
+        plate.arrow(points[22], points[28], fill=PLUM, width=4, head=12)
+        plate.arrow((1300, y), (1240, y), fill=PLUM, width=4, head=12)
     plate.text((1268, 708), "closed field loops", size=22, bold=True, anchor="mm")
     footer(plate, "Magnetic poles set the direction and shape of the surrounding field.", size=27)
+
+
+def _closed_field_loop(y: float, control_y: float):
+    """Sample one schematic external cubic and its internal return path."""
+    controls = ((1170, y), (1060, control_y), (1476, control_y), (1366, y))
+    points = []
+    for i in range(51):
+        t = i / 50
+        weights = ((1-t)**3, 3*(1-t)**2*t, 3*(1-t)*t*t, t**3)
+        points.append(tuple(sum(w*p[axis] for w, p in zip(weights, controls))
+                            for axis in (0, 1)))
+    points.append(points[0])
+    return points
 
 
 def draw_sound(plate: Plate) -> None:
@@ -280,7 +308,7 @@ SPECS: dict[str, Spec] = {
     "phys.0.float-sink": spec(
         "phys.0.float-sink", "Floating and Sinking", 0, "phys-float-sink-buoyancy",
         "Water tanks compare balanced buoyancy and weight, sinking when weight wins, and a clay boat displacing more water.",
-        "Floating depends on average density and displaced water, so reshaping the same mass can change whether it floats.",
+        "A hollow hull excludes more water for the same clay mass. This cross-section is schematic, not a volume-scale drawing; floating requires buoyancy to balance weight.",
         draw_float_sink,
     ),
     "phys.1.motion": spec(

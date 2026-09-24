@@ -2,41 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Mapping
-
 from . import core as _core
 from .core import BLUE, CORAL, GOLD, GREEN, PLUM, TEAL, science_spec
 
 
 def S(node_id, title, stage, layout, content, alt, caption):
     return science_spec(node_id, title, stage, "biology", layout, content, alt, caption)
-
-
-_BASE_GRAPH_RENDERER = getattr(
-    _core, "_biology_base_graph_renderer", _core.RENDERERS["graph"]
-)
-_core._biology_base_graph_renderer = _BASE_GRAPH_RENDERER
-
-
-def _draw_biology_graph(plate, content: Mapping[str, object]) -> None:
-    _BASE_GRAPH_RENDERER(plate, content)
-    if content.get("mode") != "neuro-ticks":
-        return
-
-    # Add true, data-aligned voltage ticks inside the otherwise generic graph.
-    x0, y0, _x1, y1 = 155, 250, 1025, 750
-    y_min, y_max = content.get("y_range", (-90, 50))
-    for value, label, dy in ((-55, "threshold −55 mV", -18),
-                             (-70, "rest −70 mV", 24)):
-        y = y1 - (value - y_min) / (y_max - y_min) * (y1 - y0)
-        plate.draw.line((x0 - 11, y, x0 + 13, y), fill=_core.INK, width=4)
-        plate.text((x0 - 18, y), str(value), size=17, bold=True,
-                   fill=_core.INK, anchor="rm")
-        plate.text((x0 + 25, y + dy), label, size=16, bold=True,
-                   fill=_core.INK_SOFT, anchor="la")
-
-
-_core.RENDERERS["graph"] = _draw_biology_graph
 
 
 _LIST = [
@@ -82,7 +53,7 @@ _LIST = [
             ["Touch", "Skin", "Pressure, heat, cold, pain", "Brain / spinal cord"],
         ],
         "footer": "Sense organs convert different kinds of stimuli into nerve signals; the nervous system combines those signals to guide action.",
-    }, "A five-row table maps sight, hearing, smell, taste, and touch to their organs, detected stimuli, and nervous-system destination.",
+    }, "A head diagram identifies sight, hearing, smell, taste and touch, beside five arrows converging on a brain and spinal-cord schematic.",
        "The five senses are different input channels: each is specialised for a stimulus, yet all communicate through the nervous system."),
 
     S("bio.0.seasons", "The Seasons", 0, "cycle", {
@@ -191,7 +162,7 @@ _LIST = [
             {"label":"C₆H₁₂O₆ sugar", "icon":"molecule"}, {"label":"6 O₂ released", "icon":"cloud"}],
         "in_arrow":"capture", "out_arrow":"build",
         "footer":"6 CO₂ + 6 H₂O + light → C₆H₁₂O₆ + 6 O₂. Atoms are rearranged; the energy stored in sugar came from light.",
-    }, "A leaf flow diagram brings light, six carbon dioxide, and six water molecules into a chloroplast and outputs glucose and six oxygen molecules.",
+    }, "A chloroplast schematic links light, water and carbon dioxide inputs to sugar and oxygen outputs. A balanced net equation below gives the six-to-one molecular coefficients; the icons are not molecule counts.",
        "Photosynthesis conserves atoms while changing energy form: carbon dioxide supplies carbon, water supplies electrons, and light drives sugar formation."),
 
     S("bio.2.digestion", "Body Systems", 2, "flow", {
@@ -269,8 +240,8 @@ _LIST = [
             {"heading":"4 · LINEAGES", "icon":"branch", "detail":"Isolation plus accumulated change can produce new species."},
         ],
         "footer":"Individuals do not evolve because they need to. Population allele frequencies change across generations; selection has no foresight.",
-    }, "Four linked stages show inherited variation, differential reproductive success, allele-frequency change over generations, and possible lineage divergence.",
-       "Natural selection is a population-level consequence of heritable differences in reproductive success, not purposeful improvement within an individual."),
+    }, "Two twelve-beetle populations flank an environmental-filter panel. Spotted beetles increase from four in generation zero to nine in generation five, illustrating a change in an inherited trait across generations.",
+       "Natural selection follows heritable differences in reproductive success, not purposeful improvement within an individual. The schematic fractions count beetle phenotypes, not measured allele frequencies in a diploid population."),
 
     S("bio.3.cell-bio", "Cell Biology", 3, "network", {
         "nodes":[
@@ -282,7 +253,7 @@ _LIST = [
         ],
         "edges":[("mem","nuc","signals"),("nuc","rib","mRNA"),("mem","mito","fuel + O₂"),
                  ("rib","work","proteins"),("mito","work","ATP")],
-        "footer":"Before mitosis, DNA is replicated once; chromosome copies then separate so each daughter cell receives a genome.",
+        "footer":"DNA is transcribed in the nucleus; mRNA exits through a pore, ribosomes translate it, and ATP supports cell work.",
     }, "A cell network links selective membrane exchange and nuclear DNA to ribosome-made proteins, mitochondrial ATP, and coordinated cell work.",
        "Organelles divide labour but remain coupled by flows of information, matter, and energy; mitosis preserves the genome during cell division."),
 
@@ -380,7 +351,7 @@ _LIST = [
                  ("sel","freq","directional"),("drift","freq","stochastic"),("pool","tree","divergence")],
         "footer":"Selection and drift can both change allele frequencies. Phylogenies use inherited similarities to reconstruct branching, not direct ancestor ladders.",
     }, "A population-genetics network separates non-random selection from random genetic drift and connects inherited divergence to phylogenetic inference.",
-       "Evolutionary biology explains frequency change with multiple mechanisms and tests lineage relationships using shared derived evidence."),
+       "Evolutionary biology explains frequency change with multiple mechanisms and tests lineage relationships using shared derived evidence. Beetle marks are schematic trait counts; drift bars are illustrative replicates, not fitted experimental data."),
 
     S("bio.4.physiology", "Systems Physiology", 4, "cycle", {
         "center":"BODY TEMPERATURE ≈ SET POINT", "center_icon":"body", "items":[
@@ -401,7 +372,7 @@ _LIST = [
             ["Cooperation", "Direct, reciprocal, or kin benefit", "Benefit must exceed relevant cost", "Measure costs, benefits, relatedness"],
         ],
         "footer":"For kin-directed helping, Hamilton's rule rB > C predicts when indirect fitness benefit can outweigh the actor's cost.",
-    }, "A behaviour table contrasts inherited responses, learned responses, and cooperation by source, fitness trade-off, and experimental test.",
+    }, "Three panels show a cue-to-action pathway in a fish, a training curve followed by a separate retention test, and a kin-directed cooperation example with the condition rB greater than C.",
        "Ethology asks both proximate questions about mechanisms and ultimate questions about evolutionary consequences; either alone is incomplete."),
 
     S("bio.5.systems-bio", "Systems & Synthetic Biology", 5, "network", {
@@ -445,7 +416,7 @@ _LIST = [
             ["Evolution", "Character matrix / sequences", "Likelihood or Bayesian tree", "Branching history + uncertainty"],
         ],
         "footer":"A computational score is not biological truth: benchmark data, null models, uncertainty, and independent experiments determine what the output supports.",
-    }, "A three-row computational biology pipeline maps sequences, structures, and evolutionary data to algorithms and explicitly limited biological hypotheses.",
+    }, "Three panels show aligned sequences, a contact map beside a folded chain, and a branching tree with illustrative support percentages. Each pairs a representation with a computational method and a limited biological claim.",
        "Bioinformatics converts representations into ranked explanations; validation and uncertainty are part of the inference, not optional afterthoughts."),
 
     S("bio.5.frontier", "Frontiers of Biology", 5, "matrix", {
@@ -456,8 +427,8 @@ _LIST = [
             ["Life elsewhere", "Life alters chemistry on Earth", "How often life begins and persists", "Multiple contextual biosignatures, not one gas"],
         ],
         "footer":"Frontier science separates observation from explanation and asks which feasible measurement would make competing hypotheses diverge.",
-    }, "A frontier-evidence matrix separates established observations, open mechanisms, and discriminating tests for origins of life, ageing, and extraterrestrial life.",
-       "Unsolved biology advances when broad questions become competing, risky predictions that new data can distinguish."),
+    }, "Three schematic experiments show copying polymers in a vesicle, control and treated function-versus-age curves crossing a threshold, and multiple possible spectral signals in a planetary context.",
+       "Unsolved biology advances through discriminating tests. These illustrative curves and spectral marks are not experimental results, measured wavelengths, evidence of a successful ageing treatment, or a detection of extraterrestrial life."),
 ]
 
 
@@ -465,3 +436,19 @@ SPECS = {item["id"]: item for item in _LIST}
 
 if len(SPECS) != len(_LIST):
     raise ValueError("Duplicate biology illustration identifier")
+
+
+# Mathematics earns its visual clarity from lesson-specific compositions.
+# Biology follows the same rule: the shared layouts remain useful primitives,
+# but none of the generated Life Sciences plates may ship as a generic icon
+# template. The five excluded lessons retain their authored raster plates.
+from .biology_advanced_detail import RENDERERS as ADVANCED_RENDERERS  # noqa: E402
+from .biology_early_detail import RENDERERS as EARLY_RENDERERS  # noqa: E402
+
+
+BIOLOGY_RENDERERS = {**EARLY_RENDERERS, **ADVANCED_RENDERERS}
+
+if set(BIOLOGY_RENDERERS) != set(SPECS):
+    raise ValueError("Bespoke biology renderer inventory does not match specs")
+
+_core.register_node_renderers(BIOLOGY_RENDERERS)

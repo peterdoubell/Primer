@@ -1,0 +1,2305 @@
+{
+  "id": "education",
+  "name": "Education & Learning Sciences",
+  "icon": "✦",
+  "color": "#547d50",
+  "tagline": "From curiosity and practice to teaching, assessment and learning research.",
+  "nodes": [
+    {
+      "id": "education.0.notice",
+      "title": "Look, Listen and Wonder",
+      "stage": 0,
+      "goal": "Notice a feature, ask a question and explore with adult support.",
+      "articles": [
+        "Observation",
+        "Curiosity"
+      ],
+      "prereqs": [],
+      "learning_outcomes": [
+        "Describe or indicate an observable feature.",
+        "Ask a question about a familiar object.",
+        "Choose an adult-supported way to explore."
+      ],
+      "lesson": {
+        "overview": "Learning often begins with noticing. We can look closely, listen, touch safe objects and ask what we wonder about. An observation describes what we notice; a question asks something we do not yet know. Adults can help us choose safe ways to explore rather than guessing every answer immediately. Children can show their thinking with words, pointing, movement or drawings, so speech is not the only way to participate.",
+        "worked_example": "A child notices that a dry sponge feels light and asks what happens when it gets wet. An adult helps add water in a tray, then the child compares the two states.",
+        "activity": "Explore a safe familiar object with an adult. Point to or describe two features, ask one question, and draw what you noticed.",
+        "reflection": "What did you notice that you had not noticed before?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "You notice a leaf is green. What did you do?",
+          "choices": [
+            "Made an observation",
+            "Made the leaf grow",
+            "Finished every question"
+          ],
+          "answer": "Made an observation",
+          "explain": "An observation describes something you notice.",
+          "say": "You notice a leaf is green. What did you do?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which asks a question?",
+          "choices": [
+            "It is red.",
+            "This is a ball.",
+            "Why does it float?"
+          ],
+          "answer": "Why does it float?",
+          "explain": "A question asks about something you want to know.",
+          "say": "Which asks a question?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "You find an unknown object outside. What is a safe next step?",
+          "choices": [
+            "Throw it at someone",
+            "Ask an adult before touching",
+            "Put it in your mouth"
+          ],
+          "answer": "Ask an adult before touching",
+          "explain": "An adult can help decide how to explore safely.",
+          "say": "You find an unknown object outside. What is a safe next step?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "A child points instead of speaking. Can that show an idea?",
+          "choices": [
+            "Yes",
+            "Never",
+            "Only while asleep"
+          ],
+          "answer": "Yes",
+          "explain": "People can communicate by pointing and many other ways.",
+          "say": "A child points instead of speaking. Can that show an idea?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "You want to hear a quiet sound. What helps?",
+          "choices": [
+            "Shout over it",
+            "Cover every object",
+            "Pause and listen"
+          ],
+          "answer": "Pause and listen",
+          "explain": "Listening closely makes quiet details easier to notice.",
+          "say": "You want to hear a quiet sound. What helps?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "You do not know an answer yet. What can you do?",
+          "choices": [
+            "Pretend to know everything",
+            "Wonder and explore safely",
+            "Stop all learning forever"
+          ],
+          "answer": "Wonder and explore safely",
+          "explain": "Questions are a useful starting point for learning.",
+          "say": "You do not know an answer yet. What can you do?",
+          "speak_choices": true
+        }
+      ],
+      "model_family": "experiment",
+      "kid_text": "Look, listen and wonder. What do you notice? You can point, talk or draw. A trusted grown-up can help you explore safely.",
+      "visual_spec": {
+        "title": "Wondering about a sponge",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Notice",
+            "label": "Dry and light",
+            "detail": "Describe the sponge before adding water."
+          },
+          {
+            "heading": "Question",
+            "label": "What will change?",
+            "detail": "Ask about something not yet known."
+          },
+          {
+            "heading": "Explore",
+            "label": "Adult-supported comparison",
+            "detail": "Add water safely and notice differences."
+          }
+        ],
+        "takeaway": "Observation can lead to a question and a safe investigation."
+      },
+      "model_context": "The experiment model represents comparing conditions; young learners still need adult guidance and suitable materials.",
+      "lesson_media": [
+        {
+          "id": "education-0-notice-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/seedling/education/education-0-notice-800.webp",
+          "srcset": "/app/illustrations/seedling/education/education-0-notice-800.webp 800w, /app/illustrations/seedling/education/education-0-notice-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Notice: Dry and light; Question: What will change?; Explore: Adult-supported comparison.",
+          "caption": "Observation can lead to a question and a safe investigation.",
+          "long_description": {
+            "title": "Wondering about a sponge",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Notice",
+                "label": "Dry and light",
+                "detail": "Describe the sponge before adding water."
+              },
+              {
+                "heading": "Question",
+                "label": "What will change?",
+                "detail": "Ask about something not yet known."
+              },
+              {
+                "heading": "Explore",
+                "label": "Adult-supported comparison",
+                "detail": "Add water safely and notice differences."
+              }
+            ],
+            "takeaway": "Observation can lead to a question and a safe investigation."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.0.try-again",
+      "title": "Trying, Practising and Asking for Help",
+      "stage": 0,
+      "goal": "Use practice, feedback and help to improve a simple task.",
+      "articles": [
+        "Learning",
+        "Practice (learning method)"
+      ],
+      "prereqs": [
+        "education.0.notice"
+      ],
+      "learning_outcomes": [
+        "Treat a mistake as information about an attempt.",
+        "Change one feature after feedback.",
+        "Ask for help or a break when needed."
+      ],
+      "lesson": {
+        "overview": "A new skill often takes several attempts. Each attempt gives us something to notice: what worked, what changed and where help would be useful. Practice is most useful when we pay attention and adjust rather than repeating a confusing action forever. Rest can help when we are tired or upset. Asking for help is part of learning, and a mistake describes an attempt, not a person’s worth.",
+        "worked_example": "A block bridge falls. An adult asks the child to notice how far apart the supports are. The child moves them closer and tries again, then compares the two bridges.",
+        "activity": "Build a small block bridge with support from an adult. Change one thing after a fall, describe the change, and take a break if needed.",
+        "reflection": "What kind of help made your next try easier?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Your tower falls. What can help you learn?",
+          "choices": [
+            "Look at why and try a change",
+            "Call yourself bad",
+            "Hide all the blocks forever"
+          ],
+          "answer": "Look at why and try a change",
+          "explain": "Noticing what happened can guide the next attempt.",
+          "say": "Your tower falls. What can help you learn?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "You feel very tired while practising. What may help?",
+          "choices": [
+            "Never resting",
+            "Trying with closed eyes",
+            "A short rest"
+          ],
+          "answer": "A short rest",
+          "explain": "Rest can make it easier to pay attention again.",
+          "say": "You feel very tired while practising. What may help?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "You cannot tie a knot yet. What can you ask?",
+          "choices": [
+            "Can we hide the string?",
+            "Can you show me one step?",
+            "Can you say I am hopeless?"
+          ],
+          "answer": "Can you show me one step?",
+          "explain": "A small demonstration can support learning.",
+          "say": "You cannot tie a knot yet. What can you ask?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "One attempt goes wrong. Does that make you a bad person?",
+          "choices": [
+            "No",
+            "Yes",
+            "Only on rainy days"
+          ],
+          "answer": "No",
+          "explain": "A mistake concerns an action, not your worth.",
+          "say": "One attempt goes wrong. Does that make you a bad person?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which feedback helps build a stronger bridge?",
+          "choices": [
+            "Everything is terrible",
+            "Do not look at it",
+            "Move these supports closer"
+          ],
+          "answer": "Move these supports closer",
+          "explain": "Specific feedback suggests an action to test.",
+          "say": "Which feedback helps build a stronger bridge?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "After changing the bridge, what should you do?",
+          "choices": [
+            "Forget the first try immediately",
+            "See whether it stands better",
+            "Assume it must work"
+          ],
+          "answer": "See whether it stands better",
+          "explain": "Comparing attempts helps you learn from the change.",
+          "say": "After changing the bridge, what should you do?",
+          "speak_choices": true
+        }
+      ],
+      "model_family": "unit-blocks",
+      "kid_text": "We learn by trying, noticing and trying again. A mistake does not make you bad. You can ask for one small step of help or take a rest.",
+      "visual_spec": {
+        "title": "A block bridge that falls",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Attempt",
+            "label": "Wide supports",
+            "detail": "The bridge does not stand."
+          },
+          {
+            "heading": "Feedback",
+            "label": "Notice the gap",
+            "detail": "An adult helps identify a change."
+          },
+          {
+            "heading": "Retry",
+            "label": "Move supports closer",
+            "detail": "Compare the next attempt with the first."
+          }
+        ],
+        "takeaway": "Specific feedback suggests a change to test."
+      },
+      "model_context": "Unit blocks make construction attempts visible; success in this task is not a measure of a child’s worth or general ability.",
+      "lesson_media": [
+        {
+          "id": "education-0-try-again-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/seedling/education/education-0-try-again-800.webp",
+          "srcset": "/app/illustrations/seedling/education/education-0-try-again-800.webp 800w, /app/illustrations/seedling/education/education-0-try-again-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Attempt: Wide supports; Feedback: Notice the gap; Retry: Move supports closer.",
+          "caption": "Specific feedback suggests a change to test. Compare the next attempt with the first.",
+          "long_description": {
+            "title": "A block bridge that falls",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Attempt",
+                "label": "Wide supports",
+                "detail": "The bridge does not stand."
+              },
+              {
+                "heading": "Feedback",
+                "label": "Notice the gap",
+                "detail": "An adult helps identify a change."
+              },
+              {
+                "heading": "Retry",
+                "label": "Move supports closer",
+                "detail": "Compare the next attempt with the first."
+              }
+            ],
+            "takeaway": "Specific feedback suggests a change to test."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.1.remember",
+      "title": "Remembering and Explaining",
+      "stage": 1,
+      "goal": "Practise recalling an idea and explaining it in your own words.",
+      "articles": [
+        "Memory",
+        "Retrieval practice"
+      ],
+      "prereqs": [
+        "education.0.try-again",
+        "lang.1.reading"
+      ],
+      "learning_outcomes": [
+        "Distinguish recognition from recall.",
+        "Use retrieval followed by correction.",
+        "Explain an idea in personal words."
+      ],
+      "lesson": {
+        "overview": "Looking at an answer can make it feel familiar, but remembering it without looking asks us to retrieve it. We can practise with a question, check the answer, and correct mistakes. Returning to an idea after a gap gives another opportunity to remember. Explaining the idea in our own words can reveal what makes sense and what still needs help. These strategies work best with understandable material and supportive feedback, not with guessing endlessly at something never taught.",
+        "worked_example": "After learning three parts of a plant, Sam covers the picture and names them. Sam forgets the stem, checks the picture, explains what it does, and tries again the next day.",
+        "activity": "Learn three facts from a short passage. Close it, draw or say what you remember, then check and correct. Return to the facts tomorrow with an adult or partner.",
+        "reflection": "Which felt easier: recognizing the answer or recalling it without looking?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Which action practises remembering?",
+          "choices": [
+            "Close the page and recall the idea",
+            "Only stare at the answer",
+            "Copy without thinking"
+          ],
+          "answer": "Close the page and recall the idea",
+          "explain": "Recall asks you to retrieve the idea from memory.",
+          "say": "Which action practises remembering?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "You recall a fact incorrectly. Next you should?",
+          "choices": [
+            "Keep the error forever",
+            "Stop checking answers",
+            "Check and correct it"
+          ],
+          "answer": "Check and correct it",
+          "explain": "Feedback helps prevent practising an incorrect answer.",
+          "say": "You recall a fact incorrectly. Next you should?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "Why revisit a topic tomorrow?",
+          "choices": [
+            "To avoid ever checking",
+            "To practise remembering after a gap",
+            "To erase today’s learning"
+          ],
+          "answer": "To practise remembering after a gap",
+          "explain": "Spacing creates another opportunity to retrieve the idea.",
+          "say": "Why revisit a topic tomorrow?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "An answer looks familiar. Does that guarantee you can explain it?",
+          "choices": [
+            "No",
+            "Yes",
+            "Only if printed large"
+          ],
+          "answer": "No",
+          "explain": "Familiarity can differ from usable understanding.",
+          "say": "An answer looks familiar. Does that guarantee you can explain it?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "A helpful explanation uses?",
+          "choices": [
+            "Only copied sounds",
+            "Only the longest words",
+            "Words and examples you understand"
+          ],
+          "answer": "Words and examples you understand",
+          "explain": "Explaining meaning reveals what you understand.",
+          "say": "A helpful explanation uses?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "You never understood a new idea. What should come before repeated guessing?",
+          "choices": [
+            "Hiding every question",
+            "An explanation or example",
+            "A faster timer"
+          ],
+          "answer": "An explanation or example",
+          "explain": "Practice needs something meaningful to learn and retrieve.",
+          "say": "You never understood a new idea. What should come before repeated guessing?",
+          "speak_choices": true
+        }
+      ],
+      "model_family": "book",
+      "kid_text": "Try remembering a little without looking, then check. Explain it in your own words. Come back later and try again. Ask for help when the idea is not clear.",
+      "visual_spec": {
+        "title": "Remembering parts of a plant",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Study",
+            "label": "Look and understand",
+            "detail": "Learn what root, stem and leaf do."
+          },
+          {
+            "heading": "Retrieve",
+            "label": "Cover the picture",
+            "detail": "Try naming the parts without looking."
+          },
+          {
+            "heading": "Correct and return",
+            "label": "Check the missing stem",
+            "detail": "Explain it and try again after a gap."
+          }
+        ],
+        "takeaway": "Retrieval and correction reveal more than familiarity alone."
+      },
+      "model_context": "The book model represents study material; its pages do not simulate memory or guarantee retention.",
+      "lesson_media": [
+        {
+          "id": "education-1-remember-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sprout/education/education-1-remember-800.webp",
+          "srcset": "/app/illustrations/sprout/education/education-1-remember-800.webp 800w, /app/illustrations/sprout/education/education-1-remember-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Study: Look and understand; Retrieve: Cover the picture; Correct and return: Check the missing stem.",
+          "caption": "Retrieval and correction reveal more than familiarity alone.",
+          "long_description": {
+            "title": "Remembering parts of a plant",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Study",
+                "label": "Look and understand",
+                "detail": "Learn what root, stem and leaf do."
+              },
+              {
+                "heading": "Retrieve",
+                "label": "Cover the picture",
+                "detail": "Try naming the parts without looking."
+              },
+              {
+                "heading": "Correct and return",
+                "label": "Check the missing stem",
+                "detail": "Explain it and try again after a gap."
+              }
+            ],
+            "takeaway": "Retrieval and correction reveal more than familiarity alone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.1.teach-friend",
+      "title": "Teaching a Friend One Step at a Time",
+      "stage": 1,
+      "goal": "Give clear instructions, check understanding and adapt support.",
+      "articles": [
+        "Teaching",
+        "Feedback"
+      ],
+      "prereqs": [
+        "education.1.remember"
+      ],
+      "learning_outcomes": [
+        "Sequence clear instructions.",
+        "Use a demonstration to support understanding.",
+        "Give specific and respectful feedback."
+      ],
+      "lesson": {
+        "overview": "Teaching means helping someone learn, so we start by finding out what the learner already knows. Clear instructions break a task into manageable steps and show an example when useful. A learner may need more time, a picture or a different explanation. Checking understanding means asking the learner to show or explain, rather than assuming a nod means everything is clear. Helpful feedback describes an action and a next step respectfully.",
+        "worked_example": "A child teaches a friend to fold a paper boat. Instead of giving all instructions at once, the child demonstrates one fold, asks the friend to try, then checks whether the corners line up.",
+        "activity": "Teach a partner a safe three-step drawing or folding task. Ask what they know first, demonstrate, and revise one instruction based on what they show you.",
+        "reflection": "How did your partner’s attempt help you improve your explanation?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Before teaching a task, it helps to ask?",
+          "choices": [
+            "What do you already know?",
+            "Why are you always wrong?",
+            "Can you stop asking questions?"
+          ],
+          "answer": "What do you already know?",
+          "explain": "Prior knowledge helps choose the right starting point.",
+          "say": "Before teaching a task, it helps to ask?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "A learner looks confused after many instructions. What may help?",
+          "choices": [
+            "More steps spoken faster",
+            "No chance to practise",
+            "One step and a demonstration"
+          ],
+          "answer": "One step and a demonstration",
+          "explain": "Breaking the task down can reduce confusion.",
+          "say": "A learner looks confused after many instructions. What may help?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which checks understanding?",
+          "choices": [
+            "Do not touch the paper",
+            "Show me the next fold",
+            "You nodded, so you know everything"
+          ],
+          "answer": "Show me the next fold",
+          "explain": "A demonstration gives evidence of what the learner can do.",
+          "say": "Which checks understanding?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which feedback is useful?",
+          "choices": [
+            "Line up these two corners",
+            "You are just bad at this",
+            "Never try again"
+          ],
+          "answer": "Line up these two corners",
+          "explain": "Specific feedback names an action the learner can change.",
+          "say": "Which feedback is useful?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "Your friend needs more time. What can you do?",
+          "choices": [
+            "Rush every step",
+            "Take away the task",
+            "Wait and offer support"
+          ],
+          "answer": "Wait and offer support",
+          "explain": "Learners can need different amounts of time and support.",
+          "say": "Your friend needs more time. What can you do?",
+          "speak_choices": true
+        },
+        {
+          "kind": "choice",
+          "prompt": "Your instructions did not work. What can change?",
+          "choices": [
+            "The need to listen",
+            "The explanation or example",
+            "The learner’s worth"
+          ],
+          "answer": "The explanation or example",
+          "explain": "Teachers can adapt their approach based on evidence.",
+          "say": "Your instructions did not work. What can change?",
+          "speak_choices": true
+        }
+      ],
+      "model_family": "meeting",
+      "kid_text": "Teach one small step. Show it, let your friend try, and listen. Kind, clear feedback tells someone what to change next.",
+      "visual_spec": {
+        "title": "Teaching a paper fold",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Find out",
+            "label": "What is already known?",
+            "detail": "Choose a suitable starting step."
+          },
+          {
+            "heading": "Show and try",
+            "label": "One fold at a time",
+            "detail": "The learner attempts the demonstrated action."
+          },
+          {
+            "heading": "Check",
+            "label": "Corners line up?",
+            "detail": "Offer specific feedback and adapt the explanation."
+          }
+        ],
+        "takeaway": "Teaching responds to evidence from the learner’s attempt."
+      },
+      "model_context": "The meeting model represents teacher-learner interaction; it does not assign fixed roles or learning abilities.",
+      "lesson_media": [
+        {
+          "id": "education-1-teach-friend-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sprout/education/education-1-teach-friend-800.webp",
+          "srcset": "/app/illustrations/sprout/education/education-1-teach-friend-800.webp 800w, /app/illustrations/sprout/education/education-1-teach-friend-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Find out: What is already known?; Show and try: One fold at a time; Check: Corners line up?.",
+          "caption": "Teaching responds to evidence from the learner’s attempt.",
+          "long_description": {
+            "title": "Teaching a paper fold",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Find out",
+                "label": "What is already known?",
+                "detail": "Choose a suitable starting step."
+              },
+              {
+                "heading": "Show and try",
+                "label": "One fold at a time",
+                "detail": "The learner attempts the demonstrated action."
+              },
+              {
+                "heading": "Check",
+                "label": "Corners line up?",
+                "detail": "Offer specific feedback and adapt the explanation."
+              }
+            ],
+            "takeaway": "Teaching responds to evidence from the learner’s attempt."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.2.study-plan",
+      "title": "Planning and Checking Your Learning",
+      "stage": 2,
+      "goal": "Set a specific learning goal and adjust a study plan using evidence.",
+      "articles": [
+        "Metacognition",
+        "Self-regulated learning"
+      ],
+      "prereqs": [
+        "education.1.teach-friend",
+        "mind.2.study-skills"
+      ],
+      "learning_outcomes": [
+        "Write an observable learning goal.",
+        "Compare confidence with task performance.",
+        "Revise a study strategy from evidence."
+      ],
+      "lesson": {
+        "overview": "Self-regulated learning connects planning, practice and reflection. A specific goal describes what you want to be able to do, such as explain why fractions need a common unit before addition. A study plan chooses actions that match that goal and leaves time to check progress. Confidence is useful information but can be misleading, so compare it with an actual attempt. Reflection then identifies an effective strategy, a remaining gap and a concrete adjustment.",
+        "worked_example": "Lea feels ready for a fractions quiz after rereading. A short practice question reveals confusion about denominators. Lea studies a worked example, solves a similar problem, and checks again instead of simply rereading every page.",
+        "activity": "Choose a small topic and write a performance goal. Predict how well you can do, attempt a task without help, compare the result with your prediction, and revise tomorrow’s plan.",
+        "reflection": "What evidence would show that your plan is working?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Which goal is most specific?",
+          "choices": [
+            "Explain two causes of evaporation",
+            "Become better at school in general",
+            "Spend a long time studying science"
+          ],
+          "answer": "Explain two causes of evaporation",
+          "explain": "A specific goal names an observable performance."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Feeling fluent while rereading proves mastery?",
+          "choices": [
+            "Yes, familiarity establishes mastery",
+            "Yes, rereading establishes transfer",
+            "No, check an independent attempt"
+          ],
+          "answer": "No, check an independent attempt",
+          "explain": "Recognition can overstate what you can produce unaided."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A plan should change when?",
+          "choices": [
+            "When a timer ends regardless of results",
+            "When evidence shows a learning gap",
+            "When a notebook’s cover changes"
+          ],
+          "answer": "When evidence shows a learning gap",
+          "explain": "Monitoring informs useful adjustments."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which activity best checks explanation skill?",
+          "choices": [
+            "Explain the idea without the text",
+            "Count the pages already reread",
+            "Decorate the notes more carefully"
+          ],
+          "answer": "Explain the idea without the text",
+          "explain": "The check should match the intended learning performance."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A reflection says “I am stupid.” What is missing?",
+          "choices": [
+            "A more severe personal judgement",
+            "A larger and brighter heading",
+            "A specific process and next step"
+          ],
+          "answer": "A specific process and next step",
+          "explain": "Useful reflection identifies changeable strategies and knowledge gaps."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Your prediction is high but performance low. This suggests?",
+          "choices": [
+            "The task result should be ignored",
+            "Confidence needs recalibration",
+            "Learning the topic is impossible"
+          ],
+          "answer": "Confidence needs recalibration",
+          "explain": "Comparing prediction and evidence helps improve self-monitoring."
+        },
+        {
+          "kind": "choice",
+          "prompt": "You solve familiar examples but fail a new context. Your next goal should target?",
+          "choices": [
+            "Apply the principle in varied contexts",
+            "Copy familiar answers more neatly",
+            "Count the pages in the chapter again"
+          ],
+          "answer": "Apply the principle in varied contexts",
+          "explain": "The evidence reveals a transfer gap."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A plan leaves no time to check errors. What is missing?",
+          "choices": [
+            "A more decorative study schedule",
+            "More notes with the same content",
+            "Time for feedback and revision"
+          ],
+          "answer": "Time for feedback and revision",
+          "explain": "Checking supports correction and better planning."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A student predicts 9/10 but scores 4/10 repeatedly. A useful adjustment is?",
+          "choices": [
+            "Stop recording the actual attempts",
+            "Calibrate with independent checks",
+            "Use confidence as the final score"
+          ],
+          "answer": "Calibrate with independent checks",
+          "explain": "Monitoring can align confidence with demonstrated performance."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which record best supports reflection?",
+          "choices": [
+            "Task, error and next action",
+            "Hours without task information",
+            "A list of stationery colours"
+          ],
+          "answer": "Task, error and next action",
+          "explain": "Specific evidence connects practice with improvement."
+        },
+        {
+          "kind": "short",
+          "prompt": "You feel ready after rereading but cannot explain the idea without notes. Write a revised study plan.",
+          "answer": "Set an explanation goal, attempt retrieval without notes and check the gaps with feedback. Practise a new example and use the next independent attempt to revise the plan.",
+          "keywords": [
+            "goal",
+            "retrieval",
+            "feedback"
+          ],
+          "explain": "Set an explanation goal, attempt retrieval without notes and check the gaps with feedback. Practise a new example and use the next independent attempt to revise the plan."
+        }
+      ],
+      "model_family": "clock",
+      "visual_spec": {
+        "title": "Confidence meets an independent task",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Predict",
+            "label": "I think I am ready",
+            "detail": "Record a confidence judgement."
+          },
+          {
+            "heading": "Attempt",
+            "label": "Explain without notes",
+            "detail": "Observe actual strengths and gaps."
+          },
+          {
+            "heading": "Revise",
+            "label": "Target the denominator gap",
+            "detail": "Choose practice that addresses the evidence."
+          }
+        ],
+        "takeaway": "A plan improves when performance checks inform the next action."
+      },
+      "model_context": "The clock model represents planning and spaced opportunities; time spent alone does not measure learning.",
+      "lesson_media": [
+        {
+          "id": "education-2-study-plan-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sapling/education/education-2-study-plan-800.webp",
+          "srcset": "/app/illustrations/sapling/education/education-2-study-plan-800.webp 800w, /app/illustrations/sapling/education/education-2-study-plan-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Predict: I think I am ready; Attempt: Explain without notes; Revise: Target the denominator gap.",
+          "caption": "A plan improves when performance checks inform the next action.",
+          "long_description": {
+            "title": "Confidence meets an independent task",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Predict",
+                "label": "I think I am ready",
+                "detail": "Record a confidence judgement."
+              },
+              {
+                "heading": "Attempt",
+                "label": "Explain without notes",
+                "detail": "Observe actual strengths and gaps."
+              },
+              {
+                "heading": "Revise",
+                "label": "Target the denominator gap",
+                "detail": "Choose practice that addresses the evidence."
+              }
+            ],
+            "takeaway": "A plan improves when performance checks inform the next action."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.2.inclusive-design",
+      "title": "Different Learners, Accessible Lessons",
+      "stage": 2,
+      "goal": "Adapt learning materials to reduce barriers while preserving the learning goal.",
+      "articles": [
+        "Inclusive education",
+        "Accessibility"
+      ],
+      "prereqs": [
+        "education.2.study-plan"
+      ],
+      "learning_outcomes": [
+        "Identify a barrier in a learning task.",
+        "Choose a support matched to that barrier.",
+        "Preserve the intended learning goal while adapting access."
+      ],
+      "lesson": {
+        "overview": "Learners differ in experience, language, sensory access and available tools. An accessible lesson makes the goal clear and offers suitable ways to encounter information and show understanding. A diagram may need a spoken or written description; a spoken explanation may need captions or text. These supports should respond to an actual barrier, rather than assigning every learner a fixed “type.” The same person may benefit from different representations for different tasks.",
+        "worked_example": "A lesson aims to explain the water cycle. A student cannot access an unlabelled animation, so the teacher adds a labelled still diagram and a text description. The science goal stays the same while the access route improves.",
+        "activity": "Review a short fictional lesson for barriers involving vision, hearing, language and motor access. Redesign two features and explain how each change supports the stated goal.",
+        "reflection": "How can you check with a learner whether a support is useful?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "A video contains essential speech. What supports a learner who cannot hear it?",
+          "choices": [
+            "Captions or a transcript",
+            "Louder background music",
+            "A smaller video control"
+          ],
+          "answer": "Captions or a transcript",
+          "explain": "Text can provide access to the spoken information."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A chart uses only red and green to distinguish groups. A useful change is?",
+          "choices": [
+            "Remove the chart’s title",
+            "Make the colours paler",
+            "Add labels or patterns"
+          ],
+          "answer": "Add labels or patterns",
+          "explain": "Multiple cues reduce dependence on colour alone."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Should every learner be assigned one permanent learning style?",
+          "choices": [
+            "Yes, let one questionnaire decide",
+            "No, match support to task and barrier",
+            "Yes, let a permanent label decide"
+          ],
+          "answer": "No, match support to task and barrier",
+          "explain": "Needs and useful representations vary by task and context."
+        },
+        {
+          "kind": "choice",
+          "prompt": "An adaptation should preserve?",
+          "choices": [
+            "The intended learning goal",
+            "The original access obstacles",
+            "The exact original page layout"
+          ],
+          "answer": "The intended learning goal",
+          "explain": "Access can change without removing the core intellectual task."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Why ask learners about a support?",
+          "choices": [
+            "Their experience adds no evidence",
+            "Support works identically for everyone",
+            "They can describe the actual barrier"
+          ],
+          "answer": "They can describe the actual barrier",
+          "explain": "User feedback helps evaluate accessibility in practice."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A text uses unfamiliar words. A useful support is?",
+          "choices": [
+            "Treat confusion as low effort",
+            "Explain key vocabulary in context",
+            "Remove the important concepts"
+          ],
+          "answer": "Explain key vocabulary in context",
+          "explain": "Vocabulary support can make the same content more accessible."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A learner cannot use a mouse accurately. A relevant support is?",
+          "choices": [
+            "Keyboard-accessible controls",
+            "Smaller mouse-click targets",
+            "Fewer written task instructions"
+          ],
+          "answer": "Keyboard-accessible controls",
+          "explain": "Alternative input can reduce a motor-access barrier."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A science diagram has no description. A text alternative should?",
+          "choices": [
+            "Report the image’s file size",
+            "Repeat its file name as description",
+            "Describe the relevant relationships"
+          ],
+          "answer": "Describe the relevant relationships",
+          "explain": "Meaningful alternatives convey the diagram’s instructional content."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A teacher offers several ways to explain a concept. The common requirement should be?",
+          "choices": [
+            "Identical physical response movements",
+            "Evidence of target understanding",
+            "Identical handwriting on paper"
+          ],
+          "answer": "Evidence of target understanding",
+          "explain": "Response modes can differ while the learning criterion remains."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A support helps one task but confuses another. What follows?",
+          "choices": [
+            "Evaluate support in task context",
+            "Assign a permanent learner type",
+            "Remove support from both tasks"
+          ],
+          "answer": "Evaluate support in task context",
+          "explain": "Effectiveness depends on the barrier and goal."
+        },
+        {
+          "kind": "short",
+          "prompt": "A lesson’s essential information appears in a colour-only chart. Propose an adaptation that preserves the learning goal.",
+          "answer": "Add clear labels or patterns and a text description of the relationships. This improves access while keeping the same concept and reasoning goal.",
+          "keywords": [
+            "labels",
+            "description",
+            "goal"
+          ],
+          "explain": "Add clear labels or patterns and a text description of the relationships. This improves access while keeping the same concept and reasoning goal."
+        }
+      ],
+      "model_family": "book",
+      "visual_spec": {
+        "title": "One water-cycle goal, several access routes",
+        "mode": "compare",
+        "items": [
+          {
+            "heading": "Animation",
+            "label": "Moving process",
+            "detail": "Motion can show change but may need controls."
+          },
+          {
+            "heading": "Labelled diagram",
+            "label": "Relationships visible",
+            "detail": "Labels and patterns clarify the same cycle."
+          },
+          {
+            "heading": "Text description",
+            "label": "Equivalent meaning",
+            "detail": "Words explain the important relationships."
+          }
+        ],
+        "takeaway": "Adapt the route to information while preserving the concept."
+      },
+      "model_context": "The book model represents alternate presentations of one idea; accessibility must be checked with the actual learner and task.",
+      "lesson_media": [
+        {
+          "id": "education-2-inclusive-design-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sapling/education/education-2-inclusive-design-800.webp",
+          "srcset": "/app/illustrations/sapling/education/education-2-inclusive-design-800.webp 800w, /app/illustrations/sapling/education/education-2-inclusive-design-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A side-by-side comparison showing Animation: Moving process; Labelled diagram: Relationships visible; Text description: Equivalent meaning.",
+          "caption": "Adapt the route to information while preserving the concept.",
+          "long_description": {
+            "title": "One water-cycle goal, several access routes",
+            "mode": "compare",
+            "items": [
+              {
+                "heading": "Animation",
+                "label": "Moving process",
+                "detail": "Motion can show change but may need controls."
+              },
+              {
+                "heading": "Labelled diagram",
+                "label": "Relationships visible",
+                "detail": "Labels and patterns clarify the same cycle."
+              },
+              {
+                "heading": "Text description",
+                "label": "Equivalent meaning",
+                "detail": "Words explain the important relationships."
+              }
+            ],
+            "takeaway": "Adapt the route to information while preserving the concept."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.3.lesson-design",
+      "title": "Designing Lessons and Assessments",
+      "stage": 3,
+      "goal": "Align learning objectives, teaching activities and assessment evidence.",
+      "articles": [
+        "Instructional design",
+        "Educational assessment"
+      ],
+      "prereqs": [
+        "education.2.inclusive-design",
+        "lang.3.essays"
+      ],
+      "learning_outcomes": [
+        "Write an assessable objective.",
+        "Align activities and evidence with the objective.",
+        "Distinguish formative from summative uses of assessment."
+      ],
+      "lesson": {
+        "overview": "Lesson design begins by deciding what learners should know or be able to do. Activities then provide opportunities to develop that performance, and assessments gather evidence of it. Misalignment occurs when, for example, a course promises argument evaluation but tests only names and dates. Formative assessment is used during learning to guide next steps; summative assessment summarizes achievement for a stated purpose. Both depend on tasks that reveal the intended understanding and on feedback learners can act on.",
+        "worked_example": "A lesson goal is to compare two explanations for a historical event. Memorizing the authors’ names is insufficient evidence. A short written comparison using evidence better matches the goal, while a midpoint discussion can reveal misconceptions before final submission.",
+        "activity": "Design a 20-minute lesson with one objective, two learning activities, one formative check and a final evidence task. Explain how each component connects to the objective.",
+        "reflection": "Could a learner succeed at your assessment without understanding the intended idea?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "A goal asks learners to evaluate evidence. Best assessment?",
+          "choices": [
+            "Compare claims using evidence",
+            "Recall the presentation’s title",
+            "Copy the chapter’s headings"
+          ],
+          "answer": "Compare claims using evidence",
+          "explain": "The task should require the intended reasoning."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Assessment is formative when results are used to?",
+          "choices": [
+            "Rank final awards without follow-up",
+            "Replace teaching with score reports",
+            "Guide the next learning steps"
+          ],
+          "answer": "Guide the next learning steps",
+          "explain": "Its formative function depends on how evidence is used."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A final examination is commonly used to?",
+          "choices": [
+            "Measure personal effort directly",
+            "Summarize demonstrated achievement",
+            "Diagnose future needs completely"
+          ],
+          "answer": "Summarize demonstrated achievement",
+          "explain": "Summative assessment serves a reporting purpose with limits."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which objective is assessable?",
+          "choices": [
+            "Justify a choice with two reasons",
+            "Appreciate the whole subject deeply",
+            "Become excellent in a broad sense"
+          ],
+          "answer": "Justify a choice with two reasons",
+          "explain": "Observable performance makes evidence requirements clearer."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Feedback is actionable when it?",
+          "choices": [
+            "Gives a vague performance label",
+            "Arrives after chances to improve",
+            "Names a gap and feasible action"
+          ],
+          "answer": "Names a gap and feasible action",
+          "explain": "Learners need information they can use to improve."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A beautifully produced poster may hide weak reasoning if?",
+          "choices": [
+            "Supporting images are clearly labelled",
+            "Appearance outweighs target reasoning",
+            "Relevant sources are accurately cited"
+          ],
+          "answer": "Appearance outweighs target reasoning",
+          "explain": "Assessment criteria can drift away from the intended construct."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Students must defend a claim, but class time is spent copying definitions. What needs revision?",
+          "choices": [
+            "Practise argument and evidence",
+            "Change the objective’s font size",
+            "Rename the final score labels"
+          ],
+          "answer": "Practise argument and evidence",
+          "explain": "Learning opportunities should develop the assessed performance."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A midpoint question reveals the same misconception in many learners. The teacher should?",
+          "choices": [
+            "Wait for final grades before responding",
+            "Treat the check as unrelated to teaching",
+            "Adapt instruction using the evidence"
+          ],
+          "answer": "Adapt instruction using the evidence",
+          "explain": "Formative evidence becomes useful when acted on."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A rubric says “excellent” without criteria. What is missing?",
+          "choices": [
+            "A larger number of score levels",
+            "Descriptions of expected performance",
+            "A more enthusiastic scoring adjective"
+          ],
+          "answer": "Descriptions of expected performance",
+          "explain": "Criteria should make quality interpretable."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A task tests teamwork but assigns one shared score. Which inference is limited?",
+          "choices": [
+            "Each learner’s individual contribution",
+            "The existence of the group product",
+            "Whether the group submitted work"
+          ],
+          "answer": "Each learner’s individual contribution",
+          "explain": "A group score may not distinguish individual performance."
+        },
+        {
+          "kind": "short",
+          "prompt": "A course promises evidence evaluation but tests only dates. Explain how you would realign it.",
+          "answer": "The objective requires reasoning about evidence. Add practice comparing claims and use an assessment that asks learners to justify a conclusion, with feedback during learning.",
+          "keywords": [
+            "objective",
+            "assessment",
+            "feedback"
+          ],
+          "explain": "The objective requires reasoning about evidence. Add practice comparing claims and use an assessment that asks learners to justify a conclusion, with feedback during learning."
+        }
+      ],
+      "model_family": "stage",
+      "visual_spec": {
+        "title": "Aligning a comparison lesson",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Objective",
+            "label": "Compare explanations",
+            "detail": "Learners weigh two accounts using evidence."
+          },
+          {
+            "heading": "Practice",
+            "label": "Discuss evidence",
+            "detail": "A midpoint check reveals misconceptions."
+          },
+          {
+            "heading": "Assessment",
+            "label": "Justified comparison",
+            "detail": "The final task requires the intended reasoning."
+          }
+        ],
+        "takeaway": "The evidence task should require the performance the lesson promises."
+      },
+      "model_context": "The stage model represents a designed learning setting; an attractive presentation does not establish instructional alignment.",
+      "lesson_media": [
+        {
+          "id": "education-3-lesson-design-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/tree/education/education-3-lesson-design-800.webp",
+          "srcset": "/app/illustrations/tree/education/education-3-lesson-design-800.webp 800w, /app/illustrations/tree/education/education-3-lesson-design-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Objective: Compare explanations; Practice: Discuss evidence; Assessment: Justified comparison.",
+          "caption": "The evidence task should require the performance the lesson promises.",
+          "long_description": {
+            "title": "Aligning a comparison lesson",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Objective",
+                "label": "Compare explanations",
+                "detail": "Learners weigh two accounts using evidence."
+              },
+              {
+                "heading": "Practice",
+                "label": "Discuss evidence",
+                "detail": "A midpoint check reveals misconceptions."
+              },
+              {
+                "heading": "Assessment",
+                "label": "Justified comparison",
+                "detail": "The final task requires the intended reasoning."
+              }
+            ],
+            "takeaway": "The evidence task should require the performance the lesson promises."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.3.learning-science",
+      "title": "Learning, Memory and Transfer",
+      "stage": 3,
+      "goal": "Use learning-science concepts to explain practice, feedback and transfer limits.",
+      "articles": [
+        "Transfer of learning",
+        "Cognitive load"
+      ],
+      "prereqs": [
+        "education.3.lesson-design",
+        "mind.3.psychology"
+      ],
+      "learning_outcomes": [
+        "Distinguish immediate performance from learning.",
+        "Explain how examples and practice can support novices.",
+        "Design a task that checks transfer."
+      ],
+      "lesson": {
+        "overview": "Learning is a lasting change in knowledge or capability, while performance is what a person shows at a particular moment. Easy practice can produce fluent immediate performance without strong later recall. Worked examples can support novices by making steps visible, and practice can gradually require more independent decisions. Transfer means using learning in a new situation; it often requires recognizing the underlying structure beneath changed surface details. Evidence about an average effect does not imply that one strategy suits every learner, content area or stage of expertise.",
+        "worked_example": "A student solves area problems after seeing rectangles in one orientation. A rotated rectangle causes difficulty even though the rule is unchanged. Comparing both diagrams and explaining base and height can help connect the shared structure.",
+        "activity": "Create two problems with the same underlying principle but different surface contexts. Teach the principle, plan spaced retrieval with feedback, and specify a delayed transfer task.",
+        "reflection": "How would you distinguish short-term fluency from durable understanding?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Strong performance immediately after copying an example proves?",
+          "choices": [
+            "Immediate performance",
+            "Durable mastery",
+            "Broad transfer"
+          ],
+          "answer": "Immediate performance",
+          "explain": "A later independent task is needed to assess retention and transfer."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Worked examples can help novices by?",
+          "choices": [
+            "Remove the need for understanding",
+            "Prevent mistakes in later practice",
+            "Make solution steps visible"
+          ],
+          "answer": "Make solution steps visible",
+          "explain": "Examples can reduce demands while learners build knowledge."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A transfer task changes?",
+          "choices": [
+            "The answer without a new problem",
+            "Context using a learned principle",
+            "Ink colour without a new demand"
+          ],
+          "answer": "Context using a learned principle",
+          "explain": "Transfer asks learners to recognize and apply knowledge beyond practice conditions."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Too much unrelated decoration can hinder learning by?",
+          "choices": [
+            "Competing for limited attention",
+            "Increasing working-memory capacity",
+            "Making unrelated content relevant"
+          ],
+          "answer": "Competing for limited attention",
+          "explain": "Extraneous demands can distract from the target material."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A delayed test is useful for checking?",
+          "choices": [
+            "Immediate imitation of an example",
+            "The appearance of study notes",
+            "Retention after time has passed"
+          ],
+          "answer": "Retention after time has passed",
+          "explain": "Delay helps distinguish durable recall from momentary fluency."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A study finds an average benefit from a strategy. It implies?",
+          "choices": [
+            "Evidence that other methods are useless",
+            "A finding within the study’s scope",
+            "A guarantee across learners and tasks"
+          ],
+          "answer": "A finding within the study’s scope",
+          "explain": "Effects can vary with learners, materials and implementation."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A learner explains a principle in two contexts. Compared with one copied example, this gives more evidence of?",
+          "choices": [
+            "Flexible understanding",
+            "Lifelong memory",
+            "Equal task difficulty"
+          ],
+          "answer": "Flexible understanding",
+          "explain": "Different contexts can reveal recognition of underlying structure."
+        },
+        {
+          "kind": "choice",
+          "prompt": "An expert finds beginner examples repetitive. Teaching may need adjustment because?",
+          "choices": [
+            "Examples have no teaching value",
+            "Experts have unlimited attention",
+            "Knowledge changes useful support"
+          ],
+          "answer": "Knowledge changes useful support",
+          "explain": "Expertise influences the demands and benefits of instructional supports."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Practice is distributed across several days. The design changes?",
+          "choices": [
+            "The subject’s disciplinary definition",
+            "Timing of practice opportunities",
+            "The physical size of study materials"
+          ],
+          "answer": "Timing of practice opportunities",
+          "explain": "Spacing concerns when practice occurs."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A learner recalls an incorrect fact during practice. The most useful next step is?",
+          "choices": [
+            "Timely correction and explanation",
+            "Repetition without an answer check",
+            "Replacement of the entire subject"
+          ],
+          "answer": "Timely correction and explanation",
+          "explain": "Feedback supports accurate retrieval and understanding."
+        },
+        {
+          "kind": "short",
+          "prompt": "A learner copies examples fluently but fails a delayed task in a new context. Explain what this reveals and suggest a response.",
+          "answer": "Immediate performance did not establish retention or transfer. Use spaced independent retrieval with feedback and compare varied contexts to make the shared principle explicit.",
+          "keywords": [
+            "performance",
+            "retention",
+            "transfer"
+          ],
+          "explain": "Immediate performance did not establish retention or transfer. Use spaced independent retrieval with feedback and compare varied contexts to make the shared principle explicit."
+        }
+      ],
+      "model_family": "neuron",
+      "visual_spec": {
+        "title": "Recognizing the same area principle",
+        "mode": "compare",
+        "items": [
+          {
+            "heading": "Familiar rectangle",
+            "label": "Practised orientation",
+            "detail": "The learner follows a known example."
+          },
+          {
+            "heading": "Rotated rectangle",
+            "label": "Changed surface form",
+            "detail": "The same area relationship still applies."
+          },
+          {
+            "heading": "Transfer check",
+            "label": "Explain base and height",
+            "detail": "Reasoning reveals whether the shared structure is understood."
+          }
+        ],
+        "takeaway": "Transfer requires recognizing a principle beyond familiar surface details."
+      },
+      "model_context": "The neuron model symbolizes learning processes; its geometry does not show a learner’s memory, ability or cognitive load.",
+      "lesson_media": [
+        {
+          "id": "education-3-learning-science-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/tree/education/education-3-learning-science-800.webp",
+          "srcset": "/app/illustrations/tree/education/education-3-learning-science-800.webp 800w, /app/illustrations/tree/education/education-3-learning-science-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A side-by-side comparison showing Familiar rectangle: Practised orientation; Rotated rectangle: Changed surface form; Transfer check: Explain base and height.",
+          "caption": "Transfer requires recognizing a principle beyond familiar surface details.",
+          "long_description": {
+            "title": "Recognizing the same area principle",
+            "mode": "compare",
+            "items": [
+              {
+                "heading": "Familiar rectangle",
+                "label": "Practised orientation",
+                "detail": "The learner follows a known example."
+              },
+              {
+                "heading": "Rotated rectangle",
+                "label": "Changed surface form",
+                "detail": "The same area relationship still applies."
+              },
+              {
+                "heading": "Transfer check",
+                "label": "Explain base and height",
+                "detail": "Reasoning reveals whether the shared structure is understood."
+              }
+            ],
+            "takeaway": "Transfer requires recognizing a principle beyond familiar surface details."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.4.measurement",
+      "title": "Assessment Validity and Measurement",
+      "stage": 4,
+      "goal": "Evaluate assessment interpretations using validity, reliability and fairness evidence.",
+      "articles": [
+        "Validity (statistics)",
+        "Psychometrics"
+      ],
+      "prereqs": [
+        "education.3.lesson-design",
+        "math.3.statistics"
+      ],
+      "learning_outcomes": [
+        "Distinguish validity from reliability.",
+        "Identify construct underrepresentation and irrelevant demands.",
+        "Develop evidence requirements for a score use."
+      ],
+      "lesson": {
+        "overview": "Assessment scores are observations used to support interpretations and decisions. Validity concerns the evidence and reasoning supporting a particular interpretation for a particular use; it is not a permanent stamp on a test. Reliability concerns consistency under specified conditions, and reliable scores can still measure the wrong thing. Construct underrepresentation occurs when important parts of the target are absent; construct-irrelevant variation occurs when unrelated demands influence scores. Fairness analysis examines access, consequences and whether comparable interpretations are justified across groups.",
+        "worked_example": "A science test claims to measure causal reasoning but requires unusually difficult vocabulary. Language difficulty may introduce construct-irrelevant variation. Making wording accessible can improve the inference, provided the scientific reasoning demand remains.",
+        "activity": "Create an assessment blueprint for one learning construct. Map tasks to dimensions, propose scoring criteria, examine a potential fairness issue and specify evidence needed before a high-stakes use.",
+        "reflection": "Which interpretation of your score would be unjustified even if scorers agreed perfectly?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "A test produces consistent scores but measures memorization instead of reasoning. It may be?",
+          "choices": [
+            "Reliable but misaligned with the claim",
+            "Valid for a reasoning interpretation",
+            "Free from construct underrepresentation"
+          ],
+          "answer": "Reliable but misaligned with the claim",
+          "explain": "Consistency does not establish that the intended construct is measured."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Validity concerns?",
+          "choices": [
+            "A professional-looking test design",
+            "A permanent property across uses",
+            "Evidence for an interpretation and use"
+          ],
+          "answer": "Evidence for an interpretation and use",
+          "explain": "Different uses can require different supporting evidence."
+        },
+        {
+          "kind": "choice",
+          "prompt": "An assessment omits half the intended skill domain. This is?",
+          "choices": [
+            "A scoring-speed difference alone",
+            "Construct underrepresentation",
+            "Complete content representation"
+          ],
+          "answer": "Construct underrepresentation",
+          "explain": "Important parts of the construct are missing."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Complex reading obscures a non-language target skill. This may be?",
+          "choices": [
+            "Construct-irrelevant variation",
+            "Necessary coverage of the target",
+            "Direct evidence of low motivation"
+          ],
+          "answer": "Construct-irrelevant variation",
+          "explain": "Unrelated language demands can influence the score."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Agreement between two scorers mainly supports?",
+          "choices": [
+            "Universal fairness of score uses",
+            "Causal validity of the interpretation",
+            "Consistency between scorers"
+          ],
+          "answer": "Consistency between scorers",
+          "explain": "Rater agreement is one part of reliability evidence."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Before using a score for a new purpose, researchers should?",
+          "choices": [
+            "Ignore the decision’s consequences",
+            "Evaluate evidence for the new use",
+            "Assume previous evidence transfers"
+          ],
+          "answer": "Evaluate evidence for the new use",
+          "explain": "Interpretation and decision context determine the required validity argument."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A writing rubric rewards handwriting heavily although the goal is argument quality. Concern?",
+          "choices": [
+            "An irrelevant motor demand",
+            "Complete argument coverage",
+            "Full alignment with the target"
+          ],
+          "answer": "An irrelevant motor demand",
+          "explain": "Handwriting may influence scores beyond the intended construct."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Two raters agree perfectly on a flawed rubric. What can still be weak?",
+          "choices": [
+            "The observed scorer agreement",
+            "The consistency of the shared rule",
+            "The intended skill interpretation"
+          ],
+          "answer": "The intended skill interpretation",
+          "explain": "Reliability does not resolve validity concerns."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A test predicts performance in one course. Using it for employment selection requires?",
+          "choices": [
+            "An unchanged printed test cover",
+            "Evidence supporting the new use",
+            "Automatic transfer of old findings"
+          ],
+          "answer": "Evidence supporting the new use",
+          "explain": "New decisions can require different validity evidence."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A score difference shrinks after accessible formatting. Investigate?",
+          "choices": [
+            "Whether format created a barrier",
+            "Whether the construct disappeared",
+            "Whether group differences are impossible"
+          ],
+          "answer": "Whether format created a barrier",
+          "explain": "Format can create construct-irrelevant differences in access."
+        },
+        {
+          "kind": "short",
+          "prompt": "Two raters agree perfectly on a science test that mostly rewards difficult vocabulary. Evaluate the score’s use as evidence of scientific reasoning.",
+          "answer": "Rater agreement supports reliability, but vocabulary may introduce construct-irrelevant variation. Validity for scientific reasoning requires evidence that the score reflects that construct rather than language difficulty.",
+          "keywords": [
+            "reliability",
+            "construct",
+            "validity"
+          ],
+          "explain": "Rater agreement supports reliability, but vocabulary may introduce construct-irrelevant variation. Validity for scientific reasoning requires evidence that the score reflects that construct rather than language difficulty."
+        }
+      ],
+      "model_family": "balance",
+      "visual_spec": {
+        "title": "What does a science score mean?",
+        "mode": "compare",
+        "items": [
+          {
+            "heading": "Target",
+            "label": "Scientific reasoning",
+            "detail": "The intended construct."
+          },
+          {
+            "heading": "Extra demand",
+            "label": "Difficult vocabulary",
+            "detail": "Language may influence the score for an unrelated reason."
+          },
+          {
+            "heading": "Evidence",
+            "label": "Validity and reliability",
+            "detail": "Check interpretation, consistency and access separately."
+          }
+        ],
+        "takeaway": "Consistent scoring can still support an invalid interpretation."
+      },
+      "model_context": "The balance model compares evidence for a score use; validity cannot be determined by a single physical scale.",
+      "lesson_media": [
+        {
+          "id": "education-4-measurement-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/grove/education/education-4-measurement-800.webp",
+          "srcset": "/app/illustrations/grove/education/education-4-measurement-800.webp 800w, /app/illustrations/grove/education/education-4-measurement-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A side-by-side comparison showing Target: Scientific reasoning; Extra demand: Difficult vocabulary; Evidence: Validity and reliability.",
+          "caption": "Consistent scoring can still support an invalid interpretation.",
+          "long_description": {
+            "title": "What does a science score mean?",
+            "mode": "compare",
+            "items": [
+              {
+                "heading": "Target",
+                "label": "Scientific reasoning",
+                "detail": "The intended construct."
+              },
+              {
+                "heading": "Extra demand",
+                "label": "Difficult vocabulary",
+                "detail": "Language may influence the score for an unrelated reason."
+              },
+              {
+                "heading": "Evidence",
+                "label": "Validity and reliability",
+                "detail": "Check interpretation, consistency and access separately."
+              }
+            ],
+            "takeaway": "Consistent scoring can still support an invalid interpretation."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.4.research-design",
+      "title": "Educational Research and Evidence",
+      "stage": 4,
+      "goal": "Design a study of teaching that addresses comparison, context and ethics.",
+      "articles": [
+        "Educational research",
+        "Cluster randomized controlled trial"
+      ],
+      "prereqs": [
+        "education.3.learning-science",
+        "education.4.measurement"
+      ],
+      "learning_outcomes": [
+        "Match a method to an educational question.",
+        "Identify clustering and implementation effects.",
+        "Plan ethical handling of learner data."
+      ],
+      "lesson": {
+        "overview": "Educational research asks what happens, how learning unfolds and under what conditions teaching approaches help. Randomized comparisons can support causal claims, while interviews and observations can reveal processes and experiences. Classrooms create dependence because learners share teachers and environments, so assignment and analysis levels matter. Consent, privacy, equitable participation and the possibility of withholding useful support require careful planning. Evidence is strongest when the method matches the question and the report distinguishes findings, interpretation and uncertainty.",
+        "worked_example": "A school randomizes classrooms to two feedback approaches. Pupils within the same classroom are not independent replicas of the treatment assignment. The design needs enough classrooms, attention to teacher effects and analysis that accounts for clustering.",
+        "activity": "Draft a fictional classroom study with a research question, assignment unit, outcome, comparison, consent approach and analysis limitations. Add interviews to investigate one mechanism and explain their role.",
+        "reflection": "What can your chosen design answer well, and what would require a different method?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Classes are randomized but pupils share teachers. Analysis should consider?",
+          "choices": [
+            "Within-class dependence",
+            "Independent pupil assignment",
+            "Classroom decoration alone"
+          ],
+          "answer": "Within-class dependence",
+          "explain": "Shared conditions can correlate outcomes within classes."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Interviews are especially useful for studying?",
+          "choices": [
+            "A guaranteed average causal effect",
+            "Exact prevalence without a sampling plan",
+            "Accounts of experiences and processes"
+          ],
+          "answer": "Accounts of experiences and processes",
+          "explain": "They provide contextual accounts with their own limitations."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A study changes both teacher and curriculum between groups. Concern?",
+          "choices": [
+            "Automatic transfer across settings",
+            "Curriculum and teacher confounding",
+            "Perfect curriculum-effect isolation"
+          ],
+          "answer": "Curriculum and teacher confounding",
+          "explain": "Multiple differences make attribution difficult."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Learner data should be collected?",
+          "choices": [
+            "As needed with suitable protection",
+            "Without limits for educational purposes",
+            "With identifiable public disclosure"
+          ],
+          "answer": "As needed with suitable protection",
+          "explain": "Educational purpose does not remove privacy and ethical obligations."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A comparison group helps estimate?",
+          "choices": [
+            "Each missing potential outcome exactly",
+            "The classroom’s physical capacity",
+            "Outcomes without the intervention"
+          ],
+          "answer": "Outcomes without the intervention",
+          "explain": "It supports a counterfactual comparison under assumptions."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Implementation records explain?",
+          "choices": [
+            "Why assignment need not be documented",
+            "Whether planned teaching was delivered",
+            "Whether results reached significance"
+          ],
+          "answer": "Whether planned teaching was delivered",
+          "explain": "Delivery evidence helps interpret an intervention’s observed effects."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Only two classes are randomized, one to each condition. A key limitation is?",
+          "choices": [
+            "Few independent assignment units",
+            "Many independent classroom replications",
+            "No need to consider teacher differences"
+          ],
+          "answer": "Few independent assignment units",
+          "explain": "Pupil numbers do not replace independent classroom replication."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A teacher changes the intervention halfway through. The study needs?",
+          "choices": [
+            "An assumption of constant treatment",
+            "Removal of changes from the report",
+            "Records of versions and delivery"
+          ],
+          "answer": "Records of versions and delivery",
+          "explain": "Implementation changes affect what was tested."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Students who struggle are more likely to miss the final test. This may create?",
+          "choices": [
+            "Guaranteed scoring reliability",
+            "Biased observed comparisons",
+            "Representative final outcomes"
+          ],
+          "answer": "Biased observed comparisons",
+          "explain": "Missingness related to outcomes can distort estimates."
+        },
+        {
+          "kind": "choice",
+          "prompt": "An interview study seeks varied experiences. A defensible sampling plan might?",
+          "choices": [
+            "Select contrasting cases with reasons",
+            "Call convenience recruitment random",
+            "Choose cases to confirm desired themes"
+          ],
+          "answer": "Select contrasting cases with reasons",
+          "explain": "Purposive sampling can suit qualitative aims when its logic is explicit."
+        },
+        {
+          "kind": "short",
+          "prompt": "A study assigns one classroom to each teaching method and counts every pupil as an independent replication. Critique the design.",
+          "answer": "Assignment occurs at the classroom level, so clustering and teacher differences matter. Many pupils do not create many independent assignment units; the study needs more classroom replication and suitable analysis.",
+          "keywords": [
+            "classroom",
+            "clustering",
+            "replication"
+          ],
+          "explain": "Assignment occurs at the classroom level, so clustering and teacher differences matter. Many pupils do not create many independent assignment units; the study needs more classroom replication and suitable analysis."
+        }
+      ],
+      "model_family": "experiment",
+      "visual_spec": {
+        "title": "Assignment happens by classroom",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Design",
+            "label": "Classrooms assigned",
+            "detail": "Each class receives a feedback approach."
+          },
+          {
+            "heading": "Shared conditions",
+            "label": "Teacher and environment",
+            "detail": "Pupils within a class may have correlated outcomes."
+          },
+          {
+            "heading": "Analysis",
+            "label": "Respect clustering",
+            "detail": "Interpret effects alongside delivery and context."
+          }
+        ],
+        "takeaway": "The unit of assignment matters for inference and uncertainty."
+      },
+      "model_context": "The experiment model represents comparison groups; the classroom design and dependence structure must be specified separately.",
+      "lesson_media": [
+        {
+          "id": "education-4-research-design-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/grove/education/education-4-research-design-800.webp",
+          "srcset": "/app/illustrations/grove/education/education-4-research-design-800.webp 800w, /app/illustrations/grove/education/education-4-research-design-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Design: Classrooms assigned; Shared conditions: Teacher and environment; Analysis: Respect clustering.",
+          "caption": "The unit of assignment matters for inference and uncertainty.",
+          "long_description": {
+            "title": "Assignment happens by classroom",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Design",
+                "label": "Classrooms assigned",
+                "detail": "Each class receives a feedback approach."
+              },
+              {
+                "heading": "Shared conditions",
+                "label": "Teacher and environment",
+                "detail": "Pupils within a class may have correlated outcomes."
+              },
+              {
+                "heading": "Analysis",
+                "label": "Respect clustering",
+                "detail": "Interpret effects alongside delivery and context."
+              }
+            ],
+            "takeaway": "The unit of assignment matters for inference and uncertainty."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.5.evidence-synthesis",
+      "title": "Graduate Evidence Synthesis and Meta-analysis",
+      "stage": 5,
+      "goal": "Plan and critique a systematic synthesis of educational evidence.",
+      "articles": [
+        "Systematic review",
+        "Meta-analysis"
+      ],
+      "prereqs": [
+        "education.4.research-design"
+      ],
+      "learning_outcomes": [
+        "Create a reproducible review protocol.",
+        "Evaluate compatibility and bias before pooling.",
+        "Interpret heterogeneity and limits of generalization."
+      ],
+      "lesson": {
+        "overview": "A systematic review defines a question, search strategy, eligibility criteria and appraisal process before selecting evidence. Meta-analysis combines compatible estimates while representing uncertainty and heterogeneity; it does not make weak studies strong merely by averaging them. Outcome definitions, follow-up times, dependent estimates and implementation differences influence what can be combined. Publication and reporting biases can distort the available evidence. A graduate synthesis distinguishes the average effect from variation across settings and explains which decisions the evidence can reasonably inform.",
+        "worked_example": "A review finds ten tutoring studies, but some report immediate arithmetic recall and others year-end problem solving. Combining all scores without examining constructs and follow-up would obscure the question. The review groups compatible outcomes and explains remaining heterogeneity.",
+        "activity": "Write a review protocol on a specific teaching intervention. Define population, comparison, outcomes and timing; draft search terms and inclusion rules; design a risk-of-bias table; and critique whether a pooled effect would be meaningful.",
+        "reflection": "When would a careful narrative synthesis be more honest than a single pooled number?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Eligibility criteria should be specified?",
+          "choices": [
+            "Before result-based study selection",
+            "After selecting favourable findings",
+            "After identifying significant studies"
+          ],
+          "answer": "Before result-based study selection",
+          "explain": "Advance criteria reduce selective inclusion."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Pooling biased studies automatically removes bias?",
+          "choices": [
+            "Yes, more studies remove bias",
+            "Yes, larger samples establish validity",
+            "No, shared biases can remain"
+          ],
+          "answer": "No, shared biases can remain",
+          "explain": "A precise average can preserve shared biases."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A review finds different effects across studies. What needs explanation?",
+          "choices": [
+            "The number of reference-list entries",
+            "Variation in effects and study features",
+            "Differences in citation punctuation"
+          ],
+          "answer": "Variation in effects and study features",
+          "explain": "Differences across studies require substantive and statistical interpretation."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Multiple outcomes from the same study may be?",
+          "choices": [
+            "Dependent through a shared sample",
+            "Independent because names differ",
+            "Unrelated because outcomes differ"
+          ],
+          "answer": "Dependent through a shared sample",
+          "explain": "Shared samples can correlate effect estimates."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Publication bias can occur when?",
+          "choices": [
+            "Results are equally accessible",
+            "Outcomes use matching labels",
+            "Availability depends on findings"
+          ],
+          "answer": "Availability depends on findings",
+          "explain": "Selective dissemination changes the observed evidence base."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A review protocol improves?",
+          "choices": [
+            "Guaranteed reviewer agreement",
+            "Transparency and reproducibility",
+            "Causal quality of included studies"
+          ],
+          "answer": "Transparency and reproducibility",
+          "explain": "Readers can inspect planned decisions and deviations."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A review combines immediate recall and year-long retention as one outcome. First examine?",
+          "choices": [
+            "Outcome and timing compatibility",
+            "Visual similarity of the charts",
+            "Growth in the total citation count"
+          ],
+          "answer": "Outcome and timing compatibility",
+          "explain": "Pooling requires a defensible common question."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A large pooled sample comes mostly from weak designs. The conclusion should?",
+          "choices": [
+            "Use sample size as a cure for bias",
+            "Report certainty without appraisal",
+            "Acknowledge bias despite precision"
+          ],
+          "answer": "Acknowledge bias despite precision",
+          "explain": "Precision and design validity are separate."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A search includes published papers but omits registered unpublished trials. This may miss?",
+          "choices": [
+            "A guaranteed set of positive effects",
+            "Results absent from publication",
+            "A complete set of unbiased studies"
+          ],
+          "answer": "Results absent from publication",
+          "explain": "Unavailable or unpublished results can alter the evidence base."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Two reviewers disagree about inclusion. A protocol should provide?",
+          "choices": [
+            "A documented resolution procedure",
+            "Preference for significant findings",
+            "Permission to conceal disagreements"
+          ],
+          "answer": "A documented resolution procedure",
+          "explain": "Transparent procedures improve reproducibility and reduce arbitrary selection."
+        },
+        {
+          "kind": "short",
+          "prompt": "A review pools immediate recall and year-long reasoning scores from studies with uneven reporting. Explain what should happen before a pooled conclusion.",
+          "answer": "Assess outcome compatibility and timing, appraise risk of bias and investigate selective reporting. Explain heterogeneity and use separate or narrative synthesis if one pooled effect would obscure the question.",
+          "keywords": [
+            "compatibility",
+            "bias",
+            "heterogeneity"
+          ],
+          "explain": "Assess outcome compatibility and timing, appraise risk of bias and investigate selective reporting. Explain heterogeneity and use separate or narrative synthesis if one pooled effect would obscure the question."
+        }
+      ],
+      "model_family": "stack",
+      "visual_spec": {
+        "title": "Before combining tutoring studies",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Question",
+            "label": "Population and outcome",
+            "detail": "Define what the review aims to estimate."
+          },
+          {
+            "heading": "Appraisal",
+            "label": "Bias and compatibility",
+            "detail": "Compare designs, constructs and follow-up periods."
+          },
+          {
+            "heading": "Synthesis",
+            "label": "Pool or explain separately",
+            "detail": "Represent heterogeneity and reporting limitations."
+          }
+        ],
+        "takeaway": "A pooled estimate is useful only when the combination answers a coherent question."
+      },
+      "model_context": "The stack model represents a collection of studies; stacking evidence does not remove bias or make outcomes compatible.",
+      "lesson_media": [
+        {
+          "id": "education-5-evidence-synthesis-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/forest/education/education-5-evidence-synthesis-800.webp",
+          "srcset": "/app/illustrations/forest/education/education-5-evidence-synthesis-800.webp 800w, /app/illustrations/forest/education/education-5-evidence-synthesis-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Question: Population and outcome; Appraisal: Bias and compatibility; Synthesis: Pool or explain separately.",
+          "caption": "A pooled estimate is useful only when the combination answers a coherent question.",
+          "long_description": {
+            "title": "Before combining tutoring studies",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Question",
+                "label": "Population and outcome",
+                "detail": "Define what the review aims to estimate."
+              },
+              {
+                "heading": "Appraisal",
+                "label": "Bias and compatibility",
+                "detail": "Compare designs, constructs and follow-up periods."
+              },
+              {
+                "heading": "Synthesis",
+                "label": "Pool or explain separately",
+                "detail": "Represent heterogeneity and reporting limitations."
+              }
+            ],
+            "takeaway": "A pooled estimate is useful only when the combination answers a coherent question."
+          }
+        }
+      ]
+    },
+    {
+      "id": "education.5.design-research",
+      "title": "Learning Design Research and Graduate Capstone",
+      "stage": 5,
+      "goal": "Iteratively develop and evaluate an educational intervention with a defensible theory of change.",
+      "articles": [
+        "Design-based research",
+        "Learning sciences"
+      ],
+      "prereqs": [
+        "education.5.evidence-synthesis"
+      ],
+      "learning_outcomes": [
+        "Connect theory to specific design features.",
+        "Document and interpret iterative changes.",
+        "State bounded design principles and transfer conditions."
+      ],
+      "lesson": {
+        "overview": "Design-based research develops an intervention while studying how learning works in a real context. Iterative cycles connect a conjecture, designed features, observed processes and revisions. Iteration creates useful local knowledge but complicates causal attribution when many features change together. Graduate work therefore documents versions, explains why changes were made and separates evidence of usability from evidence of learning. A capstone contributes a bounded design principle, examines equity and implementation, and proposes further tests rather than claiming a universal solution from one site.",
+        "worked_example": "A team expects comparison prompts to improve fraction explanations. In one cycle, learners misunderstand the prompt wording; in the next, wording changes while the comparison task stays constant. The record separates improved usability from later evidence about conceptual learning.",
+        "activity": "Produce a graduate design dossier: theoretical conjecture, prototype lesson, observation plan, two planned iterations, version log, learning measure and equity critique. State a rival explanation and a follow-up study capable of challenging the proposed design principle.",
+        "reflection": "What evidence would justify transferring your design to a different age group or setting?"
+      },
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "A conjecture map links?",
+          "choices": [
+            "Features, processes and outcomes",
+            "Deadlines, room numbers and titles",
+            "Results, publicity and guaranteed success"
+          ],
+          "answer": "Features, processes and outcomes",
+          "explain": "The map makes the proposed mechanism explicit."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Changing many features at once makes it harder to?",
+          "choices": [
+            "Record the revised version’s name",
+            "Observe learners using the prototype",
+            "Attribute effects to one feature"
+          ],
+          "answer": "Attribute effects to one feature",
+          "explain": "Multiple simultaneous changes complicate causal interpretation."
+        },
+        {
+          "kind": "choice",
+          "prompt": "High satisfaction with a prototype establishes?",
+          "choices": [
+            "Confirmed transfer across contexts",
+            "Acceptability or usability evidence",
+            "Established causal learning gains"
+          ],
+          "answer": "Acceptability or usability evidence",
+          "explain": "Enjoyment and learning are distinct outcomes."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A version log is useful because it?",
+          "choices": [
+            "Links evidence to the tested version",
+            "Prevents delivery variation entirely",
+            "Replaces learning-outcome measures"
+          ],
+          "answer": "Links evidence to the tested version",
+          "explain": "Documented changes make iterative research interpretable."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A design principle from one site should be?",
+          "choices": [
+            "Universal upon initial publication",
+            "Shielded from critical examination",
+            "Bounded by context and further tests"
+          ],
+          "answer": "Bounded by context and further tests",
+          "explain": "Transfer requires evidence about relevant conditions."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A strong graduate capstone contributes?",
+          "choices": [
+            "An implementation promise without data",
+            "An evidenced design claim with limits",
+            "An attractive prototype without study"
+          ],
+          "answer": "An evidenced design claim with limits",
+          "explain": "The contribution connects theory, design and critical evidence."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A prototype improves navigation but learning scores remain unchanged. Claim?",
+          "choices": [
+            "Usability gains without learning evidence",
+            "Learning gains inferred from enjoyment",
+            "Complete disproof of the design theory"
+          ],
+          "answer": "Usability gains without learning evidence",
+          "explain": "Evidence should be separated by the outcome measured."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A design claim depends on small-group dialogue. A transfer study in large lectures should examine?",
+          "choices": [
+            "Whether the title stays identical",
+            "Whether dialogue can be assumed stable",
+            "Whether the mechanism can operate"
+          ],
+          "answer": "Whether the mechanism can operate",
+          "explain": "Transfer depends on preserving or adapting relevant mechanisms."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A second cycle changes prompts, tasks and feedback. Attribution should be?",
+          "choices": [
+            "Independent of intervention changes",
+            "Cautious about feature attribution",
+            "Certain that prompts caused gains"
+          ],
+          "answer": "Cautious about feature attribution",
+          "explain": "Bundled revisions prevent isolating one contribution."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A capstone reports only successful iterations. What is lost?",
+          "choices": [
+            "Boundaries and reasons for revision",
+            "A guarantee of universal success",
+            "The existence of the final prototype"
+          ],
+          "answer": "Boundaries and reasons for revision",
+          "explain": "Unsuccessful cycles can reveal constraints and explain design decisions."
+        },
+        {
+          "kind": "short",
+          "prompt": "A prototype becomes easier to use after several simultaneous changes, but learning gains are unclear. Frame an appropriate graduate design claim.",
+          "answer": "Claim improved usability for the tested version, not established learning gains. Document the changes, measure learning separately and test the proposed mechanism in a further iteration with bounded transfer claims.",
+          "keywords": [
+            "usability",
+            "mechanism",
+            "iteration"
+          ],
+          "explain": "Claim improved usability for the tested version, not established learning gains. Document the changes, measure learning separately and test the proposed mechanism in a further iteration with bounded transfer claims."
+        }
+      ],
+      "model_family": "laboratory",
+      "visual_spec": {
+        "title": "A documented design cycle",
+        "mode": "flow",
+        "items": [
+          {
+            "heading": "Conjecture",
+            "label": "Comparison prompts aid reasoning",
+            "detail": "Link a design feature with a learning process."
+          },
+          {
+            "heading": "Observation",
+            "label": "Wording confuses learners",
+            "detail": "Identify a usability problem in the first version."
+          },
+          {
+            "heading": "Revision and test",
+            "label": "Clarify wording",
+            "detail": "Separate usability evidence from learning outcomes."
+          }
+        ],
+        "takeaway": "Document what changed and which claim the evidence supports."
+      },
+      "model_context": "The laboratory model represents iterative inquiry; local design improvement does not by itself identify causal effects or generalize.",
+      "lesson_media": [
+        {
+          "id": "education-5-design-research-relationship-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/forest/education/education-5-design-research-800.webp",
+          "srcset": "/app/illustrations/forest/education/education-5-design-research-800.webp 800w, /app/illustrations/forest/education/education-5-design-research-1600.webp 1600w",
+          "width": 1600,
+          "height": 1000,
+          "alt": "A sequence diagram showing Conjecture: Comparison prompts aid reasoning; Observation: Wording confuses learners; Revision and test: Clarify wording.",
+          "caption": "Document what changed and which claim the evidence supports.",
+          "long_description": {
+            "title": "A documented design cycle",
+            "mode": "flow",
+            "items": [
+              {
+                "heading": "Conjecture",
+                "label": "Comparison prompts aid reasoning",
+                "detail": "Link a design feature with a learning process."
+              },
+              {
+                "heading": "Observation",
+                "label": "Wording confuses learners",
+                "detail": "Identify a usability problem in the first version."
+              },
+              {
+                "heading": "Revision and test",
+                "label": "Clarify wording",
+                "detail": "Separate usability evidence from learning outcomes."
+              }
+            ],
+            "takeaway": "Document what changed and which claim the evidence supports."
+          }
+        }
+      ]
+    }
+  ]
+}

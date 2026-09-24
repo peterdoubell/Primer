@@ -1,36 +1,27 @@
 /* The Primer — an illuminated, book-like interface. */
-/* Reduced motion, decided once. Zeroing the duration tokens and flattening
-   the spring silences every transition and animation written against them —
-   including ones not yet written — instead of adding a thirteenth scattered
-   per-component guard. The functional motion that must survive (the spinner,
-   the skeleton sheen, the read-aloud marker) does not use these tokens and
-   keeps its own existing guards. */
-@media (prefers-reduced-motion: reduce) {
-  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; --stagger: 0ms; --spring: linear; --ease-out: linear; }
-}
 :root {
   color-scheme: light;
-  --paper: #f6f0e2;
-  --paper-2: #efe7d4;
-  --paper-edge: #e3d8bd;
-  --ink: #2b2419;
-  --ink-soft: #554b3a;
-  --ink-faint: #6e6350;   /* darkened to pass AA on parchment */
-  --gold: #a9852f;
-  --gold-ink: #7a5d13;    /* darker gold: passes AA at 12-13px */
-  --gold-bright: #c9a227;
-  --accent: #7a3b2e;
-  --accent-2: #3f639a;
-  --green: #337a4b;
-  --green-ink: #24603a;   /* green that passes AA as text on its own tint */
-  --ink-locked: #6a6152;  /* muted but AA: locked tiles are still operable */
-  --rule: #d8cba8;
-  --shadow: rgba(60, 45, 20, 0.18);
+  --paper: #f3ece3;
+  --paper-2: #e9dfd2;
+  --paper-edge: #cdb9a7;
+  --ink: #30201d;
+  --ink-soft: #58413a;
+  --ink-faint: #70594e;   /* darkened to pass AA on parchment */
+  --gold: #98734a;
+  --gold-ink: #75522f;    /* darker gold: passes AA at 12-13px */
+  --gold-bright: #c7a477;
+  --accent: #633c30;
+  --accent-2: #405f69;
+  --green: #3e6551;
+  --green-ink: #2f513e;   /* green that passes AA as text on its own tint */
+  --ink-locked: #6d594f;  /* muted but AA: locked tiles are still operable */
+  --rule: #cbb7a4;
+  --shadow: rgba(48, 22, 18, 0.2);
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --sans: "Optima", "Segoe UI", -apple-system, system-ui, sans-serif;
   --focus: #1f5fbf;
-  --paper-hi: #fbf6ea;
-  --field: #fffdf6;
+  --paper-hi: #faf5ee;
+  --field: #fffaf3;
   --field-hi: #ffffff;
   --ui-scale: 1;          /* bumped up in young-reader stage modes */
   /* Text that sits on a coloured fill (green tick, selected chip, domain dot).
@@ -38,12 +29,12 @@
      hard-coded to #fff fell to 2.00:1 on the completed-quest tick — the primary
      completion indicator on the Today screen — and 2.69:1 on the selected
      onboarding chip, which was *less* readable than the unselected one. */
-  --on-fill: #fffdf6;
+  --on-fill: #fffaf3;
   /* A perceivable boundary for inputs, choices and cards (SC 1.4.11 wants 3:1).
      --rule and --paper-edge are decorative hairlines at 1.25-1.54:1; they stay
      for dividers, but anything that is a control's edge uses this. */
-  --edge: #8a7f62;
-  --ink-place: #665c4d;   /* authored placeholder: the UA default fails in dark */
+  --edge: #8e7463;
+  --ink-place: #6c554b;   /* authored placeholder: the UA default fails in dark */
   --muted: var(--ink-faint); /* quiet status text; was referenced but never defined */
   /* ---- depth, motion, geometry: the book's physical grammar, stated once ----
      Corners had drifted into nine ad-hoc radii (7, 8, 9, 10, 12, 14…), so no two
@@ -70,20 +61,20 @@
      wide, faint ambient wash. A single mid-distance shadow reads as a sticker;
      the pair reads as a thing actually resting on the page. Built on --shadow,
      so the night palette darkens them without a second set of rules. */
-  --elev-1: 0 1px 2px var(--shadow), 0 8px 24px -12px var(--shadow);
-  --elev-2: 0 2px 4px var(--shadow), 0 14px 32px -12px var(--shadow);
+  --elev-1: 0 2px 3px -1px var(--shadow), 0 10px 22px -12px var(--shadow);
+  --elev-2: 0 3px 5px -2px var(--shadow), 0 18px 32px -12px var(--shadow);
   --elev-3: 0 1px 3px var(--shadow), 0 24px 64px -16px var(--shadow);
   /* The ground of a surface that lets the page show through, blurred. Solid
      chrome stays the fallback: never translucency without the blur, which is
      just text on mud. Themed, so it carries a --dk-* partner below. */
-  --glass: rgba(43, 32, 15, 0.72);
+  --glass: rgba(34, 25, 20, 0.86);
   /* Translucent state washes. These were hardcoded light-palette RGB
      (rgba(51,122,75,…), rgba(201,162,39,…)) at every use site, so the green
      and gold tints stayed daylight-mixed on the night page. Declared as
      tokens with --dk-* counterparts so they turn with the palette. */
-  --tint-green: rgba(51, 122, 75, 0.12);
-  --tint-gold: rgba(201, 162, 39, 0.16);
-  --tint-gold-strong: rgba(201, 162, 39, 0.3);
+  --tint-green: rgba(62, 101, 81, 0.12);
+  --tint-gold: rgba(152, 115, 74, 0.13);
+  --tint-gold-strong: rgba(152, 115, 74, 0.28);
   /* The last three washes still hiding as raw light-palette RGB: the wikilink
      hover, the explain panel, and the wrong-answer fill. The wrong fill was
      the loudest miss — at night its border and text turn magenta while a
@@ -111,14 +102,21 @@
   /* Chrome that differs by theme, declared as values rather than as rules, so
      the shell can change character without duplicating a single selector. */
   --shell-bg:
-    radial-gradient(circle at 20% 10%, rgba(120, 90, 40, 0.25), transparent 60%),
-    radial-gradient(circle at 80% 90%, rgba(90, 60, 20, 0.3), transparent 55%),
-    linear-gradient(#2a2214, #1b160d);
-  --page-texture: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(180,150,90,0.05) 28px);
-  --seam: linear-gradient(90deg, rgba(120,90,40,0), rgba(120,90,40,0.18) 45%, rgba(255,255,255,0.4) 50%, rgba(120,90,40,0.18) 55%, rgba(120,90,40,0));
+    radial-gradient(circle at 20% 10%, rgba(95, 66, 43, 0.24), transparent 60%),
+    linear-gradient(#281c15, #17110f);
+  /* Small static SVG tiles are background paint: no overlay over text or controls.
+     Irregular fibres replace the ruled/grid texture in both reading modes. */
+  --paper-grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22256%22%20height%3D%22256%22%3E%3Cfilter%20id%3D%22grain%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.78%22%20numOctaves%3D%223%22%20seed%3D%2217%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%201%201%201%200%20-1.05%22%20result%3D%22noise%22%2F%3E%3CfeFlood%20flood-color%3D%22%23503c2e%22%2F%3E%3CfeComposite%20in2%3D%22noise%22%20operator%3D%22in%22%2F%3E%3C%2Ffilter%3E%3Cpath%20fill%3D%22%23503c2e%22%20opacity%3D%220.055%22%20filter%3D%22url%28%23grain%29%22%20d%3D%22M0%200h256v256H0z%22%2F%3E%3C%2Fsvg%3E");
+  --leather-grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22256%22%20height%3D%22256%22%3E%3Cfilter%20id%3D%22grain%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.42%22%20numOctaves%3D%223%22%20seed%3D%2223%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%201%201%201%200%20-1.05%22%20result%3D%22noise%22%2F%3E%3CfeFlood%20flood-color%3D%22%23dec8a8%22%2F%3E%3CfeComposite%20in2%3D%22noise%22%20operator%3D%22in%22%2F%3E%3C%2Ffilter%3E%3Cpath%20fill%3D%22%23dec8a8%22%20opacity%3D%220.065%22%20filter%3D%22url%28%23grain%29%22%20d%3D%22M0%200h256v256H0z%22%2F%3E%3C%2Fsvg%3E");
+  --page-texture: var(--paper-grain);
+  --surface-light: rgba(255, 251, 238, 0.62);
+  --surface-shade: rgba(66, 39, 23, 0.10);
+  --surface-relief: inset 0 1px 0 var(--surface-light), inset 0 -1px 0 var(--surface-shade);
+  --control-relief: inset 0 1px 0 rgba(255,245,221,.24), inset 0 -2px 0 rgba(0,0,0,.22);
+  --seam: linear-gradient(90deg, rgba(100,55,43,0), rgba(100,55,43,0.18) 45%, rgba(255,255,255,0.4) 50%, rgba(100,55,43,0.18) 55%, rgba(100,55,43,0));
   --glow-soft: none;
   /* The travelling highlight on a loading skeleton line. */
-  --sk-sheen: #e9dcbb;
+  --sk-sheen: #e6d6c7;
   --glow-strong: none;
   --tile-glow: none;
   /* The always-dark surfaces (spine, tutor, toast, chapter card). In day mode
@@ -130,28 +128,27 @@
      when it was a muted brown-red, but at night it becomes hot magenta, and a
      page of encyclopedia prose turned into a field of pink. Split by meaning:
      amber is the book speaking, cyan is information you can follow, magenta is
-     reserved for when something is actually wrong. Light mode keeps its old
-     values, so the paper book is unchanged. */
+     reserved for when something is actually wrong. Daylight uses oxblood ink against parchment. */
   --link: var(--accent);
   --heading-accent: var(--accent);
-  --btn-fill: linear-gradient(#8a4436, #6d3327);
+  --btn-fill: linear-gradient(160deg, #624234, #3c261f);
   --btn-ink: #fdf3e6;
   /* The gold CTA, as tokens rather than a literal gradient, so it can turn
      with the palette like every other fill. */
-  --btn-gold-fill: linear-gradient(#dcbe63, #bb9438);
-  --btn-gold-ink: #241a03;
-  --shell-base: #221c12;
-  --scrim: rgba(30,22,10,0.7);   /* candle-lit by day */
+  --btn-gold-fill: linear-gradient(#d3b58c, #b18a5f);
+  --btn-gold-ink: #2c1915;
+  --shell-base: #1e1612;
+  --scrim: rgba(30,14,15,0.74);   /* candle-lit by day */
   --lock-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4.8' y='10.5' width='14.4' height='9.7' rx='2'/><path d='M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7'/></svg>");
-  --chrome-bg: linear-gradient(160deg, #3c2c17, #241a0d);
-  --panel-bg: linear-gradient(170deg, #2f2413, #211809);
-  --chrome-ink: #e9dcc0;
-  --chrome-ink-soft: #d8c9a6;
-  --chrome-ink-dim: #b8a983;
-  --chrome-hi: #f2e6cb;
-  --chrome-rule: rgba(200,170,110,0.25);
-  --chrome-hover: rgba(200,170,110,0.14);
-  --chrome-active: rgba(201,162,39,0.22);
+  --chrome-bg: var(--leather-grain), radial-gradient(ellipse at 0% 0%, rgba(154,112,71,.16), transparent 65%), linear-gradient(150deg, #38271f, #1d1512);
+  --panel-bg: var(--leather-grain), radial-gradient(ellipse at 12% 0%, rgba(168,120,74,.14), transparent 70%), linear-gradient(140deg, #3b2921, #211813);
+  --chrome-ink: #eddfce;
+  --chrome-ink-soft: #decbba;
+  --chrome-ink-dim: #c4aa95;
+  --chrome-hi: #fbefde;
+  --chrome-rule: rgba(204,165,119,0.28);
+  --chrome-hover: rgba(204,165,119,0.10);
+  --chrome-active: rgba(204,165,119,0.18);
 
   /* ---- the night palette, written once ----
      The Primer is a book that is also a machine. By day it is paper. By night
@@ -200,12 +197,12 @@
     radial-gradient(circle at 18% 8%, rgba(79, 216, 232, 0.10), transparent 55%),
     radial-gradient(circle at 82% 88%, rgba(255, 92, 138, 0.09), transparent 55%),
     linear-gradient(#070c12, #02050a);
-  /* Faint cyan rule-grid instead of paper grain: the page as a lattice. */
-  --dk-page-texture:
-    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(79,216,232,0.045) 28px),
-    repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(79,216,232,0.028) 28px);
-  --dk-seam: linear-gradient(90deg, rgba(79,216,232,0), rgba(79,216,232,0.25) 45%, rgba(160,245,255,0.75) 50%, rgba(79,216,232,0.25) 55%, rgba(79,216,232,0));
-  --dk-glow-soft: 0 0 10px rgba(79, 216, 232, 0.35);
+  /* Quiet mineral grain, without scanlines or a geometric grid. */
+  --dk-page-texture: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22256%22%20height%3D%22256%22%3E%3Cfilter%20id%3D%22grain%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.78%22%20numOctaves%3D%223%22%20seed%3D%2217%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%201%201%201%200%20-1.05%22%20result%3D%22noise%22%2F%3E%3CfeFlood%20flood-color%3D%22%23b2c7d4%22%2F%3E%3CfeComposite%20in2%3D%22noise%22%20operator%3D%22in%22%2F%3E%3C%2Ffilter%3E%3Cpath%20fill%3D%22%23b2c7d4%22%20opacity%3D%220.055%22%20filter%3D%22url%28%23grain%29%22%20d%3D%22M0%200h256v256H0z%22%2F%3E%3C%2Fsvg%3E");
+  --dk-surface-light: rgba(192, 218, 237, 0.085);
+  --dk-surface-shade: rgba(0, 0, 0, 0.30);
+  --dk-seam: linear-gradient(90deg, transparent, rgba(0,0,0,.38) 40%, rgba(147,177,196,.1) 52%, rgba(0,0,0,.3) 62%, transparent);
+  --dk-glow-soft: 0 0 12px rgba(79, 216, 232, 0.16);
   --dk-sk-sheen: rgba(79, 216, 232, 0.30);
   --dk-glow-strong: 0 0 16px rgba(255, 176, 32, 0.45);
   --dk-tile-glow: 0 0 12px rgba(255, 176, 32, 0.22);
@@ -222,11 +219,11 @@
   --dk-shell-base: #03060a;
   --dk-scrim: rgba(2,6,12,0.74);  /* the room lights off at night */
   --dk-glass: rgba(10, 18, 27, 0.66);
-  --dk-chrome-bg: linear-gradient(165deg, #0c1420, #04080e);
-  --dk-panel-bg: linear-gradient(170deg, #0e1823, #05090f);
+  --dk-chrome-bg: var(--leather-grain), radial-gradient(ellipse at 0% 0%, rgba(85,120,146,.09), transparent 70%), linear-gradient(165deg, #101923, #060a10);
+  --dk-panel-bg: var(--leather-grain), radial-gradient(ellipse at 12% 0%, rgba(116,151,171,.10), transparent 70%), linear-gradient(155deg, #16212c, #090e15);
   --dk-chrome-ink: #cfe0ee;
   --dk-chrome-ink-soft: #9db3c6;
-  --dk-chrome-ink-dim: #859bae;
+  --dk-chrome-ink-dim: #94aabb;
   --dk-chrome-hi: #eaf4fb;
   --dk-chrome-rule: rgba(79,216,232,0.22);
   --dk-chrome-hover: rgba(79,216,232,0.12);
@@ -260,6 +257,7 @@
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim); --glass: var(--dk-glass);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
+    --surface-light: var(--dk-surface-light); --surface-shade: var(--dk-surface-shade);
     --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
     --sk-sheen: var(--dk-sk-sheen);
     --tile-glow: var(--dk-tile-glow);
@@ -293,6 +291,7 @@
     --shell-base: var(--dk-shell-base); --shell-bg: var(--dk-shell-bg);
     --scrim: var(--dk-scrim); --glass: var(--dk-glass);
     --page-texture: var(--dk-page-texture); --seam: var(--dk-seam);
+    --surface-light: var(--dk-surface-light); --surface-shade: var(--dk-surface-shade);
     --glow-soft: var(--dk-glow-soft); --glow-strong: var(--dk-glow-strong);
     --sk-sheen: var(--dk-sk-sheen);
     --tile-glow: var(--dk-tile-glow);
@@ -302,6 +301,16 @@
     --chrome-rule: var(--dk-chrome-rule); --chrome-hover: var(--dk-chrome-hover);
     --chrome-active: var(--dk-chrome-active);
 }
+/* Reduced motion, decided once. Zeroing the duration tokens and flattening
+   the spring silences every transition and animation written against them —
+   including ones not yet written — instead of adding a thirteenth scattered
+   per-component guard. The functional motion that must survive (the spinner,
+   the skeleton sheen, the read-aloud marker) does not use these tokens and
+   keeps its own existing guards. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; --stagger: 0ms; --spring: linear; --ease-out: linear; }
+}
+
 * { box-sizing: border-box; }
 html, body {
   margin: 0; padding: 0; height: 100%;
@@ -346,8 +355,10 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 
 /* ---------- sidebar ---------- */
+#navigation-toggle, #mobile-location { display: none; }
 #sidebar {
   background: var(--chrome-bg);
+  box-shadow: inset -1px 0 0 var(--chrome-rule), inset -10px 0 24px rgba(0,0,0,.16);
   color: var(--chrome-ink);
   padding: 22px 16px;
   display: flex; flex-direction: column; gap: 4px;
@@ -411,7 +422,7 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 .navbtn .ic { width: 20px; text-align: center; font-size: 16px; opacity: 0.9; }
 .navbtn:hover { background: var(--chrome-hover); color: var(--chrome-hi); }
-.navbtn.active { background: var(--chrome-active); color: var(--chrome-hi); box-shadow: inset 3px 0 0 var(--gold-bright); }
+.navbtn.active { background: var(--chrome-active); color: var(--chrome-hi); box-shadow: inset 3px 0 0 var(--gold-bright), inset 0 1px 0 var(--chrome-rule), 0 3px 8px rgba(0,0,0,.16); }
 #sidebar .spacer { flex: 1; }
 /* The foot of the spine. The record and the chrome are two different kinds of
    thing and now read as two: a block of stats, a hairline, then the settings
@@ -421,6 +432,7 @@ button { font-family: var(--sans); cursor: pointer; }
 #sidebar .stat {
   font-family: var(--sans); font-size: 12px; color: var(--chrome-ink-dim);
   background: rgba(0,0,0,0.2); border-radius: 8px; padding: 8px 10px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.25), 0 1px 0 var(--chrome-rule);
   display: flex; justify-content: space-between; gap: 10px;
 }
 #sidebar .stat b { color: var(--gold-bright); }
@@ -453,27 +465,31 @@ button { font-family: var(--sans); cursor: pointer; }
 
 /* ---------- cards ---------- */
 .card {
-  background: var(--paper-2); border: 1px solid var(--paper-edge);
+  background: var(--page-texture), linear-gradient(145deg, color-mix(in srgb, var(--paper-hi) 55%, var(--paper-2)), var(--paper-2)); border: 1px solid var(--paper-edge);
   color: var(--ink);            /* buttons must not inherit UA buttontext */
   border-radius: var(--r-card); padding: 18px 20px; margin-bottom: 16px;
-  box-shadow: var(--elev-1);
+  box-shadow: var(--surface-relief), var(--elev-1);
 }
 .card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; }
 .grid { display: grid; gap: 16px; }
 .grid.two { grid-template-columns: 1fr 1fr; }
 .grid.three { grid-template-columns: repeat(3, 1fr); }
-.grid.auto { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.grid.auto { grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr)); }
+.grid > * { min-width: 0; }
 
 .lesson-card { border-color: var(--edge); cursor: pointer; position: relative; overflow: hidden;
   transition: transform var(--dur-base) var(--spring), box-shadow var(--dur-base) var(--ease-out); }
-.lesson-card:hover { transform: translateY(-3px); box-shadow: var(--elev-2); }
+.lesson-card:hover { transform: translateY(-3px); box-shadow: var(--surface-relief), var(--elev-2); }
 /* The press: the page settles back under the finger, ink meeting paper — the
    tactile half of the hover lift, without which a card feels like glass. */
 .lesson-card:active { transform: translateY(-1px) scale(.995);
   box-shadow: 0 3px 8px var(--shadow); transition-duration: .06s; }
-.lesson-card .domain-tag { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+.lesson-card .domain-tag { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
+/* Metadata wraps as a pair; neither label can paint over its neighbour. */
+.lesson-meta { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 10px; margin-bottom: 10px; }
+.lesson-card > .speak-btn { display: flex; margin: 8px 0 0 auto; }
 .lesson-card .goal { color: var(--ink-soft); font-size: 14px; }
-.lesson-card .stagepill { position: absolute; top: 12px; right: 12px; font-family: var(--sans); font-size: 11px; color: var(--ink-faint); }
+.lesson-card .stagepill { flex: none; margin-left: auto; white-space: nowrap; font-family: var(--sans); font-size: 11px; color: var(--ink-faint); }
 
 /* ---------- lesson plates and manipulatives ----------
    Authored pictures and executable explanations share one visual chapter,
@@ -491,6 +507,26 @@ button { font-family: var(--sans); cursor: pointer; }
   padding: 13px 18px 15px; border-top: 1px solid var(--paper-edge);
   color: var(--ink-soft); font-size: 14px; line-height: 1.55;
 }
+.lesson-photograph { margin: 0; padding: 0; overflow: hidden; border-color: var(--edge); }
+.lesson-photograph img {
+  display: block; width: 100%; height: auto; background: var(--paper-2);
+  filter: var(--img-glare); cursor: zoom-in;
+}
+.lesson-photograph .photograph-caption {
+  padding: 17px 20px 19px; border-top: 1px solid var(--paper-edge);
+  background: linear-gradient(135deg, var(--paper-2), var(--paper));
+}
+.photograph-caption-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.photograph-kind {
+  color: var(--gold-ink); font: 700 11px/1.4 var(--sans);
+  letter-spacing: .09em; text-transform: uppercase;
+}
+.photograph-origin {
+  padding: 3px 7px; border: 1px solid var(--edge); border-radius: 5px;
+  color: var(--ink-soft); background: var(--field); font: 600 10px/1.3 var(--sans);
+}
+.photograph-description { margin: 9px 0 0; color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
+.photograph-credit { margin: 8px 0 0; color: var(--ink-faint); font: 12px/1.5 var(--sans); }
 .lesson-diagram-details {
   border-top: 1px solid var(--paper-edge); background: var(--field);
   color: var(--ink-soft); font-size: 14px; line-height: 1.5;
@@ -522,9 +558,11 @@ button { font-family: var(--sans); cursor: pointer; }
   .lesson-diagram-steps { grid-template-columns: 1fr; }
 }
 
-/* ---------- mathematics image dashboard ----------
-   This is a catalogue of explanatory plates, so the caption is never demoted
-   to thumbnail chrome: image, relationship and lesson stay together. */
+/* ---------- curriculum visual gallery ----------
+   This is a catalogue of explanatory plates and models, so the explanation is
+   never demoted to thumbnail chrome: visual, relationship and lesson stay
+   together.  The original class names remain internal compatibility hooks for
+   the first mathematics-only version of this route. */
 .math-gallery-overview {
   display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(330px, .8fr);
   align-items: center; gap: 24px; padding: 22px 24px;
@@ -557,6 +595,17 @@ button { font-family: var(--sans); cursor: pointer; }
   margin-bottom: 7px; color: var(--gold-ink); font: 700 11px/1.3 var(--sans);
   letter-spacing: .11em; text-transform: uppercase;
 }
+.visual-filter-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;
+}
+.visual-filter-control {
+  min-width: 0; color: var(--ink-soft); font-family: var(--sans);
+}
+.visual-filter-control > span {
+  display: block; margin: 0 0 6px 2px; color: var(--gold-ink);
+  font: 700 11px/1.3 var(--sans); letter-spacing: .1em; text-transform: uppercase;
+}
+.visual-filter-control select { min-height: 46px; }
 .math-stage-filters { display: grid; grid-template-columns: repeat(7, minmax(92px, 1fr)); gap: 7px; }
 .math-stage-option {
   min-width: 0; min-height: 52px; padding: 8px 10px; border: 1px solid var(--edge);
@@ -607,6 +656,27 @@ button { font-family: var(--sans); cursor: pointer; }
   min-height: 76px; padding: 12px 16px 13px; color: var(--ink-soft);
   font-size: 13.5px; line-height: 1.5;
 }
+.math-image-figure .lesson-diagram-details { font-size: 13px; }
+.math-image-figure .lesson-diagram-steps { grid-template-columns: 1fr; }
+.gallery-photograph { background: var(--paper-2); }
+.gallery-photograph img { object-fit: contain; object-position: center; }
+.gallery-photograph .photograph-description { font-size: 13.5px; line-height: 1.5; }
+.gallery-photograph .photograph-credit { font-size: 11px; }
+.visual-model-preview {
+  min-height: 250px; padding: 28px 24px; border-block: 1px solid var(--paper-edge);
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  background:
+    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--gold) 13%, transparent), transparent 42%),
+    linear-gradient(145deg, var(--paper-2), var(--field));
+}
+.visual-model-mark {
+  flex: 0 0 auto; width: 66px; height: 66px; border: 1px solid var(--edge);
+  border-radius: 50%; display: grid; place-items: center;
+  background: var(--paper); color: var(--gold-ink); box-shadow: 0 4px 14px var(--shadow);
+}
+.visual-model-preview > div:last-child { min-width: 0; max-width: 440px; }
+.visual-model-preview h5 { margin: 0 0 8px; color: var(--ink); font-size: 20px; }
+.visual-model-preview p { margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
 .math-image-card-body { display: flex; flex-direction: column; flex: 1; padding: 13px 16px 16px; }
 .math-image-goal { margin: 0 0 14px; color: var(--ink-soft); font-size: 13.5px; line-height: 1.45; }
 .math-image-goal > span {
@@ -625,15 +695,18 @@ button { font-family: var(--sans); cursor: pointer; }
   .math-search-copy p { margin-top: 5px; }
   .math-stage-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .math-stage-option:first-child { grid-column: 1 / -1; }
+  .visual-filter-grid { grid-template-columns: 1fr; }
   .math-image-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 430px) {
   .math-gallery-overview { padding: 17px 15px; }
   .math-gallery-promise { display: block; }
   .math-gallery-mark { margin-bottom: 8px; }
-  .math-gallery-stats { margin-top: 4px; }
+  .math-gallery-stats { grid-template-columns: repeat(2, 1fr); margin-top: 4px; }
   .math-gallery-stats > div { padding-inline: 4px; }
   .math-gallery-stats dt { font-size: 20px; }
+  .visual-model-preview { display: block; min-height: 0; padding: 22px 18px; }
+  .visual-model-mark { margin-bottom: 14px; }
   .math-search-row { grid-template-columns: 1fr; }
   .math-search-clear { width: 100%; }
   .math-gallery-stage-head { align-items: flex-end; }
@@ -665,6 +738,44 @@ button { font-family: var(--sans); cursor: pointer; }
 .model-status {
   min-height: 1.5em; margin: 5px 0 0; color: var(--gold-ink);
   font-family: var(--sans); font-size: 14px;
+}
+
+/* Shared scientific-diagram ink. Biology models use the same bounded,
+   legible visual grammar as the mathematical plots: one framed field,
+   explicit axes/arrows/callouts, and a written explanation beside every
+   colour or pattern cue. Show the complete diagram first; the explicit
+   enlarge control restores authored-size detail in a keyboard-scrollable area. */
+.science-diagram-scroll {
+  width: 100%; min-width: 0; overflow-x: auto; overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable; border-radius: 10px;
+}
+.science-diagram {
+  display: block; width: 100%; min-width: 0; height: auto;
+  color: var(--ink); font-family: var(--sans);
+}
+.science-diagram-field { fill: var(--field); stroke: var(--paper-edge); stroke-width: 2; }
+.science-inset-panel { fill: var(--paper-2); stroke: var(--edge); stroke-width: 2; }
+.science-axis { stroke: var(--ink); stroke-width: 2.5; }
+.science-grid-line { stroke: var(--paper-edge); stroke-width: 1; stroke-dasharray: 4 5; }
+.science-arrowhead { fill: var(--accent-2); }
+.science-callout-line { stroke: var(--ink-soft); stroke-width: 1.8; }
+.science-callout-dot { fill: var(--gold-bright); stroke: var(--ink); stroke-width: 1.5; }
+.science-diagram-title { fill: var(--ink); font-size: 16px; font-weight: 850; }
+.science-diagram-kicker {
+  fill: var(--gold-ink); font-size: 12px; font-weight: 850; letter-spacing: .07em;
+}
+.science-diagram-label { fill: var(--ink); font-size: 13px; font-weight: 750; }
+.science-diagram-note { fill: var(--ink-soft); font-size: 12px; font-weight: 650; }
+.science-diagram-small { fill: var(--ink); font-size: 11px; font-weight: 750; }
+.science-diagram-badge { fill: var(--green-ink); font-size: 12px; font-weight: 850; }
+.biology-control-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+.biology-control-grid .model-range-control {
+  padding: 9px; border: 1px solid var(--paper-edge); border-radius: 9px; background: var(--field);
+}
+.biology-slider-value { color: var(--ink); font: 850 13px/1.2 var(--sans); }
+.biology-model-caveat {
+  margin: 10px 0 0; padding: 9px 11px; border-left: 5px double var(--gold-ink);
+  background: var(--field); color: var(--ink-soft); font: 12px/1.5 var(--sans);
 }
 
 /* Counting: every pebble is a native button. The ring and check carry the
@@ -1359,24 +1470,30 @@ button { font-family: var(--sans); cursor: pointer; }
 .algorithm-toggle { flex: 0 0 auto; min-height: 44px; }
 .algorithm-toggle[aria-pressed="false"] { border-style: dashed; opacity: .82; }
 
-/* Sprout — life cycles: the winding reading order is visual only; the native
-   ordered list and complete readout carry the same sequence for assistive tech. */
+/* Sprout — life cycles: organism profiles carry the changing body form while
+   the native ordered list remains the keyboard and spoken reading order. */
 .life-cycle-canvas { background: var(--tint-green); }
+.life-cycle-scene { position: relative; min-height: 340px; }
+.life-cycle-route-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.life-cycle-route-line {
+  fill: none; stroke: var(--green-ink); stroke-width: 6; stroke-dasharray: 12 9;
+  opacity: .46;
+}
 .life-cycle-ring {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(10px, 2.5vw, 22px); margin: 0; padding: 9px; list-style: none;
-  border: 2px solid var(--paper-edge); border-radius: 999px;
-  background: radial-gradient(circle, var(--field) 0 31%, transparent 32%);
+  position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 6vw, 72px) clamp(36px, 9vw, 110px); margin: 0; padding: 18px;
+  list-style: none;
 }
 .life-cycle-stage:nth-child(1) { grid-column: 1; grid-row: 1; }
 .life-cycle-stage:nth-child(2) { grid-column: 2; grid-row: 1; }
 .life-cycle-stage:nth-child(3) { grid-column: 2; grid-row: 2; }
 .life-cycle-stage:nth-child(4) { grid-column: 1; grid-row: 2; }
 .life-cycle-stage-card {
-  display: flex; align-items: center; gap: 9px; width: 100%; min-height: 58px;
-  padding: 8px 11px; border: 2px solid var(--edge); border-radius: 12px;
+  position: relative; display: grid; grid-template-columns: 30px minmax(90px, 150px) minmax(72px, 1fr);
+  align-items: center; gap: 8px; width: 100%; min-height: 112px;
+  padding: 8px 11px; border: 2px solid var(--edge); border-radius: 16px;
   background: var(--paper-2); color: var(--ink); font: 700 15px/1.3 var(--sans);
-  text-align: left;
+  text-align: left; cursor: pointer; box-shadow: 0 2px 5px var(--shadow);
 }
 .life-cycle-stage-card.is-current {
   border: 4px double var(--green); background: color-mix(in srgb, var(--tint-green) 72%, var(--paper-2));
@@ -1386,6 +1503,24 @@ button { font-family: var(--sans); cursor: pointer; }
   display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px;
   border-radius: 50%; background: var(--accent-2); color: var(--paper-hi); font-weight: 900;
 }
+.life-stage-svg { display: block; width: 100%; height: auto; max-height: 82px; }
+.science-ground-line { fill: none; stroke: var(--paper-edge); stroke-width: 2; }
+.life-water-line { fill: none; stroke: var(--accent-2); stroke-width: 2; opacity: .66; }
+.life-egg-jelly { fill: color-mix(in srgb, var(--accent-2) 12%, var(--paper-hi)); stroke: var(--accent-2); stroke-width: 2; }
+.life-egg-center { fill: var(--accent-2); }
+.life-animal-fill, .life-animal-line-fill {
+  fill: color-mix(in srgb, var(--green) 38%, var(--paper-hi)); stroke: var(--green-ink);
+  stroke-width: 3; stroke-linejoin: round;
+}
+.life-animal-line { fill: color-mix(in srgb, var(--green) 25%, var(--paper-hi)); stroke: var(--green-ink); stroke-width: 3; }
+.life-limb-line { fill: none; stroke: var(--green-ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.life-animal-eye { fill: var(--ink); }
+.life-leaf-fill { fill: var(--tint-green); stroke: var(--green-ink); stroke-width: 2.5; }
+.life-leaf-vein { fill: none; stroke: var(--green-ink); stroke-width: 1.8; }
+.life-chrysalis { fill: var(--tint-gold-strong); stroke: var(--gold-ink); stroke-width: 3; }
+.life-chrysalis-line { fill: none; stroke: var(--gold-ink); stroke-width: 2; }
+.life-wing { fill: color-mix(in srgb, var(--accent) 29%, var(--paper-hi)); stroke: var(--accent); stroke-width: 3; }
+.life-wing.is-right { fill: color-mix(in srgb, var(--accent-2) 27%, var(--paper-hi)); stroke: var(--accent-2); }
 
 /* Sapling — equivalent fractions: the same whole keeps an identical width. */
 .fraction-equivalence-canvas { background: var(--tint-info-soft); }
@@ -1451,43 +1586,33 @@ button { font-family: var(--sans); cursor: pointer; }
 .atom-stepper-buttons .btn { min-width: 44px; padding-inline: 9px; font-size: 19px; }
 .atom-stepper-value { color: var(--ink); font: 900 17px/1 var(--sans); }
 
-/* Sapling — cell microscope: magnification changes the apparent field, never
-   the real cell size. Structure differences are reinforced by the readout. */
+/* Sapling — cell microscope: the field and inset separate outer wall from
+   inner membrane and use one coherent zoom metaphor. */
 .cell-microscope-canvas { background: var(--tint-green); }
-.cell-microscope-scene { display: grid; place-items: center; gap: 9px; }
-.microscope-field {
-  display: grid; grid-template-columns: repeat(var(--cell-columns), minmax(0, 1fr));
-  grid-auto-rows: 1fr; width: min(330px, 100%); aspect-ratio: 1; padding: 15px; gap: 3px;
-  overflow: hidden; border: 10px solid var(--edge); border-radius: 50%; background: var(--paper-hi);
-  box-shadow: inset 0 0 0 3px var(--paper-edge), 0 4px 9px var(--shadow);
+.cell-microscope-scene { display: grid; place-items: center; gap: 9px; min-width: 0; }
+.microscope-field { min-width: 690px; }
+.microscope-field-paper { fill: var(--paper-hi); }
+.microscope-field-ring { fill: none; stroke: var(--edge); stroke-width: 12; }
+.microscope-cell { opacity: .96; }
+.cell-wall-shape {
+  fill: color-mix(in srgb, var(--tint-green) 54%, var(--paper-hi));
+  stroke: var(--green-ink); stroke-width: 3;
 }
-.microscope-cell { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
-.microscope-field.is-onion .microscope-cell {
-  border: 2px solid color-mix(in srgb, var(--accent-2) 68%, var(--ink));
-  border-radius: 5px; background: color-mix(in srgb, var(--accent-2) 12%, var(--paper-hi));
+.is-onion .cell-wall-shape { fill: color-mix(in srgb, var(--accent-2) 9%, var(--paper-hi)); stroke: var(--accent-2); }
+.cell-membrane-shape {
+  fill: color-mix(in srgb, var(--green) 8%, transparent); stroke: var(--ink-soft);
+  stroke-width: 1.8;
 }
-.microscope-field.is-leaf .microscope-cell {
-  display: flex; align-content: center; justify-content: center; flex-wrap: wrap; gap: 3px;
-  border: 3px double var(--green); border-radius: 10px;
-  background: color-mix(in srgb, var(--tint-green) 72%, var(--paper-hi));
+.is-cheek .cell-membrane-shape {
+  fill: color-mix(in srgb, var(--accent) 16%, var(--paper-hi));
+  stroke: color-mix(in srgb, var(--accent) 72%, var(--ink)); stroke-width: 2.5;
 }
-.microscope-field.is-cheek { gap: 8px; background: color-mix(in srgb, var(--accent) 7%, var(--paper-hi)); }
-.microscope-field.is-cheek .microscope-cell {
-  margin: 2px; border: 2px solid color-mix(in srgb, var(--accent) 55%, var(--ink-soft));
-  border-radius: 52% 43% 56% 46%; background: color-mix(in srgb, var(--accent) 16%, var(--paper-hi));
-  transform: rotate(-5deg);
-}
-.microscope-field.is-cheek .microscope-cell:nth-child(even) { transform: rotate(7deg); }
-.cell-nucleus {
-  position: absolute; left: 50%; top: 50%; width: 18%; min-width: 7px; aspect-ratio: 1;
-  border: 1px solid var(--ink-soft); border-radius: 50%; background: var(--accent-2);
-  transform: translate(-50%, -50%); opacity: .72;
-}
-.cell-chloroplast {
-  position: relative; z-index: 1; width: clamp(4px, 13%, 10px); aspect-ratio: 1;
-  border: 1px solid var(--green-ink); border-radius: 50%; background: var(--green);
-}
-.microscope-field.has-contrast { filter: contrast(1.3) saturate(1.08); }
+.cell-nucleus-shape { fill: var(--accent-2); stroke: var(--ink); stroke-width: 1.5; opacity: .82; }
+.cell-vacuole-shape { fill: color-mix(in srgb, var(--paper-hi) 75%, var(--accent-2)); stroke: var(--paper-edge); stroke-width: 1.5; }
+.cell-chloroplast-shape { fill: var(--green); stroke: var(--green-ink); stroke-width: 1.4; }
+.is-representative { stroke-width: 4; }
+.microscope-field.has-contrast :is(.cell-wall-shape, .cell-membrane-shape, .cell-nucleus-shape,
+  .cell-vacuole-shape, .cell-chloroplast-shape) { filter: contrast(1.32) saturate(1.12); stroke-width: 4; }
 .microscope-field-note { color: var(--ink-soft); font: 700 13px/1.3 var(--sans); }
 .microscope-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 .microscope-legend[hidden] { display: none; }
@@ -1630,17 +1755,39 @@ button { font-family: var(--sans); cursor: pointer; }
 .function-composition-line.is-comparison { stroke: var(--gold-ink); stroke-dasharray: 10 8; opacity: .72; }
 .function-current-point { fill: var(--paper-hi); stroke: var(--accent); stroke-width: 4; }
 
-/* Tree — circulation: oxygen state is written and reinforced with border
-   pattern, while the ordered list remains the actual accessible route. */
-.circulation-route-canvas { background: var(--tint-green); }
+/* Tree — circulation: a spatial circuit now joins heart, lung and tissue
+   geometry. The numbered native list mirrors the path for keyboard and speech. */
+.circulation-route-canvas { display: grid; gap: 10px; background: var(--tint-green); }
+.circulation-diagram { min-width: 700px; }
+.circulation-organ.is-lungs > path:not(.circulation-airway) {
+  fill: color-mix(in srgb, var(--accent) 18%, var(--paper-hi)); stroke: var(--accent);
+  stroke-width: 3;
+}
+.circulation-airway { fill: none; stroke: var(--ink-soft); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.circulation-heart-outline {
+  fill: color-mix(in srgb, var(--accent) 25%, var(--paper-hi)); stroke: var(--ink); stroke-width: 4;
+}
+.circulation-heart-septum { fill: none; stroke: var(--ink-soft); stroke-width: 3; }
+.circulation-tissues > rect { fill: color-mix(in srgb, var(--green) 12%, var(--paper-hi)); stroke: var(--green-ink); stroke-width: 3; }
+.circulation-tissues > circle { fill: var(--tint-green); stroke: var(--green-ink); stroke-width: 2; }
+.circulation-vessel {
+  fill: none; stroke: var(--ink-soft); stroke-width: 8; stroke-linecap: round;
+  stroke-linejoin: round; opacity: .82;
+}
+.circulation-vessel.is-lower { stroke: var(--accent-2); stroke-dasharray: 12 8; }
+.circulation-vessel.is-higher { stroke: var(--accent); stroke-width: 10; }
+.circulation-vessel.is-changing { stroke: var(--green-ink); stroke-dasharray: 3 8; }
+.circulation-vessel.is-neutral { stroke: var(--ink-soft); }
+.circulation-vessel.is-current { stroke: var(--gold-ink); stroke-width: 14; opacity: 1; filter: drop-shadow(0 2px 2px var(--shadow)); }
+.circulation-station-marker { fill: var(--paper-2); stroke: var(--edge); stroke-width: 3; }
+.circulation-station-marker.is-current { fill: var(--tint-gold-strong); stroke: var(--gold-ink); stroke-width: 5; }
+.circulation-station-number { fill: var(--ink); font: 850 12px/1 var(--sans); }
 .circulation-route {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px;
   margin: 0; padding: 0; list-style: none;
 }
 .circulation-station {
-  display: flex; align-items: flex-start; gap: 8px; min-width: 0; min-height: 79px; padding: 10px;
-  border: 2px solid var(--edge); border-radius: 10px; background: var(--paper-2);
-  color: var(--ink); font: 700 13px/1.3 var(--sans);
+  min-width: 0; border: 1px solid var(--paper-edge); border-radius: 9px; background: var(--paper-2);
 }
 .circulation-station.is-lower { border-style: dashed; }
 .circulation-station.is-higher { border-style: double; border-width: 4px; }
@@ -1649,12 +1796,43 @@ button { font-family: var(--sans); cursor: pointer; }
   outline: 4px solid var(--gold); outline-offset: 2px; background: var(--field-hi);
   box-shadow: 0 4px 9px var(--shadow);
 }
+.circulation-station-button {
+  display: flex; align-items: flex-start; gap: 8px; width: 100%; min-width: 0; min-height: 62px;
+  padding: 8px; border: 0; border-radius: 8px; background: transparent; color: var(--ink);
+  font: 700 12px/1.25 var(--sans); text-align: left; cursor: pointer;
+}
 .circulation-step-number {
   display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px;
   border-radius: 50%; background: var(--accent-2); color: var(--paper-hi); font-weight: 900;
 }
 .circulation-station-copy { display: grid; gap: 4px; min-width: 0; }
 .circulation-station-copy small { color: var(--ink-soft); font-size: 11px; font-weight: 700; }
+
+/* Genetics — homologous chromosomes separate before gametes combine. Shape,
+   symbols and written ratios carry every distinction in addition to colour. */
+.allele-segregation-canvas { background: var(--tint-gold); }
+.allele-segregation-diagram { min-width: 700px; }
+.allele-chromosome { fill: none; stroke-width: 9; stroke-linecap: round; }
+.allele-chromosome.is-dominant { stroke: var(--accent-2); }
+.allele-chromosome.is-recessive { stroke: var(--accent); stroke-dasharray: 6 5; }
+.allele-locus { fill: var(--paper-2); stroke-width: 3; }
+.allele-locus.is-dominant { stroke: var(--accent-2); }
+.allele-locus.is-recessive { stroke: var(--accent); }
+.allele-symbol { fill: var(--ink); font: 900 14px/1 var(--sans); }
+.allele-symbol.is-large { font-size: 20px; }
+.allele-flow-line { stroke: var(--accent-2); stroke-width: 3; stroke-linecap: round; }
+.allele-gamete { fill: var(--paper-2); stroke-width: 4; }
+.allele-gamete.is-dominant { stroke: var(--accent-2); }
+.allele-gamete.is-recessive { stroke: var(--accent); stroke-dasharray: 5 4; }
+.allele-offspring-cell { stroke: var(--edge); stroke-width: 2; }
+.allele-offspring-cell.is-purple { fill: color-mix(in srgb, var(--accent-2) 26%, var(--paper-hi)); }
+.allele-offspring-cell.is-white { fill: var(--paper-hi); stroke-dasharray: 6 4; }
+.allele-genotype { fill: var(--ink); font: 900 20px/1 var(--sans); }
+.allele-punnett-placeholder { fill: var(--field); stroke: var(--paper-edge); stroke-width: 3; stroke-dasharray: 8 7; }
+.allele-cross-summary {
+  margin: 10px 0 0; padding: 10px 12px; border: 3px double var(--green-ink); border-radius: 9px;
+  background: var(--paper-2); color: var(--ink); font: 750 14px/1.45 var(--sans);
+}
 
 /* Tree — formal logic: a native table exposes all rows; colour is only a
    secondary cue beside the explicit True/False words. */
@@ -1759,45 +1937,41 @@ button { font-family: var(--sans); cursor: pointer; }
 .venturi-metric small { color: var(--ink-soft); font-size: 11px; }
 .venturi-metric strong { font-size: 14px; }
 
-/* Grove — gene expression: compartments and disabled native controls make
-   molecular location and causal order explicit without animation. */
+/* Grove — gene expression: molecular geometry now shows strands, processing,
+   compartment crossing, codon reading and peptide growth in causal order. */
 .gene-expression-canvas { background: var(--tint-gold); }
-.gene-expression-scene {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: stretch; gap: 9px;
+.gene-expression-diagram { min-width: 720px; }
+.gene-nuclear-envelope {
+  fill: color-mix(in srgb, var(--accent-2) 7%, var(--field)); stroke: var(--accent-2);
+  stroke-width: 4; stroke-dasharray: 10 6;
 }
-.gene-nucleus, .gene-cytoplasm {
-  display: grid; align-content: start; gap: 9px; min-width: 0; min-height: 215px;
-  padding: 12px; border: 3px solid var(--edge); background: var(--field);
-}
-.gene-nucleus { border-radius: 46% 52% 48% 50% / 18% 20% 18% 20%; }
-.gene-cytoplasm { border-radius: 12px; border-style: double; border-width: 5px; }
-.gene-compartment-label {
-  color: var(--gold-ink); font: 800 11px/1.2 var(--sans); letter-spacing: .08em;
-  text-transform: uppercase;
-}
-.gene-molecule {
-  display: grid; gap: 4px; min-width: 0; padding: 9px; border: 2px solid var(--paper-edge);
-  border-radius: 9px; background: var(--paper-2); color: var(--ink); font-family: var(--sans);
-}
-.gene-molecule small, .gene-peptide small { color: var(--ink-soft); font-size: 11px; }
-.gene-molecule strong { overflow-wrap: break-word; font-size: 13px; }
-.gene-molecule.is-muted { border-style: dashed; opacity: .62; }
-.gene-molecule.is-active { border: 4px double var(--green); }
-.gene-pore { align-self: center; color: var(--ink-faint); font-size: 27px; font-weight: 900; }
-.gene-pore.is-active { color: var(--gold-ink); }
-.gene-codon-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
-.gene-codon {
-  display: grid; place-items: center; min-height: 38px; border: 1px dashed var(--edge);
-  border-radius: 6px; background: var(--paper-2); color: var(--ink-soft); font: 800 11px/1 var(--sans);
-}
-.gene-codon.is-read { border: 3px double var(--green); background: var(--tint-green); color: var(--ink); }
-.gene-peptide {
-  display: grid; gap: 4px; padding: 9px; border: 1px solid var(--paper-edge);
-  border-radius: 9px; background: var(--paper-2); color: var(--ink); font-family: var(--sans);
-}
+.gene-nuclear-pore { fill: var(--paper-edge); stroke: var(--ink-soft); stroke-width: 2; }
+.gene-nuclear-pore.is-active { fill: var(--tint-gold-strong); stroke: var(--gold-ink); stroke-width: 4; }
+.gene-dna-helix { opacity: .62; }
+.gene-dna-helix.is-active { opacity: 1; }
+.gene-dna-strand { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; }
+.gene-dna-strand.is-template { stroke: var(--accent); }
+.gene-base-pair { stroke: var(--paper-edge); stroke-width: 2; }
+.gene-active-region { fill: transparent; stroke-width: 4; }
+.gene-active-region.is-off { stroke: var(--ink-soft); stroke-dasharray: 7 5; }
+.gene-active-region.is-on { stroke: var(--green-ink); filter: drop-shadow(0 0 4px var(--gold)); }
+.gene-polymerase { fill: var(--tint-gold-strong); stroke: var(--gold-ink); stroke-width: 3; }
+.gene-rna-line { fill: none; stroke: var(--green-ink); stroke-width: 5; stroke-linecap: round; }
+.gene-rna-line.is-mature { stroke-width: 7; }
+.gene-exon { fill: color-mix(in srgb, var(--green) 37%, var(--paper-hi)); stroke: var(--green-ink); stroke-width: 2; }
+.gene-intron { fill: var(--field); stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 4; }
+.gene-rna-cap { fill: var(--gold-bright); stroke: var(--gold-ink); stroke-width: 2; }
+.gene-polya-tail { fill: none; stroke: var(--green-ink); stroke-width: 4; }
+.gene-ribosome { fill: color-mix(in srgb, var(--accent) 22%, var(--paper-hi)); stroke: var(--accent); stroke-width: 4; }
+.gene-ribosome.is-releasing { stroke-dasharray: 8 5; }
+.gene-codon { fill: var(--paper-2); stroke: var(--edge); stroke-width: 2; stroke-dasharray: 5 4; }
+.gene-codon.is-read { fill: var(--tint-green); stroke: var(--green-ink); stroke-width: 4; stroke-dasharray: none; }
+.gene-codon-label { fill: var(--ink); font: 850 13px/1 var(--sans); }
+.gene-trna { fill: none; stroke: var(--accent-2); stroke-width: 3; stroke-linecap: round; }
+.gene-amino-acid { fill: var(--tint-gold-strong); stroke: var(--gold-ink); stroke-width: 2; }
+.gene-peptide-bond { stroke: var(--gold-ink); stroke-width: 3; }
 .gene-expression-progress {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px;
   margin: 12px 0 0; padding: 0; list-style: none;
 }
 .gene-expression-progress li {
@@ -1925,36 +2099,36 @@ button { font-family: var(--sans); cursor: pointer; }
   font: 750 12px/1.3 var(--sans); }
 .model-range-control input[type="range"] { width: 100%; min-width: 0; min-height: 44px; margin: 0; }
 
-/* Forest — the gradient remains continuous while borders and written bands,
-   not colour alone, carry the three idealized fate regions. */
+/* Forest — concentration is now an actual graph. Threshold lines, curve
+   crossings and an aligned cell row expose why spatial fate boundaries move. */
 .morphogen-gradient-canvas { background: var(--tint-green); }
 .morphogen-gradient-scene { display: grid; gap: 10px; min-width: 0; }
-.morphogen-source {
-  justify-self: start; padding: 7px 10px; border: 4px double var(--gold-ink);
-  border-radius: 999px; background: var(--tint-gold); color: var(--ink);
-  font: 800 12px/1.2 var(--sans);
+.morphogen-gradient-diagram { min-width: 700px; }
+.morphogen-band { opacity: .3; }
+.morphogen-band.fate-high { fill: var(--green); }
+.morphogen-band.fate-middle { fill: var(--gold); }
+.morphogen-band.fate-low { fill: var(--paper-edge); }
+.morphogen-threshold { stroke-width: 3; }
+.morphogen-threshold.fate-high { stroke: var(--green-ink); stroke-dasharray: 10 5; }
+.morphogen-threshold.fate-low { stroke: var(--gold-ink); stroke-dasharray: 4 5; }
+.morphogen-curve { fill: none; stroke: var(--accent-2); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.morphogen-curve-point { fill: var(--paper-hi); stroke: var(--accent-2); stroke-width: 3; }
+.morphogen-curve-point.is-selected { fill: var(--gold-bright); stroke: var(--gold-ink); stroke-width: 5; }
+.morphogen-cell-guide { stroke: var(--paper-edge); stroke-width: 1.5; stroke-dasharray: 4 5; }
+.morphogen-cell-guide.is-selected { stroke: var(--focus); stroke-width: 3; }
+.morphogen-cell { fill: var(--paper-2); stroke: var(--edge); stroke-width: 2; }
+.morphogen-cell.fate-high { fill: var(--tint-green); stroke: var(--green-ink); stroke-width: 5; }
+.morphogen-cell.fate-middle { fill: var(--tint-gold); stroke: var(--gold-ink); }
+.morphogen-cell.fate-low { fill: var(--field); stroke-dasharray: 5 4; }
+.morphogen-cell.is-selected { filter: drop-shadow(0 0 4px var(--focus)); stroke: var(--focus); stroke-width: 5; }
+.morphogen-cell-number { fill: var(--ink); font: 850 12px/1 var(--sans); }
+.morphogen-source-ramp {
+  fill: color-mix(in srgb, var(--green) 24%, var(--paper-hi)); stroke: var(--green-ink); stroke-width: 2;
 }
-.morphogen-cell-row {
-  display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 4px;
-  min-width: 0; padding: 10px; border: 2px solid var(--edge); border-radius: 10px;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--green) 46%, var(--field)),
-    color-mix(in srgb, var(--gold) 13%, var(--field)));
-}
-.morphogen-cell {
-  display: grid; align-content: center; justify-items: center; gap: 5px; min-width: 0;
-  min-height: 92px; border: 2px solid var(--edge); border-radius: 46%;
-  background: var(--paper-2); color: var(--ink); font-family: var(--sans);
-}
-.morphogen-cell strong { font-size: 12px; }
-.morphogen-cell small { max-width: 100%; overflow: hidden; font-size: 8px; }
-.morphogen-cell.fate-high { border: 5px double var(--green-ink); background: var(--tint-green); }
-.morphogen-cell.fate-middle { border-style: solid; background: var(--tint-gold); }
-.morphogen-cell.fate-low { border-style: dashed; background: var(--field); }
-.morphogen-cell.is-selected { outline: 4px solid var(--focus); outline-offset: 2px; }
 .morphogen-fate-legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
 .morphogen-fate-legend span { min-width: 0; padding: 7px; border: 1px solid var(--paper-edge);
   border-radius: 7px; background: var(--paper-2); color: var(--ink-soft);
-  font: 700 10px/1.35 var(--sans); }
+  font: 700 12px/1.35 var(--sans); }
 .morphogen-fate-legend .fate-high { border-style: double; border-width: 3px; }
 .morphogen-fate-legend .fate-low { border-style: dashed; }
 
@@ -2003,22 +2177,22 @@ button { font-family: var(--sans); cursor: pointer; }
 .btn {
   /* Fixed dark stops in both themes: --accent lightens in dark mode, which put
      near-white label text on a pale salmon fill (2.46:1). */
-  background: var(--btn-fill); color: var(--btn-ink); border: none;
+  background: var(--leather-grain), var(--btn-fill); color: var(--btn-ink); border: none;
   padding: 11px 20px; border-radius: var(--r-ctl); font-size: 15px; font-weight: 600;
-  box-shadow: 0 1px 2px var(--shadow), 0 4px 10px -6px var(--shadow);
-  transition: filter var(--dur-fast), transform var(--dur-base) var(--spring);
+  box-shadow: var(--control-relief), 0 2px 3px var(--shadow), 0 6px 12px -6px var(--shadow);
+  transition: filter var(--dur-fast), transform var(--dur-base) var(--spring), box-shadow var(--dur-fast);
 }
 .btn:hover { filter: brightness(1.08); }
 /* The press compresses instead of sliding: the whole control gives a little
    under the finger and springs back — the difference between pressing a key
    and nudging a tile. The short duration is the down-stroke; the spring is
    the release. */
-.btn:active { transform: scale(0.965); transition-duration: var(--dur-fast); }
+.btn:active { transform: translateY(1px) scale(0.985); box-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 1px var(--shadow); transition-duration: var(--dur-fast); }
 /* The primary CTA. Its gradient was a fixed daylight pair, so the loudest
    gold object on the page stayed leaf-gilt on a page of phosphor; themed like
    --btn-fill, with near-black ink by day and night-paper ink on the brighter
    night gold so the label keeps its contrast either way. */
-.btn.gold { background: var(--btn-gold-fill); color: var(--btn-gold-ink); }
+.btn.gold { background: var(--leather-grain), var(--btn-gold-fill); color: var(--btn-gold-ink); }
 .btn.ghost { background: transparent; color: var(--link); border: 1.5px solid var(--link); box-shadow: none; }
 .btn.small { padding: 6px 12px; font-size: 13px; }
 .btn:disabled { opacity: 0.5; cursor: default; }
@@ -2645,6 +2819,7 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .qa-row[hidden] { display: none; }
 .qa-title b { font-size: 16px; }
 .qa-title p { margin: 3px 0 0; font-size: 14px; }
+.qa-title .qa-reference-meta { font-family: var(--sans); font-size: 12px; color: var(--gold-ink); }
 .qa-acts { display: flex; gap: 8px; align-items: center; }
 .qa-arts { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
 .qa-state { font-family: var(--sans); font-size: 11px; margin-left: 8px; padding: 2px 7px;
@@ -2680,6 +2855,92 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 }
 @media (max-width: 700px) {
   .qa-row { grid-template-columns: 1fr; }
+}
+
+/* ---------- radiology foundation, report text and image plans ---------- */
+.radiology-reference {
+  margin: 24px 0 30px; border: 1px solid var(--paper-edge); border-radius: var(--r-card);
+  background: var(--paper-hi); overflow-wrap: anywhere;
+}
+.rad-reference-head {
+  padding: 22px 24px; background: var(--tint-info-soft);
+  border-radius: var(--r-card) var(--r-card) 0 0; border-bottom: 1px solid var(--rule);
+}
+.rad-reference-head h2 { margin: 5px 0 12px; font-size: clamp(24px, 3vw, 32px); }
+.rad-reference-head > p { margin: 10px 0 0; }
+.rad-reference-credit, .rad-reference-meta {
+  color: var(--ink-soft); font: 13px/1.6 var(--sans);
+}
+.radiology-reference a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
+.radiology-reference a:hover { color: var(--gold-ink); }
+.rad-learning-points, .rad-reading, .rad-report-templates, .rad-key-images {
+  padding: 20px 24px; min-width: 0;
+}
+.radiology-reference > .muted { margin: 20px 24px; }
+.radiology-reference > div + div { border-top: 1px solid var(--rule); }
+.radiology-reference > .rad-reference-head + div { border-top: 0; }
+.radiology-reference h3 { margin: 0 0 10px; font-size: 21px; }
+.rad-learning-points ul { margin: 0; padding-left: 22px; }
+.rad-learning-points li + li { margin-top: 8px; }
+.rad-reference-meta { margin: 0 0 14px; }
+.rad-reading-group + .rad-reading-group { margin-top: 20px; }
+.rad-reading-group > h4 {
+  margin: 0 0 8px; color: var(--gold-ink); font: 600 13px/1.4 var(--sans);
+}
+.rad-source-article { padding: 12px 0; border-top: 1px solid var(--rule); }
+.rad-source-title { font: 600 16px/1.5 var(--sans); }
+.rad-source-topic { margin: 4px 0; font: 12px/1.5 var(--sans); color: var(--ink-faint); }
+.rad-source-outline { margin-top: 8px; font: 13px/1.6 var(--sans); color: var(--ink-soft); }
+.rad-source-outline summary { cursor: pointer; padding: 5px 0; width: fit-content; }
+.rad-source-outline ul { margin: 8px 0 2px; padding-left: 24px; columns: 2 230px; column-gap: 30px; }
+.rad-source-outline li { break-inside: avoid; margin: 0 0 6px; }
+.rad-template {
+  margin-top: 12px; border: 1px solid var(--edge); border-radius: var(--r-ctl);
+  background: var(--field); min-width: 0;
+}
+.rad-template > summary {
+  padding: 14px 16px; cursor: pointer; font: 600 15px/1.5 var(--sans);
+}
+.rad-template-kind {
+  display: inline-block; margin-left: 12px; color: var(--ink-faint); font-size: 11px; font-weight: 400;
+}
+.rad-template[open] > summary { border-bottom: 1px solid var(--rule); }
+.rad-template-content { padding: 16px; }
+.rad-template-content > p:first-child { margin-top: 0; }
+.rad-report-hint { margin: 10px 0 16px; color: var(--ink-soft); font: 13px/1.6 var(--sans); }
+.rad-report-label { display: block; margin-bottom: 8px; font: 600 13px/1.5 var(--sans); }
+.rad-report-editor {
+  display: block; width: 100%; min-width: 0; min-height: 280px; resize: vertical;
+  padding: 14px; border: 1px solid var(--edge); border-radius: 6px;
+  color: var(--ink); background: var(--paper-hi); font: 14px/1.65 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.rad-report-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.rad-report-status { min-height: 21px; margin: 10px 0 0; color: var(--ink-soft); font: 12px/1.6 var(--sans); }
+.rad-template-notes, .rad-template-sources { margin-top: 18px; font: 13px/1.6 var(--sans); }
+.rad-template-notes h4, .rad-template-sources h4 { margin: 0 0 6px; font-size: 13px; }
+.rad-template-notes ul, .rad-template-sources ul { margin: 0; padding-left: 20px; }
+.rad-template-notes li + li, .rad-template-sources li + li { margin-top: 6px; }
+.rad-image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 18px; }
+.rad-image-example { margin: 0; min-width: 0; padding: 12px; background: var(--paper-2); border: 1px solid var(--paper-edge); border-radius: 8px; }
+.rad-image-frame {
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 4 / 3; border: 1px solid var(--edge); border-radius: 5px;
+  color: var(--ink-faint); background: var(--paper); font: 12px/1.5 var(--sans);
+}
+.rad-image-frame img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: scale-down; border-radius: 4px; }
+.rad-image-frame.has-image-error, .rad-image-frame:empty { aspect-ratio:auto; min-height:0; border:0; background:none; }
+.rad-image-example figcaption { margin-top: 12px; font: 13px/1.6 var(--sans); }
+.rad-image-example figcaption strong { display: block; color: var(--ink); }
+.rad-image-example figcaption p { margin: 5px 0 8px; color: var(--ink-soft); }
+.rad-image-type { display: inline-block; margin-top: 5px; color: var(--ink-soft); font: 600 11px/1.5 var(--sans); text-transform: uppercase; letter-spacing: .06em; }
+.rad-image-example figcaption .rad-image-credit { font-size: 11px; }
+.radiology-reference :is(summary, textarea, a):focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .rad-reference-head, .rad-learning-points, .rad-reading, .rad-report-templates, .rad-key-images { padding: 16px; }
+  .rad-template-content { padding: 12px; }
+  .rad-template > summary { padding: 12px; }
+  .rad-template-kind { display: block; margin: 4px 0 0 17px; }
+  .rad-report-editor { font-size: 16px; padding: 10px; }
 }
 
 /* The Shelf's colophon — a credit line, set the way a book sets one: small,
@@ -2796,6 +3057,18 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   #sidebar .brand .mark svg { width: 24px; height: 24px; }
   #sidebar .brand h1 { font-size: 17px; margin: 0; }
   #sidebar .brand .sub { font-size: 10px; margin-left: auto; }
+  #sidebar .brand .sub { display: none; }
+  #navigation-toggle {
+    display: block; margin-left: auto; min-height: 44px; padding: 6px 12px;
+    border: 1px solid var(--chrome-rule); border-radius: 8px;
+    background: transparent; color: var(--chrome-hi); font: 15px var(--sans);
+  }
+  #mobile-location { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  #mobile-location span { font: 11px/1.3 var(--sans); color: var(--chrome-ink-dim); }
+  #mobile-location strong { font: 16px/1.3 var(--serif); color: var(--chrome-hi); overflow-wrap: anywhere; }
+  #sidebar:has(#reader-context-slot:not([hidden])) #mobile-location { display: none; }
+  #sidebar:not([data-nav-open="true"]) :is(#primary-nav, #navigation-stats, #reading-settings) { display: none; }
+  #sidebar[data-nav-open="true"] { max-height: 75dvh; overflow-y: auto; }
   #sidebar .spacer { display: none; }
   #reader-context-slot { margin: 0; }
   .reader-context-toggle { min-height: 50px; padding: 7px 10px; align-items: center; }
@@ -2858,13 +3131,20 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
   .make-ten-bank { grid-template-columns: repeat(5, minmax(34px, 48px)); min-height: 62px; padding: 8px; }
   .algorithm-step { align-items: flex-start; flex-direction: column; }
   .algorithm-toggle { align-self: stretch; }
-  .life-cycle-ring { gap: 8px; padding: 7px; border-radius: 32px; }
-  .life-cycle-stage-card { min-height: 68px; padding: 8px; font-size: 15px; }
+  .life-cycle-scene { min-height: 0; }
+  .life-cycle-route-svg { display: none; }
+  .life-cycle-ring { grid-template-columns: 1fr; gap: 8px; padding: 7px; }
+  .life-cycle-stage:nth-child(n) { grid-column: 1; grid-row: auto; }
+  .life-cycle-stage-card { grid-template-columns: 28px minmax(100px, 150px) 1fr; min-height: 88px; padding: 8px; font-size: 15px; }
   .life-cycle-number { flex-basis: 26px; width: 26px; height: 26px; }
   .fraction-row { grid-template-columns: 1fr; gap: 7px; }
   .fraction-bar { height: 58px; }
   .atom-stepper-grid { grid-template-columns: 1fr; }
-  .microscope-field { width: min(270px, 100%); padding: 12px; border-width: 8px; }
+  .science-diagram { min-width: 0; }
+  .microscope-field, .circulation-diagram, .allele-segregation-diagram,
+  .gene-expression-diagram, .morphogen-gradient-diagram { min-width: 0; }
+  .biology-control-grid { grid-template-columns: 1fr; }
+  .morphogen-fate-legend { grid-template-columns: 1fr; }
   .counterexample-scene { min-height: 205px; }
   .counterexample-rectangle-set {
     grid-template-columns: minmax(145px, 1fr) minmax(54px, .34fr); gap: 10px;
@@ -2957,6 +3237,8 @@ body[data-stage="0"] .q-prompt, body[data-stage="1"] .q-prompt { font-size: 24px
 body[data-stage="0"] .lesson-card h3, body[data-stage="1"] .lesson-card h3 { font-size: 21px; }
 body[data-stage="0"] .lesson-illustration figcaption,
 body[data-stage="1"] .lesson-illustration figcaption,
+body[data-stage="0"] .photograph-description,
+body[data-stage="1"] .photograph-description,
 body[data-stage="0"] .model-readout, body[data-stage="1"] .model-readout,
 body[data-stage="0"] .model-status, body[data-stage="1"] .model-status {
   font-size: 16px;
@@ -2965,6 +3247,8 @@ body[data-stage="0"] .math-stage-option,
 body[data-stage="1"] .math-stage-option { min-height: 58px; }
 body[data-stage="0"] .math-stage-name,
 body[data-stage="1"] .math-stage-name { font-size: 15px; }
+body[data-stage="0"] .visual-filter-control select,
+body[data-stage="1"] .visual-filter-control select { min-height: 58px; font-size: 16px; }
 body[data-stage="0"] .math-image-card h4,
 body[data-stage="1"] .math-image-card h4 { font-size: 21px; }
 body[data-stage="0"] .math-image-figure figcaption,
@@ -3033,7 +3317,8 @@ h3 > .card-open { font: inherit; color: inherit; }
 
 /* Daily quest checklist. */
 .quest { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 20px; }
-.quest-item { flex: 1 1 180px; background: var(--paper-2); border: 1.5px solid var(--paper-edge);
+.quest-item { flex: 1 1 180px; background: var(--page-texture), var(--paper-2);
+  box-shadow: inset 0 2px 4px var(--surface-shade), 0 1px 0 var(--surface-light); border: 1.5px solid var(--paper-edge);
   border-radius: var(--r-card); padding: 14px 16px; display: flex; align-items: center; gap: 12px;
   transition: border-color var(--dur-base), background var(--dur-base); }
 .quest-item .tick { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--edge);
@@ -3283,7 +3568,9 @@ body[data-stage="4"] .card, body[data-stage="5"] .card { padding: 13px 16px; mar
    compaction above must not put a second inset around their own header,
    figure and footer, nor add a margin on top of the grid's gap. */
 body[data-stage="4"] .math-image-card,
-body[data-stage="5"] .math-image-card { padding: 0; margin-bottom: 0; }
+body[data-stage="5"] .math-image-card,
+body[data-stage="4"] .lesson-photograph,
+body[data-stage="5"] .lesson-photograph { padding: 0; margin-bottom: 0; }
 body[data-stage="4"] .lesson-card h3, body[data-stage="5"] .lesson-card h3 { font-size: 17px; }
 body[data-stage="4"] .q-prompt, body[data-stage="5"] .q-prompt { font-size: 18px; line-height: 1.45; }
 body[data-stage="4"] .choice, body[data-stage="5"] .choice { padding: 9px 13px; font-size: 15px; }
@@ -3378,14 +3665,12 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 .q-checking { color: var(--ink-faint); font-style: italic; }
 .q-checking:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 
-/* ---------------- the Guide's error card ---------------- */
-/* "DON'T PANIC" — inscribed in large, friendly letters. The reassurance IS
-   the design: an error page in a children's book should look calmer than the
-   page that failed. */
+/* ---------------- actionable error states ---------------- */
 .err-card { text-align: center; padding: 28px 24px; }
-.dont-panic { font-family: var(--sans); font-weight: 800; font-size: 34px;
-  letter-spacing: .12em; color: var(--gold-ink);
-  text-shadow: 0 1px 0 rgba(0,0,0,.15); margin-bottom: 8px; }
+.dont-panic { font-family: var(--sans); font-weight: 800; font-size: clamp(24px, 5vw, 34px);
+  letter-spacing: .12em; color: var(--gold-ink); text-shadow: var(--glow-strong); margin-bottom: 8px; }
+.err-title { font-family: var(--sans); font-weight: 600; font-size: 20px;
+  color: var(--ink); margin: 0 0 8px; }
 .err-lede { font-size: 16px; margin: 4px 0 2px; }
 .err-note { font-size: 13px; margin-bottom: 14px; }
 
@@ -3495,7 +3780,6 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 .pagehead h2 { text-shadow: var(--glow-soft); }
 .navbtn.active { text-shadow: var(--glow-soft); }
 .node-dot.available { box-shadow: 0 0 0 1px var(--tint-gold-strong), var(--tile-glow); }
-.dont-panic { text-shadow: var(--glow-strong); }
 .stars { text-shadow: var(--glow-strong); }
 .tl-epoch::before { box-shadow: 0 0 0 2px var(--gold), var(--tile-glow); }
 
@@ -3509,7 +3793,8 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 /* The chapter card and the story modal: the book's own voice, on the book's
    own stock. Styled here rather than inline so they follow the palette
    instead of being permanently the colour of 2024's brown. */
-.chapter-card { background: var(--panel-bg); color: var(--chrome-ink); border: none; }
+.chapter-card { background: var(--panel-bg); color: var(--chrome-ink); border: 1px solid var(--chrome-rule);
+  box-shadow: inset 0 1px 0 var(--chrome-rule), inset 0 0 0 5px rgba(0,0,0,.08), var(--elev-2); }
 .chapter-title { color: var(--chrome-hi); font-size: 24px; margin: 6px 0;
   text-shadow: var(--glow-soft); }
 .chapter-waiting { color: var(--chrome-ink-dim); font-family: var(--sans);
@@ -3703,7 +3988,8 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 .lightbox { text-align: center; }
 .lightbox-image-scroll { max-width: 100%; border-radius: 8px; }
 .lightbox img {
-  width: 100%; height: auto; max-height: 78vh; object-fit: contain;
+  width: 100%; max-width: min(100%, var(--image-native-width, 100%));
+  height: auto; max-height: 78vh; object-fit: contain;
   border-radius: 8px; background: var(--paper-2);
   /* Both #article image filters again, because they are scoped to #article and
      the overlay is not inside it: without these a night reader gets the map's
@@ -3729,16 +4015,10 @@ kbd.key-hint { font-family: var(--sans); font-size: 10px; font-weight: 700;
 /* The affordance the dead anchors never had: this picture answers to a touch. */
 #article a[href="#"] img, #article img.tappable,
 .lesson-illustration img.tappable, .math-image-figure img.tappable { cursor: zoom-in; }
-.picture-fallback {
-  min-height: 48px; max-width: 100%; padding: 9px 11px;
-  display: inline-flex; align-items: center; gap: 9px;
-  border: 1px dashed var(--rule); border-radius: 7px;
-  background: var(--paper-2); color: var(--ink-faint);
-  font: 12px/1.35 var(--sans);
+.lesson-photograph img.tappable:focus-visible {
+  outline: 3px solid var(--focus); outline-offset: -4px;
 }
-.picture-fallback > .glyph { flex: none; color: var(--gold-ink); }
-.picture-fallback > span:last-child { display: flex; flex-direction: column; gap: 2px; }
-.picture-fallback small { display: block; max-width: 48ch; color: var(--ink-soft); font: 11px/1.35 var(--sans); }
+.image-load-note { display:flex; flex-wrap:wrap; align-items:center; gap:8px; color:var(--ink-soft); font:13px/1.5 var(--sans); }
 
 /* ---------------- the Atlas as an instrument ----------------
    The payload carries how far every tile has come and the page used to draw
@@ -3922,9 +4202,194 @@ body[data-stage="0"] .check-it, body[data-stage="1"] .check-it { min-height: 58p
 
 @media (max-width: 560px) {
   .physics-control-grid { grid-template-columns: 1fr; }
-  .physics-concept-svg { width: 620px; max-width: none; min-height: auto; }
+  .physics-concept-svg { width: 100%; max-width: 100%; min-height: auto; }
   .physics-preset-row .btn { flex: 1 1 44%; }
 }
 
+.model-diagram-viewport {
+  width: 100%; min-width: 0; overflow-x: auto; overscroll-behavior-inline: contain;
+}
+.model-diagram-viewport:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
 body[data-stage="0"] .physics-visual-summary,
 body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
+/* Spatial lesson models use the same paper, labels and controls as the plates. */
+.spatial-model { container-type: inline-size; }
+.spatial-badge { color: var(--link); border: 1px solid var(--rule); border-radius: 20px; padding: 4px 10px; font: 11px/1.4 var(--sans); white-space: nowrap; }
+.spatial-canvas { padding: 0; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: #f5efdf; }
+.spatial-svg { display: block; width: 100%; height: auto; touch-action: none; cursor: grab; }
+.spatial-svg:active { cursor: grabbing; }
+.spatial-svg:focus-visible { outline: 3px solid #317e78; outline-offset: -4px; }
+.spatial-label { font: 600 20px var(--sans); fill: #263b46; paint-order: stroke fill; stroke: #f5efdf; stroke-width: 3px; stroke-linejoin: round; }
+.spatial-orientation { display: block; padding: 9px 12px; text-align: center; color: #38505a; font: 12px/1.5 var(--sans); border-top: 1px solid #d1c7b3; }
+.spatial-help { color: var(--ink-soft); font: 13px/1.6 var(--sans); margin: 12px 0; }
+.spatial-camera-controls { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+.spatial-camera-controls .btn { min-height: 40px; }
+.spatial-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; }
+.spatial-parameter { display: flex; flex-direction: column; gap: 8px; min-width: 0; font: 13px/1.5 var(--sans); color: var(--ink); }
+.spatial-parameter > span { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
+.spatial-parameter output { color: var(--link); font-variant-numeric: tabular-nums; }
+.spatial-parameter input[type=range] { width: 100%; min-height: 32px; accent-color: #317e78; cursor: pointer; }
+.spatial-parameter select { width: 100%; min-width: 0; min-height: 42px; color: var(--ink); background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px; padding: 7px 10px; font: inherit; }
+.spatial-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; list-style: none; padding: 0; margin: 20px 0 8px; color: var(--ink-soft); font: 13px/1.6 var(--sans); }
+.spatial-legend li { display: flex; gap: 7px; align-items: center; }
+.spatial-swatch { width: 11px; height: 11px; flex: none; border-radius: 3px; }
+.spatial-readout { line-height: 1.7; }
+.spatial-note { color: var(--ink-soft); font: 13px/1.7 var(--sans); margin-bottom: 0; }
+@container (max-width: 540px) {
+  .spatial-controls { grid-template-columns: 1fr; }
+  .spatial-camera-controls .btn { flex: 1 1 110px; min-height: 44px; }
+  .spatial-label { font-size: 24px; }
+}
+
+/* Exact 2D explanations use the same paper, controls and reading hierarchy. */
+.concept-canvas { padding: 8px; background: #f5efdf; }
+.concept-svg { display: block; width: 100%; height: auto; max-width: 620px; margin: auto; }
+.concept-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.concept-control-group { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 8px; }
+.concept-control-group legend { margin-bottom: 8px; font: 600 13px/1.5 var(--sans); }
+.concept-toggle { min-height: 44px; white-space: normal; text-align: left; }
+.concept-parameter input[type=range] { min-height: 44px; }
+.concept-parse { white-space: normal; overflow-wrap: anywhere; font: 13px/1.7 var(--mono, monospace); }
+.concept-parse-label { margin-bottom: 4px; font-weight: 600; }
+.concept-sentence { font-size: 18px; }
+.concept-outcomes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.concept-outcome { margin: 0; padding: 10px 6px; text-align: center; border: 1px solid var(--rule); border-radius: 8px; }
+.concept-outcome strong, .concept-outcome span { display: block; }
+.concept-outcome span { font: 12px/1.5 var(--sans); }
+.concept-sources { overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .concept-controls { grid-template-columns: 1fr; }
+}
+
+/* Radiology reporting reference — practical reference access alongside lessons. */
+.rad-open-desk { margin: 0 0 20px; }
+.rad-reporting-desk { min-width: 0; width: 100%; max-width: 100%; }
+#page:has(.rad-reporting-desk), #page:has(.rad-desk-catalog) { min-width: 0; max-width: 100%; }
+.rad-desk-find { display: grid; grid-template-columns: minmax(0, 1fr) minmax(170px, 240px); gap: 12px; }
+.rad-desk-find :is(input, select) { width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid var(--edge); border-radius: 7px; color: var(--ink); background: var(--field); font: 15px/1.4 var(--sans); }
+.rad-desk-quick { display: flex; gap: 8px; margin: 14px 0; flex-wrap: wrap; }
+.rad-desk-catalog { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 14px; }
+.rad-desk-card { display: flex; flex-direction: column; gap: 8px; min-width: 0; text-align: left; padding: 20px; border: 1px solid var(--rule); border-radius: 9px; background: var(--paper-2); color: var(--ink); cursor: pointer; font: 14px/1.5 var(--sans); }
+.rad-desk-card:hover { border-color: var(--gold); background: var(--paper-hi); }
+.rad-desk-card[hidden], .rad-desk-panel[hidden], .rad-desk-empty[hidden] { display: none; }
+.rad-desk-card strong { font: 600 20px/1.3 var(--serif); }
+.rad-desk-specialty { color: var(--gold-ink); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+.rad-desk-card-summary { color: var(--ink-soft); }
+.rad-desk-card-meta { margin-top: auto; padding-top: 8px; color: var(--ink-faint); font-size: 12px; }
+.rad-desk-revision { margin: -10px 0 20px; color: var(--ink-soft); font: 12px/1.5 var(--sans); }
+.rad-desk-tabs { display: flex; gap: 4px; min-width: 0; max-width: 100%; overflow-x: auto; border-bottom: 1px solid var(--edge); padding: 4px 0 8px; }
+.rad-desk-tab { flex: 0 0 auto; padding: 11px 14px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--ink-soft); font: 600 14px/1.3 var(--sans); cursor: pointer; }
+.rad-desk-tab[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.rad-desk-panel { padding: 24px 0; min-width: 0; }
+.rad-desk-panel > :is(.rad-report-templates, .rad-key-images) { border: 0; padding: 0; background: none; }
+.rad-desk-panel .lesson-media { margin-top: 10px; }
+.rad-reporting-guide { font: 15px/1.65 var(--sans); }
+.rad-reporting-guide h3 { font-family: var(--serif); margin: 0 0 12px; }
+.rad-reporting-guide li + li { margin-top: 7px; }
+.rad-protocol { padding: 15px 18px; border: 1px solid var(--rule); border-radius: 7px; background: var(--paper-2); margin-bottom: 24px; }
+.rad-protocol summary { cursor: pointer; font-weight: 600; }
+.rad-desk-checklist { padding: 22px; border: 1px solid var(--rule); border-radius: 9px; background: var(--paper-2); }
+.rad-check-item { display: flex; align-items: flex-start; gap: 13px; cursor: pointer; padding: 13px 0; border-bottom: 1px solid var(--rule); }
+.rad-check-item input { width: 18px; height: 18px; margin: 4px 0 0; flex: 0 0 auto; accent-color: var(--gold-ink); }
+.rad-check-item span > strong { display: block; }
+.rad-check-item span > span { display: block; margin-top: 4px; color: var(--ink-soft); }
+.rad-check-item:has(input:checked) { opacity: .75; }
+.rad-checklist-actions { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 18px; }
+.rad-checklist-status { color: var(--ink-soft); font-size: 12px; }
+.rad-table-scroll { min-width: 0; max-width: 100%; overflow-x: auto; margin: 24px 0; }
+.rad-measurement-table { width: 100%; border-collapse: collapse; font: 14px/1.55 var(--sans); }
+.rad-measurement-table caption { text-align: left; margin-bottom: 12px; font: 600 22px/1.35 var(--serif); }
+.rad-measurement-table :is(th, td) { padding: 12px 14px; text-align: left; vertical-align: top; border: 1px solid var(--rule); }
+.rad-measurement-table thead { background: var(--paper-2); }
+.rad-measurement-table tbody th { width: 21%; }
+.rad-classification { padding: 22px; border-left: 3px solid var(--gold); background: var(--paper-2); margin: 24px 0; }
+.rad-classification-version { margin: 0; color: var(--gold-ink); font-weight: 600; }
+.rad-guide-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 28px 0; }
+.rad-guide-columns :is(ul, ol), .rad-escalation ul { padding-left: 21px; }
+.rad-escalation { padding: 22px; border: 1px solid var(--edge); border-radius: 8px; }
+.rad-desk-draft-note { color: var(--ink-faint); font-size: 12px; margin-top: 24px; }
+.rad-desk-source-list { padding-left: 20px; line-height: 1.7; }
+:is(.rad-desk-card, .rad-desk-tab, .rad-desk-panel, .rad-table-scroll):focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+@media (max-width: 700px) {
+  .rad-desk-find, .rad-guide-columns { grid-template-columns: 1fr; }
+  .rad-desk-card { padding: 16px; }
+  .rad-desk-checklist, .rad-classification, .rad-escalation { padding: 16px; }
+  .rad-desk-tab { padding: 10px 11px; font-size: 13px; }
+  .rad-measurement-table { min-width: 540px; }
+}
+
+/* Source-aligned investigation navigation. */
+.rad-desk-backbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 0 0 30px; padding: 0 0 18px; border-bottom: 1px solid var(--rule); }
+.rad-desk-backbar .rad-desk-back { display: inline-flex; align-items: center; min-height: 44px; padding: 9px 13px; margin: 0; font: 600 14px/1.4 var(--sans); width: auto; max-width: 100%; }
+.rad-desk-location { color: var(--ink-soft); font: 12px/1.5 var(--sans); }
+.rad-desk-backbar + .pagehead { margin-top: 0; }
+.rad-filter-field { min-width: 0; display: grid; gap: 8px; color: var(--ink-soft); font: 600 12px/1.4 var(--sans); }
+.rad-desk-find { gap: 18px; }
+.rad-desk-results-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 20px 0 22px; min-height: 44px; }
+.rad-desk-results-bar p { margin: 0; font: 13px/1.5 var(--sans); }
+.rad-desk-results-bar .btn { flex-shrink: 0; font-size: 12px; }
+.rad-desk-source-titles { color: var(--ink-soft); border-left: 2px solid var(--rule); padding-left: 10px; font: 12px/1.55 var(--sans); }
+.rad-source-heading-list { padding: 0 0 18px; font: 13px/1.6 var(--sans); color: var(--ink-soft); }
+.rad-source-heading-list > span { color: var(--gold-ink); font-weight: 600; }
+.rad-source-heading-list ul { margin: 7px 0 0; padding-left: 18px; }
+.rad-source-heading-list + .rad-desk-revision { margin-top: 0; }
+@media (max-width: 700px) {
+  .rad-desk-backbar { margin-bottom: 26px; padding-bottom: 18px; gap: 10px; }
+  .rad-desk-location { flex-basis: 100%; padding-left: 2px; }
+  .rad-desk-results-bar { margin-top: 18px; }
+}
+.rad-anatomy-illustration { margin: 0 0 28px; padding: 16px; border: 1px solid var(--rule); border-radius: 10px; background: var(--paper-2); }
+.rad-anatomy-illustration img { display: block; width: 100%; height: auto; max-height: 720px; object-fit: contain; background: #ece8e0; border-radius: 6px; }
+.rad-anatomy-illustration figcaption { margin-top: 12px; font: 13px/1.6 var(--sans); color: var(--ink-soft); }
+.rad-anatomy-illustration figcaption strong { display: block; color: var(--gold-ink); }
+
+/* The age-to-graduate pathway is one set of filters over the existing Atlas. */
+.pathway-overview { margin: 0 0 26px; }
+.pathway-overview-head h3 { margin: 0 0 7px; font-size: 25px; }
+.pathway-overview-head p { margin: 0; color: var(--ink-soft); font: 13px/1.6 var(--sans); }
+.pathway-find { display: grid; grid-template-columns: minmax(190px, 1fr) minmax(190px, 1.5fr); gap: 16px; margin: 22px 0 18px; }
+.pathway-find label { display: grid; gap: 8px; min-width: 0; color: var(--ink-soft); font: 600 12px/1.4 var(--sans); }
+.pathway-find :is(select, input) { width: 100%; min-width: 0; }
+.pathway-stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+.pathway-stage { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; min-width: 0; min-height: 112px; padding: 14px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); color: var(--ink); text-align: left; cursor: pointer; font: 12px/1.5 var(--sans); }
+.pathway-stage strong { font: 600 19px/1.2 var(--serif); }
+.pathway-stage > span { color: var(--ink-soft); }
+.pathway-stage .pathway-stage-count { margin-top: auto; color: var(--gold-ink); }
+.pathway-stage:hover, .pathway-stage[aria-pressed="true"] { border-color: var(--gold); background: var(--tint-gold); }
+.pathway-stage[aria-pressed="true"] strong::after { content: " ✓"; }
+.pathway-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.pathway-note { margin: 15px 0 0; color: var(--ink-faint); font: 12px/1.6 var(--sans); }
+.atlas-board .stage-row { grid-template-columns: 144px minmax(0, 1fr); }
+.atlas-board .stage-label { font-variant: normal; letter-spacing: normal; line-height: 1.4; }
+.atlas-board .stage-label strong { display: block; font-size: 12px; }
+.atlas-board .stage-label span { display: block; margin-top: 3px; color: var(--ink-faint); font-size: 11px; }
+.atlas-specialist-index { padding-top: 18px; border-top: 1px solid var(--rule); }
+.atlas-specialist-index > summary { padding: 14px 0; cursor: pointer; color: var(--gold-ink); font: 600 15px/1.4 var(--sans); }
+.atlas-specialist-index .quick-access { margin-top: 10px; }
+.gallery-pathway-link { margin-top: 16px; }
+.lesson-pathway-links { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 22px; }
+.lesson-pathway-links a { text-decoration: none; }
+.teaching-lesson { margin-top: 24px; }
+.teaching-lesson-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.teaching-lesson-heading h3 { margin: 0; font-size: 26px; }
+.teaching-lesson-heading .speak-row { color: var(--ink-soft); font: 13px/1.5 var(--sans); }
+.lesson-outcomes { padding: 18px 20px; margin-top: 20px; background: var(--paper-2); border-left: 3px solid var(--gold); }
+.lesson-outcomes h4, .teaching-step h4 { margin: 0 0 9px; font: 600 16px/1.4 var(--sans); }
+.lesson-outcomes ul { margin: 0; padding-left: 20px; line-height: 1.7; }
+.lesson-outcomes li + li { margin-top: 5px; }
+.teaching-step { padding-top: 22px; margin-top: 22px; border-top: 1px solid var(--rule); }
+.teaching-step p { max-width: 76ch; margin: 10px 0 0; line-height: 1.8; white-space: pre-line; overflow-wrap: anywhere; }
+.lesson-together-note { margin: 24px 0 0; color: var(--ink-soft); font: 13px/1.65 var(--sans); }
+.pathway-stage:focus-visible, .atlas-specialist-index > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+@media (min-width: 1200px) { .pathway-stages { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .pathway-find { grid-template-columns: minmax(0, 1fr); }
+  .pathway-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pathway-stage { padding: 12px; }
+  .atlas-board .stage-row { grid-template-columns: minmax(0, 1fr); gap: 8px; margin-bottom: 20px; }
+  .atlas-board .stage-label { text-align: left; }
+  .atlas-board .stage-label::after { display: none; }
+  .atlas-board .stage-label strong, .atlas-board .stage-label span { display: inline; }
+  .atlas-board .stage-label span::before { content: " · "; }
+  .lesson-outcomes { padding: 16px; }
+}

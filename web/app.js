@@ -20,7 +20,7 @@ const api = {
 };
 
 const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null,
-  mathImages: null, restoreFocus: null, readerTitle: null };
+  visualGallery: null, restoreFocus: null, readerTitle: null };
 // The review deck's document-level keydown handler, held here so leaving the
 // page can remove it deterministically — its old self-removal only fired on
 // the *next* keypress after the deck was gone.
@@ -31,6 +31,27 @@ let _reviewKeyHandler = null;
 let _readerContextSeq = 0;
 const $ = (s, r = document) => r.querySelector(s);
 const STAGE_NAMES = ['Seedling', 'Sprout', 'Sapling', 'Tree', 'Grove', 'Forest'];
+const STAGE_SPANS = ['Ages 3–5 · preschool', 'Ages 6–9 · primary school',
+  'Ages 10–13 · middle school', 'Ages 14–17 · secondary school',
+  'Undergraduate level', 'Master’s level · graduate study'];
+// Use the same stage metadata as the learner profile when it is available.
+// The fallback keeps links and older saved state readable during an upgrade.
+function learningStages() {
+  return STAGE_NAMES.map((name, i) => {
+    const stage = (S.state && S.state.stages || []).find(item => item.i === i);
+    return { i, name: stage && stage.name || name, span: stage && stage.span || STAGE_SPANS[i] };
+  });
+}
+function learningStage(stage, fallbackName) {
+  const stages = learningStages();
+  const index = stage != null && stage !== '' ? Number(stage) : null;
+  return stages.find(item => item.i === index) || stages.find(item => item.name === fallbackName)
+    || { name: fallbackName || 'Learning stage', span: '' };
+}
+function stageLabel(stage, fallbackName) {
+  const info = learningStage(stage, fallbackName);
+  return info.name + (info.span ? ' · ' + info.span : '');
+}
 
 function el(tag, props = {}, ...kids) {
   const e = document.createElement(tag);
@@ -286,6 +307,11 @@ function speakBtn(getText, label) {
 /* ---------------- routing (hash-based) ---------------- */
 function hashFor(view, arg) {
   if (view === 'node') return '#/node/' + encodeURIComponent(arg);
+  if (view === 'radiology') return '#/radiology' + (arg ? '/' + encodeURIComponent(arg) : '');
+  if ((view === 'atlas' || view === 'math-images') && arg) {
+    return '#/' + view + '/' + encodeURIComponent(arg.domain || 'all')
+      + (Number.isInteger(arg.stage) ? '/' + arg.stage : '');
+  }
   // The short sitting is a route, not a mode flag, so it survives a reload and
   // can be linked to — a reader who has five minutes on a bus has them again
   // tomorrow.
@@ -298,13 +324,18 @@ function hashFor(view, arg) {
 // spell it. This list said 'journal' (the API endpoint's name, not the
 // view's), so the Journey nav button silently "corrected" itself to Today on
 // every click and the view was unreachable by any path.
-const KNOWN_VIEWS = new Set(['today', 'atlas', 'math-images', 'review', 'library-search', 'story',
-                             'journey', 'roadmap', 'library', 'node', 'read', 'reader', 'account']);
+const KNOWN_VIEWS = new Set(['today', 'atlas', 'math-images', 'review', 'review-game', 'library-search', 'story',
+                             'journey', 'roadmap', 'library', 'node', 'read', 'reader', 'account', 'radiology']);
 function parseHash() {
   const h = (location.hash || '#/today').replace(/^#\/?/, '');
   const parts = h.split('/').map(decodeURIComponent);
   const view = parts[0] || 'today';
   if (view === 'node') return { view, arg: parts[1] };
+  if (view === 'radiology') return { view, arg: parts[1] || null };
+  if (view === 'atlas' || view === 'math-images') return { view, arg: {
+    domain: parts[1] || 'all',
+    stage: /^[0-5]$/.test(parts[2] || '') ? Number(parts[2]) : null,
+  } };
   if (view === 'review') return { view, arg: parts[1] === 'short' ? 'short' : null };
   if (view === 'read') return { view: 'reader', arg: { title: parts[1], node: parts[2] || null } };
   // `reader` is the internal name for the article view and needs a title. Typed
@@ -326,6 +357,10 @@ function renderRoute() {
   // DOM. Views that speak on arrival do so after this, from their own render.
   stopSpeaking();
   _readerContextSeq += 1;
+  const navigationVersion = _readerContextSeq;
+  if (!S.restoreFocus) setSidebarExpanded(false);
+  const mobileLocation = $('#mobile-location');
+  if (mobileLocation) mobileLocation.replaceChildren(el('span', {}, 'Opening page…'));
   const readerContext = $('#reader-context-slot');
   if (readerContext) {
     readerContext.replaceChildren();
@@ -338,14 +373,14 @@ function renderRoute() {
   if (corrected) { location.replace('#/' + view); return; }
   S.view = view;
   document.querySelectorAll('.navbtn').forEach(b => {
-    const active = b.dataset.nav === view;
+    const active = b.dataset.nav === view || (view === 'review-game' && b.dataset.nav === 'review');
     b.classList.toggle('active', active);
     if (active) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
-  const routes = { today: renderToday, atlas: renderAtlas, 'math-images': renderMathImages,
-    review: renderReview, 'library-search': renderSearch, roadmap: renderRoadmap,
+  const routes = { today: renderToday, atlas: renderAtlas, 'math-images': renderVisualGallery,
+    review: renderReview, 'review-game': renderMemoryGame, 'library-search': renderSearch, roadmap: renderRoadmap,
     library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode,
-    reader: renderReader, account: renderAccount };
+    reader: renderReader, account: renderAccount, radiology: renderRadiologyDesk };
   const page = $('#page'); if (!page) return;
   page.innerHTML = ''; page.scrollTop = 0;
   // The turn of the page. Removing and re-adding the class restarts the CSS
@@ -358,9 +393,16 @@ function renderRoute() {
   // Focus after the view exists so screen readers announce the new page, not an
   // empty container.
   Promise.resolve(rendered).finally(() => {
+    if (navigationVersion !== _readerContextSeq) return;
     const h1 = page.querySelector('#article h1');
     const h = h1 || page.querySelector('.pagehead h2');
     page.setAttribute('aria-label', h ? h.textContent : view);
+    const location = $('#mobile-location');
+    if (location) {
+      const kicker = page.querySelector('.pagehead .kicker');
+      location.replaceChildren(el('span', {}, kicker ? kicker.textContent : 'The Primer'),
+        el('strong', {}, h ? h.textContent : view));
+    }
     // The one surface that never turned a page. A reader eight thousand words
     // into an article, or three questions into a quiz, saw the same masthead in
     // the tab as on the day they opened the book; with two copies open they had
@@ -761,26 +803,47 @@ async function runPlacement(domain, stage) {
 }
 
 /* ---------------- shell ---------------- */
+function setSidebarExpanded(expanded, restoreFocus = false) {
+  const sidebar = $('#sidebar'), toggle = $('#navigation-toggle');
+  if (!sidebar || !toggle) return;
+  sidebar.dataset.navOpen = String(expanded);
+  toggle.setAttribute('aria-expanded', String(expanded));
+  toggle.textContent = expanded ? 'Close menu' : 'Menu';
+  if (restoreFocus) toggle.focus();
+}
+
 function renderShell() {
   const p = S.state.profile;
+  const navigationWasOpen = $('#sidebar')?.dataset.navOpen === 'true';
   document.body.dataset.stage = p.stage;
   $('#root').innerHTML = '';
   const book = el('div', { id: 'book' });
   // Icons are deliberately distinct — four near-identical book glyphs are no
   // help to a child who cannot read the labels.
   const nav = [['today', 'today', 'Today'], ['atlas', 'atlas', 'The Atlas'],
-    ['math-images', 'gallery', 'Math Images'], ['review', 'review', 'Review'],
+    ['radiology', 'lookup', 'Radiology reference'],
+    ['math-images', 'gallery', 'Visual Gallery'], ['review', 'review', 'Review'],
     ['library-search', 'lookup', 'Look Up'], ['story', 'story', 'Your Story'], ['journey', 'journey', 'Journey'],
     ['roadmap', 'path', 'Your Path'], ['library', 'shelf', 'The Shelf']];
   const sidebar = el('nav', { id: 'sidebar', 'aria-label': 'Main' },
     el('div', { class: 'brand' }, el('div', { class: 'mark', 'aria-hidden': 'true' }, glyph('story', 34)), el('h1', {}, 'The Primer'),
-      el('div', { class: 'sub' }, p.title || p.stage_name)),
+      el('div', { class: 'sub' }, p.title || p.stage_name),
+      btn({ id: 'navigation-toggle', 'aria-expanded': 'false',
+        'aria-controls': 'primary-nav navigation-stats reading-settings',
+        onclick: () => setSidebarExpanded(sidebar.dataset.navOpen !== 'true') }, 'Menu')),
+    el('div', { id: 'mobile-location' }),
     el('div', { id: 'reader-context-slot', hidden: '' }));
+  sidebar.dataset.navOpen = 'false';
+  sidebar.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && sidebar.dataset.navOpen === 'true') {
+      event.preventDefault(); setSidebarExpanded(false, true);
+    }
+  });
   // The nav and the stats each get a container. Without them every button,
   // the brand and every stat chip were bare siblings of one flex parent, so
   // the narrow-screen rule (`flex-wrap: wrap`) had nothing to wrap *as* — it
   // shuffled all fourteen into a ragged grid with "Today" beside the title.
-  const navlist = el('div', { class: 'navlist' });
+  const navlist = el('div', { class: 'navlist', id: 'primary-nav' });
   nav.forEach(([id, ic, label]) => {
     const b = btn({ class: 'navbtn', dataset: { nav: id }, onclick: () => go(id) },
       el('span', { class: 'ic', 'aria-hidden': 'true' }, glyph(ic)), el('span', { class: 'label' }, label));
@@ -809,7 +872,7 @@ function renderShell() {
   // one undifferentiated stack, so the toggles read as two more stats and sat
   // hard against the bottom edge. Separated into their own row, ruled off, and
   // set side by side — settings look like settings, not like a score.
-  sidebar.append(el('div', { class: 'statrow' },
+  sidebar.append(el('div', { class: 'statrow', id: 'navigation-stats' },
     el('div', { class: 'stat' }, el('span', {}, 'Reader'), el('b', {}, p.name)),
     el('div', { class: 'stat' }, el('span', {}, 'Mastered'), el('b', { id: 'stat-mastered' }, '—')),
     // "XP" is a two-letter acronym off an arcade cabinet, pinned over the page
@@ -820,7 +883,7 @@ function renderShell() {
     el('div', { class: 'stat' }, el('span', {}, 'Growth'), el('b', { id: 'stat-xp' }, p.xp || 0)),
     el('div', { class: 'stat' }, el('span', {}, 'Streak'), el('b', { id: 'stat-streak' }, String(p.streak || 0), glyph('flame', 13))),
   ));
-  sidebar.append(el('div', { class: 'chrome-row', role: 'group', 'aria-label': 'Reading settings' },
+  sidebar.append(el('div', { class: 'chrome-row', id: 'reading-settings', role: 'group', 'aria-label': 'Reading settings' },
     speakToggle(),
     themeToggle(),
     accountToggle(),
@@ -828,6 +891,7 @@ function renderShell() {
   book.append(sidebar, el('main', { id: 'page' }));
   const skip = btn({ class: 'skip-link', onclick: () => { const m = $('#page'); if (m) { m.setAttribute('tabindex', '-1'); m.focus(); } } }, 'Skip to content');
   $('#root').append(skip, book);
+  setSidebarExpanded(navigationWasOpen);
   // The shell was just rebuilt from nothing; if the world is still away, the
   // band must come back with it — this is the only path that can restore it
   // for a reader who opened the book already offline.
@@ -849,6 +913,23 @@ function themeToggle() {
     // change, so elements can keep the old theme's colours. Rebuilding the view
     // guarantees every node resolves the new tokens.
     if (S.state && S.state.onboarded) {
+      if (S.view === 'radiology') {
+        // Reattach the same reporting workspace after refreshing the shell.
+        // Textareas, checkmarks and model camera state must survive a theme
+        // change; rebuilding the reference silently discards a report draft.
+        const retainedPage = $('#page');
+        const retainedLocation = $('#mobile-location');
+        const scroll = { left: window.scrollX, top: window.scrollY };
+        renderShell();
+        if (retainedPage) $('#page').replaceWith(retainedPage);
+        if (retainedLocation) $('#mobile-location')?.replaceWith(retainedLocation);
+        const activeReference = document.querySelector('.navbtn[data-nav="radiology"]');
+        activeReference?.classList.add('active');
+        activeReference?.setAttribute('aria-current', 'page');
+        $('#theme-toggle')?.focus({ preventScroll: true });
+        requestAnimationFrame(() => window.scrollTo(scroll));
+        return;
+      }
       S.restoreFocus = 'theme-toggle';   // honoured once the view has rebuilt
       renderShell(); renderRoute();
     } else paint();
@@ -906,7 +987,7 @@ function emptyLeaf(glyphName, title, body) {
 // "no profile" is not a failure — it is the book's honest answer when there is
 // nobody in it yet. The demo runs on ephemeral storage, so a reader mid-session
 // can find the record gone; every data endpoint then answers 400 {"no profile"}
-// and the whole app used to meet them with DON'T PANIC. A missing reader is an
+// and the whole app used to meet them with a generic error. A missing reader is an
 // unwritten first page: go and write it. Genuine network/server trouble is a
 // different animal and keeps the Guide's error card.
 function isNoProfile(e) { return !!e && typeof e.error === 'string' && /no profile/i.test(e.error); }
@@ -924,19 +1005,13 @@ async function guard(page, fn) {
     return null;
   }
 }
-// The Guide's first and best advice, in large friendly letters. An error in a
-// book for children should reassure before it explains: nothing the reader
-// did, nothing lost, and a clear way onward.
-// What the book says about its own refusals. Round 5 demoted the backend
-// string to fine print, which kept the DON'T PANIC lede intact but still put
-// "no such node" — and, on any non-JSON failure, "Internal Server Error" —
-// on the page in the reader's own hands. A machine tag is not fine print; it
-// is a different book. So the front end keeps the book's half of the
-// vocabulary, and anything it does not recognise is said in the book's words
-// instead of the server's. The diagnosis is not lost: it goes to the console.
+// Explain known failures plainly and offer a way forward. Unknown failures
+// must not guess at a cause or promise that learner data was saved. Keep raw
+// diagnostics in the console, rather than exposing server strings in the UI.
 const SAID = {
   'no such node': 'That lesson is not among these pages.',
   'not found': 'That page is not on the shelf.',
+  'article temporarily unavailable': 'Wikipedia is temporarily unavailable. Please try this page again shortly.',
   'unknown catalog key': 'That volume is not in the book\u2019s catalogue.',
   'unknown quiz token': 'That paper has been set aside — ask for a fresh one.',
   'unknown generator': 'That drill is not one the book knows how to set.',
@@ -952,19 +1027,17 @@ function saidFor(e) {
   return SAID[tag] || '';
 }
 function errCard(e, retry) {
-  // The lede leads, and the second line is the book explaining itself in its
-  // own words or saying nothing at all.
-  if (e && e.error) console.warn('[primer]', e.error);
-  // "Likely the network, never you" is a kind guess. When the book can see for
-  // itself that there is no network, it should stop guessing and say so — and
-  // say the thing that matters, which is that nothing is out of reach that was
-  // ever really in hand.
-  const said = saidFor(e) || (navigator.onLine ? '' :
-    'The book is on its own just now — no wire, no signal. Everything already bound in is still yours to read.');
+  if (e) console.warn('[primer]', e.error || e.message || e);
+  const said = saidFor(e) || (navigator.onLine === false
+    ? 'Your browser reports that it is offline. Check your connection and try again.'
+    : 'This content could not be loaded right now.');
   const c = el('div', { class: 'card err-card', role: 'alert' },
     el('div', { class: 'dont-panic', 'aria-hidden': 'true' }, 'DON’T PANIC'),
-    el('p', { class: 'err-lede' }, said || 'The Book has briefly lost its train of thought — likely the network, never you.'),
-    el('p', { class: 'muted err-note' }, 'Everything you have learned is safely written down.'));
+    el('h3', { class: 'err-title' }, 'Unable to load content'),
+    el('p', { class: 'err-lede' }, said),
+    el('p', { class: 'muted err-note' }, retry
+      ? 'Try again. If the problem continues, reopen this page.'
+      : 'Reopen this page to try again.'));
   if (retry) c.append(btn({ class: 'btn ghost small', onclick: retry }, 'Try again'));
   return c;
 }
@@ -1342,11 +1415,12 @@ function lessonCard(n) {
   const open = el('h3', { style: 'font-size:18px;margin:0' },
     btn({ class: 'unstyled card-open', onclick: () => go('node', n.id) }, n.title));
   c.append(
-    el('span', { class: 'stagepill' }, STAGE_NAMES[n.stage]),
-    // Domain hexes are authored for daylight in the curriculum JSON. Rather
-    // than re-authoring ten files per theme, --domain-lift raises the fill
-    // toward white at night (0% by day) so --on-fill keeps its contrast.
-    el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
+    el('div', { class: 'lesson-meta' },
+      // Domain hexes are authored for daylight in the curriculum JSON. Rather
+      // than re-authoring ten files per theme, --domain-lift raises the fill
+      // toward white at night (0% by day) so --on-fill keeps its contrast.
+      el('span', { class: 'domain-tag', style: `background:color-mix(in srgb, ${d.color}, white var(--domain-lift, 0%))` }, domainMark(d, 14), ' ' + d.name),
+      el('span', { class: 'stagepill', title: stageLabel(n.stage) }, stageLabel(n.stage))),
     open,
     el('p', { class: 'goal' }, n.goal || ''));
   // A lesson standing one earned pass short of mastery already has a dated
@@ -1364,7 +1438,6 @@ function lessonCard(n) {
   }
   if (S.stage <= 1) {
     const sp = speakBtn(() => n.title + '. ' + (n.goal || ''), 'Say ' + n.title);
-    sp.style.cssText = 'position:absolute;bottom:10px;right:10px';
     c.append(sp);
   }
   if (n.mastery) {
@@ -1497,12 +1570,27 @@ function lessonLongDescription(item) {
   };
 }
 
+function photographCaption(item) {
+  return el('figcaption', { class: 'photograph-caption' },
+    el('div', { class: 'photograph-caption-labels' },
+      el('span', { class: 'photograph-kind' }, 'Photorealistic scene'),
+      item.source_type === 'generated'
+        ? el('span', { class: 'photograph-origin' }, 'AI-generated') : null),
+    item.caption ? el('p', { class: 'photograph-description' }, item.caption) : null,
+    item.credit ? el('p', { class: 'photograph-credit' }, item.credit) : null);
+}
+
 function renderLessonMedia(items) {
   if (!Array.isArray(items) || !items.length) return null;
   const media = el('div', { class: 'lesson-media' });
-  items.forEach(item => {
-    if (item && item.kind === 'illustration') {
+  let imageCount = 0;
+  const ordered = [...items.filter(item => item?.kind === 'photograph'),
+    ...items.filter(item => item?.kind !== 'photograph')];
+  ordered.forEach(item => {
+    if (item && (item.kind === 'illustration' || item.kind === 'photograph')) {
       if (!item.src || !item.alt) return;
+      const isPhotograph = item.kind === 'photograph';
+      const firstImage = imageCount++ === 0;
       const image = el('img', {
         src: item.src,
         srcset: item.srcset || null,
@@ -1510,13 +1598,14 @@ function renderLessonMedia(items) {
         alt: item.alt,
         width: item.width || 1600,
         height: item.height || 1000,
-        loading: 'eager',
+        loading: firstImage ? 'eager' : 'lazy',
         decoding: 'async',
-        fetchpriority: 'high',
-        dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src) },
+        fetchpriority: firstImage ? 'high' : 'auto',
+        dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src), mediaKind: item.kind },
       });
-      const figure = el('figure', { class: 'card lesson-illustration' }, image);
-      if (item.caption) figure.append(el('figcaption', {}, item.caption));
+      const figure = el('figure', { class: 'card ' + (isPhotograph ? 'lesson-photograph' : 'lesson-illustration') }, image);
+      if (isPhotograph) figure.append(photographCaption(item));
+      else if (item.caption) figure.append(el('figcaption', {}, item.caption));
       const longDescription = lessonLongDescription(item);
       if (longDescription) {
         image.setAttribute('aria-describedby', longDescription.id);
@@ -1525,7 +1614,7 @@ function renderLessonMedia(items) {
       media.append(figure);
       return;
     }
-    if (item.kind === 'model' && window.PrimerLessonModels) {
+    if (item && item.kind === 'model' && window.PrimerLessonModels) {
       const model = window.PrimerLessonModels.render(item, {
         speakButton: S.stage <= 2 ? (getText, label) => speakBtn(getText, label) : null,
       });
@@ -1540,13 +1629,479 @@ function renderLessonMedia(items) {
   return media;
 }
 
+/* ---------------- radiology reference workbench ----------------
+   Foundation articles stay with their publisher. Our report drafts contain
+   plain text only, held in the mounted editor: no storage, patient uploads,
+   background requests, or generated conclusions. */
+function radiologySourceLink(title, url, props = {}) {
+  if (/^\/app\/illustrations\/[a-z0-9/_-]+\.webp$/.test(url || '')) {
+    return el('a', { ...props, href: url, target: '_blank', rel: 'noopener noreferrer' }, title);
+  }
+  // Reference data is authored, but a malformed URL must never become an
+  // executable link. Keeping these links external also avoids the wiki reader.
+  try {
+    const source = new URL(url);
+    if (source.protocol === 'https:' || source.protocol === 'http:') {
+      return el('a', { ...props, href: source.href, target: '_blank', rel: 'noopener noreferrer' }, title);
+    }
+  } catch (e) { /* Show the title if a source has no usable URL. */ }
+  return el('span', props, title);
+}
+
+function radiologyReportText(template) {
+  const sections = (template.sections || []).map(section => {
+    const body = Array.isArray(section.body) ? section.body.join('\n') : (section.body || '');
+    return [section.heading, body].filter(Boolean).join('\n');
+  });
+  return [template.title, ...sections].filter(Boolean).join('\n\n');
+}
+
+function renderRadiologyTemplate(template, index, nodeId, open) {
+  const panel = el('details', { class: 'rad-template', open: open ? '' : null });
+  panel.append(el('summary', {}, el('span', {}, template.title || 'Report template'),
+    el('span', { class: 'rad-template-kind' }, 'Editable template')));
+  const content = el('div', { class: 'rad-template-content' });
+  if (template.description) content.append(el('p', {}, template.description));
+  const uid = 'rad-report-' + nodeId + '-' + index;
+  const original = radiologyReportText(template);
+  const status = el('p', { class: 'rad-report-status', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' },
+    'Template ready. Changes last until you leave or reload this page.');
+  const hint = el('p', { id: uid + '-hint', class: 'rad-report-hint' },
+    'Educational drafting template. Replace the bracketed prompts using the imaging findings and clinical context; review the completed report before use. Keep patient identifiers out of this page.');
+  const editor = el('textarea', { id: uid, class: 'rad-report-editor', rows: 22,
+    spellcheck: 'false', autocomplete: 'off', 'aria-describedby': uid + '-hint' });
+  editor.value = original;
+  let action = 0;
+  const reset = btn({ class: 'btn ghost small', disabled: '', onclick: () => {
+    action++;
+    editor.value = original;
+    editor.setSelectionRange(0, 0);
+    editor.scrollTop = 0;
+    editor.scrollLeft = 0;
+    reset.disabled = true;
+    status.textContent = 'Original template restored. Changes last until you leave or reload this page.';
+  } }, 'Reset edits');
+  editor.addEventListener('input', () => {
+    action++;
+    reset.disabled = editor.value === original;
+    status.textContent = reset.disabled
+      ? 'Original template. Changes last until you leave or reload this page.'
+      : 'Edited on this page. Copy or download to keep this text.';
+  });
+  const copy = btn({ class: 'btn small', onclick: async () => {
+    const attempt = ++action;
+    const text = editor.value;
+    copy.disabled = true;
+    status.textContent = 'Copying template text…';
+    let copied = false;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      }
+    } catch (e) { /* Insecure contexts and denied clipboard access use selection. */ }
+    // A pending clipboard request may resolve after editing or navigation.
+    // Never replace the current status, selection or draft in that case.
+    if (!panel.isConnected || attempt !== action) {
+      copy.disabled = false;
+      return;
+    }
+    if (!copied) {
+      const priorFocus = document.activeElement;
+      const selection = [editor.selectionStart, editor.selectionEnd, editor.selectionDirection];
+      editor.focus();
+      editor.select();
+      try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* Manual copy remains available. */ }
+      if (copied) {
+        editor.setSelectionRange(...selection);
+        if (priorFocus && priorFocus.focus) priorFocus.focus();
+      }
+    }
+    copy.disabled = false;
+    status.textContent = copied
+      ? 'Current template text copied.'
+      : 'Text selected. Use your device’s Copy command, or download the text file.';
+  } }, 'Copy text');
+  const download = btn({ class: 'btn small', onclick: () => {
+    action++;
+    const base = String(template.id || template.title || 'radiology-report')
+      .toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 100) || 'radiology-report';
+    let url;
+    let link;
+    try {
+      url = URL.createObjectURL(new Blob([editor.value], { type: 'text/plain;charset=utf-8' }));
+      link = el('a', { href: url, download: base + '.txt', hidden: '' });
+      document.body.append(link);
+      link.click();
+      status.textContent = 'Download requested: ' + base + '.txt. The file contains the current editor text.';
+    } catch (e) {
+      status.textContent = 'The download could not start. Use Copy text to keep your draft.';
+    } finally {
+      if (link) link.remove();
+      if (url) setTimeout(() => URL.revokeObjectURL(url), 30000);
+    }
+  } }, 'Download .txt');
+  content.append(hint, el('label', { for: uid, class: 'rad-report-label' }, 'Report text — ' + (template.title || 'template')),
+    editor, el('div', { class: 'rad-report-actions' }, copy, download, reset), status);
+  if ((template.notes || []).length) content.append(el('div', { class: 'rad-template-notes' },
+    el('h4', {}, 'Template notes'), el('ul', {}, ...template.notes.map(note => el('li', {}, note)))));
+  if ((template.sources || []).length) content.append(el('div', { class: 'rad-template-sources' },
+    el('h4', {}, 'References'), el('ul', {}, ...template.sources.map(source => el('li', {},
+      radiologySourceLink(source.title, source.url))))));
+  panel.append(content);
+  return panel;
+}
+
+function renderRadiologyReference(n) {
+  const ref = n.radiology_reference;
+  if (!ref) return null;
+  const section = el('section', { class: 'radiology-reference', 'aria-label': 'Radiology reference and report templates' });
+  const reading = ref.reading || [];
+  const templates = ref.report_templates || [];
+  const images = ref.key_images || [];
+  const header = el('div', { class: 'rad-reference-head' },
+    el('div', { class: 'kicker' }, 'Specialist reference'),
+    el('h2', {}, 'Radiology Assistant foundation'),
+    el('p', {}, ref.overview || 'Study the linked foundation articles, then apply the structured approach in the report templates.'),
+    el('p', { class: 'rad-reference-credit' },
+      radiologySourceLink('The Radiology Assistant', 'https://radiologyassistant.nl/'),
+      ' · Articles, clinical images and complete explanations open at the source.',
+      ref.reviewed_at ? ' Reference index reviewed ' + ref.reviewed_at + '.' : ''));
+  section.append(header);
+  if ((ref.learning_points || []).length) section.append(el('div', { class: 'rad-learning-points' },
+    el('h3', {}, 'Learning focus'), el('ul', {}, ...ref.learning_points.map(point => el('li', {}, point)))));
+  if (reading.length) {
+    const sources = el('div', { class: 'rad-reading' }, el('h3', {}, 'Foundation reading'),
+      el('p', { class: 'rad-reference-meta' }, plural(reading.length, 'source article') + ' · Open an outline to see its topics.'));
+    const groups = new Map();
+    reading.forEach(article => {
+      const name = article.section || 'Foundation articles';
+      if (!groups.has(name)) groups.set(name, []);
+      groups.get(name).push(article);
+    });
+    groups.forEach((articles, name) => {
+      const group = el('div', { class: 'rad-reading-group' }, el('h4', {}, name));
+      articles.forEach(article => {
+        const row = el('div', { class: 'rad-source-article' },
+          radiologySourceLink(article.title, article.url, { class: 'rad-source-title' }));
+        if (article.topic && article.topic !== name) row.append(el('p', { class: 'rad-source-topic' }, article.topic));
+        if ((article.headings || []).length) row.append(el('details', { class: 'rad-source-outline' },
+          el('summary', {}, 'Article outline · ' + plural(article.headings.length, 'topic')),
+          el('ul', {}, ...article.headings.map(heading => el('li', {}, heading)))));
+        group.append(row);
+      });
+      sources.append(group);
+    });
+    section.append(sources);
+  } else {
+    section.append(el('p', { class: 'muted' },
+      ref.supplementary ? 'Additional module extending the foundation reference.' : 'Open the source index above to explore the foundation reference.'));
+  }
+  if (templates.length) section.append(el('div', { class: 'rad-report-templates' },
+    el('h3', {}, 'Structured report templates'),
+    el('p', { class: 'rad-reference-meta' }, 'Editable educational text. Copy and download use exactly the current editor contents. Notes and references remain below each template.'),
+    ...templates.map((template, index) => renderRadiologyTemplate(template, index, n.id, index === 0))));
+  if (images.length) section.append(el('div', { class: 'rad-key-images' },
+    el('h3', {}, 'Key image examples'),
+    el('p', { class: 'rad-reference-meta' }, 'Independent teaching examples illustrate the report image slots. They are not a single patient study. Open a picture to inspect it at full size; report image references remain blank for your own study.'),
+    el('div', { class: 'rad-image-grid' }, ...images.map(item => el('figure', { class: 'rad-image-example' },
+      el('div', { class: 'rad-image-frame' },
+        item.src ? el('img', { src: item.src, alt: item.alt || item.label,
+          loading: 'lazy', decoding: 'async', referrerpolicy: 'no-referrer',
+          width: item.width || null, height: item.height || null,
+          dataset: { fullSrc: item.src } })
+          : null),
+      el('figcaption', {}, el('strong', {}, item.label),
+        el('span', { class: 'rad-image-type' },
+          item.asset_role === 'video-cover' ? 'Video lecture cover' :
+            { clinical: 'Clinical example', diagram: 'Teaching diagram', table: 'Reference table' }[item.image_type] || 'Teaching example'),
+        el('p', {}, item.caption || item.description || ''),
+        item.attribution ? el('p', { class: 'rad-image-credit' }, item.attribution) : null,
+        item.source_url ? radiologySourceLink(item.src && item.src.startsWith('/app/') ? 'Original lesson illustration' : 'Source and case details', item.source_url, {
+          'aria-label': 'Source and case details for ' + item.label,
+        }) : null,
+        item.license_url ? el('span', { class: 'rad-image-license' }, ' · ',
+          radiologySourceLink(item.license || 'Image license', item.license_url)) : null))))));
+  attachPictureHandlers(section);
+  return section;
+}
+
+/* Reporting desk: direct access to professional references without a quiz gate. */
+async function reportingGuard(page, fn) {
+  const generation = _readerContextSeq, route = location.hash;
+  const current = () => generation === _readerContextSeq && route === location.hash && page.isConnected;
+  loading(page);
+  try {
+    const value = await fn();
+    if (!current()) return null;
+    page.replaceChildren();
+    return value;
+  } catch (error) {
+    if (!current()) return null;
+    page.replaceChildren();
+    if (isNoProfile(error)) toOnboarding();
+    else page.append(errCard(error, () => renderRoute()));
+    return null;
+  }
+}
+
+async function renderRadiologyDesk(page, nodeId) {
+  if (!nodeId) {
+    const catalog = await reportingGuard(page, () => api.get('/api/radiology/modules'));
+    if (!catalog) return;
+    page.append(pagehead('Radiology', 'Reporting reference',
+      'Investigations and procedures organised by Radiology Assistant topics, with reporting guides, clinical images and detailed anatomy.'));
+    const search = el('input', { type: 'search', placeholder: 'Find an exam, finding or classification…',
+      'aria-label': 'Search reporting references', class: 'rad-desk-search' });
+    const specialty = el('select', { 'aria-label': 'Filter reporting specialty' },
+      el('option', { value: '' }, 'All specialties'),
+      ...Array.from(new Set(catalog.modules.map(n => n.section))).map(name => el('option', { value: name }, name)));
+    const status = el('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
+    S.radiologyFilter = S.radiologyFilter || { query: '', section: '' };
+    search.value = S.radiologyFilter.query;
+    specialty.value = S.radiologyFilter.section;
+    if (!specialty.value) S.radiologyFilter.section = '';
+    page.append(el('div', { class: 'rad-desk-find' },
+      el('label', { class: 'rad-filter-field' }, el('span', {}, 'Find an investigation'), search),
+      el('label', { class: 'rad-filter-field' }, el('span', {}, 'Specialty'), specialty)),
+      el('div', { class: 'rad-desk-results-bar' }, status,
+        btn({ class: 'btn ghost small', onclick: () => { search.value = ''; specialty.value = ''; filter(); search.focus(); } }, 'Clear filters')));
+    const list = el('div', { class: 'rad-desk-catalog' });
+    const rows = catalog.modules.map(n => {
+      const card = btn({ class: 'rad-desk-card', onclick: () => go('radiology', n.id) },
+        el('span', { class: 'rad-desk-specialty' }, n.section + ' · ' + n.topic), el('strong', {}, n.title),
+        el('span', { class: 'rad-desk-card-summary' }, n.summary),
+        el('span', { class: 'rad-desk-source-titles' }, n.source_titles.join(' · ')),
+        el('span', { class: 'rad-desk-card-meta' },
+          (n.classification ? n.classification + ' · ' : '') +
+          (n.image_count ? n.image_count + ' images' : 'Source cases') + ' · Diagrams' +
+          (window.PrimerDetailedAnatomy?.supported(n.model_family) ? ' · Anatomical 3D' : '')));
+      list.append(card);
+      return { card, section: n.section, text: [n.title, n.summary, n.section, n.classification, ...n.topics].join(' ').toLowerCase() };
+    });
+    const empty = el('p', { class: 'rad-desk-empty', hidden: '' }, 'No matching reference. Try an anatomical region, examination or shorter term.');
+    page.append(list, empty);
+    function filter() {
+      S.radiologyFilter = { query: search.value, section: specialty.value };
+      const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      let count = 0;
+      rows.forEach(row => {
+        const show = (!specialty.value || specialty.value === row.section) && terms.every(term => row.text.includes(term));
+        row.card.hidden = !show;
+        if (show) count++;
+      });
+      empty.hidden = count > 0;
+      status.textContent = count + ' of ' + rows.length + ' investigations' + (specialty.value ? ' · ' + specialty.value : '');
+    }
+    search.addEventListener('input', filter);
+    specialty.addEventListener('change', filter);
+    filter();
+    return;
+  }
+  const n = await reportingGuard(page, () => api.get('/api/radiology/modules/' + encodeURIComponent(nodeId)));
+  if (!n) return;
+  const ref = n.radiology_reference, guide = ref.reporting;
+  const photographs = (n.lesson_media || []).filter(item => item.kind === 'photograph');
+  if (!S.radiologyFilter) S.radiologyFilter = { query: '', section: n.section };
+  const detailedAnatomy = window.PrimerDetailedAnatomy?.supported(ref.spatial_model.family);
+  page.append(el('nav', { class: 'rad-desk-backbar', 'aria-label': 'Reference navigation' },
+      btn({ class: 'btn ghost small rad-desk-back', onclick: () => go('radiology') }, '← Back to references'),
+      el('span', { class: 'rad-desk-location' }, n.section + ' / ' + n.topic)),
+    pagehead(n.modality + ' · ' + n.topic, n.title, n.goal),
+    el('div', { class: 'rad-source-heading-list' }, el('span', {}, 'Radiology Assistant topics'),
+      el('ul', {}, ...n.source_titles.map(title => el('li', {}, title)))),
+    el('p', { class: 'rad-desk-revision' }, 'Reference revision ' + guide.reviewed_at + ' · ' +
+      ref.key_images.length + ' image examples · ' + (detailedAnatomy ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
+  const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
+  const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
+  const legacy = renderRadiologyReference(n);
+  const panels = [];
+  const choices = [
+    ['guide', 'Reporting guide', panel => panel.append(renderReportingGuide(guide, n.id))],
+    ['template', 'Report template', panel => panel.append(legacy.querySelector('.rad-report-templates'))],
+    ['images', 'Images (' + (ref.key_images.length + photographs.length) + ')', panel => {
+      if (photographs.length) panel.append(
+        el('h3', {}, 'Photorealistic study scenes'), renderLessonMedia(photographs),
+        el('h3', {}, 'Clinical images and reference diagrams'));
+      const images = legacy.querySelector('.rad-key-images');
+      panel.append(images); attachPictureHandlers(images);
+    }],
+    ['diagram', 'Diagram', panel => {
+      for (const asset of ref.anatomical_illustrations || []) {
+        const figure = el('figure', { class: 'rad-anatomy-illustration' },
+          el('h3', {}, asset.title),
+          el('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
+            loading: 'lazy', dataset: { fullSrc: asset.src } }),
+          el('figcaption', {}, el('strong', {}, 'Generated anatomical illustration'),
+            el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),
+            radiologySourceLink('Anatomical reference dataset', asset.source_url), ' · ',
+            radiologySourceLink('CC BY 4.0', asset.license_url)));
+        panel.append(figure); attachPictureHandlers(figure);
+      }
+      const detailedDiagrams = ref.key_images.filter(image => image.image_type === 'diagram');
+      if (detailedDiagrams.length) {
+        const sourceDiagrams = el('div', { class: 'rad-source-diagrams' }, el('h3', {}, 'Detailed source diagrams'));
+        detailedDiagrams.forEach(asset => sourceDiagrams.append(el('figure', { class: 'rad-anatomy-illustration' },
+          el('img', { src: asset.src, alt: asset.alt, loading: 'lazy', referrerpolicy: 'no-referrer', dataset: { fullSrc: asset.src } }),
+          el('figcaption', {}, el('p', {}, asset.caption), radiologySourceLink(asset.attribution, asset.source_url)))));
+        panel.append(sourceDiagrams); attachPictureHandlers(sourceDiagrams);
+      }
+      const illustrations = renderLessonMedia(n.lesson_media.filter(item => item.kind === 'illustration'));
+      if (illustrations) panel.append(el('details', { class: 'rad-protocol' },
+        el('summary', {}, 'Reporting checklist overview'), illustrations));
+    }],
+    ['model', detailedAnatomy ? '3D anatomy' : 'Spatial guide', panel => {
+      const model = detailedAnatomy ? window.PrimerDetailedAnatomy.render({ family: ref.spatial_model.family }) :
+        window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.render(ref.spatial_model);
+      if (model) panel.append(model);
+      else panel.append(el('p', { role: 'status' }, 'The 3D companion could not load. The diagram and reporting guide remain available.'));
+      const additional = n.lesson_media.filter(item => item.kind === 'model' && item.renderer !== 'radiology-anatomy');
+      if (additional.length) panel.append(el('h3', {}, 'Additional measurement and spatial exercises'), renderLessonMedia(additional));
+    }],
+    ['sources', 'Sources', panel => {
+      panel.append(el('h3', {}, 'Reporting references'), el('ul', { class: 'rad-desk-source-list' },
+        ...guide.sources.map(source => el('li', {}, radiologySourceLink(source.title, source.url)))));
+      const foundation = legacy.querySelector('.rad-reading');
+      if (foundation) panel.append(foundation);
+      panel.append(el('p', { class: 'muted' }, 'Clinical images are credited with each figure. Anatomical meshes include their dataset attribution. Simplified spatial guides are labelled separately.'));
+    }],
+  ];
+  let selected = 0;
+  function activate(index, moveFocus) {
+    selected = index;
+    panels.forEach((entry, i) => {
+      const active = i === index;
+      entry.tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      entry.tab.tabIndex = active ? 0 : -1;
+      entry.panel.hidden = !active;
+      if (active && !entry.built) { entry.build(entry.panel); entry.built = true; }
+    });
+    if (moveFocus) panels[index].tab.focus();
+  }
+  choices.forEach(([key, label, build], index) => {
+    const tabId = 'rad-desk-tab-' + key, panelId = 'rad-desk-panel-' + key;
+    const button = btn({ id: tabId, class: 'rad-desk-tab', role: 'tab', 'aria-controls': panelId,
+      'aria-selected': index === 0 ? 'true' : 'false', tabindex: index === 0 ? '0' : '-1', onclick: () => activate(index, false) }, label);
+    const panel = el('div', { id: panelId, class: 'rad-desk-panel', role: 'tabpanel',
+      'aria-labelledby': tabId, tabindex: '0', hidden: index === 0 ? null : '' });
+    panels.push({ tab: button, panel, build, built: false });
+    tabs.append(button);
+  });
+  tabs.addEventListener('keydown', event => {
+    let index = selected;
+    if (event.key === 'ArrowRight') index = (selected + 1) % panels.length;
+    else if (event.key === 'ArrowLeft') index = (selected + panels.length - 1) % panels.length;
+    else if (event.key === 'Home') index = 0;
+    else if (event.key === 'End') index = panels.length - 1;
+    else return;
+    event.preventDefault(); activate(index, true);
+  });
+  desk.append(tabs, ...panels.map(entry => entry.panel));
+  page.append(desk);
+  activate(0, false);
+}
+
+function renderReportingGuide(guide, nodeId) {
+  const root = el('div', { class: 'rad-reporting-guide' });
+  const protocol = el('details', { class: 'rad-protocol' }, el('summary', {}, 'Protocol and image quality'),
+    el('ul', {}, ...guide.protocol.map(text => el('li', {}, text))));
+  root.append(protocol);
+  const checklist = el('section', { class: 'rad-desk-checklist' }, el('h3', {}, 'Systematic reporting checklist'));
+  const status = el('span', { class: 'rad-checklist-status', role: 'status', 'aria-live': 'polite' });
+  const inputs = [];
+  function progress() { status.textContent = inputs.filter(input => input.checked).length + ' of ' + inputs.length + ' reviewed'; }
+  guide.checklist.forEach((item, index) => {
+    const input = el('input', { type: 'checkbox', id: 'report-check-' + nodeId + '-' + index });
+    inputs.push(input); input.addEventListener('change', progress);
+    checklist.append(el('label', { class: 'rad-check-item', for: input.id }, input,
+      el('span', {}, el('strong', {}, item.label), el('span', {}, item.detail))));
+  });
+  checklist.append(el('div', { class: 'rad-checklist-actions' }, status,
+    btn({ class: 'btn ghost small', onclick: () => { inputs.forEach(input => { input.checked = false; }); progress(); } }, 'Clear checklist')));
+  progress(); root.append(checklist);
+  if (guide.measurements.length) {
+    const table = el('table', { class: 'rad-measurement-table' },
+      el('caption', {}, 'Measurements and how to report them'),
+      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Measurement'), el('th', { scope: 'col' }, 'Method / reporting'), el('th', { scope: 'col' }, 'Pitfall'))),
+      el('tbody', {}, ...guide.measurements.map(item => el('tr', {},
+        el('th', { scope: 'row' }, item.name), el('td', {}, item.method), el('td', {}, item.pitfall)))));
+    root.append(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Reporting measurements' }, table));
+  }
+  if (guide.classification) {
+    const c = guide.classification;
+    root.append(el('section', { class: 'rad-classification' },
+      el('h3', {}, c.name), el('p', { class: 'rad-classification-version' }, c.version),
+      el('p', {}, el('strong', {}, 'Applies to: '), c.applicability), el('p', {}, c.summary)));
+  }
+  if (guide.criteria_table) {
+    const c = guide.criteria_table;
+    root.append(el('section', { class: 'rad-criteria' }, el('h3', {}, c.title), el('p', {}, c.scope),
+      el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': c.title },
+        el('table', { class: 'rad-measurement-table' },
+          el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Category / rule'),
+            el('th', { scope: 'col' }, 'Criteria'), el('th', { scope: 'col' }, 'Reporting note'))),
+          el('tbody', {}, ...c.rows.map(row => el('tr', {},
+            el('th', { scope: 'row' }, row.category), el('td', {}, row.criteria), el('td', {}, row.report_note)))))),
+      el('p', { class: 'rad-desk-revision' }, ...c.sources.flatMap((source, index) =>
+        [index ? ' · ' : '', radiologySourceLink(source.title, source.url)]))));
+  }
+  root.append(el('div', { class: 'rad-guide-columns' },
+    el('section', {}, el('h3', {}, 'Build the impression'), el('ol', {}, ...guide.impression_prompts.map(text => el('li', {}, text)))),
+    el('section', {}, el('h3', {}, 'Avoid these reporting pitfalls'), el('ul', {}, ...guide.pitfalls.map(text => el('li', {}, text))))));
+  if (guide.escalation.length) root.append(el('section', { class: 'rad-escalation' },
+    el('h3', {}, 'Findings requiring direct communication'), el('ul', {}, ...guide.escalation.map(text => el('li', {}, text)))));
+  root.append(el('p', { class: 'rad-desk-draft-note' }, 'Checklist marks and report edits stay in this open module. Copy or download your report before leaving or reloading.'));
+  return root;
+}
+
+function renderTeachingLesson(n) {
+  const lesson = n.lesson || {};
+  const parts = [
+    ['overview', 'The idea'], ['worked_example', 'See an example'],
+    ['activity', 'Try it yourself'], ['reflection', 'Think it through'],
+  ].filter(([key]) => typeof lesson[key] === 'string' && lesson[key].trim());
+  const outcomes = (Array.isArray(n.learning_outcomes) ? n.learning_outcomes : [])
+    .filter(value => typeof value === 'string' && value.trim());
+  if (!parts.length && !outcomes.length) return null;
+  const root = el('section', { class: 'card teaching-lesson', 'aria-labelledby': 'teaching-lesson-title' });
+  const heading = el('div', { class: 'teaching-lesson-heading' },
+    el('h3', { id: 'teaching-lesson-title' }, 'Learn the idea'));
+  if (n.stage <= 1 || S.stage <= 1) {
+    heading.append(el('div', { class: 'speak-row' },
+      speakBtn(() => parts.map(([key, title]) => title + '. ' + lesson[key]).join('\n\n'), 'Read this lesson aloud'),
+      el('span', {}, 'Listen together')));
+  }
+  root.append(heading);
+  if (outcomes.length) root.append(el('div', { class: 'lesson-outcomes' },
+    el('h4', {}, 'What you will learn'),
+    el('ul', {}, ...outcomes.map(text => el('li', {}, text)))));
+  parts.forEach(([key, title]) => {
+    const section = el('section', { class: 'teaching-step', 'aria-labelledby': 'teaching-' + key },
+      el('h4', { id: 'teaching-' + key }, title));
+    // Authored paragraphs are plain text: markup in curriculum data must not
+    // become executable HTML. Preserve paragraph breaks for longer lessons.
+    lesson[key].split(/\n\s*\n/).filter(Boolean).forEach(text => section.append(el('p', {}, text)));
+    root.append(section);
+  });
+  if (n.stage <= 1) root.append(el('p', { class: 'lesson-together-note' },
+    'For young learners: explore with a grown-up. Point, talk, move or draw to share what you notice.'));
+  return root;
+}
+
 async function renderNode(page, nodeId) {
   const n = await guard(page, () => api.get('/api/curriculum/node/' + nodeId));
   if (!n) return;
   const d = domainById(n.domain);
   // pagehead's kicker is also its spoken text, so it stays a string: the
   // fallback contributes no mark here rather than a character to mispronounce.
-  page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + STAGE_NAMES[n.stage], n.title, n.goal || ''));
+  page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + stageLabel(n.stage), n.title, n.goal || ''));
+  page.append(el('nav', { class: 'lesson-pathway-links', 'aria-label': 'Explore this learning pathway' },
+    el('a', { class: 'btn ghost small', href: hashFor('atlas', { domain: n.domain, stage: n.stage }) },
+      glyph('path', 16), ' ', d.name, ' pathway'),
+    el('a', { class: 'btn ghost small', href: hashFor('math-images', { domain: n.domain, stage: n.stage }) },
+      glyph('gallery', 16), ' Visuals at this stage')));
+  if (n.radiology_reference && n.reference_count > 0) page.append(btn({ class: 'btn gold rad-open-desk',
+    onclick: () => go('radiology', n.id) }, 'Open reporting reference'));
 
   if (n.proven) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:var(--tint-green)' },
@@ -1589,7 +2144,7 @@ async function renderNode(page, nodeId) {
   }
 
   // Child-voiced mini-lesson for the youngest readers.
-  if (n.kid_text && S.stage <= 1) {
+  if (n.kid_text && S.stage <= 1 && !(n.lesson && n.lesson.overview)) {
     const kt = el('div', { class: 'card', style: 'font-size:19px;line-height:1.7' },
       el('div', { class: 'speak-row' }, speakBtn(() => n.kid_text, 'Read the lesson aloud'), el('b', { style: 'font-family:var(--sans);font-size:13px;color:var(--gold-ink)' }, 'THE BOOK SAYS')),
       el('div', {}, n.kid_text));
@@ -1597,13 +2152,19 @@ async function renderNode(page, nodeId) {
     maybeSpeak(n.kid_text);
   }
 
+  const teaching = renderTeachingLesson(n);
+  if (teaching) page.append(teaching);
+
+  const radiologyReference = renderRadiologyReference(n);
+  if (radiologyReference) page.append(radiologyReference);
+
   const lessonMedia = renderLessonMedia(n.lesson_media);
   if (lessonMedia) {
     page.append(sectionLabel(S.stage <= 1 ? 'Try it' : 'Explore the idea'), lessonMedia);
   }
 
   const young = S.stage <= 1;
-  page.append(sectionLabel(young ? 'Look and see' : 'Read'));
+  page.append(sectionLabel(radiologyReference ? 'Supplementary Wikipedia reading' : (young ? 'Look and see' : 'Read')));
   const cards = el('div', { class: 'grid auto' });
   n.article_cards.forEach(a => {
     const c = el('div', { class: 'card lesson-card' });
@@ -1706,11 +2267,11 @@ function openLessonNavigator(data, articleTitle) {
   const current = data.current;
   const domain = data.domain;
   const lessons = data.lessons || [];
-  openModal({ label: 'Lesson navigation: ' + domain.name + ', ' + current.stage_name + ', ' + current.title,
+  openModal({ label: 'Lesson navigation: ' + domain.name + ', ' + stageLabel(current.stage, current.stage_name) + ', ' + current.title,
     dismissable: true, build: (modal, close) => {
       modal.classList.add('wide', 'lesson-nav-panel');
       modal.append(el('div', { class: 'lesson-nav-heading' },
-        el('div', { class: 'lesson-nav-kicker' }, domainMark(domain, 18), ' ', domain.name + ' · ' + (current.section || current.stage_name)),
+        el('div', { class: 'lesson-nav-kicker' }, domainMark(domain, 18), ' ', domain.name + ' · ' + (current.section || stageLabel(current.stage, current.stage_name))),
         el('h2', {}, current.title),
         current.goal ? el('p', {}, current.goal) : null));
 
@@ -1750,7 +2311,7 @@ function openLessonNavigator(data, articleTitle) {
         'aria-label': 'Lessons in ' + domain.name });
       const groups = new Map();
       lessons.forEach(lesson => {
-        const key = lesson.section || lesson.stage_name;
+        const key = lesson.section || stageLabel(lesson.stage, lesson.stage_name);
         if (!groups.has(key)) groups.set(key, []);
         groups.get(key).push(lesson);
       });
@@ -1778,7 +2339,7 @@ function showReaderContext(data, articleTitle) {
   if (!slot) return;
   const current = data.current;
   const domain = data.domain;
-  const scope = domain.name + ' · ' + (current.section || current.stage_name);
+  const scope = domain.name + ' · ' + (current.section || stageLabel(current.stage, current.stage_name));
   slot.hidden = false;
   slot.removeAttribute('aria-busy');
   slot.replaceChildren(btn({ class: 'reader-context-toggle', 'aria-haspopup': 'dialog',
@@ -1875,7 +2436,7 @@ async function renderReader(page, arg) {
       const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
       window.scrollTo(0, Math.min(want, max));
     });
-  } catch (e) { art.innerHTML = ''; art.append(errCard(e, () => renderReader(page, arg))); }
+  } catch (e) { art.innerHTML = ''; art.append(errCard(e, () => renderRoute())); }
 }
 /* ---------------- articleBlocks(): what the article actually says ----------------
    SHARED HELPER. Written here for read-aloud; its second caller is the tutor's
@@ -2085,6 +2646,32 @@ function readAloudControls() {
    listener catches it and answers with the picture at full size and its
    caption read aloud. The a.primer-wikilink handlers are left exactly as they
    are; this runs behind them. */
+function pictureCaptionElement(img) {
+  const owner = img.closest('figure, .thumb, .thumbinner, .gallerybox');
+  // A gallery or compound figure can contain unrelated pictures. A shared
+  // caption must not become the individual description of each one.
+  return owner && owner.querySelectorAll('img').length === 1
+    ? owner.querySelector('figcaption, .thumbcaption') : null;
+}
+
+function pictureCaptionText(caption) {
+  if (!caption) return '';
+  if (caption.classList.contains('photograph-caption')) {
+    // The figure is still detached when its keyboard label is assembled.
+    // Explicit separators keep badges, description and credit readable even
+    // before innerText can use the rendered block layout.
+    return ['.photograph-description', '.photograph-origin', '.photograph-credit']
+      .map(selector => caption.querySelector(selector)?.textContent.trim()).filter(Boolean).join('\n');
+  }
+  if (caption.closest('.rad-image-example')) {
+    return Array.from(caption.children).map(part => part.textContent.trim())
+      .filter(Boolean).join('\n');
+  }
+  // Figure labels, type badges and credits are separate visual blocks.
+  // innerText preserves their spacing when the same copy is read aloud.
+  return (caption.innerText || caption.textContent || '').trim();
+}
+
 function attachPictureHandlers(art) {
   // A "dead" anchor is one that goes nowhere: no href, or a bare fragment.
   // Real external links (render.py keeps those, with target=_blank) are none
@@ -2096,13 +2683,6 @@ function attachPictureHandlers(art) {
   };
   const pictureIn = (target, a) =>
     (target && target.tagName === 'IMG') ? target : (a ? a.querySelector('img') : null);
-  // An infobox may contain several unrelated images and captions. Only a
-  // single-image media container can own a caption for this particular image;
-  // otherwise its own alt text is the honest fallback.
-  const pictureCaptionElement = img => {
-    const owner = img.closest('figure, .thumb, .thumbinner, .gallerybox');
-    return owner ? owner.querySelector('figcaption, .thumbcaption') : null;
-  };
   art.addEventListener('click', e => {
     const a = e.target.closest ? e.target.closest('a') : null;
     if (a && !dead(a)) return;
@@ -2118,7 +2698,7 @@ function attachPictureHandlers(art) {
     // would open the picture twice. Space on an anchor scrolls instead of
     // activating, and a bare <img> answers to neither key on its own, so both
     // are needed everywhere except that one case.
-    if (a && e.key === 'Enter') return;
+    if (a && a.hasAttribute('href') && e.key === 'Enter') return;
     const img = pictureIn(e.target, a);
     if (!img) return;
     e.preventDefault();
@@ -2128,39 +2708,87 @@ function attachPictureHandlers(art) {
   // touch it just the same — and an <img> is not focusable, so without this it
   // would be reachable by finger and by nothing else.
   art.querySelectorAll('img').forEach(im => {
+    if (im.dataset.pictureHandled) return;
+    im.dataset.pictureHandled = '1';
+    const originalSource = im.getAttribute('src') || '';
+    const sourceKey = source => { try { return new URL(source, location.href).href; } catch (_) { return source; } };
+    const alternatives = [im.dataset.fullSrc,
+      ...(im.getAttribute('srcset') || '').split(',').map(part => part.trim().split(/\s+/)[0]), originalSource]
+      .filter(Boolean);
+    const attempted = new Set();
+    let note = null, hiddenWrapper = null;
+    const loaded = () => {
+      if (!im.naturalWidth) return;
+      delete im.dataset.failureHandled;
+      if (hiddenWrapper) { hiddenWrapper.hidden = false; hiddenWrapper.style.display = ''; }
+      const frame = im.closest('.rad-image-frame');
+      if (frame) frame.classList.remove('has-image-error');
+      if (note) { note.remove(); note = null; }
+    };
     const failed = () => {
       if (im.dataset.failureHandled) return;
+      // A responsive asset can recover from its other authored resolution.
+      // Try each existing source once, without inventing an image or looping.
+      attempted.add(sourceKey(im.currentSrc || im.getAttribute('src') || ''));
+      const next = alternatives.find(source => !attempted.has(sourceKey(source)));
+      if (next) {
+        attempted.add(sourceKey(next));
+        im.removeAttribute('srcset');
+        im.setAttribute('src', next);
+        return;
+      }
       im.dataset.failureHandled = '1';
       const caption = pictureCaptionElement(im);
-      const captionText = (caption ? caption.textContent : '').trim();
+      const captionText = pictureCaptionText(caption);
       const altText = (im.getAttribute('alt') || '').trim();
       const words = captionText || altText;
-      const wrapper = im.closest('a') || im;
+      const anchor = im.closest('a');
+      const wrapper = anchor && anchor.querySelectorAll('img').length === 1
+        && !anchor.textContent.trim() ? anchor : im;
+      hiddenWrapper = wrapper;
       wrapper.hidden = true;
-      // Decorative furniture should simply leave no broken-image glyph behind.
-      // A picture carrying meaning keeps that meaning as an honest text state,
-      // so a proxy timeout is not mistaken for a half-rendered illustration.
-      if (words) wrapper.insertAdjacentElement('afterend', el('span', {
-        class: 'picture-fallback', role: 'img',
-        'aria-label': 'Picture unavailable' + (!captionText && altText ? ': ' + altText : ''),
-      }, glyph('gallery', 18), el('span', {}, 'Picture unavailable',
-        !captionText && altText ? el('small', {}, altText) : null)));
+      // Author CSS gives figure images display:block, which overrides the
+      // browser's default [hidden] rule. Remove a failed image's visual box
+      // as well as its accessibility-tree entry, without hiding sibling media.
+      wrapper.style.display = 'none';
+      const frame = im.closest('.rad-image-frame');
+      if (frame) frame.classList.add('has-image-error');
+      // Keep the caption and a genuine recovery action, not an image-shaped
+      // placeholder pretending to be content. Decorative failures leave no box.
+      if (words) {
+        note = el('span', { class: 'image-load-note' },
+          el('span', {}, 'This image did not load. ', !captionText ? altText : ''),
+          el('button', { type: 'button', class: 'btn ghost small', onclick: () => {
+            note.remove(); note = null;
+            delete im.dataset.failureHandled;
+            attempted.clear();
+            im.removeAttribute('srcset');
+            im.setAttribute('loading', 'eager');
+            im.setAttribute('src', originalSource);
+          } }, 'Retry image'));
+        wrapper.insertAdjacentElement('afterend', note);
+      }
     };
-    im.addEventListener('error', failed, { once: true });
-    if (im.complete && !im.naturalWidth) failed();
-    if (im.closest('a')) return;
-    im.setAttribute('tabindex', '0');
-    im.setAttribute('role', 'button');
-    if (!im.getAttribute('alt')) im.setAttribute('aria-label', 'Picture — open it larger');
-    im.classList.add('tappable');
+    im.addEventListener('error', failed);
+    im.addEventListener('load', loaded);
+    // Detached/lazy images have not necessarily attempted a fetch yet.
+    if (im.isConnected && im.currentSrc && im.complete && !im.naturalWidth) failed();
+    const anchor = im.closest('a');
+    if (anchor && !dead(anchor)) return;
+    const opener = anchor || im;
+    const caption = pictureCaptionElement(im);
+    const description = (pictureCaptionText(caption) || im.getAttribute('alt') || '').trim();
+    opener.setAttribute('tabindex', '0');
+    opener.setAttribute('role', 'button');
+    opener.setAttribute('aria-label', description ? 'Open picture: ' + description : 'Picture — open it larger');
+    if (!anchor) im.classList.add('tappable');
   });
 }
 function openLightbox(img, opener) {
   // The caption a sighted reader can see belongs to the figure, not to the
   // <img>; alt text is the fallback, and a decorative image may carry neither.
-  const fig = img.closest('figure, .thumb, .thumbinner, .gallerybox');
-  const capEl = fig ? fig.querySelector('figcaption, .thumbcaption') : null;
-  const caption = ((capEl ? capEl.textContent : '') || img.getAttribute('alt') || '').trim();
+  const capEl = pictureCaptionElement(img);
+  const caption = (pictureCaptionText(capEl) || img.getAttribute('alt') || '').trim();
   // openModal restores focus to whatever held it when the dialog opened, and a
   // tap leaves that on <body> — which would strand a keyboard reader at the top
   // of an eight-thousand-word article on Escape. Give the picture focus first
@@ -2187,19 +2815,40 @@ function openLightbox(img, opener) {
         if (inversionSource && inversionSource.classList.contains(marker)) big.classList.add(marker);
       }
       const imageScroll = el('div', { class: 'lightbox-image-scroll' }, big);
+      let usedPreview = false;
+      big.addEventListener('error', () => {
+        const preview = img.currentSrc || img.getAttribute('src');
+        if (!usedPreview && img.naturalWidth > 0 && preview && preview !== big.getAttribute('src')) {
+          usedPreview = true;
+          big.setAttribute('src', preview);
+          box.append(el('p', { class: 'muted' }, 'Showing the loaded image; its larger version could not be loaded.'));
+          return;
+        }
+        imageScroll.replaceChildren(el('p', {}, 'This image could not be loaded. Close this view and retry the image.'));
+      });
+      function syncNativeImageSize() {
+        const width = big.naturalWidth ||
+          (fullSource === (img.currentSrc || img.src) ? img.naturalWidth : 0) ||
+          Number(img.getAttribute('width'));
+        if (width > 0) {
+          imageScroll.style.setProperty('--zoom-width', width + 'px');
+          big.style.setProperty('--image-native-width', width + 'px');
+        }
+      }
+      big.addEventListener('load', syncNativeImageSize);
+      syncNativeImageSize();
       const canReadFullSize = Boolean(img.dataset.fullSrc);
       if (canReadFullSize) {
-        const authoredWidth = Math.max(800, Number(img.getAttribute('width')) || 1600);
-        imageScroll.style.setProperty('--zoom-width', authoredWidth + 'px');
+        const fullSizeLabel = img.dataset.mediaKind === 'photograph' ? 'View full-size image' : 'Read labels at full size';
         const zoom = btn({ class: 'btn ghost small lightbox-zoom',
           'aria-pressed': 'false', onclick: () => {
             const expanded = imageScroll.classList.toggle('is-zoomed');
             zoom.setAttribute('aria-pressed', expanded ? 'true' : 'false');
-            zoom.textContent = expanded ? 'Fit the whole image' : 'Read labels at full size';
+            zoom.textContent = expanded ? 'Fit the whole image' : fullSizeLabel;
             if (expanded) {
               imageScroll.setAttribute('tabindex', '0');
               imageScroll.setAttribute('aria-label',
-                'Full-resolution image. Scroll horizontally and vertically to read every label.');
+                'Full-resolution image. Scroll horizontally and vertically to explore the details.');
               requestAnimationFrame(() => {
                 imageScroll.scrollLeft = Math.max(0,
                   (imageScroll.scrollWidth - imageScroll.clientWidth) / 2);
@@ -2209,7 +2858,7 @@ function openLightbox(img, opener) {
               imageScroll.removeAttribute('tabindex');
               imageScroll.removeAttribute('aria-label');
             }
-          } }, 'Read labels at full size');
+          } }, fullSizeLabel);
         box.append(zoom);
       }
       box.append(imageScroll);
@@ -2252,7 +2901,7 @@ function buildTutor(title) {
                 S.state = await api.get('/api/state');
                 toast('Done — the book will answer with its own voice from here on.');
                 renderRoute();
-              } catch (e) { toast('That setting did not take just now — the fault is the wire, never you. Try it once more.'); }
+              } catch (e) { toast('The setting could not be saved. Please try again.'); }
             } }, 'Keep answers in the book'))
         : null),
     log);
@@ -2275,13 +2924,12 @@ function buildTutor(title) {
       maybeSpeak(r.reply);
     } catch (e) {
       thinking.remove();
-      // One dropped thought is a shrug; a dead wire deserves the DON'T PANIC
-      // register — reassure, name the likely cause, and stop looping the
-      // same one-liner at a reader whose tutor is persistently unreachable.
+      // State what failed without guessing at a network fault or promising
+      // that unrelated progress was saved.
       tutorFails++;
       push('book', tutorFails < 2
-        ? 'I lost my thought — ask me again?'
-        : "Don't panic — my voice is not reaching you just now, which is almost certainly the network and never you. Everything you have read and learned is safely written down; keep reading, and ask me again when the book reconnects.");
+        ? 'The answer could not be loaded. Please ask again.'
+        : 'The tutor is still unavailable. You can continue reading and try your question again later.');
     }
   }
   panel.append(el('div', { class: 'composer' }, input, btn({ onclick: send }, 'Ask')));
@@ -2965,7 +3613,7 @@ function stageAscension(info) {
   }).catch(() => {});
 }
 
-/* ---------------- Mathematics image dashboard ---------------- */
+/* ---------------- Curriculum visual gallery ---------------- */
 function largestSrcFromSet(srcset, fallback) {
   let best = { src: fallback || '', width: 0 };
   String(srcset || '').split(',').forEach(candidate => {
@@ -2977,134 +3625,157 @@ function largestSrcFromSet(srcset, fallback) {
   return best.src;
 }
 
-async function renderMathImages(page) {
-  const data = await guard(page, () => S.mathImages
-    ? Promise.resolve(S.mathImages)
-    : api.get('/api/curriculum/mathematics/illustrations'));
+async function renderVisualGallery(page, selection = {}) {
+  selection = selection || {};
+  const data = await guard(page, () => S.visualGallery
+    ? Promise.resolve(S.visualGallery)
+    : api.get('/api/curriculum/visuals'));
   if (!data) return;
-  S.mathImages = data;
-  const items = Array.isArray(data.illustrations) ? data.illustrations : [];
+  S.visualGallery = data;
+  const items = Array.isArray(data.items) ? data.items : [];
+  const domains = Array.isArray(data.domains) ? data.domains : [];
+  const counts = data.counts || {};
+  const isSpatialModel = item => item.renderer === 'spatial-3d' || item.renderer === 'radiology-anatomy';
+  const spatialCount = items.filter(isSpatialModel).length;
+  const photographCount = counts.photographs ?? items.filter(item => item.kind === 'photograph').length;
   const stageCounts = STAGE_NAMES.map((_, stage) =>
     items.filter(item => item.stage === stage).length);
 
-  page.append(pagehead('Mathematics · ' + items.length + ' visual explanations',
-    'Mathematics Image Dashboard',
-    'Every mathematics lesson plate in one place. Search the ideas, filter by learning stage, open a plate larger, or continue into the lesson it explains.'));
+  page.append(pagehead('Whole curriculum · ' + items.length + ' visuals',
+    'Visual Gallery',
+    'Photorealistic scenes, lesson diagrams and interactive models from age 3 to master’s level. Choose a field and learning stage, then open a picture or its lesson to explore.'));
 
   const overview = el('section', { class: 'card math-gallery-overview',
-    'aria-label': 'Illustration coverage' },
+    'aria-label': 'Visual explanation coverage' },
     el('div', { class: 'math-gallery-promise' },
       el('div', { class: 'math-gallery-mark', 'aria-hidden': 'true' }, glyph('gallery', 32)),
-      el('div', {}, el('h3', {}, 'Pictures that do mathematical work'),
-        el('p', {}, 'Each caption names the relationship made visible by the plate — quantity, structure, transformation or proof — rather than adding decoration.'))),
+      el('div', {}, el('h3', {}, 'See the idea. Explore its shape.'),
+        el('p', {}, 'Shared subject scenes complement each lesson’s own diagram and model. Generated scenes are labelled with their captions. Open a model to explore its shape and relationships.'))),
     el('dl', { class: 'math-gallery-stats' },
-      el('div', {}, el('dt', {}, String(items.length)), el('dd', {}, 'lesson plates')),
-      el('div', {}, el('dt', {}, String(STAGE_NAMES.length)), el('dd', {}, 'learning stages')),
-      el('div', {}, el('dt', {}, '1:1'), el('dd', {}, 'lesson coverage'))));
+      el('div', {}, el('dt', {}, String(photographCount)), el('dd', {}, 'lessons with scenes')),
+      el('div', {}, el('dt', {}, String(counts.illustrations || 0)), el('dd', {}, 'lesson plates')),
+      el('div', {}, el('dt', {}, String(counts.models || 0)), el('dd', {}, 'interactive models')),
+      el('div', {}, el('dt', {}, String(domains.length)), el('dd', {}, 'fields')),
+      el('div', {}, el('dt', {}, String(STAGE_NAMES.length)), el('dd', {}, 'learning stages'))));
 
-  let activeStage = null;
-  const bar = el('div', { class: 'math-stage-filters', role: 'radiogroup',
-    'aria-label': 'Filter images by learning stage' });
-  const stageOptions = [{ stage: null, label: 'All stages', count: items.length }]
-    .concat(STAGE_NAMES.map((label, stage) => ({ stage, label, count: stageCounts[stage] })));
-  stageOptions.forEach((option, index) => {
-    const b = btn({ class: 'math-stage-option' + (index === 0 ? ' picked' : ''),
-      role: 'radio', 'aria-checked': index === 0 ? 'true' : 'false',
-      tabindex: index === 0 ? '0' : '-1', dataset: { stage: option.stage == null ? 'all' : option.stage },
-      onkeydown: event => {
-        if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
-        event.preventDefault();
-        const controls = [...bar.querySelectorAll('[role=radio]')];
-        const current = controls.indexOf(event.currentTarget);
-        const direction = (event.key === 'ArrowDown' || event.key === 'ArrowRight') ? 1 : -1;
-        const next = event.key === 'Home' ? controls[0]
-          : event.key === 'End' ? controls[controls.length - 1]
-          : controls[(current + direction + controls.length) % controls.length];
-        next.focus(); next.click();
-      },
-      onclick: () => {
-        activeStage = option.stage;
-        bar.querySelectorAll('[role=radio]').forEach(control => {
-          control.classList.remove('picked');
-          control.setAttribute('aria-checked', 'false');
-          control.setAttribute('tabindex', '-1');
-        });
-        b.classList.add('picked');
-        b.setAttribute('aria-checked', 'true');
-        b.setAttribute('tabindex', '0');
-        paint();
-      } },
-      el('span', { class: 'math-stage-name' }, option.label),
-      el('strong', { class: 'math-stage-count' }, String(option.count)));
-    bar.append(b);
-  });
-
-  const search = el('input', { id: 'math-image-search', type: 'search',
-    placeholder: 'Try “fractions”, “symmetry” or “proof”…', autocomplete: 'off',
-    'aria-describedby': 'math-image-search-hint',
+  const search = el('input', { id: 'visual-search', type: 'search',
+    placeholder: 'Try “fractions”, “genes” or “climate”…', autocomplete: 'off',
+    'aria-describedby': 'visual-search-hint',
     oninput: () => paint(),
     onkeydown: event => {
       if (event.key !== 'Escape' || !search.value) return;
       event.preventDefault(); search.value = ''; paint();
     } });
+  const domainFilter = el('select', { id: 'visual-domain-filter', onchange: () => paint() },
+    el('option', { value: 'all' }, 'All fields · ' + items.length));
+  domains.forEach(domain => domainFilter.append(
+    el('option', { value: domain.id }, domain.name + ' · ' + domain.items)));
+  const stageFilter = el('select', { id: 'visual-stage-filter', onchange: () => paint() },
+    el('option', { value: 'all' }, 'All stages · ' + items.length));
+  learningStages().forEach(stage => stageFilter.append(
+    el('option', { value: String(stage.i) }, stageLabel(stage.i) + ' · ' + stageCounts[stage.i])));
+  if (domains.some(domain => domain.id === selection.domain)) domainFilter.value = selection.domain;
+  if (Number.isInteger(selection.stage) && learningStages().some(stage => stage.i === selection.stage)) {
+    stageFilter.value = String(selection.stage);
+  }
+  const kindFilter = el('select', { id: 'visual-kind-filter', onchange: () => paint() },
+    el('option', { value: 'all' }, 'All visuals · ' + items.length),
+    el('option', { value: 'photograph' }, 'Photorealistic scenes · ' + photographCount),
+    el('option', { value: 'illustration' }, 'Illustrations · ' + (counts.illustrations || 0)),
+    el('option', { value: 'model' }, 'Interactive models · ' + (counts.models || 0)),
+    el('option', { value: 'spatial-3d' }, 'Interactive 3D · ' + spatialCount));
   const clear = btn({ class: 'btn ghost small math-search-clear', onclick: () => {
     search.value = ''; paint(); search.focus();
   } }, 'Clear');
   clear.hidden = true;
-  const tools = el('section', { class: 'math-gallery-tools', 'aria-label': 'Find an image' },
+  const tools = el('section', { class: 'math-gallery-tools', 'aria-label': 'Find a visual explanation' },
     el('div', { class: 'math-search-copy' },
-      el('label', { for: 'math-image-search' }, glyph('lookup', 18), ' Search the explanations'),
-      el('p', { id: 'math-image-search-hint' }, 'Matches lesson titles, aims, image descriptions and captions.')),
+      el('label', { for: 'visual-search' }, glyph('lookup', 18), ' Search the explanations'),
+      el('p', { id: 'visual-search-hint' }, 'Matches fields, lessons, aims, captions and model instructions.')),
     el('div', { class: 'math-search-row', role: 'search' }, search, clear),
-    el('div', { class: 'math-filter-label' }, 'Coverage by stage'),
-    bar);
+    el('div', { class: 'visual-filter-grid' },
+      el('label', { class: 'visual-filter-control', for: 'visual-domain-filter' },
+        el('span', {}, 'Field'), domainFilter),
+      el('label', { class: 'visual-filter-control', for: 'visual-stage-filter' },
+        el('span', {}, 'Learning stage'), stageFilter),
+      el('label', { class: 'visual-filter-control', for: 'visual-kind-filter' },
+        el('span', {}, 'Kind'), kindFilter)),
+    btn({ class: 'btn ghost small gallery-pathway-link', onclick: () => go('atlas', {
+      domain: domainFilter.value, stage: stageFilter.value === 'all' ? null : Number(stageFilter.value),
+    }) }, glyph('path', 16), ' Browse this learning pathway'));
 
   const live = el('div', { class: 'math-gallery-live', role: 'status', 'aria-live': 'polite' });
   const board = el('div', { class: 'math-gallery-board' });
   const groups = new Map();
-  let plateNumber = 0;
-  STAGE_NAMES.forEach((stageName, stage) => {
-    const stageItems = items.filter(item => item.stage === stage);
-    if (!stageItems.length) return;
+  let photographNumber = 0;
+  let illustrationNumber = 0;
+  let modelNumber = 0;
+  domains.forEach(domain => {
+    const domainItems = items.filter(item => item.domain === domain.id);
+    if (!domainItems.length) return;
     const visibleCount = el('span', { class: 'math-stage-visible' });
     const heading = el('div', { class: 'math-gallery-stage-head' },
-      sectionLabel(stageName), visibleCount);
+      sectionLabel(domain.name), visibleCount);
     const grid = el('div', { class: 'math-image-grid' });
     const cards = [];
-    stageItems.forEach(item => {
-      plateNumber += 1;
-      const titleId = 'math-image-title-' + plateNumber;
-      const image = el('img', {
-        src: item.src, srcset: item.srcset,
-        sizes: '(max-width: 520px) calc(100vw - 34px), (max-width: 700px) calc(100vw - 48px), (max-width: 1200px) 42vw, 390px',
-        alt: item.alt, width: item.width, height: item.height,
-        loading: 'lazy', decoding: 'async', title: 'Open this image larger',
-        dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src) },
-      });
-      const figure = el('figure', { class: 'math-image-figure' }, image,
-        el('figcaption', {}, item.caption));
+    domainItems.forEach((item, itemIndex) => {
+      const isPhotograph = item.kind === 'photograph';
+      const isImage = item.kind === 'illustration' || isPhotograph;
+      const serial = isPhotograph ? ++photographNumber : isImage ? ++illustrationNumber : ++modelNumber;
+      const titleId = 'visual-title-' + domain.id + '-' + itemIndex;
+      let visual;
+      if (isImage) {
+        const image = el('img', {
+          src: item.src, srcset: item.srcset,
+          sizes: '(max-width: 520px) calc(100vw - 34px), (max-width: 700px) calc(100vw - 48px), (max-width: 1200px) 42vw, 390px',
+          alt: item.alt, width: item.width, height: item.height,
+          loading: 'lazy', decoding: 'async', title: 'Open this image larger',
+          dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src), mediaKind: item.kind },
+        });
+        visual = el('figure', { class: 'math-image-figure' + (isPhotograph ? ' gallery-photograph' : '') }, image,
+          isPhotograph ? photographCaption(item) : el('figcaption', {}, item.caption));
+        const longDescription = lessonLongDescription({
+          id: item.media_id, long_description: item.long_description,
+        });
+        if (longDescription) {
+          image.setAttribute('aria-describedby', longDescription.id);
+          visual.append(longDescription.node);
+        }
+      } else {
+        visual = el('div', { class: 'visual-model-preview' },
+          el('div', { class: 'visual-model-mark', 'aria-hidden': 'true' }, glyph('path', 34)),
+          el('div', {}, el('h5', {}, item.title), el('p', {}, item.instructions)));
+      }
       const card = el('article', { class: 'card math-image-card',
-        'aria-labelledby': titleId, dataset: { stage: item.stage } },
+        'aria-labelledby': titleId,
+        dataset: { domain: item.domain, stage: item.stage, kind: item.kind } },
         el('header', { class: 'math-image-card-head' },
-          el('span', { class: 'math-image-sequence' }, 'Plate ' + String(plateNumber).padStart(2, '0')),
-          el('h4', { id: titleId }, item.title)),
-        figure,
+          el('span', { class: 'math-image-sequence' },
+            (isPhotograph ? 'Photorealistic scene ' : isImage ? 'Illustration ' : isSpatialModel(item) ? 'Interactive 3D ' : 'Interactive model ') + String(serial).padStart(2, '0')
+              + ' · ' + stageLabel(item.stage)),
+          el('h4', { id: titleId }, item.lesson_title)),
+        visual,
         el('div', { class: 'math-image-card-body' },
           el('p', { class: 'math-image-goal' },
             el('span', {}, 'Lesson aim'), item.goal),
           btn({ class: 'btn ghost small math-image-lesson',
-            onclick: () => go('node', item.lesson_id) }, 'Open lesson →')));
-      card._mathSearch = [item.title, item.goal, item.alt, item.caption]
+            onclick: () => go('node', item.lesson_id) }, isImage ? 'Open lesson →' : 'Open model →')));
+      card._visual = { domain: item.domain, stage: item.stage, kind: item.kind, renderer: item.renderer };
+      card._visualSearch = [item.domain_name, item.lesson_title, item.goal, stageLabel(item.stage),
+        item.alt, item.caption, item.title, item.instructions, item.credit,
+        isPhotograph ? 'photorealistic photograph scene' : '',
+        item.source_type === 'generated' ? 'AI-generated' : '']
+        .filter(Boolean)
         .join(' ').toLocaleLowerCase();
       cards.push(card); grid.append(card);
     });
     const section = el('section', { class: 'math-gallery-stage',
-      'aria-label': stageName + ' mathematics images' }, heading, grid);
-    groups.set(stage, { section, cards, visibleCount, total: stageItems.length });
+      'aria-label': domain.name + ' visual explanations' }, heading, grid);
+    groups.set(domain.id, { section, cards, visibleCount, total: domainItems.length });
     board.append(section);
   });
-  const noResults = emptyLeaf('gallery', 'No plate matches that view',
-    'Try another word, or choose “All stages” to bring the complete mathematics gallery back.');
+  const noResults = emptyLeaf('gallery', 'No visual matches that view',
+    'Try another word, field, stage or kind to bring more explanations back.');
   noResults.classList.add('math-gallery-empty');
   noResults.hidden = true;
   board.append(noResults);
@@ -3119,25 +3790,42 @@ async function renderMathImages(page) {
 
   function paint() {
     const query = search.value.trim().toLocaleLowerCase();
+    const queryTerms = query.split(/\s+/).filter(Boolean);
+    const selectedDomain = domainFilter.value;
+    const selectedStage = stageFilter.value;
+    const selectedKind = kindFilter.value;
     let shown = 0;
-    groups.forEach((group, stage) => {
-      let inStage = 0;
+    groups.forEach((group, domainId) => {
+      let inGroup = 0;
       group.cards.forEach(card => {
-        const matchesStage = activeStage == null || activeStage === stage;
-        const matchesQuery = !query || card._mathSearch.includes(query);
-        const visible = matchesStage && matchesQuery;
+        const meta = card._visual;
+        const matchesDomain = selectedDomain === 'all' || selectedDomain === meta.domain;
+        const matchesStage = selectedStage === 'all' || selectedStage === String(meta.stage);
+        const matchesKind = selectedKind === 'all' || selectedKind === meta.kind ||
+          (selectedKind === 'spatial-3d' && isSpatialModel(meta));
+        const matchesQuery = queryTerms.every(term => card._visualSearch.includes(term));
+        const visible = matchesDomain && matchesStage && matchesKind && matchesQuery;
         card.hidden = !visible;
-        if (visible) { shown += 1; inStage += 1; }
+        if (visible) { shown += 1; inGroup += 1; }
       });
-      group.section.hidden = inStage === 0;
-      group.visibleCount.textContent = query
-        ? inStage + ' of ' + group.total + ' plates'
-        : group.total + (group.total === 1 ? ' plate' : ' plates');
+      group.section.hidden = inGroup === 0;
+      group.visibleCount.textContent = inGroup + ' of ' + group.total + ' explanations';
     });
     noResults.hidden = shown !== 0;
     clear.hidden = !query;
-    const scope = activeStage == null ? 'all stages' : STAGE_NAMES[activeStage];
-    const said = 'Showing ' + shown + ' of ' + items.length + ' mathematics images in ' + scope
+    const fieldName = selectedDomain === 'all' ? 'all fields'
+      : ((domains.find(domain => domain.id === selectedDomain) || {}).name || selectedDomain);
+    const stageName = selectedStage === 'all' ? 'all stages' : stageLabel(Number(selectedStage));
+    const kindName = selectedKind === 'all' ? 'visuals'
+      : selectedKind === 'photograph' ? 'photorealistic scenes'
+      : selectedKind === 'spatial-3d' ? 'interactive 3D models'
+      : selectedKind === 'model' ? 'interactive models' : 'illustrations';
+    const kindTotal = selectedKind === 'all' ? items.length
+      : selectedKind === 'photograph' ? photographCount
+      : selectedKind === 'spatial-3d' ? spatialCount
+      : selectedKind === 'model' ? counts.models || 0 : counts.illustrations || 0;
+    const said = 'Showing ' + shown + ' of ' + kindTotal + ' ' + kindName
+      + ' in ' + fieldName + ', ' + stageName
       + (query ? ' matching “' + search.value.trim() + '”.' : '.');
     clearTimeout(live._timer);
     live.textContent = '';
@@ -3146,18 +3834,54 @@ async function renderMathImages(page) {
 }
 
 /* ---------------- Atlas ---------------- */
-async function renderAtlas(page) {
+async function renderAtlas(page, selection = {}) {
+  selection = selection || {};
   const g = await guard(page, () => api.get('/api/curriculum'));
   if (!g) return;
   S.curriculum = g;
   page.append(pagehead('The whole journey', 'The Atlas',
-    'Every field, from preschool roots to the graduate frontier. Golden tiles are open to you now and fill as you master them; locked tiles show exactly what will unlock them. Click any to begin.'));
-  // The wall of locks is the honest shape of a whole education, and it should
-  // read as an invitation rather than a verdict. One line, in the Guide's
-  // register: the scale is the point, and it is survivable.
-  page.append(el('p', { class: 'epigraph' },
-    'Yes, it is an enormous amount. Every reader who ever finished started with exactly one tile.'));
-  quickAccess(page, g);
+    'Explore learning pathways from age 3 to master’s level. Choose a field and a stage to find your next idea. Golden tiles are open now; locked tiles explain the groundwork to learn first.'));
+
+  const stages = learningStages();
+  let selectedStage = stages.some(stage => stage.i === selection.stage) ? selection.stage : null;
+  let activeFilter = 0;
+  const fieldFilter = el('select', { id: 'atlas-field-filter', onchange: () => paint() },
+    el('option', { value: 'all' }, 'All ' + g.domains.length + ' fields'));
+  g.domains.forEach(domain => fieldFilter.append(el('option', { value: domain.id }, domain.name)));
+  if (g.domains.some(domain => domain.id === selection.domain)) fieldFilter.value = selection.domain;
+  const search = el('input', { id: 'atlas-lesson-search', type: 'search', autocomplete: 'off',
+    placeholder: 'Find a lesson or idea…', oninput: () => paint(), onkeydown: event => {
+      if (event.key === 'Escape' && search.value) { event.preventDefault(); search.value = ''; paint(); }
+    } });
+  const clearPathway = btn({ class: 'btn ghost small', onclick: () => {
+    fieldFilter.value = 'all'; selectedStage = null; search.value = ''; paint();
+  } }, 'Clear field, stage & search');
+  const stageChoices = el('div', { class: 'pathway-stages', role: 'group', 'aria-label': 'Choose a learning stage' });
+  const stageButtons = new Map();
+  stages.forEach(stage => {
+    const count = el('span', { class: 'pathway-stage-count' });
+    const button = btn({ class: 'pathway-stage', 'aria-pressed': 'false', onclick: () => {
+      selectedStage = selectedStage === stage.i ? null : stage.i; paint();
+    } }, el('strong', {}, stage.name), el('span', {}, stage.span), count);
+    stageButtons.set(stage.i, { button, count }); stageChoices.append(button);
+  });
+  const completeFields = g.domains.filter(domain => stages.every(stage =>
+    g.nodes.some(node => node.domain === domain.id && node.stage === stage.i))).length;
+  const overview = el('section', { class: 'card pathway-overview', 'aria-labelledby': 'pathway-overview-title' },
+    el('div', { class: 'pathway-overview-head' },
+      el('h3', { id: 'pathway-overview-title' }, 'Find your place in the journey'),
+      el('p', {}, g.domains.length + ' fields · ' + plural(g.nodes.length, 'lesson') + ' · '
+        + completeFields + ' fields span all ' + stages.length + ' stages')),
+    el('div', { class: 'pathway-find' },
+      el('label', { for: 'atlas-field-filter' }, 'Choose a field', fieldFilter),
+      el('label', { for: 'atlas-lesson-search' }, 'Search lessons', search)),
+    stageChoices,
+    el('div', { class: 'pathway-actions' },
+      btn({ class: 'btn ghost small', onclick: () => { selectedStage = null; paint(); } }, 'Show all stages'),
+      btn({ class: 'btn ghost small', onclick: () => go('math-images', { domain: fieldFilter.value, stage: selectedStage }) },
+        glyph('gallery', 16), ' Explore these visuals'), clearPathway),
+    el('p', { class: 'pathway-note' }, 'Choose by readiness, at any age. These are learning pathways, not accredited qualifications.'));
+  page.append(overview);
 
   /* The 250KB the page already fetches carries eight distinct states per node
      — mastery, proven, ever_proven, faded, assumed, assumed_stale, unlocked,
@@ -3202,7 +3926,7 @@ async function renderAtlas(page) {
         bar.querySelectorAll('[role=radio]').forEach(x => {
           x.classList.remove('picked'); x.setAttribute('aria-checked', 'false'); x.setAttribute('tabindex', '-1'); });
         b.classList.add('picked'); b.setAttribute('aria-checked', 'true'); b.setAttribute('tabindex', '0');
-        paint(test, label);
+        activeFilter = k; paint();
       } }, label, el('span', { class: 'filter-mark' }, '✓ Showing'));
     bar.append(b);
   });
@@ -3213,7 +3937,16 @@ async function renderAtlas(page) {
   const board = el('div', { class: 'atlas-board' });
   page.append(bar, live, board);
 
-  function paint(test, label) {
+  function paint() {
+    const [label, test] = FILTERS[activeFilter];
+    const selectedDomain = fieldFilter.value;
+    const terms = search.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+    clearPathway.hidden = selectedDomain === 'all' && selectedStage === null && !terms.length;
+    stageButtons.forEach(({ button, count }, stage) => {
+      button.setAttribute('aria-pressed', String(selectedStage === stage));
+      const lessons = g.nodes.filter(node => node.stage === stage && (selectedDomain === 'all' || node.domain === selectedDomain));
+      count.textContent = plural(lessons.length, 'lesson');
+    });
     board.innerHTML = '';
     let shown = 0;
     // The stagger wants the block's rendered position, and `shown` is not
@@ -3224,29 +3957,37 @@ async function renderAtlas(page) {
     g.domains.forEach(d => {
       // Filtering only ever reduces the render — a domain with nothing left in
       // it drops out rather than standing as an empty heading.
-      const dnodes = g.nodes.filter(n => n.domain === d.id && test(n));
+      if (selectedDomain !== 'all' && selectedDomain !== d.id) return;
+      const dnodes = g.nodes.filter(n => n.domain === d.id && test(n)
+        && (selectedStage === null || selectedStage === n.stage)
+        && terms.every(term => [d.name, n.title, n.goal, n.section, stageLabel(n.stage)]
+          .filter(Boolean).join(' ').toLocaleLowerCase().includes(term)));
       if (!dnodes.length) return;
       shown += dnodes.length;
       board.append(domainBlock(d, dnodes, blockIndex++));
     });
-    if (!shown) board.append(emptyLeaf('atlas', 'Nothing in that state — yet',
-      'No tile answers to that just now. Choose “All fields” to see the whole map again.'));
+    if (!shown) board.append(emptyLeaf('atlas', 'No lessons match this view',
+      'Try another field, stage or search. Choose “All fields” in the progress filters to include locked and completed lessons.'));
     live.textContent = '';
-    setTimeout(() => { live.textContent = label + ' — showing ' + shown + ' of ' + g.nodes.length + ' topics.'; }, 30);
+    const fieldName = selectedDomain === 'all' ? 'all fields' : domainById(selectedDomain).name;
+    clearTimeout(live._timer);
+    live._timer = setTimeout(() => { live.textContent = 'Showing ' + shown + ' of ' + g.nodes.length
+      + ' lessons · ' + fieldName + ' · ' + (selectedStage === null ? 'all stages' : stageLabel(selectedStage))
+      + (activeFilter ? ' · ' + label : '') + '.'; }, 30);
   }
 
   // Six cells, one per stage, from counts the payload already computes and
   // this page used to reduce to a single total. Progress by stage is the fact
   // a reader actually wants: which band they are in, and which gate is shut.
   function stageStrip(d) {
-    const said = d.stages.map(s => STAGE_NAMES[s.stage] + ' ' + s.mastered + ' of ' + s.total
+    const said = d.stages.map(s => stageLabel(s.stage) + ' ' + s.mastered + ' of ' + s.total
       + (s.open ? ', open' : ', gate not open yet'));
     const strip = el('div', { class: 'stage-strip', role: 'img',
       'aria-label': 'By stage — ' + said.join('; ') });
     d.stages.forEach(s => {
       const pct = s.total ? Math.round(100 * s.mastered / s.total) : 0;
       strip.append(el('span', { class: 'ss-cell' + (s.open ? '' : ' shut'),
-        title: STAGE_NAMES[s.stage] + ' — ' + s.mastered + ' of ' + s.total + ' mastered'
+        title: stageLabel(s.stage) + ' — ' + s.mastered + ' of ' + s.total + ' mastered'
              + (s.open ? '' : ' · gate not open yet') },
         el('i', { style: 'width:' + pct + '%' }),
         el('b', {}, STAGE_NAMES[s.stage].slice(0, 2))));
@@ -3316,11 +4057,12 @@ async function renderAtlas(page) {
         el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')),
         stageStrip(d)),
       jump));
-    for (let s = 0; s < 6; s++) {
+    for (const stage of stages) {
+      const s = stage.i;
       const nodes = dnodes.filter(n => n.stage === s);
       if (!nodes.length) continue;
       const row = el('div', { class: 'stage-row' });
-      row.append(el('div', { class: 'stage-label' }, STAGE_NAMES[s]));
+      row.append(el('div', { class: 'stage-label' }, el('strong', {}, stage.name), el('span', {}, stage.span)));
       const nr = el('div', { class: 'node-row' });
       nodes.forEach(n => {
         const tile = nodeTile(n);
@@ -3334,13 +4076,16 @@ async function renderAtlas(page) {
     return block;
   }
 
-  paint(FILTERS[0][1], FILTERS[0][0]);
+  paint();
+  const specialistIndex = el('details', { class: 'atlas-specialist-index' },
+    el('summary', {}, 'Radiology reference index'));
+  quickAccess(specialistIndex, g);
+  if (specialistIndex.querySelector('.quick-access')) page.append(specialistIndex);
 }
 // Quick access — the specialist field as an index rather than a ladder.
 //
-// Radiology is postgraduate: its tiles are locked for almost every reader,
-// which makes the ordinary route through the Atlas useless for reviewing the
-// material itself. This panel is the other route — lesson, quiz and each source
+// Radiology includes a specialist reference library alongside its foundations.
+// This panel is the reference route — lesson, quiz and each source
 // article, one click from the top of the page, whatever the gates say.
 //
 // It began as a flat list of five modules. At eighty-odd it would be a wall, so
@@ -3351,7 +4096,8 @@ async function renderAtlas(page) {
 function quickAccess(page, g) {
   const d = g.domains.find(x => x.id === 'radiology');
   if (!d) return;
-  const nodes = g.nodes.filter(n => n.domain === 'radiology');
+  const referenceStage = Number.isInteger(d.reference_stage) ? d.reference_stage : 5;
+  const nodes = g.nodes.filter(n => n.domain === 'radiology' && n.stage >= referenceStage);
   if (!nodes.length) return;
   const sections = [];
   nodes.forEach(n => {
@@ -3392,10 +4138,15 @@ function quickAccess(page, g) {
     const rows = sec.nodes.map(n => {
       const state = n.mastered ? ['mastered', '✓ mastered'] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
       const row = el('div', { class: 'qa-row' });
+      const referenceMeta = [];
+      if (n.reference_count) referenceMeta.push(plural(n.reference_count, 'foundation article'));
+      if (n.template_count) referenceMeta.push(plural(n.template_count, 'report template'));
       row.append(el('div', { class: 'qa-title' },
         el('b', {}, n.title), el('span', { class: 'qa-state ' + state[0] }, state[1]),
-        n.goal ? el('p', { class: 'muted' }, n.goal) : null));
+        n.goal ? el('p', { class: 'muted' }, n.goal) : null,
+        referenceMeta.length ? el('p', { class: 'qa-reference-meta' }, referenceMeta.join(' · ')) : null));
       row.append(el('div', { class: 'qa-acts' },
+        n.reference_count > 0 ? btn({ class: 'btn gold small', 'aria-label': 'Reporting reference — ' + n.title, onclick: () => go('radiology', n.id) }, 'Reporting reference') : null,
         // Eighty identical "Lesson" buttons read as eighty identical buttons to
         // anyone listening; the module name has to travel with each.
         btn({ class: 'btn small', 'aria-label': 'Lesson — ' + n.title, onclick: () => go('node', n.id) }, 'Lesson'),
@@ -3406,7 +4157,7 @@ function quickAccess(page, g) {
         onclick: () => go('reader', { title: a, node: n.id }) }, a)));
       if (arts.children.length) row.append(arts);
       wrap.append(row);
-      return { row: row, hay: (n.title + ' ' + sec.name + ' ' + (n.goal || '')).toLowerCase() };
+      return { row: row, hay: [n.title, sec.name, n.goal || '', ...(n.reference_topics || []), ...(n.articles || [])].join(' ').toLowerCase() };
     });
     groups.push({ wrap: wrap, rows: rows });
     box.append(wrap);
@@ -3441,8 +4192,8 @@ function quickAccess(page, g) {
 function openField(d, locked) {
   openModal({ label: 'Open ' + d.name, dismissable: true, build: (modal, close) => {
     modal.append(el('h2', { style: 'margin-top:0' }, glyph('spark', 20), ' Open ' + d.name + '?'));
-    modal.append(el('p', {}, 'This field begins where the general spine ends. Its '
-      + plural(locked, 'module') + ' wait on anatomy, physiology and physics from the ten fields — '
+    modal.append(el('p', {}, 'This field has '
+      + plural(locked, 'module') + ' waiting on earlier lessons in anatomy, physiology and physics — '
       + 'grounding you may well already have.'));
     modal.append(el('p', { class: 'muted' },
       'Say so and the book will take you at your word: it marks that groundwork '
@@ -3535,6 +4286,19 @@ function studyNote() {
 }
 
 /* ---------------- Review ---------------- */
+async function renderMemoryGame(page) {
+  const version = _readerContextSeq;
+  if (!window.PrimerReviewGame) {
+    page.append(errCard({ error: 'The review game could not load. Please reload this page.' }, () => location.reload()));
+    return;
+  }
+  return window.PrimerReviewGame.render(page, {
+    el, btn, api, glyph, speakBtn, speakText, stopSpeaking, go,
+    refreshStats, flyXP, whenDay, reducedMotion, stage: S.stage,
+    isCurrent: () => version === _readerContextSeq && S.view === 'review-game',
+  });
+}
+
 async function renderReview(page, arg) {
   const short = arg === 'short';
   const data = await guard(page, () => api.get('/api/review/due?limit=30' + (short ? '&dose=short' : '')));
@@ -3558,6 +4322,10 @@ async function renderReview(page, arg) {
       btn({ class: 'btn ghost small', onclick: () => go('review') },
         'I have longer after all — show me the whole day')));
   }
+  page.append(el('section', { class: 'card review-game-invitation', 'aria-label': 'Play a spaced repetition game' },
+    el('div', {}, el('h3', {}, 'Grow your Memory Garden'),
+      el('p', { class: 'muted' }, 'Play a short round with your due cards. Recall, reveal, and watch your garden grow as the book schedules your next visit.')),
+    btn({ class: 'btn gold', onclick: () => go('review-game') }, glyph('spark', 18), ' Play Memory Garden')));
   page.append(studyNote());
   // An empty deck is good news, and the page should sound like it knows that
   // — one Guide-flavored wink, then the honest reason to come back.
@@ -3843,7 +4611,7 @@ async function renderReview(page, arg) {
 async function renderSearch(page) {
   page.append(pagehead('The whole encyclopedia, inside this book', 'Look Up Anything',
     'Millions of articles. Search a person, a place, an idea — and follow the links wherever they lead.'));
-  page.append(el('p', { class: 'epigraph' }, 'Don’t panic. Whatever it is, the book has almost certainly heard of it.'));
+  page.append(el('p', { class: 'epigraph' }, 'Start with a question. Follow what makes you curious.'));
   const input = el('input', { type: 'search', 'aria-label': 'Search', placeholder: 'Search for anything…', autofocus: true });
   const box = el('div', { id: 'searchbox' }, el('span', { class: 'mag', 'aria-hidden': 'true' }, glyph('lookup', 18)), input);
   const results = el('div', { class: 'card', role: 'region', 'aria-label': 'Results', style: 'padding:0;overflow:hidden' });
@@ -4284,9 +5052,7 @@ boot().catch(e => {
   // all — send them to the first page instead of the error card. This needs
   // the domain list to draw its picker, so it only applies once we have one.
   if (isNoProfile(e) && S.domains.length) return toOnboarding();
-  // The very first page a reader might ever meet must keep the DON'T PANIC
-  // register too: reuse the Guide's error card, with the raw error demoted to
-  // fine print rather than shouted as the headline.
+  // Boot failures use the same factual, retryable error as other pages.
   const root = $('#root');
   root.innerHTML = '';
   root.append(el('div', { style: 'max-width:560px;margin:12vh auto 0;padding:0 20px' },

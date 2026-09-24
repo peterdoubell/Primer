@@ -43,10 +43,38 @@ from .core import (
 DOMAIN = "mind-society"
 
 
+def _draw_growth_evidence(plate: Plate) -> None:
+    pill(plate, (800, 220), "OBSERVATION IS NOT YET A CAUSE", color=TEAL, size=26)
+    panel(plate, (120, 275, 760, 790), outline=BLUE)
+    pill(plate, (440, 315), "INVENTED MEASUREMENTS", color=BLUE, size=22)
+    base, scale = 670, 20
+    for value in (0, 4, 8, 12, 16):
+        y = base-value*scale
+        plate.draw.line((230, y, 690, y), fill=GRID, width=2)
+        plate.text((210, y), str(value), size=21, anchor="rm")
+    plate.text((180, 310), "cm", size=23, anchor="mm")
+    for x, height, label, tone in ((335, 8, "BEFORE", BLUE), (570, 14, "AFTER", TEAL)):
+        top = base-height*scale
+        plate.draw.rectangle((x-50, top, x+50, base), fill=tone)
+        plate.text((x, top-22), str(height), size=26, bold=True, anchor="mm")
+        plate.text((x, 710), label, size=22, bold=True, anchor="mm")
+    plate.text((440, 758), "Same plant: 14 − 8 = 6 cm taller", size=24, anchor="mm")
+    panel(plate, (810, 275, 1480, 790), outline=TEAL)
+    for y, heading, detail in (
+        (320, "CLAIM", "Did moving near the window cause the growth?"),
+        (470, "OTHER POSSIBILITIES", "Time, water, soil and temperature may also matter."),
+        (625, "A BETTER CHECK", "Compare similar plants over the same time; vary position and keep other care alike."),
+    ):
+        pill(plate, (1145, y), heading, color=TEAL, size=22)
+        box_text(plate, (850, y+35, 1440, y+123), detail, size=25)
+    footer(plate, "The chart shows growth. It cannot tell us which cause produced it without a comparison.")
+
+
 def flow(node_id: str, title: str, stage: int, plate_id: str, alt: str,
-         caption: str, steps: Sequence[Tuple[str, str]], conclusion: str) -> Spec:
+         caption: str, steps: Sequence[Tuple[str, str]], conclusion: str,
+         relation: str = "LEADS TO") -> Spec:
     return spec(node_id, title, stage, DOMAIN, plate_id, alt, caption,
-                lambda plate: draw_flow(plate, steps, conclusion))
+                lambda plate: draw_flow(plate, steps, conclusion, relation=relation))
 
 
 def compare(node_id: str, title: str, stage: int, plate_id: str, alt: str,
@@ -57,18 +85,57 @@ def compare(node_id: str, title: str, stage: int, plate_id: str, alt: str,
                     plate, columns, conclusion, relation=relation))
 
 
+def _child(plate: Plate, x: int, head_y: int, feet_y: int, index: int) -> None:
+    """Clothed figures; the eye level and foot support remain explicit geometry."""
+    height = feet_y - head_y
+    radius = min(23, max(12, round(height * .16)))
+    skin = ("#b77b56", "#e4ae83", "#885b45")[index % 3]
+    shirt = (BLUE, TEAL, PLUM)[index % 3]
+    hip = round(head_y + height * .65)
+    shoulder = head_y + radius + 5
+    for dx in (-11, 11):
+        plate.draw.line((x + dx, hip, x + dx, feet_y - 6), fill=INK_SOFT, width=13)
+        plate.draw.rounded_rectangle((x + dx - 9, feet_y - 10, x + dx + 13, feet_y),
+                                     radius=4, fill=INK)
+    plate.draw.polygon([(x - 20, shoulder), (x + 20, shoulder),
+                        (x + 17, hip), (x - 17, hip)], fill=shirt)
+    for direction in (-1, 1):
+        plate.draw.line((x + direction * 20, shoulder + 5,
+                         x + direction * 27, hip - 4), fill=skin, width=10)
+    plate.dot((x, head_y), radius, fill=skin, outline=INK_SOFT, width=2)
+    plate.draw.arc((x - radius, head_y - radius, x + radius, head_y + radius),
+                   180, 350, fill=INK, width=6)
+    for dx in (-6, 6):
+        plate.dot((x + dx, head_y), 2, fill=INK)
+    plate.draw.line((x - 4, head_y + radius // 2, x + 4, head_y + radius // 2),
+                    fill=INK_SOFT, width=2)
+
+
 def _draw_feelings(plate: Plate) -> None:
-    draw_comparison(
-        plate,
-        [
-            ("SAM AT A NEW SCHOOL", "Fast heartbeat + thought ‘I might get lost’ → names NERVOUS.",
-             "Response: ask a teacher for the room number"),
-            ("LEE AT A NEW SCHOOL", "Wide eyes + thought ‘I get to explore’ → names EXCITED.",
-             "Response: invite Sam to find the room together"),
-        ],
-        "The same situation can prompt different feelings; clues help us ask, not assume.",
-        relation="SAME SITUATION → DIFFERENT BODY CLUES, THOUGHTS AND FEELINGS",
-    )
+    for i, (name, thought, clue, feeling, response, color, pale) in enumerate([
+        ("SAM", "I might get lost.", "I notice a fast heartbeat.", "NERVOUS",
+         "Ask a teacher: Where is room 2?", BLUE, BLUE_LIGHT),
+        ("LEE", "I get to explore.", "I notice my eyes open wide.", "EXCITED",
+         "Invite Sam: Let's find room 2 together.", TEAL, TEAL_LIGHT),
+    ]):
+        x0 = 120 + i * 700
+        panel(plate, (x0, 235, x0 + 660, 785), fill=pale, outline=color)
+        pill(plate, (x0 + 330, 275), name + " AT THE NEW SCHOOL", color=color, size=18)
+        # The repeated door grounds both experiences in the same situation.
+        plate.draw.rounded_rectangle((x0 + 395, 335, x0 + 565, 505), radius=9,
+                                     fill=PAPER_LIGHT, outline=color, width=4)
+        plate.text((x0 + 480, 362), "ROOM 2", size=21, bold=True, anchor="mm")
+        plate.draw.rectangle((x0 + 426, 390, x0 + 530, 505), fill=GOLD_LIGHT, outline=GOLD, width=3)
+        plate.dot((x0 + 512, 454), 5, fill=GOLD)
+        plate.draw.line((x0 + 55, 505, x0 + 605, 505), fill=color, width=3)
+        _child(plate, x0 + 140, 390, 505, i)
+        box_text(plate, (x0 + 220, 375, x0 + 377, 469), thought,
+                 size=24, minimum=20, bold=True, fill=color)
+        box_text(plate, (x0 + 35, 525, x0 + 625, 580), clue, size=24, minimum=21)
+        box_text(plate, (x0 + 35, 587, x0 + 625, 637), name + " names: " + feeling,
+                 size=25, minimum=22, bold=True, fill=color)
+        box_text(plate, (x0 + 35, 660, x0 + 625, 750), response, size=25, minimum=22)
+    footer(plate, "Ask how someone feels. A face or body clue alone cannot tell you.")
 
 
 def _draw_fairness(plate: Plate) -> None:
@@ -81,8 +148,7 @@ def _draw_fairness(plate: Plate) -> None:
         x = 215 + index * 112
         box_top = 615
         head_y = box_top - body_height
-        plate.dot((x, head_y), 24, fill=GOLD_LIGHT, outline=GOLD, width=4)
-        plate.draw.line((x, head_y + 25, x, box_top), fill=GOLD, width=6)
+        _child(plate, x, head_y, box_top, index)
         plate.draw.rectangle((x - 35, box_top, x + 35, 660), fill=TEAL_LIGHT, outline=TEAL, width=4)
     box_text(plate, (150, 660, 505, 738), "Same share; useful when needs are relevantly alike.",
              size=20, minimum=15)
@@ -97,8 +163,7 @@ def _draw_fairness(plate: Plate) -> None:
         x = 690 + index * 112
         box_top = 660 - box_height
         head_y = box_top - body_height
-        plate.dot((x, head_y), 24, fill=GOLD_LIGHT, outline=GOLD, width=4)
-        plate.draw.line((x, head_y + 25, x, box_top), fill=GOLD, width=6)
+        _child(plate, x, head_y, box_top, index)
         if box_height:
             plate.draw.rectangle((x - 38, box_top, x + 38, 660),
                                  fill=BLUE_LIGHT, outline=BLUE, width=4)
@@ -175,7 +240,7 @@ def _draw_study_curves(plate: Plate) -> None:
         pill(plate, (x, 660), "RECALL", color=TEAL, size=12)
     plate.text((520, 560), "one cram session", size=22, bold=True, fill=CORAL)
     plate.text((980, 405), "spaced retrieval", size=22, bold=True, fill=TEAL)
-    footer(plate, "Retrieving after some forgetting strengthens later access more than rereading everything at once.")
+    footer(plate, "Schematic, not measured data: spaced retrieval can aid retention; timing and feedback matter.")
 
 
 def _draw_epistemology(plate: Plate) -> None:
@@ -183,7 +248,7 @@ def _draw_epistemology(plate: Plate) -> None:
     pill(plate, (510, 272), "TRADITIONAL TARGET", color=PLUM, size=18)
     plate.draw.ellipse((220, 330, 610, 700), fill=BLUE_LIGHT + "99", outline=BLUE, width=6)
     plate.draw.ellipse((420, 330, 810, 700), fill=TEAL_LIGHT + "99", outline=TEAL, width=6)
-    plate.draw.ellipse((320, 465, 710, 790), fill=GOLD_LIGHT + "88", outline=GOLD, width=6)
+    plate.draw.ellipse((320, 465, 710, 765), fill=GOLD_LIGHT + "88", outline=GOLD, width=6)
     plate.text((300, 410), "BELIEF", size=24, bold=True, fill=BLUE, anchor="mm")
     plate.text((725, 410), "TRUTH", size=24, bold=True, fill=TEAL, anchor="mm")
     plate.text((515, 725), "JUSTIFICATION", size=22, bold=True, fill=GOLD, anchor="mm")
@@ -192,10 +257,12 @@ def _draw_epistemology(plate: Plate) -> None:
     pill(plate, (1215, 292), "GETTIER PRESSURE TEST", color=CORAL, size=17)
     box_text(plate, (985, 330, 1445, 440), "A justified belief is true partly because of luck.",
              size=25, minimum=18, bold=True, fill=CORAL)
-    plate.arrow((1060, 500), (1370, 500), fill=CORAL, width=7, head=22)
-    box_text(plate, (980, 525, 1450, 680),
-             "Belief ✓   Truth ✓   Justification ✓\nYet the link between reason and truth seems defective.",
-             size=23, minimum=17, bold=True)
+    plate.draw.ellipse((1155, 445, 1275, 565), fill=PAPER_LIGHT, outline=CORAL, width=5)
+    plate.draw.line((1215, 457, 1215, 505, 1248, 505), fill=INK, width=5)
+    plate.text((1215, 595), "STOPPED AT 3:00", size=21, bold=True, anchor="mm")
+    box_text(plate, (980, 620, 1450, 745),
+             "You reasonably trust this clock, unaware it stopped. By chance it really is 3:00: true belief, but knowledge?",
+             size=22, minimum=17, bold=True)
     footer(plate, "Justified true belief is illuminating, but Gettier cases challenge whether it is sufficient.")
 
 
@@ -301,7 +368,7 @@ def _draw_behavioral_choice(plate: Plate) -> None:
     pill(plate, (1130, 278), "WHAT THE MODEL TESTS", color=CORAL, size=18)
     for index, (head, detail) in enumerate([
         ("DESCRIPTION", "Which outcomes and probabilities are represented?"),
-        ("NORMATIVE RULE", "Expected value treats the two options alike here."),
+        ("RISK-NEUTRAL RULE", "With linear utility of money, both also have equal expected utility."),
         ("OBSERVED CHOICE", "Certainty, framing and reference points may shift preference."),
         ("UPDATE", "Repeated evidence can motivate a richer model of utility."),
     ]):
@@ -309,7 +376,7 @@ def _draw_behavioral_choice(plate: Plate) -> None:
         box_text(plate, (820, y0, 1050, y0 + 72), head, size=21, minimum=15,
                  bold=True, fill=(BLUE, TEAL, PLUM, CORAL)[index])
         box_text(plate, (1070, y0, 1440, y0 + 72), detail, size=18, minimum=13, align="left")
-    footer(plate, "Equal expected values need not feel equal; behavioral science measures the systematic difference.")
+    footer(plate, "Illustrative choices, not measured results: equal expected money need not mean equal expected utility.")
 
 
 def _draw_advanced_logic(plate: Plate) -> None:
@@ -399,24 +466,18 @@ _ITEMS = [
             corner="CHOICE × OUTCOME",
         ),
     ),
-    flow(
-        "mind.1.thinking", "Good Thinking", 1, "claim-reason-evidence-question-plate",
-        "A four-step argument begins with the claim that a plant grew taller because it was near a window, adds a measured example, asks whether water or plant type also differed, and proposes a fair comparison to test the reason.",
+    spec(
+        "mind.1.thinking", "Good Thinking", 1, DOMAIN, "claim-reason-evidence-question-plate",
+        "A zero-based centimetre chart shows invented before-and-after heights of eight and fourteen for the same plant, a six-centimetre increase. Adjacent questions separate observed growth from a window-position causal claim and propose a controlled comparison over the same time.",
         "Good thinking makes a claim, gives a relevant reason, checks evidence and asks what else could explain the result.",
-        [
-            ("CLAIM", "‘The window made this plant grow taller.’"),
-            ("REASON + EVIDENCE", "It received more light; its height changed from 8 cm to 14 cm."),
-            ("ASK WHAT ELSE", "Did water, soil, temperature or starting plant differ too?"),
-            ("FAIR CHECK", "Use similar plants; vary position while holding other care alike."),
-        ],
-        "A reason is strongest when evidence distinguishes it from a plausible alternative.",
+        _draw_growth_evidence,
     ),
     flow(
         "mind.1.friendship", "Getting Along", 1, "conflict-listen-repair-plate",
         "A five-step playground conflict process moves from pausing, hearing each person's account, paraphrasing the other view, naming both needs and proposing a testable agreement about sharing a game.",
-        "Resolving conflict does not require pretending everyone saw the event alike. Listening, restating and naming needs create room for a workable repair.",
+        "This process is for a safe, ordinary disagreement. Threats, bullying or unequal power may require trusted-adult help, not mutual negotiation. When safe, listening and naming needs can help; no one has to agree, forgive or resume a friendship.",
         [
-            ("PAUSE", "Stop the action and make the situation physically safe."),
+            ("PAUSE", "Move to safety. For threats or repeated bullying, ask a trusted adult for help."),
             ("EACH TELLS", "One speaks while the other listens without interruption."),
             ("PARAPHRASE", "‘You wanted a turn and thought I ignored you—is that right?’"),
             ("NAME NEEDS", "Belonging, fairness, space, safety or keeping an agreement."),
@@ -476,27 +537,27 @@ _ITEMS = [
     ),
     compare(
         "mind.2.big-questions", "Big Questions", 2, "fairness-three-lenses-plate",
-        "Three columns apply consequence, rule and character or care lenses to the same question of whether to reveal a friend's harmful secret, naming what each lens notices and what evidence remains needed.",
+        "Three columns examine the same invented case of finding a lost wallet: consequences for the owner, ownership and honesty, and character or care. Each perspective supplies reasons to consider; the diagram suggests safe help from a responsible adult.",
         "Philosophical questions become clearer when rival answers give reasons and face the same case. Different lenses can expose consequences, duties and relationships without automatically settling the answer.",
         [
-            ("CONSEQUENCES", "Who may be helped or harmed now and later? How likely is each outcome?", "Need evidence about risk, alternatives and affected people"),
-            ("RULES / RIGHTS", "What promise, duty, consent or right applies? Can an exception be justified?", "Need a rule others could reasonably accept"),
-            ("CHARACTER / CARE", "What would honesty, courage and care require in this relationship?", "Need attention to dependence, trust and power"),
+            ("CONSEQUENCES", "Who loses if the wallet is kept? Could returning it help its owner?", "Check likely harms and ways to return it safely"),
+            ("RULES / RIGHTS", "Finding the wallet does not make its contents yours. What duty follows?", "Consider ownership, honesty and a rule for everyone"),
+            ("CHARACTER / CARE", "What would honesty and care for an unknown owner look like?", "Consider trust and safe help from a responsible adult"),
         ],
         "A good answer states a principle, applies it consistently and confronts the hardest counterexample.",
-        relation="ONE DIFFICULT CASE — THREE REASON-GIVING LENSES",
+        relation="CASE: YOU FIND A LOST WALLET — KEEP IT OR SEEK ITS OWNER?",
     ),
     spec(
         "mind.2.study-skills", "Learning How to Learn", 2, DOMAIN,
         "spacing-retrieval-curves-plate",
         "Two recall-strength curves compare a single cram session that fades steeply with four spaced retrieval sessions that repeatedly boost recall and decay more slowly across days.",
-        "Spacing allows some forgetting before retrieval, making practice effortful and durable. The exact curve varies, but repeated recall generally outperforms one massed review.",
+        "These invented curves illustrate spaced retrieval, not measured recall probabilities or a prescribed schedule. Retrieval with feedback and distributed practice can support retention; effects depend on material, prior knowledge, timing and the later test. The drawing does not control for total study time.",
         _draw_study_curves,
     ),
     flow(
         "mind.3.critical", "Critical Thinking", 3, "prediction-evidence-update-plate",
         "A five-step reasoning chain starts with a claim that a supplement improves sleep, turns it into a measurable prediction, compares a randomized group with a control, checks attrition and expectancy bias, and updates the claim with an effect size and uncertainty.",
-        "Critical thinking asks what evidence a claim predicts, what alternative processes could mimic it, and how much the result should change confidence.",
+        "This hypothetical study is for appraising research, not testing supplements yourself. Clinical research requires qualified oversight and participant protections. Ask what a claim predicts, what alternatives could mimic the result, and how effect size and uncertainty should change confidence.",
         [
             ("CLAIM", "‘This supplement improves sleep.’ Define the people, dose and outcome."),
             ("PREDICTION", "Compared with control, average validated sleep quality should improve."),
@@ -561,7 +622,7 @@ _ITEMS = [
         "Social science turns broad concepts into observable measures, samples people and settings, combines methods and states what its design cannot establish.",
         [
             ("QUESTION", "Why is park use lower in one neighborhood? Specify place, period and population."),
-            ("OPERATIONALIZE", "Measure visits, access, safety perception, shade, programs and travel time."),
+            ("DEFINE MEASURES", "Measure visits, access, safety perception, shade, programs and travel time."),
             ("SAMPLE + METHODS", "Combine counts, surveys and interviews; note who is missed by each."),
             ("COMPARE PATTERNS", "Test whether access and use covary; look for contradictory cases."),
             ("LIMIT CLAIM", "Association is not automatically cause; explain selection and uncertainty."),
@@ -571,7 +632,7 @@ _ITEMS = [
     spec(
         "mind.4.epistemology", "Epistemology", 4, DOMAIN,
         "belief-truth-justification-gettier-plate",
-        "Three overlapping circles for belief, truth and justification meet at a region marked knowledge with a question mark; a Gettier pressure-test card shows all three checks satisfied through luck while the reason-to-truth link remains defective.",
+        "Three overlapping circles for belief, truth and justification meet at knowledge with a question mark. Beside them a clock stopped at three illustrates a Gettier-style case: someone reasonably trusts it without knowing it stopped, and happens to read it at three. The example asks whether lucky true belief is knowledge.",
         "The traditional analysis of knowledge as justified true belief is a useful starting point. Gettier cases show why the quality of the connection between justification and truth also matters.",
         _draw_epistemology,
     ),
@@ -611,6 +672,7 @@ _ITEMS = [
             ("INSTITUTIONAL RULE", "Translate reasons into transparent criteria, appeal and bias monitoring."),
         ],
         "A defensible policy links levels openly and remains revisable in light of effects and objections.",
+        relation="LINK",
     ),
     spec(
         "mind.4.philsci", "Philosophy of Science", 4,
@@ -624,7 +686,7 @@ _ITEMS = [
         "mind.4.economics-behav", "Decision & Behavioral Science", 4, DOMAIN,
         "equal-expected-value-framing-plate",
         "A worked gain-frame choice compares a sure fifty dollars with a fifty-percent chance of one hundred dollars and a fifty-percent chance of zero; both equal fifty dollars in expected value, while a second panel lists how certainty and framing may shift observed choice.",
-        "Expected value supplies a normative benchmark in this simplified case. Behavioral evidence tests how actual choices respond to certainty, framing, reference points and loss aversion.",
+        "Both invented options have expected monetary gain $50. Indifference is a risk-neutral benchmark, not a universal rationality requirement: nonlinear utility can justify different preferences. Behavioral studies can test additional effects of framing and reference points; this diagram reports no measured choices.",
         _draw_behavioral_choice,
     ),
     spec(

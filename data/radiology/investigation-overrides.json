@@ -1,0 +1,3232 @@
+{
+  "ra.mri-shoulder": {
+    "reporting": {
+      "protocol": [
+        "Use axial, oblique coronal and oblique sagittal MRI planes aligned to the glenoid and supraspinatus; review a fluid-sensitive sequence and non-fat-suppressed anatomy.",
+        "Record noncontrast MRI versus direct MR arthrography, previous surgery and the cuff/instability question. Add an ABER acquisition only when appropriate for the clinical question and local protocol."
+      ],
+      "checklist": [
+        {
+          "label": "Cuff",
+          "detail": "Name involved tendon, tear surface/depth, AP extent and retraction."
+        },
+        {
+          "label": "Muscle",
+          "detail": "Describe atrophy and fatty infiltration for each affected cuff muscle."
+        },
+        {
+          "label": "Biceps",
+          "detail": "Review anchor, pulley, intra-articular segment and groove position."
+        },
+        {
+          "label": "Labrum/instability",
+          "detail": "Map labral injury, capsuloligamentous findings and glenoid/humeral defects."
+        },
+        {
+          "label": "Joint/outlet",
+          "detail": "Assess cartilage, bursae, AC joint and associated osseous abnormality."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Cuff tear",
+          "method": "Measure AP width, mediolateral retraction and partial-thickness depth in mm or proportion.",
+          "pitfall": "Delamination may make a single retraction measurement incomplete."
+        },
+        {
+          "name": "Bone loss",
+          "method": "State en-face glenoid best-fit-circle or other method and humeral defect measurements if performed.",
+          "pitfall": "Glenoid-track assessment requires both glenoid and humeral measurements and a specified method."
+        },
+        {
+          "name": "Muscle quality",
+          "method": "Use a named fatty-infiltration/atrophy scale if helpful and identify each muscle.",
+          "pitfall": "Do not infer reparability from tear size alone."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Magic-angle signal on short-TE images can mimic tendinopathy.",
+        "Sublabral variants should not be called a labral tear without supporting morphology."
+      ],
+      "impression_prompts": [
+        "What tendon/labral injury is present and how extensive is it?",
+        "What muscle quality, bone loss or biceps abnormality affects planning?",
+        "What incidental findings are unlikely to explain symptoms?"
+      ],
+      "escalation": [
+        "Promptly communicate acute fracture-dislocation or an unexpected significant destructive process."
+      ],
+      "template_sections": [
+        {
+          "heading": "ROTATOR CUFF",
+          "body": "Supraspinatus [ ]; infraspinatus [ ]; subscapularis [ ]; teres minor [ ]; tear surface/depth [ ]; AP width __ mm; retraction __ mm; delamination [ ]."
+        },
+        {
+          "heading": "MUSCLE QUALITY",
+          "body": "Atrophy [muscle and degree]; fatty infiltration [muscle, named scale/grade or description]; oedema [ ]."
+        },
+        {
+          "heading": "BICEPS AND PULLEY",
+          "body": "Long-head biceps continuity/signal [ ]; groove position [ ]; pulley/subscapularis relationship [ ]; anchor [ ]."
+        },
+        {
+          "heading": "LABRUM AND INSTABILITY",
+          "body": "Labral lesion [clock-face/location and type]; capsule/IGHL [ ]; glenoid bone loss [method/result]; Hill-Sachs [ ]; track assessment [not performed / method/result]."
+        },
+        {
+          "heading": "JOINT AND OUTLET",
+          "body": "Cartilage [ ]; glenohumeral effusion [ ]; subacromial-subdeltoid bursa [ ]; AC joint [ ]; acromial/osseous findings [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Shoulder Anatomy and Variants on MRI",
+          "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy"
+        },
+        {
+          "title": "Shoulder instability - MRI",
+          "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/instability"
+        },
+        {
+          "title": "Shoulder  Rotator cuff injury",
+          "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/rotator-cuff-injury"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-mri-shoulder-report",
+        "title": "MRI SHOULDER",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "ROTATOR CUFF",
+            "body": "Supraspinatus [ ]; infraspinatus [ ]; subscapularis [ ]; teres minor [ ]; tear surface/depth [ ]; AP width __ mm; retraction __ mm; delamination [ ]."
+          },
+          {
+            "heading": "MUSCLE QUALITY",
+            "body": "Atrophy [muscle and degree]; fatty infiltration [muscle, named scale/grade or description]; oedema [ ]."
+          },
+          {
+            "heading": "BICEPS AND PULLEY",
+            "body": "Long-head biceps continuity/signal [ ]; groove position [ ]; pulley/subscapularis relationship [ ]; anchor [ ]."
+          },
+          {
+            "heading": "LABRUM AND INSTABILITY",
+            "body": "Labral lesion [clock-face/location and type]; capsule/IGHL [ ]; glenoid bone loss [method/result]; Hill-Sachs [ ]; track assessment [not performed / method/result]."
+          },
+          {
+            "heading": "JOINT AND OUTLET",
+            "body": "Cartilage [ ]; glenohumeral effusion [ ]; subacromial-subdeltoid bursa [ ]; AC joint [ ]; acromial/osseous findings [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Shoulder Anatomy and Variants on MRI",
+            "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy"
+          },
+          {
+            "title": "Shoulder instability - MRI",
+            "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/instability"
+          },
+          {
+            "title": "Shoulder  Rotator cuff injury",
+            "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/rotator-cuff-injury"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-mri-shoulder-detail-1",
+        "label": "Glenoid, labrum and cuff attachment anatomy",
+        "description": "Detailed lateral shoulder illustration showing the glenoid and adjacent tendon attachments.",
+        "src": "https://radiologyassistant.nl/assets/shoulder-mr-anatomy/a509797ab6cd80_LAT-SHOULDER-6.0.jpg",
+        "alt": "Detailed lateral shoulder illustration showing the glenoid and adjacent tendon attachments.",
+        "caption": "Detailed lateral shoulder illustration showing the glenoid and adjacent tendon attachments.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Shoulder Anatomy and Variants on MRI",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy",
+        "width": 900,
+        "height": 622
+      },
+      {
+        "id": "ra-mri-shoulder-detail-2",
+        "label": "Anterior cuff and biceps anatomy",
+        "description": "Detailed anterior shoulder illustration relating the cuff tendons, coracoid and biceps to the humeral attachments.",
+        "src": "https://radiologyassistant.nl/assets/shoulder-mr-anatomy/a509797ab6dbbf_Coronal-2.jpg",
+        "alt": "Detailed anterior shoulder illustration relating the cuff tendons, coracoid and biceps to the humeral attachments.",
+        "caption": "Detailed anterior shoulder illustration relating the cuff tendons, coracoid and biceps to the humeral attachments.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Shoulder Anatomy and Variants on MRI",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy",
+        "width": 845,
+        "height": 683
+      },
+      {
+        "id": "ra-mri-shoulder-detail-3",
+        "label": "Axial MRI anatomy",
+        "description": "Axial MRI anatomy example from the shoulder anatomy series.",
+        "src": "https://radiologyassistant.nl/assets/shoulder-mr-anatomy/a509797ab6f6cd_a1.jpg",
+        "alt": "Axial MRI anatomy example from the shoulder anatomy series.",
+        "caption": "Axial MRI anatomy example from the shoulder anatomy series.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder Anatomy and Variants on MRI",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy",
+        "width": 849,
+        "height": 663
+      },
+      {
+        "id": "ra-mri-shoulder-detail-4",
+        "label": "Coronal MRI anatomy",
+        "description": "Coronal MRI anatomy example from the shoulder anatomy series.",
+        "src": "https://radiologyassistant.nl/assets/naamloos.001.jpeg",
+        "alt": "Coronal MRI anatomy example from the shoulder anatomy series.",
+        "caption": "Coronal MRI anatomy example from the shoulder anatomy series.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder Anatomy and Variants on MRI",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy",
+        "width": 750,
+        "height": 527
+      },
+      {
+        "id": "ra-mri-shoulder-detail-5",
+        "label": "Sagittal MRI anatomy",
+        "description": "Sagittal MRI anatomy example from the shoulder anatomy series.",
+        "src": "https://radiologyassistant.nl/assets/shoulder-mr-anatomy/a509797aba8de6_1.jpg",
+        "alt": "Sagittal MRI anatomy example from the shoulder anatomy series.",
+        "caption": "Sagittal MRI anatomy example from the shoulder anatomy series.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder Anatomy and Variants on MRI",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy",
+        "width": 847,
+        "height": 676
+      },
+      {
+        "id": "ra-mri-shoulder-detail-6",
+        "label": "Normal labral variants",
+        "description": "Schematic comparison of a sublabral foramen, sublabral recess and Buford complex; correlate with orthogonal MR images.",
+        "src": "https://radiologyassistant.nl/assets/shoulder-mr-anatomy/a509797abc964f_labrum-recess-ea-3.0.jpg",
+        "alt": "Schematic comparison of a sublabral foramen, sublabral recess and Buford complex; correlate with orthogonal MR images.",
+        "caption": "Schematic comparison of a sublabral foramen, sublabral recess and Buford complex; correlate with orthogonal MR images.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Shoulder Anatomy and Variants on MRI",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/mri-anatomy",
+        "width": 802,
+        "height": 496
+      },
+      {
+        "id": "ra-mri-shoulder-detail-7",
+        "label": "Full-thickness cuff tear on MRI",
+        "description": "MR example demonstrating a full-thickness rotator cuff defect.",
+        "src": "https://radiologyassistant.nl/assets/2b-full-thickness-tears-mr.jpg",
+        "alt": "MR example demonstrating a full-thickness rotator cuff defect.",
+        "caption": "MR example demonstrating a full-thickness rotator cuff defect.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder  Rotator cuff injury",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/rotator-cuff-injury",
+        "width": 900,
+        "height": 519
+      },
+      {
+        "id": "ra-mri-shoulder-detail-8",
+        "label": "Cuff tear dimensions",
+        "description": "MR measurement example distinguishing the tear gap from the adjacent tendon and muscle.",
+        "src": "https://radiologyassistant.nl/assets/1-gap-measurement-1629179588.jpg",
+        "alt": "MR measurement example distinguishing the tear gap from the adjacent tendon and muscle.",
+        "caption": "MR measurement example distinguishing the tear gap from the adjacent tendon and muscle.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder  Rotator cuff injury",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/rotator-cuff-injury",
+        "width": 800,
+        "height": 544
+      },
+      {
+        "id": "ra-mri-shoulder-detail-9",
+        "label": "Cuff muscle quality",
+        "description": "MR example used to assess cuff muscle bulk and fatty change.",
+        "src": "https://radiologyassistant.nl/assets/3-atrophy-mr-1629185502.jpg",
+        "alt": "MR example used to assess cuff muscle bulk and fatty change.",
+        "caption": "MR example used to assess cuff muscle bulk and fatty change.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder  Rotator cuff injury",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/rotator-cuff-injury",
+        "width": 900,
+        "height": 625
+      },
+      {
+        "id": "ra-mri-shoulder-detail-10",
+        "label": "Biceps position and subscapularis injury",
+        "description": "MR example linking abnormal biceps position with associated cuff injury.",
+        "src": "https://radiologyassistant.nl/assets/2-subscapularis-tear-2-1637270361.jpg",
+        "alt": "MR example linking abnormal biceps position with associated cuff injury.",
+        "caption": "MR example linking abnormal biceps position with associated cuff injury.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder  Rotator cuff injury",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/rotator-cuff-injury",
+        "width": 800,
+        "height": 448
+      },
+      {
+        "id": "ra-mri-shoulder-detail-11",
+        "label": "Bankart injury patterns",
+        "description": "Axial schematics compare anteroinferior capsulolabral injury patterns.",
+        "src": "https://radiologyassistant.nl/assets/shoulder-mr-instability/a509797924e577_OVERVIEW-4b.jpg",
+        "alt": "Axial schematics compare anteroinferior capsulolabral injury patterns.",
+        "caption": "Axial schematics compare anteroinferior capsulolabral injury patterns.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Shoulder instability - MRI",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/instability",
+        "width": 740,
+        "height": 581
+      },
+      {
+        "id": "ra-mri-shoulder-detail-12",
+        "label": "Inferior glenohumeral ligament attachment",
+        "description": "MR comparison of an intact axillary recess with humeral-sided inferior glenohumeral ligament injury.",
+        "src": "https://radiologyassistant.nl/assets/shoulder-mr-instability/a50979792a94f8_9-HAGL.jpg",
+        "alt": "MR comparison of an intact axillary recess with humeral-sided inferior glenohumeral ligament injury.",
+        "caption": "MR comparison of an intact axillary recess with humeral-sided inferior glenohumeral ligament injury.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder instability - MRI",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/instability",
+        "width": 900,
+        "height": 578
+      }
+    ]
+  },
+  "ra.mri-knee": {
+    "reporting": {
+      "protocol": [
+        "Review multiplanar T1 or PD and fluid-sensitive images with known surgery and injury mechanism.",
+        "Record graft/reconstruction or meniscal surgery because postoperative criteria differ."
+      ],
+      "checklist": [
+        {
+          "label": "Menisci",
+          "detail": "Inspect both menisci, roots and meniscocapsular attachments for tear and displaced fragments."
+        },
+        {
+          "label": "Cruciates/collaterals",
+          "detail": "Assess continuity, tear location and associated avulsion."
+        },
+        {
+          "label": "Cartilage and bone",
+          "detail": "Map chondral loss, osteochondral lesions, contusions and subchondral fracture."
+        },
+        {
+          "label": "Extensor mechanism",
+          "detail": "Review quadriceps/patellar tendons and patellofemoral stabilisers."
+        },
+        {
+          "label": "Joint and corners",
+          "detail": "Assess effusion, loose bodies, posteromedial/lateral structures and cysts."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Meniscal extrusion/tear",
+          "method": "Measure extrusion on a standard coronal plane and describe tear location/morphology.",
+          "pitfall": "Extrusion alone does not prove a root tear; inspect the attachment."
+        },
+        {
+          "name": "Cartilage/osteochondral defect",
+          "method": "Measure AP/transverse extent and depth; report instability signs.",
+          "pitfall": "Partial-volume signal is not a full-thickness defect."
+        },
+        {
+          "name": "Tendon or ligament gap",
+          "method": "Measure retraction/gap when complete structural discontinuity is present.",
+          "pitfall": "Oedema is not equivalent to fibre disruption."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Postoperative meniscal signal may persist without recurrent tear.",
+        "Normal variants and intermeniscal ligaments can mimic tears."
+      ],
+      "impression_prompts": [
+        "What dominant internal derangement is present?",
+        "Which associated injuries or unstable/displaced fragments matter?",
+        "Is postoperative interpretation limited?"
+      ],
+      "escalation": [
+        "Promptly communicate an occult fracture or dislocation-pattern multiligament injury with potential neurovascular implications."
+      ],
+      "template_sections": [
+        {
+          "heading": "MENISCI",
+          "body": "Medial [ ]; lateral [ ]; tear segment/morphology [ ]; root attachment [ ]; extrusion __ mm; displaced fragment [ ]."
+        },
+        {
+          "heading": "LIGAMENTS",
+          "body": "ACL [ ]; PCL [ ]; MCL [ ]; LCL/posterolateral corner [ ]; tear site/grade description [ ]; avulsion [ ]."
+        },
+        {
+          "heading": "CARTILAGE AND SUBCHONDRAL BONE",
+          "body": "Compartment [ ]; defect site __ × __ mm, depth [ ]; osteochondral instability signs [ ]; contusion/subchondral fracture [ ]."
+        },
+        {
+          "heading": "EXTENSOR AND PATELLOFEMORAL STRUCTURES",
+          "body": "Quadriceps/patellar tendons [ ]; patellar alignment [ ]; MPFL/retinacula [ ]; trochlear morphology [ ]."
+        },
+        {
+          "heading": "JOINT AND POSTERIOR STRUCTURES",
+          "body": "Effusion/synovitis [ ]; loose bodies [ ]; popliteal cyst [ ]; posteromedial structures [ ]; postoperative findings [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Meniscal pathology",
+          "url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscal-pathology"
+        },
+        {
+          "title": "Non-Meniscal pathology",
+          "url": "https://radiologyassistant.nl/musculoskeletal/knee/non-meniscal-pathology"
+        },
+        {
+          "title": "Meniscus special cases",
+          "url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscus-special-cases"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-mri-knee-report",
+        "title": "MRI KNEE",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "MENISCI",
+            "body": "Medial [ ]; lateral [ ]; tear segment/morphology [ ]; root attachment [ ]; extrusion __ mm; displaced fragment [ ]."
+          },
+          {
+            "heading": "LIGAMENTS",
+            "body": "ACL [ ]; PCL [ ]; MCL [ ]; LCL/posterolateral corner [ ]; tear site/grade description [ ]; avulsion [ ]."
+          },
+          {
+            "heading": "CARTILAGE AND SUBCHONDRAL BONE",
+            "body": "Compartment [ ]; defect site __ × __ mm, depth [ ]; osteochondral instability signs [ ]; contusion/subchondral fracture [ ]."
+          },
+          {
+            "heading": "EXTENSOR AND PATELLOFEMORAL STRUCTURES",
+            "body": "Quadriceps/patellar tendons [ ]; patellar alignment [ ]; MPFL/retinacula [ ]; trochlear morphology [ ]."
+          },
+          {
+            "heading": "JOINT AND POSTERIOR STRUCTURES",
+            "body": "Effusion/synovitis [ ]; loose bodies [ ]; popliteal cyst [ ]; posteromedial structures [ ]; postoperative findings [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Meniscal pathology",
+            "url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscal-pathology"
+          },
+          {
+            "title": "Non-Meniscal pathology",
+            "url": "https://radiologyassistant.nl/musculoskeletal/knee/non-meniscal-pathology"
+          },
+          {
+            "title": "Meniscus special cases",
+            "url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscus-special-cases"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-mri-knee-detail-1",
+        "label": "Meniscal tear geometry",
+        "description": "Detailed schematics compare basic tear directions within the meniscus.",
+        "src": "https://radiologyassistant.nl/assets/knee-meniscus-basics/a5097976cf3e92_meniscus-tears1.jpg",
+        "alt": "Detailed schematics compare basic tear directions within the meniscus.",
+        "caption": "Detailed schematics compare basic tear directions within the meniscus.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Meniscal pathology",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscal-pathology",
+        "width": 370,
+        "height": 126
+      },
+      {
+        "id": "ra-mri-knee-detail-2",
+        "label": "Displaced meniscal fragment",
+        "description": "Coronal MR example of a displaced meniscal fragment in a bucket-handle tear.",
+        "src": "https://radiologyassistant.nl/assets/knee-meniscus-basics/a5097976d0140f_Bucket-cor2.jpg",
+        "alt": "Coronal MR example of a displaced meniscal fragment in a bucket-handle tear.",
+        "caption": "Coronal MR example of a displaced meniscal fragment in a bucket-handle tear.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Meniscal pathology",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscal-pathology",
+        "width": 688,
+        "height": 279
+      },
+      {
+        "id": "ra-mri-knee-detail-3",
+        "label": "Meniscal root injury",
+        "description": "MR example illustrating root-region injury with loss of the expected meniscal profile.",
+        "src": "https://radiologyassistant.nl/assets/knee-meniscus-basics/a5097976d06524_men-root-tear.jpg",
+        "alt": "MR example illustrating root-region injury with loss of the expected meniscal profile.",
+        "caption": "MR example illustrating root-region injury with loss of the expected meniscal profile.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Meniscal pathology",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/knee/meniscal-pathology",
+        "width": 370,
+        "height": 109
+      },
+      {
+        "id": "ra-mri-knee-detail-4",
+        "label": "ACL fibre disruption",
+        "description": "MR comparison demonstrating abnormal ACL orientation and interrupted fibres.",
+        "src": "https://radiologyassistant.nl/assets/knee-non-meniscal-pathology/a5097976adcd59_Lig-tears-ACL.jpg",
+        "alt": "MR comparison demonstrating abnormal ACL orientation and interrupted fibres.",
+        "caption": "MR comparison demonstrating abnormal ACL orientation and interrupted fibres.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Non-Meniscal pathology",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/knee/non-meniscal-pathology",
+        "width": 370,
+        "height": 196
+      },
+      {
+        "id": "ra-mri-knee-detail-5",
+        "label": "Posterolateral corner anatomy",
+        "description": "Sequential sagittal MR anatomy of the posterolateral corner.",
+        "src": "https://radiologyassistant.nl/assets/knee-non-meniscal-pathology/a5097976ae657d_postlat-corn-anat.jpg",
+        "alt": "Sequential sagittal MR anatomy of the posterolateral corner.",
+        "caption": "Sequential sagittal MR anatomy of the posterolateral corner.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Non-Meniscal pathology",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/knee/non-meniscal-pathology",
+        "width": 370,
+        "height": 152
+      }
+    ]
+  },
+  "ra.mri-elbow": {
+    "reporting": {
+      "protocol": [
+        "Acquire orthogonal planes aligned to the epicondyles with T1/PD and fluid-sensitive sequences; note arthrogram and prior repair.",
+        "Review throwing/instability, tendon rupture, osteochondral or nerve symptoms as distinct questions."
+      ],
+      "checklist": [
+        {
+          "label": "Tendons",
+          "detail": "Assess common flexor/extensor, distal biceps and triceps at their insertions."
+        },
+        {
+          "label": "Ligaments",
+          "detail": "Name UCL and lateral collateral complex components and tear sites."
+        },
+        {
+          "label": "Osteochondral surface",
+          "detail": "Inspect capitellum/trochlea, marrow and loose bodies."
+        },
+        {
+          "label": "Nerves",
+          "detail": "Trace ulnar, median and radial branches with secondary denervation."
+        },
+        {
+          "label": "Joint mechanics",
+          "detail": "Review alignment, impingement features, effusion and postoperative structures."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Tendon tear",
+          "method": "Measure partial tear extent or full-thickness retraction in mm.",
+          "pitfall": "An intact lacertus fibrosus may limit retraction after distal biceps rupture."
+        },
+        {
+          "name": "Osteochondral lesion",
+          "method": "Measure width, depth and detached fragment; describe fluid interface and cartilage integrity.",
+          "pitfall": "Normal posterior capitellar contour can mimic a defect."
+        },
+        {
+          "name": "Nerve abnormality",
+          "method": "Record segment, calibre change and any compressing lesion dimensions.",
+          "pitfall": "Signal alone is nonspecific and dynamic subluxation may require ultrasound."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "The posterior capitellar pseudodefect is a normal variant.",
+        "An accessory ossicle or synovial fold may simulate a loose body."
+      ],
+      "impression_prompts": [
+        "Which tendon/ligament component is injured and how severely?",
+        "Is there an unstable osteochondral fragment or significant retraction?",
+        "Is neuropathy supported and is its cause visible?"
+      ],
+      "escalation": [
+        "Promptly flag complete acute tendon avulsion, unstable fracture/fragment or unexpected aggressive lesion when clinically consequential."
+      ],
+      "template_sections": [
+        {
+          "heading": "TENDONS",
+          "body": "Common extensor [ ]; common flexor [ ]; distal biceps [ ]; triceps [ ]; tear site/extent [ ]; retraction __ mm; lacertus fibrosus [ ]."
+        },
+        {
+          "heading": "LIGAMENT COMPLEXES",
+          "body": "UCL [component/site]; radial collateral [ ]; lateral ulnar collateral [ ]; annular ligament [ ]; avulsion [ ]."
+        },
+        {
+          "heading": "CARTILAGE AND BONE",
+          "body": "Capitellum/trochlea [ ]; osteochondral defect __ × __ × __ mm; cartilage integrity [ ]; instability signs [ ]; marrow/fracture [ ]."
+        },
+        {
+          "heading": "NERVES AND MUSCLES",
+          "body": "Ulnar nerve/cubital tunnel [ ]; radial/PIN [ ]; median [ ]; compressing lesion [ ]; denervation [ ]."
+        },
+        {
+          "heading": "JOINT AND RECESSES",
+          "body": "Alignment [ ]; effusion/synovitis [ ]; loose bodies [number/location]; impingement features [ ]; prior repair [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "MRI examination of the Elbow",
+          "url": "https://radiologyassistant.nl/musculoskeletal/elbow/mri-examination"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-mri-elbow-report",
+        "title": "MRI ELBOW",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "TENDONS",
+            "body": "Common extensor [ ]; common flexor [ ]; distal biceps [ ]; triceps [ ]; tear site/extent [ ]; retraction __ mm; lacertus fibrosus [ ]."
+          },
+          {
+            "heading": "LIGAMENT COMPLEXES",
+            "body": "UCL [component/site]; radial collateral [ ]; lateral ulnar collateral [ ]; annular ligament [ ]; avulsion [ ]."
+          },
+          {
+            "heading": "CARTILAGE AND BONE",
+            "body": "Capitellum/trochlea [ ]; osteochondral defect __ × __ × __ mm; cartilage integrity [ ]; instability signs [ ]; marrow/fracture [ ]."
+          },
+          {
+            "heading": "NERVES AND MUSCLES",
+            "body": "Ulnar nerve/cubital tunnel [ ]; radial/PIN [ ]; median [ ]; compressing lesion [ ]; denervation [ ]."
+          },
+          {
+            "heading": "JOINT AND RECESSES",
+            "body": "Alignment [ ]; effusion/synovitis [ ]; loose bodies [number/location]; impingement features [ ]; prior repair [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "MRI examination of the Elbow",
+            "url": "https://radiologyassistant.nl/musculoskeletal/elbow/mri-examination"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-mri-elbow-detail-1",
+        "label": "Elbow compartment anatomy",
+        "description": "Detailed elbow anatomy illustration for compartment-by-compartment MRI review.",
+        "src": "https://radiologyassistant.nl/assets/elbow-mri/a522c7013cae72_2-Ill-anatomy.jpg",
+        "alt": "Detailed elbow anatomy illustration for compartment-by-compartment MRI review.",
+        "caption": "Detailed elbow anatomy illustration for compartment-by-compartment MRI review.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — MRI examination of the Elbow",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/elbow/mri-examination",
+        "width": 900,
+        "height": 607
+      },
+      {
+        "id": "ra-mri-elbow-detail-2",
+        "label": "Medial collateral ligament anatomy",
+        "description": "Anatomical illustration of the ulnar collateral ligament complex.",
+        "src": "https://radiologyassistant.nl/assets/elbow-mri/a522e01480e223_3-TEK-ucl-.jpg",
+        "alt": "Anatomical illustration of the ulnar collateral ligament complex.",
+        "caption": "Anatomical illustration of the ulnar collateral ligament complex.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — MRI examination of the Elbow",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/elbow/mri-examination",
+        "width": 900,
+        "height": 519
+      },
+      {
+        "id": "ra-mri-elbow-detail-3",
+        "label": "Ulnar collateral ligament injury",
+        "description": "MRI example of ulnar collateral ligament injury.",
+        "src": "https://radiologyassistant.nl/assets/elbow-mri/a520fd6fb4fcfd_13-ucl-tear.jpg",
+        "alt": "MRI example of ulnar collateral ligament injury.",
+        "caption": "MRI example of ulnar collateral ligament injury.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination of the Elbow",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/elbow/mri-examination",
+        "width": 900,
+        "height": 546
+      },
+      {
+        "id": "ra-mri-elbow-detail-4",
+        "label": "Distal biceps injury on MRI",
+        "description": "Axial and sagittal MRI examples of distal biceps injury with adjacent soft-tissue oedema.",
+        "src": "https://radiologyassistant.nl/assets/elbow-mri/a5234a8017c801_13-biceps.jpg",
+        "alt": "Axial and sagittal MRI examples of distal biceps injury with adjacent soft-tissue oedema.",
+        "caption": "Axial and sagittal MRI examples of distal biceps injury with adjacent soft-tissue oedema.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination of the Elbow",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/elbow/mri-examination",
+        "width": 900,
+        "height": 467
+      },
+      {
+        "id": "ra-mri-elbow-detail-5",
+        "label": "Cubital tunnel",
+        "description": "MRI anatomy of the cubital tunnel and adjacent ulnar nerve pathway.",
+        "src": "https://radiologyassistant.nl/assets/elbow-mri/a523e99f151576_5-cubital-tunnel.jpg",
+        "alt": "MRI anatomy of the cubital tunnel and adjacent ulnar nerve pathway.",
+        "caption": "MRI anatomy of the cubital tunnel and adjacent ulnar nerve pathway.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination of the Elbow",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/elbow/mri-examination",
+        "width": 900,
+        "height": 486
+      }
+    ]
+  },
+  "ra.ankle-fractures": {
+    "reporting": {
+      "protocol": [
+        "Review orthogonal radiographs including a true mortise; use CT for articular detail and MRI for the specified tendon, ligament or occult-injury question.",
+        "Record weight-bearing/stress status and obtain proximal fibular coverage when the injury pattern warrants it."
+      ],
+      "checklist": [
+        {
+          "label": "Malleoli and mortise",
+          "detail": "Inspect medial, lateral and posterior malleoli and talar alignment."
+        },
+        {
+          "label": "Syndesmosis",
+          "detail": "Assess distal tibiofibular alignment and associated proximal fibular injury."
+        },
+        {
+          "label": "Articular surface",
+          "detail": "Describe impaction, step and osteochondral injury."
+        },
+        {
+          "label": "Foot columns",
+          "detail": "For foot symptoms, assess tarsometatarsal alignment, navicular, fifth metatarsal and hindfoot."
+        },
+        {
+          "label": "Soft tissue",
+          "detail": "Name ligament/tendon abnormalities and distinguish partial from complete discontinuity."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Fracture displacement",
+          "method": "Measure gap, articular step, posterior fragment extent and talar shift on appropriate planes.",
+          "pitfall": "A fragment percentage alone does not determine management."
+        },
+        {
+          "name": "Mortise alignment",
+          "method": "Record medial clear space or syndesmotic measurements with view and load status.",
+          "pitfall": "Rotation and non-weight-bearing technique can conceal or simulate instability."
+        }
+      ],
+      "classification": {
+        "name": "Weber / Lauge-Hansen",
+        "version": "Named conventional ankle fracture systems",
+        "applicability": "Ankle fractures; not a general foot injury classification.",
+        "summary": "Weber A/B/C describes fibular level below/at/above the syndesmosis. Report the complete injury and observed instability features; mechanism-based staging requires supporting findings."
+      },
+      "pitfalls": [
+        "A Weber B fracture is not automatically stable.",
+        "A proximal fibular injury may accompany medial ankle/syndesmotic injury despite a normal distal fibula."
+      ],
+      "impression_prompts": [
+        "What fracture/soft-tissue injury and alignment abnormality are present?",
+        "Is articular impaction or syndesmotic injury suspected?",
+        "What relevant area was not covered or needs targeted assessment?"
+      ],
+      "escalation": [
+        "Urgently communicate fracture-dislocation, threatened skin or a critical unstable pattern in the acute setting."
+      ],
+      "template_sections": [
+        {
+          "heading": "FRACTURE MAP",
+          "body": "Fibula [level relative to syndesmosis, orientation and displacement]; medial malleolus [ ]; posterior malleolus [size, articular involvement and displacement]; additional fracture [ ]."
+        },
+        {
+          "heading": "MORTISE",
+          "body": "Talar position [ ]; medial clear space __ mm on [projection]; tibiotalar alignment [ ]; talar dome [ ]."
+        },
+        {
+          "heading": "SYNDESMOSIS",
+          "body": "Tibiofibular relationship [ ]; syndesmotic avulsion [ ]; proximal fibula included [yes / no]; higher fibular injury concern [ ]."
+        },
+        {
+          "heading": "ARTICULAR EXTENT",
+          "body": "Articular step/gap [ ]; plafond impaction [ ]; posterior fragment [ ]; CT performed or needed to define complex extent [ ]."
+        },
+        {
+          "heading": "ASSOCIATED FINDINGS",
+          "body": "Soft-tissue swelling [ ]; dislocation/subluxation [ ]; additional injury [ ]; post-reduction alignment [not applicable / findings]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Ankle Fracture Mechanism and Radiography",
+          "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography"
+        },
+        {
+          "title": "Algoritm for Ankle Fractures 2.0",
+          "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fractures-video-lesson-1"
+        },
+        {
+          "title": "Ankle fractures - Weber and Lauge-Hansen Classification",
+          "url": "https://radiologyassistant.nl/musculoskeletal/ankle/weber-and-lauge-hansen-classification"
+        },
+        {
+          "title": "Special Ankle Fractures",
+          "url": "https://radiologyassistant.nl/musculoskeletal/ankle/special-fracture-cases"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-ankle-fractures-report",
+        "title": "ANKLE FRACTURE RADIOGRAPHS",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "FRACTURE MAP",
+            "body": "Fibula [level relative to syndesmosis, orientation and displacement]; medial malleolus [ ]; posterior malleolus [size, articular involvement and displacement]; additional fracture [ ]."
+          },
+          {
+            "heading": "MORTISE",
+            "body": "Talar position [ ]; medial clear space __ mm on [projection]; tibiotalar alignment [ ]; talar dome [ ]."
+          },
+          {
+            "heading": "SYNDESMOSIS",
+            "body": "Tibiofibular relationship [ ]; syndesmotic avulsion [ ]; proximal fibula included [yes / no]; higher fibular injury concern [ ]."
+          },
+          {
+            "heading": "ARTICULAR EXTENT",
+            "body": "Articular step/gap [ ]; plafond impaction [ ]; posterior fragment [ ]; CT performed or needed to define complex extent [ ]."
+          },
+          {
+            "heading": "ASSOCIATED FINDINGS",
+            "body": "Soft-tissue swelling [ ]; dislocation/subluxation [ ]; additional injury [ ]; post-reduction alignment [not applicable / findings]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Ankle Fracture Mechanism and Radiography",
+            "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography"
+          },
+          {
+            "title": "Algoritm for Ankle Fractures 2.0",
+            "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fractures-video-lesson-1"
+          },
+          {
+            "title": "Ankle fractures - Weber and Lauge-Hansen Classification",
+            "url": "https://radiologyassistant.nl/musculoskeletal/ankle/weber-and-lauge-hansen-classification"
+          },
+          {
+            "title": "Special Ankle Fractures",
+            "url": "https://radiologyassistant.nl/musculoskeletal/ankle/special-fracture-cases"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-ankle-fractures-detail-1",
+        "label": "Ankle stabilising structures",
+        "description": "Detailed ankle anatomy illustration relating the malleoli to stabilising ligaments.",
+        "src": "https://radiologyassistant.nl/assets/ankle-fracture-mechanism/a5097979b41414_ankle-anatomy2.jpg",
+        "alt": "Detailed ankle anatomy illustration relating the malleoli to stabilising ligaments.",
+        "caption": "Detailed ankle anatomy illustration relating the malleoli to stabilising ligaments.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Ankle Fracture Mechanism and Radiography",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography",
+        "width": 554,
+        "height": 407
+      },
+      {
+        "id": "ra-ankle-fractures-detail-2",
+        "label": "Coronal stability ring",
+        "description": "Coronal schematic explaining how disruption at multiple sites affects the ankle stability ring.",
+        "src": "https://radiologyassistant.nl/assets/ankle-fracture-mechanism/a5097979b46ddd_stable-unstable.jpg",
+        "alt": "Coronal schematic explaining how disruption at multiple sites affects the ankle stability ring.",
+        "caption": "Coronal schematic explaining how disruption at multiple sites affects the ankle stability ring.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Ankle Fracture Mechanism and Radiography",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography",
+        "width": 902,
+        "height": 664
+      },
+      {
+        "id": "ra-ankle-fractures-detail-3",
+        "label": "Mortise clear spaces",
+        "description": "Radiographic example illustrating the medial and tibiofibular clear-space relationships.",
+        "src": "https://radiologyassistant.nl/assets/ankle-fracture-mechanism/a5097979b4ff87_clear-space.jpg",
+        "alt": "Radiographic example illustrating the medial and tibiofibular clear-space relationships.",
+        "caption": "Radiographic example illustrating the medial and tibiofibular clear-space relationships.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Ankle Fracture Mechanism and Radiography",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography",
+        "width": 370,
+        "height": 142
+      },
+      {
+        "id": "ra-ankle-fractures-detail-4",
+        "label": "Posterior malleolus on a true lateral view",
+        "description": "Lateral radiograph illustrating posterior malleolar injury and the importance of projection.",
+        "src": "https://radiologyassistant.nl/assets/ankle-fracture-mechanism/a5097979b5787c_opname-2.jpg",
+        "alt": "Lateral radiograph illustrating posterior malleolar injury and the importance of projection.",
+        "caption": "Lateral radiograph illustrating posterior malleolar injury and the importance of projection.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Ankle Fracture Mechanism and Radiography",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography",
+        "width": 750,
+        "height": 716
+      }
+    ]
+  },
+  "ra.ultrasound-shoulder": {
+    "reporting": {
+      "protocol": [
+        "Use a high-frequency linear transducer with tendon assessment in two orthogonal planes; correct anisotropy before diagnosing a tear.",
+        "Record movements actually assessed, patient limitation, and Doppler when inflammation is suspected."
+      ],
+      "checklist": [
+        {
+          "label": "Long Head Of Biceps",
+          "detail": "Follow the tendon in the groove and rotator interval; assess stability during rotation."
+        },
+        {
+          "label": "Rotator Cuff",
+          "detail": "Assess subscapularis, supraspinatus and infraspinatus; describe tear surface, thickness and dimensions."
+        },
+        {
+          "label": "Bursa And Dynamic Assessment",
+          "detail": "Assess subacromial-subdeltoid bursal distension and tendon/bursal movement."
+        },
+        {
+          "label": "Joint And Acromioclavicular Joint",
+          "detail": "Review accessible posterior joint recess and AC joint with focal symptom correlation."
+        },
+        {
+          "label": "Muscles And Limitations",
+          "detail": "Assess visible cuff bulk and any paralabral cyst; state the deep structures not evaluated reliably."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Tear size",
+          "method": "Measure maximal orthogonal tear dimensions and retraction with images in two planes.",
+          "pitfall": "Anisotropy and a curved tendon surface may mimic a defect."
+        },
+        {
+          "name": "Calcification or fluid",
+          "method": "Record calcification dimensions, shadowing and location; characterise bursal/sheath distension.",
+          "pitfall": "Sheath fluid can reflect joint fluid and is not by itself proof of biceps tendinopathy."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "A normal ultrasound does not exclude labral or other deep intra-articular disease.",
+        "Do not diagnose impingement from acromial appearance alone; describe the observed dynamic finding and symptoms."
+      ],
+      "impression_prompts": [
+        "Which tendon or bursa explains the focal complaint?",
+        "Is there a full-thickness defect, retraction or dynamic biceps instability?",
+        "Is MRI needed to address an unresolved intra-articular question?"
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "LONG HEAD OF BICEPS",
+          "body": "Groove position [ ]; fibrillar structure/continuity [ ]; sheath fluid or synovial thickening [ ]; dynamic stability [stable / subluxation / dislocation / not assessed]."
+        },
+        {
+          "heading": "ROTATOR CUFF",
+          "body": "Subscapularis [ ]; supraspinatus [ ]; infraspinatus [ ]; teres minor if assessed [ ]; tear [none / articular / bursal / intrasubstance / full thickness]; dimensions __ × __ mm; retraction [ ]; calcific focus [site/size]."
+        },
+        {
+          "heading": "BURSA AND DYNAMIC ASSESSMENT",
+          "body": "Subacromial-subdeltoid bursa [ ]; Doppler activity [not assessed / findings]; dynamic abduction [unremarkable / painful impingement findings / limited / not performed]."
+        },
+        {
+          "heading": "JOINT AND ACROMIOCLAVICULAR JOINT",
+          "body": "Glenohumeral recess [ ]; AC joint [ ]; focal sonopalpation tenderness [ ]; accessible cortical contour [ ]."
+        },
+        {
+          "heading": "MUSCLES AND LIMITATIONS",
+          "body": "Visible cuff muscle bulk [ ]; spinoglenoid notch [ ]; other mass [ ]; movement or body-habitus limitation [ ]; unresolved intra-articular question [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Shoulder Ultrasound",
+          "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-ultrasound-shoulder-report",
+        "title": "ULTRASOUND SHOULDER",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "LONG HEAD OF BICEPS",
+            "body": "Groove position [ ]; fibrillar structure/continuity [ ]; sheath fluid or synovial thickening [ ]; dynamic stability [stable / subluxation / dislocation / not assessed]."
+          },
+          {
+            "heading": "ROTATOR CUFF",
+            "body": "Subscapularis [ ]; supraspinatus [ ]; infraspinatus [ ]; teres minor if assessed [ ]; tear [none / articular / bursal / intrasubstance / full thickness]; dimensions __ × __ mm; retraction [ ]; calcific focus [site/size]."
+          },
+          {
+            "heading": "BURSA AND DYNAMIC ASSESSMENT",
+            "body": "Subacromial-subdeltoid bursa [ ]; Doppler activity [not assessed / findings]; dynamic abduction [unremarkable / painful impingement findings / limited / not performed]."
+          },
+          {
+            "heading": "JOINT AND ACROMIOCLAVICULAR JOINT",
+            "body": "Glenohumeral recess [ ]; AC joint [ ]; focal sonopalpation tenderness [ ]; accessible cortical contour [ ]."
+          },
+          {
+            "heading": "MUSCLES AND LIMITATIONS",
+            "body": "Visible cuff muscle bulk [ ]; spinoglenoid notch [ ]; other mass [ ]; movement or body-habitus limitation [ ]; unresolved intra-articular question [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Shoulder Ultrasound",
+            "url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-ultrasound-shoulder-detail-1",
+        "label": "Anterior cuff anatomy",
+        "description": "Anterior shoulder anatomy illustration accompanying the ultrasound examination.",
+        "src": "https://radiologyassistant.nl/assets/_tek-3-1722524109.JPG",
+        "alt": "Anterior shoulder anatomy illustration accompanying the ultrasound examination.",
+        "caption": "Anterior shoulder anatomy illustration accompanying the ultrasound examination.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Shoulder Ultrasound",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound",
+        "width": 1200,
+        "height": 913
+      },
+      {
+        "id": "ra-ultrasound-shoulder-detail-2",
+        "label": "Biceps anisotropy",
+        "description": "Ultrasound example showing how beam angle changes the apparent echogenicity of the long-head biceps tendon.",
+        "src": "https://radiologyassistant.nl/assets/-lhb-anisotropy-1736975542.JPG",
+        "alt": "Ultrasound example showing how beam angle changes the apparent echogenicity of the long-head biceps tendon.",
+        "caption": "Ultrasound example showing how beam angle changes the apparent echogenicity of the long-head biceps tendon.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder Ultrasound",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound",
+        "width": 1254,
+        "height": 416
+      },
+      {
+        "id": "ra-ultrasound-shoulder-detail-3",
+        "label": "Supraspinatus scanning planes",
+        "description": "Shoulder positioning and ultrasound views used to examine the supraspinatus tendon.",
+        "src": "https://radiologyassistant.nl/assets/-houding-supra-3.JPG",
+        "alt": "Shoulder positioning and ultrasound views used to examine the supraspinatus tendon.",
+        "caption": "Shoulder positioning and ultrasound views used to examine the supraspinatus tendon.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder Ultrasound",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound",
+        "width": 1386,
+        "height": 496
+      },
+      {
+        "id": "ra-ultrasound-shoulder-detail-4",
+        "label": "Full-thickness cuff defect",
+        "description": "Ultrasound example of a full-thickness cuff defect with the tendon footprint in view.",
+        "src": "https://radiologyassistant.nl/assets/1-tear-full-1729336575.jpg",
+        "alt": "Ultrasound example of a full-thickness cuff defect with the tendon footprint in view.",
+        "caption": "Ultrasound example of a full-thickness cuff defect with the tendon footprint in view.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder Ultrasound",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound",
+        "width": 1116,
+        "height": 560
+      },
+      {
+        "id": "ra-ultrasound-shoulder-detail-5",
+        "label": "Partial-thickness cuff defect",
+        "description": "Ultrasound comparison illustrating a partial-thickness tendon defect.",
+        "src": "https://radiologyassistant.nl/assets/1-tear-partial.jpg",
+        "alt": "Ultrasound comparison illustrating a partial-thickness tendon defect.",
+        "caption": "Ultrasound comparison illustrating a partial-thickness tendon defect.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder Ultrasound",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound",
+        "width": 1200,
+        "height": 476
+      },
+      {
+        "id": "ra-ultrasound-shoulder-detail-6",
+        "label": "Subacromial-subdeltoid bursa",
+        "description": "Ultrasound example of subacromial-subdeltoid bursal abnormality.",
+        "src": "https://radiologyassistant.nl/assets/_bursa-1.JPG",
+        "alt": "Ultrasound example of subacromial-subdeltoid bursal abnormality.",
+        "caption": "Ultrasound example of subacromial-subdeltoid bursal abnormality.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Shoulder Ultrasound",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/shoulder/shoulder-ultrasound",
+        "width": 1460,
+        "height": 384
+      }
+    ]
+  },
+  "ra.mri-ankle": {
+    "reporting": {
+      "protocol": [
+        "Acquire axial, coronal and sagittal MRI with T1/PD anatomy and fluid-sensitive fat-suppressed images; tailor coverage to the hindfoot or tendon question.",
+        "Review injury mechanism, previous surgery and the precise site of pain before interpreting marrow oedema."
+      ],
+      "checklist": [
+        {
+          "label": "Bones And Osteochondral Surfaces",
+          "detail": "Inspect talar dome, tibial plafond and hindfoot for contusion, fracture and osteochondral injury."
+        },
+        {
+          "label": "Lateral Ligaments And Syndesmosis",
+          "detail": "Trace ATFL, CFL, PTFL and anterior/posterior syndesmotic structures."
+        },
+        {
+          "label": "Medial Ligaments And Sinus Tarsi",
+          "detail": "Assess superficial/deep deltoid, spring ligament and sinus tarsi structures."
+        },
+        {
+          "label": "Tendons",
+          "detail": "Follow flexor, extensor, peroneal and Achilles compartments through their visible attachments."
+        },
+        {
+          "label": "Joints And Soft Tissues",
+          "detail": "Assess effusions, capsule, impingement sites, bursae and any mass."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Osteochondral lesion",
+          "method": "Measure surface dimensions and depth; describe cartilage continuity, subchondral cysts and fluid at the fragment interface.",
+          "pitfall": "Marrow oedema extent is not the osteochondral defect size."
+        },
+        {
+          "name": "Tendon injury",
+          "method": "Record tendon, injury level, longitudinal extent and retraction for a complete tear.",
+          "pitfall": "Magic-angle signal and partial volume require correlation with long-TE images and another plane."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Marrow oedema is a finding; relate its distribution to fracture, cartilage or adjacent ligament/tendon injury.",
+        "Small physiological joint fluid should not be overcalled as synovitis."
+      ],
+      "impression_prompts": [
+        "Which structure is injured and at what level?",
+        "Is an osteochondral fragment unstable or a tendon completely disrupted?",
+        "Are ligament injuries isolated or combined?"
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "BONES AND OSTEOCHONDRAL SURFACES",
+          "body": "Marrow [ ]; fracture [ ]; talar osteochondral lesion [site, __ × __ mm, depth and stability features]; accessory ossicle [ ]."
+        },
+        {
+          "heading": "LATERAL LIGAMENTS AND SYNDESMOSIS",
+          "body": "ATFL [ ]; CFL [ ]; PTFL [ ]; AITFL [ ]; PITFL [ ]; interosseous ligament/membrane included [ ]; tear site and extent [ ]."
+        },
+        {
+          "heading": "MEDIAL LIGAMENTS AND SINUS TARSI",
+          "body": "Deltoid complex [ ]; spring ligament [ ]; sinus tarsi [ ]; plantar fascia [ ]."
+        },
+        {
+          "heading": "TENDONS",
+          "body": "Posterior tibial/FDL/FHL [ ]; anterior tendons [ ]; peroneal tendons/retinaculum [ ]; Achilles [ ]; tendinopathy, split tear, rupture or tenosynovitis [ ]."
+        },
+        {
+          "heading": "JOINTS AND SOFT TISSUES",
+          "body": "Tibiotalar/subtalar joints [ ]; effusion/synovitis [ ]; anterior/posterior impingement findings [ ]; bursae [ ]; muscle or soft-tissue lesion [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "MRI examination of the ankle",
+          "url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-mri-ankle-report",
+        "title": "MRI ANKLE",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "BONES AND OSTEOCHONDRAL SURFACES",
+            "body": "Marrow [ ]; fracture [ ]; talar osteochondral lesion [site, __ × __ mm, depth and stability features]; accessory ossicle [ ]."
+          },
+          {
+            "heading": "LATERAL LIGAMENTS AND SYNDESMOSIS",
+            "body": "ATFL [ ]; CFL [ ]; PTFL [ ]; AITFL [ ]; PITFL [ ]; interosseous ligament/membrane included [ ]; tear site and extent [ ]."
+          },
+          {
+            "heading": "MEDIAL LIGAMENTS AND SINUS TARSI",
+            "body": "Deltoid complex [ ]; spring ligament [ ]; sinus tarsi [ ]; plantar fascia [ ]."
+          },
+          {
+            "heading": "TENDONS",
+            "body": "Posterior tibial/FDL/FHL [ ]; anterior tendons [ ]; peroneal tendons/retinaculum [ ]; Achilles [ ]; tendinopathy, split tear, rupture or tenosynovitis [ ]."
+          },
+          {
+            "heading": "JOINTS AND SOFT TISSUES",
+            "body": "Tibiotalar/subtalar joints [ ]; effusion/synovitis [ ]; anterior/posterior impingement findings [ ]; bursae [ ]; muscle or soft-tissue lesion [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "MRI examination of the ankle",
+            "url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-mri-ankle-detail-1",
+        "label": "Axial ligament anatomy",
+        "description": "Axial MRI slice from the ligament anatomy stack; use the source stack for sequential review.",
+        "src": "https://radiologyassistant.nl/assets/ankle-mri-examination/a5bfd727e1ebd7_ax_PD.001.jpeg",
+        "alt": "Axial MRI slice from the ligament anatomy stack; use the source stack for sequential review.",
+        "caption": "Axial MRI slice from the ligament anatomy stack; use the source stack for sequential review.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination of the ankle",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+        "width": 1024,
+        "height": 768
+      },
+      {
+        "id": "ra-mri-ankle-detail-2",
+        "label": "Coronal lateral ligament anatomy",
+        "description": "Coronal MRI slice from the lateral ligament anatomy stack.",
+        "src": "https://radiologyassistant.nl/assets/ankle-mri-examination/a5bfd550d1ac24_cor_PD_lat_ligament_kopie.001.jpeg",
+        "alt": "Coronal MRI slice from the lateral ligament anatomy stack.",
+        "caption": "Coronal MRI slice from the lateral ligament anatomy stack.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination of the ankle",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+        "width": 1024,
+        "height": 768
+      },
+      {
+        "id": "ra-mri-ankle-detail-3",
+        "label": "Deltoid ligament anatomy",
+        "description": "MRI example from the medial ankle ligament anatomy series.",
+        "src": "https://radiologyassistant.nl/assets/ankle-mri-examination/a5c0131ccb00ac_1.001.jpeg",
+        "alt": "MRI example from the medial ankle ligament anatomy series.",
+        "caption": "MRI example from the medial ankle ligament anatomy series.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination of the ankle",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+        "width": 1024,
+        "height": 768
+      },
+      {
+        "id": "ra-mri-ankle-detail-4",
+        "label": "Axial tendon compartments",
+        "description": "Axial MRI example orienting the medial, lateral, anterior and posterior tendon compartments.",
+        "src": "https://radiologyassistant.nl/assets/ankle-mri-examination/a5c137c7de71aa_pezen_axiaal_PD.001.jpeg",
+        "alt": "Axial MRI example orienting the medial, lateral, anterior and posterior tendon compartments.",
+        "caption": "Axial MRI example orienting the medial, lateral, anterior and posterior tendon compartments.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination of the ankle",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+        "width": 1024,
+        "height": 768
+      },
+      {
+        "id": "ra-mri-ankle-detail-5",
+        "label": "Achilles tendon rupture",
+        "description": "MRI example demonstrating an Achilles tendon rupture.",
+        "src": "https://radiologyassistant.nl/assets/ankle-mri-examination/a5c323b52c4e38___6achilles-rupture.jpg",
+        "alt": "MRI example demonstrating an Achilles tendon rupture.",
+        "caption": "MRI example demonstrating an Achilles tendon rupture.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination of the ankle",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+        "width": 900,
+        "height": 534
+      }
+    ]
+  },
+  "ra.mri-diabetic-foot": {
+    "reporting": {
+      "protocol": [
+        "Mark the ulcer or sinus tract and include its entire route to bone; use T1 and fluid-sensitive sequences in at least two planes.",
+        "Use contrast when indicated to delineate abscess or nonviable tissue; state if contrast was not given or is limited. Correlate with radiographs, surgery and treatment dates."
+      ],
+      "checklist": [
+        {
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "label": "Bone Marrow",
+          "detail": "Separate confluent T1 marrow replacement from isolated fluid-sensitive oedema."
+        },
+        {
+          "label": "Joints And Neuroarthropathy",
+          "detail": "Describe joint-centred distribution, fragmentation, subluxation and deformity."
+        },
+        {
+          "label": "Collections And Viability",
+          "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue."
+        },
+        {
+          "label": "Tendons And Other Soft Tissues",
+          "detail": "Review tendon sheaths, muscles and spread across fascial spaces."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Infection map",
+          "method": "Record each involved bone and longitudinal extent; measure collections in three dimensions.",
+          "pitfall": "Reactive oedema may overestimate the extent of osteomyelitis."
+        },
+        {
+          "name": "Ulcer-to-bone route",
+          "method": "Document the continuous tract on orthogonal planes with series/image references.",
+          "pitfall": "Neuropathic marrow oedema alone does not establish superimposed infection."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Signal abnormality alone cannot reliably separate osteomyelitis from active neuroarthropathy; distribution and direct ulcer/tract continuity matter.",
+        "Previous surgery, fracture and recent treatment can reduce MRI specificity."
+      ],
+      "impression_prompts": [
+        "Is osteomyelitis supported, and which bones are involved?",
+        "Is there a drainable collection, septic joint or devitalised tissue?",
+        "What findings favour neuropathic disease or an indeterminate overlap?"
+      ],
+      "escalation": [
+        "Urgently communicate a substantial abscess, extensive devitalisation or findings concerning for aggressive soft-tissue infection."
+      ],
+      "template_sections": [
+        {
+          "heading": "ULCER AND SINUS TRACT",
+          "body": "Ulcer site [ ]; tract [none / route]; contact with bone/joint [ ]; adjacent soft-tissue change [ ]."
+        },
+        {
+          "heading": "BONE MARROW",
+          "body": "Bone(s) [ ]; T1 marrow replacement [ ]; fluid-sensitive signal [ ]; cortical disruption [ ]; infection extent [ ]; alternative stress/reactive pattern [ ]."
+        },
+        {
+          "heading": "JOINTS AND NEUROARTHROPATHY",
+          "body": "Involved joints [ ]; articular destruction/fragmentation [ ]; alignment [ ]; Charcot pattern [ ]; superimposed ulcer-to-bone infection concern [ ]."
+        },
+        {
+          "heading": "COLLECTIONS AND VIABILITY",
+          "body": "Collection [site and __ × __ × __ mm]; enhancement [not assessed / pattern]; nonenhancing tissue [ ]; gas [ ]; drainage route/compartment [ ]."
+        },
+        {
+          "heading": "TENDONS AND OTHER SOFT TISSUES",
+          "body": "Tenosynovitis [ ]; tendon continuity [ ]; muscle change [ ]; fascial extent [ ]; amputation stump/postoperative findings [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "MRI examination",
+          "url": "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-mri-diabetic-foot-report",
+        "title": "MRI DIABETIC FOOT",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "ULCER AND SINUS TRACT",
+            "body": "Ulcer site [ ]; tract [none / route]; contact with bone/joint [ ]; adjacent soft-tissue change [ ]."
+          },
+          {
+            "heading": "BONE MARROW",
+            "body": "Bone(s) [ ]; T1 marrow replacement [ ]; fluid-sensitive signal [ ]; cortical disruption [ ]; infection extent [ ]; alternative stress/reactive pattern [ ]."
+          },
+          {
+            "heading": "JOINTS AND NEUROARTHROPATHY",
+            "body": "Involved joints [ ]; articular destruction/fragmentation [ ]; alignment [ ]; Charcot pattern [ ]; superimposed ulcer-to-bone infection concern [ ]."
+          },
+          {
+            "heading": "COLLECTIONS AND VIABILITY",
+            "body": "Collection [site and __ × __ × __ mm]; enhancement [not assessed / pattern]; nonenhancing tissue [ ]; gas [ ]; drainage route/compartment [ ]."
+          },
+          {
+            "heading": "TENDONS AND OTHER SOFT TISSUES",
+            "body": "Tenosynovitis [ ]; tendon continuity [ ]; muscle change [ ]; fascial extent [ ]; amputation stump/postoperative findings [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "MRI examination",
+            "url": "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-mri-diabetic-foot-detail-1",
+        "label": "Infection and neuroarthropathy distribution",
+        "description": "Schematic comparison of common ulcer-related infection sites and joint-centred neuropathic change.",
+        "src": "https://radiologyassistant.nl/assets/diabetic-foot-mri-examination/a5097979ba2f44_TEK-Osteo-vs-Charcot.jpg",
+        "alt": "Schematic comparison of common ulcer-related infection sites and joint-centred neuropathic change.",
+        "caption": "Schematic comparison of common ulcer-related infection sites and joint-centred neuropathic change.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — MRI examination",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination",
+        "width": 994,
+        "height": 857
+      },
+      {
+        "id": "ra-mri-diabetic-foot-detail-2",
+        "label": "Marrow infection on MRI",
+        "description": "MR example of marrow abnormality in the diabetic foot infection chapter.",
+        "src": "https://radiologyassistant.nl/assets/diabetic-foot-mri-examination/a5097979bb5b95_Osteo-MR3.jpg",
+        "alt": "MR example of marrow abnormality in the diabetic foot infection chapter.",
+        "caption": "MR example of marrow abnormality in the diabetic foot infection chapter.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination",
+        "width": 811,
+        "height": 603
+      },
+      {
+        "id": "ra-mri-diabetic-foot-detail-3",
+        "label": "Neuropathic joint disease on MRI",
+        "description": "MR example illustrating the joint-centred distribution of neuropathic foot change.",
+        "src": "https://radiologyassistant.nl/assets/diabetic-foot-mri-examination/a5097979bba1c4_MR1.jpg",
+        "alt": "MR example illustrating the joint-centred distribution of neuropathic foot change.",
+        "caption": "MR example illustrating the joint-centred distribution of neuropathic foot change.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination",
+        "width": 800,
+        "height": 548
+      },
+      {
+        "id": "ra-mri-diabetic-foot-detail-4",
+        "label": "Superimposed infection assessment",
+        "description": "T1 and fluid-sensitive MR examples used to evaluate superimposed infection in a neuropathic foot.",
+        "src": "https://radiologyassistant.nl/assets/diabetic-foot-mri-examination/a5097979bc53eb_Osteo-MR1.jpg",
+        "alt": "T1 and fluid-sensitive MR examples used to evaluate superimposed infection in a neuropathic foot.",
+        "caption": "T1 and fluid-sensitive MR examples used to evaluate superimposed infection in a neuropathic foot.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI examination",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination",
+        "width": 574,
+        "height": 560
+      }
+    ]
+  },
+  "ra.hip-fai": {
+    "reporting": {
+      "protocol": [
+        "Begin with well-positioned AP pelvis and an appropriate lateral/Dunn view; document projection and pelvic rotation. Assess morphology and coverage on the acquired radiographs.",
+        "When MRI or MR arthrography has also been acquired, assess labrum and cartilage on small-field images; state the sequences and arthrogram status. Imaging morphology alone does not establish symptomatic impingement syndrome."
+      ],
+      "checklist": [
+        {
+          "label": "Femoral Morphology",
+          "detail": "Assess head-neck sphericity and cam morphology at the relevant clock-face location."
+        },
+        {
+          "label": "Acetabular Coverage",
+          "detail": "Assess lateral coverage and version in the context of pelvic position."
+        },
+        {
+          "label": "Labrum — if MRI acquired",
+          "detail": "If MRI or MR arthrography was acquired, localise tearing, detachment and paralabral cysts. Otherwise state that the labrum is not assessed."
+        },
+        {
+          "label": "Joint space and cartilage",
+          "detail": "Describe radiographic joint-space loss and subchondral change; map cartilage lesions only if MRI was acquired."
+        },
+        {
+          "label": "Alternative Pain Generators",
+          "detail": "Assess periarticular tendons, bursae, muscles and visible pelvic structures."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Alpha angle",
+          "method": "State plane or radial position and the point where the head contour leaves the fitted circle.",
+          "pitfall": "A single plane may miss the maximal cam prominence; angle alone does not diagnose symptomatic FAI."
+        },
+        {
+          "name": "Acetabular coverage",
+          "method": "Record centre-edge measurement landmarks and radiographic positioning.",
+          "pitfall": "Pelvic tilt and rotation influence apparent version and coverage."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Cam or pincer morphology can occur without symptoms.",
+        "Do not attribute hip pain to morphology without corresponding labral/cartilage findings and clinical context."
+      ],
+      "impression_prompts": [
+        "What morphology is present and where is associated labral/chondral damage?",
+        "Is there dysplasia or an alternative cause of pain?",
+        "Which measurement technique was used?"
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "FEMORAL MORPHOLOGY",
+          "body": "Head-neck offset [ ]; cam morphology [ ]; alpha angle __° on [plane/location]; osseous bump [ ]."
+        },
+        {
+          "heading": "ACETABULAR COVERAGE",
+          "body": "Lateral centre-edge angle __° [method]; coverage [ ]; acetabular version findings [ ]; dysplasia/protrusio [ ]."
+        },
+        {
+          "heading": "LABRUM — IF MRI ACQUIRED",
+          "body": "MRI/MR arthrography [not performed / performed]; labrum [not assessed / findings]; tear location/extent [ ]; detachment [ ]; paralabral cyst [site and size]; postoperative change [ ]."
+        },
+        {
+          "heading": "JOINT SPACE AND CARTILAGE",
+          "body": "Radiographic joint space [ ]; subchondral sclerosis/cyst [ ]; MRI cartilage [not assessed / acetabular and femoral findings]; focal chondral defect [site and __ × __ mm if assessed]; marrow oedema [not assessed / findings]."
+        },
+        {
+          "heading": "ALTERNATIVE PAIN GENERATORS",
+          "body": "Additional radiographic bone/joint finding [ ]; MRI periarticular tendons [not assessed / findings]; effusion/bursae [not assessed / findings]; fracture/osteonecrosis [ ]; other relevant finding [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Femoroacetabular impingement syndrome",
+          "url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-hip-fai-report",
+        "title": "HIP IMAGING — FEMOROACETABULAR IMPINGEMENT",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "FEMORAL MORPHOLOGY",
+            "body": "Head-neck offset [ ]; cam morphology [ ]; alpha angle __° on [plane/location]; osseous bump [ ]."
+          },
+          {
+            "heading": "ACETABULAR COVERAGE",
+            "body": "Lateral centre-edge angle __° [method]; coverage [ ]; acetabular version findings [ ]; dysplasia/protrusio [ ]."
+          },
+          {
+            "heading": "LABRUM — IF MRI ACQUIRED",
+            "body": "MRI/MR arthrography [not performed / performed]; labrum [not assessed / findings]; tear location/extent [ ]; detachment [ ]; paralabral cyst [site and size]; postoperative change [ ]."
+          },
+          {
+            "heading": "JOINT SPACE AND CARTILAGE",
+            "body": "Radiographic joint space [ ]; subchondral sclerosis/cyst [ ]; MRI cartilage [not assessed / acetabular and femoral findings]; focal chondral defect [site and __ × __ mm if assessed]; marrow oedema [not assessed / findings]."
+          },
+          {
+            "heading": "ALTERNATIVE PAIN GENERATORS",
+            "body": "Additional radiographic bone/joint finding [ ]; MRI periarticular tendons [not assessed / findings]; effusion/bursae [not assessed / findings]; fracture/osteonecrosis [ ]; other relevant finding [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Femoroacetabular impingement syndrome",
+            "url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-hip-fai-detail-1",
+        "label": "Cam morphology geometry",
+        "description": "Illustration of the femoral head-neck contour relevant to cam morphology.",
+        "src": "https://radiologyassistant.nl/assets/1-cam-teka-1737555771.jpg",
+        "alt": "Illustration of the femoral head-neck contour relevant to cam morphology.",
+        "caption": "Illustration of the femoral head-neck contour relevant to cam morphology.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Femoroacetabular impingement syndrome",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome",
+        "width": 1124,
+        "height": 406
+      },
+      {
+        "id": "ra-hip-fai-detail-2",
+        "label": "Alpha-angle measurement",
+        "description": "Imaging measurement example locating the transition from a spherical femoral head to the head-neck prominence.",
+        "src": "https://radiologyassistant.nl/assets/_1-cam-2-angle-1738662059.jpg",
+        "alt": "Imaging measurement example locating the transition from a spherical femoral head to the head-neck prominence.",
+        "caption": "Imaging measurement example locating the transition from a spherical femoral head to the head-neck prominence.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Femoroacetabular impingement syndrome",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome",
+        "width": 1200,
+        "height": 522
+      },
+      {
+        "id": "ra-hip-fai-detail-3",
+        "label": "Acetabular coverage",
+        "description": "Schematic demonstrating acetabular protrusion and lateral centre-edge angle landmarks.",
+        "src": "https://radiologyassistant.nl/assets/-1-w-cea-angle.jpg",
+        "alt": "Schematic demonstrating acetabular protrusion and lateral centre-edge angle landmarks.",
+        "caption": "Schematic demonstrating acetabular protrusion and lateral centre-edge angle landmarks.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Femoroacetabular impingement syndrome",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome",
+        "width": 1424,
+        "height": 760
+      },
+      {
+        "id": "ra-hip-fai-detail-4",
+        "label": "Labral and cartilage correlation",
+        "description": "Hip MR arthrography example accompanying the femoroacetabular impingement cases.",
+        "src": "https://radiologyassistant.nl/assets/_1-case-burpees-3-arthro-1737975402.jpg",
+        "alt": "Hip MR arthrography example accompanying the femoroacetabular impingement cases.",
+        "caption": "Hip MR arthrography example accompanying the femoroacetabular impingement cases.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Femoroacetabular impingement syndrome",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome",
+        "width": 1540,
+        "height": 788
+      }
+    ]
+  },
+  "ra.hip-arthroplasty": {
+    "reporting": {
+      "protocol": [
+        "Review AP pelvis and lateral hip including the entire prosthesis and compare with the earliest available postoperative and latest films.",
+        "Record arthroplasty type, cemented versus uncemented fixation and any revision; identify projection or rotation limitations."
+      ],
+      "checklist": [
+        {
+          "label": "Component Position",
+          "detail": "Describe acetabular and femoral component position and change."
+        },
+        {
+          "label": "Interfaces",
+          "detail": "Assess lucencies and osteolysis with named zones and serial change."
+        },
+        {
+          "label": "Bearing And Hardware",
+          "detail": "Look for eccentric head position, liner wear and hardware breakage."
+        },
+        {
+          "label": "Bone And Alignment",
+          "detail": "Assess periprosthetic fracture, bone stock and dislocation."
+        },
+        {
+          "label": "Soft Tissues And Comparison",
+          "detail": "Describe soft-tissue findings and whether the pattern raises concern for infection or another complication."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Migration/subsidence",
+          "method": "Use stable bony landmarks on comparable projections and report change in mm.",
+          "pitfall": "A rotated projection can mimic interval component movement."
+        },
+        {
+          "name": "Lucency map",
+          "method": "State zone, maximal width and progression; separate focal osteolysis from a thin stable interface.",
+          "pitfall": "Radiographs cannot reliably distinguish aseptic loosening from infection."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Early postoperative appearance and stable expected interface change depend on implant design.",
+        "Avoid diagnosing infection solely from a lucent interface."
+      ],
+      "impression_prompts": [
+        "Is the implant aligned and stable compared with prior imaging?",
+        "Is there wear, progressive loosening, fracture or dislocation?",
+        "Does the imaging pattern warrant targeted infection or soft-tissue assessment?"
+      ],
+      "escalation": [
+        "Promptly communicate prosthetic dislocation or an acute displaced periprosthetic fracture."
+      ],
+      "template_sections": [
+        {
+          "heading": "COMPONENT POSITION",
+          "body": "Cup inclination __° [projection]; cup migration/tilt [ ]; stem alignment [ ]; subsidence [ ]; head location [ ]; leg-length comparison if valid [ ]."
+        },
+        {
+          "heading": "INTERFACES",
+          "body": "Acetabular zones [DeLee–Charnley]; femoral zones [Gruen]; lucency __ mm; progression [ ]; focal osteolysis [ ]."
+        },
+        {
+          "heading": "BEARING AND HARDWARE",
+          "body": "Head within cup [concentric / eccentric]; polyethylene wear concern [ ]; cement mantle [ ]; stem/cup/screw integrity [ ]."
+        },
+        {
+          "heading": "BONE AND ALIGNMENT",
+          "body": "Periprosthetic fracture [site/extent/displacement]; component relationship [ ]; bone stock [ ]; heterotopic ossification [ ]."
+        },
+        {
+          "heading": "SOFT TISSUES AND COMPARISON",
+          "body": "Soft tissues [ ]; periosteal reaction [ ]; interval change since [date] [ ]; further investigation question [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Arthroplasty of the Hip",
+          "url": "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-hip-arthroplasty-report",
+        "title": "HIP ARTHROPLASTY RADIOGRAPHS",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "COMPONENT POSITION",
+            "body": "Cup inclination __° [projection]; cup migration/tilt [ ]; stem alignment [ ]; subsidence [ ]; head location [ ]; leg-length comparison if valid [ ]."
+          },
+          {
+            "heading": "INTERFACES",
+            "body": "Acetabular zones [DeLee–Charnley]; femoral zones [Gruen]; lucency __ mm; progression [ ]; focal osteolysis [ ]."
+          },
+          {
+            "heading": "BEARING AND HARDWARE",
+            "body": "Head within cup [concentric / eccentric]; polyethylene wear concern [ ]; cement mantle [ ]; stem/cup/screw integrity [ ]."
+          },
+          {
+            "heading": "BONE AND ALIGNMENT",
+            "body": "Periprosthetic fracture [site/extent/displacement]; component relationship [ ]; bone stock [ ]; heterotopic ossification [ ]."
+          },
+          {
+            "heading": "SOFT TISSUES AND COMPARISON",
+            "body": "Soft tissues [ ]; periosteal reaction [ ]; interval change since [date] [ ]; further investigation question [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Arthroplasty of the Hip",
+            "url": "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-hip-arthroplasty-detail-1",
+        "label": "Cup inclination measurement",
+        "description": "Radiographic example of acetabular cup inclination measurement using pelvic reference landmarks.",
+        "src": "https://radiologyassistant.nl/assets/hip-arthroplasty/a5097976d7dc74_measurement-normal-acet-ang.jpg",
+        "alt": "Radiographic example of acetabular cup inclination measurement using pelvic reference landmarks.",
+        "caption": "Radiographic example of acetabular cup inclination measurement using pelvic reference landmarks.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Arthroplasty of the Hip",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty",
+        "width": 370,
+        "height": 187
+      },
+      {
+        "id": "ra-hip-arthroplasty-detail-2",
+        "label": "Periprosthetic zone map",
+        "description": "Acetabular and femoral zone diagram for localising interface lucency or osteolysis.",
+        "src": "https://radiologyassistant.nl/assets/hip-arthroplasty/a5097976d7f36b_Gruen-zones.jpg",
+        "alt": "Acetabular and femoral zone diagram for localising interface lucency or osteolysis.",
+        "caption": "Acetabular and femoral zone diagram for localising interface lucency or osteolysis.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Arthroplasty of the Hip",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty",
+        "width": 370,
+        "height": 248
+      },
+      {
+        "id": "ra-hip-arthroplasty-detail-3",
+        "label": "Liner wear and osteolysis",
+        "description": "Radiographs illustrating eccentric femoral-head position and associated periprosthetic bone loss.",
+        "src": "https://radiologyassistant.nl/assets/hip-arthroplasty/a5097976d8603c_Wear-en-Particle-2.jpg",
+        "alt": "Radiographs illustrating eccentric femoral-head position and associated periprosthetic bone loss.",
+        "caption": "Radiographs illustrating eccentric femoral-head position and associated periprosthetic bone loss.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Arthroplasty of the Hip",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty",
+        "width": 370,
+        "height": 361
+      }
+    ]
+  },
+  "ra.mri-muscle-injury": {
+    "reporting": {
+      "protocol": [
+        "Record mechanism, injury date and symptomatic site; cover the full muscle-tendon unit with T1 and fluid-sensitive sequences.",
+        "Include adjacent tendon attachment and the region of maximal oedema or haematoma; compare opposite side if useful."
+      ],
+      "checklist": [
+        {
+          "label": "Injured Unit",
+          "detail": "Name muscle, side and compartment, including adjacent involved muscles."
+        },
+        {
+          "label": "Fibre Disruption",
+          "detail": "Separate oedema without definite discontinuity from partial or complete structural disruption."
+        },
+        {
+          "label": "Tendon And Aponeurosis",
+          "detail": "Assess central tendon, aponeurosis and origin/insertion."
+        },
+        {
+          "label": "Oedema And Haematoma",
+          "detail": "Describe extent and compartment of oedema and blood products."
+        },
+        {
+          "label": "Associated Findings",
+          "detail": "Look for neurovascular proximity, contusion, scar and alternative explanations."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Extent of injury",
+          "method": "Report cranio-caudal oedema length, structural defect size and maximal cross-sectional involvement separately.",
+          "pitfall": "Oedema dimensions are not tear dimensions."
+        },
+        {
+          "name": "Retraction",
+          "method": "Measure along the tendon between the attachment or tear margins with a named plane.",
+          "pitfall": "Position and muscle shortening influence the gap."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "A generic numeric grade should not replace muscle, location and tendon involvement.",
+        "MRI morphology does not determine a precise return-to-sport date."
+      ],
+      "impression_prompts": [
+        "Which unit and tissue component are disrupted?",
+        "Is there tendon involvement, complete rupture or retraction?",
+        "How extensive are oedema and haematoma?"
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "INJURED UNIT",
+          "body": "Muscle(s) [ ]; side [ ]; injury level [proximal / mid / distal]; myotendinous/myofascial/intratendinous location [ ]."
+        },
+        {
+          "heading": "FIBRE DISRUPTION",
+          "body": "Architecture [preserved / partial disruption / complete disruption]; proportion involved [ ]; gap [ ]; retraction [ ]."
+        },
+        {
+          "heading": "TENDON AND APONEUROSIS",
+          "body": "Tendon continuity [ ]; intratendinous injury [ ]; aponeurosis [ ]; avulsion [ ]; bony fragment [ ]."
+        },
+        {
+          "heading": "OEDEMA AND HAEMATOMA",
+          "body": "Oedema length __ cm; maximal cross-sectional involvement [ ]; haematoma __ × __ × __ mm at [ ]; interfascial fluid [ ]."
+        },
+        {
+          "heading": "ASSOCIATED FINDINGS",
+          "body": "Nerve relationship [ ]; adjacent bone [ ]; previous scar [ ]; other lesion [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "MRI traumatic changes",
+          "url": "https://radiologyassistant.nl/musculoskeletal/muscle/mri-traumatic-changes"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-mri-muscle-injury-report",
+        "title": "MRI TRAUMATIC MUSCLE INJURY",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "INJURED UNIT",
+            "body": "Muscle(s) [ ]; side [ ]; injury level [proximal / mid / distal]; myotendinous/myofascial/intratendinous location [ ]."
+          },
+          {
+            "heading": "FIBRE DISRUPTION",
+            "body": "Architecture [preserved / partial disruption / complete disruption]; proportion involved [ ]; gap [ ]; retraction [ ]."
+          },
+          {
+            "heading": "TENDON AND APONEUROSIS",
+            "body": "Tendon continuity [ ]; intratendinous injury [ ]; aponeurosis [ ]; avulsion [ ]; bony fragment [ ]."
+          },
+          {
+            "heading": "OEDEMA AND HAEMATOMA",
+            "body": "Oedema length __ cm; maximal cross-sectional involvement [ ]; haematoma __ × __ × __ mm at [ ]; interfascial fluid [ ]."
+          },
+          {
+            "heading": "ASSOCIATED FINDINGS",
+            "body": "Nerve relationship [ ]; adjacent bone [ ]; previous scar [ ]; other lesion [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "MRI traumatic changes",
+            "url": "https://radiologyassistant.nl/musculoskeletal/muscle/mri-traumatic-changes"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-mri-muscle-injury-detail-1",
+        "label": "Normal muscle architecture",
+        "description": "MRI example of normal muscle contours and internal branching fat planes.",
+        "src": "https://radiologyassistant.nl/assets/muscle-mr-traumatic-changes/a50979799035ff_Afbeelding-1b.jpg",
+        "alt": "MRI example of normal muscle contours and internal branching fat planes.",
+        "caption": "MRI example of normal muscle contours and internal branching fat planes.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI traumatic changes",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/mri-traumatic-changes",
+        "width": 370,
+        "height": 312
+      },
+      {
+        "id": "ra-mri-muscle-injury-detail-2",
+        "label": "Muscle injury distribution",
+        "description": "MRI examples contrasting injury centred at a myotendinous junction with an epimysial pattern.",
+        "src": "https://radiologyassistant.nl/assets/muscle-mr-traumatic-changes/a50979799148a2_4.jpg",
+        "alt": "MRI examples contrasting injury centred at a myotendinous junction with an epimysial pattern.",
+        "caption": "MRI examples contrasting injury centred at a myotendinous junction with an epimysial pattern.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI traumatic changes",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/mri-traumatic-changes",
+        "width": 370,
+        "height": 163
+      },
+      {
+        "id": "ra-mri-muscle-injury-detail-3",
+        "label": "Rectus femoris structural injury",
+        "description": "MR example of rectus femoris injury with disrupted internal architecture.",
+        "src": "https://radiologyassistant.nl/assets/muscle-mr-traumatic-changes/a509797991a58e_13.jpg",
+        "alt": "MR example of rectus femoris injury with disrupted internal architecture.",
+        "caption": "MR example of rectus femoris injury with disrupted internal architecture.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI traumatic changes",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/mri-traumatic-changes",
+        "width": 370,
+        "height": 207
+      },
+      {
+        "id": "ra-mri-muscle-injury-detail-4",
+        "label": "Muscle haematoma",
+        "description": "MR example demonstrating intramuscular blood products and adjacent injury.",
+        "src": "https://radiologyassistant.nl/assets/muscle-mr-traumatic-changes/a509797991e908_21.jpg",
+        "alt": "MR example demonstrating intramuscular blood products and adjacent injury.",
+        "caption": "MR example demonstrating intramuscular blood products and adjacent injury.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — MRI traumatic changes",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/mri-traumatic-changes",
+        "width": 370,
+        "height": 290
+      }
+    ]
+  },
+  "ra.mri-muscle-disease": {
+    "reporting": {
+      "protocol": [
+        "Review symptom distribution, weakness, laboratory context, medication and known nerve injury; choose bilateral coverage when distribution is diagnostic.",
+        "Include T1 for fatty change and fluid-sensitive sequences for oedema; use contrast for a specific infection or mass question."
+      ],
+      "checklist": [
+        {
+          "label": "Distribution",
+          "detail": "Map involved muscles and whether change follows a nerve, compartment or systemic pattern."
+        },
+        {
+          "label": "Oedema",
+          "detail": "Describe fluid-sensitive signal and focal versus diffuse muscle involvement."
+        },
+        {
+          "label": "Fatty Change And Atrophy",
+          "detail": "Use T1 to distinguish chronic fatty replacement from active oedema."
+        },
+        {
+          "label": "Collection Or Mass",
+          "detail": "Identify focal lesions, blood products and enhancement if acquired."
+        },
+        {
+          "label": "Nerves And Associated Structures",
+          "detail": "Inspect visible nerves, entrapment sites, tendons and bone for a cause."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Distribution map",
+          "method": "List involved and selectively spared muscles; compare sides and proximal/distal extent.",
+          "pitfall": "MRI pattern narrows the differential but does not determine a specific myopathy diagnosis."
+        },
+        {
+          "name": "Focal collection",
+          "method": "Measure in three planes and describe compartment and enhancement if available.",
+          "pitfall": "Oedema may occur with inflammation, infection, denervation, ischaemia or exertion."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Do not equate high fluid-sensitive signal with primary inflammatory myositis.",
+        "Acute denervation may produce oedema before chronic fatty atrophy appears."
+      ],
+      "impression_prompts": [
+        "What distribution and combination of oedema/fatty atrophy is present?",
+        "Is a focal infection or mass identified?",
+        "Which clinical, nerve or laboratory correlation would resolve the differential?"
+      ],
+      "escalation": [
+        "Urgently communicate imaging concerning for aggressive soft-tissue infection or a significant abscess."
+      ],
+      "template_sections": [
+        {
+          "heading": "DISTRIBUTION",
+          "body": "Side/symmetry [ ]; proximal/distal predominance [ ]; muscles/compartments [ ]; nerve-territory pattern [ ]."
+        },
+        {
+          "heading": "OEDEMA",
+          "body": "Oedema [ ]; fascial involvement [ ]; subcutaneous change [ ]; muscle enlargement [ ]."
+        },
+        {
+          "heading": "FATTY CHANGE AND ATROPHY",
+          "body": "Fatty replacement [muscles and severity]; volume loss [ ]; preserved muscles [ ]; mixed active/chronic pattern [ ]."
+        },
+        {
+          "heading": "COLLECTION OR MASS",
+          "body": "Focal lesion [ ]; collection __ × __ × __ mm; diffusion [not acquired / finding]; enhancement [not assessed / pattern]; necrosis [ ]."
+        },
+        {
+          "heading": "NERVES AND ASSOCIATED STRUCTURES",
+          "body": "Nerve/denervation correlate [ ]; tendon integrity [ ]; bone/joint [ ]; accessory muscle [ ]; other cause [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Non-traumatic changes",
+          "url": "https://radiologyassistant.nl/musculoskeletal/muscle/non-traumatic-changes"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-mri-muscle-disease-report",
+        "title": "MRI NON-TRAUMATIC MUSCLE DISEASE",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "DISTRIBUTION",
+            "body": "Side/symmetry [ ]; proximal/distal predominance [ ]; muscles/compartments [ ]; nerve-territory pattern [ ]."
+          },
+          {
+            "heading": "OEDEMA",
+            "body": "Oedema [ ]; fascial involvement [ ]; subcutaneous change [ ]; muscle enlargement [ ]."
+          },
+          {
+            "heading": "FATTY CHANGE AND ATROPHY",
+            "body": "Fatty replacement [muscles and severity]; volume loss [ ]; preserved muscles [ ]; mixed active/chronic pattern [ ]."
+          },
+          {
+            "heading": "COLLECTION OR MASS",
+            "body": "Focal lesion [ ]; collection __ × __ × __ mm; diffusion [not acquired / finding]; enhancement [not assessed / pattern]; necrosis [ ]."
+          },
+          {
+            "heading": "NERVES AND ASSOCIATED STRUCTURES",
+            "body": "Nerve/denervation correlate [ ]; tendon integrity [ ]; bone/joint [ ]; accessory muscle [ ]; other cause [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Non-traumatic changes",
+            "url": "https://radiologyassistant.nl/musculoskeletal/muscle/non-traumatic-changes"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-mri-muscle-disease-detail-1",
+        "label": "Inflammatory muscle signal",
+        "description": "T1 and fluid-sensitive MR comparison illustrating non-traumatic muscle signal abnormality.",
+        "src": "https://radiologyassistant.nl/assets/muscle-mr-non-traumatic-changes/a5097979ac4e4d_13.jpg",
+        "alt": "T1 and fluid-sensitive MR comparison illustrating non-traumatic muscle signal abnormality.",
+        "caption": "T1 and fluid-sensitive MR comparison illustrating non-traumatic muscle signal abnormality.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Non-traumatic changes",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/non-traumatic-changes",
+        "width": 370,
+        "height": 172
+      },
+      {
+        "id": "ra-mri-muscle-disease-detail-2",
+        "label": "Muscle infection",
+        "description": "MR example from the pyomyositis teaching series.",
+        "src": "https://radiologyassistant.nl/assets/muscle-mr-non-traumatic-changes/a5097979ac6896_2a.jpg",
+        "alt": "MR example from the pyomyositis teaching series.",
+        "caption": "MR example from the pyomyositis teaching series.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Non-traumatic changes",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/non-traumatic-changes",
+        "width": 370,
+        "height": 256
+      },
+      {
+        "id": "ra-mri-muscle-disease-detail-3",
+        "label": "Denervation distribution",
+        "description": "MRI example showing denervation-related change after a proximal nerve injury.",
+        "src": "https://radiologyassistant.nl/assets/muscle-mr-non-traumatic-changes/a5097979ad2fd3_6.jpg",
+        "alt": "MRI example showing denervation-related change after a proximal nerve injury.",
+        "caption": "MRI example showing denervation-related change after a proximal nerve injury.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Non-traumatic changes",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/non-traumatic-changes",
+        "width": 370,
+        "height": 139
+      },
+      {
+        "id": "ra-mri-muscle-disease-detail-4",
+        "label": "Chronic fatty muscle change",
+        "description": "Coronal MRI example of chronic muscle disease with fatty replacement of thigh muscles.",
+        "src": "https://radiologyassistant.nl/assets/muscle-mr-non-traumatic-changes/a5097979adb9ec_dystrofie2.jpg",
+        "alt": "Coronal MRI example of chronic muscle disease with fatty replacement of thigh muscles.",
+        "caption": "Coronal MRI example of chronic muscle disease with fatty replacement of thigh muscles.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Non-traumatic changes",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/non-traumatic-changes",
+        "width": 370,
+        "height": 303
+      }
+    ]
+  },
+  "ra.mri-hamstring": {
+    "reporting": {
+      "protocol": [
+        "Cover the ischial origin through the symptomatic muscle-tendon unit with axial and coronal fluid-sensitive images and T1 anatomy.",
+        "Record mechanism and time since injury; inspect both the conjoint tendon and separate semimembranosus attachment."
+      ],
+      "checklist": [
+        {
+          "label": "Tendon Identity",
+          "detail": "Name semimembranosus, semitendinosus and biceps femoris components separately."
+        },
+        {
+          "label": "Tear Type And Location",
+          "detail": "Assess partial-thickness origin injury, full-thickness avulsion and musculotendinous injury."
+        },
+        {
+          "label": "Retraction",
+          "detail": "Measure each avulsed tendon from its footprint and describe the distal stump."
+        },
+        {
+          "label": "Muscle And Haematoma",
+          "detail": "Map muscle oedema, structural fibre loss and haematoma."
+        },
+        {
+          "label": "Sciatic Nerve And Associated Findings",
+          "detail": "Assess the sciatic nerve relationship and adjacent bone or soft-tissue changes."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Tendon retraction",
+          "method": "Measure from the ischial footprint to the identifiable distal torn end along the tendon course.",
+          "pitfall": "Conjoint and semimembranosus components can retract differently."
+        },
+        {
+          "name": "Partial tear extent",
+          "method": "Describe footprint portion and tendon identity, plus residual attached fibres.",
+          "pitfall": "Partial versus complete refers to the specified tendon component, not all hamstrings collectively."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Identify the injured tendon components rather than reporting only a percentage of the hamstring group.",
+        "A large haematoma can obscure the stump; state uncertainty."
+      ],
+      "impression_prompts": [
+        "How many tendon components are involved and are any completely avulsed?",
+        "What is the retraction of each disrupted tendon?",
+        "Is the sciatic nerve affected by adjacent injury?"
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "TENDON IDENTITY",
+          "body": "Semimembranosus [ ]; conjoint semitendinosus/biceps femoris origin [ ]; biceps femoris long/short head [ ]; injury level [ ]."
+        },
+        {
+          "heading": "TEAR TYPE AND LOCATION",
+          "body": "Site [ischial origin / free tendon / myotendinous / muscle]; extent [ ]; tendon(s) detached [ ]; residual continuity [ ]."
+        },
+        {
+          "heading": "RETRACTION",
+          "body": "Retraction __ cm for [tendon]; measurement plane [ ]; stump location [ ]; bony avulsion [ ]."
+        },
+        {
+          "heading": "MUSCLE AND HAEMATOMA",
+          "body": "Oedema [ ]; fibre disruption [ ]; haematoma __ × __ × __ mm; scar/atrophy [ ]."
+        },
+        {
+          "heading": "SCIATIC NERVE AND ASSOCIATED FINDINGS",
+          "body": "Sciatic nerve course/signal [ ]; haematoma contact or displacement [ ]; ischial bone [ ]; other finding [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Hamstring injury",
+          "url": "https://radiologyassistant.nl/musculoskeletal/muscle/hamstring-injury"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-mri-hamstring-report",
+        "title": "MRI HAMSTRING INJURY",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "TENDON IDENTITY",
+            "body": "Semimembranosus [ ]; conjoint semitendinosus/biceps femoris origin [ ]; biceps femoris long/short head [ ]; injury level [ ]."
+          },
+          {
+            "heading": "TEAR TYPE AND LOCATION",
+            "body": "Site [ischial origin / free tendon / myotendinous / muscle]; extent [ ]; tendon(s) detached [ ]; residual continuity [ ]."
+          },
+          {
+            "heading": "RETRACTION",
+            "body": "Retraction __ cm for [tendon]; measurement plane [ ]; stump location [ ]; bony avulsion [ ]."
+          },
+          {
+            "heading": "MUSCLE AND HAEMATOMA",
+            "body": "Oedema [ ]; fibre disruption [ ]; haematoma __ × __ × __ mm; scar/atrophy [ ]."
+          },
+          {
+            "heading": "SCIATIC NERVE AND ASSOCIATED FINDINGS",
+            "body": "Sciatic nerve course/signal [ ]; haematoma contact or displacement [ ]; ischial bone [ ]; other finding [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Hamstring injury",
+            "url": "https://radiologyassistant.nl/musculoskeletal/muscle/hamstring-injury"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-mri-hamstring-detail-1",
+        "label": "Hamstring origin anatomy",
+        "description": "Detailed proximal hamstring illustration showing the relationship of tendon components to the ischial origin.",
+        "src": "https://radiologyassistant.nl/assets/1.-rs-anatomy.jpg",
+        "alt": "Detailed proximal hamstring illustration showing the relationship of tendon components to the ischial origin.",
+        "caption": "Detailed proximal hamstring illustration showing the relationship of tendon components to the ischial origin.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Hamstring injury",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/hamstring-injury",
+        "width": 682,
+        "height": 704
+      },
+      {
+        "id": "ra-mri-hamstring-detail-2",
+        "label": "Axial hamstring anatomy",
+        "description": "Axial MRI anatomy for identifying individual hamstring muscle and tendon components.",
+        "src": "https://radiologyassistant.nl/assets/_axial-2.jpg",
+        "alt": "Axial MRI anatomy for identifying individual hamstring muscle and tendon components.",
+        "caption": "Axial MRI anatomy for identifying individual hamstring muscle and tendon components.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Hamstring injury",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/hamstring-injury",
+        "width": 800,
+        "height": 792
+      },
+      {
+        "id": "ra-mri-hamstring-detail-3",
+        "label": "Complete origin injury",
+        "description": "MRI example of a full-thickness proximal hamstring injury.",
+        "src": "https://radiologyassistant.nl/assets/1-full-thickness.jpg",
+        "alt": "MRI example of a full-thickness proximal hamstring injury.",
+        "caption": "MRI example of a full-thickness proximal hamstring injury.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Hamstring injury",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/hamstring-injury",
+        "width": 700,
+        "height": 576
+      },
+      {
+        "id": "ra-mri-hamstring-detail-4",
+        "label": "Tendon retraction measurement",
+        "description": "MR measurement example assessing retraction after a full-thickness hamstring injury.",
+        "src": "https://radiologyassistant.nl/assets/1-full-thickness-measurement.jpg",
+        "alt": "MR measurement example assessing retraction after a full-thickness hamstring injury.",
+        "caption": "MR measurement example assessing retraction after a full-thickness hamstring injury.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Hamstring injury",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/muscle/hamstring-injury",
+        "width": 800,
+        "height": 622
+      }
+    ]
+  },
+  "ra.stress-fractures": {
+    "reporting": {
+      "protocol": [
+        "Record activity change, focal pain site and risk context; review radiographs before targeted MRI.",
+        "Use T1 and fluid-sensitive MRI to look for a fracture line and associated marrow/periosteal change; CT may clarify cortical or trabecular fracture anatomy."
+      ],
+      "checklist": [
+        {
+          "label": "Site And Side",
+          "detail": "Identify the exact bone and surface, including tension versus compression side where applicable."
+        },
+        {
+          "label": "Fracture Line",
+          "detail": "Look for a cortical or trabecular fracture line and displacement."
+        },
+        {
+          "label": "Marrow And Periosteum",
+          "detail": "Separate fluid-sensitive oedema from T1 marrow abnormality and periosteal reaction."
+        },
+        {
+          "label": "Articular And Soft Tissues",
+          "detail": "Assess joint surface, associated collapse and adjacent tissue."
+        },
+        {
+          "label": "Comparison And Differential",
+          "detail": "Compare evolution and consider insufficiency, infection or another lesion when atypical."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Fracture extent",
+          "method": "Record visible line length and displacement; separate it from the oedema envelope.",
+          "pitfall": "A normal early radiograph does not exclude a stress injury."
+        },
+        {
+          "name": "MRI severity description",
+          "method": "Record periosteal oedema, marrow oedema, T1 change and visible fracture line.",
+          "pitfall": "Do not apply a site-specific grading system to a different bone without stating its limits."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Stress response without a visible line and a completed fracture have different imaging appearances.",
+        "An atypical focal lesion warrants assessment beyond exercise-related stress injury."
+      ],
+      "impression_prompts": [
+        "Is there a fracture line or only stress-related oedema?",
+        "Is the site or surface at higher risk of displacement or delayed healing?",
+        "Is there interval progression, collapse or healing?"
+      ],
+      "escalation": [
+        "Promptly communicate a femoral-neck tension-side injury, displaced fracture or other high-risk stress fracture."
+      ],
+      "template_sections": [
+        {
+          "heading": "SITE AND SIDE",
+          "body": "Bone/segment [ ]; side [ ]; surface [ ]; high-risk anatomical location [ ]."
+        },
+        {
+          "heading": "FRACTURE LINE",
+          "body": "Line [absent / present]; orientation [ ]; extent [ ]; cortical breach [ ]; displacement [ ]."
+        },
+        {
+          "heading": "MARROW AND PERIOSTEUM",
+          "body": "Fluid-sensitive oedema [ ]; T1 abnormality [ ]; periosteal reaction/oedema [ ]; sclerosis/callus [ ]."
+        },
+        {
+          "heading": "ARTICULAR AND SOFT TISSUES",
+          "body": "Articular extension [ ]; collapse [ ]; joint effusion [ ]; adjacent muscle/tendon [ ]."
+        },
+        {
+          "heading": "COMPARISON AND DIFFERENTIAL",
+          "body": "Prior examination [ ]; interval healing/progression [ ]; fatigue/insufficiency context [ ]; alternative explanation [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Stress fractures",
+          "url": "https://radiologyassistant.nl/musculoskeletal/unsorted/stress-fractures"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-stress-fractures-report",
+        "title": "STRESS FRACTURE IMAGING",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "SITE AND SIDE",
+            "body": "Bone/segment [ ]; side [ ]; surface [ ]; high-risk anatomical location [ ]."
+          },
+          {
+            "heading": "FRACTURE LINE",
+            "body": "Line [absent / present]; orientation [ ]; extent [ ]; cortical breach [ ]; displacement [ ]."
+          },
+          {
+            "heading": "MARROW AND PERIOSTEUM",
+            "body": "Fluid-sensitive oedema [ ]; T1 abnormality [ ]; periosteal reaction/oedema [ ]; sclerosis/callus [ ]."
+          },
+          {
+            "heading": "ARTICULAR AND SOFT TISSUES",
+            "body": "Articular extension [ ]; collapse [ ]; joint effusion [ ]; adjacent muscle/tendon [ ]."
+          },
+          {
+            "heading": "COMPARISON AND DIFFERENTIAL",
+            "body": "Prior examination [ ]; interval healing/progression [ ]; fatigue/insufficiency context [ ]; alternative explanation [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Stress fractures",
+            "url": "https://radiologyassistant.nl/musculoskeletal/unsorted/stress-fractures"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-stress-fractures-detail-1",
+        "label": "Common stress fracture locations",
+        "description": "Skeletal diagram showing common anatomical sites of stress injury.",
+        "src": "https://radiologyassistant.nl/assets/stress-fractures/a5097977a16a43_SKELETON.png",
+        "alt": "Skeletal diagram showing common anatomical sites of stress injury.",
+        "caption": "Skeletal diagram showing common anatomical sites of stress injury.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Stress fractures",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/unsorted/stress-fractures",
+        "width": 370,
+        "height": 379
+      },
+      {
+        "id": "ra-stress-fractures-detail-2",
+        "label": "MRI finding with a normal radiograph",
+        "description": "Comparison showing fluid-sensitive marrow abnormality despite an initially normal radiograph.",
+        "src": "https://radiologyassistant.nl/assets/stress-fractures/a5097977a181fa_x-vs-stir.jpg",
+        "alt": "Comparison showing fluid-sensitive marrow abnormality despite an initially normal radiograph.",
+        "caption": "Comparison showing fluid-sensitive marrow abnormality despite an initially normal radiograph.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Stress fractures",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/unsorted/stress-fractures",
+        "width": 370,
+        "height": 224
+      },
+      {
+        "id": "ra-stress-fractures-detail-3",
+        "label": "Navicular fracture anatomy",
+        "description": "MRI and CT examples demonstrating a navicular stress fracture line.",
+        "src": "https://radiologyassistant.nl/assets/stress-fractures/a5097977a18b93_grade-4.jpg",
+        "alt": "MRI and CT examples demonstrating a navicular stress fracture line.",
+        "caption": "MRI and CT examples demonstrating a navicular stress fracture line.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Stress fractures",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/unsorted/stress-fractures",
+        "width": 370,
+        "height": 192
+      },
+      {
+        "id": "ra-stress-fractures-detail-4",
+        "label": "Femoral-neck stress injury",
+        "description": "Imaging example of a femoral-neck stress injury on the compression side.",
+        "src": "https://radiologyassistant.nl/assets/stress-fractures/a5097977a1a9c7_femur.jpg",
+        "alt": "Imaging example of a femoral-neck stress injury on the compression side.",
+        "caption": "Imaging example of a femoral-neck stress injury on the compression side.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Stress fractures",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/unsorted/stress-fractures",
+        "width": 370,
+        "height": 211
+      }
+    ]
+  },
+  "ra.wrist-instability": {
+    "reporting": {
+      "protocol": [
+        "Check true PA and lateral positioning before using angles or carpal arcs; record stress views when performed.",
+        "Compare prior injury and surgery. CT or MRI findings should be described separately when available."
+      ],
+      "checklist": [
+        {
+          "label": "Carpal Arcs",
+          "detail": "Trace all three Gilula arcs and assess carpal joint spaces."
+        },
+        {
+          "label": "Lateral Alignment",
+          "detail": "Assess radius-lunate-capitate relationship on a true lateral view."
+        },
+        {
+          "label": "Carpal Angles",
+          "detail": "Measure axes using stated landmarks and describe DISI/VISI pattern where supported."
+        },
+        {
+          "label": "Bones",
+          "detail": "Inspect for associated carpal or distal forearm fracture and chronic collapse."
+        },
+        {
+          "label": "Degenerative And Dynamic Findings",
+          "detail": "Map arthrosis and compare neutral with stress views."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Scapholunate relationship",
+          "method": "Measure interval on PA and angle on a true lateral; name the projection and landmarks.",
+          "pitfall": "Rotation can mimic widening or abnormal angles."
+        },
+        {
+          "name": "Carpal alignment",
+          "method": "Describe lunate and capitate position even when angles cannot be measured reliably.",
+          "pitfall": "A single sign should be interpreted with all alignment relationships."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "A normal neutral view does not exclude dynamic instability.",
+        "Do not report a lunate dislocation as a perilunate dislocation; specify which bone remains aligned with the radius."
+      ],
+      "impression_prompts": [
+        "Is instability static or demonstrated only on stress views?",
+        "What is the direction and level of malalignment?",
+        "Is there associated fracture, collapse or arthrosis?"
+      ],
+      "escalation": [
+        "Immediately communicate an acute lunate or perilunate dislocation."
+      ],
+      "template_sections": [
+        {
+          "heading": "CARPAL ARCS",
+          "body": "Arc 1 [ ]; arc 2 [ ]; arc 3 [ ]; joint-space asymmetry [ ]; scapholunate interval __ mm [view]."
+        },
+        {
+          "heading": "LATERAL ALIGNMENT",
+          "body": "Radiolunate alignment [ ]; capitolunate alignment [ ]; lunate tilt [ ]; perilunate/lunate dislocation [ ]."
+        },
+        {
+          "heading": "CARPAL ANGLES",
+          "body": "Scapholunate angle __°; radiolunate angle __°; capitolunate angle __°; pattern [normal / DISI / VISI / indeterminate]."
+        },
+        {
+          "heading": "BONES",
+          "body": "Fracture [ ]; scaphoid shape [ ]; nonunion [ ]; collapse [ ]; osteonecrosis concern [ ]."
+        },
+        {
+          "heading": "DEGENERATIVE AND DYNAMIC FINDINGS",
+          "body": "Arthrosis distribution [ ]; SLAC/SNAC pattern if supported [ ]; stress-view change [not acquired / findings]; prior surgery [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Carpal instability",
+          "url": "https://radiologyassistant.nl/musculoskeletal/wrist/carpal-instability"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-wrist-instability-report",
+        "title": "WRIST RADIOGRAPHS — CARPAL INSTABILITY",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "CARPAL ARCS",
+            "body": "Arc 1 [ ]; arc 2 [ ]; arc 3 [ ]; joint-space asymmetry [ ]; scapholunate interval __ mm [view]."
+          },
+          {
+            "heading": "LATERAL ALIGNMENT",
+            "body": "Radiolunate alignment [ ]; capitolunate alignment [ ]; lunate tilt [ ]; perilunate/lunate dislocation [ ]."
+          },
+          {
+            "heading": "CARPAL ANGLES",
+            "body": "Scapholunate angle __°; radiolunate angle __°; capitolunate angle __°; pattern [normal / DISI / VISI / indeterminate]."
+          },
+          {
+            "heading": "BONES",
+            "body": "Fracture [ ]; scaphoid shape [ ]; nonunion [ ]; collapse [ ]; osteonecrosis concern [ ]."
+          },
+          {
+            "heading": "DEGENERATIVE AND DYNAMIC FINDINGS",
+            "body": "Arthrosis distribution [ ]; SLAC/SNAC pattern if supported [ ]; stress-view change [not acquired / findings]; prior surgery [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Carpal instability",
+            "url": "https://radiologyassistant.nl/musculoskeletal/wrist/carpal-instability"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-wrist-instability-detail-1",
+        "label": "Gilula arcs",
+        "description": "PA radiograph with the three normal carpal arcs traced.",
+        "src": "https://radiologyassistant.nl/assets/wrist-carpal-instability/a5097976b9283e_carpal-archs.jpg",
+        "alt": "PA radiograph with the three normal carpal arcs traced.",
+        "caption": "PA radiograph with the three normal carpal arcs traced.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Carpal instability",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/wrist/carpal-instability",
+        "width": 370,
+        "height": 277
+      },
+      {
+        "id": "ra-wrist-instability-detail-2",
+        "label": "Lunate rotation geometry",
+        "description": "Schematic illustrating how the lunate contour changes with rotation.",
+        "src": "https://radiologyassistant.nl/assets/wrist-carpal-instability/a5097976b93ae6_lunate-shape.jpg",
+        "alt": "Schematic illustrating how the lunate contour changes with rotation.",
+        "caption": "Schematic illustrating how the lunate contour changes with rotation.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Carpal instability",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/wrist/carpal-instability",
+        "width": 370,
+        "height": 269
+      },
+      {
+        "id": "ra-wrist-instability-detail-3",
+        "label": "Lunate versus perilunate displacement",
+        "description": "Schematic comparison distinguishing a displaced lunate from displacement around an aligned lunate.",
+        "src": "https://radiologyassistant.nl/assets/wrist-carpal-instability/a5097976b93f6a_lunate-peri-lunate.jpg",
+        "alt": "Schematic comparison distinguishing a displaced lunate from displacement around an aligned lunate.",
+        "caption": "Schematic comparison distinguishing a displaced lunate from displacement around an aligned lunate.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Carpal instability",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/wrist/carpal-instability",
+        "width": 370,
+        "height": 229
+      },
+      {
+        "id": "ra-wrist-instability-detail-4",
+        "label": "Dorsal intercalated instability",
+        "description": "Lateral wrist schematic illustrating dorsal lunate tilt and abnormal scapholunate alignment.",
+        "src": "https://radiologyassistant.nl/assets/wrist-carpal-instability/a5097976b95a19_disi.jpg",
+        "alt": "Lateral wrist schematic illustrating dorsal lunate tilt and abnormal scapholunate alignment.",
+        "caption": "Lateral wrist schematic illustrating dorsal lunate tilt and abnormal scapholunate alignment.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Carpal instability",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/wrist/carpal-instability",
+        "width": 370,
+        "height": 195
+      }
+    ]
+  },
+  "ra.wrist-fractures": {
+    "reporting": {
+      "protocol": [
+        "Check PA, lateral and appropriate oblique views with injury location; use CT to define complex articular anatomy when acquired.",
+        "Review reduction or fixation status and prior examinations. State when cast or positioning limits assessment."
+      ],
+      "checklist": [
+        {
+          "label": "Fracture Morphology",
+          "detail": "Identify bone, level, articular extension and comminution."
+        },
+        {
+          "label": "Displacement",
+          "detail": "Describe angulation, translation and shortening using clear direction."
+        },
+        {
+          "label": "Articular Surface",
+          "detail": "Assess radiocarpal and distal radioulnar articular congruity."
+        },
+        {
+          "label": "Carpal Alignment",
+          "detail": "Assess fracture-associated subluxation, carpal arcs and ligamentous avulsion clues."
+        },
+        {
+          "label": "Reduction And Soft Tissues",
+          "detail": "Describe interval reduction, fixation and surrounding swelling."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Distal radius alignment",
+          "method": "Measure tilt on a true lateral and inclination/height on PA, naming the projection.",
+          "pitfall": "Apparent change can result from rotation or beam angle."
+        },
+        {
+          "name": "Articular incongruity",
+          "method": "Measure maximal step and gap on the best projection or CT plane.",
+          "pitfall": "Do not claim precise articular congruity when overlap or a cast obscures the surface."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "A negative initial radiograph does not exclude an occult carpal fracture when clinical suspicion remains.",
+        "Describe morphology and displacement even when using an eponym or classification."
+      ],
+      "impression_prompts": [
+        "Is the fracture articular and how displaced is it?",
+        "Is radiocarpal or DRUJ alignment disrupted?",
+        "Is reduction improved and what residual deformity remains?"
+      ],
+      "escalation": [
+        "Promptly communicate fracture-dislocation or severe malalignment requiring urgent clinical assessment."
+      ],
+      "template_sections": [
+        {
+          "heading": "FRACTURE MORPHOLOGY",
+          "body": "Distal radius [ ]; ulna/styloid [ ]; carpal bones [ ]; fracture line [ ]; comminution [ ]; intra-articular extension [ ]."
+        },
+        {
+          "heading": "DISPLACEMENT",
+          "body": "Translation [direction and mm]; dorsal/volar tilt __°; radial inclination __°; radial height __ mm; shortening/ulnar variance [ ]."
+        },
+        {
+          "heading": "ARTICULAR SURFACE",
+          "body": "Radiocarpal step __ mm; gap __ mm; sigmoid notch [ ]; DRUJ congruity [ ]; depressed fragment [ ]."
+        },
+        {
+          "heading": "CARPAL ALIGNMENT",
+          "body": "Carpal alignment [ ]; lunate/capitate relation [ ]; scapholunate interval [ ]; associated avulsion [ ]."
+        },
+        {
+          "heading": "REDUCTION AND SOFT TISSUES",
+          "body": "Reduction compared with [date] [ ]; fixation [ ]; soft-tissue swelling [ ]; complication [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Fractures",
+          "url": "https://radiologyassistant.nl/musculoskeletal/wrist/fractures"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-wrist-fractures-report",
+        "title": "WRIST FRACTURE RADIOGRAPHS AND CT",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "FRACTURE MORPHOLOGY",
+            "body": "Distal radius [ ]; ulna/styloid [ ]; carpal bones [ ]; fracture line [ ]; comminution [ ]; intra-articular extension [ ]."
+          },
+          {
+            "heading": "DISPLACEMENT",
+            "body": "Translation [direction and mm]; dorsal/volar tilt __°; radial inclination __°; radial height __ mm; shortening/ulnar variance [ ]."
+          },
+          {
+            "heading": "ARTICULAR SURFACE",
+            "body": "Radiocarpal step __ mm; gap __ mm; sigmoid notch [ ]; DRUJ congruity [ ]; depressed fragment [ ]."
+          },
+          {
+            "heading": "CARPAL ALIGNMENT",
+            "body": "Carpal alignment [ ]; lunate/capitate relation [ ]; scapholunate interval [ ]; associated avulsion [ ]."
+          },
+          {
+            "heading": "REDUCTION AND SOFT TISSUES",
+            "body": "Reduction compared with [date] [ ]; fixation [ ]; soft-tissue swelling [ ]; complication [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "Fractures",
+            "url": "https://radiologyassistant.nl/musculoskeletal/wrist/fractures"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-wrist-fractures-detail-1",
+        "label": "Radial height",
+        "description": "Radiographic measurement example for distal radial height.",
+        "src": "https://radiologyassistant.nl/assets/wrist-fractures/a50979780d4304_radial-height.jpg",
+        "alt": "Radiographic measurement example for distal radial height.",
+        "caption": "Radiographic measurement example for distal radial height.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Fractures",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/wrist/fractures",
+        "width": 361,
+        "height": 217
+      },
+      {
+        "id": "ra-wrist-fractures-detail-2",
+        "label": "Distal radial tilt",
+        "description": "Lateral radiographic example for dorsal or volar tilt measurement.",
+        "src": "https://radiologyassistant.nl/assets/wrist-fractures/a50979780d787f_radial-tilt.jpg",
+        "alt": "Lateral radiographic example for dorsal or volar tilt measurement.",
+        "caption": "Lateral radiographic example for dorsal or volar tilt measurement.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Fractures",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/wrist/fractures",
+        "width": 370,
+        "height": 163
+      },
+      {
+        "id": "ra-wrist-fractures-detail-3",
+        "label": "Articular rim fracture patterns",
+        "description": "Schematics relating distal radial rim fracture configuration to joint displacement.",
+        "src": "https://radiologyassistant.nl/assets/wrist-fractures/a50979780ed222_TEK-Barton2x.jpg",
+        "alt": "Schematics relating distal radial rim fracture configuration to joint displacement.",
+        "caption": "Schematics relating distal radial rim fracture configuration to joint displacement.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — Fractures",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/wrist/fractures",
+        "width": 370,
+        "height": 230
+      },
+      {
+        "id": "ra-wrist-fractures-detail-4",
+        "label": "Articular depression on 3D CT",
+        "description": "CT volume-rendered example defining depressed distal radial articular fracture morphology.",
+        "src": "https://radiologyassistant.nl/assets/wrist-fractures/a5097978103e9a_die-punch-CT.jpg",
+        "alt": "CT volume-rendered example defining depressed distal radial articular fracture morphology.",
+        "caption": "CT volume-rendered example defining depressed distal radial articular fracture morphology.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — Fractures",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/wrist/fractures",
+        "width": 370,
+        "height": 194
+      }
+    ]
+  },
+  "ra.ultrasound-joint-injection": {
+    "reporting": {
+      "protocol": [
+        "Confirm indication, side, target and consent; review allergy, infection and bleeding-risk context under the local procedure protocol.",
+        "Use an aseptic technique and a sonographically identified needle path that avoids vessels, nerves and tendons. Keep the needle tip visible during advancement."
+      ],
+      "checklist": [
+        {
+          "label": "Target And Preprocedure Survey",
+          "detail": "Confirm the named joint or bursa and assess fluid, anatomy and access."
+        },
+        {
+          "label": "Technique",
+          "detail": "Document patient position, sterile preparation and needle approach."
+        },
+        {
+          "label": "Needle Tip And Delivery",
+          "detail": "Confirm tip location and observed spread in the intended compartment."
+        },
+        {
+          "label": "Aspiration If Performed",
+          "detail": "Record aspirated amount and appearance and specimens actually submitted."
+        },
+        {
+          "label": "Outcome And Aftercare",
+          "detail": "Describe tolerance, immediate complication and documented aftercare."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Fluid and injectate",
+          "method": "Record the exact volume aspirated and the actual agent, concentration and volume delivered.",
+          "pitfall": "Do not copy dose or volume from a teaching example; use the prescribed local protocol."
+        },
+        {
+          "name": "Saved documentation",
+          "method": "Retain an image showing the needle tip within the intended target and document spread.",
+          "pitfall": "A bright needle shaft alone does not establish tip position."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Confirm whether the intended target is intra-articular, bursal or tendon sheath; these are not interchangeable.",
+        "Avoid interpreting a technical injection as proof that the target is the sole pain generator."
+      ],
+      "impression_prompts": [
+        "Was the intended compartment accessed successfully?",
+        "What was aspirated or administered?",
+        "Was there any immediate complication or incomplete delivery?"
+      ],
+      "escalation": [
+        "Communicate unexpected purulent aspirate or a procedure complication through the local urgent pathway."
+      ],
+      "template_sections": [
+        {
+          "heading": "TARGET AND PREPROCEDURE SURVEY",
+          "body": "Target/side [ ]; indication [ ]; preprocedure sonographic finding [ ]; route [ ]; consent/time-out [documented]."
+        },
+        {
+          "heading": "TECHNIQUE",
+          "body": "Position [ ]; aseptic preparation [ ]; approach [ ]; needle gauge/length [ ]; local anaesthesia [agent/concentration/volume]."
+        },
+        {
+          "heading": "NEEDLE TIP AND DELIVERY",
+          "body": "Ultrasound tip localisation [ ]; target distension/spread [ ]; injected agent(s), concentration and volume [ ]; saved image reference [ ]."
+        },
+        {
+          "heading": "ASPIRATION IF PERFORMED",
+          "body": "Aspiration [not performed / __ mL]; appearance [ ]; specimen tests [ ]; laboratory destination [ ]."
+        },
+        {
+          "heading": "OUTCOME AND AFTERCARE",
+          "body": "Immediate response [ ]; complication [none observed / describe]; advice and follow-up [ ]; recipient of urgent findings [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "US-guided injection of joints",
+          "url": "https://radiologyassistant.nl/musculoskeletal/ultrasound/us-guided-injection-of-joints"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "ra-ultrasound-joint-injection-report",
+        "title": "ULTRASOUND-GUIDED JOINT INJECTION",
+        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+          },
+          {
+            "heading": "TARGET AND PREPROCEDURE SURVEY",
+            "body": "Target/side [ ]; indication [ ]; preprocedure sonographic finding [ ]; route [ ]; consent/time-out [documented]."
+          },
+          {
+            "heading": "TECHNIQUE",
+            "body": "Position [ ]; aseptic preparation [ ]; approach [ ]; needle gauge/length [ ]; local anaesthesia [agent/concentration/volume]."
+          },
+          {
+            "heading": "NEEDLE TIP AND DELIVERY",
+            "body": "Ultrasound tip localisation [ ]; target distension/spread [ ]; injected agent(s), concentration and volume [ ]; saved image reference [ ]."
+          },
+          {
+            "heading": "ASPIRATION IF PERFORMED",
+            "body": "Aspiration [not performed / __ mL]; appearance [ ]; specimen tests [ ]; laboratory destination [ ]."
+          },
+          {
+            "heading": "OUTCOME AND AFTERCARE",
+            "body": "Immediate response [ ]; complication [none observed / describe]; advice and follow-up [ ]; recipient of urgent findings [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+          }
+        ],
+        "notes": [
+          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+        ],
+        "sources": [
+          {
+            "title": "US-guided injection of joints",
+            "url": "https://radiologyassistant.nl/musculoskeletal/ultrasound/us-guided-injection-of-joints"
+          }
+        ]
+      }
+    ],
+    "key_images": [
+      {
+        "id": "ra-ultrasound-joint-injection-detail-1",
+        "label": "Anterior glenohumeral target",
+        "description": "Ultrasound landmarks for an anterior glenohumeral approach, including humeral contour and coracoid.",
+        "src": "https://radiologyassistant.nl/assets/us-guided-injection-of-joints/a50d5a71526175_2-glenohumeral.jpg",
+        "alt": "Ultrasound landmarks for an anterior glenohumeral approach, including humeral contour and coracoid.",
+        "caption": "Ultrasound landmarks for an anterior glenohumeral approach, including humeral contour and coracoid.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — US-guided injection of joints",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ultrasound/us-guided-injection-of-joints",
+        "width": 900,
+        "height": 354
+      },
+      {
+        "id": "ra-ultrasound-joint-injection-detail-2",
+        "label": "Bursal needle-tip documentation",
+        "description": "Ultrasound example showing needle entry and fluid delivery into the subacromial-subdeltoid bursa.",
+        "src": "https://radiologyassistant.nl/assets/us-guided-injection-of-joints/a50d5acf16e24c_3-bursa-subdeltoid.jpg",
+        "alt": "Ultrasound example showing needle entry and fluid delivery into the subacromial-subdeltoid bursa.",
+        "caption": "Ultrasound example showing needle entry and fluid delivery into the subacromial-subdeltoid bursa.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — US-guided injection of joints",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ultrasound/us-guided-injection-of-joints",
+        "width": 900,
+        "height": 320
+      },
+      {
+        "id": "ra-ultrasound-joint-injection-detail-3",
+        "label": "Tibiotalar needle-tip documentation",
+        "description": "Ultrasound example of a needle tip and fluid within the tibiotalar joint.",
+        "src": "https://radiologyassistant.nl/assets/us-guided-injection-of-joints/a50d724be4d7a0_12-BSGb.jpg",
+        "alt": "Ultrasound example of a needle tip and fluid within the tibiotalar joint.",
+        "caption": "Ultrasound example of a needle tip and fluid within the tibiotalar joint.",
+        "image_type": "clinical",
+        "attribution": "The Radiology Assistant — US-guided injection of joints",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ultrasound/us-guided-injection-of-joints",
+        "width": 800,
+        "height": 566
+      },
+      {
+        "id": "ra-ultrasound-joint-injection-detail-4",
+        "label": "Sinus tarsi anatomy",
+        "description": "Detailed coronal sinus tarsi schematic of the ligament and retinacular relationships.",
+        "src": "https://radiologyassistant.nl/assets/us-guided-injection-of-joints/a50d727839a111_12a-Subtalair.jpg",
+        "alt": "Detailed coronal sinus tarsi schematic of the ligament and retinacular relationships.",
+        "caption": "Detailed coronal sinus tarsi schematic of the ligament and retinacular relationships.",
+        "image_type": "diagram",
+        "attribution": "The Radiology Assistant — US-guided injection of joints",
+        "source_url": "https://radiologyassistant.nl/musculoskeletal/ultrasound/us-guided-injection-of-joints",
+        "width": 900,
+        "height": 566
+      }
+    ]
+  }
+}

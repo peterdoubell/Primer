@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
-from typing import Callable, Dict, Iterable, List, Sequence, Tuple
+from typing import Callable, Dict, Iterable, List, Mapping, Sequence, Tuple
 
 from PIL import Image
 
@@ -45,6 +45,7 @@ Spec = Dict[str, object]
 Diagram = Dict[str, object]
 Box = Tuple[float, float, float, float]
 Point = Tuple[float, float]
+Renderer = Callable[[Plate], None]
 
 COLORS = (BLUE, TEAL, GOLD, CORAL, PLUM, GREEN)
 LIGHTS = (BLUE_LIGHT, TEAL_LIGHT, GOLD_LIGHT, CORAL_LIGHT, PLUM_LIGHT, GREEN_LIGHT)
@@ -348,6 +349,24 @@ DRAWERS: Dict[str, Callable[[Plate, Diagram], None]] = {
 }
 
 
+# Lesson-specific compositions can replace a shared diagram grammar without
+# changing the stable curriculum metadata carried by each spec. Registration
+# is explicit and conflict-aware so a lesson can never silently pick up a
+# renderer from another cohort.
+NODE_RENDERERS: Dict[str, Renderer] = {}
+
+
+def register_node_renderers(renderers: Mapping[str, Renderer]) -> None:
+    conflicts = {
+        node_id for node_id, renderer in renderers.items()
+        if node_id in NODE_RENDERERS and NODE_RENDERERS[node_id] is not renderer
+    }
+    if conflicts:
+        raise ValueError("Duplicate language/CS node renderers: {}".format(
+            sorted(conflicts)))
+    NODE_RENDERERS.update(renderers)
+
+
 def draw_diagram(plate: Plate, diagram: Diagram) -> None:
     kind = str(diagram["kind"])
     if kind not in DRAWERS:
@@ -418,7 +437,8 @@ def asset_paths(output_root: Path, item: Spec) -> Tuple[Path, Path]:
 
 def render_image(item: Spec) -> Image.Image:
     plate = Plate(str(item["id"]), str(item["title"]), int(item["stage"]))
-    item["draw"](plate)
+    renderer = NODE_RENDERERS.get(str(item["id"]), item["draw"])
+    renderer(plate)
     return plate.image
 
 
@@ -454,6 +474,7 @@ def illustration_entry(item: Spec) -> Dict[str, object]:
 
 
 __all__ = [
-    "Diagram", "HEIGHT", "Spec", "STAGE_DIRS", "WIDTH", "asset_paths",
-    "illustration_entry", "render_image", "render_spec", "spec", "validate_specs",
+    "Diagram", "HEIGHT", "NODE_RENDERERS", "Renderer", "Spec", "STAGE_DIRS",
+    "WIDTH", "asset_paths", "illustration_entry", "register_node_renderers",
+    "render_image", "render_spec", "spec", "validate_specs",
 ]

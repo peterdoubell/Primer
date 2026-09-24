@@ -1,0 +1,216 @@
+{
+  "rad.5.coronary-ct": {
+    "title": "CAD-RADS 2.0 stenosis key",
+    "scope": "Apply after reviewing all evaluable segments. Plaque burden, HRP, physiology and other modifiers are separate; use the complete report template for those rules.",
+    "rows": [
+      {
+        "category": "0",
+        "criteria": "No coronary plaque or stenosis.",
+        "report_note": "Do not append a P category."
+      },
+      {
+        "category": "1",
+        "criteria": "1–24% stenosis, or plaque without narrowing.",
+        "report_note": "Describe the plaque."
+      },
+      {
+        "category": "2",
+        "criteria": "25–49% stenosis.",
+        "report_note": "Record the dominant lesion."
+      },
+      {
+        "category": "3",
+        "criteria": "50–69% stenosis.",
+        "report_note": "Correlate with symptoms and any physiology."
+      },
+      {
+        "category": "4A",
+        "criteria": "70–99% stenosis in one or two vessels.",
+        "report_note": "Specify vessel and segment."
+      },
+      {
+        "category": "4B",
+        "criteria": "Left main ≥50%, or severe three-vessel disease.",
+        "report_note": "State the qualifying anatomy."
+      },
+      {
+        "category": "5",
+        "criteria": "At least one total occlusion.",
+        "report_note": "Describe occlusion and distal vessel."
+      },
+      {
+        "category": "N",
+        "criteria": "Relevant segment non-evaluable; no ≥50% stenosis shown elsewhere.",
+        "report_note": "If ≥50% is demonstrated elsewhere, retain that category and add N."
+      }
+    ],
+    "sources": [
+      {
+        "title": "CAD-RADS 2.0 consensus",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9627235/"
+      }
+    ]
+  },
+  "rad.5.prostate-mri": {
+    "title": "PI-RADS v2.1 zonal combination rules",
+    "scope": "Use diagnostic-quality T2 and DWI, with sequence scores already established. These are combination rules, not definitions of sequence scores. Mark absent or inadequate components X and use the official fallback tables.",
+    "rows": [
+      {
+        "category": "PZ: DWI 1 or 2",
+        "criteria": "Overall category equals DWI score.",
+        "report_note": "DCE does not upgrade these scores."
+      },
+      {
+        "category": "PZ: DWI 3",
+        "criteria": "DCE negative → 3; DCE positive → 4.",
+        "report_note": "If DCE is unavailable, DWI determines the category."
+      },
+      {
+        "category": "PZ: DWI 4 or 5",
+        "criteria": "Overall category equals DWI score.",
+        "report_note": "Describe local extent separately."
+      },
+      {
+        "category": "TZ: T2 1",
+        "criteria": "Overall category 1.",
+        "report_note": "A typical encapsulated nodule is assessed by T2 morphology."
+      },
+      {
+        "category": "TZ: T2 2",
+        "criteria": "DWI ≤3 → 2; DWI ≥4 → 3.",
+        "report_note": "The latter is the 2+1 exception."
+      },
+      {
+        "category": "TZ: T2 3",
+        "criteria": "DWI ≤4 → 3; DWI 5 → 4.",
+        "report_note": "The latter is the 3+1 exception."
+      },
+      {
+        "category": "TZ: T2 4 or 5",
+        "criteria": "Overall category equals T2 score.",
+        "report_note": "DCE does not determine the TZ category."
+      }
+    ],
+    "sources": [
+      {
+        "title": "ACR / ESUR / AdMeTech PI-RADS v2.1",
+        "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/PI-RADS/PIRADS-2019.pdf"
+      }
+    ]
+  },
+  "rad.5.thyroid-tirads": {
+    "title": "ACR TI-RADS category and size prompts",
+    "scope": "Adult thyroid nodule framework after the five ultrasound feature scores are added. Interpret with clinical context, prior biopsy and suspicious nodes; these size prompts are not an automatic patient recommendation.",
+    "rows": [
+      {
+        "category": "TR1 · 0 points",
+        "criteria": "No FNA or routine ultrasound follow-up under this framework.",
+        "report_note": "Benign category."
+      },
+      {
+        "category": "TR2 · 2 points",
+        "criteria": "No FNA or routine ultrasound follow-up under this framework.",
+        "report_note": "Not suspicious category."
+      },
+      {
+        "category": "TR3 · 3 points",
+        "criteria": "FNA at ≥2.5 cm; ultrasound follow-up from 1.5 to <2.5 cm.",
+        "report_note": "For follow-up-sized nodules: years 1, 3 and 5."
+      },
+      {
+        "category": "TR4 · 4–6 points",
+        "criteria": "FNA at ≥1.5 cm; ultrasound follow-up from 1.0 to <1.5 cm.",
+        "report_note": "For follow-up-sized nodules: years 1, 2, 3 and 5."
+      },
+      {
+        "category": "TR5 · ≥7 points",
+        "criteria": "FNA at ≥1.0 cm; ultrasound follow-up from 0.5 to <1.0 cm.",
+        "report_note": "For follow-up-sized nodules: yearly for five years."
+      }
+    ],
+    "sources": [
+      {
+        "title": "ACR TI-RADS reporting recommendations",
+        "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/TI-RADS/TI-RADS-Ultrasound-Reporting-Template.pdf"
+      }
+    ]
+  },
+  "rad.4.kidney": {
+    "title": "Bosniak 2019 morphological quick key",
+    "scope": "For appropriately characterised cystic renal masses with <25% enhancing tissue, after excluding other causes. This abbreviated structural key does not list every homogeneous CT/MRI benign exception; consult the full criteria for those patterns.",
+    "rows": [
+      {
+        "category": "I",
+        "criteria": "Simple fluid, smooth wall ≤2 mm; no septa or nodules.",
+        "report_note": "A thin smooth wall may enhance."
+      },
+      {
+        "category": "II",
+        "criteria": "Up to three smooth thin (≤2 mm) septa; calcification may occur.",
+        "report_note": "Enhancing thin septa are allowed; see full benign exceptions."
+      },
+      {
+        "category": "IIF",
+        "criteria": "Smooth 3 mm enhancing wall/septum, or ≥4 thin enhancing septa.",
+        "report_note": "Check the additional MRI-defined IIF patterns."
+      },
+      {
+        "category": "III",
+        "criteria": "Enhancing wall/septa ≥4 mm, or irregular thickening with obtuse protrusions ≤3 mm.",
+        "report_note": "An enhancing nodule instead qualifies for IV."
+      },
+      {
+        "category": "IV",
+        "criteria": "Enhancing nodule: ≥4 mm with obtuse margins, or any size with acute margins.",
+        "report_note": "State the nodule size and enhancement evidence."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Silverman et al. — Bosniak classification 2019",
+        "url": "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+      }
+    ]
+  },
+  "rad.4.oncology-response": {
+    "title": "RECIST 1.1 response anchors",
+    "scope": "Use the protocol-defined target set and comparison dates. Overall response also integrates non-target disease and new lesions. Immunotherapy-specific iRECIST is a separate framework.",
+    "rows": [
+      {
+        "category": "Target CR",
+        "criteria": "Target lesions disappear; pathological nodes become <10 mm short axis.",
+        "report_note": "Non-target disease and new lesions still affect overall response."
+      },
+      {
+        "category": "Target PR",
+        "criteria": "Sum decreases ≥30% from baseline.",
+        "report_note": "Apply confirmation requirements when the study protocol requires them."
+      },
+      {
+        "category": "Target PD",
+        "criteria": "Sum increases ≥20% from nadir and by ≥5 mm absolutely.",
+        "report_note": "The nadir includes baseline if it is the smallest sum."
+      },
+      {
+        "category": "Target SD",
+        "criteria": "Neither sufficient decrease for PR nor increase for PD.",
+        "report_note": "Check protocol timing and response history."
+      },
+      {
+        "category": "Overall PD triggers",
+        "criteria": "Unequivocal new malignant lesion or unequivocal non-target progression can establish PD.",
+        "report_note": "An uncertain new finding needs resolution, not automatic progression."
+      }
+    ],
+    "sources": [
+      {
+        "title": "RECIST working group — RECIST 1.1",
+        "url": "https://recist.eortc.org/recist-1-1/"
+      },
+      {
+        "title": "Original RECIST 1.1 guideline",
+        "url": "https://recist.eortc.org/recist/wp-content/uploads/sites/14/2025/12/RECISTGuidelines.pdf"
+      }
+    ]
+  }
+}

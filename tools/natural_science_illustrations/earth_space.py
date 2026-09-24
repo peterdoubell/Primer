@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from . import core as _core
 from .core import BLUE, CORAL, GOLD, GREEN, PLUM, TEAL, science_spec
 
 
@@ -48,7 +49,7 @@ _LIST = [
             {"heading":"NEPTUNE", "value":"ice giant", "position":.96, "icon":"planet", "color":PLUM},
         ],
         "footer":"Order is shown, but sizes and gaps are not to scale. Gravity keeps planets in orbit; moons orbit planets, and small bodies also orbit the Sun.",
-    }, "An ordered Solar System line names Mercury through Neptune and distinguishes four rocky planets, two gas giants, and two ice giants.",
+    }, "Two folded rows name Mercury through Neptune in order and label their orbital distances in astronomical units. Inner and outer planets are separated, with icon sizes and spacing explicitly not to scale.",
        "The sequence is reliable while the compressed drawing is not distance or size scale—a crucial distinction when reading Solar System diagrams."),
 
     S("earth.1.rocks", "Rocks and Soil", 1, "cycle", {
@@ -95,7 +96,7 @@ _LIST = [
         ],
         "footer":"Weather is short-term atmospheric state; climate is the distribution of weather over decades, shaped by latitude, circulation, surface, and composition.",
     }, "A vertical atmosphere profile places weather in the troposphere, ozone heating in the stratosphere, meteors in the mesosphere, and thin thermospheric air above.",
-       "Atmospheric layers differ in temperature trend and composition; climate describes long-term statistics of the variable weather below."),
+       "Layer heights are approximate, the temperature trace is qualitative, and altitude spacing above 85 km is compressed. Climate describes long-term statistics of variable weather."),
 
     S("earth.2.planets", "Worlds of the Solar System", 2, "cards", {
         "items":[
@@ -134,7 +135,7 @@ _LIST = [
                  ("dense","deep","sink"),("deep","surface","upwell"),("moon","tides","gravity")],
         "footer":"Surface currents, density circulation, and tides have different causes. Rivers deliver freshwater and sediment while gravity connects continents to ocean basins.",
     }, "An ocean network separates wind-driven surface currents and density-driven sinking and return flow from a distinct Moon-to-tides gravitational branch.",
-       "Ocean motion combines multiple mechanisms; identifying the driver prevents tides, waves, currents, and river flow from being treated as one process."),
+       "Surface currents, density circulation and tides have different drivers. The dashed thermocline marks rapid temperature change with depth, not a physical wall."),
 
     S("earth.2.environment", "Caring for Earth", 2, "matrix", {
         "columns":["PRESSURE", "ACTION AT SOURCE", "MEASURABLE RESPONSE"],
@@ -144,7 +145,7 @@ _LIST = [
             ["Habitats", "Conversion and fragmentation", "Protect + reconnect + restore", "Native populations and functions recover"],
         ],
         "footer":"Conservation is a testable cause-and-effect process: reduce a pressure, monitor the system, and adapt when the response differs from prediction.",
-    }, "An environmental action matrix links climate emissions, water pollution, and habitat loss to source-level interventions and measurable ecological responses.",
+    }, "A shared landscape shows an emissions-source retrofit, a vegetated water buffer with a sampler, and a wildlife crossing over a road, each paired with a named response to monitor.",
        "Effective care targets causes and tracks outcomes; visible clean-up alone may leave the upstream pressure unchanged."),
 
     S("earth.3.earth-science", "Earth Science", 3, "layers", {
@@ -180,8 +181,8 @@ _LIST = [
         "edges":[("sun","surface","incoming"),("surface","atm","infrared"),("atm","space",""),
                  ("atm","surface",""),("carbon","atm","forcing"),("surface","feedback","warming"),("feedback","surface","amplify")],
         "footer":"Added greenhouse gas first reduces outgoing infrared at some wavelengths; the surface–troposphere system warms until outgoing energy again balances incoming sunlight.",
-    }, "An energy network traces sunlight to Earth's surface, infrared through greenhouse gases to space, and carbon dioxide plus water and ice feedbacks.",
-       "The greenhouse effect is radiative energy balance, not a solid lid; climate change follows a forcing, response, and feedback chain measured in multiple records."),
+    }, "An energy diagram contrasts incoming sunlight, reflected sunlight and thermal infrared. A schematic spectrum shows reduced outgoing infrared in a carbon dioxide absorption band immediately after adding carbon dioxide.",
+       "The greenhouse effect changes radiative energy balance, not a solid lid. The 100/30/70 energy accounting is approximate and the spectral curves are illustrative, not measured spectra."),
 
     S("earth.3.ecology-earth", "Biomes and Ecology", 3, "matrix", {
         "columns":["TEMPERATURE", "WATER", "DOMINANT CONSTRAINT"],
@@ -192,8 +193,8 @@ _LIST = [
             ["Tundra", "Cold; short growing season", "Low; often frozen", "Permafrost and temperature"],
         ],
         "footer":"Biomes are broad climate–vegetation patterns, not sharp boxes. Organisms also alter soils, fire regimes, carbon storage, and atmospheric chemistry.",
-    }, "A biome matrix compares rainforest, grassland, desert, and tundra by temperature, water availability, and the ecological constraint shaping life.",
-       "Climate filters which strategies persist, while organisms feed back on the physical Earth through nutrient cycling, fire, soils, and carbon storage."),
+    }, "Overlapping schematic biome ranges are plotted against mean annual temperature and precipitation, showing broad climatic constraints on tundra, forests, grassland and desert.",
+       "The biome ranges are schematic, not sharp empirical boundaries. Soils, fire, seasonality and history also shape vegetation, which feeds back on carbon, water and nutrient cycles."),
 
     S("earth.3.space-exploration", "Space Exploration", 3, "cards", {
         "arrows":True, "items":[
@@ -203,7 +204,7 @@ _LIST = [
             {"heading":"MISSION", "icon":"earth", "detail":"Satellites, probes, or crews trade mass, power, time, risk, and data."},
         ],
         "footer":"Rockets work by expelling momentum, including in vacuum. Reaching space is easier than reaching orbit because orbital speed carries most energy demand.",
-    }, "A mission sequence distinguishes launch thrust, sideways orbital free-fall, timed transfer burns, and the resource trade-offs of spacecraft operation.",
+    }, "Earth sits at a focus of an elliptical transfer orbit tangent to a smaller circular orbit. Prograde burns at periapsis and apoapsis raise the far side and circularise; the final circular orbit is not shown.",
        "Spaceflight is controlled momentum and energy accounting: engines change velocity, while gravity governs the long coasting arcs between burns."),
 
     S("earth.4.geophysics", "Geophysics & Geochemistry", 4, "graph", {
@@ -214,8 +215,8 @@ _LIST = [
         ],
         "icon":"earth", "callout_heading":"INTERIOR EVIDENCE", "callout":"P waves cross solids and liquids; S waves require shear rigidity and vanish through the liquid outer core. Travel times map boundaries.",
         "footer":"Seismology constrains structure; gravity and magnetism constrain mass and flow; rock and isotope chemistry constrain composition and age.",
-    }, "A seismogram separates earlier compressional P-wave motion from later shear S-wave motion and links S-wave absence to Earth's liquid outer core.",
-       "Geophysics infers inaccessible interiors by combining wave travel, gravity, magnetism, and chemical constraints rather than relying on a single measurement."),
+    }, "Schematic P-wave rays pass through the liquid outer core while S-wave paths stop at its boundary. A synthetic seismogram marks earlier P and later S arrivals.",
+       "These ray paths and the seismogram are schematic, not station measurements. Interior structure is inferred by combining seismic, gravitational, magnetic and chemical evidence."),
 
     S("earth.4.astrophysics", "Astrophysics", 4, "graph", {
         "x_label":"Surface temperature: hotter ←     → cooler", "y_label":"Luminosity (log scale)", "x_range":(0,10), "y_range":(0,10),
@@ -227,7 +228,7 @@ _LIST = [
         "icon":"star", "callout_heading":"READ THE H–R PLANE", "callout":"Temperature sets horizontal position; luminosity and temperature imply radius. Spectra reveal composition, motion, and surface conditions.",
         "footer":"Fusion balances gravity during the main sequence. Mass sets core pressure, fusion rate, luminosity, lifetime, and eventual stellar remnant.",
     }, "A Hertzsprung–Russell-style plot places the main sequence diagonally, luminous cool giants above, and hot faint white dwarfs below.",
-       "The H–R diagram turns light measurements into a physical map where location constrains stellar radius, evolutionary state, and mass-dependent lifetime."),
+       "Illustrative stellar samples locate the main sequence, giants and white dwarfs; dashed radius guides obey L ∝ R²T⁴. Luminosity is logarithmic and temperature decreases to the right. These are not measured stars or evolutionary tracks."),
 
     S("earth.4.planetary", "Planetary Science", 4, "cards", {
         "arrows":True, "items":[
@@ -238,7 +239,7 @@ _LIST = [
         ],
         "footer":"Comparative planetology treats each world as an experiment: mass, orbit, composition, atmosphere, and time produce different outcomes.",
     }, "A planet-formation sequence moves from a temperature-structured disk through accretion and impact heating to differentiation and long-term geological evolution.",
-       "Worlds inherit starting materials from disks, then diverge through mass-dependent heat retention, atmospheric escape, impacts, and internal activity."),
+       "The radial ruler is logarithmic; the snow line at 3 AU is an illustrative disk condition, not a fixed universal boundary. Mass, composition and history shape later planetary evolution."),
 
     S("earth.4.climatology", "Climatology", 4, "graph", {
         "x_label":"Cumulative CO₂ emissions", "y_label":"ΔT", "x_range":(0,10), "y_range":(0,10),
@@ -254,9 +255,9 @@ _LIST = [
              "label_dx":-125, "label_dy":22},
         ],
         "icon":"model", "callout_heading":"CARBON BUDGET", "callout":"Warming is approximately proportional to cumulative CO₂ over policy-relevant ranges. A temperature limit therefore implies a finite remaining budget.",
-        "footer":"Attribution compares observed spatial, vertical, spectral, and temporal fingerprints with modelled natural and human forcings—not temperature alone.",
+        "footer":"Attribution tests spatial, vertical, spectral, and temporal fingerprints against natural and human forcing—not temperature alone.",
     }, "A central near-linear warming-versus-cumulative-carbon curve lies between explicit lower and upper response bounds, explaining why a chosen temperature limit implies an uncertain finite carbon budget.",
-       "Climate models combine physical conservation laws with observations; ensembles quantify scenario and parameter uncertainty rather than eliminating it."),
+       "The slopes use the IPCC AR6 CO₂ response estimate: 0.45°C per 1,000 GtCO₂, with a likely range of 0.27–0.63°C. This baseline-relative teaching example is not today's remaining carbon budget."),
 
     S("earth.4.oceanatmos", "Ocean & Atmospheric Science", 4, "network", {
         "nodes":[
@@ -270,7 +271,7 @@ _LIST = [
         "edges":[("heat","pressure","creates"),("pressure","wind","accelerates"),("rotation","wind","deflects"),
                  ("wind","ekman","stress"),("rotation","ekman","NH right / SH left"),("ekman","upwell","coastal divergence")],
         "footer":"Ideal open-ocean Ekman transport is depth-integrated and 90° right of wind in the Northern Hemisphere, left in the Southern; coasts, equator, stratification, and turbulence modify it.",
-    }, "A rotating-fluid network links unequal heating to pressure gradients and winds, then labels ideal depth-integrated Ekman transport as right of the wind in the Northern Hemisphere and left in the Southern Hemisphere before coastal upwelling.",
+    }, "A top-view inset shows ideal Northern Hemisphere depth-integrated Ekman transport to the right of the wind. A coastal cross-section shows offshore surface transport, rising deep water and a shoaling thermocline.",
        "Ekman transport is an idealised, hemispherically signed result of wind stress, rotation, and friction; boundaries and stratification shape the observed air–sea circulation."),
 
     S("earth.5.cosmology", "Cosmology", 5, "scale", {
@@ -284,8 +285,8 @@ _LIST = [
         ],
         "note":"ORDERED BUT NOT TO TIME SCALE: the first minutes and 13.8 billion years are compressed onto one axis.",
         "footer":"Expansion stretches wavelength (cosmological redshift). CMB, light-element abundances, and large-scale structure jointly constrain the model.",
-    }, "An explicitly not-to-time-scale cosmic timeline orders the hot early universe, first-minutes nucleosynthesis, cosmic microwave background release, galaxy growth, late accelerated expansion, and the present at 13.8 billion years.",
-       "The compressed positions show sequence only: Big Bang cosmology describes expansion from a hot dense state, not an explosion from one location into pre-existing empty space."),
+    }, "A logarithmic cosmic timeline marks early nuclei, CMB release, first stars, late acceleration and the present. Three schematic patches show increasing separation without a privileged central galaxy.",
+       "Timeline positions use logarithmic time; the upper patches illustrate expansion, not galaxy formation dates or an explosion into pre-existing empty space."),
 
     S("earth.5.astrobiology", "Astrobiology", 5, "branch", {
         "root":"CANDIDATE WORLD", "root_icon":"planet", "branches":[
@@ -294,8 +295,8 @@ _LIST = [
             {"heading":"CONFIRMATION", "icon":"telescope", "edge":"competing tests", "detail":"Multiple independent signals, false-positive models, repeat observations, contamination control."},
         ],
         "footer":"A habitable-zone orbit concerns possible surface liquid water under atmospheric assumptions; it is neither a detection of water nor evidence of life.",
-    }, "An astrobiology evidence tree separates potentially habitable conditions from a contextual biosignature and the multiple tests required for confirmation.",
-       "Life detection is an inference problem: credible claims must outperform abiotic explanations and survive instrument, stellar, geological, and contamination checks."),
+    }, "A simulated transmission spectrum labels candidate oxygen, water, methane and carbon dioxide features with uncertainty bars, beside competing stellar, abiotic and biological explanations.",
+       "The spectrum and error bars are simulated teaching examples, not detections. No single gas proves life: atmospheric context and tests of abiotic, stellar and instrumental explanations are essential."),
 
     S("earth.5.earth-systems", "Earth System Science", 5, "matrix", {
         "columns":["STOCK / STATE", "FLUX OR FORCING", "COUPLED EFFECT"],
@@ -306,8 +307,8 @@ _LIST = [
             ["Human system", "Fuels, land + infrastructure", "Greenhouse gases + land-use change", "Forcing propagates through connected reservoirs"],
         ],
         "footer":"Stocks record amounts; fluxes record transfer rates. Albedo is a radiative feedback, not a transported stock: ice loss reduces reflection and amplifies warming.",
-    }, "A four-row Earth-system matrix separates atmosphere–ocean and land–biosphere exchanges, the cryosphere's sunlight reflection to space, and human greenhouse and land-use forcing.",
-       "The stock–flux–effect columns distinguish material exchange from radiative feedback: less ice lowers albedo, increases absorbed sunlight, and amplifies warming."),
+    }, "A coupled-system diagram links atmosphere, land, ocean and human activity, with a separate ice-albedo response. One-way runoff enters the ocean; other labelled exchanges connect reservoirs.",
+       "Stocks record amounts and exchanges describe transfers. Ice loss reduces reflected sunlight; this radiative feedback differs from transporting carbon or water between reservoirs."),
 
     S("earth.5.frontier", "Cosmic Frontiers", 5, "matrix", {
         "columns":["DIRECT OBSERVATION", "SUPPORTED INFERENCE", "OPEN QUESTION"],
@@ -317,8 +318,8 @@ _LIST = [
             ["Dark energy", "Distance–redshift + structure expansion history", "Late cosmic expansion accelerates", "Vacuum energy, field, or gravity change"],
         ],
         "footer":"A frontier claim should preserve the chain from calibrated signal to model comparison; unexplained does not mean unconstrained.",
-    }, "A cosmic-frontier matrix separates direct observations, supported physical inferences, and still-open mechanisms for gravitational waves, dark matter, and dark energy.",
-       "Modern cosmology has strong evidence for several phenomena while their deeper causes remain unknown; those are different levels of uncertainty."),
+    }, "Three schematic plots contrast a gravitational-wave chirp, a nearly flat galactic rotation curve and distance residuals against a non-accelerating reference.",
+       "These synthetic curves illustrate evidence patterns, not measured events or fitted data. Supported inferences about phenomena must be distinguished from still-open questions about their mechanisms."),
 ]
 
 
@@ -326,3 +327,15 @@ SPECS = {item["id"]: item for item in _LIST}
 
 if len(SPECS) != len(_LIST):
     raise ValueError("Duplicate Earth-and-space illustration identifier")
+
+
+from .earth_advanced_detail import RENDERERS as ADVANCED_RENDERERS  # noqa: E402
+from .earth_early_detail import RENDERERS as EARLY_RENDERERS  # noqa: E402
+
+
+EARTH_SPACE_RENDERERS = {**EARLY_RENDERERS, **ADVANCED_RENDERERS}
+
+if set(EARTH_SPACE_RENDERERS) != set(SPECS):
+    raise ValueError("Bespoke Earth-and-space renderer inventory does not match specs")
+
+_core.register_node_renderers(EARTH_SPACE_RENDERERS)

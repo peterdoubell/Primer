@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence, Tuple
+from typing import Callable, Dict, Iterable, List, Mapping, Sequence, Tuple
 
 from PIL import Image
 
@@ -43,6 +43,7 @@ from math_illustrations.core import HEIGHT, STAGE_DIRS, STAGE_NAMES, WIDTH
 Spec = Dict[str, object]
 Point = Tuple[float, float]
 Box = Tuple[float, float, float, float]
+Renderer = Callable[["RadiologyPlate", Mapping[str, object]], None]
 
 COLORS = (BLUE, TEAL, CORAL)
 LIGHTS = (BLUE_LIGHT, TEAL_LIGHT, CORAL_LIGHT)
@@ -146,6 +147,12 @@ def _short_title(value: str) -> str:
         "Developmental Dysplasia of the Hip and the Child's Elbow": "The Child's Hip & Elbow",
         "Paediatric Masses and Neonatal Neurosonography": "Paediatric Masses & Neurosonography",
         "Pulmonary Embolism and Pulmonary Hypertension": "Pulmonary Embolism & Hypertension",
+        "Imaging Pulsatile and Non-pulsatile Tinnitus": "Tinnitus: Vascular Relationships",
+        "Small Bowel Tumours and GI Foreign Bodies": "Bowel Lesions & Foreign Bodies",
+        "Esophagus and Swallowing": "Esophagus & Swallowing",
+        "Breast Implants and the Male Breast": "Breast Implants & Male Breast",
+        "Trigeminal Neuralgia and Neuropathy": "The Trigeminal Nerve",
+        "Craniosynostosis and Skull Shape": "Cranial Sutures & Skull Shape",
         "Biliary Obstruction, Stones and the Thickened Gallbladder": "Biliary Obstruction & Gallbladder",
         "Bowel Ischaemia and Wall Thickening Patterns": "Bowel Ischaemia & Wall Thickening",
         "Pancreatic Cancer Staging and Cystic Lesions": "Pancreatic Cancer & Cystic Lesions",
@@ -2153,12 +2160,8 @@ def _draw_physics(plate: Plate, item: Spec) -> None:
                 fill=_text_tone(GOLD), width=8)
 
 
-def render_spec(output_root: Path, item: Spec, *, overwrite: bool = False) -> List[Path]:
-    paths = asset_paths(output_root, str(item["id"]), int(item["stage"]))
-    if not overwrite and any(path.exists() for path in paths):
-        raise FileExistsError("Refusing to overwrite {}".format(paths))
-    plate = RadiologyPlate(str(item["id"]), _short_title(str(item["title"])),
-                           int(item["stage"]))
+def _draw_generic(plate: RadiologyPlate, item: Mapping[str, object]) -> None:
+    """Draw the legacy relationship grammar for records not yet specialised."""
     mode = str(item["mode"])
     if mode == "compare":
         _draw_compare(plate, item)
@@ -2170,11 +2173,41 @@ def render_spec(output_root: Path, item: Spec, *, overwrite: bool = False) -> Li
         _draw_physics(plate, item)
     else:
         _draw_flow(plate, item)
+
+
+NODE_RENDERERS: Dict[str, Renderer] = {}
+
+
+def register_node_renderers(renderers: Mapping[str, Renderer]) -> None:
+    """Register modality-specific scenes without weakening spec validation."""
+    conflicts = {
+        node_id for node_id, renderer in renderers.items()
+        if node_id in NODE_RENDERERS and NODE_RENDERERS[node_id] is not renderer
+    }
+    if conflicts:
+        raise ValueError("Duplicate radiology node renderers: {}".format(
+            sorted(conflicts)))
+    NODE_RENDERERS.update(renderers)
+
+
+def render_image(item: Spec) -> Image.Image:
+    plate = RadiologyPlate(str(item["id"]), _short_title(str(item["title"])),
+                           int(item["stage"]))
+    renderer = NODE_RENDERERS.get(str(item["id"]), _draw_generic)
+    renderer(plate, item)
     footer(plate, str(item["takeaway"]), size=24,
            fill=_text_tone(plate.accent))
+    return plate.image
+
+
+def render_spec(output_root: Path, item: Spec, *, overwrite: bool = False) -> List[Path]:
+    paths = asset_paths(output_root, str(item["id"]), int(item["stage"]))
+    if not overwrite and any(path.exists() for path in paths):
+        raise FileExistsError("Refusing to overwrite {}".format(paths))
+    image = render_image(item)
     paths[0].parent.mkdir(parents=True, exist_ok=True)
-    plate.image.save(paths[0], "WEBP", quality=86, method=6)
-    plate.image.resize((800, 500), Image.Resampling.LANCZOS).save(
+    image.save(paths[0], "WEBP", quality=86, method=6)
+    image.resize((800, 500), Image.Resampling.LANCZOS).save(
         paths[1], "WEBP", quality=84, method=6)
     return list(paths)
 
