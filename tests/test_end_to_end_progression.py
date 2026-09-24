@@ -49,6 +49,38 @@ def app_client(tmp_path):
         yield c
 
 
+
+@pytest.fixture()
+def specialist_curriculum(tmp_path, monkeypatch):
+    """Load a floor-five-only reference fixture through the real loader.
+
+    The shipped imaging field now also teaches foundations from age three.
+    Copy the corpus and restrict only this fixture's radiology domain to its
+    clinical reference modules, so specialist placement remains tested without
+    misclassifying those real foundation lessons as postgraduate work.
+    """
+    import json
+    import shutil
+    import primer.curriculum as curriculum_mod
+    import primer.server as srv
+
+    directory = tmp_path / "specialist-curriculum"
+    shutil.copytree(curriculum_mod.CURRICULUM_DIR, directory)
+    source = directory / "11-radiology.json"
+    domain = json.loads(source.read_text())
+    domain["name"] = "Specialist reference fixture"
+    domain["entry_stage"] = 5
+    domain.pop("reference_stage", None)
+    domain["nodes"] = [node for node in domain["nodes"] if node["id"].startswith("rad.")]
+    source.write_text(json.dumps(domain))
+    monkeypatch.setattr(curriculum_mod, "CURRICULUM_DIR", str(directory))
+    curriculum = curriculum_mod.Curriculum()
+    monkeypatch.setattr(srv, "curr", curriculum)
+    assert {node["stage"] for node in curriculum.nodes.values()
+            if node["domain"] == "radiology"} == {5}
+    return curriculum
+
+
 def _stage(client):
     prof = client.get("/api/state").json().get("profile") or {}
     return prof.get("stage"), (prof.get("settings") or {}).get("placed") or {}
@@ -92,10 +124,11 @@ def test_one_weak_field_does_not_drop_a_frontier_reader_to_the_nursery(app_clien
     assert after > 1, "a measured Frontier reader was put in the pre-reader interface"
 
 
-def test_a_specialist_field_is_not_recorded_below_its_own_floor(app_client):
-    """Radiology's only rung is graduate. Failing it means "not placed into
-    radiology" — not "reads at preschool level", which is what a recorded 0
-    said, and it then fed that 0 into the general median."""
+def test_a_specialist_field_is_not_recorded_below_its_own_floor(
+        app_client, specialist_curriculum):
+    """The fixture's only rung is graduate. Failing it means "not placed into
+    the reference field", rather than preschool reading ability. Real imaging
+    foundations retain their separate preschool-to-graduate progression."""
     _sit_placement(app_client, "math", ace=True)
     before, _ = _stage(app_client)
     _sit_placement(app_client, "radiology", ace=False)
@@ -254,9 +287,13 @@ def test_a_lone_field_recheck_moves_one_rung_and_can_come_back(app_client):
     assert back > down, "a passed re-check could not raise the stage (%s)" % placed
 
 
-def test_sitting_a_specialist_first_does_not_freeze_the_stage(app_client):
-    """Radiology sat first counted as "a prior measurement", so a perfect
-    maths placement afterwards was min(0, 5) = 0."""
+def test_sitting_a_specialist_first_does_not_freeze_the_stage(
+        app_client, specialist_curriculum):
+    """A floor-five reference fixture must not become a general measurement.
+
+    The historical failure counted a specialist sitting first as a prior
+    measurement, freezing a subsequent perfect maths placement at min(0, 5).
+    """
     _sit_placement(app_client, "radiology", ace=False)
     assert _stage(app_client)[0] == 0
     _sit_placement(app_client, "math", ace=True)

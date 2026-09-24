@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render, bind, and exhaustively verify every radiology reasoning plate."""
+"""Render, bind, and exhaustively verify the clinical radiology reasoning plates."""
 
 from __future__ import annotations
 
@@ -38,8 +38,15 @@ def load_curriculum() -> Dict[str, object]:
         return json.load(handle)
 
 
+def clinical_nodes(curriculum: Dict[str, object]) -> List[Dict[str, object]]:
+    # Imaging foundations share the field but have their own nonclinical
+    # generator. Keep the full document for sync so these nodes survive writes.
+    return [node for node in curriculum["nodes"]
+            if node["id"].startswith("rad.")]
+
+
 def bound_specs(curriculum: Dict[str, object]) -> Dict[str, Spec]:
-    nodes = {node["id"]: node for node in curriculum["nodes"]}
+    nodes = {node["id"]: node for node in clinical_nodes(curriculum)}
     specs = copy.deepcopy(RAW_SPECS)
     for node_id, item in specs.items():
         node = nodes[node_id]
@@ -49,7 +56,7 @@ def bound_specs(curriculum: Dict[str, object]) -> Dict[str, Spec]:
 
 
 def validate_inventory(curriculum: Dict[str, object], specs: Dict[str, Spec]) -> None:
-    nodes = curriculum["nodes"]
+    nodes = clinical_nodes(curriculum)
     all_ids = {node["id"] for node in nodes}
     illustrated = {
         node["id"] for node in nodes
@@ -86,7 +93,7 @@ def render_assets(specs: Dict[str, Spec], overwrite: bool) -> List[Path]:
 
 def sync_curriculum(curriculum: Dict[str, object], specs: Dict[str, Spec]) -> int:
     changed = 0
-    for node in curriculum["nodes"]:
+    for node in clinical_nodes(curriculum):
         item = specs.get(node["id"])
         if item is None:
             continue
@@ -126,9 +133,9 @@ def sync_curriculum(curriculum: Dict[str, object], specs: Dict[str, Spec]) -> in
 
 
 def verify(curriculum: Dict[str, object]) -> None:
-    nodes = curriculum["nodes"]
-    if len(nodes) != 84:
-        raise ValueError("Expected 84 radiology lessons, found {}".format(len(nodes)))
+    nodes = clinical_nodes(curriculum)
+    if len(nodes) != len(RAW_SPECS) + len(PREEXISTING_IDS):
+        raise ValueError("Radiology illustration inventory does not match the curriculum")
     urls = set()
     media_ids = set()
     for node in nodes:
@@ -167,8 +174,9 @@ def verify(curriculum: Dict[str, object]) -> None:
                     raise ValueError("Oversize radiology plate {}".format(path))
             if len(local_urls) != 2 or plate["src"] not in local_urls:
                 raise ValueError("{} needs two responsive sources".format(node["id"]))
-    if len(urls) != 174:
-        raise ValueError("Expected 174 radiology rasters, found {}".format(len(urls)))
+    expected_rasters = 2 * (len(nodes) + sum(node["id"] in companions.SPECS for node in nodes))
+    if len(urls) != expected_rasters:
+        raise ValueError("Expected {} radiology rasters, found {}".format(expected_rasters, len(urls)))
 
 
 def verify_determinism(specs: Dict[str, Spec]) -> None:
@@ -189,7 +197,8 @@ def verify_determinism(specs: Dict[str, Spec]) -> None:
 
 def write_contact_sheet(curriculum: Dict[str, object], destination: Path) -> None:
     thumb_w, thumb_h, label_h, columns = 320, 200, 38, 5
-    plates = [(node, entry) for node in curriculum["nodes"] for entry in node["lesson_media"] if entry["kind"] == "illustration"]
+    plates = [(node, entry) for node in clinical_nodes(curriculum)
+              for entry in node["lesson_media"] if entry["kind"] == "illustration"]
     rows = (len(plates) + columns - 1) // columns
     sheet = Image.new("RGB", (columns * thumb_w, rows * (thumb_h + label_h)), "#efe7d2")
     draw = ImageDraw.Draw(sheet)
@@ -236,7 +245,10 @@ def main() -> None:
         curriculum = load_curriculum()
     if args.check:
         verify(curriculum)
-        print("Verified 84 radiology lessons and 174 responsive WebPs")
+        nodes = clinical_nodes(curriculum)
+        plate_count = sum(entry["kind"] == "illustration" for node in nodes for entry in node["lesson_media"])
+        print("Verified {} clinical radiology lessons and {} responsive WebPs".format(
+            len(nodes), plate_count * 2))
     if args.check_determinism:
         verify_determinism(specs)
         print("Verified deterministic radiology regeneration")

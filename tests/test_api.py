@@ -29,7 +29,7 @@ def test_a_specialist_field_is_a_library_not_a_ladder():
     """
     import primer.server as srv
 
-    rad = [n for n in srv.curr.nodes.values() if n["domain"] == "radiology"]
+    rad = [n for n in srv.curr.nodes.values() if n.get("radiology_reference")]
     assert len(rad) >= 25, "only %d radiology modules" % len(rad)
     inside = [(n["id"], p) for n in rad for p in n["prereqs"]
               if srv.curr.nodes.get(p, {}).get("domain") == "radiology"]
@@ -76,7 +76,7 @@ def test_opening_a_specialist_field_opens_all_of_it(tmp_path):
             assert body["credited"], "nothing was credited"
 
             after = client.get("/api/curriculum").json()
-            rad = [n for n in after["nodes"] if n["domain"] == "radiology"]
+            rad = [n for n in after["nodes"] if n["id"].startswith("rad.")]
             assert all(n["unlocked"] for n in rad)
             # Opened, not passed off as earned: the field itself is untouched,
             # and the groundwork it stands on says out loud that it was assumed.
@@ -85,6 +85,10 @@ def test_opening_a_specialist_field_opens_all_of_it(tmp_path):
             grounding = [n for n in after["nodes"] if n["id"] in credited]
             assert grounding and all(n["assumed"] for n in grounding)
             assert not any(n["proven"] for n in grounding)
+            foundations = [n for n in after["nodes"] if n["id"].startswith("img.")]
+            assert len(foundations) == 10
+            assert not any(n["mastered"] or n["assumed"] for n in foundations)
+            assert body["total"] == 96
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
@@ -145,6 +149,18 @@ def test_the_general_spine_cannot_be_opened_by_asserting_it(client, onboarded):
     assert client.post("/api/domain/open",
                        json={"domain": "phrenology"}).status_code == 404
 
+
+
+def test_article_overload_is_temporary_not_missing(client, monkeypatch):
+    import primer.server as srv
+    monkeypatch.setattr(srv.wiki, "get_article", lambda *args, **kwargs: None)
+    monkeypatch.setattr(srv.wiki, "_live_fetch_blocked_until", time.time() + 120)
+    response = client.get("/api/article?title=Genetics")
+    assert response.status_code == 503
+    assert response.json()["error"] == "article temporarily unavailable"
+    assert 1 <= int(response.headers["Retry-After"]) <= 120
+    monkeypatch.setattr(srv.wiki, "_live_fetch_blocked_until", 0)
+    assert client.get("/api/article?title=Missing").status_code == 404
 
 
 def _domain_file_count():
@@ -1174,6 +1190,86 @@ def test_mathematics_illustration_dashboard_is_complete_minimal_and_ordered(
         }
 
 
+def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answers(
+        client, onboarded):
+    import primer.server as srv
+
+    response = client.get('/api/curriculum/visuals')
+    assert response.status_code == 200
+    body = response.json()
+    assert set(body) == {'counts', 'domains', 'items'}
+    assert body['counts'] == {
+        'lessons': 558, 'illustrations': 561, 'photographs': 558,
+        'models': 816, 'items': 1935,
+    }
+
+    expected_domain_counts = {
+        'math': (59, 114), 'language': (40, 61), 'physics': (39, 78),
+        'biology': (37, 73), 'chemistry': (29, 55), 'cs': (34, 67),
+        'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
+        'mind': (29, 32), 'radiology': (109, 111),
+        'engineering': (12, 12), 'health': (12, 12), 'environment': (12, 12),
+        'design': (12, 12), 'business': (12, 12), 'civics': (12, 12),
+        'education': (12, 12), 'media': (12, 12),
+    }
+    assert [domain['id'] for domain in body['domains']] == [
+        domain['id'] for domain in srv.curr.domains
+    ]
+    assert {
+        domain['id']: (domain['illustrations'], domain['models'])
+        for domain in body['domains']
+    } == expected_domain_counts
+    assert all(domain['items'] == domain['illustrations'] + domain['photographs'] + domain['models']
+               for domain in body['domains'])
+    assert all(domain['photographs'] == sum(node['domain'] == domain['id']
+                                              for node in srv.curr.nodes.values())
+               for domain in body['domains'])
+
+    expected_order = []
+    for node in srv.curr.nodes.values():
+        expected_order.extend(
+            (node['id'], entry['id'], 'illustration')
+            for entry in node['lesson_media'] if entry['kind'] == 'illustration'
+        )
+        expected_order.extend(
+            (node['id'], entry['id'], 'photograph')
+            for entry in node['lesson_media'] if entry['kind'] == 'photograph'
+        )
+        expected_order.extend(
+            (node['id'], entry['id'], 'model')
+            for entry in node['lesson_media'] if entry['kind'] == 'model'
+        )
+    assert [(item['lesson_id'], item['media_id'], item['kind'])
+            for item in body['items']] == expected_order
+
+    common = {
+        'kind', 'lesson_id', 'lesson_title', 'domain', 'domain_name',
+        'stage', 'stage_name', 'goal', 'media_id',
+    }
+    illustration_keys = common | {
+        'src', 'srcset', 'alt', 'caption', 'long_description', 'width', 'height',
+    }
+    model_keys = common | {'title', 'instructions', 'renderer'}
+    photograph_keys = common | {'src', 'srcset', 'alt', 'caption', 'width', 'height',
+                                'credit', 'source_type'}
+    for item in body['items']:
+        if item['kind'] == 'illustration':
+            assert set(item) == illustration_keys
+            assert item['src'].startswith('/app/illustrations/')
+            assert item['src'] in item['srcset']
+        elif item['kind'] == 'photograph':
+            assert set(item) == photograph_keys
+            assert item['src'].startswith('/app/illustrations/photoreal/')
+            assert item['source_type'] == 'generated'
+            assert 'AI-generated' in item['credit']
+        else:
+            assert item['kind'] == 'model'
+            assert set(item) == model_keys
+            # Renderer props can encode starting state.  The catalogue needs
+            # only enough metadata to find the real model inside its lesson.
+            assert 'props' not in item
+
+
 def test_reader_navigation_is_small_exact_and_selected_by_node_id(client, onboarded):
     import primer.server as srv
 
@@ -1210,48 +1306,71 @@ def test_reader_navigation_is_small_exact_and_selected_by_node_id(client, onboar
     assert client.get('/api/curriculum/node/not.a.lesson/navigation').status_code == 404
 
 
-def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded):
+def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monkeypatch):
+    import primer.server as srv
+
+    def authored_media(payload):
+        media = payload['lesson_media']
+        assert sum(item['kind'] == 'photograph' for item in media) == 1
+        assert any(item.get('renderer') in {'spatial-3d', 'radiology-anatomy'} for item in media)
+        return [item for item in media if item['kind'] != 'photograph'
+                and not item.get('props', {}).get('scenario', '').startswith('module.')
+                and item.get('renderer') != 'radiology-anatomy']
+
+    # This contract checks authored media, not Wikipedia availability. Article
+    # fetching has its own tests; external summaries should not slow this sweep.
+    monkeypatch.setattr(srv.wiki, 'get_summary', lambda title: {'extract': '', 'thumbnail': ''})
     detail = client.get('/api/curriculum/node/math.0.counting')
     assert detail.status_code == 200
-    media = detail.json().get('lesson_media')
+    media = authored_media(detail.json())
     assert media and [entry['kind'] for entry in media] == ['illustration', 'model']
     for node_id in ('lang.0.alphabet', 'hist.0.family', 'earth.0.sky', 'arts.0.colors'):
         second_seedling = client.get('/api/curriculum/node/' + node_id)
         assert second_seedling.status_code == 200
-        assert [entry['kind'] for entry in second_seedling.json()['lesson_media']] == [
+        assert [entry['kind'] for entry in authored_media(second_seedling.json())] == [
             'illustration', 'model']
     for node_id in ('bio.1.lifecycles', 'lang.1.reading', 'hist.1.timelines',
                     'earth.1.seasons', 'arts.1.elements'):
         sprout = client.get('/api/curriculum/node/' + node_id)
         assert sprout.status_code == 200
-        assert [entry['kind'] for entry in sprout.json()['lesson_media']] == [
-            'illustration', 'model']
+        sprout_media = authored_media(sprout.json())
+        expected_kinds = ['illustration', 'model']
+        if node_id == 'earth.1.seasons':
+            expected_kinds.append('model')
+            assert sprout_media[-1]['renderer'] == 'spatial-3d'
+            assert sprout_media[-1]['props'] == {'scenario': node_id}
+        assert [entry['kind'] for entry in sprout_media] == expected_kinds
     sapling = client.get('/api/curriculum/node/chem.2.atoms')
     assert sapling.status_code == 200
-    assert [entry['kind'] for entry in sapling.json()['lesson_media']] == ['illustration', 'model']
+    assert [entry['kind'] for entry in authored_media(sapling.json())] == ['illustration', 'model']
     tree = client.get('/api/curriculum/node/math.3.functions')
     assert tree.status_code == 200
-    assert [entry['kind'] for entry in tree.json()['lesson_media']] == ['illustration', 'model']
+    assert [entry['kind'] for entry in authored_media(tree.json())] == ['illustration', 'model']
     grove = client.get('/api/curriculum/node/math.4.linalg')
     assert grove.status_code == 200
-    assert [entry['kind'] for entry in grove.json()['lesson_media']] == ['illustration', 'model']
+    assert [entry['kind'] for entry in authored_media(grove.json())] == ['illustration', 'model']
     forest = client.get('/api/curriculum/node/math.5.pde')
     assert forest.status_code == 200
-    assert [entry['kind'] for entry in forest.json()['lesson_media']] == ['illustration', 'model']
+    assert [entry['kind'] for entry in authored_media(forest.json())] == ['illustration', 'model']
     for node_id in ('phys.0.push-pull', 'phys.2.waves', 'phys.5.quantum-info',
                     'phys.0.light-shadow', 'phys.4.fluids'):
         physics = client.get('/api/curriculum/node/' + node_id)
         assert physics.status_code == 200
         payload = physics.json()
-        assert [entry['kind'] for entry in payload['lesson_media']] == [
+        assert [entry['kind'] for entry in authored_media(payload)] == [
             'illustration', 'model']
         assert all('answer' not in question for question in payload.get('quiz', []))
     for node_id in ('math.0.compare', 'math.2.decimals', 'math.3.slope',
-                    'math.4.diff-calc', 'math.5.frontier'):
+                    'math.4.diff-calc', 'math.5.frontier', 'math.5.diffgeo',
+                    'math.5.complex-analysis', 'math.5.logic', 'bio.0.plants',
+                    'bio.1.plants-parts', 'bio.2.photosynthesis', 'bio.1.food-chains'):
         illustrated = client.get('/api/curriculum/node/' + node_id)
         assert illustrated.status_code == 200
-        assert [entry['kind'] for entry in illustrated.json()['lesson_media']] == [
-            'illustration']
+        assert [entry['kind'] for entry in authored_media(illustrated.json())] == [
+            'illustration', 'model']
+        model = authored_media(illustrated.json())[1]
+        assert model['renderer'] == 'concept-lab'
+        assert model['props'] == {'scenario': node_id}
 
     graph = client.get('/api/curriculum').json()
     assert all('lesson_media' not in node for node in graph['nodes'])

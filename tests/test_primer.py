@@ -353,13 +353,10 @@ def test_graph_is_acyclic_and_fully_reachable(curr):
 def test_every_stage_is_populated_in_every_domain(curr):
     """A domain has no gaps: whatever stage it starts at, it runs to the end.
 
-    The ten general fields start at 0, which is the book's promise that a domain
-    is something a reader travels from preschool to graduate rather than a
-    subject handed to them at a level someone else chose. A domain may instead
-    declare a later `entry_stage` and begin above the general spine — radiology
-    is postgraduate by nature, and inventing preschool radiology to satisfy a
-    structural rule would be dishonest about what the book contains. What is not
-    allowed either way is a hole in the middle.
+    All current fields begin with concrete exploration and continue through
+    advanced study. Radiology starts with nonclinical imaging literacy; its
+    clinical modules keep their advanced prerequisites. Future specialist
+    pathways may declare a later entry stage, but no pathway may have a gap.
     """
     for d in curr.domains:
         stages = {n['stage'] for n in curr.nodes.values() if n['domain'] == d['id']}
@@ -457,6 +454,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'bio.2.cells': (2, 'cell-microscope'),
         'mind.2.logic-intro': (2, 'counterexample-lab'),
         'math.3.functions': (3, 'function-composition-lab'),
+        'bio.3.genetics': (3, 'allele-segregation-lab'),
         'bio.3.human-anatomy': (3, 'circulation-route-lab'),
         'mind.3.logic': (3, 'truth-table-lab'),
         'cs.3.data-structures': (3, 'stack-queue-lab'),
@@ -482,20 +480,25 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     })
     with_models = {
         nid: node for nid, node in curr.nodes.items()
-        if any(item['kind'] == 'model' for item in node.get('lesson_media', []))
+        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'})
+               for item in node.get('lesson_media', []))
     }
     assert set(with_models) == set(expected)
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     for nid, node in with_models.items():
         assert node['stage'] == expected[nid][0], nid
-        kinds = [entry['kind'] for entry in node['lesson_media']]
-        renderers = [entry['renderer'] for entry in node['lesson_media'] if entry['kind'] == 'model']
+        base_media = [entry for entry in node['lesson_media']
+                      if entry['kind'] != 'photograph'
+                      and (entry.get('renderer') == expected[nid][1]
+                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'})]
+        kinds = [entry['kind'] for entry in base_media]
+        assert kinds == ['illustration', 'model'], nid
+        model = base_media[-1]
+        assert model['renderer'] == expected[nid][1]
         if nid == 'rad.3.ct-image':
-            assert kinds == ['illustration', 'model', 'model'], nid
-            assert renderers == ['ct-window-lab', 'spatial-3d']
-        else:
-            assert kinds == ['illustration', 'model'], nid
-            assert renderers == [expected[nid][1]]
+            assert [entry['renderer'] for entry in node['lesson_media']
+                    if entry.get('renderer') in {'ct-window-lab', 'spatial-3d'}] == [
+                        'ct-window-lab', 'spatial-3d']
         plate = node['lesson_media'][0]
         assert plate['alt'].strip() and plate['caption'].strip()
         assert (plate['width'], plate['height']) == (1600, 1000)
@@ -569,9 +572,10 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
         'phys.4.fluids': 'venturi-flow-lab',
     }
     for nid, node in physics.items():
-        assert [item['kind'] for item in node.get('lesson_media', [])] == [
+        base_media = [item for item in node.get('lesson_media', []) if item['kind'] != 'photograph' and item.get('renderer') != 'spatial-3d']
+        assert [item['kind'] for item in base_media] == [
             'illustration', 'model'], nid
-        plate, model = node['lesson_media']
+        plate, model = base_media
         assert plate['id'] not in plate_ids, plate['id']
         assert model['id'] not in model_ids, model['id']
         plate_ids.add(plate['id'])
@@ -609,11 +613,14 @@ def test_every_curriculum_lesson_has_one_unique_explanatory_plate():
     from tools.check_curriculum_illustrations import audit
 
     result = audit()
-    assert result['lessons'] == 440
+    assert result['lessons'] == 558
     assert result['illustrated'] == result['lessons']
     assert result['missing'] == 0
     assert result['plates'] == result['lessons'] + 3
     assert result['responsive_webps'] == result['plates'] * 2
+    assert result['interactive_models'] >= 70
+    assert result['long_descriptions'] >= 83
+    assert result['orphan_webps'] == []
     assert not result['errors'], '\n'.join(result['errors'][:20])
     assert all(domain['illustrated'] == domain['lessons']
                for domain in result['domains'])
@@ -856,6 +863,19 @@ def test_physics_model_props_reject_unknown_cross_lesson_and_bespoke_scenarios(
     }),
     ('circulation-route-lab', {
         'route': 'cardiopulmonary', 'start_step': 0, 'show_oxygenation': 1,
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'human-disease', 'start_cross': 'heterozygous',
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance', 'start_cross': 'unknown',
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance', 'start_cross': True,
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance',
+        'start_cross': 'heterozygous', 'extra': True,
     }),
     ('truth-table-lab', {'start_operator': 'xor', 'start_p': True, 'start_q': False}),
     ('truth-table-lab', {'start_operator': 'and', 'start_p': 1, 'start_q': False}),
@@ -1114,6 +1134,18 @@ def test_integer_number_line_props_reject_bool_smuggling(field):
     }),
     ('circulation-route-lab', {
         'route': 'cardiopulmonary', 'start_step': 8, 'show_oxygenation': False,
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance',
+        'start_cross': 'heterozygous',
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance',
+        'start_cross': 'test-cross',
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance',
+        'start_cross': 'pure-lines',
     }),
     ('truth-table-lab', {'start_operator': 'and', 'start_p': False, 'start_q': False}),
     ('truth-table-lab', {'start_operator': 'or', 'start_p': False, 'start_q': True}),
@@ -1520,13 +1552,16 @@ def test_the_promise_is_computed_not_assumed(curr):
 
 
 def test_the_curriculum_is_priced_against_instructional_time(curr):
-    """A whole preschool-to-graduate education across ten fields cannot cost a
-    few hundred hours. The classroom equivalent is on the order of 20,000; one
-    to one tutoring should come in well under that, and nowhere near a tenth."""
+    """Keep the existing instructional-time scale as the catalogue expands.
+
+    Average hours per module avoid an eleven-field total becoming a permanent
+    cap on new fields. The range is an internal estimate, not a degree-duration
+    promise: individual modules are scaled by depth and learning stage.
+    """
     graph = curr.graph()
     r = roadmap({'breadth': 'polymath', 'domains': [], 'hours_per_week': 20, 'stage': 0},
                 graph, {})
-    assert 4000 <= r['total_hours'] <= 12000, r['total_hours']
+    assert 9 <= r['total_hours'] / len(graph['nodes']) <= 28, r['total_hours']
 
 
 def test_polymath_takes_longer_than_focused(curr):
@@ -2138,6 +2173,7 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'cell-microscope', 'counterexample-lab',
                      'integer-number-line-lab',
                      'function-composition-lab', 'circulation-route-lab',
+                     'allele-segregation-lab',
                      'truth-table-lab', 'stack-queue-lab',
                      'matrix-transform-lab', 'venturi-flow-lab',
                      'gene-expression-stepper', 'tcp-packet-tracer',
@@ -2164,7 +2200,7 @@ def test_physics_scenario_registry_matches_python_and_curriculum_exactly(curr):
     expected = {
         nid for nid, node in curr.nodes.items()
         if nid.startswith('phys.') and
-        node['lesson_media'][-1]['renderer'] == 'physics-concept-lab'
+        any(media.get('renderer') == 'physics-concept-lab' for media in node['lesson_media'])
     }
     assert scenario_keys == set(PHYSICS_MODEL_SCENARIOS) == expected
     assert len(scenario_keys) == 36
@@ -2204,12 +2240,24 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
     assert '36 scenarios, 62 independently exercised controls' in result.stdout
 
 
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
+def test_every_biology_model_interaction_changes_readout_and_svg_geometry():
+    """Every biology manipulative must visibly explain, react, and reset."""
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    result = subprocess.run(
+        ['node', os.path.join(root, 'tools', 'check_biology_models.js')],
+        cwd=root, capture_output=True, text=True, timeout=30, check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert '6 biology models, 6 independently exercised interactions' in result.stdout
+
+
 def test_sapling_lesson_models_keep_the_read_aloud_control():
     js = _web('app.js')
     media = js[js.index('function renderLessonMedia('):js.index('async function renderNode(')]
     assert 'speakButton: S.stage <= 2 ?' in media
     assert 'speakButton: S.stage <= 1 ?' not in media
-    assert 'if (n.kid_text && S.stage <= 1)' in js, \
+    assert 'if (n.kid_text && S.stage <= 1 && !(n.lesson && n.lesson.overview))' in js, \
         'the model-only speech change must not restore automatic older-reader narration'
 
 
@@ -2300,8 +2348,9 @@ def test_integer_number_line_registration_accessibility_reset_and_accuracy(curr)
 
 
 def test_tree_model_registration_accessibility_resets_and_accuracy_caveats():
-    """Keep Tree's four local explanations operable and scientifically honest."""
+    """Keep Tree's local explanations operable and scientifically honest."""
     js = _web('lesson-models.js')
+    css = _web('styles.css')
 
     def function_source(name):
         start = js.index('function {}('.format(name))
@@ -2313,6 +2362,7 @@ def test_tree_model_registration_accessibility_resets_and_accuracy_caveats():
     for renderer, function in (
         ('function-composition-lab', 'renderFunctionComposition'),
         ('circulation-route-lab', 'renderCirculationRoute'),
+        ('allele-segregation-lab', 'renderAlleleSegregation'),
         ('truth-table-lab', 'renderTruthTable'),
         ('stack-queue-lab', 'renderStackQueue'),
     ):
@@ -2331,10 +2381,14 @@ def test_tree_model_registration_accessibility_resets_and_accuracy_caveats():
     lower = js.lower()
     for accuracy_phrase in (
         'not commutative', 'pulmonary arter', 'pulmonary vein', 'schematic',
-        'material implication', 'false only when', 'last-in, first-out',
+        'one autosomal pea-flower locus', 'complete dominance',
+        'expected probabilities', 'material implication', 'false only when', 'last-in, first-out',
         'first-in, first-out',
     ):
         assert accuracy_phrase in lower
+
+    for selector in ('.circulation-diagram', '.allele-segregation-diagram'):
+        assert selector in css
 
 
 def test_grove_model_registration_accessibility_resets_and_accuracy_caveats():
@@ -4076,25 +4130,33 @@ def test_an_unknown_route_corrects_the_address_bar():
     assert "if (corrected) { location.replace('#/' + view); return; }" in js
 
 
-def test_mathematics_image_dashboard_is_a_complete_accessible_route():
+def test_visual_gallery_is_a_complete_accessible_route():
     js = _web("app.js")
     css = _web("styles.css")
 
-    assert "['math-images', 'gallery', 'Math Images']" in js
-    assert "'math-images': renderMathImages" in js
-    assert "/api/curriculum/mathematics/illustrations" in js
-    assert "function renderMathImages(page)" in js
-    assert "role: 'radiogroup'" in js and "aria-checked" in js
-    assert "['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End']" in js
+    # Keep the original hash route valid while broadening what the page names
+    # and contains; saved links to #/math-images must still open the gallery.
+    assert "['math-images', 'gallery', 'Visual Gallery']" in js
+    assert "'math-images': renderVisualGallery" in js
+    assert "/api/curriculum/visuals" in js
+    assert "function renderVisualGallery(page, selection = {})" in js
+    assert "domainFilter.value = selection.domain" in js
+    assert "stageFilter.value = String(selection.stage)" in js
+    for control in ('visual-domain-filter', 'visual-stage-filter',
+                    'visual-kind-filter'):
+        assert control in js
+    assert "item.kind === 'illustration'" in js
+    assert "'Interactive model '" in js
     assert "role: 'status', 'aria-live': 'polite'" in js
     assert "loading: 'lazy'" in js and "srcset: item.srcset" in js
     assert "(max-width: 700px) calc(100vw - 48px)" in js
     assert "attachPictureHandlers(board)" in js
     assert "img.dataset.fullSrc || img.currentSrc" in js
     assert "math-image-card[hidden]" in css
-    assert ".math-image-grid" in css and ".math-stage-filters" in css
+    assert ".math-image-grid" in css and ".visual-filter-grid" in css
+    assert ".visual-model-preview" in css
     assert ".math-search-row input[type=search]" in css
-    assert 'body[data-stage="0"] .math-stage-option' in css
+    assert 'body[data-stage="0"] .visual-filter-control select' in css
     assert 'body[data-stage="4"] .math-image-card' in css
     assert "@media (max-width: 430px)" in css
 
@@ -4114,7 +4176,9 @@ def test_reader_keeps_exact_lesson_context_in_a_toggleable_navigator():
     assert "'aria-current': active ? 'page' : null" in js
     assert "'aria-current': active ? 'location' : null" in js
     assert "'Lessons in ' + domain.name" in js
-    assert "current.section || current.stage_name" in js
+    assert "current.section || stageLabel(current.stage, current.stage_name)" in js
+    assert "stages.find(item => item.name === fallbackName)" in js
+    assert "info.name + (info.span ? ' · ' + info.span : '')" in js
     assert "Reading: ' + articleTitle" in js
     assert "Linked reading · still in " in js
     assert ".reader-context-toggle" in css
@@ -4127,23 +4191,23 @@ def test_failed_article_images_become_text_states_not_broken_placeholders():
     js = _web("app.js")
     css = _web("styles.css")
 
-    assert "im.addEventListener('error', failed, { once: true })" in js
-    assert "im.complete && !im.naturalWidth" in js
-    assert "'aria-label': 'Picture unavailable'" in js
-    assert "': ' + altText" in js
+    assert "im.addEventListener('error', failed)" in js
+    assert "im.isConnected && im.currentSrc && im.complete && !im.naturalWidth" in js
+    assert "'Retry image'" in js
+    assert "class: 'picture-fallback'" not in js
     assert "wrapper.hidden = true" in js
     assert "img.closest('figure, .thumb, .thumbinner, .gallerybox')" in js
     assert "figure, .thumb, .thumbinner, .gallerybox, .infobox" not in js
     assert "const inversionSource = img.closest('.skin-invert, .skin-invert-image')" in js
     assert "inversionSource.classList.contains(marker)" in js
-    assert ".picture-fallback" in css
+    assert ".image-load-note" in css
 
 
 def test_lesson_illustrations_have_a_full_resolution_keyboard_viewer():
     js = _web("app.js")
     css = _web("styles.css")
 
-    assert "dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src) }" in js
+    assert "fullSrc: largestSrcFromSet(item.srcset, item.src)" in js
     assert "attachPictureHandlers(media)" in js
     assert "Read labels at full size" in js
     assert "Full-resolution image. Scroll horizontally and vertically" in js
@@ -4158,7 +4222,7 @@ def test_radiology_diagrams_have_complete_html_text_equivalents(curr):
         node_id: node for node_id, node in curr.nodes.items()
         if node_id.startswith('rad.') and node_id != 'rad.3.ct-image'
     }
-    assert len(generated) == 83
+    assert len(generated) == 95
     for node_id, node in generated.items():
         plate = next(item for item in node['lesson_media']
                      if item['kind'] == 'illustration')

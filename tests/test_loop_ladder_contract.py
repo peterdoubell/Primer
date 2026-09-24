@@ -294,11 +294,18 @@ def test_maintenance_exits_when_shutdown_arrives_during_a_backup(monkeypatch):
     import primer.server as srv
     stop=threading.Event()
     runs=[]
-    def run_once():
+    captured_store = object()
+    captured_directory = "isolated-backup-fixture"
+    def run_once(learner_store, backup_dir):
+        # A worker keeps its own lifespan's targets even if module globals
+        # later change; shutdown during this pass must still stop the loop.
+        assert learner_store is captured_store
+        assert backup_dir == captured_directory
         runs.append(1)
         stop.set()
     monkeypatch.setattr(srv,'_run_maintenance_once',run_once)
-    worker=threading.Thread(target=srv._maintenance_loop,args=(stop,),daemon=True)
+    worker=threading.Thread(target=srv._maintenance_loop,
+                           args=(stop, captured_store, captured_directory),daemon=True)
     worker.start()
     worker.join(timeout=1)
     assert not worker.is_alive()

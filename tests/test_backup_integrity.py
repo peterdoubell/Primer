@@ -233,12 +233,19 @@ def test_a_specialist_field_does_not_reprice_the_general_spine():
     from primer.curriculum import Curriculum, DEFAULT_MINUTES
 
     curr = Curriculum()
-    specialist = {d["id"] for d in curr.domains if d.get("entry_stage", 0) > 0}
+    # Imaging foundations remain part of the general teaching spine, while
+    # the same field's clinical modules enter a specialist pool at its declared
+    # reference stage. Keep this check on the real shipped corpus so neither
+    # broadening the field nor changing its density can hide a pricing drift.
+    specialist = {d["id"]: d.get("reference_stage", d.get("entry_stage", 0))
+                  for d in curr.domains
+                  if d.get("reference_stage", d.get("entry_stage", 0)) > 0}
     assert specialist, "this test needs a specialist field to be meaningful"
 
     pools = {}
     for node in curr.nodes.values():
-        pool = node["domain"] if node["domain"] in specialist else "general"
+        pool = (node["domain"] if node["domain"] in specialist
+                and node["stage"] >= specialist[node["domain"]] else "general")
         pools.setdefault((node["stage"], pool), []).append(node["minutes"])
 
     for (stage, pool), minutes in sorted(pools.items()):
@@ -250,7 +257,8 @@ def test_a_specialist_field_does_not_reprice_the_general_spine():
 
     floor = 0.5 * DEFAULT_MINUTES[5]
     general_5 = [n for n in curr.nodes.values()
-                 if n["stage"] == 5 and n["domain"] not in specialist]
+                 if n["stage"] == 5 and (n["domain"] not in specialist
+                     or n["stage"] < specialist[n["domain"]])]
     on_floor = [n["id"] for n in general_5 if n["minutes"] <= floor]
     assert len(on_floor) <= len(general_5) // 4, (
         "%d of %d general graduate nodes are on the clamp floor: %s"

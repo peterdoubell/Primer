@@ -351,8 +351,10 @@ def _pace_note(years: float, hours: float, total_minutes: float) -> str:
     This used to reassure at six hours a week. It shouldn't have: an education
     is a serious number of hours, and a plan that hides that is not a plan.
     """
-    for_ten = total_minutes / (10 * WEEKS_PER_YEAR * 60 * EFFICIENCY)
-    for_five = total_minutes / (5 * WEEKS_PER_YEAR * 60 * EFFICIENCY)
+    # Match the one-decimal values exposed in the roadmap payload before
+    # presenting whole hours, so the prose and UI do not round differently.
+    for_ten = round(total_minutes / (10 * WEEKS_PER_YEAR * 60 * EFFICIENCY), 1)
+    for_five = round(total_minutes / (5 * WEEKS_PER_YEAR * 60 * EFFICIENCY), 1)
     if years < 5:
         return ("About {:.1f} years at {:.0f} hours a week — quicker than the "
                 "book's five-year mark, so there is room to carry more fields "

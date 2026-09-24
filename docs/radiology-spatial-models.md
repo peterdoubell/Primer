@@ -31,3 +31,11 @@ parameter extrema, drag/touch, keyboard, reset, label bounds and source hashes.
 Screenshots and report: `/tmp/primer-radiology-release-browser/`. The three new
 scenes were visually inspected; the vessel starts orthogonal to avoid an
 edge-on initial plane. No deployment was performed in this update.
+
+## Reporting reference expansion — 23 September 2026
+
+The three original companions above are preserved. The dedicated reporting
+desk adds 96 module-specific companions across 35 anatomy/acquisition geometry
+families. Their source, controls, limitations and checks are documented in
+[radiology-reporting-models.md](radiology-reporting-models.md) and
+[radiology-reporting-desk.md](radiology-reporting-desk.md).

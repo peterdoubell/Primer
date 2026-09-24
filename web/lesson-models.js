@@ -28,6 +28,12 @@
     return out;
   }
 
+  function svgText(value, attrs = {}) {
+    const out = svgNode('text', attrs);
+    out.textContent = value;
+    return out;
+  }
+
   function modelFrame(item, hooks) {
     const serial = ++nextModelId;
     const titleId = 'lesson-model-title-' + serial;
@@ -804,25 +810,106 @@
     },
   };
 
+  function lifeStageGraphic(species, index) {
+    const picture = svgNode('svg', {
+      viewBox: '0 0 150 88', class: 'life-stage-svg', 'aria-hidden': 'true', focusable: 'false',
+    });
+    picture.append(svgNode('path', { d: 'M12 73 Q75 68 138 73', class: 'science-ground-line' }));
+    const add = (tag, attrs) => picture.append(svgNode(tag, attrs));
+    if (species === 'frog' && index === 0) {
+      [[54, 42], [72, 34], [90, 42], [64, 54], [83, 55], [102, 54]].forEach(([cx, cy]) => {
+        add('circle', { cx, cy, r: 12, class: 'life-egg-jelly' });
+        add('circle', { cx, cy, r: 4, class: 'life-egg-center' });
+      });
+      add('path', { d: 'M18 65 Q42 53 61 66 M95 67 Q119 50 139 62', class: 'life-water-line' });
+    } else if (species === 'frog' && index === 1) {
+      add('ellipse', { cx: 57, cy: 43, rx: 28, ry: 18, class: 'life-animal-fill' });
+      add('circle', { cx: 48, cy: 38, r: 3, class: 'life-animal-eye' });
+      add('path', { d: 'M82 44 C112 30 127 42 136 27 C132 54 111 66 82 51', class: 'life-animal-line' });
+    } else if (species === 'frog' && index === 2) {
+      add('ellipse', { cx: 73, cy: 43, rx: 31, ry: 19, class: 'life-animal-fill' });
+      add('circle', { cx: 58, cy: 37, r: 3, class: 'life-animal-eye' });
+      add('path', { d: 'M45 51 L27 68 L48 63 M84 55 L105 72 L119 70 M101 43 C122 36 131 42 140 33', class: 'life-limb-line' });
+    } else if (species === 'frog') {
+      add('ellipse', { cx: 76, cy: 42, rx: 34, ry: 22, class: 'life-animal-fill' });
+      add('ellipse', { cx: 57, cy: 31, rx: 16, ry: 12, class: 'life-animal-fill' });
+      add('circle', { cx: 51, cy: 27, r: 3, class: 'life-animal-eye' });
+      add('path', { d: 'M49 53 L25 71 L53 65 M92 55 L115 72 L137 68 M48 47 L30 54 M98 45 L121 52', class: 'life-limb-line' });
+    } else if (species === 'butterfly' && index === 0) {
+      add('path', { d: 'M25 69 C54 31 94 24 132 18 C103 50 72 68 25 69 Z', class: 'life-leaf-fill' });
+      add('path', { d: 'M28 66 C62 49 94 35 128 20', class: 'life-leaf-vein' });
+      add('ellipse', { cx: 81, cy: 43, rx: 8, ry: 11, class: 'life-egg-jelly' });
+    } else if (species === 'butterfly' && index === 1) {
+      [43, 57, 71, 85, 99].forEach((cx, part) => add('circle', {
+        cx, cy: 49 - (part % 2) * 3, r: 12, class: 'life-animal-fill',
+      }));
+      add('circle', { cx: 106, cy: 43, r: 3, class: 'life-animal-eye' });
+      add('path', { d: 'M106 34 Q111 23 119 27 M102 34 Q101 23 94 25', class: 'life-limb-line' });
+    } else if (species === 'butterfly' && index === 2) {
+      add('path', { d: 'M75 14 L75 26', class: 'life-limb-line' });
+      add('path', { d: 'M62 26 Q75 18 88 26 L85 62 Q75 76 65 62 Z', class: 'life-chrysalis' });
+      add('path', { d: 'M66 39 Q75 44 85 38 M65 50 Q75 56 85 49', class: 'life-chrysalis-line' });
+    } else if (species === 'butterfly') {
+      add('path', { d: 'M73 45 C50 10 18 14 27 47 C34 68 57 66 73 52 Z', class: 'life-wing is-left' });
+      add('path', { d: 'M77 45 C100 10 132 14 123 47 C116 68 93 66 77 52 Z', class: 'life-wing is-right' });
+      add('ellipse', { cx: 75, cy: 49, rx: 5, ry: 23, class: 'life-animal-line-fill' });
+      add('path', { d: 'M72 29 Q63 18 58 22 M78 29 Q87 18 92 22', class: 'life-limb-line' });
+    } else {
+      const scales = [0.58, 0.75, 0.9, 1];
+      const scale = scales[index];
+      const group = svgNode('g', { transform: 'translate(75 68) scale(' + scale + ') translate(-75 -68)' });
+      const dog = (tag, attrs) => group.append(svgNode(tag, attrs));
+      dog('path', { d: 'M45 37 Q64 25 96 32 L112 43 L105 61 L91 61 L87 72 L77 72 L73 58 L55 58 L50 72 L40 72 L40 52 Q28 46 24 35', class: 'life-animal-fill' });
+      dog('path', { d: 'M94 33 Q104 15 116 26 L112 43 M25 36 Q13 28 18 18', class: 'life-limb-line' });
+      dog('circle', { cx: 104, cy: 30, r: 3, class: 'life-animal-eye' });
+      picture.append(group);
+    }
+    return picture;
+  }
+
   function renderLifeCycle(item, hooks) {
     const frame = modelFrame(item, hooks);
     let species = 'frog';
     let stageIndex = 0;
+    const markerId = 'life-cycle-arrow-' + nextModelId;
+    const routePicture = svgNode('svg', {
+      viewBox: '0 0 640 360', class: 'life-cycle-route-svg', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const defs = svgNode('defs');
+    const marker = svgNode('marker', {
+      id: markerId, viewBox: '0 0 10 10', refX: 8, refY: 5,
+      markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse',
+    });
+    marker.append(svgNode('path', { d: 'M0 0 L10 5 L0 10 Z', class: 'science-arrowhead' }));
+    defs.append(marker);
+    routePicture.append(defs, svgNode('path', {
+      d: 'M170 75 H470 Q555 75 555 160 V200 Q555 285 470 285 H170 Q85 285 85 200 V160 Q85 75 170 75',
+      class: 'life-cycle-route-line', 'marker-end': 'url(#' + markerId + ')',
+    }));
     const cycle = node('ol', { class: 'life-cycle-ring', 'aria-label': 'Stages in the selected life cycle' });
+    const scene = node('div', { class: 'life-cycle-scene' }, routePicture, cycle);
     const speciesButtons = {};
     const speciesRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose an animal' });
 
     function refresh(announce) {
       const detail = LIFE_CYCLES[species];
       cycle.replaceChildren();
-      detail.stages.forEach(([label], index) => {
+      detail.stages.forEach(([label, description], index) => {
         const active = index === stageIndex;
         cycle.append(node('li', {
           class: 'life-cycle-stage', 'aria-current': active ? 'step' : null,
-        }, node('div', {
-          class: 'life-cycle-stage-card' + (active ? ' is-current' : ''),
+        }, node('button', {
+          type: 'button', class: 'life-cycle-stage-card' + (active ? ' is-current' : ''),
+          'aria-pressed': active ? 'true' : 'false',
+          'aria-label': detail.label + ', stage ' + (index + 1) + ': ' + label + '. ' + description,
+          onclick: () => {
+            stageIndex = index;
+            refresh(false);
+            frame.status.textContent = label + '. ' + description;
+          },
         }, node('span', { class: 'life-cycle-number', 'aria-hidden': 'true' }, String(index + 1)),
-        node('span', { 'data-model-speak': true }, label))));
+        lifeStageGraphic(species, index),
+        node('span', { class: 'life-cycle-stage-copy', 'data-model-speak': true }, label))));
       });
       Object.entries(speciesButtons).forEach(([name, button]) => {
         const active = name === species;
@@ -877,7 +964,7 @@
     }, 'Reset');
 
     frame.canvas.classList.add('life-cycle-canvas');
-    frame.canvas.append(cycle);
+    frame.canvas.append(scene);
     frame.controls.append(speciesRow, node('div', { class: 'model-button-row' }, nextButton, resetButton));
     refresh(false);
     return frame.root;
@@ -1112,8 +1199,13 @@
     let magnification = authoredMagnification;
     let contrast = false;
     let labels = false;
-    const field = node('div', { class: 'microscope-field', 'aria-hidden': 'true' });
-    const fieldNote = node('span', { class: 'microscope-field-note' }, 'Schematic microscope view');
+    const clipId = 'microscope-field-clip-' + nextModelId;
+    const field = svgNode('svg', {
+      viewBox: '0 0 760 400', class: 'science-diagram microscope-field',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const fieldNote = node('span', { class: 'microscope-field-note' },
+      'Schematic field and representative-cell inset · relative field width, not a calibrated scale');
     const legend = node('div', {
       class: 'microscope-legend', role: 'list', 'aria-label': 'Structures present in this specimen',
     });
@@ -1124,27 +1216,115 @@
       class: 'model-option-row', role: 'group', 'aria-label': 'Choose total magnification',
     });
     const views = {
-      40: { cells: 25, columns: 5, phrase: 'many small apparent cells' },
-      100: { cells: 9, columns: 3, phrase: 'several medium apparent cells' },
-      400: { cells: 4, columns: 2, phrase: 'a few large apparent cells' },
+      40: { columns: 7, rows: 6, phrase: 'many small apparent cells', width: 'wide field' },
+      100: { columns: 4, rows: 4, phrase: 'several medium apparent cells', width: 'medium field' },
+      400: { columns: 2, rows: 2, phrase: 'a few large apparent cells', width: 'narrow field' },
     };
 
-    function drawCell(detail) {
-      const cell = node('span', { class: 'microscope-cell' });
-      cell.append(node('span', { class: 'cell-nucleus' }));
-      if (specimen === 'leaf') {
-        for (let index = 0; index < 7; index += 1) cell.append(node('span', { class: 'cell-chloroplast' }));
+    function appendSpecimenCell(parent, name, x, y, width, height, index, representative) {
+      const group = svgNode('g', { class: 'microscope-cell is-' + name });
+      const inset = representative ? ' is-representative' : '';
+      if (name === 'cheek') {
+        group.append(svgNode('ellipse', {
+          cx: x + width / 2, cy: y + height / 2,
+          rx: width * .46, ry: height * .39,
+          transform: 'rotate(' + (index % 2 ? 8 : -7) + ' ' + (x + width / 2) + ' ' + (y + height / 2) + ')',
+          class: 'cell-membrane-shape' + inset,
+        }));
+      } else {
+        group.append(svgNode('rect', {
+          x, y, width, height, rx: name === 'leaf' ? 13 : 4,
+          class: 'cell-wall-shape' + inset,
+        }), svgNode('rect', {
+          x: x + Math.max(3, width * .045), y: y + Math.max(3, height * .055),
+          width: width - Math.max(6, width * .09), height: height - Math.max(6, height * .11),
+          rx: name === 'leaf' ? 10 : 3, class: 'cell-membrane-shape' + inset,
+        }));
       }
-      return cell;
+      if (name === 'leaf') {
+        group.append(svgNode('ellipse', {
+          cx: x + width * .53, cy: y + height * .53,
+          rx: width * .25, ry: height * .28, class: 'cell-vacuole-shape' + inset,
+        }));
+        [[.25, .26], [.72, .24], [.23, .68], [.75, .69], [.52, .18], [.49, .78]].forEach(([px, py]) => {
+          group.append(svgNode('ellipse', {
+            cx: x + width * px, cy: y + height * py,
+            rx: Math.max(2, width * .055), ry: Math.max(1.5, height * .035),
+            class: 'cell-chloroplast-shape' + inset,
+          }));
+        });
+      }
+      group.append(svgNode('ellipse', {
+        cx: x + width * (name === 'leaf' ? .35 : .53), cy: y + height * .52,
+        rx: Math.max(3.5, width * .09), ry: Math.max(3.5, height * .1),
+        class: 'cell-nucleus-shape' + inset,
+      }));
+      parent.append(group);
+    }
+
+    function addCallout(group, label, x1, y1, x2, y2, anchor) {
+      group.append(svgNode('line', { x1, y1, x2, y2, class: 'science-callout-line' }),
+        svgNode('circle', { cx: x1, cy: y1, r: 4, class: 'science-callout-dot' }),
+        svgText(label, { x: x2 + (anchor === 'end' ? -7 : 7), y: y2 + 4,
+          class: 'science-diagram-label', 'text-anchor': anchor }));
     }
 
     function refresh(announce) {
       const detail = CELL_SPECIMENS[specimen];
       const view = views[magnification];
       field.replaceChildren();
-      field.className = 'microscope-field ' + detail.className + (contrast ? ' has-contrast' : '');
-      field.style.setProperty('--cell-columns', view.columns);
-      for (let index = 0; index < view.cells; index += 1) field.append(drawCell(detail));
+      field.setAttribute('class', 'science-diagram microscope-field ' + detail.className +
+        (contrast ? ' has-contrast' : ''));
+      const defs = svgNode('defs');
+      const clip = svgNode('clipPath', { id: clipId });
+      clip.append(svgNode('circle', { cx: 205, cy: 194, r: 166 }));
+      defs.append(clip);
+      const fieldGroup = svgNode('g', { 'clip-path': 'url(#' + clipId + ')' });
+      fieldGroup.append(svgNode('rect', { x: 30, y: 18, width: 350, height: 352, class: 'microscope-field-paper' }));
+      const cellWidth = 350 / view.columns;
+      const cellHeight = 352 / view.rows;
+      let cellIndex = 0;
+      for (let rowIndex = 0; rowIndex < view.rows; rowIndex += 1) {
+        for (let columnIndex = 0; columnIndex < view.columns; columnIndex += 1) {
+          const stagger = specimen === 'cheek' && rowIndex % 2 ? cellWidth * .18 : 0;
+          appendSpecimenCell(fieldGroup, specimen,
+            25 + columnIndex * cellWidth + stagger, 18 + rowIndex * cellHeight,
+            cellWidth * (specimen === 'cheek' ? .88 : 1),
+            cellHeight * (specimen === 'cheek' ? .82 : 1), cellIndex, false);
+          cellIndex += 1;
+        }
+      }
+      field.append(defs, fieldGroup,
+        svgNode('circle', { cx: 205, cy: 194, r: 170, class: 'microscope-field-ring' }),
+        svgText(detail.label, { x: 205, y: 389, class: 'science-diagram-title', 'text-anchor': 'middle' }),
+        svgText(magnification + '× · ' + view.width, {
+          x: 205, y: 30, class: 'science-diagram-badge', 'text-anchor': 'middle',
+        }),
+        svgNode('rect', { x: 420, y: 42, width: 310, height: 306, rx: 18, class: 'science-inset-panel' }),
+        svgText('REPRESENTATIVE CELL', { x: 575, y: 72, class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      const representative = svgNode('g');
+      appendSpecimenCell(representative, specimen, 500, 112, 150, 142, 0, true);
+      field.append(representative);
+      if (labels) {
+        const callouts = svgNode('g', { class: 'microscope-callouts' });
+        if (specimen !== 'cheek') {
+          addCallout(callouts, 'cell wall', 501, 118, 466, 92, 'end');
+          addCallout(callouts, 'cell membrane', 507, 127, 455, 143, 'end');
+        } else {
+          addCallout(callouts, 'cell membrane', 505, 132, 459, 111, 'end');
+        }
+        addCallout(callouts, 'nucleus', specimen === 'leaf' ? 552 : 579, 183, 688, 147, 'start');
+        addCallout(callouts, 'cytoplasm', 618, 215, 690, 231, 'start');
+        if (specimen === 'leaf') {
+          addCallout(callouts, 'chloroplast', 610, 149, 687, 102, 'start');
+          addCallout(callouts, 'vacuole', 581, 193, 687, 190, 'start');
+        }
+        field.append(callouts);
+      } else {
+        field.append(svgText('Turn on labels to connect names to structures.', {
+          x: 575, y: 302, class: 'science-diagram-note', 'text-anchor': 'middle',
+        }));
+      }
       legend.replaceChildren(...detail.structures.map(structure => node('span', { role: 'listitem' }, structure)));
       legend.hidden = !labels;
       Object.entries(specimenButtons).forEach(([name, button]) => {
@@ -1158,13 +1338,15 @@
         button.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
       contrastButton.setAttribute('aria-pressed', contrast ? 'true' : 'false');
-      contrastButton.textContent = contrast ? 'Contrast improved' : 'Improve contrast';
+      contrastButton.textContent = contrast ? 'Restore contrast' : 'Improve contrast';
       labelsButton.setAttribute('aria-pressed', labels ? 'true' : 'false');
-      labelsButton.textContent = labels ? 'Hide structure list' : 'Show structure list';
+      labelsButton.textContent = labels ? 'Hide structure labels' : 'Show structure labels';
       frame.readout.textContent = detail.label + ' · ' + magnification + '× total magnification · contrast ' +
         (contrast ? 'improved' : 'unchanged') + '. This schematic shows ' + view.phrase + '. ' + detail.description +
         ' Structures present in this specimen: ' + detail.structures.join(', ') + '. ' +
-        ' Higher magnification enlarges the image and shows fewer cells; it does not make the cells grow or guarantee more detail.';
+        (specimen === 'cheek' ? 'The animal cell has a membrane but no cell wall. ' :
+          'The plant cell wall is drawn outside its cell membrane. ') +
+        'Higher magnification enlarges the image and narrows the field; it does not make cells grow or guarantee more detail.';
       if (announce) frame.status.textContent = detail.label + ' selected. ' + detail.description;
     }
 
@@ -1183,7 +1365,7 @@
           magnification = value;
           refresh(false);
           frame.status.textContent = 'The image is now shown at ' + value +
-            ' times total magnification. Apparent size changed; actual cell size did not.';
+            ' times total magnification. Apparent size changed and the field narrowed; actual cell size did not.';
         },
       }, value + '×');
       magnificationButtons[value] = button;
@@ -1202,9 +1384,10 @@
       type: 'button', class: 'btn ghost small', 'aria-pressed': 'false', onclick: () => {
         labels = !labels;
         refresh(false);
-        frame.status.textContent = labels ? 'The structure list is visible below the field.' : 'The structure list is hidden.';
+        frame.status.textContent = labels ? 'Leader lines now connect names to the representative cell.' :
+          'The structure labels are hidden; the full list remains in the readout.';
       },
-    }, 'Show structure list');
+    }, 'Show structure labels');
     const resetButton = node('button', {
       type: 'button', class: 'btn ghost small', onclick: () => {
         specimen = authoredSpecimen;
@@ -1217,7 +1400,8 @@
     }, 'Reset');
 
     frame.canvas.classList.add('cell-microscope-canvas');
-    frame.canvas.append(node('div', { class: 'cell-microscope-scene' }, field, fieldNote, legend));
+    frame.canvas.append(node('div', { class: 'cell-microscope-scene' },
+      node('div', { class: 'science-diagram-scroll' }, field), fieldNote, legend));
     frame.controls.append(specimenRow, magnificationRow,
       node('div', { class: 'model-button-row' }, contrastButton, labelsButton, resetButton));
     refresh(false);
@@ -1704,6 +1888,18 @@
     },
   ];
 
+  const CARDIOPULMONARY_GEOMETRY = [
+    { d: 'M646 306 C574 365 438 365 365 248', x: 520, y: 354, short: 'Vena cava → right atrium' },
+    { d: 'M365 248 C355 274 354 302 373 326', x: 354, y: 290, short: 'Right ventricle' },
+    { d: 'M373 326 C303 293 285 214 332 151', x: 300, y: 236, short: 'Pulmonary artery' },
+    { d: 'M332 151 C343 82 385 61 400 115 C415 61 457 82 468 151', x: 400, y: 76, short: 'Lung capillaries' },
+    { d: 'M468 151 C515 214 497 293 427 248', x: 500, y: 216, short: 'Pulmonary veins' },
+    { d: 'M427 248 C446 270 446 294 427 326', x: 446, y: 286, short: 'Left atrium' },
+    { d: 'M427 326 C493 349 571 334 629 270', x: 526, y: 342, short: 'Left ventricle' },
+    { d: 'M629 270 C665 233 683 225 686 250', x: 659, y: 238, short: 'Aorta → body capillaries' },
+    { d: 'M686 250 C689 278 675 292 646 306', x: 694, y: 287, short: 'Systemic veins' },
+  ];
+
   function renderCirculationRoute(item, hooks) {
     const frame = modelFrame(item, hooks);
     const props = item.props || {};
@@ -1711,11 +1907,73 @@
     const authoredOxygen = props.show_oxygenation !== false;
     let step = authoredStep;
     let showOxygen = authoredOxygen;
+    const markerId = 'circulation-arrow-' + nextModelId;
+    const picture = svgNode('svg', {
+      viewBox: '0 0 800 430', class: 'science-diagram circulation-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
     const route = node('ol', {
       class: 'circulation-route', 'aria-label': 'Cardiopulmonary circulation route in order',
     });
 
     function refresh(announce) {
+      picture.replaceChildren();
+      const defs = svgNode('defs');
+      const marker = svgNode('marker', {
+        id: markerId, viewBox: '0 0 10 10', refX: 8, refY: 5,
+        markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse',
+      });
+      marker.append(svgNode('path', { d: 'M0 0 L10 5 L0 10 Z', class: 'science-arrowhead' }));
+      defs.append(marker);
+      picture.append(defs, svgNode('rect', {
+        x: 10, y: 10, width: 780, height: 410, rx: 20, class: 'science-diagram-field',
+      }));
+      const lungs = svgNode('g', { class: 'circulation-organ is-lungs' });
+      lungs.append(
+        svgNode('path', { d: 'M390 69 C356 47 316 74 310 133 C306 172 326 193 365 178 C385 170 393 144 393 108 Z' }),
+        svgNode('path', { d: 'M410 69 C444 47 484 74 490 133 C494 172 474 193 435 178 C415 170 407 144 407 108 Z' }),
+        svgNode('path', { d: 'M400 47 V112 M400 84 L365 107 M400 84 L435 107', class: 'circulation-airway' }),
+      );
+      const heart = svgNode('g', { class: 'circulation-heart' });
+      heart.append(svgNode('path', {
+        d: 'M400 228 C369 202 326 219 330 267 C334 315 370 349 400 374 C430 349 466 315 470 267 C474 219 431 202 400 228 Z',
+        class: 'circulation-heart-outline',
+      }), svgNode('path', { d: 'M400 230 V357 M343 275 H457', class: 'circulation-heart-septum' }),
+      svgText('RA', { x: 370, y: 265, class: 'science-diagram-label', 'text-anchor': 'middle' }),
+      svgText('LA', { x: 430, y: 265, class: 'science-diagram-label', 'text-anchor': 'middle' }),
+      svgText('RV', { x: 370, y: 316, class: 'science-diagram-label', 'text-anchor': 'middle' }),
+      svgText('LV', { x: 430, y: 316, class: 'science-diagram-label', 'text-anchor': 'middle' }));
+      const tissues = svgNode('g', { class: 'circulation-tissues' });
+      tissues.append(svgNode('rect', { x: 628, y: 180, width: 118, height: 145, rx: 50 }),
+        ...[[658, 217], [700, 211], [675, 255], [716, 272], [656, 292]].map(([cx, cy]) =>
+          svgNode('circle', { cx, cy, r: 12 })),
+        svgText('BODY TISSUES', { x: 687, y: 345, class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      picture.append(lungs, heart, tissues,
+        svgText('LUNGS · GAS EXCHANGE', { x: 400, y: 34, class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      CARDIOPULMONARY_GEOMETRY.forEach((geometry, index) => {
+        const stateClass = CARDIOPULMONARY_ROUTE[index].className;
+        picture.append(svgNode('path', {
+          d: geometry.d,
+          class: 'circulation-vessel ' + (showOxygen ? stateClass + ' ' : 'is-neutral ') +
+            (index === step ? 'is-current' : ''),
+          'marker-end': 'url(#' + markerId + ')',
+        }));
+        picture.append(svgNode('circle', {
+          cx: geometry.x, cy: geometry.y, r: index === step ? 17 : 13,
+          class: 'circulation-station-marker ' + (index === step ? 'is-current' : ''),
+        }), svgText(String(index + 1), {
+          x: geometry.x, y: geometry.y + 5, class: 'circulation-station-number', 'text-anchor': 'middle',
+        }));
+      });
+      const activeGeometry = CARDIOPULMONARY_GEOMETRY[step];
+      picture.append(svgNode('rect', { x: 28, y: 28, width: 244, height: 58, rx: 12, class: 'science-inset-panel' }),
+        svgText('STEP ' + (step + 1) + ' OF ' + CARDIOPULMONARY_ROUTE.length, {
+          x: 46, y: 51, class: 'science-diagram-kicker',
+        }), svgText(activeGeometry.short, { x: 46, y: 73, class: 'science-diagram-label' }),
+        svgText(showOxygen ? 'dashed = lower O₂ · double = higher O₂ · dotted = exchange' :
+          'oxygen overlay hidden · direction remains visible', {
+          x: 400, y: 405, class: 'science-diagram-note', 'text-anchor': 'middle',
+        }));
       route.replaceChildren();
       CARDIOPULMONARY_ROUTE.forEach((station, index) => {
         const current = index === step;
@@ -1723,10 +1981,14 @@
           class: 'circulation-station ' + (showOxygen ? station.className + ' ' : '') +
             (current ? 'is-current' : ''),
           'aria-current': current ? 'step' : null,
+        }, node('button', {
+          type: 'button', class: 'circulation-station-button', 'aria-pressed': current ? 'true' : 'false',
+          'aria-label': 'Step ' + (index + 1) + ': ' + station.name + '. ' + station.state,
+          onclick: () => { step = index; refresh(true); },
         }, node('span', { class: 'circulation-step-number', 'aria-hidden': 'true' }, String(index + 1)),
         node('span', { class: 'circulation-station-copy' },
-          node('strong', { 'data-model-speak': true }, station.name),
-          showOxygen ? node('small', {}, station.state) : null)));
+          node('strong', { 'data-model-speak': true }, CARDIOPULMONARY_GEOMETRY[index].short),
+          showOxygen ? node('small', {}, station.state) : null))));
       });
       oxygenButton.setAttribute('aria-pressed', showOxygen ? 'true' : 'false');
       oxygenButton.textContent = showOxygen ? 'Hide diagram oxygen cues' : 'Show diagram oxygen cues';
@@ -1773,9 +2035,184 @@
       },
     }, 'Reset');
     frame.canvas.classList.add('circulation-route-canvas');
-    frame.canvas.append(route);
+    frame.canvas.append(node('div', { class: 'science-diagram-scroll' }, picture), route);
     frame.controls.append(node('div', { class: 'model-button-row' },
       backButton, nextButton, oxygenButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const ALLELE_CROSSES = {
+    heterozygous: { label: 'Pp × Pp', first: 'Pp', second: 'Pp' },
+    'test-cross': { label: 'Pp × pp', first: 'Pp', second: 'pp' },
+    'pure-lines': { label: 'PP × pp', first: 'PP', second: 'pp' },
+  };
+
+  function renderAlleleSegregation(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredCross = ALLELE_CROSSES[props.start_cross] ? props.start_cross : 'heterozygous';
+    let selectedCross = authoredCross;
+    let stage = 0;
+    const markerId = 'allele-flow-arrow-' + nextModelId;
+    const picture = svgNode('svg', {
+      viewBox: '0 0 820 510', class: 'science-diagram allele-segregation-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const summary = node('p', { class: 'allele-cross-summary', 'data-model-speak': true });
+    const caveat = node('p', { class: 'biology-model-caveat' },
+      'Teaching boundary: one autosomal locus with complete dominance. Expected ratios describe many independent offspring; they do not promise the outcome of a small family, and most traits are influenced by many genes and environment.');
+    const crossButtons = {};
+    const crossRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose a pea-flower cross' });
+
+    function genotype(first, second) {
+      if (first === second) return first + second;
+      return first === first.toUpperCase() ? first + second : second + first;
+    }
+
+    function countLabels(values, order) {
+      const counts = {};
+      values.forEach(value => { counts[value] = (counts[value] || 0) + 1; });
+      return order.filter(value => counts[value]).map(value => counts[value] + '/4 ' + value).join(' · ');
+    }
+
+    function parentGraphic(group, x, title, genes) {
+      group.append(svgNode('rect', { x: x - 92, y: 45, width: 184, height: 120, rx: 18,
+        class: 'science-inset-panel' }),
+      svgText(title, { x, y: 69, class: 'science-diagram-kicker', 'text-anchor': 'middle' }),
+      svgText(genes, { x, y: 91, class: 'science-diagram-label', 'text-anchor': 'middle' }));
+      genes.split('').forEach((allele, index) => {
+        const chromosomeX = x - 35 + index * 70;
+        group.append(svgNode('path', {
+          d: 'M' + (chromosomeX - 13) + ' 105 L' + (chromosomeX + 13) + ' 147 M' +
+            (chromosomeX + 13) + ' 105 L' + (chromosomeX - 13) + ' 147',
+          class: 'allele-chromosome ' + (allele === allele.toUpperCase() ? 'is-dominant' : 'is-recessive'),
+        }), svgNode('circle', { cx: chromosomeX, cy: 126, r: 13,
+          class: 'allele-locus ' + (allele === allele.toUpperCase() ? 'is-dominant' : 'is-recessive') }),
+        svgText(allele, { x: chromosomeX, y: 131, class: 'allele-symbol', 'text-anchor': 'middle' }));
+      });
+    }
+
+    function refresh(announce) {
+      const cross = ALLELE_CROSSES[selectedCross];
+      const firstGametes = cross.first.split('');
+      const secondGametes = cross.second.split('');
+      const offspring = [
+        genotype(firstGametes[0], secondGametes[0]), genotype(firstGametes[1], secondGametes[0]),
+        genotype(firstGametes[0], secondGametes[1]), genotype(firstGametes[1], secondGametes[1]),
+      ];
+      const purple = offspring.filter(value => value.includes('P')).length;
+      const white = offspring.length - purple;
+      const genotypeRatio = countLabels(offspring, ['PP', 'Pp', 'pp']);
+      picture.replaceChildren();
+      const defs = svgNode('defs');
+      const marker = svgNode('marker', { id: markerId, viewBox: '0 0 10 10', refX: 8, refY: 5,
+        markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' });
+      marker.append(svgNode('path', { d: 'M0 0 L10 5 L0 10 Z', class: 'science-arrowhead' }));
+      defs.append(marker);
+      picture.append(defs, svgNode('rect', { x: 10, y: 10, width: 800, height: 490, rx: 20,
+        class: 'science-diagram-field' }));
+      const parents = svgNode('g');
+      parentGraphic(parents, 240, 'PARENT 1 · HOMOLOGOUS PAIR', cross.first);
+      parentGraphic(parents, 580, 'PARENT 2 · HOMOLOGOUS PAIR', cross.second);
+      picture.append(parents, svgText('Each gamete receives one allele when homologs separate.', {
+        x: 410, y: 191, class: 'science-diagram-note', 'text-anchor': 'middle',
+      }));
+      if (stage >= 1) {
+        const gametes = [[280, firstGametes[0]], [360, firstGametes[1]],
+          [460, secondGametes[0]], [540, secondGametes[1]]];
+        picture.append(svgNode('line', { x1: 240, y1: 165, x2: 280, y2: 218,
+          class: 'allele-flow-line', 'marker-end': 'url(#' + markerId + ')' }),
+        svgNode('line', { x1: 240, y1: 165, x2: 360, y2: 218,
+          class: 'allele-flow-line', 'marker-end': 'url(#' + markerId + ')' }),
+        svgNode('line', { x1: 580, y1: 165, x2: 460, y2: 218,
+          class: 'allele-flow-line', 'marker-end': 'url(#' + markerId + ')' }),
+        svgNode('line', { x1: 580, y1: 165, x2: 540, y2: 218,
+          class: 'allele-flow-line', 'marker-end': 'url(#' + markerId + ')' }));
+        gametes.forEach(([x, allele]) => picture.append(svgNode('circle', { cx: x, cy: 244, r: 26,
+          class: 'allele-gamete ' + (allele === allele.toUpperCase() ? 'is-dominant' : 'is-recessive') }),
+        svgText(allele, { x, y: 251, class: 'allele-symbol is-large', 'text-anchor': 'middle' })));
+        picture.append(svgText('gametes from parent 1', { x: 320, y: 285, class: 'science-diagram-small', 'text-anchor': 'middle' }),
+          svgText('gametes from parent 2', { x: 500, y: 285, class: 'science-diagram-small', 'text-anchor': 'middle' }));
+      } else {
+        picture.append(svgText('Choose “Separate alleles” to form gametes.', {
+          x: 410, y: 248, class: 'science-diagram-label', 'text-anchor': 'middle',
+        }));
+      }
+      const gridX = 297;
+      const gridY = 320;
+      picture.append(svgText('2 × 2 PUNNETT SQUARE', { x: 410, y: 312,
+        class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      if (stage >= 2) {
+        firstGametes.forEach((allele, index) => picture.append(svgText(allele, {
+          x: gridX + 80 + index * 92, y: gridY + 26, class: 'allele-symbol is-large', 'text-anchor': 'middle',
+        })));
+        secondGametes.forEach((allele, index) => picture.append(svgText(allele, {
+          x: gridX + 24, y: gridY + 76 + index * 72, class: 'allele-symbol is-large', 'text-anchor': 'middle',
+        })));
+        [[0, 0, offspring[0]], [1, 0, offspring[1]], [0, 1, offspring[2]], [1, 1, offspring[3]]]
+          .forEach(([column, rowIndex, value]) => {
+            const x = gridX + 42 + column * 92;
+            const y = gridY + 39 + rowIndex * 72;
+            picture.append(svgNode('rect', { x, y, width: 92, height: 72,
+              class: 'allele-offspring-cell ' + (value.includes('P') ? 'is-purple' : 'is-white') }),
+            svgText(value, { x: x + 46, y: y + 43, class: 'allele-genotype', 'text-anchor': 'middle' }));
+          });
+        picture.append(svgText('Genotypes: ' + genotypeRatio, { x: 540, y: 379, class: 'science-diagram-label' }),
+          svgText('Phenotypes: ' + purple + '/4 purple · ' + white + '/4 white', {
+            x: 540, y: 411, class: 'science-diagram-label',
+          }), svgText('P is dominant to p in this teaching cross.', {
+            x: 540, y: 443, class: 'science-diagram-note',
+          }));
+      } else {
+        picture.append(svgNode('rect', { x: gridX + 42, y: gridY + 39, width: 184, height: 144, rx: 12,
+          class: 'allele-punnett-placeholder' }),
+        svgText(stage === 0 ? 'gametes first' : 'combine gametes', {
+          x: gridX + 134, y: gridY + 116, class: 'science-diagram-label', 'text-anchor': 'middle',
+        }));
+      }
+      Object.entries(crossButtons).forEach(([name, button]) => {
+        const active = name === selectedCross;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      separateButton.disabled = stage !== 0;
+      combineButton.disabled = stage !== 1;
+      summary.textContent = stage < 2
+        ? cross.label + '. ' + (stage === 0 ? 'Two alleles are paired in each parent.' :
+          'The alleles have separated into gametes; the two copies do not travel together.')
+        : cross.label + ' gives expected genotypes ' + genotypeRatio + ' and phenotypes ' +
+          purple + '/4 purple, ' + white + '/4 white under complete dominance.';
+      frame.readout.textContent = summary.textContent + ' Each square is one equally likely combination of one gamete from each parent. ' +
+        'These are expected probabilities across many independent offspring, not a guaranteed sequence or family result. ' +
+        'This bounded model covers one autosomal pea-flower locus with complete dominance; polygenic, linked, sex-linked and environmentally influenced inheritance can behave differently.';
+      if (announce) frame.status.textContent = stage === 0 ? cross.label + ' selected.' :
+        stage === 1 ? 'Alleles separated: each gamete carries one allele.' :
+          'Gametes combined into four equally likely Punnett-square cells.';
+    }
+
+    Object.entries(ALLELE_CROSSES).forEach(([name, cross]) => {
+      const button = node('button', { type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selectedCross = name; stage = 0; refresh(true); } }, cross.label);
+      crossButtons[name] = button;
+      crossRow.append(button);
+    });
+    const separateButton = node('button', { type: 'button', class: 'btn small', onclick: () => {
+      stage = 1; refresh(true);
+    } }, 'Separate alleles');
+    const combineButton = node('button', { type: 'button', class: 'btn small', onclick: () => {
+      stage = 2; refresh(true);
+    } }, 'Combine gametes');
+    const resetButton = node('button', { type: 'button', class: 'btn ghost small', onclick: () => {
+      selectedCross = authoredCross;
+      stage = 0;
+      refresh(false);
+      frame.status.textContent = 'The authored cross and paired parental alleles are restored.';
+    } }, 'Reset');
+    frame.canvas.classList.add('allele-segregation-canvas');
+    frame.canvas.append(node('div', { class: 'science-diagram-scroll' }, picture), summary, caveat);
+    frame.controls.append(crossRow, node('div', { class: 'model-button-row' },
+      separateButton, combineButton, resetButton));
     refresh(false);
     return frame.root;
   }
@@ -1964,8 +2401,9 @@
         mode = authored.mode;
         nextSerial = authored.count + 1;
         items = Array.from({ length: authored.count }, (_, index) => makeItem(index + 1));
-        lastAction = 'The structure is back to its authored items and mode.';
-        refresh(true);
+        lastAction = 'No operation yet.';
+        refresh(false);
+        frame.status.textContent = 'The structure is back to its authored items and mode.';
       },
     }, 'Reset');
     frame.canvas.classList.add('stack-queue-canvas');
@@ -2206,7 +2644,7 @@
   }
 
   const GENE_EXPRESSION_STEPS = [
-    'Gene off', 'Gene on', 'RNA transcribed', 'Mature mRNA exported',
+    'Gene off', 'Gene on', 'Pre-mRNA transcribed', 'RNA processed', 'Mature mRNA exported',
     'AUG translated: Met', 'GAA translated: Glu', 'UUU translated: Phe', 'UAA read: stop and release',
   ];
 
@@ -2215,7 +2653,10 @@
     const props = item.props || {};
     const authoredStage = props.start_gene_state === 'on' ? 1 : 0;
     let stage = authoredStage;
-    const scene = node('div', { class: 'gene-expression-scene' });
+    const picture = svgNode('svg', {
+      viewBox: '0 0 820 390', class: 'science-diagram gene-expression-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
     const progress = node('ol', { class: 'gene-expression-progress', 'aria-label': 'Gene expression stages' });
     const DNA = '5′-ATG GAA TTT TAA-3′';
     const RNA = '5′-AUG GAA UUU UAA-3′';
@@ -2223,46 +2664,103 @@
     const aminoAcids = ['Met', 'Glu', 'Phe'];
 
     function refresh(announce) {
-      const translated = Math.max(0, Math.min(3, stage - 3));
-      const stopRead = stage === 7;
+      const translated = Math.max(0, Math.min(3, stage - 4));
+      const stopRead = stage === 8;
       progress.replaceChildren(...GENE_EXPRESSION_STEPS.map((label, index) => node('li', {
         class: index < stage ? 'is-complete' : index === stage ? 'is-current' : '',
         'aria-current': index === stage ? 'step' : null,
       }, label)));
-      const dnaCard = node('div', { class: 'gene-molecule gene-dna ' + (stage >= 1 ? 'is-active' : '') },
-        node('small', {}, 'Coding DNA strand'), node('strong', { 'data-model-speak': true }, DNA));
-      const rnaCard = node('div', { class: 'gene-molecule gene-rna ' + (stage >= 2 ? 'is-active' : 'is-muted') },
-        node('small', {}, stage >= 3 ? 'Mature mRNA in cytoplasm' : 'RNA in nucleus'),
-        node('strong', { 'data-model-speak': true }, stage >= 2 ? RNA : 'RNA not made yet'));
-      const codonRow = node('div', { class: 'gene-codon-row' }, ...codons.map((codon, index) => node('span', {
-        class: 'gene-codon ' + (index < translated || (index === 3 && stopRead) ? 'is-read' : ''),
-      }, codon)));
-      const peptide = node('div', { class: 'gene-peptide' },
-        node('small', {}, 'Peptide'),
-        node('strong', { 'data-model-speak': true }, translated
-          ? aminoAcids.slice(0, translated).join('–') + (stopRead ? ' · released' : '')
-          : 'No amino acids joined yet'));
-      scene.replaceChildren(
-        node('div', { class: 'gene-nucleus' }, node('span', { class: 'gene-compartment-label' }, 'Nucleus'),
-          dnaCard, stage < 3 ? rnaCard : null),
-        node('span', { class: 'gene-pore ' + (stage >= 3 ? 'is-active' : ''), 'aria-hidden': 'true' }, '→'),
-        node('div', { class: 'gene-cytoplasm' }, node('span', { class: 'gene-compartment-label' }, 'Cytoplasm'),
-          stage >= 3 ? rnaCard : null,
-          stage >= 3 ? codonRow : node('p', { class: 'gene-awaiting-rna' }, 'No mRNA in the cytoplasm yet.'),
-          peptide),
-      );
+      picture.replaceChildren(svgNode('rect', {
+        x: 10, y: 10, width: 800, height: 370, rx: 20, class: 'science-diagram-field',
+      }), svgNode('path', {
+        d: 'M26 36 H386 Q410 36 410 62 V328 Q410 354 386 354 H26 Z',
+        class: 'gene-nuclear-envelope',
+      }), svgText('NUCLEUS', { x: 46, y: 62, class: 'science-diagram-kicker' }),
+      svgText('CYTOPLASM', { x: 444, y: 62, class: 'science-diagram-kicker' }),
+      svgNode('rect', { x: 398, y: 160, width: 24, height: 70, rx: 10,
+        class: 'gene-nuclear-pore ' + (stage >= 4 ? 'is-active' : '') }),
+      svgText('nuclear pore', { x: 410, y: 247, class: 'science-diagram-note', 'text-anchor': 'middle' }));
+
+      const dna = svgNode('g', { class: 'gene-dna-helix ' + (stage >= 1 ? 'is-active' : '') });
+      dna.append(svgNode('path', { d: 'M62 112 C104 78 147 146 190 112 C233 78 276 146 320 112', class: 'gene-dna-strand' }),
+        svgNode('path', { d: 'M62 112 C104 146 147 78 190 112 C233 146 276 78 320 112', class: 'gene-dna-strand is-template' }));
+      [74, 96, 118, 140, 162, 184, 206, 228, 250, 272, 294, 316].forEach((x, index) => {
+        const offset = Math.sin(index * Math.PI / 2.8) * 17;
+        dna.append(svgNode('line', { x1: x, y1: 112 - offset, x2: x, y2: 112 + offset, class: 'gene-base-pair' }));
+      });
+      dna.append(svgText('coding DNA · ' + DNA, { x: 190, y: 158, class: 'science-diagram-label', 'text-anchor': 'middle' }),
+        svgNode('rect', { x: 128, y: 83, width: 83, height: 58, rx: 8,
+          class: 'gene-active-region ' + (stage >= 1 ? 'is-on' : 'is-off') }),
+        svgText(stage >= 1 ? 'gene on' : 'gene off', { x: 170, y: 78,
+          class: 'science-diagram-badge', 'text-anchor': 'middle' }));
+      picture.append(dna);
+
+      if (stage >= 2 && stage < 4) {
+        picture.append(svgNode('ellipse', { cx: 225, cy: 201, rx: 34, ry: 21, class: 'gene-polymerase' }),
+          svgText('RNA polymerase', { x: 225, y: 205, class: 'science-diagram-small', 'text-anchor': 'middle' }),
+          svgNode('path', { d: 'M248 210 C279 225 299 229 332 246', class: 'gene-rna-line' }));
+        const transcriptLabel = stage === 2 ? 'pre-mRNA · exon — intron — exon' : 'processed RNA · cap — coding region — poly(A)';
+        picture.append(svgText(transcriptLabel, { x: 201, y: 272,
+          class: 'science-diagram-label', 'text-anchor': 'middle' }));
+        if (stage === 2) {
+          picture.append(svgNode('rect', { x: 72, y: 286, width: 78, height: 22, rx: 7, class: 'gene-exon' }),
+            svgNode('rect', { x: 150, y: 286, width: 86, height: 22, rx: 7, class: 'gene-intron' }),
+            svgNode('rect', { x: 236, y: 286, width: 92, height: 22, rx: 7, class: 'gene-exon' }));
+        } else {
+          picture.append(svgNode('circle', { cx: 75, cy: 297, r: 13, class: 'gene-rna-cap' }),
+            svgNode('rect', { x: 88, y: 286, width: 200, height: 22, rx: 7, class: 'gene-exon' }),
+            svgNode('path', { d: 'M288 297 q15 -18 29 0 q14 18 28 0', class: 'gene-polya-tail' }));
+        }
+      }
+
+      if (stage >= 4) {
+        const mRnaY = 210;
+        picture.append(svgNode('path', { d: 'M438 ' + mRnaY + ' H774', class: 'gene-rna-line is-mature' }),
+          svgNode('circle', { cx: 438, cy: mRnaY, r: 12, class: 'gene-rna-cap' }),
+          svgNode('path', { d: 'M774 210 q10 -17 20 0', class: 'gene-polya-tail' }),
+          svgText('mature mRNA · ' + RNA, { x: 606, y: 184,
+            class: 'science-diagram-label', 'text-anchor': 'middle' }));
+        codons.forEach((codon, index) => {
+          const x = 470 + index * 76;
+          picture.append(svgNode('rect', { x, y: 219, width: 64, height: 38, rx: 8,
+            class: 'gene-codon ' + (index < translated || (index === 3 && stopRead) ? 'is-read' : '') }),
+          svgText(codon, { x: x + 32, y: 244, class: 'gene-codon-label', 'text-anchor': 'middle' }));
+        });
+        const ribosomeIndex = Math.min(3, Math.max(0, stage - 5));
+        const ribosomeX = 502 + ribosomeIndex * 76;
+        picture.append(svgNode('ellipse', { cx: ribosomeX, cy: 211, rx: 51, ry: 29,
+          class: 'gene-ribosome ' + (stopRead ? 'is-releasing' : '') }),
+        svgText(stopRead ? 'release' : 'ribosome', { x: ribosomeX, y: 215,
+          class: 'science-diagram-small', 'text-anchor': 'middle' }));
+        for (let index = 0; index < translated; index += 1) {
+          const x = 512 + index * 48;
+          picture.append(svgNode('path', { d: 'M' + x + ' 287 v-34 m-10 0 q10 -18 20 0', class: 'gene-trna' }),
+            svgNode('circle', { cx: x, cy: 302, r: 14, class: 'gene-amino-acid' }),
+            svgText(aminoAcids[index], { x, y: 307, class: 'science-diagram-small', 'text-anchor': 'middle' }));
+          if (index) picture.append(svgNode('line', { x1: x - 34, y1: 302, x2: x - 14, y2: 302, class: 'gene-peptide-bond' }));
+        }
+        picture.append(svgText(translated ? 'growing peptide · ' + aminoAcids.slice(0, translated).join('–') +
+          (stopRead ? ' · released' : '') : 'ribosome positioned; no amino acids joined yet', {
+          x: 606, y: 346, class: 'science-diagram-label', 'text-anchor': 'middle',
+        }));
+      } else {
+        picture.append(svgText('No mature mRNA in the cytoplasm yet.', {
+          x: 610, y: 212, class: 'science-diagram-note', 'text-anchor': 'middle',
+        }));
+      }
       geneButton.disabled = stage !== 0;
       transcribeButton.disabled = stage !== 1;
-      exportButton.disabled = stage !== 2;
-      translateButton.disabled = stage < 3 || stage >= 7;
-      translateButton.textContent = stage === 6 ? 'Read stop codon' : 'Translate next codon';
-      const currentCodon = stage >= 4 ? codons[Math.min(3, stage - 4)] : 'none yet';
+      processButton.disabled = stage !== 2;
+      exportButton.disabled = stage !== 3;
+      translateButton.disabled = stage < 4 || stage >= 8;
+      translateButton.textContent = stage === 7 ? 'Read stop codon' : 'Translate next codon';
+      const currentCodon = stage >= 5 ? codons[Math.min(3, stage - 5)] : 'none yet';
       const currentPeptide = translated ? aminoAcids.slice(0, translated).join('–') : 'none yet';
       frame.readout.textContent = 'Step ' + (stage + 1) + ' of ' + GENE_EXPRESSION_STEPS.length + ': ' +
         GENE_EXPRESSION_STEPS[stage] + '. Coding DNA ' + DNA + '; mRNA ' + RNA + '; product Met–Glu–Phe, then stop. ' +
         'The mRNA matches the coding DNA strand except that U replaces T; RNA polymerase reads the opposite template strand. ' +
-        'Current codon: ' + currentCodon + '; current peptide: ' + currentPeptide + '. DNA remains in the nucleus and translation occurs in the cytoplasm. ' +
-        'The on/off switch is a simplified regulation control. This bounded example follows a continuous coding sequence and omits introns, the 5′ cap and poly(A) tail.';
+        'Current codon: ' + currentCodon + '; current peptide: ' + currentPeptide + '. DNA remains in the nucleus, RNA is processed before export, and translation occurs in the cytoplasm. ' +
+        'The on/off switch and pre-mRNA are schematic. The fixed translated coding region omits untranslated regions and regulatory complexity.';
       if (announce) frame.status.textContent = GENE_EXPRESSION_STEPS[stage] + '.';
     }
 
@@ -2272,11 +2770,14 @@
     const transcribeButton = node('button', {
       type: 'button', class: 'btn small', onclick: () => { stage = 2; refresh(true); },
     }, 'Transcribe');
-    const exportButton = node('button', {
+    const processButton = node('button', {
       type: 'button', class: 'btn small', onclick: () => { stage = 3; refresh(true); },
+    }, 'Process RNA');
+    const exportButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = 4; refresh(true); },
     }, 'Export mature mRNA');
     const translateButton = node('button', {
-      type: 'button', class: 'btn small', onclick: () => { stage = Math.min(7, stage + 1); refresh(true); },
+      type: 'button', class: 'btn small', onclick: () => { stage = Math.min(8, stage + 1); refresh(true); },
     }, 'Translate next codon');
     const resetButton = node('button', {
       type: 'button', class: 'btn ghost small', onclick: () => {
@@ -2286,9 +2787,9 @@
       },
     }, 'Reset');
     frame.canvas.classList.add('gene-expression-canvas');
-    frame.canvas.append(scene, progress);
+    frame.canvas.append(node('div', { class: 'gene-expression-scene science-diagram-scroll' }, picture), progress);
     frame.controls.append(node('div', { class: 'model-button-row' },
-      geneButton, transcribeButton, exportButton, translateButton, resetButton));
+      geneButton, transcribeButton, processButton, exportButton, translateButton, resetButton));
     refresh(false);
     return frame.root;
   }
@@ -2591,13 +3092,20 @@
     const props = item.props || {};
     const cellCount = Math.round(clampNumber(props.cells, 11, 11, 11));
     const source = clampNumber(props.source, 100, 100, 100);
-    const retention = 1 - clampNumber(props.decay_percent, 20, 20, 20) / 100;
-    const lowThreshold = clampNumber(props.low_threshold, 30, 30, 30);
-    const highThreshold = clampNumber(props.high_threshold, 65, 65, 65);
+    const authoredDecay = clampNumber(props.decay_percent, 5, 40, 20);
+    const authoredLow = clampNumber(props.low_threshold, 10, 50, 30);
+    const authoredHigh = clampNumber(props.high_threshold, 50, 90, 65);
+    let decayPercent = authoredDecay;
+    let lowThreshold = authoredLow;
+    let highThreshold = authoredHigh;
     let selected = 0;
     let flat = false;
-    const row = node('div', { class: 'morphogen-cell-row', 'aria-hidden': 'true' });
-    const legend = node('div', { class: 'morphogen-fate-legend' });
+    const picture = svgNode('svg', {
+      viewBox: '0 0 800 390', class: 'science-diagram morphogen-gradient-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const legend = node('div', { class: 'morphogen-fate-legend', role: 'list',
+      'aria-label': 'Cell fate counts by threshold band' });
     const inspectControl = node('input', {
       type: 'range', min: 1, max: cellCount, step: 1, value: 1,
       'aria-label': 'Inspect a cell', oninput: event => {
@@ -2605,8 +3113,33 @@
         refresh(false);
       },
     });
+    const decayOutput = node('output', { class: 'biology-slider-value' });
+    const lowOutput = node('output', { class: 'biology-slider-value' });
+    const highOutput = node('output', { class: 'biology-slider-value' });
+    const decayControl = node('input', {
+      type: 'range', min: 5, max: 40, step: 5, value: decayPercent,
+      'aria-label': 'Signal loss at each cell in percent',
+      oninput: event => { decayPercent = Number(event.target.value); flat = false; refresh(false); },
+      onchange: () => { frame.status.textContent = 'Signal loss is now ' + decayPercent +
+        '% per cell. Watch where the curve crosses each threshold.'; },
+    });
+    const lowControl = node('input', {
+      type: 'range', min: 10, max: 50, step: 5, value: lowThreshold,
+      'aria-label': 'Low fate threshold',
+      oninput: event => { lowThreshold = Math.min(Number(event.target.value), highThreshold - 10); refresh(false); },
+      onchange: () => { frame.status.textContent = 'The low threshold is now ' + lowThreshold +
+        '. Cells can change fate without changing concentration.'; },
+    });
+    const highControl = node('input', {
+      type: 'range', min: 50, max: 90, step: 5, value: highThreshold,
+      'aria-label': 'High fate threshold',
+      oninput: event => { highThreshold = Math.max(Number(event.target.value), lowThreshold + 10); refresh(false); },
+      onchange: () => { frame.status.textContent = 'The high threshold is now ' + highThreshold +
+        '. The high-fate boundary moves where the curve crosses it.'; },
+    });
 
     function concentrations() {
+      const retention = 1 - decayPercent / 100;
       return Array.from({ length: cellCount }, (_, index) => flat ? 50 : source * Math.pow(retention, index));
     }
     function fate(value) {
@@ -2617,28 +3150,93 @@
     function refresh(announce) {
       const values = concentrations();
       const fates = values.map(fate);
-      row.replaceChildren(...values.map((value, index) => node('span', {
-        class: 'morphogen-cell fate-' + fates[index].key + (index === selected ? ' is-selected' : ''),
-      }, node('strong', {}, String(index + 1)), node('small', {}, value.toFixed(1)))));
       const counts = ['high', 'middle', 'low'].map(key => fates.filter(item => item.key === key).length);
+      const plot = { left: 70, right: 750, top: 42, bottom: 244 };
+      const xAt = index => plot.left + index * (plot.right - plot.left) / (cellCount - 1);
+      const yAt = value => plot.bottom - Math.max(0, Math.min(110, value)) / 110 * (plot.bottom - plot.top);
+      picture.replaceChildren(svgNode('rect', { x: 10, y: 10, width: 780, height: 370, rx: 20,
+        class: 'science-diagram-field' }),
+      svgNode('rect', { x: plot.left, y: plot.top, width: plot.right - plot.left,
+        height: yAt(highThreshold) - plot.top, class: 'morphogen-band fate-high' }),
+      svgNode('rect', { x: plot.left, y: yAt(highThreshold), width: plot.right - plot.left,
+        height: yAt(lowThreshold) - yAt(highThreshold), class: 'morphogen-band fate-middle' }),
+      svgNode('rect', { x: plot.left, y: yAt(lowThreshold), width: plot.right - plot.left,
+        height: plot.bottom - yAt(lowThreshold), class: 'morphogen-band fate-low' }),
+      svgNode('line', { x1: plot.left, y1: plot.bottom, x2: plot.right, y2: plot.bottom,
+        class: 'science-axis' }),
+      svgNode('line', { x1: plot.left, y1: plot.top, x2: plot.left, y2: plot.bottom,
+        class: 'science-axis' }),
+      svgText('signal concentration', { x: 25, y: 145, class: 'science-diagram-kicker',
+        transform: 'rotate(-90 25 145)', 'text-anchor': 'middle' }),
+      svgText('cell position away from source →', { x: 410, y: 276,
+        class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      [0, 25, 50, 75, 100].forEach(value => {
+        const y = yAt(value);
+        picture.append(svgNode('line', { x1: plot.left - 5, y1: y, x2: plot.right, y2: y,
+          class: 'science-grid-line' }), svgText(String(value), { x: plot.left - 11, y: y + 4,
+          class: 'science-diagram-small', 'text-anchor': 'end' }));
+      });
+      [[highThreshold, 'high threshold ' + highThreshold, 'fate-high'],
+        [lowThreshold, 'low threshold ' + lowThreshold, 'fate-low']].forEach(([value, label, className]) => {
+        const y = yAt(value);
+        picture.append(svgNode('line', { x1: plot.left, y1: y, x2: plot.right, y2: y,
+          class: 'morphogen-threshold ' + className }),
+        svgText(label, { x: plot.right - 8, y: y - 7, class: 'science-diagram-label', 'text-anchor': 'end' }));
+      });
+      const points = values.map((value, index) => xAt(index).toFixed(1) + ',' + yAt(value).toFixed(1)).join(' ');
+      picture.append(svgNode('polyline', { points, class: 'morphogen-curve' }));
+      values.forEach((value, index) => {
+        const x = xAt(index);
+        const y = yAt(value);
+        picture.append(svgNode('line', { x1: x, y1: y, x2: x, y2: 327,
+          class: 'morphogen-cell-guide' + (index === selected ? ' is-selected' : '') }),
+        svgNode('circle', { cx: x, cy: y, r: index === selected ? 8 : 5,
+          class: 'morphogen-curve-point' + (index === selected ? ' is-selected' : '') }),
+        svgNode('circle', { cx: x, cy: 327, r: index === selected ? 22 : 18,
+          class: 'morphogen-cell fate-' + fates[index].key + (index === selected ? ' is-selected' : '') }),
+        svgText(String(index + 1), { x, y: 332, class: 'morphogen-cell-number', 'text-anchor': 'middle' }));
+      });
+      picture.append(svgNode('rect', { x: 70, y: 349, width: 680, height: 24, rx: 12,
+        class: 'morphogen-source-ramp' }),
+      svgText('localized source ' + source, { x: 76, y: 367, class: 'science-diagram-label' }),
+      svgText(flat ? 'flat signal 50' : decayPercent + '% loss per cell', {
+        x: 742, y: 367, class: 'science-diagram-label', 'text-anchor': 'end',
+      }));
       legend.replaceChildren(
-        node('span', { class: 'fate-high' }, node('strong', {}, 'High'), ' ≥ 65 · ' + counts[0] + ' cells'),
-        node('span', { class: 'fate-middle' }, node('strong', {}, 'Middle'), ' 30–<65 · ' + counts[1] + ' cells'),
-        node('span', { class: 'fate-low' }, node('strong', {}, 'Low'), ' < 30 · ' + counts[2] + ' cells'),
+        node('span', { class: 'fate-high', role: 'listitem' }, node('strong', {}, 'High'),
+          ' ≥ ' + highThreshold + ' · ' + counts[0] + ' cells'),
+        node('span', { class: 'fate-middle', role: 'listitem' }, node('strong', {}, 'Middle'),
+          ' ' + lowThreshold + '–<' + highThreshold + ' · ' + counts[1] + ' cells'),
+        node('span', { class: 'fate-low', role: 'listitem' }, node('strong', {}, 'Low'),
+          ' < ' + lowThreshold + ' · ' + counts[2] + ' cells'),
       );
       inspectControl.value = String(selected + 1);
       inspectControl.setAttribute('aria-valuetext', 'Cell ' + (selected + 1) + ', concentration ' +
         values[selected].toFixed(2) + ', ' + fates[selected].label + '.');
       flattenButton.setAttribute('aria-pressed', flat ? 'true' : 'false');
       flattenButton.textContent = flat ? 'Restore gradient' : 'Flatten to 50';
+      decayControl.value = String(decayPercent);
+      lowControl.value = String(lowThreshold);
+      highControl.value = String(highThreshold);
+      lowControl.max = String(highThreshold - 10);
+      highControl.min = String(lowThreshold + 10);
+      decayControl.setAttribute('aria-valuetext', decayPercent + ' percent signal loss per cell');
+      lowControl.setAttribute('aria-valuetext', 'Low threshold ' + lowThreshold);
+      highControl.setAttribute('aria-valuetext', 'High threshold ' + highThreshold);
+      decayOutput.textContent = decayPercent + '%';
+      lowOutput.textContent = String(lowThreshold);
+      highOutput.textContent = String(highThreshold);
       frame.readout.textContent = 'Cell ' + (selected + 1) + ' has model concentration ' +
         values[selected].toFixed(3) + ' and the ' + fates[selected].label + '. ' +
-        (flat ? 'Every cell has the same 50-unit signal, so this one-signal fixed-threshold model gives one middle fate everywhere. ' :
-          'The fixed profile is 100 × 0.80^i for zero-based position i; classification uses unrounded values. ') +
-        'The 65 and 30 cutoffs are illustrative thresholds in an idealized static one-dimensional model. Real developmental fate can depend on exposure history, receptors, noise, feedback and other signals.';
+        (flat ? 'Every cell has the same 50-unit signal, so every cell shares the ' + fates[0].label + '. ' :
+          'The profile is ' + source + ' × ' + (1 - decayPercent / 100).toFixed(2) + '^i for zero-based position i; classification uses unrounded values. ') +
+        'The ' + highThreshold + ' and ' + lowThreshold + ' cutoffs are illustrative thresholds in an idealized static one-dimensional model. ' +
+        'Current regions contain ' + counts[0] + ' high, ' + counts[1] + ' middle and ' + counts[2] + ' low cells. ' +
+        'The authored baseline is 100 × 0.80^i. Real developmental fate can depend on exposure history, receptors, noise, feedback and other signals.';
       if (announce) frame.status.textContent = flat ?
-        'The signal is flat at 50: all 11 cells have the middle fate in this simplified model.' :
-        'The decaying gradient is restored: 2 high, 4 middle and 5 low cells.';
+        'The signal is flat at 50: fate now follows the current thresholds, with ' + counts[0] + ' high, ' +
+          counts[1] + ' middle and ' + counts[2] + ' low cells.' :
+        'The decaying gradient is restored: ' + counts[0] + ' high, ' + counts[1] + ' middle and ' + counts[2] + ' low cells.';
     }
 
     const flattenButton = node('button', {
@@ -2651,15 +3249,25 @@
       type: 'button', class: 'btn ghost small', onclick: () => {
         selected = 0;
         flat = false;
+        decayPercent = authoredDecay;
+        lowThreshold = authoredLow;
+        highThreshold = authoredHigh;
         refresh(false);
         frame.status.textContent = 'The original gradient and first selected cell are restored.';
       },
     }, 'Reset');
     frame.canvas.classList.add('morphogen-gradient-canvas');
     frame.canvas.append(node('div', { class: 'morphogen-gradient-scene' },
-      node('div', { class: 'morphogen-source', 'data-model-speak': true }, 'Localized source · 100'), row, legend));
+      node('div', { class: 'science-diagram-scroll' }, picture), legend));
     frame.controls.append(node('label', { class: 'model-range-control' },
       node('span', {}, 'Inspect cell 1–11'), inspectControl),
+    node('div', { class: 'biology-control-grid' },
+      node('label', { class: 'model-range-control' },
+        node('span', {}, 'Signal loss per cell'), decayControl, decayOutput),
+      node('label', { class: 'model-range-control' },
+        node('span', {}, 'Low threshold'), lowControl, lowOutput),
+      node('label', { class: 'model-range-control' },
+        node('span', {}, 'High threshold'), highControl, highOutput)),
     node('div', { class: 'model-button-row' }, flattenButton, resetButton));
     refresh(false);
     return frame.root;
@@ -5147,8 +5755,20 @@
   }
 
   const RENDERERS = Object.freeze({
+    'spatial-3d': (item, hooks) => {
+      if (item.props?.scenario?.startsWith('module.')) {
+        if (!window.PrimerModuleObjects || !window.PrimerModuleObjects.ensure(item)) return null;
+      }
+      return window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null;
+    },
+    'radiology-anatomy': (item, hooks) => {
+      const family = item.props?.family;
+      if (window.PrimerDetailedAnatomy?.supported(family)) return window.PrimerDetailedAnatomy.render({ family });
+      const reference = window.PrimerRadiologyReferenceModels;
+      return reference ? reference.render(reference.specification(item.props?.node_id), hooks) : null;
+    },
+    'concept-lab': (item, hooks) => window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null,
     'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
-    'spatial-3d': (item, hooks) => window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null,
     'doppler-angle-lab': renderDopplerAngle,
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,
@@ -5165,6 +5785,7 @@
     'integer-number-line-lab': renderIntegerNumberLine,
     'function-composition-lab': renderFunctionComposition,
     'circulation-route-lab': renderCirculationRoute,
+    'allele-segregation-lab': renderAlleleSegregation,
     'truth-table-lab': renderTruthTable,
     'stack-queue-lab': renderStackQueue,
     'matrix-transform-lab': renderMatrixTransform,
@@ -5188,8 +5809,31 @@
 
   window.PrimerLessonModels = Object.freeze({
     render(item, hooks) {
-      const renderer = item && RENDERERS[item.renderer];
-      return renderer ? renderer(item, hooks) : null;
+      const rendererName = item && item.renderer;
+      if (!Object.prototype.hasOwnProperty.call(RENDERERS, rendererName)) return null;
+      const result = RENDERERS[rendererName](item, hooks);
+      if (!result) return result;
+      // These renderers own their responsive viewport and camera controls.
+      if (['concept-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
+      for (const picture of result.querySelectorAll('svg')) {
+        if (!picture.classList.contains('science-diagram') && !picture.classList.contains('physics-concept-svg')) continue;
+        const viewport = picture.parentNode;
+        const width = Number((picture.getAttribute('viewBox') || '').split(/\s+/)[2]) || 820;
+        viewport.classList.add('model-diagram-viewport');
+        viewport.setAttribute('tabindex', '0');
+        viewport.setAttribute('role', 'region');
+        viewport.setAttribute('aria-label', 'Diagram viewport; enlarge for fine detail and scroll horizontally');
+        let enlarged = false;
+        const toggle = node('button', { type: 'button', class: 'btn ghost small', 'aria-pressed': 'false' }, 'Enlarge diagram');
+        toggle.addEventListener('click', () => {
+          enlarged = !enlarged;
+          picture.setAttribute('style', enlarged ? 'width:' + width + 'px;min-width:' + width + 'px;max-width:none' : '');
+          toggle.setAttribute('aria-pressed', String(enlarged));
+          toggle.textContent = enlarged ? 'Fit whole diagram' : 'Enlarge diagram';
+        });
+        result.querySelector('.model-heading-row').append(toggle);
+      }
+      return result;
     },
     supported: Object.freeze(Object.keys(RENDERERS)),
   });

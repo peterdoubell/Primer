@@ -13,7 +13,7 @@ const input = JSON.parse(fs.readFileSync(0, 'utf8'));
 const root = fs.realpathSync(path.resolve(__dirname, '..'));
 assert.equal(path.resolve(input.basePath), root);
 const files = input.files;
-const forbidden = /(^|\/)(content|\.git|\.venv|\.vercel|\.env[^/]*|\.agents|\.claude|\.github|\.pytest_cache|__pycache__|docs|tests|tools)(\/|$)|\.db(?:-|$)| 2\./;
+const forbidden = /(^|\/)(content|artifacts|\.git|\.venv|\.vercel|\.env[^/]*|\.agents|\.claude|\.github|\.pytest_cache|__pycache__|docs|tests|tools)(\/|$)|\.db(?:-|$)| 2\./;
 for (const file of files) {
   assert.ok(!path.isAbsolute(file.path) && !file.path.split('/').includes('..'), file.path);
   assert.ok(!forbidden.test(file.path), 'Excluded path in release: ' + file.path);
@@ -23,7 +23,19 @@ for (const file of files) {
   assert.equal(stat.size, file.size, 'Size changed: ' + file.path);
   if (file.sha) assert.equal(createHash('sha1').update(fs.readFileSync(absolute)).digest('hex'), file.sha, 'Content changed: ' + file.path);
 }
-assert.equal(files.filter(f => f.path.endsWith('.webp')).length, 886);
+// Compare exact asset paths with the trusted runtime tree, not a lesson count
+// that becomes stale when another subject or photographic scene is added.
+function webps(directory) {
+  return fs.readdirSync(directory, {withFileTypes: true}).flatMap(entry => {
+    const full = path.join(directory, entry.name);
+    if (entry.isDirectory()) return webps(full);
+    return entry.isFile() && entry.name.endsWith('.webp') && !entry.name.includes(' 2.')
+      ? [path.relative(root, full).split(path.sep).join('/')] : [];
+  });
+}
+const expectedWebps = webps(path.join(root, 'web'));
+assert.ok(expectedWebps.length > 0, 'Runtime image inventory cannot be empty');
+assert.deepEqual(files.filter(f => f.path.endsWith('.webp')).map(f => f.path).sort(), expectedWebps.sort());
 const release = fs.mkdtempSync(path.join(os.tmpdir(), 'primer-release-'));
 for (const file of files) {
   const destination = path.join(release, file.path);

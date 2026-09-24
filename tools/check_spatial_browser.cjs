@@ -2,14 +2,18 @@
 'use strict';
 
 // Optional end-to-end QA. Run against an isolated Primer database/dev server.
-// NODE_PATH=/path/to/node_modules node tools/check_spatial_browser.cjs URL OUTDIR
+// NODE_PATH=/path/to/node_modules node tools/check_spatial_browser.cjs URL
+// Evidence uses a fresh private temporary directory; printed as EVIDENCE_DIRECTORY.
+// Legacy output-directory argument (slot 3) is ignored; see docs/browser-qa.md.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
 const { chromium } = require('playwright');
-const base = process.argv[2] || 'http://127.0.0.1:8768';
-const out = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'primer-spatial-qa-'));
+const { createEvidenceDirectory, loopbackQaUrl } = require('./qa-browser.cjs');
+const base = loopbackQaUrl(process.argv[2] || 'http://127.0.0.1:8768');
+const out = createEvidenceDirectory();
+
 console.log('Screenshots: ' + out);
 const curriculum = path.resolve(__dirname, '../data/curriculum');
 const entries = fs.readdirSync(curriculum).filter(f => /^\d.*\.json$/.test(f))
@@ -20,7 +24,8 @@ const entries = fs.readdirSync(curriculum).filter(f => /^\d.*\.json$/.test(f))
 (async () => {
   const browser = await chromium.launch({ headless: true });
   const results = [], errors = [];
-  const sourceFiles = ['spatial-models.js', 'spatial-radiology.js', 'lesson-models.js', 'app.js', 'styles.css'];
+  const sourceFiles = ['spatial-models.js', 'spatial-math.js', 'spatial-molecular.js',
+    'spatial-physical.js', 'spatial-cross-subject.js', 'spatial-radiology.js', 'concept-models.js', 'lesson-models.js', 'app.js', 'styles.css'];
   const digest = bytes => createHash('sha256').update(bytes).digest('hex');
   const loadedSources = {}, sourceReads = [];
   try {
@@ -32,9 +37,23 @@ const entries = fs.readdirSync(curriculum).filter(f => /^\d.*\.json$/.test(f))
       const file = new URL(response.url()).pathname.replace(/^\/app\//, '');
       if (sourceFiles.includes(file)) sourceReads.push(response.body().then(body => { loadedSources[file] = digest(body); }));
     });
+    const galleryResponse = await context.request.get(base + '/api/curriculum/visuals');
+    assert.equal(galleryResponse.status(), 200);
+    const gallery = await galleryResponse.json();
+    const galleryModels = gallery.items.filter(item => ['spatial-3d', 'radiology-anatomy'].includes(item.renderer));
+    for (const entry of entries) assert.ok(galleryModels.some(item => item.lesson_id === entry.id && item.renderer === 'spatial-3d'),
+      entry.id + ': authored spatial scene remains reachable through the gallery');
+    await page.goto(base + '/#/math-images');
+    await page.getByRole('combobox', { name: /^kind$/i }).selectOption('spatial-3d');
+    await page.waitForFunction(count => document.querySelectorAll('.math-image-card:not([hidden])').length === count, galleryModels.length);
+    const firstCard = page.locator('.math-image-card:not([hidden])').first();
+    await firstCard.getByRole('button', { name: 'Open model →', exact: true }).click();
+    await page.locator('.spatial-model').waitFor();
+    assert.ok(page.url().includes('/node/'), 'Gallery must open a real lesson');
+
     for (const entry of entries) {
       await page.goto(base + '/#/node/' + entry.id);
-      const model = page.locator('.spatial-model');
+      const model = page.locator('.spatial-model[data-scenario="' + entry.id + '"]');
       await model.waitFor();
       assert.equal(await model.getAttribute('data-scenario'), entry.id);
       const svg = model.locator('.spatial-svg');

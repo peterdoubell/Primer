@@ -88,6 +88,17 @@ class FakeTextNode {
 }
 
 class FakeElement {
+  querySelectorAll(selector) {
+    const found = [];
+    const visit = parent => parent.children.forEach(child => {
+      if (child.nodeType !== 1) return;
+      if (selector.startsWith('.') ? child.classList.contains(selector.slice(1)) : child.tagName === selector) found.push(child);
+      visit(child);
+    });
+    visit(this);
+    return found;
+  }
+  querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
   constructor(tagName, namespaceURI = null) {
     this.nodeType = 1;
     this.tagName = String(tagName).toLowerCase();

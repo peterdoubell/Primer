@@ -7,12 +7,14 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 from typing import Dict, List
 
 ROOT = Path(__file__).resolve().parents[1]
 CURRICULUM_ROOT = ROOT / "data" / "curriculum"
 WEB_ROOT = ROOT / "web"
 EXPECTED_SIZE = (1600, 1000)
+CANONICAL_WEBP = re.compile(r"^[a-z0-9][a-z0-9-]*-(?:800|1600)\.webp$")
 
 
 def webp_dimensions(path: Path) -> tuple[int, int]:
@@ -47,14 +49,30 @@ def audit() -> Dict[str, object]:
     hashes_by_width = {800: {}, 1600: {}}
     total_nodes = 0
     total_illustrated = 0
+    total_models = 0
+    total_long_descriptions = 0
     total_plates = 0
     for source in sorted(CURRICULUM_ROOT.glob("*.json")):
         curriculum = json.loads(source.read_text(encoding="utf-8"))
         nodes = curriculum.get("nodes", [])
         missing = []
+        domain_models = 0
+        domain_long_descriptions = 0
         total_nodes += len(nodes)
         for node in nodes:
             node_id = node.get("id", "<missing-id>")
+            models = [entry for entry in node.get("lesson_media", [])
+                      if isinstance(entry, dict) and entry.get("kind") == "model"]
+            # A spatial view can complement the lesson's existing manipulative.
+            renderers = [entry.get("renderer") for entry in models]
+            if len(renderers) != len(set(renderers)):
+                errors.append("{}: duplicate interactive renderer".format(node_id))
+            for model in models:
+                if not model.get("id") or model["id"] in media_ids:
+                    errors.append("{}: missing or duplicate model id".format(node_id))
+                media_ids.add(model.get("id"))
+            total_models += len(models)
+            domain_models += len(models)
             plates = [entry for entry in node.get("lesson_media", [])
                       if isinstance(entry, dict) and entry.get("kind") == "illustration"]
             if not plates:
@@ -66,6 +84,9 @@ def audit() -> Dict[str, object]:
             total_illustrated += 1
             total_plates += len(plates)
             for plate in plates:
+                if str(plate.get("long_description", "")).strip():
+                    total_long_descriptions += 1
+                    domain_long_descriptions += 1
                 media_id = plate.get("id")
                 if media_id in media_ids:
                     errors.append("{}: duplicate media id {}".format(node_id, media_id))
@@ -125,14 +146,39 @@ def audit() -> Dict[str, object]:
             "name": curriculum.get("name"),
             "lessons": len(nodes),
             "illustrated": len(nodes) - len(missing),
+            "models": domain_models,
+            "long_descriptions": domain_long_descriptions,
             "missing": missing,
         })
+    referenced_paths = {Path(url.removeprefix("/app/")) for url in urls}
+    # Shared photographic contexts have their own manifest and validation;
+    # they are not unique explanatory plates, but are still referenced assets.
+    photo_manifest = ROOT / "data" / "module-photographs.json"
+    if photo_manifest.is_file():
+        photo_domains = json.loads(photo_manifest.read_text(encoding="utf-8"))["domains"]
+        for photos in photo_domains.values():
+            for photo in photos:
+                for candidate in photo["srcset"].split(","):
+                    url = candidate.strip().split()[0]
+                    if url.startswith("/app/illustrations/photoreal/"):
+                        referenced_paths.add(Path(url.removeprefix("/app/")))
+    canonical_paths = {
+        path.relative_to(WEB_ROOT)
+        for path in (WEB_ROOT / "illustrations").rglob("*.webp")
+        if CANONICAL_WEBP.fullmatch(path.name)
+    }
+    orphan_webps = sorted(str(path) for path in canonical_paths - referenced_paths)
+    for path in orphan_webps:
+        errors.append("orphan raster is not referenced by curriculum: {}".format(path))
     return {
         "lessons": total_nodes,
         "illustrated": total_illustrated,
         "missing": total_nodes - total_illustrated,
         "plates": total_plates,
         "responsive_webps": len(urls),
+        "interactive_models": total_models,
+        "long_descriptions": total_long_descriptions,
+        "orphan_webps": orphan_webps,
         "domains": domains,
         "errors": errors,
     }
@@ -146,10 +192,17 @@ def main() -> None:
     if args.json:
         print(json.dumps(result, indent=2))
     else:
-        print("{illustrated}/{lessons} lessons illustrated; {responsive_webps} WebPs".format(
-            **result))
+        print(("{illustrated}/{lessons} lessons illustrated; {responsive_webps} WebPs; "
+               "{interactive_models} interactive models; {long_descriptions} long descriptions")
+              .format(**result))
         for domain in result["domains"]:
-            print("{id}: {illustrated}/{lessons}".format(**domain))
+            model_word = "model" if domain["models"] == 1 else "models"
+            description_word = ("description" if domain["long_descriptions"] == 1
+                                else "descriptions")
+            print("{id}: {illustrated}/{lessons}; {models} {model_word}; "
+                  "{long_descriptions} long {description_word}".format(
+                      model_word=model_word, description_word=description_word,
+                      **domain))
         if result["errors"]:
             print("\n".join(result["errors"][:50]))
             if len(result["errors"]) > 50:

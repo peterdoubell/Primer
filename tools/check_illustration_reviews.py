@@ -9,12 +9,15 @@ import hashlib
 import json
 from pathlib import Path
 
+from check_model_coverage import inventory
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def audit(root=ROOT, reviews=None):
     root = Path(root)
+    inventory(root / "data/curriculum")  # Reject empty and duplicated curricula.
     seen_lessons = set()
     if reviews is None:
         reviews = json.loads((root / "docs/illustration-reviews.json").read_text())

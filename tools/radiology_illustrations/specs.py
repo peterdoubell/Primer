@@ -496,6 +496,9 @@ _RECORDS: List[Dict[str, object]] = [
 ]
 
 
+from .reference_expansion import RECORDS as REFERENCE_RECORDS, RENDERERS as REFERENCE_RENDERERS
+_RECORDS.extend(REFERENCE_RECORDS)
+
 SPECS: Dict[str, Dict[str, object]] = {str(item["id"]): item for item in _RECORDS}
 if len(SPECS) != len(_RECORDS):
     raise ValueError("Duplicate radiology illustration specification")
@@ -519,6 +522,7 @@ RADIOLOGY_RENDERERS = {
     **CARDIO_NEURO_RENDERERS,
     **ABDOMEN_BREAST_RENDERERS,
     **MSK_PAEDS_NUCLEAR_RENDERERS,
+    **REFERENCE_RENDERERS,
 }
 if set(RADIOLOGY_RENDERERS) != set(SPECS):
     raise ValueError(
@@ -534,6 +538,7 @@ if len(RADIOLOGY_RENDERERS) != sum(
         CARDIO_NEURO_RENDERERS,
         ABDOMEN_BREAST_RENDERERS,
         MSK_PAEDS_NUCLEAR_RENDERERS,
+        REFERENCE_RENDERERS,
     )
 ):
     raise ValueError("Duplicate radiology renderer id across detail modules")

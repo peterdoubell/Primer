@@ -128,14 +128,15 @@ DEFAULT_MINUTES = [180, 360, 660, 1080, 1680, 2700]
 # demand a much fuller foundation.
 STAGE_GATE = 0.6
 STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
-SPATIAL_MODEL_SCENARIOS = frozenset({"rad.3.ct-image", "rad.5.tavi-ct", "rad.3.fracture-description"})
 LESSON_MODEL_RENDERERS = frozenset({
     "music-listening-lab",
     "spatial-3d",
+    "concept-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
     "counterexample-lab", "function-composition-lab", "circulation-route-lab",
+    "allele-segregation-lab",
     "truth-table-lab", "stack-queue-lab", "matrix-transform-lab",
     "venturi-flow-lab", "gene-expression-stepper", "tcp-packet-tracer",
     "heat-equation-lab", "complexity-certificate-lab",
@@ -144,6 +145,28 @@ LESSON_MODEL_RENDERERS = frozenset({
     "day-night-rotation-lab", "classroom-paint-mixer",
     "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
     "art-elements-composer", "integer-number-line-lab", "physics-concept-lab",
+    "radiology-anatomy",
+})
+
+# Each 3D scene teaches a specific lesson. Camera state stays local to the UI.
+SPATIAL_MODEL_SCENARIOS = frozenset({
+    "rad.3.ct-image", "rad.5.tavi-ct", "rad.3.fracture-description",
+    "arts.2.color-theory", "cs.5.quantum",
+    "math.2.geometry", "math.3.vectors", "math.4.multivar", "math.5.topology",
+    "chem.2.molecules", "chem.4.organic", "chem.4.quantum-chem", "bio.3.cell-bio",
+    "phys.4.em-maxwell", "phys.4.solid-state", "earth.1.seasons", "earth.3.earth-science",
+})
+
+CONCEPT_MODEL_SCENARIOS = frozenset({
+    "arts.1.beat", "lang.2.etymology", "lang.2.poetry", "lang.2.novels", "lang.2.research", "lang.2.speaking", "lang.2.grammar", "lang.2.paragraphs", "lang.0.phonics", "lang.1.handwriting", "lang.0.speaking", "lang.1.childrens-lit", "lang.1.writing-stories", "lang.1.dictionary", "lang.1.vocabulary", "lang.1.spelling", "lang.1.sentences", "lang.0.rhymes", "lang.0.stories", "earth.5.frontier", "earth.5.earth-systems", "earth.5.cosmology", "earth.5.astrobiology", "earth.4.planetary", "earth.4.climatology", "earth.4.oceanatmos", "earth.4.geophysics", "earth.4.astrophysics", "earth.3.astronomy", "earth.3.ecology-earth", "earth.3.climate-sci", "earth.3.space-exploration", "earth.2.geology", "earth.2.oceans", "earth.2.atmosphere", "earth.2.environment", "earth.2.planets", "earth.2.stars", "earth.0.weather", "earth.1.solar-system", "earth.0.land-water", "earth.1.water-cycle", "earth.1.rocks", "cs.4.security", "cs.4.systems", "cs.5.deep-learning", "cs.5.distributed", "cs.5.pl-theory", "cs.5.frontier", "cs.4.algorithms-adv", "cs.4.ml", "cs.4.theory", "cs.3.web", "cs.2.internet", "cs.4.os", "cs.4.databases-adv", "cs.3.versioncontrol", "cs.3.oop", "cs.3.hardware", "cs.2.bigo-intro", "cs.3.algorithms", "cs.1.blocks", "cs.2.programming", "cs.1.parts", "cs.3.databases", "cs.2.data-types", "cs.2.debugging", "cs.2.functions", "cs.0.sorting", "cs.0.patterns", "chem.3.bonding", "chem.4.inorganic", "chem.3.organic-intro", "chem.2.reactions-intro", "chem.3.reactions", "chem.2.periodic", "chem.2.acids", "chem.0.materials", "chem.1.materials-props", "chem.5.materials", "chem.1.changes", "chem.4.electrochem", "chem.5.biochem", "chem.5.frontier", "chem.4.analytical", "chem.5.compchem", "chem.2.mixtures", "chem.3.atomic-structure", "chem.3.gases", "chem.3.energy", "chem.4.physical", "chem.3.stoichiometry", "chem.0.mixing", "chem.0.water-states", "chem.1.matter", "bio.1.health", "bio.3.microbiology", "bio.5.immunology", "bio.5.frontier", "bio.4.neuro", "bio.4.physiology", "bio.4.ethology", "bio.4.genomics", "bio.5.comp-bio", "bio.5.systems-bio", "bio.3.ecology", "bio.3.botany", "bio.4.biochem", "bio.3.evolution", "bio.4.evo-bio", "bio.1.human-body", "bio.2.digestion", "bio.2.reproduction", "bio.0.animals", "bio.1.habitats", "bio.0.body", "bio.0.seasons", "bio.0.living", "bio.2.classification", "bio.2.ecosystems", "bio.2.microbes", "bio.0.plants", "bio.1.plants-parts", "bio.2.photosynthesis", "bio.1.food-chains", "math.5.diffgeo", "math.5.complex-analysis", "math.5.logic", "math.5.frontier", "math.5.abstract", "math.5.measure", "math.5.functional", "math.5.numerical", "math.4.diffeq", "math.4.discrete", "math.4.numtheory", "math.4.analysis", "math.4.prob-theory", "math.3.euclid", "math.4.complex", "math.4.diff-calc", "math.4.int-calc", "math.3.probability", "math.3.statistics", "math.3.precalc", "math.3.polynomials", "math.3.trig", "math.3.expo-logs", "math.3.sequences", "math.3.systems", "math.3.quadratics", "math.3.linear", "math.3.slope", "math.2.primes", "math.2.ratio", "math.2.exponents", "math.2.data", "math.2.prealgebra",
+    "math.2.decimals", "math.2.order-ops",
+    "math.2.percent", "math.2.coordinates",
+    "math.1.measurement", "math.1.time", "math.1.fractions-intro",
+    "math.1.multiplication", "math.1.division",
+    "math.1.subtraction", "math.1.place-value",
+    "math.0.compare", "math.0.patterns", "math.0.numbers20",
+    "cs.1.binary",
+    "hist.3.economics-intro", "lang.4.linguistics", "mind.5.logic-advanced",
 })
 
 # These scenarios intentionally exclude the three physics lessons with bespoke
@@ -208,10 +231,16 @@ def _validate_lesson_media(node: Dict) -> None:
             raise ValueError("{} repeats lesson media id {}".format(node.get("id"), media_id))
         seen.add(media_id)
         kind = entry.get("kind")
-        if kind == "illustration":
-            if (not illustration_required_keys.issubset(entry)
-                    or set(entry) - illustration_required_keys - illustration_optional_keys):
+        if kind in {"illustration", "photograph"}:
+            required_keys = illustration_required_keys | ({"credit", "source_type"} if kind == "photograph" else set())
+            optional_keys = illustration_optional_keys if kind == "illustration" else set()
+            if (not required_keys.issubset(entry)
+                    or set(entry) - required_keys - optional_keys):
                 raise ValueError("{} illustration {} has unexpected fields".format(node.get("id"), media_id))
+            if kind == "photograph":
+                text(entry, "credit")
+                if entry.get("source_type") != "generated":
+                    raise ValueError("{} photograph needs explicit generated provenance".format(node.get("id")))
             source = text(entry, "src")
             local_image(source)
             if any(isinstance(entry.get(key), bool) or not isinstance(entry.get(key), int)
@@ -277,9 +306,22 @@ def _validate_lesson_media(node: Dict) -> None:
                     raise ValueError("Music listening model needs its own lesson grade")
             elif renderer == "spatial-3d":
                 scenario = props.get("scenario")
-                if set(props) != {"scenario"} or not isinstance(scenario, str) \
+                if isinstance(scenario, str) and scenario.startswith("module."):
+                    from .module_media import model_props
+                    if props != model_props(node):
+                        raise ValueError("{} module spatial model has an unknown or cross-lesson scenario".format(node.get("id")))
+                elif set(props) != {"scenario"} or not isinstance(scenario, str) \
                         or scenario not in SPATIAL_MODEL_SCENARIOS or scenario != node.get("id"):
                     raise ValueError("{} spatial model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "radiology-anatomy":
+                reference = node.get("radiology_reference", {}).get("spatial_model", {})
+                if not reference or props != {"node_id": node.get("id"), "family": reference.get("family")}:
+                    raise ValueError("{} anatomy model has an unknown or cross-lesson binding".format(node.get("id")))
+            elif renderer == "concept-lab":
+                scenario = props.get("scenario")
+                if set(props) != {"scenario"} or not isinstance(scenario, str) \
+                        or scenario not in CONCEPT_MODEL_SCENARIOS or scenario != node.get("id"):
+                    raise ValueError("{} concept model has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "counter":
                 if set(props) != {"total"} or isinstance(props.get("total"), bool) \
                         or not isinstance(props.get("total"), int) or not 1 <= props["total"] <= 20:
@@ -372,6 +414,14 @@ def _validate_lesson_media(node: Dict) -> None:
                         or not 0 <= start_step <= 8 \
                         or not isinstance(props.get("show_oxygenation"), bool):
                     raise ValueError("{} circulation route lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "allele-segregation-lab":
+                if set(props) != {"scenario", "start_cross"} \
+                        or props.get("scenario") != "pea-flower-complete-dominance" \
+                        or props.get("start_cross") not in {
+                            "heterozygous", "test-cross", "pure-lines"
+                        }:
+                    raise ValueError("{} allele segregation lab has unknown starting settings".format(
                         node.get("id")))
             elif renderer == "truth-table-lab":
                 if set(props) != {"start_operator", "start_p", "start_q"} \
@@ -753,6 +803,21 @@ def _content_chars(node: Dict) -> int:
     return total
 
 
+def _validate_authored_lesson(node: Dict) -> None:
+    """New pathways carry real teaching content, not only catalogue entries."""
+    if "lesson" not in node:
+        return
+    lesson = node["lesson"]
+    fields = {"overview", "worked_example", "activity", "reflection"}
+    if not isinstance(lesson, dict) or set(lesson) != fields or any(
+            not isinstance(value, str) or not value.strip() for value in lesson.values()):
+        raise ValueError("{} needs four authored teaching sections".format(node.get("id")))
+    outcomes = node.get("learning_outcomes")
+    if not isinstance(outcomes, list) or len(outcomes) < 3 or any(
+            not isinstance(value, str) or not value.strip() for value in outcomes):
+        raise ValueError("{} needs learning outcomes".format(node.get("id")))
+
+
 class Curriculum:
     def __init__(self):
         self.domains: List[Dict] = []
@@ -770,22 +835,20 @@ class Curriculum:
             with open(os.path.join(CURRICULUM_DIR, name), "r") as f:
                 data = json.load(f)
             domain_id = data["id"]
+            if domain_id == "radiology":
+                from .radiology import attach_references
+                attach_references(data["nodes"])
             self.domains.append({
                 "id": domain_id, "name": data["name"],
                 "icon": data.get("icon", "✦"), "color": data.get("color", "#4a6fa5"),
                 "tagline": data.get("tagline", ""),
                 "node_count": len(data["nodes"]),
-                # The stage a domain starts at. The ten general fields start at
-                # 0 and run the whole book, which is what makes them fields a
-                # reader travels rather than subjects they are handed. A
-                # specialist domain declares a later entry and begins where the
-                # general spine ends — radiology is postgraduate by nature, and
-                # preschool radiology is not a thing anyone should invent to
-                # satisfy a structural rule. The stage gate already allows this:
-                # stage_gate_open returns True when the previous stage is empty,
-                # so entry is governed by the cross-domain prereqs the nodes
-                # declare, not by a ladder that does not exist.
+                # Entry levels describe learning pathways. Introductory imaging
+                # literacy and advanced clinical radiology remain distinct
+                # lessons with different prerequisites and teaching material.
                 "entry_stage": int(data.get("entry_stage", 0)),
+                **({"reference_stage": int(data["reference_stage"])}
+                   if "reference_stage" in data else {}),
             })
             for node in data["nodes"]:
                 node = dict(node)
@@ -801,11 +864,14 @@ class Curriculum:
                 node.setdefault("section", "")
                 node.setdefault("kid_text", "")
                 node.setdefault("lesson_media", [])
+                _validate_authored_lesson(node)
+                from .module_media import attach_module_media
+                attach_module_media(node)
                 _validate_lesson_media(node)
                 _validate_reference(node)
                 _validate_music_study(node)
                 # Provenance, recorded once, where authored items enter the
-                # app. A human wrote these: fixed prompt, fixed answer, the
+                # app. These are authored items: fixed prompt, fixed answer, the
                 # same tomorrow as today. The generators in practice.py stamp
                 # the opposite on every item they mint, so downstream code can
                 # ask what an item *is* instead of guessing from how its text
@@ -843,10 +909,13 @@ class Curriculum:
         # (5, arts), three nodes — is a general graduate group, so a
         # "too small, use the stage average" guard would put exactly the nodes
         # this fixes straight back on the floor.
-        specialist = {d["id"] for d in self.domains if d.get("entry_stage", 0) > 0}
+        specialist = {d["id"]: d.get("reference_stage", d.get("entry_stage", 0))
+                      for d in self.domains
+                      if d.get("reference_stage", d.get("entry_stage", 0)) > 0}
         by_stage: Dict[tuple, List[Dict]] = {}
         for node in raw_nodes:
-            pool = node["domain"] if node["domain"] in specialist else "*general*"
+            pool = (node["domain"] if node["domain"] in specialist
+                    and node["stage"] >= specialist[node["domain"]] else "*general*")
             by_stage.setdefault((node["stage"], pool), []).append(node)
         for (stage, _pool), nodes in by_stage.items():
             lens = [_content_chars(n) for n in nodes]
@@ -907,6 +976,13 @@ class Curriculum:
     def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float],
                         proven: Optional[set] = None, strand: Optional[str] = None) -> bool:
         if stage == 0:
+            return True
+        # Clinical reference modules retain their professional entry route.
+        # Their own cross-field prerequisites still apply in unlocked(); the
+        # new imaging-literacy ladder must not gate existing clinician access.
+        reference_stage = next((d.get("reference_stage") for d in self.domains
+                                if d["id"] == domain), None)
+        if reference_stage is not None and stage >= reference_stage:
             return True
         prev = self._by_domain_stage.get(domain, {}).get(stage - 1, [])
         if strand is not None:
@@ -993,6 +1069,9 @@ class Curriculum:
             n.pop("music_study", None)
             n.pop("music_path", None)
             n.pop("lesson_media", None)  # detail-only; plates and model copy are much larger
+            n.pop("radiology_reference", None)
+            for field in ("lesson", "learning_outcomes", "visual_spec", "model_family", "model_context"):
+                n.pop(field, None)
             # The reporting frameworks come to 300 KB across the specialist
             # field — heavier than everything else on this route put together.
             # The Atlas gets the one line it needs to file and find a module by

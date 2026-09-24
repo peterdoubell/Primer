@@ -16,6 +16,7 @@ pictures survive going offline.
 
 import json
 import logging
+import math
 import os
 import re
 import threading
@@ -380,11 +381,14 @@ class WikiService:
         # returning nothing at all.
         return self._cache_get(title, None)
 
-    def get_summary(self, title: str, lang: str = "en") -> Optional[Dict]:
-        """Plain-text summary — used for quizzes and the tutor."""
-        # Try live/cached summary first (clean plain text), else strip ZIM html.
-        # Lang-exact, same as _cache_get: without the filter a Simple-English
-        # summary could answer an 'en' request (and vice versa).
+    def get_cached_summary(self, title: str, lang: str = "en") -> Optional[Dict]:
+        """Optional card metadata, without fetching Wikipedia or opening a ZIM.
+
+        A lesson's authored content must not wait for live encyclopedia
+        decoration. Keep this accessor strictly cache-only, including when a
+        saved response is malformed; callers that explicitly need live text
+        can use ``get_summary`` instead.
+        """
         with _db_lock, self._conn() as c:
             row = c.execute(
                 "SELECT summary FROM article_cache WHERE title=? AND lang=? AND summary != ''",
@@ -392,9 +396,28 @@ class WikiService:
             ).fetchone()
         if row and row[0]:
             try:
-                return json.loads(row[0])
-            except Exception:
+                saved = json.loads(row[0])
+                if isinstance(saved, dict):
+                    return {
+                        key: value if isinstance(value, str) else ""
+                        for key, value in (
+                            ("title", saved.get("title", title)),
+                            ("extract", saved.get("extract", "")),
+                            ("description", saved.get("description", "")),
+                            ("thumbnail", saved.get("thumbnail", "")),
+                        )
+                    }
+            except (TypeError, ValueError):
                 pass
+        return None
+
+    def get_summary(self, title: str, lang: str = "en") -> Optional[Dict]:
+        """Plain-text summary — used for quizzes and the tutor."""
+        # Lang-exact: a Simple-English cached summary must not answer an 'en'
+        # request (and vice versa).
+        cached = self.get_cached_summary(title, lang)
+        if cached is not None:
+            return cached
         # Same offline breaker as _fetch_live: with no cached summary, skip
         # straight to the ZIM/cache HTML fallback instead of waiting on a
         # timeout for every quiz or tutor call.
@@ -507,13 +530,28 @@ class WikiService:
     CACHE_STALE_SECONDS = 30 * 24 * 3600
 
     def _note_live_failure(self, exc: Exception):
-        """Trip the offline breaker — but only for network-shaped failures.
-        An HTTP status (404 etc.) proves we reached Wikipedia, so it must not
-        block subsequent fetches of other titles."""
-        if getattr(exc, "code", None) is None:
-            self._live_fetch_blocked_until = time.time() + 60
-            log.info("live fetches unavailable (%s); pausing for 60s",
-                     exc.__class__.__name__)
+        """Back off for network failures and explicit upstream overload.
+
+        Missing titles (404) must not block unrelated titles. Rate limits and
+        unavailable upstreams are different: respect their Retry-After delay.
+        """
+        code = getattr(exc, "code", None)
+        if code is None or code == 429 or (isinstance(code, int) and 500 <= code < 600):
+            delay = 60
+            headers = getattr(exc, "headers", None)
+            retry = headers.get("Retry-After", "") if headers else ""
+            try:
+                delay = max(1, int(retry)) if retry else delay
+            except (TypeError, ValueError):
+                from email.utils import parsedate_to_datetime
+                try:
+                    delay = max(1, math.ceil(parsedate_to_datetime(retry).timestamp() - time.time()))
+                except (TypeError, ValueError, OverflowError):
+                    pass
+            self._live_fetch_blocked_until = max(
+                self._live_fetch_blocked_until, time.time() + delay)
+            log.info("live fetches unavailable (%s); pausing for %ss",
+                     exc.__class__.__name__, delay)
 
     def _fetch_live(self, title: str, lang: str) -> Optional[Dict]:
         # Breaker: while offline, don't stack 20s timeouts on every page view.
@@ -749,7 +787,7 @@ class WikiService:
             row = c.execute(
                 "SELECT data, mime FROM image_cache WHERE url=?", (safe_url,)
             ).fetchone()
-        if row:
+        if row and row[0] and (row[1] or "").split(";")[0].strip().lower().startswith("image/"):
             return row[0], row[1]
         try:
             req = urllib.request.Request(safe_url, headers={"User-Agent": USER_AGENT})
@@ -760,7 +798,7 @@ class WikiService:
                 if len(data) > self.MAX_IMAGE_BYTES:
                     log.warning("image too large, refused: %s", safe_url[:120])
                     return None
-                mime = resp.headers.get("Content-Type", "image/jpeg")
+                mime = resp.headers.get("Content-Type", "")
         except Exception as exc:
             log.info("image fetch failed (%s): %s", exc.__class__.__name__, safe_url[:120])
             return None
@@ -768,7 +806,7 @@ class WikiService:
         # upstream does not declare as image/* — otherwise an error page or
         # HTML response would be cached forever and served with a live mime
         # type from our own origin.
-        if not mime.split(";")[0].strip().lower().startswith("image/"):
+        if not data or not mime.split(";")[0].strip().lower().startswith("image/"):
             log.warning("non-image content-type %r refused: %s", mime[:40], safe_url[:120])
             return None
         # Cache everything we are willing to serve. The old sub-4MB threshold

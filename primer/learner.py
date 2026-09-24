@@ -27,6 +27,7 @@ import os
 import secrets
 import shutil
 import sqlite3
+import stat
 import threading
 import time
 from typing import Dict, List, Optional
@@ -54,6 +55,55 @@ _CACHE_TABLES = ("article_cache", "image_cache")
 _SHRINK_BACKUP_ABOVE = 32_000_000
 
 
+_BACKUP_SIDECARS = ("-wal", "-shm", "-journal")
+
+
+def _backup_filename(name: str) -> bool:
+    """Only names produced by backup(), never arbitrary databases in its root."""
+    if (len(name) != 25 or not name.startswith("primer-")
+            or name[15] != "-" or not name.endswith(".db")
+            or any(c not in "0123456789" for c in name[7:15] + name[16:22])):
+        return False
+    try:
+        datetime.datetime.strptime(name, "primer-%Y%m%d-%H%M%S.db")
+    except ValueError:
+        return False
+    return True
+
+
+def _checked_backup_path(path: str, root: Optional[str] = None) -> Optional[str]:
+    """Check a backup and all SQLite siblings before touching any of them.
+
+    The directory is an explicit administrator choice and may be on another
+    drive. Its generated children must stay directly inside that captured
+    directory and must never redirect a database operation to another file.
+    Missing siblings are normal; a symlink, hard link or non-file is refused.
+    """
+    try:
+        supplied = os.fspath(path)
+        if ".." in supplied.replace("\\", "/").split("/"):
+            return None
+        absolute = os.path.abspath(supplied)
+        if not _backup_filename(os.path.basename(absolute)):
+            return None
+        directory = os.path.realpath(root if root is not None else os.path.dirname(absolute))
+        if os.path.realpath(os.path.dirname(absolute)) != directory:
+            return None
+        for suffix in ("",) + _BACKUP_SIDECARS:
+            candidate = absolute + suffix
+            if os.path.dirname(os.path.realpath(candidate)) != directory:
+                return None
+            try:
+                info = os.lstat(candidate)
+            except FileNotFoundError:
+                continue
+            if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+                return None
+        return os.path.join(directory, os.path.basename(absolute))
+    except (OSError, TypeError, ValueError):
+        return None
+
+
 def _shed_wiki_cache(path: str) -> None:
     """Drop the cache tables from a finished backup and reclaim the space.
 
@@ -69,6 +119,9 @@ def _shed_wiki_cache(path: str) -> None:
     implicitly unless isolation_level is None, so the commit and the isolation
     change are both load-bearing rather than decoration.
     """
+    path = _checked_backup_path(path)
+    if path is None:
+        return
     # Only worth doing when there is something to reclaim. A backup of the
     # record alone is ~100 KB; the caches are what make the file hundreds of
     # megabytes. Below this there is nothing to win, and the cost is not zero:
@@ -104,11 +157,14 @@ def _shed_wiki_cache(path: str) -> None:
                 conn.close()
             except Exception:
                 pass
-        for suffix in ("-wal", "-shm"):
-            try:
-                os.remove(path + suffix)
-            except OSError:
-                pass
+        # Recheck after SQLite closes: a sibling may have changed while the
+        # copy was being processed. Never clean up a redirected sibling.
+        if _checked_backup_path(path) is not None:
+            for suffix in _BACKUP_SIDECARS:
+                try:
+                    os.remove(path + suffix)
+                except OSError:
+                    pass
 
 
 def _remove_backup(path: str) -> None:
@@ -119,7 +175,10 @@ def _remove_backup(path: str) -> None:
     directory, and the two failure paths in `backup()` leaked them too, on
     exactly the runs where something had already gone wrong.
     """
-    for suffix in ("", "-wal", "-shm"):
+    path = _checked_backup_path(path)
+    if path is None:
+        return
+    for suffix in ("",) + _BACKUP_SIDECARS:
         try:
             os.remove(path + suffix)
         except OSError:
@@ -395,7 +454,7 @@ STAGE_SPAN = [
     "ages 10–13 · middle school",
     "ages 14–17 · secondary school",
     "undergraduate level",
-    "graduate level & the frontier",
+    "master’s level · research & synthesis",
 ]
 STAGE_TITLES = [
     "Curious Seedling", "Bright Sprout", "Growing Sapling",
@@ -1965,11 +2024,23 @@ class LearnerStore:
 
     def review_card(self, card_id: int, quality: int,
                     seconds: Optional[float] = None,
-                    reader_id: int = 1) -> Dict:
+                    reader_id: int = 1, expected_due: Optional[float] = None,
+                    expected_reviews: Optional[int] = None) -> Dict:
         """SM-2. quality: 0 (blank) .. 5 (perfect). A lapse also lowers the
         related node's strength and can flag it for refresh."""
         now = time.time()
         quality = max(0, min(5, quality))
+        guarded = expected_due is not None or expected_reviews is not None
+        if guarded and (expected_due is None or expected_reviews is None):
+            raise ValueError("A game review needs both card revision fields")
+
+        def stale(card):
+            due = card["due"] or now
+            return {"id": card_id, "accepted": False, "stale": True,
+                    "xp_gained": 0, "next_due": due,
+                    "next_days": round(max(0, (due - now) / DAY), 2),
+                    "lapses": self._lapses_of(card)}
+
         with _lock, self._conn() as c:
             # Scoped by reader as well as id: srs_cards.id is a plain
             # autoincrement, not unique per reader, so without this a reader
@@ -1980,17 +2051,12 @@ class LearnerStore:
                             (card_id, reader_id)).fetchone()
             if not row:
                 return {"error": "no such card"}
-            # Failed recall reveals the durable key again. A correct recall
-            # teaches no new answer, matching the quiz feedback policy.
-            if quality < 3 and row["node_id"]:
-                raw = (str(row["front"]) + "\x00" + str(row["back"])).encode("utf-8")
-                fingerprint = hashlib.sha256(raw).hexdigest()[:16]
-                c.execute("""INSERT INTO burned(reader_id,node_id,fingerprint,at) VALUES(?,?,?,?)
-                             ON CONFLICT(reader_id,node_id,fingerprint) DO UPDATE SET at=excluded.at""",
-                          (reader_id, row["node_id"], fingerprint, now))
-                c.execute("""INSERT INTO burned(reader_id,node_id,fingerprint,at) VALUES(?,?,?,?)
-                             ON CONFLICT(reader_id,node_id,fingerprint) DO UPDATE SET at=excluded.at""",
-                          (reader_id, row["node_id"], self.review_fingerprint(row["front"]), now))
+            # A game submits the revision it displayed. This precheck handles
+            # stale tabs and lost-response retries; the guarded UPDATE below
+            # also protects the race between this read and a concurrent save.
+            if guarded and ((row["reviews"] or 0) != expected_reviews
+                            or row["due"] != expected_due or row["due"] > now):
+                return stale(row)
             prof_row = c.execute("SELECT age FROM profile WHERE reader_id=?",
                                  (reader_id,)).fetchone()
             age = prof_row["age"] if prof_row else None
@@ -2021,7 +2087,8 @@ class LearnerStore:
             counts = (row["due"] or 0) <= now or quality < 3
             if not counts:
                 return {"id": card_id, "next_days": round(((row["due"] or now) - now) / DAY, 1),
-                        "xp_gained": 0, "lapses": self._lapses_of(row), "early": True}
+                        "next_due": row["due"], "xp_gained": 0,
+                        "lapses": self._lapses_of(row), "early": True}
             ef, interval, reps, lapses = row["ef"], row["interval"], row["reps"], row["lapses"] or 0
             # Every grade that counts increments this, and nothing ever resets
             # it. `reps` cannot do this job: the lapse branch below sets it to
@@ -2066,11 +2133,27 @@ class LearnerStore:
             if quality >= 3:
                 ef = max(1.3, ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
             due = now + max(interval, 10 / 1440) * DAY
-            c.execute(
-                "UPDATE srs_cards SET ef=?, interval=?, reps=?, lapses=?, reviews=?, due=? "
-                "WHERE id=? AND reader_id=?",
-                (ef, interval, reps, lapses, reviews, due, card_id, reader_id),
-            )
+            update = "UPDATE srs_cards SET ef=?, interval=?, reps=?, lapses=?, reviews=?, due=? WHERE id=? AND reader_id=?"
+            params = (ef, interval, reps, lapses, reviews, due, card_id, reader_id)
+            if guarded:
+                update += " AND due=? AND COALESCE(reviews,0)=?"
+                params += (expected_due, expected_reviews)
+            changed = c.execute(update, params).rowcount
+            if guarded and changed != 1:
+                current = c.execute("SELECT * FROM srs_cards WHERE id=? AND reader_id=?",
+                                    (card_id, reader_id)).fetchone()
+                return stale(current) if current else {"error": "no such card"}
+            # Failed recall reveals the durable key again. A correct recall
+            # teaches no new answer, matching the quiz feedback policy.
+            if quality < 3 and row["node_id"]:
+                raw = (str(row["front"]) + "\x00" + str(row["back"])).encode("utf-8")
+                fingerprint = hashlib.sha256(raw).hexdigest()[:16]
+                c.execute("""INSERT INTO burned(reader_id,node_id,fingerprint,at) VALUES(?,?,?,?)
+                             ON CONFLICT(reader_id,node_id,fingerprint) DO UPDATE SET at=excluded.at""",
+                          (reader_id, row["node_id"], fingerprint, now))
+                c.execute("""INSERT INTO burned(reader_id,node_id,fingerprint,at) VALUES(?,?,?,?)
+                             ON CONFLICT(reader_id,node_id,fingerprint) DO UPDATE SET at=excluded.at""",
+                          (reader_id, row["node_id"], self.review_fingerprint(row["front"]), now))
             # Feed the outcome back to node mastery strength — the deck is the
             # memory, so repeated lapses can un-master a node entirely.
             node_id = row["node_id"]
@@ -2099,8 +2182,11 @@ class LearnerStore:
                 "INSERT INTO events(kind, payload, at, xp, reader_id) "
                 "VALUES('review',?,?,?,?)",
                 (json.dumps(payload), now, xp, reader_id))
-        return {"id": card_id, "next_days": round(max((due - now) / DAY, 0.01), 2),
-                "xp_gained": xp, "lapses": lapses}
+        result = {"id": card_id, "next_days": round(max((due - now) / DAY, 0.01), 2),
+                  "next_due": due, "xp_gained": xp, "lapses": lapses}
+        if guarded:
+            result["accepted"] = True
+        return result
 
     def deck_stats(self, reader_id: int = 1) -> Dict:
         now = time.time()
@@ -2593,17 +2679,28 @@ class LearnerStore:
         record; a restored file rebuilds the cache tables on first use, because
         WikiService creates them IF NOT EXISTS.
         """
+        # Keep the administrator's chosen root, including off-disk storage,
+        # while resolving it once for this complete backup/retention pass.
+        dest_dir = os.path.realpath(os.fspath(dest_dir))
         os.makedirs(dest_dir, exist_ok=True)
         stamp = time.strftime("%Y%m%d-%H%M%S", time.localtime())
         dest = os.path.join(dest_dir, "primer-{}.db".format(stamp))
+        source_path = os.path.realpath(self.db_path)
+        if dest == source_path or _checked_backup_path(dest, dest_dir) is None:
+            log.warning("refusing redirected or invalid backup destination")
+            return None
         try:
             with _lock, self._conn() as src:
+                if _checked_backup_path(dest, dest_dir) is None:
+                    return None
                 bck = sqlite3.connect(dest)
                 with bck:
                     src.backup(bck)
                 bck.close()
             # A backup you have not verified is not a backup: check the copy is
             # structurally sound and actually contains the reader's record.
+            if _checked_backup_path(dest, dest_dir) is None:
+                return None
             check = sqlite3.connect(dest)
             try:
                 status = check.execute("PRAGMA integrity_check").fetchone()[0]
@@ -2631,7 +2728,10 @@ class LearnerStore:
         except Exception as exc:   # belt and braces: the helper catches its own
             log.warning("could not shrink backup: %s: %s",
                         exc.__class__.__name__, exc)
-        backups = sorted(f for f in os.listdir(dest_dir) if f.endswith(".db"))
+        backups = sorted(f for f in os.listdir(dest_dir)
+                         if _backup_filename(f)
+                         and os.path.join(dest_dir, f) != source_path
+                         and _checked_backup_path(os.path.join(dest_dir, f), dest_dir) is not None)
         for old in backups[:-keep]:
             _remove_backup(os.path.join(dest_dir, old))
         return dest
