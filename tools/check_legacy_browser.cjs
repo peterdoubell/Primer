@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 'use strict';
 // Real-browser coverage for every binding outside the concept/3D suites.
+// Evidence uses a fresh private temporary directory; printed as EVIDENCE_DIRECTORY.
+// Legacy output-directory argument (slot 3) is ignored; see docs/browser-qa.md.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
 const { chromium } = require('playwright');
+const { createEvidenceDirectory, loopbackQaUrl } = require('./qa-browser.cjs');
 const root = path.resolve(__dirname, '..');
-const base = process.argv[2];
-const out = process.argv[3];
-assert.ok(base && out, 'Provide isolated QA URL and evidence directory');
-fs.mkdirSync(out, { recursive: true });
+const base = loopbackQaUrl(process.argv[2]);
+const out = createEvidenceDirectory();
+
 const entries = fs.readdirSync(path.join(root, 'data/curriculum')).filter(f => /^\d.*\.json$/.test(f))
   .flatMap(f => JSON.parse(fs.readFileSync(path.join(root, 'data/curriculum', f))).nodes)
   .flatMap(n => (n.lesson_media || []).filter(m => m.kind === 'model' &&

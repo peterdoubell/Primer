@@ -2,19 +2,18 @@
 'use strict';
 // Exercise delayed request boundaries without a browser or learner record.
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '../web/app.js'), 'utf8');
-const begin = source.indexOf('async function reportingGuard(');
-const end = source.indexOf('async function renderRadiologyDesk(', begin);
-assert.ok(begin >= 0 && end > begin);
-const context = vm.createContext({
-  _readerContextSeq: 1, location: { hash: '#/radiology/first' },
-  loading() {}, isNoProfile: () => false, toOnboarding() {},
-  errCard: error => ({ error: String(error) }), renderRoute() {},
-});
-vm.runInContext(source.slice(begin, end), context);
+// Import a fixed module with inert event registration; no source extraction or
+// dynamic execution, and no real reader/profile/route is opened by this check.
+globalThis.window = { addEventListener() {} };
+globalThis.document = { addEventListener() {} };
+const { reportingGuard } = require('../web/app.js');
+const context = { _readerContextSeq: 1, location: { hash: '#/radiology/first' } };
+const dependencies = {
+  routeVersion: () => context._readerContextSeq, routeHash: () => context.location.hash,
+  showLoading() {}, missingProfile: () => false, onboard() {},
+  errorCard: error => ({ error: String(error) }), rerender() {},
+};
+context.reportingGuard = (page, fn) => reportingGuard(page, fn, dependencies);
 function page() {
   return { isConnected: true, clears: 0, errors: [],
     replaceChildren() { this.clears++; }, append(value) { this.errors.push(value); } };

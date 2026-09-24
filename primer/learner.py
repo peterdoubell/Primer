@@ -27,6 +27,7 @@ import os
 import secrets
 import shutil
 import sqlite3
+import stat
 import threading
 import time
 from typing import Dict, List, Optional
@@ -54,6 +55,55 @@ _CACHE_TABLES = ("article_cache", "image_cache")
 _SHRINK_BACKUP_ABOVE = 32_000_000
 
 
+_BACKUP_SIDECARS = ("-wal", "-shm", "-journal")
+
+
+def _backup_filename(name: str) -> bool:
+    """Only names produced by backup(), never arbitrary databases in its root."""
+    if (len(name) != 25 or not name.startswith("primer-")
+            or name[15] != "-" or not name.endswith(".db")
+            or any(c not in "0123456789" for c in name[7:15] + name[16:22])):
+        return False
+    try:
+        datetime.datetime.strptime(name, "primer-%Y%m%d-%H%M%S.db")
+    except ValueError:
+        return False
+    return True
+
+
+def _checked_backup_path(path: str, root: Optional[str] = None) -> Optional[str]:
+    """Check a backup and all SQLite siblings before touching any of them.
+
+    The directory is an explicit administrator choice and may be on another
+    drive. Its generated children must stay directly inside that captured
+    directory and must never redirect a database operation to another file.
+    Missing siblings are normal; a symlink, hard link or non-file is refused.
+    """
+    try:
+        supplied = os.fspath(path)
+        if ".." in supplied.replace("\\", "/").split("/"):
+            return None
+        absolute = os.path.abspath(supplied)
+        if not _backup_filename(os.path.basename(absolute)):
+            return None
+        directory = os.path.realpath(root if root is not None else os.path.dirname(absolute))
+        if os.path.realpath(os.path.dirname(absolute)) != directory:
+            return None
+        for suffix in ("",) + _BACKUP_SIDECARS:
+            candidate = absolute + suffix
+            if os.path.dirname(os.path.realpath(candidate)) != directory:
+                return None
+            try:
+                info = os.lstat(candidate)
+            except FileNotFoundError:
+                continue
+            if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+                return None
+        return os.path.join(directory, os.path.basename(absolute))
+    except (OSError, TypeError, ValueError):
+        return None
+
+
 def _shed_wiki_cache(path: str) -> None:
     """Drop the cache tables from a finished backup and reclaim the space.
 
@@ -69,6 +119,9 @@ def _shed_wiki_cache(path: str) -> None:
     implicitly unless isolation_level is None, so the commit and the isolation
     change are both load-bearing rather than decoration.
     """
+    path = _checked_backup_path(path)
+    if path is None:
+        return
     # Only worth doing when there is something to reclaim. A backup of the
     # record alone is ~100 KB; the caches are what make the file hundreds of
     # megabytes. Below this there is nothing to win, and the cost is not zero:
@@ -104,11 +157,14 @@ def _shed_wiki_cache(path: str) -> None:
                 conn.close()
             except Exception:
                 pass
-        for suffix in ("-wal", "-shm"):
-            try:
-                os.remove(path + suffix)
-            except OSError:
-                pass
+        # Recheck after SQLite closes: a sibling may have changed while the
+        # copy was being processed. Never clean up a redirected sibling.
+        if _checked_backup_path(path) is not None:
+            for suffix in _BACKUP_SIDECARS:
+                try:
+                    os.remove(path + suffix)
+                except OSError:
+                    pass
 
 
 def _remove_backup(path: str) -> None:
@@ -119,7 +175,10 @@ def _remove_backup(path: str) -> None:
     directory, and the two failure paths in `backup()` leaked them too, on
     exactly the runs where something had already gone wrong.
     """
-    for suffix in ("", "-wal", "-shm"):
+    path = _checked_backup_path(path)
+    if path is None:
+        return
+    for suffix in ("",) + _BACKUP_SIDECARS:
         try:
             os.remove(path + suffix)
         except OSError:
@@ -2620,17 +2679,28 @@ class LearnerStore:
         record; a restored file rebuilds the cache tables on first use, because
         WikiService creates them IF NOT EXISTS.
         """
+        # Keep the administrator's chosen root, including off-disk storage,
+        # while resolving it once for this complete backup/retention pass.
+        dest_dir = os.path.realpath(os.fspath(dest_dir))
         os.makedirs(dest_dir, exist_ok=True)
         stamp = time.strftime("%Y%m%d-%H%M%S", time.localtime())
         dest = os.path.join(dest_dir, "primer-{}.db".format(stamp))
+        source_path = os.path.realpath(self.db_path)
+        if dest == source_path or _checked_backup_path(dest, dest_dir) is None:
+            log.warning("refusing redirected or invalid backup destination")
+            return None
         try:
             with _lock, self._conn() as src:
+                if _checked_backup_path(dest, dest_dir) is None:
+                    return None
                 bck = sqlite3.connect(dest)
                 with bck:
                     src.backup(bck)
                 bck.close()
             # A backup you have not verified is not a backup: check the copy is
             # structurally sound and actually contains the reader's record.
+            if _checked_backup_path(dest, dest_dir) is None:
+                return None
             check = sqlite3.connect(dest)
             try:
                 status = check.execute("PRAGMA integrity_check").fetchone()[0]
@@ -2658,7 +2728,10 @@ class LearnerStore:
         except Exception as exc:   # belt and braces: the helper catches its own
             log.warning("could not shrink backup: %s: %s",
                         exc.__class__.__name__, exc)
-        backups = sorted(f for f in os.listdir(dest_dir) if f.endswith(".db"))
+        backups = sorted(f for f in os.listdir(dest_dir)
+                         if _backup_filename(f)
+                         and os.path.join(dest_dir, f) != source_path
+                         and _checked_backup_path(os.path.join(dest_dir, f), dest_dir) is not None)
         for old in backups[:-keep]:
             _remove_backup(os.path.join(dest_dir, old))
         return dest

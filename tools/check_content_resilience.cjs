@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 'use strict';
 // An onboarded isolated QA server only. Includes deliberate request failures.
+// Evidence uses a fresh private temporary directory; printed as EVIDENCE_DIRECTORY.
+// Legacy output-directory argument (slot 3) is ignored; see docs/browser-qa.md.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
-const base = process.argv[2], out = process.argv[3];
-if (!base || !out || !/^http:\/\/127\.0\.0\.1:/.test(base)) throw new Error('Supply loopback QA URL and output directory');
-fs.mkdirSync(out, {recursive:true});
+const { createEvidenceDirectory, loopbackQaUrl } = require('./qa-browser.cjs');
+const base = loopbackQaUrl(process.argv[2]);
+const out = createEvidenceDirectory();
 const curriculum = fs.readdirSync(path.join(__dirname, '../data/curriculum')).filter(f => /^\d.*\.json$/.test(f))
   .flatMap(f => JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculum', f))).nodes);
 (async () => {

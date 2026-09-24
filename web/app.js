@@ -2151,10 +2151,14 @@ function renderRadiologyReference(n) {
 }
 
 /* Reporting desk: direct access to professional references without a quiz gate. */
-async function reportingGuard(page, fn) {
-  const generation = _readerContextSeq, route = location.hash;
-  const current = () => generation === _readerContextSeq && route === location.hash && page.isConnected;
-  loading(page);
+async function reportingGuard(page, fn, {
+  routeVersion = () => _readerContextSeq, routeHash = () => location.hash,
+  showLoading = loading, missingProfile = isNoProfile, onboard = toOnboarding,
+  errorCard = errCard, rerender = renderRoute,
+} = {}) {
+  const generation = routeVersion(), route = routeHash();
+  const current = () => generation === routeVersion() && route === routeHash() && page.isConnected;
+  showLoading(page);
   try {
     const value = await fn();
     if (!current()) return null;
@@ -2163,8 +2167,8 @@ async function reportingGuard(page, fn) {
   } catch (error) {
     if (!current()) return null;
     page.replaceChildren();
-    if (isNoProfile(error)) toOnboarding();
-    else page.append(errCard(error, () => renderRoute()));
+    if (missingProfile(error)) onboard();
+    else page.append(errorCard(error, () => rerender()));
     return null;
   }
 }
@@ -3146,7 +3150,9 @@ function pictureCaptionText(caption) {
   return (caption.innerText || caption.textContent || '').trim();
 }
 
-function attachPictureHandlers(art) {
+function attachPictureHandlers(art, {
+  openPicture = openLightbox, createElement = el, baseURL = location.href,
+} = {}) {
   // A "dead" anchor is one that goes nowhere: no href, or a bare fragment.
   // Real external links (render.py keeps those, with target=_blank) are none
   // of our business and must keep working.
@@ -3162,7 +3168,7 @@ function attachPictureHandlers(art) {
     if (a && !dead(a)) return;
     const img = pictureIn(e.target, a);
     if (a) e.preventDefault();          // the ejection, stopped
-    if (img) openLightbox(img, a || img);
+    if (img) openPicture(img, a || img);
   });
   art.addEventListener('keydown', e => {
     if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
@@ -3176,7 +3182,7 @@ function attachPictureHandlers(art) {
     const img = pictureIn(e.target, a);
     if (!img) return;
     e.preventDefault();
-    openLightbox(img, a || img);
+    openPicture(img, a || img);
   });
   // A picture with no anchor around it is not a trap, but a five-year-old will
   // touch it just the same — and an <img> is not focusable, so without this it
@@ -3185,7 +3191,7 @@ function attachPictureHandlers(art) {
     if (im.dataset.pictureHandled) return;
     im.dataset.pictureHandled = '1';
     const originalSource = im.getAttribute('src') || '';
-    const sourceKey = source => { try { return new URL(source, location.href).href; } catch (_) { return source; } };
+    const sourceKey = source => { try { return new URL(source, baseURL).href; } catch (_) { return source; } };
     const alternatives = [im.dataset.fullSrc,
       ...(im.getAttribute('srcset') || '').split(',').map(part => part.trim().split(/\s+/)[0]), originalSource]
       .filter(Boolean);
@@ -3230,9 +3236,9 @@ function attachPictureHandlers(art) {
       // Keep the caption and a genuine recovery action, not an image-shaped
       // placeholder pretending to be content. Decorative failures leave no box.
       if (words) {
-        note = el('span', { class: 'image-load-note' },
-          el('span', {}, 'This image did not load. ', !captionText ? altText : ''),
-          el('button', { type: 'button', class: 'btn ghost small', onclick: () => {
+        note = createElement('span', { class: 'image-load-note' },
+          createElement('span', {}, 'This image did not load. ', !captionText ? altText : ''),
+          createElement('button', { type: 'button', class: 'btn ghost small', onclick: () => {
             note.remove(); note = null;
             delete im.dataset.failureHandled;
             attempted.clear();
@@ -5774,7 +5780,11 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
   return entry;
 }
 
-boot().catch(e => {
+// Node QA imports the same functions without starting a reader session. Browser
+// scripts have no CommonJS module object and retain the normal bootstrap path.
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard });
+} else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
   // all — send them to the first page instead of the error card. This needs
   // the domain list to draw its picker, so it only applies once we have one.

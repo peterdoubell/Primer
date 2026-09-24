@@ -58,7 +58,7 @@ Useful verification commands:
 .venv/bin/python -m pytest -q tests/test_module_media.py tests/test_api.py tests/test_primer.py
 .venv/bin/python tools/check_model_coverage.py --require-complete
 node tools/check_module_models.js
-NODE_PATH=/path/to/playwright/node_modules node tools/check_module_media_browser.cjs http://127.0.0.1:8781 /tmp/primer-module-media-evidence
+NODE_PATH=/path/to/playwright/node_modules node tools/check_module_media_browser.cjs http://127.0.0.1:8781
 ```
 
 The browser checker requires an isolated development database because it
@@ -82,3 +82,5 @@ was verified in its lesson. Served JavaScript/style hashes matched the
 workspace. QA used an isolated reader database with encyclopedia summaries
 stubbed; verification concerned the local lesson media rather than external
 article availability.
+
+Browser QA now prints a generated `EVIDENCE_DIRECTORY` for each run; see [browser-qa.md](browser-qa.md).

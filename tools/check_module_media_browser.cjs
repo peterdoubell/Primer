@@ -2,16 +2,18 @@
 'use strict';
 
 // Run only against an isolated QA server: this creates a test learner.
-// NODE_PATH=/path/to/node_modules node tools/check_module_media_browser.cjs URL OUTDIR
+// NODE_PATH=/path/to/node_modules node tools/check_module_media_browser.cjs URL
+// Evidence uses a fresh private temporary directory; printed as EVIDENCE_DIRECTORY.
+// Legacy output-directory argument (slot 3) is ignored; see docs/browser-qa.md.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
 const { chromium } = require('playwright');
-const base = process.argv[2];
-const output = process.argv[3];
+const { createEvidenceDirectory, loopbackQaUrl } = require('./qa-browser.cjs');
+const base = loopbackQaUrl(process.argv[2]);
+const output = createEvidenceDirectory();
 const photographsOnly = process.argv[4] === '--photos-only';
-assert.ok(base && output, 'Provide an isolated QA URL and evidence directory');
 const root = path.resolve(__dirname, '..');
 const authored = fs.readdirSync(path.join(root, 'data/curriculum'))
   .filter(name => /^\d.*\.json$/.test(name))
@@ -21,7 +23,7 @@ const authored = fs.readdirSync(path.join(root, 'data/curriculum'))
   });
 const spatial = item => ['spatial-3d', 'radiology-anatomy'].includes(item.renderer);
 const hash = buffer => createHash('sha256').update(buffer).digest('hex');
-fs.mkdirSync(output, { recursive: true });
+
 
 (async () => {
   const browser = await chromium.launch({ headless: true });

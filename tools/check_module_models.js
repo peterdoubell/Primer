@@ -3,12 +3,18 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
-const context = vm.createContext({window: {}});
-for (const file of ['spatial-models.js', 'spatial-math.js', 'spatial-physical.js', 'spatial-molecular.js', 'spatial-cross-subject.js', 'spatial-radiology.js', 'spatial-module-objects.js']) {
-  vm.runInContext(fs.readFileSync(path.join(root, 'web', file), 'utf8'), context, {filename:file});
-}
+// This executable owns its fake browser globals. Load only these fixed, shipped
+// modules through Node's module loader; no file contents become executable input.
+const context = { window: {} };
+globalThis.window = context.window;
+require('../web/spatial-models.js');
+require('../web/spatial-math.js');
+require('../web/spatial-physical.js');
+require('../web/spatial-molecular.js');
+require('../web/spatial-cross-subject.js');
+require('../web/spatial-radiology.js');
+require('../web/spatial-module-objects.js');
 const spatial = context.window.PrimerSpatial, objects = context.window.PrimerModuleObjects;
 const prior = [...spatial.supported];
 const manifest = JSON.parse(fs.readFileSync(path.join(root,'data/module-models.json'),'utf8'));

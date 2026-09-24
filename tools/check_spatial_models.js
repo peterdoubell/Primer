@@ -5,12 +5,17 @@
 const assert = require('assert/strict');
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
-const context = vm.createContext({ window: {} });
-['spatial-models.js', 'spatial-math.js', 'spatial-physical.js', 'spatial-molecular.js', 'spatial-cross-subject.js', 'spatial-radiology.js'].forEach(file => {
-  vm.runInContext(fs.readFileSync(path.join(ROOT, 'web', file), 'utf8'), context, { filename: file });
-});
+// This executable owns its fake browser globals. Load only these fixed, shipped
+// modules through Node's module loader; no file contents become executable input.
+const context = { window: {} };
+globalThis.window = context.window;
+require('../web/spatial-models.js');
+require('../web/spatial-math.js');
+require('../web/spatial-physical.js');
+require('../web/spatial-molecular.js');
+require('../web/spatial-cross-subject.js');
+require('../web/spatial-radiology.js');
 const api = context.window.PrimerSpatial;
 const expected = ['math.2.geometry', 'math.3.vectors', 'math.4.multivar', 'math.5.topology',
   'phys.4.em-maxwell', 'phys.4.solid-state', 'earth.1.seasons', 'earth.3.earth-science',

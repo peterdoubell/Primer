@@ -5,19 +5,21 @@
 // loopback server. Seed an adult profile with chosen pronouns, exactly eight due cards with unique
 // fronts, and at least one future card before running. Playwright may be
 // supplied through NODE_PATH. No profile or placement is changed by this test.
-// node tools/check_review_game_browser.cjs http://127.0.0.1:PORT /tmp/evidence
+// node tools/check_review_game_browser.cjs http://127.0.0.1:PORT
+// Evidence uses a fresh private temporary directory; printed as EVIDENCE_DIRECTORY.
+// Legacy output-directory argument (slot 3) is ignored; see docs/browser-qa.md.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
 const { chromium } = require('playwright');
-const base = process.argv[2];
-const out = process.argv[3];
-assert.ok(base && out, 'Provide a disposable QA server URL and evidence directory');
+const { createEvidenceDirectory, loopbackQaUrl } = require('./qa-browser.cjs');
+const base = loopbackQaUrl(process.argv[2]);
+const out = createEvidenceDirectory();
 const url = new URL(base);
 assert.ok(['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname), 'QA must use a disposable loopback server');
 const origin = url.origin;
-fs.mkdirSync(out, { recursive: true });
+
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const deferred = () => {
   let resolve;

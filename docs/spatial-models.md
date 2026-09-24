@@ -78,7 +78,7 @@ For end-to-end verification, run an isolated dev server/database and provide
 Playwright through the normal Node module resolution path (or `NODE_PATH`):
 
 ```sh
-node tools/check_spatial_browser.cjs http://127.0.0.1:8768 /tmp/primer-spatial-screenshots
+node tools/check_spatial_browser.cjs http://127.0.0.1:8768
 ```
 
 The browser checker opens a model through the actual gallery, visits all 14
@@ -108,7 +108,7 @@ Cross-subject verification also runs independently:
 ```sh
 node tools/check_cross_subject_models.js
 python -m pytest -q tests/test_cross_subject_models.py
-node tools/check_concept_browser.cjs http://127.0.0.1:8768 /tmp/primer-concept-screenshots
+node tools/check_concept_browser.cjs http://127.0.0.1:8768
 ```
 
 On 2026-09-05, the five new models passed 32 focused Python tests and 1,117
@@ -127,3 +127,5 @@ python -m pytest -q tests/test_reader_pictures.py
 
 These protect accessible picture names, keyboard activation and removal of
 failed images without hiding healthy siblings or useful surrounding text.
+
+Browser QA now prints a generated `EVIDENCE_DIRECTORY` for each run; see [browser-qa.md](browser-qa.md).

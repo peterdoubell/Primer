@@ -597,7 +597,13 @@ def google_start(request: Request, next: str = "/"):
     if not (GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET):
         return JSONResponse({"error": "Google sign-in is not configured"},
                             status_code=503, headers=_no_store())
-    state = secrets.token_urlsafe(24)
+    from .oauth_state import OAuthStateStore
+    try:
+        state = OAuthStateStore(learner._conn).issue(_safe_next(next))
+    except Exception as exc:
+        log.warning("google sign-in state unavailable: %s", exc.__class__.__name__)
+        return JSONResponse({"error": "Sign-in is temporarily unavailable. Please try again."},
+                            status_code=503, headers=_no_store())
     params = {
         "client_id": GOOGLE_CLIENT_ID,
         "redirect_uri": _google_redirect_uri(request),
@@ -608,16 +614,11 @@ def google_start(request: Request, next: str = "/"):
     }
     url = GOOGLE_AUTH_URL + "?" + urllib.parse.urlencode(params)
     response = RedirectResponse(url, status_code=303, headers=_no_store())
-    # State and the return path travel together in one short-lived cookie —
-    # the callback has nothing else linking it back to this specific request.
-    # _safe_next() guarantees a safe PATH (no scheme, no CR/LF); a cookie
-    # value has its own, stricter grammar (RFC 6265 cookie-octet excludes
-    # the comma that a path may legally contain), so the path is
-    # percent-encoded before it rides in the cookie rather than trusted to
-    # already be cookie-safe — CodeQL flags exactly this class of gap.
+    # The cookie and Google state contain only an opaque random nonce. The
+    # return path stays in the durable, expiring, single-use server record.
     response.set_cookie(
         _OAUTH_STATE_COOKIE,
-        state + "|" + urllib.parse.quote(_safe_next(next), safe=""),
+        state,
         max_age=_OAUTH_STATE_MAX_AGE, httponly=True, samesite="lax",
         secure=bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV")),
         path="/auth/google")
@@ -627,21 +628,20 @@ def google_start(request: Request, next: str = "/"):
 @app.get("/auth/google/callback")
 async def google_callback(request: Request, code: str = "", state: str = "",
                           error: str = ""):
-    cookie_val = request.cookies.get(_OAUTH_STATE_COOKIE, "")
-    expected_state, _, next_encoded = cookie_val.partition("|")
-    try:
-        next_path = urllib.parse.unquote(next_encoded, errors="strict")
-    except (UnicodeDecodeError, ValueError):
-        next_path = "/"
-    # Decoded, then re-validated — the cookie is the book's own and the
-    # encoding round-trips cleanly, but this is the one call that turns the
-    # value into a redirect target, and that call trusts nothing it has not
-    # just checked itself.
+    expected_state = request.cookies.get(_OAUTH_STATE_COOKIE, "")
+    state_ok = bool(state and expected_state
+                    and secrets.compare_digest(state, expected_state))
+    next_path = None
+    if state_ok:
+        from .oauth_state import OAuthStateStore
+        try:
+            next_path = OAuthStateStore(learner._conn).consume(state)
+        except Exception as exc:
+            log.warning("google sign-in state unavailable: %s", exc.__class__.__name__)
+    state_ok = state_ok and next_path is not None
     next_path = _safe_next(next_path or "/")
     response = RedirectResponse(next_path, status_code=303, headers=_no_store())
     response.delete_cookie(_OAUTH_STATE_COOKIE, path="/auth/google")
-    state_ok = bool(state and expected_state
-                    and secrets.compare_digest(state, expected_state))
     if error or not code or not state_ok:
         log.warning("google sign-in refused: error=%r state_ok=%s", error, state_ok)
         return response

@@ -5,13 +5,16 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
 const ROOT = path.resolve(__dirname, '..');
 const json = file => JSON.parse(fs.readFileSync(path.join(ROOT,file),'utf8'));
 const catalog = json('data/radiology/reporting-models.json');
 const expected = json('data/curriculum/11-radiology.json').nodes.filter(n=>n.id.startsWith('rad.')).map(n=>n.id).sort();
-const context = vm.createContext({ window:{} });
-['spatial-models.js','radiology-reference-models.js'].forEach(file=>vm.runInContext(fs.readFileSync(path.join(ROOT,'web',file),'utf8'),context,{filename:file}));
+// This executable owns its fake browser globals. Load only these fixed, shipped
+// modules through Node's module loader; no file contents become executable input.
+const context = { window: {} };
+globalThis.window = context.window;
+require('../web/spatial-models.js');
+require('../web/radiology-reference-models.js');
 const api=context.window.PrimerSpatial, wrapper=context.window.PrimerRadiologyReferenceModels;
 assert.equal(expected.length,96,'All clinical radiology modules must be included');
 assert.deepEqual(Object.keys(catalog).sort(),expected);

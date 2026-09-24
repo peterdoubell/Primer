@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 // Functional and visual smoke check for source-mesh anatomy. Needs a running Primer.
-// NODE_PATH=/path/to/bundled/node_modules node tools/check_detailed_anatomy.cjs URL OUTDIR
+// NODE_PATH=/path/to/bundled/node_modules node tools/check_detailed_anatomy.cjs URL
 "use strict";
+// Evidence uses a fresh private temporary directory; printed as EVIDENCE_DIRECTORY.
+// Legacy output-directory argument (slot 3) is ignored; see docs/browser-qa.md.
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const { chromium } = require("playwright");
-const base = process.argv[2] || "http://127.0.0.1:56139";
-const out = process.argv[3] || "/tmp/primer-detailed-anatomy-qa";
+const { createEvidenceDirectory, loopbackQaUrl } = require("./qa-browser.cjs");
+const base = loopbackQaUrl(process.argv[2] || "http://127.0.0.1:56139");
+const out = createEvidenceDirectory();
 const source = JSON.parse(
   fs.readFileSync(
     path.resolve(__dirname, "../web/anatomy/bodyparts3d/manifest.json"),
@@ -15,7 +18,7 @@ const source = JSON.parse(
   ),
 );
 (async () => {
-  fs.mkdirSync(out, { recursive: true });
+
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({
     viewport: { width: 1260, height: 1100 },

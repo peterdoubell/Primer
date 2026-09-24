@@ -2,15 +2,18 @@
 'use strict';
 
 // Optional end-to-end QA. Run against an isolated Primer database/dev server.
-// NODE_PATH=/path/to/node_modules node tools/check_spatial_browser.cjs URL OUTDIR
+// NODE_PATH=/path/to/node_modules node tools/check_spatial_browser.cjs URL
+// Evidence uses a fresh private temporary directory; printed as EVIDENCE_DIRECTORY.
+// Legacy output-directory argument (slot 3) is ignored; see docs/browser-qa.md.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
 const { chromium } = require('playwright');
-const base = process.argv[2] || 'http://127.0.0.1:8768';
-const out = process.argv[3] || fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'primer-spatial-qa-'));
-fs.mkdirSync(out, { recursive: true });
+const { createEvidenceDirectory, loopbackQaUrl } = require('./qa-browser.cjs');
+const base = loopbackQaUrl(process.argv[2] || 'http://127.0.0.1:8768');
+const out = createEvidenceDirectory();
+
 console.log('Screenshots: ' + out);
 const curriculum = path.resolve(__dirname, '../data/curriculum');
 const entries = fs.readdirSync(curriculum).filter(f => /^\d.*\.json$/.test(f))

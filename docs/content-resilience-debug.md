@@ -46,9 +46,11 @@ not a claim that the entire internet will always be available.
 - JavaScript syntax and Git whitespace checks passed.
 
 Reproduce the browser regression check against an isolated, onboarded local
-QA server with `node tools/check_content_resilience.cjs URL OUTPUT_DIRECTORY`
+QA server with `node tools/check_content_resilience.cjs URL`
 and Playwright available on the Node module path. The test is restricted to
 loopback addresses and does not create a learner profile.
 
 Changes are in the existing working tree; prior unrelated/unmerged changes were
 preserved. The refreshed preview is local only; no merge or deployment was made.
+
+Browser QA now prints a generated `EVIDENCE_DIRECTORY` for each run; see [browser-qa.md](browser-qa.md).

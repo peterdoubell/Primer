@@ -5,9 +5,6 @@
 // These small DOM doubles cover semantics/events; the CSS failure was also
 // reproduced in Chromium with the real #article figure img rule.
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
 
 class Element {
   constructor(tag, attrs = {}, children = []) {
@@ -62,11 +59,18 @@ class Element {
 
 const el = (tag, attrs, ...children) => new Element(tag, attrs, children);
 const opened = [];
-const context = {el, URL, location: {href:'http://localhost/'}, glyph: () => '', openLightbox: (image, opener) => opened.push({image, opener})};
-vm.createContext(context);
-const source = fs.readFileSync(path.join(__dirname, '..', 'web', 'app.js'), 'utf8');
-vm.runInContext(source.slice(source.indexOf('function pictureCaptionElement('),
-  source.indexOf('function openLightbox(')), context);
+// Registering top-level browser listeners is inert in this isolated executable.
+// The real exported handlers receive only the DOM/host operations they use.
+globalThis.window = { addEventListener() {} };
+globalThis.document = { addEventListener() {} };
+const { attachPictureHandlers, pictureCaptionElement } = require('../web/app.js');
+const context = {
+  pictureCaptionElement,
+  attachPictureHandlers: art => attachPictureHandlers(art, {
+    createElement: el, baseURL: 'http://localhost/',
+    openPicture: (image, opener) => opened.push({ image, opener }),
+  }),
+};
 
 // Genetics supplies image-only anchors with alt="" but a useful figcaption.
 const image = el('img', {alt: ''});
