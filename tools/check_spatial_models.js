@@ -25,8 +25,12 @@ assert.equal(entries.length, expected.length, 'Every spatial scene must be reach
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
-  !['spatial-3d', 'concept-lab'].includes(item.renderer)).length,
+  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab'].includes(item.renderer)).length,
   70, 'The 70 existing lesson models must remain present');
+assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
+  8, 'The eight music grade listening models must remain present');
+assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'doppler-angle-lab').length,
+  1, 'The ultrasound Doppler model must remain present');
 
 const C = { blue: '#3e7085', teal: '#317e78', gold: '#b98a2f', coral: '#b96652', plum: '#876888', green: '#5c7754', ink: '#263b46' };
 const near = (a, b, tolerance = 1e-7) => assert.ok(Math.abs(a - b) <= tolerance, `${a} differs from ${b}`);

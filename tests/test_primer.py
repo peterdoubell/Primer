@@ -466,25 +466,39 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'cs.5.complexity': (5, 'complexity-certificate-lab'),
         'bio.5.developmental': (5, 'morphogen-gradient-lab'),
         'rad.3.ct-image': (5, 'ct-window-lab'),
+        'rad.5.ultrasound-physics': (5, 'doppler-angle-lab'),
+        'rad.5.tavi-ct': (5, 'spatial-3d'),
+        'rad.3.fracture-description': (5, 'spatial-3d'),
     }
+    expected.update({
+        n['id']: (n['stage'], 'music-listening-lab')
+        for n in curr.nodes.values() if n.get('music_grade')
+    })
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
         for node_id in PHYSICS_MODEL_SCENARIOS
     })
     with_models = {
         nid: node for nid, node in curr.nodes.items()
-        if any(item['kind'] == 'model' and item['renderer'] not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'}
+        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'})
                for item in node.get('lesson_media', []))
     }
     assert set(with_models) == set(expected)
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     for nid, node in with_models.items():
         assert node['stage'] == expected[nid][0], nid
-        base_media = [entry for entry in node['lesson_media'] if entry['kind'] != 'photograph' and entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'}]
+        base_media = [entry for entry in node['lesson_media']
+                      if entry['kind'] != 'photograph'
+                      and (entry.get('renderer') == expected[nid][1]
+                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
         model = base_media[-1]
         assert model['renderer'] == expected[nid][1]
+        if nid == 'rad.3.ct-image':
+            assert [entry['renderer'] for entry in node['lesson_media']
+                    if entry.get('renderer') in {'ct-window-lab', 'spatial-3d'}] == [
+                        'ct-window-lab', 'spatial-3d']
         plate = node['lesson_media'][0]
         assert plate['alt'].strip() and plate['caption'].strip()
         assert (plate['width'], plate['height']) == (1600, 1000)
@@ -599,10 +613,11 @@ def test_every_curriculum_lesson_has_one_unique_explanatory_plate():
     from tools.check_curriculum_illustrations import audit
 
     result = audit()
-    assert result['lessons'] == 550
+    assert result['lessons'] == 558
     assert result['illustrated'] == result['lessons']
     assert result['missing'] == 0
-    assert result['responsive_webps'] == result['lessons'] * 2
+    assert result['plates'] == result['lessons'] + 3
+    assert result['responsive_webps'] == result['plates'] * 2
     assert result['interactive_models'] >= 70
     assert result['long_descriptions'] >= 83
     assert result['orphan_webps'] == []
@@ -1489,8 +1504,22 @@ def test_sanitizer_never_swallows_the_article_on_malformed_html():
 
 
 def test_sanitizer_keeps_rel_noopener_on_external_links():
+    """rel stays; target is gone on purpose.
+
+    The renderer used to hand every external link `target="_blank"`, so an
+    article's several hundred citation links were several hundred unannounced
+    exits: one tap and the reader was in a raw browser tab, outside the book's
+    typography and its offline guarantee. The destination is kept and marked —
+    `data-primer-outside` names the host and the client asks before going — and
+    `rel="noopener noreferrer"` still travels with it, because the client opens
+    the window itself and the anchor must stay safe if it is ever followed
+    directly.
+    """
     out = rewrite_article('<a href="https://example.com/x">ext</a>')
-    assert 'rel="noopener noreferrer"' in out and 'target="_blank"' in out
+    assert 'rel="noopener noreferrer"' in out
+    assert 'target=' not in out, "an unannounced exit from the book"
+    assert 'data-primer-outside="example.com"' in out
+    assert 'class="primer-outside"' in out
 
 
 def test_sanitizer_drops_unsafe_target_values():
@@ -1604,6 +1633,16 @@ def test_young_learners_get_cards_from_their_lesson():
     assert cards and all(c['back'] for c in cards)
 
 
+# Answer shapes a reader with no keyboard skills can still use: pick one, put
+# them in order, or touch each thing and commit. The rule is that a pre-reader
+# never has to TYPE — this listed only 'choice' because choice was once the
+# only shape that satisfied it, and that made a rule about the reader read like
+# a rule about the item kind. `tally` is the shape built for exactly these
+# readers (touch each apple, the book counting along), and asserting it away
+# was part of why it sat unused.
+YOUNG_ANSWER_SHAPES = ('choice', 'tally', 'order')
+
+
 def test_young_practice_never_requires_typing_and_is_voiced(curr):
     """A pre-reader must be able to answer by ear and by tapping."""
     young_gens = {n['practice'] for n in curr.nodes.values()
@@ -1611,8 +1650,29 @@ def test_young_practice_never_requires_typing_and_is_voiced(curr):
     assert young_gens
     for key in young_gens:
         for q in practice.generate_set(key, 4, level=1):
-            assert q['kind'] == 'choice', '{} asks a young reader to type'.format(key)
+            assert q['kind'] in YOUNG_ANSWER_SHAPES, (
+                '{} asks a young reader to type ({})'.format(key, q['kind']))
             assert q.get('say'), '{} has no spoken prompt'.format(key)
+
+
+def test_a_young_reader_is_asked_to_produce_and_not_only_to_recognise(curr):
+    """Recognition alone is not practice, and it was all there was.
+
+    Every one of the 622 authored items at stages 0-1 is multiple choice, and
+    every young generator returned choice too — so for the Seedling and Sprout
+    years, which the pacing model prices in years rather than weeks, the book
+    asked the reader to pick an answer and never once to make one. The
+    instrument for this existed the whole time: `g_count_tally` scores counting
+    AS counting, so a child who counts five apples but cannot yet read the
+    numeral 5 is marked right. It was simply wired to nothing.
+    """
+    produced = 0
+    for q in practice.generate_set('counting', 40, level=0):
+        if q['kind'] in ('tally', 'numeric', 'order'):
+            produced += 1
+    assert produced >= 10, (
+        'counting minted %d produced items in 40 — a young reader is still only '
+        'recognising' % produced)
 
 
 def test_young_practice_generators_are_topical(curr):
@@ -3161,14 +3221,19 @@ def test_stripping_an_attribute_cannot_reopen_the_tag():
     # the "target=x" the class value happens to contain: counting raw substrings
     # would find it, which is why the check is on parsed attributes.
     assert ("title", "onclick=alert(1) zz") in seen, seen
-    assert ("class", "external target=x") in seen, seen
-    # …and the renderer still states its own pair, exactly once each.
+    # The hostile `target=x` rides inside a value and stays there: it must never
+    # appear as an attribute of its own. (On an external anchor the article's
+    # class is now replaced by the book's own marker rather than preserved, so
+    # the surviving-value evidence is `title` above; what matters here is that
+    # nothing re-tokenised.)
+    assert ("class", "primer-outside") in seen, seen
+    assert not any(name == "target" for name, _ in seen), seen
     names = [name for name, _ in seen]
-    assert names.count("target") == 1 and names.count("rel") == 1, names
+    assert names.count("rel") == 1, names
 
-    # A value that really is target/rel is still stripped.
-    assert rewrite_article(
-        '<a href="https://example.com" target="_blank">x</a>').count("target=") == 1
+    # A value that really is target is stripped and not restated.
+    assert "target=" not in rewrite_article(
+        '<a href="https://example.com" target="_blank">x</a>')
 
 
 def test_an_unquoted_value_cannot_open_a_quoted_run():
@@ -3490,6 +3555,41 @@ def test_every_short_item_can_be_passed_by_its_own_model_answer():
     assert not failures, "model answer fails its own item: {}".format(failures[:5])
 
 
+def test_no_short_answer_key_is_unmeetable():
+    """Every key has to be something SOME answer could hit.
+
+    The test above checks the model answer's total against the pass line, and
+    a dead key hides under that total: the Grade 1 music item keyed on "G" —
+    the note a treble clef names, and the whole point of the question — scored
+    0.67 on its other two keys and passed, while the scorer's three-letter
+    token floor meant no reader could ever be credited for G at all. Radiology
+    had "CT" and "S" dead the same way. Found by a simulated perfect reader
+    answering every item from the book's own key (tools/simulate_readers.py).
+    A key given back as the whole answer must score in full.
+    """
+    dead = []
+    for name, d in _banks():
+        for n in d["nodes"]:
+            for q in n.get("quiz") or []:
+                if q.get("kind") != "short":
+                    continue
+                for key in q.get("keywords") or []:
+                    if quiz.score_short_answer(str(key), [key]) < 1.0:
+                        dead.append((n["id"], key))
+    assert not dead, "keys no answer can ever meet: {}".format(dead[:8])
+
+
+def test_a_one_letter_key_is_met_by_the_word_and_not_by_a_fragment():
+    """The short-key path is exact on purpose: a possessive's "s", the letters
+    of "e.g.", or a word merely starting with the key must not credit it."""
+    s = quiz.score_short_answer
+    assert s("The treble clef identifies G on the second line", ["G"]) == 1.0
+    assert s("Order a CT of the abdomen", ["CT"]) == 1.0
+    assert s("the patient's scan", ["S"]) == 0.0
+    assert s("e.g. the second line", ["G"]) == 0.0
+    assert s("a ctenophore", ["CT"]) == 0.0
+
+
 def test_the_short_answer_scorer_still_refuses_a_run_on():
     """The multi-word fix must not re-open the substring cheat that started all
     this: "photosynthesisrespirationnutrients" once scored a perfect 1.0."""
@@ -3510,7 +3610,16 @@ def test_the_results_screen_keeps_focus():
     js = _web("app.js")
     assert js.count("class: 'result-heading'") >= 2, "quiz and placement both need one"
     i = js.index("async function finish(modal, close)")
-    assert "splashHead.focus()" in js[i:i + 900]
+    # Scoped to the function, not to a byte count. This read `js[i:i + 900]`,
+    # which asks "is the focus call within 900 characters of the declaration" —
+    # a question about comment length, not about behaviour. Adding five lines of
+    # comment inside `finish` pushed the call to character 901 and failed a test
+    # whose subject had not changed. The rule being kept is that focus moves to
+    # the results heading somewhere inside `finish`, so the window is `finish`.
+    rest = js[i:]
+    end = rest.index("\n  function ", 1) if "\n  function " in rest[1:] else len(rest)
+    assert "splashHead.focus()" in rest[:end], (
+        "finish() must move focus to the results heading")
 
 
 def test_a_wide_table_scrolls_without_widening_the_page():
@@ -3825,7 +3934,19 @@ def test_an_article_cannot_mint_the_renderers_own_markers():
     # article carrying its own produced the attribute twice, and browsers take
     # the first one.
     dup = rewrite_article('<a href="https://example.com" target="_blank" rel="noopener">x</a>')
-    assert dup.count("target=") == 1 and dup.count("rel=") == 1, dup
+    assert dup.count("target=") == 0 and dup.count("rel=") == 1, dup
+    # The marker on a door out of the book is the book's to state, like every
+    # other reserved class: an article must not be able to dress one of its own
+    # links as one, nor dress a door as ordinary prose.
+    forged_outside = rewrite_article(
+        '<a class="primer-outside" data-primer-outside="evil.test" '
+        'href="https://real.test/x">x</a>')
+    # The substring occurs twice legitimately — the attribute name and the class
+    # — so count the class, and check the forged HOST was replaced by the real
+    # destination rather than carried through.
+    assert forged_outside.count('class="primer-outside"') == 1, forged_outside
+    assert 'data-primer-outside="real.test"' in forged_outside, forged_outside
+    assert "evil.test" not in forged_outside, forged_outside
 
 
 def test_no_image_reaches_the_reader_on_an_upstream_url():

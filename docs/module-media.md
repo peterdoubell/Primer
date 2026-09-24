@@ -1,6 +1,6 @@
 # Photorealistic imagery and 3D across the Primer
 
-Every one of the 550 lessons across all 19 fields has a local photorealistic
+Every one of the 558 lessons across all 19 fields has a local photorealistic
 image and an interactive 3D companion. Existing explanatory diagrams and
 interactive exercises remain available.
 
@@ -8,7 +8,7 @@ interactive exercises remain available.
 
 The collection contains 30 original AI-generated contextual photographs: two
 for each original field and one for each of the eight new fields. They are subject
-contexts shared across related lessons, not 550 distinct photographs. Each has an 800-pixel and a
+contexts shared across related lessons, not 558 distinct photographs. Each has an 800-pixel and a
 1600-pixel WebP, descriptive alternative text, a caption and a visible
 AI-generated credit. The leading photograph loads eagerly; subsequent lesson
 images and gallery images load lazily. The existing keyboard-accessible image
@@ -22,11 +22,11 @@ photographs show equipment and context; they are not synthetic patient scans.
 
 ## Spatial companions
 
-The general curriculum and imaging foundations contain 440 added spatial companions across 41 shared object
+The general curriculum and imaging foundations contain 448 added spatial companions across 41 shared object
 families. Fourteen existing
 specialized general-subject 3D activities remain in place. All 96 Radiology
 modules expose their existing anatomical or schematic 3D reference, in
-addition to their existing exercises. There are 553 spatial entries and 799
+addition to their existing exercises. There are 561 spatial entries and 816
 interactive model entries in the complete gallery, including additional
 activities within a lesson.
 

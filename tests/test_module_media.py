@@ -19,7 +19,7 @@ def curriculum():
 
 
 def test_every_module_has_photographic_context_and_a_spatial_model(curriculum):
-    assert len(curriculum.nodes) == 550
+    assert len(curriculum.nodes) == 558
     assert len(curriculum.domains) == 19
     used_photographs = set()
     for node in curriculum.nodes.values():

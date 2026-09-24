@@ -24,7 +24,7 @@ cannot carry comments:
   reader works from the linked articles themselves — learning to read the
   real literature is part of the curriculum, so a simplified shadow text
   would work against the goal, not toward it.
-- Domain node counts are uneven by design (math 59, arts 25). Node count
+- Domain node counts are uneven by design (math 59, arts 33). Node count
   tracks how much *gated, sequential* structure a field has, not how big or
   worthy the field is: mathematics is a long dependency chain where each rung
   must be held before the next, while arts and earth science branch shallow
@@ -110,7 +110,14 @@ LESSON_ILLUSTRATION_URLS = frozenset(LESSON_ILLUSTRATION_DIMENSIONS)
 # more. One-to-one adaptive tutoring is genuinely faster than a classroom — no
 # waiting for the group, no re-teaching for the median, nothing repeated that
 # the reader has already shown they know — so the Primer prices its curriculum
-# at roughly a third of the classroom equivalent: 6,496 hours.
+# at roughly a third of the classroom equivalent: about 6,500 hours across the
+# ten general fields. (Measured live rather than quoted: the general spine
+# currently prices at ~6,630 h and the whole book, radiology included, at
+# ~10,400 h. The figure written here was 6,496 for a long time after the
+# specialist field arrived, when the ten fields had in fact been pushed down to
+# ~5,490 by a shared density pool — see the pricing block below. Nothing the
+# reader sees was read off this comment; `pacing.roadmap` computes its hours,
+# years and weekly figure from `total_minutes` every time.)
 #
 # That is a real number with a real consequence, which the roadmap now states
 # plainly: the promise holds at 15-30 hours a week, and not at six.
@@ -122,6 +129,7 @@ DEFAULT_MINUTES = [180, 360, 660, 1080, 1680, 2700]
 STAGE_GATE = 0.6
 STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
 LESSON_MODEL_RENDERERS = frozenset({
+    "music-listening-lab",
     "spatial-3d",
     "concept-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
@@ -132,7 +140,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "truth-table-lab", "stack-queue-lab", "matrix-transform-lab",
     "venturi-flow-lab", "gene-expression-stepper", "tcp-packet-tracer",
     "heat-equation-lab", "complexity-certificate-lab",
-    "morphogen-gradient-lab", "ct-window-lab",
+    "morphogen-gradient-lab", "ct-window-lab", "doppler-angle-lab",
     "alphabet-explorer", "inclusive-family-timeline",
     "day-night-rotation-lab", "classroom-paint-mixer",
     "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
@@ -292,7 +300,11 @@ def _validate_lesson_media(node: Dict) -> None:
             props = entry.get("props")
             if not isinstance(props, dict):
                 raise ValueError("{} model {} props must be an object".format(node.get("id"), media_id))
-            if renderer == "spatial-3d":
+            if renderer == "music-listening-lab":
+                grade = props.get("grade")
+                if set(props) != {"grade"} or isinstance(grade, bool) or not isinstance(grade, int) or not 1 <= grade <= 8 or grade != node.get("music_grade"):
+                    raise ValueError("Music listening model needs its own lesson grade")
+            elif renderer == "spatial-3d":
                 scenario = props.get("scenario")
                 if isinstance(scenario, str) and scenario.startswith("module."):
                     from .module_media import model_props
@@ -476,6 +488,9 @@ def _validate_lesson_media(node: Dict) -> None:
                         type(props.get(key)) is not int for key in expected):
                     raise ValueError("{} morphogen gradient lab has unknown settings".format(
                         node.get("id")))
+            elif renderer == "doppler-angle-lab":
+                if props != {"scenario": "ideal-single-speed-flow"}:
+                    raise ValueError("{} Doppler angle lab has unknown settings".format(node.get("id")))
             elif renderer == "ct-window-lab":
                 expected = {
                     "phantom": "synthetic-hu-reference", "level": 40, "width": 400,
@@ -571,6 +586,214 @@ def _validate_lesson_media(node: Dict) -> None:
             raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))
 
 
+# Sources an authored reference block may send the reader to. A specialist
+# field is a reference work, and a reference work cites: every framework here
+# carries the page it was taken from, so a threshold can be checked against
+# its source rather than trusted because the book said it. The list is a
+# whitelist for the same reason lesson images must be local — authored data is
+# still data, and a link is the one thing in a node that leaves the book.
+REFERENCE_HOSTS = (
+    "asecho.org",
+    "radiologyassistant.nl",
+    "radiopaedia.org",
+    "acr.org",
+    "rsna.org",
+    "pubs.rsna.org",
+    "scct.org",
+    "acsearch.acr.org",
+    "nice.org.uk",
+    "escardio.org",
+)
+
+
+def framework_digest(ref: Dict) -> Dict:
+    """The one line about a reporting framework that an index needs.
+
+    The blocks themselves come to 300 KB across the specialist field, which is
+    heavier than the rest of the Atlas payload put together, so the graph
+    carries this instead. `terms` is the part that earns its bytes: a
+    radiologist searches for the eponym — Fazekas, Lauge-Hansen, Bosniak — and
+    the eponym is as likely to sit in a row label or a measurement as in the
+    table's own name. Without it the filter box invites a search it cannot
+    answer.
+    """
+    classify = ref.get("classify") or {}
+    terms = [classify.get("name") or "", ref["source"]["title"]]
+    terms += [s["title"] for s in ref.get("also") or []]
+    terms += [str(row[0]) for row in classify.get("rows") or [] if row]
+    terms += [m.get("what", "") for m in ref.get("measure") or []]
+    terms += [m.get("code", "") for m in ref.get("modifiers") or []]
+    joined = " ".join(t for t in terms if t)
+    return {
+        "name": classify.get("name") or ref["source"]["title"],
+        "source": ref["source"]["title"],
+        "template": bool(ref.get("template")),
+        # Capped: this rides on every node of the graph, and a filter does not
+        # need the whole table to match a word in it.
+        "terms": joined[:600],
+    }
+
+
+def _validate_music_study(node: Dict) -> None:
+    """Grade study plans are authored tasks, never practical exam certificates."""
+    strand = node.get("strand")
+    if strand is not None and (strand != "music" or node.get("domain") != "arts"):
+        raise ValueError("Unsupported curriculum strand")
+    study = node.get("music_study")
+    grade = node.get("music_grade")
+    if study is None:
+        if grade is not None:
+            raise ValueError("Music grade needs a study plan")
+        return
+    if isinstance(grade, bool) or not isinstance(grade, int) or not 1 <= grade <= 8:
+        raise ValueError("Music study needs grade 1..8")
+    if strand != "music" or node.get("stage") not in (2, 3):
+        raise ValueError("Music grades belong to the pre-undergraduate music strand")
+    fields = {"scope", "units", "aural", "practical", "sight_reading", "composition", "checkpoint", "routine", "source"}
+    if not isinstance(study, dict) or set(study) != fields:
+        raise ValueError("Music study has unexpected fields")
+    for field in fields - {"units", "routine", "source"}:
+        if not isinstance(study[field], str) or not study[field].strip():
+            raise ValueError("Music study needs " + field)
+    if not isinstance(study["units"], list) or len(study["units"]) < 3:
+        raise ValueError("Music study needs at least three teaching units")
+    for unit in study["units"]:
+        if not isinstance(unit, dict) or set(unit) != {"title", "explanation", "task"} or any(
+                not isinstance(v, str) or not v.strip() for v in unit.values()):
+            raise ValueError("Music study unit is incomplete")
+    if not isinstance(study["routine"], list) or not study["routine"] or any(
+            not isinstance(v, str) or not v.strip() for v in study["routine"]):
+        raise ValueError("Music study needs a practice routine")
+    source = study["source"]
+    if not isinstance(source, dict) or set(source) != {"title", "url"} or not source["title"] or not source["url"].startswith("https://www.abrsm.org/"):
+        raise ValueError("Music study needs an ABRSM syllabus source")
+
+
+def _validate_reference(node: Dict) -> None:
+    """Fail closed when an authored reporting framework does not match its schema.
+
+    `reference` is what makes a specialist module usable at the moment of
+    dictation rather than at the moment of study: the search pattern, what to
+    measure, the classification table, the words to say, and the traps. It is
+    authored medical content, so the schema insists on two things the rest of
+    the node does not — a citable source, and no empty scaffolding. A block
+    with a heading and nothing under it reads as authoritative and says
+    nothing, which is worse than no block at all.
+    """
+    ref = node.get("reference")
+    if ref is None:
+        return
+    nid = node.get("id")
+    if not isinstance(ref, dict):
+        raise ValueError("{} reference must be an object".format(nid))
+    allowed = {"source", "also", "approach", "measure", "classify", "modifiers",
+               "template", "pitfalls"}
+    unknown = set(ref) - allowed
+    if unknown:
+        raise ValueError("{} reference has unknown keys: {}".format(nid, sorted(unknown)))
+
+    def text(container: Dict, key: str, where: str) -> str:
+        value = container.get(key)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("{} reference {} needs {}".format(nid, where, key))
+        return value
+
+    def cited(entry: Dict, where: str) -> None:
+        if not isinstance(entry, dict):
+            raise ValueError("{} reference needs a {}".format(nid, where))
+        if set(entry) - {"title", "url", "publisher"}:
+            raise ValueError("{} reference {} has unknown keys".format(nid, where))
+        text(entry, "title", where)
+        text(entry, "publisher", where)
+        url = text(entry, "url", where)
+        if not url.startswith("https://"):
+            raise ValueError("{} reference {} must be https".format(nid, where))
+        host = url[len("https://"):].split("/", 1)[0].split("@")[-1].split(":")[0].lower()
+        if host.startswith("www."):
+            host = host[4:]
+        if host not in REFERENCE_HOSTS:
+            raise ValueError("{} reference {} host {} is not a cited source".format(nid, where, host))
+
+    source = ref.get("source")
+    cited(source, "source")
+
+    # A module often spans several articles — the elbow and the hip are one
+    # module here but two pages there, and a staging module may take its T from
+    # one page and its nodes from another. With only one citation allowed, the
+    # honest move was to drop the un-citable half, and an author did exactly
+    # that rather than file it under the wrong URL. `also` is where the rest of
+    # the provenance goes, held to the same standard as the first.
+    also = ref.get("also")
+    if also is not None:
+        if not isinstance(also, list) or not also:
+            raise ValueError("{} reference also must be a non-empty list".format(nid))
+        seen = {source["url"]}
+        for entry in also:
+            cited(entry, "also")
+            if entry["url"] in seen:
+                raise ValueError("{} reference cites {} twice".format(nid, entry["url"]))
+            seen.add(entry["url"])
+
+    body = 0
+    for key, keys in (("approach", ("step", "detail")), ("measure", ("what", "how", "cutoff"))):
+        rows = ref.get(key)
+        if rows is None:
+            continue
+        if not isinstance(rows, list) or not rows:
+            raise ValueError("{} reference {} must be a non-empty list".format(nid, key))
+        for row in rows:
+            if not isinstance(row, dict) or set(row) - set(keys):
+                raise ValueError("{} reference {} row has unknown keys".format(nid, key))
+            for k in keys[:2]:
+                text(row, k, key)
+        body += 1
+
+    classify = ref.get("classify")
+    if classify is not None:
+        if not isinstance(classify, dict) or set(classify) - {"name", "columns", "rows", "note"}:
+            raise ValueError("{} reference classify has unknown keys".format(nid))
+        text(classify, "name", "classify")
+        columns = classify.get("columns")
+        if not isinstance(columns, list) or len(columns) < 2 \
+                or not all(isinstance(c, str) and c.strip() for c in columns):
+            raise ValueError("{} reference classify needs at least two named columns".format(nid))
+        rows = classify.get("rows")
+        if not isinstance(rows, list) or not rows:
+            raise ValueError("{} reference classify needs rows".format(nid))
+        for row in rows:
+            # A ragged table renders as a table with holes in it, and a hole in
+            # a grading table is the cell a reader most needs.
+            if not isinstance(row, list) or len(row) != len(columns) \
+                    or not all(isinstance(c, str) and c.strip() for c in row):
+                raise ValueError("{} reference classify row does not fill its columns".format(nid))
+        body += 1
+
+    modifiers = ref.get("modifiers")
+    if modifiers is not None:
+        if not isinstance(modifiers, list) or not modifiers:
+            raise ValueError("{} reference modifiers must be a non-empty list".format(nid))
+        for row in modifiers:
+            if not isinstance(row, dict) or set(row) - {"code", "meaning"}:
+                raise ValueError("{} reference modifier has unknown keys".format(nid))
+            text(row, "code", "modifiers")
+            text(row, "meaning", "modifiers")
+        body += 1
+
+    if "template" in ref:
+        text(ref, "template", "reference")
+        body += 1
+
+    pitfalls = ref.get("pitfalls")
+    if pitfalls is not None:
+        if not isinstance(pitfalls, list) or not pitfalls \
+                or not all(isinstance(p, str) and p.strip() for p in pitfalls):
+            raise ValueError("{} reference pitfalls must be non-empty strings".format(nid))
+        body += 1
+
+    if not body:
+        raise ValueError("{} reference cites a source and says nothing".format(nid))
+
+
 def _content_chars(node: Dict) -> int:
     """Rough proxy for how much there is to teach in a node: characters of
     authored quiz prompt/explanation/answer text, plus any kid_text lesson."""
@@ -645,6 +868,8 @@ class Curriculum:
                 from .module_media import attach_module_media
                 attach_module_media(node)
                 _validate_lesson_media(node)
+                _validate_reference(node)
+                _validate_music_study(node)
                 # Provenance, recorded once, where authored items enter the
                 # app. These are authored items: fixed prompt, fixed answer, the
                 # same tomorrow as today. The generators in practice.py stamp
@@ -665,10 +890,34 @@ class Curriculum:
         # stage's average, clamped so density never swings the estimate more
         # than ±50%. This is a real, measurable proxy (more explaining, more
         # worked cases, more to teach) — not an invented per-node number.
-        by_stage: Dict[int, List[Dict]] = {}
+        # The pool a node is measured against is its own kind of field, not the
+        # whole book. This averaged every domain together at each stage, which
+        # was harmless while the book held ten general fields of comparable
+        # authored depth — and stopped being harmless the moment a specialist
+        # field arrived. Radiology's 84 modules carry 3.7x the content of a
+        # general node, and at stage 5 they made up enough of the pool to pull
+        # the average up past every general node's density: 49 of the 52
+        # general graduate nodes landed on the 0.5 clamp floor, nine of the ten
+        # general domains had their ENTIRE graduate tier priced at half, and
+        # the tier the 6,496-hour instructional-time anchor is built on was
+        # quietly costing half what it claims.
+        #
+        # So the ten general fields are normalised against each other, and a
+        # specialist field against itself. Note what this deliberately does not
+        # do: fall back to the stage-wide pool for a small group. There are
+        # seven (stage, domain) groups below four nodes and one of them —
+        # (5, arts), three nodes — is a general graduate group, so a
+        # "too small, use the stage average" guard would put exactly the nodes
+        # this fixes straight back on the floor.
+        specialist = {d["id"]: d.get("reference_stage", d.get("entry_stage", 0))
+                      for d in self.domains
+                      if d.get("reference_stage", d.get("entry_stage", 0)) > 0}
+        by_stage: Dict[tuple, List[Dict]] = {}
         for node in raw_nodes:
-            by_stage.setdefault(node["stage"], []).append(node)
-        for stage, nodes in by_stage.items():
+            pool = (node["domain"] if node["domain"] in specialist
+                    and node["stage"] >= specialist[node["domain"]] else "*general*")
+            by_stage.setdefault((node["stage"], pool), []).append(node)
+        for (stage, _pool), nodes in by_stage.items():
             lens = [_content_chars(n) for n in nodes]
             avg = sum(lens) / len(lens) if lens else 0
             for node, length in zip(nodes, lens):
@@ -714,7 +963,18 @@ class Curriculum:
         curriculum node actually links it — see load()'s index."""
         return self._domain_by_article.get(title)
 
-    def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float]) -> bool:
+    # The decision the board asked for, written down. Placement credit is
+    # ASSUMED: a six-question interview at each rung, never a proof at the
+    # page. It is what lets a reader skip the nursery, and it opens every rung
+    # up to undergraduate work on that basis. It does not open the graduate
+    # gate. Measured before this: acing the maths interview seeded 49 assumed
+    # rows and 0 proven, and opened 4 of 10 graduate maths nodes with nothing
+    # ever demonstrated. An interview and a proof are interchangeable
+    # everywhere except at the one gate where they are not.
+    GRADUATE_GATE_NEEDS_PROOF = 5
+
+    def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float],
+                        proven: Optional[set] = None, strand: Optional[str] = None) -> bool:
         if stage == 0:
             return True
         # Clinical reference modules retain their professional entry route.
@@ -725,18 +985,36 @@ class Curriculum:
         if reference_stage is not None and stage >= reference_stage:
             return True
         prev = self._by_domain_stage.get(domain, {}).get(stage - 1, [])
+        if strand is not None:
+            prev = [n for n in prev if n.get("strand") == strand]
         if not prev:
+            # A stage with nothing below it in its own field has no gate of
+            # its own. In this corpus that is radiology — a specialist field
+            # that is graduate work end to end, entered from the general spine
+            # by `POST /api/domain/open`, which credits that grounding as
+            # ASSUMED. So yes: assumed credit opens all of radiology, and that
+            # is the stated exception to the graduate-gate rule below, not an
+            # oversight. The rule below is about a field's OWN ladder — an
+            # interview at maths stage 4 must not open maths stage 5. A
+            # library has no ladder; its modules are labelled assumed on
+            # every surface until proved at the page, and the roadmap counts
+            # them as assumed, not proven.
             return True
-        done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
+        if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None:
+            done = sum(1 for n in prev if n["id"] in proven)
+        else:
+            done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
         return done / len(prev) >= STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
 
-    def unlocked(self, node: Dict, mastery: Dict[str, float]) -> bool:
+    def unlocked(self, node: Dict, mastery: Dict[str, float],
+                 proven: Optional[set] = None) -> bool:
         for p in node["prereqs"]:
             if mastery.get(p, 0) < 0.8:
                 return False
-        return self.stage_gate_open(node["domain"], node["stage"], mastery)
+        return self.stage_gate_open(node["domain"], node["stage"], mastery, proven, node.get("strand"))
 
-    def unlock_requirements(self, node: Dict, mastery: Dict[str, float]) -> List[str]:
+    def unlock_requirements(self, node: Dict, mastery: Dict[str, float],
+                            proven: Optional[set] = None) -> List[str]:
         """Human-readable list of what still stands between the reader and this
         node — so every locked tile is a legible quest marker, not a blank lock."""
         reqs = []
@@ -761,9 +1039,13 @@ class Curriculum:
                         title, self._domain_names.get(pn["domain"], pn["domain"]))
                 reqs.append("Master “{}”".format(title))
         stage = node["stage"]
-        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery):
+        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery, proven, node.get("strand")):
             prev = self._by_domain_stage.get(node["domain"], {}).get(stage - 1, [])
-            done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
+            if node.get("strand"):
+                prev = [n for n in prev if n.get("strand") == node["strand"]]
+            done = (sum(1 for n in prev if n["id"] in proven)
+                    if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None
+                    else sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8))
             gate = STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
             import math as _m
             need = max(0, _m.ceil(gate * len(prev)) - done)
@@ -773,21 +1055,31 @@ class Curriculum:
                     need, STAGE_NAMES[stage - 1], "s" if need != 1 else ""))
         return reqs
 
-    def annotated_graph(self, mastery: Dict[str, float]) -> Dict:
+    def annotated_graph(self, mastery: Dict[str, float], proven: Optional[set] = None) -> Dict:
         nodes = []
         for node in self.nodes.values():
             n = dict(node)
             level = mastery.get(node["id"], 0)
             n["mastery"] = round(level, 2)
             n["mastered"] = level >= 0.8
-            n["unlocked"] = self.unlocked(node, mastery)
+            n["unlocked"] = self.unlocked(node, mastery, proven)
             if not n["unlocked"] and not n["mastered"]:
-                n["unlock_requirements"] = self.unlock_requirements(node, mastery)
+                n["unlock_requirements"] = self.unlock_requirements(node, mastery, proven)
             n.pop("quiz", None)  # keep the graph payload light
+            n.pop("music_study", None)
+            n.pop("music_path", None)
             n.pop("lesson_media", None)  # detail-only; plates and model copy are much larger
             n.pop("radiology_reference", None)
             for field in ("lesson", "learning_outcomes", "visual_spec", "model_family", "model_context"):
                 n.pop(field, None)
+            # The reporting frameworks come to 300 KB across the specialist
+            # field — heavier than everything else on this route put together.
+            # The Atlas gets the one line it needs to file and find a module by
+            # the name a radiologist thinks in; the block itself travels with
+            # the lesson that was actually opened.
+            ref = n.pop("reference", None)
+            if ref:
+                n["framework"] = framework_digest(ref)
             nodes.append(n)
         domains = []
         for d in self.domains:
@@ -798,7 +1090,8 @@ class Curriculum:
                     continue
                 done = sum(1 for n in ns if mastery.get(n["id"], 0) >= 0.8)
                 stages.append({"stage": s, "total": len(ns), "mastered": done,
-                               "open": self.stage_gate_open(d["id"], s, mastery)})
+                               "open": self.stage_gate_open(d["id"], s, mastery, proven) or any(
+                                   n.get("strand") and self.unlocked(n, mastery, proven) for n in ns)})
             dd = dict(d)
             dd["stages"] = stages
             dd["mastered"] = sum(1 for n in self.nodes.values()
@@ -807,12 +1100,36 @@ class Curriculum:
         return {"domains": domains, "nodes": nodes}
 
     def next_lessons(self, mastery: Dict[str, float], domains: Optional[List[str]] = None,
+                     proven: Optional[set] = None,
                      per_domain: int = 2) -> List[Dict]:
         """The frontier: unlocked, unmastered nodes, lowest stage first."""
         picks: List[Dict] = []
         for d in self.domains:
             if domains and d["id"] not in domains:
                 continue
+            # Credit that cannot open the rung above it is not finished work.
+            # `stage_gate_open` counts PROVEN nodes at the rung below graduate,
+            # never assumed ones — so a reader placed straight into stage 5
+            # holds assumed credit for the whole of stage 4, is filtered off
+            # the frontier BY that credit, and can never sit the thing the gate
+            # is asking to see. The field goes silent, permanently: a simulated
+            # 17-year-old who aced every placement was offered nothing at all
+            # for fourteen days (tools/simulate_readers.py). While that gate is
+            # shut, stage-4 nodes standing on assumed credit stay on the
+            # frontier; once it opens they drop off again, so this cannot hold
+            # a graduate reader down on work they have already proved.
+            # ...but only while there is something up there to open. A reader
+            # credited with the graduate rung too has nothing left to unlock,
+            # and offering them the rung below would be revision with no door
+            # behind it — an exhausted frontier is supposed to read as
+            # exhausted (see the quest-step excusal in server.py).
+            owed = None
+            if proven is not None and not self.stage_gate_open(
+                    d["id"], self.GRADUATE_GATE_NEEDS_PROOF, mastery, proven):
+                above = self._by_domain_stage.get(d["id"], {}).get(
+                    self.GRADUATE_GATE_NEEDS_PROOF, [])
+                if any(mastery.get(n["id"], 0) < 0.8 for n in above):
+                    owed = self.GRADUATE_GATE_NEEDS_PROOF - 1
             count = 0
             for s in range(6):
                 if count >= per_domain:
@@ -820,9 +1137,11 @@ class Curriculum:
                 for node in self._by_domain_stage.get(d["id"], {}).get(s, []):
                     if count >= per_domain:
                         break
-                    if mastery.get(node["id"], 0) >= 0.8:
+                    if (mastery.get(node["id"], 0) >= 0.8
+                            and not (node["stage"] == owed
+                                     and node["id"] not in proven)):
                         continue
-                    if self.unlocked(node, mastery):
+                    if self.unlocked(node, mastery, proven):
                         n = dict(node)
                         n["mastery"] = round(mastery.get(node["id"], 0), 2)
                         picks.append(n)

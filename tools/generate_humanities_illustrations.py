@@ -184,8 +184,8 @@ def verify(
     curricula: Mapping[str, Mapping[str, object]], specs: Mapping[str, Spec]
 ) -> None:
     all_nodes = [node for curriculum in curricula.values() for node in curriculum["nodes"]]
-    if len(all_nodes) != 83:
-        raise ValueError(f"Expected 83 assigned lessons, found {len(all_nodes)}")
+    if len(all_nodes) != 91:
+        raise ValueError(f"Expected 91 assigned lessons, found {len(all_nodes)}")
 
     paths_seen = set()
     hashes_seen = set()
@@ -362,17 +362,17 @@ def main() -> None:
         validate_inventory(curricula, specs)
     if args.check:
         verify(curricula, specs)
-        print("Verified 83 humanities lessons and 166 unique responsive WebPs")
+        print("Verified 91 humanities lessons and 182 unique responsive WebPs")
     if args.check_determinism:
         verify_determinism(specs)
-        print("Byte-verified deterministic regeneration for 77 generated plates")
+        print("Byte-verified deterministic regeneration for 85 generated plates")
     if args.contact_sheet_dir:
         outputs = write_contact_sheets(curricula, args.contact_sheet_dir)
         for output in outputs:
             print(f"Wrote {output}")
     if not any((args.render, args.sync_curriculum, args.check,
                 args.check_determinism, args.contact_sheet_dir)):
-        print(f"{len(specs)} generated specs complete 83 assigned humanities lessons")
+        print(f"{len(specs)} generated specs complete 91 assigned humanities lessons")
 
 
 if __name__ == "__main__":

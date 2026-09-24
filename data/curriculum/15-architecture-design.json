@@ -15,7 +15,7 @@
         "Interior design"
       ],
       "prereqs": [],
-      "practice": null,
+      "practice": "know:design.0.spaces",
       "learning_outcomes": [
         "Connect a place with an activity.",
         "Leave a clear route between parts of a model.",
@@ -180,7 +180,7 @@
         "design.0.spaces",
         "math.0.shapes"
       ],
-      "practice": null,
+      "practice": "know:design.0.shelters",
       "learning_outcomes": [
         "Identify roof, support, and entrance in a simple model.",
         "Use shapes to create a covered space.",
@@ -345,7 +345,7 @@
         "design.0.shelters",
         "math.1.measurement"
       ],
-      "practice": null,
+      "practice": "know:design.1.plans",
       "learning_outcomes": [
         "Use one consistent unit to compare lengths.",
         "Represent a small layout from above.",
@@ -509,7 +509,7 @@
       "prereqs": [
         "design.1.plans"
       ],
-      "practice": null,
+      "practice": "know:design.1.users",
       "learning_outcomes": [
         "Ask about a user’s task before choosing a design.",
         "Observe use of a low-risk prototype.",
@@ -726,8 +726,8 @@
           "prompt": "Which view shows a building face straight on?",
           "choices": [
             "An elevation",
-            "A horizontal plan",
-            "A building section"
+            "A plan",
+            "A cut through the interior"
           ],
           "answer": "An elevation",
           "explain": "An elevation represents a vertical face without cutting through the building."
@@ -747,9 +747,9 @@
           "kind": "choice",
           "prompt": "A door is left of a window in the plan but right in the same oriented elevation. What needs checking?",
           "choices": [
-            "Check the ratio of text size to drawing-line thickness",
+            "Check label order",
             "Check orientation and consistency across views",
-            "Check whether the furniture names are alphabetical"
+            "Check which side has the longer room name"
           ],
           "answer": "Check orientation and consistency across views",
           "explain": "Views must describe one coherent arrangement, taking viewpoint and orientation into account."
@@ -769,8 +769,8 @@
           "kind": "choice",
           "prompt": "Which information must accompany the number 4 on a dimension?",
           "choices": [
-            "The designer’s preferred dimension color",
-            "The project’s revision number and title",
+            "A color",
+            "A revision date and project title",
             "A unit or established unit convention"
           ],
           "answer": "A unit or established unit convention",
@@ -780,9 +780,9 @@
           "kind": "choice",
           "prompt": "Does a cardboard model prove full-size structural performance?",
           "choices": [
-            "Yes; visual similarity establishes structural capacity",
+            "Yes; the shape matches",
             "No; scale and material behavior differ",
-            "Yes; similar geometry preserves physical behavior"
+            "Yes; all proportional models reproduce structural capacity"
           ],
           "answer": "No; scale and material behavior differ",
           "explain": "Geometric similarity alone does not reproduce loads, stiffness, connections, and other physical behavior."
@@ -792,8 +792,8 @@
           "prompt": "Why combine a model with drawings?",
           "choices": [
             "Each reveals complementary spatial information",
-            "Drawings establish dimensions while models establish safety",
-            "Models establish proportions while drawings establish comfort"
+            "Models prove safety",
+            "Drawings determine comfort"
           ],
           "answer": "Each reveals complementary spatial information",
           "explain": "Complementary views help communicate arrangement, volume, dimensions, and details."
@@ -1954,8 +1954,8 @@
           "prompt": "What distinguishes a research contribution from a polished design alone?",
           "choices": [
             "A justified question, method, evidence, and insight",
-            "An appealing scheme, polished renders, and coherent styling",
-            "A larger portfolio, more iterations, and stronger branding"
+            "An attractive final object",
+            "A portfolio of polished designs"
           ],
           "answer": "A justified question, method, evidence, and insight",
           "explain": "Research must make its reasoning and evidence assessable beyond the finished object."
@@ -1964,8 +1964,8 @@
           "kind": "choice",
           "prompt": "A parametric model generates ten thousand options. What does this not guarantee?",
           "choices": [
-            "The existence of multiple generated alternatives",
-            "Variation in the parameters selected for the search",
+            "Many alternatives",
+            "Variation across the parameters selected for the search",
             "Validity of assumptions and selected metrics"
           ],
           "answer": "Validity of assumptions and selected metrics",
@@ -1987,8 +1987,8 @@
           "prompt": "What belongs in a reproducible parametric-study record?",
           "choices": [
             "Geometry rules, inputs, versions, and analysis code",
-            "Final renders, reviewer comments, and presentation order",
-            "Winning metrics, project title, and image export settings"
+            "Images and commentary",
+            "Every rendered view and its presentation order"
           ],
           "answer": "Geometry rules, inputs, versions, and analysis code",
           "explain": "Others need the generation and evaluation process, not just its final output."
@@ -1997,8 +1997,8 @@
           "kind": "choice",
           "prompt": "One design uses less energy; another provides better glare control. What is the key issue?",
           "choices": [
-            "A contradiction between arithmetic operations",
-            "A demonstration that the energy metric is invalid",
+            "Arithmetic error",
+            "Proof that energy cannot inform any design decision",
             "A tradeoff between competing objectives"
           ],
           "answer": "A tradeoff between competing objectives",
@@ -2020,8 +2020,8 @@
           "prompt": "Which practice separates confirmation from exploration?",
           "choices": [
             "Prespecify the claim and evaluation criterion",
-            "Choose the hypothesis after inspecting significance",
-            "Report exploratory successes as planned confirmations"
+            "Select a successful finding",
+            "Treat every explored result as a planned confirmation"
           ],
           "answer": "Prespecify the claim and evaluation criterion",
           "explain": "Prespecification clarifies the evidential status of a final test."
@@ -2030,8 +2030,8 @@
           "kind": "choice",
           "prompt": "A model matches energy totals but misrepresents hourly peaks. What should be said?",
           "choices": [
-            "Annual agreement validates each hourly prediction",
-            "Peak mismatch establishes that the model is unusable",
+            "Every prediction is valid",
+            "The model is invalid for every possible application",
             "Validation is incomplete for peak-related claims"
           ],
           "answer": "Validation is incomplete for peak-related claims",
@@ -2041,9 +2041,9 @@
           "kind": "choice",
           "prompt": "A metric omits privacy and autonomy. What is the implication?",
           "choices": [
-            "Assume the metric includes values through correlation",
+            "Ignore those values",
             "Consider those values separately in the decision",
-            "Treat unmeasured values as having zero importance"
+            "Assume the metric captures every important social value"
           ],
           "answer": "Consider those values separately in the decision",
           "explain": "Quantification of selected outcomes does not exhaust the design’s human consequences."

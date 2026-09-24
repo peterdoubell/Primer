@@ -30,3 +30,7 @@ The twelve source-coverage additions live in `reference_expansion.py` and use
 original geometric anatomy schematics with HTML text equivalents. Clinical
 case images remain at the linked source articles. See
 `docs/radiology-reference-coverage.md` for the source map and report templates.
+
+Three supplemental comparison plates are defined in `companions.py`. The same
+render/sync/check commands include them; overview regeneration preserves the
+companions, and the contact sheet includes all 99 clinical illustrations (198 WebPs).

@@ -1191,8 +1191,12 @@ for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
 }
-assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab'].includes(item.renderer)).length,
+assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab'].includes(item.renderer)).length,
   70, 'All 70 earlier lesson models remain reachable');
+assert.equal(entries.filter(({ item }) => item.renderer === 'music-listening-lab').length,
+  8, 'All eight separately checked music models remain reachable');
+assert.equal(entries.filter(({ item }) => item.renderer === 'doppler-angle-lab').length,
+  1, 'The separately checked Doppler model remains reachable');
 const page = fs.readFileSync(path.join(ROOT, 'web/index.html'), 'utf8');
 const scripts = [...page.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/g)].map(match => match[1]);
 for (const file of ['spatial-cross-subject.js', 'concept-models.js']) {

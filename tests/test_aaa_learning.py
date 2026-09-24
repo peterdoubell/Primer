@@ -243,8 +243,15 @@ def test_settled_placement_reopens_after_cooling(store):
     assert store.reopen_placement('math') is True
     state = store.placement_state()['math']
     assert state['done'] is False
-    assert state['stage'] == 2 and state['asked'] == ['q1'], \
-        'the rung and asked-history survive, only the settled flag clears'
+    # The rung and the asked-history survive — that is what stops a
+    # re-measurement repeating items the reader has already seen. A marker is
+    # appended to say where the new staircase begins: keeping the history
+    # without one meant the previous run's passes went on setting the floor, so
+    # a re-check could raise a reader and never lower one.
+    assert state['stage'] == 2
+    assert state['asked'][0] == 'q1', 'the asked-history must survive'
+    assert state['asked'][-1].get('reopened') is True, \
+        'the new run must be marked, or the old passes still hold the floor'
     # Not settled any more, so a second call has nothing to reopen.
     assert store.reopen_placement('math') is False
 

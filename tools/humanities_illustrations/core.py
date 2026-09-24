@@ -588,8 +588,10 @@ def validate_specs(specs: Dict[str, Spec], expected_ids: Iterable[str]) -> None:
     alts = set()
     captions = set()
     for node_id, item in specs.items():
-        if set(item) != required or item["id"] != node_id:
+        if set(item) not in (required, required | {"display_title"}) or item["id"] != node_id:
             raise ValueError(f"Malformed humanities illustration spec for {node_id}")
+        if "display_title" in item and (not isinstance(item["display_title"], str) or not item["display_title"].strip()):
+            raise ValueError(f"{node_id} needs a nonempty display title")
         if type(item["stage"]) is not int or item["stage"] not in STAGE_NAMES:
             raise ValueError(f"{node_id} has an invalid stage")
         if item["domain"] not in {"history", "arts", "mind-society"}:
@@ -618,7 +620,7 @@ def render_spec(output_root: Path, item: Spec, *, overwrite: bool = False) -> Li
     existing = [path for path in paths if path.exists()]
     if existing and not overwrite:
         raise FileExistsError("Refusing to overwrite: {}".format(", ".join(map(str, existing))))
-    plate = Plate(str(item["id"]), str(item["title"]), int(item["stage"]), str(item["domain"]))
+    plate = Plate(str(item["id"]), str(item.get("display_title", item["title"])), int(item["stage"]), str(item["domain"]))
     item["draw"](plate)
     paths[0].parent.mkdir(parents=True, exist_ok=True)
     plate.image.save(paths[0], "WEBP", quality=86, method=6)

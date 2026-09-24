@@ -1,6 +1,6 @@
 # Radiology spatial companions
 
-Added 2026-09-17. The existing 84 illustrated lessons (168 responsive WebPs)
+Added 2026-09-17; ported onto the current reporting-reference release. The existing 84 illustrated lessons (168 responsive WebPs)
 are preserved. Three local SVG-projected 3D scenes complement those plates:
 
 - **Reading the CT Image:** move axial, coronal and sagittal planes through a
@@ -21,13 +21,14 @@ and [AO Surgery Reference](https://surgeryreference.aofoundation.org/orthopedic-
 No management thresholds or device recommendations are introduced.
 
 Validation: radiology asset audit passes 84 lessons / 168 WebPs; curriculum-wide
-media audit passes; 36 focused Python tests pass. The shared geometry checker
-now covers 17 spatial scenes, including exact section-contour, oblique-diameter
+media audit passes; 24 focused Python tests pass. The release geometry checker
+covers the three radiology spatial scenes, including exact section-contour, oblique-diameter
 and translated fracture-face invariants for the new companions.
 
-Final browser verification passed all 17 scenes on desktop and mobile, including
+The original checkout passed 17 spatial scenes. Release verification covers the
+three radiology scenes on desktop and mobile, including
 parameter extrema, drag/touch, keyboard, reset, label bounds and source hashes.
-Screenshots and report: `/tmp/primer-radiology-browser-final/`. The three new
+Screenshots and report: `/tmp/primer-radiology-release-browser/`. The three new
 scenes were visually inspected; the vessel starts orthogonal to avoid an
 edge-on initial plane. No deployment was performed in this update.
 

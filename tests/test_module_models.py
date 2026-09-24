@@ -19,5 +19,5 @@ def test_module_model_geometry_bindings_controls_and_invariants():
         check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '454 lesson bindings, 41 object families' in result.stdout
+    assert '462 lesson bindings, 41 object families' in result.stdout
     assert 'quantitative geometry invariants passed' in result.stdout

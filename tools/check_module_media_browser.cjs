@@ -42,7 +42,7 @@ fs.mkdirSync(output, { recursive: true });
     const photos = gallery.items.filter(item => item.kind === 'photograph');
     const models = gallery.items.filter(spatial);
     const ids = new Set(authored.map(node => node.id));
-    assert.equal(authored.length, 550, 'Full Primer lesson count');
+    assert.equal(authored.length, 558, 'Full Primer lesson count');
     assert.equal(gallery.domains.length, 19, 'Full Primer subject count');
     assert.equal(photos.length, ids.size, 'Every lesson has a photograph placement');
     assert.equal(gallery.counts.photographs, photos.length, 'Gallery photograph count matches records');

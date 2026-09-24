@@ -16,6 +16,32 @@ ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
 
 
+def test_doppler_model_is_bound_to_ultrasound_and_registered():
+    import json
+    from pathlib import Path
+    from primer.curriculum import LESSON_MODEL_RENDERERS, Curriculum
+    root = Path(__file__).resolve().parents[1]
+    nodes = json.loads((root / "data/curriculum/11-radiology.json").read_text())["nodes"]
+    entries = [(n["id"], m) for n in nodes for m in n.get("lesson_media", [])
+               if m.get("renderer") == "doppler-angle-lab"]
+    assert len(entries) == 1
+    assert entries[0][0] == "rad.5.ultrasound-physics"
+    assert entries[0][1]["props"] == {"scenario": "ideal-single-speed-flow"}
+    assert "doppler-angle-lab" in LESSON_MODEL_RENDERERS
+    Curriculum()
+
+
+def test_doppler_reference_does_not_reverse_the_angle_relationship():
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    nodes = json.loads((root / "data/curriculum/11-radiology.json").read_text())["nodes"]
+    ultrasound = next(n for n in nodes if n["id"] == "rad.5.ultrasound-physics")
+    row = next(r for r in ultrasound["reference"]["classify"]["rows"] if r[0] == "Aliasing")
+    assert "lower transmit frequency" in row[-1]
+    assert "Reducing the beam-to-flow angle increases the shift" in row[-1]
+
+
 def _radiology_modules():
     sys.path.insert(0, str(TOOLS))
     try:
@@ -150,7 +176,7 @@ def test_radiology_contact_sheet_reviews_authored_and_generated_plates(tmp_path)
     assert result.returncode == 0, result.stdout + result.stderr
     assert destination.is_file()
     with Image.open(destination) as sheet:
-        assert sheet.size == (5 * 320, math.ceil(96 / 5) * (200 + 38))
+        assert sheet.size == (5 * 320, math.ceil(99 / 5) * (200 + 38))
 
 
 def test_clinical_plate_sync_preserves_nonclinical_foundations(tmp_path, monkeypatch):
@@ -180,3 +206,23 @@ def test_clinical_plate_sync_preserves_nonclinical_foundations(tmp_path, monkeyp
     assert generator.sync_curriculum(curriculum, specs) >= 1
     saved = json.loads(destination.read_text())
     assert [node for node in saved["nodes"] if not node["id"].startswith("rad.")] == expected_foundations
+
+
+def test_overview_regeneration_preserves_companion_plates(tmp_path, monkeypatch):
+    sys.path.insert(0, str(TOOLS))
+    try:
+        import generate_radiology_illustrations as generator
+        from radiology_illustrations.companions import entries
+    finally:
+        sys.path.pop(0)
+    curriculum = generator.load_curriculum()
+    monkeypatch.setattr(generator, 'CURRICULUM_PATH', tmp_path / 'curriculum.json')
+    for node in curriculum['nodes']:
+        if node['id'] in entries():
+            node['lesson_media'][0]['caption'] = 'Stale overview caption'
+    generator.sync_curriculum(curriculum, generator.bound_specs(curriculum))
+    for node in curriculum['nodes']:
+        if node['id'] in entries():
+            assert node['lesson_media'][-1] == entries()[node['id']]
+    assert generator.sync_curriculum(curriculum, generator.bound_specs(curriculum)) == 0
+    generator.verify(curriculum)

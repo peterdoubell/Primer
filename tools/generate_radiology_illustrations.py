@@ -25,6 +25,8 @@ from radiology_illustrations.core import (
 from radiology_illustrations.specs import SPECS as RAW_SPECS
 
 
+from radiology_illustrations import companions
+
 ROOT = Path(__file__).resolve().parents[1]
 CURRICULUM_PATH = ROOT / "data" / "curriculum" / "11-radiology.json"
 OUTPUT_ROOT = ROOT / "web" / "illustrations"
@@ -99,9 +101,9 @@ def sync_curriculum(curriculum: Dict[str, object], specs: Dict[str, Spec]) -> in
         illustrations = [entry for entry in media if entry.get("kind") == "illustration"]
         expected = illustration_entry(item)
         if illustrations:
-            if illustrations == [expected]:
+            if expected in illustrations:
                 continue
-            current = illustrations[0] if len(illustrations) == 1 else None
+            current = next((m for m in illustrations if m.get("id") == expected["id"]), None)
             # Specs never include the separately preserved CT phantom. A
             # stable generated id and local source therefore prove ownership
             # while still failing closed around genuinely authored media.
@@ -112,6 +114,17 @@ def sync_curriculum(curriculum: Dict[str, object], specs: Dict[str, Spec]) -> in
         else:
             media.insert(0, expected)
         changed += 1
+    for node in curriculum["nodes"]:
+        expected = companions.entries().get(node["id"])
+        if expected is not None:
+            media = node.setdefault("lesson_media", [])
+            current = next((m for m in media if m.get("id") == expected["id"]), None)
+            if current != expected:
+                if current is None:
+                    media.append(expected)
+                else:
+                    media[media.index(current)] = expected
+                changed += 1
     if changed:
         with CURRICULUM_PATH.open("w", encoding="utf-8") as handle:
             json.dump(curriculum, handle, indent=2, ensure_ascii=False)
@@ -128,40 +141,42 @@ def verify(curriculum: Dict[str, object]) -> None:
     for node in nodes:
         plates = [entry for entry in node.get("lesson_media", [])
                   if entry.get("kind") == "illustration"]
-        if len(plates) != 1:
-            raise ValueError("{} needs exactly one illustration".format(node["id"]))
-        plate = plates[0]
-        if plate["id"] in media_ids:
-            raise ValueError("Duplicate radiology media id {}".format(plate["id"]))
-        media_ids.add(plate["id"])
-        if (plate["width"], plate["height"]) != (WIDTH, HEIGHT):
-            raise ValueError("Bad dimensions for {}".format(node["id"]))
-        if plate["alt"] == plate["caption"] or min(
-                len(str(plate[key]).split()) for key in ("alt", "caption")) < 8:
-            raise ValueError("{} needs explanatory, distinct copy".format(node["id"]))
-        candidates = plate["srcset"].split(",")
-        local_urls = set()
-        for candidate in candidates:
-            url, descriptor = candidate.strip().split()
-            if url in urls:
-                raise ValueError("Raster URL reused at {}".format(node["id"]))
-            urls.add(url)
-            local_urls.add(url)
-            path = ROOT / "web" / url.removeprefix("/app/")
-            if not path.is_file():
-                raise FileNotFoundError(path)
-            with Image.open(path) as opened:
-                width, height = opened.size
-                if opened.format != "WEBP" or width != int(descriptor[:-1]):
-                    raise ValueError("Bad WebP contract for {}".format(path))
-                if width * HEIGHT != height * WIDTH:
-                    raise ValueError("Bad aspect ratio for {}".format(path))
-            if path.stat().st_size >= 300_000:
-                raise ValueError("Oversize radiology plate {}".format(path))
-        if len(local_urls) != 2 or plate["src"] not in local_urls:
-            raise ValueError("{} needs two responsive sources".format(node["id"]))
-    if len(urls) != len(nodes) * 2:
-        raise ValueError("Expected two responsive rasters per radiology lesson")
+        expected_count = 2 if node["id"] in companions.SPECS else 1
+        if len(plates) != expected_count:
+            raise ValueError("{} has an unexpected illustration count".format(node["id"]))
+        for plate in plates:
+            if plate["id"] in media_ids:
+                raise ValueError("Duplicate radiology media id {}".format(plate["id"]))
+            media_ids.add(plate["id"])
+            if (plate["width"], plate["height"]) != (WIDTH, HEIGHT):
+                raise ValueError("Bad dimensions for {}".format(node["id"]))
+            if plate["alt"] == plate["caption"] or min(
+                    len(str(plate[key]).split()) for key in ("alt", "caption")) < 8:
+                raise ValueError("{} needs explanatory, distinct copy".format(node["id"]))
+            candidates = plate["srcset"].split(",")
+            local_urls = set()
+            for candidate in candidates:
+                url, descriptor = candidate.strip().split()
+                if url in urls:
+                    raise ValueError("Raster URL reused at {}".format(node["id"]))
+                urls.add(url)
+                local_urls.add(url)
+                path = ROOT / "web" / url.removeprefix("/app/")
+                if not path.is_file():
+                    raise FileNotFoundError(path)
+                with Image.open(path) as opened:
+                    width, height = opened.size
+                    if opened.format != "WEBP" or width != int(descriptor[:-1]):
+                        raise ValueError("Bad WebP contract for {}".format(path))
+                    if width * HEIGHT != height * WIDTH:
+                        raise ValueError("Bad aspect ratio for {}".format(path))
+                if path.stat().st_size >= 300_000:
+                    raise ValueError("Oversize radiology plate {}".format(path))
+            if len(local_urls) != 2 or plate["src"] not in local_urls:
+                raise ValueError("{} needs two responsive sources".format(node["id"]))
+    expected_rasters = 2 * (len(nodes) + sum(node["id"] in companions.SPECS for node in nodes))
+    if len(urls) != expected_rasters:
+        raise ValueError("Expected {} radiology rasters, found {}".format(expected_rasters, len(urls)))
 
 
 def verify_determinism(specs: Dict[str, Spec]) -> None:
@@ -174,21 +189,24 @@ def verify_determinism(specs: Dict[str, Spec]) -> None:
                 if hashlib.sha256(fresh.read_bytes()).digest() != \
                         hashlib.sha256(current.read_bytes()).digest():
                     raise ValueError("Non-deterministic radiology asset {}".format(current))
+        for fresh in companions.render_all(destination):
+            current = OUTPUT_ROOT / fresh.relative_to(destination)
+            if fresh.read_bytes() != current.read_bytes():
+                raise ValueError("Non-deterministic companion: " + str(current))
 
 
 def write_contact_sheet(curriculum: Dict[str, object], destination: Path) -> None:
     thumb_w, thumb_h, label_h, columns = 320, 200, 38, 5
-    nodes = clinical_nodes(curriculum)
-    rows = (len(nodes) + columns - 1) // columns
+    plates = [(node, entry) for node in clinical_nodes(curriculum)
+              for entry in node["lesson_media"] if entry["kind"] == "illustration"]
+    rows = (len(plates) + columns - 1) // columns
     sheet = Image.new("RGB", (columns * thumb_w, rows * (thumb_h + label_h)), "#efe7d2")
     draw = ImageDraw.Draw(sheet)
     font_path = ("/System/Library/Fonts/Supplemental/Arial.ttf"
                  if os.path.isfile("/System/Library/Fonts/Supplemental/Arial.ttf")
                  else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
     face = ImageFont.truetype(font_path, 17)
-    for index, node in enumerate(nodes):
-        plate = next(entry for entry in node["lesson_media"]
-                     if entry["kind"] == "illustration")
+    for index, (node, plate) in enumerate(plates):
         source = ROOT / "web" / plate["src"].removeprefix("/app/")
         with Image.open(source) as opened:
             thumb = ImageOps.fit(opened.convert("RGB"), (thumb_w, thumb_h),
@@ -220,15 +238,17 @@ def main() -> None:
     if args.render:
         print("Rendered {} radiology files".format(
             len(render_assets(specs, args.overwrite))))
+        companions.render_all(OUTPUT_ROOT)
     if args.sync_curriculum:
         print("Synced {} radiology media entries".format(
             sync_curriculum(curriculum, specs)))
         curriculum = load_curriculum()
     if args.check:
         verify(curriculum)
-        count = len(clinical_nodes(curriculum))
+        nodes = clinical_nodes(curriculum)
+        plate_count = sum(entry["kind"] == "illustration" for node in nodes for entry in node["lesson_media"])
         print("Verified {} clinical radiology lessons and {} responsive WebPs".format(
-            count, count * 2))
+            len(nodes), plate_count * 2))
     if args.check_determinism:
         verify_determinism(specs)
         print("Verified deterministic radiology regeneration")

@@ -1,6 +1,6 @@
 # Learning pathways: age three to master's level
 
-The Primer now has 550 lessons across 19 broad fields. This expansion adds 96
+The Primer now has 558 lessons across 19 broad fields, including the eight Grade 1–8 music lessons preserved from the live release. This expansion adds 96
 lessons in eight fields and ten nonclinical imaging foundations. All 19 fields
 have content at each of the six stages. These are expandable learning pathways,
 not complete degree programs or an exhaustive catalogue of every specialism.
@@ -24,7 +24,7 @@ Each new field has two lessons per stage. Every new lesson includes an authored
 explanation, worked example, activity, reflection, at least three outcomes and
 an assessment bank. Early lessons also include concise read-aloud text.
 Older banks contain ten choice questions and a produced-response question.
-The new lessons add 986 assessment items, bringing the authored total to 5,403.
+The new lessons add 986 assessment items, bringing the initial expansion total to 5,403; the merged music path brings it to 5,483.
 Prerequisites connect new fields to existing mathematical, scientific and
 humanistic foundations. Reading, assessment and spaced mastery continue using
 the existing progression rules.
@@ -82,7 +82,7 @@ curriculum/media/API tests, `tools/check_curriculum_illustrations.py`,
 an isolated development reader. Browser and asset review evidence is stored in
 `artifacts/learning-expansion/` when those checks run.
 
-## Verification on 2026-09-24
+## Verification before merging the live release, 2026-09-24
 
 - Full Python suite: 32,079 passed, two existing skips.
 - Illustration audit: 550 unique diagrams, 1,100 responsive WebPs, no missing

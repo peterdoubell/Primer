@@ -51,14 +51,17 @@ def test_spatial_scenario_is_valid_only_on_its_own_lesson(node_id):
         _validate_lesson_media(spatial_node(other_id, {"scenario": node_id}))
 
 
+@pytest.mark.parametrize("node_id", ["math.2.geometry", "rad.3.ct-image"])
 @pytest.mark.parametrize("props", [
     {}, {"scenario": "unknown"}, {"scenario": "constructor"},
     {"scenario": "__proto__"}, {"scenario": None}, {"scenario": True},
     {"scenario": []}, {"scenario": {}}, {"scenario": 1},
     {"scenario": "math.2.geometry", "url": "https://example.com/model.js"},
     {"scenario": "math.2.geometry", "camera": {"zoom": 500}},
+    {"scenario": "rad.3.ct-image", "url": "https://example.com/model.js"},
+    {"scenario": "rad.3.ct-image", "camera": {"zoom": 500}},
     [], None,
 ])
-def test_spatial_model_rejects_unknown_and_malformed_props(props):
+def test_spatial_model_rejects_unknown_and_malformed_props(node_id, props):
     with pytest.raises(ValueError):
-        _validate_lesson_media(spatial_node("math.2.geometry", props))
+        _validate_lesson_media(spatial_node(node_id, props))

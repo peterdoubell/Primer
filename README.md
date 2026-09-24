@@ -30,7 +30,7 @@ The Primer is three things woven together:
    completeness as it is used.
 
 2. **A curriculum spine from age three to master's-level study.** An authored graph
-   of **550 lessons across 19 broad fields**, each mapped to encyclopedia
+   of **558 lessons across 19 broad fields**, each mapped to encyclopedia
    articles, arranged in six stages:
 
    | Stage | Name | Level |
@@ -228,7 +228,7 @@ primer/
   library.py     Kiwix archive catalogue + background resumable downloader
   server.py      FastAPI app tying it all together
 data/
-  curriculum/    19 field files · 550 lessons · six stages from age 3 to master's
+  curriculum/    19 field files · 558 lessons · six stages from age 3 to master's
                  teaching text, authored assessments, diagrams and model bindings
   story/         the 19-chapter frame story
 web/             book-styled single-page app (vanilla JS, no build, WCAG-AA, dark mode)
@@ -300,6 +300,19 @@ sends `WWW-Authenticate`: that header is what makes the browser draw its own
 grey credential dialog, which is unstyleable and was the first thing a reader
 met. Basic credentials are still *accepted* on every route, unadvertised, so
 `curl -u` and CI need no cookie jar.
+
+**A second reader, no Google account needed.** `PRIMER_ACCESS_USERNAME2` /
+`PRIMER_ACCESS_PASSWORD2` (then `...3`, `...4`, ...) add more named
+accounts to the same gate above — each is checked the same way, and each
+gets its **own separate profile** (mastery, deck, streak, story) the first
+time anyone signs in with it, exactly as Google sign-in does, without any
+Google Cloud Console setup. The original, unsuffixed pair always resolves
+to `reader_id=1`, the profile every deployment already had, so nothing
+about a single-account install changes by adding this. Two people sharing
+one hosted copy need nothing more than a second username and password; a
+household that later wants real per-person accounts across devices can
+layer Google sign-in on top (see *Google sign-in*, below) without
+disturbing either static account.
 
 All of this lives in `primer/store.py`. It is a single seam — the learner, wiki
 and sittings stores each call one `connect()` — and it is deliberately
@@ -375,7 +388,7 @@ change (exempting the file's path from the access gate, or a meta tag on
 
 ## Design notes & honest limits
 
-- The curriculum graph is a **spine, not a cage.** Beyond the 550 authored
+- The curriculum graph is a **spine, not a cage.** Beyond the 558 authored
   concepts, every one of Wikipedia's millions of articles is reachable by search
   and by following links — and reading any of them logs progress and can feed
   your review deck.
@@ -394,7 +407,7 @@ change (exempting the file's path from the access gate, or a meta tag on
   that evidence the last place they appeared, the unmarked self-check for free
   reading, was **retired** rather than shipped behind a warning label. The
   generator survives only as the audit's measurement apparatus; nothing in the
-  app calls it. Every one of the 550 curriculum lessons carries a fixed,
+  app calls it. Every one of the 558 curriculum lessons carries a fixed,
   versioned item bank. The new expansion includes AI-assisted authored content;
   it is not generated afresh when a learner opens a quiz.
 - **Backups are same-disk until you say otherwise.** The learner record is

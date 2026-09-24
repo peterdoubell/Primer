@@ -9,9 +9,9 @@ const path = require('node:path');
 const { createHash } = require('node:crypto');
 const { chromium } = require('playwright');
 const base = process.argv[2] || 'http://127.0.0.1:8768';
-const out = process.argv[3];
-if (!out) throw new Error('Provide a screenshot output directory');
+const out = process.argv[3] || fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'primer-spatial-qa-'));
 fs.mkdirSync(out, { recursive: true });
+console.log('Screenshots: ' + out);
 const curriculum = path.resolve(__dirname, '../data/curriculum');
 const entries = fs.readdirSync(curriculum).filter(f => /^\d.*\.json$/.test(f))
   .flatMap(f => JSON.parse(fs.readFileSync(path.join(curriculum, f), 'utf8')).nodes)
@@ -34,9 +34,15 @@ const entries = fs.readdirSync(curriculum).filter(f => /^\d.*\.json$/.test(f))
       const file = new URL(response.url()).pathname.replace(/^\/app\//, '');
       if (sourceFiles.includes(file)) sourceReads.push(response.body().then(body => { loadedSources[file] = digest(body); }));
     });
+    const galleryResponse = await context.request.get(base + '/api/curriculum/visuals');
+    assert.equal(galleryResponse.status(), 200);
+    const gallery = await galleryResponse.json();
+    const galleryModels = gallery.items.filter(item => ['spatial-3d', 'radiology-anatomy'].includes(item.renderer));
+    for (const entry of entries) assert.ok(galleryModels.some(item => item.lesson_id === entry.id && item.renderer === 'spatial-3d'),
+      entry.id + ': authored spatial scene remains reachable through the gallery');
     await page.goto(base + '/#/math-images');
     await page.getByRole('combobox', { name: /^kind$/i }).selectOption('spatial-3d');
-    await page.waitForFunction(count => document.querySelectorAll('.math-image-card:not([hidden])').length === count, entries.length);
+    await page.waitForFunction(count => document.querySelectorAll('.math-image-card:not([hidden])').length === count, galleryModels.length);
     const firstCard = page.locator('.math-image-card:not([hidden])').first();
     await firstCard.getByRole('button', { name: 'Open model →', exact: true }).click();
     await page.locator('.spatial-model').waitFor();
@@ -44,7 +50,7 @@ const entries = fs.readdirSync(curriculum).filter(f => /^\d.*\.json$/.test(f))
 
     for (const entry of entries) {
       await page.goto(base + '/#/node/' + entry.id);
-      const model = page.locator('.spatial-model');
+      const model = page.locator('.spatial-model[data-scenario="' + entry.id + '"]');
       await model.waitFor();
       assert.equal(await model.getAttribute('data-scenario'), entry.id);
       const svg = model.locator('.spatial-svg');

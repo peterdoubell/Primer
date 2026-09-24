@@ -25,7 +25,7 @@ def example(tmp_path):
     for width in (800, 1600):
         (assets / (str(width) + ".webp")).write_bytes(b"synthetic-image-fixture")
     node = {"id": "test.0.a", "title": "Test", "goal": "Explain a relationship", "stage": 0,
-            "lesson_media": [{"kind": "illustration", "src": "/app/illustrations/800.webp",
+            "lesson_media": [{"id": "test-primary", "kind": "illustration", "src": "/app/illustrations/800.webp",
                               "srcset": "/app/illustrations/800.webp 800w, /app/illustrations/1600.webp 1600w"}]}
     (directory / "01-test.json").write_text(json.dumps({"id": "test", "nodes": [node]}))
     return tmp_path
@@ -65,4 +65,22 @@ def test_invalid_records_fail(reviewer, example):
 
 
 def test_actual_inventory_is_exhaustive(reviewer):
-    assert reviewer.audit()["lessons"] == 550
+    assert reviewer.audit()["lessons"] == 558
+
+
+def test_companion_requires_its_own_review(reviewer, example):
+    source = example / 'data/curriculum/01-test.json'
+    data = json.loads(source.read_text())
+    first = reviewer.audit(example, [])
+    companion = dict(data['nodes'][0]['lesson_media'][0], id='test-companion')
+    data['nodes'][0]['lesson_media'].append(companion)
+    source.write_text(json.dumps(data))
+    report = reviewer.audit(example, approval(first))
+    assert report['lessons'] == 1 and report['plates'] == 2
+    assert [r['status'] for r in report['rows']] == ['reviewed', 'pending']
+    records = approval(first) + [dict(lesson='test.0.a', media_id='test-companion',
+        fingerprint=report['rows'][1]['fingerprint'], evidence='Inspected', finding='Companion checked')]
+    assert reviewer.audit(example, records)['reviewed'] == 2
+    data['nodes'][0]['lesson_media'][1]['alt'] = 'Changed explanation'
+    source.write_text(json.dumps(data))
+    assert [r['status'] for r in reviewer.audit(example, records)['rows']] == ['reviewed', 'stale']

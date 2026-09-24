@@ -58,6 +58,6 @@ def test_multiple_models_do_not_inflate_covered_lessons(tmp_path):
 
 def test_actual_curriculum_has_nonvacuous_inventory():
     report = coverage.inventory()
-    assert report["lessons"] == 550
+    assert report["lessons"] == 558
     assert 0 < report["covered"] <= report["lessons"]
     assert report["model_entries"] >= report["covered"]

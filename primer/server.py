@@ -35,10 +35,11 @@ from pydantic import BaseModel, Field, field_validator
 from . import library, practice, quiz, store, tutor
 from . import sittings as sittings_mod
 from . import story as story_mod
-from .curriculum import Curriculum
+from .curriculum import Curriculum, framework_digest
 from .learner import (LearnerStore, STAGE_NAMES, STAGE_SPAN, STAGE_TITLES,
-                      _end_of_tomorrow, _local_day)
-from .pacing import roadmap
+                      _end_of_tomorrow, _local_day, _remove_backup,
+                      usable_reading_seconds)
+from .pacing import roadmap, instructional_rate
 from .render import rewrite_article
 from .wiki import WikiService, ROOT
 
@@ -138,10 +139,10 @@ def _prune_backups(dest_dir: str):
     keep.update(list(monthly.values())[:12])
     for f in files:
         if f not in keep:
-            try:
-                os.remove(os.path.join(dest_dir, f))
-            except OSError:
-                pass
+            # Sidecar-aware: this removed only the `.db` and left the -wal/-shm
+            # beside it, so every rotated-out generation leaked two files that
+            # nothing would ever collect.
+            _remove_backup(os.path.join(dest_dir, f))
 
 
 def backup_status() -> dict:
@@ -316,6 +317,38 @@ def _access_token(username: str, password: str) -> str:
                     hashlib.sha256).hexdigest()
 
 
+def _access_accounts() -> list:
+    """Every configured (username, password, slot) triple, in slot order.
+
+    Slot 1 — PRIMER_ACCESS_USERNAME/PRIMER_ACCESS_PASSWORD, unsuffixed — is
+    the original single-tenant credential and always resolves to
+    reader_id=1, the profile every deployment already had before this
+    existed; its slot is reported as None so callers never mistake it for a
+    provisioned static account. Slot 2, 3, ... (PRIMER_ACCESS_USERNAME2/
+    PRIMER_ACCESS_PASSWORD2, and so on) are additional named accounts — a
+    small household sharing one hosted copy without wanting Google sign-in.
+    Each gets its own reader the first time anyone signs in with it (see
+    `reader_for_static_account`); the credentials themselves are the only
+    thing distinguishing one from another, so misconfiguring two slots with
+    the same password would let either username open either account — a
+    deployer's mistake to avoid, not one this function can catch for them.
+    """
+    accounts = []
+    base_password = os.environ.get(ACCESS_PASSWORD_ENV)
+    if base_password:
+        accounts.append((os.environ.get(ACCESS_USERNAME_ENV) or "primer",
+                         base_password, None))
+    n = 2
+    while True:
+        password = os.environ.get(ACCESS_PASSWORD_ENV + str(n))
+        if not password:
+            break
+        username = os.environ.get(ACCESS_USERNAME_ENV + str(n)) or ("primer" + str(n))
+        accounts.append((username, password, n))
+        n += 1
+    return accounts
+
+
 def _safe_next(raw: Optional[str]) -> str:
     """Only ever bounce back to a path on this same book.
 
@@ -404,13 +437,12 @@ async def _hosted_access_guard(request, call_next):
     if path == "/healthz" or path in PUBLIC_ASSET_PATHS:
         return await call_next(request)
 
-    password = os.environ.get(ACCESS_PASSWORD_ENV)
+    accounts = _access_accounts()
     hosted = bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV"))
-    if not password:
+    if not accounts:
         return _access_challenge(503) if hosted else await call_next(request)
 
-    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
-    if _is_signed_in(request, username, password):
+    if _is_signed_in(request, accounts):
         response = await call_next(request)
         response.headers.setdefault("Vary", "Authorization, Cookie")
         return response
@@ -428,29 +460,34 @@ async def _hosted_access_guard(request, call_next):
     return _access_challenge()
 
 
-def _is_signed_in(request, username: str, password: str) -> bool:
-    """Either the cookie the sign-in page set, or a Basic header.
+def _is_signed_in(request, accounts: list) -> bool:
+    """Either the cookie the sign-in page set, or a Basic header — checked
+    against every configured account, not just one.
 
     Basic stays accepted — unadvertised — because the deployment's own health
     checks, curl and CI authenticate that way and should not have to hold a
-    cookie jar to do it.
+    cookie jar to do it. Every account is checked rather than stopping at the
+    first match, so which slot a cookie or header belongs to is never
+    revealed by how quickly this returns.
     """
-    expected_token = _access_token(username, password)
     cookie = request.cookies.get(ACCESS_COOKIE, "")
-    if cookie and secrets.compare_digest(cookie, expected_token):
-        return True
+    cookie_ok = cookie and any(
+        secrets.compare_digest(cookie, _access_token(username, password))
+        for username, password, _slot in accounts)
     try:
         scheme, encoded = request.headers.get("Authorization", "").split(" ", 1)
         if scheme.lower() != "basic" or len(encoded) > 8192:
             raise ValueError
         supplied_user, supplied_password = base64.b64decode(
             encoded, validate=True).split(b":", 1)
-        expected_user = username.encode("utf-8")
-        expected_password = password.encode("utf-8")
     except (ValueError, UnicodeEncodeError, binascii.Error):
-        return False
-    return (secrets.compare_digest(supplied_user, expected_user)
-            and secrets.compare_digest(supplied_password, expected_password))
+        basic_ok = False
+    else:
+        basic_ok = any(
+            secrets.compare_digest(supplied_user, username.encode("utf-8"))
+            and secrets.compare_digest(supplied_password, password.encode("utf-8"))
+            for username, password, _slot in accounts)
+    return bool(cookie_ok) or basic_ok
 
 
 # ---------------- google identity (inner layer) ----------------
@@ -472,6 +509,16 @@ READER_COOKIE = "primer_reader"
 READER_MAX_AGE = 60 * 60 * 24 * 180      # half a year between Google sign-ins
 _OAUTH_STATE_COOKIE = "primer_oauth_state"
 _OAUTH_STATE_MAX_AGE = 600               # the round trip to Google and back
+
+
+def _is_real_google_sub(sub: Optional[str]) -> bool:
+    """Whether a readers.google_sub value is an actual Google identity, as
+    opposed to the synthetic "static:N" key a static account is filed under
+    (see LearnerStore.reader_for_static_account). Google's own subject
+    values are purely numeric strings, never colon-separated, so the two can
+    never collide — this is what keeps a static account from reading as
+    Google-signed-in, or eligible to claim reader_id=1."""
+    return bool(sub) and not sub.startswith("static:")
 
 
 def current_reader(request: Request) -> int:
@@ -641,18 +688,22 @@ def account(request: Request):
     reader_id = current_reader(request)
     reader = learner.get_reader(reader_id)
     legacy = reader if reader_id == 1 else learner.get_reader(1)
+    google_sub = (reader or {}).get("google_sub")
     return {
         "reader_id": reader_id,
-        "signed_in": bool(reader and reader.get("google_sub")),
+        "signed_in": _is_real_google_sub(google_sub),
         "email": (reader or {}).get("email") or None,
         "name": (reader or {}).get("name") or None,
         # Offered only to a reader who has actually signed in with Google
         # AND whose sign-in is not already the one behind reader_id=1 —
         # reader_id=1 unclaimed is the one thing that makes the button do
-        # something.
+        # something. A static account (see _is_real_google_sub) never
+        # qualifies: it already has its own permanent, password-backed
+        # identity, and "claiming" was only ever about an ambiguous Google
+        # sign-in landing on the pre-existing single profile.
         "claimable": bool(
-            reader_id != 1 and reader and reader.get("google_sub")
-            and legacy and not legacy.get("google_sub")),
+            reader_id != 1 and _is_real_google_sub(google_sub)
+            and legacy and not _is_real_google_sub(legacy.get("google_sub"))),
     }
 
 
@@ -676,7 +727,7 @@ def claim_profile(body: ClaimIn, request: Request):
         return JSONResponse({"error": "that is not the word this copy knows"},
                             status_code=401)
     reader = learner.get_reader(reader_id)
-    if not reader or not reader.get("google_sub"):
+    if not reader or not _is_real_google_sub(reader.get("google_sub")):
         return JSONResponse({"error": "sign in with Google first"}, status_code=400)
     claimed = learner.claim_legacy_reader(
         reader_id, reader["google_sub"], reader.get("email", ""), reader.get("name", ""))
@@ -710,6 +761,40 @@ async def _request_id(request, call_next):
         _request_id_var.reset(token)
 
 
+# A browser tells the server where a request came from, and the book had never
+# looked. Every state-changing route is a plain same-site call with no token,
+# which is exactly right for a local book — and means any page the reader has
+# open in another tab could drive this API through their own browser: read the
+# whole profile from GET /api/state, re-open a settled placement through
+# GET /api/placement/next?recheck=true, write reading history, spend quiz
+# items. On a machine bound to 127.0.0.1 the classic route in is DNS
+# rebinding; on the hosted copy it is an ordinary cross-origin page.
+#
+# `Sec-Fetch-Site` closes the class in one place, which is why it is preferred
+# here over patching individual routes: fixing the reading-log write on one
+# GET leaves every other state-changing GET exactly as it was.
+#
+# Only `same-origin` and `none` (a typed URL, a bookmark) are the book talking
+# to itself. `cross-site` is obvious; `same-site` is refused too, because for
+# a book served from 127.0.0.1 another port on the same host is somebody else.
+# An ABSENT header is allowed: curl, the test client, and older browsers send
+# nothing, and a guard that cannot tell those from an attacker must not
+# pretend it can — this raises the floor for real browsers rather than
+# claiming an authentication story the book does not have.
+_SAME_ORIGIN_FETCH_SITES = {"same-origin", "none"}
+
+
+@app.middleware("http")
+async def _cross_origin_guard(request, call_next):
+    site = (request.headers.get("sec-fetch-site") or "").lower()
+    if site and site not in _SAME_ORIGIN_FETCH_SITES and request.url.path.startswith("/api/"):
+        log.warning("refused %s request to %s from another origin",
+                    site, request.url.path)
+        return JSONResponse(
+            {"error": "this book answers only to its own pages"}, status_code=403)
+    return await call_next(request)
+
+
 @app.middleware("http")
 async def _security_headers(request, call_next):
     response = await call_next(request)
@@ -724,8 +809,8 @@ async def _security_headers(request, call_next):
 # Fields of a curriculum node that must never leave the server. `quiz` carries
 # every `answer` and `explain` in the bank.
 _NODE_PRIVATE = ("quiz",)
-_NODE_DETAIL_ONLY = ("lesson_media", "radiology_reference", "lesson", "learning_outcomes",
-                     "visual_spec", "model_family", "model_context")
+_NODE_DETAIL_ONLY = ("lesson_media", "radiology_reference", "reference", "music_study", "music_path",
+                     "lesson", "learning_outcomes", "visual_spec", "model_family", "model_context")
 
 
 def _public_node(node: dict, include_detail: bool = False) -> dict:
@@ -736,27 +821,87 @@ def _public_node(node: dict, include_detail: bool = False) -> dict:
     hidden = _NODE_PRIVATE if include_detail else _NODE_PRIVATE + _NODE_DETAIL_ONLY
     out = {k: v for k, v in node.items() if k not in hidden}
     out["question_count"] = len(node.get("quiz") or [])
+    # Same digest the Atlas route builds, so the two surfaces file a module
+    # under the same name.
+    if node.get("reference"):
+        out["framework"] = framework_digest(node["reference"])
     return out
+
+
+def _settle_stage(current: int, target: int, own_result: Optional[int] = None) -> int:
+    """The one policy for moving a reader's global stage, whoever is asking.
+
+    Two handlers used to write this column with contradictory rules: the
+    placement settle capped every move at one rung in either direction, and
+    the ascension ceremony wrote `max(stage, rank)` with no cap at all over a
+    lower median the board had already condemned. "At most one rung" was true
+    of neither the reader nor the column, and an auditor moved a reader from
+    1 to 5 with two passes on a preschool node.
+
+    The cap is on DISTANCE FROM THE EVIDENCE, not on velocity. Downward moves
+    are one rung per sitting, because a single bad paper must not rewrite a
+    reading level; upward moves go straight to the target, because a reader
+    whose only measurement is Forest is not a Seedling for any length of
+    time — the earlier version parked exactly that reader in the pre-reader
+    interface for a month of weekly re-checks. And a sitting whose own result
+    is at or above the current stage never lowers it.
+    """
+    if target >= current:
+        return target
+    if own_result is not None and own_result >= current:
+        return current
+    return max(current - 1, target)
+
+
+def _general_target(per_domain: Dict[str, int]) -> Optional[int]:
+    """Median of the general fields, an even count splitting the difference."""
+    measured = sorted(v for d, v in per_domain.items() if not _is_specialist(d))
+    if not measured:
+        return None
+    n = len(measured)
+    target = measured[n // 2] if n % 2 else (measured[n // 2 - 1] + measured[n // 2] + 1) // 2
+    # Advanced evidence rules out a pre-reader interface even when several
+    # other fields are new. It does not claim mastery in those fields.
+    return max(target, 2 if max(measured) >= 4 else 0)
 
 
 def _check_ascension(prof: dict, reader_id: int) -> Optional[dict]:
     """If the reader has newly opened a higher stage in any domain, record a
     stage-ascension ceremony and return it once."""
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     # The reader's level is the lower median over the domains they CHOSE —
     # one strong domain cannot promote them, and domains they never opted
     # into are not evidence against them.
     domains = prof.get("domains") or [d["id"] for d in curr.domains]
-    per_domain = sorted(curr.domain_stage_estimate(d, gates) for d in domains)
-    rank = per_domain[(len(per_domain) - 1) // 2] if per_domain else 0
-    prev = int(prof.get("settings", {}).get("rank", prof.get("stage", 0)))
-    if rank > prev:
+    estimates = {d: curr.domain_stage_estimate(d, gates) for d in domains}
+    # ...and every field the book has actually MEASURED, chosen or not. The
+    # rank used to run over the chosen fields alone, so a history placement
+    # of 0 was not evidence against a reader whose only chosen field was
+    # maths, and two passes on a preschool node lifted them from 3 to 5.
+    # A measurement the reader sat is evidence whether or not they opted
+    # into the field afterwards.
+    placed = (prof.get("settings") or {}).get("placed") or {}
+    for d, v in placed.items():
+        if d not in estimates:
+            estimates[d] = int(v)
+    # The same median the placement settle uses, over the same kind of
+    # evidence, through the same writer. A rank from mastery is evidence of
+    # ability and may promote; it never demotes.
+    rank = _general_target(estimates) or 0
+    current = int(prof["stage"] or 0)
+    # Against the CURRENT stage, not against the last rank recorded. The old
+    # `rank` was a high-water mark: once a placement had demoted a reader,
+    # mastery could never promote them back to any stage at or below it, and
+    # the only road home was another placement after a week of cooling. The
+    # evidence path must always be open from below.
+    if rank > current:
         settings = dict(prof.get("settings", {}))
         settings["rank"] = rank
         # Actually promote the reader: the ceremony announced a new stage, so
         # the sidebar, the UI mode and the story window must all move with it.
         learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
-                             prof["breadth"], max(int(prof["stage"] or 0), rank),
+                             prof["breadth"], _settle_stage(current, max(current, rank)),
                              prof["domains"], settings, reader_id=reader_id)
         info = {"stage": rank, "name": STAGE_NAMES[min(rank, 5)],
                 "title": STAGE_TITLES[min(rank, 5)]}
@@ -805,7 +950,14 @@ class ProfileIn(BaseModel):
     # the neutral set is the default, and the reader says otherwise if they
     # wish. Rendered by primer.story.personalize into every chapter.
     pronouns: Literal["she", "he"] = story_mod.DEFAULT_PRONOUNS
-    domains: List[str] = []
+    # Checked against the real fields, for the reason `breadth` above is: an
+    # id this book does not have was persisted verbatim and then silently
+    # matched nothing, so the reader's day was quietly built from fewer fields
+    # than they chose and nothing ever said so. A simulated reader who asked
+    # for "mathematics" was given a book with no maths in it and no error
+    # (tools/simulate_readers.py). `domain_stage` in SettingsIn has been
+    # checked this way all along; this is the same check at the other door.
+    domains: List[str] = Field(default_factory=list, max_length=32)
 
     @field_validator("name")
     @classmethod
@@ -813,6 +965,15 @@ class ProfileIn(BaseModel):
         v = v.strip()
         if not v:
             raise ValueError("a name cannot be only spaces")
+        return v
+
+    @field_validator("domains")
+    @classmethod
+    def _domains_exist(cls, v: List[str]) -> List[str]:
+        known = {d["id"] for d in curr.domains}
+        unknown = sorted(set(v) - known)
+        if unknown:
+            raise ValueError("no such field: %s" % ", ".join(unknown[:3]))
         return v
 
 
@@ -893,11 +1054,15 @@ def save_profile(p: ProfileIn, request: Request):
 # name in the response — a bare 422 would hide *which* key was the problem.
 class SettingsIn(BaseModel):
     model_config = {"extra": "allow"}
-    theme: Optional[str] = None
+    # Bounded like every other client-writable string in this file
+    # (ProfileIn.name 60, TutorIn.title 300, CheckIn.answer 2000). These
+    # three were the only ones without a ceiling, and they are persisted
+    # into the profile, so an 8 MB string was an 8 MB row for ever.
+    theme: Optional[str] = Field(None, max_length=40)
     speak: Optional[bool] = None
     reduce_motion: Optional[bool] = None
     font_scale: Optional[float] = None
-    name_pronunciation: Optional[str] = None
+    name_pronunciation: Optional[str] = Field(None, max_length=120)
     # Reader-owned privacy switch: False keeps the tutor fully local even
     # when an ANTHROPIC_API_KEY is set (see _tutor_remote_allowed).
     tutor_remote_ok: Optional[bool] = None
@@ -915,8 +1080,17 @@ class SettingsIn(BaseModel):
     @field_validator("domain_stage")
     @classmethod
     def _domain_stage_in_range(cls, v):
-        if v is not None and any(not (0 <= s <= 5) for s in v.values()):
+        if v is None:
+            return v
+        if any(not (0 <= s <= 5) for s in v.values()):
             raise ValueError("each domain's stage must be 0..5, matching STAGE_NAMES")
+        # Keys are checked against the real fields, which bounds this far better
+        # than a length cap would: a cap on the number of keys still admits
+        # thirty-two keys of a megabyte each, whereas a domain id is a domain id.
+        known = {d["id"] for d in curr.domains}
+        unknown = sorted(k for k in v if k not in known)
+        if unknown:
+            raise ValueError("no such field: %s" % ", ".join(unknown[:3]))
         return v
 
 
@@ -971,6 +1145,36 @@ def article(request: Request, title: str, simple: Optional[bool] = None,
     if log_read:
         learner.log_reading(art["title"], reader_id=reader_id)
     return art
+
+
+class ReadingTimeIn(BaseModel):
+    title: str = Field(min_length=1, max_length=300)
+    seconds: float = Field(ge=0, le=60 * 60 * 12)
+
+
+@app.post("/api/reading/time")
+def record_reading_time(r: ReadingTimeIn, request: Request):
+    """How long an article was actually open.
+
+    `reading_log.seconds` has existed since the first version of the schema and
+    nothing ever wrote to it: `log_reading` takes a `seconds` argument and the
+    one production caller never passed one. So the column that says how long
+    this reader reads has been zero for every row ever written, and anything
+    built on top of it — the roadmap's measured instructional rate — was a
+    documented per-reader term wired to a column nobody filled. That is the
+    same defect the roadmap call site had with `deck`, one layer down.
+
+    The number comes from the reader's own browser and is treated accordingly:
+    the schema caps it, and `usable_reading_seconds` discards a row outside the
+    plausible band rather than clamping it, because a clamped overnight tab is
+    still a number nobody spent.
+    """
+    reader_id = current_reader(request)
+    usable = usable_reading_seconds(r.seconds)
+    if usable is None:
+        return {"recorded": False}
+    learner.set_reading_seconds(r.title, usable, reader_id=reader_id)
+    return {"recorded": True, "seconds": usable}
 
 
 @app.get("/api/summary")
@@ -1060,10 +1264,21 @@ def zim_asset(archive_id: str, path: str):
 
 # ---------------- curriculum ----------------
 
+def _access_basis(node, gates, proven):
+    """Name assumed prerequisites without calling the open lesson mastered."""
+    if not curr.unlocked(node, gates, proven):
+        return "locked"
+    if any(gates.get(p, 0) >= 0.999 and p not in proven for p in node.get("prereqs", [])):
+        return "assumed_prerequisites"
+    return "open"
+
+
 @app.get("/api/curriculum")
 def curriculum(request: Request):
     reader_id = current_reader(request)
-    graph = curr.annotated_graph(learner.gate_map(reader_id=reader_id))
+    graph = curr.annotated_graph(learner.gate_map(reader_id=reader_id),
+                                 learner.proven_set(reader_id=reader_id))
+    gates = learner.gate_map(reader_id=reader_id)
     proven = learner.proven_set(reader_id=reader_id)
     ever = learner.ever_proven_set(reader_id=reader_id)
     credited = learner.credited_set(reader_id=reader_id)
@@ -1084,6 +1299,7 @@ def curriculum(request: Request):
         # past — "your placement credit has expired", not silence.
         n["assumed"] = nid in credited and not n["proven"] and not n["ever_proven"]
         n["assumed_stale"] = nid in stale
+        n["access_basis"] = _access_basis(curr.nodes[nid], gates, proven)
     return graph
 
 
@@ -1161,9 +1377,8 @@ def curriculum_visuals():
         # The global gallery promises exact lesson coverage.  As with the
         # original mathematics endpoint, a future omission must fail loudly
         # instead of quietly lowering the number printed in the interface.
-        if len(plates) != 1:
-            raise RuntimeError("{} has {} illustrations; expected 1".format(
-                node["id"], len(plates)))
+        if not plates:
+            raise RuntimeError("{} has no explanatory illustration".format(node["id"]))
         domain_id = node["domain"]
         common = {
             "lesson_id": node["id"],
@@ -1174,22 +1389,21 @@ def curriculum_visuals():
             "stage_name": STAGE_NAMES[node["stage"]],
             "goal": node["goal"],
         }
-        plate = plates[0]
-        items.append(dict(common, **{
-            "kind": "illustration",
-            "media_id": plate["id"],
-            "src": plate["src"],
-            "srcset": plate["srcset"],
-            "alt": plate["alt"],
-            "caption": plate["caption"],
-            "long_description": plate.get("long_description"),
-            "width": plate["width"],
-            "height": plate["height"],
-        }))
-        illustration_count += 1
-        domain_counts[domain_id]["illustrations"] += 1
-        domain_counts[domain_id]["items"] += 1
-
+        for plate in plates:
+            items.append(dict(common, **{
+                "kind": "illustration",
+                "media_id": plate["id"],
+                "src": plate["src"],
+                "srcset": plate["srcset"],
+                "alt": plate["alt"],
+                "caption": plate["caption"],
+                "long_description": plate.get("long_description"),
+                "width": plate["width"],
+                "height": plate["height"],
+            }))
+            illustration_count += 1
+            domain_counts[domain_id]["illustrations"] += 1
+            domain_counts[domain_id]["items"] += 1
         for photo in (entry for entry in node.get("lesson_media", [])
                       if entry.get("kind") == "photograph"):
             items.append(dict(common, **{
@@ -1254,6 +1468,7 @@ def curriculum_node(node_id: str, request: Request):
     if not node:
         return JSONResponse({"error": "no such node"}, status_code=404)
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     out = _public_node(node, include_detail=True)
     out["mastery"] = round(learner.mastery_map(reader_id=reader_id).get(node_id, 0), 2)
     out["mastered"] = node_id in learner.mastered_set(reader_id=reader_id)
@@ -1263,10 +1478,12 @@ def curriculum_node(node_id: str, request: Request):
     out["assumed"] = (node_id in learner.credited_set(reader_id=reader_id) and not out["proven"]
                       and not out["ever_proven"])
     out["assumed_stale"] = node_id in learner.assumed_stale_set(reader_id=reader_id)
-    out["mastery_detail"] = learner.mastery_detail(node_id, reader_id=reader_id)
-    out["unlocked"] = curr.unlocked(node, gates)
+    out["mastery_detail"] = learner.mastery_detail(node_id, reader_id=reader_id,
+                                                      passes_needed=_evidence_bar(node).get("passes_needed", 2))
+    out["unlocked"] = curr.unlocked(node, gates, learner.proven_set(reader_id=reader_id))
+    out["access_basis"] = _access_basis(node, gates, proven)
     if not out["unlocked"] and not out["mastered"]:
-        out["unlock_requirements"] = curr.unlock_requirements(node, gates)
+        out["unlock_requirements"] = curr.unlock_requirements(node, gates, proven)
     # Two-way tissue: a lesson should say which chapter it opens.
     prof = learner.get_profile(reader_id=reader_id)
     if prof:
@@ -1312,6 +1529,7 @@ def curriculum_node_navigation(node_id: str, request: Request):
         return JSONResponse({"error": "no such domain"}, status_code=404)
 
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     mastered = learner.mastered_set(reader_id=reader_id)
     lessons = []
     for sibling in curr.nodes.values():
@@ -1323,7 +1541,7 @@ def curriculum_node_navigation(node_id: str, request: Request):
             "stage": sibling["stage"],
             "stage_name": STAGE_NAMES[sibling["stage"]],
             "section": sibling.get("section", ""),
-            "unlocked": curr.unlocked(sibling, gates),
+            "unlocked": curr.unlocked(sibling, gates, learner.proven_set(reader_id=reader_id)),
             "mastered": sibling["id"] in mastered,
         })
     return {
@@ -1635,8 +1853,9 @@ def today(request: Request):
     if not prof:
         return JSONResponse({"error": "no profile"}, status_code=400)
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     domains = prof["domains"] or [d["id"] for d in curr.domains]
-    lessons = [_public_node(n) for n in curr.next_lessons(gates, domains, per_domain=1)]
+    lessons = [_public_node(n) for n in curr.next_lessons(gates, domains, proven=proven, per_domain=1)]
     # Stable order for the day (no reshuffle on refresh), but varied day to day.
     rng = random.Random(_daily_seed() + int(prof.get("created_at", 0)))
     rng.shuffle(lessons)
@@ -1654,7 +1873,8 @@ def today(request: Request):
     # reshuffle-on-refresh bug the seeded rng exists to prevent, wearing a
     # different hat.
     now = time.time()
-    pend = {p["node_id"]: p for p in learner.pending_proofs(reader_id=reader_id)}
+    pend = {p["node_id"]: p for p in learner.pending_proofs(reader_id=reader_id,
+        spaced_nodes={nid for nid, node in curr.nodes.items() if _young(node)})}
     for n in lessons:
         appointment = pend.get(n["id"])
         if appointment:
@@ -1672,9 +1892,31 @@ def today(request: Request):
     # The appointments that did not fit. Named rather than dropped: the cap
     # protects the shape of the day, and it should not cost the reader the
     # knowledge that the work is still there and still theirs.
-    pending = [{"id": nid, "title": (curr.node(nid) or {}).get("title", nid),
-                "ready_at": p["ready_at"]}
-               for nid, p in pend.items() if nid not in shown][:PENDING_SHOWN]
+    # An appointment can be RE-LOCKED between sittings: one failed attempt nulls
+    # `mastered_at`, gate_map caps the node at 0.79, and every dependent — and
+    # the node itself, if a prereq of its own faded — closes behind it. This
+    # list was built with no gate check at all, so the chip went on saying
+    # "ready now" for a lesson the reader could not open, and the lesson page
+    # met them with a lock. The chip stays either way (it is the reader's only
+    # reminder that half-proved work is still theirs), but it now says which of
+    # the two states it is in, and what stands in the way. `curr.node` can
+    # return None for a retired id, which is why the title lookup guards — the
+    # gate check needs the same guard rather than throwing on it.
+    pending = []
+    for nid, p in pend.items():
+        if nid in shown:
+            continue
+        node = curr.node(nid)
+        entry = {"id": nid, "title": (node or {}).get("title", nid),
+                 "ready_at": p["ready_at"],
+                 "open": bool(node) and curr.unlocked(node, gates, learner.proven_set(reader_id=reader_id))}
+        if node is not None and not entry["open"]:
+            needs = curr.unlock_requirements(node, gates, proven)
+            if needs:
+                entry["blocked_by"] = needs[0]
+        pending.append(entry)
+        if len(pending) >= PENDING_SHOWN:
+            break
 
     deck = learner.deck_stats(reader_id=reader_id)
     # How long the reader has been away, read before the quest is built
@@ -1690,6 +1932,8 @@ def today(request: Request):
     # step is built through this one function so the excusal rule cannot
     # diverge between steps: a step with nothing available to do (empty deck,
     # exhausted frontier) is excused, never left blocking the crown.
+    attempts_today = learner.attempts_today(reader_id=reader_id)
+
     def step(label, done_count, goal, count, hint=None):
         # `goal` is what the book asks for today; `count` stays exactly what it
         # always was — what is available — because pacing and the current
@@ -1710,28 +1954,48 @@ def today(request: Request):
                 "excused": not done and goal == 0,
                 "hint": hint if not done and goal == 0 else None}
 
+    practice_nodes = [n for n in lessons if n.get("practice")]
+    practiced_today = learner.events_today_count("practice", reader_id=reader_id)
     reviewed_today = learner.events_today_count("review", reader_id=reader_id)
     quest = {
         "review": step("Strengthen your memory", reviewed_today,
                        _review_goal(deck, days_away, reviewed_today), deck["due"],
                        "Deck is clear — nothing due" if deck["total"]
                        else "Pass a lesson quiz and the book will start your deck"),
+        # Counted by what LANDED, not by what was sat. An attempt event is
+        # written whatever the score, so a paper at 17% used to tick the day's
+        # learning off and collect the crown — while the same paper earned no
+        # growth, so the tile and the ledger disagreed about the same sitting.
         "learn": step("Learn something new",
-                      learner.events_today_count("attempt", reader_id=reader_id),
+                      attempts_today["landed"],
                       min(len(lessons), 1), len(lessons),
                       "You are at the frontier of every subject you chose — "
                       "add another from your profile, or review to keep it solid"),
+        "practice": step("Practise what needs another try", practiced_today,
+                         min(len(practice_nodes), 1), len(practice_nodes),
+                         "No drill waiting — explore a lesson or keep your memory fresh"),
         # No count to exhaust: an article is always available to read, so this
         # step can never be excused. `None` is not zero.
         "read": step("Read one article",
                      learner.events_today_count("read", reader_id=reader_id), 1, None),
     }
+    if practice_nodes:
+        quest["practice"]["node_id"] = practice_nodes[0]["id"]
+        quest["practice"]["generator"] = practice_nodes[0]["practice"]
+        quest["practice"]["stage"] = practice_nodes[0]["stage"]
+    # A paper sat that did not land is neither "not started" nor "done", and the
+    # reader should be told which of the two they are in. The tile carries the
+    # fact; the client turns it into a sentence and a route to the drill.
+    if not quest["learn"]["done"] and attempts_today["sat"]:
+        quest["learn"]["sat"] = attempts_today["sat"]
     quest_done = sum(1 for k in quest.values() if k["done"])
     quest_total = sum(1 for k in quest.values() if not k["excused"])
 
     # What the day costs, in minutes, priced per step. Only steps the reader
     # still has to do are counted: a day two-thirds finished should say what is
     # LEFT, which is the number a reader deciding whether to sit down needs.
+    article_rate = instructional_rate(curr.graph(),
+        learner.reading_minutes_by_title(reader_id=reader_id))
     card_s = learner.pace("review", reader_id=reader_id)
     quiz_s = learner.pace("attempt", reader_id=reader_id)
     # Two independent clocks, and the label has to speak for the numbers
@@ -1750,13 +2014,17 @@ def today(request: Request):
         left = max(0, (q["goal"] or 0) - (q["done_count"] or 0))
         if key == "review":
             step_minutes[key] = _round_minutes(left * card_s / 60.0)
-        elif key == "learn":
-            step_minutes[key] = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+        elif key in ("learn", "practice"):
+            priced_nodes = practice_nodes if key == "practice" else lessons
+            items = (YOUNG_DRILL_ITEMS if priced_nodes and priced_nodes[0]["stage"] <= 1
+                     else QUIZ_QUESTIONS)
+            step_minutes[key] = _round_minutes(items * quiz_s / 60.0)
         else:
-            step_minutes[key] = ARTICLE_MINUTES
+            step_minutes[key] = _round_minutes(ARTICLE_MINUTES * article_rate["factor"])
     # `measured` is true only when every kind still being priced is priced
     # from the reader's own record; `partly` says the honest middle out loud.
-    flags = {"review": card_measured, "learn": quiz_measured}
+    flags = {"review": card_measured, "learn": quiz_measured,
+             "practice": quiz_measured, "read": article_rate["measured"] and not article_rate["clamped"]}
     relevant = [k for k, q in quest.items()
                 if not q["done"] and not q["excused"] and k in flags]
     measured = bool(relevant) and all(flags[k] for k in relevant)
@@ -1780,7 +2048,7 @@ def today(request: Request):
         short_minutes = _round_minutes(short_cards * card_s / 60.0)
     elif "learn" in owed:
         short_kind = "learn"
-        short_minutes = _round_minutes(QUIZ_QUESTIONS * quiz_s / 60.0)
+        short_minutes = step_minutes["learn"]
     else:
         # Only the article is left (or nothing is). There is no shorter version
         # of "read one article" than reading one article, so no door is drawn.
@@ -1880,7 +2148,8 @@ def _locked_lesson_response(node: dict, reader_id: int) -> Optional[JSONResponse
     else must satisfy the same decay-aware curriculum gates shown by the UI.
     """
     gates = learner.gate_map(reader_id=reader_id)
-    if gates.get(node["id"], 0) >= 0.8 or curr.unlocked(node, gates):
+    proven = learner.proven_set(reader_id=reader_id)
+    if gates.get(node["id"], 0) >= 0.8 or curr.unlocked(node, gates, learner.proven_set(reader_id=reader_id)):
         return None
     return JSONResponse({
         "error": "this lesson is still locked",
@@ -1895,6 +2164,10 @@ def _locked_lesson_response(node: dict, reader_id: int) -> Optional[JSONResponse
 def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
                  node_id: str = ""):
     reader_id = current_reader(request)
+    # A young lesson's drill is ten items, whatever the client asked for:
+    # see _evidence_bar. The client may ask for more, never fewer.
+    if node_id and _young(curr.node(node_id)):
+        n = max(n, YOUNG_DRILL_ITEMS)
     # Binding the token to a *caller-supplied* subject repeats the mistake it was
     # meant to fix. If this paper is to count towards a lesson, the drill must be
     # that lesson's own drill, at that lesson's own level — otherwise six ducks
@@ -1916,6 +2189,46 @@ def practice_set(gen_key: str, request: Request, n: int = 6, level: int = 1,
     # does. Guessing alone proved undergraduate differential calculus.
     n = max(QUIZ_MIN_ITEMS, min(int(n), QUIZ_MAX_ITEMS)) if node_id else max(1, min(int(n), 20))
     qs = practice.generate_set(gen_key, n, level)
+    # Prefer what this reader has already got wrong. The deck is the record of
+    # exactly that — every card in it was minted from a missed item — and the
+    # drill had never once read it, so a child who cannot tell a mammal from a
+    # bird met that question no more often than any other. Drawn wider than
+    # asked for, then sorted so the sore spots come first; the paper is still
+    # the same size, and a reader with a clean deck sees no change at all.
+    if node_id and n >= QUIZ_MIN_ITEMS:
+        # Exposure and evidence are two different things, and the draw has to
+        # serve both. A burned item — one whose key this reader has already
+        # been shown — cannot COUNT (see _drop_burned), but it is exactly the
+        # thing she needs to MEET again. The previous draw excluded burned
+        # items from the paper altogether, so over a week a struggling reader's
+        # papers converged on what she already knew: an auditor simulated a
+        # child who knew half of bio.0.animals and watched her master it in
+        # six days without learning a thing. So: the sore spots lead, burned
+        # or not, and the rest of the paper is filled with items that can
+        # still count, so honest evidence stays possible on every sitting.
+        sore = set(learner.missed_fronts(node_id, reader_id=reader_id))
+        if sore or len({q.get("prompt") for q in qs}) < len(qs):
+            burned = learner.burned_map(node_id, window_days=_burn_days(reader_id), reader_id=reader_id)
+            wider = practice.generate_set(gen_key, n * 2, level)
+            if len(wider) >= n:
+                lead = [q for q in wider if q.get("prompt") in sore][:max(1, n // 3)]
+                rest = [q for q in wider if q not in lead]
+                countable = [q for q in rest if _fingerprint(q) not in burned]
+                spent = [q for q in rest if _fingerprint(q) in burned]
+                # One prompt per paper. A category pick asks the same question
+                # of a different member, so the wide draw can carry "Which one is
+                # a bird?" twice with two keys — fine across sittings, odd on one
+                # page, and it made a ten-item paper eight questions long.
+                qs, seen = [], set()
+                for q in lead + countable + spent:
+                    if q.get("prompt") in seen:
+                        continue
+                    seen.add(q.get("prompt"))
+                    qs.append(q)
+                    if len(qs) == n:
+                        break
+                for i, q in enumerate(qs):
+                    q["id"] = i
     if not qs:
         return JSONResponse({"error": "unknown generator", "available": practice.list_generators()},
                             status_code=404)
@@ -1960,21 +2273,51 @@ def record_attempt(a: AttemptIn, request: Request):
             return locked
     given = _final_answers(entry, a.answers)
     scorable, scorable_given, _spent = _drop_burned(graded, given, a.node_id, reader_id, entry)
-    if len(scorable) < min(QUIZ_MIN_ITEMS, len(graded)):
-        return JSONResponse(
-            {"error": "the book has already shown you the answers to most of "
-                      "these. Come back to this one in a few days."}, status_code=409)
-    score = quiz.score_quiz(scorable, scorable_given)["score"]
+    # A practice sitting is never refused. The 409 here existed to stop a
+    # reader harvesting keys and posting them back as a pass, and it still
+    # does that — but it did it by refusing the whole sitting, which meant the
+    # child who had just LEARNED the items she kept missing was told "come
+    # back in a few days" on the sitting where she finally got them right.
+    # Evidence and exposure are separate: a paper with too few countable items
+    # is graded, explained, and its misses become cards, and simply records
+    # no mastery. Nothing is harvested and nobody is locked out.
+    unscored = len(scorable) < (YOUNG_DRILL_ITEMS if _young(node) else QUIZ_MIN_ITEMS)
+    if unscored:
+        scorable, scorable_given = graded, given
+    marks = quiz.score_quiz(scorable, scorable_given)
+    score = marks["score"]
+    # The marks the book actually recorded, so the practice splash can show the
+    # same thing the quiz splash does. Without this the drill screen tallied its
+    # own per-item booleans against a paper the server may have shortened
+    # (`_drop_burned`) and scored with partial credit — one paper, two marks,
+    # which is exactly what "One paper, one mark" fixed on the quiz path and
+    # left standing on this one.
+    result = {"score": round(score, 3), "right": marks["right"],
+              "total": marks["total"]}
     # A drill can be run without a lesson behind it (/api/practice/{gen} with
     # no node_id mints a token bound to ""), and that is fine to *do* — but it
     # must not be recorded. Writing mastery and XP against the empty-string
     # node created a ledger row for a lesson that does not exist and paid for
     # it. Grade it, return the marks, record nothing.
     if not a.node_id or node is None:
-        return {"score": score, "xp_gained": 0, "unlessoned": True,
-                "cards_added": 0, "ascension": None}
-    res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
-                                 items=len(a.answers), reader_id=reader_id)
+        return {"score": score, "result": result, "xp_gained": 0,
+                "unlessoned": True, "cards_added": 0, "ascension": None}
+    if unscored:
+        res = {"node_id": a.node_id, "score": round(score, 3), "xp_gained": 0,
+               "mastered": False, "newly_mastered": False, "unscored": True,
+               "reason": "bank_spent",
+               "note": "Practised, not marked: the book had already shown you "
+                       "most of these answers. Everything you missed will come "
+                       "back as a card."}
+    else:
+        res = learner.record_attempt(a.node_id, score, seconds=a.seconds,
+                                     items=len(a.answers), reader_id=reader_id,
+                                     **_evidence_bar(node))
+    # Completion is practice, not a claim of mastery. Count even an unmarked
+    # sitting, but only once: _recall consumes the issued paper.
+    if len(given) == len(graded) and all(str(answer).strip() for answer in given):
+        learner.log_event("practice", {"node_id": a.node_id, "unscored": unscored},
+                          reader_id=reader_id)
     # Practice is a study event too: whatever was missed should come back.
     cards_added = 0
     if graded and given:
@@ -1983,6 +2326,7 @@ def record_attempt(a: AttemptIn, request: Request):
                   if not _is_ephemeral(graded, q)]
         cards_added = learner.add_cards(missed, reader_id=reader_id)
     res["cards_added"] = cards_added
+    res["result"] = result
     res["ascension"] = (_check_ascension(learner.get_profile(reader_id=reader_id), reader_id)
                         if res.get("newly_mastered") else None)
     return res
@@ -2060,6 +2404,42 @@ def _add_young_ordering(questions, node, n, stage):
     return (keep + drop)[:max(0, n - 1)] + extra
 
 
+def _add_young_production(questions, node, n, stage):
+    """Guarantee the youngest readers something to PRODUCE, not just recognise.
+
+    From Sapling up every paper closes with a written reflection, so a produced
+    answer is guaranteed. Below that there was no equivalent: all 622 authored
+    items at stages 0-1 are multiple choice, and a paper is drawn from the
+    authored bank first, so the generators never got a look in. The reader's
+    first years — priced in years, not weeks — asked them to recognise an
+    answer and never once to produce one.
+
+    The instrument for this already existed and was simply never minted onto a
+    paper: `g_count_tally` scores counting AS counting (touch each object, the
+    book counting along), so a child who counts five apples but cannot yet read
+    the numeral 5 is marked right rather than wrong. It has a touch UI, a
+    validator in check_banks, and its own tests.
+
+    Written against the node's own generator rather than against a hard-coded
+    list, so any young generator that later grows a produced form arrives on
+    the paper for free. A recognition item makes room; the ordering item added
+    beside it is never the one dropped.
+    """
+    gen = node.get("practice")
+    if not gen:
+        return questions
+    extra = [q for q in practice.generate_set(gen, 2, level=stage)
+             if q.get("kind") in ("tally", "numeric", "short", "order")]
+    if not extra:
+        return questions
+    if any(q.get("kind") in ("tally", "numeric", "short") for q in questions):
+        return questions          # this paper already asks for something produced
+    keep = [q for q in questions
+            if q.get("kind") in ("numeric", "short", "order", "tally")]
+    drop = [q for q in questions if q not in keep]
+    return (keep + drop)[:max(0, n - 1)] + extra[:1]
+
+
 @app.get("/api/quiz/{node_id}")
 def quiz_for_node(node_id: str, request: Request, n: int = 6):
     """Draw a paper from the node's bank — assembled in ONE pass, deliberately;
@@ -2079,7 +2459,8 @@ def quiz_for_node(node_id: str, request: Request, n: int = 6):
     locked = _locked_lesson_response(node, reader_id)
     if locked is not None:
         return locked
-    n = max(QUIZ_MIN_ITEMS, min(int(n), QUIZ_MAX_ITEMS))
+    n = max(YOUNG_DRILL_ITEMS if _young(node) else QUIZ_MIN_ITEMS,
+            min(int(n), QUIZ_MAX_ITEMS))
     stage = node["stage"]
 
     bank = list(node.get("quiz", []))
@@ -2093,6 +2474,7 @@ def quiz_for_node(node_id: str, request: Request, n: int = 6):
 
     if stage <= 1:
         questions = _add_young_ordering(questions, node, n, stage)
+        questions = _add_young_production(questions, node, n, stage)
 
     questions = questions[:n]
 
@@ -2120,6 +2502,55 @@ class CheckIn(BaseModel):
     answer: str = Field("", max_length=2000)
 
 
+# Ten taps, every one right, three times over spaced sittings. Eight and
+# three left a fixed half-knower who taps the rest at random credited on about
+# one run in twelve over 45 daily sittings (2.3% per sitting, three needed);
+# ten takes one sitting to 0.9% and the run to under one in a hundred. The
+# honest learner is not slowed by it: she gets them right.
+YOUNG_DRILL_ITEMS = 10
+
+
+def _young(node) -> bool:
+    return bool(node) and int(node.get("stage", 0) or 0) <= 1
+
+
+def _evidence_bar(node) -> dict:
+    """What a sitting has to be before it counts as a pass, by stage.
+
+    A five-item four-choice paper with one miss allowed is passed 38% of the
+    time by a child who knows half and taps the rest at random, and two such
+    passes were mastery: an auditor credited a half-knower on every seed. For
+    the two youngest stages, where every item is a tap among four, the paper
+    is longer (YOUNG_DRILL_ITEMS), every item must be right, and it takes
+    three spaced passes. Everything above stage 1 keeps the bar it had.
+    """
+    if _young(node):
+        return {"pass_bar": 1.0, "passes_needed": 3}
+    return {}
+
+
+def _burn_days(reader_id: int) -> float:
+    """How long a shown key keeps an item out of the evidence, by age.
+
+    Seven days is the right window for an adult and the wrong one for a
+    five-year-old, whose proving gap is six hours: a Seedling who learned an
+    item from its explanation could not have it count for a week, so the
+    honest loop closed in a fortnight when it should close in days. Scaled
+    like the proving gap.
+    """
+    prof = learner.get_profile(reader_id=reader_id) or {}
+    age = prof.get("age")
+    try:
+        age = float(age)
+    except (TypeError, ValueError):
+        return 7.0
+    if age < 7:
+        return 2.0
+    if age < 12:
+        return 4.0
+    return 7.0
+
+
 def _drop_burned(questions: list, given: list, node_id: str, reader_id: int,
                  entry: dict = None):
     """Keep only the items this reader answered without having been told.
@@ -2138,13 +2569,15 @@ def _drop_burned(questions: list, given: list, node_id: str, reader_id: int,
     """
     if not node_id:
         return questions, given, 0
-    burned = learner.burned_map(node_id, reader_id=reader_id)
+    burned = learner.burned_map(node_id, window_days=_burn_days(reader_id), reader_id=reader_id)
     if not burned:
         return questions, given, 0
     committed = (entry or {}).get("committed") or {}
     keep_q, keep_a = [], []
     for i, q in enumerate(questions):
-        burn_at = burned.get(_fingerprint(q))
+        stamps = [burned.get(_fingerprint(q)),
+                  burned.get(learner.review_fingerprint(q.get("prompt", "")))]
+        burn_at = min((at for at in stamps if at is not None), default=None)
         if burn_at is not None:
             mine = committed.get(q.get("id"))
             # No commitment on this paper, or one made after the reveal: the
@@ -2202,7 +2635,20 @@ def check_one(c: CheckIn, request: Request):
         return JSONResponse({"error": "this quiz token was already submitted"},
                             status_code=409)
     locked = committed["answer"]
-    correct = quiz.score_quiz([q], [locked])["score"] >= (0.6 if q.get("kind") == "short" else 1.0)
+    # The closing reflection item every paper from Sapling up carries is
+    # `ungraded` by construction (quiz.py:934): its key is the node's published
+    # goal, which the reader can read on the lesson page, so it is worth writing
+    # and worth comparing against a model answer, but it is not worth marks.
+    # `score_quiz` skips ungraded items and then floors the denominator at 1, so
+    # asking it to mark one returns 0.0 — and this endpoint duly told the reader
+    # they were wrong, on every paper, whatever they wrote, capping every lesson
+    # quiz at five out of six. It then burned the item for a week for having
+    # been "missed". An item the book has declined to grade cannot be graded
+    # wrong, and cannot be spent as evidence either. `correct` is null here
+    # rather than false: there is no verdict to report.
+    ungraded = bool(q.get("ungraded"))
+    correct = None if ungraded else (
+        quiz.score_quiz([q], [locked])["score"] >= (0.6 if q.get("kind") == "short" else 1.0))
     # A wrong answer spends the item: the reader is about to be told, and for the
     # next week that item cannot be the evidence they know it — otherwise a paper
     # is read for its answers, discarded, and a clean one sat a moment later.
@@ -2211,9 +2657,9 @@ def check_one(c: CheckIn, request: Request):
     # reader their own pass on every sitting, permanently.
     node_for = q.get("node_id") or (entry["subject"] if entry["purpose"] in
                                     ("quiz", "practice") else "")
-    if node_for and not correct:
+    if node_for and correct is False:
         learner.burn_item(node_for, _fingerprint(q), reader_id=reader_id)
-    return {"correct": correct, "answer": q.get("answer", ""),
+    return {"correct": correct, "ungraded": ungraded, "answer": q.get("answer", ""),
             "explain": q.get("explain", ""), "keywords": q.get("keywords", []),
             "locked": locked}
 
@@ -2259,15 +2705,20 @@ def submit_quiz(s: QuizSubmitIn, request: Request):
     # at serve time let a burnt-out bank be graded on the one or two procedural
     # top-ups that were left — a thirteen-item paper marked `total: 1`, and
     # random guessing proved undergraduate calculus in seven sittings.
-    if len(scorable) < QUIZ_MIN_ITEMS:
+    unscored = _young(node) and len(scorable) < YOUNG_DRILL_ITEMS
+    if len(scorable) < QUIZ_MIN_ITEMS and not unscored:
         return JSONResponse(
             {"error": "the book has already shown you the answers to most of "
                       "these. Come back to this one in a few days.",
-             "spent": spent}, status_code=409)
+             "reason": "bank_spent", "spent": spent}, status_code=409)
+    if unscored:
+        scorable, scorable_given = questions, given
     result = quiz.score_quiz(scorable, scorable_given)
-    mastery = learner.record_attempt(s.node_id, result["score"],
+    mastery = ({"unscored": True, "mastered": False, "newly_mastered": False,
+                "xp_gained": 0, "reason": "bank_spent"} if unscored else learner.record_attempt(s.node_id, result["score"],
                                      seconds=s.seconds, items=len(s.answers),
-                                     reader_id=reader_id)
+                                     reader_id=reader_id,
+                                     **_evidence_bar(node)))
     cards_added = 0
     if s.make_cards:
         article = node["articles"][0] if node and node["articles"] else ""
@@ -2294,10 +2745,25 @@ def submit_quiz(s: QuizSubmitIn, request: Request):
     if any(s.confidence):
         # Knowing how well you know something is itself a skill worth tracking.
         def _right(q, a):
-            expected = str(q.get("answer", "")).strip()
-            num = quiz._numeric_equal(str(a), expected)
-            return num is True or (num is None and str(a).strip().lower() == expected.lower())
-        pairs = [(c, q, a) for c, q, a in zip(s.confidence, questions, s.answers) if c]
+            """Marked the way the paper is marked — one rule, not a third one.
+
+            This did its own exact/numeric comparison, which disagreed with the
+            two graders either side of it. A short answer covering most of its
+            keywords is a pass at the quiz door (>=0.6) and was counted WRONG
+            here, so a reader who wrote a good answer confidently was recorded
+            as overconfident about it. And the closing reflection — which the
+            book explicitly declines to grade, and tells the reader it is not
+            marking — was counted wrong on every paper from Sapling up, which
+            both inflated overconfidence and discounted the sitting's credit.
+            An item the book will not grade cannot be evidence about the
+            reader's judgement either: it is skipped, not failed.
+            """
+            if q.get("ungraded"):
+                return None
+            marked = quiz.score_quiz([q], [a])["score"]
+            return marked >= (0.6 if q.get("kind") == "short" else 1.0)
+        pairs = [(c, q, a) for c, q, a in zip(s.confidence, questions, s.answers)
+                 if c and _right(q, a) is not None]
         # Each direction is counted over its OWN population. Overconfidence is
         # "of the answers you were confident about, how many were wrong" — so
         # its denominator is the confident answers, not every rated answer.
@@ -2425,6 +2891,87 @@ def add_card(c: CardIn, request: Request):
 
 # ---------------- placement ----------------
 
+def _is_specialist(domain: str) -> bool:
+    """A field a reader enters from elsewhere, not one the spine starts in."""
+    for d in curr.domains:
+        if d["id"] == domain:
+            return int(d.get("entry_stage", 0) or 0) > 0
+    return False
+
+
+def _askable_stages(domain: str) -> list:
+    """The stages this domain can actually set a paper at.
+
+    Not every field spans the ladder. Radiology is 84 modules and every one of
+    them is stage 5 — it is a specialist field that begins where the general
+    spine ends. The staircase assumed 0-5 everywhere, so a reader who chose it
+    was served five consecutive papers containing ZERO questions, each graded
+    0.0 as though they had failed it, and was then recorded at stage 0: the
+    exact opposite of the truth about a field whose content is all graduate
+    work. A rung the book cannot ask about is not a rung.
+    """
+    return sorted({n["stage"] for n in curr.nodes.values()
+                   if n["domain"] == domain and (n.get("quiz") or n.get("practice"))})
+
+
+def _snap_to_askable(stage: Optional[int], domain: str) -> Optional[int]:
+    """The nearest rung this domain can actually ask about, or None if it has none."""
+    available = _askable_stages(domain)
+    if not available:
+        return None
+    if stage is None:
+        return available[0]
+    return min(available, key=lambda s: (abs(s - stage), s))
+
+
+def _placement_runs(asked: list) -> list:
+    """The asked-history split into staircases, oldest first.
+
+    `reopen_placement` drops a marker where each new run begins. The last
+    element is the run in progress; the ones before it are finished
+    measurements, and the most recent of those is where the reader actually
+    stands today.
+    """
+    runs, current = [], []
+    for entry in asked or []:
+        if not isinstance(entry, dict):
+            continue          # legacy rows stored bare strings here
+        if entry.get("reopened"):
+            runs.append(current)
+            current = []
+        elif "stage" in entry:
+            current.append(entry)
+    runs.append(current)
+    return runs
+
+
+def _run_frontier(run: list) -> int:
+    """Where a finished staircase landed: one above its highest passed rung."""
+    return max([h["stage"] for h in run if h.get("passed")], default=-1) + 1
+
+
+def _placement_run(asked: list) -> list:
+    """The rungs belonging to the CURRENT staircase.
+
+    `reopen_placement` keeps the whole asked-history so a re-measurement does
+    not repeat items the reader has already seen, and drops a marker where the
+    new run starts. Everything that reasons about the staircase — which rung is
+    next, whether the neighbours are exhausted, where it settles — has to read
+    only the current run, or the previous run's passes go on holding the floor
+    and a reader who has forgotten can be re-measured upward but never
+    downward.
+    """
+    run = []
+    for entry in asked or []:
+        if not isinstance(entry, dict):
+            continue          # legacy rows stored bare strings here
+        if entry.get("reopened"):
+            run = []
+        elif "stage" in entry:
+            run.append(entry)
+    return run
+
+
 def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Optional[int]:
     """The rung the book is willing to offer next for this domain.
 
@@ -2436,10 +2983,29 @@ def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Option
     state = learner.placement_state(reader_id=reader_id).get(domain, {})
     if state.get("done"):
         return None
-    asked = state.get("asked") or []
+    history = state.get("asked") or []
+    asked = _placement_run(history)
     if not asked:
-        # Start from where their age would put them, never above it.
-        return learner.stage_for_age(float((prof or {}).get("age") or 6))
+        # A RE-measurement resumes at the frontier the LAST run reached — that
+        # is where growth or forgetting since would show — computed from the
+        # previous run's own passes rather than from the `stage` column, which
+        # records the last rung asked and not where the reader landed. Only the
+        # starting rung is inherited: the new run settles on its own answers,
+        # which is what stops a re-check ratcheting upward for ever.
+        # The frontier of the MOST RECENT finished run — not the highest rung
+        # ever passed across every run there has been. Reading the whole
+        # history put a reader who had been measured down to Seedling back at
+        # the top of the ladder on their next re-check, where a single passing
+        # paper restored the level they had just lost: an upward ratchet at the
+        # entry, and a placement decided by one quiz. Both are the things this
+        # staircase exists to refuse.
+        finished = [r for r in _placement_runs(history)[:-1] if r]
+        if finished:
+            frontier = _run_frontier(finished[-1])
+            return _snap_to_askable(max(0, min(frontier, 5)), domain)
+        # A first placement starts from where their age would put them.
+        return _snap_to_askable(
+            learner.stage_for_age(float((prof or {}).get("age") or 6)), domain)
     last = asked[-1]
     nxt = last["stage"] + 1 if last["passed"] else last["stage"] - 1
     if nxt < 0 or nxt > 5 or any(h["stage"] == nxt for h in asked):
@@ -2449,9 +3015,17 @@ def _placement_rung(domain: str, prof: Optional[dict], reader_id: int) -> Option
         # not repeat items) arrives here unsettled. Re-measure at the rung
         # the reader settled on: the frontier is exactly where growth since
         # the last sitting would show.
-        placed = max([h["stage"] for h in asked if h.get("passed")], default=-1) + 1
-        return max(0, min(placed, 5))
-    return nxt
+        placed = _run_frontier(asked)
+        return _snap_to_askable(max(0, min(placed, 5)), domain)
+    snapped = _snap_to_askable(nxt, domain)
+    # Snapping can land back on a rung already sat — a field with one askable
+    # rung has nowhere else to go — and re-serving it would loop for ever.
+    if snapped is None or any(h["stage"] == snapped for h in asked):
+        placed = _run_frontier(asked)
+        settled_at = _snap_to_askable(max(0, min(placed, 5)), domain)
+        return None if settled_at is None or any(
+            h["stage"] == settled_at for h in asked) else settled_at
+    return snapped
 
 
 # A settled placement is not settled forever: a reader grows, and re-measuring
@@ -2573,18 +3147,38 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
     state = learner.placement_state(reader_id=reader_id).get(s.domain, {})
     history = list(state.get("asked", []))
     history.append({"stage": s.stage, "score": round(result["score"], 2), "passed": passed})
+    # The whole history is stored (it is what keeps a re-measurement from
+    # repeating items), but only the CURRENT run decides where this staircase
+    # goes and where it lands. Reading the lot meant a previous run's passes
+    # went on holding the floor, so a re-check could raise a reader and never
+    # lower one — and "can place a reader down" is half of what makes it a
+    # measurement rather than a ceremony.
+    run = _placement_run(history)
 
     if passed:
         next_stage = s.stage + 1 if s.stage < 5 else None
     else:
         next_stage = s.stage - 1 if s.stage > 0 else None
+    # …and it has to be a rung this field can actually ask about. A specialist
+    # field whose nodes all sit at one stage has exactly one rung; stepping to a
+    # neighbour it cannot set a paper for is how a reader ended up sitting five
+    # empty papers, each marked 0.0, and being recorded at stage 0.
+    if next_stage is not None:
+        next_stage = _snap_to_askable(next_stage, s.domain)
 
     # The staircase stops when it reverses direction or runs off either end.
-    tried = {h["stage"] for h in history}
+    tried = {h["stage"] for h in run}
     settled = next_stage is None or next_stage in tried
     if settled:
-        placed = max([h["stage"] for h in history if h["passed"]], default=-1) + 1
+        placed = max([h["stage"] for h in run if h["passed"]], default=-1) + 1
         placed = max(0, min(placed, 5))
+        # A field that only asks about one rung cannot record a level below it.
+        # Failing the single graduate paper radiology has means "not placed into
+        # radiology" — it does not mean the reader reads at preschool level in
+        # radiology, and writing 0 there put a floor-5 field on the floor.
+        askable_here = _askable_stages(s.domain)
+        floor_here = askable_here[0] if askable_here else 0
+        not_placed = placed < floor_here
         # Credit is granted once, at settle time — not on every passing rung.
         credited_through = placed - 1
         if placed > 0:
@@ -2601,24 +3195,58 @@ def placement_submit(s: PlacementSubmitIn, request: Request):
             # level. The global stage is the median of what has been measured.
             settings = dict(prof.get("settings", {}))
             per_domain = dict(settings.get("placed", {}))
-            per_domain[s.domain] = placed
-            settings["placed"] = per_domain
-            measured = sorted(per_domain.values())
-            if len(measured) < 2:
-                # One domain is not a reading level: keep the age placement
-                # unless this single result is *lower*, which is safe.
-                overall = min(int(prof["stage"] or 0), measured[0])
+            # A specialist field is not evidence about general reading level.
+            # Radiology's only rung is graduate; a reader who cannot yet sit it
+            # is not thereby a pre-reader, and letting that result into the
+            # median said they were. It is not evidence the other way either:
+            # sitting radiology FIRST used to count as "a prior measurement",
+            # which skipped the first-measurement rule and froze a later
+            # perfect maths placement at 0.
+            if not_placed:
+                # Below the field's own floor there is no level to record. The
+                # reader has not entered the field; that is not a measurement
+                # of how they read, and a stale higher record would be worse.
+                per_domain.pop(s.domain, None)
             else:
-                overall = measured[(len(measured) - 1) // 2]   # lower median
+                per_domain[s.domain] = placed
+            settings["placed"] = per_domain
+            general = {d: v for d, v in per_domain.items() if not _is_specialist(d)}
+            measured = sorted(general.values())
+            current = int(prof["stage"] or 0)
+            if not_placed or _is_specialist(s.domain) or not measured:
+                # This sitting added no evidence about general reading level,
+                # so it moves nothing.
+                overall = current
+            else:
+                # The first general measurement and every later one go through
+                # the same writer. The first used to write the raw result: with
+                # nothing else measured, 0 was "not neutrality but a claim the
+                # reader is a preschooler", so the measurement was simply taken
+                # — and that bypassed the one-rung cap for exactly the reader it
+                # protects least. A reader who had EARNED stage 2 by proving
+                # thirteen nodes sat their first placement, failed it, and was
+                # written to 0 in one sitting. Upward the writer already goes
+                # straight to the evidence, so the first-measurement case loses
+                # nothing by using it.
+                overall = _settle_stage(current, _general_target(general), own_result=placed)
             learner.save_profile(prof["name"], prof["age"], prof["hours_per_week"],
                                  prof["breadth"], overall, prof["domains"], settings,
                                  reader_id=reader_id)
         next_stage = None
         log.info("placement settled: %s at stage %d", s.domain, placed)
     learner.placement_update(s.domain, s.stage, history, settled, reader_id=reader_id)
+    # The lowest rung this field can be asked at. A specialist field begins
+    # where the general spine ends — radiology's 84 modules are all Forest — so
+    # "the book has found where to open, a little below Forest" is not a kind
+    # framing of a low result there, it is a false statement about a field with
+    # nothing below Forest in it. The client needs the fact to say something
+    # true instead.
+    askable = _askable_stages(s.domain)
     return {"domain": s.domain, "score": round(result["score"], 2), "passed": passed,
             "credited_through_stage": credited_through, "suggest_stage": next_stage,
-            "settled": settled}
+            "settled": settled,
+            "field_floor": askable[0] if askable else 0,
+            "single_rung": len(askable) == 1}
 
 
 # ---------------- opening a specialist field ----------------
@@ -2678,9 +3306,10 @@ def domain_open(s: DomainOpenIn, request: Request):
     learner.log_event("domain_opened", {"domain": s.domain, "credited": outside},
                       reader_id=reader_id)
     gates = learner.gate_map(reader_id=reader_id)
+    proven = learner.proven_set(reader_id=reader_id)
     return {"domain": s.domain,
             "credited": [{"id": p, "title": curr.nodes[p]["title"]} for p in outside],
-            "opened": sum(1 for n in own if curr.unlocked(n, gates)),
+            "opened": sum(1 for n in own if curr.unlocked(n, gates, proven)),
             "total": len(own)}
 
 
@@ -2762,8 +3391,15 @@ def roadmap_api(request: Request):
     # Pace against what the reader can still be expected to need to learn.
     # Placement-assumed nodes are treated as covered for scheduling, but the
     # headline "mastered" count reports only what has actually been proven.
+    # `deck` and `reading` are what make this plan THIS reader's: the first
+    # prices maintenance from their own card count and lapse rate, the second
+    # scales the instructional half by the rate their reading log actually
+    # shows. Both were built with a documented per-reader term and then never
+    # passed from here, so every reader saw the flat model.
     r = roadmap(prof, curr.graph(), learner.gate_map(reader_id=reader_id),
-               proven=learner.proven_set(reader_id=reader_id))
+               proven=learner.proven_set(reader_id=reader_id),
+               deck=learner.deck_stats(reader_id=reader_id),
+               reading=learner.reading_minutes_by_title(reader_id=reader_id))
     r["nodes_mastered"] = learner.proven_count_current(reader_id=reader_id)
     r["nodes_assumed"] = max(0, learner.mastered_count(reader_id=reader_id)
                              - learner.proven_count_current(reader_id=reader_id))
@@ -2795,13 +3431,21 @@ def story(request: Request):
     if not prof:
         # Even the un-onboarded preview must be rendered: the source chapters
         # are tokenised, and raw {SUBJ}/{NAME} on the page is not a story.
+        # Nothing is set aside before a reader has chosen fields, so the preview
+        # numbers straight through — but it must carry `number` like the real
+        # thing, or the page falls back to a different scheme for this one case.
+        preview = []
+        for i, ch in enumerate(STORY["chapters"]):
+            c = _personalize(ch, "")
+            c["set_aside"], c["read"], c["number"] = False, False, i + 1
+            preview.append(c)
         return {"title": STORY["title"], "about": STORY["about"],
-                "chapters": [_personalize(ch, "") for ch in STORY["chapters"]],
-                "progress": 0, "can_advance": False}
+                "chapters": preview, "progress": 0, "can_advance": False}
     cur, progress, can_advance = _story_cursor(prof, reader_id)
     name = prof["name"]
     domains = prof.get("domains") or [d["id"] for d in curr.domains]
     chapters = []
+    number = 0
     for i, ch in enumerate(STORY["chapters"]):
         c = _personalize(ch, name, story_mod.reader_pronouns(prof))
         node = curr.node(ch.get("leads_to", "") or "")
@@ -2809,6 +3453,17 @@ def story(request: Request):
         c["set_aside"] = bool(node) and node["domain"] not in domains
         c["read"] = i < progress and not c["set_aside"]
         c["current"] = i == progress
+        # The reader's own numbering, counted over the reader's own story. The
+        # page took its total from the chapters that are NOT set aside while
+        # numbering every card from the raw array index, so the same screen
+        # could say "11 of 15 chapters earned" and head a card "Chapter 19".
+        # A chapter belonging to a field this reader never chose is not their
+        # chapter number seven; it has no number in their story at all.
+        if not c["set_aside"]:
+            number += 1
+            c["number"] = number
+        else:
+            c["number"] = None
         chapters.append(c)
     return {"title": _book_title(name), "about": STORY["about"],
             "chapters": chapters, "progress": progress,
@@ -2886,10 +3541,12 @@ def app_shell():
     with open(os.path.join(WEB_DIR, "index.html")) as fh:
         html = fh.read()
     html = html.replace("/app/styles.css", "/app/styles.css?v=" + _asset_tag("styles.css"))
+    html = html.replace("/app/music-listening.js", "/app/music-listening.js?v=" + _asset_tag("music-listening.js"))
     html = html.replace("/app/lesson-models.js", "/app/lesson-models.js?v=" + _asset_tag("lesson-models.js"))
     for filename in ("spatial-models.js", "spatial-math.js", "spatial-molecular.js", "spatial-physical.js",
                      "spatial-cross-subject.js", "spatial-radiology.js", "spatial-module-objects.js",
-                     "radiology-reference-models.js", "radiology-detailed-anatomy.js", "concept-models.js"):
+                     "radiology-reference-models.js", "radiology-detailed-anatomy.js", "concept-models.js",
+                     "review-game.js", "review-game.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -2928,9 +3585,7 @@ def _sign_in_page(error: str = "", status_code: int = 200):
 
 @app.get(SIGN_IN_PATH)
 def sign_in_form(next: str = "/"):
-    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
-    password = os.environ.get(ACCESS_PASSWORD_ENV)
-    if not password:
+    if not _access_accounts():
         # Nothing to sign in to: locally there is no gate, and a hosted
         # deployment without a password has already failed closed upstream.
         return RedirectResponse(_safe_next(next), status_code=303,
@@ -2940,8 +3595,8 @@ def sign_in_form(next: str = "/"):
 
 @app.post(SIGN_IN_PATH)
 async def sign_in(request: Request):
-    password = os.environ.get(ACCESS_PASSWORD_ENV)
-    if not password:
+    accounts = _access_accounts()
+    if not accounts:
         return RedirectResponse("/", status_code=303, headers=_no_store())
     # Parsed here rather than through request.form(): the form is urlencoded
     # and this keeps the multipart parser — and its dependency — out of the
@@ -2953,34 +3608,52 @@ async def sign_in(request: Request):
     next_path = _safe_next(request.query_params.get("next") or "/")
     supplied_user = (form.get("username") or "")[:512]
     supplied_password = (form.get("password") or "")[:1024]
-    username = os.environ.get(ACCESS_USERNAME_ENV) or "primer"
-    ok = (secrets.compare_digest(supplied_user.encode("utf-8"),
-                                 username.encode("utf-8"))
-          and secrets.compare_digest(supplied_password.encode("utf-8"),
-                                     password.encode("utf-8")))
-    if not ok:
+    # Every account is checked, never stopping at the first match, so a wrong
+    # guess cannot learn which slot's credentials it came close to.
+    matched = None
+    for username, password, slot in accounts:
+        if (secrets.compare_digest(supplied_user.encode("utf-8"), username.encode("utf-8"))
+                and secrets.compare_digest(supplied_password.encode("utf-8"),
+                                           password.encode("utf-8"))):
+            matched = (username, password, slot)
+    if matched is None:
         # One message for a wrong reader and a wrong word alike: naming which
         # half was wrong tells an intruder which half to keep.
         log.info("sign-in refused")
         return _sign_in_page(
             "That is not the word this copy knows. Try again.", 401)
+    username, password, slot = matched
+    # reader_id=1 for the original, unsuffixed pair — the profile every
+    # deployment already had; a named slot (2, 3, ...) gets its own reader,
+    # created the first time anyone signs in with it.
+    reader_id = 1 if slot is None else learner.reader_for_static_account(
+        "static:" + str(slot), username)
     response = RedirectResponse(next_path, status_code=303, headers=_no_store())
+    secure = bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV"))
     response.set_cookie(
         ACCESS_COOKIE, _access_token(username, password),
         max_age=ACCESS_MAX_AGE, httponly=True, samesite="lax",
         # Secure only where there is TLS to be had: a Secure cookie is dropped
         # silently over plain http, which would lock out a local run behind a
         # password without ever saying why.
-        secure=bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV")),
-        path="/")
+        secure=secure, path="/")
+    # Always minted, even for the single, unsuffixed account: this is what
+    # makes switching accounts on one browser actually switch the active
+    # reader, rather than leaving current_reader() pinned to whichever
+    # session cookie was set first.
+    _set_reader_cookie(response, learner.create_session(reader_id))
     return response
 
 
 @app.post("/sign-out")
-def sign_out():
+def sign_out(request: Request):
     response = RedirectResponse(SIGN_IN_PATH, status_code=303,
                                 headers=_no_store())
     response.delete_cookie(ACCESS_COOKIE, path="/")
+    token = request.cookies.get(READER_COOKIE, "")
+    if token:
+        learner.delete_session(token)
+    response.delete_cookie(READER_COOKIE, path="/")
     return response
 
 
