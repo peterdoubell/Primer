@@ -5464,5 +5464,173 @@
         }
       ]
     }
+  },
+  "ra.thoracic-ultrasound": {
+    "reporting": {
+      "protocol": [
+        "Extend the abdominal examination to the lung bases, pleura, pericardium (subxiphoid window) and the chest wall at the site of maximal tenderness, using curvilinear and high-frequency probes.",
+        "Record patient position and the regions examined; ultrasound only shows lung that reaches the pleural surface."
+      ],
+      "checklist": [
+        {
+          "label": "Lung bases",
+          "detail": "Look above each hemidiaphragm for consolidation with air bronchograms."
+        },
+        {
+          "label": "Pleura",
+          "detail": "Assess pleural fluid, its echogenicity and lung sliding."
+        },
+        {
+          "label": "Peripheral lung lesions",
+          "detail": "Look for pleural-based hypoechoic lesions that may represent infarcts in suspected pulmonary embolism."
+        },
+        {
+          "label": "Pericardium",
+          "detail": "Assess pericardial fluid from the subxiphoid window and signs of tamponade."
+        },
+        {
+          "label": "Chest wall and ribs",
+          "detail": "Examine the point of maximal tenderness for cortical discontinuity and haematoma."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Fluid depth",
+          "method": "Measure the maximal perpendicular depth of pleural or pericardial fluid and state the patient position.",
+          "pitfall": "Depth is not volume; report position and distribution."
+        },
+        {
+          "name": "Lesion size",
+          "method": "Measure the largest dimension of a consolidation or peripheral lung lesion in two planes.",
+          "pitfall": "Only the pleural-based portion of a lesion is visible."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "A normal thoracic ultrasound does not exclude central pneumonia or central pulmonary embolism; CT pulmonary angiography remains the test for embolism.",
+        "Pleural-based hypoechoic lesions are not specific; interpret them with the clinical probability of pulmonary embolism."
+      ],
+      "impression_prompts": [
+        "Is there a thoracic cause — consolidation, pleural or pericardial fluid, a peripheral lung lesion or a rib fracture — at the site of pain?",
+        "Is further imaging, such as CT pulmonary angiography or chest radiography, needed?",
+        "Which abdominal causes remain unexcluded?"
+      ],
+      "escalation": [
+        "Immediately communicate features of cardiac tamponade or a large pericardial effusion; communicate lesions suggesting pulmonary embolism promptly."
+      ],
+      "template_sections": [
+        {
+          "heading": "LUNG BASES",
+          "body": "Consolidation [absent / right / left lower lobe]; air bronchograms [dynamic / static / absent]; size __ mm; parapneumonic change [ ]."
+        },
+        {
+          "heading": "PLEURA",
+          "body": "Pleural fluid [none / side, depth __ mm, anechoic / complex / septated]; lung sliding [present / absent]; pleural thickening [ ]."
+        },
+        {
+          "heading": "PERIPHERAL LUNG LESIONS",
+          "body": "Pleural-based hypoechoic lesions [none / number, shape, size __ mm, location]; vascularity [ ]."
+        },
+        {
+          "heading": "PERICARDIUM",
+          "body": "Pericardial effusion [none / __ mm, distribution]; tamponade features [none / right ventricular diastolic collapse / plethoric IVC / not assessed]."
+        },
+        {
+          "heading": "CHEST WALL AND RIBS",
+          "body": "Site of maximal tenderness [ ]; rib cortical discontinuity or step [ ]; haematoma [ ]; other chest-wall finding [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Thoracic Ultrasound in Acute Abdomen",
+          "url": "https://radiologyassistant.nl/abdomen/chest-radiology-for-abdominal-radiologists/chest-radiology-for-abdominal-radiologists"
+        }
+      ],
+      "reviewed_at": "2026-09-25"
+    }
+  },
+  "ra.vascular-anomalies": {
+    "reporting": {
+      "protocol": [
+        "Use contrast-enhanced CT or MR angiography timed to the vessels in question, with multiplanar and 3D reconstructions of the arch, pulmonary arteries and veins.",
+        "Record symptoms of airway or oesophageal compression, prior surgery and whether the question is arterial, venous or shunt-related."
+      ],
+      "checklist": [
+        {
+          "label": "Aortic arch",
+          "detail": "Establish arch side, branching order, aberrant subclavian artery, diverticulum, double arch and coarctation."
+        },
+        {
+          "label": "Airway and oesophagus",
+          "detail": "Look for a vascular ring or sling compressing the trachea or oesophagus."
+        },
+        {
+          "label": "Pulmonary arteries",
+          "detail": "Assess pulmonary artery origin and course, agenesis, sling and ductus arteriosus."
+        },
+        {
+          "label": "Pulmonary veins",
+          "detail": "Trace every pulmonary vein to its drainage site and look for anomalous return."
+        },
+        {
+          "label": "Systemic veins",
+          "detail": "Identify a left superior vena cava, azygos continuation of the IVC and the left superior intercostal vein."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Vessel calibre",
+          "method": "Measure the minimum orthogonal diameter at named segments, such as a coarctation and the adjacent normal aorta.",
+          "pitfall": "Oblique axial measurements overestimate calibre; use a plane perpendicular to the vessel."
+        },
+        {
+          "name": "Airway narrowing",
+          "method": "Measure the minimum tracheal or bronchial lumen at the level of compression and its length.",
+          "pitfall": "Expiratory phase and patient position change airway calibre."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "A right arch with an aberrant left subclavian artery and a diverticulum can form a complete vascular ring through the ligamentum arteriosum, which CT does not show directly.",
+        "A single contrast phase may under-opacify an anomalous vein; review delayed images before calling a vein absent."
+      ],
+      "impression_prompts": [
+        "What is the vascular anomaly and does it form a ring or sling?",
+        "Is the trachea or oesophagus compressed, and where?",
+        "Are there associated pulmonary venous or systemic venous anomalies or a shunt?"
+      ],
+      "escalation": [
+        "Communicate critical airway compression or a severe coarctation promptly."
+      ],
+      "template_sections": [
+        {
+          "heading": "AORTIC ARCH",
+          "body": "Arch side [left / right / double]; branching order [ ]; aberrant subclavian artery [none / right / left]; diverticulum (Kommerell) __ mm; coarctation [none / site, minimum diameter __ mm]."
+        },
+        {
+          "heading": "AIRWAY AND OESOPHAGUS",
+          "body": "Tracheal compression [none / level, minimum lumen __ mm]; oesophageal impression [ ]; vascular ring or sling [ ]."
+        },
+        {
+          "heading": "PULMONARY ARTERIES",
+          "body": "Main and branch pulmonary arteries [ ]; left pulmonary artery sling [ ]; agenesis or hypoplasia [ ]; patent ductus arteriosus [ ]."
+        },
+        {
+          "heading": "PULMONARY VEINS",
+          "body": "Pulmonary veins [number and drainage]; anomalous return [none / vein to SVC / IVC (scimitar) / other]; right heart size [ ]."
+        },
+        {
+          "heading": "SYSTEMIC VEINS",
+          "body": "Left superior vena cava [absent / present, draining to coronary sinus]; azygos continuation of the IVC [ ]; left superior intercostal vein [ ]; other [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Vascular Anomalies of Aorta, Pulmonary and Systemic vessels",
+          "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/vascular-anomalies-of-aorta-pulmonary-and-systemic-vessels"
+        }
+      ],
+      "reviewed_at": "2026-09-25"
+    }
   }
 }
