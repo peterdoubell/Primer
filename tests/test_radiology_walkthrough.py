@@ -207,14 +207,13 @@ def test_step_files_are_canonical_and_cover_each_specialty():
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
-def test_walkthrough_helpers_and_step_models_build(references, tmp_path):
+def test_walkthrough_helpers_and_step_models_build(references):
     served = [{'id': identifier, 'model': ref['spatial_model'],
                'landmarks': [step['landmark'] for step in ref['walkthrough']['steps']]}
               for identifier, ref in references.items()]
-    path = tmp_path / 'walkthrough-models.json'
-    path.write_text(json.dumps(served), encoding='utf-8')
-    result = subprocess.run(['node', str(ROOT / 'tools/check_radiology_walkthrough.js'), str(path)],
-                            cwd=ROOT, capture_output=True, text=True, timeout=60, check=False)
+    result = subprocess.run(['node', str(ROOT / 'tools/check_radiology_walkthrough.js')],
+                            input=json.dumps(served), cwd=ROOT, capture_output=True, text=True,
+                            timeout=60, check=False)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
     assert report == {'investigations': 136, 'corrected': len(CORRECTED),

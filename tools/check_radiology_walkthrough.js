@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 // Check the step-by-step reporting helpers and every investigation's 3D steps
-// without a DOM. The argument is a JSON list of served spatial models and step
-// landmarks, written from the catalogue by tests/test_radiology_walkthrough.py.
+// without a DOM. Standard input is a JSON list of served spatial models and step
+// landmarks, piped from the catalogue by tests/test_radiology_walkthrough.py;
+// no file path is taken from the command line.
 // Browser verification remains necessary for layout, focus and the mesh viewer.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -60,7 +61,7 @@ for (const bad of [
 assert.equal(wrapper.landmarks('missing'), null);
 assert.equal(wrapper.landmarks('__proto__'), null);
 
-const served = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+const served = JSON.parse(fs.readFileSync(0, 'utf8'));
 assert.ok(Array.isArray(served) && served.length === 136, 'All investigations are checked');
 let registered = 0, builds = 0;
 for (const entry of served) {
