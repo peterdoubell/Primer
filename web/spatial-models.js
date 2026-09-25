@@ -110,7 +110,9 @@
     if (!Object.prototype.hasOwnProperty.call(scenes, id)) return null;
     const spec = scenes[id], uid = 'spatial-' + ++serial;
     const initialCamera = { ...cameraStart, ...spec.camera };
-    let current = build(id), camera = { ...initialCamera }, pendingFrame = null;
+    // A host may open the model on a chosen state, e.g. the landmark of a reporting step.
+    const initialState = hooks.state && typeof hooks.state === 'object' ? { ...hooks.state } : {};
+    let current = build(id, initialState), camera = { ...initialCamera }, pendingFrame = null;
     let drag = null;
     // Start with the authored scene's framing; only shrink an unusually large
     // state enough to keep it visible. Explicit user zoom is never auto-fitted.
@@ -273,7 +275,7 @@
     button('Zoom in', () => changeView(camera.yaw, camera.pitch, camera.zoom + .15));
     button('Zoom out', () => changeView(camera.yaw, camera.pitch, camera.zoom - .15));
     button('Reset view', () => changeView(initialCamera.yaw, initialCamera.pitch, initialCamera.zoom));
-    button('Reset model', () => { current = build(id); camera = { ...initialCamera }; refresh(true); });
+    button('Reset model', () => { current = build(id, initialState); camera = { ...initialCamera }; refresh(true); });
     svg.addEventListener('keydown', event => {
       const actions = {
         ArrowLeft: () => changeView(camera.yaw - 10, camera.pitch, camera.zoom),
@@ -317,6 +319,12 @@
     canvas.append(svg, orientation);
     root.append(heading, instructions, canvas, help, cameraButtons, controls, legend, readout, note, status);
     refresh(false);
+    // Values pass through the same validation as the visible controls.
+    root.setModelState = (values, announce = false) => {
+      if (!values || typeof values !== 'object') return;
+      Object.assign(current.state, values);
+      refresh(announce);
+    };
     return root;
   }
   window.PrimerSpatial = Object.freeze({

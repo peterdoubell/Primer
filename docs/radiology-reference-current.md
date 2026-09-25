@@ -1,8 +1,8 @@
 # Radiology Assistant investigation reference
 
 This is the current reporting-reference structure, superseding the earlier
-96-module course-oriented index. The reference catalogue contains **136
-investigations**, grounded in all **188 canonical Radiology Assistant articles**.
+96-module course-oriented index. The reference catalogue contains **137
+investigations**, grounded in all **189 canonical Radiology Assistant articles**.
 It follows the publisher's nine specialty headings. There are **22 MSK
 investigations**; MRI shoulder and ultrasound shoulder are separate.
 
@@ -14,14 +14,25 @@ control has a separate breadcrumb row and clear spacing above the title.
 
 Each entry shows concise investigation/procedure wording and the exact source
 article headings. The source's unusual `...` wrist archive heading is preserved
-under the descriptive Foot and ankle cases investigation. Eighty-seven scoped
+under the descriptive Foot and ankle cases investigation. Ninety-two scoped
 guide overrides separate mixed examinations and diseases. Shared technique
 sections are rebuilt from each investigation's own protocol, including genuine
 fluoroscopic defecography and the separate renal cyst/solid mass workflows.
 
+## Step-by-step reporting
+
+Every investigation opens on a step-by-step walkthrough of its own report
+template: 690 steps with finding phrases, normal statements, per-step
+figures, measurement methods, a schematic 3D landmark and, for 40
+investigations, highlighted source-mesh structures. Ten investigations whose
+backing module showed the wrong anatomy carry a corrected 3D family. Details,
+schema and validation are in [radiology-step-guide.md](radiology-step-guide.md). A live recheck on 25 September 2026 confirmed every
+article and figure URL, corrected four steps to their source and added the
+new "Thoracic Aorta - How to Measure" article as its own investigation.
+
 ## Visuals
 
-The source-specific galleries contain **364 figures**, including 150 newly
+The source-specific galleries contain **375 figures**, including 150 newly
 selected, rendered and reviewed figures. Every investigation has a nonempty
 gallery, and every figure belongs to an article assigned to that investigation.
 Two bowel-ischaemia images are explicitly identified as video covers. Some older
@@ -48,6 +59,7 @@ were not shipped. Detailed source diagrams remain credited to their publisher.
 - `data/radiology/reference-investigations.json`: source taxonomy.
 - `primer/radiology_catalog.py`: strict source projection, scoped templates and figure selection.
 - `investigation-overrides*.json`: investigation-specific clinical guides.
+- `reporting-steps/*.json`: step-by-step walkthroughs, one file per specialty.
 - `detailed-visuals.json` and `investigation-source-images.json`: reviewed galleries.
 - `web/anatomy/bodyparts3d/`: licensed native meshes, hashes and attribution.
 - `web/radiology-detailed-anatomy.js`: interactive source-mesh viewer.

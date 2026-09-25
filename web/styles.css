@@ -4586,6 +4586,89 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-anatomy-illustration figcaption { margin-top: 12px; font: 13px/1.6 var(--sans); color: var(--ink-soft); }
 .rad-anatomy-illustration figcaption strong { display: block; color: var(--gold-ink); }
 
+/* Step-by-step reporting: stepper, guidance with report fields, and a visual column. */
+.rad-walk { min-width: 0; font: 15px/1.6 var(--sans); }
+.rad-walk-intro { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px; margin-bottom: 18px; }
+.rad-walk-intro p { flex: 1 1 360px; margin: 0; color: var(--ink-soft); }
+.rad-walk-intro-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.rad-walk-stepper { min-width: 0; margin: 0 0 22px; overflow-x: auto; }
+.rad-walk-steps { display: flex; gap: 6px; margin: 0; padding: 2px 2px 8px; list-style: none; }
+.rad-walk-steps li { flex: 0 0 auto; }
+.rad-walk-step { display: flex; align-items: center; gap: 8px; min-height: 44px; max-width: 220px; padding: 7px 12px 7px 8px; border: 1px solid var(--rule); border-radius: var(--r-ctl); background: var(--paper-2); color: var(--ink); cursor: pointer; font: 600 13px/1.3 var(--sans); text-align: left; }
+.rad-walk-step:hover { border-color: var(--gold); background: var(--paper-hi); }
+.rad-walk-step[aria-current="step"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.rad-walk-step-num { display: inline-grid; place-items: center; flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; border: 1px solid currentColor; font-size: 12px; }
+.rad-walk-step[data-done="true"] .rad-walk-step-num { background: var(--green); border-color: var(--green); color: transparent; position: relative; }
+.rad-walk-step[data-done="true"] .rad-walk-step-num::after { content: ""; position: absolute; inset: 5px; background: var(--on-fill); -webkit-mask: var(--tick-mask) center / contain no-repeat; mask: var(--tick-mask) center / contain no-repeat; }
+.rad-walk-step-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rad-walk-body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(300px, 1fr); gap: 28px; align-items: start; }
+.rad-walk-main { min-width: 0; }
+.rad-walk-main > .kicker { margin: 0 0 4px; color: var(--gold-ink); font: 700 12px/1.4 var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+.rad-walk-title { margin: 0 0 10px; font: 600 26px/1.25 var(--serif); }
+.rad-walk-title:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+.rad-walk-assess { margin: 0 0 16px; font-size: 16px; }
+.rad-walk-guidance { display: grid; gap: 10px; margin: 0 0 18px; }
+.rad-walk-guidance > div { padding: 12px 14px; border-left: 3px solid var(--gold); border-radius: 0 7px 7px 0; background: var(--tint-gold); }
+.rad-walk-guidance > div + div { border-left-color: var(--accent-2); background: var(--tint-info-soft); }
+.rad-walk-guidance dt { color: var(--gold-ink); font: 600 11px/1.4 var(--sans); letter-spacing: .07em; text-transform: uppercase; }
+.rad-walk-guidance div + div dt { color: var(--accent-2); }
+.rad-walk-guidance dd { margin: 4px 0 0; }
+.rad-walk-main .rad-table-scroll { margin: 0 0 18px; }
+.rad-walk-main .rad-measurement-table caption { font-size: 17px; margin-bottom: 8px; }
+.rad-walk-report { margin: 0 0 16px; padding: 16px; border: 1px solid var(--rule); border-radius: 9px; background: var(--paper-2); }
+.rad-walk-report h4, .rad-walk-protocol h4, .rad-walk-route h4, .rad-walk-visual h4, .rad-walk-main .rad-escalation h4 { margin: 0 0 10px; font: 600 17px/1.35 var(--serif); }
+.rad-walk-field + .rad-walk-field { margin-top: 16px; }
+.rad-walk-field label { display: block; margin-bottom: 6px; color: var(--gold-ink); font: 600 12px/1.4 var(--sans); letter-spacing: .05em; }
+.rad-walk-editor { display: block; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--edge); border-radius: 7px; background: var(--field); color: var(--ink); font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+.rad-walk-editor:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.rad-walk-field-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.rad-walk-phrases { margin: 0 0 18px; }
+.rad-walk-phrases h5 { margin: 0 0 4px; font: 600 14px/1.4 var(--sans); }
+.rad-walk-hint { margin: 0 0 10px; color: var(--ink-soft); font-size: 13px; }
+.rad-walk-phrase-list { display: grid; gap: 8px; }
+.rad-walk-phrase { min-height: 44px; padding: 9px 12px; border: 1px dashed var(--edge); border-radius: 7px; background: var(--paper-hi); color: var(--ink); cursor: pointer; font: 13px/1.5 var(--sans); text-align: left; }
+.rad-walk-phrase:hover { border-style: solid; border-color: var(--gold); }
+.rad-walk-reviewed { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 12px; border: 1px solid var(--rule); border-radius: var(--r-ctl); cursor: pointer; font-weight: 600; }
+.rad-walk-reviewed input { width: 18px; height: 18px; margin: 0; accent-color: var(--green); }
+.rad-walk-protocol, .rad-walk-route { margin: 0 0 18px; }
+.rad-walk-protocol :is(ul, ol), .rad-walk-route ol { margin: 0; padding-left: 21px; }
+.rad-walk-protocol li + li, .rad-walk-route li + li { margin-top: 6px; }
+.rad-walk-route li { color: var(--ink-soft); }
+.rad-walk-route-link { padding: 0; border: 0; background: none; color: var(--accent-2); cursor: pointer; font: inherit; font-weight: 600; text-align: left; text-decoration: underline; text-underline-offset: 2px; }
+.rad-walk-main .rad-escalation { margin: 0 0 18px; padding: 16px; }
+.rad-walk-main .rad-escalation ul { margin: 0 0 12px; }
+.rad-walk-check { margin: 0 0 14px; padding: 14px 16px; border-radius: 8px; background: var(--tint-green); }
+.rad-walk-check.pending { background: var(--tint-gold); }
+.rad-walk-check ul { margin: 8px 0 0; padding-left: 20px; }
+.rad-walk-check p { margin: 6px 0 0; }
+.rad-walk-preview { background: var(--paper-hi); }
+.rad-walk-visual { min-width: 0; position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; padding: 16px; border: 1px solid var(--rule); border-radius: 10px; background: var(--paper-2); }
+.rad-walk-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.rad-walk-mode { min-height: 40px; padding: 7px 12px; border: 1px solid var(--edge); border-radius: var(--r-ctl); background: var(--paper); color: var(--ink); cursor: pointer; font: 600 13px/1.3 var(--sans); }
+.rad-walk-mode[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.rad-walk-visual-note { margin: 0 0 12px; color: var(--ink-soft); font-size: 12px; }
+.rad-walk-visual-note:empty { display: none; }
+.rad-walk-figures { display: grid; gap: 14px; }
+.rad-walk-figures[hidden], .rad-walk-model[hidden] { display: none; }
+.rad-walk-figure { background: var(--paper); }
+.rad-walk-model > * { margin: 0; }
+.rad-walk-model .detailed-anatomy-stage { height: 380px; }
+.rad-walk-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.rad-walk-progress { margin: 0; color: var(--ink-soft); font-size: 13px; text-align: center; }
+.rad-walk-live { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:is(.rad-walk-step, .rad-walk-mode, .rad-walk-phrase, .rad-walk-route-link, .rad-walk-reviewed):focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+@media (max-width: 960px) {
+  .rad-walk-body { grid-template-columns: minmax(0, 1fr); }
+  .rad-walk-visual { position: static; max-height: none; overflow: visible; }
+}
+@media (max-width: 700px) {
+  .rad-walk-title { font-size: 22px; }
+  .rad-walk-editor { font-size: 16px; }
+  .rad-walk-report, .rad-walk-visual { padding: 12px; }
+  .rad-walk-nav .btn { padding-inline: 12px; }
+  .rad-walk-progress { font-size: 12px; }
+}
+
 /* The age-to-graduate pathway is one set of filters over the existing Atlas. */
 .pathway-overview { margin: 0 0 26px; }
 .pathway-overview-head h3 { margin: 0 0 7px; font-size: 25px; }

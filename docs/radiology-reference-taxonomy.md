@@ -1,6 +1,6 @@
 # Reporting reference taxonomy — 23 September 2026
 
-The reporting-reference index follows the current [Radiology Assistant medical navigation](https://radiologyassistant.nl/), checked on 23 September 2026. It contains **136 investigations or clinical references covering all 188 canonical source articles exactly once**. The 196 navigation links represented in the source catalogue include aliases; the index does not repeat the same canonical article merely because the source links to it from multiple sections.
+The reporting-reference index follows the current [Radiology Assistant medical navigation](https://radiologyassistant.nl/), checked on 23 September 2026 and rechecked against the live site on 25 September 2026, which added “Thoracic Aorta - How to Measure” as the CT thoracic aorta measurement reference. It contains **137 investigations or clinical references covering all 189 canonical source articles exactly once**. The 197 navigation links represented in the source catalogue include aliases; the index does not repeat the same canonical article merely because the source links to it from multiple sections.
 
 `data/radiology/reference-investigations.json` is the index. `source-catalog.json` remains the authority for article IDs, URLs, source titles, headings and aliases. Investigation names may put the examination first (for example “MRI shoulder”); the original article names are retained in `source_titles`. This is an original examination index with attributed source coverage, not a claim that all article text has been reproduced locally.
 
@@ -10,7 +10,7 @@ The reporting-reference index follows the current [Radiology Assistant medical n
 | --- | ---: |
 | Abdomen | 41 |
 | Breast | 6 |
-| Cardiovascular | 10 |
+| Cardiovascular | 11 |
 | Chest | 11 |
 | Head/Neck | 11 |
 | Musculoskeletal | 22 |
@@ -90,8 +90,8 @@ These existing curriculum content keys are outside this reporting-reference inde
 
 ## Integrity checks
 
-- All 188 canonical article IDs occur once, with no omission or duplication.
-- All 136 investigation IDs are unique.
+- All 189 canonical article IDs occur once, with no omission or duplication.
+- All 137 investigation IDs are unique.
 - Every investigation references at least one source article with its declared backing `module_id`.
 - Section and topic values use the source navigation vocabulary; no Genitourinary or general physics category is added.
 - All source titles are retained verbatim from the existing catalogue, including intentional legacy-title clarification noted above.

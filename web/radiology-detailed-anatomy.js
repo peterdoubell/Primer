@@ -243,8 +243,12 @@
       zoom: 1,
       layer: "bone",
       selected: null,
+      // Structures a reporting step points to; a user's own selection wins.
+      highlight: [],
       isolated: false,
     };
+    const focused = () =>
+      state.selected ? [state.selected] : state.highlight || [];
     let frame = 0,
       disposed = false;
     const request = () => {
@@ -270,11 +274,12 @@
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
       gl.disable(gl.CULL_FACE);
+      const focus = focused();
       let visible = loaded.filter(
         (p) => state.layer === "all" || p.layer === state.layer,
       );
-      if (state.isolated && state.selected)
-        visible = visible.filter((p) => p.id === state.selected);
+      if (state.isolated && focus.length)
+        visible = visible.filter((p) => focus.includes(p.id));
       const bmin = [0, 1, 2].map((i) =>
           Math.min(...visible.map((p) => p.bounds[0][i])),
         ),
@@ -313,8 +318,8 @@
       gl.uniform2fv(uniforms.uClip, range);
       // Opaque parts first; dimmed context last, sorted back to front.
       visible.sort((a, b) => {
-        const aa = state.selected && a.id !== state.selected,
-          bb = state.selected && b.id !== state.selected;
+        const aa = focus.length > 0 && !focus.includes(a.id),
+          bb = focus.length > 0 && !focus.includes(b.id);
         return (
           Number(aa) - Number(bb) ||
           rot[2] * a.center[0] +
@@ -326,7 +331,7 @@
         );
       });
       for (const p of visible) {
-        const dim = state.selected && p.id !== state.selected;
+        const dim = focus.length > 0 && !focus.includes(p.id);
         gl.depthMask(!dim);
         gl.uniform1f(uniforms.uAlpha, dim ? 0.19 : 1);
         gl.uniform3fv(uniforms.uColor, p.color);
@@ -417,6 +422,7 @@
     request();
     return {
       state,
+      focused,
       update(values) {
         Object.assign(state, values);
         request();
@@ -490,6 +496,17 @@
       cleanup.disconnect();
       engine?.dispose();
     };
+    // Reporting steps point at the structures they concern. Requests made while
+    // meshes are still loading are applied once the model is ready.
+    let applyHighlight = null,
+      pendingHighlight = null;
+    root.highlight = (ids) => {
+      const wanted = Array.isArray(ids)
+        ? ids.filter((id) => typeof id === "string")
+        : [];
+      if (applyHighlight) applyHighlight(wanted);
+      else pendingHighlight = wanted;
+    };
     function button(label, action, pressed) {
       const b = $("button", null, label);
       b.type = "button";
@@ -537,14 +554,18 @@
             (region.side === "right" ? "Right side" : region.side) +
             " · " +
             currentView;
+          const focus = state.selected ? [state.selected] : state.highlight;
           for (const [id, el] of labels) {
-            el.setAttribute("aria-pressed", String(id === state.selected));
+            el.setAttribute("aria-pressed", String(focus.includes(id)));
             el.hidden =
               state.layer !== "all" &&
               loaded.find((p) => p.id === id).layer !== state.layer;
           }
-          const item = loaded.find((p) => p.id === state.selected);
-          selected.textContent = item ? displayName(item.name) : "";
+          selected.textContent = loaded
+            .filter((p) => focus.includes(p.id))
+            .map((p) => displayName(p.name))
+            .join(" · ");
+          root.dataset.highlight = focus.join(",");
         });
         const presets = [
           ["Anterior", 0, 0],
@@ -561,6 +582,10 @@
           );
         toolbar.append($("span", "detailed-divider"));
         const layerButtons = new Map();
+        const showLayer = (value) => {
+          for (const [v, el] of layerButtons)
+            el.setAttribute("aria-pressed", String(v === value));
+        };
         for (const [value, label] of [
           ["bone", region.labels?.[0] || "Bones"],
           ["soft", region.labels?.[1] || "Soft tissue"],
@@ -569,9 +594,13 @@
           const b = button(
             label,
             () => {
-              engine.update({ layer: value, selected: null, isolated: false });
-              for (const [v, el] of layerButtons)
-                el.setAttribute("aria-pressed", String(v === value));
+              engine.update({
+                layer: value,
+                selected: null,
+                highlight: [],
+                isolated: false,
+              });
+              showLayer(value);
               isolate.setAttribute("aria-pressed", "false");
             },
             value === "bone",
@@ -582,7 +611,7 @@
         const isolate = button(
           "Isolate",
           () => {
-            if (!engine.state.selected) {
+            if (!engine.focused().length) {
               status.textContent =
                 "Select a labelled structure below, then choose Isolate.";
               return;
@@ -602,11 +631,11 @@
               pitch: 0.1,
               zoom: 1,
               selected: null,
+              highlight: [],
               isolated: false,
               layer: "bone",
             });
-            for (const [v, el] of layerButtons)
-              el.setAttribute("aria-pressed", String(v === "bone"));
+            showLayer("bone");
             isolate.setAttribute("aria-pressed", "false");
             status.textContent = "";
           }),
@@ -617,6 +646,7 @@
             () => {
               engine.update({
                 selected: engine.state.selected === p.id ? null : p.id,
+                highlight: [],
               });
               status.textContent = "";
             },
@@ -629,6 +659,24 @@
           labels.set(p.id, b);
           partsUI.append(b);
         }
+        applyHighlight = (ids) => {
+          const parts = loaded.filter((p) => ids.includes(p.id));
+          const layers = new Set(parts.map((p) => p.layer));
+          const layer = !parts.length
+            ? engine.state.layer
+            : layers.size === 1
+              ? parts[0].layer
+              : "all";
+          engine.update({
+            highlight: parts.map((p) => p.id),
+            selected: null,
+            isolated: false,
+            layer,
+          });
+          showLayer(layer);
+          isolate.setAttribute("aria-pressed", "false");
+        };
+        if (pendingHighlight) applyHighlight(pendingHighlight);
         status.textContent = "";
         root.dataset.ready = "true";
         root.dataset.meshes = String(loaded.length);
