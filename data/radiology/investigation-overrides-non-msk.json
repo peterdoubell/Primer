@@ -5632,5 +5632,108 @@
       ],
       "reviewed_at": "2026-09-25"
     }
+  },
+  "ra.thoracic-aorta-measurement": {
+    "reporting": {
+      "protocol": [
+        "Confirm aortic root or proximal ascending dilatation on ECG-gated cardiac CT angiography with slices of 1 mm or less; cardiac MRI is preferred in young patients and for long-term follow-up.",
+        "Measure the same levels with the same standardised method at every study; TTE follow-up is reasonable only when it agrees with CT and dilatation is moderate."
+      ],
+      "checklist": [
+        {
+          "label": "Measurement method",
+          "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+        },
+        {
+          "label": "Aortic root",
+          "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+        },
+        {
+          "label": "Ascending aorta",
+          "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+        },
+        {
+          "label": "Aortic arch",
+          "detail": "Measure the proximal and mid arch on double-oblique planes."
+        },
+        {
+          "label": "Descending and abdominal aorta",
+          "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+        },
+        {
+          "label": "Interval change",
+          "detail": "Compare each level with the prior study measured the same way and state the change in millimetres."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Aortic annulus",
+          "method": "Measure one slice below the lowest insertion points (nadirs) of all three cusps, seen together in one plane: the annular or hinge plane.",
+          "pitfall": "The last slice where the leaflets are still visible usually lies above the annular plane."
+        },
+        {
+          "name": "Sinus of Valsalva",
+          "method": "At maximal sinus bulging, measure sinus-to-sinus between all three sinus pairs and report their average or the largest, naming the method.",
+          "pitfall": "Sinus-to-commissure is smaller and can underestimate the root; the three methods give different values."
+        },
+        {
+          "name": "Thoracic aortic diameter",
+          "method": "Use a double-oblique plane perpendicular to the aortic long axis at each standard level.",
+          "pitfall": "Axial slices cut the curved aorta obliquely and give elliptical, overestimated diameters."
+        },
+        {
+          "name": "Interval change",
+          "method": "Compare the same level on the prior study using the same modality and method; give the change in millimetres and the interval.",
+          "pitfall": "A 2 mm difference can move a patient into another follow-up or surgical category, so a change of method can mimic growth."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Axial diameters of the oblique ascending aorta and arch overestimate the true cross-section; report double-oblique measurements.",
+        "Sinus-to-commissure, mid sinus-to-sinus and maximum sinus-to-sinus methods are not interchangeable between studies.",
+        "TTE measures leading edge to leading edge in end-diastole and cannot reliably include the posterior wall, so small discrepancies with CT are expected."
+      ],
+      "impression_prompts": [
+        "What is the maximal diameter, at which level and by which method?",
+        "Is the aorta dilated against the sex-specific reference values used locally?",
+        "What has changed since the previous study measured the same way, and over what interval?"
+      ],
+      "escalation": [
+        "Communicate rapid growth, or a diameter at the local surgical threshold, to the referring team."
+      ],
+      "template_sections": [
+        {
+          "heading": "MEASUREMENT METHOD",
+          "body": "[ECG-gated CT angiography / cardiac MRI / non-gated CT]; slice thickness __ mm; double-oblique planes perpendicular to the centreline; sinus method [mid sinus-to-sinus / maximum sinus-to-sinus / sinus-to-commissure], [average / largest] reported."
+        },
+        {
+          "heading": "AORTIC ROOT",
+          "body": "Annulus __ × __ mm on the hinge plane; sinuses of Valsalva __ mm; sinotubular junction __ mm."
+        },
+        {
+          "heading": "ASCENDING AORTA",
+          "body": "Maximal ascending aortic diameter __ mm at [level]; elongation [none / present, centreline length __ mm]."
+        },
+        {
+          "heading": "AORTIC ARCH",
+          "body": "Proximal arch __ mm; mid arch __ mm."
+        },
+        {
+          "heading": "DESCENDING AND ABDOMINAL AORTA",
+          "body": "Proximal descending aorta __ mm; distal descending aorta __ mm; abdominal aorta __ mm."
+        },
+        {
+          "heading": "INTERVAL CHANGE",
+          "body": "Prior study [date, modality, method]; change at [level] __ mm over __ months; [measured the same way / method differs]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Thoracic Aorta - How to Measure",
+          "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements"
+        }
+      ],
+      "reviewed_at": "2026-09-25"
+    }
   }
 }

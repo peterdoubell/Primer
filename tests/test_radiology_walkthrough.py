@@ -50,7 +50,7 @@ def _landmarks():
 
 
 def test_every_investigation_has_a_complete_authored_walkthrough(references):
-    assert len(references) == 136
+    assert len(references) == 137
     for identifier, ref in references.items():
         walk = ref['walkthrough']
         headings = [section['heading'] for section in ref['report_templates'][0]['sections']]
@@ -216,6 +216,6 @@ def test_walkthrough_helpers_and_step_models_build(references):
                             timeout=60, check=False)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
-    assert report == {'investigations': 136, 'corrected': len(CORRECTED),
+    assert report == {'investigations': 137, 'corrected': len(CORRECTED),
                       'builds': report['builds'], 'status': 'passed'}
-    assert report['builds'] >= 136
+    assert report['builds'] >= 137

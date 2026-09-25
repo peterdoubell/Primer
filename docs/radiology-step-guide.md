@@ -1,14 +1,14 @@
 # Step-by-step reporting guide
 
-Updated 25 September 2026. Every one of the **136 Radiology Assistant
+Updated 25 September 2026. Every one of the **137 Radiology Assistant
 investigations** in the reporting desk (`#/radiology/<investigation-id>`) now
 opens on a **Step by step** tab. It takes the reader through the examination's
 own report template in reading order, one section at a time, with the figures,
 measurements and 3D landmark for that part of the search pattern alongside.
 
-Coverage: **684 steps** (five to seven per investigation), **1,878 finding
-phrases**, **559 normal statements**, **371 reporting tips**, **390 figure
-placements**, **236 measurement links** and **199 steps with highlighted
+Coverage: **690 steps** (five to seven per investigation), **1,894 finding
+phrases**, **565 normal statements**, **375 reporting tips**, **402 figure
+placements**, **243 measurement links** and **199 steps with highlighted
 source-mesh structures** across the 40 investigations whose anatomy has a
 BodyParts3D region.
 
@@ -103,15 +103,37 @@ source: paediatric elbow fractures, cartilage tumours, thoracolumbar fractures,
 thoracic ultrasound and vascular anomalies of the aorta and pulmonary and
 systemic vessels.
 
-### Source basis
+### Source basis and live recheck
 
 Steps follow each investigation's Radiology Assistant article headings, the
 reviewed scoped guide and the figures already selected from those articles.
-This pass was authored against the stored source catalogue
-(`data/radiology/source-catalog.json`) because the authoring environment could
-not reach radiologyassistant.nl. Recheck the phrases against the live articles
-and local protocols when maintaining the reference. This is a source review,
-not external clinical sign-off.
+They were first written from the stored source catalogue
+(`data/radiology/source-catalog.json`) and then rechecked against the live site
+on 25 September 2026:
+
+- All 189 article pages, all gallery figures and every figure source page
+  load, including in the walkthrough through a browser. Four non-Radiology Assistant guide references (doi.org, PubMed, ILAE
+  and ESUR) refuse automated requests and were not changed.
+- Live article headings match the catalogue for 165 articles; 20 differ only in
+  order and 3 gained a site "Charity" banner. No article content was removed.
+- Every number with a unit in the steps (101) was compared with its own
+  articles. Four steps were corrected to the source: bowel wall thickening
+  length bands (under 5, 5–10 and 10–30 cm, or diffuse), miliary nodules of
+  2–3 mm, the normal ileal wall example, and the persistent loop in
+  necrotising enterocolitis. The remaining values are standard published
+  thresholds (for example ACR TI-RADS sizes, Graf angles and CAD-RADS bands).
+- The bowel wall thickening steps now use the source's own figures: its length
+  and differential table, wall-thickness chart and small-bowel faeces sign.
+  Four other figures were moved to the step they illustrate (an iliac stenosis,
+  an orbital compartment lesion, neonatal respiratory distress and a radial
+  scar).
+- One new article, "Thoracic Aorta - How to Measure", was added as the CT
+  thoracic aorta measurement reference with its own guide, eight figures and
+  six steps. Its normal-value and follow-up tables are shown as figures and not
+  transcribed into rules.
+
+This is a source review, not external clinical sign-off. Recheck the content
+against the live articles and local protocols when maintaining the reference.
 
 ## Validation commands
 

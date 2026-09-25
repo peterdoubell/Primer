@@ -65,9 +65,10 @@ def test_source_inventory_accounts_for_the_reviewed_navigation():
     date.fromisoformat(catalog["reviewed_at"])
     articles = catalog["articles"]
     # The September 2026 capture has 188 distinct medical articles and 196
-    # navigation URLs. Future additions may grow that foundation; silently
-    # shrinking both the inventory and its metadata must not pass this guard.
-    assert len(articles) >= 188
+    # navigation URLs; the 25 September recheck added "Thoracic Aorta - How to
+    # Measure". Future additions may grow that foundation; silently shrinking
+    # both the inventory and its metadata must not pass this guard.
+    assert len(articles) >= 189
     assert catalog["unique_articles"] == len(articles)
     assert len({article["id"] for article in articles}) == len(articles)
     canonical_urls = {article["url"] for article in articles}
@@ -88,7 +89,7 @@ def test_source_inventory_accounts_for_the_reviewed_navigation():
             assert article.get("outline_note")
     assert len(navigation_urls) == len(set(navigation_urls))
     assert len(navigation_urls) == catalog["navigation_article_urls"]
-    assert len(navigation_urls) >= 196
+    assert len(navigation_urls) >= 197
     assert {"Abdomen", "Breast", "Cardiovascular", "Chest", "Head/Neck",
             "Musculoskeletal", "Neuroradiology", "Pediatrics", "More"} <= {
                 article["section"] for article in articles}

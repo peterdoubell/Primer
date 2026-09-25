@@ -62,7 +62,7 @@ assert.equal(wrapper.landmarks('missing'), null);
 assert.equal(wrapper.landmarks('__proto__'), null);
 
 const served = JSON.parse(fs.readFileSync(0, 'utf8'));
-assert.ok(Array.isArray(served) && served.length === 136, 'All investigations are checked');
+assert.ok(Array.isArray(served) && served.length === 137, 'All investigations are checked');
 let registered = 0, builds = 0;
 for (const entry of served) {
   const model = entry.model;

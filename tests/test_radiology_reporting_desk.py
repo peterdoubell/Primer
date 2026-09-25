@@ -87,8 +87,8 @@ def test_reporting_endpoints_are_direct_and_do_not_fetch_wiki_or_change_progress
         index = client.get('/api/radiology/modules')
         detail = client.get('/api/radiology/modules/rad.5.prostate-mri')
         assert index.status_code == detail.status_code == 200
-        assert index.json()['count'] == 136
-        assert len(index.json()['modules']) == 136
+        assert index.json()['count'] == 137
+        assert len(index.json()['modules']) == 137
         assert 'report_templates' not in index.text
         assert 'key_images' not in index.text
         body = detail.json()

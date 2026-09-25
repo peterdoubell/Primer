@@ -21,7 +21,7 @@ def test_all_reference_headings_are_backed_by_radiology_assistant():
     cat = radiology_catalog.catalogue()
     sources = json.loads((ROOT/'data/radiology/source-catalog.json').read_text())['articles']
     refs = cat['investigations']
-    assert len(refs) == 136
+    assert len(refs) == 137
     counts = Counter(a for item in refs for a in item['article_ids'])
     assert set(counts) == {a['id'] for a in sources}
     assert all(count == 1 for count in counts.values())

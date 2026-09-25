@@ -854,9 +854,6 @@
             "Occlusion of the [right] superficial femoral artery from [ ] to [ ].",
             "Multiple stenoses of the [left] popliteal artery."
           ],
-          "images": [
-            "peripheral-vascular-image-2"
-          ],
           "landmark": "iliacs"
         },
         {
@@ -875,7 +872,10 @@
             "Lesion length"
           ],
           "landmark": "iliacs",
-          "tip": "MIP images can hide overlapping lesions or exaggerate stenosis; confirm on source images."
+          "tip": "MIP images can hide overlapping lesions or exaggerate stenosis; confirm on source images.",
+          "images": [
+            "peripheral-vascular-image-2"
+          ]
         },
         {
           "label": "Runoff and collaterals",
@@ -1111,6 +1111,142 @@
             "Emphysema / fibrosis as a cause of pulmonary hypertension (group 3)."
           ],
           "landmark": "lobes"
+        }
+      ]
+    },
+    "ra.thoracic-aorta-measurement": {
+      "steps": [
+        {
+          "label": "Measurement method",
+          "detail": "Record how the aorta was measured so that the next study can repeat it.",
+          "sections": [
+            "MEASUREMENT METHOD"
+          ],
+          "look": "Check ECG gating and slice thickness, then build a centreline or double-oblique reconstruction before measuring anything.",
+          "normal": "ECG-gated CT angiography, 1 mm slices; diameters on double-oblique planes perpendicular to the centreline; mid sinus-to-sinus method, average reported.",
+          "findings": [
+            "Non-gated CT: root measurements limited by motion.",
+            "Diameters measured on double-oblique planes perpendicular to the aortic centreline.",
+            "Sinus method: [mid / maximum] sinus-to-sinus, [average of three / largest] reported."
+          ],
+          "images": [
+            "ra-thoracic-aorta-measurement-source-3",
+            "ra-thoracic-aorta-measurement-source-8"
+          ],
+          "measurements": [
+            "Thoracic aortic diameter"
+          ],
+          "landmark": "root",
+          "tip": "An axial diameter of the ascending aorta is not a true cross-section; do not report it as the maximum."
+        },
+        {
+          "label": "Aortic root",
+          "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels.",
+          "sections": [
+            "AORTIC ROOT"
+          ],
+          "look": "Scroll up from the hinge plane: annulus one slice below the three cusp nadirs, sinuses at maximal bulging, sinotubular junction at the narrowest point.",
+          "normal": "Aortic root not dilated: annulus __ × __ mm, sinuses of Valsalva __ mm, sinotubular junction __ mm.",
+          "findings": [
+            "Annulus __ × __ mm on the hinge plane with all three cusp insertion points in one plane.",
+            "Sinuses of Valsalva __ mm ([mid / maximum] sinus-to-sinus, [average / largest]).",
+            "Sinotubular junction __ mm.",
+            "Root dilatation predominantly at the sinuses of Valsalva (__ mm)."
+          ],
+          "images": [
+            "ra-thoracic-aorta-measurement-source-2",
+            "ra-thoracic-aorta-measurement-source-4"
+          ],
+          "measurements": [
+            "Aortic annulus",
+            "Sinus of Valsalva"
+          ],
+          "landmark": "root",
+          "tip": "The last slice with visible leaflets usually lies above the annular plane; measure one slice lower."
+        },
+        {
+          "label": "Ascending aorta",
+          "detail": "Find the widest point between the sinotubular junction and the arch and note elongation.",
+          "sections": [
+            "ASCENDING AORTA"
+          ],
+          "look": "Double-oblique plane perpendicular to the centreline at the widest ascending segment; coronal and 3D views for its length.",
+          "normal": "Ascending aorta __ mm, not dilated.",
+          "findings": [
+            "Maximal ascending aortic diameter __ mm at [level], perpendicular to the centreline.",
+            "Elongated ascending aorta; centreline length __ mm."
+          ],
+          "images": [
+            "ra-thoracic-aorta-measurement-source-1",
+            "ra-thoracic-aorta-measurement-source-5"
+          ],
+          "measurements": [
+            "Thoracic aortic diameter"
+          ],
+          "landmark": "root"
+        },
+        {
+          "label": "Aortic arch",
+          "detail": "Measure the proximal and mid arch on double-oblique planes.",
+          "sections": [
+            "AORTIC ARCH"
+          ],
+          "look": "Oblique sagittal view along the arch, then perpendicular planes at the proximal arch and the mid arch between the supra-aortic branch origins.",
+          "normal": "Aortic arch not dilated: proximal __ mm, mid __ mm.",
+          "findings": [
+            "Proximal arch __ mm; mid arch __ mm.",
+            "Dilatation extends from the ascending aorta into the [proximal / mid] arch."
+          ],
+          "images": [
+            "ra-thoracic-aorta-measurement-source-1"
+          ],
+          "measurements": [
+            "Thoracic aortic diameter"
+          ],
+          "landmark": "arch"
+        },
+        {
+          "label": "Descending and abdominal aorta",
+          "detail": "Complete the remaining protocol levels.",
+          "sections": [
+            "DESCENDING AND ABDOMINAL AORTA"
+          ],
+          "look": "Perpendicular planes at the proximal descending aorta beyond the left subclavian origin, the distal descending aorta and the abdominal aorta.",
+          "normal": "Descending thoracic and abdominal aorta of normal calibre.",
+          "findings": [
+            "Proximal descending aorta __ mm; distal descending aorta __ mm.",
+            "Abdominal aorta __ mm at [level]."
+          ],
+          "images": [
+            "ra-thoracic-aorta-measurement-source-1"
+          ],
+          "measurements": [
+            "Thoracic aortic diameter"
+          ],
+          "landmark": "arch",
+          "tip": "Some protocols measure the descending aorta at two levels; follow the local protocol and say which levels you used."
+        },
+        {
+          "label": "Interval change",
+          "detail": "Compare each level with the prior study measured the same way.",
+          "sections": [
+            "INTERVAL CHANGE"
+          ],
+          "look": "Open the prior study; if its method is unknown, remeasure it at the same levels with the current method.",
+          "normal": "No interval change at any level compared with [date], measured the same way.",
+          "findings": [
+            "Increase of __ mm at [level] since [date] (__ months), measured with the same method.",
+            "Prior study was [TTE / non-gated CT / a different sinus method]; values are not directly comparable."
+          ],
+          "images": [
+            "ra-thoracic-aorta-measurement-source-7",
+            "ra-thoracic-aorta-measurement-source-6"
+          ],
+          "measurements": [
+            "Interval change"
+          ],
+          "landmark": "root",
+          "tip": "A 2 mm difference can change the follow-up category; say when methods differ rather than calling growth."
         }
       ]
     }

@@ -1,8 +1,8 @@
 # Radiology Assistant investigation reference
 
 This is the current reporting-reference structure, superseding the earlier
-96-module course-oriented index. The reference catalogue contains **136
-investigations**, grounded in all **188 canonical Radiology Assistant articles**.
+96-module course-oriented index. The reference catalogue contains **137
+investigations**, grounded in all **189 canonical Radiology Assistant articles**.
 It follows the publisher's nine specialty headings. There are **22 MSK
 investigations**; MRI shoulder and ultrasound shoulder are separate.
 
@@ -22,15 +22,17 @@ fluoroscopic defecography and the separate renal cyst/solid mass workflows.
 ## Step-by-step reporting
 
 Every investigation opens on a step-by-step walkthrough of its own report
-template: 684 steps with finding phrases, normal statements, per-step
+template: 690 steps with finding phrases, normal statements, per-step
 figures, measurement methods, a schematic 3D landmark and, for 40
 investigations, highlighted source-mesh structures. Ten investigations whose
 backing module showed the wrong anatomy carry a corrected 3D family. Details,
-schema and validation are in [radiology-step-guide.md](radiology-step-guide.md).
+schema and validation are in [radiology-step-guide.md](radiology-step-guide.md). A live recheck on 25 September 2026 confirmed every
+article and figure URL, corrected four steps to their source and added the
+new "Thoracic Aorta - How to Measure" article as its own investigation.
 
 ## Visuals
 
-The source-specific galleries contain **364 figures**, including 150 newly
+The source-specific galleries contain **375 figures**, including 150 newly
 selected, rendered and reviewed figures. Every investigation has a nonempty
 gallery, and every figure belongs to an article assigned to that investigation.
 Two bowel-ischaemia images are explicitly identified as video covers. Some older
