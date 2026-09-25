@@ -29,12 +29,14 @@ The prostate source links were repaired to ACR's current document host.
 ## Using the workspace
 
 Search by examination, finding or classification and filter by specialty. Each
-module has six tabs: Reporting guide, Report template, Images, Diagram,
-3D anatomy and Sources. Keyboard users can move between tabs with arrow keys,
-Home and End. Reference requests use a dedicated endpoint without live
+investigation has seven tabs: Step by step, Checklist, Report template, Images,
+Diagram, 3D anatomy (or Spatial guide) and Sources. Step by step walks through
+the investigation's own report template with figures, phrases and a 3D focus
+per section; see [the step-by-step guide](radiology-step-guide.md). Keyboard
+users can move between tabs with arrow keys, Home and End. Reference requests use a dedicated endpoint without live
 Wikipedia summary fetching.
 
-Checklist marks, report edits, selected tabs and 3D camera settings remain in
+Checklist marks, step drafts, report edits, selected tabs and 3D camera settings remain in
 memory while moving between tabs or changing the reading theme. They are not
 sent to the server or written into browser storage. Copy or download a report
 before leaving the module or reloading. A generation check prevents delayed
