@@ -424,11 +424,12 @@
   const planeNames = { axial: 'Axial', coronal: 'Coronal', sagittal: 'Sagittal' };
   const orientationNote = 'Original schematic 3D anatomy, not patient data. +X is patient left, +Y superior, +Z anterior; this freely rotated perspective is not the conventional radiological display. Colours identify structures, not disease.';
   const registry = {};
-  Object.entries(MODULES).forEach(([nodeId, item]) => {
-    const def = families[item.family];
-    if (!def || !Object.prototype.hasOwnProperty.call(def.landmarks, item.focus[0])) throw new Error('Missing radiology model landmarks: ' + nodeId);
+  const has = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+  function scenario(nodeId, item) {
+    const def = has(families, item.family) ? families[item.family] : null;
+    if (!def || !Array.isArray(item.focus) || !has(def.landmarks, item.focus[0])) throw new Error('Missing radiology model landmarks: ' + nodeId);
     const focus = item.focus[0];
-    registry[item.scenario] = {
+    return {
       camera: { yaw: -24, pitch: 14, zoom: .96 },
       initial: { focus, plane: 'axial', position: 0, labels: 'focus', context: 'anatomy' },
       controls: [
@@ -453,14 +454,30 @@
         };
       },
     };
-  });
+  }
+  Object.entries(MODULES).forEach(([nodeId, item]) => { registry[item.scenario] = scenario(nodeId, item); });
   window.PrimerSpatial.register(registry);
+  // An investigation whose backing module shows the wrong anatomy carries its own
+  // corrected family (for example a paediatric elbow reference backed by a hip
+  // module). Those scenes are registered from the served specification on demand.
+  const INVESTIGATION = /^radiology-investigation:ra\.[a-z0-9-]+$/;
+  function ensure(spec) {
+    if (!spec || typeof spec.scenario !== 'string') return null;
+    if (has(registry, spec.scenario)) return spec.scenario;
+    if (!INVESTIGATION.test(spec.scenario) || typeof spec.reporting_aim !== 'string') return null;
+    if (!has(families, spec.family) || !Array.isArray(spec.focus) || !has(families[spec.family].landmarks, spec.focus[0])) return null;
+    registry[spec.scenario] = scenario(spec.scenario, { family: spec.family, focus: spec.focus, reporting_aim: spec.reporting_aim });
+    window.PrimerSpatial.register({ [spec.scenario]: registry[spec.scenario] });
+    return spec.scenario;
+  }
   window.PrimerRadiologyReferenceModels = Object.freeze({
     get supported() { return Object.keys(MODULES); },
     get families() { return Object.keys(families); },
     specification(nodeId) { return Object.prototype.hasOwnProperty.call(MODULES,nodeId) ? JSON.parse(JSON.stringify(MODULES[nodeId])) : null; },
+    landmarks(family) { return has(families, family) ? { ...families[family].landmarks } : null; },
+    ensure,
     render(spec, hooks = {}) {
-      if (!spec || !Object.prototype.hasOwnProperty.call(registry,spec.scenario)) return null;
+      if (!ensure(spec)) return null;
       return window.PrimerSpatial.render({ id:spec.id, title:spec.title, instructions:spec.instructions,
         kind:'model', renderer:'spatial-3d', props:{scenario:spec.scenario} }, hooks);
     },

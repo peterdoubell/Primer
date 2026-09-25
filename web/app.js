@@ -2201,6 +2201,7 @@ async function renderRadiologyDesk(page, nodeId) {
         el('span', { class: 'rad-desk-card-summary' }, n.summary),
         el('span', { class: 'rad-desk-source-titles' }, n.source_titles.join(' · ')),
         el('span', { class: 'rad-desk-card-meta' },
+          (n.step_count ? plural(n.step_count, 'step') + ' · ' : '') +
           (n.classification ? n.classification + ' · ' : '') +
           (n.image_count ? n.image_count + ' images' : 'Source cases') + ' · Diagrams' +
           (window.PrimerDetailedAnatomy?.supported(n.model_family) ? ' · Anatomical 3D' : '')));
@@ -2239,14 +2240,28 @@ async function renderRadiologyDesk(page, nodeId) {
     el('div', { class: 'rad-source-heading-list' }, el('span', {}, 'Radiology Assistant topics'),
       el('ul', {}, ...n.source_titles.map(title => el('li', {}, title)))),
     el('p', { class: 'rad-desk-revision' }, 'Reference revision ' + guide.reviewed_at + ' · ' +
+      plural(ref.walkthrough.steps.length, 'reporting step') + ' · ' +
       ref.key_images.length + ' image examples · ' + (detailedAnatomy ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
   const panels = [];
+  const templates = legacy.querySelector('.rad-report-templates');
   const choices = [
-    ['guide', 'Reporting guide', panel => panel.append(renderReportingGuide(guide, n.id))],
-    ['template', 'Report template', panel => panel.append(legacy.querySelector('.rad-report-templates'))],
+    ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: text => {
+      // Hand the assembled draft to the free-text editor; its own reset still
+      // restores the blank template.
+      const editor = templates.querySelector('.rad-report-editor');
+      const details = templates.querySelector('.rad-template');
+      if (!editor) return;
+      if (details) details.open = true;
+      editor.value = text;
+      editor.dispatchEvent(new Event('input'));
+      activate(choices.findIndex(([key]) => key === 'template'), true);
+      editor.focus();
+    } }))],
+    ['guide', 'Checklist', panel => panel.append(renderReportingGuide(guide, n.id))],
+    ['template', 'Report template', panel => panel.append(templates)],
     ['images', 'Images (' + (ref.key_images.length + photographs.length) + ')', panel => {
       if (photographs.length) panel.append(
         el('h3', {}, 'Photorealistic study scenes'), renderLessonMedia(photographs),
@@ -2379,6 +2394,358 @@ function renderReportingGuide(guide, nodeId) {
   if (guide.escalation.length) root.append(el('section', { class: 'rad-escalation' },
     el('h3', {}, 'Findings requiring direct communication'), el('ul', {}, ...guide.escalation.map(text => el('li', {}, text)))));
   root.append(el('p', { class: 'rad-desk-draft-note' }, 'Checklist marks and report edits stay in this open module. Copy or download your report before leaving or reloading.'));
+  return root;
+}
+
+/* ---------------- step-by-step reporting ----------------
+   One ordered pass through the examination. Each step edits named sections of
+   the investigation's own template and the report is reassembled in template
+   order. Like the template editor, drafts stay in memory: no storage, uploads,
+   background requests or generated conclusions. Phrases carry blanks for the
+   reader's own findings. */
+const WALK_PROMPT = '_{2,}|\\[[^\\]\\n]*\\]';
+
+function walkthroughPrompts(text) {
+  return (String(text || '').match(new RegExp(WALK_PROMPT, 'g')) || []).length;
+}
+
+function walkthroughFirstPrompt(text, from = 0) {
+  const pattern = new RegExp(WALK_PROMPT, 'g');
+  pattern.lastIndex = from;
+  const match = pattern.exec(String(text || ''));
+  return match ? [match.index, match.index + match[0].length] : null;
+}
+
+// An untouched prompt or a normal statement is replaced; a written finding is kept
+// and the phrase is added on its own line.
+function walkthroughInsert(current, phrase, pristine = []) {
+  const text = String(current || '');
+  if (!text.trim() || pristine.some(value => String(value).trim() === text.trim())) return { text: phrase, start: 0 };
+  const joined = text.replace(/\s+$/, '') + '\n' + phrase;
+  return { text: joined, start: joined.length - phrase.length };
+}
+
+function walkthroughReport(title, sections, values) {
+  return [title, ...sections.map(section => {
+    const fallback = Array.isArray(section.body) ? section.body.join('\n') : (section.body || '');
+    const body = values && values.has(section.heading) ? values.get(section.heading) : fallback;
+    return [section.heading, String(body).trim()].filter(Boolean).join('\n');
+  })].filter(Boolean).join('\n\n');
+}
+
+function walkthroughFigure(item) {
+  const kind = item.asset_role === 'video-cover' ? 'Video lecture cover'
+    : { clinical: 'Clinical example', diagram: 'Teaching diagram', table: 'Reference table' }[item.image_type] || 'Teaching example';
+  return el('figure', { class: 'rad-image-example rad-walk-figure' },
+    el('div', { class: 'rad-image-frame' }, el('img', { src: item.src, alt: item.alt || item.label,
+      loading: 'lazy', decoding: 'async', referrerpolicy: 'no-referrer',
+      width: item.width || null, height: item.height || null, dataset: { fullSrc: item.src } })),
+    el('figcaption', {}, el('strong', {}, item.label), el('span', { class: 'rad-image-type' }, kind),
+      el('p', {}, item.caption || item.description || ''),
+      item.attribution ? el('p', { class: 'rad-image-credit' }, item.attribution) : null,
+      item.source_url ? radiologySourceLink('Source and case details', item.source_url,
+        { 'aria-label': 'Source and case details for ' + item.label }) : null));
+}
+
+function renderReportWalkthrough(n, { openTemplate } = {}) {
+  const ref = n.radiology_reference, guide = ref.reporting, walk = ref.walkthrough;
+  const template = ref.report_templates[0];
+  const uid = 'rad-walk-' + String(n.id).replace(/[^a-z0-9-]/gi, '-');
+  const bodyOf = section => Array.isArray(section.body) ? section.body.join('\n') : (section.body || '');
+  const values = new Map(template.sections.map(section => [section.heading, bodyOf(section)]));
+  const originals = new Map(values);
+  const normals = new Map();
+  walk.steps.forEach(step => Object.entries(step.normal || {}).forEach(([heading, text]) => normals.set(heading, text)));
+  const figures = new Map(ref.key_images.filter(image => image.src).map(image => [image.id, image]));
+  const measures = new Map(guide.measurements.map(row => [row.name, row]));
+  const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(ref.spatial_model.family)) || {};
+  const meshFamily = window.PrimerDetailedAnatomy?.supported(ref.spatial_model.family) ? ref.spatial_model.family : null;
+  const overview = ref.spatial_model.focus[0];
+  const pages = [
+    { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
+    ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,
+      landmark: step.landmark, parts: step.parts, step })),
+    { kind: 'finish', label: 'Impression', sections: walk.finish.sections, images: [], landmark: overview, parts: [] },
+    { kind: 'review', label: 'Review report', sections: [], images: [], landmark: overview, parts: [] },
+  ];
+  const reviewed = new Set(), lastField = new Map(), fields = new Map();
+  let current = 0, chosenMode = null, landmarkModel = null, anatomyModel = null;
+
+  const root = el('section', { class: 'rad-walk', 'aria-label': 'Step-by-step reporting guide' });
+  // Mounted empty, then filled: a region inserted with text is announced unreliably.
+  const live = el('p', { class: 'rad-walk-live', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' });
+  const say = text => { live.textContent = ''; setTimeout(() => { if (root.isConnected) live.textContent = text; }, 30); };
+  const intro = el('div', { class: 'rad-walk-intro' },
+    el('p', {}, 'Work through the examination in this order. Each step says where to look and what to describe, links the figures and 3D anatomy for that step, and offers phrases with blanks for your findings. Your text builds the report as you go.'),
+    el('div', { class: 'rad-walk-intro-actions' },
+      btn({ class: 'btn small', onclick: startNormal }, 'Start from normal statements'),
+      btn({ class: 'btn ghost small', onclick: clearAll }, 'Restore all prompts')));
+  const stepper = el('ol', { class: 'rad-walk-steps' });
+  const stepButtons = pages.map((page, index) => {
+    const button = btn({ class: 'rad-walk-step', 'aria-describedby': uid + '-progress',
+      onclick: () => show(index, true) },
+      el('span', { class: 'rad-walk-step-num', 'aria-hidden': 'true' }, String(index + 1)),
+      el('span', { class: 'rad-walk-step-label' }, page.label));
+    stepper.append(el('li', {}, button));
+    return button;
+  });
+  const progress = el('p', { id: uid + '-progress', class: 'rad-walk-progress' });
+  const main = el('div', { class: 'rad-walk-main' });
+  const visual = el('aside', { class: 'rad-walk-visual', 'aria-labelledby': uid + '-visual-title' });
+  const visualTitle = el('h4', { id: uid + '-visual-title' }, 'Visual aids');
+  const modes = [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : [])];
+  const modeButtons = new Map();
+  const modeBar = el('div', { class: 'rad-walk-modes', role: 'group', 'aria-label': 'Choose a visual aid' },
+    ...modes.map(([key, label]) => {
+      const button = btn({ class: 'rad-walk-mode', 'aria-pressed': 'false', onclick: () => { chosenMode = key; showVisual(true); } }, label);
+      modeButtons.set(key, button);
+      return button;
+    }));
+  const visualNote = el('p', { class: 'rad-walk-visual-note' });
+  const figureBox = el('div', { class: 'rad-walk-figures' });
+  const landmarkBox = el('div', { class: 'rad-walk-model', hidden: '' });
+  const anatomyBox = el('div', { class: 'rad-walk-model', hidden: '' });
+  visual.append(visualTitle, modeBar, visualNote, figureBox, landmarkBox, anatomyBox);
+  const previous = btn({ class: 'btn ghost', onclick: () => show(current - 1, true) }, '← Previous');
+  const next = btn({ class: 'btn', onclick: () => show(current + 1, true) }, 'Next →');
+  const nav = el('div', { class: 'rad-walk-nav' }, previous, progress, next);
+  root.append(intro, el('nav', { class: 'rad-walk-stepper', 'aria-label': 'Reporting steps' }, stepper),
+    el('div', { class: 'rad-walk-body' }, main, visual), nav, live);
+
+  function field(heading) {
+    if (fields.has(heading)) return fields.get(heading);
+    const id = uid + '-field-' + fields.size;
+    const editor = el('textarea', { id, class: 'rad-walk-editor', rows: 4, spellcheck: 'false', autocomplete: 'off' });
+    editor.value = values.get(heading);
+    const fit = () => { editor.rows = Math.min(14, Math.max(3, editor.value.split('\n').length + 1)); };
+    fit();
+    const useNormal = normals.has(heading) ? btn({ class: 'btn small', onclick: () => {
+      set(heading, normals.get(heading));
+      say('Normal statement placed in ' + heading.toLowerCase() + '.');
+    } }, 'Use normal statement') : null;
+    const restore = btn({ class: 'btn ghost small', onclick: () => {
+      set(heading, originals.get(heading));
+      say('Original prompts restored in ' + heading.toLowerCase() + '.');
+    } }, 'Restore prompts');
+    editor.addEventListener('input', () => { values.set(heading, editor.value); fit(); refreshMarks(); });
+    editor.addEventListener('focus', () => lastField.set(current, heading));
+    const node = el('div', { class: 'rad-walk-field' }, el('label', { for: id }, heading), editor,
+      el('div', { class: 'rad-walk-field-actions' }, useNormal, restore));
+    const entry = { node, editor, fit };
+    fields.set(heading, entry);
+    return entry;
+  }
+  function set(heading, text) {
+    values.set(heading, text);
+    const entry = fields.get(heading);
+    if (entry) { entry.editor.value = text; entry.fit(); }
+    refreshMarks();
+  }
+  function startNormal() {
+    let placed = 0, kept = 0;
+    normals.forEach((text, heading) => {
+      if (values.get(heading) === originals.get(heading)) { set(heading, text); placed++; } else if (values.get(heading) !== text) kept++;
+    });
+    say(plural(placed, 'normal statement') + ' placed' + (kept ? '; ' + plural(kept, 'edited field') + ' left unchanged.' : '.') +
+      ' Replace any statement that does not match the examination.');
+    if (pages[current].kind === 'review') show(current, false);
+  }
+  function clearAll() {
+    originals.forEach((text, heading) => set(heading, text));
+    reviewed.clear();
+    say('All report fields restored to their original prompts.');
+    show(current, false);
+  }
+  function refreshMarks() {
+    stepButtons.forEach((button, index) => {
+      button.setAttribute('aria-current', index === current ? 'step' : 'false');
+      button.dataset.done = reviewed.has(index) ? 'true' : 'false';
+      button.setAttribute('aria-label', (index + 1) + '. ' + pages[index].label + (reviewed.has(index) ? ', reviewed' : ''));
+    });
+    progress.textContent = 'Step ' + (current + 1) + ' of ' + pages.length + ' · ' + reviewed.size + ' reviewed';
+  }
+  function insertPhrase(page, phrase) {
+    // The field last edited, else the first field that takes a finding statement.
+    const heading = page.sections.includes(lastField.get(current)) ? lastField.get(current)
+      : page.sections.find(section => normals.has(section)) || page.sections[0];
+    const result = walkthroughInsert(values.get(heading), phrase, [originals.get(heading), normals.get(heading)].filter(Boolean));
+    set(heading, result.text);
+    const editor = fields.get(heading).editor;
+    editor.focus();
+    const blank = walkthroughFirstPrompt(result.text, result.start);
+    if (blank) editor.setSelectionRange(blank[0], blank[1]);
+    else editor.setSelectionRange(result.text.length, result.text.length);
+    say('Phrase added to ' + heading.toLowerCase() + (blank ? '. The first blank is selected; type to replace it.' : '.'));
+  }
+  function reviewToggle(index) {
+    const box = el('input', { type: 'checkbox', id: uid + '-reviewed-' + index });
+    box.checked = reviewed.has(index);
+    box.addEventListener('change', () => { if (box.checked) reviewed.add(index); else reviewed.delete(index); refreshMarks(); });
+    return el('label', { class: 'rad-walk-reviewed', for: box.id }, box, 'Step reviewed');
+  }
+  function guidance(rows) {
+    const shown = rows.filter(([, text]) => text);
+    return shown.length ? el('dl', { class: 'rad-walk-guidance' },
+      ...shown.map(([title, text]) => el('div', {}, el('dt', {}, title), el('dd', {}, text)))) : null;
+  }
+  function reportFields(page, title) {
+    if (!page.sections.length) return null;
+    return el('section', { class: 'rad-walk-report', 'aria-label': title },
+      el('h4', {}, title), ...page.sections.map(heading => field(heading).node));
+  }
+  function stepPage(page, index) {
+    const step = page.step;
+    const parts = [el('p', { class: 'rad-walk-assess' }, step.detail),
+      guidance([['Where to look', step.look], ['Watch for', step.tip]])];
+    const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
+    if (rows.length) parts.push(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Measurements for this step' },
+      el('table', { class: 'rad-measurement-table' }, el('caption', {}, 'Measure and report'),
+        el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Measurement'), el('th', { scope: 'col' }, 'Method / reporting'), el('th', { scope: 'col' }, 'Pitfall'))),
+        el('tbody', {}, ...rows.map(row => el('tr', {}, el('th', { scope: 'row' }, row.name), el('td', {}, row.method), el('td', {}, row.pitfall)))))));
+    parts.push(reportFields(page, 'Report this step'));
+    if (step.findings.length) parts.push(el('div', { class: 'rad-walk-phrases' },
+      el('h5', {}, 'Finding phrases'),
+      el('p', { class: 'rad-walk-hint' }, 'Adds the phrase to the field you last edited and selects its first blank.'),
+      el('div', { class: 'rad-walk-phrase-list' }, ...step.findings.map(phrase =>
+        btn({ class: 'rad-walk-phrase', onclick: () => insertPhrase(page, phrase) }, phrase)))));
+    parts.push(reviewToggle(index));
+    return parts;
+  }
+  function startPage(page, index) {
+    return [el('p', { class: 'rad-walk-assess' }, 'Confirm the clinical question, comparison, technique and image quality before reading the images.'),
+      el('div', { class: 'rad-walk-protocol' }, el('h4', {}, 'Protocol and quality'),
+        el('ul', {}, ...guide.protocol.map(text => el('li', {}, text)))),
+      el('div', { class: 'rad-walk-route' }, el('h4', {}, 'Search pattern'),
+        el('ol', {}, ...walk.steps.map((step, i) => el('li', {},
+          btn({ class: 'rad-walk-route-link', onclick: () => show(i + 1, true) }, step.label), ' — ', step.detail)))),
+      reportFields(page, 'Introductory report fields'), reviewToggle(index)];
+  }
+  function finishPage(page, index) {
+    const communication = page.sections.find(heading => /COMMUNICATION/.test(heading)) || page.sections[page.sections.length - 1];
+    const parts = [el('p', { class: 'rad-walk-assess' }, 'Answer the clinical question first, then give extent, relevant negatives, limitations and any next step.'),
+      el('div', { class: 'rad-walk-protocol' }, el('h4', {}, 'Build the impression'),
+        el('ol', {}, ...guide.impression_prompts.map(text => el('li', {}, text))))];
+    if (guide.classification || guide.criteria_table) {
+      const c = guide.classification;
+      const details = el('details', { class: 'rad-protocol' }, el('summary', {}, (c ? c.name + ' · ' + c.version : guide.criteria_table.title)));
+      if (c) details.append(el('p', {}, el('strong', {}, 'Applies to: '), c.applicability), el('p', {}, c.summary));
+      if (guide.criteria_table) details.append(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': guide.criteria_table.title },
+        el('table', { class: 'rad-measurement-table' },
+          el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Category / rule'), el('th', { scope: 'col' }, 'Criteria'), el('th', { scope: 'col' }, 'Reporting note'))),
+          el('tbody', {}, ...guide.criteria_table.rows.map(row => el('tr', {},
+            el('th', { scope: 'row' }, row.category), el('td', {}, row.criteria), el('td', {}, row.report_note)))))));
+      details.append(el('p', { class: 'rad-walk-hint' }, 'A reference table for your own categorisation; nothing here is scored automatically.'));
+      parts.push(details);
+    }
+    if (guide.escalation.length) parts.push(el('div', { class: 'rad-escalation' },
+      el('h4', {}, 'Findings requiring direct communication'),
+      el('ul', {}, ...guide.escalation.map(text => el('li', {}, text))),
+      btn({ class: 'btn small', onclick: () => insertPhrase({ sections: [communication] },
+        'Direct communication: [finding] discussed with [recipient] on [date and time] by [method].') }, 'Add a communication line')));
+    parts.push(el('div', { class: 'rad-walk-protocol' }, el('h4', {}, 'Before you sign'),
+      el('ul', {}, ...guide.pitfalls.map(text => el('li', {}, text)))));
+    parts.push(reportFields(page, 'Impression fields'), reviewToggle(index));
+    return parts;
+  }
+  function reviewPage() {
+    const text = walkthroughReport(template.title, template.sections, values);
+    const output = el('textarea', { id: uid + '-report', class: 'rad-report-editor rad-walk-preview', rows: 22, readonly: '', spellcheck: 'false' });
+    output.value = text;
+    const pending = template.sections.filter(section => walkthroughPrompts(values.get(section.heading)) > 0);
+    const status = el('p', { class: 'rad-report-status', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' });
+    const copy = btn({ class: 'btn small', onclick: async () => {
+      let copied = false;
+      try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(output.value); copied = true; } } catch (e) { /* selection fallback below */ }
+      if (!copied) { output.focus(); output.select(); try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* manual copy remains */ } }
+      status.textContent = copied ? 'Report text copied.' : 'Text selected. Use your device’s Copy command, or download the text file.';
+    } }, 'Copy report');
+    const download = btn({ class: 'btn small', onclick: () => {
+      const base = String(template.id || 'radiology-report').toLowerCase().replace(/[^a-z0-9_-]+/g, '-').slice(0, 100) || 'radiology-report';
+      let url, link;
+      try {
+        url = URL.createObjectURL(new Blob([output.value], { type: 'text/plain;charset=utf-8' }));
+        link = el('a', { href: url, download: base + '.txt', hidden: '' });
+        document.body.append(link); link.click();
+        status.textContent = 'Download requested: ' + base + '.txt.';
+      } catch (e) { status.textContent = 'The download could not start. Use Copy report to keep your draft.'; }
+      finally { if (link) link.remove(); if (url) setTimeout(() => URL.revokeObjectURL(url), 30000); }
+    } }, 'Download .txt');
+    const send = openTemplate ? btn({ class: 'btn ghost small', onclick: () => openTemplate(output.value) }, 'Edit freely in Report template') : null;
+    return [el('p', { class: 'rad-walk-assess' }, 'The report below is assembled from every step in template order. Edit it in the steps, or move it to the Report template tab for free editing.'),
+      el('div', { class: 'rad-walk-check' + (pending.length ? ' pending' : '') },
+        el('strong', {}, pending.length ? plural(pending.length, 'section') + ' still contain bracketed prompts or blanks' : 'No bracketed prompts or blanks remain'),
+        pending.length ? el('ul', {}, ...pending.map(section => {
+          const owner = pages.findIndex(page => page.sections.includes(section.heading));
+          return el('li', {}, owner >= 0 ? btn({ class: 'rad-walk-route-link', onclick: () => show(owner, true) }, section.heading) : section.heading);
+        })) : el('p', {}, 'Review the wording against the images before use.')),
+      el('p', { class: 'rad-walk-hint' }, reviewed.size + ' of ' + (pages.length - 1) + ' steps marked reviewed. Keep patient identifiers out of this page.'),
+      el('label', { for: output.id, class: 'rad-report-label' }, 'Assembled report — ' + template.title), output,
+      el('div', { class: 'rad-report-actions' }, copy, download, send), status];
+  }
+  function showVisual(announce) {
+    const page = pages[current];
+    const list = page.images.map(id => figures.get(id)).filter(Boolean);
+    // Orientation: figures no step claims, the generated anatomy plate and the
+    // module's original reporting diagram.
+    const extras = page.kind === 'start' ? [...(ref.anatomical_illustrations || []).map(asset => ({ ...asset, label: asset.title,
+      image_type: 'diagram', caption: asset.caption + ' Generated anatomical illustration.' })),
+      ...(n.lesson_media || []).filter(item => item.kind === 'illustration' && item.src).map(item => ({
+        src: item.src, alt: item.alt, label: 'Reporting overview diagram', image_type: 'diagram', caption: item.caption,
+        attribution: 'Original Primer diagram.', width: item.width, height: item.height }))] : [];
+    const shown = [...list, ...extras];
+    const mode = chosenMode && modeButtons.has(chosenMode) ? chosenMode : (shown.length ? 'figures' : 'landmark');
+    modeButtons.forEach((button, key) => button.setAttribute('aria-pressed', String(key === mode)));
+    modeButtons.get('figures').textContent = 'Figures (' + shown.length + ')';
+    figureBox.hidden = mode !== 'figures';
+    landmarkBox.hidden = mode !== 'landmark';
+    anatomyBox.hidden = mode !== 'anatomy';
+    const landmarkName = landmarks[page.landmark] || page.landmark;
+    if (mode === 'figures') {
+      figureBox.replaceChildren(...(shown.length ? shown.map(walkthroughFigure)
+        : [el('p', { class: 'rad-walk-hint' }, 'No figure is linked to this step. Use the 3D views, or the Images tab for the full gallery.')]));
+      attachPictureHandlers(figureBox);
+      visualNote.textContent = shown.length ? 'Published teaching examples, not one patient study. Open a figure to inspect it at full size.' : '';
+    } else if (mode === 'landmark') {
+      if (!landmarkModel && window.PrimerRadiologyReferenceModels) {
+        landmarkModel = window.PrimerRadiologyReferenceModels.render(ref.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
+        landmarkBox.replaceChildren(landmarkModel || el('p', { role: 'status' }, 'The 3D landmark model could not load.'));
+      } else if (landmarkModel && landmarkModel.setModelState) landmarkModel.setModelState({ focus: page.landmark });
+      visualNote.textContent = 'Highlighted: ' + landmarkName + '. A schematic orientation guide, not patient anatomy.';
+    } else {
+      if (!anatomyModel) {
+        anatomyModel = window.PrimerDetailedAnatomy.render({ family: meshFamily });
+        anatomyBox.replaceChildren(anatomyModel || el('p', { role: 'status' }, 'The anatomical model could not load.'));
+      }
+      if (anatomyModel && anatomyModel.highlight) anatomyModel.highlight(page.parts);
+      visualNote.textContent = page.parts.length ? 'Structures for this step are highlighted in the registered source anatomy.'
+        : 'Registered source anatomy for orientation. Select a structure to highlight it.';
+    }
+    if (announce) say('Showing ' + ({ figures: 'figures', landmark: '3D landmarks', anatomy: '3D anatomy' })[mode] + ' for ' + page.label + '.');
+  }
+  function show(index, moveFocus) {
+    current = Math.max(0, Math.min(pages.length - 1, index));
+    const page = pages[current];
+    const heading = el('h3', { class: 'rad-walk-title', tabindex: '-1' }, page.label);
+    const body = page.kind === 'step' ? stepPage(page, current) : page.kind === 'start' ? startPage(page, current)
+      : page.kind === 'finish' ? finishPage(page, current) : reviewPage();
+    main.replaceChildren(el('p', { class: 'kicker' }, 'Step ' + (current + 1) + ' of ' + pages.length), heading, ...body.filter(Boolean));
+    previous.disabled = current === 0;
+    next.disabled = current === pages.length - 1;
+    next.textContent = current === pages.length - 2 ? 'Review report →' : 'Next →';
+    refreshMarks();
+    showVisual(false);
+    root.dataset.step = String(current);
+    // Keep the current chip visible in the horizontally scrolling stepper,
+    // without scrolling the page itself.
+    const strip = stepper.parentElement, chip = stepButtons[current].getBoundingClientRect(), bounds = strip.getBoundingClientRect();
+    if (chip.left < bounds.left || chip.right > bounds.right) strip.scrollLeft += chip.left - bounds.left - 8;
+    if (moveFocus) {
+      heading.focus({ preventScroll: true });
+      if (root.getBoundingClientRect().top < 0) root.scrollIntoView({ block: 'start' });
+      say('Step ' + (current + 1) + ' of ' + pages.length + ': ' + page.label + '.');
+    }
+  }
+  show(0, false);
   return root;
 }
 
@@ -5783,7 +6150,8 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // Node QA imports the same functions without starting a reader session. Browser
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard });
+  module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard,
+    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
   // all — send them to the first page instead of the error card. This needs

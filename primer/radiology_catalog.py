@@ -5,10 +5,16 @@ are eligible for this clinical reference catalogue.
 """
 import copy
 import json
+from datetime import date
 from functools import lru_cache
 from pathlib import Path
 
 from .radiology import DATA, validate_reference, validate_reporting_guide
+
+STEP_DIR = DATA / 'reporting-steps'
+MESH_MANIFEST = DATA.parents[1] / 'web' / 'anatomy' / 'bodyparts3d' / 'manifest.json'
+# Mirrors the aliases in web/radiology-detailed-anatomy.js.
+MESH_ALIASES = {'foot': 'ankle', 'hand': 'wrist', 'pelvis': 'hip', 'heart': 'coronary', 'kidney': 'renal'}
 
 
 def _read(name, default=None):
@@ -16,6 +22,134 @@ def _read(name, default=None):
     if not path.exists() and default is not None:
         return default
     return json.loads(path.read_text(encoding='utf-8'))
+
+
+def _text(value, message):
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(message)
+    return value
+
+
+@lru_cache(maxsize=1)
+def _mesh_regions():
+    manifest = json.loads(MESH_MANIFEST.read_text(encoding='utf-8'))
+    return {name: [part['id'] for part in region['parts']]
+            for name, region in manifest['regions'].items()}
+
+
+def mesh_region(family):
+    """The registered source-mesh region shown for a model family, if any."""
+    name = MESH_ALIASES.get(family, family)
+    return name if name in _mesh_regions() else None
+
+
+@lru_cache(maxsize=1)
+def _steps():
+    """Step guides, one file per Radiology Assistant specialty."""
+    sections = {item['id']: item['section'] for item in catalogue()['investigations']}
+    merged, reviewed = {}, {}
+    for path in sorted(STEP_DIR.glob('*.json')):
+        data = json.loads(path.read_text(encoding='utf-8'))
+        stamp = date.fromisoformat(data['reviewed_at']).isoformat()
+        for identifier, entry in data['investigations'].items():
+            if identifier not in sections:
+                raise ValueError('Step guide has no Radiology Assistant investigation: ' + identifier)
+            if identifier in merged:
+                raise ValueError('Duplicate step guide: ' + identifier)
+            if sections[identifier] != data['section']:
+                raise ValueError('Step guide filed under the wrong specialty: ' + identifier)
+            merged[identifier], reviewed[identifier] = entry, stamp
+    return {'investigations': merged, 'reviewed_at': reviewed}
+
+
+def _step_model(item, authored):
+    """A corrected 3D companion when the backing module's anatomy is wrong for this examination."""
+    model = authored.get('model')
+    if not model:
+        return None
+    aim = _text(model.get('reporting_aim'), 'Corrected 3D companion needs its reporting aim')
+    family = _text(model.get('family'), 'Corrected 3D companion needs a family')
+    return {'id': 'radiology-model-' + item['id'], 'title': item['title'] + ' · spatial orientation',
+            'instructions': 'Drag to rotate; choose a reporting landmark and move the section plane. ' + aim,
+            'scenario': 'radiology-investigation:' + item['id'], 'family': family,
+            'focus': [authored['steps'][0]['landmark']], 'reporting_aim': aim}
+
+
+def _walkthrough(item, ref):
+    """Order the examination's own report fields, figures, measurements and model into steps.
+
+    Every step edits named sections of the investigation's report template; the
+    report is always reassembled in template order. Nothing here scores a study.
+    """
+    guide, template = ref['reporting'], ref['report_templates'][0]
+    headings = [section['heading'] for section in template['sections']]
+    checklist = guide['checklist']
+    authored = _steps()['investigations'].get(item['id'])
+    if authored is None:
+        # A newly added investigation still walks through its own fields.
+        derived = [section['heading'] for section in guide['template_sections'] if section['heading'] in headings]
+        authored = {'steps': [{'sections': [heading], 'landmark': ref['spatial_model']['focus'][0]}
+                              for heading in derived or headings[1:-1]]}
+        complete = False
+    else:
+        complete = True
+    images = [image['id'] for image in ref['key_images']]
+    measures = [row['name'] for row in guide['measurements']]
+    region = mesh_region(ref['spatial_model']['family'])
+    allowed_parts = set(_mesh_regions()[region]) if region else set()
+    owned, used_images, used_measures, steps = [], set(), set(), []
+    for index, step in enumerate(authored['steps']):
+        sections = step.get('sections')
+        if not isinstance(sections, list) or not sections or any(h not in headings for h in sections):
+            raise ValueError('Reporting step must edit sections of its own template: ' + item['id'])
+        owned.extend(sections)
+        base = checklist[index] if index < len(checklist) else {}
+        label = _text(step.get('label') or base.get('label') or sections[0].capitalize(), 'Reporting step needs a label')
+        detail = _text(step.get('detail') or base.get('detail') or 'Complete the ' + sections[0].lower() + ' field.',
+                       'Reporting step needs its assessment')
+        normal = step.get('normal')
+        if isinstance(normal, str):
+            if len(sections) != 1:
+                raise ValueError('A shared normal statement needs a section for each field: ' + item['id'])
+            normal = {sections[0]: normal}
+        normal = normal or {}
+        if not isinstance(normal, dict) or not set(normal).issubset(sections):
+            raise ValueError('Normal statements must belong to the step sections: ' + item['id'])
+        for value in normal.values():
+            _text(value, 'Empty normal statement')
+        findings = step.get('findings', [])
+        if not isinstance(findings, list) or len(findings) > 6 or (complete and not findings):
+            raise ValueError('Reporting step needs one to six finding phrases: ' + item['id'])
+        for phrase in findings:
+            _text(phrase, 'Empty finding phrase')
+        step_images, step_measures, parts = (step.get(key, []) for key in ('images', 'measurements', 'parts'))
+        for values, known, name in ((step_images, images, 'figure'), (step_measures, measures, 'measurement'),
+                                    (parts, allowed_parts, 'anatomical part')):
+            if not isinstance(values, list) or len(values) != len(set(values)) or not set(values).issubset(known):
+                raise ValueError('Reporting step has an unknown or repeated ' + name + ': ' + item['id'])
+        used_images.update(step_images)
+        used_measures.update(step_measures)
+        entry = {'label': label, 'detail': detail, 'sections': list(sections), 'normal': dict(normal),
+                 'findings': list(findings), 'images': list(step_images), 'measurements': list(step_measures),
+                 'landmark': _text(step.get('landmark'), 'Reporting step needs a 3D landmark'), 'parts': list(parts)}
+        for key in ('look', 'tip'):
+            if step.get(key) is not None or (complete and key == 'look'):
+                entry[key] = _text(step.get(key), 'Reporting step needs ' + key)
+        steps.append(entry)
+    if len(owned) != len(set(owned)):
+        raise ValueError('A report section belongs to one step: ' + item['id'])
+    positions = sorted(headings.index(heading) for heading in owned)
+    first, last = positions[0], positions[-1]
+    if any(heading not in owned for heading in headings[first:last + 1]):
+        raise ValueError('Every finding section between the introduction and impression needs a step: ' + item['id'])
+    if not first or last == len(headings) - 1:
+        raise ValueError('The walkthrough needs introductory and impression sections: ' + item['id'])
+    if complete and set(measures) - used_measures:
+        raise ValueError('Every measurement needs a reporting step: ' + item['id'])
+    return {'reviewed_at': _steps()['reviewed_at'].get(item['id'], guide['reviewed_at']),
+            'complete': complete, 'template_id': template['id'],
+            'start': {'sections': headings[:first], 'images': [i for i in images if i not in used_images]},
+            'steps': steps, 'finish': {'sections': headings[last + 1:]}}
 
 
 @lru_cache(maxsize=1)
@@ -134,6 +268,9 @@ def detail(curriculum, item):
         selected.append(copy.deepcopy(image))
     ref['key_images'] = selected
     ref['investigation'] = copy.deepcopy(item)
+    corrected = _step_model(item, _steps()['investigations'].get(item['id'], {}))
+    if corrected:
+        ref['spatial_model'] = corrected
     ref['spatial_model']['title'] = item['title'] + ' · spatial orientation'
     ref['anatomical_illustrations'] = _read('anatomical-illustrations.json', {}).get(item['id'], [])
     for illustration in ref['anatomical_illustrations']:
@@ -152,6 +289,7 @@ def detail(curriculum, item):
     # Readings and clinical figure captions are specific to the investigation.
     # Preserve the underlying diagram/model until a source mesh is available.
     validate_reference(ref)
+    ref['walkthrough'] = _walkthrough(item, ref)
     return {'id': item['id'], 'module_id': node['id'], 'title': item['title'],
             'section': item['section'], 'topic': item['topic'], 'modality': item['modality'],
             'source_titles': item['source_titles'], 'goal': item['summary'],
@@ -176,6 +314,7 @@ def index(curriculum):
             'template_count': len(reference['report_templates']),
             'classification': classification['name'] if classification else '',
             'model_family': reference['spatial_model']['family'],
+            'step_count': len(reference['walkthrough']['steps']),
             'reviewed_at': reference['reporting']['reviewed_at'],
         })
     return {'modules': modules, 'count': len(modules), 'foundation': catalogue()['foundation_url']}

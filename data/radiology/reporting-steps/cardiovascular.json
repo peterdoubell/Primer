@@ -1,0 +1,1118 @@
+{
+  "reviewed_at": "2026-09-25",
+  "section": "Cardiovascular",
+  "investigations": {
+    "ra.ct-coronary": {
+      "steps": [
+        {
+          "label": "Calcium score",
+          "detail": "If a non-contrast scan was acquired, record the total and per-vessel Agatston scores.",
+          "sections": [
+            "CALCIUM SCORE"
+          ],
+          "look": "Non-contrast ECG-triggered images; confirm that each calcified focus is assigned to the correct vessel before accepting the total.",
+          "normal": "CAC: total 0 Agatston units (LM 0 | LAD 0 | LCx 0 | RCA 0). A zero CAC score does not exclude non-calcified plaque.",
+          "findings": [
+            "CAC: total ___ Agatston units (LM ___ | LAD ___ | LCx ___ | RCA ___).",
+            "CAC: not performed."
+          ],
+          "landmark": "myocardium",
+          "parts": [
+            "FJ2737",
+            "FJ2631",
+            "FMA3895",
+            "FJ2723",
+            "FMA3840"
+          ],
+          "tip": "Agatston scoring is defined on the non-contrast acquisition; do not derive it from contrast-enhanced images."
+        },
+        {
+          "label": "Dominance and anatomy",
+          "detail": "Establish dominance, origins, proximal course and coronary anomalies.",
+          "sections": [
+            "CORONARY DOMINANCE",
+            "CORONARY ORIGINS / COURSE"
+          ],
+          "look": "Axial source images and volume rendering at the sinuses of Valsalva; follow each ostium and its proximal course relative to the aorta and pulmonary trunk; find which artery supplies the PDA.",
+          "normal": {
+            "CORONARY DOMINANCE": "Right-dominant coronary circulation; the PDA arises from the RCA.",
+            "CORONARY ORIGINS / COURSE": "Normal origins of the left main and right coronary arteries from the left and right coronary sinuses, with a normal proximal course. No myocardial bridge or fistula."
+          },
+          "findings": [
+            "Anomalous origin of the [RCA / LCA] from the [opposite / non-coronary] sinus with an [interarterial / retroaortic / prepulmonic / septal] course.",
+            "High-risk anomaly features: [slit-like ostium / acute take-off / intramural segment / proximal narrowing].",
+            "Myocardial bridge of the [mid LAD], __ mm long and __ mm deep.",
+            "Coronary artery fistula from the [ ] to the [ ]."
+          ],
+          "images": [
+            "ccta-img-1",
+            "ccta-img-5"
+          ],
+          "landmark": "origins",
+          "parts": [
+            "FJ3413",
+            "FJ2737",
+            "FJ2723"
+          ],
+          "tip": "Name an interarterial course between the aorta and pulmonary trunk explicitly, with any intramural segment or slit-like ostium."
+        },
+        {
+          "label": "Stenosis by segment",
+          "detail": "Record vessel and segment, plaque composition and the highest confident stenosis category.",
+          "sections": [
+            "STENOSIS SCALE",
+            "CORONARY FINDINGS"
+          ],
+          "look": "Curved MPR along each vessel, then orthogonal cross-sections at the tightest point and at a normal reference segment; check the axial source images for artefact.",
+          "normal": {
+            "CORONARY FINDINGS": "LM, LAD and diagonal branches, LCx and obtuse marginal branches, and RCA/PDA/PLV: no plaque or stenosis."
+          },
+          "findings": [
+            "[Vessel/segment]: [calcified / non-calcified / partially calcified] plaque with [minimal 1–24% / mild 25–49% / moderate 50–69% / severe 70–99%] stenosis; series __ image __.",
+            "[Vessel/segment]: total occlusion, __ mm long, [with / without] distal reconstitution.",
+            "[Segment] non-diagnostic because of [motion / blooming calcification / poor opacification]; significant stenosis cannot be excluded."
+          ],
+          "images": [
+            "ccta-img-2",
+            "ccta-img-3",
+            "ccta-img-4",
+            "ccta-img-7"
+          ],
+          "measurements": [
+            "Stenosis"
+          ],
+          "landmark": "lad",
+          "parts": [
+            "FJ2737",
+            "FJ2631",
+            "FMA3895",
+            "FJ2723",
+            "FMA3840"
+          ],
+          "tip": "Blooming from dense calcification overestimates stenosis; grade on orthogonal cross-sections with a wide window."
+        },
+        {
+          "label": "Plaque and burden",
+          "detail": "Describe plaque type and high-risk features, then state burden with the method used; no plaque is not P1.",
+          "sections": [
+            "PLAQUE",
+            "PLAQUE BURDEN"
+          ],
+          "look": "Cross-sections through each plaque for attenuation, remodelling and spotty calcification; count plaque-containing segments for SIS, or use the CAC score.",
+          "normal": {
+            "PLAQUE": "No coronary plaque.",
+            "PLAQUE BURDEN": "No plaque; no plaque-burden category is assigned."
+          },
+          "findings": [
+            "High-risk plaque in the [segment]: [positive remodelling / low attenuation / spotty calcification / napkin-ring sign]; at least two features are present, so the HRP modifier applies.",
+            "Predominantly [calcified / non-calcified / partially calcified] plaque in __ segments.",
+            "Segment involvement score __ ([method]); overall plaque burden P__."
+          ],
+          "measurements": [
+            "Plaque burden"
+          ],
+          "landmark": "myocardium",
+          "parts": [
+            "FJ2737",
+            "FJ2631",
+            "FMA3895",
+            "FJ2723",
+            "FMA3840"
+          ],
+          "tip": "HRP needs at least two high-risk features within the same plaque."
+        },
+        {
+          "label": "Stents, grafts and physiology",
+          "detail": "Assess stent and graft patency, and record CT-FFR or perfusion when available.",
+          "sections": [
+            "STENTS / GRAFTS",
+            "CT-FFR / CT PERFUSION"
+          ],
+          "look": "Sharp-kernel reconstructions with a wide window for the stent lumen; follow each graft from origin through its body to the distal anastomosis and run-off.",
+          "normal": {
+            "STENTS / GRAFTS": "No coronary stents or bypass grafts.",
+            "CT-FFR / CT PERFUSION": "Not performed."
+          },
+          "findings": [
+            "Stent in the [vessel/segment]: [patent / in-stent restenosis __% / occluded / non-diagnostic].",
+            "[LIMA / RIMA / SVG] to [target]: [patent / stenosis at __ / occluded]; distal anastomosis [ ].",
+            "CT-FFR __ measured 1–2 cm distal to the [segment] lesion; lowest distal value __ in [vessel]."
+          ],
+          "images": [
+            "ccta-img-8"
+          ],
+          "measurements": [
+            "CT-FFR"
+          ],
+          "landmark": "origins",
+          "parts": [
+            "FJ3413",
+            "FJ2737",
+            "FJ2631",
+            "FJ2723"
+          ],
+          "tip": "Report the lesion-specific CT-FFR value 1–2 cm beyond the lesion, separately from the lowest distal value."
+        },
+        {
+          "label": "Cardiac and extracardiac findings",
+          "detail": "Review chambers, valves, pericardium, aorta and the whole acquired field of view.",
+          "sections": [
+            "EXTRACORONARY CARDIAC FINDINGS",
+            "EXTRACARDIAC FINDINGS"
+          ],
+          "look": "A full field-of-view reconstruction, not only the cardiac field, in lung and soft-tissue windows.",
+          "normal": {
+            "EXTRACORONARY CARDIAC FINDINGS": "Cardiac chambers normal in size; pericardium normal; no significant valvular calcification; aortic root and ascending aorta normal in calibre.",
+            "EXTRACARDIAC FINDINGS": "No significant finding in the imaged lungs, mediastinum, upper abdomen or bones."
+          },
+          "findings": [
+            "Aortic valve calcification, [mild / moderate / severe].",
+            "Pulmonary nodule __ mm in the [lobe]; follow-up according to the applicable guideline.",
+            "Pericardial effusion, [small / moderate]."
+          ],
+          "images": [
+            "ccta-img-6"
+          ],
+          "landmark": "myocardium",
+          "parts": [
+            "FJ2428",
+            "FJ2439",
+            "FJ2438",
+            "FJ3413"
+          ]
+        },
+        {
+          "label": "CAD-RADS 2.0",
+          "detail": "Assign the final category, plaque burden and modifiers from the findings already recorded.",
+          "sections": [
+            "CAD-RADS 2.0"
+          ],
+          "look": "Use the highest-grade stenosis from the segment review, the burden step and each applicable modifier (N, HRP, I, S, G, E).",
+          "normal": "Final CAD-RADS: CAD-RADS 0.",
+          "findings": [
+            "Final CAD-RADS: CAD-RADS __/P__ [/HRP] [/S] [/G] [/I+ / I− / I±] [/E].",
+            "Final CAD-RADS: CAD-RADS N — non-diagnostic; obstructive disease cannot be excluded."
+          ],
+          "landmark": "lad",
+          "parts": [
+            "FJ2737",
+            "FJ2631",
+            "FMA3895",
+            "FJ2723",
+            "FMA3840"
+          ],
+          "tip": "The category follows the highest-grade stenosis; when reliable burden methods disagree, use the most severe."
+        }
+      ]
+    },
+    "ra.mri-cardiomyopathy": {
+      "steps": [
+        {
+          "label": "Ventricular volumes and function",
+          "detail": "Quantify both ventricles from the short-axis cine stack.",
+          "sections": [
+            "VENTRICULAR FUNCTION"
+          ],
+          "look": "Short-axis cine from base to apex; contour end diastole and end systole; compare with sex- and age-specific references.",
+          "normal": "Normal biventricular size and systolic function: LVEDVi __ mL/m², LVEF __%; RVEDVi __ mL/m², RVEF __%.",
+          "findings": [
+            "Dilated left ventricle (LVEDVi __ mL/m²) with reduced ejection fraction (__%).",
+            "Right ventricular dilatation with reduced RVEF __%."
+          ],
+          "images": [
+            "cardiac-mri-image-1"
+          ],
+          "measurements": [
+            "Ventricular volumes and EF"
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428"
+          ]
+        },
+        {
+          "label": "Wall thickness and regional motion",
+          "detail": "Assess wall thickness, mass and regional wall motion by segment.",
+          "sections": [
+            "MORPHOLOGY AND MOTION"
+          ],
+          "look": "Short-axis and long-axis cines; 17-segment model for motion.",
+          "normal": "Normal wall thickness and myocardial mass; no regional wall-motion abnormality.",
+          "findings": [
+            "Asymmetric septal hypertrophy with maximal wall thickness __ mm at [basal anteroseptum].",
+            "Akinesia of the [anterior] wall in the [LAD] territory.",
+            "Apical ballooning with basal hyperkinesia (takotsubo pattern)."
+          ],
+          "images": [
+            "cardiac-mri-image-1"
+          ],
+          "landmark": "septum",
+          "parts": [
+            "FJ2428"
+          ]
+        },
+        {
+          "label": "Oedema and mapping",
+          "detail": "Review T2-weighted oedema, native T1 and T2 mapping and ECV if acquired.",
+          "sections": [
+            "OEDEMA AND MAPPING"
+          ],
+          "look": "T2-weighted and mapping sequences with the local reference range and field strength.",
+          "normal": "No myocardial oedema; native T1 and T2 within the local reference range.",
+          "findings": [
+            "Regional oedema in the [ ] segments with raised T2 (__ ms).",
+            "Diffusely raised native T1 (__ ms) and ECV (__%)."
+          ],
+          "images": [
+            "cardiac-mri-image-2"
+          ],
+          "measurements": [
+            "Mapping"
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428"
+          ],
+          "tip": "Mapping values depend on scanner and sequence; always quote the local reference range."
+        },
+        {
+          "label": "Late gadolinium enhancement",
+          "detail": "Map LGE by segment, layer, transmurality and coronary territory.",
+          "sections": [
+            "LATE ENHANCEMENT"
+          ],
+          "look": "Short- and long-axis LGE in matching planes; check the myocardium is correctly nulled.",
+          "normal": "No late gadolinium enhancement.",
+          "findings": [
+            "Subendocardial / transmural LGE in the [LAD] territory, __% transmural (ischaemic pattern).",
+            "Midwall LGE in the septum (non-ischaemic pattern).",
+            "Subepicardial LGE in the inferolateral wall (myocarditis pattern).",
+            "Patchy LGE at the RV insertion points in hypertrophied segments (HCM pattern)."
+          ],
+          "images": [
+            "cardiac-mri-image-3"
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428",
+            "FJ2631",
+            "FMA3895",
+            "FJ2723"
+          ],
+          "tip": "Ischaemic scar always involves the subendocardium; midwall or subepicardial LGE indicates a non-ischaemic cause."
+        },
+        {
+          "label": "Atria, valves, thrombus and pericardium",
+          "detail": "Inspect the atria, valves, thrombus, pericardium and extracardiac findings.",
+          "sections": [
+            "OTHER CARDIAC FINDINGS"
+          ],
+          "look": "Long-axis cines and early post-contrast images for thrombus.",
+          "normal": "Atria normal; no valvular abnormality; no thrombus; pericardium normal.",
+          "findings": [
+            "Left ventricular apical thrombus __ mm (non-enhancing on early post-contrast images).",
+            "Pericardial effusion __ mm.",
+            "Mitral regurgitation jet on cine."
+          ],
+          "landmark": "atria",
+          "parts": [
+            "FJ2439",
+            "FJ2438",
+            "FJ2428"
+          ],
+          "tip": "An apical thrombus after anterior infarction is best seen as a non-enhancing filling defect on early post-contrast images."
+        }
+      ]
+    },
+    "ra.ct-acute-aortic-syndrome": {
+      "steps": [
+        {
+          "label": "Extent and Stanford type",
+          "detail": "Identify the proximal and distal extent of disease and whether the ascending aorta is involved.",
+          "sections": [
+            "AORTIC SEGMENT"
+          ],
+          "look": "Unenhanced and arterial phase images from the root to the iliacs; sagittal oblique reformats.",
+          "normal": "Normal thoracoabdominal aorta without dissection, intramural haematoma or ulcer.",
+          "findings": [
+            "Stanford type A: involves the ascending aorta from the [root] to the [ ].",
+            "Stanford type B: starts distal to the left subclavian artery and extends to the [ ]."
+          ],
+          "images": [
+            "aorta-image-1"
+          ],
+          "landmark": "arch",
+          "tip": "Stanford type A (ascending aorta involved) is a surgical emergency."
+        },
+        {
+          "label": "Dissection, intramural haematoma or ulcer",
+          "detail": "Distinguish dissection with a flap from intramural haematoma and penetrating atherosclerotic ulcer.",
+          "sections": [
+            "WALL AND LUMEN"
+          ],
+          "look": "Unenhanced images for crescentic hyperattenuating wall thickening; contrast images for flap, lumina and ulceration.",
+          "findings": [
+            "Intimal flap with true and false lumen; the false lumen is larger with the beak sign.",
+            "Intramural haematoma: crescentic hyperattenuating wall thickening __ mm without a flap.",
+            "Penetrating atherosclerotic ulcer of the [descending aorta], __ mm deep and __ mm wide."
+          ],
+          "images": [
+            "aorta-image-1"
+          ],
+          "landmark": "arch",
+          "tip": "The false lumen is usually larger, with a beak at the flap and sometimes cobwebs; the true lumen continues with the undissected aorta."
+        },
+        {
+          "label": "Branches and malperfusion",
+          "detail": "Describe branch involvement, true or false lumen supply and organ perfusion.",
+          "sections": [
+            "BRANCHES"
+          ],
+          "look": "Coronary ostia, supra-aortic, coeliac, SMA, renal and iliac arteries; organ enhancement.",
+          "normal": "Branch vessels arise from the true lumen and enhance normally; no malperfusion.",
+          "findings": [
+            "Dissection extends into the [brachiocephalic / left common carotid] artery.",
+            "Left renal artery arises from the false lumen with a reduced left nephrogram.",
+            "SMA compromised with poorly enhancing bowel (malperfusion)."
+          ],
+          "images": [
+            "aorta-image-2"
+          ],
+          "landmark": "branches",
+          "tip": "Malperfusion can be static (flap extends into the branch) or dynamic (flap covers the ostium)."
+        },
+        {
+          "label": "Rupture and complications",
+          "detail": "Look for rupture, pericardial blood, mediastinal and pleural haemorrhage.",
+          "sections": [
+            "COMPLICATIONS"
+          ],
+          "look": "Pericardium, mediastinum and pleural spaces; periaortic haematoma.",
+          "normal": "No periaortic haematoma, haemopericardium or haemothorax.",
+          "findings": [
+            "Haemopericardium, raising concern for tamponade.",
+            "Mediastinal haematoma and [left] haemothorax, compatible with rupture."
+          ],
+          "images": [
+            "aorta-image-3"
+          ],
+          "landmark": "root"
+        },
+        {
+          "label": "Diameters and prior repair",
+          "detail": "Record aortic diameters at standard levels and any prior repair.",
+          "sections": [
+            "DIMENSIONS AND CONTEXT"
+          ],
+          "look": "Measure perpendicular to the centreline at the sinuses, ascending aorta, arch and descending aorta.",
+          "findings": [
+            "Maximum diameters: sinuses __ mm, ascending __ mm, arch __ mm, descending __ mm.",
+            "Previous [ascending graft / TEVAR] with [ ]."
+          ],
+          "measurements": [
+            "Aorta and focal wall lesion"
+          ],
+          "landmark": "root",
+          "tip": "Pulsation artefact in the ascending aorta can mimic a flap; check for the same line outside the aortic wall."
+        }
+      ]
+    },
+    "ra.ct-tavi": {
+      "steps": [
+        {
+          "label": "Annulus",
+          "detail": "Record the annular area, perimeter and minimum and maximum diameters on the systolic plane.",
+          "sections": [
+            "ANNULUS"
+          ],
+          "look": "Double-oblique plane through the three hinge points of the cusps at the systolic phase with the largest annulus.",
+          "findings": [
+            "Annulus at __% phase: area __ mm², perimeter __ mm, diameters __ × __ mm."
+          ],
+          "images": [
+            "tavi-ct-image-1"
+          ],
+          "measurements": [
+            "Annulus"
+          ],
+          "landmark": "root",
+          "tip": "Size from area or perimeter in systole; the annulus is oval, so a single diameter is not enough."
+        },
+        {
+          "label": "Valve and left ventricular outflow tract",
+          "detail": "Describe cusp morphology, raphe, leaflet calcium and LVOT calcium.",
+          "sections": [
+            "VALVE AND LVOT"
+          ],
+          "look": "Short-axis view of the valve in systole and diastole; calcium distribution on the non-contrast and contrast images.",
+          "findings": [
+            "Tricuspid aortic valve with heavy leaflet calcification; aortic valve calcium score __ AU.",
+            "Bicuspid valve with a [calcified] raphe between the [ ] cusps.",
+            "Bulky LVOT calcium below the [ ] cusp (annular rupture risk)."
+          ],
+          "landmark": "root"
+        },
+        {
+          "label": "Coronary heights and obstruction risk",
+          "detail": "Measure the ostial heights and relate the leaflets and sinuses to the coronary ostia.",
+          "sections": [
+            "CORONARIES"
+          ],
+          "look": "From the annular plane to the lower margin of each ostium; sinus width at the ostium.",
+          "findings": [
+            "Left main height __ mm; right coronary height __ mm.",
+            "Low coronary height with a narrow sinus and bulky leaflet: coronary obstruction risk."
+          ],
+          "images": [
+            "tavi-ct-image-2"
+          ],
+          "measurements": [
+            "Coronary heights"
+          ],
+          "landmark": "root",
+          "tip": "Coronary height alone does not describe obstruction risk; include sinus width and leaflet bulk."
+        },
+        {
+          "label": "Aortic root and ascending aorta",
+          "detail": "Measure the sinuses, sinotubular junction and ascending aorta and describe angulation.",
+          "sections": [
+            "AORTIC ROOT"
+          ],
+          "look": "Perpendicular measurements; aortic root angulation relative to the horizontal plane.",
+          "findings": [
+            "Sinus of Valsalva __ mm; sinotubular junction __ mm at __ mm height; ascending aorta __ mm.",
+            "Horizontal aorta with root angulation of __°."
+          ],
+          "landmark": "root"
+        },
+        {
+          "label": "Access routes",
+          "detail": "Assess minimal luminal diameters, calcification and tortuosity along each iliofemoral route.",
+          "sections": [
+            "ACCESS ROUTES"
+          ],
+          "look": "Curved reconstructions of the aorta, iliac and common femoral arteries on both sides.",
+          "findings": [
+            "Right iliofemoral minimum lumen __ × __ mm at the [external iliac]; left __ × __ mm.",
+            "Circumferential calcification and severe tortuosity of the [ ] external iliac artery.",
+            "Alternative access to consider: [subclavian / transcarotid / transcaval]."
+          ],
+          "measurements": [
+            "Access lumen"
+          ],
+          "landmark": "iliacs",
+          "tip": "Name the limiting segment on each side; calcification and tortuosity matter as much as diameter."
+        }
+      ]
+    },
+    "ra.vascular-anomalies": {
+      "model": {
+        "family": "aorta",
+        "reporting_aim": "Relate the arch side, branching order and any aberrant vessel to the trachea and oesophagus."
+      },
+      "steps": [
+        {
+          "label": "Aortic arch",
+          "detail": "Establish arch side, branching order, aberrant subclavian artery, diverticulum, double arch and coarctation.",
+          "sections": [
+            "AORTIC ARCH"
+          ],
+          "look": "Axial images above the arch for the four-artery sign; volume rendering of the arch and branches.",
+          "normal": "Left aortic arch with normal branching; no coarctation.",
+          "findings": [
+            "Right aortic arch with aberrant left subclavian artery arising from a Kommerell diverticulum (__ mm).",
+            "Left arch with aberrant right subclavian artery passing behind the oesophagus.",
+            "Double aortic arch with a dominant [right] arch.",
+            "Coarctation distal to the left subclavian artery, minimum diameter __ mm, with collaterals."
+          ],
+          "images": [
+            "congenital-ct-image-1"
+          ],
+          "measurements": [
+            "Vessel calibre"
+          ],
+          "landmark": "arch",
+          "tip": "A right arch with an aberrant left subclavian artery can form a complete ring through the ligamentum arteriosum."
+        },
+        {
+          "label": "Airway and oesophagus",
+          "detail": "Look for a vascular ring or sling compressing the trachea or oesophagus.",
+          "sections": [
+            "AIRWAY AND OESOPHAGUS"
+          ],
+          "look": "Minimum-intensity projections of the trachea; oesophagus behind the arch.",
+          "normal": "No tracheal or oesophageal compression.",
+          "findings": [
+            "Tracheal narrowing to __ mm at the level of the [double arch / innominate artery].",
+            "Posterior oesophageal impression by the aberrant subclavian artery."
+          ],
+          "images": [
+            "congenital-ct-image-3"
+          ],
+          "measurements": [
+            "Airway narrowing"
+          ],
+          "landmark": "arch"
+        },
+        {
+          "label": "Pulmonary arteries",
+          "detail": "Assess the pulmonary artery origin and course, agenesis, sling and patent ductus.",
+          "sections": [
+            "PULMONARY ARTERIES"
+          ],
+          "look": "Axial and coronal images of the main and branch pulmonary arteries.",
+          "normal": "Normal pulmonary arteries; no ductus arteriosus.",
+          "findings": [
+            "Left pulmonary artery arises from the right pulmonary artery and passes between the trachea and oesophagus (pulmonary sling).",
+            "Unilateral pulmonary artery [agenesis / hypoplasia].",
+            "Patent ductus arteriosus."
+          ],
+          "landmark": "branches"
+        },
+        {
+          "label": "Pulmonary veins",
+          "detail": "Trace every pulmonary vein to its drainage and look for anomalous return.",
+          "sections": [
+            "PULMONARY VEINS"
+          ],
+          "look": "Follow each vein from the hilum; delayed images if a vein is poorly opacified.",
+          "normal": "Four pulmonary veins draining normally to the left atrium.",
+          "findings": [
+            "Partial anomalous return of the right upper-lobe vein to the superior vena cava (often with a sinus venosus defect).",
+            "Scimitar vein draining the right lung to the IVC.",
+            "Left upper-lobe vein draining via a vertical vein to the brachiocephalic vein."
+          ],
+          "images": [
+            "congenital-ct-image-2"
+          ],
+          "landmark": "root"
+        },
+        {
+          "label": "Systemic veins",
+          "detail": "Identify a left superior vena cava, azygos continuation of the IVC and the left superior intercostal vein.",
+          "sections": [
+            "SYSTEMIC VEINS"
+          ],
+          "look": "Left of the aortic arch for a left SVC; the azygos arch and retrocrural region.",
+          "normal": "Normal right superior vena cava and IVC.",
+          "findings": [
+            "Persistent left superior vena cava draining into a dilated coronary sinus.",
+            "Azygos continuation of the IVC with an enlarged azygos arch.",
+            "Prominent left superior intercostal vein (aortic nipple)."
+          ],
+          "landmark": "branches",
+          "tip": "A persistent left superior vena cava drains into the coronary sinus, which is then dilated."
+        }
+      ]
+    },
+    "ra.cardiovascular-devices": {
+      "steps": [
+        {
+          "label": "Device identification",
+          "detail": "Identify each implanted or inserted cardiovascular device.",
+          "sections": [
+            "DEVICE IDENTIFICATION"
+          ],
+          "look": "Whole radiograph or CT: generator, leads, valves, closure devices, stents, pumps and catheters.",
+          "normal": "No cardiovascular device.",
+          "findings": [
+            "Dual-chamber pacemaker with right atrial and right ventricular leads.",
+            "Cardiac resynchronisation device with a coronary sinus lead.",
+            "Implantable cardioverter-defibrillator with a shock coil in the right ventricle.",
+            "[Mechanical / bioprosthetic] valve in the [aortic / mitral] position."
+          ],
+          "images": [
+            "ra-cardiovascular-devices-source-1"
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428",
+            "FJ2439",
+            "FJ2438"
+          ]
+        },
+        {
+          "label": "Course",
+          "detail": "Trace leads, catheters and conduits along their full course for kinks, fractures and abnormal routes.",
+          "sections": [
+            "COURSE"
+          ],
+          "look": "Follow each lead from the generator to the tip on frontal and lateral views.",
+          "normal": "Leads follow a normal course without kink or discontinuity.",
+          "findings": [
+            "Lead fracture at the [clavicle–first rib crossing].",
+            "Twisted leads with generator rotation (Twiddler syndrome).",
+            "Lead passing through a persistent left superior vena cava."
+          ],
+          "landmark": "atria",
+          "parts": [
+            "FJ2439",
+            "FJ2428"
+          ]
+        },
+        {
+          "label": "Tip and landing position",
+          "detail": "Assess each tip or landing zone relative to the intended anatomy.",
+          "sections": [
+            "TIP OR LANDING POSITION"
+          ],
+          "look": "Right atrial appendage and right ventricular apex or septum; valve position relative to the annulus; IABP tip below the arch.",
+          "normal": "Leads and devices in expected positions.",
+          "findings": [
+            "Right ventricular lead tip projects beyond the cardiac contour, raising concern for perforation.",
+            "Intra-aortic balloon tip __ cm below the aortic arch.",
+            "Coronary sinus lead in a [lateral] cardiac vein."
+          ],
+          "images": [
+            "ra-cardiovascular-devices-source-2"
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428",
+            "FJ2439",
+            "FJ2438"
+          ]
+        },
+        {
+          "label": "Local complications",
+          "detail": "Review perforation, pericardial effusion, pneumothorax, haematoma and infection.",
+          "sections": [
+            "LOCAL COMPLICATIONS"
+          ],
+          "look": "Pericardium and pleura; generator pocket.",
+          "normal": "No pneumothorax, pericardial effusion or pocket collection.",
+          "findings": [
+            "New pericardial effusion after lead placement.",
+            "Pneumothorax after device insertion.",
+            "Pocket haematoma or collection."
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428",
+            "FJ2439",
+            "FJ2438"
+          ]
+        },
+        {
+          "label": "Comparison and limits",
+          "detail": "Compare positions with prior imaging and state what function imaging cannot assess.",
+          "sections": [
+            "COMPARISON AND FUNCTIONAL LIMITS"
+          ],
+          "look": "Prior radiographs and CT.",
+          "normal": "Device positions unchanged since [date]. Imaging does not assess device function.",
+          "findings": [
+            "Lead retraction since [date].",
+            "Device migration of __ mm."
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428",
+            "FJ2439",
+            "FJ2438"
+          ],
+          "tip": "A normal position does not prove normal electrical or haemodynamic function."
+        }
+      ]
+    },
+    "ra.cardiac-masses": {
+      "steps": [
+        {
+          "label": "Location and attachment",
+          "detail": "Identify the chamber, tissue of origin, attachment and number of masses.",
+          "sections": [
+            "LOCATION AND ATTACHMENT"
+          ],
+          "look": "Cine images to show attachment; multiplanar CT.",
+          "normal": "No intracardiac mass.",
+          "findings": [
+            "Left atrial mass attached to the interatrial septum at the fossa ovalis (myxoma pattern).",
+            "Left atrial appendage filling defect.",
+            "Mass arising from the [ ] valve leaflet."
+          ],
+          "images": [
+            "cardiac-masses-devices-image-1"
+          ],
+          "landmark": "atria",
+          "parts": [
+            "FJ2438",
+            "FJ2439"
+          ]
+        },
+        {
+          "label": "Morphology",
+          "detail": "Describe dimensions, contour and mobility if assessed.",
+          "sections": [
+            "MORPHOLOGY"
+          ],
+          "look": "Orthogonal measurements; cine for mobility and prolapse.",
+          "findings": [
+            "Mass __ × __ mm with a [smooth / lobulated / villous] surface, [mobile / fixed].",
+            "Prolapse through the mitral valve in diastole."
+          ],
+          "measurements": [
+            "Mass dimensions"
+          ],
+          "landmark": "atria",
+          "parts": [
+            "FJ2438"
+          ]
+        },
+        {
+          "label": "Tissue characteristics",
+          "detail": "Evaluate fat, blood, calcification and MRI signal.",
+          "sections": [
+            "TISSUE CHARACTERISTICS"
+          ],
+          "look": "CT attenuation; MRI T1, T2 and fat-suppressed images.",
+          "findings": [
+            "Fat-containing lesion of the interatrial septum sparing the fossa ovalis (lipomatous hypertrophy).",
+            "High T2 signal heterogeneous mass (myxoma pattern).",
+            "Calcified mass along the mitral annulus (caseous calcification)."
+          ],
+          "landmark": "septum",
+          "parts": [
+            "FJ2439",
+            "FJ2438"
+          ]
+        },
+        {
+          "label": "Enhancement",
+          "detail": "Assess first-pass perfusion and late enhancement.",
+          "sections": [
+            "ENHANCEMENT"
+          ],
+          "look": "First-pass perfusion and late gadolinium enhancement; long-inversion-time images for thrombus.",
+          "findings": [
+            "No enhancement on any phase, compatible with thrombus.",
+            "Heterogeneous enhancement.",
+            "Early appendage filling defect resolving on delayed images (mixing, not thrombus)."
+          ],
+          "images": [
+            "cardiac-masses-devices-image-2"
+          ],
+          "landmark": "atria",
+          "parts": [
+            "FJ2438"
+          ],
+          "tip": "Thrombus does not enhance; a delayed-phase image resolves most appendage mixing artefacts."
+        },
+        {
+          "label": "Effects and spread",
+          "detail": "Assess obstruction, invasion, pericardium and extracardiac disease.",
+          "sections": [
+            "EFFECTS AND SPREAD"
+          ],
+          "look": "Inflow and outflow on cine; pericardium, mediastinum and lungs.",
+          "normal": "No obstruction, invasion or extracardiac disease.",
+          "findings": [
+            "Obstruction of mitral inflow.",
+            "Invasion of the myocardium and pericardium (malignant features).",
+            "Pulmonary or pleural deposits."
+          ],
+          "images": [
+            "cardiac-masses-devices-image-3"
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428",
+            "FJ2439",
+            "FJ2438"
+          ],
+          "tip": "Metastases are far more common than primary malignant cardiac tumours."
+        }
+      ]
+    },
+    "ra.mra-peripheral-vessels": {
+      "steps": [
+        {
+          "label": "Inflow",
+          "detail": "Assess the aorta and iliac arteries.",
+          "sections": [
+            "INFLOW"
+          ],
+          "look": "First station MIP and source images of the abdominal aorta and iliac arteries.",
+          "normal": "Aorta and iliac arteries patent without significant stenosis.",
+          "findings": [
+            "Stenosis of the [left common iliac] artery, [ ]%.",
+            "Occlusion of the [right external iliac] artery."
+          ],
+          "images": [
+            "peripheral-vascular-image-1"
+          ],
+          "landmark": "iliacs"
+        },
+        {
+          "label": "Femoropopliteal segments",
+          "detail": "Map stenoses and occlusions by named segment and side.",
+          "sections": [
+            "SEGMENTAL DISEASE"
+          ],
+          "look": "Common femoral, superficial femoral, profunda and popliteal arteries on both sides.",
+          "normal": "Femoral and popliteal arteries patent on both sides.",
+          "findings": [
+            "Occlusion of the [right] superficial femoral artery from [ ] to [ ].",
+            "Multiple stenoses of the [left] popliteal artery."
+          ],
+          "images": [
+            "peripheral-vascular-image-2"
+          ],
+          "landmark": "iliacs"
+        },
+        {
+          "label": "Lesion length and calibre",
+          "detail": "Describe lesion length, stenosis severity and aneurysm.",
+          "sections": [
+            "LESION MORPHOLOGY"
+          ],
+          "look": "Source images and curved reformats; measure along the vessel.",
+          "findings": [
+            "Focal stenosis __ mm long.",
+            "Occlusion __ cm long.",
+            "Popliteal artery aneurysm __ mm."
+          ],
+          "measurements": [
+            "Lesion length"
+          ],
+          "landmark": "iliacs",
+          "tip": "MIP images can hide overlapping lesions or exaggerate stenosis; confirm on source images."
+        },
+        {
+          "label": "Runoff and collaterals",
+          "detail": "Identify distal runoff and collateral reconstitution.",
+          "sections": [
+            "RUNOFF AND COLLATERALS"
+          ],
+          "look": "Anterior tibial, posterior tibial and peroneal arteries and the pedal arch.",
+          "normal": "Three-vessel runoff to the foot bilaterally.",
+          "findings": [
+            "[Two]-vessel runoff on the [right] via the [ ].",
+            "Reconstitution of the popliteal artery via collaterals."
+          ],
+          "images": [
+            "peripheral-vascular-image-3"
+          ],
+          "landmark": "iliacs"
+        },
+        {
+          "label": "Technical limitations",
+          "detail": "Identify venous contamination, bolus timing problems, motion and metal artefacts.",
+          "sections": [
+            "TECHNICAL LIMITATIONS"
+          ],
+          "look": "Lower-leg station for venous overlap; stents for susceptibility artefact.",
+          "normal": "Diagnostic arterial opacification throughout; no significant artefact.",
+          "findings": [
+            "Venous contamination in the calf limits runoff assessment.",
+            "Stent artefact in the [ ] prevents lumen assessment."
+          ],
+          "landmark": "iliacs"
+        }
+      ]
+    },
+    "ra.ct-cardiovascular-pearls": {
+      "steps": [
+        {
+          "label": "Cardiac chambers",
+          "detail": "Follow the flow of blood through the chambers and review their size and structure.",
+          "sections": [
+            "CHAMBERS"
+          ],
+          "look": "Go with the flow: venae cavae, right atrium, right ventricle, pulmonary arteries, pulmonary veins, left atrium, left ventricle and aorta.",
+          "normal": "Cardiac chambers normal in size.",
+          "findings": [
+            "Right ventricular dilatation with contrast reflux into the IVC and hepatic veins.",
+            "Left atrial enlargement.",
+            "Left atrial appendage filling defect (thrombus versus mixing)."
+          ],
+          "images": [
+            "ra-ct-cardiovascular-pearls-source-1"
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428",
+            "FJ2439",
+            "FJ2438"
+          ],
+          "tip": "Following the direction of blood flow is a systematic way to review the heart on any chest CT."
+        },
+        {
+          "label": "Myocardium",
+          "detail": "Assess myocardial thickness, fat and calcification.",
+          "sections": [
+            "MYOCARDIUM"
+          ],
+          "look": "Left ventricular wall on soft-tissue windows.",
+          "normal": "Myocardium normal.",
+          "findings": [
+            "Subendocardial fat or calcification in the [ ] wall (old infarction).",
+            "Left ventricular aneurysm at the apex.",
+            "Left ventricular hypertrophy."
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428"
+          ]
+        },
+        {
+          "label": "Coronary and valve calcification",
+          "detail": "Report visible coronary and valve calcification within the limits of a non-gated scan.",
+          "sections": [
+            "CORONARIES AND VALVES"
+          ],
+          "look": "Coronary arteries and aortic and mitral valves.",
+          "normal": "No coronary or valve calcification.",
+          "findings": [
+            "Coronary artery calcification [mild / moderate / severe] in the [ ].",
+            "Aortic valve calcification.",
+            "Mitral annular calcification."
+          ],
+          "landmark": "septum",
+          "parts": [
+            "FJ2631",
+            "FMA3895",
+            "FJ2723",
+            "FJ3413"
+          ],
+          "tip": "A non-gated chest CT is not a coronary angiogram; report calcification, not stenosis."
+        },
+        {
+          "label": "Great vessels and veins",
+          "detail": "Inspect the aorta, pulmonary arteries and major veins.",
+          "sections": [
+            "GREAT VESSELS"
+          ],
+          "look": "Measure the aorta and main pulmonary artery perpendicular to their axis; trace the venae cavae.",
+          "normal": "Aorta and pulmonary artery normal in calibre; normal systemic veins.",
+          "findings": [
+            "Dilated ascending aorta __ mm.",
+            "Main pulmonary artery __ mm, larger than the ascending aorta.",
+            "Azygos continuation of the IVC / persistent left superior vena cava."
+          ],
+          "images": [
+            "ra-ct-cardiovascular-pearls-source-2"
+          ],
+          "measurements": [
+            "Visible vessel diameter"
+          ],
+          "landmark": "outflow",
+          "parts": [
+            "FJ3413"
+          ]
+        },
+        {
+          "label": "Pericardium",
+          "detail": "Assess pericardial fluid, thickening and calcification.",
+          "sections": [
+            "PERICARDIUM"
+          ],
+          "look": "The pericardium around the whole heart.",
+          "normal": "No pericardial effusion, thickening or calcification.",
+          "findings": [
+            "Pericardial effusion __ mm.",
+            "Pericardial calcification.",
+            "Pericardial cyst at the right cardiophrenic angle."
+          ],
+          "landmark": "ventricles",
+          "parts": [
+            "FJ2428",
+            "FJ2439",
+            "FJ2438"
+          ]
+        }
+      ]
+    },
+    "ra.pulmonary-hypertension": {
+      "steps": [
+        {
+          "label": "Opacification and evaluable level",
+          "detail": "Check arterial opacification, motion and mixing, and state the most distal evaluable level.",
+          "sections": [
+            "ARTERIAL QUALITY"
+          ],
+          "look": "Main pulmonary artery attenuation; review each territory on thin sections.",
+          "normal": "Adequate opacification; evaluable to the subsegmental level.",
+          "findings": [
+            "Limited opacification: evaluable to the [segmental] level only.",
+            "Transient interruption of contrast from inspiration (mixing artefact)."
+          ],
+          "landmark": "pulmonary",
+          "tip": "A poorly opacified or motion-degraded segment cannot be reported as negative."
+        },
+        {
+          "label": "Acute pulmonary emboli",
+          "detail": "Report side and most proximal level of filling defects and whether they occlude the vessel.",
+          "sections": [
+            "EMBOLI"
+          ],
+          "look": "Central filling defects surrounded by contrast (polo mint) or expanding the vessel.",
+          "normal": "No pulmonary embolism.",
+          "findings": [
+            "Acute pulmonary emboli in the [right lower-lobe] arteries, most proximal at the [lobar] level.",
+            "Saddle embolus at the bifurcation."
+          ],
+          "images": [
+            "pe-pulm-htn-image-1"
+          ],
+          "landmark": "pulmonary"
+        },
+        {
+          "label": "Chronic thromboembolic features",
+          "detail": "Look for webs, bands, eccentric wall-adherent material, abrupt narrowing and bronchial collaterals.",
+          "sections": [
+            "CHRONIC FEATURES"
+          ],
+          "look": "Thin sections along each artery; mosaic perfusion on lung windows.",
+          "normal": "No chronic thromboembolic features.",
+          "findings": [
+            "Webs and eccentric wall-adherent thrombus in the [ ] arteries (chronic).",
+            "Abrupt narrowing and pouch defects.",
+            "Enlarged bronchial arteries."
+          ],
+          "images": [
+            "pe-pulm-htn-image-3"
+          ],
+          "landmark": "pulmonary",
+          "tip": "Chronic thrombus is eccentric and forms an obtuse angle with the wall; acute thrombus is central."
+        },
+        {
+          "label": "Right heart and pulmonary artery",
+          "detail": "Measure RV/LV ratio, describe septal configuration and contrast reflux, and measure the main pulmonary artery.",
+          "sections": [
+            "RIGHT HEART AND PULMONARY ARTERY"
+          ],
+          "look": "Axial or four-chamber reformat at the widest point of each ventricle; main pulmonary artery at the bifurcation.",
+          "normal": "RV/LV ratio below 1; normal septum; main pulmonary artery __ mm.",
+          "findings": [
+            "RV/LV ratio __ with septal flattening and contrast reflux into the IVC (right-heart strain).",
+            "Main pulmonary artery __ mm, larger than the ascending aorta (suggests pulmonary hypertension)."
+          ],
+          "images": [
+            "pe-pulm-htn-image-2"
+          ],
+          "measurements": [
+            "RV/LV ratio",
+            "Main pulmonary artery"
+          ],
+          "landmark": "heart",
+          "tip": "CT signs suggest pulmonary hypertension; confirmation requires haemodynamic measurement."
+        },
+        {
+          "label": "Lungs and associated causes",
+          "detail": "Inspect infarcts, mosaic perfusion, pleura and causes of pulmonary hypertension.",
+          "sections": [
+            "LUNGS AND ASSOCIATED CAUSES"
+          ],
+          "look": "Lung windows; left heart, congenital shunts and lung disease.",
+          "normal": "No infarct or mosaic perfusion; no alternative cause identified.",
+          "findings": [
+            "Peripheral wedge-shaped consolidation (infarct) in the [ ].",
+            "Mosaic perfusion pattern.",
+            "Emphysema / fibrosis as a cause of pulmonary hypertension (group 3)."
+          ],
+          "landmark": "lobes"
+        }
+      ]
+    }
+  }
+}
