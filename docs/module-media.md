@@ -1,24 +1,21 @@
-# Photorealistic imagery and 3D across the Primer
+# Lesson media and 3D across the Primer
 
-Every one of the 558 lessons across all 19 fields has a local photorealistic
-image and an interactive 3D companion. Existing explanatory diagrams and
-interactive exercises remain available.
+Every one of the 558 lessons across all 19 fields has its own explanatory
+illustration and an interactive 3D companion. Existing interactive exercises
+remain available. The lesson's leading illustration loads eagerly; later lesson
+images and gallery images load lazily. The keyboard-accessible image viewer
+provides enlargement and restores focus on Escape.
 
-## Photographs
+## Removed: generated contextual scenes
 
-The collection contains 30 original AI-generated contextual photographs: two
-for each original field and one for each of the eight new fields. They are subject
-contexts shared across related lessons, not 558 distinct photographs. Each has an 800-pixel and a
-1600-pixel WebP, descriptive alternative text, a caption and a visible
-AI-generated credit. The leading photograph loads eagerly; subsequent lesson
-images and gallery images load lazily. The existing keyboard-accessible image
-viewer provides enlargement and restores focus on Escape.
-
-Assets live in `web/illustrations/photoreal/`; the catalog is
-`data/module-photographs.json`. Exact prompts and built-in image-generation
-provenance are recorded in `module-photograph-prompts.md` and
-`expansion-photograph-prompts.json`. The Radiology
-photographs show equipment and context; they are not synthetic patient scans.
+Until 26 September 2026 every lesson also showed one of 30 AI-generated
+photorealistic "contextual scenes" (for example an ultrasound room for
+radiology or a desk of geometric solids for mathematics), shared across a
+field. They did not match the authored plates or the source figures and taught
+nothing about the lesson, so they were removed with their catalog
+(`data/module-photographs.json`), 60 WebP files and generation prompts. The
+generated shoulder-bone plate in the radiology reference was removed for the
+same reason. The lesson-media validator now rejects the `photograph` kind.
 
 ## Spatial companions
 
@@ -47,10 +44,10 @@ duplicate anatomical viewers.
 ## Integration and checks
 
 `primer/module_media.py` appends the new media as the curriculum loads.
-`primer/curriculum.py` validates local image dimensions, generated provenance,
-and exact lesson/model bindings. Runtime additions stay out of the compact
-curriculum graph and navigation responses. The answer-free visual catalog
-includes photographs and has separate photograph and 3D filters.
+`primer/curriculum.py` validates local image dimensions and exact
+lesson/model bindings. Runtime additions stay out of the compact curriculum
+graph and navigation responses. The answer-free visual catalog lists lesson
+plates and models, with separate illustration, model and 3D filters.
 
 Useful verification commands:
 
@@ -64,9 +61,8 @@ NODE_PATH=/path/to/playwright/node_modules node tools/check_module_media_browser
 The browser checker requires an isolated development database because it
 creates a QA reader. It checks complete API coverage, local image decoding,
 gallery filters, representative lesson routes, model parameters, rotation,
-reset, keyboard image enlargement and mobile overflow. Photorealistic imagery
-is explicitly contextual; image presence and working controls alone do not
-establish subject-matter accuracy.
+reset, keyboard image enlargement and mobile overflow. Image presence and
+working controls alone do not establish subject-matter accuracy.
 
 Historical baseline before the pathway expansion, verified locally on 2026-09-23: 32,041 Python tests passed, with two existing
 fixture skips. The final Radiology photo-selection adjustment also passed all

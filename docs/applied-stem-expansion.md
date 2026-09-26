@@ -19,7 +19,7 @@ Master's modules require explicit research or critique: constrained optimization
 
 Each module includes a `visual_spec` with three or four authored conceptual panels, a `flow` or `compare` mode, and a takeaway. Flow arrows are used for an actual sequence or transfer, not merely to connect unrelated outcomes. Numerical diagrams use clearly hypothetical values already taught in the corresponding lesson. Each module supplies a supported `model_family` and a lesson-specific `model_context` that states the representation's limits. These are input specifications for the main integration work; media assets and shared manifests are owned by the parent task.
 
-Photographs, diagrams, and models should be identified by type. A photorealistic rendering is not measurement evidence. Generic 3D geometry is a conceptual aid rather than a validated physical simulation, medical model, or professional design tool.
+Diagrams and models should be identified by type. Generic 3D geometry is a conceptual aid rather than a validated physical simulation, medical model, or professional design tool.
 
 ## Primary-source checks
 

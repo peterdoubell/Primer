@@ -488,8 +488,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     for nid, node in with_models.items():
         assert node['stage'] == expected[nid][0], nid
         base_media = [entry for entry in node['lesson_media']
-                      if entry['kind'] != 'photograph'
-                      and (entry.get('renderer') == expected[nid][1]
+                      if (entry.get('renderer') == expected[nid][1]
                            or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
@@ -572,7 +571,7 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
         'phys.4.fluids': 'venturi-flow-lab',
     }
     for nid, node in physics.items():
-        base_media = [item for item in node.get('lesson_media', []) if item['kind'] != 'photograph' and item.get('renderer') != 'spatial-3d']
+        base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') != 'spatial-3d']
         assert [item['kind'] for item in base_media] == [
             'illustration', 'model'], nid
         plate, model = base_media

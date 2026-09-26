@@ -1199,8 +1199,8 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     body = response.json()
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
-        'lessons': 558, 'illustrations': 561, 'photographs': 558,
-        'models': 816, 'items': 1935,
+        'lessons': 558, 'illustrations': 561,
+        'models': 816, 'items': 1377,
     }
 
     expected_domain_counts = {
@@ -1219,21 +1219,15 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
         domain['id']: (domain['illustrations'], domain['models'])
         for domain in body['domains']
     } == expected_domain_counts
-    assert all(domain['items'] == domain['illustrations'] + domain['photographs'] + domain['models']
+    assert all(domain['items'] == domain['illustrations'] + domain['models']
                for domain in body['domains'])
-    assert all(domain['photographs'] == sum(node['domain'] == domain['id']
-                                              for node in srv.curr.nodes.values())
-               for domain in body['domains'])
+    assert all('photographs' not in domain for domain in body['domains'])
 
     expected_order = []
     for node in srv.curr.nodes.values():
         expected_order.extend(
             (node['id'], entry['id'], 'illustration')
             for entry in node['lesson_media'] if entry['kind'] == 'illustration'
-        )
-        expected_order.extend(
-            (node['id'], entry['id'], 'photograph')
-            for entry in node['lesson_media'] if entry['kind'] == 'photograph'
         )
         expected_order.extend(
             (node['id'], entry['id'], 'model')
@@ -1250,18 +1244,11 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
         'src', 'srcset', 'alt', 'caption', 'long_description', 'width', 'height',
     }
     model_keys = common | {'title', 'instructions', 'renderer'}
-    photograph_keys = common | {'src', 'srcset', 'alt', 'caption', 'width', 'height',
-                                'credit', 'source_type'}
     for item in body['items']:
         if item['kind'] == 'illustration':
             assert set(item) == illustration_keys
             assert item['src'].startswith('/app/illustrations/')
             assert item['src'] in item['srcset']
-        elif item['kind'] == 'photograph':
-            assert set(item) == photograph_keys
-            assert item['src'].startswith('/app/illustrations/photoreal/')
-            assert item['source_type'] == 'generated'
-            assert 'AI-generated' in item['credit']
         else:
             assert item['kind'] == 'model'
             assert set(item) == model_keys
@@ -1311,10 +1298,10 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
 
     def authored_media(payload):
         media = payload['lesson_media']
-        assert sum(item['kind'] == 'photograph' for item in media) == 1
+        assert not any(item['kind'] == 'photograph' for item in media)
         assert any(item.get('renderer') in {'spatial-3d', 'radiology-anatomy'} for item in media)
-        return [item for item in media if item['kind'] != 'photograph'
-                and not item.get('props', {}).get('scenario', '').startswith('module.')
+        return [item for item in media
+                if not item.get('props', {}).get('scenario', '').startswith('module.')
                 and item.get('renderer') != 'radiology-anatomy']
 
     # This contract checks authored media, not Wikipedia availability. Article

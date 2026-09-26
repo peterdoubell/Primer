@@ -31,7 +31,7 @@ def test_expansion_contains_taught_assessed_visual_lessons(curriculum):
         assert len(node['learning_outcomes']) >= 3
         assert len(node['quiz']) >= (6 if node['stage'] < 2 else 11)
         assert all(q.get('explain') for q in node['quiz'])
-        assert {m['kind'] for m in node['lesson_media']} == {'photograph', 'illustration', 'model'}
+        assert {m['kind'] for m in node['lesson_media']} == {'illustration', 'model'}
         plate = next(m for m in node['lesson_media'] if m['kind'] == 'illustration')
         assert plate['long_description'] == node['visual_spec']
         assert all(p in curriculum.nodes for p in node['prereqs'])

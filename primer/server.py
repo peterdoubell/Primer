@@ -1361,7 +1361,6 @@ def curriculum_visuals():
             "id": domain["id"],
             "name": domain["name"],
             "illustrations": 0,
-            "photographs": 0,
             "models": 0,
             "items": 0,
         }
@@ -1369,7 +1368,6 @@ def curriculum_visuals():
     }
     items = []
     illustration_count = 0
-    photograph_count = 0
     model_count = 0
     for node in curr.nodes.values():
         plates = [entry for entry in node.get("lesson_media", [])
@@ -1404,20 +1402,6 @@ def curriculum_visuals():
             illustration_count += 1
             domain_counts[domain_id]["illustrations"] += 1
             domain_counts[domain_id]["items"] += 1
-        for photo in (entry for entry in node.get("lesson_media", [])
-                      if entry.get("kind") == "photograph"):
-            items.append(dict(common, **{
-                "kind": "photograph",
-                "media_id": photo["id"],
-                "src": photo["src"], "srcset": photo["srcset"],
-                "alt": photo["alt"], "caption": photo["caption"],
-                "width": photo["width"], "height": photo["height"],
-                "credit": photo["credit"], "source_type": photo["source_type"],
-            }))
-            photograph_count += 1
-            domain_counts[domain_id]["photographs"] += 1
-            domain_counts[domain_id]["items"] += 1
-
         for model in (entry for entry in node.get("lesson_media", [])
                       if entry.get("kind") == "model"):
             items.append(dict(common, **{
@@ -1435,7 +1419,6 @@ def curriculum_visuals():
         "counts": {
             "lessons": len(curr.nodes),
             "illustrations": illustration_count,
-            "photographs": photograph_count,
             "models": model_count,
             "items": len(items),
         },

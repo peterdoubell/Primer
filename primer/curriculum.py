@@ -231,16 +231,10 @@ def _validate_lesson_media(node: Dict) -> None:
             raise ValueError("{} repeats lesson media id {}".format(node.get("id"), media_id))
         seen.add(media_id)
         kind = entry.get("kind")
-        if kind in {"illustration", "photograph"}:
-            required_keys = illustration_required_keys | ({"credit", "source_type"} if kind == "photograph" else set())
-            optional_keys = illustration_optional_keys if kind == "illustration" else set()
-            if (not required_keys.issubset(entry)
-                    or set(entry) - required_keys - optional_keys):
+        if kind == "illustration":
+            if (not illustration_required_keys.issubset(entry)
+                    or set(entry) - illustration_required_keys - illustration_optional_keys):
                 raise ValueError("{} illustration {} has unexpected fields".format(node.get("id"), media_id))
-            if kind == "photograph":
-                text(entry, "credit")
-                if entry.get("source_type") != "generated":
-                    raise ValueError("{} photograph needs explicit generated provenance".format(node.get("id")))
             source = text(entry, "src")
             local_image(source)
             if any(isinstance(entry.get(key), bool) or not isinstance(entry.get(key), int)

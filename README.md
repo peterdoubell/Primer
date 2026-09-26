@@ -50,9 +50,8 @@ The Primer is three things woven together:
 
    Every field spans all six stages. The 106 newly added lessons include
    teaching explanations, examples, activities, reflections and assessments.
-   Every lesson has photographic context, an explanatory illustration and an
-   interactive 3D study. The 30 AI-generated photographs are shared contexts;
-   diagrams and model explanations are attached to individual lessons. These
+   Every lesson has an explanatory illustration and an interactive 3D study,
+   both attached to that lesson. These
    are learning pathways, not accredited or exhaustive degree programs.
    See [the expansion guide](docs/learning-expansion.md) for scope and maintenance.
 
