@@ -151,17 +151,6 @@ def audit() -> Dict[str, object]:
             "missing": missing,
         })
     referenced_paths = {Path(url.removeprefix("/app/")) for url in urls}
-    # Shared photographic contexts have their own manifest and validation;
-    # they are not unique explanatory plates, but are still referenced assets.
-    photo_manifest = ROOT / "data" / "module-photographs.json"
-    if photo_manifest.is_file():
-        photo_domains = json.loads(photo_manifest.read_text(encoding="utf-8"))["domains"]
-        for photos in photo_domains.values():
-            for photo in photos:
-                for candidate in photo["srcset"].split(","):
-                    url = candidate.strip().split()[0]
-                    if url.startswith("/app/illustrations/photoreal/"):
-                        referenced_paths.add(Path(url.removeprefix("/app/")))
     canonical_paths = {
         path.relative_to(WEB_ROOT)
         for path in (WEB_ROOT / "illustrations").rglob("*.webp")

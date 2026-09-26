@@ -13,7 +13,7 @@ const { chromium } = require('playwright');
 const { createEvidenceDirectory, loopbackQaUrl } = require('./qa-browser.cjs');
 const base = loopbackQaUrl(process.argv[2]);
 const output = createEvidenceDirectory();
-const photographsOnly = process.argv[4] === '--photos-only';
+const galleryOnly = process.argv[4] === '--gallery-only';
 const root = path.resolve(__dirname, '..');
 const authored = fs.readdirSync(path.join(root, 'data/curriculum'))
   .filter(name => /^\d.*\.json$/.test(name))
@@ -41,20 +41,19 @@ const hash = buffer => createHash('sha256').update(buffer).digest('hex');
     const galleryResponse = await context.request.get(base + '/api/curriculum/visuals');
     assert.equal(galleryResponse.status(), 200);
     const gallery = await galleryResponse.json();
-    const photos = gallery.items.filter(item => item.kind === 'photograph');
+    const plates = gallery.items.filter(item => item.kind === 'illustration');
     const models = gallery.items.filter(spatial);
     const ids = new Set(authored.map(node => node.id));
     assert.equal(authored.length, 558, 'Full Primer lesson count');
     assert.equal(gallery.domains.length, 19, 'Full Primer subject count');
-    assert.equal(photos.length, ids.size, 'Every lesson has a photograph placement');
-    assert.equal(gallery.counts.photographs, photos.length, 'Gallery photograph count matches records');
+    assert.ok(!gallery.items.some(item => !['illustration', 'model'].includes(item.kind)), 'Only lesson plates and models');
+    assert.equal(gallery.counts.illustrations, plates.length, 'Gallery illustration count matches records');
     for (const id of ids) {
-      assert.equal(photos.filter(item => item.lesson_id === id).length, 1, id + ': one photograph');
+      assert.ok(plates.some(item => item.lesson_id === id), id + ': at least one lesson illustration');
       assert.ok(models.some(item => item.lesson_id === id), id + ': at least one interactive 3D model');
     }
     evidence.coverage = { lessons: ids.size, subjects: gallery.domains.length,
-      photoPlacements: photos.length, spatialModels: models.length,
-      uniquePhotoSources: new Set(photos.map(item => item.src)).size };
+      illustrations: plates.length, spatialModels: models.length };
     evidence.sourceHashes = {};
     for (const file of ['app.js', 'styles.css', 'spatial-module-objects.js', 'lesson-models.js']) {
       const response = await context.request.get(base + '/app/' + file);
@@ -69,13 +68,15 @@ const hash = buffer => createHash('sha256').update(buffer).digest('hex');
     page.on('pageerror', error => evidence.errors.push(error.message));
     await page.goto(base + '/#/math-images');
     const kind = page.getByRole('combobox', { name: 'Kind', exact: true });
-    await kind.selectOption('photograph');
+    assert.equal(await kind.locator('option[value="photograph"]').count(), 0, 'No photorealistic scene filter');
+    await kind.selectOption('illustration');
     await page.waitForFunction(count => document.querySelector('.math-gallery-live')?.textContent
-      .startsWith('Showing ' + count + ' of ' + count + ' photorealistic scenes'), photos.length);
-    assert.equal(await page.locator('.math-image-card:not([hidden])').count(), photos.length);
-    assert.equal(await page.locator('.math-image-card:not([hidden]) .photograph-origin').count(), photos.length);
-    assert.equal(await page.locator('.math-image-card:not([hidden]) img[loading="lazy"]').count(), photos.length);
-    const sources = [...new Set(photos.flatMap(item => [item.src,
+      .startsWith('Showing ' + count + ' of ' + count + ' illustrations'), plates.length);
+    assert.equal(await page.locator('.math-image-card:not([hidden])').count(), plates.length);
+    assert.equal(await page.locator('.math-image-card:not([hidden]) img[loading="lazy"]').count(), plates.length);
+    // One plate per subject, at every published resolution, decodes.
+    const sample = gallery.domains.map(domain => plates.find(item => item.domain === domain.id)).filter(Boolean);
+    const sources = [...new Set(sample.flatMap(item => [item.src,
       ...String(item.srcset || '').split(',').map(part => part.trim().split(/\s+/)[0])]).filter(Boolean))];
     const decoded = await page.evaluate(async sources => Promise.all(sources.map(async src => {
       const image = new Image();
@@ -83,24 +84,24 @@ const hash = buffer => createHash('sha256').update(buffer).digest('hex');
       await image.decode();
       return { src, width: image.naturalWidth, height: image.naturalHeight };
     })), sources);
-    assert.ok(decoded.every(image => image.width > 0 && image.height > 0), 'Every photograph resolution decodes');
-    evidence.decodedPhotos = decoded;
-    await page.getByRole('searchbox').fill('AI-generated math');
+    assert.ok(decoded.every(image => image.width > 0 && image.height > 0), 'Every sampled plate resolution decodes');
+    evidence.decodedPlates = decoded;
+    await page.getByRole('searchbox').fill('fractions');
     const found = await page.locator('.math-image-card:not([hidden])').count();
-    assert.ok(found > 0 && found < photos.length, 'Multi-term photograph search filters its subject and provenance');
+    assert.ok(found > 0 && found < plates.length, 'Search filters lesson plates');
     await page.getByRole('searchbox').fill('');
-    await page.screenshot({ path: path.join(output, 'photograph-gallery-desktop.png'), animations: 'disabled' });
+    await page.screenshot({ path: path.join(output, 'illustration-gallery-desktop.png'), animations: 'disabled' });
     await kind.selectOption('spatial-3d');
     assert.equal(await page.locator('.math-image-card:not([hidden])').count(), models.length);
     await page.setViewportSize({ width: 390, height: 844 });
-    await kind.selectOption('photograph');
+    await kind.selectOption('illustration');
     await assertNoOverflow('Gallery mobile');
-    await page.screenshot({ path: path.join(output, 'photograph-gallery-mobile.png'), animations: 'disabled' });
-    evidence.checks.push('Gallery photograph/3D filters, credit search, lazy loading and mobile layout');
-    if (photographsOnly) {
+    await page.screenshot({ path: path.join(output, 'illustration-gallery-mobile.png'), animations: 'disabled' });
+    evidence.checks.push('Gallery illustration/3D filters, search, lazy loading and mobile layout');
+    if (galleryOnly) {
       assert.deepEqual(evidence.errors, [], 'No uncaught browser exceptions');
-      fs.writeFileSync(path.join(output, 'photograph-evidence.json'), JSON.stringify(evidence, null, 2) + '\n');
-      console.log('PASS final photograph coverage: ' + JSON.stringify(evidence.coverage));
+      fs.writeFileSync(path.join(output, 'gallery-evidence.json'), JSON.stringify(evidence, null, 2) + '\n');
+      console.log('PASS gallery coverage: ' + JSON.stringify(evidence.coverage));
       return;
     }
 
@@ -135,28 +136,26 @@ const hash = buffer => createHash('sha256').update(buffer).digest('hex');
       await page.setViewportSize({ width: 1440, height: 1000 });
       await page.goto(base + '/#/node/' + encodeURIComponent(node.id));
       await page.waitForFunction(title => document.querySelector('.pagehead h2')?.textContent === title, node.title);
-      const photo = page.locator('.lesson-photograph img').first();
-      await photo.waitFor();
-      await photo.scrollIntoViewIfNeeded();
-      await photo.evaluate(image => image.decode());
-      assert.equal(await photo.getAttribute('loading'), 'eager', node.id + ': leading photo loads eagerly');
-      assert.equal(await photo.getAttribute('role'), 'button', node.id + ': image is keyboard accessible');
-      const accessibleName = await photo.getAttribute('aria-label');
-      assert.match(accessibleName, /AI-generated\s/, node.id + ': provenance has a readable word boundary');
-      assert.doesNotMatch(accessibleName, /sceneAI|\.AI-generated/, node.id + ': caption blocks do not run together');
-      assert.match(await page.locator('.lesson-photograph').first().innerText(), /AI-generated/);
-      const laterImages = await page.locator('.lesson-media > .lesson-illustration img').evaluateAll(images => images.map(image => image.loading));
+      assert.equal(await page.locator('.lesson-photograph').count(), 0, node.id + ': no photorealistic scene');
+      const plate = page.locator('.lesson-media > .lesson-illustration img').first();
+      await plate.waitFor();
+      await plate.scrollIntoViewIfNeeded();
+      await plate.evaluate(image => image.decode());
+      assert.equal(await plate.getAttribute('loading'), 'eager', node.id + ': leading plate loads eagerly');
+      assert.equal(await plate.getAttribute('role'), 'button', node.id + ': image is keyboard accessible');
+      assert.ok((await plate.getAttribute('aria-label') || '').trim(), node.id + ': image has an accessible name');
+      const laterImages = await page.locator('.lesson-media > .lesson-illustration img').evaluateAll(images => images.slice(1).map(image => image.loading));
       assert.ok(laterImages.every(value => value === 'lazy'), node.id + ': lower lesson images load lazily');
-      await photo.focus();
+      await plate.focus();
       await page.keyboard.press('Enter');
       const dialog = page.getByRole('dialog');
       await dialog.waitFor();
       await dialog.locator('.lightbox img').evaluate(image => image.decode());
-      await dialog.getByRole('button', { name: 'View full-size image', exact: true }).click();
+      await dialog.getByRole('button', { name: 'Read labels at full size', exact: true }).click();
       assert.equal(await dialog.locator('.lightbox-zoom').getAttribute('aria-pressed'), 'true');
       await page.keyboard.press('Escape');
       await dialog.waitFor({ state: 'hidden' });
-      assert.ok(await photo.evaluate(image => document.activeElement === image), node.id + ': Escape restores photograph focus');
+      assert.ok(await plate.evaluate(image => document.activeElement === image), node.id + ': Escape restores image focus');
 
       const model = page.locator(node.qaScenario
         ? '.spatial-model[data-scenario="' + node.qaScenario + '"]' : '.spatial-model').first();
@@ -219,8 +218,8 @@ const hash = buffer => createHash('sha256').update(buffer).digest('hex');
       }
       await page.setViewportSize({ width: 390, height: 844 });
       await assertNoOverflow(node.id + ' mobile');
-      await photo.scrollIntoViewIfNeeded();
-      await page.screenshot({ path: path.join(output, node.id + '-photo-mobile.png'), animations: 'disabled' });
+      await plate.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: path.join(output, node.id + '-plate-mobile.png'), animations: 'disabled' });
       if (await model.count()) {
         await model.locator('.spatial-canvas').screenshot({ path: path.join(output, node.id + '-model-mobile.png') });
         await assertNoOverflow(node.id + ' mobile model');
@@ -241,21 +240,20 @@ const hash = buffer => createHash('sha256').update(buffer).digest('hex');
         }
       }
       evidence.lessons.push({ id: node.id, domain: node.domain, scenario, family: node.qaFamily });
-      console.log('PASS ' + node.id + ': photo, zoom, 3D, mobile' + (scenario ? ' (' + scenario + ')' : ''));
+      console.log('PASS ' + node.id + ': plate, zoom, 3D, mobile' + (scenario ? ' (' + scenario + ')' : ''));
     }
     assert.ok(pointerDragVerified && touchDragVerified, 'Mouse and touch model rotation were exercised');
     // The separate reporting workspace has its own lazy-built Images panel.
     const radiologyCatalog = await (await context.request.get(base + '/api/radiology/modules')).json();
     await page.goto(base + '/#/radiology/' + radiologyCatalog.modules[0].id);
     await page.getByRole('tab', { name: /^Images \(/ }).click();
-    const radPhoto = page.locator('.rad-desk-panel:not([hidden]) .lesson-photograph img');
-    await radPhoto.waitFor();
-    await radPhoto.evaluate(image => image.decode());
+    await page.locator('.rad-desk-panel:not([hidden]) .rad-key-images').waitFor();
+    assert.equal(await page.locator('.rad-desk-panel:not([hidden]) .lesson-photograph').count(), 0, 'No photorealistic scene on the Images tab');
     await assertNoOverflow('Radiology image tab mobile');
     await page.getByRole('tab', { name: /3D anatomy|Spatial guide/ }).click();
     assert.ok(await page.locator('.rad-desk-panel:not([hidden]) .detailed-anatomy, .rad-desk-panel:not([hidden]) .spatial-model').count() >= 1);
     assert.ok(await page.locator('.rad-desk-panel:not([hidden]) .detailed-anatomy').count() <= 1, 'Radiology anatomy is not duplicated');
-    evidence.checks.push('Radiology Images tab photograph and nonduplicated 3D anatomy');
+    evidence.checks.push('Radiology Images tab without scenes and nonduplicated 3D anatomy');
     assert.deepEqual(evidence.errors, [], 'No uncaught browser exceptions');
     fs.writeFileSync(path.join(output, 'evidence.json'), JSON.stringify(evidence, null, 2) + '\n');
     console.log('PASS all-module coverage: ' + JSON.stringify(evidence.coverage));
@@ -263,7 +261,7 @@ const hash = buffer => createHash('sha256').update(buffer).digest('hex');
     async function assertNoOverflow(label) {
       const bounds = await page.evaluate(() => ({
         viewport: innerWidth, document: document.documentElement.scrollWidth,
-        overflowing: [...document.querySelectorAll('.lesson-media, .lesson-photograph, .spatial-model, .math-gallery-overview')]
+        overflowing: [...document.querySelectorAll('.lesson-media, .lesson-illustration, .spatial-model, .math-gallery-overview')]
           .filter(element => element.getBoundingClientRect().width && element.scrollWidth > element.clientWidth + 1)
           .map(element => element.className),
       }));

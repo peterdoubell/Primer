@@ -1723,16 +1723,6 @@ function lessonLongDescription(item) {
   };
 }
 
-function photographCaption(item) {
-  return el('figcaption', { class: 'photograph-caption' },
-    el('div', { class: 'photograph-caption-labels' },
-      el('span', { class: 'photograph-kind' }, 'Photorealistic scene'),
-      item.source_type === 'generated'
-        ? el('span', { class: 'photograph-origin' }, 'AI-generated') : null),
-    item.caption ? el('p', { class: 'photograph-description' }, item.caption) : null,
-    item.credit ? el('p', { class: 'photograph-credit' }, item.credit) : null);
-}
-
 // Every anchor that leaves the book, wherever it is drawn, gets the same
 // treatment: a mark, a spoken warning, and the door. Factored out of the
 // reader when specialist modules began citing their sources on the lesson
@@ -1908,12 +1898,9 @@ function renderLessonMedia(items) {
   if (!Array.isArray(items) || !items.length) return null;
   const media = el('div', { class: 'lesson-media' });
   let imageCount = 0;
-  const ordered = [...items.filter(item => item?.kind === 'photograph'),
-    ...items.filter(item => item?.kind !== 'photograph')];
-  ordered.forEach(item => {
-    if (item && (item.kind === 'illustration' || item.kind === 'photograph')) {
+  items.forEach(item => {
+    if (item && item.kind === 'illustration') {
       if (!item.src || !item.alt) return;
-      const isPhotograph = item.kind === 'photograph';
       const firstImage = imageCount++ === 0;
       const image = el('img', {
         src: item.src,
@@ -1925,11 +1912,10 @@ function renderLessonMedia(items) {
         loading: firstImage ? 'eager' : 'lazy',
         decoding: 'async',
         fetchpriority: firstImage ? 'high' : 'auto',
-        dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src), mediaKind: item.kind },
+        dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src) },
       });
-      const figure = el('figure', { class: 'card ' + (isPhotograph ? 'lesson-photograph' : 'lesson-illustration') }, image);
-      if (isPhotograph) figure.append(photographCaption(item));
-      else if (item.caption) figure.append(el('figcaption', {}, item.caption));
+      const figure = el('figure', { class: 'card lesson-illustration' }, image);
+      if (item.caption) figure.append(el('figcaption', {}, item.caption));
       const longDescription = lessonLongDescription(item);
       if (longDescription) {
         image.setAttribute('aria-describedby', longDescription.id);
@@ -2230,7 +2216,6 @@ async function renderRadiologyDesk(page, nodeId) {
   const n = await reportingGuard(page, () => api.get('/api/radiology/modules/' + encodeURIComponent(nodeId)));
   if (!n) return;
   const ref = n.radiology_reference, guide = ref.reporting;
-  const photographs = (n.lesson_media || []).filter(item => item.kind === 'photograph');
   if (!S.radiologyFilter) S.radiologyFilter = { query: '', section: n.section };
   const detailedAnatomy = window.PrimerDetailedAnatomy?.supported(ref.spatial_model.family);
   page.append(el('nav', { class: 'rad-desk-backbar', 'aria-label': 'Reference navigation' },
@@ -2262,25 +2247,11 @@ async function renderRadiologyDesk(page, nodeId) {
     } }))],
     ['guide', 'Checklist', panel => panel.append(renderReportingGuide(guide, n.id))],
     ['template', 'Report template', panel => panel.append(templates)],
-    ['images', 'Images (' + (ref.key_images.length + photographs.length) + ')', panel => {
-      if (photographs.length) panel.append(
-        el('h3', {}, 'Photorealistic study scenes'), renderLessonMedia(photographs),
-        el('h3', {}, 'Clinical images and reference diagrams'));
+    ['images', 'Images (' + ref.key_images.length + ')', panel => {
       const images = legacy.querySelector('.rad-key-images');
       panel.append(images); attachPictureHandlers(images);
     }],
     ['diagram', 'Diagram', panel => {
-      for (const asset of ref.anatomical_illustrations || []) {
-        const figure = el('figure', { class: 'rad-anatomy-illustration' },
-          el('h3', {}, asset.title),
-          el('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
-            loading: 'lazy', dataset: { fullSrc: asset.src } }),
-          el('figcaption', {}, el('strong', {}, 'Generated anatomical illustration'),
-            el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),
-            radiologySourceLink('Anatomical reference dataset', asset.source_url), ' · ',
-            radiologySourceLink('CC BY 4.0', asset.license_url)));
-        panel.append(figure); attachPictureHandlers(figure);
-      }
       const detailedDiagrams = ref.key_images.filter(image => image.image_type === 'diagram');
       if (detailedDiagrams.length) {
         const sourceDiagrams = el('div', { class: 'rad-source-diagrams' }, el('h3', {}, 'Detailed source diagrams'));
@@ -2685,10 +2656,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   function showVisual(announce) {
     const page = pages[current];
     const list = page.images.map(id => figures.get(id)).filter(Boolean);
-    // Orientation: figures no step claims, the generated anatomy plate and the
-    // module's original reporting diagram.
-    const extras = page.kind === 'start' ? [...(ref.anatomical_illustrations || []).map(asset => ({ ...asset, label: asset.title,
-      image_type: 'diagram', caption: asset.caption + ' Generated anatomical illustration.' })),
+    // Orientation: figures no step claims and the module's original reporting diagram.
+    const extras = page.kind === 'start' ? [
       ...(n.lesson_media || []).filter(item => item.kind === 'illustration' && item.src).map(item => ({
         src: item.src, alt: item.alt, label: 'Reporting overview diagram', image_type: 'diagram', caption: item.caption,
         attribution: 'Original Primer diagram.', width: item.width, height: item.height }))] : [];
@@ -3501,13 +3470,6 @@ function pictureCaptionElement(img) {
 
 function pictureCaptionText(caption) {
   if (!caption) return '';
-  if (caption.classList.contains('photograph-caption')) {
-    // The figure is still detached when its keyboard label is assembled.
-    // Explicit separators keep badges, description and credit readable even
-    // before innerText can use the rendered block layout.
-    return ['.photograph-description', '.photograph-origin', '.photograph-credit']
-      .map(selector => caption.querySelector(selector)?.textContent.trim()).filter(Boolean).join('\n');
-  }
   if (caption.closest('.rad-image-example')) {
     return Array.from(caption.children).map(part => part.textContent.trim())
       .filter(Boolean).join('\n');
@@ -3688,7 +3650,7 @@ function openLightbox(img, opener) {
       syncNativeImageSize();
       const canReadFullSize = Boolean(img.dataset.fullSrc);
       if (canReadFullSize) {
-        const fullSizeLabel = img.dataset.mediaKind === 'photograph' ? 'View full-size image' : 'Read labels at full size';
+        const fullSizeLabel = 'Read labels at full size';
         const zoom = btn({ class: 'btn ghost small lightbox-zoom',
           'aria-pressed': 'false', onclick: () => {
             const expanded = imageScroll.classList.toggle('is-zoomed');
@@ -4652,22 +4614,20 @@ async function renderVisualGallery(page, selection = {}) {
   const counts = data.counts || {};
   const isSpatialModel = item => item.renderer === 'spatial-3d' || item.renderer === 'radiology-anatomy';
   const spatialCount = items.filter(isSpatialModel).length;
-  const photographCount = counts.photographs ?? items.filter(item => item.kind === 'photograph').length;
   const stageCounts = STAGE_NAMES.map((_, stage) =>
     items.filter(item => item.stage === stage).length);
 
   page.append(pagehead('Whole curriculum · ' + items.length + ' visuals',
     'Visual Gallery',
-    'Photorealistic scenes, lesson diagrams and interactive models from age 3 to master’s level. Choose a field and learning stage, then open a picture or its lesson to explore.'));
+    'Lesson diagrams and interactive models from age 3 to master’s level. Choose a field and learning stage, then open a picture or its lesson to explore.'));
 
   const overview = el('section', { class: 'card math-gallery-overview',
     'aria-label': 'Visual explanation coverage' },
     el('div', { class: 'math-gallery-promise' },
       el('div', { class: 'math-gallery-mark', 'aria-hidden': 'true' }, glyph('gallery', 32)),
       el('div', {}, el('h3', {}, 'See the idea. Explore its shape.'),
-        el('p', {}, 'Shared subject scenes complement each lesson’s own diagram and model. Generated scenes are labelled with their captions. Open a model to explore its shape and relationships.'))),
+        el('p', {}, 'Each lesson’s own diagram sits beside an interactive model. Open a model to explore its shape and relationships.'))),
     el('dl', { class: 'math-gallery-stats' },
-      el('div', {}, el('dt', {}, String(photographCount)), el('dd', {}, 'lessons with scenes')),
       el('div', {}, el('dt', {}, String(counts.illustrations || 0)), el('dd', {}, 'lesson plates')),
       el('div', {}, el('dt', {}, String(counts.models || 0)), el('dd', {}, 'interactive models')),
       el('div', {}, el('dt', {}, String(domains.length)), el('dd', {}, 'fields')),
@@ -4695,7 +4655,6 @@ async function renderVisualGallery(page, selection = {}) {
   }
   const kindFilter = el('select', { id: 'visual-kind-filter', onchange: () => paint() },
     el('option', { value: 'all' }, 'All visuals · ' + items.length),
-    el('option', { value: 'photograph' }, 'Photorealistic scenes · ' + photographCount),
     el('option', { value: 'illustration' }, 'Illustrations · ' + (counts.illustrations || 0)),
     el('option', { value: 'model' }, 'Interactive models · ' + (counts.models || 0)),
     el('option', { value: 'spatial-3d' }, 'Interactive 3D · ' + spatialCount));
@@ -4722,7 +4681,6 @@ async function renderVisualGallery(page, selection = {}) {
   const live = el('div', { class: 'math-gallery-live', role: 'status', 'aria-live': 'polite' });
   const board = el('div', { class: 'math-gallery-board' });
   const groups = new Map();
-  let photographNumber = 0;
   let illustrationNumber = 0;
   let modelNumber = 0;
   domains.forEach(domain => {
@@ -4734,9 +4692,8 @@ async function renderVisualGallery(page, selection = {}) {
     const grid = el('div', { class: 'math-image-grid' });
     const cards = [];
     domainItems.forEach((item, itemIndex) => {
-      const isPhotograph = item.kind === 'photograph';
-      const isImage = item.kind === 'illustration' || isPhotograph;
-      const serial = isPhotograph ? ++photographNumber : isImage ? ++illustrationNumber : ++modelNumber;
+      const isImage = item.kind === 'illustration';
+      const serial = isImage ? ++illustrationNumber : ++modelNumber;
       const titleId = 'visual-title-' + domain.id + '-' + itemIndex;
       let visual;
       if (isImage) {
@@ -4745,10 +4702,9 @@ async function renderVisualGallery(page, selection = {}) {
           sizes: '(max-width: 520px) calc(100vw - 34px), (max-width: 700px) calc(100vw - 48px), (max-width: 1200px) 42vw, 390px',
           alt: item.alt, width: item.width, height: item.height,
           loading: 'lazy', decoding: 'async', title: 'Open this image larger',
-          dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src), mediaKind: item.kind },
+          dataset: { fullSrc: largestSrcFromSet(item.srcset, item.src) },
         });
-        visual = el('figure', { class: 'math-image-figure' + (isPhotograph ? ' gallery-photograph' : '') }, image,
-          isPhotograph ? photographCaption(item) : el('figcaption', {}, item.caption));
+        visual = el('figure', { class: 'math-image-figure' }, image, el('figcaption', {}, item.caption));
         const longDescription = lessonLongDescription({
           id: item.media_id, long_description: item.long_description,
         });
@@ -4766,7 +4722,7 @@ async function renderVisualGallery(page, selection = {}) {
         dataset: { domain: item.domain, stage: item.stage, kind: item.kind } },
         el('header', { class: 'math-image-card-head' },
           el('span', { class: 'math-image-sequence' },
-            (isPhotograph ? 'Photorealistic scene ' : isImage ? 'Illustration ' : isSpatialModel(item) ? 'Interactive 3D ' : 'Interactive model ') + String(serial).padStart(2, '0')
+            (isImage ? 'Illustration ' : isSpatialModel(item) ? 'Interactive 3D ' : 'Interactive model ') + String(serial).padStart(2, '0')
               + ' · ' + stageLabel(item.stage)),
           el('h4', { id: titleId }, item.lesson_title)),
         visual,
@@ -4777,9 +4733,7 @@ async function renderVisualGallery(page, selection = {}) {
             onclick: () => go('node', item.lesson_id) }, isImage ? 'Open lesson →' : 'Open model →')));
       card._visual = { domain: item.domain, stage: item.stage, kind: item.kind, renderer: item.renderer };
       card._visualSearch = [item.domain_name, item.lesson_title, item.goal, stageLabel(item.stage),
-        item.alt, item.caption, item.title, item.instructions, item.credit,
-        isPhotograph ? 'photorealistic photograph scene' : '',
-        item.source_type === 'generated' ? 'AI-generated' : '']
+        item.alt, item.caption, item.title, item.instructions]
         .filter(Boolean)
         .join(' ').toLocaleLowerCase();
       cards.push(card); grid.append(card);
@@ -4832,11 +4786,9 @@ async function renderVisualGallery(page, selection = {}) {
       : ((domains.find(domain => domain.id === selectedDomain) || {}).name || selectedDomain);
     const stageName = selectedStage === 'all' ? 'all stages' : stageLabel(Number(selectedStage));
     const kindName = selectedKind === 'all' ? 'visuals'
-      : selectedKind === 'photograph' ? 'photorealistic scenes'
       : selectedKind === 'spatial-3d' ? 'interactive 3D models'
       : selectedKind === 'model' ? 'interactive models' : 'illustrations';
     const kindTotal = selectedKind === 'all' ? items.length
-      : selectedKind === 'photograph' ? photographCount
       : selectedKind === 'spatial-3d' ? spatialCount
       : selectedKind === 'model' ? counts.models || 0 : counts.illustrations || 0;
     const said = 'Showing ' + shown + ' of ' + kindTotal + ' ' + kindName

@@ -155,18 +155,4 @@ for (const attrs of [{href: 'https://example.com/image'}, {href: '#/read/DNA', c
   assert.equal(linkedArt.fire('click', {target: linkedImage}).prevented, false);
 }
 assert.equal(opened.length, 3);
-// Generated-scene figures receive keyboard names while still detached, when
-// innerText cannot infer visual spacing between badge, caption and credit.
-const photo = el('img', {alt: 'Wooden solids on a study desk'});
-const photoCaption = el('figcaption', {class: 'photograph-caption'},
-  el('div', {class: 'photograph-caption-labels'},
-    el('span', {class: 'photograph-kind'}, 'Photorealistic scene'),
-    el('span', {class: 'photograph-origin'}, 'AI-generated')),
-  el('p', {class: 'photograph-description'}, 'Geometric solids connect mathematical ideas with physical objects.'),
-  el('p', {class: 'photograph-credit'}, 'AI-generated with OpenAI image generation'));
-const photoArt = el('article', {}, el('figure', {}, photo, photoCaption));
-context.attachPictureHandlers(photoArt);
-assert.equal(photo.getAttribute('aria-label'),
-  'Open picture: Geometric solids connect mathematical ideas with physical objects.\nAI-generated\nAI-generated with OpenAI image generation',
-  'Detached photograph captions retain readable boundaries and provenance');
 console.log('Verified reader picture names, keyboard activation, failure states and link preservation');

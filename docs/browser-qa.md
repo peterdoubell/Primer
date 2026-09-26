@@ -25,7 +25,7 @@ Existing optional filters remain in slot 4; use `-` for the unused slot 3.
 
 ```sh
 node tools/check_learning_pathways.cjs http://127.0.0.1:8793
-node tools/check_module_media_browser.cjs http://127.0.0.1:8793 - --photos-only
+node tools/check_module_media_browser.cjs http://127.0.0.1:8793 - --gallery-only
 node tools/check_concept_browser.cjs http://127.0.0.1:8793 - arts.1.beat
 node --test tests/qa-browser.test.cjs
 ```

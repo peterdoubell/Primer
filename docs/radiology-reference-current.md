@@ -48,11 +48,10 @@ license and source limitations appear with the viewer. Fine structures absent
 from the dataset are not invented. Other spatial explainers remain explicitly
 labelled as simplified spatial guides.
 
-A photorealistic shoulder-bone illustration was generated with the built-in
-image-generation tool using the mesh view as reference. It is labelled as a
-generated illustration and kept separate from clinical images. Prompt and
-provenance are in `web/reference-media/README.md`. Earlier soft-tissue drafts
-were not shipped. Detailed source diagrams remain credited to their publisher.
+There is no AI-generated imagery in the reference. A generated photorealistic
+shoulder-bone plate and the shared equipment "study scenes" were removed on
+26 September 2026 because they matched neither the source figures nor the
+diagrams. Detailed source diagrams remain credited to their publisher.
 
 ## Implementation and validation
 

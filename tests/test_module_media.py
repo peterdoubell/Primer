@@ -1,4 +1,4 @@
-"""Every module must offer local photography and usable, correctly bound 3D."""
+"""Every module must offer usable, correctly bound 3D and no generated scenery."""
 
 import copy
 import json
@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from primer.curriculum import Curriculum, _validate_lesson_media, _webp_dimensions
-from primer.module_media import model_bindings, photographs
+from primer.curriculum import Curriculum, _validate_lesson_media
+from primer.module_media import model_bindings
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,49 +18,22 @@ def curriculum():
     return Curriculum()
 
 
-def test_every_module_has_photographic_context_and_a_spatial_model(curriculum):
+def test_every_module_has_a_spatial_model_and_no_photorealistic_scene(curriculum):
     assert len(curriculum.nodes) == 558
     assert len(curriculum.domains) == 19
-    used_photographs = set()
     for node in curriculum.nodes.values():
         media = node["lesson_media"]
-        photos = [item for item in media if item["kind"] == "photograph"]
-        assert len(photos) == 1, node["id"]
+        assert {item["kind"] for item in media} <= {"illustration", "model"}, node["id"]
         assert any(item.get("renderer") in {"spatial-3d", "radiology-anatomy"}
                    for item in media), node["id"]
         assert len({item["id"] for item in media}) == len(media)
-        assert photos[0]["source_type"] == "generated"
-        assert "AI-generated" in photos[0]["credit"]
-        used_photographs.add(photos[0]["src"])
-    assert len(used_photographs) == 30
-    foundation = curriculum.nodes["rad.2.modalities"]
-    photo = next(item for item in foundation["lesson_media"] if item["kind"] == "photograph")
-    assert photo["id"] == "radiology-photograph-context"
 
 
-def test_local_photographs_have_true_responsive_dimensions_and_provenance():
-    assert set(photographs()) == {"math", "language", "physics", "biology", "chemistry",
-                                  "cs", "history", "earth", "arts", "mind", "radiology",
-                                  "engineering", "health", "environment", "design",
-                                  "business", "civics", "education", "media"}
-    sources = set()
-    for domain, entries in photographs().items():
-        assert len(entries) == (1 if domain in {"engineering", "health", "environment", "design",
-                                               "business", "civics", "education", "media"} else 2), domain
-        for photo in entries:
-            assert photo["src"] not in sources, domain
-            sources.add(photo["src"])
-            assert photo["alt"] != photo["caption"]
-            assert len(photo["alt"].split()) >= 8
-            for candidate in photo["srcset"].split(","):
-                url, width = candidate.split()
-                assert url.startswith("/app/illustrations/photoreal/")
-                image = ROOT / "web" / url.removeprefix("/app/")
-                w, h = _webp_dimensions(str(image))
-                assert w == int(width[:-1])
-                assert w * photo["height"] == h * photo["width"]
-                assert image.stat().st_size < 600_000
-    assert len(sources) == 30
+def test_generated_scene_assets_and_manifest_are_gone():
+    # AI-generated contextual scenes were removed: they matched neither the
+    # plates nor the source figures and taught nothing about the lesson.
+    assert not (ROOT / "data/module-photographs.json").exists()
+    assert not (ROOT / "web/illustrations/photoreal").exists()
 
 
 def test_authored_teaching_media_is_preserved(curriculum):
@@ -86,17 +59,12 @@ def test_spatial_companions_reject_tampered_or_cross_lesson_props(curriculum, fi
         _validate_lesson_media(node)
 
 
-@pytest.mark.parametrize("field,value", [
-    ("src", "https://example.com/photo.webp"),
-    ("src", "/app/illustrations/../../secret.webp"),
-    ("source_type", "patient-scan"), ("credit", ""),
-    ("srcset", "/app/illustrations/missing.webp 800w"),
-])
-def test_photographs_reject_unknown_sources_and_false_provenance(curriculum, field, value):
+def test_photorealistic_scene_media_is_rejected(curriculum):
     node = copy.deepcopy(curriculum.nodes["math.0.counting"])
-    photo = next(m for m in node["lesson_media"] if m["kind"] == "photograph")
-    photo[field] = value
-    with pytest.raises(ValueError):
+    plate = next(m for m in node["lesson_media"] if m["kind"] == "illustration")
+    node["lesson_media"].append(dict(plate, id="math-photograph-context", kind="photograph",
+                                     credit="AI-generated", source_type="generated"))
+    with pytest.raises(ValueError, match="unknown kind"):
         _validate_lesson_media(node)
 
 

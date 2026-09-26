@@ -1,11 +1,10 @@
-"""Curated photographic context and spatial companions for the whole Primer.
+"""Spatial companions for the whole Primer.
 
-The manifests are deliberately separate from authored assessment content. Images
-are shared within a field; abstract lessons use explicitly labelled contextual
-objects. Neither is represented as an exact depiction of every lesson's concept.
+The manifest is deliberately separate from authored assessment content. Abstract
+lessons use explicitly labelled contextual objects; a model is not represented as
+an exact depiction of every lesson's concept.
 """
 
-import copy
 import json
 from functools import lru_cache
 from pathlib import Path
@@ -25,12 +24,6 @@ def model_bindings():
     return bindings
 
 
-@lru_cache(maxsize=1)
-def photographs():
-    with (DATA / "module-photographs.json").open() as source:
-        return json.load(source)["domains"]
-
-
 def model_props(node):
     record = model_bindings().get(node.get("id"))
     if not record or not isinstance(node.get("title"), str) or not node["title"].strip():
@@ -47,23 +40,6 @@ def model_props(node):
 def attach_module_media(node):
     """Append companions without replacing precise diagrams or existing labs."""
     media = node["lesson_media"]
-    catalog = photographs()
-    candidates = catalog.get(node["domain"])
-    if not candidates:
-        raise ValueError("Missing photograph for field " + node["domain"])
-    if isinstance(candidates, dict):
-        candidates = [candidates]
-    # Introductory and advanced contexts are shared intentionally, rather than
-    # silently inventing a photograph for an abstract or unobservable concept.
-    advanced_context = node["stage"] >= 3
-    if node.get("radiology_reference"):
-        # The reference loader normalizes every radiology module to stage 5;
-        # its Foundations section is the introductory equipment context.
-        advanced_context = node.get("section") != "Foundations"
-    photo = copy.deepcopy(candidates[min(int(advanced_context), len(candidates) - 1)])
-    if not any(item.get("kind") == "photograph" for item in media):
-        media.append(photo)
-
     if node.get("radiology_reference"):
         reference = node["radiology_reference"]["spatial_model"]
         media.append({

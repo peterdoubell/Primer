@@ -567,26 +567,6 @@ button { font-family: var(--sans); cursor: pointer; }
   padding: 13px 18px 15px; border-top: 1px solid var(--paper-edge);
   color: var(--ink-soft); font-size: 14px; line-height: 1.55;
 }
-.lesson-photograph { margin: 0; padding: 0; overflow: hidden; border-color: var(--edge); }
-.lesson-photograph img {
-  display: block; width: 100%; height: auto; background: var(--paper-2);
-  filter: var(--img-glare); cursor: zoom-in;
-}
-.lesson-photograph .photograph-caption {
-  padding: 17px 20px 19px; border-top: 1px solid var(--paper-edge);
-  background: linear-gradient(135deg, var(--paper-2), var(--paper));
-}
-.photograph-caption-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
-.photograph-kind {
-  color: var(--gold-ink); font: 700 11px/1.4 var(--sans);
-  letter-spacing: .09em; text-transform: uppercase;
-}
-.photograph-origin {
-  padding: 3px 7px; border: 1px solid var(--edge); border-radius: 5px;
-  color: var(--ink-soft); background: var(--field); font: 600 10px/1.3 var(--sans);
-}
-.photograph-description { margin: 9px 0 0; color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
-.photograph-credit { margin: 8px 0 0; color: var(--ink-faint); font: 12px/1.5 var(--sans); }
 .lesson-diagram-details {
   border-top: 1px solid var(--paper-edge); background: var(--field);
   color: var(--ink-soft); font-size: 14px; line-height: 1.5;
@@ -633,7 +613,7 @@ button { font-family: var(--sans); cursor: pointer; }
 .math-gallery-mark { flex: 0 0 auto; color: var(--gold-ink); margin-top: 1px; }
 .math-gallery-promise h3 { margin: 0 0 5px; }
 .math-gallery-promise p { margin: 0; color: var(--ink-soft); line-height: 1.55; }
-.math-gallery-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
+.math-gallery-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 0; }
 .math-gallery-stats > div {
   min-width: 0; padding: 10px 8px; border-left: 1px solid var(--rule); text-align: center;
 }
@@ -718,10 +698,6 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 .math-image-figure .lesson-diagram-details { font-size: 13px; }
 .math-image-figure .lesson-diagram-steps { grid-template-columns: 1fr; }
-.gallery-photograph { background: var(--paper-2); }
-.gallery-photograph img { object-fit: contain; object-position: center; }
-.gallery-photograph .photograph-description { font-size: 13.5px; line-height: 1.5; }
-.gallery-photograph .photograph-credit { font-size: 11px; }
 .visual-model-preview {
   min-height: 250px; padding: 28px 24px; border-block: 1px solid var(--paper-edge);
   display: flex; align-items: center; justify-content: center; gap: 18px;
@@ -3343,8 +3319,6 @@ body[data-stage="0"] .q-prompt, body[data-stage="1"] .q-prompt { font-size: 24px
 body[data-stage="0"] .lesson-card h3, body[data-stage="1"] .lesson-card h3 { font-size: 21px; }
 body[data-stage="0"] .lesson-illustration figcaption,
 body[data-stage="1"] .lesson-illustration figcaption,
-body[data-stage="0"] .photograph-description,
-body[data-stage="1"] .photograph-description,
 body[data-stage="0"] .model-readout, body[data-stage="1"] .model-readout,
 body[data-stage="0"] .model-status, body[data-stage="1"] .model-status {
   font-size: 16px;
@@ -3683,9 +3657,7 @@ body[data-stage="4"] .card, body[data-stage="5"] .card { padding: 13px 16px; mar
    compaction above must not put a second inset around their own header,
    figure and footer, nor add a margin on top of the grid's gap. */
 body[data-stage="4"] .math-image-card,
-body[data-stage="5"] .math-image-card,
-body[data-stage="4"] .lesson-photograph,
-body[data-stage="5"] .lesson-photograph { padding: 0; margin-bottom: 0; }
+body[data-stage="5"] .math-image-card { padding: 0; margin-bottom: 0; }
 body[data-stage="4"] .lesson-card h3, body[data-stage="5"] .lesson-card h3 { font-size: 17px; }
 body[data-stage="4"] .q-prompt, body[data-stage="5"] .q-prompt { font-size: 18px; line-height: 1.45; }
 body[data-stage="4"] .choice, body[data-stage="5"] .choice { padding: 9px 13px; font-size: 15px; }
@@ -4150,9 +4122,6 @@ kbd.key-hint { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
 /* The affordance the dead anchors never had: this picture answers to a touch. */
 #article a[href="#"] img, #article img.tappable,
 .lesson-illustration img.tappable, .math-image-figure img.tappable { cursor: zoom-in; }
-.lesson-photograph img.tappable:focus-visible {
-  outline: 3px solid var(--focus); outline-offset: -4px;
-}
 .image-load-note { display:flex; flex-wrap:wrap; align-items:center; gap:8px; color:var(--ink-soft); font:13px/1.5 var(--sans); }
 
 /* ---------------- the Atlas as an instrument ----------------

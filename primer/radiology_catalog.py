@@ -272,17 +272,6 @@ def detail(curriculum, item):
     if corrected:
         ref['spatial_model'] = corrected
     ref['spatial_model']['title'] = item['title'] + ' · spatial orientation'
-    ref['anatomical_illustrations'] = _read('anatomical-illustrations.json', {}).get(item['id'], [])
-    for illustration in ref['anatomical_illustrations']:
-        src = illustration.get('src', '')
-        if not src.startswith('/app/reference-media/') or '%' in src:
-            raise ValueError('Anatomical illustrations must use curated local assets')
-        root = DATA.parents[1] / 'web' / 'reference-media'
-        path = (root / src.removeprefix('/app/reference-media/')).resolve()
-        if root.resolve() not in path.parents or not path.is_file() or path.suffix != '.png':
-            raise ValueError('Unknown anatomical illustration asset')
-        if illustration.get('kind') != 'generated-illustration':
-            raise ValueError('Generated anatomy must retain its provenance label')
     if not override.get('report_templates'):
         for template in ref['report_templates']:
             template['title'] = item['title'].upper()

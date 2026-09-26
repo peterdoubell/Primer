@@ -101,9 +101,14 @@ def test_native_anatomy_manifest_has_traceable_geometry():
         assert structure in names
 
 
-def test_generated_illustration_is_separate_from_clinical_images(curriculum):
-    ref=radiology_catalog.detail(curriculum,radiology_catalog.resolve('ra.mri-shoulder'))['radiology_reference']
-    for image in ref['anatomical_illustrations']:
-        assert image['kind']=='generated-illustration'
-        assert 'AI-generated' in image['attribution']
-        assert not any(image['src']==clinical['src'] for clinical in ref['key_images'])
+def test_reference_media_has_no_ai_generated_imagery(curriculum):
+    # Generated photorealistic plates and scenes were removed; every picture is
+    # a source figure, an original diagram or the licensed mesh viewer.
+    assert not (ROOT/'data/radiology/anatomical-illustrations.json').exists()
+    assert not (ROOT/'web/reference-media').exists()
+    for item in radiology_catalog.catalogue()['investigations']:
+        detail=radiology_catalog.detail(curriculum,item)
+        assert 'anatomical_illustrations' not in detail['radiology_reference'], item['id']
+        assert not any(media['kind']=='photograph' for media in detail['lesson_media']), item['id']
+        assert not any('generated' in (image.get('attribution') or '').lower()
+                       for image in detail['radiology_reference']['key_images']), item['id']
