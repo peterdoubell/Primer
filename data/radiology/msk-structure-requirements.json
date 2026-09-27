@@ -4632,68 +4632,68 @@
       "reporting_checklist": [
         {
           "index": 0,
-          "label": "Site",
-          "detail": "Name bone, epiphyseal/metaphyseal/diaphyseal and medullary/cortical/surface location.",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/checklist/0"
+          "label": "Site and matrix",
+          "detail": "Name the bone, central or surface location and the chondroid rings-and-arcs matrix.",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/checklist/0"
         },
         {
           "index": 1,
-          "label": "Biological behaviour",
-          "detail": "Describe margin, zone of transition, cortex and periosteal response.",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/checklist/1"
+          "label": "Endosteal and cortical change",
+          "detail": "Describe endosteal scalloping depth and length, cortical thickening, expansion, breach and periosteal reaction.",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/checklist/1"
         },
         {
           "index": 2,
-          "label": "Matrix",
-          "detail": "Characterise lucent/sclerotic/mixed pattern and mineralised matrix.",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/checklist/2"
+          "label": "MRI characteristics",
+          "detail": "Assess lobulated cartilage signal, entrapped fat, peritumoral oedema and enhancement pattern.",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/checklist/2"
         },
         {
           "index": 3,
-          "label": "Local staging",
-          "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships.",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/checklist/3"
+          "label": "Soft tissue and cap",
+          "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap.",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/checklist/3"
         },
         {
           "index": 4,
-          "label": "Multiplicity",
-          "detail": "Look for additional lesions or skip lesions within coverage and compare growth.",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/checklist/4"
+          "label": "Growth and grade-relevant features",
+          "detail": "Compare with prior imaging and look for a non-chondroid aggressive component.",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/checklist/4"
         }
       ],
       "reporting_template_sections": [
         {
           "index": 0,
-          "heading": "LOCATION AND MORPHOLOGY",
-          "body": "Bone/site [ ]; skeletal maturity [ ]; medullary/cortical/surface [ ]; lucent/sclerotic/mixed [ ]; margin/transition zone [ ].",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/template_sections/0"
+          "heading": "SITE AND MATRIX",
+          "body": "Bone/site [ ]; central / surface [ ]; epiphysis / metaphysis / diaphysis [ ]; chondroid matrix [rings and arcs / absent]; size __ × __ × __ mm.",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/template_sections/0"
         },
         {
           "index": 1,
-          "heading": "MATRIX AND BONE RESPONSE",
-          "body": "Matrix [ ]; periosteal reaction [ ]; cortical thinning/scalloping/breach [ ]; pathological fracture [ ].",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/template_sections/1"
+          "heading": "ENDOSTEAL AND CORTICAL CHANGE",
+          "body": "Endosteal scalloping [none / depth __ of cortical thickness, length __ mm]; cortical thickening/expansion [ ]; cortical breach [ ]; periosteal reaction [ ]; pathological fracture [ ].",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/template_sections/1"
         },
         {
           "index": 2,
-          "heading": "LOCAL DIMENSIONS",
-          "body": "Marrow lesion __ × __ × __ mm; extraosseous component __ × __ × __ mm; oedema extent [ ]; measurement series/image [ ].",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/template_sections/2"
+          "heading": "MRI CHARACTERISTICS",
+          "body": "T2 signal and lobulation [ ]; entrapped fat [ ]; peritumoral oedema [ ]; enhancement [not given / septal-nodular / other]; marrow extent [ ].",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/template_sections/2"
         },
         {
           "index": 3,
-          "heading": "CRITICAL RELATIONSHIPS",
-          "body": "Joint/physis involvement [ ]; neurovascular relationship [ ]; compartment extension [ ]; skin/soft-tissue involvement [ ].",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/template_sections/3"
+          "heading": "SOFT TISSUE AND CARTILAGE CAP",
+          "body": "Soft-tissue mass [absent / present __ mm]; osteochondroma continuity [not applicable / cortical and medullary continuity]; cartilage cap __ mm; bursa [ ].",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/template_sections/3"
         },
         {
           "index": 4,
-          "heading": "MULTIPLICITY AND COMPARISON",
-          "body": "Additional/skip lesions [ ]; whole-bone coverage [ ]; interval growth [ ]; prior treatment [ ]; recommended sarcoma-pathway correlation [if relevant].",
-          "source_path": "data/radiology/reporting-neuro-msk.json#/rad.5.bone-tumours/template_sections/4"
+          "heading": "GROWTH AND COMPARISON",
+          "body": "Prior study [date / none]; interval growth [ ]; non-chondroid aggressive component [ ]; features favour [enchondroma / atypical cartilaginous tumour / higher-grade chondrosarcoma / indeterminate].",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.cartilage-tumours/reporting/template_sections/4"
         }
       ],
-      "reporting_checklist_sha256": "5dad03c92ee470edff695814d2f9734d68a9e60ace0abcd2da16f58d47d89b28",
+      "reporting_checklist_sha256": "248791ab7d4b76921310582b17c2b964e2b010891cc889bd32291da01c78a8bd",
       "structures": [
         {
           "id": "site_specific_tumour.named_host_bone",
@@ -4741,13 +4741,13 @@
           "report_refs": [
             {
               "checklist_index": 0,
-              "label": "Site",
-              "detail": "Name bone, epiphyseal/metaphyseal/diaphyseal and medullary/cortical/surface location."
+              "label": "Site and matrix",
+              "detail": "Name the bone, central or surface location and the chondroid rings-and-arcs matrix."
             },
             {
               "checklist_index": 1,
-              "label": "Biological behaviour",
-              "detail": "Describe margin, zone of transition, cortex and periosteal response."
+              "label": "Endosteal and cortical change",
+              "detail": "Describe endosteal scalloping depth and length, cortical thickening, expansion, breach and periosteal reaction."
             }
           ],
           "source_urls": [
@@ -4781,13 +4781,13 @@
           "report_refs": [
             {
               "checklist_index": 0,
-              "label": "Site",
-              "detail": "Name bone, epiphyseal/metaphyseal/diaphyseal and medullary/cortical/surface location."
+              "label": "Site and matrix",
+              "detail": "Name the bone, central or surface location and the chondroid rings-and-arcs matrix."
             },
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -4829,18 +4829,18 @@
           "report_refs": [
             {
               "checklist_index": 1,
-              "label": "Biological behaviour",
-              "detail": "Describe margin, zone of transition, cortex and periosteal response."
+              "label": "Endosteal and cortical change",
+              "detail": "Describe endosteal scalloping depth and length, cortical thickening, expansion, breach and periosteal reaction."
             },
             {
-              "checklist_index": 2,
-              "label": "Matrix",
-              "detail": "Characterise lucent/sclerotic/mixed pattern and mineralised matrix."
+              "checklist_index": 0,
+              "label": "Site and matrix",
+              "detail": "Name the bone, central or surface location and the chondroid rings-and-arcs matrix."
             },
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -4882,8 +4882,8 @@
           "report_refs": [
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -4917,8 +4917,8 @@
           "report_refs": [
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -4952,8 +4952,8 @@
           "report_refs": [
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -4987,8 +4987,8 @@
           "report_refs": [
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -5022,8 +5022,8 @@
           "report_refs": [
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -5057,8 +5057,8 @@
           "report_refs": [
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -5096,8 +5096,8 @@
           "report_refs": [
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -5131,8 +5131,8 @@
           "report_refs": [
             {
               "checklist_index": 4,
-              "label": "Multiplicity",
-              "detail": "Look for additional lesions or skip lesions within coverage and compare growth."
+              "label": "Growth and grade-relevant features",
+              "detail": "Compare with prior imaging and look for a non-chondroid aggressive component."
             }
           ],
           "source_urls": [
@@ -5172,14 +5172,14 @@
           "requirement_basis": "anatomical_decomposition_of_report_field",
           "report_refs": [
             {
-              "checklist_index": 2,
-              "label": "Matrix",
-              "detail": "Characterise lucent/sclerotic/mixed pattern and mineralised matrix."
+              "checklist_index": 0,
+              "label": "Site and matrix",
+              "detail": "Name the bone, central or surface location and the chondroid rings-and-arcs matrix."
             },
             {
               "checklist_index": 3,
-              "label": "Local staging",
-              "detail": "Assess marrow extent, extraosseous component, joint and neurovascular relationships."
+              "label": "Soft tissue and cap",
+              "detail": "Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap."
             }
           ],
           "source_urls": [
@@ -5216,13 +5216,13 @@
           "report_refs": [
             {
               "checklist_index": 1,
-              "label": "Biological behaviour",
-              "detail": "Describe margin, zone of transition, cortex and periosteal response."
+              "label": "Endosteal and cortical change",
+              "detail": "Describe endosteal scalloping depth and length, cortical thickening, expansion, breach and periosteal reaction."
             },
             {
-              "checklist_index": 2,
-              "label": "Matrix",
-              "detail": "Characterise lucent/sclerotic/mixed pattern and mineralised matrix."
+              "checklist_index": 0,
+              "label": "Site and matrix",
+              "detail": "Name the bone, central or surface location and the chondroid rings-and-arcs matrix."
             }
           ],
           "source_urls": [
@@ -5242,6 +5242,17 @@
         {
           "code": "unbounded_anatomical_site",
           "detail": "A normal regional bone mesh cannot resolve all possible host bones, tumour compartments or neurovascular relationships. Site selection and specialist-reviewed lesion representation remain required.",
+          "affected_checklist_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "code": "reporting_guide_reconciliation_requires_review",
+          "detail": "The production cartilage-specific checklist replaces the generic bone-tumour checklist. Existing anatomical requirements are retained and their reporting links remapped; cartilage cap, entrapped fat, enhancement and non-chondroid component scope still require specialist reconciliation. No completeness approval is implied.",
           "affected_checklist_indices": [
             0,
             1,

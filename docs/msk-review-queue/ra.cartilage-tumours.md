@@ -4,11 +4,11 @@ Investigation: `ra.cartilage-tumours`
 
 ## Reporting obligations
 
-- **Site:** Name bone, epiphyseal/metaphyseal/diaphyseal and medullary/cortical/surface location.
-- **Biological behaviour:** Describe margin, zone of transition, cortex and periosteal response.
-- **Matrix:** Characterise lucent/sclerotic/mixed pattern and mineralised matrix.
-- **Local staging:** Assess marrow extent, extraosseous component, joint and neurovascular relationships.
-- **Multiplicity:** Look for additional lesions or skip lesions within coverage and compare growth.
+- **Site and matrix:** Name the bone, central or surface location and the chondroid rings-and-arcs matrix.
+- **Endosteal and cortical change:** Describe endosteal scalloping depth and length, cortical thickening, expansion, breach and periosteal reaction.
+- **MRI characteristics:** Assess lobulated cartilage signal, entrapped fat, peritumoral oedema and enhancement pattern.
+- **Soft tissue and cap:** Look for a soft-tissue mass; for an osteochondroma confirm cortical and medullary continuity and measure the cartilage cap.
+- **Growth and grade-relevant features:** Compare with prior imaging and look for a non-chondroid aggressive component.
 
 ## Requirement coverage
 
@@ -60,4 +60,5 @@ Investigation: `ra.cartilage-tumours`
 
 - ra.cartilage-tumours: site expansion unverified
 - ra.cartilage-tumours: source scope issue unbounded_anatomical_site: classification missing or unknown
+- ra.cartilage-tumours: source scope issue reporting_guide_reconciliation_requires_review: classification missing or unknown
 - ra.cartilage-tumours: generic structure requires site-specific anatomy

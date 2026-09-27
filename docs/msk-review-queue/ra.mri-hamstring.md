@@ -133,14 +133,14 @@ Investigation: `ra.mri-hamstring`
 - Asset: `za-muscles-312860247`
 - Local file: [web/anatomy/msk-atlas/za-muscles-312860247.bin](../../web/anatomy/msk-atlas/za-muscles-312860247.bin)
 - Artifact SHA-256: `da1210fb46f3d53228bebfe3e5543ebb939514dc0c3d181dfbd35ba8e8ca236f`
-- Review-scope SHA-256: `d23693ffe3e05e65460b082a7934f8470b5864833ab1dac70520d554bd4d0470`
+- Review-scope SHA-256: `a0b3de2b918f1d2efedf63c2ac2829641424cd1b5fb192ddfb81475dabb18b9c`
 - Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
 - Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
 - Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
 - Rights evidence: docs/msk-mesh-source-audit.md
 - Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
-- Presentation dependencies: {'web/radiology-detailed-anatomy.js': '06b3d939e08ad2a12e2464a451ca4f3b47823d7bd507a8ae758c5ae7000687fd', 'data/radiology/investigation-model-bindings.json': '6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d'}
+- Presentation dependencies: {'web/radiology-detailed-anatomy.js': 'e17bacfc7adce7c0badef938cd5e716eb04b6b4de4b11cba0407f00bc1c6779a', 'data/radiology/investigation-model-bindings.json': '6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d'}
 - Coverage: {'extent': 'partial', 'basis': 'Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions.'}
 - Selection: {'kind': 'model', 'part_ids': ['za-muscles-312860247'], 'view': 'hamstrings', 'source_manifest': 'web/anatomy/msk-atlas/manifest.json', 'source_manifest_sha256': 'ef50083f82c062154d13b91cb3f672cf28fabd02bdc835c67dc1c5814f1d335c'}
 - Source context: {'setting': 'unknown', 'laterality': 'right', 'population': {'life_stage': 'adult'}, 'depicted_state': 'unknown', 'extent': 'local', 'unknowns': ['Atlas surface is not a patient examination; individual health state and acquisition context are not established.']}
@@ -171,14 +171,14 @@ Investigation: `ra.mri-hamstring`
 - Asset: `za-muscles-63886170`
 - Local file: [web/anatomy/msk-atlas/za-muscles-63886170.bin](../../web/anatomy/msk-atlas/za-muscles-63886170.bin)
 - Artifact SHA-256: `44af9bb49cf69ae13d5b2f6c1716189397283164ec8a72ee42bc71b26e29a136`
-- Review-scope SHA-256: `fa2e94ba594ca8bffc6beef749b965091d9c14f8a375d1fc255303634d47c160`
+- Review-scope SHA-256: `4d8a0e9126d22521d8aa3e438c349cb5469df35702b865b71b9a645c7c0ad8ee`
 - Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
 - Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
 - Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
 - Rights evidence: docs/msk-mesh-source-audit.md
 - Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
-- Presentation dependencies: {'web/radiology-detailed-anatomy.js': '06b3d939e08ad2a12e2464a451ca4f3b47823d7bd507a8ae758c5ae7000687fd', 'data/radiology/investigation-model-bindings.json': '6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d'}
+- Presentation dependencies: {'web/radiology-detailed-anatomy.js': 'e17bacfc7adce7c0badef938cd5e716eb04b6b4de4b11cba0407f00bc1c6779a', 'data/radiology/investigation-model-bindings.json': '6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d'}
 - Coverage: {'extent': 'partial', 'basis': 'Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions.'}
 - Selection: {'kind': 'model', 'part_ids': ['za-muscles-63886170'], 'view': 'hamstrings', 'source_manifest': 'web/anatomy/msk-atlas/manifest.json', 'source_manifest_sha256': 'ef50083f82c062154d13b91cb3f672cf28fabd02bdc835c67dc1c5814f1d335c'}
 - Source context: {'setting': 'unknown', 'laterality': 'right', 'population': {'life_stage': 'adult'}, 'depicted_state': 'unknown', 'extent': 'local', 'unknowns': ['Atlas surface is not a patient examination; individual health state and acquisition context are not established.']}
@@ -209,14 +209,14 @@ Investigation: `ra.mri-hamstring`
 - Asset: `za-muscles-906368294`
 - Local file: [web/anatomy/msk-atlas/za-muscles-906368294.bin](../../web/anatomy/msk-atlas/za-muscles-906368294.bin)
 - Artifact SHA-256: `7b56d928cd7e4d8dade5ff2b50d2cc47b2993e531a3d2ae2e8c7c1b88fa95cea`
-- Review-scope SHA-256: `8e1130bd29adff2387a563a70721b344013e5df767c59b3ab2a88c7a8c3b7177`
+- Review-scope SHA-256: `91495d721fd49976797cf4bc526bcaf1f01d3e9a061aed94ef6d278793ab2158`
 - Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
 - Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
 - Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
 - Rights evidence: docs/msk-mesh-source-audit.md
 - Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
-- Presentation dependencies: {'web/radiology-detailed-anatomy.js': '06b3d939e08ad2a12e2464a451ca4f3b47823d7bd507a8ae758c5ae7000687fd', 'data/radiology/investigation-model-bindings.json': '6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d'}
+- Presentation dependencies: {'web/radiology-detailed-anatomy.js': 'e17bacfc7adce7c0badef938cd5e716eb04b6b4de4b11cba0407f00bc1c6779a', 'data/radiology/investigation-model-bindings.json': '6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d'}
 - Coverage: {'extent': 'partial', 'basis': 'Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions.'}
 - Selection: {'kind': 'model', 'part_ids': ['za-muscles-906368294'], 'view': 'hamstrings', 'source_manifest': 'web/anatomy/msk-atlas/manifest.json', 'source_manifest_sha256': 'ef50083f82c062154d13b91cb3f672cf28fabd02bdc835c67dc1c5814f1d335c'}
 - Source context: {'setting': 'unknown', 'laterality': 'right', 'population': {'life_stage': 'adult'}, 'depicted_state': 'unknown', 'extent': 'local', 'unknowns': ['Atlas surface is not a patient examination; individual health state and acquisition context are not established.']}
@@ -247,14 +247,14 @@ Investigation: `ra.mri-hamstring`
 - Asset: `za-muscles-266598907`
 - Local file: [web/anatomy/msk-atlas/za-muscles-266598907.bin](../../web/anatomy/msk-atlas/za-muscles-266598907.bin)
 - Artifact SHA-256: `6742df972a2ec6311f6f8183b35c666a7d1f9b99e030a1e36b8d90ab4d39e7d6`
-- Review-scope SHA-256: `5f2ceaa82ede87212505dcd30bed2128e5a92a20d72a1932b0ce28701788b616`
+- Review-scope SHA-256: `fd850032c1a20159c72cc5a413be4f5781271cfd744ecc0ddf5f560271f6d50b`
 - Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
 - Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
 - Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
 - Rights evidence: docs/msk-mesh-source-audit.md
 - Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
-- Presentation dependencies: {'web/radiology-detailed-anatomy.js': '06b3d939e08ad2a12e2464a451ca4f3b47823d7bd507a8ae758c5ae7000687fd', 'data/radiology/investigation-model-bindings.json': '6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d'}
+- Presentation dependencies: {'web/radiology-detailed-anatomy.js': 'e17bacfc7adce7c0badef938cd5e716eb04b6b4de4b11cba0407f00bc1c6779a', 'data/radiology/investigation-model-bindings.json': '6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d'}
 - Coverage: {'extent': 'partial', 'basis': 'Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions.'}
 - Selection: {'kind': 'model', 'part_ids': ['za-muscles-266598907'], 'view': 'hamstrings', 'source_manifest': 'web/anatomy/msk-atlas/manifest.json', 'source_manifest_sha256': 'ef50083f82c062154d13b91cb3f672cf28fabd02bdc835c67dc1c5814f1d335c'}
 - Source context: {'setting': 'unknown', 'laterality': 'right', 'population': {'life_stage': 'adult'}, 'depicted_state': 'unknown', 'extent': 'local', 'unknowns': ['Atlas surface is not a patient examination; individual health state and acquisition context are not established.']}

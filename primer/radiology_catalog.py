@@ -456,7 +456,9 @@ def detail(curriculum, item):
     override = copy.deepcopy(_overrides().get(item['id'], {}))
     for key, value in override.items():
         ref[key] = value
+    walkthrough_model = _step_model(item, _steps()['investigations'].get(item['id'], {})) or copy.deepcopy(ref['spatial_model'])
     model_binding = _read('investigation-model-bindings.json', {}).get(item['id'])
+    has_source_binding = bool(model_binding)
     if model_binding and 'regional_references' in model_binding:
         if not isinstance(model_binding['regional_references'], list) or not model_binding['regional_references']:
             raise ValueError('Regional anatomy requires a nonempty list of source references')
@@ -532,7 +534,7 @@ def detail(curriculum, item):
     ref['structure_atlas'] = copy.deepcopy(_structure_atlases().get(item['id'], []))
     ref['investigation'] = copy.deepcopy(item)
     corrected = _step_model(item, _steps()['investigations'].get(item['id'], {}))
-    if corrected:
+    if corrected and not has_source_binding:
         ref['spatial_model'] = corrected
     ref['spatial_model']['title'] = item['title'] + ' · spatial orientation'
     if not override.get('report_templates'):
@@ -541,7 +543,8 @@ def detail(curriculum, item):
     # Readings and clinical figure captions are specific to the investigation.
     # Preserve the underlying diagram/model until a source mesh is available.
     validate_reference(ref)
-    ref['walkthrough'] = _walkthrough(item, ref)
+    ref['walkthrough'] = _walkthrough(item, dict(ref, spatial_model=walkthrough_model))
+    ref['walkthrough']['spatial_model'] = walkthrough_model
     return {'id': item['id'], 'module_id': node['id'], 'title': item['title'],
             'section': item['section'], 'topic': item['topic'], 'modality': item['modality'],
             'source_titles': item['source_titles'], 'goal': item['summary'],

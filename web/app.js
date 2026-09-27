@@ -2522,9 +2522,9 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   walk.steps.forEach(step => Object.entries(step.normal || {}).forEach(([heading, text]) => normals.set(heading, text)));
   const figures = new Map(ref.key_images.filter(image => image.src).map(image => [image.id, image]));
   const measures = new Map(guide.measurements.map(row => [row.name, row]));
-  const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(ref.spatial_model.family)) || {};
-  const meshFamily = window.PrimerDetailedAnatomy?.supported(ref.spatial_model.family) ? ref.spatial_model.family : null;
-  const overview = ref.spatial_model.focus[0];
+  const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(walk.spatial_model.family)) || {};
+  const meshFamily = window.PrimerDetailedAnatomy?.supported(walk.spatial_model.family) ? walk.spatial_model.family : null;
+  const overview = walk.spatial_model.focus[0];
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
     ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,
@@ -2769,7 +2769,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
       visualNote.textContent = shown.length ? 'Published teaching examples, not one patient study. Open a figure to inspect it at full size.' : '';
     } else if (mode === 'landmark') {
       if (!landmarkModel && window.PrimerRadiologyReferenceModels) {
-        landmarkModel = window.PrimerRadiologyReferenceModels.render(ref.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
+        landmarkModel = window.PrimerRadiologyReferenceModels.render(walk.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
         landmarkBox.replaceChildren(landmarkModel || el('p', { role: 'status' }, 'The 3D landmark model could not load.'));
       } else if (landmarkModel && landmarkModel.setModelState) landmarkModel.setModelState({ focus: page.landmark });
       visualNote.textContent = 'Highlighted: ' + landmarkName + '. A schematic orientation guide, not patient anatomy.';

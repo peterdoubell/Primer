@@ -772,7 +772,10 @@
         toolbar.append($("span", "detailed-divider"));
         const layerButtons = new Map();
         const showLayer = (value) => {
-          let layerRequest = 0;
+          for (const [v, el] of layerButtons)
+            el.setAttribute("aria-pressed", String(v === value));
+        };
+        let layerRequest = 0;
         const layers = (region.layers || [
           ["bone", region.labels?.[0] || "Bones"],
           ["soft", region.labels?.[1] || "Soft tissue"],

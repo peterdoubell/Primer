@@ -156,7 +156,7 @@
             "ra-ankle-fractures-detail-4"
           ],
           "measurements": [
-            "Fracture displacement"
+            "Fracture and articular displacement"
           ],
           "landmark": "mortise",
           "parts": [
@@ -170,7 +170,7 @@
           "label": "Mortise and talar position",
           "detail": "Check that the talus is centred in the mortise and compare the medial clear space with the superior clear space.",
           "sections": [
-            "MORTISE"
+            "MORTISE AND TALUS"
           ],
           "look": "True mortise view (about 15 degrees internal rotation) for clear spaces; lateral view for anterior or posterior talar subluxation.",
           "normal": "Ankle mortise congruent; medial clear space equal to the superior clear space; no talar shift or tilt.",
@@ -184,7 +184,7 @@
             "ra-ankle-fractures-detail-2"
           ],
           "measurements": [
-            "Mortise alignment"
+            "Mortise and syndesmotic relationships"
           ],
           "landmark": "mortise",
           "parts": [
@@ -198,7 +198,7 @@
           "label": "Syndesmosis and proximal fibula",
           "detail": "Assess the distal tibiofibular relationship and decide whether the proximal fibula needs imaging.",
           "sections": [
-            "SYNDESMOSIS"
+            "SYNDESMOSIS AND PROXIMAL FIBULA"
           ],
           "look": "Mortise view for tibiofibular overlap and clear space; knee or full-length fibula view when a medial injury has no matching distal fibular fracture.",
           "normal": "Distal tibiofibular relationship normal; no syndesmotic avulsion.",
@@ -215,13 +215,14 @@
             "FJ3366",
             "FJ3387"
           ],
-          "tip": "A medial malleolar fracture or deltoid injury with an intact distal fibula should prompt a look at the proximal fibula (Maisonneuve injury)."
+          "tip": "A medial malleolar fracture or deltoid injury with an intact distal fibula should prompt a look at the proximal fibula (Maisonneuve injury).",
+          "measurements": []
         },
         {
           "label": "Articular surface",
           "detail": "Describe plafond impaction, articular step or gap, posterior fragment size and talar dome injury.",
           "sections": [
-            "ARTICULAR EXTENT"
+            "OSSEOUS ARTICULAR EXTENT"
           ],
           "look": "Lateral and mortise views for step and gap; CT sagittal and axial reformats when the posterior malleolus or plafond is involved.",
           "normal": "Tibial plafond and talar dome congruent without step, gap or impaction.",
@@ -231,7 +232,7 @@
             "Osteochondral fracture of the [medial / lateral] talar dome, __ mm."
           ],
           "measurements": [
-            "Fracture displacement"
+            "Fracture and articular displacement"
           ],
           "landmark": "mortise",
           "parts": [
@@ -241,10 +242,34 @@
           "tip": "The lateral radiograph underestimates the size and comminution of a posterior malleolar fragment; CT defines it."
         },
         {
+          "sections": [
+            "FOOT AND HINDFOOT COVERAGE"
+          ],
+          "label": "Foot and hindfoot coverage",
+          "detail": "Additional foot/hindfoot imaging [not obtained / acquired region and views]; calcaneus/subtalar joint [not included / findings]; navicular/cuboid/cuneiforms [not included / findings]; metatarsals and tarsometatarsal alignment [not included / findings]; Lisfranc-region osseous/alignment clues [not assessed / findings].",
+          "look": "Review the acquired examinations and their coverage before completing this field. Identify any supplemental CT, MRI or ultrasound actually reviewed and the question it addresses. CT can refine osseous articular extent; direct cartilage or tendon/ligament findings require an appropriate acquired examination, not a radiographic assumption.",
+          "findings": [
+            "Additional foot/hindfoot imaging [not obtained / acquired region and views]; calcaneus/subtalar joint [not included / findings]; navicular/cuboid/cuneiforms [not included / findings]; metatarsals and tarsometatarsal alignment [not included / findings]; Lisfranc-region osseous/alignment clues [not assessed / findings]."
+          ],
+          "landmark": "mortise"
+        },
+        {
+          "sections": [
+            "SOFT TISSUES AND SUPPLEMENTAL EXAMINATIONS"
+          ],
+          "label": "Soft tissues and supplemental examinations",
+          "detail": "Radiographic swelling or other soft-tissue clue [ ]; tendon/ligament continuity [not directly assessed on radiographs]; supplemental MRI/ultrasound [not obtained / modality, date, named structure and observed finding]; distinguish confirmed findings from radiographic inference [ ].",
+          "look": "Review the acquired examinations and their coverage before completing this field. Identify any supplemental CT, MRI or ultrasound actually reviewed and the question it addresses. CT can refine osseous articular extent; direct cartilage or tendon/ligament findings require an appropriate acquired examination, not a radiographic assumption.",
+          "findings": [
+            "Radiographic swelling or other soft-tissue clue [ ]; tendon/ligament continuity [not directly assessed on radiographs]; supplemental MRI/ultrasound [not obtained / modality, date, named structure and observed finding]; distinguish confirmed findings from radiographic inference [ ]."
+          ],
+          "landmark": "mortise"
+        },
+        {
           "label": "Associated findings",
           "detail": "Check for dislocation, soft-tissue swelling, other fractures at the film edges and post-reduction alignment.",
           "sections": [
-            "ASSOCIATED FINDINGS"
+            "REDUCTION AND ASSOCIATED FINDINGS"
           ],
           "look": "The edges of every film: base of the fifth metatarsal, anterior process of the calcaneus and lateral process of the talus.",
           "normal": "No dislocation; no additional fracture in the imaged foot and ankle; soft tissues unremarkable apart from swelling.",
@@ -259,7 +284,8 @@
             "FJ3360",
             "FJ3385"
           ],
-          "tip": "A fifth metatarsal base or anterior calcaneal process fracture can mimic an ankle sprain and hide at the film edge."
+          "tip": "A fifth metatarsal base or anterior calcaneal process fracture can mimic an ankle sprain and hide at the film edge.",
+          "measurements": []
         }
       ]
     },
@@ -1100,26 +1126,16 @@
       },
       "steps": [
         {
-          "label": "Fat pads and effusion",
-          "detail": "Look for a visible posterior fat pad or an elevated anterior fat pad as signs of a joint effusion.",
           "sections": [
-            "JOINT EFFUSION"
+            "SIDE, AGE AND TECHNIQUE"
           ],
-          "look": "True lateral in 90 degrees of flexion: anterior fat pad over the coronoid fossa, posterior fat pad in the olecranon fossa.",
-          "normal": "Anterior fat pad normal; posterior fat pad not visible; no effusion.",
+          "label": "Side, age and technique",
+          "detail": "Side [ ]; age [ ]; views [ ]; true lateral adequacy [ ]; rotation/coverage limitations [ ]; comparison [ ].",
+          "look": "Review the acquired examinations and their coverage before completing this field. For suspected lateral condylar injury, consider an oblique view according to the local paediatric pathway. Image additional forearm/wrist sites when the clinical findings warrant it; do not infer their normality from an elbow-only field.",
           "findings": [
-            "Elevated anterior fat pad (\"sail sign\") and a visible posterior fat pad: joint effusion.",
-            "Joint effusion without a visible fracture; an occult fracture is possible, most often supracondylar."
+            "Side [ ]; age [ ]; views [ ]; true lateral adequacy [ ]; rotation/coverage limitations [ ]; comparison [ ]."
           ],
-          "images": [
-            "paeds-hip-elbow-image-2"
-          ],
-          "landmark": "bones",
-          "parts": [
-            "FJ3368",
-            "FJ3391"
-          ],
-          "tip": "On a true lateral in flexion, a visible posterior fat pad is always abnormal."
+          "landmark": "bones"
         },
         {
           "label": "Alignment lines",
@@ -1137,7 +1153,8 @@
             "paeds-hip-elbow-image-3"
           ],
           "measurements": [
-            "Elbow alignment"
+            "Anterior humeral line",
+            "Radiocapitellar line"
           ],
           "landmark": "radius",
           "parts": [
@@ -1150,7 +1167,7 @@
           "label": "Ossification centres (CRITOE)",
           "detail": "Match the visible centres to age in the order capitellum, radial head, internal (medial) epicondyle, trochlea, olecranon, external (lateral) epicondyle.",
           "sections": [
-            "OSSIFICATION CENTRES"
+            "OSSIFICATION AND GROWTH PLATES"
           ],
           "look": "AP and lateral: count the centres and confirm the medial epicondyle sits at the medial humerus, not in the joint.",
           "normal": "Ossification centres appropriate for age and normally positioned.",
@@ -1166,13 +1183,14 @@
           "parts": [
             "FJ3368"
           ],
-          "tip": "The centres appear at roughly 1, 3, 5, 7, 9 and 11 years (earlier in girls); the trochlea does not ossify before the medial epicondyle."
+          "tip": "The centres appear at roughly 1, 3, 5, 7, 9 and 11 years (earlier in girls); the trochlea does not ossify before the medial epicondyle.",
+          "measurements": []
         },
         {
           "label": "Fracture",
           "detail": "Name the fracture — supracondylar, lateral condyle, medial epicondyle, radial head or neck, olecranon — and describe displacement.",
           "sections": [
-            "FRACTURE"
+            "FRACTURE MORPHOLOGY"
           ],
           "look": "Both views: supracondylar region and posterior cortex on the lateral, lateral condyle on AP and oblique, radial neck and olecranon.",
           "normal": "No fracture.",
@@ -1183,7 +1201,7 @@
             "Medial epicondyle avulsion displaced __ mm."
           ],
           "measurements": [
-            "Fracture displacement"
+            "Fragment displacement"
           ],
           "landmark": "bones",
           "parts": [
@@ -1194,10 +1212,33 @@
           "tip": "Lateral condyle fractures can be subtle on the AP view; displacement of 2 mm or more usually changes management."
         },
         {
+          "label": "Fat pads and effusion",
+          "detail": "Look for a visible posterior fat pad or an elevated anterior fat pad as signs of a joint effusion.",
+          "sections": [
+            "EFFUSION AND SOFT TISSUES"
+          ],
+          "look": "True lateral in 90 degrees of flexion: anterior fat pad over the coronoid fossa, posterior fat pad in the olecranon fossa.",
+          "normal": "Anterior fat pad normal; posterior fat pad not visible; no effusion.",
+          "findings": [
+            "Elevated anterior fat pad (\"sail sign\") and a visible posterior fat pad: joint effusion.",
+            "Joint effusion without a visible fracture; an occult fracture is possible, most often supracondylar."
+          ],
+          "images": [
+            "paeds-hip-elbow-image-2"
+          ],
+          "landmark": "bones",
+          "parts": [
+            "FJ3368",
+            "FJ3391"
+          ],
+          "tip": "On a true lateral in flexion, a visible posterior fat pad is always abnormal.",
+          "measurements": []
+        },
+        {
           "label": "Forearm and associated injury",
           "detail": "Look for a forearm fracture with radial head dislocation, a second fracture and post-reduction alignment.",
           "sections": [
-            "FOREARM AND ASSOCIATED INJURY"
+            "ASSOCIATED AND POST-REDUCTION FINDINGS"
           ],
           "look": "Include the forearm when the radiocapitellar line is disrupted: look for ulnar fracture or plastic bowing.",
           "normal": "No forearm fracture or radial head dislocation.",
@@ -1210,7 +1251,8 @@
           "parts": [
             "FJ3349",
             "FJ3391"
-          ]
+          ],
+          "measurements": []
         }
       ]
     },
@@ -2008,7 +2050,7 @@
           "label": "Level and alignment",
           "detail": "Identify each injured level and describe kyphosis, translation or rotation.",
           "sections": [
-            "LEVEL AND ALIGNMENT"
+            "NUMBERING, COVERAGE AND ALIGNMENT"
           ],
           "look": "Sagittal CT reformats for alignment and kyphosis; count from a documented reference and correlate ribs and transverse processes.",
           "normal": "Normal thoracolumbar alignment without kyphosis or translation.",
@@ -2018,7 +2060,8 @@
             "Translation of __ mm of [ ] on [ ] (translation or rotation injury)."
           ],
           "measurements": [
-            "Fracture deformity"
+            "Vertebral deformity",
+            "Distraction and displacement"
           ],
           "landmark": "bodies",
           "tip": "Translation or rotation in any plane indicates a type C injury, whatever the vertebral body looks like."
@@ -2041,7 +2084,7 @@
             "ra-thoracolumbar-fractures-source-2"
           ],
           "measurements": [
-            "Fracture deformity"
+            "Vertebral deformity"
           ],
           "landmark": "bodies",
           "tip": "Posterior wall involvement separates a burst fracture from a compression fracture; check it on axial and sagittal images."
@@ -2050,7 +2093,7 @@
           "label": "Posterior ligamentous complex",
           "detail": "Assess interspinous widening, facet diastasis or dislocation, horizontal posterior element fractures and MRI ligament signal.",
           "sections": [
-            "POSTERIOR LIGAMENTOUS COMPLEX"
+            "POSTERIOR TENSION BAND"
           ],
           "look": "CT for interspinous distance, facet alignment and posterior element fractures; MRI fluid-sensitive sagittal images for supraspinous and interspinous ligaments and ligamentum flavum.",
           "normal": "Posterior ligamentous complex intact: no interspinous widening, facet malalignment or posterior element fracture.",
@@ -2064,13 +2107,26 @@
             "ra-thoracolumbar-fractures-source-1"
           ],
           "landmark": "canal",
-          "tip": "A perched or jumped facet is a translation injury; do not classify it by vertebral body morphology alone."
+          "tip": "A perched or jumped facet is a translation injury; do not classify it by vertebral body morphology alone.",
+          "measurements": []
+        },
+        {
+          "sections": [
+            "DISCS AND LONGITUDINAL LIGAMENTS"
+          ],
+          "label": "Discs and longitudinal ligaments",
+          "detail": "Injured level/segment [ ]; disc-space opening or traumatic disc abnormality [ ]; endplate-disc interfaces [ ]; anterior longitudinal ligament [not directly assessed / findings]; posterior longitudinal ligament [not directly assessed / findings]; anterior distraction evidence [ ]; rigid-spine context [ ].",
+          "look": "Review the acquired examinations and their coverage before completing this field. Document vertebral numbering, transitional anatomy and any unexamined spinal segment. Review all included levels for additional injuries and identify an ankylosed spine or previous instrumentation.",
+          "findings": [
+            "Injured level/segment [ ]; disc-space opening or traumatic disc abnormality [ ]; endplate-disc interfaces [ ]; anterior longitudinal ligament [not directly assessed / findings]; posterior longitudinal ligament [not directly assessed / findings]; anterior distraction evidence [ ]; rigid-spine context [ ]."
+          ],
+          "landmark": "bodies"
         },
         {
           "label": "Canal and neural elements",
           "detail": "Describe retropulsion, canal compromise, epidural haematoma and cord, conus or cauda equina findings.",
           "sections": [
-            "CANAL AND NEURAL ELEMENTS"
+            "CANAL, EPIDURAL SPACE AND NEURAL STRUCTURES"
           ],
           "look": "Axial CT at the level of maximal retropulsion; MRI sagittal T2 for the cord, conus and epidural space.",
           "normal": "Spinal canal preserved; no retropulsion or epidural haematoma; cord and conus normal where imaged.",
@@ -2080,15 +2136,27 @@
             "Cord or conus oedema at [ ]."
           ],
           "measurements": [
-            "Canal compromise"
+            "Retropulsion and canal encroachment"
           ],
           "landmark": "canal"
+        },
+        {
+          "sections": [
+            "ASSOCIATED AND PARASPINAL FINDINGS"
+          ],
+          "label": "Associated and paraspinal findings",
+          "detail": "Additional included injuries [ ]; paraspinal/prevertebral soft tissues [ ]; prior fixation or operative bed [ ]; unexpected alternative abnormality [ ]; relevant limitations and unexamined levels [ ].",
+          "look": "Review the acquired examinations and their coverage before completing this field. Document vertebral numbering, transitional anatomy and any unexamined spinal segment. Review all included levels for additional injuries and identify an ankylosed spine or previous instrumentation.",
+          "findings": [
+            "Additional included injuries [ ]; paraspinal/prevertebral soft tissues [ ]; prior fixation or operative bed [ ]; unexpected alternative abnormality [ ]; relevant limitations and unexamined levels [ ]."
+          ],
+          "landmark": "bodies"
         },
         {
           "label": "Classification and other injuries",
           "detail": "Give the AO type and TLICS imaging components, and survey the whole imaged spine and paraspinal tissues.",
           "sections": [
-            "CLASSIFICATION AND OTHER INJURIES"
+            "CLASSIFICATION AND SUPPLIED CLINICAL INPUTS"
           ],
           "look": "Summarise morphology and posterior ligamentous complex findings; review the full imaged spine for non-contiguous fractures.",
           "normal": "No additional spinal fracture; no paraspinal or visceral injury in the field of view.",
@@ -2098,7 +2166,8 @@
             "Paraspinal haematoma and associated [ ] injury."
           ],
           "landmark": "bodies",
-          "tip": "Do not complete the TLICS neurological component from imaging; state the clinical status supplied."
+          "tip": "Do not complete the TLICS neurological component from imaging; state the clinical status supplied.",
+          "measurements": []
         }
       ]
     },
