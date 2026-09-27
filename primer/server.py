@@ -3649,8 +3649,8 @@ def healthz():
 
 # Large, already-public source media live on the CDN in hosted builds. The
 # original app route still crosses the reader access gate before redirecting.
-@app.get("/app/anatomy/{atlas}/{asset:path}", include_in_schema=False)
-async def source_mesh_delivery(atlas: str, asset: str):
+@app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def source_mesh_delivery(atlas: str, asset: str, request: Request):
     allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle"}
     if (os.environ.get("VERCEL") and atlas in allowed
             and asset.endswith((".bin", ".bin.gz"))
@@ -3658,10 +3658,10 @@ async def source_mesh_delivery(atlas: str, asset: str):
             and "\\" not in asset):
         from urllib.parse import quote
         return RedirectResponse("/source-media/anatomy/" + atlas + "/" + quote(asset, safe="/"), status_code=307)
-    return await app.state.source_static.get_response("anatomy/" + atlas + "/" + asset, {"type": "http", "method": "GET", "headers": []})
+    return await app.state.source_static.get_response("anatomy/" + atlas + "/" + asset, request.scope)
 
 
-@app.get("/app/reference-media/prenatal-development/prenatal-development.gif", include_in_schema=False)
+@app.api_route("/app/reference-media/prenatal-development/prenatal-development.gif", methods=["GET", "HEAD"], include_in_schema=False)
 async def prenatal_gif_delivery():
     if os.environ.get("VERCEL"):
         return RedirectResponse("/source-media/reference-media/prenatal-development/prenatal-development.gif", status_code=307)

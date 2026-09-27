@@ -581,6 +581,7 @@ def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
             response = client.get(path, auth=('reader', 'secret'))
             assert response.status_code == 307
             assert response.headers['location'] == path.replace('/app/', '/source-media/', 1)
+            assert client.head(path, auth=('reader', 'secret')).status_code == 307
         assert client.get('/app/anatomy/msk-atlas/manifest.json', auth=('reader', 'secret')).status_code == 200
         assert client.get('/app/anatomy/unregistered/missing.bin', auth=('reader', 'secret')).status_code == 404
 
