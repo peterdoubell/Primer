@@ -1,0 +1,338 @@
+{
+  "status": "Source-variant comparison, no clinical approval or inferred ancestry",
+  "no_fitted_transform": true,
+  "no_geometry_changes": true,
+  "image": {
+    "filename": "oks003-cartilage-mri.nii",
+    "bytes": 102760800,
+    "sha256": "9266f03edaff042932cdae09f7c308a80e4106e3790f32c4004c52d6edc67812",
+    "shape_xyz": [
+      448,
+      512,
+      224
+    ],
+    "spacing_mm": [
+      0.3515625,
+      0.3515625,
+      0.6999969482421875
+    ],
+    "datatype": 512,
+    "qform_code": 2,
+    "sform_code": 1,
+    "affines_ras_mm": {
+      "qform": [
+        [
+          0.0,
+          0.0,
+          0.6999969482421875,
+          -80.78607940673828
+        ],
+        [
+          -0.3515625,
+          0.0,
+          0.0,
+          90.37227630615234
+        ],
+        [
+          0.0,
+          -0.3515625,
+          0.0,
+          90.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sform": [
+        [
+          -0.0,
+          0.0,
+          0.6999969482421875,
+          -80.78607940673828
+        ],
+        [
+          -0.3515625,
+          -0.0,
+          -0.0,
+          90.37227630615234
+        ],
+        [
+          0.0,
+          -0.3515625,
+          0.0,
+          90.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  },
+  "structures": [
+    {
+      "id": "TBC-L",
+      "candidate_mask": {
+        "filename": "oks003_TBC-L_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "4e69ea4c16ceadcb064ff1314727a3db426e20c9d08f4fbe330308fc70ad15e6",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "mask_nonzero_voxels": 20974,
+      "voxel_volume_mm3": 1814.6066518966102,
+      "exact_selected_revision_lineage_established": false,
+      "variants": [
+        {
+          "name": "raw",
+          "filename": "oks003_TBC-L_AGS_RAW.stl",
+          "sha256": "206107991605b9659efd195ea5b4cb9008a941eaf1aa0e13143dd3083da58761",
+          "triangles": 19230,
+          "enclosed_volume_mm3": 1808.100693061058,
+          "relative_to_mask_volume_percent": -0.35853273373334105,
+          "sections": [
+            {
+              "axis": 0,
+              "world_coordinate_mm": -22.68633270263672,
+              "mask_mesh_dice": 1.0
+            },
+            {
+              "axis": 1,
+              "world_coordinate_mm": -9.119911193847656,
+              "mask_mesh_dice": 1.0
+            },
+            {
+              "axis": 2,
+              "world_coordinate_mm": -29.53125,
+              "mask_mesh_dice": 1.0
+            }
+          ]
+        },
+        {
+          "name": "earlier_processed",
+          "filename": "oks003_TBC-L_AGS_LVTTIT.stl",
+          "sha256": "9c34fbce54eda138f56f383a4b8f270090c1b4beab8c8a65b53ce0599f821c78",
+          "triangles": 19230,
+          "enclosed_volume_mm3": 1785.2627473516432,
+          "relative_to_mask_volume_percent": -1.6170945099477696,
+          "sections": [
+            {
+              "axis": 0,
+              "world_coordinate_mm": -22.68633270263672,
+              "mask_mesh_dice": 0.9980353634577603
+            },
+            {
+              "axis": 1,
+              "world_coordinate_mm": -9.119911193847656,
+              "mask_mesh_dice": 0.99830220713073
+            },
+            {
+              "axis": 2,
+              "world_coordinate_mm": -29.53125,
+              "mask_mesh_dice": 0.9954049396898335
+            }
+          ]
+        },
+        {
+          "name": "selected_02",
+          "filename": "oks003_TBC-L_AGS_LVTTIT_02.stl",
+          "sha256": "298f2bf3c8225a3125ed2fee2226d837b578deb3f1385c49eaf9319ac58e864e",
+          "triangles": 25578,
+          "enclosed_volume_mm3": 1657.0002169612653,
+          "relative_to_mask_volume_percent": -8.68543244733596,
+          "sections": [
+            {
+              "axis": 0,
+              "world_coordinate_mm": -22.68633270263672,
+              "mask_mesh_dice": 0.9665327978580991
+            },
+            {
+              "axis": 1,
+              "world_coordinate_mm": -9.119911193847656,
+              "mask_mesh_dice": 0.958904109589041
+            },
+            {
+              "axis": 2,
+              "world_coordinate_mm": -29.53125,
+              "mask_mesh_dice": 0.9606392423794022
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TBC-M",
+      "candidate_mask": {
+        "filename": "oks003_TBC-M_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "d698863c3adcf7618f40b2cd2db5b535129f4de25e13269648fd49486ef2f9a5",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "mask_nonzero_voxels": 20650,
+      "voxel_volume_mm3": 1786.575157893821,
+      "exact_selected_revision_lineage_established": false,
+      "variants": [
+        {
+          "name": "raw",
+          "filename": "oks003_TBC-M_AGS_RAW.stl",
+          "sha256": "af3cf14aed2065fa68948c79e3278388b0d93c34700e044225d9c6314424c8ae",
+          "triangles": 27734,
+          "enclosed_volume_mm3": 1778.1786837897555,
+          "relative_to_mask_volume_percent": -0.46997597984984596,
+          "sections": [
+            {
+              "axis": 0,
+              "world_coordinate_mm": 13.713508605957031,
+              "mask_mesh_dice": 1.0
+            },
+            {
+              "axis": 1,
+              "world_coordinate_mm": -9.471473693847656,
+              "mask_mesh_dice": 1.0
+            },
+            {
+              "axis": 2,
+              "world_coordinate_mm": -32.34375,
+              "mask_mesh_dice": 1.0
+            }
+          ]
+        },
+        {
+          "name": "earlier_processed",
+          "filename": "oks003_TBC-M_AGS_LVTIT.stl",
+          "sha256": "c3c6152d5f1943e77ab94e31c6f566a217d8d681e26f1c6b224a88026916dea9",
+          "triangles": 86400,
+          "enclosed_volume_mm3": 1714.8739904548354,
+          "relative_to_mask_volume_percent": -4.0133305963748755,
+          "sections": [
+            {
+              "axis": 0,
+              "world_coordinate_mm": 13.713508605957031,
+              "mask_mesh_dice": 0.992
+            },
+            {
+              "axis": 1,
+              "world_coordinate_mm": -9.471473693847656,
+              "mask_mesh_dice": 0.9942418426103646
+            },
+            {
+              "axis": 2,
+              "world_coordinate_mm": -32.34375,
+              "mask_mesh_dice": 0.9956024626209323
+            }
+          ]
+        },
+        {
+          "name": "selected_02",
+          "filename": "oks003_TBC-M_AGS_LVTIT_02.stl",
+          "sha256": "cb45845df56e1d0c22db6eaf780282b904fdbcb65e1e2e5fe57e0235f1800b4d",
+          "triangles": 20580,
+          "enclosed_volume_mm3": 1578.2081220207908,
+          "relative_to_mask_volume_percent": -11.66293144469065,
+          "sections": [
+            {
+              "axis": 0,
+              "world_coordinate_mm": 13.713508605957031,
+              "mask_mesh_dice": 0.9635687732342008
+            },
+            {
+              "axis": 1,
+              "world_coordinate_mm": -9.471473693847656,
+              "mask_mesh_dice": 0.9585798816568047
+            },
+            {
+              "axis": 2,
+              "world_coordinate_mm": -32.34375,
+              "mask_mesh_dice": 0.9702734839476813
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limits": "Label agreement and volume changes measure representation consistency, not biological accuracy. An unversioned mask is a candidate, not proof of the selected processed mesh revision."
+}

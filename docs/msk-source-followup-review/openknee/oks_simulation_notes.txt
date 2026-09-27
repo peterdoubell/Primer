@@ -1,0 +1,457 @@
+Usage instructions:
+
+Linux
+Need Salome 7.8 to run StlToMed.py and MedToFebio.py (both written in Python 2.7)
+Windows 
+Need Salome 8.3 (to run MedToFebio.py, older versions do not work)
+However, if Salome 8.3 is used to correct ties and contacts in MED files then the exported version is MED 3.3.1 which will not be compatible with Salome 7.8 (required for Linux). 
+In that case either use Salome 7.8 or Salome 9.2 to correct MED files and save in MED version 3.2. 
+To run StlToMed.py and MedToFebio.py from Salome 8.3,
+1. Open command prompt
+2. navigate to Salome directory,
+3. type: >run_salome.bat -t --pinter path\StlToMed.py OR path\MedToFebio.py args:path\Connectivity.xml
+Both
+In connectivity.xml file all .stl locations have to be pointed to the directory they are located in. 
+
+MedToFebio.py
+MED files have to be in version 3.2. 
+Does not work well on Windows 
+
+Note: Febio 2.7 works if pre-strain is not used, otherwise use Febio 2.8. 
+Use Febio version 2.9 as it handles contacts better 
+
+OS preference:
+Segmentation/geometry generation (Slicer, Meshlab): Windows/Linux
+StltoMed.py (Salome): Linux
+Fix contacts and ties(Salome): Linux, Windows (have to export MED files in v3.2)
+MedtoFebio.py (Salome): Linux, Windows 
+Pick Landmarks (Meshlab): Windows/ Linux
+Customization: Windows/Linux 
+Febio: Windows/Linux (edit geometry file location in Febio_custom.feb)
+
+
+Model development status notes:
+
+oks001 
+Runs fully with all ties, cartilage and meniscus contacts, quad and femur bone contacts, quad and femur cartilage contact, acl-pcl contacts, mcl and bone contacts and mcl-mns_m tie. 
+ACL,PCL and LCL contacts to bone were off. PCL to MNS-m contact off.
+MED files are in version 3.2
+There appears to be a little penetration between mcl and medial meniscus at higher flexion angles. 
+No pre-strain. 
+
+oks002
+Runs to 19% with all relevant contacts, ties. Seems like element locking at top of LCL may be causing convergence issues. Needs further investigation. 
+Meniscus-cartilage overlap might be causing issues. 
+MED files are in version 3.2
+No pre-strain. 
+
+oks003
+Runs fully with all ties and contacts and pre-strain. 
+MED files are in version 3.2 
+
+
+oks004
+Ran to 64% with all ties, cartilage and meniscus contacts, mcl and bone contacts, qad tendon and femur contact, qad and femoral cartilage contact. No mcl-mns_m tie. No acl-pcl contacts (they are far apart enough that contact was unnecessary). Femur appears to be rotating medially. Needs to be troubleshot further. 
+MED files are in version 3.2
+No pre-strain. 
+
+oks006
+cartilage to cartilage contacts only begins to run but extremely slow/takes a lot of memory. Possibly a geometry/mesh issue with the cartilage? Needs to be investigated further. 
+MED files are in version 3.2
+No pre-strain. 
+
+
+oks007
+cartilage to cartilage contacts only begins to run but extremely slow/takes a lot of memory. Possibly a geometry/mesh issue with the cartilage? Needs to be investigated further. 
+MED files are in version 3.2
+No pre-strain. 
+
+
+oks008
+Runs on windows with all ties and cartilage contacts. Segmentation fault when ran under the same conditions on linux. Needs further exploration. 
+MED files are in version 3.2
+No pre-strain. 
+
+
+
+
+
+oks009
+Runs to 48% with quat and mcl contacts set to ‘sliding node to facet’ then fails to converge. May be element locking at the top of lcl where it ties to femur is causing issues. Needs to be investigated further. 
+MED files are in version 3.2
+No pre-strain. 
+
+
+NOTES:
+
+Data uploaded to oks repository with following folder structure for each specimen specifically for model development (parent folder may contain other folders/files. e.g. PressureAnalysis):
+Segmentation folder (has all attempts)
+Geometry folder (has all attempts, for the ones used for model development check connectivity file in Model folder)
+Model folder
+Connectivity.xml
+Febio folder
+Febio.feb (template model file)
+Geometry.feb
+FeBio_custom.feb (customized for 90º flexion and specific material properties)
+Geometry_custom.feb
+ModelProperties.xml
+MED folder 
+16 MED files 
+Making sure there are no overlapping ties or contacts on one object may be helpful in running the models with fewer issues. 
+MED files have to be in version 3.2. 
+
+
+
+
+
+Model run attempt 2 after updating to Febio 2.9 
+
+Notes: 
+All models run on Windows 10 in Febio 2.9 unless otherwise specified. 
+Models updated using Febcustomization_p3.py (also updates mcl-mns-m ties to springs)
+Salome- meca 9.3 used to run transfer_med_groups.py
+If certain python libraries are not installed in Salome’s Python installation– go to the folder where python is installed in the Salome directory – open power shell – type – .\python -m pip install <library> 
+All contacts and ties active unless otherwise specified
+MED files in version 3.2
+
+
+oks006
+Model ran as is (with high ligament mesh densities) more than halfway through (manually terminated) with all contacts and ties with high mesh densities for ligaments before making any changes to mesh densities, contacts etc.
+ACL, PCL, MCL, LCL meshed to lower densities (existing high density smooth meshes were used), model was recreated.
+LCL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+MCL (iso parameterization, sampling – 7; Taubin smoothing 0.5,-0.53)
+ACL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+PCL (iso parameterization, sampling –5; Taubin smoothing 0.5,-0.53)
+No in situ strain 
+Ran to ~82% in ~4 hrs 
+
+
+oks001
+Updated previously ran model using Febcustomization_p3.py.
+Ligaments not remeshed.
+Model had converged successfully before with all contacts (except acl-bone,pcl-bone,lcl-tibia and pcl-mns-m contacts) and ties.
+This model was run with ALL contacts on.
+Ran to 82% in ~ 2Hrs.
+It appears that mcl lifts up medial meniscus too much as flexion angle increases. 
+
+
+oks007 
+Ran model as is (with high ligament mesh densities) on Febio 2.9. Model started running with ALL contacts on (updated using Febcustomization_p3.py- mcl-mns-m springs).
+Ran on linux 
+ran to 37%
+ACL, PCL, MCL, LCL meshed to lower densities (existing high density smooth meshes were used), model was recreated.
+LCL (Taubin smoothing 0.5,-0.53 ; iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+MCL (iso parameterization, sampling – 7; Taubin smoothing 0.5,-0.53)
+ACL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+PCL (iso parameterization, sampling –5; Taubin smoothing 0.5,-0.53)
+No in situ strain 
+ALL contacts and ties active.
+Ran on windows 10
+ran to 67% in 3 hr 37 min
+
+oks008 
+Ran model as is (with high ligament mesh densities) on Febio 2.9. Model started running with ALL contacts on (updated using Febcustomization_p3.py- mcl-mns-m springs).
+Ran on linux 
+Ran ~28% in over 12 hours. Remote connection terminated, interrupting the simulation, did not rerun.
+MCL (Taubin smoothing 0.5,-0.53 ; iso parameterization, sampling – 7; Taubin smoothing 0.5,-0.53)
+LCL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+ACL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+PCL (iso parameterization, sampling –5; Taubin smoothing 0.5,-0.53)
+No in situ strain 
+ALL contacts and ties active.
+Ran on windows 10
+ran to ~32% in over 12 hrs. Simulation terminated manually. 
+Note – check if correct MED files were used.
+
+
+oks002 
+Ran model as is (with high ligament mesh densities) on Febio 2.9. Model started running with ALL contacts on (updated using Febcustomization_p3.py- mcl-mns-m springs).
+Ran on linux 
+Ran to 
+MCL as is
+LCL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53) 
+ACL as is
+PCL as is
+No in situ strain 
+ALL contacts and ties active.
+Ran on windows 10
+Failed to take any steps.
+
+oks004
+Ran model as is (with high ligament mesh densities) on Febio 2.9. Model started running with ALL contacts on (updated using Febcustomization_p3.py- mcl-mns-m springs).
+Ran on linux 
+Failed to take any steps.
+MCL (iso parameterization, sampling – 7; Taubin smoothing 0.5,-0.53)
+LCL – as is 
+ACL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+PCL (iso parameterization, sampling –5; Taubin smoothing 0.5,-0.53)
+No in situ strain 
+ALL contacts and ties active.
+Ran on windows 10
+Ran to 72% in ~ 2hrs.
+
+oks009
+Ran model as is (with high ligament mesh densities) on Febio 2.9. Model started running with ALL contacts on (updated using Febcustomization_p3.py- mcl-mns-m springs).
+Ran on linux 
+Ran to 57% and connection terminated. 
+MCL (iso parameterization, sampling – 7; Taubin smoothing 0.5,-0.53)
+LCL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+ACL (iso parameterization, sampling – 5; Taubin smoothing 0.5,-0.53)
+PCL (iso parameterization, sampling –5; Taubin smoothing 0.5,-0.53)
+No in situ strain 
+ALL contacts and ties active.
+Ran on windows 10
+Ran to 55.6 % in 3 hrs.
+
+
+
+
+
+
+Checklist to run models with re-meshed ligaments (acl,pcl,mcl,lcl). Started with smooth high density meshes. 
+
+Steps
+oks002
+oks004
+oks006
+oks007
+oks008
+oks009
+reduce mesh size (acl,pcl,mcl,lcl)
+*
+*
+*
+*
+*
+*
+transfer MED groups 
+*
+*
+*
+*
+*
+*
+convert MED files to version 3.2
+*
+*
+*
+*
+*
+*
+Update connectivity.xml 
+*
+*
+*
+*
+*
+*
+MED2FEbio.py
+*
+*
+*
+*
+*
+*
+Customize for 90º flexion (Febcustomization_p3.py)
+*
+*
+*
+*
+*
+*
+run in febio 2.9
+*
+*
+*
+*
+*
+*
+
+
+
+
+
+
+
+
+
+Further troubleshooting, all models have reduced mesh densities for acl, pcl, mcl, lcl unless otherwise specified. 
+
+
+oks001
+Reduced spring stiffness for springs between MNS-m and MCL to a third.
+Model converged fully.
+Penetration between MCL and MNS-m (similar to the original attempt)
+Added contact between the two (Updated MEDs, recreated model files) and reran.
+Fully converged in ~3hrs.
+
+
+oks006 
+reduced spring stiffness (E = 300) for springs between MCL and MNS-m to a third. 
+Ran to 73% in ~4.5 hrs
+increased spring stiffness (E = 700), only got to 24% in 3 hours 
+upped to 950 – ran to 45% in ~ 4 hrs
+ran E1000 on linux, ran to 85% in 5.5 hrs
+may be with reduced spring stiffness medial meniscus is touching medial tibial cartilage more and there may be an issue with that contact. - need to check
+may be reduce MCL modulus
+
+
+oks008 
+Corrected the landmarks in Modelproperties.xml file, recreated customized feb file and reran.
+Ran to ~86% in ~24hrs
+
+
+
+
+Prestrain application, ran on windows unless specified otherwise
+
+
+oks001 
+
+used default prestrain values 
+converged to 76% in ~2hrs
+spring stiffness was still 1000 and mcl_mns-m contact was missing
+reduced stiffness to 300 and added contact 
+Fully converged in ~ 8 hrs.
+
+
+oks008 
+
+MCL-mns-m spring stiffness updated to 3. Default prestrain values used.
+Model fully converged in ~20hrs.
+
+
+
+
+oks007
+spring stiffness - 3, default prestrain, ran on windows
+converged to only 38% in ~ 3 hrs. 
+Mcl presteain updated to 0.025
+fully converged in ~ 11 hrs. lateral side seems to be lifting a lot.
+
+
+
+oks004 
+default prestrain values, spring stiffness – 3 
+converged fully in ~11 hrs.
+
+
+oks009
+default prestrain values, spring stiffness – 3 
+converged to 89% in ~6hrs.
+Negative jacobians at mcl elements tied to femur. 
+Updating mcl-femur ties.
+Redid MED files, recreated template models and customized
+default prestrain values, spring stiffness – 3 
+converged fully in ~ 5hrs.
+
+
+oks006
+used default prestrain values
+spring stiffness – 1000
+no mcl_mns-m contact (gap is large enough)
+converged to 20% (after prestrain)
+reduced spring stiffness to 30.
+converged to 77% after prestrain (total time – ~6 hrs)
+reduced spring stiffness to 3.
+converged to 81% after prestrain in ~6 hrs.
+mcl prestrain reduced to 0.025 from 0.034, spring stiffness 3
+model converged to 82% in ~6 hrs.
+reduced stiffness to 0.3, default prestrain
+converged to 82% in 5 hrs
+changed mcl prestrain to 0.040
+converged to 25% in 3 hrs.
+Adjusted mcl-femur tie to avoid mcl folding/buckling. Redid MED files and recreated model.
+Spring stiffness 3, mcl prestrain 0.025
+only converged to 27% in ~3 hrs
+updated mcl-femur ties again. 
+Spring stiffness 3, default prestrain
+ran to 62% in 6 hours
+negative jacobians at elements in lcl close to femur tie.
+went back to original ties. Reran with stiffness =3, default prestrain 
+ran to 75% in 5.5 hrs 
+this is the exact same simulation that ran to 81% previously in 6 hrs. printing elements with negative jacobians this time. 
+Reran mcl prestrain reduced to 0.025 from 0.034, spring stiffness 3. this time printing negative jacobian elements.
+Ran to 92% in ~ 9 hrs.
+reran model with- reduced stiffness to 0.3, default prestrain (earlier ran to 82% in 5 hrs) - Updated parameters and printing elements with negative jacbians- 
+max refs from 25 to 50, min residua frm 0.001 to 0.1
+only got to 23% in ~ 3hrs
+reran mcl prestrain reduced to 0.025 from 0.034, spring stiffness 3. this time printing negative jacobian elements and changed max refs from 25 to 50, min residua frm 0.001 to 0.01.
+ran to 87% in ~7hrs.
+Reran model with extended mcl-fem ties. Spring stiffness – 3, reduced mcl prestrain to 0.025, reverted to 25 max refs and 0.001 min residual.
+Ran to 69% in 7 hrs.
+used high mesh density mcl, mcl prestrain reduced to 0.025 from 0.034, spring stiffness 3.
+ran to ~20% , negative jacobians at elements in lcl near femur tie
+reduced lcl prestrain to 0.015
+ran to 94% in ~6hrs
+reduced mcl and lcl prestrain to 0.020 and 0.012 resp, spring stiffness – 0.3
+failed at 30% in 4 hrs
+Reran mcl (low mesh density)prestrain reduced to 0.025 from 0.034, spring stiffness 3. lcl prestrain reduced to 0.020.
+ran to ~75% 
+Adjusted ties for high mesh density mcl. Spring stiffness – 3, mcl prestrain 0.025.
+converged fully in ~ 7 hrs.
+
+
+
+oks002 
+ran with default prestrain and spring stiffness – 3
+failed to take any steps
+there seems to be an issue with landmarks. Two sets of landmarks are in two files. Neither of them working. 
+Elements in medial tibial cartilage seems to be deformed (negative jacobians detected)
+Rechecked landmarks
+max refs – 50, min residual – 0.01
+surface overlaps in fmc-ptc, fmc-mns_m-tbc_m, fmc-mns_l-tbc_l
+corrected overlap and redid ptc, mns-m (l-3 v t I-10 t)and mns-l ((l-3 v t I-10 t)segmentation and geometries. 
+Edited MED files
+spring stiffness – 3, default prestrains
+Fully converged in ~ 9 hrs.
+
+
+
+
+
+
+
+
+
+
+
+
+Convergence status 
+
+Specimen
+Convergence status
+oks001
+Fully converged, in situ strain
+oks002
+Fully converged, in situ strain
+oks003
+Fully converged, in situ strain
+oks004
+Fully converged, in situ strain
+oks006
+Fully converged, in situ strain
+oks007
+Fully converged, in situ strain
+oks008
+Fully converged, in situ strain
+oks009
+Fully converged, in situ strain
+
+
+
+
+
+
+
+
+Additional specimens 
+
+
+oks020 
+
+Some segmentations may need to be redone – LCL, MCL, MNS-M, PTL (looks like more tissue could be added or in case of LCL, it appears much thicker than it should be)
+LVTIT sequence was employed for all the tissues (LIT was not adequate for some as prescribed in specifications.)
+MED files created (had to use linux machine as StlToMed.py script does not work properly on windows).
+Model ran with spring stiffness (mcl- mns_m) = 3 and default presttrain values. Ran on windows.
+Fully converged in ~ 4.5 hrs

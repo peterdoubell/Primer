@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "Every staged NPZ is readable without pickle and matches its SHA-256, array shapes and dtypes.",
+    "Volume connectivity, interior/exterior face incidence and exact author transform verified from staged arrays.",
+    "Each tissue NPZ preserves all boundary node coordinates and midside nodes exactly in quadratic arrays and preview samples.",
+    "Independent direct-line parser agrees on every material element count, unique node count, nodal bounds and maximum midside offset.",
+    "Staged native input is byte-identical to the acquired source."
+  ],
+  "analytical_tests": "12 passed",
+  "clinical_or_anatomical_approval": false,
+  "note": "Numerical preservation/topology checks only; no MRI registration, normal-anatomy validation or commercial-readiness approval.",
+  "bounded_code_review": "Independent code/mathematics review found a winding-description ambiguity, corrected: PT_* boundary arrays are outward; volume global boundary arrays retain native Abaqus order. No mathematical bug found in the reviewed functions. This is not anatomy or clinical approval."
+}

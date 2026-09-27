@@ -23,7 +23,7 @@ The general curriculum and imaging foundations contain 448 added spatial compani
 families. Fourteen existing
 specialized general-subject 3D activities remain in place. All 96 Radiology
 modules expose their existing anatomical or schematic 3D reference, in
-addition to their existing exercises. There are 561 spatial entries and 816
+addition to their existing exercises. There are 561 spatial entries and 817
 interactive model entries in the complete gallery, including additional
 activities within a lesson.
 
@@ -53,9 +53,10 @@ Useful verification commands:
 
 ```sh
 .venv/bin/python -m pytest -q tests/test_module_media.py tests/test_api.py tests/test_primer.py
-.venv/bin/python tools/check_model_coverage.py --require-complete
+.venv/bin/python tools/check_model_coverage.py --require-complete --require-spatial
 node tools/check_module_models.js
 NODE_PATH=/path/to/playwright/node_modules node tools/check_module_media_browser.cjs http://127.0.0.1:8781
+PRIMER_QA_PYTHON=.venv/bin/python NODE_PATH=/path/to/playwright/node_modules node tools/check_all_model_mounts.cjs http://127.0.0.1:8781
 ```
 
 The browser checker requires an isolated development database because it
@@ -63,6 +64,34 @@ creates a QA reader. It checks complete API coverage, local image decoding,
 gallery filters, representative lesson routes, model parameters, rotation,
 reset, keyboard image enlargement and mobile overflow. Image presence and
 working controls alone do not establish subject-matter accuracy.
+
+The spatial coverage flag checks each lesson specifically for a 3D renderer;
+a two-dimensional activity cannot satisfy it. Photographs remain available in
+the lesson reader and gallery for all subjects. The separate MSK reporting
+workspace uses source clinical figures and excludes the generated equipment
+scenes from its clinical image pane.
+
+Current whole-Primer verification on 2026-09-26: all 558 lessons across 19
+subjects have a photograph and a 3D companion. All 817 interactive entries
+mounted through the shipped registry; 534 schematic spatial views passed
+rotation/reset, and 27 detailed anatomical viewers loaded and rendered. The
+route sweep passed 71 lessons covering all 19 subjects, 41 shared object
+families and 17 original spatial scenes. All 60 responsive photo files decoded;
+image enlargement, focus restoration, model parameters, keyboard/mouse/touch
+controls and 390-pixel mobile layouts passed with no uncaught browser errors.
+The [verification record](module-media-verification-2026-09-26.json) preserves
+per-subject counts, evidence paths, asset fingerprints and the limits of these
+checks. This confirms coverage and runtime behavior, not clinical certification.
+
+After the whole-Primer scope was confirmed, a fresh check again found no missing
+photographs or 3D bindings across all 558 lessons. All 60 photo files decoded,
+197 focused Python tests passed, and the shared geometry checker passed 998
+builds. A browser smoke test covered all 19 subject filters and three current
+lesson routes (mathematics, architecture and knee anatomy), including mobile
+layouts, image enlargement, focus restoration, model controls and a rendered
+WebGL anatomy view. It reported no uncaught browser errors. Run this bounded
+check with `check_module_media_browser.cjs URL - --smoke`; the full route sweep
+remains the default.
 
 Historical baseline before the pathway expansion, verified locally on 2026-09-23: 32,041 Python tests passed, with two existing
 fixture skips. The final Radiology photo-selection adjustment also passed all

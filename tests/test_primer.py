@@ -452,6 +452,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'math.2.negatives': (2, 'integer-number-line-lab'),
         'chem.2.atoms': (2, 'atom-element-builder'),
         'bio.2.cells': (2, 'cell-microscope'),
+        'bio.2.reproduction': (2, 'prenatal-sequence'),
         'mind.2.logic-intro': (2, 'counterexample-lab'),
         'math.3.functions': (3, 'function-composition-lab'),
         'bio.3.genetics': (3, 'allele-segregation-lab'),

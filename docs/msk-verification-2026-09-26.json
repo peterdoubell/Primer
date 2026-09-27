@@ -1,0 +1,68 @@
+{
+  "date": "2026-09-26",
+  "goal_complete": false,
+  "clinical_commercial_ready": false,
+  "scope": {
+    "core_investigations": 22,
+    "representation_requirements": 4974,
+    "additional_scope_entries": 22
+  },
+  "fidelity_evidence": {
+    "verified": 0,
+    "unverified": 4,
+    "missing": 4970
+  },
+  "scope_or_review_gaps": 58,
+  "engineering_checks": {
+    "regression_suite": {
+      "passed": 33380,
+      "skipped": 2,
+      "scope": "Full repository suite before the final MRI-specific extension; that extension has separate focused and browser checks."
+    },
+    "source_meshes": {
+      "z_anatomy_native_objects": 359,
+      "z_anatomy_material_regions": 131,
+      "mri_knee_objects": 28,
+      "mri_knee_triangles": 1307872,
+      "only_exact_empty_facets_omitted": 48
+    },
+    "source_images": {
+      "original_figures": 12,
+      "regions": 6
+    },
+    "legacy_anatomy_browser": {
+      "regions": 11,
+      "meshes": 96,
+      "errors": []
+    },
+    "browser": {
+      "mri_knee": {
+        "status": "passed",
+        "source_hashes": {
+          "app.js": "7cfaded9121b6996ba993bb6dc9b297f95d2daffaea777c3778b162e3c5f9bb4",
+          "styles.css": "948a1f35f1b249f82b4383b3329ee3dca6149fafa005b70c3d8b11fcef9e01ee",
+          "radiology-detailed-anatomy.js": "82b5cadd95ba1c74c25516ba21f554efbd7ff729ad93a31b28ddbbbff79f1308",
+          "anatomy/msk-mri-knee/manifest.json": "f788c47114ffd078ffb3864c22a56122c308d0e9f042dcc6064eb2b5e62e028b"
+        },
+        "browser_exceptions": [],
+        "evidence_directory": "/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/primer-browser-qa-hIsxrO"
+      },
+      "msk_pages": {
+        "status": "passed",
+        "source_hashes": {
+          "app.js": "7cfaded9121b6996ba993bb6dc9b297f95d2daffaea777c3778b162e3c5f9bb4",
+          "styles.css": "948a1f35f1b249f82b4383b3329ee3dca6149fafa005b70c3d8b11fcef9e01ee",
+          "radiology-detailed-anatomy.js": "82b5cadd95ba1c74c25516ba21f554efbd7ff729ad93a31b28ddbbbff79f1308",
+          "anatomy/msk-atlas/manifest.json": "ef50083f82c062154d13b91cb3f672cf28fabd02bdc835c67dc1c5814f1d335c"
+        },
+        "browser_exceptions": [],
+        "evidence_directory": "/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/primer-browser-qa-oWT4wn"
+      }
+    },
+    "focused_final_suite": {
+      "passed": 34,
+      "scope": "Current MRI transport/geometry, source atlas, fidelity guard, reporting boundaries, source figures and picture controls."
+    }
+  },
+  "limits": "Engineering, transport and source-reconciliation evidence. It does not prove full anatomical coverage, high fidelity of every reportable structure, rights to all legacy figures, or clinical/commercial readiness."
+}

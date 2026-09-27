@@ -5769,6 +5769,7 @@
     },
     'concept-lab': (item, hooks) => window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null,
     'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
+    'prenatal-sequence': (item, hooks) => window.PrimerPrenatalSequence ? window.PrimerPrenatalSequence.render(item, hooks) : null,
     'doppler-angle-lab': renderDopplerAngle,
     counter: renderCounter,
     'shape-explorer': renderShapeExplorer,

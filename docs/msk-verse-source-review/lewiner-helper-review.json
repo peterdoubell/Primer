@@ -1,0 +1,11 @@
+{
+  "library": "scikit-image",
+  "version": "0.26.0",
+  "source_url": "https://github.com/scikit-image/scikit-image/blob/v0.26.0/src/skimage/measure/_marching_cubes_lewiner_cy.pyx",
+  "git_blob_sha": "20067eecff821f7d70fef2f5ffb2b9c306aeacbf",
+  "source_sha256": "2a8be3396533aa89db8b346755f39ef7bac6a271556406ebe2c19b0e7fcc87f3",
+  "inspected_function": "calculate_center_vertex",
+  "finding": "The implementation adds weighted cell-centre helper vertices. Binary corners at isovalue 0.5 have equal absolute offsets, so their weighted centre is the cell centre; the original trilinear field there need not be 0.5.",
+  "audit_policy": "Keep the original method; verify edge vertices at 0.5, classify and report centre helpers and sampled deviations, reject other unexplained vertex types. No vertex projection or geometry correction applied.",
+  "clinical_approval": false
+}

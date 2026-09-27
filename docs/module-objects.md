@@ -1,9 +1,11 @@
 # Whole-curriculum 3D study objects
 
-`data/module-models.json` binds all 348 non-radiology lessons to an explicitly
-selected physical object or mathematical example. Existing lesson-specific
-spatial scenes take precedence; 334 lessons receive a new companion. The 41
-families are shared constructions, not 334 different physical simulations.
+`data/module-models.json` binds all 462 general-curriculum and imaging-foundation
+lessons to an explicitly selected physical object or mathematical example.
+Existing lesson-specific spatial scenes take precedence; 448 lessons receive
+a new companion. The 41 families are shared constructions, not 448 different
+physical simulations. The other 96 Radiology modules expose their anatomical
+or schematic 3D reference through a separate renderer.
 The explicit source mapping is `tools/generate_module_models.py`.
 
 `web/spatial-module-objects.js` reuses the existing local `PrimerSpatial`
@@ -47,7 +49,7 @@ The reference configurations are grounded in established descriptions:
   arrangement, not a reconstruction of CMS or real collision data.
 
 Run `node tools/check_module_models.js` or `pytest -q tests/test_module_models.py`.
-The checker verifies all 348 bindings, preservation of existing scenes,
+The checker verifies all 462 bindings, preservation of existing scenes,
 registration isolation, all 84 controls, deterministic finite geometry and
 invalid-value fallback. Numeric checks inspect geometry independently for
 counts, function surfaces, pendulum lengths/heights, lattice sites, molecular

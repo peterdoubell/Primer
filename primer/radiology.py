@@ -5,6 +5,7 @@ Radiology Assistant. Original reporting worksheets remain usable offline.
 """
 
 import copy
+import hashlib
 import json
 from datetime import date
 from pathlib import Path
@@ -95,6 +96,25 @@ def validate_image_source(url):
     """Keep image loading confined to the curated publishers and local plates."""
     if not isinstance(url, str) or not url:
         raise ValueError("Radiology image needs a source")
+    source_prefix = '/app/reference-media/source-figures/'
+    if url.startswith(source_prefix):
+        # A locally preserved publisher figure must be explicitly registered
+        # with its reviewed bytes; the prefix alone is not permission to serve
+        # an arbitrary project file as a clinical example.
+        registry = _read('local-source-figures.json')
+        record = registry.get(url)
+        if not record or '%' in url or '\\' in url:
+            raise ValueError('Unknown preserved radiology source figure')
+        relative = url.removeprefix(source_prefix)
+        directory = (DATA.parents[1] / 'web/reference-media/source-figures').resolve()
+        path = (directory / relative).resolve()
+        if (any(part in ('', '.', '..') for part in relative.split('/'))
+                or not path.is_relative_to(directory) or not path.is_file()
+                or path.suffix.lower() not in ('.jpg', '.jpeg', '.png', '.webp')):
+            raise ValueError('Invalid preserved radiology source figure')
+        if hashlib.sha256(path.read_bytes()).hexdigest() != record.get('sha256'):
+            raise ValueError('Preserved radiology source figure changed after review')
+        return
     local_prefix = "/app/illustrations/"
     if url.startswith(local_prefix):
         relative = url[len(local_prefix):]

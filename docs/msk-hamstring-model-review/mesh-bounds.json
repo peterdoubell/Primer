@@ -1,0 +1,117 @@
+{
+  "manifest_sha256": "ef50083f82c062154d13b91cb3f672cf28fabd02bdc835c67dc1c5814f1d335c",
+  "coordinate_system": {
+    "units": "centimeters",
+    "unit_meters": 0.01,
+    "x_positive": "patient left",
+    "y_positive": "superior",
+    "z_positive": "anterior",
+    "registration": "Source FBX geometry_to_world evaluated by ufbx; no fit or translation to BodyParts3D",
+    "display_basis": "native-x-left-y-superior-z-anterior"
+  },
+  "default_knee_crop": [
+    32.25912857055664,
+    58.84880065917969
+  ],
+  "parts": [
+    {
+      "id": "za-muscles-906368294",
+      "name": "Long head of biceps femoris.r",
+      "sha256": "7b56d928cd7e4d8dade5ff2b50d2cc47b2993e531a3d2ae2e8c7c1b88fa95cea",
+      "bounds_from_mesh": [
+        [
+          -12.829724311828613,
+          39.47711181640625,
+          -7.661901473999023
+        ],
+        [
+          -5.005216121673584,
+          82.0177001953125,
+          -2.0791690349578857
+        ]
+      ],
+      "export_vertices": 21774,
+      "triangles": 7258,
+      "vertices_outside_default_knee_crop": 12742,
+      "outside_fraction": 0.5851933498668136,
+      "source_model_id": 906368294,
+      "source_geometry_id": 996132407,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "id": "za-muscles-266598907",
+      "name": "Short head of biceps femoris.r",
+      "sha256": "6742df972a2ec6311f6f8183b35c666a7d1f9b99e030a1e36b8d90ab4d39e7d6",
+      "bounds_from_mesh": [
+        [
+          -12.352157592773438,
+          40.320369720458984,
+          -5.609435081481934
+        ],
+        [
+          -8.667527198791504,
+          70.45524597167969,
+          -1.4214237928390503
+        ]
+      ],
+      "export_vertices": 7428,
+      "triangles": 2476,
+      "vertices_outside_default_knee_crop": 1769,
+      "outside_fraction": 0.23815293484114164,
+      "source_model_id": 266598907,
+      "source_geometry_id": 7696003,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "id": "za-muscles-312860247",
+      "name": "Semimembranosus muscle.r",
+      "sha256": "da1210fb46f3d53228bebfe3e5543ebb939514dc0c3d181dfbd35ba8e8ca236f",
+      "bounds_from_mesh": [
+        [
+          -7.876730442047119,
+          38.53598403930664,
+          -6.919895648956299
+        ],
+        [
+          -1.4993207454681396,
+          80.30712890625,
+          -1.4070987701416016
+        ]
+      ],
+      "export_vertices": 22326,
+      "triangles": 7442,
+      "vertices_outside_default_knee_crop": 10027,
+      "outside_fraction": 0.4491176207112783,
+      "source_model_id": 312860247,
+      "source_geometry_id": 197323591,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "id": "za-muscles-63886170",
+      "name": "Semitendinosus muscle.r",
+      "sha256": "44af9bb49cf69ae13d5b2f6c1716189397283164ec8a72ee42bc71b26e29a136",
+      "bounds_from_mesh": [
+        [
+          -6.875219345092773,
+          35.14638900756836,
+          -7.553291320800781
+        ],
+        [
+          -3.2736687660217285,
+          81.14025115966797,
+          -1.729530930519104
+        ]
+      ],
+      "export_vertices": 12948,
+      "triangles": 4316,
+      "vertices_outside_default_knee_crop": 7028,
+      "outside_fraction": 0.5427865307383379,
+      "source_model_id": 63886170,
+      "source_geometry_id": 75458233,
+      "license": "CC BY-SA 4.0"
+    }
+  ],
+  "note": "Export vertices include duplicated triangle corners. Fractions describe renderer input vertices, not anatomical volume or area. Bounds agreement proves preservation, not clinical accuracy.",
+  "decision": "Use a dedicated whole-course source framing, not the default knee crop, before replacing the generic hamstring schematic. Surface material patches are not separately validated tendon volumes.",
+  "runtime_changed": false
+}

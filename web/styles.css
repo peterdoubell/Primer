@@ -4114,6 +4114,11 @@ kbd.key-hint { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
   max-height: none; border-radius: 0;
 }
 .lightbox img:is(.skin-invert, .skin-invert-image) { filter: var(--img-invert); }
+/* Medical source figures retain their original grayscale and annotation
+   colours. Reading-theme glare/inversion filters are decorative, not a
+   clinically defined window/level adjustment. Preserve this in enlargement. */
+#article img[data-source-figure="true"],
+.lightbox img[data-source-figure="true"] { filter: none; }
 .lightbox .cap {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   margin: 16px auto 0; max-width: 60ch; text-align: left;

@@ -3529,7 +3529,7 @@ def app_shell():
     for filename in ("spatial-models.js", "spatial-math.js", "spatial-molecular.js", "spatial-physical.js",
                      "spatial-cross-subject.js", "spatial-radiology.js", "spatial-module-objects.js",
                      "radiology-reference-models.js", "radiology-detailed-anatomy.js", "concept-models.js",
-                     "review-game.js", "review-game.css"):
+                     "review-game.js", "review-game.css", "prenatal-sequence.js", "prenatal-sequence.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -3659,6 +3659,11 @@ class _CachedStatic(StaticFiles):
         # than relying on the host's /etc/mime.types.
         if full_path is not None and os.fspath(full_path).lower().endswith(".webp"):
             resp.headers["Content-Type"] = "image/webp"
+        if full_path is not None and os.fspath(full_path).lower().endswith(".bin.gz"):
+            # Lossless anatomical meshes are compressed at build time. Fetch
+            # transparently decodes them before constructing typed arrays.
+            resp.headers["Content-Type"] = "application/octet-stream"
+            resp.headers["Content-Encoding"] = "gzip"
         scope = kwargs.get("scope") or (args[2] if len(args) > 2 else None)
         query = ""
         if isinstance(scope, dict):

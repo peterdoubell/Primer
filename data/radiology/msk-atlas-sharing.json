@@ -1,0 +1,24 @@
+{
+  "ra.wrist-fractures": "ra.wrist-instability",
+  "ra.ultrasound-shoulder": {
+    "source": "ra.mri-shoulder",
+    "include_ids": [
+      "open-shoulder-rotator-interval-ultrasound-xue-fig1b",
+      "open-shoulder-rotator-interval-kadi-supp-fig6",
+      "open-shoulder-cuff-footprints-perez-fig2"
+    ]
+  },
+  "ra.mri-hamstring": {
+    "source": "ra.hip-fai",
+    "include_ids": [
+      "open-hip-proximal-hamstring-schematic-balius-fig2",
+      "open-hip-tendon-boutin-fig6-5"
+    ],
+    "cross_topic_review": {
+      "evidence_path": "docs/msk-hamstring-shared-figures.md",
+      "sha256": "76cb7272307e908b57cb46503c50cf0737d46ab9fafefa7f7c2c4f0d0707ad2d",
+      "scope_sha256": "9bffaa707276a4b3ce0ebda29e125d869d4d235bbf2a96bf29ef4c1e921e320c"
+    },
+    "mode": "append"
+  }
+}

@@ -1200,12 +1200,12 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
         'lessons': 558, 'illustrations': 561,
-        'models': 816, 'items': 1377,
+        'models': 817, 'items': 1378,
     }
 
     expected_domain_counts = {
         'math': (59, 114), 'language': (40, 61), 'physics': (39, 78),
-        'biology': (37, 73), 'chemistry': (29, 55), 'cs': (34, 67),
+        'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
         'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
         'mind': (29, 32), 'radiology': (109, 111),
         'engineering': (12, 12), 'health': (12, 12), 'environment': (12, 12),
@@ -1235,6 +1235,10 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
         )
     assert [(item['lesson_id'], item['media_id'], item['kind'])
             for item in body['items']] == expected_order
+    assert [(item['lesson_id'], item['renderer']) for item in body['items']
+            if item.get('renderer') == 'prenatal-sequence'] == [
+        ('bio.2.reproduction', 'prenatal-sequence'),
+    ]
 
     common = {
         'kind', 'lesson_id', 'lesson_title', 'domain', 'domain_name',

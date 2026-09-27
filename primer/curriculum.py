@@ -129,6 +129,7 @@ DEFAULT_MINUTES = [180, 360, 660, 1080, 1680, 2700]
 STAGE_GATE = 0.6
 STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
 LESSON_MODEL_RENDERERS = frozenset({
+    "prenatal-sequence",
     "music-listening-lab",
     "spatial-3d",
     "concept-lab",
@@ -294,7 +295,10 @@ def _validate_lesson_media(node: Dict) -> None:
             props = entry.get("props")
             if not isinstance(props, dict):
                 raise ValueError("{} model {} props must be an object".format(node.get("id"), media_id))
-            if renderer == "music-listening-lab":
+            if renderer == "prenatal-sequence":
+                if node.get("id") != "bio.2.reproduction" or props:
+                    raise ValueError("Prenatal sequence needs its own reproduction lesson and no props")
+            elif renderer == "music-listening-lab":
                 grade = props.get("grade")
                 if set(props) != {"grade"} or isinstance(grade, bool) or not isinstance(grade, int) or not 1 <= grade <= 8 or grade != node.get("music_grade"):
                     raise ValueError("Music listening model needs its own lesson grade")

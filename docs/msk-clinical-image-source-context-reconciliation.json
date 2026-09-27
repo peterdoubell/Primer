@@ -1,0 +1,1897 @@
+{
+  "schema_version": 1,
+  "status": "proposal_only_no_evidence_edits",
+  "created_at": "2026-09-26",
+  "scope": "The 28 clinical-image records present in the source-context audit snapshot, not newly acquired shoulder additions.",
+  "source_ledger_sha256": "1b9f5d6b413c82e4dc699a2c72a0febfd24b01905d55437ee6cf437dd2f28bc0",
+  "source_catalog_sha256": "5afa593b427e9abf9be5e95bba2939c98f29a7b79e857e4919f58ab1374297eb",
+  "policy": [
+    "Apply source facts only after review; do not update anatomical/visual approval or fidelity status.",
+    "Unknown means this reconciliation did not establish the fact; it is not a claim that the publisher never reported it.",
+    "not_reported is used only for an explicit existing unspecified-side statement.",
+    "Existing modality, structures, laterality text, captions and limits remain; these facts cannot waive complete structure scope or site instantiation.",
+    "New source_context claims invalidate previous review_scope_sha256 through the existing fingerprint; no reviews are refreshed here."
+  ],
+  "records": [
+    {
+      "asset_id": "open-shoulder-sublabral-recess-mra-fig13",
+      "asset_sha256": "447898579918b741640ee5a217b2f10c94da6f9417a600750cfa340a91741c23",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "shoulder.glenoid_labrum.superior_biceps_labral_junction"
+      ],
+      "preserve": {
+        "modality": "MR arthrography",
+        "investigation_ids": [
+          "ra.mri-shoulder"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-shoulder-sghl-cta-fig17",
+      "asset_sha256": "9708902e4d50a0304c3d921a9dd2ddaee1f9c968add4cfcf4bf714da5ee3dd0b",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "shoulder.superior_glenohumeral_ligament.course"
+      ],
+      "preserve": {
+        "modality": "CT arthrography",
+        "investigation_ids": [
+          "ra.mri-shoulder"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-elbow-lateral-ligaments-mri-fig7",
+      "asset_sha256": "a50f8bf989f02a5661e00334c4ca5ada63ba599dde04e31f8753cabde3348523",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-elbow"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-wrist-tfcc-sll-fig2",
+      "asset_sha256": "0d2dfefc4454845ff2cde756cbfe023c6d87e793dcb9395fc1aa1f939b355908",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.wrist-instability",
+          "ra.wrist-fractures"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-knee-anterior-meniscal-roots-fig10",
+      "asset_sha256": "828a9849bc428464e6d5f2006d9d0083801fd3612a33842ee84e429bd5ce26f8",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "knee.medial_meniscus.anterior_root",
+        "knee.lateral_meniscus.anterior_root"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-knee"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-knee-popliteomeniscal-fascicles-fig16",
+      "asset_sha256": "2e9ca2a4d6aaa410a4f591f4a720717641a0160fbec61d5fa83e9c321cf912e3",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "knee.lateral_meniscocapsular_attachments.popliteomeniscal_fascicles"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-knee"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-hip-chondrolabral-injury-mri-fig6",
+      "asset_sha256": "e606882b9ebca51efacf5c1b5096d9ad9eed1ca56507535bb316441b331f496f",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.hip-fai"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-talofibular-ligaments-mri-fig6",
+      "asset_sha256": "5b9adc1dd410c0c6262123d9d68c50e0fb0d575368cc80f1051c34808a070d2d",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-tibialis-posterior-mri-fig8",
+      "asset_sha256": "d50e6d7330e86d09749837755da9f4814400df3cd62e9c1a3b5135e074933888",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-wrist-tfcc-normal-cerezal-fig1",
+      "asset_sha256": "e3058b496e5fb4179440f546a70539994e8f84a31d03bd99eb34e7410b4f8ce1",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown",
+        "selected_panels": [
+          "e",
+          "f",
+          "g"
+        ],
+        "panel_types": {
+          "e": "MRI",
+          "f": "MRI",
+          "g": "MRI",
+          "a": "Schematic",
+          "b": "Schematic",
+          "c": "Schematic",
+          "d": "Schematic"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://link.springer.com/article/10.1186/s13244-026-02356-8",
+          "figure_url": "https://link.springer.com/article/10.1186/s13244-026-02356-8/figures/1",
+          "catalog_id": "open-wrist-tfcc-normal-cerezal-fig1"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "wrist.triangular_fibrocartilage_complex.articular_disc",
+        "wrist.triangular_fibrocartilage_complex.dorsal_radioulnar_ligament",
+        "wrist.triangular_fibrocartilage_complex.volar_radioulnar_ligament",
+        "wrist.triangular_fibrocartilage_complex.ulnar_styloid_attachment",
+        "wrist.triangular_fibrocartilage_complex.foveal_attachment",
+        "wrist.triangular_fibrocartilage_complex.ulnomeniscal_homologue",
+        "wrist.triangular_fibrocartilage_complex.ulnotriquetral_ligament",
+        "wrist.triangular_fibrocartilage_complex.ecu_subsheath"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.wrist-instability",
+          "ra.wrist-fractures"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-wrist-tfcc-normal-cerezal-fig2",
+      "asset_sha256": "ccab6723482a20745bd17ca20d073d852568e68faa02bedbc020e1cf2bff3d88",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown",
+        "selected_panels": [
+          "d"
+        ],
+        "panel_types": {
+          "d": "MR arthrography",
+          "a": "Schematic",
+          "b": "Schematic",
+          "c": "Schematic"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://link.springer.com/article/10.1186/s13244-026-02356-8",
+          "figure_url": "https://link.springer.com/article/10.1186/s13244-026-02356-8/figures/2",
+          "catalog_id": "open-wrist-tfcc-normal-cerezal-fig2"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "MR arthrography",
+        "investigation_ids": [
+          "ra.wrist-instability",
+          "ra.wrist-fractures"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-wrist-scapholunate-normal-mra-okoro-fig22a",
+      "asset_sha256": "3fbcc7528da169730433ed1a74ee7bcc8a5d911957499582543cb2b4d5dffc74",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown",
+        "selected_panels": [
+          "a"
+        ],
+        "panel_types": {
+          "a": "MR arthrography"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://doi.org/10.3390/life13071426",
+          "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10381215/figure/life-13-01426-f022/",
+          "catalog_id": "open-wrist-scapholunate-normal-mra-okoro-fig22a"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "wrist.scapholunate_interosseous_ligament.dorsal_component"
+      ],
+      "preserve": {
+        "modality": "MR arthrography",
+        "investigation_ids": [
+          "ra.wrist-instability",
+          "ra.wrist-fractures"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-wrist-scapholunate-normal-mra-okoro-fig22b",
+      "asset_sha256": "7e6f67f9cd19e9130e277abedcf6a13280243ac5a101f9743a4b0b606a006b62",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown",
+        "selected_panels": [
+          "b"
+        ],
+        "panel_types": {
+          "b": "MR arthrography"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://doi.org/10.3390/life13071426",
+          "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10381215/figure/life-13-01426-f022/",
+          "catalog_id": "open-wrist-scapholunate-normal-mra-okoro-fig22b"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "wrist.scapholunate_interosseous_ligament.dorsal_component"
+      ],
+      "preserve": {
+        "modality": "MR arthrography",
+        "investigation_ids": [
+          "ra.wrist-instability",
+          "ra.wrist-fractures"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-wrist-lunotriquetral-normal-mra-okoro-fig24a",
+      "asset_sha256": "a801821594e720f69998be7cd0bca5a695adf4d8f0f5c942a61869b756525e35",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown",
+        "selected_panels": [
+          "a"
+        ],
+        "panel_types": {
+          "a": "MR arthrography"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://doi.org/10.3390/life13071426",
+          "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10381215/figure/life-13-01426-f024/",
+          "catalog_id": "open-wrist-lunotriquetral-normal-mra-okoro-fig24a"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "wrist.lunotriquetral_interosseous_ligament.volar_component"
+      ],
+      "preserve": {
+        "modality": "MR arthrography",
+        "investigation_ids": [
+          "ra.wrist-instability",
+          "ra.wrist-fractures"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-wrist-lunotriquetral-normal-mra-okoro-fig24b",
+      "asset_sha256": "0a39d8d5f7d548d2baa09e66be72c85e2064ebbe295d2b93243558569b50eb61",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown",
+        "selected_panels": [
+          "b"
+        ],
+        "panel_types": {
+          "b": "MR arthrography"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://doi.org/10.3390/life13071426",
+          "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10381215/figure/life-13-01426-f024/",
+          "catalog_id": "open-wrist-lunotriquetral-normal-mra-okoro-fig24b"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "wrist.lunotriquetral_interosseous_ligament.volar_component"
+      ],
+      "preserve": {
+        "modality": "MR arthrography",
+        "investigation_ids": [
+          "ra.wrist-instability",
+          "ra.wrist-fractures"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-spring-components-szaro-fig2",
+      "asset_sha256": "f61951bfd552c9beef94b46ef00a1da1303dfc4f09f2f954427324ce158d1ba3",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "unknown",
+        "selected_panels": [
+          "a"
+        ],
+        "panel_types": {
+          "a": "MRI",
+          "b": "Schematic"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "normal anatomy example",
+          "source_url": "https://link.springer.com/article/10.1007/s00276-021-02860-0"
+        },
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://link.springer.com/article/10.1007/s00276-021-02860-0",
+          "figure_url": "https://link.springer.com/article/10.1007/s00276-021-02860-0/figures/2",
+          "catalog_id": "open-ankle-spring-components-szaro-fig2"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "ankle.spring_ligament_complex.medioplantar_oblique_component",
+        "ankle.spring_ligament_complex.inferoplantar_longitudinal_component"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-lateral-ligaments-cube-fig2",
+      "asset_sha256": "5267c43f172bbd0160413fbc8d46a95030f3d5c7e3600d3ee28c7db950e629ef",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "unknown"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "normal anatomy example",
+          "source_url": "https://doi.org/10.7759/cureus.93882"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "ankle.anterior_talofibular_ligament.course",
+        "ankle.calcaneofibular_ligament.course",
+        "ankle.posterior_talofibular_ligament.course"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-deltoid-syndesmosis-cube-fig3",
+      "asset_sha256": "ecc1bdb5ccafe919e7345d8d5612da8762e27bc0122ae0d1980314589e9869e7",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "unknown"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "normal anatomy example",
+          "source_url": "https://doi.org/10.7759/cureus.93882"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [
+        "ankle.anterior_inferior_tibiofibular_ligament.course",
+        "ankle.posterior_inferior_tibiofibular_ligament.course",
+        "ankle.interosseous_ligament.course"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-tendon-compartments-fig4",
+      "asset_sha256": "ec9c5773f6690323464882cc9ee1dd2a4fc81405a48154acf9625b7e934e03ab",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "mixed",
+        "extent": "unknown"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "mixed normal anatomy and pathology examples",
+          "source_url": "https://doi.org/10.7759/cureus.93882"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-deltoid-ultrasound-hung-fig9",
+      "asset_sha256": "19a63d34acc973ae05345450f503afe5d98c4494215bd7a080e763ba323276a4",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "unknown"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "normal anatomy example",
+          "source_url": "https://doi.org/10.3390/diagnostics10030160"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "Ultrasound",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-superomedial-spring-ultrasound-hung-fig11",
+      "asset_sha256": "6dec371d0716b9b83715dc8f0aa6832d88012db2687f92d3b09449a971634460",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "unknown"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "normal anatomy example",
+          "source_url": "https://doi.org/10.3390/diagnostics10030160"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "Ultrasound",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-ankle-retinacula-ultrasound-hung-fig18",
+      "asset_sha256": "2bf1ec98b4f3a5728a39836ccda03b8ed7eaabf738f76e1e19f608087ca167ea",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "unknown"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "normal anatomy example",
+          "source_url": "https://doi.org/10.3390/diagnostics10030160"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "Ultrasound",
+        "investigation_ids": [
+          "ra.mri-ankle"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "public-spect-ct-fusion",
+      "asset_sha256": "6f13b7c97b2d46eda574e5d5a75e7fd3bf3da7c57506a6f440b8ba961e561a7e",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "unknown"
+      },
+      "source_provenance": [],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "depicted_state",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        },
+        {
+          "field": "selected_panels/panel_types",
+          "reason": "No exact panel list established here; a loose string such as imaging or whole supplied asset was not promoted to an exact panel claim."
+        },
+        {
+          "field": "anatomical_site",
+          "reason": "Not newly inferred from the investigation or filename; retain existing named structures and source limitations."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "SPECT/CT",
+        "investigation_ids": [],
+        "fidelity": "teaching_composite_not_high_fidelity_anatomy",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-hallux-central-plantar-mri-wang-fig2",
+      "asset_sha256": "28ad7fb7518761b4e181c90f1ff418008508cd61b6f5558f0a65803a80ddfac1",
+      "proposed_source_context": {
+        "setting": "cadaveric",
+        "laterality": "left",
+        "population": {
+          "life_stage": "adult",
+          "age_years": 33
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "forefoot",
+          "joint_or_level": "MTP1",
+          "digit": 1
+        },
+        "selected_panels": [
+          "c",
+          "d"
+        ],
+        "panel_types": {
+          "c": "MRI",
+          "d": "MRI",
+          "a": "Schematic",
+          "b": "Dissection",
+          "e": "Histology",
+          "f": "Histology",
+          "g": "Histology",
+          "h": "Histology"
+        },
+        "preparation": "fresh-frozen",
+        "acquisition_note": "Sagittal T1WI and PD-FS"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "cadaveric normal anatomy study",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "laterality"
+          ],
+          "basis": "existing explicit laterality",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "anatomical_site.digit"
+          ],
+          "basis": "existing explicit anatomical_digit",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "figure_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7/figures/2",
+          "catalog_id": "open-hallux-central-plantar-mri-wang-fig2"
+        },
+        {
+          "fields": [
+            "setting",
+            "preparation",
+            "population",
+            "laterality",
+            "extent",
+            "acquisition_note",
+            "anatomical_site"
+          ],
+          "basis": "primary publisher methods and figure caption rechecked for this audit; existing limitations explicitly exclude full courses/footprints",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "locator": "Methods and Figure 2",
+          "checked_on": "2026-09-26"
+        }
+      ],
+      "unknowns": [],
+      "existing_bound_structure_ids": [
+        "diabetic_foot.hallux_plantar_capsulosesamoid_complex.central_plantar_portion",
+        "diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament",
+        "diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-diabetic-foot"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-hallux-medial-sesamoid-mri-wang-fig3",
+      "asset_sha256": "b3b723787c9a61b9ba1a2d0a23777ede4840c362b86966ca67e9cbff170e8e9d",
+      "proposed_source_context": {
+        "setting": "cadaveric",
+        "laterality": "left",
+        "population": {
+          "life_stage": "adult",
+          "age_years": 58
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "forefoot",
+          "joint_or_level": "MTP1",
+          "digit": 1
+        },
+        "selected_panels": [
+          "c",
+          "d"
+        ],
+        "panel_types": {
+          "c": "MRI",
+          "d": "MRI",
+          "a": "Schematic",
+          "b": "Dissection"
+        },
+        "preparation": "fresh-frozen",
+        "acquisition_note": "Parasagittal T1WI and PD-FS"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "cadaveric normal anatomy study",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "laterality"
+          ],
+          "basis": "existing explicit laterality",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "anatomical_site.digit"
+          ],
+          "basis": "existing explicit anatomical_digit",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "figure_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7/figures/3",
+          "catalog_id": "open-hallux-medial-sesamoid-mri-wang-fig3"
+        },
+        {
+          "fields": [
+            "setting",
+            "preparation",
+            "population",
+            "laterality",
+            "extent",
+            "acquisition_note",
+            "anatomical_site"
+          ],
+          "basis": "primary publisher methods and figure caption rechecked for this audit; existing limitations explicitly exclude full courses/footprints",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "locator": "Methods and Figure 3",
+          "checked_on": "2026-09-26"
+        }
+      ],
+      "unknowns": [],
+      "existing_bound_structure_ids": [
+        "diabetic_foot.hallux_plantar_capsulosesamoid_complex.medial_sesamoid_phalangeal_ligament",
+        "diabetic_foot.hallux_plantar_capsulosesamoid_complex.medial_metatarsosesamoid_ligament"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-diabetic-foot"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-hallux-sesamoid-complex-mri-wang-fig7",
+      "asset_sha256": "bf1c13670a5e22a6c52de0e5b566eae1893584a79574d762bd0f85c56ec546f2",
+      "proposed_source_context": {
+        "setting": "cadaveric",
+        "laterality": "right",
+        "population": {
+          "life_stage": "adult",
+          "age_years": 45
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "forefoot",
+          "joint_or_level": "MTP1",
+          "digit": 1
+        },
+        "selected_panels": [
+          "c",
+          "d"
+        ],
+        "panel_types": {
+          "c": "MRI",
+          "d": "MRI",
+          "a": "Schematic",
+          "b": "Dissection",
+          "e": "Histology",
+          "f": "Histology"
+        },
+        "preparation": "fresh-frozen",
+        "acquisition_note": "Coronal T1WI and T2-SPAIR"
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "cadaveric normal anatomy study",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "laterality"
+          ],
+          "basis": "existing explicit laterality",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "anatomical_site.digit"
+          ],
+          "basis": "existing explicit anatomical_digit",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+        },
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "figure_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7/figures/7",
+          "catalog_id": "open-hallux-sesamoid-complex-mri-wang-fig7"
+        },
+        {
+          "fields": [
+            "setting",
+            "preparation",
+            "population",
+            "laterality",
+            "extent",
+            "acquisition_note",
+            "anatomical_site"
+          ],
+          "basis": "primary publisher methods and figure caption rechecked for this audit; existing limitations explicitly exclude full courses/footprints",
+          "source_url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "locator": "Methods and Figure 7",
+          "checked_on": "2026-09-26"
+        }
+      ],
+      "unknowns": [],
+      "existing_bound_structure_ids": [
+        "diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament",
+        "diabetic_foot.hallux_collateral_complex.medial_accessory_sesamoid",
+        "diabetic_foot.hallux_collateral_complex.lateral_accessory_sesamoid",
+        "diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course"
+      ],
+      "preserve": {
+        "modality": "MRI",
+        "investigation_ids": [
+          "ra.mri-diabetic-foot"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-hallux-fhl-sesamoids-ultrasound-chen-fig5c",
+      "asset_sha256": "03c7121788bb7bde43b6b42d4d068ad3b2a7b10ec923c47f124138dc614fcc34",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "unknown",
+        "anatomical_site": {
+          "digit": 1
+        },
+        "selected_panels": [
+          "c"
+        ],
+        "panel_types": {
+          "c": "Ultrasound"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "normal anatomy example",
+          "source_url": "https://doi.org/10.3390/diagnostics12071541"
+        },
+        {
+          "fields": [
+            "laterality"
+          ],
+          "basis": "existing source limitation explicitly states side not specified",
+          "source_url": "https://doi.org/10.3390/diagnostics12071541"
+        },
+        {
+          "fields": [
+            "anatomical_site.digit"
+          ],
+          "basis": "existing explicit anatomical_digit",
+          "source_url": "https://doi.org/10.3390/diagnostics12071541"
+        },
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://doi.org/10.3390/diagnostics12071541",
+          "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9322853/figure/diagnostics-12-01541-f005/",
+          "catalog_id": "open-hallux-fhl-sesamoids-ultrasound-chen-fig5c"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Source explicitly says side unspecified."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "Ultrasound",
+        "investigation_ids": [
+          "ra.mri-diabetic-foot"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    },
+    {
+      "asset_id": "open-hallux-plantar-complex-ultrasound-chen-fig9d",
+      "asset_sha256": "d86fdd3e24346a7d2e03a23a4d9df162e9354c9ae43507d3951d96513bedc213",
+      "proposed_source_context": {
+        "setting": "unknown",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "unknown",
+        "anatomical_site": {
+          "digit": 1
+        },
+        "selected_panels": [
+          "d"
+        ],
+        "panel_types": {
+          "d": "Ultrasound"
+        }
+      },
+      "source_provenance": [
+        {
+          "fields": [
+            "depicted_state"
+          ],
+          "basis": "existing source-reconciled image_state",
+          "ledger_value": "normal anatomy example",
+          "source_url": "https://doi.org/10.3390/diagnostics12071541"
+        },
+        {
+          "fields": [
+            "laterality"
+          ],
+          "basis": "existing source limitation explicitly states side not specified",
+          "source_url": "https://doi.org/10.3390/diagnostics12071541"
+        },
+        {
+          "fields": [
+            "anatomical_site.digit"
+          ],
+          "basis": "existing explicit anatomical_digit",
+          "source_url": "https://doi.org/10.3390/diagnostics12071541"
+        },
+        {
+          "fields": [
+            "selected_panels",
+            "panel_types"
+          ],
+          "basis": "explicit current source-panel metadata; selected native panel or clinical_panels, plus labelled ancillary panels",
+          "source_url": "https://doi.org/10.3390/diagnostics12071541",
+          "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9322853/figure/diagnostics-12-01541-f009/",
+          "catalog_id": "open-hallux-plantar-complex-ultrasound-chen-fig9d"
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "setting",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "laterality",
+          "reason": "Source explicitly says side unspecified."
+        },
+        {
+          "field": "extent",
+          "reason": "Not established by this typed metadata reconciliation; captions may hold further facts. No value inferred from the module, asset name or appearance."
+        },
+        {
+          "field": "population.life_stage",
+          "reason": "No specimen/patient maturity established for this selected source."
+        }
+      ],
+      "existing_bound_structure_ids": [],
+      "preserve": {
+        "modality": "Ultrasound",
+        "investigation_ids": [
+          "ra.mri-diabetic-foot"
+        ],
+        "fidelity": "source_reviewed_not_clinically_approved",
+        "anatomical_review_status": "pending"
+      },
+      "migration_status": "proposal_requires_root_source_review_not_approval"
+    }
+  ]
+}

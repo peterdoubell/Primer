@@ -1,0 +1,1019 @@
+{
+  "schema_version": 1,
+  "status": "proposal_only_not_applied",
+  "investigation_id": "ra.mri-diabetic-foot",
+  "reviewed_at": "2026-09-26",
+  "clinical_validation_status": "draft_requires_msk_radiologist_review",
+  "scope": "Forefoot additions and site instantiation for existing diabetic-foot infection/report fields; no blanket plantar-plate tear or instability examination.",
+  "preservation": {
+    "delete_existing_structures": false,
+    "delete_existing_required_parts": false,
+    "change_reporting_guide": false,
+    "change_required_representations": false,
+    "grant_asset_coverage": false,
+    "grant_clinical_approval": false,
+    "existing_structure_count": 48,
+    "existing_required_part_count": 203,
+    "required_representations": [
+      "image",
+      "schematic",
+      "model"
+    ],
+    "existing_investigation_sha256": "c38476184669f427ef74b7f4672e6a06e2d28533fd44200e4389a50b1dc185fb",
+    "reporting_checklist_sha256": "2cd930562312e7cc29d62359ba999145147be0612f35b9a7b296d6353d1d1ef6"
+  },
+  "source_registry": {
+    "RA": {
+      "url": "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination",
+      "kind": "primary_authored_reporting_chapter",
+      "supports": "Ulcer-to-bone/joint routes and site-directed foot MRI coverage; examination planes and contrast limitations."
+    },
+    "IWGDF": {
+      "url": "https://www.idsociety.org/practice-guideline/diabetic-foot-infections/",
+      "kind": "official_primary_guideline",
+      "supports": "Recommendation 8 and rationale: MRI for unresolved suspected osteomyelitis, with soft-tissue/bone/joint extent and specificity limitations."
+    },
+    "EANM": {
+      "url": "https://doi.org/10.1007/s00259-024-06693-y",
+      "kind": "official_society_evidence_based_guidance",
+      "supports": "Soft-tissue infection extent, abscesses and tenosynovitis; forefoot spread can cross compartments."
+    },
+    "LESSER_MTP_2003": {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12668744/",
+      "doi": "10.1148/radiol.2271020283",
+      "kind": "primary_cadaver_mri_anatomic_correlation",
+      "supports": "48 lesser MTP joints: plate, capsule, collateral complexes and attachments; figures2–3 relate flexor/extensor tendons and intermetatarsal bursa. MR arthrography improved some details; do not import that visibility into routine MRI."
+    },
+    "HALLUX_2020": {
+      "url": "https://pubs.rsna.org/doi/10.1148/rg.2020190145",
+      "kind": "primary_cadaver_mri_dissection_correlation_with_review",
+      "supports": "Hallux capsulosesamoid complex and metatarsosesamoid articulations; supporting tendons and separate collateral structures. Not interchangeable with lesser plates."
+    },
+    "HALLUX_2021": {
+      "url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+      "kind": "primary_cadaver_mri_histology_study",
+      "supports": "Nine cadaveric feet; figures2/3/5/7 identify the central portion, intersesamoid and paired sesamoid ligaments and supporting tendons. Authors explicitly differ from older descriptions of the central portion."
+    },
+    "HALLUX_2002": {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12439324/",
+      "doi": "10.1097/00004728-200209000-00029",
+      "kind": "primary_cadaver_mri_anatomic_correlation",
+      "supports": "Hallux articular/periarticular anatomy, cartilage, sesamoid ligaments and named tendon attachments."
+    },
+    "TENOSYNOVITIS_2017": {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5583782/",
+      "doi": "10.7860/JCDR/2017/25902.10154",
+      "kind": "primary_diabetic_foot_mri_surgical_histopathology_study",
+      "supports": "Evaluated named bone and tendon disease against surgery/histopathology; supports explicit tendon/sheath infection mapping, not universal clinical accuracy."
+    },
+    "FDB_VARIATION_2005": {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16333914/",
+      "kind": "primary_cadaver_anatomy_study",
+      "supports": "FDB fifth-toe anatomy varies; missing or small components must not be fabricated from a standard atlas."
+    },
+    "FDB_ANATOMY_2017": {
+      "url": "https://www.ijmhr.org/IntJAnatRes/IJAR.2017.298/",
+      "kind": "primary_cadaver_anatomy_study",
+      "supports": "FDB digit-specific slips and middle-phalangeal attachments, with observed fifth-slip absence."
+    }
+  },
+  "existing_reporting_checklist": [
+    {
+      "index": 0,
+      "label": "Ulcer And Sinus Tract",
+      "detail": "Localise the skin defect and trace any contiguous route to bone or joint.",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/checklist/0"
+    },
+    {
+      "index": 1,
+      "label": "Bone Marrow",
+      "detail": "Separate confluent T1 marrow replacement from isolated fluid-sensitive oedema.",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/checklist/1"
+    },
+    {
+      "index": 2,
+      "label": "Joints And Neuroarthropathy",
+      "detail": "Describe joint-centred distribution, fragmentation, subluxation and deformity.",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/checklist/2"
+    },
+    {
+      "index": 3,
+      "label": "Collections And Viability",
+      "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue.",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/checklist/3"
+    },
+    {
+      "index": 4,
+      "label": "Tendons And Other Soft Tissues",
+      "detail": "Review tendon sheaths, muscles and spread across fascial spaces.",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/checklist/4"
+    }
+  ],
+  "existing_reporting_template_sections": [
+    {
+      "index": 0,
+      "heading": "ULCER AND SINUS TRACT",
+      "body": "Ulcer site [ ]; tract [none / route]; contact with bone/joint [ ]; adjacent soft-tissue change [ ].",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/template_sections/0"
+    },
+    {
+      "index": 1,
+      "heading": "BONE MARROW",
+      "body": "Bone(s) [ ]; T1 marrow replacement [ ]; fluid-sensitive signal [ ]; cortical disruption [ ]; infection extent [ ]; alternative stress/reactive pattern [ ].",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/template_sections/1"
+    },
+    {
+      "index": 2,
+      "heading": "JOINTS AND NEUROARTHROPATHY",
+      "body": "Involved joints [ ]; articular destruction/fragmentation [ ]; alignment [ ]; Charcot pattern [ ]; superimposed ulcer-to-bone infection concern [ ].",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/template_sections/2"
+    },
+    {
+      "index": 3,
+      "heading": "COLLECTIONS AND VIABILITY",
+      "body": "Collection [site and __ × __ × __ mm]; enhancement [not assessed / pattern]; nonenhancing tissue [ ]; gas [ ]; drainage route/compartment [ ].",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/template_sections/3"
+    },
+    {
+      "index": 4,
+      "heading": "TENDONS AND OTHER SOFT TISSUES",
+      "body": "Tenosynovitis [ ]; tendon continuity [ ]; muscle change [ ]; fascial extent [ ]; amputation stump/postoperative findings [ ].",
+      "source_path": "data/radiology/investigation-overrides.json#/ra.mri-diabetic-foot/reporting/template_sections/4"
+    }
+  ],
+  "proposed_structures": [
+    {
+      "id": "diabetic_foot.lesser_mtp_plantar_plates",
+      "name": "Lesser MTP plantar plates",
+      "tissue_class": "fibrocartilage",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.lesser_mtp_plantar_plates.metatarsal_capsular_attachment",
+          "name": "Metatarsal/capsular attachment"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_plantar_plates.body",
+          "name": "Plate body"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_plantar_plates.phalangeal_attachment",
+          "name": "Proximal-phalangeal attachment"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_plantar_plates.medial_margin",
+          "name": "Medial margin"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_plantar_plates.lateral_margin",
+          "name": "Lateral margin"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_plantar_plates.articular_face",
+          "name": "Articular face"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_plantar_plates.flexor_interface",
+          "name": "Plantar flexor-tendon interface"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 2,
+          "label": "Joints And Neuroarthropathy",
+          "detail": "Describe joint-centred distribution, fragmentation, subluxation and deformity."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Collections And Viability",
+          "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue."
+        },
+        {
+          "checklist_index": 4,
+          "label": "Tendons And Other Soft Tissues",
+          "detail": "Review tendon sheaths, muscles and spread across fascial spaces."
+        }
+      ],
+      "source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/12668744/"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "mtp2",
+        "mtp3",
+        "mtp4",
+        "mtp5"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review"
+    },
+    {
+      "id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex",
+      "name": "Hallux plantar capsulosesamoid complex",
+      "tissue_class": "ligament",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex.central_plantar_portion",
+          "name": "Central plantar portion"
+        },
+        {
+          "id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex.plantar_capsule",
+          "name": "Plantar capsule"
+        },
+        {
+          "id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament",
+          "name": "Intersesamoid ligament"
+        },
+        {
+          "id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex.medial_metatarsosesamoid_ligament",
+          "name": "Medial metatarsosesamoid ligament"
+        },
+        {
+          "id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex.lateral_metatarsosesamoid_ligament",
+          "name": "Lateral metatarsosesamoid ligament"
+        },
+        {
+          "id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex.medial_sesamoid_phalangeal_ligament",
+          "name": "Medial sesamoid-phalangeal ligament"
+        },
+        {
+          "id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex.lateral_sesamoid_phalangeal_ligament",
+          "name": "Lateral sesamoid-phalangeal ligament"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 2,
+          "label": "Joints And Neuroarthropathy",
+          "detail": "Describe joint-centred distribution, fragmentation, subluxation and deformity."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Collections And Viability",
+          "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue."
+        },
+        {
+          "checklist_index": 4,
+          "label": "Tendons And Other Soft Tissues",
+          "detail": "Review tendon sheaths, muscles and spread across fascial spaces."
+        }
+      ],
+      "source_urls": [
+        "https://pubs.rsna.org/doi/10.1148/rg.2020190145",
+        "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "mtp1"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review",
+      "source_specific_note": "Retain source-specific nomenclature: Wang2021 central portion versus the broader Hallinan2020 capsuloligamentous/pad description. Normal anatomy is not an infection or tear diagnosis; source recesses are not lesions. Each named ligament must include its source-supported attachments before whole-structure coverage is claimed."
+    },
+    {
+      "id": "diabetic_foot.hallux_metatarsosesamoid_articulations",
+      "name": "Hallux metatarsosesamoid articulations",
+      "tissue_class": "joint",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.hallux_metatarsosesamoid_articulations.metatarsal_groove_cartilage",
+          "name": "Metatarsal groove cartilage"
+        },
+        {
+          "id": "diabetic_foot.hallux_metatarsosesamoid_articulations.sesamoid_articular_cartilage",
+          "name": "Opposing sesamoid cartilage"
+        },
+        {
+          "id": "diabetic_foot.hallux_metatarsosesamoid_articulations.metatarsal_subchondral_surface",
+          "name": "Metatarsal subchondral surface"
+        },
+        {
+          "id": "diabetic_foot.hallux_metatarsosesamoid_articulations.sesamoid_subchondral_surface",
+          "name": "Sesamoid subchondral surface"
+        },
+        {
+          "id": "diabetic_foot.hallux_metatarsosesamoid_articulations.joint_synovial_space",
+          "name": "Joint/synovial space"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 1,
+          "label": "Bone Marrow",
+          "detail": "Separate confluent T1 marrow replacement from isolated fluid-sensitive oedema."
+        },
+        {
+          "checklist_index": 2,
+          "label": "Joints And Neuroarthropathy",
+          "detail": "Describe joint-centred distribution, fragmentation, subluxation and deformity."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Collections And Viability",
+          "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue."
+        }
+      ],
+      "source_urls": [
+        "https://pubs.rsna.org/doi/10.1148/rg.2020190145",
+        "https://pubmed.ncbi.nlm.nih.gov/12439324/"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "mtp1_medial_sesamoid",
+        "mtp1_lateral_sesamoid"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review",
+      "source_specific_note": "Existing medial/lateral sesamoid bones and cartilage/subchondral groups remain; this makes their opposing joint relationships explicit, not automatically satisfied by bone meshes."
+    },
+    {
+      "id": "diabetic_foot.hallux_collateral_complex",
+      "name": "Hallux collateral complex",
+      "tissue_class": "ligament",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.hallux_collateral_complex.medial_main_collateral",
+          "name": "Medial main collateral ligament"
+        },
+        {
+          "id": "diabetic_foot.hallux_collateral_complex.lateral_main_collateral",
+          "name": "Lateral main collateral ligament"
+        },
+        {
+          "id": "diabetic_foot.hallux_collateral_complex.medial_accessory_sesamoid",
+          "name": "Medial accessory sesamoid ligament"
+        },
+        {
+          "id": "diabetic_foot.hallux_collateral_complex.lateral_accessory_sesamoid",
+          "name": "Lateral accessory sesamoid ligament"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 2,
+          "label": "Joints And Neuroarthropathy",
+          "detail": "Describe joint-centred distribution, fragmentation, subluxation and deformity."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Collections And Viability",
+          "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue."
+        }
+      ],
+      "source_urls": [
+        "https://link.springer.com/article/10.1186/s13018-021-02795-7"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "mtp1"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review"
+    },
+    {
+      "id": "diabetic_foot.lesser_mtp_collateral_complexes",
+      "name": "Lesser MTP collateral complexes",
+      "tissue_class": "ligament",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.lesser_mtp_collateral_complexes.medial_main_collateral",
+          "name": "Medial main collateral component"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_collateral_complexes.lateral_main_collateral",
+          "name": "Lateral main collateral component"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_collateral_complexes.medial_accessory_collateral",
+          "name": "Medial accessory collateral component"
+        },
+        {
+          "id": "diabetic_foot.lesser_mtp_collateral_complexes.lateral_accessory_collateral",
+          "name": "Lateral accessory collateral component"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 2,
+          "label": "Joints And Neuroarthropathy",
+          "detail": "Describe joint-centred distribution, fragmentation, subluxation and deformity."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Collections And Viability",
+          "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue."
+        }
+      ],
+      "source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/12668744/"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "mtp2",
+        "mtp3",
+        "mtp4",
+        "mtp5"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review"
+    },
+    {
+      "id": "diabetic_foot.lesser_digital_flexor_sheaths",
+      "name": "Lesser digital flexor tendon sheaths",
+      "tissue_class": "synovium",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.lesser_digital_flexor_sheaths.sheath_wall",
+          "name": "Sheath wall/synovium"
+        },
+        {
+          "id": "diabetic_foot.lesser_digital_flexor_sheaths.sheath_lumen",
+          "name": "Sheath lumen"
+        },
+        {
+          "id": "diabetic_foot.lesser_digital_flexor_sheaths.proximal_extent",
+          "name": "Proximal imaged extent"
+        },
+        {
+          "id": "diabetic_foot.lesser_digital_flexor_sheaths.distal_extent",
+          "name": "Distal imaged extent"
+        },
+        {
+          "id": "diabetic_foot.lesser_digital_flexor_sheaths.fdl_relationship",
+          "name": "FDL tendon relationship"
+        },
+        {
+          "id": "diabetic_foot.lesser_digital_flexor_sheaths.fdb_relationship",
+          "name": "FDB tendon relationship when present"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "Trace the involved imaged digital flexor sheath by digit, side and extent. Do not label tendon substance as sheath or assume communication beyond demonstrated continuity.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Collections And Viability",
+          "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue."
+        },
+        {
+          "checklist_index": 4,
+          "label": "Tendons And Other Soft Tissues",
+          "detail": "Review tendon sheaths, muscles and spread across fascial spaces."
+        }
+      ],
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5583782/",
+        "https://pubmed.ncbi.nlm.nih.gov/12668744/",
+        "https://www.ijmhr.org/IntJAnatRes/IJAR.2017.298/"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "digit2",
+        "digit3",
+        "digit4",
+        "digit5"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review"
+    },
+    {
+      "id": "diabetic_foot.flexor_digitorum_brevis_tendons",
+      "name": "Flexor digitorum brevis tendons",
+      "tissue_class": "tendon",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.flexor_digitorum_brevis_tendons.visible_course",
+          "name": "Visible tendon course"
+        },
+        {
+          "id": "diabetic_foot.flexor_digitorum_brevis_tendons.fdl_split_relationship",
+          "name": "Split relationship around FDL"
+        },
+        {
+          "id": "diabetic_foot.flexor_digitorum_brevis_tendons.medial_distal_slip",
+          "name": "Medial distal slip/attachment"
+        },
+        {
+          "id": "diabetic_foot.flexor_digitorum_brevis_tendons.lateral_distal_slip",
+          "name": "Lateral distal slip/attachment"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "Within acquired coverage for the described plantar route/tendon spread. Identify each actual digit-specific component; observed variant absence, including fifth slip, must be documented rather than inferred from missing segmentation.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 4,
+          "label": "Tendons And Other Soft Tissues",
+          "detail": "Review tendon sheaths, muscles and spread across fascial spaces."
+        }
+      ],
+      "source_urls": [
+        "https://www.ijmhr.org/IntJAnatRes/IJAR.2017.298/",
+        "https://pubmed.ncbi.nlm.nih.gov/16333914/"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "digit2",
+        "digit3",
+        "digit4",
+        "digit5"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review"
+    },
+    {
+      "id": "diabetic_foot.hallux_intrinsic_tendon_insertions",
+      "name": "Hallux intrinsic tendon insertions",
+      "tissue_class": "tendon",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.hallux_intrinsic_tendon_insertions.medial_fhb",
+          "name": "Medial flexor hallucis brevis insertion"
+        },
+        {
+          "id": "diabetic_foot.hallux_intrinsic_tendon_insertions.lateral_fhb",
+          "name": "Lateral flexor hallucis brevis insertion"
+        },
+        {
+          "id": "diabetic_foot.hallux_intrinsic_tendon_insertions.abductor_hallucis",
+          "name": "Abductor hallucis insertion"
+        },
+        {
+          "id": "diabetic_foot.hallux_intrinsic_tendon_insertions.adductor_hallucis",
+          "name": "Adductor hallucis insertion"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "When needed to localise a plantar first-ray route or tendon/soft-tissue extension; retain imaged course and actual sesamoid/phalangeal attachment relationships. Does not replace the existing intrinsic-muscle requirement.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 4,
+          "label": "Tendons And Other Soft Tissues",
+          "detail": "Review tendon sheaths, muscles and spread across fascial spaces."
+        }
+      ],
+      "source_urls": [
+        "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+        "https://pubmed.ncbi.nlm.nih.gov/12439324/"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "mtp1"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review"
+    },
+    {
+      "id": "diabetic_foot.intermetatarsal_bursae",
+      "name": "Intermetatarsal bursae",
+      "tissue_class": "bursa",
+      "required_parts": [
+        {
+          "id": "diabetic_foot.intermetatarsal_bursae.wall",
+          "name": "Bursal wall"
+        },
+        {
+          "id": "diabetic_foot.intermetatarsal_bursae.lumen",
+          "name": "Bursal lumen"
+        },
+        {
+          "id": "diabetic_foot.intermetatarsal_bursae.adjacent_joint_tendon_relation",
+          "name": "Adjacent joint/tendon relationship"
+        }
+      ],
+      "laterality": "examined_side",
+      "modality_scope": [
+        "MRI"
+      ],
+      "image_visibility": "direct_when_supported_by_acquisition",
+      "condition": "Instantiate the imaged/affected interspace and any demonstrable bursa when mapping a collection or spread. Preserve variant presence/absence; no all-interspace normality or cross-compartment communication is inferred.",
+      "requirement_basis": "proposed_anatomical_decomposition_of_existing_report_field",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Ulcer And Sinus Tract",
+          "detail": "Localise the skin defect and trace any contiguous route to bone or joint."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Collections And Viability",
+          "detail": "Assess fluid collections, rim enhancement when available, and nonenhancing tissue."
+        },
+        {
+          "checklist_index": 4,
+          "label": "Tendons And Other Soft Tissues",
+          "detail": "Review tendon sheaths, muscles and spread across fascial spaces."
+        }
+      ],
+      "source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/12668744/",
+        "https://doi.org/10.1007/s00259-024-06693-y"
+      ],
+      "requires_site_instantiation": true,
+      "proposed_site_ids": [
+        "interspace1_2",
+        "interspace2_3",
+        "interspace3_4",
+        "interspace4_5"
+      ],
+      "clinical_validation_status": "draft_requires_msk_radiologist_review"
+    }
+  ],
+  "joint_site_instantiation_targets": [
+    {
+      "site_id": "mtp1",
+      "existing_part_id": "foot.metatarsophalangeal_joints.mtp1",
+      "opposing_bones": [
+        "foot.metatarsal_1",
+        "foot.digit_1_proximal_phalanx"
+      ]
+    },
+    {
+      "site_id": "mtp2",
+      "existing_part_id": "foot.metatarsophalangeal_joints.mtp2",
+      "opposing_bones": [
+        "foot.metatarsal_2",
+        "foot.digit_2_proximal_phalanx"
+      ]
+    },
+    {
+      "site_id": "mtp3",
+      "existing_part_id": "foot.metatarsophalangeal_joints.mtp3",
+      "opposing_bones": [
+        "foot.metatarsal_3",
+        "foot.digit_3_proximal_phalanx"
+      ]
+    },
+    {
+      "site_id": "mtp4",
+      "existing_part_id": "foot.metatarsophalangeal_joints.mtp4",
+      "opposing_bones": [
+        "foot.metatarsal_4",
+        "foot.digit_4_proximal_phalanx"
+      ]
+    },
+    {
+      "site_id": "mtp5",
+      "existing_part_id": "foot.metatarsophalangeal_joints.mtp5",
+      "opposing_bones": [
+        "foot.metatarsal_5",
+        "foot.digit_5_proximal_phalanx"
+      ]
+    },
+    {
+      "site_id": "hallux_ip",
+      "existing_part_id": "foot.interphalangeal_joints.hallux_ip",
+      "opposing_bones": [
+        "foot.digit_1_proximal_phalanx",
+        "foot.digit_1_distal_phalanx"
+      ]
+    },
+    {
+      "site_id": "pip2",
+      "existing_part_id": "foot.interphalangeal_joints.pip2",
+      "opposing_bones": [
+        "foot.digit_2_proximal_phalanx",
+        "foot.digit_2_middle_phalanx"
+      ]
+    },
+    {
+      "site_id": "dip2",
+      "existing_part_id": "foot.interphalangeal_joints.dip2",
+      "opposing_bones": [
+        "foot.digit_2_middle_phalanx",
+        "foot.digit_2_distal_phalanx"
+      ]
+    },
+    {
+      "site_id": "pip3",
+      "existing_part_id": "foot.interphalangeal_joints.pip3",
+      "opposing_bones": [
+        "foot.digit_3_proximal_phalanx",
+        "foot.digit_3_middle_phalanx"
+      ]
+    },
+    {
+      "site_id": "dip3",
+      "existing_part_id": "foot.interphalangeal_joints.dip3",
+      "opposing_bones": [
+        "foot.digit_3_middle_phalanx",
+        "foot.digit_3_distal_phalanx"
+      ]
+    },
+    {
+      "site_id": "pip4",
+      "existing_part_id": "foot.interphalangeal_joints.pip4",
+      "opposing_bones": [
+        "foot.digit_4_proximal_phalanx",
+        "foot.digit_4_middle_phalanx"
+      ]
+    },
+    {
+      "site_id": "dip4",
+      "existing_part_id": "foot.interphalangeal_joints.dip4",
+      "opposing_bones": [
+        "foot.digit_4_middle_phalanx",
+        "foot.digit_4_distal_phalanx"
+      ]
+    },
+    {
+      "site_id": "pip5",
+      "existing_part_id": "foot.interphalangeal_joints.pip5",
+      "opposing_bones": [
+        "foot.digit_5_proximal_phalanx",
+        "foot.digit_5_middle_phalanx"
+      ]
+    },
+    {
+      "site_id": "dip5",
+      "existing_part_id": "foot.interphalangeal_joints.dip5",
+      "opposing_bones": [
+        "foot.digit_5_middle_phalanx",
+        "foot.digit_5_distal_phalanx"
+      ]
+    }
+  ],
+  "proposed_expansion_rules": [
+    {
+      "id": "coverage_and_route",
+      "applies_to": [
+        "diabetic_foot.skin",
+        "diabetic_foot.subcutaneous_tissues"
+      ],
+      "required_instance_fields": [
+        "side",
+        "acquired_coverage",
+        "ulcer_surface",
+        "digit_or_ray_or_hindfoot_site",
+        "ordered_tract_route",
+        "examination_series_image_reference",
+        "limitations"
+      ],
+      "rule": "Map each actual ulcer/tract separately through named tissues to specific bone, joint, sheath or collection; incomplete coverage remains explicit and unverified.",
+      "sources": [
+        "RA",
+        "IWGDF",
+        "EANM"
+      ]
+    },
+    {
+      "id": "forefoot_joint_surfaces",
+      "applies_to": [
+        "foot.metatarsophalangeal_joints",
+        "foot.interphalangeal_joints",
+        "diabetic_foot.joint_articular_cartilage_and_subchondral_plates",
+        "diabetic_foot.joint_capsules_and_synovium"
+      ],
+      "named_sites_or_targets": [
+        "mtp1",
+        "mtp2",
+        "mtp3",
+        "mtp4",
+        "mtp5",
+        "hallux_ip",
+        "pip2",
+        "dip2",
+        "pip3",
+        "dip3",
+        "pip4",
+        "dip4",
+        "pip5",
+        "dip5"
+      ],
+      "required_instance_fields": [
+        "side",
+        "joint_site_id",
+        "opposing_bones",
+        "opposing_cartilage_surfaces",
+        "opposing_subchondral_plates",
+        "capsule_and_synovial_extent"
+      ],
+      "rule": "Use explicit14 MTP/IP site pairs. A named joint leaf does not itself instantiate opposing cartilage, synovium or bone-surface requirements. Distal hallux has one IP joint; do not create hallux middle phalanx/PIP/DIP.",
+      "sources": [
+        "RA",
+        "LESSER_MTP_2003",
+        "HALLUX_2002"
+      ]
+    },
+    {
+      "id": "plate_and_hallux_complex",
+      "applies_to": [
+        "diabetic_foot.lesser_mtp_plantar_plates",
+        "diabetic_foot.hallux_plantar_capsulosesamoid_complex",
+        "diabetic_foot.hallux_metatarsosesamoid_articulations",
+        "diabetic_foot.hallux_collateral_complex",
+        "diabetic_foot.lesser_mtp_collateral_complexes"
+      ],
+      "named_sites_or_targets": [
+        "mtp1",
+        "mtp1_medial_sesamoid",
+        "mtp1_lateral_sesamoid",
+        "mtp2",
+        "mtp3",
+        "mtp4",
+        "mtp5"
+      ],
+      "required_instance_fields": [
+        "side",
+        "joint_site_id",
+        "named_structure",
+        "source_definition",
+        "source_visible_portion",
+        "attachments",
+        "acquisition_visibility_limit"
+      ],
+      "rule": "Preserve hallux-versus-lesser anatomy and label normal reference material as a reference. A source slice showing one component cannot cover a whole plate, all attachments or a contralateral digit.",
+      "sources": [
+        "HALLUX_2021",
+        "HALLUX_2020",
+        "LESSER_MTP_2003"
+      ]
+    },
+    {
+      "id": "digital_tendons_and_sheaths",
+      "applies_to": [
+        "diabetic_foot.flexor_hallucis_longus_tendon",
+        "diabetic_foot.flexor_digitorum_longus_tendons",
+        "diabetic_foot.extensor_hallucis_longus_tendon",
+        "diabetic_foot.extensor_digitorum_longus_tendons",
+        "diabetic_foot.lesser_digital_flexor_sheaths",
+        "diabetic_foot.flexor_digitorum_brevis_tendons",
+        "diabetic_foot.hallux_intrinsic_tendon_insertions"
+      ],
+      "named_sites_or_targets": [
+        "hallux",
+        "digit2",
+        "digit3",
+        "digit4",
+        "digit5"
+      ],
+      "required_instance_fields": [
+        "side",
+        "digit",
+        "named_tendon",
+        "imaged_segment",
+        "distal_attachment",
+        "sheath_or_peritendinous_structure_by_name",
+        "proximal_and_distal_extent",
+        "variant_or_postoperative_status"
+      ],
+      "rule": "Separate tendon substance from its actual synovial sheath or other investing tissue. Do not propagate ankle synovial-sheath coverage to the entire distal extensor course; Achilles paratenon is not a universal tendon sheath. A generic tendon-group image does not instantiate every digit.",
+      "sources": [
+        "TENOSYNOVITIS_2017",
+        "LESSER_MTP_2003",
+        "FDB_ANATOMY_2017",
+        "FDB_VARIATION_2005"
+      ]
+    },
+    {
+      "id": "spaces_and_postoperative_anatomy",
+      "applies_to": [
+        "diabetic_foot.fascial_compartments",
+        "diabetic_foot.intrinsic_muscles",
+        "diabetic_foot.visible_neurovascular_bundles",
+        "diabetic_foot.intermetatarsal_bursae"
+      ],
+      "named_sites_or_targets": [
+        "medial_plantar",
+        "central_plantar",
+        "lateral_plantar",
+        "dorsal",
+        "interspace1_2",
+        "interspace2_3",
+        "interspace3_4",
+        "interspace4_5",
+        "actual_amputation_stump"
+      ],
+      "required_instance_fields": [
+        "side",
+        "named_space",
+        "actual_boundaries",
+        "each_involved_muscle_or_neurovascular_member",
+        "demonstrated_communications",
+        "postoperative_resection_level"
+      ],
+      "rule": "A compartment label cannot substitute for named contents; forefoot spread may cross compartments. Preserve imaged stump, resection margins, residual tendons and altered routes. Not every source model has every compartment or postoperative variant.",
+      "sources": [
+        "RA",
+        "EANM"
+      ]
+    }
+  ],
+  "non_destructive_refinement_requests": [
+    {
+      "existing_ids": [
+        "diabetic_foot.flexor_hallucis_longus_tendon.sheath_or_achilles_paratenon",
+        "diabetic_foot.flexor_digitorum_longus_tendons.sheath_or_achilles_paratenon",
+        "diabetic_foot.extensor_hallucis_longus_tendon.sheath_or_achilles_paratenon",
+        "diabetic_foot.extensor_digitorum_longus_tendons.sheath_or_achilles_paratenon",
+        "diabetic_foot.posterior_tibial_tendon.sheath_or_achilles_paratenon",
+        "diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon",
+        "diabetic_foot.fibularis_brevis_tendon.sheath_or_achilles_paratenon",
+        "diabetic_foot.achilles_tendon.sheath_or_achilles_paratenon"
+      ],
+      "issue": "Eight different tendon records share a generic sheath-or-Achilles label.",
+      "proposal": "Retain IDs for traceability while distinguishing synovial sheath at the demonstrated segment from paratenon/peritendinous tissues; create explicit digit instances for FDL/EDL. Only Achilles may use an Achilles-paratenon label. Do not invent a continuous distal extensor synovial sheath.",
+      "status": "requires_source_segment_reconciliation_before_shared_edit"
+    },
+    {
+      "existing_id": "diabetic_foot.intrinsic_muscles.each_plantar_layer_muscle_by_name",
+      "issue": "Generic named-muscle placeholder is not completed by these tendon additions.",
+      "proposal": "Keep blocked until actual named muscle/site inventory and source acquisition are supplied.",
+      "status": "unresolved_preserved"
+    },
+    {
+      "existing_id": "diabetic_foot.visible_neurovascular_bundles",
+      "issue": "Generic artery/vein/nerve placeholders remain.",
+      "proposal": "Identify actual members for the involved route; no normal bundle or vascular viability coverage is granted by forefoot pictures.",
+      "status": "unresolved_preserved"
+    }
+  ],
+  "unresolved_review_questions": [
+    "MSK specialist reconciliation of source-dependent central hallux plantar portion terminology and attachment boundaries.",
+    "Exact synovial-sheath segment mapping for every named tendon remains separate from the additive digit-flexor proposal.",
+    "IP plantar/collateral stabilizers, digital pulley detail, deep transverse ligament subdivision and every intrinsic muscle/neurovascular branch are not exhaustively specified by this bounded proposal; existing broad scope remains unresolved.",
+    "No acquisition-specific MRI proof or commercial asset approval exists merely because these requirement IDs or anatomical names are present.",
+    "Cadaveric MRI, in-vivo MRI, ultrasound, histology and schematics must remain individually typed; ultrasound or histology cannot satisfy an MRI-specific image leaf."
+  ]
+}

@@ -156,3 +156,12 @@ for (const attrs of [{href: 'https://example.com/image'}, {href: '#/read/DNA', c
 }
 assert.equal(opened.length, 3);
 console.log('Verified reader picture names, keyboard activation, failure states and link preservation');
+
+const atlasImage = el('img', {alt: 'Annotated ligament anatomy'});
+const atlas = el('section', {class: 'rad-structure-atlas'}, el('figure', {class: 'rad-anatomy-illustration'},
+  atlasImage, el('figcaption', {}, el('p', {}, 'Source caption.'),
+    el('p', {}, 'Identified in this figure: ligament.'), el('p', {}, 'Original authors, CC BY 4.0.'))));
+context.attachPictureHandlers(atlas);
+assert.equal(atlasImage.getAttribute('aria-label'),
+  'Open picture: Source caption.\nIdentified in this figure: ligament.\nOriginal authors, CC BY 4.0.',
+  'Detached clinical atlas captions preserve paragraph boundaries');

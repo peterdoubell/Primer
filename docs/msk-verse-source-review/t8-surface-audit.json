@@ -1,0 +1,67 @@
+{
+  "case": "sub-verse521",
+  "label": 15,
+  "source_files": {
+    "sub-verse521_dir-ax_seg-vert_msk.nii.gz": "98d321ed77f74af5632ad0cec53845aa1b5135a4b8c15ee80a0b1ad305898b64",
+    "sub-verse521_dir-ax_ct.nii.gz": "47d16e4be66d3979485a1c0ab095c6b934349139035a39f7925159b22ce1dc75"
+  },
+  "ct_spatial_units": "mm",
+  "mask_spatial_units": "unknown",
+  "world_coordinate_authority": "CT selected affine; mask selected affine matches numerically",
+  "crop_start": [
+    209,
+    133,
+    266
+  ],
+  "crop_stop": [
+    299,
+    225,
+    332
+  ],
+  "method": "scikit-image Lewiner marching cubes at label isovalue 0.5; step 1; no smoothing, decimation, filling or component removal",
+  "skimage_version": "0.26.0",
+  "numpy_version": "2.5.3",
+  "vertices": 19258,
+  "triangles": 38516,
+  "world_winding_reversed": false,
+  "maximum_vertex_isovalue_residual": 0.0,
+  "mask_components": {
+    "6": {
+      "count": 1,
+      "voxel_sizes": [
+        57021
+      ]
+    },
+    "26": {
+      "count": 1,
+      "voxel_sizes": [
+        57021
+      ]
+    }
+  },
+  "mask_occupied_volume_mm3": 26645.936965942383,
+  "topology": {
+    "unique_exact_positions": 19258,
+    "triangles": 38516,
+    "edge_connected_components": [
+      38516
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "inconsistent_two_face_edges": 0,
+    "degenerate_triangles": 0,
+    "signed_volume_source_units_cubed": 26585.577328999145,
+    "limits": "Exact-position seam welding only for measurement. Closed topology does not prove anatomical accuracy, absence of self-intersection or valid tissue volume."
+  },
+  "surface_file": "/tmp/primer-msk-sources/verse/derived-t8/t8-surface.npz",
+  "surface_sha256": "bbc81bbedbdc0e081d8b9559a84b3a1433d7b7f475ef4cb3c4c3217a1a6847b4",
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "limits": [
+    "Isosurface geometry approximates the original voxel labels; it does not improve annotation accuracy or CT resolution.",
+    "Mesh topology and vertex-level isovalue agreement are not independent anatomical validation.",
+    "This case-specific surface is not registered to the Z-Anatomy spine."
+  ],
+  "preserved_surface_file": "output/msk-verse521/t8-surface.npz",
+  "render_sha256": "1438c50f2f0eaf3d7565d4818dc50aadb29db476e657ce6aec1c550bea24beb9"
+}
