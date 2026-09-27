@@ -7,6 +7,19 @@
     }
   },
   "headers": [
-    {"source": "/source-media/:path*.bin.gz", "headers": [{"key":"Content-Type","value":"application/octet-stream"},{"key":"Content-Encoding","value":"gzip"}]}
-  ]
+    {
+      "source": "/source-media/:path*.bin.gz",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/octet-stream"
+        },
+        {
+          "key": "Content-Encoding",
+          "value": "gzip"
+        }
+      ]
+    }
+  ],
+  "outputDirectory": "public"
 }
