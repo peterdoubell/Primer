@@ -3647,6 +3647,27 @@ def healthz():
 
 
 
+# Large, already-public source media live on the CDN in hosted builds. The
+# original app route still crosses the reader access gate before redirecting.
+@app.get("/app/anatomy/{atlas}/{asset:path}", include_in_schema=False)
+async def source_mesh_delivery(atlas: str, asset: str):
+    allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle"}
+    if (os.environ.get("VERCEL") and atlas in allowed
+            and asset.endswith((".bin", ".bin.gz"))
+            and all(part not in {"", ".", ".."} for part in asset.split("/"))
+            and "\\" not in asset):
+        from urllib.parse import quote
+        return RedirectResponse("/source-media/anatomy/" + atlas + "/" + quote(asset, safe="/"), status_code=307)
+    return await app.state.source_static.get_response("anatomy/" + atlas + "/" + asset, {"type": "http", "method": "GET", "headers": []})
+
+
+@app.get("/app/reference-media/prenatal-development/prenatal-development.gif", include_in_schema=False)
+async def prenatal_gif_delivery():
+    if os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/reference-media/prenatal-development/prenatal-development.gif", status_code=307)
+    return FileResponse(os.path.join(WEB_DIR, "reference-media/prenatal-development/prenatal-development.gif"), media_type="image/gif")
+
+
 class _CachedStatic(StaticFiles):
     """Fingerprinted assets may be cached hard; everything else revalidates."""
 
@@ -3676,4 +3697,5 @@ class _CachedStatic(StaticFiles):
 
 
 if os.path.isdir(WEB_DIR):
-    app.mount("/app", _CachedStatic(directory=WEB_DIR, html=True), name="static")
+    app.state.source_static = _CachedStatic(directory=WEB_DIR, html=True)
+    app.mount("/app", app.state.source_static, name="static")

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "python vercel-build.py",
+  "functions": {
+    "api/index.py": {
+      "excludeFiles": "{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif}"
+    }
+  },
+  "headers": [
+    {"source": "/source-media/:path*.bin.gz", "headers": [{"key":"Content-Type","value":"application/octet-stream"},{"key":"Content-Encoding","value":"gzip"}]}
+  ]
+}
