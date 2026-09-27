@@ -1,0 +1,2060 @@
+{
+  "status": "Source correspondence review; no clinical approval",
+  "specimen": "oks003",
+  "no_fitted_transform": true,
+  "no_source_geometry_edits": true,
+  "coordinate_method": "Declared NIfTI qform/sform in RAS millimeters; original native STL coordinates, no fitting or reorientation.",
+  "metric_limits": "Mask-versus-mesh consistency only. Source MRI pixels are not an independent expert tissue segmentation. Complete reporting substructures remain unverified.",
+  "images": [
+    {
+      "filename": "oks003-general-mri.nii",
+      "bytes": 97075552,
+      "sha256": "e0566dd0a81db02e3d6fcfc29ce0d78afe4337c2fb5b0375ea9e0a04595cf5cb",
+      "shape_xyz": [
+        316,
+        480,
+        320
+      ],
+      "spacing_mm": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "datatype": 512,
+      "qform_code": 2,
+      "sform_code": 1,
+      "affines_ras_mm": {
+        "qform": [
+          [
+            0.0,
+            0.0,
+            0.5,
+            -82.48607635498047
+          ],
+          [
+            -0.5,
+            0.0,
+            0.0,
+            90.62227630615234
+          ],
+          [
+            0.0,
+            -0.5,
+            0.0,
+            120.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "sform": [
+          [
+            -0.0,
+            0.0,
+            0.5,
+            -82.48607635498047
+          ],
+          [
+            -0.5,
+            -0.0,
+            -0.0,
+            90.62227630615234
+          ],
+          [
+            0.0,
+            -0.5,
+            0.0,
+            120.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    {
+      "filename": "oks003-cartilage-mri.nii",
+      "bytes": 102760800,
+      "sha256": "9266f03edaff042932cdae09f7c308a80e4106e3790f32c4004c52d6edc67812",
+      "shape_xyz": [
+        448,
+        512,
+        224
+      ],
+      "spacing_mm": [
+        0.3515625,
+        0.3515625,
+        0.6999969482421875
+      ],
+      "datatype": 512,
+      "qform_code": 2,
+      "sform_code": 1,
+      "affines_ras_mm": {
+        "qform": [
+          [
+            0.0,
+            0.0,
+            0.6999969482421875,
+            -80.78607940673828
+          ],
+          [
+            -0.3515625,
+            0.0,
+            0.0,
+            90.37227630615234
+          ],
+          [
+            0.0,
+            -0.3515625,
+            0.0,
+            90.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "sform": [
+          [
+            -0.0,
+            0.0,
+            0.6999969482421875,
+            -80.78607940673828
+          ],
+          [
+            -0.3515625,
+            -0.0,
+            -0.0,
+            90.37227630615234
+          ],
+          [
+            0.0,
+            -0.3515625,
+            0.0,
+            90.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    }
+  ],
+  "structures": [
+    {
+      "id": "FMB",
+      "mesh_file": "oks003_FMB_AGS_LVTIT.stl",
+      "mesh_sha256": "fab64705d9e780f3fd7e0c0a1835d0f8096592f3a27d583b7566baa3b1cef122",
+      "mask": {
+        "filename": "oks003_FMB_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "a3d78b638ff0d6a82f631cf4cc2f2e8a86320da7be3bb0ccb4d38a03b8a1d461",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 2186441,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -38.78626251220703,
+          -30.916786193847656,
+          -30.9375
+        ],
+        [
+          38.213401794433594,
+          39.044151306152344,
+          90.0
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -38.7481575012207,
+          -31.0543270111084,
+          -30.882362365722656
+        ],
+        [
+          38.54369354248047,
+          38.67793655395508,
+          90.1867904663086
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -1.4860763549804688,
+          "native_index": 162,
+          "mask_pixels": 12594,
+          "mesh_pixels": 12527,
+          "mask_mesh_dice": 0.9945463954460412
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 9.122276306152344,
+          "native_index": 163,
+          "mask_pixels": 22434,
+          "mesh_pixels": 22374,
+          "mask_mesh_dice": 0.9953133369041243
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": 6.5,
+          "native_index": 227,
+          "mask_pixels": 12001,
+          "mesh_pixels": 11859,
+          "mask_mesh_dice": 0.9919530595138307
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -1.6864242553710938,
+          "native_index": 113,
+          "mask_pixels": 25413,
+          "mesh_pixels": 25404,
+          "mask_mesh_dice": 0.9978550485073893
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 9.161338806152344,
+          "native_index": 231,
+          "mask_pixels": 22784,
+          "mesh_pixels": 22720,
+          "mask_mesh_dice": 0.9983298171589311
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": 6.328125,
+          "native_index": 238,
+          "mask_pixels": 12192,
+          "mesh_pixels": 12128,
+          "mask_mesh_dice": 0.9962993421052632
+        }
+      ]
+    },
+    {
+      "id": "TBB",
+      "mesh_file": "oks003_TBB_AGS_LVTIT.stl",
+      "mesh_sha256": "90e2a2de0853637a1af8829bff924e265df2d37ecb5ee81cc9f9173020f66cca",
+      "mask": {
+        "filename": "oks003_TBB_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "913e410d6ba3aad3918c00001cbb322fd1851f7e043d5ea9f4bdc59f6b20ab11",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 1214507,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -40.886253356933594,
+          -28.104286193847656,
+          -89.6484375
+        ],
+        [
+          29.113441467285156,
+          26.387901306152344,
+          -24.2578125
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -41.24225997924805,
+          -28.15751838684082,
+          -89.83003997802734
+        ],
+        [
+          29.42345428466797,
+          25.864009857177734,
+          -24.470640182495117
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -6.486076354980469,
+          "native_index": 152,
+          "mask_pixels": 10027,
+          "mesh_pixels": 9990,
+          "mask_mesh_dice": 0.9959534395763601
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 0.6222763061523438,
+          "native_index": 180,
+          "mask_pixels": 11766,
+          "mesh_pixels": 11729,
+          "mask_mesh_dice": 0.9938284741434348
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -50.5,
+          "native_index": 341,
+          "mask_pixels": 10151,
+          "mesh_pixels": 10139,
+          "mask_mesh_dice": 0.994381468703795
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -6.586402893066406,
+          "native_index": 106,
+          "mask_pixels": 20319,
+          "mesh_pixels": 20222,
+          "mask_mesh_dice": 0.9966700377395723
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 0.7238388061523438,
+          "native_index": 255,
+          "mask_pixels": 11957,
+          "mesh_pixels": 11919,
+          "mask_mesh_dice": 0.9969844195007539
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -50.2734375,
+          "native_index": 399,
+          "mask_pixels": 10433,
+          "mesh_pixels": 10378,
+          "mask_mesh_dice": 0.9961078275911778
+        }
+      ]
+    },
+    {
+      "id": "FBB",
+      "mesh_file": "oks003_FBB_AGS_LVTIT.stl",
+      "mesh_sha256": "2243d0afe287c20cd49cfd044356c7c75b38464c598cbc4de1a6bb97e56db712",
+      "mask": {
+        "filename": "oks003_FBB_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "56ccc47f41a8b2ac2952589feced52d91c4d9f6fc9e3c5edf3709905b363cf22",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 111290,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -49.98621368408203,
+          -27.401161193847656,
+          -89.6484375
+        ],
+        [
+          -26.886314392089844,
+          -2.7917861938476562,
+          -45.0
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -49.84465026855469,
+          -27.35869598388672,
+          -89.82689666748047
+        ],
+        [
+          -26.522480010986328,
+          -2.7745542526245117,
+          -45.12655258178711
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -37.98607635498047,
+          "native_index": 89,
+          "mask_pixels": 2611,
+          "mesh_pixels": 2577,
+          "mask_mesh_dice": 0.9865073245952197
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -16.377723693847656,
+          "native_index": 214,
+          "mask_pixels": 2530,
+          "mesh_pixels": 2490,
+          "mask_mesh_dice": 0.9856573705179282
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -64.5,
+          "native_index": 369,
+          "mask_pixels": 1479,
+          "mesh_pixels": 1449,
+          "mask_mesh_dice": 0.9870218579234973
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -38.086265563964844,
+          "native_index": 61,
+          "mask_pixels": 5293,
+          "mesh_pixels": 5216,
+          "mask_mesh_dice": 0.9896279379579408
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -16.502723693847656,
+          "native_index": 304,
+          "mask_pixels": 2581,
+          "mesh_pixels": 2542,
+          "mask_mesh_dice": 0.9896544993168066
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -64.3359375,
+          "native_index": 439,
+          "mask_pixels": 1512,
+          "mesh_pixels": 1497,
+          "mask_mesh_dice": 0.9916915918909937
+        }
+      ]
+    },
+    {
+      "id": "PTB",
+      "mesh_file": "oks003_PTB_AGS_LVTIT.stl",
+      "mesh_sha256": "3a60216d6af40c44306487763cc25176ddfe9f467497a4f64cbaa36df7e246f9",
+      "mask": {
+        "filename": "oks003_PTB_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "7c1af6f91582a3b4f031750c2e3a33653582f4f29c29174ffea478774cb3ceb6",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 223549,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -18.486351013183594,
+          34.122276306152344,
+          -17.9296875
+        ],
+        [
+          25.61345672607422,
+          56.973838806152344,
+          27.0703125
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -18.342439651489258,
+          34.10493087768555,
+          -17.91095733642578
+        ],
+        [
+          25.899099349975586,
+          56.878047943115234,
+          27.03446388244629
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 5.513923645019531,
+          "native_index": 176,
+          "mask_pixels": 2972,
+          "mesh_pixels": 2935,
+          "mask_mesh_dice": 0.9913661757237177
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 46.622276306152344,
+          "native_index": 88,
+          "mask_pixels": 5447,
+          "mesh_pixels": 5382,
+          "mask_mesh_dice": 0.9904885030935451
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": 5.0,
+          "native_index": 230,
+          "mask_pixels": 2778,
+          "mesh_pixels": 2756,
+          "mask_mesh_dice": 0.9924105529454282
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 5.313545227050781,
+          "native_index": 123,
+          "mask_pixels": 6012,
+          "mesh_pixels": 5921,
+          "mask_mesh_dice": 0.9915360764267158
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 46.426963806152344,
+          "native_index": 125,
+          "mask_pixels": 5553,
+          "mesh_pixels": 5479,
+          "mask_mesh_dice": 0.992929659173314
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": 4.921875,
+          "native_index": 242,
+          "mask_pixels": 2828,
+          "mesh_pixels": 2806,
+          "mask_mesh_dice": 0.9946751863684771
+        }
+      ]
+    },
+    {
+      "id": "FMC",
+      "mesh_file": "oks003_FMC_AGS_03_LVTIT.stl",
+      "mesh_sha256": "8b8f848310eccb40da8b40ab581cd5283799bc0753635f04ffd795690961a0b5",
+      "mask": {
+        "filename": "oks003_FMC_AGS_03.nii",
+        "bytes": 102760800,
+        "sha256": "f359955b4c5a65473c9967a524727fb6478808079c147d1d5c622b76cc02722e",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 103856,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -33.88628387451172,
+          -33.026161193847656,
+          -31.640625
+        ],
+        [
+          29.113441467285156,
+          40.098838806152344,
+          8.0859375
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -33.94571304321289,
+          -33.192718505859375,
+          -31.639591217041016
+        ],
+        [
+          28.92770767211914,
+          40.02745056152344,
+          7.800375938415527
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 2.0139236450195312,
+          "native_index": 169,
+          "mask_pixels": 365,
+          "mesh_pixels": 359,
+          "mask_mesh_dice": 0.9419889502762431
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -7.877723693847656,
+          "native_index": 197,
+          "mask_pixels": 331,
+          "mesh_pixels": 303,
+          "mask_mesh_dice": 0.8927444794952681
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -19.0,
+          "native_index": 278,
+          "mask_pixels": 1232,
+          "mesh_pixels": 1160,
+          "mask_mesh_dice": 0.9414715719063546
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 1.8135604858398438,
+          "native_index": 118,
+          "mask_pixels": 754,
+          "mesh_pixels": 730,
+          "mask_mesh_dice": 0.9703504043126685
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -8.065223693847656,
+          "native_index": 280,
+          "mask_pixels": 345,
+          "mesh_pixels": 319,
+          "mask_mesh_dice": 0.9457831325301205
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -18.984375,
+          "native_index": 310,
+          "mask_pixels": 1245,
+          "mesh_pixels": 1198,
+          "mask_mesh_dice": 0.9643880474826033
+        }
+      ]
+    },
+    {
+      "id": "PTC",
+      "mesh_file": "oks003_PTC_AGS_LVTIT.stl",
+      "mesh_sha256": "c3f3c0e4b05a8a9d90677e8ab82b31be3b97346172ca4dcef40dd9f1d84f737f",
+      "mask": {
+        "filename": "oks003_PTC_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "5b2dfde74233e15313520f6f96087937800a5f76c476bec16af1b12174a98c0e",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 38104,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -18.486351013183594,
+          31.309776306152344,
+          -8.4375
+        ],
+        [
+          24.91345977783203,
+          45.020713806152344,
+          26.3671875
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -18.010677337646484,
+          31.317129135131836,
+          -7.798521041870117
+        ],
+        [
+          24.632478713989258,
+          44.851802825927734,
+          25.815324783325195
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 2.5139236450195312,
+          "native_index": 170,
+          "mask_pixels": 431,
+          "mesh_pixels": 410,
+          "mask_mesh_dice": 0.9631391200951248
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 37.122276306152344,
+          "native_index": 107,
+          "mask_pixels": 1182,
+          "mesh_pixels": 1179,
+          "mask_mesh_dice": 0.9241846675137654
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": 9.0,
+          "native_index": 222,
+          "mask_pixels": 707,
+          "mesh_pixels": 693,
+          "mask_mesh_dice": 0.9671428571428572
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 2.5135574340820312,
+          "native_index": 119,
+          "mask_pixels": 862,
+          "mesh_pixels": 824,
+          "mask_mesh_dice": 0.9691577698695136
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 37.286338806152344,
+          "native_index": 151,
+          "mask_pixels": 1210,
+          "mesh_pixels": 1168,
+          "mask_mesh_dice": 0.9697224558452481
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": 8.7890625,
+          "native_index": 231,
+          "mask_pixels": 725,
+          "mesh_pixels": 707,
+          "mask_mesh_dice": 0.9846368715083799
+        }
+      ]
+    },
+    {
+      "id": "MNS-M",
+      "mesh_file": "oks003_MNS-M_AGS_02_LVTIT.stl",
+      "mesh_sha256": "a3be9d2fef8cde2078b19637fd5a3bdc7f9f8b3ad4de4d871b7ac8b227a4b975",
+      "mask": {
+        "filename": "oks003_MNS-M_AGS_02.nii",
+        "bytes": 308800,
+        "sha256": "d257b0e71f6bf54864b42c65d7d473075b8fbe1121da9dc1d50d9d7dd8c947ee",
+        "shape_xyz": [
+          119,
+          27,
+          48
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -1.697540283203125
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              15.605796813964844
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              -25.382301330566406
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 21705,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -1.697540283203125,
+          -25.878578186035156,
+          -34.522926330566406
+        ],
+        [
+          31.202316284179688,
+          15.605796813964844,
+          -25.382301330566406
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -1.802655577659607,
+          -26.039453506469727,
+          -34.481964111328125
+        ],
+        [
+          31.48378562927246,
+          15.474037170410156,
+          -25.500011444091797
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 22.01392364501953,
+          "native_index": 209,
+          "mask_pixels": 291,
+          "mesh_pixels": 279,
+          "mask_mesh_dice": 0.968421052631579
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -15.377723693847656,
+          "native_index": 212,
+          "mask_pixels": 321,
+          "mesh_pixels": 303,
+          "mask_mesh_dice": 0.9230769230769231
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -30.5,
+          "native_index": 301,
+          "mask_pixels": 1532,
+          "mesh_pixels": 1556,
+          "mask_mesh_dice": 0.9598445595854922
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 22.11347198486328,
+          "native_index": 147,
+          "mask_pixels": 600,
+          "mesh_pixels": 569,
+          "mask_mesh_dice": 0.951240376390077
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -15.448036193847656,
+          "native_index": 301,
+          "mask_pixels": 331,
+          "mesh_pixels": 317,
+          "mask_mesh_dice": 0.9290123456790124
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -30.234375,
+          "native_index": 342,
+          "mask_pixels": 1612,
+          "mesh_pixels": 1557,
+          "mask_mesh_dice": 0.9656042915746292
+        }
+      ]
+    },
+    {
+      "id": "MNS-L",
+      "mesh_file": "oks003_MNS-L_AGS_02_LVTIT.stl",
+      "mesh_sha256": "5b2771eb28f28b5e614e05449e48d7209970b9f70ebee20878df3c28132638a0",
+      "mask": {
+        "filename": "oks003_MNS-L_AGS_02.nii",
+        "bytes": 353432,
+        "sha256": "3ef6380434f2aae20e9ecbefcb7e28fce1eea1583df06c8811d7502ad7eda15e",
+        "shape_xyz": [
+          97,
+          35,
+          52
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -38.097381591796875
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              13.144859313964844
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              -20.460426330566406
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 23018,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -38.097381591796875,
+          -20.605140686035156,
+          -32.413551330566406
+        ],
+        [
+          -2.3975372314453125,
+          13.144859313964844,
+          -20.460426330566406
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -38.470123291015625,
+          -20.679122924804688,
+          -32.282440185546875
+        ],
+        [
+          -2.6874916553497314,
+          12.942492485046387,
+          -20.498350143432617
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -28.98607635498047,
+          "native_index": 107,
+          "mask_pixels": 264,
+          "mesh_pixels": 252,
+          "mask_mesh_dice": 0.9612403100775194
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -3.8777236938476562,
+          "native_index": 189,
+          "mask_pixels": 117,
+          "mesh_pixels": 110,
+          "mask_mesh_dice": 0.9515418502202643
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -27.0,
+          "native_index": 294,
+          "mask_pixels": 1301,
+          "mesh_pixels": 1278,
+          "mask_mesh_dice": 0.9755719271035285
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -28.986305236816406,
+          "native_index": 74,
+          "mask_pixels": 530,
+          "mesh_pixels": 506,
+          "mask_mesh_dice": 0.9478764478764479
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -4.198036193847656,
+          "native_index": 269,
+          "mask_pixels": 120,
+          "mesh_pixels": 114,
+          "mask_mesh_dice": 0.9487179487179487
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -27.0703125,
+          "native_index": 333,
+          "mask_pixels": 1320,
+          "mesh_pixels": 1310,
+          "mask_mesh_dice": 0.9711026615969581
+        }
+      ]
+    },
+    {
+      "id": "ACL",
+      "mesh_file": "oks003_ACL_AGS_LVTIT.stl",
+      "mesh_sha256": "a9baece1f90e73a8fed3fb2c3cbca0fbea0ea242bdb94805d93af318a04e70e8",
+      "mask": {
+        "filename": "oks003_ACL_AGS.nii",
+        "bytes": 243352,
+        "sha256": "15a000d09af5ac1fb8fd3879439651f1979d83f68e2276399c88cb4a8ce8983d",
+        "shape_xyz": [
+          54,
+          75,
+          30
+        ],
+        "spacing_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.5,
+              -12.769371032714844
+            ],
+            [
+              -0.5,
+              0.0,
+              0.0,
+              10.811134338378906
+            ],
+            [
+              0.0,
+              -0.5,
+              0.0,
+              5.216705322265625
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 12599,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -12.769371032714844,
+          -15.688865661621094,
+          -31.783294677734375
+        ],
+        [
+          1.7306289672851562,
+          10.811134338378906,
+          5.216705322265625
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -12.672943115234375,
+          -15.4697904586792,
+          -31.478681564331055
+        ],
+        [
+          1.9530233144760132,
+          10.393571853637695,
+          4.942411422729492
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -4.986076354980469,
+          "native_index": 155,
+          "mask_pixels": 747,
+          "mesh_pixels": 742,
+          "mask_mesh_dice": 0.9778374748153122
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -2.8777236938476562,
+          "native_index": 187,
+          "mask_pixels": 318,
+          "mesh_pixels": 306,
+          "mask_mesh_dice": 0.9423076923076923
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -17.0,
+          "native_index": 274,
+          "mask_pixels": 184,
+          "mesh_pixels": 180,
+          "mask_mesh_dice": 0.9340659340659341
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -4.486412048339844,
+          "native_index": 109,
+          "mask_pixels": 1501,
+          "mesh_pixels": 1494,
+          "mask_mesh_dice": 0.9656093489148581
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -2.7917861938476562,
+          "native_index": 265,
+          "mask_pixels": 324,
+          "mesh_pixels": 314,
+          "mask_mesh_dice": 0.9749216300940439
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -16.875,
+          "native_index": 304,
+          "mask_pixels": 194,
+          "mesh_pixels": 185,
+          "mask_mesh_dice": 0.9604221635883905
+        }
+      ]
+    },
+    {
+      "id": "PCL",
+      "mesh_file": "oks003_PCL_AGS_LVTIT.stl",
+      "mesh_sha256": "8c0c1cb4f6b3af56cc95b4d6e2faf9bca8e73b5572fb178cb6682a6c846bf4f4",
+      "mask": {
+        "filename": "oks003_PCL_AGS.nii",
+        "bytes": 148752,
+        "sha256": "e315270930e9531302bfd9c12f50405d8295da28cc76b6c1f3c2a065467d35b1",
+        "shape_xyz": [
+          56,
+          53,
+          25
+        ],
+        "spacing_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.5,
+              -5.769371032714844
+            ],
+            [
+              -0.5,
+              0.0,
+              0.0,
+              3.8111343383789062
+            ],
+            [
+              0.0,
+              -0.5,
+              0.0,
+              -10.783294677734375
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 6633,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -5.769371032714844,
+          -23.688865661621094,
+          -36.783294677734375
+        ],
+        [
+          6.230628967285156,
+          3.8111343383789062,
+          -10.783294677734375
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -4.980999946594238,
+          -23.439411163330078,
+          -36.720760345458984
+        ],
+        [
+          6.4665846824646,
+          3.6992709636688232,
+          -10.803484916687012
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 1.0139236450195312,
+          "native_index": 167,
+          "mask_pixels": 475,
+          "mesh_pixels": 456,
+          "mask_mesh_dice": 0.9624060150375939
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -9.877723693847656,
+          "native_index": 201,
+          "mask_pixels": 118,
+          "mesh_pixels": 109,
+          "mask_mesh_dice": 0.960352422907489
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -18.5,
+          "native_index": 277,
+          "mask_pixels": 257,
+          "mesh_pixels": 202,
+          "mask_mesh_dice": 0.8801742919389978
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 1.1135635375976562,
+          "native_index": 117,
+          "mask_pixels": 954,
+          "mesh_pixels": 921,
+          "mask_mesh_dice": 0.9610666666666666
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -9.823036193847656,
+          "native_index": 285,
+          "mask_pixels": 114,
+          "mesh_pixels": 106,
+          "mask_mesh_dice": 0.9363636363636364
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -18.28125,
+          "native_index": 308,
+          "mask_pixels": 259,
+          "mesh_pixels": 229,
+          "mask_mesh_dice": 0.9057377049180327
+        }
+      ]
+    },
+    {
+      "id": "MCL",
+      "mesh_file": "oks003_MCL_AGS_02_LVIT.stl",
+      "mesh_sha256": "5ba0807e7b269ee30b612e052e7a0b27c46437fea98aef0f319afbec5f6c5afc",
+      "mask": {
+        "filename": "oks003_MCL_AGS_02.nii",
+        "bytes": 97075552,
+        "sha256": "94d7c0893cf5515838ee782e0f819e8d94ce47c719840875928b56997db598c0",
+        "shape_xyz": [
+          316,
+          480,
+          320
+        ],
+        "spacing_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.5,
+              -82.48607635498047
+            ],
+            [
+              -0.5,
+              0.0,
+              0.0,
+              90.62227630615234
+            ],
+            [
+              0.0,
+              -0.5,
+              0.0,
+              120.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 11900,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          20.01392364501953,
+          -15.877723693847656,
+          -59.5
+        ],
+        [
+          42.01392364501953,
+          2.1222763061523438,
+          -1.0
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          21.021780014038086,
+          -15.480631828308105,
+          -58.36286163330078
+        ],
+        [
+          41.60095977783203,
+          0.9599067568778992,
+          -2.326035976409912
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 33.51392364501953,
+          "native_index": 232,
+          "mask_pixels": 520,
+          "mesh_pixels": 454,
+          "mask_mesh_dice": 0.9034907597535934
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -7.877723693847656,
+          "native_index": 197,
+          "mask_pixels": 496,
+          "mesh_pixels": 483,
+          "mask_mesh_dice": 0.9397344228804902
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -28.0,
+          "native_index": 296,
+          "mask_pixels": 150,
+          "mesh_pixels": 131,
+          "mask_mesh_dice": 0.896797153024911
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 33.31342315673828,
+          "native_index": 163,
+          "mask_pixels": 1049,
+          "mesh_pixels": 925,
+          "mask_mesh_dice": 0.8956433637284701
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -7.713661193847656,
+          "native_index": 279,
+          "mask_pixels": 504,
+          "mesh_pixels": 493,
+          "mask_mesh_dice": 0.9327983951855566
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -28.125,
+          "native_index": 336,
+          "mask_pixels": 141,
+          "mesh_pixels": 130,
+          "mask_mesh_dice": 0.8708487084870848
+        }
+      ]
+    },
+    {
+      "id": "LCL",
+      "mesh_file": "oks003_LCL_AGS_LIT.stl",
+      "mesh_sha256": "2d664c17fb4c0f377ef203854b0c8b24f54657107ec782ad3067508c9a43cc02",
+      "mask": {
+        "filename": "oks003_LCL_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "d70cb1b9f0a445e65822f858c0dd99da5022dd130951dfd3b9d56dbb498df6ff",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 5151,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -51.386207580566406,
+          -15.448036193847656,
+          -59.765625
+        ],
+        [
+          -37.386268615722656,
+          -5.252723693847656,
+          -3.8671875
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -50.551822662353516,
+          -15.082759857177734,
+          -57.02665710449219
+        ],
+        [
+          -37.33163833618164,
+          -5.527237415313721,
+          -4.805458068847656
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -42.98607635498047,
+          "native_index": 79,
+          "mask_pixels": 158,
+          "mesh_pixels": 122,
+          "mask_mesh_dice": 0.8714285714285714
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -10.377723693847656,
+          "native_index": 202,
+          "mask_pixels": 171,
+          "mesh_pixels": 129,
+          "mask_mesh_dice": 0.8466666666666667
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -25.5,
+          "native_index": 291,
+          "mask_pixels": 47,
+          "mesh_pixels": 30,
+          "mask_mesh_dice": 0.7792207792207793
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -42.986244201660156,
+          "native_index": 54,
+          "mask_pixels": 340,
+          "mesh_pixels": 253,
+          "mask_mesh_dice": 0.8532883642495784
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": -10.174598693847656,
+          "native_index": 286,
+          "mask_pixels": 185,
+          "mesh_pixels": 130,
+          "mask_mesh_dice": 0.819047619047619
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -25.6640625,
+          "native_index": 329,
+          "mask_pixels": 45,
+          "mesh_pixels": 33,
+          "mask_mesh_dice": 0.8461538461538461
+        }
+      ]
+    },
+    {
+      "id": "PTL",
+      "mesh_file": "oks003_PTL_AGS_LVTIT.stl",
+      "mesh_sha256": "f73fe84522611bdd3e49e1582d19f1f7c06f1a88f62b76ded0318636407830d4",
+      "mask": {
+        "filename": "oks003_PTL_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "0bdf87693b783a57ade2398fcd62957e5e86ff17f405f4b9e39c5dbb4644b482",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 57442,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -23.386329650878906,
+          19.005088806152344,
+          -74.1796875
+        ],
+        [
+          13.713508605957031,
+          55.567588806152344,
+          -5.625
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -23.480480194091797,
+          20.77757453918457,
+          -73.79238891601562
+        ],
+        [
+          13.295919418334961,
+          55.178009033203125,
+          -6.63900899887085
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -7.486076354980469,
+          "native_index": 150,
+          "mask_pixels": 861,
+          "mesh_pixels": 853,
+          "mask_mesh_dice": 0.9603267211201867
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 34.122276306152344,
+          "native_index": 113,
+          "mask_pixels": 530,
+          "mesh_pixels": 508,
+          "mask_mesh_dice": 0.9633911368015414
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -41.5,
+          "native_index": 323,
+          "mask_pixels": 289,
+          "mesh_pixels": 285,
+          "mask_mesh_dice": 0.9547038327526133
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": -7.286399841308594,
+          "native_index": 105,
+          "mask_pixels": 1737,
+          "mesh_pixels": 1724,
+          "mask_mesh_dice": 0.9806414331118174
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 34.122276306152344,
+          "native_index": 160,
+          "mask_pixels": 538,
+          "mesh_pixels": 515,
+          "mask_mesh_dice": 0.9724596391263058
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": -41.484375,
+          "native_index": 374,
+          "mask_pixels": 302,
+          "mesh_pixels": 287,
+          "mask_mesh_dice": 0.9643463497453311
+        }
+      ]
+    },
+    {
+      "id": "QAT",
+      "mesh_file": "oks003_QAT_AGS_LVTIT.stl",
+      "mesh_sha256": "db78c31f4616e43f8cee3ef82b0fe849206d019bd0c426dd5456bd9c5f8bba34",
+      "mask": {
+        "filename": "oks003_QAT_AGS.nii",
+        "bytes": 102760800,
+        "sha256": "f2f9c9eef8f7017b369a5486bafebadb9dfd1b2edc77b90ee0be802be0024bbe",
+        "shape_xyz": [
+          448,
+          512,
+          224
+        ],
+        "spacing_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "datatype": 4,
+        "qform_code": 1,
+        "sform_code": 0,
+        "affines_ras_mm": {
+          "qform": [
+            [
+              0.0,
+              0.0,
+              0.6999969482421875,
+              -80.78607940673828
+            ],
+            [
+              -0.3515625,
+              0.0,
+              0.0,
+              90.37227630615234
+            ],
+            [
+              0.0,
+              -0.3515625,
+              0.0,
+              90.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "label_values": [
+        0,
+        1
+      ],
+      "mask_voxels": 120114,
+      "mask_voxel_centers_bounds_ras_mm": [
+        [
+          -13.586372375488281,
+          33.419151306152344,
+          12.65625
+        ],
+        [
+          16.51349639892578,
+          59.083213806152344,
+          90.0
+        ]
+      ],
+      "mesh_bounds_ras_mm": [
+        [
+          -13.397819519042969,
+          33.521305084228516,
+          13.518096923828125
+        ],
+        [
+          16.47551918029785,
+          58.617000579833984,
+          90.2025146484375
+        ]
+      ],
+      "planes": [
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 2.5139236450195312,
+          "native_index": 170,
+          "mask_pixels": 2101,
+          "mesh_pixels": 2072,
+          "mask_mesh_dice": 0.9829858614905344
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 43.622276306152344,
+          "native_index": 94,
+          "mask_pixels": 3230,
+          "mesh_pixels": 3135,
+          "mask_mesh_dice": 0.9819324430479183
+        },
+        {
+          "image": "oks003-general-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": 45.5,
+          "native_index": 149,
+          "mask_pixels": 679,
+          "mesh_pixels": 662,
+          "mask_mesh_dice": 0.976882923191648
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Sagittal",
+          "world_coordinate_mm": 2.5135574340820312,
+          "native_index": 119,
+          "mask_pixels": 4243,
+          "mesh_pixels": 4197,
+          "mask_mesh_dice": 0.9907582938388626
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Coronal",
+          "world_coordinate_mm": 43.614463806152344,
+          "native_index": 133,
+          "mask_pixels": 3272,
+          "mesh_pixels": 3187,
+          "mask_mesh_dice": 0.9849821953862827
+        },
+        {
+          "image": "oks003-cartilage-mri.nii",
+          "plane": "Axial",
+          "world_coordinate_mm": 45.703125,
+          "native_index": 126,
+          "mask_pixels": 684,
+          "mesh_pixels": 661,
+          "mask_mesh_dice": 0.9799256505576208
+        }
+      ]
+    }
+  ]
+}

@@ -84,7 +84,7 @@ def test_step_landmarks_and_mesh_parts_exist(references):
     families = _landmarks()
     manifest = json.loads(radiology_catalog.MESH_MANIFEST.read_text(encoding='utf-8'))
     for identifier, ref in references.items():
-        model = ref['spatial_model']
+        model = ref['walkthrough']['spatial_model']
         steps = ref['walkthrough']['steps']
         assert model['family'] in families, identifier
         assert model['focus'][0] == steps[0]['landmark'] or not model['scenario'].startswith('radiology-investigation:')
@@ -99,25 +99,25 @@ def test_step_landmarks_and_mesh_parts_exist(references):
 
 
 def test_wrong_backing_anatomy_is_corrected(references):
-    corrected = {identifier: ref['spatial_model']['family'] for identifier, ref in references.items()
-                 if ref['spatial_model']['scenario'].startswith('radiology-investigation:')}
+    corrected = {identifier: ref['walkthrough']['spatial_model']['family'] for identifier, ref in references.items()
+                 if ref['walkthrough']['spatial_model']['scenario'].startswith('radiology-investigation:')}
     assert corrected == CORRECTED
     for identifier in CORRECTED:
-        model = references[identifier]['spatial_model']
+        model = references[identifier]['walkthrough']['spatial_model']
         assert model['scenario'] == 'radiology-investigation:' + identifier
         assert model['id'] == 'radiology-model-' + identifier
         assert model['reporting_aim'] in model['instructions']
     # The paediatric elbow reference no longer shows the hip module's anatomy or fields.
     elbow = references['ra.paediatric-elbow-fractures']
-    assert 'OSSIFICATION CENTRES' in [s['heading'] for s in elbow['report_templates'][0]['sections']]
-    assert 'hip' not in json.dumps(elbow['reporting']['template_sections']).lower()
+    assert 'OSSIFICATION AND GROWTH PLATES' in [s['heading'] for s in elbow['report_templates'][0]['sections']]
+    assert not re.search(r'\bhip\b', json.dumps(elbow['reporting']['template_sections']).lower())
 
 
 def test_index_reports_step_counts(curriculum, references):
     modules = radiology_catalog.index(curriculum)['modules']
     assert {m['id']: m['step_count'] for m in modules} == {
         identifier: len(ref['walkthrough']['steps']) for identifier, ref in references.items()}
-    assert {m['id']: m['model_family'] for m in modules if m['id'] in CORRECTED} == CORRECTED
+    assert {m['id']: m['model_family'] for m in modules if m['id'] in CORRECTED} == dict(CORRECTED, **{'ra.mri-diabetic-foot': 'foot'})
 
 
 def _mutated(monkeypatch, identifier, mutate):
@@ -161,7 +161,7 @@ def test_unauthored_investigation_walks_its_own_fields(curriculum, monkeypatch):
         walk = ref['walkthrough']
         assert not walk['complete']
         assert walk['reviewed_at'] == ref['reporting']['reviewed_at']
-        assert not ref['spatial_model']['scenario'].startswith('radiology-investigation:')
+        assert not ref['walkthrough']['spatial_model']['scenario'].startswith('radiology-investigation:')
         assert all(step['label'] and step['detail'] and step['landmark'] for step in walk['steps'])
         if identifier not in FLAGSHIPS:
             assert [s['sections'] for s in walk['steps']] == [
@@ -208,7 +208,7 @@ def test_step_files_are_canonical_and_cover_each_specialty():
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
 def test_walkthrough_helpers_and_step_models_build(references):
-    served = [{'id': identifier, 'model': ref['spatial_model'],
+    served = [{'id': identifier, 'model': ref['walkthrough']['spatial_model'],
                'landmarks': [step['landmark'] for step in ref['walkthrough']['steps']]}
               for identifier, ref in references.items()]
     result = subprocess.run(['node', str(ROOT / 'tools/check_radiology_walkthrough.js')],

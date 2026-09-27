@@ -122,7 +122,7 @@ def test_curriculum_visual_gallery_stays_behind_the_hosted_gate(monkeypatch):
     assert allowed.status_code == 200
     assert allowed.json()["counts"] == {
         "lessons": 558, "illustrations": 561,
-        "models": 816, "items": 1377,
+        "models": 817, "items": 1378,
     }
     assert allowed.headers["vary"] == "Authorization, Cookie"
 
@@ -564,3 +564,31 @@ def test_repeat_static_login_handles_http_constraint_error_shape(monkeypatch):
                                    data={"username": "reader2", "password": "secret2"})
             assert response.status_code == 303
             assert client.get("/api/account").json()["reader_id"] == reader_id
+
+
+def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
+    monkeypatch.setenv('VERCEL', '1')
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, 'secret')
+    paths = [
+        '/app/anatomy/msk-atlas/meshes/example.bin',
+        '/app/anatomy/msk-mri-knee/example.bin.gz',
+        '/app/reference-media/prenatal-development/prenatal-development.gif',
+    ]
+    with TestClient(srv.app, follow_redirects=False) as client:
+        for path in paths:
+            assert client.get(path).status_code == 401
+            response = client.get(path, auth=('reader', 'secret'))
+            assert response.status_code == 307
+            assert response.headers['location'] == path.replace('/app/', '/source-media/', 1)
+            assert client.head(path, auth=('reader', 'secret')).status_code == 307
+        assert client.get('/app/anatomy/msk-atlas/manifest.json', auth=('reader', 'secret')).status_code == 200
+        assert client.get('/app/anatomy/unregistered/missing.bin', auth=('reader', 'secret')).status_code == 404
+
+
+def test_local_source_media_remains_served_without_cdn(monkeypatch):
+    monkeypatch.delenv('VERCEL', raising=False)
+    with TestClient(srv.app) as client:
+        response = client.get('/app/anatomy/bodyparts3d/FJ1394.bin')
+    assert response.status_code == 200
+    assert response.content[:4] == b'BP3D'

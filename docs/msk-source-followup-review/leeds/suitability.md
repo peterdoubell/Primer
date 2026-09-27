@@ -1,0 +1,20 @@
+# Leeds LTKN8941 baseline: anatomical geometry and model abstractions
+
+Reviewed 27 September 2026 from the already acquired primary [dataset README](README_Cooper-etal_2023.txt) and [methods documentation](method_documentation.txt) for [Leeds DOI 10.5518/981](https://doi.org/10.5518/981). These local files are pre-existing text extractions with page markers; acquisition metadata and fingerprints are preserved alongside them. No new download or clinical approval is implied.
+
+The [selected baseline](fe-baseline-selection.json) is `LTKN8941 FE model INP files/ltkn8941_seg_intact_fix.inp`, SHA-256 `55b3050e3b6e0ce594d418f865e4bedfeef5bb360f12769de002fadc4d68eb03`. The source naming definitions mean location-specific segmented cartilage (`seg`), both menisci included (`intact`), and fully constrained tibia (`fix`). Here, `intact` describes meniscal inclusion, not a complete intact-knee anatomy model.
+
+| Source evidence | Suitability implication |
+|---|---|
+| README pp1–3 describes a contact-mechanics validation dataset and licenses it CC BY 4.0. Methods pp1,4–5 derive femoral/tibial bone and cartilage from post-meniscectomy CT. | The selected `seg` branch is a documented specimen-specific tibiofemoral geometry candidate. It is not a wholly MRI-segmented model and is not a generic normal knee. |
+| Methods p5 uses thresholding, morphological operations and Gaussian smoothing for bone/cartilage segmentation. `uni` instead creates uniform cartilage thickness by bone-mask dilation. | The selected `seg` avoids the expressly uniform-thickness alternative, but still contains processed geometry. It is not untouched voxel truth. |
+| Methods p5 registers MRI to CT, uses MRI for approximate remaining alignment and meniscus segmentation, then adjusts manual meniscal masks using dilation, binary operations and curvature changes to improve contact conformity and convergence. | Menisci have an imaging origin with documented mechanical-model edits. Any fine margin, horn or attachment fidelity claim needs independent review; correspondence to MRI cannot simply be assumed. |
+| Methods p6 represents meniscus roots with 15 linear springs at each of four horn attachment sites. | Springs and their node locations are mechanical abstractions. They cannot be presented as root tissue meshes or earn direct root anatomy coverage. |
+| Methods pp2,7 removes the patella and most soft tissues for testing, then applies reference-point coupling, load and constraint cases. | FE constraints, springs, loading fixtures and contact surfaces are not additional anatomy. `fix` specifies an experimental boundary condition; it does not validate whole-knee structure coverage. |
+| Methods p8 limits intact-meniscus experimental comparison to qualitative pressure distributions because some contact falls outside the sensors. | Contact-mechanics validation is not independent anatomical validation of every component, and its scope must not be broadened into clinical approval. |
+
+Knee 2 is documented as a left knee from a 61-year-old male donor, BMI 18.0. The methods p2 condition entry says only that there was no meniscal extrusion; that is not a declaration that all anatomy or imaging is normal. Donor metadata and specimen code mapping should accompany review rather than be generalized to other knees.
+
+There is a source-level scanner discrepancy: README p7 assigns LTKN8941/LTKN1468 to Siemens Vida with an 18-channel coil; methods p2 describes the knees generically as Prisma with a 15-channel coil. The paired MRI review should resolve acquisition attributes from the actual DICOM and specific source metadata, not silently choose the generic methods sentence.
+
+**Assessment:** suitable as a documented candidate for independent review of specimen-specific tibiofemoral bone, cartilage and meniscal surfaces. Preserve the selected branch and its source processing caveats. It supplies no anatomical root geometry, whole-knee completeness guarantee or clinical approval. Geometry topology/placement, exact surface extraction fidelity and MRI correspondence remain separate review tasks.

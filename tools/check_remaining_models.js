@@ -3,7 +3,8 @@
 
 /*
  * Deterministic DOM smoke check for every curriculum lesson model not already
- * exercised by the physics, biology, spatial, music-listening, or Doppler checks.
+ * exercised by the physics, biology, spatial, music-listening, Doppler, or
+ * prenatal-sequence checks (tests/prenatal-sequence.test.cjs).
  *
  * The fake DOM intentionally implements only the browser primitives used by
  * the shipped renderers.  The model code itself is loaded through Node's
@@ -390,7 +391,7 @@ function collectRemainingModels() {
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
         if (media.kind !== 'model' || media.renderer === 'physics-concept-lab' ||
-            ['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab'].includes(media.renderer) ||
+            ['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(media.renderer) ||
             BIOLOGY_CHECKED.has(media.renderer)) continue;
         if (lessonIds.has(lesson.id)) throw new Error('duplicate remaining model lesson ' + lesson.id);
         lessonIds.add(lesson.id);

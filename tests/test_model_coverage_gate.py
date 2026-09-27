@@ -61,3 +61,24 @@ def test_actual_curriculum_has_nonvacuous_inventory():
     assert report["lessons"] == 558
     assert 0 < report["covered"] <= report["lessons"]
     assert report["model_entries"] >= report["covered"]
+    assert report["spatial_covered"] == report["lessons"]
+    assert report["spatial_entries"] >= report["spatial_covered"]
+
+
+def test_generic_activity_cannot_stand_in_for_interactive_3d(tmp_path):
+    write_domain(tmp_path, "01-first.json", "first", [lesson("a", 1)])
+    report = coverage.inventory(tmp_path)
+    assert report["covered"] == 1
+    assert report["spatial_covered"] == report["spatial_entries"] == 0
+    assert report["domains"][0]["missing_spatial"] == [{"id": "a", "title": "a", "stage": 0}]
+
+
+@pytest.mark.parametrize("renderer", ["spatial-3d", "radiology-anatomy"])
+def test_spatial_entries_count_exact_lessons_once(tmp_path, renderer):
+    node = lesson("a", 2)
+    for item in node["lesson_media"]:
+        item["renderer"] = renderer
+    write_domain(tmp_path, "01-first.json", "first", [node, lesson("b")])
+    report = coverage.inventory(tmp_path)
+    assert (report["spatial_covered"], report["spatial_entries"]) == (1, 2)
+    assert report["domains"][0]["missing_spatial"] == [{"id": "b", "title": "b", "stage": 0}]

@@ -16,6 +16,7 @@ from primer import radiology
     'https://radiologyassistant.nl/img/containers/main/example.jpg/cache.jpg',
     'https://upload.wikimedia.org/wikipedia/commons/1/12/Example.png',
     '/app/illustrations/forest/radiology/rad-5-coronary-ct-800.webp',
+    '/app/reference-media/source-figures/spect-ct-fusion.jpg',
 ])
 def test_known_image_origins_and_existing_local_plates_are_allowed(source):
     radiology.validate_image_source(source)
@@ -37,6 +38,9 @@ def test_known_image_origins_and_existing_local_plates_are_allowed(source):
     '/app/illustrations/../../.env.local',
     '/app/illustrations/%2e%2e/secret.webp',
     '/app/illustrations/does-not-exist.webp',
+    '/app/reference-media/source-figures/unknown.jpg',
+    '/app/reference-media/source-figures/../../private.jpg',
+    '/app/reference-media/source-figures/%2e%2e/private.jpg',
     'data:image/svg+xml,<svg/>',
     '//radiologyassistant.nl/assets/example.jpg',
     None,
@@ -61,8 +65,10 @@ def test_every_slot_is_backed_by_one_curated_figure():
         for entry in entries:
             if entry['src'].startswith('https://upload.wikimedia.org/'):
                 assert entry['license'] and entry['license_url']
-            if entry['src'].startswith('/app/'):
+            if entry['src'].startswith('/app/illustrations/'):
                 assert entry['image_type'] == 'diagram'
+            if entry['src'].startswith('/app/reference-media/source-figures/'):
+                assert entry['license'] and entry['license_url']
     # These two exemplar reports must show genuine scan examples and their
     # source references, not a repeated generic course plate in every slot.
     for identifier in ('rad.5.coronary-ct', 'rad.5.prostate-mri'):
@@ -106,3 +112,32 @@ def test_browser_policy_allows_the_curated_image_paths_only(tmp_path, monkeypatc
         'https://radiologyassistant.nl/img/', 'https://upload.wikimedia.org/wikipedia/commons/',
     }
     assert "connect-src 'self'" in CSP
+
+
+def test_preserved_source_bytes_cannot_change_silently(monkeypatch):
+    original_read = radiology._read
+    def changed_registry(name):
+        data = copy.deepcopy(original_read(name))
+        if name == 'local-source-figures.json':
+            data['/app/reference-media/source-figures/spect-ct-fusion.jpg']['sha256'] = '0' * 64
+        return data
+    monkeypatch.setattr(radiology, '_read', changed_registry)
+    with pytest.raises(ValueError, match='changed after review'):
+        radiology.validate_image_source('/app/reference-media/source-figures/spect-ct-fusion.jpg')
+
+
+def test_preserved_spect_teaching_composite_retains_native_bytes_and_source_credit():
+    import hashlib
+    from PIL import Image
+    from primer.curriculum import Curriculum
+    image = next(i for i in Curriculum().node('rad.5.nuclear-general')['radiology_reference']['key_images']
+                 if i['id'] == 'nuclear-general-image-3')
+    assert image['src'] == '/app/reference-media/source-figures/spect-ct-fusion.jpg'
+    path = ROOT / 'web' / image['src'].removeprefix('/app/')
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == '6f13b7c97b2d46eda574e5d5a75e7fd3bf3da7c57506a6f440b8ba961e561a7e'
+    with Image.open(path) as raster:
+        assert raster.size == (487, 544)
+    assert 'Kieran Maher' in image['attribution']
+    assert image['license'] == 'Public domain (author dedication)'
+    assert 'teaching composite' in image['caption']
+    assert 'not a high-resolution anatomical atlas' in image['caption']

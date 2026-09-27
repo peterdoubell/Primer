@@ -1,0 +1,41 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "excludeFiles": "{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif}"
+      }
+    },
+    {
+      "src": "web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "web/reference-media/prenatal-development/prenatal-development.gif",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/source-media/(.*\\.bin\\.gz)",
+      "dest": "/web/$1",
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "Content-Encoding": "gzip"
+      }
+    },
+    {
+      "src": "/source-media/(.*)",
+      "dest": "/web/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.py"
+    }
+  ]
+}

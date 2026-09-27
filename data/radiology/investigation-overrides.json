@@ -538,12 +538,13 @@
     "reporting": {
       "protocol": [
         "Acquire orthogonal planes aligned to the epicondyles with T1/PD and fluid-sensitive sequences; note arthrogram and prior repair.",
-        "Review throwing/instability, tendon rupture, osteochondral or nerve symptoms as distinct questions."
+        "Review throwing/instability, tendon rupture, osteochondral or nerve symptoms as distinct questions.",
+        "For distal biceps assessment, include the radial tuberosity in axial coverage; state if the insertion is not covered."
       ],
       "checklist": [
         {
           "label": "Tendons",
-          "detail": "Assess common flexor/extensor, distal biceps and triceps at their insertions."
+          "detail": "Assess common flexor/extensor origins at the epicondyles and the distal biceps, brachialis and triceps through their covered course and bony attachments."
         },
         {
           "label": "Ligaments",
@@ -595,7 +596,7 @@
       "template_sections": [
         {
           "heading": "TENDONS",
-          "body": "Common extensor [ ]; common flexor [ ]; distal biceps [ ]; triceps [ ]; tear site/extent [ ]; retraction __ mm; lacertus fibrosus [ ]."
+          "body": "Common extensor origin [ ]; common flexor origin [ ]; distal biceps [ ]; brachialis [ ]; triceps [ ]; tear site/extent [ ]; retraction __ mm; lacertus fibrosus [ ]."
         },
         {
           "heading": "LIGAMENT COMPLEXES",
@@ -638,7 +639,7 @@
           },
           {
             "heading": "TENDONS",
-            "body": "Common extensor [ ]; common flexor [ ]; distal biceps [ ]; triceps [ ]; tear site/extent [ ]; retraction __ mm; lacertus fibrosus [ ]."
+            "body": "Common extensor origin [ ]; common flexor origin [ ]; distal biceps [ ]; brachialis [ ]; triceps [ ]; tear site/extent [ ]; retraction __ mm; lacertus fibrosus [ ]."
           },
           {
             "heading": "LIGAMENT COMPLEXES",
@@ -743,161 +744,206 @@
   "ra.ankle-fractures": {
     "reporting": {
       "protocol": [
-        "Review orthogonal radiographs including a true mortise; use CT for articular detail and MRI for the specified tendon, ligament or occult-injury question.",
-        "Record weight-bearing/stress status and obtain proximal fibular coverage when the injury pattern warrants it."
+        "Record side, skeletal maturity, comparison and radiographs actually obtained: AP, mortise and lateral views. Describe positioning/coverage limitations and whether images are pre- or post-reduction.",
+        "State weight-bearing or stress-view status when such views were clinically obtained. Document whether the proximal fibula, foot and hindfoot were included; do not call an unexamined region normal.",
+        "Identify any supplemental CT, MRI or ultrasound actually reviewed and the question it addresses. CT can refine osseous articular extent; direct cartilage or tendon/ligament findings require an appropriate acquired examination, not a radiographic assumption."
       ],
       "checklist": [
         {
-          "label": "Malleoli and mortise",
-          "detail": "Inspect medial, lateral and posterior malleoli and talar alignment."
+          "label": "Fractures and mortise",
+          "detail": "Inspect the medial, lateral and posterior malleoli, distal tibia and talus; describe fibular level, fracture morphology/displacement and tibiotalar alignment."
         },
         {
-          "label": "Syndesmosis",
-          "detail": "Assess distal tibiofibular alignment and associated proximal fibular injury."
+          "label": "Syndesmosis and proximal fibula",
+          "detail": "Assess tibiofibular alignment, clear spaces/overlap and syndesmotic avulsion fragments as radiographic injury clues. State proximal-fibular coverage and concern for a higher fibular injury."
         },
         {
-          "label": "Articular surface",
-          "detail": "Describe impaction, step and osteochondral injury."
+          "label": "Osseous articular surfaces",
+          "detail": "Describe visible talar-dome/plafond defects, impaction, articular step/gap and posterior-malleolar extent. Separate osseous findings from direct cartilage assessment on supplemental imaging."
         },
         {
-          "label": "Foot columns",
-          "detail": "For foot symptoms, assess tarsometatarsal alignment, navicular, fifth metatarsal and hindfoot."
+          "label": "Foot and hindfoot when included",
+          "detail": "For the clinically indicated region actually imaged, assess hindfoot and tarsometatarsal alignment, navicular, cuneiforms/cuboid and metatarsals. State foot or hindfoot coverage not obtained."
         },
         {
-          "label": "Soft tissue",
-          "detail": "Name ligament/tendon abnormalities and distinguish partial from complete discontinuity."
+          "label": "Soft tissues and modality limits",
+          "detail": "Describe swelling and radiographic avulsion/alignment clues. Do not grade tendon or ligament discontinuity on radiographs; name direct integrity findings only from an appropriate acquired MRI or ultrasound examination."
         }
       ],
       "measurements": [
         {
-          "name": "Fracture displacement",
-          "method": "Measure gap, articular step, posterior fragment extent and talar shift on appropriate planes.",
-          "pitfall": "A fragment percentage alone does not determine management."
+          "name": "Fracture and articular displacement",
+          "method": "Measure visible fracture displacement, gap or articular step in mm with the view/plane stated. Report posterior-malleolar extent and any CT-defined impaction or articular extension separately.",
+          "pitfall": "Projection limits posterior-fragment and articular measurements. A fragment percentage alone does not determine management or cartilage integrity."
         },
         {
-          "name": "Mortise alignment",
-          "method": "Record medial clear space or syndesmotic measurements with view and load status.",
-          "pitfall": "Rotation and non-weight-bearing technique can conceal or simulate instability."
+          "name": "Mortise and syndesmotic relationships",
+          "method": "If measured, record medial clear space, tibiofibular clear space/overlap and talar shift with projection, positioning and weight-bearing/stress status.",
+          "pitfall": "Rotation and loading alter these measurements. Normal clear spaces do not exclude ligamentous injury, and one cutoff must not be used as an automatic stability decision."
         }
       ],
       "classification": {
-        "name": "Weber / Lauge-Hansen",
-        "version": "Named conventional ankle fracture systems",
-        "applicability": "Ankle fractures; not a general foot injury classification.",
-        "summary": "Weber A/B/C describes fibular level below/at/above the syndesmosis. Report the complete injury and observed instability features; mechanism-based staging requires supporting findings."
+        "name": "Weber / Lauge-Hansen — with maturity and pattern limits",
+        "version": "Conventional fibular-level and mechanism-pattern classifications; physeal injury described separately when relevant",
+        "applicability": "Applicable ankle fracture patterns. These are not general foot-injury classifications and do not replace age-appropriate physeal fracture assessment.",
+        "summary": "Weber A/B/C describes the fibular fracture level relative to the syndesmosis. Lauge-Hansen pattern/stage requires supporting findings and stated uncertainty. Preserve the complete fracture/alignment description; do not assume stability from Weber type or intact soft tissues from radiographs."
       },
       "pitfalls": [
-        "A Weber B fracture is not automatically stable.",
-        "A proximal fibular injury may accompany medial ankle/syndesmotic injury despite a normal distal fibula."
+        "A Weber B fracture is not automatically stable. A normal mortise or clear-space measurement does not exclude ligament injury.",
+        "Posterior-malleolar fractures may be subtle on a rotated lateral projection; an apparently isolated posterior or medial injury can be a clue to a wider injury pattern.",
+        "A higher fibular injury may coexist with medial or syndesmotic injury despite an unremarkable distal fibula. An ankle-only field cannot exclude injury outside its coverage.",
+        "In an immature skeleton, identify physeal, epiphyseal and metaphyseal extension and distinguish developmental centres from fragments; do not substitute an adult classification for the actual pattern.",
+        "Tendon/ligament continuity and full cartilage injury extent are not directly established on routine radiographs. Keep supplemental MRI/ultrasound findings and their modality separate."
       ],
       "impression_prompts": [
-        "What fracture/soft-tissue injury and alignment abnormality are present?",
-        "Is articular impaction or syndesmotic injury suspected?",
-        "What relevant area was not covered or needs targeted assessment?"
+        "What fractures, visible articular abnormalities and alignment changes are demonstrated on the radiographs?",
+        "What syndesmotic, medial or higher-fibular injury is suspected from the observed pattern, and what remains unconfirmed?",
+        "What clinically relevant foot/hindfoot or proximal-fibular region was not imaged, and what focused question remains for supplemental assessment?"
       ],
       "escalation": [
-        "Urgently communicate fracture-dislocation, threatened skin or a critical unstable pattern in the acute setting."
+        "Promptly communicate fracture-dislocation, consequential malalignment or a suspected unstable injury pattern through the acute trauma pathway.",
+        "Threatened skin or neurovascular compromise requires clinical assessment; radiographs cannot establish normal skin viability, pulses or neurological function."
       ],
       "template_sections": [
         {
           "heading": "FRACTURE MAP",
-          "body": "Fibula [level relative to syndesmosis, orientation and displacement]; medial malleolus [ ]; posterior malleolus [size, articular involvement and displacement]; additional fracture [ ]."
+          "body": "Side/maturity [ ]; distal tibia/fibula [ ]; fibular level relative to syndesmosis [ ]; fracture orientation, displacement and comminution [ ]; medial malleolus [ ]; posterior malleolus [ ]; talus [ ]; additional included bone [ ]; physeal/epiphyseal/metaphyseal extension if immature [ ]."
         },
         {
-          "heading": "MORTISE",
-          "body": "Talar position [ ]; medial clear space __ mm on [projection]; tibiotalar alignment [ ]; talar dome [ ]."
+          "heading": "MORTISE AND TALUS",
+          "body": "View/positioning [ ]; load or stress status [not obtained / specified]; tibiotalar congruity [ ]; talar shift/tilt [ ]; medial clear space [not measured / __ mm on specified view]; talar-dome osseous contour [ ]."
         },
         {
-          "heading": "SYNDESMOSIS",
-          "body": "Tibiofibular relationship [ ]; syndesmotic avulsion [ ]; proximal fibula included [yes / no]; higher fibular injury concern [ ]."
+          "heading": "SYNDESMOSIS AND PROXIMAL FIBULA",
+          "body": "Tibiofibular alignment [ ]; clear space/overlap [not measured / result and view]; syndesmotic avulsion [site]; radiographic suspicion of syndesmotic/medial injury [ ]; proximal fibula [not imaged / findings]; higher-fibular injury concern [ ]."
         },
         {
-          "heading": "ARTICULAR EXTENT",
-          "body": "Articular step/gap [ ]; plafond impaction [ ]; posterior fragment [ ]; CT performed or needed to define complex extent [ ]."
+          "heading": "OSSEOUS ARTICULAR EXTENT",
+          "body": "Visible articular step/gap [ ]; plafond impaction [ ]; posterior-malleolar articular extent [ ]; supplemental CT [not obtained / date and findings]; direct cartilage integrity [not assessed / appropriate acquired examination and findings]."
         },
         {
-          "heading": "ASSOCIATED FINDINGS",
-          "body": "Soft-tissue swelling [ ]; dislocation/subluxation [ ]; additional injury [ ]; post-reduction alignment [not applicable / findings]."
+          "heading": "FOOT AND HINDFOOT COVERAGE",
+          "body": "Additional foot/hindfoot imaging [not obtained / acquired region and views]; calcaneus/subtalar joint [not included / findings]; navicular/cuboid/cuneiforms [not included / findings]; metatarsals and tarsometatarsal alignment [not included / findings]; Lisfranc-region osseous/alignment clues [not assessed / findings]."
+        },
+        {
+          "heading": "SOFT TISSUES AND SUPPLEMENTAL EXAMINATIONS",
+          "body": "Radiographic swelling or other soft-tissue clue [ ]; tendon/ligament continuity [not directly assessed on radiographs]; supplemental MRI/ultrasound [not obtained / modality, date, named structure and observed finding]; distinguish confirmed findings from radiographic inference [ ]."
+        },
+        {
+          "heading": "REDUCTION AND ASSOCIATED FINDINGS",
+          "body": "Pre-/post-reduction status [ ]; comparison alignment [ ]; fixation if present [ ]; additional injury [ ]; clinically relevant limitation [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Ankle Fracture Mechanism and Radiography",
+          "title": "Radiology Assistant — Ankle Fracture Mechanism and Radiography",
           "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography"
         },
         {
-          "title": "Algoritm for Ankle Fractures 2.0",
-          "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fractures-video-lesson-1"
-        },
-        {
-          "title": "Ankle fractures - Weber and Lauge-Hansen Classification",
+          "title": "Radiology Assistant — Ankle fractures: Weber and Lauge-Hansen Classification",
           "url": "https://radiologyassistant.nl/musculoskeletal/ankle/weber-and-lauge-hansen-classification"
         },
         {
-          "title": "Special Ankle Fractures",
+          "title": "Radiology Assistant — Special Ankle Fractures",
           "url": "https://radiologyassistant.nl/musculoskeletal/ankle/special-fracture-cases"
+        },
+        {
+          "title": "AO Surgery Reference — Transsyndesmotic posterior, lateral and medial fracture anatomy",
+          "url": "https://surgeryreference.aofoundation.org/orthopedic-trauma/adult-trauma/malleoli/transsyndesmotic-posterior-lateral-simple-and-medial-fractures/definition"
+        },
+        {
+          "title": "Radiology Assistant — MRI examination of the ankle (supplemental soft-tissue assessment)",
+          "url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination"
+        },
+        {
+          "title": "Radiology Assistant — Foot and ankle case discussion (conditional foot coverage)",
+          "url": "https://radiologyassistant.nl/musculoskeletal/wrist/foot-1"
         }
       ],
-      "reviewed_at": "2026-09-23"
+      "reviewed_at": "2026-09-26"
     },
     "report_templates": [
       {
         "id": "ra-ankle-fractures-report",
         "title": "ANKLE FRACTURE RADIOGRAPHS",
-        "description": "Investigation-specific reporting worksheet aligned to the linked Radiology Assistant chapters.",
+        "description": "Radiograph-first ankle fracture worksheet; acquired supplemental modalities and unexamined regions are explicit.",
         "sections": [
           {
-            "heading": "INDICATION",
-            "body": "Clinical question [ ]; side/site [ ]; symptoms and duration [ ]; relevant injury, surgery or treatment [ ]. Comparison [examination and date / none]."
+            "heading": "INDICATION AND COMPARISON",
+            "body": "Clinical question [ ]; side [ ]; age/skeletal maturity [ ]; injury and relevant surgery [ ]; comparison examination/date [ ]."
           },
           {
             "heading": "TECHNIQUE AND QUALITY",
-            "body": "Examination/coverage [ ]; acquisition and relevant sequences or projections [ ]; contrast/arthrogram [not performed / details]; comparison [ ]; limitations affecting interpretation [none / specify]."
+            "body": "Radiographs obtained [AP / mortise / lateral / other]; positioning and coverage [ ]; weight-bearing/stress status [not obtained / specified]; pre-/post-reduction [ ]; supplemental examinations actually reviewed [none / modality and date]."
           },
           {
             "heading": "FRACTURE MAP",
-            "body": "Fibula [level relative to syndesmosis, orientation and displacement]; medial malleolus [ ]; posterior malleolus [size, articular involvement and displacement]; additional fracture [ ]."
+            "body": "Side/maturity [ ]; distal tibia/fibula [ ]; fibular level relative to syndesmosis [ ]; fracture orientation, displacement and comminution [ ]; medial malleolus [ ]; posterior malleolus [ ]; talus [ ]; additional included bone [ ]; physeal/epiphyseal/metaphyseal extension if immature [ ]."
           },
           {
-            "heading": "MORTISE",
-            "body": "Talar position [ ]; medial clear space __ mm on [projection]; tibiotalar alignment [ ]; talar dome [ ]."
+            "heading": "MORTISE AND TALUS",
+            "body": "View/positioning [ ]; load or stress status [not obtained / specified]; tibiotalar congruity [ ]; talar shift/tilt [ ]; medial clear space [not measured / __ mm on specified view]; talar-dome osseous contour [ ]."
           },
           {
-            "heading": "SYNDESMOSIS",
-            "body": "Tibiofibular relationship [ ]; syndesmotic avulsion [ ]; proximal fibula included [yes / no]; higher fibular injury concern [ ]."
+            "heading": "SYNDESMOSIS AND PROXIMAL FIBULA",
+            "body": "Tibiofibular alignment [ ]; clear space/overlap [not measured / result and view]; syndesmotic avulsion [site]; radiographic suspicion of syndesmotic/medial injury [ ]; proximal fibula [not imaged / findings]; higher-fibular injury concern [ ]."
           },
           {
-            "heading": "ARTICULAR EXTENT",
-            "body": "Articular step/gap [ ]; plafond impaction [ ]; posterior fragment [ ]; CT performed or needed to define complex extent [ ]."
+            "heading": "OSSEOUS ARTICULAR EXTENT",
+            "body": "Visible articular step/gap [ ]; plafond impaction [ ]; posterior-malleolar articular extent [ ]; supplemental CT [not obtained / date and findings]; direct cartilage integrity [not assessed / appropriate acquired examination and findings]."
           },
           {
-            "heading": "ASSOCIATED FINDINGS",
-            "body": "Soft-tissue swelling [ ]; dislocation/subluxation [ ]; additional injury [ ]; post-reduction alignment [not applicable / findings]."
+            "heading": "FOOT AND HINDFOOT COVERAGE",
+            "body": "Additional foot/hindfoot imaging [not obtained / acquired region and views]; calcaneus/subtalar joint [not included / findings]; navicular/cuboid/cuneiforms [not included / findings]; metatarsals and tarsometatarsal alignment [not included / findings]; Lisfranc-region osseous/alignment clues [not assessed / findings]."
+          },
+          {
+            "heading": "SOFT TISSUES AND SUPPLEMENTAL EXAMINATIONS",
+            "body": "Radiographic swelling or other soft-tissue clue [ ]; tendon/ligament continuity [not directly assessed on radiographs]; supplemental MRI/ultrasound [not obtained / modality, date, named structure and observed finding]; distinguish confirmed findings from radiographic inference [ ]."
+          },
+          {
+            "heading": "REDUCTION AND ASSOCIATED FINDINGS",
+            "body": "Pre-/post-reduction status [ ]; comparison alignment [ ]; fixation if present [ ]; additional injury [ ]; clinically relevant limitation [ ]."
           },
           {
             "heading": "IMPRESSION",
-            "body": "1. Principal finding answering the clinical question: [ ].\n2. Extent, associated abnormality and relevant negative finding: [ ].\n3. Limitation, further assessment or communication if needed: [ ]."
+            "body": "1. [What fractures, visible articular abnormalities and alignment changes are demonstrated on the radiographs?]\n2. [What syndesmotic, medial or higher-fibular injury is suspected from the observed pattern, and what remains unconfirmed?]\n3. [What clinically relevant foot/hindfoot or proximal-fibular region was not imaged, and what focused question remains for supplemental assessment?]"
+          },
+          {
+            "heading": "COMMUNICATION",
+            "body": "Relevant imaging finding communicated [not applicable / recipient, time and method]; unresolved clinical assessment or imaging coverage [ ]."
           }
         ],
         "notes": [
-          "Replace bracketed choices with observed findings. The gallery contains published teaching examples; cite the patient examination series and image numbers in the clinical report."
+          "A Weber B fracture is not automatically stable. A normal mortise or clear-space measurement does not exclude ligament injury.",
+          "Posterior-malleolar fractures may be subtle on a rotated lateral projection; an apparently isolated posterior or medial injury can be a clue to a wider injury pattern.",
+          "A higher fibular injury may coexist with medial or syndesmotic injury despite an unremarkable distal fibula. An ankle-only field cannot exclude injury outside its coverage.",
+          "In an immature skeleton, identify physeal, epiphyseal and metaphyseal extension and distinguish developmental centres from fragments; do not substitute an adult classification for the actual pattern.",
+          "Tendon/ligament continuity and full cartilage injury extent are not directly established on routine radiographs. Keep supplemental MRI/ultrasound findings and their modality separate."
         ],
         "sources": [
           {
-            "title": "Ankle Fracture Mechanism and Radiography",
+            "title": "Radiology Assistant — Ankle Fracture Mechanism and Radiography",
             "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fracture-mechanism-and-radiography"
           },
           {
-            "title": "Algoritm for Ankle Fractures 2.0",
-            "url": "https://radiologyassistant.nl/musculoskeletal/ankle/fractures-video-lesson-1"
-          },
-          {
-            "title": "Ankle fractures - Weber and Lauge-Hansen Classification",
+            "title": "Radiology Assistant — Ankle fractures: Weber and Lauge-Hansen Classification",
             "url": "https://radiologyassistant.nl/musculoskeletal/ankle/weber-and-lauge-hansen-classification"
           },
           {
-            "title": "Special Ankle Fractures",
+            "title": "Radiology Assistant — Special Ankle Fractures",
             "url": "https://radiologyassistant.nl/musculoskeletal/ankle/special-fracture-cases"
+          },
+          {
+            "title": "AO Surgery Reference — Transsyndesmotic posterior, lateral and medial fracture anatomy",
+            "url": "https://surgeryreference.aofoundation.org/orthopedic-trauma/adult-trauma/malleoli/transsyndesmotic-posterior-lateral-simple-and-medial-fractures/definition"
+          },
+          {
+            "title": "Radiology Assistant — MRI examination of the ankle (supplemental soft-tissue assessment)",
+            "url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination"
+          },
+          {
+            "title": "Radiology Assistant — Foot and ankle case discussion (conditional foot coverage)",
+            "url": "https://radiologyassistant.nl/musculoskeletal/wrist/foot-1"
           }
         ]
       }
@@ -1581,7 +1627,7 @@
         },
         {
           "label": "Alternative Pain Generators",
-          "detail": "Assess periarticular tendons, bursae, muscles and visible pelvic structures."
+          "detail": "Assess additional bone/joint abnormalities on the acquired radiographs. If MRI was acquired, also assess periarticular tendons, bursae, muscles and covered pelvic structures; state limitations of coverage."
         }
       ],
       "measurements": [
@@ -1599,7 +1645,7 @@
       "classification": null,
       "pitfalls": [
         "Cam or pincer morphology can occur without symptoms.",
-        "Do not attribute hip pain to morphology without corresponding labral/cartilage findings and clinical context."
+        "Clinical diagnosis requires compatible symptoms, examination signs and imaging findings; do not infer symptomatic FAI syndrome from cam/pincer morphology alone."
       ],
       "impression_prompts": [
         "What morphology is present and where is associated labral/chondral damage?",
@@ -1633,9 +1679,13 @@
         {
           "title": "Femoroacetabular impingement syndrome",
           "url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome"
+        },
+        {
+          "title": "Warwick Agreement on femoroacetabular impingement syndrome (2016)",
+          "url": "https://doi.org/10.1136/bjsports-2016-096743"
         }
       ],
-      "reviewed_at": "2026-09-23"
+      "reviewed_at": "2026-09-26"
     },
     "report_templates": [
       {
@@ -3232,90 +3282,241 @@
   "ra.paediatric-elbow-fractures": {
     "reporting": {
       "protocol": [
-        "Use a true lateral with the elbow flexed 90 degrees and an AP in extension; a rotated lateral invalidates the fat-pad and anterior humeral line assessment.",
-        "Record age, side and injury mechanism; compare with the other elbow only when an ossification centre remains uncertain."
+        "Record age, injured side and views. Assess AP and true lateral coverage of the elbow/distal humerus; document rotation or positioning limitations before interpreting alignment lines.",
+        "For suspected lateral condylar injury, consider an oblique view according to the local paediatric pathway. Image additional forearm/wrist sites when the clinical findings warrant it; do not infer their normality from an elbow-only field."
       ],
       "checklist": [
         {
-          "label": "Fat pads",
-          "detail": "Look for a visible posterior fat pad or an elevated anterior fat pad as signs of a joint effusion."
+          "label": "Elbow alignment",
+          "detail": "Assess radiocapitellar and ulnohumeral congruity and the anterior humeral line, accounting for age, ossification and projection."
         },
         {
-          "label": "Alignment",
-          "detail": "Check the anterior humeral line on the true lateral and the radiocapitellar line on every view."
+          "label": "Ossification and growth plates",
+          "detail": "Identify visible capitellar, radial-head, medial-epicondylar, trochlear, olecranon and lateral-epicondylar centres and their physes; distinguish normal developmental appearance from injury."
         },
         {
-          "label": "Ossification centres",
-          "detail": "Match the visible centres to age in CRITOE order and confirm each is in its normal position."
+          "label": "Fracture map and displacement",
+          "detail": "Inspect the supracondylar region, condyles/epicondyles, proximal radius and ulna. Describe displacement, angulation, rotation and articular or physeal extension."
         },
         {
-          "label": "Fracture",
-          "detail": "Name the fracture: supracondylar, lateral condyle, medial epicondyle, radial head/neck or olecranon; describe displacement."
+          "label": "Effusion and soft tissues",
+          "detail": "Assess anterior/posterior fat pads, periarticular swelling and visible soft-tissue abnormality; a fracture may remain occult."
         },
         {
-          "label": "Forearm and associated injury",
-          "detail": "Look for a forearm fracture with radial head dislocation, a second fracture and post-reduction alignment."
+          "label": "Associated injury and reduction",
+          "detail": "Search for dislocation or an entrapped fragment, review included forearm injury, and describe reduction/fixation when present. Radiographs do not establish normal clinical neurovascular status."
         }
       ],
       "measurements": [
         {
-          "name": "Elbow alignment",
-          "method": "On a true lateral, state where the anterior humeral line crosses the capitellum; state whether the radiocapitellar line passes through the capitellum on each view.",
-          "pitfall": "A rotated lateral projection can displace both lines without an injury."
+          "name": "Fragment displacement",
+          "method": "Name the fragment, projection and displacement in mm; report angular/rotational deformity separately.",
+          "pitfall": "Projection and unossified cartilage can conceal the full articular extent, particularly at the lateral condyle."
         },
         {
-          "name": "Fracture displacement",
-          "method": "Measure fracture gap or translation in mm and describe angulation and rotation, naming the projection.",
-          "pitfall": "Lateral condyle displacement can be underestimated on a single view; review the oblique or internal-oblique projection when acquired."
+          "name": "Anterior humeral line",
+          "method": "On a true lateral image, describe where the anterior humeral cortical line intersects the visible capitellar ossification centre.",
+          "pitfall": "The relationship varies with age, especially in younger children. Do not diagnose a fracture solely because the line fails to cross the middle third."
+        },
+        {
+          "name": "Radiocapitellar line",
+          "method": "State the view and radial landmark used; assess the radial-neck axis relative to the visible capitellum and the overall joint relationship.",
+          "pitfall": "Age, forearm rotation and imperfect projection affect this line; an isolated line abnormality is not sufficient to establish dislocation."
         }
       ],
       "classification": {
-        "name": "Gartland supracondylar classification",
-        "version": "Conventional radiographic types I–III",
-        "applicability": "Extension-type supracondylar humeral fractures in children only.",
-        "summary": "Type I is undisplaced; type II is displaced with an intact posterior cortex; type III is displaced without cortical contact. Describe the displacement directly as well."
+        "name": "Gartland — when applicable",
+        "version": "Conventional extension-type supracondylar fracture classification; describe morphology with any assigned type",
+        "applicability": "Extension-type supracondylar distal humeral fracture only; not lateral condylar, epicondylar, radial-neck or olecranon injuries.",
+        "summary": "Use the applicable named system only after identifying the fracture pattern. Preserve the observed displacement and cortical-contact description; a classification label alone does not describe neurovascular status or determine treatment."
       },
       "pitfalls": [
-        "A visible posterior fat pad without a visible fracture indicates an effusion and a possible occult fracture; do not report the elbow as normal.",
-        "The trochlea does not ossify before the medial epicondyle: an ossicle in the trochlear position without a normally placed medial epicondyle suggests an entrapped avulsed epicondyle."
+        "Normal ossification and unfused growth plates vary with age; an adult elbow model cannot establish paediatric normality.",
+        "An elevated anterior fat pad or visible posterior fat pad can indicate an effusion with an occult fracture; absence of a visible fracture line is not proof of no injury.",
+        "Alignment lines are age- and projection-dependent; interpret them with the other radiographic and clinical findings.",
+        "A displaced medial epicondylar fragment may become incarcerated in the joint after dislocation. Unossified cartilage may hide lateral-condylar articular extension."
       ],
       "impression_prompts": [
-        "Is there an effusion, and which fracture or dislocation is present?",
-        "Are the anterior humeral and radiocapitellar lines normal?",
-        "Are the ossification centres appropriate for age and in position?"
+        "What fracture or dislocation is identified, with which displacement and physeal/articular involvement?",
+        "Is there an effusion or other evidence of an occult injury despite an inapparent fracture line?",
+        "What associated injury, imaging limitation or reduction/fixation finding changes the next assessment?"
       ],
       "escalation": [
-        "Urgently communicate a displaced supracondylar fracture, an entrapped medial epicondyle, an elbow dislocation or a radial head dislocation with forearm fracture."
+        "Promptly communicate displaced/unstable fractures, fracture-dislocation or suspected intra-articular fragment entrapment through the local paediatric pathway.",
+        "Urgent clinical assessment is required for suspected neurovascular compromise or an open injury; normal radiographic alignment does not exclude these clinical emergencies."
       ],
       "template_sections": [
         {
-          "heading": "JOINT EFFUSION",
-          "body": "Anterior fat pad [normal / elevated]; posterior fat pad [not visible / visible]; effusion [absent / present]."
+          "heading": "SIDE, AGE AND TECHNIQUE",
+          "body": "Side [ ]; age [ ]; views [ ]; true lateral adequacy [ ]; rotation/coverage limitations [ ]; comparison [ ]."
         },
         {
           "heading": "ALIGNMENT",
-          "body": "Anterior humeral line [through middle third of capitellum / anterior / posterior]; radiocapitellar line [aligned / disrupted on view]; ulnohumeral alignment [ ]."
+          "body": "Radiocapitellar relationship [ ]; radial landmark/view [ ]; anterior humeral line and capitellum [age/projection qualified]; ulnohumeral congruity [ ]; dislocation/subluxation [ ]."
         },
         {
-          "heading": "OSSIFICATION CENTRES",
-          "body": "Age [ ]; centres present [C / R / I / T / O / E]; medial epicondyle position [normal / displaced / entrapped]; lateral condyle position [ ]."
+          "heading": "OSSIFICATION AND GROWTH PLATES",
+          "body": "Visible ossification centres and expected developmental appearance [ ]; physis/apophysis abnormality [ ]; unossified-cartilage limitation [ ]; possible variant [ ]."
         },
         {
-          "heading": "FRACTURE",
-          "body": "Site [supracondylar / lateral condyle / medial epicondyle / radial head or neck / olecranon / other]; physeal involvement [ ]; displacement __ mm; angulation [ ]; Gartland type if supracondylar [ ]."
+          "heading": "FRACTURE MORPHOLOGY",
+          "body": "Bone/site [ ]; supracondylar/condylar/epicondylar/proximal radial/proximal ulnar pattern [ ]; displacement __ mm on [view]; angulation/rotation [ ]; cortical contact [ ]; physeal/articular extension [ ]; classification only if applicable [ ]."
         },
         {
-          "heading": "FOREARM AND ASSOCIATED INJURY",
-          "body": "Forearm fracture [ ]; radial head dislocation [ ]; additional fracture [ ]; post-reduction or cast alignment [not applicable / findings]."
+          "heading": "EFFUSION AND SOFT TISSUES",
+          "body": "Anterior fat pad [ ]; posterior fat pad [ ]; effusion [ ]; swelling [ ]; radiographically occult injury concern [ ]."
+        },
+        {
+          "heading": "ASSOCIATED AND POST-REDUCTION FINDINGS",
+          "body": "Entrapped fragment [ ]; included radius/ulna and other injury [ ]; post-reduction alignment [not applicable / findings]; fixation [ ]; limitations [ ]; urgent finding communicated to [recipient/time if applicable]."
         }
       ],
       "sources": [
         {
-          "title": "Elbow fractures in Children",
+          "title": "Radiology Assistant — Elbow fractures in Children",
           "url": "https://radiologyassistant.nl/musculoskeletal/elbow/fractures-in-children"
+        },
+        {
+          "title": "Royal Children’s Hospital — Supracondylar fracture of the humerus, Emergency Department",
+          "url": "https://www.rch.org.au/clinicalguide/guideline_index/fractures/supracondylar_fracture_of_the_humerus_emergency_department/"
+        },
+        {
+          "title": "Royal Children’s Hospital — Lateral condyle fracture of the humerus, Emergency Department",
+          "url": "https://www.rch.org.au/clinicalguide/guideline_index/fractures/Lateral_condyle_fracture_of_the_humerus_-_Emergency_Department/"
+        },
+        {
+          "title": "Herman et al. — Relationship of the anterior humeral line to the capitellar ossific nucleus: variability with age (2009)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19723996/"
+        },
+        {
+          "title": "Kunkel et al. — Limitations of the radiocapitellar line for assessment of pediatric elbow radiographs (2011)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21841436/"
         }
       ],
-      "reviewed_at": "2026-09-25"
+      "reviewed_at": "2026-09-26"
+    }
+  },
+  "ra.thoracolumbar-fractures": {
+    "reporting": {
+      "protocol": [
+        "Record the CT and MRI examinations actually reviewed, coverage, reconstruction planes, image quality and comparison. Review CT bone and soft-tissue reconstructions with sagittal and coronal reformats for traumatic alignment and fracture morphology.",
+        "When MRI is acquired, review sagittal T1, T2/fluid-sensitive and targeted axial images for ligament, disc, epidural and neural injury. State when MRI was not acquired or is limited; CT alone does not directly establish ligament continuity or spinal cord signal.",
+        "Document vertebral numbering, transitional anatomy and any unexamined spinal segment. Review all included levels for additional injuries and identify an ankylosed spine or previous instrumentation."
+      ],
+      "checklist": [
+        {
+          "label": "Numbering and traumatic alignment",
+          "detail": "Name the vertebra or motion segment and assess translation, rotation, distraction and focal angulation; document numbering and coverage limits."
+        },
+        {
+          "label": "Vertebral fracture morphology",
+          "detail": "Map vertebral-body walls, one or both endplates and each posterior element. Distinguish compression/burst morphology, posterior-wall retropulsion and a transosseous distraction pattern. Note relevant bone or marrow abnormality and fracture-age evidence using the acquired modality and comparison."
+        },
+        {
+          "label": "Posterior tension band",
+          "detail": "Assess spinous/interspinous and facet relationships on CT. On acquired MRI, assess supraspinous and interspinous ligaments, ligamenta flava and facet capsules separately; distinguish definite disruption from indeterminate oedema."
+        },
+        {
+          "label": "Discs and longitudinal ligaments",
+          "detail": "Assess traumatic disc-space widening or disruption, endplate interfaces and anterior/posterior longitudinal ligaments with the available modality, including anterior distraction in a rigid spine."
+        },
+        {
+          "label": "Canal, epidural and neural structures",
+          "detail": "Localise canal, lateral-recess or foraminal encroachment and epidural abnormality. On acquired MRI, describe cord, conus, cauda equina and named root compression or signal abnormality within coverage."
+        },
+        {
+          "label": "Paraspinal and associated injury",
+          "detail": "Describe paraspinal or prevertebral soft-tissue injury, additional included fractures, postoperative limitations and other relevant visible abnormalities."
+        },
+        {
+          "label": "Classification inputs and clinical neurology",
+          "detail": "Keep imaging morphology and posterior ligamentous complex assessment separate from supplied clinical neurological status. Name the applicable AO/TLICS assessment and document missing clinical information."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Vertebral deformity",
+          "method": "At each injured level, describe vertebral height loss and local angulation with the measured surfaces, plane and comparison reference.",
+          "pitfall": "Height loss or angulation alone does not determine ligament integrity, neurological status or treatment."
+        },
+        {
+          "name": "Retropulsion and canal encroachment",
+          "method": "Measure posterior-wall retropulsion in mm on a stated plane/reference. If canal narrowing is quantified, identify the diameter or area method and reference level; describe the actual compartment affected.",
+          "pitfall": "Do not interchange diameter and area percentages or infer clinical cord injury from osseous canal narrowing."
+        },
+        {
+          "name": "Distraction and displacement",
+          "method": "Record translation, interspinous/facet separation or disc-space opening at the named motion segment, with direction, plane and relevant measurements.",
+          "pitfall": "Positioning may reduce visible distraction, especially in an ankylosed spine. A vertical laminar fracture alone does not establish posterior tension-band failure."
+        }
+      ],
+      "classification": {
+        "name": "AO Spine thoracolumbar injury classification / TLICS",
+        "version": "AO Spine thoracolumbar morphology, neurology and modifiers framework (2013); TLICS (2005)",
+        "applicability": "Traumatic thoracic/lumbar vertebral or motion-segment injury. Classify each injured level or segment separately using the applicable framework.",
+        "summary": "AO morphology distinguishes compression, tension-band and translational patterns. TLICS uses morphology, posterior ligamentous complex integrity and clinical neurology. Record uncertainty and supplied clinical modifiers; do not fabricate a complete score from imaging alone or turn a label into an automatic treatment recommendation."
+      },
+      "pitfalls": [
+        "A burst fracture requires posterior vertebral-wall involvement; record which endplate or endplates are involved rather than calling every wedge deformity a burst injury.",
+        "A vertical laminar fracture accompanying compression does not by itself prove posterior tension-band failure. Assess the entire injury pattern.",
+        "MRI oedema without convincing fibre discontinuity can leave posterior ligamentous complex injury indeterminate; signal change alone must not be labelled a definite rupture.",
+        "Small anterior separation in an ankylosed spine may conceal a consequential distraction injury. Report the rigid-spine context and acquisition limitations.",
+        "Normal-appearing neural structures on imaging do not supply a clinical neurological examination. Unknown neurological status is not an intact examination."
+      ],
+      "impression_prompts": [
+        "Which vertebrae or motion segments are injured, with what compression, distraction or translational morphology?",
+        "What is the evidence and certainty of posterior or anterior tension-band injury, and is further soft-tissue assessment unresolved?",
+        "What canal, epidural or neural consequence requires communication, and which clinical classification inputs or coverage remain unavailable?"
+      ],
+      "escalation": [
+        "Promptly communicate traumatic malalignment, suspected consequential tension-band disruption, significant canal compromise or an epidural collection with neural compression through the local trauma/spine pathway.",
+        "Report imaging/clinical neurological discordance or an incompletely assessed injury in an ankylosed spine for timely specialist correlation; do not infer clinical neurological status from the images."
+      ],
+      "template_sections": [
+        {
+          "heading": "NUMBERING, COVERAGE AND ALIGNMENT",
+          "body": "Exam(s) reviewed [CT / MRI / both]; coverage [ ]; numbering reference [ ]; transitional anatomy [ ]; injured vertebra/motion segment [ ]; translation/rotation [ ]; distraction [ ]; local angulation [method/result]."
+        },
+        {
+          "heading": "FRACTURE MORPHOLOGY",
+          "body": "Level [ ]; vertebral body [ ]; posterior wall [ ]; superior endplate [ ]; inferior endplate [ ]; height loss [method/result]; retropulsion __ mm [plane/reference]; pedicles/laminae/spinous and transverse processes/articular processes [ ]. Repeat for each injury. Fracture-age evidence/comparison [ ]; focal bone lesion [ ]; MRI marrow signal [not acquired / findings]; pathological-fracture concern [ ]."
+        },
+        {
+          "heading": "POSTERIOR TENSION BAND",
+          "body": "CT interspinous/facet alignment and osseous injury [ ]; MRI [not acquired / limited / assessed]; supraspinous ligament [not directly assessed / findings]; interspinous ligament [not directly assessed / findings]; left/right ligamentum flavum [not directly assessed / findings]; left/right facet capsules [not directly assessed / findings]; PLC assessment [intact within assessed limits / indeterminate / disrupted] with supporting findings [ ]."
+        },
+        {
+          "heading": "DISCS AND LONGITUDINAL LIGAMENTS",
+          "body": "Injured level/segment [ ]; disc-space opening or traumatic disc abnormality [ ]; endplate-disc interfaces [ ]; anterior longitudinal ligament [not directly assessed / findings]; posterior longitudinal ligament [not directly assessed / findings]; anterior distraction evidence [ ]; rigid-spine context [ ]."
+        },
+        {
+          "heading": "CANAL, EPIDURAL SPACE AND NEURAL STRUCTURES",
+          "body": "CT osseous canal/recess/foraminal encroachment [level, side, extent]; quantified narrowing [not measured / method/reference/result]; epidural finding [ ]; MRI [not acquired / limited / assessed]; cord/conus signal and compression [not assessed / findings]; cauda equina/named roots [not assessed / findings]."
+        },
+        {
+          "heading": "ASSOCIATED AND PARASPINAL FINDINGS",
+          "body": "Additional included injuries [ ]; paraspinal/prevertebral soft tissues [ ]; prior fixation or operative bed [ ]; unexpected alternative abnormality [ ]; relevant limitations and unexamined levels [ ]."
+        },
+        {
+          "heading": "CLASSIFICATION AND SUPPLIED CLINICAL INPUTS",
+          "body": "Framework [not assigned / AO Spine thoracolumbar / TLICS]; level/segment [ ]; imaging morphology [ ]; PLC assessment and certainty [ ]; clinical neurological status [not supplied / documented finding, source and time]; applicable clinical modifier [not supplied / finding]; complete TLICS total [not assigned because required inputs are missing / value with all component inputs documented]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "AO Surgery Reference — AO Spine thoracolumbar injury classification system",
+          "url": "https://surgeryreference.aofoundation.org/spine/trauma/thoracolumbar/further-reading/rationale-for-fracture-classification-a0-a1-a2-a3-a4-b1-b2-b3-c"
+        },
+        {
+          "title": "Radiology Assistant — AO Spine Classification of Thoracolumbar Fractures",
+          "url": "https://radiologyassistant.nl/musculoskeletal/spine/ao-classification"
+        },
+        {
+          "title": "Radiology Assistant — Spine fractures: TLICS Classification",
+          "url": "https://radiologyassistant.nl/musculoskeletal/spine/tlics-classification-1"
+        }
+      ],
+      "reviewed_at": "2026-09-26"
     }
   },
   "ra.cartilage-tumours": {
@@ -3402,99 +3603,6 @@
         {
           "title": "Cartilage tumors",
           "url": "https://radiologyassistant.nl/musculoskeletal/bone-tumors/chondrotumors-1"
-        }
-      ],
-      "reviewed_at": "2026-09-25"
-    }
-  },
-  "ra.thoracolumbar-fractures": {
-    "reporting": {
-      "protocol": [
-        "Review thin-section CT with sagittal and coronal reformats for fracture morphology; use MRI for the posterior ligamentous complex, cord, conus and epidural space when acquired.",
-        "Count levels from a documented reference and record the clinical neurological status supplied, because TLICS includes it."
-      ],
-      "checklist": [
-        {
-          "label": "Level and alignment",
-          "detail": "Identify each injured level and describe kyphosis, translation or rotation."
-        },
-        {
-          "label": "Fracture morphology",
-          "detail": "Classify the vertebral body injury as compression, split, incomplete or complete burst, and assess the posterior wall."
-        },
-        {
-          "label": "Posterior ligamentous complex",
-          "detail": "Assess interspinous widening, facet diastasis or dislocation and MRI signal in the supraspinous and interspinous ligaments and ligamentum flavum."
-        },
-        {
-          "label": "Canal and neural elements",
-          "detail": "Describe retropulsion, canal compromise, epidural haematoma and cord, conus or cauda equina findings."
-        },
-        {
-          "label": "Classification and other injuries",
-          "detail": "Give AO type and TLICS imaging components, and survey for non-contiguous fractures and paraspinal injury."
-        }
-      ],
-      "measurements": [
-        {
-          "name": "Fracture deformity",
-          "method": "Measure anterior and posterior vertebral height loss, local kyphosis with named endplates and translation in mm.",
-          "pitfall": "State the reference levels; different angle methods are not interchangeable."
-        },
-        {
-          "name": "Canal compromise",
-          "method": "Measure retropulsed fragment depth and residual canal diameter on axial CT at the level of maximal narrowing.",
-          "pitfall": "Canal narrowing on CT does not by itself establish neurological injury."
-        }
-      ],
-      "classification": {
-        "name": "AO Spine thoracolumbar / TLICS",
-        "version": "AO Spine thoracolumbar classification; TLICS",
-        "applicability": "Acute thoracolumbar fractures. TLICS requires the clinical neurological status as well as imaging.",
-        "summary": "AO type A compression (A0–A4), B tension-band (B1–B3) and C translation injuries. TLICS scores morphology, posterior ligamentous complex integrity and neurological status; do not complete the neurological component from imaging alone."
-      },
-      "pitfalls": [
-        "A burst fracture with an intact posterior ligamentous complex differs from a tension-band injury; look specifically for posterior distraction.",
-        "Non-contiguous spinal fractures are common in high-energy trauma; survey the whole imaged spine."
-      ],
-      "impression_prompts": [
-        "Which level is injured and what is the fracture morphology?",
-        "Is the posterior ligamentous complex or tension band disrupted?",
-        "Is there canal compromise or neural compression, and are there other fractures?"
-      ],
-      "escalation": [
-        "Immediately communicate a translation or distraction injury, cord or cauda equina compression, or an unstable fracture pattern."
-      ],
-      "template_sections": [
-        {
-          "heading": "LEVEL AND ALIGNMENT",
-          "body": "Numbering reference [ ]; injured level(s) [ ]; kyphosis __°; translation/rotation [ ]."
-        },
-        {
-          "heading": "FRACTURE MORPHOLOGY",
-          "body": "Pattern [minor / wedge compression / split / incomplete burst / complete burst]; anterior height loss __%; posterior wall [intact / involved]; endplates [ ]."
-        },
-        {
-          "heading": "POSTERIOR LIGAMENTOUS COMPLEX",
-          "body": "Interspinous widening [ ]; facets [aligned / diastasis / perched / dislocated]; posterior element fractures [ ]; MRI ligament signal [not assessed / intact / indeterminate / disrupted]."
-        },
-        {
-          "heading": "CANAL AND NEURAL ELEMENTS",
-          "body": "Retropulsion __ mm; canal compromise [ ]; epidural haematoma [ ]; cord/conus/cauda equina [not assessed / findings]."
-        },
-        {
-          "heading": "CLASSIFICATION AND OTHER INJURIES",
-          "body": "AO type [ ]; TLICS morphology [ ] and PLC [ ] (neurology from clinical examination [ ]); non-contiguous fractures [ ]; paraspinal/visceral injury [ ]."
-        }
-      ],
-      "sources": [
-        {
-          "title": "Spine fractures - TLICS Classification",
-          "url": "https://radiologyassistant.nl/musculoskeletal/spine/tlics-classification-1"
-        },
-        {
-          "title": "AO Spine Classification of Thoracolumbar Fractures",
-          "url": "https://radiologyassistant.nl/musculoskeletal/spine/ao-classification"
         }
       ],
       "reviewed_at": "2026-09-25"

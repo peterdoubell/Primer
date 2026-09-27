@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--Tie  has type attribute with values
+	type=proximity	Default - find tie surface by proximity
+	type=contains	nested meshes, uses normals vectors to find tie		-->
+<!--Contact  has type attribute with values
+	type=all	Default - all surface elements in contact surface
+	type=proximity	find contact surface by proximity, like Ties
+	type=normals	uses center of mass and normal vectors to find surface
+	type=contains	nested meshes, uses normals vectors to find contact surface	-->
+<!--Additional attributes for use with some types
+	multiplier	a floating point number used as a multiplier for mesh characteristic length used with proximity and normals types
+				defaults to 1.0
+				multilpier may also be given for a whole part, or even the whole assembly
+				when assigning multiplier priority is bottom up
+	contains		used for contains type, acceptable values are "inner" or "outer"
+				no default, MUST be included if type=contains is present		-->
+<Assembly>		
+	<FMB>	
+		<file>oks003_FMB_AGS_LVTIT.stl</file>
+		<material>rigid</material>
+		<Tie>
+			<FMC/>
+			<ACL/>	
+			<PCL/>
+			<MCL/>				
+			<LCL multiplier="1.2"/>
+		</Tie>
+		<Contact>
+			<MCL type="normals"/>
+			<LCL type="normals"/>
+			<QAT type="normals"/>
+			<ACL type="proximity" multiplier="5"/>
+			<PCL type="proximity" multiplier="5"/>
+		</Contact>
+	</FMB>
+	<TBB>
+		<file>oks003_TBB_AGS_LVTIT.stl</file>
+		<material>rigid</material>
+		<Tie>
+			<TBC-L/>
+			<TBC-M/>
+			<MNS-M multiplier="0.9"/>
+			<MNS-L multiplier="0.9"/>
+			<ACL/>
+			<PCL multiplier="1.1"/>
+			<MCL/>
+			<PTL/>
+		</Tie>
+		<Contact>
+			<MCL type="normals"/>
+			<ACL type="proximity" multiplier="5"/>
+			<PCL type="proximity" multiplier="5"/>
+		</Contact>
+	</TBB>
+	<FBB>
+		<file>oks003_FBB_AGS_LVTIT.stl</file>
+		<material>rigid</material>
+		<Tie>
+			<LCL multiplier="1.2"/>
+		</Tie>
+		<Contact>
+		</Contact>
+	</FBB>
+	<PTB>
+		<file>oks003_PTB_AGS_LVTIT.stl</file>
+		<material>rigid</material>
+		<Tie>
+			<PTL multiplier="1.5"/>
+			<PTC/>
+			<QAT multiplier="1.5"/>
+		</Tie>
+		<Contact>
+		</Contact>
+	</PTB>
+	<FMC>
+		<file>oks003_FMC_AGS_03_LVTIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<FMB multiplier="1.5"/>
+		</Tie>
+		<Contact>
+			<TBC-M/>
+			<TBC-L/>
+			<PTC type="all"/>
+			<MNS-M type="all"/>
+			<MNS-L type="all"/>
+			<QAT type="all"/>
+		</Contact>
+	</FMC>
+	<TBC-L>
+		<file>oks003_TBC-L_AGS_LVTTIT_02.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<TBB multiplier="3"/>
+		</Tie>
+		<Contact>
+			<FMC/>
+			<MNS-L/>
+		</Contact>
+	</TBC-L>
+	<TBC-M>
+		<file>oks003_TBC-M_AGS_LVTIT_02.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<TBB multiplier="3"/>
+		</Tie>
+		<Contact>
+			<FMC/>
+			<MNS-M/>
+		</Contact>
+	</TBC-M>
+	<PTC>
+		<file>oks003_PTC_AGS_LVTIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<PTB multiplier="1.2"/>
+		</Tie>
+		<Contact>
+			<FMC type="normals"/>
+		</Contact>
+	</PTC>
+	<MNS-M>
+		<file>oks003_MNS-M_AGS_02_LVTIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<TBB multiplier="1.2"/>
+			<MCL multiplier="1.5"/>
+		</Tie>
+		<Contact>
+			<FMC/>
+			<TBC-M/>
+			<PCL type="proximity" multiplier="2"/>
+		</Contact>
+	</MNS-M>
+	<MNS-L>
+		<file>oks003_MNS-L_AGS_02_LVTIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<TBB multiplier="0.9"/>
+		</Tie>
+		<Contact>
+			<FMC/>
+			<TBC-L/>
+		</Contact>
+	</MNS-L>
+	<ACL>
+		<file>oks003_ACL_AGS_LVTIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<FMB multiplier="2"/>
+			<TBB multiplier="2"/>
+		</Tie>
+		<Contact>
+			<PCL/>
+			<FMB type="normals"/>
+			<TBB type="normals"/>
+		</Contact>
+	</ACL>
+	<PCL>
+		<file>oks003_PCL_AGS_LVTIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<FMB multiplier="1.8"/>
+			<TBB multiplier="1.5"/>
+		</Tie>
+		<Contact>
+			<ACL/>
+			<FMB type="normals"/>
+			<TBB type="normals"/>
+			<MNS-M type="proximity" multiplier="2"/>
+		</Contact>
+	</PCL>
+	<MCL>
+		<file>oks003_MCL_AGS_02_LVIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<FMB/>
+			<TBB/>
+			<MNS-M multiplier="2"/>
+		</Tie>
+		<Contact>
+			<FMB type="normals"/>
+			<TBB type="normals"/>
+		</Contact>
+	</MCL>
+	<LCL>
+		<file>oks003_LCL_AGS_LIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<FMB/>
+			<FBB multiplier="2"/>
+		</Tie>
+		<Contact>
+			<FMB type="normals"/>
+		</Contact>
+	</LCL>
+	<PTL>
+		<file>oks003_PTL_AGS_LVTIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<TBB multiplier="1.2"/>
+			<PTB multiplier="1.2"/>
+		</Tie>
+		<Contact>
+		</Contact>
+	</PTL>
+	<QAT>
+		<file>oks003_QAT_AGS_LVTIT.stl</file>
+		<material>elastic</material>
+		<Tie>
+			<PTB/>
+		</Tie>
+		<Contact>
+			<FMB type="normals"/>
+			<FMC type="normals"/>
+		</Contact>
+	</QAT>
+</Assembly>

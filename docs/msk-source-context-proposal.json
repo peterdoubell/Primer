@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "status": "known_conflict_guard_implemented_source_reconciliation_pending",
+  "purpose": "Represent source facts and a binding's intended anatomical claim without equating a normal reference with pathology, complete clinical coverage or a different population.",
+  "minimum_source_context": {
+    "setting": "in_vivo | cadaveric | mixed | not_reported",
+    "depicted_state": "Explicit lower-case code, e.g. normal_anatomy, normal_variant, infection, pathology, mixed; unknown/not_reported allowed as source facts.",
+    "laterality": "left | right | bilateral | not_reported",
+    "anatomical_site": {
+      "region": "source-named region",
+      "joint_or_level": "source-named joint/level or not_reported",
+      "digit": "integer when applicable; otherwise null"
+    },
+    "population": {
+      "life_stage": "adult | immature | mixed | not_reported",
+      "age_years": "source-reported number or null"
+    },
+    "source_evidence": {
+      "url": "primary source",
+      "locator": "figure/caption/methods supporting these facts"
+    },
+    "selected_panels": "Explicit panel IDs, only when established; omit when unresolved and record the unknown separately.",
+    "panel_types": "Map selected and ancillary panel IDs to the actual MRI/MR arthrography/CT/CT arthrography/Ultrasound/Radiography/Dissection/Histology/Schematic type.",
+    "acquisition_note": "Optional source-reported plane/sequence; not universally required."
+  },
+  "field_policy": [
+    "These are a small source-fact vocabulary, not a demand that every publisher report every fact. not_reported is an honest value, not clinical approval.",
+    "Exact age, sex, field strength and sequence parameters are not universal gate requirements. Add them when the binding makes a claim that depends on them; retain what is available in source provenance.",
+    "Use a separate source-context selection when one figure contains different subjects, modalities, sides or disease states; do not inherit a figure-wide normal label across pathological panels.",
+    "Keep modality and panel-selection checks. Dissection or histology panels cannot become clinical MRI merely because the composite contains MRI elsewhere.",
+    "All source-context and binding-claim fields remain non-review claims and are included by the existing review_scope_fingerprint; changing them invalidates prior reviews."
+  ],
+  "minimal_binding_claim": {
+    "investigation_id": "exact investigation ID",
+    "structure_id": "exact leaf ID",
+    "source_selection": "one explicit source-context selection",
+    "purpose": "anatomical_reference | pathology_example | acquisition_or_measurement_validation",
+    "observed_extent": "source-visible local portion, attachment(s), or whole structure; explicitly stated, never inferred from the label",
+    "claimed_target_context": {
+      "scope": "source_specimen_only | explicitly_instantiated_target",
+      "laterality": "explicit side if claimed; unspecified otherwise",
+      "population": "explicit target only if claimed",
+      "pathology": "explicit demonstrated phenomenon only if claimed"
+    },
+    "excluded_claims": "explicit exclusions of whole-course, contralateral, in-vivo, disease or other transfer when relevant",
+    "review": "Future optional claim-level review representation; current implementation enforces explicitly defined leaf/parent context_requirements and existing fingerprinted anatomical/visual reviews."
+  },
+  "target_policy": [
+    "Derive target constraints from the actual requirement/site instance or explicit claim. Do not infer infection demonstration from the diabetic-foot module title, or a universal in-vivo requirement from clinical_image.",
+    "A normal cadaveric MR panel can be a candidate anatomical reference for the exact depicted component. It cannot prove a patient's infection, in-vivo signal behaviour, complete tendon course or population-wide normality.",
+    "A known left-side source is not evidence of a right-side-specific target. A left source may remain useful as an explicitly left anatomical reference without claiming contralateral coverage.",
+    "Unknown source age/side is not automatically a rejection for every general reference. It cannot satisfy an explicit incompatible or unresolved age/side-dependent target without a defensible source-context decision.",
+    "Scope/examination/site expansion remains separate. Accepting a local reference must not make the existing complete-structure coverage row verified when the leaf requires more anatomy."
+  ],
+  "practical_gate_sequence": [
+    {
+      "step": 1,
+      "action": "Validate selection identity and reject known self-contradictions, such as a credited MRI selection overlapping explicitly excluded histology/dissection panels."
+    },
+    {
+      "step": 2,
+      "action": "Compare only explicit target constraints with reported source facts; known incompatible modality, side, preparation, maturity or disease-purpose claims cannot pass."
+    },
+    {
+      "step": 3,
+      "action": "Require a suitability rationale for transfer or unknown facts that matter to the target. Keep such bindings pending, without inventing publisher facts or a universal age/sex requirement."
+    },
+    {
+      "step": 4,
+      "action": "Review observed extent against the full existing leaf meaning. A local reference remains partial evidence unless it genuinely meets that leaf's complete scope."
+    },
+    {
+      "step": 5,
+      "action": "Keep exact byte/scope fingerprints, independent representation reviews, commercial rights, reporting/source-scope checks, site instantiation and inventory clinical review unchanged."
+    }
+  ],
+  "source_specific_examples": [
+    {
+      "asset_id": "open-hallux-central-plantar-mri-wang-fig2",
+      "source_context": {
+        "setting": "cadaveric",
+        "preparation": "fresh-frozen",
+        "depicted_state": "normal_anatomy",
+        "laterality": "left",
+        "anatomical_site": {
+          "region": "forefoot",
+          "joint_or_level": "MTP1",
+          "digit": 1
+        },
+        "population": {
+          "life_stage": "adult",
+          "age_years": 33
+        },
+        "source_evidence": {
+          "url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "locator": "Figure 2 caption and cadaveric methods"
+        },
+        "selected_panels": [
+          "c",
+          "d"
+        ],
+        "panel_types": {
+          "c": "MRI",
+          "d": "MRI"
+        },
+        "acquisition_note": "Sagittal T1WI and PD-FS"
+      },
+      "candidate_purpose": "anatomical_reference",
+      "binding_status": "pending_not_approved",
+      "excluded_claims": [
+        "histological continuity as MRI visibility",
+        "infection demonstration",
+        "in-vivo normality",
+        "right-foot-specific coverage",
+        "lesser-toe anatomy",
+        "complete tendon course"
+      ]
+    },
+    {
+      "asset_id": "open-hallux-medial-sesamoid-mri-wang-fig3",
+      "source_context_difference": {
+        "laterality": "left",
+        "population": {
+          "life_stage": "adult",
+          "age_years": 58
+        },
+        "source_evidence": {
+          "url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "locator": "Figure 3"
+        },
+        "selected_panels": [
+          "c",
+          "d"
+        ],
+        "panel_types": {
+          "c": "MRI",
+          "d": "MRI"
+        },
+        "acquisition_note": "Parasagittal T1WI and PD-FS through the medial sesamoid"
+      },
+      "binding_status": "pending_not_approved",
+      "excluded_claims": [
+        "lateral sesamoid complex",
+        "complete footprints",
+        "population-wide normality"
+      ]
+    },
+    {
+      "asset_id": "open-hallux-sesamoid-complex-mri-wang-fig7",
+      "source_context_difference": {
+        "laterality": "right",
+        "population": {
+          "life_stage": "adult",
+          "age_years": 45
+        },
+        "source_evidence": {
+          "url": "https://link.springer.com/article/10.1186/s13018-021-02795-7",
+          "locator": "Figure 7"
+        },
+        "selected_panels": [
+          "c",
+          "d"
+        ],
+        "panel_types": {
+          "c": "MRI",
+          "d": "MRI"
+        },
+        "acquisition_note": "Coronal T1WI and T2-SPAIR"
+      },
+      "binding_status": "pending_not_approved",
+      "excluded_claims": [
+        "histology-only medial sesamoid-phalangeal marker as MRI coverage",
+        "left-foot-specific coverage",
+        "infection demonstration"
+      ]
+    },
+    {
+      "asset_id": "open-hallux-plantar-complex-ultrasound-chen-fig9d",
+      "source_context_difference": {
+        "depicted_state": "normal_anatomy",
+        "laterality": "not_reported",
+        "anatomical_site": {
+          "region": "forefoot",
+          "joint_or_level": "MTP1",
+          "digit": 1
+        },
+        "source_evidence": {
+          "url": "https://doi.org/10.3390/diagnostics12071541",
+          "locator": "Figure 9d; retain complete source caption"
+        },
+        "selected_panels": [
+          "d"
+        ],
+        "panel_types": {
+          "d": "Ultrasound"
+        },
+        "acquisition_note": "Plantar scan as captioned"
+      },
+      "binding_status": "unbound_MRI_requirements",
+      "excluded_claims": [
+        "MRI visibility",
+        "individual sesamoid ligament coverage",
+        "side-specific transfer",
+        "lesser-MTP plate"
+      ]
+    }
+  ],
+  "required_test_cases_before_implementation": [
+    "All six explicit contradictions in msk-source-context-audit.json remain unverified even with matching synthetic review hashes.",
+    "Source-context-only changes invalidate prior scope fingerprints.",
+    "Normal cadaveric anatomy is not automatically rejected for an explicitly source-limited anatomical-reference candidate.",
+    "A diabetic-foot anatomical-reference binding does not gain or require an infection-demonstration claim merely from the module title.",
+    "Unknown age or side blocks only context-dependent claims; it is not silently treated as adult, bilateral or in-vivo.",
+    "Partial reference acceptance cannot satisfy a complete-course/attachment leaf or waive site-expansion review.",
+    "No genuine approval is fabricated by migration; existing pending reviews remain pending."
+  ],
+  "implemented_context_requirements": {
+    "location": "Optional structure.context_requirements and/or required_part.context_requirements; parent and child are both enforced, not overridden.",
+    "fields": {
+      "purpose": "anatomical_reference | pathology_example | measurement_validation",
+      "setting": "allowed string/list of in_vivo, cadaveric, mixed",
+      "laterality": "allowed string/list of left, right, bilateral",
+      "depicted_state": "explicit allowed state code/list",
+      "extent": "local or complete; complete satisfies a local minimum, not the reverse",
+      "population": {
+        "life_stage": "allowed string/list of adult, immature, mixed"
+      }
+    },
+    "rules": "No constraint is inferred from an investigation title or free-text condition. Explicit target constraints with unknown source facts stay unresolved. Source panel type conflicts are rejected when typed selection facts are supplied. This neither establishes full anatomical extent nor grants review approval."
+  }
+}

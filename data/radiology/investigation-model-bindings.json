@@ -1,0 +1,174 @@
+{
+  "ra.paediatric-elbow-fractures": {
+    "source_module_id": "rad.5.elbow-mri",
+    "population_note": "Adult elbow reference only. The available mesh does not represent childhood ossification centres, open physes or age-dependent cartilaginous anatomy. Those structures still require a validated paediatric model.",
+    "reason": "The shared paediatric hip/elbow module's default hip model is anatomically incorrect for an elbow-only investigation."
+  },
+  "ra.mri-diabetic-foot": {
+    "source_module_id": "rad.5.ankle-foot",
+    "source_view": "whole-foot",
+    "source_atlas": "z-anatomy",
+    "population_note": "Adult right-foot reference only. The source includes pedal bones and selected neighbouring tissues; it does not provide every plantar-plate component, tendon sheath, postoperative variant or MRI infection finding. Complete reporting coverage and clinical fidelity review remain outstanding.",
+    "reason": "The broad marrow/muscle lesson supplies a long-bone orientation model. This foot-only investigation instead needs the existing registered pedal anatomy, framed from all source foot bones."
+  },
+  "ra.ultrasound-joint-injection": {
+    "reason": "The inherited IR access schematic depicts a generic vessel and target, not the named joint anatomy. Regional source meshes offer orientation only; each procedural target still requires validated anatomy.",
+    "regional_references": [
+      {
+        "source_module_id": "rad.5.shoulder",
+        "label": "Shoulder",
+        "population_note": "Adult regional anatomy reference only. Joint recesses and bursal leaves are not completely represented. No needle, injectate, dynamic ultrasound or patient-specific access route is represented. Complete target anatomy and clinical fidelity remain unverified."
+      },
+      {
+        "source_module_id": "rad.5.elbow-mri",
+        "label": "Elbow",
+        "population_note": "Adult regional anatomy reference only. Radiocapitellar and posterior target capsules and recesses require separate verification. No needle, injectate, dynamic ultrasound or patient-specific access route is represented. Complete target anatomy and clinical fidelity remain unverified."
+      },
+      {
+        "source_module_id": "rad.5.wrist-hand",
+        "label": "Wrist and hand",
+        "population_note": "Adult regional anatomy reference only. Individual carpal/digital targets, capsules and route-adjacent structures require separate verification. No needle, injectate, dynamic ultrasound or patient-specific access route is represented. Complete target anatomy and clinical fidelity remain unverified."
+      },
+      {
+        "source_module_id": "rad.5.hip",
+        "label": "Hip and pelvis",
+        "population_note": "Adult regional anatomy reference only. Hip capsular recesses and sacroiliac access anatomy require separate verification. No needle, injectate, dynamic ultrasound or patient-specific access route is represented. Complete target anatomy and clinical fidelity remain unverified."
+      },
+      {
+        "source_module_id": "rad.5.knee",
+        "label": "Knee",
+        "population_note": "Adult regional anatomy reference only. Recesses and access-corridor anatomy require separate verification. No needle, injectate, dynamic ultrasound or patient-specific access route is represented. Complete target anatomy and clinical fidelity remain unverified."
+      },
+      {
+        "source_module_id": "rad.5.ankle-foot",
+        "label": "Ankle and foot",
+        "population_note": "Adult regional anatomy reference only. Tibiotalar, posterior subtalar and sinus tarsi targets are not interchangeable; their complete access anatomy is unverified. No needle, injectate, dynamic ultrasound or patient-specific access route is represented. Complete target anatomy and clinical fidelity remain unverified."
+      }
+    ],
+    "regional_reference_note": "Regional anatomy for orientation. These references do not simulate an injection, identify a safe needle path, or establish complete target-specific anatomy."
+  },
+  "ra.mri-hamstring": {
+    "source_module_id": "rad.5.knee",
+    "source_view": "hamstrings",
+    "source_atlas": "z-anatomy",
+    "population_note": "Adult right posterior-thigh muscle reference. Four native muscle surfaces are shown in full; attachment footprints, tendon volumes, fine aponeuroses and complete sciatic anatomy remain unverified. This is not patient MRI or an injury simulation.",
+    "reason": "The inherited long-bone schematic does not represent hamstring muscles. Frame the native posterior-thigh objects in full rather than using the knee crop."
+  },
+  "ra.arthritis": {
+    "regional_references": [
+      {
+        "source_module_id": "rad.5.wrist-hand",
+        "label": "Wrist and hand",
+        "population_note": "Adult right-sided source reference only. It does not represent bilateral symmetry, disease distribution, spared joints, erosions, synovitis or patient-specific cartilage loss. Small-joint and compartment anatomy still require independent clinical verification."
+      },
+      {
+        "source_module_id": "rad.5.ankle-foot",
+        "label": "Whole foot",
+        "population_note": "Adult right-sided source reference only. It does not represent bilateral symmetry, disease distribution, spared joints, erosions, synovitis or patient-specific cartilage loss. Small-joint and compartment anatomy still require independent clinical verification.",
+        "source_view": "whole-foot"
+      },
+      {
+        "source_module_id": "rad.5.knee",
+        "label": "Knee",
+        "population_note": "Adult right-sided source reference only. It does not represent bilateral symmetry, disease distribution, spared joints, erosions, synovitis or patient-specific cartilage loss. Small-joint and compartment anatomy still require independent clinical verification."
+      },
+      {
+        "source_module_id": "rad.5.hip",
+        "label": "Hip and pelvis",
+        "population_note": "Adult right-sided source reference only. It does not represent bilateral symmetry, disease distribution, spared joints, erosions, synovitis or patient-specific cartilage loss. Small-joint and compartment anatomy still require independent clinical verification."
+      },
+      {
+        "source_module_id": "rad.4.spine-imaging",
+        "source_atlas": "cervical-bones",
+        "label": "C1/C2 bones \u00b7 limited",
+        "population_note": "Source bone geometry only. No occipital bone, ligament, cartilage or instability simulation is included. This reference is not a complete atlantoaxial examination or clinically validated joint model."
+      }
+    ],
+    "regional_reference_note": "Regional sources include right-sided limb anatomy and a limited midline C1/C2 bone reference. They do not constitute a bilateral arthritis survey. Sacroiliac compartment detail, atlantoaxial stabilising tissues and other examined sites still require additional validated references.",
+    "reason": "Arthritis reporting spans multiple joint groups; the inherited hand-only view cannot supply foot, knee or hip context."
+  },
+  "ra.mri-muscle-injury": {
+    "regional_references": [
+      {
+        "source_module_id": "rad.5.shoulder",
+        "label": "Shoulder \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.elbow-mri",
+        "label": "Elbow \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.wrist-hand",
+        "label": "Wrist and hand \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.hip",
+        "label": "Hip and pelvis \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.knee",
+        "label": "Knee \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.ankle-foot",
+        "label": "Ankle and foot \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      }
+    ],
+    "regional_reference_note": "Choose an available regional source group. The full extents of its stored muscle objects are displayed; this does not establish all muscles in the examination, bilateral distribution or internal tissue architecture. Enumerate every actually covered muscle and its associated structures separately.",
+    "reason": "The inherited long-bone schematic does not represent the named muscles required by the reporting scope."
+  },
+  "ra.mri-muscle-disease": {
+    "regional_references": [
+      {
+        "source_module_id": "rad.5.shoulder",
+        "label": "Shoulder \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.elbow-mri",
+        "label": "Elbow \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.wrist-hand",
+        "label": "Wrist and hand \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.hip",
+        "label": "Hip and pelvis \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.knee",
+        "label": "Knee \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      },
+      {
+        "source_module_id": "rad.5.ankle-foot",
+        "label": "Ankle and foot \u00b7 muscle sources",
+        "population_note": "Adult right-sided source muscle group, shown without regional clipping. It is not a complete inventory of the scanned region or the contralateral side. Tendons, aponeuroses, fascia and nerve relationships require separate verification. Edema, tears, fatty replacement and denervation are not simulated.",
+        "display_mode": "full-muscles"
+      }
+    ],
+    "regional_reference_note": "Choose an available regional source group. The full extents of its stored muscle objects are displayed; this does not establish all muscles in the examination, bilateral distribution or internal tissue architecture. Enumerate every actually covered muscle and its associated structures separately.",
+    "reason": "The inherited long-bone schematic does not represent the named muscles required by the reporting scope."
+  }
+}

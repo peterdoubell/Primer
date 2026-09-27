@@ -3529,7 +3529,7 @@ def app_shell():
     for filename in ("spatial-models.js", "spatial-math.js", "spatial-molecular.js", "spatial-physical.js",
                      "spatial-cross-subject.js", "spatial-radiology.js", "spatial-module-objects.js",
                      "radiology-reference-models.js", "radiology-detailed-anatomy.js", "concept-models.js",
-                     "review-game.js", "review-game.css"):
+                     "review-game.js", "review-game.css", "prenatal-sequence.js", "prenatal-sequence.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -3647,6 +3647,27 @@ def healthz():
 
 
 
+# Large, already-public source media live on the CDN in hosted builds. The
+# original app route still crosses the reader access gate before redirecting.
+@app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def source_mesh_delivery(atlas: str, asset: str, request: Request):
+    allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle"}
+    if (os.environ.get("VERCEL") and atlas in allowed
+            and asset.endswith((".bin", ".bin.gz"))
+            and all(part not in {"", ".", ".."} for part in asset.split("/"))
+            and "\\" not in asset):
+        from urllib.parse import quote
+        return RedirectResponse("/source-media/anatomy/" + atlas + "/" + quote(asset, safe="/"), status_code=307)
+    return await app.state.source_static.get_response("anatomy/" + atlas + "/" + asset, request.scope)
+
+
+@app.api_route("/app/reference-media/prenatal-development/prenatal-development.gif", methods=["GET", "HEAD"], include_in_schema=False)
+async def prenatal_gif_delivery():
+    if os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/reference-media/prenatal-development/prenatal-development.gif", status_code=307)
+    return FileResponse(os.path.join(WEB_DIR, "reference-media/prenatal-development/prenatal-development.gif"), media_type="image/gif")
+
+
 class _CachedStatic(StaticFiles):
     """Fingerprinted assets may be cached hard; everything else revalidates."""
 
@@ -3659,6 +3680,11 @@ class _CachedStatic(StaticFiles):
         # than relying on the host's /etc/mime.types.
         if full_path is not None and os.fspath(full_path).lower().endswith(".webp"):
             resp.headers["Content-Type"] = "image/webp"
+        if full_path is not None and os.fspath(full_path).lower().endswith(".bin.gz"):
+            # Lossless anatomical meshes are compressed at build time. Fetch
+            # transparently decodes them before constructing typed arrays.
+            resp.headers["Content-Type"] = "application/octet-stream"
+            resp.headers["Content-Encoding"] = "gzip"
         scope = kwargs.get("scope") or (args[2] if len(args) > 2 else None)
         query = ""
         if isinstance(scope, dict):
@@ -3671,4 +3697,5 @@ class _CachedStatic(StaticFiles):
 
 
 if os.path.isdir(WEB_DIR):
-    app.mount("/app", _CachedStatic(directory=WEB_DIR, html=True), name="static")
+    app.state.source_static = _CachedStatic(directory=WEB_DIR, html=True)
+    app.mount("/app", app.state.source_static, name="static")

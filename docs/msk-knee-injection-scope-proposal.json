@@ -1,0 +1,69 @@
+{
+  "status": "proposal_not_runtime_requirement_or_clinical_approval",
+  "reviewed_at": "2026-09-27",
+  "investigation_id": "ra.ultrasound-joint-injection",
+  "source_requirement_id": "injection.knee_intra_articular_target",
+  "source_requirement_sha256": "e04901aaf2d0af1f5f4845fa68d4f8d903dc8bb6b5af2e62379e8c42a746b982",
+  "existing_parts_preserved": [
+    "injection.knee_intra_articular_target.patella",
+    "injection.knee_intra_articular_target.femoral_articular_surface",
+    "injection.knee_intra_articular_target.joint_recess_actually_accessed",
+    "injection.knee_intra_articular_target.quadriceps_tendon",
+    "injection.knee_intra_articular_target.capsule"
+  ],
+  "proposed_approach": "ultrasound suprapatellar recess reference",
+  "evidence": {
+    "doi": "10.3390/diagnostics14020183",
+    "title": "Ultrasound Imaging of the Articularis Genus Muscle: Implications for Ultrasound-Guided Suprapatellar Recess Injection",
+    "year": 2024,
+    "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/38248060/",
+    "reviewed_material": "PubMed abstract and captions for Figures 1–5; no full-text or figure-pixel review",
+    "license_status": "unverified",
+    "access_limits": [
+      "PMC returned browser challenge on follow-up; not retried.",
+      "Publisher resolver returned HTTP 429; not retried.",
+      "PubMed follow-up returned browser challenge; not retried."
+    ]
+  },
+  "proposed_anatomical_targets": [
+    {
+      "name": "Suprapatellar recess",
+      "evidence": "Abstract and Figures 1, 2, 5 captions",
+      "mapping": "Specify the actually accessed recess; do not replace all possible knee approaches."
+    },
+    {
+      "name": "Articularis genus muscle",
+      "evidence": "Abstract and Figures 2–5 captions",
+      "mapping": "Additional discriminator for recess wall relationships; not currently a named leaf."
+    },
+    {
+      "name": "Vastus intermedius",
+      "evidence": "Abstract and Figures 2, 3, 5 captions",
+      "mapping": "Distinguish from articularis genus and the tendon layers."
+    },
+    {
+      "name": "Quadriceps tendon/aponeurotic layers",
+      "evidence": "Figure 5 caption",
+      "mapping": "Clarify existing quadriceps tendon requirement; do not label all layers rectus femoris."
+    },
+    {
+      "name": "Suprapatellar fat pad",
+      "evidence": "Figure 5 caption",
+      "mapping": "Adjacent tissue discriminator; not the joint recess."
+    },
+    {
+      "name": "Femur and patella",
+      "evidence": "Figures 2, 3, 5 captions",
+      "mapping": "Retain existing landmarks; visible bone margin does not prove complete articular cartilage."
+    }
+  ],
+  "completion_blockers": [
+    "Full-text source and actual figure pixels not inspected.",
+    "Reuse license and any third-party credit not verified.",
+    "No image, schematic or 3D component accepted.",
+    "Route-adjacent neurovascular anatomy still requires approach-specific sources.",
+    "Individual age, side and normality not inferred from captions.",
+    "No procedure efficacy, safety, dosing or needle trajectory claims promoted.",
+    "All other injection targets and report requirements remain in scope."
+  ]
+}

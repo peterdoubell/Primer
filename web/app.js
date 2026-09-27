@@ -2119,7 +2119,7 @@ function renderRadiologyReference(n) {
         item.src ? el('img', { src: item.src, alt: item.alt || item.label,
           loading: 'lazy', decoding: 'async', referrerpolicy: 'no-referrer',
           width: item.width || null, height: item.height || null,
-          dataset: { fullSrc: item.src } })
+          dataset: { fullSrc: item.src, sourceFigure: 'true' } })
           : null),
       el('figcaption', {}, el('strong', {}, item.label),
         el('span', { class: 'rad-image-type' },
@@ -2157,6 +2157,42 @@ async function reportingGuard(page, fn, {
     else page.append(errorCard(error, () => rerender()));
     return null;
   }
+}
+
+function renderMskAtlasFigures(items, { onExploreSource } = {}) {
+  const atlas = el('section', { class: 'rad-structure-atlas', 'aria-label': 'Source anatomical atlas figures' },
+    el('h3', {}, 'Source anatomical atlas'));
+  for (const asset of items) {
+    const derived = asset.origin === 'source-derived';
+    const panel = asset.source_panel || '';
+    const ancillary = asset.ancillary_panels || [];
+    const modality = (asset.modality || 'Source anatomy') + (asset.contains_schematic_panels ? ' + schematic panels' : '')
+      + [...new Set(ancillary.map(item => item.kind.toLowerCase()))].map(kind => ' + ' + kind + ' panels').join('');
+    const figure = el('figure', { class: 'rad-anatomy-illustration' },
+      el('h4', {}, (derived ? asset.figure_title : 'Figure ' + asset.figure_number + panel) + ' · ' + modality),
+      el('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
+        loading: 'lazy', decoding: 'async', dataset: { fullSrc: asset.src, sourceFigure: 'true' } }),
+      el('figcaption', {}, el('p', {}, asset.caption),
+        el('p', {}, el('strong', {}, asset.contains_schematic_panels ? 'Identified in imaging panels: ' : 'Identified in this figure: '), asset.structures_visible.join('; ') + '.'),
+        asset.schematic_structures_visible?.length ? el('p', {}, el('strong', {}, 'Identified in schematic panels: '),
+          asset.schematic_structures_visible.join('; ') + '.') : null,
+        ...ancillary.map(entry => el('p', {}, el('strong', {}, 'Identified in ' + entry.kind.toLowerCase()
+          + ' panels (' + entry.panels.join(', ') + '): '), entry.structures_visible.join('; ') + '. ', entry.limits)),
+        el('p', { class: 'rad-image-credit' }, asset.limits),
+        el('p', { class: 'rad-image-credit' }, asset.attribution),
+        radiologySourceLink(derived ? 'Source dataset' : 'Source article', asset.source_url), ' · ',
+        radiologySourceLink(derived ? 'Source geometry' : 'Original figure', asset.figure_url), ' · ',
+        radiologySourceLink(asset.license, asset.license_url)));
+    if (derived && onExploreSource) figure.append(btn({ class: 'btn ghost small',
+      onclick: () => onExploreSource(asset) }, 'Explore this source knee in 3D'));
+    if (asset.source_caption_full && asset.source_caption_full !== asset.caption) {
+      figure.append(el('details', { class: 'rad-source-caption' },
+        el('summary', {}, 'Complete source-figure caption'), el('p', {}, asset.source_caption_full)));
+    }
+    atlas.append(figure);
+  }
+  attachPictureHandlers(atlas);
+  return atlas;
 }
 
 async function renderRadiologyDesk(page, nodeId) {
@@ -2216,6 +2252,8 @@ async function renderRadiologyDesk(page, nodeId) {
   const n = await reportingGuard(page, () => api.get('/api/radiology/modules/' + encodeURIComponent(nodeId)));
   if (!n) return;
   const ref = n.radiology_reference, guide = ref.reporting;
+  const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
+  const atlasSchematics = (ref.structure_atlas || []).filter(item => item.kind === 'schematic' || item.contains_schematic_panels);
   if (!S.radiologyFilter) S.radiologyFilter = { query: '', section: n.section };
   const detailedAnatomy = window.PrimerDetailedAnatomy?.supported(ref.spatial_model.family);
   page.append(el('nav', { class: 'rad-desk-backbar', 'aria-label': 'Reference navigation' },
@@ -2226,7 +2264,7 @@ async function renderRadiologyDesk(page, nodeId) {
       el('ul', {}, ...n.source_titles.map(title => el('li', {}, title)))),
     el('p', { class: 'rad-desk-revision' }, 'Reference revision ' + guide.reviewed_at + ' · ' +
       plural(ref.walkthrough.steps.length, 'reporting step') + ' · ' +
-      ref.key_images.length + ' image examples · ' + (detailedAnatomy ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
+      (ref.key_images.length + (ref.structure_atlas || []).length) + ' source figures · ' + (detailedAnatomy ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -2247,16 +2285,18 @@ async function renderRadiologyDesk(page, nodeId) {
     } }))],
     ['guide', 'Checklist', panel => panel.append(renderReportingGuide(guide, n.id))],
     ['template', 'Report template', panel => panel.append(templates)],
-    ['images', 'Images (' + ref.key_images.length + ')', panel => {
+    ['images', 'Images (' + (ref.key_images.length + atlasImages.length) + ')', panel => {
+      if (atlasImages.length) panel.append(renderMskAtlasFigures(atlasImages));
       const images = legacy.querySelector('.rad-key-images');
       panel.append(images); attachPictureHandlers(images);
     }],
     ['diagram', 'Diagram', panel => {
+      if (atlasSchematics.length) panel.append(renderMskAtlasFigures(atlasSchematics, { onExploreSource: exploreSourceKnee }));
       const detailedDiagrams = ref.key_images.filter(image => image.image_type === 'diagram');
       if (detailedDiagrams.length) {
         const sourceDiagrams = el('div', { class: 'rad-source-diagrams' }, el('h3', {}, 'Detailed source diagrams'));
         detailedDiagrams.forEach(asset => sourceDiagrams.append(el('figure', { class: 'rad-anatomy-illustration' },
-          el('img', { src: asset.src, alt: asset.alt, loading: 'lazy', referrerpolicy: 'no-referrer', dataset: { fullSrc: asset.src } }),
+          el('img', { src: asset.src, alt: asset.alt, loading: 'lazy', referrerpolicy: 'no-referrer', dataset: { fullSrc: asset.src, sourceFigure: 'true' } }),
           el('figcaption', {}, el('p', {}, asset.caption), radiologySourceLink(asset.attribution, asset.source_url)))));
         panel.append(sourceDiagrams); attachPictureHandlers(sourceDiagrams);
       }
@@ -2265,10 +2305,51 @@ async function renderRadiologyDesk(page, nodeId) {
         el('summary', {}, 'Reporting checklist overview'), illustrations));
     }],
     ['model', detailedAnatomy ? '3D anatomy' : 'Spatial guide', panel => {
-      const model = detailedAnatomy ? window.PrimerDetailedAnatomy.render({ family: ref.spatial_model.family }) :
-        window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.render(ref.spatial_model);
-      if (model) panel.append(model);
-      else panel.append(el('p', { role: 'status' }, 'The 3D companion could not load. The diagram and reporting guide remain available.'));
+      if (ref.spatial_model_options?.length) {
+        const host = el('div', { class: 'rad-anatomy-model-host' });
+        const region = el('select', { 'aria-label': 'Regional anatomy reference' });
+        ref.spatial_model_options.forEach((model, index) => region.append(el('option', { value: String(index) }, model.label)));
+        function showRegion() {
+          host.querySelector('.detailed-anatomy')?.dispose();
+          const selected = ref.spatial_model_options[Number(region.value)];
+          const model = window.PrimerDetailedAnatomy?.render({ family: selected.family,
+            atlas: selected.source_atlas || 'z-anatomy', view: selected.source_view,
+            initialLayer: selected.initial_layer, initialCropped: selected.initial_cropped,
+            populationNote: selected.population_note });
+          host.replaceChildren(model || el('p', { role: 'status' }, 'This regional anatomy reference could not load.'));
+        }
+        region.addEventListener('change', showRegion);
+        panel.append(el('label', {}, 'Regional anatomy reference ', region),
+          el('p', { class: 'rad-image-credit' }, ref.regional_reference_note), host);
+        showRegion();
+        return;
+      }
+      const modelHost = el('div', { class: 'rad-anatomy-model-host' });
+      const mskAtlas = n.section === 'Musculoskeletal' &&
+        ['shoulder', 'elbow', 'wrist', 'hand', 'hip', 'pelvis', 'knee', 'ankle', 'foot'].includes(ref.spatial_model.family);
+      function showAtlas(atlas) {
+        modelHost.querySelector('.detailed-anatomy')?.dispose();
+        const model = detailedAnatomy ? window.PrimerDetailedAnatomy.render({ family: ref.spatial_model.family,
+          atlas, view: ref.spatial_model.source_view, populationNote: ref.spatial_model.population_note }) :
+          window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.render(ref.spatial_model);
+        modelHost.replaceChildren(model || el('p', { role: 'status' },
+          'The 3D companion could not load. The diagram and reporting guide remain available.'));
+      }
+      const canonicalFamily = ({ hand: 'wrist', foot: 'ankle', pelvis: 'hip' })[ref.spatial_model.family] || ref.spatial_model.family;
+      if (['whole-foot', 'hamstrings'].includes(ref.spatial_model.source_view)) {
+        showAtlas(ref.spatial_model.source_atlas);
+      } else if (mskAtlas && ['knee', 'ankle'].includes(canonicalFamily)) {
+        const isKnee = canonicalFamily === 'knee';
+        const source = el('select', { 'aria-label': (isKnee ? 'Knee' : 'Ankle') + ' anatomy source', onchange: () => showAtlas(source.value) });
+        const choices = isKnee ? [['malaya-mri', 'MRI-derived knee'],
+          ['openknee-oks003', 'Open Knee(s) · left specimen'], ['z-anatomy', 'Broader reference atlas']]
+          : [['z-anatomy', 'Broader reference atlas'], ['malaya-ankle', 'MRI-derived bones and Achilles']];
+        choices.forEach(([value, label]) => source.append(el('option', { value }, label)));
+        panel.append(el('label', {}, 'Anatomy source ', source),
+          el('p', { class: 'rad-image-credit' }, 'These are separate source anatomies. Switching preserves each dataset’s own geometry; it does not overlay or register them.'));
+        showAtlas(choices[0][0]);
+      } else showAtlas(mskAtlas ? 'z-anatomy' : 'bodyparts3d');
+      panel.append(modelHost);
       const additional = n.lesson_media.filter(item => item.kind === 'model' && item.renderer !== 'radiology-anatomy');
       if (additional.length) panel.append(el('h3', {}, 'Additional measurement and spatial exercises'), renderLessonMedia(additional));
     }],
@@ -2291,6 +2372,18 @@ async function renderRadiologyDesk(page, nodeId) {
       if (active && !entry.built) { entry.build(entry.panel); entry.built = true; }
     });
     if (moveFocus) panels[index].tab.focus();
+  }
+  function exploreSourceKnee(asset) {
+    if (asset.derivation?.source_manifest !== '/app/anatomy/openknee-oks003/manifest.json') return;
+    const index = choices.findIndex(([key]) => key === 'model');
+    activate(index, true);
+    const source = panels[index].panel.querySelector('select[aria-label="Knee anatomy source"]');
+    if (!source) return;
+    if (source.value !== 'openknee-oks003') {
+      source.value = 'openknee-oks003';
+      source.dispatchEvent(new Event('change'));
+    }
+    source.focus();
   }
   choices.forEach(([key, label, build], index) => {
     const tabId = 'rad-desk-tab-' + key, panelId = 'rad-desk-panel-' + key;
@@ -2429,9 +2522,9 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   walk.steps.forEach(step => Object.entries(step.normal || {}).forEach(([heading, text]) => normals.set(heading, text)));
   const figures = new Map(ref.key_images.filter(image => image.src).map(image => [image.id, image]));
   const measures = new Map(guide.measurements.map(row => [row.name, row]));
-  const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(ref.spatial_model.family)) || {};
-  const meshFamily = window.PrimerDetailedAnatomy?.supported(ref.spatial_model.family) ? ref.spatial_model.family : null;
-  const overview = ref.spatial_model.focus[0];
+  const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(walk.spatial_model.family)) || {};
+  const meshFamily = window.PrimerDetailedAnatomy?.supported(walk.spatial_model.family) ? walk.spatial_model.family : null;
+  const overview = walk.spatial_model.focus[0];
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
     ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,
@@ -2676,7 +2769,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
       visualNote.textContent = shown.length ? 'Published teaching examples, not one patient study. Open a figure to inspect it at full size.' : '';
     } else if (mode === 'landmark') {
       if (!landmarkModel && window.PrimerRadiologyReferenceModels) {
-        landmarkModel = window.PrimerRadiologyReferenceModels.render(ref.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
+        landmarkModel = window.PrimerRadiologyReferenceModels.render(walk.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
         landmarkBox.replaceChildren(landmarkModel || el('p', { role: 'status' }, 'The 3D landmark model could not load.'));
       } else if (landmarkModel && landmarkModel.setModelState) landmarkModel.setModelState({ focus: page.landmark });
       visualNote.textContent = 'Highlighted: ' + landmarkName + '. A schematic orientation guide, not patient anatomy.';
@@ -3470,7 +3563,7 @@ function pictureCaptionElement(img) {
 
 function pictureCaptionText(caption) {
   if (!caption) return '';
-  if (caption.closest('.rad-image-example')) {
+  if (caption.closest('.rad-image-example, .rad-structure-atlas')) {
     return Array.from(caption.children).map(part => part.textContent.trim())
       .filter(Boolean).join('\n');
   }
@@ -3621,6 +3714,7 @@ function openLightbox(img, opener) {
       const fullSource = img.dataset.fullSrc || img.currentSrc || img.getAttribute('src') || '';
       const big = el('img', { src: fullSource,
         alt: img.getAttribute('alt') || caption || '' });
+      if (img.dataset.sourceFigure === 'true') big.dataset.sourceFigure = 'true';
       const inversionSource = img.closest('.skin-invert, .skin-invert-image');
       for (const marker of ['skin-invert', 'skin-invert-image']) {
         if (inversionSource && inversionSource.classList.contains(marker)) big.classList.add(marker);
