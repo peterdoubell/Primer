@@ -24,8 +24,10 @@ def reference_images(curriculum, catalogue, requirements, detail):
 
     def collect(reference, surface):
         surfaces.append(surface)
-        for field in ('key_images', 'structure_atlas', 'anatomical_illustrations'):
-            for image in reference.get(field, []):
+        collections = {field: reference.get(field, []) for field in ('key_images', 'structure_atlas', 'anatomical_illustrations')}
+        collections['source_anatomy_images'] = [source['source_image'] for source in reference.get('source_anatomy_references', []) if source.get('source_image')]
+        for field, images in collections.items():
+            for image in images:
                 src = image.get('src')
                 if not isinstance(src, str) or not src:
                     raise ValueError(surface + ': reference image is missing its source')

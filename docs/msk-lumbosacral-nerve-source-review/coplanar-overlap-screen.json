@@ -1,0 +1,119 @@
+{
+  "engine": "VTK 9.2.6 bounds locator; NumPy convex polygon clipping",
+  "sources": [
+    {
+      "part": "cord",
+      "sha256": "1b6bed8c2cee3e0c3ba7af2f0d34556351489511e12715d135214d4f8ae49c36",
+      "faces": 21700
+    },
+    {
+      "part": "dura",
+      "sha256": "4a3da5cf0b0bd2c584923f0431afdae8b414c2f4d0f3c7b45ea9bc1bc1c50f38",
+      "faces": 40980
+    }
+  ],
+  "faces": 62680,
+  "distance_tolerance_mm": 1e-08,
+  "positive_area_threshold_mm2": 1e-10,
+  "controls": [
+    {
+      "case": "coplanar_overlap",
+      "expected_area_mm2": 0.08,
+      "observed_area_mm2": 0.08000000000000007
+    },
+    {
+      "case": "folded_shared_edge",
+      "expected_area_mm2": 0.125,
+      "observed_area_mm2": 0.125
+    },
+    {
+      "case": "valid_shared_edge",
+      "expected_area_mm2": 0.0,
+      "observed_area_mm2": 0.0
+    },
+    {
+      "case": "separated",
+      "expected_area_mm2": 0.0,
+      "observed_area_mm2": 0.0
+    }
+  ],
+  "locator_controls": [
+    {
+      "case": "coplanar_overlap",
+      "query_face": 0,
+      "candidate_faces": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "coplanar_overlap",
+      "query_face": 1,
+      "candidate_faces": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "folded_shared_edge",
+      "query_face": 0,
+      "candidate_faces": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "folded_shared_edge",
+      "query_face": 1,
+      "candidate_faces": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "valid_shared_edge",
+      "query_face": 0,
+      "candidate_faces": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "valid_shared_edge",
+      "query_face": 1,
+      "candidate_faces": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "separated",
+      "query_face": 0,
+      "candidate_faces": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "separated",
+      "query_face": 1,
+      "candidate_faces": [
+        0,
+        1
+      ]
+    }
+  ],
+  "counts": {
+    "broad_phase_pairs": 3461714
+  },
+  "positive_area_overlaps": [],
+  "input_geometry_modified": false,
+  "limits": [
+    "At the wider tolerance, projected overlap is a conservative near-planar warning, not proof of actual intersection.",
+    "Tests positive-area overlap between numerically coplanar faces; isolated tangencies are not classified as area overlaps.",
+    "Uses floating-point tolerances, not exact arithmetic.",
+    "Complements the independent non-coplanar screen; does not establish anatomical accuracy."
+  ],
+  "clinical_approval": false,
+  "runtime_promoted": false
+}

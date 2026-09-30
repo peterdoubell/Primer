@@ -4,6 +4,8 @@ The learning curriculum remains independent. Only published foundation topics
 are eligible for this clinical reference catalogue.
 """
 import copy
+import gzip
+import struct
 import hashlib
 import json
 from datetime import date
@@ -30,6 +32,86 @@ def _text(value, message):
     if not isinstance(value, str) or not value.strip():
         raise ValueError(message)
     return value
+
+
+SOURCE_REFERENCE_ATLASES = {'liu-lumbosacral-sub03': 'lumbosacral-neural'}
+
+
+@lru_cache(maxsize=1)
+def _source_anatomy_references():
+    """Validate curated source resources without assigning anatomical completeness."""
+    references = _read('source-anatomy-references.json', {})
+    if not isinstance(references, dict):
+        raise ValueError('Source anatomy references must be an investigation mapping')
+    known = {item['id'] for item in catalogue()['investigations']}
+    web = DATA.parents[1] / 'web'
+    for investigation, entries in references.items():
+        if investigation not in known or not isinstance(entries, list) or not entries:
+            raise ValueError('Source anatomy requires a known investigation and nonempty list')
+        seen = set()
+        for entry in entries:
+            if not isinstance(entry, dict):
+                raise ValueError('Source anatomy entry must be an object')
+            for key in ('id', 'label', 'atlas', 'family', 'manifest_url', 'manifest_sha256', 'initial_layer', 'population_note'):
+                _text(entry.get(key), 'Source anatomy requires explicit ' + key)
+            if entry['id'] in seen:
+                raise ValueError('Duplicate source anatomy reference')
+            seen.add(entry['id'])
+            if SOURCE_REFERENCE_ATLASES.get(entry['atlas']) != entry['family']:
+                raise ValueError('Unknown source anatomy atlas/family')
+            expected_url = '/app/anatomy/' + entry['atlas'] + '/manifest.json'
+            if entry['manifest_url'] != expected_url or not isinstance(entry.get('initial_cropped'), bool):
+                raise ValueError('Source anatomy manifest or initial framing is invalid')
+            path = web / expected_url.removeprefix('/app/')
+            raw = path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != entry['manifest_sha256']:
+                raise ValueError('Source anatomy manifest changed')
+            manifest = json.loads(raw)
+            region = manifest.get('regions', {}).get(entry['family'])
+            if not region or not manifest.get('viewer_notes') or not manifest.get('license'):
+                raise ValueError('Source anatomy requires region, scope notes and attribution')
+            layers = {layer[0] for layer in region['layers']}
+            if entry['initial_layer'] not in layers:
+                raise ValueError('Source anatomy initial layer is unavailable')
+            source_image = entry.get('source_image')
+            if source_image:
+                if not isinstance(source_image, dict):
+                    raise ValueError('Source anatomy image metadata is invalid')
+                prefix = '/app/reference-media/' + entry['atlas'] + '/'
+                url = source_image.get('src', '')
+                if not isinstance(url, str) or not url.startswith(prefix) or '%' in url or '\\' in url:
+                    raise ValueError('Source anatomy image must stay within its source folder')
+                image_path = (web / url.removeprefix('/app/')).resolve()
+                if (web / prefix.removeprefix('/app/')).resolve() not in image_path.parents:
+                    raise ValueError('Source anatomy image leaves its source folder')
+                data = image_path.read_bytes()
+                if (hashlib.sha256(data).hexdigest() != source_image.get('sha256')
+                        or len(data) < 24 or data[:8] != b'\x89PNG\r\n\x1a\n'
+                        or struct.unpack('>II', data[16:24]) != (source_image.get('width'), source_image.get('height'))):
+                    raise ValueError('Source anatomy image changed or dimensions are invalid')
+                for key in ('title', 'alt', 'caption', 'attribution', 'source_url', 'license_url'):
+                    _text(source_image.get(key), 'Source anatomy image requires explicit ' + key)
+            for selected in region['parts']:
+                part = manifest['parts'][selected['id']]
+                prefix = '/app/anatomy/' + entry['atlas'] + '/'
+                url = part.get('file', '')
+                if not isinstance(url, str) or not url.startswith(prefix) or '%' in url or '\\' in url:
+                    raise ValueError('Source anatomy mesh must remain in its atlas')
+                mesh_path = (web / url.removeprefix('/app/')).resolve()
+                if path.parent.resolve() not in mesh_path.parents or not mesh_path.is_file():
+                    raise ValueError('Source anatomy mesh missing or outside atlas')
+                data = mesh_path.read_bytes()
+                if hashlib.sha256(data).hexdigest() != part['sha256']:
+                    raise ValueError('Source anatomy mesh changed')
+                decoded = gzip.decompress(data) if url.endswith('.gz') else data
+                if len(decoded) < 12:
+                    raise ValueError('Incomplete source anatomy mesh')
+                magic, vertices, indices = struct.unpack('<4sII', decoded[:12])
+                if (magic != b'BP3D' or len(decoded) != 12 + vertices * 24 + indices * 4
+                        or vertices != part['vertices'] or indices != part['triangles'] * 3
+                        or selected['layer'] not in layers):
+                    raise ValueError('Invalid source anatomy geometry contract')
+    return references
 
 
 @lru_cache(maxsize=1)
@@ -532,6 +614,7 @@ def detail(curriculum, item):
         selected.append(copy.deepcopy(image))
     ref['key_images'] = selected
     ref['structure_atlas'] = copy.deepcopy(_structure_atlases().get(item['id'], []))
+    ref['source_anatomy_references'] = copy.deepcopy(_source_anatomy_references().get(item['id'], []))
     ref['investigation'] = copy.deepcopy(item)
     corrected = _step_model(item, _steps()['investigations'].get(item['id'], {}))
     if corrected and not has_source_binding:
@@ -565,7 +648,8 @@ def index(curriculum):
                 *[point['label'] for point in reference['reporting']['checklist']],
                 *({'Musculoskeletal': ['MSK'], 'Head/Neck': ['ENT'], 'Pediatrics': ['paediatric', 'pediatric']}.get(item['section'], [])),
                 *({'ra.ct-coronary': ['CCTA', 'CTCA'], 'ra.mri-prostate': ['mpMRI', 'PI-RADS']}.get(item['id'], []))])),
-            'image_count': len(reference['key_images']) + len(reference.get('structure_atlas', [])),
+            'image_count': len(reference['key_images']) + len(reference.get('structure_atlas', []))
+                + sum(bool(source.get('source_image')) for source in reference.get('source_anatomy_references', [])),
             'template_count': len(reference['report_templates']),
             'classification': classification['name'] if classification else '',
             'model_family': reference['spatial_model']['family'],

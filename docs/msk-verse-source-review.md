@@ -173,3 +173,112 @@ unverified. The full [surface audit](msk-verse-source-review/chain-surface-audit
 and [offline package](../output/msk-verse521/t1-l5/manifest.json) retain source
 hashes, per-level findings, extraction versions and ShareAlike attribution.
 No runtime promotion, normality claim or clinical approval was made.
+
+## Retained T12 and T7 components localized against CT
+
+The small T12 component has six vertices and eight triangles. Its centre is
+original voxel `[278, 206, 202]`, whose label is zero; all six face neighbours
+are T12. Independent background-component analysis identifies exactly one
+fully enclosed background voxel at that position. The component has negative
+signed volume (−0.0778834 mm³), consistent with an inward-facing boundary.
+It is therefore a source-mask cavity boundary, not a disconnected foreground
+bone island. This establishes the segmentation property only: its biological
+meaning and whether it reflects a segmentation error remain undetermined.
+
+The previously identified T7 singleton at `[208, 144, 341]` has no face-adjacent
+T7 voxel. Its actual diagonal neighbours are recorded explicitly. Both
+features have native axial, sagittal and coronal CT comparisons, with original
+label contours and affine-derived direction markers. Pixel centres are used
+for both image and contour coordinates. No source voxels or surface triangles
+were removed or modified.
+
+The reproducible checker is `tools/anatomy_sources/review_verse_source_components.py`.
+It verifies the source CT/mask and saved T12 surface hashes before analysis.
+See [component evidence](msk-verse-source-review/retained-component-review.json)
+and [CT comparisons](msk-verse-source-review/retained-components-ct-review.png).
+This resolves an extraction ambiguity, but does not establish clinical boundary
+accuracy or authorize runtime promotion of the full vertebral chain.
+
+## Continuous CT review for every T1–L5 label
+
+`output/msk-verse521/review/index.html` is a standalone review artifact with all
+17 cropped CT volumes and original target-label arrays embedded. Each crop
+retains the label's complete bounding box and surrounding native voxels. Every
+stored float32 CT value is checked for exact equality with the decoded source;
+no voxel resampling is performed. Source CT/mask hashes are checked first.
+
+The viewer provides all axial, sagittal and coronal slices, adjustable CT
+windowing, an original-label toggle, source voxel coordinates, affine-derived
+RAS coordinates and pointer-based numerical voxel inspection. Physical voxel
+spacing determines the displayed aspect ratio. The source labels are whole
+vertebrae; this does not create separate pedicle, facet or endplate labels.
+Source attribution, adaptation description and CC BY-SA 4.0 travel with the HTML.
+
+Browser checks covered all 51 level/plane centre samples against independently
+extracted source values and all 102 first/last slice positions. Window presets
+and overlay controls were exercised without console errors. These are data and
+interface checks, not exhaustive rendered-pixel comparisons or anatomical
+boundary approval. The dataset remains an offline review candidate; continuous
+availability for inspection is not evidence that every boundary has been approved.
+
+Rebuild with `tools/anatomy_sources/build_verse_review_viewer.py` using the staged
+source NIfTI files and NumPy/nibabel. The HTML needs no external image server or
+JavaScript library: open it in a browser supporting `DecompressionStream`.
+[Array/source evidence](msk-verse-source-review/full-volume-review-viewer.json)
+and [browser checks](msk-verse-source-review/full-volume-browser-checks.json)
+record the source fingerprints, geometry and test scope.
+
+## Browser-ready whole-vertebra package and correspondence bounds
+
+All 17 T1–L5 surfaces are now repacked as gzip-compressed BP3D meshes under
+`output/msk-verse521/browser-parts/`. Every saved world-coordinate vertex and
+triangle index survives the decode roundtrip exactly: no floating-point
+position loss, smoothing, decimation, filling or component removal. Generated
+area-weighted unit normals affect lighting only. The package contains 798,442
+triangles; original CT RAS coordinates and millimetres are retained.
+
+`standalone.html` embeds the manifest and all compressed geometry and requires
+no geometry fetches. `index.html` uses the separate files. Both link to the
+matching standalone CT review volume. The latter file-based variant can be
+served with `python tools/anatomy_sources/serve_verse_review.py`, which binds
+only localhost port 8826 and supplies gzip transport headers. Neither variant
+has been promoted into production. The production viewer source is unchanged;
+its offline copy adds an atlas registry entry and spine range, and the
+standalone variant substitutes embedded-data loading.
+
+Browser review loaded all 17 meshes and exercised selection/isolation for all
+17 source objects. The standalone variant also rendered and supported T12
+isolation, superior orientation, reset and posterior orientation. The CT link
+opened the matching case. No console errors were recorded. The visible
+voxel-stepped source surfaces are retained, not cosmetically smoothed into an
+unsupported high-resolution appearance. Fine anatomical accuracy remains open.
+
+A separate check sampled every triangle centroid in the trilinearly
+interpolated original binary label. Its directional normal-ray search failed
+to bracket a crossing within 2 mm for 102 centroids, and some other rays reached
+a more distant boundary. These ray distances are **not nearest-surface errors**.
+They must not be interpreted as evidence of millimetre-scale anatomical defects.
+
+A second calculation establishes exact source-boundary witnesses. Each witness
+is the midpoint of a grid edge with one foreground and one background endpoint,
+so its trilinear label value is exactly 0.5. Every triangle contains such a
+witness vertex. All world/voxel transformations were checked against the source
+affine. Every centroid lies within 0.561163 mm of a known boundary witness,
+including the ray-search outliers. Convexity gives a conservative directed
+mesh-to-source bound of 1.110699 mm for **all triangle interiors**, using the
+best eligible witness vertex for each face. These are upper bounds to the
+source segmentation, not measured clinical errors; reverse source-to-mesh
+distance and biological boundary correctness remain unproved.
+
+Evidence:
+
+- [Package preservation](msk-verse-source-review/browser-mesh-package.json)
+- [Browser checks](msk-verse-source-review/browser-mesh-checks.json)
+- [Centroid normal-ray measurements](msk-verse-source-review/triangle-centre-correspondence.json)
+- [Exact boundary-witness bounds](msk-verse-source-review/surface-witness-bounds.json)
+
+The source labels remain whole vertebrae. Separate body walls, endplates,
+pedicles, laminae, transverse/spinous and articular processes still require
+anatomical validation. Discs, ligaments, cartilage and neural structures are
+not supplied. No requirement was marked complete or removed on the strength
+of these conversion checks.
