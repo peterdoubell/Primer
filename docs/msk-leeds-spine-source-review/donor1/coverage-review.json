@@ -1,0 +1,34 @@
+{
+  "source_review": "native-plane-review.json",
+  "source_nominal_range": "L4-S1",
+  "reviewed_at": "2026-09-30",
+  "observations": [
+    "Selected orthogonal source planes show detailed cortical/trabecular architecture, posterior osseous structures, an intervening disc region and surrounding support material.",
+    "Two dominant vertebral-body profiles are apparent in the selected longitudinal source planes. This is not an exhaustive anatomical count and does not independently establish level names.",
+    "The sampled DICOM descriptive fields contain no L4/L5/S1 level tokens.",
+    "No boundary sample exceeds 600 HU at the first/last slice faces; other faces contain higher values, including five samples above 1000 HU at the final column face."
+  ],
+  "thresholds_are_validated_bone_masks": false,
+  "boundary_material_identity": "unresolved",
+  "anatomical_orientation_independently_verified": false,
+  "vertebral_level_binding_status": "unresolved",
+  "complete_anatomical_extent_proven": false,
+  "runtime_promoted": false,
+  "clinical_approval": false,
+  "next_required_evidence": [
+    "Localize side-boundary high-attenuation samples and distinguish bone from support material/artifact.",
+    "Establish individual vertebral identity and specimen orientation before clinical level-specific bindings.",
+    "Review segmentation against original source planes; do not fabricate missing anatomy or cap uncertain boundaries."
+  ],
+  "boundary_followup": {
+    "evidence": [
+      "side-boundary-contacts.json",
+      "side-contact-patch-review.json"
+    ],
+    "finding": "All five >1000 HU contacts are one six-connected cluster confined to native column 2007, rows 1474\u20131476, slices 1497\u20131498. In reviewed full planes they are peripheral to the visible osseous profiles; unmarked local patches show an isolated edge signal rather than a recognizable cortical structure.",
+    "material_identity": "not independently established",
+    "bone_clipping_demonstrated_by_these_five_points": false,
+    "all_anatomical_clipping_excluded": false,
+    "source_voxels_removed_or_changed": false
+  }
+}

@@ -2825,8 +2825,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
         anatomyBox.replaceChildren(anatomyModel || el('p', { role: 'status' }, 'The anatomical model could not load.'));
       }
       if (anatomyModel && anatomyModel.highlight) anatomyModel.highlight(page.parts);
-      visualNote.textContent = page.parts.length ? 'Structures for this step are highlighted in the registered source anatomy.'
-        : 'Registered source anatomy for orientation. Select a structure to highlight it.';
+      visualNote.textContent = page.step?.anatomy_note || (page.parts.length ? 'Structures for this step are highlighted in the registered source anatomy.'
+        : 'Registered source anatomy for orientation. Select a structure to highlight it.');
     }
     if (announce) say('Showing ' + ({ figures: 'figures', landmark: '3D landmarks', anatomy: '3D anatomy' })[mode] + ' for ' + page.label + '.');
   }
