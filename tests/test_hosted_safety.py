@@ -574,6 +574,8 @@ def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
         '/app/anatomy/msk-atlas/meshes/example.bin',
         '/app/anatomy/msk-mri-knee/example.bin.gz',
         '/app/anatomy/liu-lumbosacral-sub03/cord-open-envelope.bin.gz',
+        '/app/anatomy/verse521/verse521-t1.bin.gz',
+        '/app/anatomy/verse521/ct-reference.html',
         '/app/reference-media/prenatal-development/prenatal-development.gif',
     ]
     with TestClient(srv.app, follow_redirects=False) as client:
@@ -593,3 +595,28 @@ def test_local_source_media_remains_served_without_cdn(monkeypatch):
         response = client.get('/app/anatomy/bodyparts3d/FJ1394.bin')
     assert response.status_code == 200
     assert response.content[:4] == b'BP3D'
+
+
+@pytest.mark.parametrize('method', ['get', 'head'])
+@pytest.mark.parametrize('query', [
+    'level=T12',
+    'level=L5&note=left%26right%3Dvalue&tag=a&tag=b&note=%0D%0ALocation%3A%20https%3A%2F%2Fexample.com',
+])
+def test_hosted_source_ct_redirect_preserves_encoded_selection(monkeypatch, method, query):
+    from urllib.parse import parse_qsl, urlsplit
+
+    monkeypatch.setenv('VERCEL', '1')
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, 'secret')
+    with TestClient(srv.app, follow_redirects=False) as client:
+        response = getattr(client, method)(
+            '/app/anatomy/verse521/ct-reference.html?' + query,
+            auth=('reader', 'secret'))
+
+    assert response.status_code == 307
+    location = response.headers['location']
+    target = urlsplit(location)
+    assert target.scheme == target.netloc == target.fragment == ''
+    assert target.path == '/source-media/anatomy/verse521/ct-reference.html'
+    assert parse_qsl(target.query) == parse_qsl(query)
+    assert '\r' not in location and '\n' not in location

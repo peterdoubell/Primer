@@ -105,9 +105,11 @@ def inspect_source_context(asset, requirement):
         return ['source_context_invalid']
     issues = []
     unknown = {'unknown', 'not_reported', 'unspecified'}
-    fields = {'setting', 'laterality', 'depicted_state', 'extent'}
+    fields = {'setting', 'laterality', 'depicted_state', 'extent', 'projection', 'anatomical_variant'}
     vocabularies = {
         'setting': {'in_vivo', 'cadaveric', 'mixed'},
+        'projection': {'anteroposterior', 'lateral'},
+        'anatomical_variant': {'none', 'peroneus_quartus', 'accessory_soleus', 'flexor_digitorum_accessorius_longus'},
         'laterality': {'left', 'right', 'bilateral'},
         'extent': {'local', 'complete'},
         'life_stage': {'adult', 'immature', 'mixed'},

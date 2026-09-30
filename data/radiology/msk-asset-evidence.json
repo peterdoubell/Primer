@@ -12266,9 +12266,13 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
-      "fidelity": "not_assessed",
+      "investigation_ids": [
+        "ra.mri-knee"
+      ],
+      "structure_ids": [
+        "knee.oblique_popliteal_ligament.course"
+      ],
+      "fidelity": "source_reviewed_not_clinically_approved",
       "representation": "source_surface_mesh",
       "geometry": {
         "vertices": 736,
@@ -12294,12 +12298,47 @@
       },
       "anatomical_review": {
         "status": "pending",
-        "reason": "Native source geometry acquired; fidelity and reportable substructure coverage must be reviewed explicitly. Material surfaces do not prove tissue volume or thickness."
+        "reason": "Gross artist-source course candidate; independently assessed tissue boundaries, attachment extent and full clinical fidelity remain unproved."
       },
       "visual_review": {
-        "status": "pending",
-        "reason": "Per-structure inspection and a fingerprinted review record required."
-      }
+        "status": "source_checked",
+        "reviewer": "Codex fresh native-FBX comparison and original-coordinate projection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "af608d8a0a26c404bb4998bd8b0eb72586a2e0ef663564b777df7f5da6a4fe02",
+        "evidence_path": "docs/msk-knee-ligament-volume-source-review/existing-opl-geometry-audit.json"
+      },
+      "limitations": "Separate right-sided artist surface with 186 native positions and 368 triangles. Partial gross-course candidate only: no independently validated anatomy, measured tissue thickness, component arms, attachment footprints or MRI-derived volume. A closed surface is not proof of biological extent.",
+      "source_context": {
+        "setting": "unknown",
+        "laterality": "right",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "knee"
+        },
+        "unknowns": [
+          "Artist atlas object; no source patient or measured segmentation is established.",
+          "Only source-side label and gross region are used; no contralateral geometry or complete attachments inferred.",
+          "No patient-specific or independently established normality is inferred from the artist atlas."
+        ]
+      },
+      "requirement_coverage": {
+        "knee.oblique_popliteal_ligament.course": {
+          "extent": "partial",
+          "basis": "Source-named artist surface and preserved right-knee coordinates; biological course and complete endpoints remain unverified."
+        }
+      },
+      "requirement_binding_evidence": [
+        {
+          "structure_id": "knee.oblique_popliteal_ligament.course",
+          "source_model_id": 711785439,
+          "source_geometry_id": 814296616,
+          "source_marker": "Original source object Oblique popliteal ligament.r; not a separate measured volume or footprint."
+        }
+      ]
     },
     {
       "id": "za-joints-899021983",
@@ -18091,8 +18130,8 @@
       },
       "limitations": "Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions. The source view preserves full mesh extent but anatomical completeness and independent clinical accuracy remain unverified.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
-        "data/radiology/investigation-model-bindings.json": "6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d"
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "data/radiology/investigation-model-bindings.json": "bedcb401ccfaa419f893f28d3f50f6c217703b5ab405c50d9b95e5dd23575019"
       }
     },
     {
@@ -18229,8 +18268,8 @@
       },
       "limitations": "Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions. The source view preserves full mesh extent but anatomical completeness and independent clinical accuracy remain unverified.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
-        "data/radiology/investigation-model-bindings.json": "6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d"
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "data/radiology/investigation-model-bindings.json": "bedcb401ccfaa419f893f28d3f50f6c217703b5ab405c50d9b95e5dd23575019"
       }
     },
     {
@@ -18367,8 +18406,8 @@
       },
       "limitations": "Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions. The source view preserves full mesh extent but anatomical completeness and independent clinical accuracy remain unverified.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
-        "data/radiology/investigation-model-bindings.json": "6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d"
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "data/radiology/investigation-model-bindings.json": "bedcb401ccfaa419f893f28d3f50f6c217703b5ab405c50d9b95e5dd23575019"
       }
     },
     {
@@ -18505,8 +18544,8 @@
       },
       "limitations": "Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions. The source view preserves full mesh extent but anatomical completeness and independent clinical accuracy remain unverified.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
-        "data/radiology/investigation-model-bindings.json": "6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d"
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "data/radiology/investigation-model-bindings.json": "bedcb401ccfaa419f893f28d3f50f6c217703b5ab405c50d9b95e5dd23575019"
       }
     },
     {
@@ -64443,9 +64482,9 @@
       },
       "limitations": "Partial source contour envelope. No complete conus, roots, CSF volume, dural wall thickness or compression interface is claimed. No requirement binding is assigned merely from the object name.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
-        "web/app.js": "3025882078c5f1bbd390d00595ed2e2f05c46db0ea8747cc6741b75f479f01d8",
-        "data/radiology/source-anatomy-references.json": "db43bfb19c403f83b3f54d1f5a026563de76f74bc2d0ea964b0610e1ea8568fe",
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
         "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b"
       }
     },
@@ -64510,9 +64549,9 @@
       },
       "limitations": "Partial source contour envelope. No complete conus, roots, CSF volume, dural wall thickness or compression interface is claimed. No requirement binding is assigned merely from the object name.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
-        "web/app.js": "3025882078c5f1bbd390d00595ed2e2f05c46db0ea8747cc6741b75f479f01d8",
-        "data/radiology/source-anatomy-references.json": "db43bfb19c403f83b3f54d1f5a026563de76f74bc2d0ea964b0610e1ea8568fe",
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
         "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b"
       }
     },
@@ -64569,6 +64608,1907 @@
         ]
       },
       "limitations": "Native MRI crop/window and original controls with stated-default curve overlays. No whole conus, neural compression or patient diagnosis is asserted."
+    },
+    {
+      "id": "verse521-t1",
+      "kind": "model",
+      "name": "T1 · source label 8",
+      "local_path": "web/anatomy/verse521/verse521-t1.bin.gz",
+      "sha256": "c4da5219ec3455c811cd397eb6e9fdff9d395e79233ca933d09e8dd9e589c9f1",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 18054,
+        "triangles": 36116,
+        "source_case": "sub-verse521",
+        "source_label": 8,
+        "source_surface_sha256": "2207bf2f29ee9082add448e8631d068c95c481de70222d8e6cf9416d3c8a3a82"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "c4da5219ec3455c811cd397eb6e9fdff9d395e79233ca933d09e8dd9e589c9f1",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t2",
+      "kind": "model",
+      "name": "T2 · source label 9",
+      "local_path": "web/anatomy/verse521/verse521-t2.bin.gz",
+      "sha256": "be162540f3d975f75b4df64b97312574e5921d29e32d7daeb3f9a576459cc7df",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 18092,
+        "triangles": 36184,
+        "source_case": "sub-verse521",
+        "source_label": 9,
+        "source_surface_sha256": "6487485498b3d8857320a0bd09095f4b3745ecd5ee0216cd8c670d2fcbfdbf47"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "be162540f3d975f75b4df64b97312574e5921d29e32d7daeb3f9a576459cc7df",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t3",
+      "kind": "model",
+      "name": "T3 · source label 10",
+      "local_path": "web/anatomy/verse521/verse521-t3.bin.gz",
+      "sha256": "171fe1a80e01a22ee52d22b1e0fabff6455d207349700e25d10059f9029733a9",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 17503,
+        "triangles": 35018,
+        "source_case": "sub-verse521",
+        "source_label": 10,
+        "source_surface_sha256": "f3e3bd33083492f4065a64afe80e15b008f3eefc6f82a80a8ec9e6e7ca407e0b"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "171fe1a80e01a22ee52d22b1e0fabff6455d207349700e25d10059f9029733a9",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t4",
+      "kind": "model",
+      "name": "T4 · source label 11",
+      "local_path": "web/anatomy/verse521/verse521-t4.bin.gz",
+      "sha256": "8250376dd09121d4cb3bed97055eaa39db8de7e4e8115a7959bdf601818ae1b7",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 17791,
+        "triangles": 35586,
+        "source_case": "sub-verse521",
+        "source_label": 11,
+        "source_surface_sha256": "290e5aa89aa19686ce5547e77a8c7b87745da4165982d501cae9fed43cd3be54"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "8250376dd09121d4cb3bed97055eaa39db8de7e4e8115a7959bdf601818ae1b7",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t5",
+      "kind": "model",
+      "name": "T5 · source label 12",
+      "local_path": "web/anatomy/verse521/verse521-t5.bin.gz",
+      "sha256": "cc0e70d5e559dc2e32aa42c95621ccb76a9b18fbf2625e14f62ff2486e9d8124",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 17803,
+        "triangles": 35618,
+        "source_case": "sub-verse521",
+        "source_label": 12,
+        "source_surface_sha256": "84f76a26ca891d9bd217d8909e829e54cb7bd0bf0716a5964d00f43791898ad2"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "cc0e70d5e559dc2e32aa42c95621ccb76a9b18fbf2625e14f62ff2486e9d8124",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t6",
+      "kind": "model",
+      "name": "T6 · source label 13",
+      "local_path": "web/anatomy/verse521/verse521-t6.bin.gz",
+      "sha256": "d6da7dc8af8032ad276095f1bf90f5c97680ae2d5712da8e15831d7742713f61",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 18555,
+        "triangles": 37114,
+        "source_case": "sub-verse521",
+        "source_label": 13,
+        "source_surface_sha256": "9a8531fa8e446b27c51d757c3f639f872706bb0b9cccd83aeaa915751ff93691"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "d6da7dc8af8032ad276095f1bf90f5c97680ae2d5712da8e15831d7742713f61",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t7",
+      "kind": "model",
+      "name": "T7 · source label 14",
+      "local_path": "web/anatomy/verse521/verse521-t7.bin.gz",
+      "sha256": "1d5de28d82c38f460fbddebf77a715c0712ea373d2de62fcee514e25ae29b0f1",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 18985,
+        "triangles": 37974,
+        "source_case": "sub-verse521",
+        "source_label": 14,
+        "source_surface_sha256": "07141e989f21362498fb216b5d3a54e40a9dbe5d6819f571b2429fc60a6e742a"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "1d5de28d82c38f460fbddebf77a715c0712ea373d2de62fcee514e25ae29b0f1",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t8",
+      "kind": "model",
+      "name": "T8 · source label 15",
+      "local_path": "web/anatomy/verse521/verse521-t8.bin.gz",
+      "sha256": "d37ec333d3427cc6b6c72375e44e32ae961e7b119e0b28f4fc43b84913d8d35e",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 19258,
+        "triangles": 38516,
+        "source_case": "sub-verse521",
+        "source_label": 15,
+        "source_surface_sha256": "bbc81bbedbdc0e081d8b9559a84b3a1433d7b7f475ef4cb3c4c3217a1a6847b4"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "d37ec333d3427cc6b6c72375e44e32ae961e7b119e0b28f4fc43b84913d8d35e",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t9",
+      "kind": "model",
+      "name": "T9 · source label 16",
+      "local_path": "web/anatomy/verse521/verse521-t9.bin.gz",
+      "sha256": "b88e8bc5582c774f6059763849f36c04d8af94b1b39fee082f478688c36ef7fc",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 20315,
+        "triangles": 40634,
+        "source_case": "sub-verse521",
+        "source_label": 16,
+        "source_surface_sha256": "b3ac9beeaddc5e680e95626d01b05835fef8baab114e4f92ef8bb82b57fdc865"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "b88e8bc5582c774f6059763849f36c04d8af94b1b39fee082f478688c36ef7fc",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t10",
+      "kind": "model",
+      "name": "T10 · source label 17",
+      "local_path": "web/anatomy/verse521/verse521-t10.bin.gz",
+      "sha256": "ac70eee5f4d25e325c718475d18eeb765532dabc992370a5b3c99a0e07b217d4",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 20680,
+        "triangles": 41360,
+        "source_case": "sub-verse521",
+        "source_label": 17,
+        "source_surface_sha256": "ce1e265b39e5945b8225e5ea86eb63bb74dff490349dbea9db5b9fd8bcd8ea31"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "ac70eee5f4d25e325c718475d18eeb765532dabc992370a5b3c99a0e07b217d4",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t11",
+      "kind": "model",
+      "name": "T11 · source label 18",
+      "local_path": "web/anatomy/verse521/verse521-t11.bin.gz",
+      "sha256": "9b0ab6fa455f8468b515bf2bf9512f5898d92b78553646dc8c5698c78e3eee1f",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 21992,
+        "triangles": 43984,
+        "source_case": "sub-verse521",
+        "source_label": 18,
+        "source_surface_sha256": "185ca507b88a5f9aea332bcc6235d74a46fe14beafa89c08ca86c35ef2dd1e5f"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "9b0ab6fa455f8468b515bf2bf9512f5898d92b78553646dc8c5698c78e3eee1f",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-t12",
+      "kind": "model",
+      "name": "T12 · source label 19",
+      "local_path": "web/anatomy/verse521/verse521-t12.bin.gz",
+      "sha256": "eb7fa43b79d55d615684c2f062a67e9f16555bac2cbba77ca7ab0bbc5ff56f38",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 25129,
+        "triangles": 50266,
+        "source_case": "sub-verse521",
+        "source_label": 19,
+        "source_surface_sha256": "a6f690d55198755cc9b8aaf860afdbc664e94bf8e0bfbbe3d3bc16732a464e4c"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "eb7fa43b79d55d615684c2f062a67e9f16555bac2cbba77ca7ab0bbc5ff56f38",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-l1",
+      "kind": "model",
+      "name": "L1 · source label 20",
+      "local_path": "web/anatomy/verse521/verse521-l1.bin.gz",
+      "sha256": "efb1b336a6e99d687808d550e8fcb67f1d3d128dfb1c0a5fab4213c4ee563c45",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 28834,
+        "triangles": 57668,
+        "source_case": "sub-verse521",
+        "source_label": 20,
+        "source_surface_sha256": "ab567906d0c4d2b7ee773190f0ed938840b37b6e159ca2ff59d0da99abbda280"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "efb1b336a6e99d687808d550e8fcb67f1d3d128dfb1c0a5fab4213c4ee563c45",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-l2",
+      "kind": "model",
+      "name": "L2 · source label 21",
+      "local_path": "web/anatomy/verse521/verse521-l2.bin.gz",
+      "sha256": "2b973079ec85cd4a2ce4cdc44b3680016a5aa006fcf69c1ea8a483da80a1071c",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 31262,
+        "triangles": 62524,
+        "source_case": "sub-verse521",
+        "source_label": 21,
+        "source_surface_sha256": "67a50a3faa6baa30ecac05fdd8617b1dbf41939954fca6be24f5e4fc43b5ac77"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "2b973079ec85cd4a2ce4cdc44b3680016a5aa006fcf69c1ea8a483da80a1071c",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-l3",
+      "kind": "model",
+      "name": "L3 · source label 22",
+      "local_path": "web/anatomy/verse521/verse521-l3.bin.gz",
+      "sha256": "27444f0d740d6f93308acdc2d4e59791a7dd3634ca3fc20c8f60fc0ffe454dbe",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 32922,
+        "triangles": 65844,
+        "source_case": "sub-verse521",
+        "source_label": 22,
+        "source_surface_sha256": "61cc48d2c11d2197137c33fa30a6738e30cb5747cec2817fe710b227fa70729f"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "27444f0d740d6f93308acdc2d4e59791a7dd3634ca3fc20c8f60fc0ffe454dbe",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-l4",
+      "kind": "model",
+      "name": "L4 · source label 23",
+      "local_path": "web/anatomy/verse521/verse521-l4.bin.gz",
+      "sha256": "601139c81413b973bcbd90bd81144550411442cf348e91b892f77685e4a1695c",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 32900,
+        "triangles": 65800,
+        "source_case": "sub-verse521",
+        "source_label": 23,
+        "source_surface_sha256": "149ec8d6703891eff76581551b0ff2dd0e84cb7ae086e0b869b5b726fc9b04c5"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "601139c81413b973bcbd90bd81144550411442cf348e91b892f77685e4a1695c",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-l5",
+      "kind": "model",
+      "name": "L5 · source label 24",
+      "local_path": "web/anatomy/verse521/verse521-l5.bin.gz",
+      "sha256": "1ada34e65eb815ab7a5ea50a423b0f5991342f581838d0fe88d9621e52f468ef",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "ct_label_isosurface",
+      "geometry": {
+        "vertices": 39118,
+        "triangles": 78236,
+        "source_case": "sub-verse521",
+        "source_label": 24,
+        "source_surface_sha256": "290bd48790016b4efb8e37e2b8e027c28d0a641a71408f083c1bb97c4b909e31"
+      },
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "1ada34e65eb815ab7a5ea50a423b0f5991342f581838d0fe88d9621e52f468ef",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0"
+      }
+    },
+    {
+      "id": "verse521-native-ct-planes",
+      "kind": "clinical_image",
+      "name": "VerSe T1–L5 native CT plane reference",
+      "local_path": "web/anatomy/verse521/ct-reference.html",
+      "sha256": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+      "regions": [
+        "thoracolumbar-source"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "native_ct_crops_with_label_overlay",
+      "source": {
+        "dataset": "VerSe sub-verse521 · T1–L5 source surfaces",
+        "url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license": {
+          "name": "CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-verse-source-review/README-source.md",
+          "attribution": "# VerSe sub-verse521 derived T1–L5 surfaces\n\nDerived from the VerSe data under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/\n\nSource dataset: https://doi.org/10.17605/OSF.IO/T98FZ\nAuthor repository: https://github.com/anjany/verse\n\nCite Sekuboyina et al. (2021), VerSe: A Vertebrae Labelling and Segmentation Benchmark for Multi-detector CT Images; Liebl and Schinz et al. (2021), A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data; and Löffler et al. (2020), A Vertebral Segmentation Dataset with Fracture Grading. Full source citation guidance is preserved in docs/msk-verse-source-review/README-source.md.\n\nAdaptation: Lewiner isosurface extraction at 0.5 in the original label grid, transformed by the CT affine. No smoothing, decimation, filling or component removal. Helper-vertex approximations and component findings are recorded in manifest.json. This is a source reference available in the reader; anatomical approval remains pending.\n\nBrowser packaging: original world positions and faces preserved exactly; area-weighted unit normals generated for lighting. No source components removed.\n"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Whole-vertebra label boundaries and reportable substructures need anatomical assessment. CT voxel correspondence does not establish clinical fidelity."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex source-file integrity and desktop/mobile reader inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "evidence_path": "docs/msk-verse-source-review/level-correspondence-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "midline",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "regional",
+        "unknowns": [
+          "Case-specific normality, pathology and age are not established."
+        ],
+        "modality": "CT",
+        "acquisition": {
+          "stored_slice_spacing_mm": 1.0,
+          "source_slice_thickness_mm": 1.5
+        }
+      },
+      "limitations": "Native CT crops around all 17 labels with surrounding margin. CT windowing and overlays do not replace anatomical boundary review, whole-examination coverage or soft-tissue MRI. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a06bd9dfac7482dee3f75354b0695d77c21f18f64e8c2e325611fc83806f1f94",
+        "web/app.js": "4c56bdc91f90762b8639dc49583e6cd6a6867fce459f7ac8e7f14372ce5ea38b",
+        "data/radiology/source-anatomy-references.json": "c46aca6681f70d44f0f5db222c60f310bfc280a612122e503236761fabc6600a",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/anatomy/verse521/ct-reference.js": "e287d4f77eaefa99a849848611ea45fb69f7617cb588d3f3bd59190177003958"
+      }
+    },
+    {
+      "id": "open-knee-semimembranosus-expansions-picasso-s1",
+      "kind": "schematic",
+      "name": "Semimembranosus expansions and oblique popliteal ligament",
+      "local_path": "web/reference-media/msk-open/knee-picasso-s1.jpg",
+      "sha256": "367b6932ce7e591d94370fd1a33e220592f4e21c77c008d17b746dd680b54fc7",
+      "regions": [
+        "knee"
+      ],
+      "investigation_ids": [
+        "ra.mri-knee"
+      ],
+      "structure_ids": [
+        "knee.semimembranosus_tendon.distal_course",
+        "knee.semimembranosus_tendon.tibial_attachment",
+        "knee.oblique_popliteal_ligament.course"
+      ],
+      "structures_observed": [
+        "Semimembranosus tendon: direct, anterior, capsular, oblique popliteal, popliteal and meniscal arms",
+        "Oblique popliteal ligament",
+        "Posterior oblique ligament arms",
+        "Popliteus",
+        "Semimembranosus muscle",
+        "Biceps femoris",
+        "Lateral gastrocnemius",
+        "Fabella"
+      ],
+      "modality": "Schematic",
+      "image_state": "source-authored normal anatomical teaching view; no patient-specific normality claim",
+      "caption": "Original Supplemental Figure 1; only A is an authored anatomical schematic. Panel A depicts gross distal expansions and neighbouring ligament relationships. It does not provide measured tissue thickness, attachment footprints, complete ligament volumes or all anatomic variants. B/C are cadaver dissections; they are neither MRI nor independent living-patient normality evidence.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "Panel A depicts gross distal expansions and neighbouring ligament relationships. It does not provide measured tissue thickness, attachment footprints, complete ligament volumes or all anatomic variants. B/C are cadaver dissections; they are neither MRI nor independent living-patient normality evidence. Only the explicitly selected panels support this asset; no complete MRI course, physical thickness, attachment footprint or 3D geometry is asserted.",
+      "source_context": {
+        "setting": "unknown",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomical_reference",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "knee"
+        },
+        "selected_panels": [
+          "A"
+        ],
+        "panel_types": {
+          "A": "Schematic",
+          "B": "Dissection",
+          "C": "Dissection"
+        },
+        "source_evidence": {
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf",
+          "locator": "Supplemental Figure 1, page 1; anatomy sections of the article"
+        },
+        "unknowns": [
+          "Source schematic is generic: no measured subject, side, age, sex, thickness or physical scale is certified.",
+          "Specimen context is not transferred to the schematic or any MRI."
+        ]
+      },
+      "representation_selection": {
+        "kind": "schematic",
+        "panels": [
+          "A"
+        ]
+      },
+      "requirement_coverage": {
+        "knee.semimembranosus_tendon.distal_course": {
+          "extent": "partial",
+          "basis": "Local source schematic relationships only; complete reportable extent and anatomical fidelity require assessment."
+        },
+        "knee.semimembranosus_tendon.tibial_attachment": {
+          "extent": "partial",
+          "basis": "Local source schematic relationships only; complete reportable extent and anatomical fidelity require assessment."
+        },
+        "knee.oblique_popliteal_ligament.course": {
+          "extent": "partial",
+          "basis": "Local source schematic relationships only; complete reportable extent and anatomical fidelity require assessment."
+        }
+      },
+      "requirement_binding_scope": "Local schematic candidate, not full clinical extent or MRI evidence.",
+      "requirement_binding_evidence": [
+        {
+          "structure_id": "knee.semimembranosus_tendon.distal_course",
+          "source_panels": [
+            "A"
+          ],
+          "scope": "Source-labelled gross anatomical relationship; complete extent and clinical fidelity unverified."
+        },
+        {
+          "structure_id": "knee.semimembranosus_tendon.tibial_attachment",
+          "source_panels": [
+            "A"
+          ],
+          "scope": "Source-labelled gross anatomical relationship; complete extent and clinical fidelity unverified."
+        },
+        {
+          "structure_id": "knee.oblique_popliteal_ligament.course",
+          "source_panels": [
+            "A"
+          ],
+          "scope": "Source-labelled gross anatomical relationship; complete extent and clinical fidelity unverified."
+        }
+      ],
+      "source": {
+        "url": "https://link.springer.com/article/10.1007/s00330-025-11868-8",
+        "figure_url": "https://link.springer.com/article/10.1007/s00330-025-11868-8#MOESM1",
+        "asset_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-picasso-knee-source-review/rights-and-scope.json",
+          "attribution": "© The Author(s) 2025: Riccardo Picasso, Giovanni Marcenaro, Federico Zaottini, Federico Pistoia, Marta Macciò, Ellert Jan Barendrecht, Emanuele Quarto, Maribel Miguel Pérez and Carlo Martinoli. Clinically relevant stabilizers of the posteromedial and posterolateral knee: normal anatomy, scanning technique, and ultrasound findings in patients with anterior cruciate ligament tear. European Radiology 36:504–514 (2026), DOI 10.1007/s00330-025-11868-8. CC BY 4.0. Original embedded PDF JPEG stream retained without pixel changes; only schematic panel A is proposed for schematic evidence. No endorsement implied."
+        }
+      },
+      "pixel_provenance": {
+        "width": 1511,
+        "height": 770,
+        "acquisition": "Original complete /DCTDecode JPEG stream from source supplement PDF; no crop, resampling, recompression or annotation changes."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex original-pixel, caption and panel reconciliation",
+        "reviewed_at": "2026-09-30",
+        "sha256": "367b6932ce7e591d94370fd1a33e220592f4e21c77c008d17b746dd680b54fc7",
+        "evidence_path": "docs/msk-picasso-knee-source-review/reader-browser-checks.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Publication anatomy provides source candidates; full reporting-component extent and clinical fidelity have not been independently approved."
+      }
+    },
+    {
+      "id": "open-knee-posterior-oblique-arms-picasso-s4",
+      "kind": "clinical_image",
+      "name": "Posterior oblique ligament: three arms and neighbouring tendon",
+      "local_path": "web/reference-media/msk-open/knee-picasso-s4.jpg",
+      "sha256": "3d7a75133e97034f30f00a1eb7e4ef38d11111c32ebb4a7f01a57a4af0b47dc7",
+      "regions": [
+        "knee"
+      ],
+      "investigation_ids": [
+        "ra.mri-knee"
+      ],
+      "structure_ids": [],
+      "structures_observed": [
+        "Posterior oblique ligament: superficial arm (C)",
+        "Posterior oblique ligament: tibial arm (D)",
+        "Semimembranosus tendon: anterior arm",
+        "Medial meniscal body (C)",
+        "Medial meniscal posterior horn (D)"
+      ],
+      "modality": "Ultrasound",
+      "image_state": "source normal anatomical ultrasound reference; whole-examination normality not established",
+      "caption": "Original Supplemental Figure 4 separates schematic A, cadaver dissection B and normal-anatomy ultrasound C/D. C shows the superficial POL arm adjacent to the medial meniscal body and its merger with the anterior semimembranosus arm; D shows the tibial POL arm beside the anterior semimembranosus arm and medial meniscal posterior horn. The three POL arms are distinguished only in schematic A/dissection B. No MRI panel is present.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "Panel A depicts the superficial, tibial and capsular arms and their relationships with superficial MCL and semimembranosus expansions. It does not establish complete attachment footprints, tissue dimensions, independently measured anatomy or any patient-specific ligament integrity. B is a cadaver dissection; C/D are ultrasound and cannot satisfy MRI-only image requirements. Only the explicitly selected panels support this asset; no complete MRI course, physical thickness, attachment footprint or 3D geometry is asserted.",
+      "source_context": {
+        "setting": "unknown",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomical_reference",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "knee"
+        },
+        "selected_panels": [
+          "C",
+          "D"
+        ],
+        "panel_types": {
+          "A": "Schematic",
+          "B": "Dissection",
+          "C": "Ultrasound",
+          "D": "Ultrasound"
+        },
+        "source_evidence": {
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf",
+          "locator": "Supplemental Figure 4, page 4, ultrasound C/D; schematic A separately identified"
+        },
+        "unknowns": [
+          "Age, sex, side and acquisition setting of the ultrasound examples are not supplied.",
+          "Cadaveric preparation in B is not transferred to ultrasound C/D.",
+          "Neither ultrasound C/D nor schematic A proves whole-examination normality, complete physical thickness or measured attachment footprints."
+        ]
+      },
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": [
+          "C",
+          "D"
+        ]
+      },
+      "requirement_coverage": {},
+      "requirement_binding_scope": "Source ultrasound C/D retained for modality-specific anatomy comparison; no MRI requirement bindings.",
+      "requirement_binding_evidence": [],
+      "source": {
+        "url": "https://link.springer.com/article/10.1007/s00330-025-11868-8",
+        "figure_url": "https://link.springer.com/article/10.1007/s00330-025-11868-8#MOESM1",
+        "asset_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-picasso-knee-source-review/rights-and-scope.json",
+          "attribution": "© The Author(s) 2025: Riccardo Picasso, Giovanni Marcenaro, Federico Zaottini, Federico Pistoia, Marta Macciò, Ellert Jan Barendrecht, Emanuele Quarto, Maribel Miguel Pérez and Carlo Martinoli. Clinically relevant stabilizers of the posteromedial and posterolateral knee: normal anatomy, scanning technique, and ultrasound findings in patients with anterior cruciate ligament tear. European Radiology 36:504–514 (2026), DOI 10.1007/s00330-025-11868-8. CC BY 4.0. Original embedded PDF JPEG stream retained without pixel changes; only schematic panel A is proposed for schematic evidence. No endorsement implied."
+        }
+      },
+      "pixel_provenance": {
+        "width": 1539,
+        "height": 562,
+        "acquisition": "Original complete /DCTDecode JPEG stream from source supplement PDF; no crop, resampling, recompression or annotation changes."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex original-pixel, caption and panel reconciliation",
+        "reviewed_at": "2026-09-30",
+        "sha256": "3d7a75133e97034f30f00a1eb7e4ef38d11111c32ebb4a7f01a57a4af0b47dc7",
+        "evidence_path": "docs/msk-picasso-knee-source-review/reader-browser-checks.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Publication anatomy provides source candidates; full reporting-component extent and clinical fidelity have not been independently approved."
+      }
+    },
+    {
+      "id": "open-knee-posterior-oblique-arms-picasso-s4-schematic-a",
+      "kind": "schematic",
+      "name": "Posterior oblique ligament: three arms and neighbouring tendon",
+      "local_path": "web/reference-media/msk-open/knee-picasso-s4.jpg",
+      "sha256": "3d7a75133e97034f30f00a1eb7e4ef38d11111c32ebb4a7f01a57a4af0b47dc7",
+      "regions": [
+        "knee"
+      ],
+      "investigation_ids": [
+        "ra.mri-knee"
+      ],
+      "structure_ids": [
+        "knee.posterior_oblique_ligament.course"
+      ],
+      "structures_observed": [
+        "Posterior oblique ligament: superficial, tibial and capsular arms",
+        "Superficial medial collateral ligament",
+        "Anterior and direct arms of semimembranosus tendon"
+      ],
+      "modality": "Schematic",
+      "image_state": "source normal anatomical ultrasound reference; whole-examination normality not established",
+      "caption": "Original Supplemental Figure 4 separates schematic A, cadaver dissection B and normal-anatomy ultrasound C/D. C shows the superficial POL arm adjacent to the medial meniscal body and its merger with the anterior semimembranosus arm; D shows the tibial POL arm beside the anterior semimembranosus arm and medial meniscal posterior horn. The three POL arms are distinguished only in schematic A/dissection B. No MRI panel is present.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "Panel A depicts the superficial, tibial and capsular arms and their relationships with superficial MCL and semimembranosus expansions. It does not establish complete attachment footprints, tissue dimensions, independently measured anatomy or any patient-specific ligament integrity. B is a cadaver dissection; C/D are ultrasound and cannot satisfy MRI-only image requirements. Only the explicitly selected panels support this asset; no complete MRI course, physical thickness, attachment footprint or 3D geometry is asserted.",
+      "source_context": {
+        "setting": "unknown",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "normal_anatomical_reference",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "knee"
+        },
+        "selected_panels": [
+          "A"
+        ],
+        "panel_types": {
+          "A": "Schematic",
+          "B": "Dissection",
+          "C": "Ultrasound",
+          "D": "Ultrasound"
+        },
+        "source_evidence": {
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf",
+          "locator": "Supplemental Figure 4, schematic A only"
+        },
+        "unknowns": [
+          "Generic schematic; no measured subject, thickness, physical scale or independently validated laterality."
+        ]
+      },
+      "representation_selection": {
+        "kind": "schematic",
+        "panels": [
+          "A"
+        ]
+      },
+      "requirement_coverage": {
+        "knee.posterior_oblique_ligament.course": {
+          "extent": "partial",
+          "basis": "Local source schematic relationships only; complete reportable extent and anatomical fidelity require assessment."
+        }
+      },
+      "requirement_binding_scope": "Local schematic candidate, not full clinical extent or MRI evidence.",
+      "requirement_binding_evidence": [
+        {
+          "structure_id": "knee.posterior_oblique_ligament.course",
+          "source_panels": [
+            "A"
+          ],
+          "scope": "Source-labelled gross anatomical relationship; complete extent and clinical fidelity unverified."
+        }
+      ],
+      "source": {
+        "url": "https://link.springer.com/article/10.1007/s00330-025-11868-8",
+        "figure_url": "https://link.springer.com/article/10.1007/s00330-025-11868-8#MOESM1",
+        "asset_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-picasso-knee-source-review/rights-and-scope.json",
+          "attribution": "© The Author(s) 2025: Riccardo Picasso, Giovanni Marcenaro, Federico Zaottini, Federico Pistoia, Marta Macciò, Ellert Jan Barendrecht, Emanuele Quarto, Maribel Miguel Pérez and Carlo Martinoli. Clinically relevant stabilizers of the posteromedial and posterolateral knee: normal anatomy, scanning technique, and ultrasound findings in patients with anterior cruciate ligament tear. European Radiology 36:504–514 (2026), DOI 10.1007/s00330-025-11868-8. CC BY 4.0. Original embedded PDF JPEG stream retained without pixel changes; only schematic panel A is proposed for schematic evidence. No endorsement implied."
+        }
+      },
+      "pixel_provenance": {
+        "width": 1539,
+        "height": 562,
+        "acquisition": "Original complete /DCTDecode JPEG stream from source supplement PDF; no crop, resampling, recompression or annotation changes."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex original-pixel, caption and panel reconciliation",
+        "reviewed_at": "2026-09-30",
+        "sha256": "3d7a75133e97034f30f00a1eb7e4ef38d11111c32ebb4a7f01a57a4af0b47dc7",
+        "evidence_path": "docs/msk-picasso-knee-source-review/reader-browser-checks.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Publication anatomy provides source candidates; full reporting-component extent and clinical fidelity have not been independently approved."
+      }
+    },
+    {
+      "id": "open-knee-all-meniscotibial-mri-picasso-fig4",
+      "kind": "clinical_image",
+      "name": "ALL injury and adjacent meniscotibial insertion · source MRI B",
+      "local_path": "web/reference-media/msk-open/knee-picasso-fig4.jpg",
+      "sha256": "b34defd2e13d06a943d16fdd0b06ec28561f91a6027567a4167659f6c2be4cc1",
+      "regions": [
+        "knee"
+      ],
+      "investigation_ids": [
+        "ra.mri-knee"
+      ],
+      "structure_ids": [],
+      "structures_observed": [
+        "Anterolateral ligament (locally thickened and wavy, solid arrowheads)",
+        "Lateral meniscotibial ligament (outlined arrowhead at tibial plateau attachment)",
+        "Lateral meniscal body (asterisk)"
+      ],
+      "modality": "MRI",
+      "image_state": "ALL injury example with adjacent meniscotibial attachment; target-specific meniscotibial integrity is not reported",
+      "caption": "Source injury example in a 31-year-old man with recent knee sprain and full-thickness ACL tear. MRI B is a coronal fat-saturated T2-weighted turbo-spin-echo 3 T image: solid arrowheads mark thickening and waviness of the anterolateral ligament; an outlined arrowhead marks the lateral meniscotibial ligament beside its tibial plateau insertion. A is ultrasound from the injured knee; C is contralateral ultrasound with normal ALL appearance. The contralateral normality claim does not apply to MRI B or the whole injured knee.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "Only MRI B is selected for clinical-image scope. The author labels local ALL thickening/waviness and the nearby lateral meniscotibial insertion; one slice does not establish either complete course, attachment footprint, physical tissue dimensions or independently verified integrity. No statement in the source establishes the meniscotibial ligament as normal or injured. ACL rupture belongs to the patient context and is not directly illustrated or credited by this selected MRI slice. Ultrasound A/C, including contralateral normal appearance in C, cannot satisfy MRI requirements or transfer normality to B. Side, MRI slice thickness, voxel spacing, TR/TE and complete examination findings are unreported.",
+      "source_context": {
+        "setting": "in-vivo",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "adult",
+          "age_years": 31,
+          "sex": "male"
+        },
+        "depicted_state": "injury_example",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "knee"
+        },
+        "selected_panels": [
+          "B"
+        ],
+        "panel_types": {
+          "A": "Ultrasound",
+          "B": "MRI",
+          "C": "Ultrasound"
+        },
+        "sequence": "coronal fat-saturated turbo-spin-echo T2-weighted, 3 T",
+        "source_evidence": {
+          "url": "https://link.springer.com/article/10.1007/s00330-025-11868-8/figures/4",
+          "locator": "Figure 4 caption; original article PDF page 6"
+        },
+        "unknowns": [
+          "Laterality is unreported.",
+          "No exact MRI resolution, slice thickness, TR, TE or complete DICOM provenance is supplied.",
+          "The lateral meniscotibial ligament is labelled, but its normality/injury is not stated.",
+          "Full-thickness ACL tear is patient context rather than direct selected-panel coverage."
+        ]
+      },
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": [
+          "B"
+        ]
+      },
+      "source": {
+        "url": "https://link.springer.com/article/10.1007/s00330-025-11868-8",
+        "figure_url": "https://link.springer.com/article/10.1007/s00330-025-11868-8/figures/4",
+        "asset_url": "https://link.springer.com/content/pdf/10.1007/s00330-025-11868-8.pdf",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-picasso-knee-source-review/rights-and-scope.json",
+          "attribution": "© The Author(s) 2025: Riccardo Picasso, Giovanni Marcenaro, Federico Zaottini, Federico Pistoia, Marta Macciò, Ellert Jan Barendrecht, Emanuele Quarto, Maribel Miguel Pérez and Carlo Martinoli. Clinically relevant stabilizers of the posteromedial and posterolateral knee: normal anatomy, scanning technique, and ultrasound findings in patients with anterior cruciate ligament tear. European Radiology 36:504–514 (2026), DOI 10.1007/s00330-025-11868-8. CC BY 4.0. Complete original Figure 4 JPEG stream retained without pixel edits; MRI scope selects B only. No endorsement implied."
+        }
+      },
+      "pixel_provenance": {
+        "width": 1975,
+        "height": 1009,
+        "acquisition": "Original complete page-6 /Im5 /DCTDecode stream extracted without crop, resizing, recompression or annotation edits."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex original-source caption and MRI/ultrasound panel reconciliation",
+        "reviewed_at": "2026-09-30",
+        "sha256": "b34defd2e13d06a943d16fdd0b06ec28561f91a6027567a4167659f6c2be4cc1",
+        "evidence_path": "docs/msk-picasso-knee-source-review/reader-browser-checks.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "A labelled local pathology example does not establish complete course, attachment footprint, target integrity or a complete normal structure. No automatic requirement binding assigned."
+      }
+    },
+    {
+      "id": "open-ankle-peroneus-quartus-mri-yuksel-fig2",
+      "kind": "clinical_image",
+      "name": "Peroneus quartus source MRI",
+      "local_path": "web/reference-media/msk-open/ankle-peroneus-quartus-yuksel-fig2.jpg",
+      "sha256": "904a92bbb213421878213f1207ea799e1c1ec8d6d4458175b295febe44df20b0",
+      "regions": [
+        "ankle"
+      ],
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "structure_ids": [
+        "ankle.peroneus_quartus_muscle.muscle_belly",
+        "ankle.peroneus_quartus_muscle.visible_musculotendinous_course"
+      ],
+      "structures_observed": [
+        "Peroneus quartus (source-labelled accessory belly and limited visible descent)",
+        "Peroneus brevis (source-labelled local axial appearance)",
+        "Peroneus longus (source-labelled local axial appearance)"
+      ],
+      "modality": "MRI",
+      "image_state": "anatomical variant present; individual pain/pathology status unreported",
+      "caption": "Peroneus quartus is present in this source variant example. Panel a is axial fat-suppressed proton-density FSE MRI; blue, green and red arrows identify peroneus brevis, peroneus longus and peroneus quartus, with yellow arrows marking the accessory belly. Coronal T1 FSE b and sagittal T1 FSE c show its visible descent toward the calcaneus. Side and individual clinical status are unreported; this example does not establish a complete course or attachment footprint.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "Source-labelled peroneus quartus variant in three published sections. No side, individual age/sex, complete exam findings or global normality is supplied. The study uses 1.5 T MRI, but this figure has no DICOM metadata or exact panel-specific acquisition provenance. The 760×331 repository JPEG cannot establish a full musculotendinous course, attachment footprint, tissue dimensions, dynamic crowding or symptom causation; no 3D reconstruction is supported. The caption specifies a distal direction toward the retrotrochlear eminence, which is not equivalent to a validated attachment footprint. Its case-specific location is not a universal origin/insertion pattern. No accessory soleus or FDAL is illustrated.",
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "not_reported",
+          "sex": "not_reported"
+        },
+        "depicted_state": "unknown",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "ankle"
+        },
+        "selected_panels": [
+          "a",
+          "b",
+          "c"
+        ],
+        "panel_types": {
+          "a": "MRI",
+          "b": "MRI",
+          "c": "MRI"
+        },
+        "sequence": "a axial FS PD FSE; b coronal T1 FSE; c sagittal T1 FSE; source study uses 1.5 T MRI",
+        "source_evidence": {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/",
+          "locator": "Figure 2 caption and original JPEG; methods 2.1–2.3; article permissions"
+        },
+        "unknowns": [
+          "No side, individual age, sex, pain status or global normality is provided for Figure 2.",
+          "Caption identifies belly in a and a visible descending course in b/c; no complete muscle/tendon course or attachment footprint is proved.",
+          "Exact Figure 2 voxel spacing, individual scan TR/TE, scanner and slice positioning remain unknown without DICOM."
+        ],
+        "anatomical_variant": "peroneus_quartus"
+      },
+      "requirement_coverage": {
+        "ankle.peroneus_quartus_muscle.muscle_belly": {
+          "extent": "partial",
+          "basis": "Limited source depiction only; complete extent, physical dimensions and attachment footprints remain unverified."
+        },
+        "ankle.peroneus_quartus_muscle.visible_musculotendinous_course": {
+          "extent": "partial",
+          "basis": "Limited source depiction only; complete extent, physical dimensions and attachment footprints remain unverified."
+        }
+      },
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/",
+        "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/#diagnostics-15-02329-f002",
+        "asset_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12468075/supplementaryFiles",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-accessory-ankle-source-review/yuksel2025-source-context.json",
+          "attribution": "© 2025 Yavuz Yuksel, Tarkan Ergun and Ozkan Kose. Prevalence of the Peroneus Quartus Muscle and Its Association with Peroneal Tendon Pathologies: An MRI Study of 1160 Ankles. Diagnostics 15(18):2329, DOI 10.3390/diagnostics15182329. CC BY 4.0. Complete original Figure 2 repository JPEG copied byte-for-byte, with source arrows and labels preserved; no endorsement implied."
+        }
+      },
+      "pixel_provenance": {
+        "width": 760,
+        "height": 331,
+        "higher_resolution_pixels_verified": false,
+        "source_stream_preserved": true
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex native source pixels, caption and source-type reconciliation",
+        "reviewed_at": "2026-09-30",
+        "sha256": "904a92bbb213421878213f1207ea799e1c1ec8d6d4458175b295febe44df20b0",
+        "evidence_path": "docs/msk-accessory-ankle-source-review/reader-browser-checks.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Partial illustrative candidate; high-fidelity whole-structure anatomy and all reportable attachments remain unproved."
+      },
+      "representation_selection": {
+        "panels": [
+          "a",
+          "b",
+          "c"
+        ],
+        "source_figure": "Original Figure2 composite; all three selected panels are MRI. No ultrasound or schematic panel is borrowed."
+      }
+    },
+    {
+      "id": "open-ankle-peroneus-quartus-pattern-yuksel-fig1",
+      "kind": "schematic",
+      "name": "Peroneus quartus source course illustration",
+      "local_path": "web/reference-media/msk-open/ankle-peroneus-quartus-yuksel-fig1.jpg",
+      "sha256": "9ed5a78ac97294e20543e63e84cd2a6a02ca6c3bec333a0749ed8dc04327c280",
+      "regions": [
+        "ankle"
+      ],
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "structure_ids": [
+        "ankle.peroneus_quartus_muscle.visible_musculotendinous_course"
+      ],
+      "structures_observed": [
+        "Peroneus quartus: source-depicted local course",
+        "Peroneus brevis",
+        "Peroneus longus",
+        "Retrotrochlear eminence of calcaneus"
+      ],
+      "modality": "Schematic",
+      "image_state": "Source anatomical variant illustration; individual patient state not applicable",
+      "caption": "One source-depicted peroneus-quartus pattern alongside the usual brevis/longus tendons. It is a teaching course illustration, not a measured subject or a universal origin/insertion map.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "One source-described PQ pattern only. Other origins and insertions occur; no measured tissue dimensions, complete individual attachment footprint, dynamic compression or 3D volume is supplied.",
+      "source_context": {
+        "setting": "unknown",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "unknown"
+        },
+        "depicted_state": "unknown",
+        "extent": "local",
+        "anatomical_variant": "peroneus_quartus",
+        "anatomical_site": {
+          "region": "ankle"
+        },
+        "unknowns": [
+          "One illustrative attachment/course pattern; not a measured patient or every PQ variant."
+        ]
+      },
+      "requirement_coverage": {
+        "ankle.peroneus_quartus_muscle.visible_musculotendinous_course": {
+          "extent": "partial",
+          "basis": "Limited source depiction only; complete extent, physical dimensions and attachment footprints remain unverified."
+        }
+      },
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/",
+        "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/#diagnostics-15-02329-f001",
+        "asset_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12468075/supplementaryFiles",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-accessory-ankle-source-review/figure1-license-attribution-followup.json",
+          "attribution": "Article © 2025 Yavuz Yuksel, Tarkan Ergun and Ozkan Kose. Prevalence of the Peroneus Quartus Muscle and Its Association with Peroneal Tendon Pathologies: An MRI Study of 1160 Ankles. Diagnostics 15(18):2329, DOI 10.3390/diagnostics15182329. CC BY 4.0. Original Figure 1 illustration signed Eylem 2025; creator credit/signature retained. Complete repository JPEG copied without pixel edits. No endorsement implied."
+        }
+      },
+      "pixel_provenance": {
+        "width": 664,
+        "height": 625,
+        "higher_resolution_pixels_verified": false,
+        "source_stream_preserved": true,
+        "acquisition": "Exact diagnostics-15-02329-g001.jpg licensed repository ZIP member; 85,216 bytes, 664×625. Complete original JPEG stream retained without crop, resize, recompression or annotation changes; highest-resolution publisher master is not verified."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex native source pixels, caption and source-type reconciliation",
+        "reviewed_at": "2026-09-30",
+        "sha256": "9ed5a78ac97294e20543e63e84cd2a6a02ca6c3bec333a0749ed8dc04327c280",
+        "evidence_path": "docs/msk-accessory-ankle-source-review/reader-browser-checks.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Partial illustrative candidate; high-fidelity whole-structure anatomy and all reportable attachments remain unproved."
+      }
     }
   ]
 }

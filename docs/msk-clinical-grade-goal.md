@@ -11,7 +11,7 @@ prove anatomical completeness or clinical fidelity.
 `data/radiology/msk-structure-requirements.json` inventories the 22 MSK
 investigations and explicitly records supplementary/cross-specialty curriculum
 surfaces. Its reporting references match the effective investigation guides.
-It currently contains 5,229 structure/representation requirements. It is a draft
+It currently contains 5,292 structure/representation requirements. It is a draft
 clinical specification, including unresolved modality boundaries
 and site-dependent conditions. It must not be narrowed to the structures
 already available. Parent structures cannot automatically satisfy their
@@ -953,3 +953,37 @@ Desktop/mobile reader flows and integrity tests pass. Assets and figure rights
 are inventoried; anatomical review stays pending and no complete structure
 binding is inferred. All 5,229 requirements remain in scope. See the reader
 integration section of `docs/msk-lumbosacral-nerve-source-review.md`.
+
+## Reader CT source integration — 30 September 2026
+
+Added the preserved VerSe sub-verse521 T1–L5 source surfaces and native CT crop explorer to the thoracolumbar reader: 17 separately selectable vertebrae, 798,442 triangles, and all supplied crop slices in three planes. All saved positions, topology, CT crop values and label masks remain unchanged. The source CT case and independent MRI neural case have separate viewer selections and accompanying images; their geometries are not registered or combined.
+
+Strict catalog validation binds the runtime manifest, meshes, embedded CT viewer and external renderer to exact hashes. The external renderer preserves the current Content Security Policy. Rights accounting includes the CT viewer and CC BY-SA 4.0 attribution. Source/browser review remains distinct from anatomical approval. All 5,229 clinical representation requirements remain in scope; incomplete or unverified coverage is not waived. Current audit: `msk-verification-reader-verse-2026-09-30.json`.
+
+The VerSe reader now follows each selected vertebra into its matching native CT level. All 17 selection-to-source links and initial CT levels passed browser checks; clearing a selection and invalid level parameters were checked too. Geometry and native CT values are unchanged. Anatomical approval and complete reporting coverage remain pending.
+
+## Native vertebral subregion source acquisition — 30 September 2026
+
+Acquired one original LumASe L3 CT/annotation pair using bounded ZIP ranges and per-member integrity checks. The source record declares CC BY 4.0; the distinct newer LumbarSeg-6K derivative has noncommercial terms and was not used for commercial runtime assets. The native pair has matching grid/affine and seven foreground label values at approximately 0.41 × 0.41 × 0.5 mm resolution. Anatomical label meanings remain unresolved rather than inferred from numeric order. See `msk-vertebral-substructure-source-review.md` and its provenance/native-audit records. This is an offline source candidate, not a verified reporting-component binding.
+
+The LumASe candidate now has an 18-plane native CT/label crop-boundary review. A documented ten-case L3 mask screen retained every result; all ten contain seven labels but touch the source crop boundary. None passes the surrounding-margin screen. This prevents an unsupported full-geometry promotion or invented closure caps. Numeric label meanings and anatomical endpoint completeness remain unverified; the full MSK requirement scope is unchanged.
+
+Prepared seven offline numeric LumASe source surfaces (238,484 triangles), retaining 182 open crop edges without fabricated caps. Native CT/mask provenance, exact saved-array reload checks, basic topology/area checks and trilinear vertex sampling are recorded. Thirteen label-2 marching-cubes helper approximations were retained explicitly. Three review projections show the original region shapes and open crop edges. Anatomical label meanings, biological boundary accuracy and complete endpoints remain unverified; no reporting-component requirements were marked complete. An original-schema inquiry is drafted but unsent.
+
+## Independent review and new knee source figures — 30 September 2026
+
+Parallel source work produced an independent VerSe geometry/CT-crop consistency review and a stronger original LumASe author publication. The latter confirms the original dataset/annotation process but still does not establish the numeric label dictionary. The VerSe reader now exposes stored 1.0 mm slice spacing separately from the recorded 1.5 mm acquisition thickness; no effective anatomical-resolution or clinical approval is inferred.
+
+Added three unchanged, commercially reusable CC BY 4.0 knee source composites from Picasso et al. Supplemental schematics add four explicitly partial component candidates for semimembranosus/POL/OPL relationships. Their dissection and ultrasound panels remain distinct. Main Figure 4 MRI retains the labelled ALL injury/ACL-torn knee context; contralateral normality belongs to ultrasound C alone. No complete MRI course, attachment footprint, physical tissue dimensions or 3D volumes were inferred. Desktop/mobile source enlargement and panel-context checks passed. Current audit: 5,229 requirements, 0 verified, 165 unverified, 5,064 missing; runtime reference rights 85 cleared and 141 unverified. The clinical/commercial goal remains incomplete.
+
+## Projection scope and OPL source reconciliation — 30 September 2026
+
+The hip arthroplasty walkthrough already asks for lateral Gruen zones 8–14, but those parts were absent from the requirement inventory. They are now retained as seven additional parts/21 representation obligations. All fourteen femoral zones carry AP/lateral context, and the verifier rejects wrong or unresolved projections. The native hip source and reporting guide now disclose missing implant/zonal geometry instead of inheriting an FAI/labrum aim. The existing AP-only source figure is not credited to the lateral zones.
+
+Fresh source inspection also established that the existing source-named right OPL object is a separate closed nonplanar artist surface with 186 original positions and 368 triangles. Its unchanged geometry now has one partial, unapproved gross-course candidate binding. No measured volume, attachment footprint, POL arm, contralateral geometry or normality was inferred. Browser selection/isolation and native source comparisons are documented separately. Current audit: 5,250 requirements; 0 verified, 166 unverified and 5,084 missing. The full clinical/commercial goal remains incomplete.
+
+## AIIS and named accessory ankle scope — 30 September 2026
+
+Existing reporting steps explicitly name AIIS/subspine morphology and peroneus quartus, accessory soleus and flexor digitorum accessorius longus. Their missing parts are now represented by 42 additional obligations, preserving acquisition, variant-presence and coverage conditions. A typed anatomical-variant guard rejects ordinary anatomy and mismatched accessory muscles; it does not convert unknown clinical state into a pathology example. The hip MRI protocol-boundary review was reconciled with the additive bone scope without weakening its acquired-MRI condition.
+
+Two unchanged CC BY 4.0 peroneus-quartus source JPEGs now provide three partial, unapproved image/schematic candidates. Original MRI panels, source arrows and the schematic's Eylem 2025 creator signature remain intact. No attachments, other accessory muscles or 3D reconstruction are credited. Native-size enlargement and desktop/mobile reader checks passed. Current audit: 5,292 obligations; 0 verified, 169 unverified and 5,123 missing. The clinical/commercial goal remains incomplete. See `msk-verification-aiis-pq-2026-09-30.json` and `msk-accessory-ankle-source-review.md`.

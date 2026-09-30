@@ -26,6 +26,7 @@ def reference_images(curriculum, catalogue, requirements, detail):
         surfaces.append(surface)
         collections = {field: reference.get(field, []) for field in ('key_images', 'structure_atlas', 'anatomical_illustrations')}
         collections['source_anatomy_images'] = [source['source_image'] for source in reference.get('source_anatomy_references', []) if source.get('source_image')]
+        collections['source_anatomy_ct_volumes'] = [source['source_volume'] for source in reference.get('source_anatomy_references', []) if source.get('source_volume')]
         for field, images in collections.items():
             for image in images:
                 src = image.get('src')

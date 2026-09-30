@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "status": "source_review_complete_unapproved_candidate",
+  "reviewed_at": "2026-09-30",
+  "doi": "10.3390/diagnostics15182329",
+  "pmcid": "PMC12468075",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/",
+  "source_xml_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12468075/fullTextXML",
+  "source_xml_sha256": "a91d7e5d3f5012ecf13a17df1f948e07ba2a642fd1facd5c9afa419ad592e0b3",
+  "source_xml_bytes": 144622,
+  "source_xml_local_cache": ".research/accessory-muscle-figures/article.xml",
+  "source_api_documentation": "https://europepmc.org/RestfulWebService",
+  "title": "Prevalence of the Peroneus Quartus Muscle and Its Association with Peroneal Tendon Pathologies: An MRI Study of 1160 Ankles",
+  "authors": [
+    "Yavuz Yuksel",
+    "Tarkan Ergun",
+    "Ozkan Kose"
+  ],
+  "copyright": "© 2025 by the authors.",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "rights_statement_full": "© 2025 by the authors.2025https://creativecommons.org/licenses/by/4.0/Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (https://creativecommons.org/licenses/by/4.0/).",
+  "figure_id": "diagnostics-15-02329-f002",
+  "figure_number": 2,
+  "figure_caption_full": "MRI appearance of the peroneus quartus (PQ) muscle in the lateral compartment of the leg. (a) Axial fat-suppressed proton density–weighted fast spin echo (FSE) image showing the peroneus brevis (blue arrow), peroneus longus (green arrow), and the accessory peroneus quartus muscle (red arrow). The PQ lies posterior to the fibula and lateral to the other peroneal tendons. Yellow arrows indicate the muscle belly of the PQ. (b) Coronal T1-weighted FSE image demonstrating the longitudinal course of the PQ muscle (yellow arrows) descending toward the calcaneus. (c) Sagittal T1-weighted fast spin echo (FSE) image demonstrating the peroneus quartus (PQ) muscle extending distally toward its insertion on the retrotrochlear eminence of the calcaneus (yellow arrows).",
+  "source_figure_name": "diagnostics-15-02329-g002.jpg",
+  "figure_credit_review": {
+    "separate_credit_element_present": false,
+    "reproduced_or_adapted_credit_present": false,
+    "basis": "Original Figure 2 XML/caption, article permissions and native 760×331 repository JPEG visually inspected. No separate excluded credit is present."
+  },
+  "context": {
+    "setting": "in-vivo clinical MRI",
+    "laterality": "not_reported",
+    "age_years": null,
+    "sex": "not_reported",
+    "variant_presence": "peroneus quartus present as identified by source",
+    "depicted_state": "anatomical variant example; individual pain and associated pathology unreported",
+    "extent": "local published sections only",
+    "panel_types": {
+      "a": "MRI",
+      "b": "MRI",
+      "c": "MRI"
+    },
+    "sequences": {
+      "a": "Axial fat-suppressed proton-density weighted FSE",
+      "b": "Coronal T1-weighted FSE",
+      "c": "Sagittal T1-weighted FSE"
+    },
+    "study_protocol": {
+      "field_strength_tesla": 1.5,
+      "position": "supine with neutral ankle",
+      "scanner_models": [
+        "GE Signa Explorer",
+        "Siemens Magnetom Altea"
+      ],
+      "selected_figure_scanner_identified": false,
+      "exact_figure_DICOM_available": false
+    },
+    "study_selection": "Routine ankle MRI for any clinical indication, June 2021–October 2023. Study exclusions apply to selected scans; figure-specific complete examination findings are not provided.",
+    "raw_data_availability": "Underlying datasets are not public; requests to corresponding author mentioned by source but no request sent.",
+    "anatomical_variant": "peroneus_quartus"
+  },
+  "scope_limits": [
+    "No side, individual age, sex, pain status or global normality is provided for Figure 2.",
+    "Caption identifies belly in a and a visible descending course in b/c; no complete muscle/tendon course or attachment footprint is proved.",
+    "Individual anatomy is variable; article body describes a typical posterior/medial course relative to peroneal tendons, while Figure 2 caption specifically calls the shown PQ lateral to them. Preserve source case-specific labels; do not treat that location as universal.",
+    "Study protocol parameters do not establish the exact voxel dimensions or acquisition parameters of the Figure 2 panels without DICOM.",
+    "No raw volume or segmentation, dynamic crowding measurement, symptom causation, patient-specific simulation or 3D geometry can be inferred from this JPEG.",
+    "Accessory soleus and FDAL are not shown and obtain no coverage from this asset."
+  ],
+  "clinical_approval": false,
+  "runtime_promoted_by_this_review": false,
+  "existing_requirement_ids": [
+    "ankle.peroneus_quartus_muscle.muscle_belly",
+    "ankle.peroneus_quartus_muscle.visible_musculotendinous_course"
+  ],
+  "future_target_descriptors": [
+    {
+      "structure_id": "ankle.peroneus_quartus_muscle",
+      "part_id": "ankle.peroneus_quartus_muscle.muscle_belly",
+      "representation": "image",
+      "candidate_extent": "partial source-labelled visible accessory belly in a",
+      "approval": "pending"
+    },
+    {
+      "structure_id": "ankle.peroneus_quartus_muscle",
+      "part_id": "ankle.peroneus_quartus_muscle.visible_musculotendinous_course",
+      "representation": "image",
+      "candidate_extent": "partial source-labelled visible descent in b/c, not complete course",
+      "approval": "pending"
+    }
+  ],
+  "requirements_review": {
+    "path": "data/radiology/msk-structure-requirements.json",
+    "status": "Root scope correction now contains the named PQ belly/course targets and anatomical_variant guard. Proposal can name these two image targets only as partial and unapproved. No ledger/core binding is applied by this subtask.",
+    "initial_snapshot_sha256": "db2522460d9b661e2098e3eb9d520bf4d4b2857eb452c91a495c6a69a538c34a",
+    "initial_matching_PQ_requirement_found": false,
+    "sha256_at_followup": "46c9eb76d2160fa4a46e7ee2c6c9c9d1046fc64ecd953471c19af1c737d0aa18",
+    "matching_PQ_requirement_found": true
+  },
+  "access_attempts": [
+    {
+      "url": "https://www.mdpi.com/2075-4418/15/18/2329",
+      "status": "429 from web tool; no retry or bypass"
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/",
+      "status": "public article page accessible via web tool"
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/figure/diagnostics-15-02329-f002/",
+      "status": "reCAPTCHA page; no retry or bypass"
+    },
+    {
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12468075/fullTextXML",
+      "status": "HTTP200 through documented public open-access repository API"
+    },
+    {
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12468075/supplementaryFiles",
+      "status": "First attempt terminal socket timeout; one bounded retry completed HTTP200, ZIP 384102 bytes, 8 members. Only the exact Figure 2 JPEG was extracted into the review; other images were not proposed or integrated."
+    },
+    {
+      "url": "https://europepmc.org/articles/PMC12468075?pdf=render",
+      "status": "Exact Open Access PDF URL obtained from Europe PMC public core metadata; ordinary request returned403. Stopped; no bypass or alternate backend request."
+    }
+  ],
+  "source_pixels": {
+    "path": "docs/msk-accessory-ankle-source-review/yuksel2025-peroneus-quartus-mri-fig2.jpg",
+    "bytes": 74814,
+    "sha256": "904a92bbb213421878213f1207ea799e1c1ec8d6d4458175b295febe44df20b0",
+    "width": 760,
+    "height": 331,
+    "format": "JPEG",
+    "pixel_edits": false,
+    "encoded_stream_preserved": true,
+    "publisher_native_resolution_known": false
+  },
+  "acquisition": {
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12468075/supplementaryFiles",
+    "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12468075/supplementaryFiles",
+    "status": 200,
+    "content_type": "application/zip",
+    "bytes": 384102,
+    "sha256": "e32568d3b6c4d36fcdeab9df3dc703a0c5a5375d43b89408c15f429213c081f3",
+    "elapsed_seconds": 120.864441208,
+    "figure_member": "diagnostics-15-02329-g002.jpg",
+    "figure_bytes": 74814,
+    "figure_sha256": "904a92bbb213421878213f1207ea799e1c1ec8d6d4458175b295febe44df20b0"
+  },
+  "visual_review": {
+    "status": "source_checked_unapproved",
+    "checked_by": "Codex source review",
+    "at": "2026-09-30",
+    "pixel_observations": [
+      "Three panels a/b/c match the source caption modality/plane labels.",
+      "Axial panel retains red/green/blue arrows and additional yellow arrows; b/c retain yellow arrows.",
+      "No visible left/right marker or identifying patient text is established by inspection.",
+      "The figure has a white border and a small native localizer fragment at the bottom right; neither was cropped.",
+      "No third-party image credit, watermark or source exclusion is visible."
+    ],
+    "limits": [
+      "This is a published 760×331 image: source native higher-resolution publisher pixels are unknown.",
+      "Pixel inspection by an automated agent is not a clinical or anatomical approval.",
+      "Do not use this low-resolution 2D composite to reconstruct or extrude 3D tissue anatomy."
+    ]
+  },
+  "media_zip_inventory": [
+    {
+      "name": "diagnostics-15-02329-g002.gif",
+      "bytes": 13018,
+      "sha256": "f9bf7e6e8e01251c434e9015c111c9a3018d08b694cce9ff764fd76049ca07fc"
+    },
+    {
+      "name": "diagnostics-15-02329-g001.gif",
+      "bytes": 8301,
+      "sha256": "52b10b4683e5069e8ecd0ae666019e2e39af740a52914ea840d64b6dc680bcda"
+    },
+    {
+      "name": "diagnostics-15-02329-g001.jpg",
+      "bytes": 85216,
+      "sha256": "9ed5a78ac97294e20543e63e84cd2a6a02ca6c3bec333a0749ed8dc04327c280"
+    },
+    {
+      "name": "diagnostics-15-02329-g003.jpg",
+      "bytes": 56660,
+      "sha256": "dc263d68fa48058824f175cc0afd2186418390fa60b8f586ef5d1bbb2bc87359"
+    },
+    {
+      "name": "diagnostics-15-02329-g004.jpg",
+      "bytes": 140214,
+      "sha256": "06f6df5c23019b7f587640eee884a4827d1f6d44f9bf1c0566b625529d7e392b"
+    },
+    {
+      "name": "diagnostics-15-02329-g002.jpg",
+      "bytes": 74814,
+      "sha256": "904a92bbb213421878213f1207ea799e1c1ec8d6d4458175b295febe44df20b0"
+    },
+    {
+      "name": "diagnostics-15-02329-g004.gif",
+      "bytes": 9172,
+      "sha256": "7990da6f7d6276a084daa7158a520fab536765f433b4deb324fa8bacfe58ea34"
+    },
+    {
+      "name": "diagnostics-15-02329-g003.gif",
+      "bytes": 9442,
+      "sha256": "ed4cec6c560a1893011263e9a9224476b526a068b5c2679c9ac73ec421f95ddb"
+    }
+  ],
+  "higher_resolution_review": {
+    "media_zip_has_pdf": false,
+    "alternate_figure2_jpeg_present": false,
+    "figure2_jpeg_inventory_count": 1,
+    "pdf_url_discovery": "Europe PMC documented public core metadata contains an Open access/PDF full-text URL",
+    "pdf_url": "https://europepmc.org/articles/PMC12468075?pdf=render",
+    "ordinary_pdf_request_result": "HTTP403 Forbidden",
+    "further_pdf_routes_attempted": false,
+    "conclusion": "No higher-resolution Figure2 stream acquired. The denied PDF was not retried through an alternate backend URL; the exact760×331 repository JPEG remains explicitly limited. This is not proof that no higher-resolution publisher master exists."
+  }
+}

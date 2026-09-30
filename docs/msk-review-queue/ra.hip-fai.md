@@ -71,6 +71,8 @@ Investigation: `ra.hip-fai`
 | Iliopsoas muscle (`hip.iliopsoas_muscle`) | missing | missing | missing | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
 | Quadratus femoris muscle (`hip.quadratus_femoris_muscle`) | missing | missing | missing | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
 | Proximal hamstring muscles (`hip.proximal_hamstring_muscles`) | missing | missing | missing | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
+| Inferior prominence (caudal osseous extent) (`hip.anterior_inferior_iliac_spine.inferior_prominence`) | missing | missing | missing | For the existing subspine morphology finding, on the examined side and within acquired coverage. Radiography describes the visible projected osseous extent; 3D morphology and the subspine surface require suitable cross-sectional acquisition. Routine AP radiography alone does not establish a 3D type. MRI bone morphology is assessed only when resolution/sequences permit; no dynamic impingement, clinical diagnosis or tissue attachment is inferred. / Radiography, CT, MRI |
+| Ilium surface between AIIS and anterior acetabular rim (`hip.anterior_inferior_iliac_spine.subspine_region`) | missing | missing | missing | For the existing subspine morphology finding, on the examined side and within acquired coverage. Radiography describes the visible projected osseous extent; 3D morphology and the subspine surface require suitable cross-sectional acquisition. Routine AP radiography alone does not establish a 3D type. MRI bone morphology is assessed only when resolution/sequences permit; no dynamic impingement, clinical diagnosis or tissue attachment is inferred. / Radiography, CT, MRI |
 
 ## Candidate evidence
 
@@ -79,7 +81,7 @@ Investigation: `ra.hip-fai`
 - Asset: `open-hip-posterior-labral-recess-mra-aubry-fig5`
 - Local file: [web/reference-media/msk-open/hip-posterior-labrum-variant-mra-aubry-fig5.jpg](../../web/reference-media/msk-open/hip-posterior-labrum-variant-mra-aubry-fig5.jpg)
 - Artifact SHA-256: `7a09ca9407206ca9d3518fa0eaf5e9b23e74a5c711a7555a47a5c51b95332062`
-- Review-scope SHA-256: `b8f0a615928b62d586b33e49684a240c66b26aa8c03617e6155c96bd25f6b70d`
+- Review-scope SHA-256: `776815ea17d40e411ea2eaea248718495a7431b2e5b6f9a0167dd26da2737aef`
 - Source: [Original source](https://link.springer.com/article/10.1007/s13244-010-0023-x)
 - Licence: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -98,7 +100,7 @@ Investigation: `ra.hip-fai`
 - Asset: `open-hip-gluteus-minimus-comparison-mri-amin-fig3`
 - Local file: [web/reference-media/msk-open/hip-gluteus-minimus-comparison-mri-amin-fig3.jpg](../../web/reference-media/msk-open/hip-gluteus-minimus-comparison-mri-amin-fig3.jpg)
 - Artifact SHA-256: `c58ddd8f8e6235c812f6903c7c8fc3d64ac990f806404bccdd76f43af059cb49`
-- Review-scope SHA-256: `a1adcfef0688ffa40ad94da791935c432530a98b0c6beeb4736dd422aa44f9c8`
+- Review-scope SHA-256: `4d0a170077427ee0ff5370fd2ced91c4a6e823d7f56f5327e8b053e0089cdda8`
 - Source: [Original source](https://link.springer.com/article/10.1186/s43055-022-00754-8)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -117,7 +119,7 @@ Investigation: `ra.hip-fai`
 - Asset: `open-hip-tendon-boutin-fig6-7`
 - Local file: [web/reference-media/msk-open/hip-tendon-boutin-fig6-7.png](../../web/reference-media/msk-open/hip-tendon-boutin-fig6-7.png)
 - Artifact SHA-256: `ad70f37a16a127d40c49c4dfe41d0edb39eb06b7bbb6d405da660dc9f17c6801`
-- Review-scope SHA-256: `0c0e468267d7c0478c37392901bad856942a7bb18332699639dcaf235a6070a4`
+- Review-scope SHA-256: `e94953bbcdb14004d7819d2bf5e18894935738429127d97a33522d746f5ef7b5`
 - Source: [Original source](https://link.springer.com/chapter/10.1007/978-3-030-71281-5_6)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -136,7 +138,7 @@ Investigation: `ra.hip-fai`
 - Asset: `open-hip-rectus-femoris-course-mecho-fig2`
 - Local file: [web/reference-media/msk-open/hip-rectus-femoris-course-mecho-fig2.png](../../web/reference-media/msk-open/hip-rectus-femoris-course-mecho-fig2.png)
 - Artifact SHA-256: `eed1b91fbad07776381ff56a87d803df49b7a85180c42d04c2fd19e22aec7f8c`
-- Review-scope SHA-256: `36993eefaca98c4973aa56a6d91343aaa63caef0eeae362e318ce19084921eb1`
+- Review-scope SHA-256: `8420a9bdbb3f7afd67a9b293573c790667149615b35cd602ee6f31ccf727d5cb`
 - Source: [Original source](https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2023.986872/full)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -155,7 +157,7 @@ Investigation: `ra.hip-fai`
 - Asset: `open-hip-proximal-hamstring-schematic-balius-fig2`
 - Local file: [web/reference-media/msk-open/hip-proximal-hamstring-anatomy-balius-fig2.png](../../web/reference-media/msk-open/hip-proximal-hamstring-anatomy-balius-fig2.png)
 - Artifact SHA-256: `e4333402c44d4c5770894c0667d1b662b467850450c3b671aeda85b3bdd75e66`
-- Review-scope SHA-256: `ac7386082d1eeb775f47063ba4b724b49383aea19d55cd5b07ff4e914a494a92`
+- Review-scope SHA-256: `fbbc0004a0b5742816092ce12f871e0beec9cf7e2b82e1efe399aa56766b0c3c`
 - Source: [Original source](https://link.springer.com/article/10.1007/s00256-019-03208-x)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -174,7 +176,7 @@ Investigation: `ra.hip-fai`
 - Asset: `open-hip-tendon-boutin-fig6-5`
 - Local file: [web/reference-media/msk-open/hip-tendon-boutin-fig6-5.png](../../web/reference-media/msk-open/hip-tendon-boutin-fig6-5.png)
 - Artifact SHA-256: `b1d420d461d43f0fa85981c138df6840004f49e2a8513b8e1cbe84875f1150ba`
-- Review-scope SHA-256: `5f8c0825126754bb92ad8b2fdd23c16dfe9973000b9c931251308308b1384ed1`
+- Review-scope SHA-256: `3459726fe833fda8360b9e6036a89f713b6e0efbd186ef8098155e61e489a29a`
 - Source: [Original source](https://link.springer.com/chapter/10.1007/978-3-030-71281-5_6)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified

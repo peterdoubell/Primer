@@ -45,6 +45,13 @@ Investigation: `ra.hip-arthroplasty`
 | Greater trochanter (`hip_arthroplasty.femoral_host_bone.greater_trochanter`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
 | Lesser trochanter (`hip_arthroplasty.femoral_host_bone.lesser_trochanter`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
 | Stem-tip adjacent diaphysis (`hip_arthroplasty.femoral_host_bone.stem_tip_adjacent_diaphysis`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
+| Gruen zone 8 (`hip_arthroplasty.femoral_host_bone.gruen_zone_8`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
+| Gruen zone 9 (`hip_arthroplasty.femoral_host_bone.gruen_zone_9`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
+| Gruen zone 10 (`hip_arthroplasty.femoral_host_bone.gruen_zone_10`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
+| Gruen zone 11 (`hip_arthroplasty.femoral_host_bone.gruen_zone_11`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
+| Gruen zone 12 (`hip_arthroplasty.femoral_host_bone.gruen_zone_12`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
+| Gruen zone 13 (`hip_arthroplasty.femoral_host_bone.gruen_zone_13`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
+| Gruen zone 14 (`hip_arthroplasty.femoral_host_bone.gruen_zone_14`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
 | Teardrops (`hip_arthroplasty.pelvic_reference_landmarks.teardrops`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
 | Ischial tuberosities (`hip_arthroplasty.pelvic_reference_landmarks.ischial_tuberosities`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
 | Pubic symphysis (`hip_arthroplasty.pelvic_reference_landmarks.pubic_symphysis`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |

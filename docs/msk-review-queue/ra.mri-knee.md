@@ -59,13 +59,13 @@ Investigation: `ra.mri-knee`
 | Midsubstance (`knee.fibular_collateral_ligament.midsubstance`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Fibular attachment (`knee.fibular_collateral_ligament.fibular_attachment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Attachments (`knee.posterior_oblique_ligament.attachments`) | missing | missing | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
-| Course (`knee.posterior_oblique_ligament.course`) | missing | missing | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
+| Course (`knee.posterior_oblique_ligament.course`) | missing | unverified | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
 | Attachments (`knee.popliteofibular_ligament.attachments`) | missing | missing | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
 | Course (`knee.popliteofibular_ligament.course`) | unverified | unverified | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
 | Attachments (`knee.arcuate_ligament.attachments`) | missing | missing | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
 | Course (`knee.arcuate_ligament.course`) | missing | unverified | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
 | Attachments (`knee.oblique_popliteal_ligament.attachments`) | missing | missing | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
-| Course (`knee.oblique_popliteal_ligament.course`) | missing | missing | missing | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
+| Course (`knee.oblique_popliteal_ligament.course`) | missing | unverified | unverified | Posteromedial/posterolateral corner evaluation; small-component anatomy requires dedicated specialist verification. / MRI |
 | Femoral attachment (`knee.popliteus_tendon.femoral_attachment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Intra-articular segment (`knee.popliteus_tendon.intra_articular_segment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Popliteal hiatus segment (`knee.popliteus_tendon.popliteal_hiatus_segment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -73,8 +73,8 @@ Investigation: `ra.mri-knee`
 | Distal course (`knee.biceps_femoris_tendon.distal_course`) | missing | unverified | missing | Within the acquired anatomical coverage. / MRI |
 | Fibular insertion (`knee.biceps_femoris_tendon.fibular_insertion`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Relationship to fibular collateral ligament (`knee.biceps_femoris_tendon.relationship_to_fibular_collateral_ligament`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Distal course (`knee.semimembranosus_tendon.distal_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Tibial attachment (`knee.semimembranosus_tendon.tibial_attachment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Distal course (`knee.semimembranosus_tendon.distal_course`) | missing | unverified | missing | Within the acquired anatomical coverage. / MRI |
+| Tibial attachment (`knee.semimembranosus_tendon.tibial_attachment`) | missing | unverified | missing | Within the acquired anatomical coverage. / MRI |
 | Distal course (`knee.semitendinosus_tendon.distal_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Tibial attachment (`knee.semitendinosus_tendon.tibial_attachment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Distal course (`knee.gracilis_tendon.distal_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -450,6 +450,25 @@ Investigation: `ra.mri-knee`
 - Limits: Single normal-component coronal image; does not show the entire superficial MCL or complete femoral/distal tibial entheses. The source caption names meniscofemoral/meniscotibial ligaments in the medial collateral complex, not the Humphrey/Wrisberg meniscofemoral ligaments. Laterality and whole-examination clinical state are not reported. Evidence-ledger selection: unlettered only. Exact primary caption and retained arrows; local named component candidates only. No complete course or attachment-surface claim.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### knee.posterior_oblique_ligament.course — schematic
+
+- Asset: `open-knee-posterior-oblique-arms-picasso-s4-schematic-a`
+- Local file: [web/reference-media/msk-open/knee-picasso-s4.jpg](../../web/reference-media/msk-open/knee-picasso-s4.jpg)
+- Artifact SHA-256: `3d7a75133e97034f30f00a1eb7e4ef38d11111c32ebb4a7f01a57a4af0b47dc7`
+- Review-scope SHA-256: `50c3c859e40f9b10c162a8b632970fde215185c51f08ecb48e0b9691665f311a`
+- Source: [Original source](https://link.springer.com/article/10.1007/s00330-025-11868-8)
+- Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: © The Author(s) 2025: Riccardo Picasso, Giovanni Marcenaro, Federico Zaottini, Federico Pistoia, Marta Macciò, Ellert Jan Barendrecht, Emanuele Quarto, Maribel Miguel Pérez and Carlo Martinoli. Clinically relevant stabilizers of the posteromedial and posterolateral knee: normal anatomy, scanning technique, and ultrasound findings in patients with anterior cruciate ligament tear. European Radiology 36:504–514 (2026), DOI 10.1007/s00330-025-11868-8. CC BY 4.0. Original embedded PDF JPEG stream retained without pixel changes; only schematic panel A is proposed for schematic evidence. No endorsement implied.
+- Rights evidence: docs/msk-picasso-knee-source-review/rights-and-scope.json
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'Local source schematic relationships only; complete reportable extent and anatomical fidelity require assessment.'}
+- Selection: {'kind': 'schematic', 'panels': ['A']}
+- Source context: {'setting': 'unknown', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'anatomical_site': {'region': 'knee'}, 'selected_panels': ['A'], 'panel_types': {'A': 'Schematic', 'B': 'Dissection', 'C': 'Ultrasound', 'D': 'Ultrasound'}, 'source_evidence': {'url': 'https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf', 'locator': 'Supplemental Figure 4, schematic A only'}, 'unknowns': ['Generic schematic; no measured subject, thickness, physical scale or independently validated laterality.']}
+- Limits: Panel A depicts the superficial, tibial and capsular arms and their relationships with superficial MCL and semimembranosus expansions. It does not establish complete attachment footprints, tissue dimensions, independently measured anatomy or any patient-specific ligament integrity. B is a cadaver dissection; C/D are ultrasound and cannot satisfy MRI-only image requirements. Only the explicitly selected panels support this asset; no complete MRI course, physical thickness, attachment footprint or 3D geometry is asserted.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### knee.popliteofibular_ligament.course — clinical_image
 
 - Asset: `open-knee-popliteofibular-mri-wu-fig4`
@@ -507,6 +526,44 @@ Investigation: `ra.mri-knee`
 - Limits: Main structures_visible is confined to labels actually visible in MRI b; one cross-section does not prove complete ligament courses, origins, insertions or tiny-component fidelity. Panel a is dissection; c/d are schematic color overlays, recorded separately. The source caption incorrectly repeats a for MRI; the visible panel label b is used in curated metadata. MRI patient context is not supplied; the source’s ultrasound volunteer is not assumed to be the MRI subject. Evidence-ledger selection: c, d only. Source color-coded schematic overlays: d purple PFL and orange arcuate course; c red distal biceps course. Local educational courses only, not metric geometry, clinical images or proven attachments. MRI b and dissection a are not evidence for these schematic leaf candidates.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### knee.oblique_popliteal_ligament.course — schematic
+
+- Asset: `open-knee-semimembranosus-expansions-picasso-s1`
+- Local file: [web/reference-media/msk-open/knee-picasso-s1.jpg](../../web/reference-media/msk-open/knee-picasso-s1.jpg)
+- Artifact SHA-256: `367b6932ce7e591d94370fd1a33e220592f4e21c77c008d17b746dd680b54fc7`
+- Review-scope SHA-256: `18342d9395ee073a1a6b8cfb0262947355d5744fc302d9223cfd04e6062acc15`
+- Source: [Original source](https://link.springer.com/article/10.1007/s00330-025-11868-8)
+- Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: © The Author(s) 2025: Riccardo Picasso, Giovanni Marcenaro, Federico Zaottini, Federico Pistoia, Marta Macciò, Ellert Jan Barendrecht, Emanuele Quarto, Maribel Miguel Pérez and Carlo Martinoli. Clinically relevant stabilizers of the posteromedial and posterolateral knee: normal anatomy, scanning technique, and ultrasound findings in patients with anterior cruciate ligament tear. European Radiology 36:504–514 (2026), DOI 10.1007/s00330-025-11868-8. CC BY 4.0. Original embedded PDF JPEG stream retained without pixel changes; only schematic panel A is proposed for schematic evidence. No endorsement implied.
+- Rights evidence: docs/msk-picasso-knee-source-review/rights-and-scope.json
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'Local source schematic relationships only; complete reportable extent and anatomical fidelity require assessment.'}
+- Selection: {'kind': 'schematic', 'panels': ['A']}
+- Source context: {'setting': 'unknown', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'anatomical_site': {'region': 'knee'}, 'selected_panels': ['A'], 'panel_types': {'A': 'Schematic', 'B': 'Dissection', 'C': 'Dissection'}, 'source_evidence': {'url': 'https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf', 'locator': 'Supplemental Figure 1, page 1; anatomy sections of the article'}, 'unknowns': ['Source schematic is generic: no measured subject, side, age, sex, thickness or physical scale is certified.', 'Specimen context is not transferred to the schematic or any MRI.']}
+- Limits: Panel A depicts gross distal expansions and neighbouring ligament relationships. It does not provide measured tissue thickness, attachment footprints, complete ligament volumes or all anatomic variants. B/C are cadaver dissections; they are neither MRI nor independent living-patient normality evidence. Only the explicitly selected panels support this asset; no complete MRI course, physical thickness, attachment footprint or 3D geometry is asserted.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### knee.oblique_popliteal_ligament.course — model
+
+- Asset: `za-joints-711785439`
+- Local file: [web/anatomy/msk-atlas/za-joints-711785439.bin](../../web/anatomy/msk-atlas/za-joints-711785439.bin)
+- Artifact SHA-256: `af608d8a0a26c404bb4998bd8b0eb72586a2e0ef663564b777df7f5da6a4fe02`
+- Review-scope SHA-256: `7507f35661578b198bfde4ace798106ecda975d1ad7a5f5cad047e069b29b7ab`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'Source-named artist surface and preserved right-knee coordinates; biological course and complete endpoints remain unverified.'}
+- Selection: Not recorded
+- Source context: {'setting': 'unknown', 'laterality': 'right', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'unknown', 'extent': 'local', 'anatomical_site': {'region': 'knee'}, 'unknowns': ['Artist atlas object; no source patient or measured segmentation is established.', 'Only source-side label and gross region are used; no contralateral geometry or complete attachments inferred.', 'No patient-specific or independently established normality is inferred from the artist atlas.']}
+- Limits: Separate right-sided artist surface with 186 native positions and 368 triangles. Partial gross-course candidate only: no independently validated anatomy, measured tissue thickness, component arms, attachment footprints or MRI-derived volume. A closed surface is not proof of biological extent.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### knee.biceps_femoris_tendon.distal_course — schematic
 
 - Asset: `open-knee-plc-anatomy-wu-fig1-schematic-panels`
@@ -525,6 +582,44 @@ Investigation: `ra.mri-knee`
 - Source context: {'setting': 'unknown', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'anatomical_site': {'region': 'knee'}, 'selected_panels': ['c', 'd'], 'panel_types': {'a': 'Dissection', 'b': 'MRI', 'c': 'Schematic', 'd': 'Schematic'}, 'source_evidence': {'url': 'https://link.springer.com/article/10.1186/s13244-024-01606-x', 'locator': 'Anatomy section and Figure 1'}, 'unknowns': ['Schematic overlays summarize anatomy; do not inherit the preparation or population of MRI b or cadaveric a.', 'Neither metric geometry nor complete ligament courses/attachment surfaces are validated.']}
 - Limits: Main structures_visible is confined to labels actually visible in MRI b; one cross-section does not prove complete ligament courses, origins, insertions or tiny-component fidelity. Panel a is dissection; c/d are schematic color overlays, recorded separately. The source caption incorrectly repeats a for MRI; the visible panel label b is used in curated metadata. MRI patient context is not supplied; the source’s ultrasound volunteer is not assumed to be the MRI subject. Evidence-ledger selection: c, d only. Source color-coded schematic overlays: d purple PFL and orange arcuate course; c red distal biceps course. Local educational courses only, not metric geometry, clinical images or proven attachments. MRI b and dissection a are not evidence for these schematic leaf candidates.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### knee.semimembranosus_tendon.distal_course — schematic
+
+- Asset: `open-knee-semimembranosus-expansions-picasso-s1`
+- Local file: [web/reference-media/msk-open/knee-picasso-s1.jpg](../../web/reference-media/msk-open/knee-picasso-s1.jpg)
+- Artifact SHA-256: `367b6932ce7e591d94370fd1a33e220592f4e21c77c008d17b746dd680b54fc7`
+- Review-scope SHA-256: `18342d9395ee073a1a6b8cfb0262947355d5744fc302d9223cfd04e6062acc15`
+- Source: [Original source](https://link.springer.com/article/10.1007/s00330-025-11868-8)
+- Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: © The Author(s) 2025: Riccardo Picasso, Giovanni Marcenaro, Federico Zaottini, Federico Pistoia, Marta Macciò, Ellert Jan Barendrecht, Emanuele Quarto, Maribel Miguel Pérez and Carlo Martinoli. Clinically relevant stabilizers of the posteromedial and posterolateral knee: normal anatomy, scanning technique, and ultrasound findings in patients with anterior cruciate ligament tear. European Radiology 36:504–514 (2026), DOI 10.1007/s00330-025-11868-8. CC BY 4.0. Original embedded PDF JPEG stream retained without pixel changes; only schematic panel A is proposed for schematic evidence. No endorsement implied.
+- Rights evidence: docs/msk-picasso-knee-source-review/rights-and-scope.json
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'Local source schematic relationships only; complete reportable extent and anatomical fidelity require assessment.'}
+- Selection: {'kind': 'schematic', 'panels': ['A']}
+- Source context: {'setting': 'unknown', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'anatomical_site': {'region': 'knee'}, 'selected_panels': ['A'], 'panel_types': {'A': 'Schematic', 'B': 'Dissection', 'C': 'Dissection'}, 'source_evidence': {'url': 'https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf', 'locator': 'Supplemental Figure 1, page 1; anatomy sections of the article'}, 'unknowns': ['Source schematic is generic: no measured subject, side, age, sex, thickness or physical scale is certified.', 'Specimen context is not transferred to the schematic or any MRI.']}
+- Limits: Panel A depicts gross distal expansions and neighbouring ligament relationships. It does not provide measured tissue thickness, attachment footprints, complete ligament volumes or all anatomic variants. B/C are cadaver dissections; they are neither MRI nor independent living-patient normality evidence. Only the explicitly selected panels support this asset; no complete MRI course, physical thickness, attachment footprint or 3D geometry is asserted.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### knee.semimembranosus_tendon.tibial_attachment — schematic
+
+- Asset: `open-knee-semimembranosus-expansions-picasso-s1`
+- Local file: [web/reference-media/msk-open/knee-picasso-s1.jpg](../../web/reference-media/msk-open/knee-picasso-s1.jpg)
+- Artifact SHA-256: `367b6932ce7e591d94370fd1a33e220592f4e21c77c008d17b746dd680b54fc7`
+- Review-scope SHA-256: `18342d9395ee073a1a6b8cfb0262947355d5744fc302d9223cfd04e6062acc15`
+- Source: [Original source](https://link.springer.com/article/10.1007/s00330-025-11868-8)
+- Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: © The Author(s) 2025: Riccardo Picasso, Giovanni Marcenaro, Federico Zaottini, Federico Pistoia, Marta Macciò, Ellert Jan Barendrecht, Emanuele Quarto, Maribel Miguel Pérez and Carlo Martinoli. Clinically relevant stabilizers of the posteromedial and posterolateral knee: normal anatomy, scanning technique, and ultrasound findings in patients with anterior cruciate ligament tear. European Radiology 36:504–514 (2026), DOI 10.1007/s00330-025-11868-8. CC BY 4.0. Original embedded PDF JPEG stream retained without pixel changes; only schematic panel A is proposed for schematic evidence. No endorsement implied.
+- Rights evidence: docs/msk-picasso-knee-source-review/rights-and-scope.json
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'Local source schematic relationships only; complete reportable extent and anatomical fidelity require assessment.'}
+- Selection: {'kind': 'schematic', 'panels': ['A']}
+- Source context: {'setting': 'unknown', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'anatomical_site': {'region': 'knee'}, 'selected_panels': ['A'], 'panel_types': {'A': 'Schematic', 'B': 'Dissection', 'C': 'Dissection'}, 'source_evidence': {'url': 'https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00330-025-11868-8/MediaObjects/330_2025_11868_MOESM1_ESM.pdf', 'locator': 'Supplemental Figure 1, page 1; anatomy sections of the article'}, 'unknowns': ['Source schematic is generic: no measured subject, side, age, sex, thickness or physical scale is certified.', 'Specimen context is not transferred to the schematic or any MRI.']}
+- Limits: Panel A depicts gross distal expansions and neighbouring ligament relationships. It does not provide measured tissue thickness, attachment footprints, complete ligament volumes or all anatomic variants. B/C are cadaver dissections; they are neither MRI nor independent living-patient normality evidence. Only the explicitly selected panels support this asset; no complete MRI course, physical thickness, attachment footprint or 3D geometry is asserted.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### knee.patellar_cartilage.articular_surface — schematic
 

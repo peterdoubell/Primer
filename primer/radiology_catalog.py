@@ -34,7 +34,7 @@ def _text(value, message):
     return value
 
 
-SOURCE_REFERENCE_ATLASES = {'liu-lumbosacral-sub03': 'lumbosacral-neural'}
+SOURCE_REFERENCE_ATLASES = {'liu-lumbosacral-sub03': 'lumbosacral-neural', 'verse521': 'thoracolumbar-source'}
 
 
 @lru_cache(maxsize=1)
@@ -73,6 +73,21 @@ def _source_anatomy_references():
             layers = {layer[0] for layer in region['layers']}
             if entry['initial_layer'] not in layers:
                 raise ValueError('Source anatomy initial layer is unavailable')
+            volume = entry.get('source_volume')
+            if volume:
+                if not isinstance(volume, dict) or volume.get('src') != '/app/anatomy/' + entry['atlas'] + '/ct-reference.html':
+                    raise ValueError('Source CT volume must use its registered local viewer')
+                volume_path = web / volume['src'].removeprefix('/app/')
+                if hashlib.sha256(volume_path.read_bytes()).hexdigest() != volume.get('sha256'):
+                    raise ValueError('Source CT volume viewer changed')
+                expected_levels = {part_id: manifest['parts'][part_id]['name'].split(' · ')[0] for part_id in manifest['parts']}
+                if volume.get('level_by_part') != expected_levels:
+                    raise ValueError('Source CT levels must match the registered vertebrae')
+                script_path = volume_path.with_suffix('.js')
+                if hashlib.sha256(script_path.read_bytes()).hexdigest() != volume.get('script_sha256'):
+                    raise ValueError('Source CT plane renderer changed')
+                for key in ('id', 'title', 'caption', 'attribution', 'source_url', 'license_url'):
+                    _text(volume.get(key), 'Source CT volume requires explicit ' + key)
             source_image = entry.get('source_image')
             if source_image:
                 if not isinstance(source_image, dict):
@@ -375,7 +390,7 @@ def _structure_atlases():
                 raise ValueError('Invalid or duplicated MSK atlas figure')
             if image.get('modality') not in {'MRI', 'MR arthrography', 'CT arthrography', 'Ultrasound', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
-            if 'source_panel' in image and image['source_panel'] not in ('a', 'b', 'c', 'd', 'e', 'f'):
+            if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
                 raise ValueError('MSK source panel needs an explicit publication panel identifier')
             if image.get('contains_schematic_panels'):
                 if image['contains_schematic_panels'] is not True or not image.get('schematic_structures_visible'):
@@ -384,15 +399,15 @@ def _structure_atlases():
             if not isinstance(ancillary, list):
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
-                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology'}
+                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound'}
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or len(panel) != 1
-                               or panel not in 'abcdefghijklmnopqrstuvwxyz' for panel in entry['panels'])
+                               or panel not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' for panel in entry['panels'])
                         or not isinstance(entry.get('structures_visible'), list) or not entry['structures_visible']
                         or any(not isinstance(name, str) or not name.strip() for name in entry['structures_visible'])
                         or not isinstance(entry.get('limits'), str)
                         or not entry['limits'].strip()):
-                    raise ValueError('Dissection and histology need distinct panels, observations and limits')
+                    raise ValueError('Ancillary panels need distinct types, observations and limits')
             seen.add(image['id'])
             if not image['src'].startswith('/app/reference-media/msk-open/'):
                 raise ValueError('MSK atlas figures must be preserved locally')
@@ -587,6 +602,9 @@ def detail(curriculum, item):
             raise ValueError('Investigation anatomy binding has no source module')
         ref['spatial_model'] = copy.deepcopy(source_node['radiology_reference']['spatial_model'])
         ref['spatial_model']['population_note'] = model_binding['population_note']
+        if model_binding.get('reporting_aim'):
+            aim = _text(model_binding['reporting_aim'], 'Source anatomy needs an explicit reporting aim')
+            ref['spatial_model'].update(reporting_aim=aim, instructions='Drag to rotate and inspect the native anatomy. ' + aim)
         if model_binding.get('source_view'):
             if model_binding['source_view'] == 'hamstrings':
                 if model_binding.get('source_atlas') != 'z-anatomy' or ref['spatial_model']['family'] != 'knee':

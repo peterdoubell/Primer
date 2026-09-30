@@ -1,0 +1,252 @@
+{
+  "software_versions": {
+    "numpy": "2.5.3",
+    "nibabel": "5.3.2",
+    "scikit_image": "0.25.2",
+    "scipy": "1.16.3"
+  },
+  "limitations": [
+    "Anatomical meanings of numeric labels 1\u20137 are unverified.",
+    "Four label surfaces retain open source-crop edges; anatomical endpoint completeness is unproved.",
+    "Marching-cubes interpolation is a derived voxel-scale approximation, not a measured biological boundary.",
+    "Basic edge/area checks do not prove freedom from self-intersections or clinical fidelity."
+  ],
+  "source_mask_sha256": "014f6851c5a8272a5dd91f7382c4c5bbfcaf05d42e92d28221eb512321c90c33",
+  "source_ct_sha256": "874090cd06799032d9c89754feb070cd9f78b7fa7bebc4e6caf07f8efe929b18",
+  "coordinate_system": "Original NIfTI affine to RAS millimetres; no registration to another case.",
+  "method": "Lewiner marching cubes at 0.5 on each original numeric binary label. All generated positions/topology retained, including zero-area faces if present.",
+  "zero_padding": false,
+  "caps_added": false,
+  "smoothing": false,
+  "decimation": false,
+  "source_voxels_modified": false,
+  "label_meanings_verified": false,
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "parts": [
+    {
+      "numeric_label": 1,
+      "trilinear_mask_at_vertices": {
+        "minimum": 0.5,
+        "maximum": 0.5,
+        "max_deviation_from_0_5": 0.0,
+        "vertices_off_0_5_above_1e_6": 0
+      },
+      "meaning": "unverified",
+      "source_voxels": 15529,
+      "vertices": 6708,
+      "triangles": 13408,
+      "boundary_edges": 0,
+      "all_boundary_vertices_on_original_crop": true,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "surface_area_mm2": 952.6386443468949,
+      "world_bounds_mm": [
+        [
+          45.732421875,
+          -137.576171875,
+          -869.75
+        ],
+        [
+          81.826171875,
+          -124.451171875,
+          -852.75
+        ]
+      ],
+      "file": "output/msk-lumase-l3/source-label-1.npz",
+      "sha256": "f66c01480685df50b85f17aca34958011dc96fefe6f06a57a9b661662e879d66"
+    },
+    {
+      "numeric_label": 2,
+      "trilinear_mask_at_vertices": {
+        "minimum": 0.5,
+        "maximum": 0.625,
+        "max_deviation_from_0_5": 0.125,
+        "vertices_off_0_5_above_1e_6": 13
+      },
+      "meaning": "unverified",
+      "source_voxels": 100557,
+      "vertices": 29513,
+      "triangles": 59078,
+      "boundary_edges": 0,
+      "all_boundary_vertices_on_original_crop": true,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "surface_area_mm2": 4207.361597135767,
+      "world_bounds_mm": [
+        [
+          42.041015625,
+          -144.548828125,
+          -866.75
+        ],
+        [
+          93.310546875,
+          -121.580078125,
+          -825.75
+        ]
+      ],
+      "file": "output/msk-lumase-l3/source-label-2.npz",
+      "sha256": "2e0ceb9dd95ea8b8c76212db7f290e6249bba2e1121578ea9d5039e8b0303e56"
+    },
+    {
+      "numeric_label": 3,
+      "trilinear_mask_at_vertices": {
+        "minimum": 0.5,
+        "maximum": 0.5,
+        "max_deviation_from_0_5": 0.0,
+        "vertices_off_0_5_above_1e_6": 0
+      },
+      "meaning": "unverified",
+      "source_voxels": 27540,
+      "vertices": 9600,
+      "triangles": 19192,
+      "boundary_edges": 0,
+      "all_boundary_vertices_on_original_crop": true,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "surface_area_mm2": 1460.4739874376896,
+      "world_bounds_mm": [
+        [
+          44.912109375,
+          -127.322265625,
+          -845.75
+        ],
+        [
+          90.029296875,
+          -112.556640625,
+          -825.75
+        ]
+      ],
+      "file": "output/msk-lumase-l3/source-label-3.npz",
+      "sha256": "b27a6ae3fcd3270b206b2655e5ed4275e870365d6596f80fb5137860e1a5c29c"
+    },
+    {
+      "numeric_label": 4,
+      "trilinear_mask_at_vertices": {
+        "minimum": 0.5,
+        "maximum": 0.5,
+        "max_deviation_from_0_5": 0.0,
+        "vertices_off_0_5_above_1e_6": 0
+      },
+      "meaning": "unverified",
+      "source_voxels": 41956,
+      "vertices": 13059,
+      "triangles": 26082,
+      "boundary_edges": 30,
+      "all_boundary_vertices_on_original_crop": true,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "surface_area_mm2": 1841.2265117478473,
+      "world_bounds_mm": [
+        [
+          41.630859375,
+          -145.779296875,
+          -840.75
+        ],
+        [
+          91.669921875,
+          -123.220703125,
+          -819.5
+        ]
+      ],
+      "file": "output/msk-lumase-l3/source-label-4.npz",
+      "sha256": "a0af7c65e755fd18393cd3d24244d052adc845269a5fc941b750aa09633ad2d0"
+    },
+    {
+      "numeric_label": 5,
+      "trilinear_mask_at_vertices": {
+        "minimum": 0.5,
+        "maximum": 0.5,
+        "max_deviation_from_0_5": 0.0,
+        "vertices_off_0_5_above_1e_6": 0
+      },
+      "meaning": "unverified",
+      "source_voxels": 28832,
+      "vertices": 9211,
+      "triangles": 18376,
+      "boundary_edges": 44,
+      "all_boundary_vertices_on_original_crop": true,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "surface_area_mm2": 1391.7132672981747,
+      "world_bounds_mm": [
+        [
+          55.986328125,
+          -161.5703125,
+          -864.25
+        ],
+        [
+          69.111328125,
+          -135.935546875,
+          -835.75
+        ]
+      ],
+      "file": "output/msk-lumase-l3/source-label-5.npz",
+      "sha256": "a272b8f1913c0301f542a3e814f1a1d36a62a0d0b2d7c3f7e885eacf74116937"
+    },
+    {
+      "numeric_label": 6,
+      "trilinear_mask_at_vertices": {
+        "minimum": 0.5,
+        "maximum": 0.5,
+        "max_deviation_from_0_5": 0.0,
+        "vertices_off_0_5_above_1e_6": 0
+      },
+      "meaning": "unverified",
+      "source_voxels": 12979,
+      "vertices": 6447,
+      "triangles": 12842,
+      "boundary_edges": 48,
+      "all_boundary_vertices_on_original_crop": true,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "surface_area_mm2": 926.9491388439158,
+      "world_bounds_mm": [
+        [
+          27.48046875,
+          -138.396484375,
+          -844.25
+        ],
+        [
+          105.0,
+          -120.349609375,
+          -827.75
+        ]
+      ],
+      "file": "output/msk-lumase-l3/source-label-6.npz",
+      "sha256": "60dbe3c74fb12a064dd848a078f8b0c8fabe794a1e3372a071500ad52d1f6994"
+    },
+    {
+      "numeric_label": 7,
+      "trilinear_mask_at_vertices": {
+        "minimum": 0.5,
+        "maximum": 0.5,
+        "max_deviation_from_0_5": 0.0,
+        "vertices_off_0_5_above_1e_6": 0
+      },
+      "meaning": "unverified",
+      "source_voxels": 396902,
+      "vertices": 44784,
+      "triangles": 89506,
+      "boundary_edges": 60,
+      "all_boundary_vertices_on_original_crop": true,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "surface_area_mm2": 6770.049081313215,
+      "world_bounds_mm": [
+        [
+          45.322265625,
+          -121.580078125,
+          -855.25
+        ],
+        [
+          94.130859375,
+          -82.0,
+          -820.25
+        ]
+      ],
+      "file": "output/msk-lumase-l3/source-label-7.npz",
+      "sha256": "eeaed3c579387dc37003b3cc1c05c50f8761c995293dc73d2060a6bcf9aee87c"
+    }
+  ]
+}

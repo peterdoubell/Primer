@@ -3514,12 +3514,161 @@
             "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination"
           ],
           "requires_site_instantiation": false
+        },
+        {
+          "id": "ankle.peroneus_quartus_muscle",
+          "name": "Peroneus quartus (fibularis quartus) muscle",
+          "tissue_class": "muscle",
+          "required_parts": [
+            {
+              "id": "ankle.peroneus_quartus_muscle.muscle_belly",
+              "name": "Observed accessory muscle belly"
+            },
+            {
+              "id": "ankle.peroneus_quartus_muscle.visible_musculotendinous_course",
+              "name": "Visible accessory musculotendinous course"
+            },
+            {
+              "id": "ankle.peroneus_quartus_muscle.proximal_attachment_if_covered",
+              "name": "Individual proximal attachment if covered"
+            },
+            {
+              "id": "ankle.peroneus_quartus_muscle.distal_attachment_if_covered",
+              "name": "Individual distal attachment if covered"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "image_visibility": "direct_when_supported_by_acquisition",
+          "condition": "For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course in the lateral/retromalleolar region separately from fibularis brevis and longus; do not relabel fibularis tertius as this variant. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression.",
+          "requirement_basis": "anatomical_decomposition_of_report_field",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "index": 4,
+              "label": "Joints And Soft Tissues",
+              "detail": "Assess effusions, capsule, impingement sites, bursae and any mass.",
+              "source_path": "data/radiology/investigation-overrides.json#/ra.mri-ankle/reporting/checklist/4"
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+            "https://pubmed.ncbi.nlm.nih.gov/41008701/"
+          ],
+          "requires_site_instantiation": false,
+          "context_requirements": {
+            "anatomical_variant": "peroneus_quartus",
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "ankle.accessory_soleus_muscle",
+          "name": "Accessory soleus muscle",
+          "tissue_class": "muscle",
+          "required_parts": [
+            {
+              "id": "ankle.accessory_soleus_muscle.muscle_belly",
+              "name": "Observed accessory muscle belly"
+            },
+            {
+              "id": "ankle.accessory_soleus_muscle.visible_musculotendinous_course",
+              "name": "Visible accessory musculotendinous course"
+            },
+            {
+              "id": "ankle.accessory_soleus_muscle.proximal_attachment_if_covered",
+              "name": "Individual proximal attachment if covered"
+            },
+            {
+              "id": "ankle.accessory_soleus_muscle.distal_attachment_if_covered",
+              "name": "Individual distal attachment if covered"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "image_visibility": "direct_when_supported_by_acquisition",
+          "condition": "For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course and individual attachment in relation to the Achilles/Kager region; usual soleus and Achilles meshes are not substitutes. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression.",
+          "requirement_basis": "anatomical_decomposition_of_report_field",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "index": 4,
+              "label": "Joints And Soft Tissues",
+              "detail": "Assess effusions, capsule, impingement sites, bursae and any mass.",
+              "source_path": "data/radiology/investigation-overrides.json#/ra.mri-ankle/reporting/checklist/4"
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+            "https://pubmed.ncbi.nlm.nih.gov/21538570/"
+          ],
+          "requires_site_instantiation": false,
+          "context_requirements": {
+            "anatomical_variant": "accessory_soleus",
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "ankle.flexor_digitorum_accessorius_longus_muscle",
+          "name": "Flexor digitorum accessorius longus muscle",
+          "tissue_class": "muscle",
+          "required_parts": [
+            {
+              "id": "ankle.flexor_digitorum_accessorius_longus_muscle.muscle_belly",
+              "name": "Observed accessory muscle belly"
+            },
+            {
+              "id": "ankle.flexor_digitorum_accessorius_longus_muscle.visible_musculotendinous_course",
+              "name": "Visible accessory musculotendinous course"
+            },
+            {
+              "id": "ankle.flexor_digitorum_accessorius_longus_muscle.proximal_attachment_if_covered",
+              "name": "Individual proximal attachment if covered"
+            },
+            {
+              "id": "ankle.flexor_digitorum_accessorius_longus_muscle.distal_attachment_if_covered",
+              "name": "Individual distal attachment if covered"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "image_visibility": "direct_when_supported_by_acquisition",
+          "condition": "For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured deep-posterior/tarsal-tunnel course and relationship to existing tibial nerve, vessels, flexor retinaculum and usual FDL/FHL anatomy. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression.",
+          "requirement_basis": "anatomical_decomposition_of_report_field",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "index": 4,
+              "label": "Joints And Soft Tissues",
+              "detail": "Assess effusions, capsule, impingement sites, bursae and any mass.",
+              "source_path": "data/radiology/investigation-overrides.json#/ra.mri-ankle/reporting/checklist/4"
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+            "https://pubmed.ncbi.nlm.nih.gov/9232504/",
+            "https://www.jstage.jst.go.jp/article/nmccrj/11/0/11_2023-0136/_article"
+          ],
+          "requires_site_instantiation": false,
+          "context_requirements": {
+            "anatomical_variant": "flexor_digitorum_accessorius_longus",
+            "purpose": "anatomical_reference"
+          }
         }
       ],
       "expansion_rules": [
         {
           "rule": "For a muscle lesion or accessory muscle, identify each affected named muscle and its fascial compartment; a generic soft-tissue shell is not sufficient.",
-          "named_sites_or_targets": [],
+          "named_sites_or_targets": [
+            "ankle.peroneus_quartus_muscle",
+            "ankle.accessory_soleus_muscle",
+            "ankle.flexor_digitorum_accessorius_longus_muscle"
+          ],
           "status": "requires_explicit_instantiation_before_complete_coverage_claim"
         }
       ],
@@ -12650,31 +12799,59 @@
           "required_parts": [
             {
               "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_1",
-              "name": "Gruen zone 1"
+              "name": "Gruen zone 1",
+              "context_requirements": {
+                "projection": "anteroposterior",
+                "purpose": "anatomical_reference"
+              }
             },
             {
               "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_2",
-              "name": "Gruen zone 2"
+              "name": "Gruen zone 2",
+              "context_requirements": {
+                "projection": "anteroposterior",
+                "purpose": "anatomical_reference"
+              }
             },
             {
               "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_3",
-              "name": "Gruen zone 3"
+              "name": "Gruen zone 3",
+              "context_requirements": {
+                "projection": "anteroposterior",
+                "purpose": "anatomical_reference"
+              }
             },
             {
               "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_4",
-              "name": "Gruen zone 4"
+              "name": "Gruen zone 4",
+              "context_requirements": {
+                "projection": "anteroposterior",
+                "purpose": "anatomical_reference"
+              }
             },
             {
               "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_5",
-              "name": "Gruen zone 5"
+              "name": "Gruen zone 5",
+              "context_requirements": {
+                "projection": "anteroposterior",
+                "purpose": "anatomical_reference"
+              }
             },
             {
               "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_6",
-              "name": "Gruen zone 6"
+              "name": "Gruen zone 6",
+              "context_requirements": {
+                "projection": "anteroposterior",
+                "purpose": "anatomical_reference"
+              }
             },
             {
               "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_7",
-              "name": "Gruen zone 7"
+              "name": "Gruen zone 7",
+              "context_requirements": {
+                "projection": "anteroposterior",
+                "purpose": "anatomical_reference"
+              }
             },
             {
               "id": "hip_arthroplasty.femoral_host_bone.greater_trochanter",
@@ -12687,6 +12864,62 @@
             {
               "id": "hip_arthroplasty.femoral_host_bone.stem_tip_adjacent_diaphysis",
               "name": "Stem-tip adjacent diaphysis"
+            },
+            {
+              "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_8",
+              "name": "Gruen zone 8",
+              "context_requirements": {
+                "projection": "lateral",
+                "purpose": "anatomical_reference"
+              }
+            },
+            {
+              "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_9",
+              "name": "Gruen zone 9",
+              "context_requirements": {
+                "projection": "lateral",
+                "purpose": "anatomical_reference"
+              }
+            },
+            {
+              "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_10",
+              "name": "Gruen zone 10",
+              "context_requirements": {
+                "projection": "lateral",
+                "purpose": "anatomical_reference"
+              }
+            },
+            {
+              "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_11",
+              "name": "Gruen zone 11",
+              "context_requirements": {
+                "projection": "lateral",
+                "purpose": "anatomical_reference"
+              }
+            },
+            {
+              "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_12",
+              "name": "Gruen zone 12",
+              "context_requirements": {
+                "projection": "lateral",
+                "purpose": "anatomical_reference"
+              }
+            },
+            {
+              "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_13",
+              "name": "Gruen zone 13",
+              "context_requirements": {
+                "projection": "lateral",
+                "purpose": "anatomical_reference"
+              }
+            },
+            {
+              "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_14",
+              "name": "Gruen zone 14",
+              "context_requirements": {
+                "projection": "lateral",
+                "purpose": "anatomical_reference"
+              }
             }
           ],
           "laterality": "examined_side",
@@ -12709,7 +12942,9 @@
             }
           ],
           "source_urls": [
-            "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty"
+            "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty",
+            "https://doi.org/10.3390/jcm11154416",
+            "https://doi.org/10.21037/qims-19-1018"
           ],
           "requires_site_instantiation": false
         },
@@ -13595,6 +13830,43 @@
             "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome"
           ],
           "requires_site_instantiation": false
+        },
+        {
+          "id": "hip.anterior_inferior_iliac_spine",
+          "name": "Anterior inferior iliac spine and subspine region",
+          "tissue_class": "bone",
+          "required_parts": [
+            {
+              "id": "hip.anterior_inferior_iliac_spine.inferior_prominence",
+              "name": "Inferior prominence (caudal osseous extent)"
+            },
+            {
+              "id": "hip.anterior_inferior_iliac_spine.subspine_region",
+              "name": "Ilium surface between AIIS and anterior acetabular rim"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Radiography",
+            "CT",
+            "MRI"
+          ],
+          "image_visibility": "direct_when_supported_by_acquisition",
+          "condition": "For the existing subspine morphology finding, on the examined side and within acquired coverage. Radiography describes the visible projected osseous extent; 3D morphology and the subspine surface require suitable cross-sectional acquisition. Routine AP radiography alone does not establish a 3D type. MRI bone morphology is assessed only when resolution/sequences permit; no dynamic impingement, clinical diagnosis or tissue attachment is inferred.",
+          "requirement_basis": "anatomical_decomposition_of_report_field",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Alternative Pain Generators",
+              "detail": "Assess additional bone/joint abnormalities on the acquired radiographs. If MRI was acquired, also assess periarticular tendons, bursae, muscles and covered pelvic structures; state limitations of coverage."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome",
+            "https://link.springer.com/article/10.1007/s11999-013-2847-4",
+            "https://pubmed.ncbi.nlm.nih.gov/28432458/"
+          ],
+          "requires_site_instantiation": false
         }
       ],
       "expansion_rules": [],
@@ -13611,9 +13883,9 @@
           "status": "documented",
           "classification_note": "The effective checklist and worksheet already condition labral, cartilage-lesion and periarticular soft-tissue assessment on acquired MRI and preserve not-assessed states. This is a retained modality boundary, not a radiograph-only tissue-integrity claim; all anatomy and representation obligations remain.",
           "documentation": {
-            "path": "docs/msk-boundary-followup-2026-09-27.md",
-            "sha256": "1278d4fafa9719db6e43a22a213870c80f316f1a64c7518b7e015465977b202f",
-            "reviewed_scope_sha256": "88fe859b442a859f5d767c4f252c495db6f4ad2569cef0192a2e4984c68586b6"
+            "path": "docs/msk-aiis-modality-boundary-reconciliation-2026-09-30.md",
+            "sha256": "b2aa05c638fd13738af47a48592b7a86abd09880d9f11c3b955e8865abd19b30",
+            "reviewed_scope_sha256": "9831c8fdbb3ed7a4f44182f93f70256f2187d05667fcd59ccd645b708f712844"
           }
         }
       ],

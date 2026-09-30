@@ -174,6 +174,18 @@ Investigation: `ra.mri-ankle`
 | Lateral plantar branch (`ankle.tibial_nerve.lateral_plantar_branch`) | missing | missing | missing | When symptoms, mass or denervation warrant neurovascular assessment. / MRI |
 | Posterior tibial artery (`ankle.posterior_tibial_artery`) | missing | missing | missing | When a lesion or intervention target requires tarsal-tunnel neurovascular relationships. / MRI |
 | Posterior tibial veins (`ankle.posterior_tibial_veins`) | missing | missing | missing | When a lesion or intervention target requires tarsal-tunnel neurovascular relationships. / MRI |
+| Observed accessory muscle belly (`ankle.peroneus_quartus_muscle.muscle_belly`) | unverified | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course in the lateral/retromalleolar region separately from fibularis brevis and longus; do not relabel fibularis tertius as this variant. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Visible accessory musculotendinous course (`ankle.peroneus_quartus_muscle.visible_musculotendinous_course`) | unverified | unverified | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course in the lateral/retromalleolar region separately from fibularis brevis and longus; do not relabel fibularis tertius as this variant. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Individual proximal attachment if covered (`ankle.peroneus_quartus_muscle.proximal_attachment_if_covered`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course in the lateral/retromalleolar region separately from fibularis brevis and longus; do not relabel fibularis tertius as this variant. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Individual distal attachment if covered (`ankle.peroneus_quartus_muscle.distal_attachment_if_covered`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course in the lateral/retromalleolar region separately from fibularis brevis and longus; do not relabel fibularis tertius as this variant. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Observed accessory muscle belly (`ankle.accessory_soleus_muscle.muscle_belly`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course and individual attachment in relation to the Achilles/Kager region; usual soleus and Achilles meshes are not substitutes. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Visible accessory musculotendinous course (`ankle.accessory_soleus_muscle.visible_musculotendinous_course`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course and individual attachment in relation to the Achilles/Kager region; usual soleus and Achilles meshes are not substitutes. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Individual proximal attachment if covered (`ankle.accessory_soleus_muscle.proximal_attachment_if_covered`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course and individual attachment in relation to the Achilles/Kager region; usual soleus and Achilles meshes are not substitutes. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Individual distal attachment if covered (`ankle.accessory_soleus_muscle.distal_attachment_if_covered`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course and individual attachment in relation to the Achilles/Kager region; usual soleus and Achilles meshes are not substitutes. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Observed accessory muscle belly (`ankle.flexor_digitorum_accessorius_longus_muscle.muscle_belly`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured deep-posterior/tarsal-tunnel course and relationship to existing tibial nerve, vessels, flexor retinaculum and usual FDL/FHL anatomy. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Visible accessory musculotendinous course (`ankle.flexor_digitorum_accessorius_longus_muscle.visible_musculotendinous_course`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured deep-posterior/tarsal-tunnel course and relationship to existing tibial nerve, vessels, flexor retinaculum and usual FDL/FHL anatomy. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Individual proximal attachment if covered (`ankle.flexor_digitorum_accessorius_longus_muscle.proximal_attachment_if_covered`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured deep-posterior/tarsal-tunnel course and relationship to existing tibial nerve, vessels, flexor retinaculum and usual FDL/FHL anatomy. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
+| Individual distal attachment if covered (`ankle.flexor_digitorum_accessorius_longus_muscle.distal_attachment_if_covered`) | missing | missing | missing | For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured deep-posterior/tarsal-tunnel course and relationship to existing tibial nerve, vessels, flexor retinaculum and usual FDL/FHL anatomy. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression. / MRI |
 
 ## Candidate evidence
 
@@ -182,7 +194,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-lateral-ligaments-cube-fig2`
 - Local file: [web/reference-media/msk-open/ankle-lateral-ligaments-cube-fig2.jpg](../../web/reference-media/msk-open/ankle-lateral-ligaments-cube-fig2.jpg)
 - Artifact SHA-256: `e0952c56f4ac6f1b461587e4ab4f3d609b327d96c0d3e5cebc8db9a61f5b1413`
-- Review-scope SHA-256: `21f48ba58b5cbb73b50d87703001dcf625468b003d9a193a6e281cc0407cff28`
+- Review-scope SHA-256: `536c87fd6306d6264e86f87e0f451e9ec09f9e1d18bbe0d9bdf7e96fd73e94eb`
 - Source: [Original source](https://doi.org/10.7759/cureus.93882)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -201,7 +213,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-lateral-ligaments-cube-fig2`
 - Local file: [web/reference-media/msk-open/ankle-lateral-ligaments-cube-fig2.jpg](../../web/reference-media/msk-open/ankle-lateral-ligaments-cube-fig2.jpg)
 - Artifact SHA-256: `e0952c56f4ac6f1b461587e4ab4f3d609b327d96c0d3e5cebc8db9a61f5b1413`
-- Review-scope SHA-256: `21f48ba58b5cbb73b50d87703001dcf625468b003d9a193a6e281cc0407cff28`
+- Review-scope SHA-256: `536c87fd6306d6264e86f87e0f451e9ec09f9e1d18bbe0d9bdf7e96fd73e94eb`
 - Source: [Original source](https://doi.org/10.7759/cureus.93882)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -220,7 +232,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-lateral-ligaments-cube-fig2`
 - Local file: [web/reference-media/msk-open/ankle-lateral-ligaments-cube-fig2.jpg](../../web/reference-media/msk-open/ankle-lateral-ligaments-cube-fig2.jpg)
 - Artifact SHA-256: `e0952c56f4ac6f1b461587e4ab4f3d609b327d96c0d3e5cebc8db9a61f5b1413`
-- Review-scope SHA-256: `21f48ba58b5cbb73b50d87703001dcf625468b003d9a193a6e281cc0407cff28`
+- Review-scope SHA-256: `536c87fd6306d6264e86f87e0f451e9ec09f9e1d18bbe0d9bdf7e96fd73e94eb`
 - Source: [Original source](https://doi.org/10.7759/cureus.93882)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -239,7 +251,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-deltoid-syndesmosis-cube-fig3`
 - Local file: [web/reference-media/msk-open/ankle-deltoid-syndesmosis-cube-fig3.jpg](../../web/reference-media/msk-open/ankle-deltoid-syndesmosis-cube-fig3.jpg)
 - Artifact SHA-256: `58c2bf42432cd3aced10a38f968f3d448d6d4b7e4f981268cf07464f510d1545`
-- Review-scope SHA-256: `c2d7a87146e62c17fad0433c9ce2375ff9a3cda6ecf6539ff71c6c076e47fa35`
+- Review-scope SHA-256: `e24fe66f9fcc8ef420636b05a1dd2301da0810cedd4a0060251850799fd2fae8`
 - Source: [Original source](https://doi.org/10.7759/cureus.93882)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -258,7 +270,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-deltoid-syndesmosis-cube-fig3`
 - Local file: [web/reference-media/msk-open/ankle-deltoid-syndesmosis-cube-fig3.jpg](../../web/reference-media/msk-open/ankle-deltoid-syndesmosis-cube-fig3.jpg)
 - Artifact SHA-256: `58c2bf42432cd3aced10a38f968f3d448d6d4b7e4f981268cf07464f510d1545`
-- Review-scope SHA-256: `c2d7a87146e62c17fad0433c9ce2375ff9a3cda6ecf6539ff71c6c076e47fa35`
+- Review-scope SHA-256: `e24fe66f9fcc8ef420636b05a1dd2301da0810cedd4a0060251850799fd2fae8`
 - Source: [Original source](https://doi.org/10.7759/cureus.93882)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -277,7 +289,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-deltoid-syndesmosis-cube-fig3`
 - Local file: [web/reference-media/msk-open/ankle-deltoid-syndesmosis-cube-fig3.jpg](../../web/reference-media/msk-open/ankle-deltoid-syndesmosis-cube-fig3.jpg)
 - Artifact SHA-256: `58c2bf42432cd3aced10a38f968f3d448d6d4b7e4f981268cf07464f510d1545`
-- Review-scope SHA-256: `c2d7a87146e62c17fad0433c9ce2375ff9a3cda6ecf6539ff71c6c076e47fa35`
+- Review-scope SHA-256: `e24fe66f9fcc8ef420636b05a1dd2301da0810cedd4a0060251850799fd2fae8`
 - Source: [Original source](https://doi.org/10.7759/cureus.93882)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -296,7 +308,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-spring-components-szaro-fig2`
 - Local file: [web/reference-media/msk-open/spring-normal-szaro-fig2.jpg](../../web/reference-media/msk-open/spring-normal-szaro-fig2.jpg)
 - Artifact SHA-256: `f61951bfd552c9beef94b46ef00a1da1303dfc4f09f2f954427324ce158d1ba3`
-- Review-scope SHA-256: `e9402f34054c2cb5f608afbdeca63b87071a39197ad24e6d0496a5de4ab0ec07`
+- Review-scope SHA-256: `c06f4432f5f54b1d228a08290eb3f8ae4bef45671bde3d6b5526ddf5828dd622`
 - Source: [Original source](https://link.springer.com/article/10.1007/s00276-021-02860-0)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -315,7 +327,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-spring-components-szaro-fig2-schematic-panels`
 - Local file: [web/reference-media/msk-open/spring-normal-szaro-fig2.jpg](../../web/reference-media/msk-open/spring-normal-szaro-fig2.jpg)
 - Artifact SHA-256: `f61951bfd552c9beef94b46ef00a1da1303dfc4f09f2f954427324ce158d1ba3`
-- Review-scope SHA-256: `af3e6ea8ea35d2d39850af1e0058c572337b4fc0e66b91ce72321f087ff04c10`
+- Review-scope SHA-256: `21b5ad89ee1551d16685bdaa87b0d3e2303df4af48ba040eba5532897c5d9bd8`
 - Source: [Original source](https://link.springer.com/article/10.1007/s00276-021-02860-0)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -334,7 +346,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-spring-components-szaro-fig2`
 - Local file: [web/reference-media/msk-open/spring-normal-szaro-fig2.jpg](../../web/reference-media/msk-open/spring-normal-szaro-fig2.jpg)
 - Artifact SHA-256: `f61951bfd552c9beef94b46ef00a1da1303dfc4f09f2f954427324ce158d1ba3`
-- Review-scope SHA-256: `e9402f34054c2cb5f608afbdeca63b87071a39197ad24e6d0496a5de4ab0ec07`
+- Review-scope SHA-256: `c06f4432f5f54b1d228a08290eb3f8ae4bef45671bde3d6b5526ddf5828dd622`
 - Source: [Original source](https://link.springer.com/article/10.1007/s00276-021-02860-0)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -353,7 +365,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-spring-components-szaro-fig2-schematic-panels`
 - Local file: [web/reference-media/msk-open/spring-normal-szaro-fig2.jpg](../../web/reference-media/msk-open/spring-normal-szaro-fig2.jpg)
 - Artifact SHA-256: `f61951bfd552c9beef94b46ef00a1da1303dfc4f09f2f954427324ce158d1ba3`
-- Review-scope SHA-256: `af3e6ea8ea35d2d39850af1e0058c572337b4fc0e66b91ce72321f087ff04c10`
+- Review-scope SHA-256: `21b5ad89ee1551d16685bdaa87b0d3e2303df4af48ba040eba5532897c5d9bd8`
 - Source: [Original source](https://link.springer.com/article/10.1007/s00276-021-02860-0)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -372,7 +384,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-peroneal-course-bianchi-fig1`
 - Local file: [web/reference-media/msk-open/peroneal-course-bianchi-fig1-pdf.jpg](../../web/reference-media/msk-open/peroneal-course-bianchi-fig1-pdf.jpg)
 - Artifact SHA-256: `20395859ce0bfcf3e95ee23b78153f22a80e280d4578ce5b4112f89392e450d7`
-- Review-scope SHA-256: `997f8b9f7aafb34630d437b53f4fd4f45281e673ebe19ed0ad64f0683917b1d2`
+- Review-scope SHA-256: `aa847ceb5029730478e9fbe632306cf8aed909cbbb2237c89d65c714ac46cb9e`
 - Source: [Original source](https://link.springer.com/article/10.1007/s13244-016-0540-3)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -391,7 +403,7 @@ Investigation: `ra.mri-ankle`
 - Asset: `open-ankle-peroneal-course-bianchi-fig1`
 - Local file: [web/reference-media/msk-open/peroneal-course-bianchi-fig1-pdf.jpg](../../web/reference-media/msk-open/peroneal-course-bianchi-fig1-pdf.jpg)
 - Artifact SHA-256: `20395859ce0bfcf3e95ee23b78153f22a80e280d4578ce5b4112f89392e450d7`
-- Review-scope SHA-256: `997f8b9f7aafb34630d437b53f4fd4f45281e673ebe19ed0ad64f0683917b1d2`
+- Review-scope SHA-256: `aa847ceb5029730478e9fbe632306cf8aed909cbbb2237c89d65c714ac46cb9e`
 - Source: [Original source](https://link.springer.com/article/10.1007/s13244-016-0540-3)
 - Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Recorded rights: commercial use=True; redistribution=True; review status=verified
@@ -404,6 +416,63 @@ Investigation: `ra.mri-ankle`
 - Source context: Not recorded
 - Limits: Schematic of selected lateral/peroneal relationships; the os peroneum is an anatomical variant and is not universally present. Does not show the complete plantar insertion of peroneus longus or clinically validate tendon integrity. Source-caption typo corrected: V met denotes the fifth metatarsal, not the fifth metacarpal; the complete source caption is preserved verbatim.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### ankle.peroneus_quartus_muscle.muscle_belly — clinical_image
+
+- Asset: `open-ankle-peroneus-quartus-mri-yuksel-fig2`
+- Local file: [web/reference-media/msk-open/ankle-peroneus-quartus-yuksel-fig2.jpg](../../web/reference-media/msk-open/ankle-peroneus-quartus-yuksel-fig2.jpg)
+- Artifact SHA-256: `904a92bbb213421878213f1207ea799e1c1ec8d6d4458175b295febe44df20b0`
+- Review-scope SHA-256: `0e8dddd45577ec5111642f194c23d378a1cea223d0b51849975c55c8f36f9818`
+- Source: [Original source](https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/)
+- Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: © 2025 Yavuz Yuksel, Tarkan Ergun and Ozkan Kose. Prevalence of the Peroneus Quartus Muscle and Its Association with Peroneal Tendon Pathologies: An MRI Study of 1160 Ankles. Diagnostics 15(18):2329, DOI 10.3390/diagnostics15182329. CC BY 4.0. Complete original Figure 2 repository JPEG copied byte-for-byte, with source arrows and labels preserved; no endorsement implied.
+- Rights evidence: docs/msk-accessory-ankle-source-review/yuksel2025-source-context.json
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'Limited source depiction only; complete extent, physical dimensions and attachment footprints remain unverified.'}
+- Selection: {'panels': ['a', 'b', 'c'], 'source_figure': 'Original Figure2 composite; all three selected panels are MRI. No ultrasound or schematic panel is borrowed.'}
+- Source context: {'setting': 'in_vivo', 'laterality': 'not_reported', 'population': {'life_stage': 'not_reported', 'sex': 'not_reported'}, 'depicted_state': 'unknown', 'extent': 'local', 'anatomical_site': {'region': 'ankle'}, 'selected_panels': ['a', 'b', 'c'], 'panel_types': {'a': 'MRI', 'b': 'MRI', 'c': 'MRI'}, 'sequence': 'a axial FS PD FSE; b coronal T1 FSE; c sagittal T1 FSE; source study uses 1.5 T MRI', 'source_evidence': {'url': 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/', 'locator': 'Figure 2 caption and original JPEG; methods 2.1–2.3; article permissions'}, 'unknowns': ['No side, individual age, sex, pain status or global normality is provided for Figure 2.', 'Caption identifies belly in a and a visible descending course in b/c; no complete muscle/tendon course or attachment footprint is proved.', 'Exact Figure 2 voxel spacing, individual scan TR/TE, scanner and slice positioning remain unknown without DICOM.'], 'anatomical_variant': 'peroneus_quartus'}
+- Limits: Source-labelled peroneus quartus variant in three published sections. No side, individual age/sex, complete exam findings or global normality is supplied. The study uses 1.5 T MRI, but this figure has no DICOM metadata or exact panel-specific acquisition provenance. The 760×331 repository JPEG cannot establish a full musculotendinous course, attachment footprint, tissue dimensions, dynamic crowding or symptom causation; no 3D reconstruction is supported. The caption specifies a distal direction toward the retrotrochlear eminence, which is not equivalent to a validated attachment footprint. Its case-specific location is not a universal origin/insertion pattern. No accessory soleus or FDAL is illustrated.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### ankle.peroneus_quartus_muscle.visible_musculotendinous_course — clinical_image
+
+- Asset: `open-ankle-peroneus-quartus-mri-yuksel-fig2`
+- Local file: [web/reference-media/msk-open/ankle-peroneus-quartus-yuksel-fig2.jpg](../../web/reference-media/msk-open/ankle-peroneus-quartus-yuksel-fig2.jpg)
+- Artifact SHA-256: `904a92bbb213421878213f1207ea799e1c1ec8d6d4458175b295febe44df20b0`
+- Review-scope SHA-256: `0e8dddd45577ec5111642f194c23d378a1cea223d0b51849975c55c8f36f9818`
+- Source: [Original source](https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/)
+- Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: © 2025 Yavuz Yuksel, Tarkan Ergun and Ozkan Kose. Prevalence of the Peroneus Quartus Muscle and Its Association with Peroneal Tendon Pathologies: An MRI Study of 1160 Ankles. Diagnostics 15(18):2329, DOI 10.3390/diagnostics15182329. CC BY 4.0. Complete original Figure 2 repository JPEG copied byte-for-byte, with source arrows and labels preserved; no endorsement implied.
+- Rights evidence: docs/msk-accessory-ankle-source-review/yuksel2025-source-context.json
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'Limited source depiction only; complete extent, physical dimensions and attachment footprints remain unverified.'}
+- Selection: {'panels': ['a', 'b', 'c'], 'source_figure': 'Original Figure2 composite; all three selected panels are MRI. No ultrasound or schematic panel is borrowed.'}
+- Source context: {'setting': 'in_vivo', 'laterality': 'not_reported', 'population': {'life_stage': 'not_reported', 'sex': 'not_reported'}, 'depicted_state': 'unknown', 'extent': 'local', 'anatomical_site': {'region': 'ankle'}, 'selected_panels': ['a', 'b', 'c'], 'panel_types': {'a': 'MRI', 'b': 'MRI', 'c': 'MRI'}, 'sequence': 'a axial FS PD FSE; b coronal T1 FSE; c sagittal T1 FSE; source study uses 1.5 T MRI', 'source_evidence': {'url': 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/', 'locator': 'Figure 2 caption and original JPEG; methods 2.1–2.3; article permissions'}, 'unknowns': ['No side, individual age, sex, pain status or global normality is provided for Figure 2.', 'Caption identifies belly in a and a visible descending course in b/c; no complete muscle/tendon course or attachment footprint is proved.', 'Exact Figure 2 voxel spacing, individual scan TR/TE, scanner and slice positioning remain unknown without DICOM.'], 'anatomical_variant': 'peroneus_quartus'}
+- Limits: Source-labelled peroneus quartus variant in three published sections. No side, individual age/sex, complete exam findings or global normality is supplied. The study uses 1.5 T MRI, but this figure has no DICOM metadata or exact panel-specific acquisition provenance. The 760×331 repository JPEG cannot establish a full musculotendinous course, attachment footprint, tissue dimensions, dynamic crowding or symptom causation; no 3D reconstruction is supported. The caption specifies a distal direction toward the retrotrochlear eminence, which is not equivalent to a validated attachment footprint. Its case-specific location is not a universal origin/insertion pattern. No accessory soleus or FDAL is illustrated.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### ankle.peroneus_quartus_muscle.visible_musculotendinous_course — schematic
+
+- Asset: `open-ankle-peroneus-quartus-pattern-yuksel-fig1`
+- Local file: [web/reference-media/msk-open/ankle-peroneus-quartus-yuksel-fig1.jpg](../../web/reference-media/msk-open/ankle-peroneus-quartus-yuksel-fig1.jpg)
+- Artifact SHA-256: `9ed5a78ac97294e20543e63e84cd2a6a02ca6c3bec333a0749ed8dc04327c280`
+- Review-scope SHA-256: `2df4e1bf43a6829ca7f1bc3812d0ec86ccad9625bdf84cd7f9ffd10f60ec2030`
+- Source: [Original source](https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/)
+- Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: Article © 2025 Yavuz Yuksel, Tarkan Ergun and Ozkan Kose. Prevalence of the Peroneus Quartus Muscle and Its Association with Peroneal Tendon Pathologies: An MRI Study of 1160 Ankles. Diagnostics 15(18):2329, DOI 10.3390/diagnostics15182329. CC BY 4.0. Original Figure 1 illustration signed Eylem 2025; creator credit/signature retained. Complete repository JPEG copied without pixel edits. No endorsement implied.
+- Rights evidence: docs/msk-accessory-ankle-source-review/figure1-license-attribution-followup.json
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'Limited source depiction only; complete extent, physical dimensions and attachment footprints remain unverified.'}
+- Selection: Not recorded
+- Source context: {'setting': 'unknown', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'unknown', 'extent': 'local', 'anatomical_variant': 'peroneus_quartus', 'anatomical_site': {'region': 'ankle'}, 'unknowns': ['One illustrative attachment/course pattern; not a measured patient or every PQ variant.']}
+- Limits: One source-described PQ pattern only. Other origins and insertions occur; no measured tissue dimensions, complete individual attachment footprint, dynamic compression or 3D volume is supplied.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ## Scope blockers
 

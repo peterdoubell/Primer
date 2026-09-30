@@ -8,7 +8,7 @@ Changes must be made in the authoritative evidence ledger with actual reviewer i
 | Investigation | Verified | Unverified | Missing |
 |---|---:|---:|---:|
 | [Ankle fracture radiography](ra.ankle-fractures.md) | 0 | 0 | 330 |
-| [MRI ankle](ra.mri-ankle.md) | 0 | 12 | 468 |
+| [MRI ankle](ra.mri-ankle.md) | 0 | 15 | 501 |
 | [Arthritis imaging](ra.arthritis.md) | 0 | 1 | 80 |
 | [Bone tumour imaging](ra.bone-tumours.md) | 0 | 0 | 96 |
 | [Cartilage tumour imaging](ra.cartilage-tumours.md) | 0 | 0 | 117 |
@@ -16,9 +16,9 @@ Changes must be made in the authoritative evidence ledger with actual reviewer i
 | [MRI diabetic foot](ra.mri-diabetic-foot.md) | 0 | 17 | 724 |
 | [MRI elbow](ra.mri-elbow.md) | 0 | 11 | 274 |
 | [Paediatric elbow radiography](ra.paediatric-elbow-fractures.md) | 0 | 0 | 147 |
-| [Hip arthroplasty radiography](ra.hip-arthroplasty.md) | 0 | 0 | 114 |
-| [Hip imaging — femoroacetabular impingement](ra.hip-fai.md) | 0 | 6 | 165 |
-| [MRI knee](ra.mri-knee.md) | 0 | 20 | 430 |
+| [Hip arthroplasty radiography](ra.hip-arthroplasty.md) | 0 | 0 | 135 |
+| [Hip imaging — femoroacetabular impingement](ra.hip-fai.md) | 0 | 6 | 171 |
+| [MRI knee](ra.mri-knee.md) | 0 | 25 | 425 |
 | [MRI muscle injury](ra.mri-muscle-injury.md) | 0 | 0 | 69 |
 | [MRI non-traumatic muscle disease](ra.mri-muscle-disease.md) | 0 | 0 | 60 |
 | [MRI hamstring injury](ra.mri-hamstring.md) | 0 | 10 | 152 |

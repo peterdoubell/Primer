@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def inputs():
     return [json.loads((ROOT/p).read_text()) for p in (
-        'docs/msk-verification-reader-neural-2026-09-30.json',
+        'docs/msk-verification-aiis-pq-2026-09-30.json',
         'data/radiology/msk-structure-requirements.json',
         'data/radiology/msk-asset-evidence.json')]
 
@@ -16,7 +16,7 @@ def inputs():
 def test_every_requirement_and_candidate_is_in_the_review_queue(tmp_path):
     report,requirements,evidence=inputs()
     result=export_queue(report,requirements,evidence,tmp_path)
-    assert sum(f['requirements'] for f in result['files'])==report['representation_requirements']==5229
+    assert sum(f['requirements'] for f in result['files'])==report['representation_requirements']==5292
     assert len(result['files'])==22
     for item in result['files']:
         text=(tmp_path/item['file']).read_text()
