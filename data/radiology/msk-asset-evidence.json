@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-27",
+  "updated_at": "2026-09-30",
   "status": "incomplete",
   "binding_policy": "No name-based or parent-based coverage inference. Each reportable structure requires an explicit reviewed binding.",
   "assets": [
@@ -18091,7 +18091,7 @@
       },
       "limitations": "Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions. The source view preserves full mesh extent but anatomical completeness and independent clinical accuracy remain unverified.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "e17bacfc7adce7c0badef938cd5e716eb04b6b4de4b11cba0407f00bc1c6779a",
+        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
         "data/radiology/investigation-model-bindings.json": "6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d"
       }
     },
@@ -18229,7 +18229,7 @@
       },
       "limitations": "Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions. The source view preserves full mesh extent but anatomical completeness and independent clinical accuracy remain unverified.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "e17bacfc7adce7c0badef938cd5e716eb04b6b4de4b11cba0407f00bc1c6779a",
+        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
         "data/radiology/investigation-model-bindings.json": "6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d"
       }
     },
@@ -18367,7 +18367,7 @@
       },
       "limitations": "Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions. The source view preserves full mesh extent but anatomical completeness and independent clinical accuracy remain unverified.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "e17bacfc7adce7c0badef938cd5e716eb04b6b4de4b11cba0407f00bc1c6779a",
+        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
         "data/radiology/investigation-model-bindings.json": "6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d"
       }
     },
@@ -18505,7 +18505,7 @@
       },
       "limitations": "Native source-labelled muscle object supplies external muscle-belly surface context. It does not independently segment the belly from its tendon extensions or establish tissue volume, fascicles, myofascial or myotendinous junctions. The source view preserves full mesh extent but anatomical completeness and independent clinical accuracy remain unverified.",
       "presentation_dependencies": {
-        "web/radiology-detailed-anatomy.js": "e17bacfc7adce7c0badef938cd5e716eb04b6b4de4b11cba0407f00bc1c6779a",
+        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
         "data/radiology/investigation-model-bindings.json": "6596439995f80c021bcd8d7584a1693213c38259263280c369723398fc6b321d"
       }
     },
@@ -64381,6 +64381,194 @@
         "status": "pending",
         "reason": "Bone identity and preservation do not establish fine articular, attachment or clinical anatomy."
       }
+    },
+    {
+      "id": "liu-sub03-cord-contour-envelope",
+      "kind": "model",
+      "name": "Cord contour envelope · partial",
+      "local_path": "web/anatomy/liu-lumbosacral-sub03/cord-open-envelope.bin.gz",
+      "sha256": "1b6bed8c2cee3e0c3ba7af2f0d34556351489511e12715d135214d4f8ae49c36",
+      "regions": [
+        "lumbosacral-neural"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "derived_open_contour_envelope",
+      "geometry": {
+        "vertices": 10970,
+        "triangles": 21700,
+        "source_reconstruction_sha256": "c81137c9361ad3daef9b45c671f825783b79e31430d7e94fd58f442853fb382c",
+        "source_case": "sub-03",
+        "open_source_endpoints": true
+      },
+      "source": {
+        "dataset": "Liu et al. lumbosacral MRI and annotations",
+        "url": "https://doi.org/10.6084/m9.figshare.c.7372564",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-lumbosacral-nerve-source-review/source-records.json",
+          "attribution": "Jionghui Liu, Wenqi Zhang, Yuxing Zhou, Linhao Xu, Yinghua Chu and Fumin Jia (2024). Figshare collection 10.6084/m9.figshare.c.7372564. CC BY 4.0. Derived default curves and open contour loft; display normals added."
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Source anatomy and coverage require explicit assessment. Open source endpoints and between-plane interpolation prevent a completeness claim."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex reader rendering, source-file integrity and desktop/mobile inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "1b6bed8c2cee3e0c3ba7af2f0d34556351489511e12715d135214d4f8ae49c36",
+        "evidence_path": "docs/msk-lumbosacral-nerve-source-review/reader-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "unknown",
+        "extent": "local",
+        "unknowns": [
+          "Case-specific normality and complete anatomical boundaries have not been independently established."
+        ]
+      },
+      "limitations": "Partial source contour envelope. No complete conus, roots, CSF volume, dural wall thickness or compression interface is claimed. No requirement binding is assigned merely from the object name.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
+        "web/app.js": "3025882078c5f1bbd390d00595ed2e2f05c46db0ea8747cc6741b75f479f01d8",
+        "data/radiology/source-anatomy-references.json": "db43bfb19c403f83b3f54d1f5a026563de76f74bc2d0ea964b0610e1ea8568fe",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b"
+      }
+    },
+    {
+      "id": "liu-sub03-dura-contour-envelope",
+      "kind": "model",
+      "name": "Dura contour envelope · partial",
+      "local_path": "web/anatomy/liu-lumbosacral-sub03/dura-open-envelope.bin.gz",
+      "sha256": "4a3da5cf0b0bd2c584923f0431afdae8b414c2f4d0f3c7b45ea9bc1bc1c50f38",
+      "regions": [
+        "lumbosacral-neural"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "derived_open_contour_envelope",
+      "geometry": {
+        "vertices": 20700,
+        "triangles": 40980,
+        "source_reconstruction_sha256": "c81137c9361ad3daef9b45c671f825783b79e31430d7e94fd58f442853fb382c",
+        "source_case": "sub-03",
+        "open_source_endpoints": true
+      },
+      "source": {
+        "dataset": "Liu et al. lumbosacral MRI and annotations",
+        "url": "https://doi.org/10.6084/m9.figshare.c.7372564",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-lumbosacral-nerve-source-review/source-records.json",
+          "attribution": "Jionghui Liu, Wenqi Zhang, Yuxing Zhou, Linhao Xu, Yinghua Chu and Fumin Jia (2024). Figshare collection 10.6084/m9.figshare.c.7372564. CC BY 4.0. Derived default curves and open contour loft; display normals added."
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Source anatomy and coverage require explicit assessment. Open source endpoints and between-plane interpolation prevent a completeness claim."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex reader rendering, source-file integrity and desktop/mobile inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "4a3da5cf0b0bd2c584923f0431afdae8b414c2f4d0f3c7b45ea9bc1bc1c50f38",
+        "evidence_path": "docs/msk-lumbosacral-nerve-source-review/reader-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "unknown",
+        "extent": "local",
+        "unknowns": [
+          "Case-specific normality and complete anatomical boundaries have not been independently established."
+        ]
+      },
+      "limitations": "Partial source contour envelope. No complete conus, roots, CSF volume, dural wall thickness or compression interface is claimed. No requirement binding is assigned merely from the object name.",
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
+        "web/app.js": "3025882078c5f1bbd390d00595ed2e2f05c46db0ea8747cc6741b75f479f01d8",
+        "data/radiology/source-anatomy-references.json": "db43bfb19c403f83b3f54d1f5a026563de76f74bc2d0ea964b0610e1ea8568fe",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b"
+      }
+    },
+    {
+      "id": "liu-sub03-cord-dura-mri-review",
+      "kind": "clinical_image",
+      "name": "Source MRI and contour comparison",
+      "local_path": "web/reference-media/liu-lumbosacral-sub03/cord-dura-source-review.png",
+      "sha256": "a6d61297c463b2f87b5164f35351cf7c73e4e37db42240a4e900fb65823c817e",
+      "regions": [
+        "lumbosacral-neural"
+      ],
+      "structure_ids": [],
+      "investigation_ids": [
+        "ra.thoracolumbar-fractures"
+      ],
+      "fidelity": "not_assessed",
+      "representation": "source_mri_and_contour_review",
+      "source": {
+        "dataset": "Liu et al. lumbosacral MRI and annotations",
+        "url": "https://doi.org/10.6084/m9.figshare.c.7372564",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/msk-lumbosacral-nerve-source-review/source-records.json",
+          "attribution": "Jionghui Liu, Wenqi Zhang, Yuxing Zhou, Linhao Xu, Yinghua Chu and Fumin Jia (2024). Figshare collection 10.6084/m9.figshare.c.7372564. CC BY 4.0. Derived default curves and open contour loft; display normals added."
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Original MRI and reconstructed-contour correspondence is available; boundaries and full anatomical coverage require assessment."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex reader rendering, source-file integrity and desktop/mobile inspection",
+        "reviewed_at": "2026-09-30",
+        "sha256": "a6d61297c463b2f87b5164f35351cf7c73e4e37db42240a4e900fb65823c817e",
+        "evidence_path": "docs/msk-lumbosacral-nerve-source-review/reader-browser-checks.json"
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "unknown",
+        "extent": "local",
+        "unknowns": [
+          "Case-specific normality and complete anatomical boundaries have not been independently established."
+        ]
+      },
+      "limitations": "Native MRI crop/window and original controls with stated-default curve overlays. No whole conus, neural compression or patient diagnosis is asserted."
     }
   ]
 }

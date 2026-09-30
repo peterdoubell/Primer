@@ -30,6 +30,15 @@ test("lateral and medial presets follow the source side", () => {
   }
 });
 
+test("midline sources name the patient lateral views explicitly", () => {
+  const presets=sandbox.window.PrimerDetailedAnatomy.anatomicalPresets("midline");
+  for (const name of ["Right lateral","Left lateral"]) {
+    const view=presets.find(p=>p[0]===name);
+    assert.ok(view);
+    assert.equal(label({yaw:view[1],pitch:view[2]}),name);
+  }
+});
+
 test("anatomical view labels describe the current camera, not the last button", () => {
   assert.equal(label({ yaw: 0, pitch: 0 }), "Anterior");
   assert.equal(label({ yaw: Math.PI, pitch: 0 }), "Posterior");

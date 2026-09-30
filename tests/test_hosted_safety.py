@@ -573,6 +573,7 @@ def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
     paths = [
         '/app/anatomy/msk-atlas/meshes/example.bin',
         '/app/anatomy/msk-mri-knee/example.bin.gz',
+        '/app/anatomy/liu-lumbosacral-sub03/cord-open-envelope.bin.gz',
         '/app/reference-media/prenatal-development/prenatal-development.gif',
     ]
     with TestClient(srv.app, follow_redirects=False) as client:

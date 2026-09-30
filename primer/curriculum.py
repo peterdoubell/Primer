@@ -45,6 +45,7 @@ and feeds the spaced-repetition deck, so the curriculum is a spine, not a cage.
 
 import json
 import os
+import re
 from typing import Dict, List, Optional
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -81,7 +82,7 @@ def _discover_lesson_illustrations():
     images = {}
     for directory, _, filenames in os.walk(ILLUSTRATION_ROOT):
         for filename in filenames:
-            if not filename.endswith(".webp"):
+            if not filename.endswith(".webp") or re.search(r"-(?:800|1600) (?:[2-9]|[1-9][0-9]+)\.webp$", filename):
                 continue
             disk_path = os.path.join(directory, filename)
             relative = os.path.relpath(disk_path, ILLUSTRATION_ROOT).replace(os.sep, "/")

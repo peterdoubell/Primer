@@ -8,9 +8,11 @@
     "malaya-ankle": "/app/anatomy/msk-mri-ankle/",
     "openknee-oks003": "/app/anatomy/openknee-oks003/",
     "cervical-bones": "/app/anatomy/msk-cervical/",
+    "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
   const RANGES = {
     cervical: [150, 157],
+    "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],
     elbow: [925, 1135],
     hip: [665, 980],
@@ -247,7 +249,7 @@
   function anatomicalPresets(side) {
     const lateralYaw = side === "left" ? -Math.PI / 2 : Math.PI / 2;
     return [["Anterior", 0, 0], ["Posterior", Math.PI, 0],
-      ["Lateral", lateralYaw, 0], ["Medial", -lateralYaw, 0],
+      [side === "midline" ? "Right lateral" : "Lateral", lateralYaw, 0], [side === "midline" ? "Left lateral" : "Medial", -lateralYaw, 0],
       ["Superior", 0, Math.PI / 2], ["Inferior", 0, -Math.PI / 2]];
   }
   function shader(gl, type, source) {

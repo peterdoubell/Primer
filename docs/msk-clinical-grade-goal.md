@@ -893,3 +893,63 @@ approximation was investigated against the pinned implementation and is reported
 rather than concealed; T12's additional small surface component remains for
 review. [Evidence](msk-verse-source-review.md) preserves source provenance and
 clinical uncertainty. No other atlas was mixed in and no approval was added.
+
+### VerSe whole-chain source package — 27 September 2026
+
+The complete 17-label T1–L5 candidate now has a browser-ready package and an
+embedded standalone 3D review page alongside the continuous source CT viewer.
+All 798,442 triangles and every world-coordinate vertex roundtrip exactly.
+Every triangle has an independently checked exact source-mask boundary witness;
+normal-ray outliers are retained and distinguished from nearest-surface errors.
+The detailed method and limits are in `docs/msk-verse-source-review.md`.
+This adds inspectable candidate geometry, not verified anatomical substructures
+or clinical/commercial completeness. It remains offline; production is unchanged.
+
+### Paired lumbosacral neural MRI source — 27 September 2026
+
+A separately CC BY 4.0 dataset now supplies staged subject-03 CISS, DESS and
+T2-TSE MRI with original LPS annotation points. All 536 selected nerve-root
+points are within CISS coverage; ganglion coverage differs between series and
+is explicitly retained. The generated nerve-tube workflow imposes radius and
+smoothing choices, so it is not accepted as measured full-fidelity nerve
+geometry. See `docs/msk-lumbosacral-nerve-source-review.md`. No clinical
+completeness claim, cross-subject fusion or runtime promotion was made.
+
+### Open neural contour-envelope candidates — 27 September 2026
+
+Cord and dural surface candidates now preserve every sampled default-curve
+position in uncapped, adjacent-plane triangle strips. Topology, 432 section
+checks, 195 sampled containment checks and browser controls passed within their
+stated scope. The original finite endpoints remain open. These are partial
+source-case envelopes, not measured dura thickness or verified complete neural
+volumes; they remain offline. Detailed evidence is in the lumbosacral source review.
+
+### Disc-component fidelity screen — 27 September 2026
+
+The native Joints100 source has 23 named nucleus meshes, but their coordinates
+are affine copies of one base shape with identical connectivity. Whole-disc
+L1–L2 also has native boundary/non-manifold edges. These findings prevent
+miscounting named atlas objects as independently measured annulus/nucleus and
+endplate-interface representations. The four required disc parts remain in
+scope. External leads and exact native evidence are recorded in
+`docs/msk-disc-component-source-review.md`; no runtime geometry was changed.
+
+### Manual dorsal-rootlet MRI candidate — 27 September 2026
+
+Spine Generic release r20250314 now provides a staged raw T2w case with four
+manual-rater rootlet masks and a STAPLE consensus, all verified against annex
+SHA-256 keys. Primary annotation-protocol evidence resolves C2–T1 dorsal scope
+while preserving outdated C2–C8 sidecar text. Agreement varies by level and one
+rater omits T1; consensus is not treated as an independent observer or clinical
+approval. The source cord mask is algorithm-generated and disc labels are
+single-voxel landmarks. See `docs/msk-rootlet-source-review.md`. No runtime
+promotion or full-coverage claim was made.
+
+### MRI neural reference integrated into the reporting reader — 30 September 2026
+
+Thoracolumbar reporting now exposes the preserved partial cord/dural source
+envelopes with matching MRI correspondence and selectable reporting orientation.
+Desktop/mobile reader flows and integrity tests pass. Assets and figure rights
+are inventoried; anatomical review stays pending and no complete structure
+binding is inferred. All 5,229 requirements remain in scope. See the reader
+integration section of `docs/msk-lumbosacral-nerve-source-review.md`.

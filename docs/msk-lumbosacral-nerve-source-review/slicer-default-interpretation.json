@@ -1,0 +1,73 @@
+{
+  "slicer_tag": "v5.4.0",
+  "slicer_tree": "311cb26c5430f82c47e9ff186658b80e7b95e2a5",
+  "source_files": [
+    {
+      "url": "https://raw.githubusercontent.com/Slicer/Slicer/v5.4.0/Modules/Loadable/Markups/MRML/vtkMRMLMarkupsCurveNode.cxx",
+      "sha256": "77424df2f2337bc2c03cdad0f5c354499720bbea1cd8d48532fba624075f6231"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Slicer/Slicer/v5.4.0/Modules/Loadable/Markups/MRML/vtkMRMLMarkupsClosedCurveNode.cxx",
+      "sha256": "fbb1d80a5c2254514c5293147895d3315080fec99a922a514771beeedca1e0f0"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Slicer/Slicer/v5.4.0/Modules/Loadable/Markups/MRML/vtkMRMLMarkupsJsonStorageNode.cxx",
+      "sha256": "8abd169d31bb792feb83c2f5f88235b73fc29127b29e357a406eb0714540ba98"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Slicer/Slicer/v5.4.0/Modules/Loadable/Markups/MRML/vtkMRMLMarkupsNode.cxx",
+      "sha256": "64816b7366511956257fffd48dd6a8a72096e7f62beb93eafebe96c51056a616"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Slicer/Slicer/v5.4.0/SuperBuild.cmake",
+      "sha256": "5e8d1182efb978d1e93e46acb2cf6963e4273a14cad627eef7c058f33ed00d5d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Slicer/Slicer/v5.4.0/SuperBuild/External_VTK.cmake",
+      "sha256": "8c69df340d2d42f2689fbcfc180160822a05de3404d01db281724ebb62292c6d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Slicer/vtkAddon/87e5df9ac609a2d7a21991f7cba37c5b51482d7e/vtkCurveGenerator.cxx",
+      "sha256": "96779970f55770cbd5206baacee1dc0f96cafd4c7b2ca53dc744bcf161e86eb8"
+    }
+  ],
+  "vtk_core_comparison": [
+    {
+      "path": "Common/ComputationalGeometry/vtkCardinalSpline.cxx",
+      "slicer": {
+        "url": "https://raw.githubusercontent.com/Slicer/VTK/4341e4825259e17d2acd0e30d2b6f138da10360f/Common/ComputationalGeometry/vtkCardinalSpline.cxx",
+        "sha256": "a66f4964a416c2bba7cf77acdd993cb17c063276814812254e0f07d2f8301486"
+      },
+      "wheel": {
+        "url": "https://raw.githubusercontent.com/Kitware/VTK/v9.2.6/Common/ComputationalGeometry/vtkCardinalSpline.cxx",
+        "sha256": "7cea19888eba4a7a057d2ce2df5cc2c37c3d19ea0c8d530849b0714287785d1a"
+      },
+      "identical": false,
+      "difference": "Slicer fork adds only VTK_ABI_NAMESPACE_BEGIN and VTK_ABI_NAMESPACE_END; remaining lines are identical."
+    },
+    {
+      "path": "Common/ComputationalGeometry/vtkParametricSpline.cxx",
+      "slicer": {
+        "url": "https://raw.githubusercontent.com/Slicer/VTK/4341e4825259e17d2acd0e30d2b6f138da10360f/Common/ComputationalGeometry/vtkParametricSpline.cxx",
+        "sha256": "2ea4ec14b8c69bacb17a1ed7845ad41babc0af1660af8ef39f58a5a60ab93f4a"
+      },
+      "wheel": {
+        "url": "https://raw.githubusercontent.com/Kitware/VTK/v9.2.6/Common/ComputationalGeometry/vtkParametricSpline.cxx",
+        "sha256": "924cb03da4af9d34c3eda4698b65dad1cb2338d6c8a4c9f584e159984655eff2"
+      },
+      "identical": false,
+      "difference": "Slicer fork adds only VTK_ABI_NAMESPACE_BEGIN and VTK_ABI_NAMESPACE_END; remaining lines are identical."
+    }
+  ],
+  "fresh_constructor_defaults": {
+    "curve_type": "cardinal spline",
+    "closed": true,
+    "points_per_segment": 10,
+    "parameterize_by_length": false,
+    "vtkPoints_input_type": "float32",
+    "vtkPoints_output_type": "float32"
+  },
+  "json_serialization": "Generic markups writer saves basic properties, control points, measurements and display properties, without curve type or segment-resolution settings. XML scene serialization includes these settings.",
+  "conclusion": "Fresh default reload is reproducible. Original nondefault author settings cannot be recovered from these JSON files alone.",
+  "runtime_promoted": false
+}
