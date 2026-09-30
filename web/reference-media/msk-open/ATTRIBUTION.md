@@ -1316,6 +1316,20 @@ Supplemental Figure 1 separates schematic A from dissections B/C. Supplemental F
 
 ## Peroneus quartus references (Yuksel et al.)
 
+The reader now displays `ankle-peroneus-quartus-yuksel-fig1-pdf.png` and `ankle-peroneus-quartus-yuksel-fig2-pdf.png`, rendered from the complete published PDF figures with annotations, signature and layout retained. The JPEGs below remain archived previews. PDF source: NLM/PMC Article Datasets, retrieved 30 September 2026; this snapshot may not reflect the latest NLM data. No NLM endorsement is implied. The article's CC BY 4.0 terms and Eylem 2025 credit remain applicable.
+
 `ankle-peroneus-quartus-yuksel-fig1.jpg` and `ankle-peroneus-quartus-yuksel-fig2.jpg` preserve the complete original repository JPEGs without pixel edits. Article © 2025 Yavuz Yuksel, Tarkan Ergun and Ozkan Kose, *Prevalence of the Peroneus Quartus Muscle and Its Association with Peroneal Tendon Pathologies: An MRI Study of 1160 Ankles*, Diagnostics 15(18):2329, https://doi.org/10.3390/diagnostics15182329. Published under CC BY 4.0: https://creativecommons.org/licenses/by/4.0/.
 
 Figure 1 illustration is signed **Eylem 2025**; the supplied creator credit and signature are retained. It depicts one illustrative course pattern, without measured patient geometry or a universal attachment map. Figure 2 preserves axial, coronal and sagittal MRI panels a/b/c; the accessory variant is present, while individual clinical state and laterality are unreported. Neither asset establishes complete attachments, tissue dimensions or a 3D reconstruction. No endorsement or clinical approval is implied. Original article-wide licensing, signature attribution and acquisition evidence are recorded in `docs/msk-accessory-ankle-source-review/`.
+
+## Accessory soleus references (Plečko et al.)
+
+The reader now displays `ankle-accessory-soleus-plecko-fig1-pdf.png` and `ankle-accessory-soleus-plecko-fig3-pdf.png`, rendered from complete published PDF figures at their 300 dpi placement, preserving original panel layout and annotations. The JPEGs below remain archived previews. PDF source: NLM/PMC Article Datasets, retrieved 30 September 2026; this snapshot may not reflect the latest NLM data. No NLM endorsement is implied.
+
+`ankle-accessory-soleus-plecko-fig1.jpg` and `ankle-accessory-soleus-plecko-fig3.jpg` preserve complete original repository JPEGs without pixel edits. © 2020 Mihovil Plečko, Igor Knežević, Damjan Dimnjaković, Mario Josipović and Ivan Bojanić. *Accessory Soleus Muscle: Two Case Reports with a Completely Different Presentation Caused by the Same Entity*, Case Reports in Orthopedics 2020:8851920, https://doi.org/10.1155/2020/8851920. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. The exact publisher-deposited Crossref record supplies the licence version omitted from the repository article notice.
+
+The figures show separate symptomatic right-ankle cases with muscular and tendinous distal insertion patterns. Photograph and radiograph panels are explicitly distinguished from the selected MRI panels. Figure 3f retains a discrepancy between its source axial label and visually longitudinal anatomy; its exact plane remains unresolved. No full attachment footprint, measured 3D geometry, endorsement or clinical approval is implied. Evidence: `docs/msk-accessory-soleus-source-review/`.
+
+## FDAL MRI (Batista et al.)
+
+`ankle-fdal-batista-fig2-pdf.png`: © 2015 Jorge Pablo Batista, Jorge Javier del Vecchio, Pau Golanó and Jordi Vega. *Flexor Digitorum Accessorius Longus: Importance of Posterior Ankle Endoscopy*, Case Reports in Orthopedics 2015:823107, https://doi.org/10.1155/2015/823107. CC BY 3.0: https://creativecommons.org/licenses/by/3.0/. Complete Figure 2 rendered to lossless PNG at the PDF image's 600 dpi placement, preserving its white arrow and scale markings. Source: NLM/PMC Article Datasets, retrieved 30 September 2026; this snapshot may not reflect the latest NLM data. No author or NLM endorsement is implied. One local MRI cross-section in a symptomatic left-ankle case, without complete muscle or attachment geometry. Provenance: `docs/msk-accessory-pdf-source-review/`.

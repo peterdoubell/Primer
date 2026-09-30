@@ -231,7 +231,7 @@ def _walkthrough(item, ref):
         entry = {'label': label, 'detail': detail, 'sections': list(sections), 'normal': dict(normal),
                  'findings': list(findings), 'images': list(step_images), 'measurements': list(step_measures),
                  'landmark': _text(step.get('landmark'), 'Reporting step needs a 3D landmark'), 'parts': list(parts)}
-        for key in ('look', 'tip'):
+        for key in ('look', 'tip', 'anatomy_note'):
             if step.get(key) is not None or (complete and key == 'look'):
                 entry[key] = _text(step.get(key), 'Reporting step needs ' + key)
         steps.append(entry)
@@ -376,19 +376,22 @@ def _validate_source_derived_figure(image, root):
 @lru_cache(maxsize=1)
 def _structure_atlases():
     """Locally preserved, licensed figures with narrowly stated anatomy scope."""
-    catalog = _read('msk-open-images.json', {})
-    known = {item['id'] for item in catalogue()['investigations']
-             if item['section'] == 'Musculoskeletal'}
+    catalog = copy.deepcopy(_read('msk-open-images.json', {}))
+    for identifier, figures in _read('radiology-open-images.json', {}).items():
+        if not isinstance(figures, list):
+            raise ValueError('Source atlas figures must be a list')
+        catalog.setdefault(identifier, []).extend(figures)
+    known = {item['id'] for item in catalogue()['investigations']}
     topics = {item['id']: item['topic'] for item in catalogue()['investigations']}
     if not set(catalog).issubset(known):
         raise ValueError('MSK atlas figure has no matching investigation')
-    root = (DATA.parents[1] / 'web/reference-media/msk-open').resolve()
+    media = (DATA.parents[1] / 'web/reference-media').resolve()
     seen = set()
     for images in catalog.values():
         for image in images:
             if image['id'] in seen or image.get('kind') not in {'clinical-image', 'schematic'}:
                 raise ValueError('Invalid or duplicated MSK atlas figure')
-            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT arthrography', 'Ultrasound', 'Schematic'}:
+            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
             if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
                 raise ValueError('MSK source panel needs an explicit publication panel identifier')
@@ -399,7 +402,7 @@ def _structure_atlases():
             if not isinstance(ancillary, list):
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
-                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound'}
+                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound', 'Radiography', 'Clinical photograph'}
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or len(panel) != 1
                                or panel not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' for panel in entry['panels'])
@@ -409,9 +412,12 @@ def _structure_atlases():
                         or not entry['limits'].strip()):
                     raise ValueError('Ancillary panels need distinct types, observations and limits')
             seen.add(image['id'])
-            if not image['src'].startswith('/app/reference-media/msk-open/'):
+            prefix = next((p for p in ('/app/reference-media/msk-open/', '/app/reference-media/radiology-open/')
+                           if image['src'].startswith(p)), None)
+            if prefix is None:
                 raise ValueError('MSK atlas figures must be preserved locally')
-            path = (root / image['src'].removeprefix('/app/reference-media/msk-open/')).resolve()
+            root = media / prefix.rstrip('/').rsplit('/',1)[1]
+            path = (root / image['src'].removeprefix(prefix)).resolve()
             if not path.is_relative_to(root) or not path.is_file():
                 raise ValueError('MSK atlas figure leaves its reviewed directory')
             if hashlib.sha256(path.read_bytes()).hexdigest() != image['sha256']:
@@ -420,6 +426,7 @@ def _structure_atlases():
             # use CC BY 2.0; their grant must not be relabelled as CC BY 4.0.
             reviewed_licenses = {
                 'CC BY 2.0': 'https://creativecommons.org/licenses/by/2.0/',
+                'CC BY 3.0': 'https://creativecommons.org/licenses/by/3.0/',
                 'CC BY 4.0': 'https://creativecommons.org/licenses/by/4.0/',
                 'CC BY-ND 4.0': 'https://creativecommons.org/licenses/by-nd/4.0/',
                 'CC BY-SA 3.0 Unported': 'https://creativecommons.org/licenses/by-sa/3.0/',

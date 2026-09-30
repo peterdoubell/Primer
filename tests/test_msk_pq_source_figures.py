@@ -10,8 +10,9 @@ def test_pq_source_pixels_context_and_partial_extent():
  from primer.radiology_catalog import _structure_atlases
  images=_structure_atlases()['ra.mri-ankle'];assets,leaves=records()
  for identifier,filename,dimensions in [('open-ankle-peroneus-quartus-mri-yuksel-fig2','yuksel2025-peroneus-quartus-mri-fig2.jpg',(760,331)),('open-ankle-peroneus-quartus-pattern-yuksel-fig1','yuksel2025-peroneus-quartus-pattern-fig1.jpg',(664,625))]:
-  image=next(i for i in images if i['id']==identifier);raw=(ROOT/'web'/image['src'].removeprefix('/app/')).read_bytes();assert raw==(ROOT/'docs/msk-accessory-ankle-source-review'/filename).read_bytes();assert hashlib.sha256(raw).hexdigest()==image['sha256'];assert (image['width'],image['height'])==dimensions
-  asset=assets[identifier];assert asset['source_context']['anatomical_variant']=='peroneus_quartus' and asset['anatomical_review']['status']=='pending';assert asset['pixel_provenance']['higher_resolution_pixels_verified'] is False
+  image=next(i for i in images if i['id']==identifier);raw=(ROOT/'web'/image['src'].removeprefix('/app/')).read_bytes();assert hashlib.sha256(raw).hexdigest()==image['sha256']
+  asset=assets[identifier];prior=asset['prior_repository_preview'];assert hashlib.sha256((ROOT/'docs/msk-accessory-ankle-source-review'/filename).read_bytes()).hexdigest()==prior['sha256'];assert (prior['width'],prior['height'])==dimensions
+  assert asset['source_context']['anatomical_variant']=='peroneus_quartus' and asset['anatomical_review']['status']=='pending';assert asset['pixel_provenance']['higher_resolution_pixels_verified'] is True;assert asset['pixel_provenance']['highest_resolution_master_verified'] is False
   assert not any('attachment' in t or 'accessory_soleus' in t or 'accessorius_longus' in t for t in asset['structure_ids'])
   for target in asset['structure_ids']:
    assert not inspect_binding(asset,leaves[target]);assert inspect_requirement_coverage(asset,leaves[target])==['requirement_coverage_partial']

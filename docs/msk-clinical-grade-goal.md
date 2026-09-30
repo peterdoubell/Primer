@@ -1,6 +1,6 @@
-# MSK clinical/commercial fidelity work
+# MSK workstream of radiology clinical/commercial fidelity
 
-Objective: get all MSK radiology modules to clinical/commercial grade. Images,
+This is the MSK sub-workstream of the expanded [all-radiology objective](radiology-clinical-grade-goal.md). The original MSK scope is retained in full. Images,
 schematics and 3D models must contain high-fidelity representations of every
 structure to be reported on. **This objective is not achieved.** Passing software
 tests, acquiring a licensed mesh, or displaying an anatomical name does not
@@ -987,3 +987,37 @@ Fresh source inspection also established that the existing source-named right OP
 Existing reporting steps explicitly name AIIS/subspine morphology and peroneus quartus, accessory soleus and flexor digitorum accessorius longus. Their missing parts are now represented by 42 additional obligations, preserving acquisition, variant-presence and coverage conditions. A typed anatomical-variant guard rejects ordinary anatomy and mismatched accessory muscles; it does not convert unknown clinical state into a pathology example. The hip MRI protocol-boundary review was reconciled with the additive bone scope without weakening its acquired-MRI condition.
 
 Two unchanged CC BY 4.0 peroneus-quartus source JPEGs now provide three partial, unapproved image/schematic candidates. Original MRI panels, source arrows and the schematic's Eylem 2025 creator signature remain intact. No attachments, other accessory muscles or 3D reconstruction are credited. Native-size enlargement and desktop/mobile reader checks passed. Current audit: 5,292 obligations; 0 verified, 169 unverified and 5,123 missing. The clinical/commercial goal remains incomplete. See `msk-verification-aiis-pq-2026-09-30.json` and `msk-accessory-ankle-source-review.md`.
+
+## Accessory soleus case references — 30 September 2026
+
+Added two unchanged source composites from Plečko et al. for distinct symptomatic right-ankle cases with muscular and tendinous distal insertion patterns. The publisher-deposited Crossref record resolves the article notice's unspecified Creative Commons version to CC BY 4.0. Clinical photographs and radiographs have separate panel types and cannot supply MRI coverage. A discrepancy between Figure 3f's axial caption and its visually longitudinal anatomy is explicitly unresolved, with the original caption preserved.
+
+These images add partial belly, visible-course and distal-attachment candidates, retaining the missing proximal origin, full footprint, measured dimensions and 3D requirements. A separate FDAL image acquisition failed; its incomplete archive supplies no runtime asset or binding. The full clinical/commercial goal remains incomplete. Source evidence: `msk-accessory-soleus-source-review.md`; current audit: `msk-verification-accessory-soleus-2026-09-30.json`.
+
+Current accessory-soleus audit: 5,292 obligations, 0 verified, 172 unverified and 5,120 missing. Runtime figure rights: 230 inventoried, 89 cleared and 141 unverified. Both source figures passed desktop/mobile display and native-pixel zoom checks; 214 relevant tests passed. These additions remain local, with anatomical approval pending.
+
+## Original published PDF resolution — 30 September 2026
+
+PMC's documented replacement Cloud Service supplied checksum-verified original PDFs for the PQ, soleus and FDAL papers. Four reader previews were replaced with complete published-figure PNG renders at the PDF images' native placement density, retaining arrows, panel layout and the signed schematic credit. Five outputs reproduced byte-for-byte from fingerprint-checked PDFs. The unchanged small repository previews remain archived; the rendered PNGs are explicitly distinguished from original JPEG streams and from a highest-resolution prepublication master.
+
+The previously unavailable FDAL MRI now supplies one partial local-belly candidate from a symptomatic left-ankle case. Its publisher record specifies CC BY 3.0, which is retained rather than relabelled as 4.0. No complete course, attachment, compression mechanism or 3D geometry was inferred. Full MSK scope and pending anatomical approval are unchanged. Evidence: `msk-accessory-pdf-source-review.md`; current audit: `msk-verification-accessory-pdf-2026-09-30.json`.
+
+All five PDF figures passed desktop/mobile native-pixel zoom checks, exact render reproduction and complete crop-containment checks. The relevant 216 tests passed. Current audit: 5,292 obligations; 0 verified, 173 unverified and 5,119 missing. Runtime figure rights: 231 inventoried, 90 cleared and 141 unverified. Full clinical/commercial readiness remains unproven.
+
+## Native high-resolution spine CT — 30 September 2026
+
+The complete CC BY 4.0 Leeds donor-3 CT archive passed its repository MD5 and every member CRC, but its actual DICOM coverage is a 146-frame, 7.3 mm slab. Native sampling is 0.05 mm, yet complete vertebral anatomy is not established by the inspected planes. It is withheld from whole-spine geometry promotion. A larger donor-1 archive has 1,652 frames; three intact sampled frames show a wider native extent and bone architecture. Its complete download is running with verified resumable ranges, ahead of full geometry and anatomical review. No clinical coverage is waived or approved.
+
+The LumASe numeric dictionary remains unresolved. A separate LumbarSR source was screened and held because its Zenodo and author-repository dataset terms conflict. See `msk-leeds-spine-source-review.md` and `msk-lumbarsr-source-review.md`. The full clinical/commercial objective remains active and incomplete.
+
+Native CT import now has explicit physical-coordinate validation and an export path that preserves every signed source sample and per-frame calibration. Nine geometry tests and three end-to-end preservation checks passed. Wrong coordinate metadata and silently omitted planes are rejected. This prepares faithful 3D source handling while the larger donor-1 download continues; it does not supply anatomical segmentation or clinical approval.
+
+Native-coordinate review added a whole-stack plane-error check and corrected derived-normal scaling for rounded direction cosines. Eleven geometry tests and three end-to-end export checks pass. This prevents cumulative slice-position errors without resampling or adding anatomical claims; donor-1 acquisition remains active.
+
+The running donor-1 acquisition now has a dependent audit/export process. It proceeds only after the downloaded file has passed the expected whole-object checksum, and stops on failed validation. Clinical review and runtime promotion remain separate, unfinished steps.
+
+Fixed a reproduced optimized-Python validation bypass in native CT export. Source hashes, geometry correspondence and voxel-preservation conditions now remain active under `-O`; the original-archive audit uses explicit validation too. Eleven geometry and six end-to-end checks pass. This improves source fidelity assurance without adding clinical coverage claims.
+
+Resolved the missing Rescale Type uncertainty using the current DICOM CT Image Module: the actual original/non-localizer, non-multi-energy metadata establishes HU output semantics for all donor-3 frames and the sampled donor-1 frames. The audit/export now carries the basis per frame and prevents unrelated image types or altered metadata from inheriting those units. Independent scanner calibration remains unverified. Twenty geometry/unit tests and seven end-to-end checks passed; no anatomical coverage or clinical approval was added.
+
+The complete donor-1 CT archive now matches its repository checksum, all 1,652 member CRCs pass, and the native 1652×2008×2008 signed-16-bit array was preserved and independently reloaded without resampling. Full audit/export processes completed successfully. This establishes source/coordinate preservation, not complete anatomical boundaries, segmentation accuracy or clinical approval. See `msk-leeds-spine-source-review/donor1/native-export-summary.json`.

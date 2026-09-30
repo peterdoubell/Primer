@@ -10,10 +10,11 @@ import hashlib
 from pathlib import Path
 
 
-def reference_images(curriculum, catalogue, requirements, detail):
+def reference_images(curriculum, catalogue, requirements, detail, catalog_section='Musculoskeletal'):
     """Read current rendered-reference inputs, including declared extra surfaces."""
     by_id = {item['id']: item for item in catalogue['investigations']}
-    investigations = {item['id'] for item in by_id.values() if item['section'] == 'Musculoskeletal'}
+    investigations = {item['id'] for item in by_id.values()
+                      if catalog_section is None or item['section'] == catalog_section}
     modules = {by_id[key]['module_id'] for key in investigations}
     for additional in requirements.get('additional_scope', []):
         modules.add(additional['module_id'])

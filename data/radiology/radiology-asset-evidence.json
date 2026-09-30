@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-30",
+  "status": "incomplete",
+  "assets": [
+    {
+      "id": "open-appendix-mostbeck-2016-fig1",
+      "kind": "clinical_image",
+      "name": "Appendix source Figure 1",
+      "local_path": "web/reference-media/radiology-open/appendix-mostbeck-2016-fig1.png",
+      "sha256": "da710c2e77cd8a6feae1c70dd83e289211d43fb867855a4a72e73320fe004214",
+      "regions": [
+        "abdomen"
+      ],
+      "investigation_ids": [
+        "ra.appendicitis"
+      ],
+      "structure_ids": [
+        "abdomen.appendix.outer_wall_boundary",
+        "abdomen.appendix.lumen"
+      ],
+      "structures_observed": [
+        "Appendix: local outer-wall/lumen appearance",
+        "Caecum and terminal ileum: source-labelled nearby landmarks"
+      ],
+      "modality": "Ultrasound",
+      "image_state": "normal_anatomy",
+      "caption": "Source-labelled normal appendix on longitudinal ultrasound, with a 0.3 cm measurement and nearby caecum and terminal ileum markers. This still image provides a local reference; it does not demonstrate graded compressibility or the entire base-to-tip course.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "The original PDF embeds modest-resolution clinical figures (approximately 494 pixels wide at 150 dpi). No DICOM series, validated full course, complete attachment geometry, dynamic compression or 3D reconstruction is supplied. Original labels and measurements are preserved; they are not independent measurement validation. Age, sex and laterality are unreported. The source legend distinguishes psoas and rectus stars, but the star glyphs appear similar; those muscle labels cannot be independently distinguished at this resolution.",
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "not_reported"
+        },
+        "depicted_state": "normal_anatomy",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "abdomen"
+        },
+        "selected_panels": [
+          "whole"
+        ],
+        "panel_types": {
+          "whole": "Ultrasound"
+        },
+        "source_evidence": {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/",
+          "locator": "Figure 1 and caption"
+        },
+        "unknowns": [
+          "Full anatomical extent and complete exam findings are not established by these selected sections.",
+          "No independent dynamic or physical-dimension validation is supplied."
+        ]
+      },
+      "requirement_coverage": {
+        "abdomen.appendix.outer_wall_boundary": {
+          "extent": "partial",
+          "basis": "Local published section only; full extent is not demonstrated."
+        },
+        "abdomen.appendix.lumen": {
+          "extent": "partial",
+          "basis": "Local published section only; full extent is not demonstrated."
+        }
+      },
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/",
+        "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/#Fig1",
+        "asset_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4805616.1/PMC4805616.1.pdf?md5=ab52c62cd5849df4a5441be8e74bd994",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/appendix-source-review/acquisition-and-review.json",
+          "attribution": "\u00a9 The Author(s) 2016: Gerhard Mostbeck, E. Jane Adam, Michael Bachmann Nielsen, Michel Claudon, Dirk Clevert, Carlos Nicolau, Christiane Nyhsen, Catherine M. Owens. How to diagnose acute appendicitis: ultrasound first. Insights into Imaging 7:255\u2013263. DOI 10.1007/s13244-016-0469-6. CC BY 4.0. Complete Figure 1 rendered from the published PDF at its 150 dpi placement; original annotations and layout retained. Source: NLM/PMC Article Datasets, retrieved 30 September 2026. This snapshot may not reflect the latest NLM data. No endorsement implied.",
+          "evidence_sha256": "f56627d8d099af60517d42b97d6ee2a4635dfe2fd8134b421862b232ab5b1377"
+        }
+      },
+      "pixel_provenance": {
+        "source_pdf_sha256": "3c0ec1d9b95a79a9a43102490f563cc48783907a83a0ece67345898953c89c77",
+        "pdf_page": 3,
+        "render_dpi": 150,
+        "source_stream_preserved": false,
+        "highest_resolution_master_verified": false
+      },
+      "representation_selection": {
+        "panels": [
+          "whole"
+        ],
+        "source_figure": "Complete published composite; only the explicitly selected modality panels may support bindings."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex original PDF, caption and annotation review",
+        "reviewed_at": "2026-09-30",
+        "sha256": "da710c2e77cd8a6feae1c70dd83e289211d43fb867855a4a72e73320fe004214",
+        "evidence_path": "docs/appendix-source-review/acquisition-and-review.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Selected modest-resolution sections do not establish complete high-fidelity structures."
+      }
+    },
+    {
+      "id": "open-appendix-mostbeck-2016-fig2",
+      "kind": "clinical_image",
+      "name": "Appendix source Figure 2",
+      "local_path": "web/reference-media/radiology-open/appendix-mostbeck-2016-fig2.png",
+      "sha256": "83c646d6b68b824893a6158ab9b668cf92017aa273708303438062c6cbbb9680",
+      "regions": [
+        "abdomen"
+      ],
+      "investigation_ids": [
+        "ra.appendicitis"
+      ],
+      "structure_ids": [
+        "abdomen.appendix.outer_wall_boundary",
+        "abdomen.appendix.lumen",
+        "abdomen.periappendiceal_tissues.fluid_space"
+      ],
+      "structures_observed": [
+        "Appendix: local thickened wall and lumen",
+        "Periappendiceal free fluid marked +"
+      ],
+      "modality": "Ultrasound",
+      "image_state": "acute_appendicitis",
+      "caption": "Longitudinal a and transverse b ultrasound in source-diagnosed acute appendicitis. Original calipers show local diameter and wall thickness; + marks adjacent free fluid. These are selected sections, not a complete examination or proof of perforation.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "The original PDF embeds modest-resolution clinical figures (approximately 494 pixels wide at 150 dpi). No DICOM series, validated full course, complete attachment geometry, dynamic compression or 3D reconstruction is supplied. Original labels and measurements are preserved; they are not independent measurement validation. Age, sex and laterality are unreported. No gangrene, wall perforation or abscess is established by this figure.",
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "not_reported"
+        },
+        "depicted_state": "acute_appendicitis",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "abdomen"
+        },
+        "selected_panels": [
+          "a",
+          "b"
+        ],
+        "panel_types": {
+          "a": "Ultrasound",
+          "b": "Ultrasound"
+        },
+        "source_evidence": {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/",
+          "locator": "Figure 2 and caption"
+        },
+        "unknowns": [
+          "Full anatomical extent and complete exam findings are not established by these selected sections.",
+          "No independent dynamic or physical-dimension validation is supplied."
+        ]
+      },
+      "requirement_coverage": {
+        "abdomen.appendix.outer_wall_boundary": {
+          "extent": "partial",
+          "basis": "Local published section only; full extent is not demonstrated."
+        },
+        "abdomen.appendix.lumen": {
+          "extent": "partial",
+          "basis": "Local published section only; full extent is not demonstrated."
+        },
+        "abdomen.periappendiceal_tissues.fluid_space": {
+          "extent": "partial",
+          "basis": "Local published section only; full extent is not demonstrated."
+        }
+      },
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/",
+        "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/#Fig2",
+        "asset_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4805616.1/PMC4805616.1.pdf?md5=ab52c62cd5849df4a5441be8e74bd994",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/appendix-source-review/acquisition-and-review.json",
+          "attribution": "\u00a9 The Author(s) 2016: Gerhard Mostbeck, E. Jane Adam, Michael Bachmann Nielsen, Michel Claudon, Dirk Clevert, Carlos Nicolau, Christiane Nyhsen, Catherine M. Owens. How to diagnose acute appendicitis: ultrasound first. Insights into Imaging 7:255\u2013263. DOI 10.1007/s13244-016-0469-6. CC BY 4.0. Complete Figure 2 rendered from the published PDF at its 150 dpi placement; original annotations and layout retained. Source: NLM/PMC Article Datasets, retrieved 30 September 2026. This snapshot may not reflect the latest NLM data. No endorsement implied.",
+          "evidence_sha256": "f56627d8d099af60517d42b97d6ee2a4635dfe2fd8134b421862b232ab5b1377"
+        }
+      },
+      "pixel_provenance": {
+        "source_pdf_sha256": "3c0ec1d9b95a79a9a43102490f563cc48783907a83a0ece67345898953c89c77",
+        "pdf_page": 3,
+        "render_dpi": 150,
+        "source_stream_preserved": false,
+        "highest_resolution_master_verified": false
+      },
+      "representation_selection": {
+        "panels": [
+          "a",
+          "b"
+        ],
+        "source_figure": "Complete published composite; only the explicitly selected modality panels may support bindings."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex original PDF, caption and annotation review",
+        "reviewed_at": "2026-09-30",
+        "sha256": "83c646d6b68b824893a6158ab9b668cf92017aa273708303438062c6cbbb9680",
+        "evidence_path": "docs/appendix-source-review/acquisition-and-review.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Selected modest-resolution sections do not establish complete high-fidelity structures."
+      }
+    },
+    {
+      "id": "open-appendix-mostbeck-2016-fig3",
+      "kind": "clinical_image",
+      "name": "Appendix source Figure 3",
+      "local_path": "web/reference-media/radiology-open/appendix-mostbeck-2016-fig3.png",
+      "sha256": "ede39db19d9e14185782cb6862b3a5c61feb0251e72321f6e9231b233423a73c",
+      "regions": [
+        "abdomen"
+      ],
+      "investigation_ids": [
+        "ra.appendicitis"
+      ],
+      "structure_ids": [],
+      "structures_observed": [
+        "Appendix and surrounding inflammatory changes described by the source; precise CT localization review pending"
+      ],
+      "modality": "CT",
+      "image_state": "acute_appendicitis",
+      "caption": "Paired imaging of a 45-year-old man with source-diagnosed acute appendicitis. Ultrasound a shows only part of the appendix; contrast-enhanced CT b is described as showing appendiceal thickening, surrounding mesenteric infiltration and sigmoid inflammation. The CT panel has no structure-specific arrows; precise anatomical localization remains unreviewed.",
+      "fidelity": "source_reviewed_not_clinically_approved",
+      "limitations": "The original PDF embeds modest-resolution clinical figures (approximately 494 pixels wide at 150 dpi). No DICOM series, validated full course, complete attachment geometry, dynamic compression or 3D reconstruction is supplied. Original labels and measurements are preserved; they are not independent measurement validation. US a is not CT evidence. The CT panel lacks structure-specific arrows; a detailed anatomical localization review remains pending.",
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "not_reported",
+        "population": {
+          "life_stage": "adult",
+          "age_years": 45,
+          "sex": "male"
+        },
+        "depicted_state": "acute_appendicitis",
+        "extent": "local",
+        "anatomical_site": {
+          "region": "abdomen"
+        },
+        "selected_panels": [
+          "b"
+        ],
+        "panel_types": {
+          "a": "Ultrasound",
+          "b": "CT"
+        },
+        "source_evidence": {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/",
+          "locator": "Figure 3 and caption"
+        },
+        "unknowns": [
+          "Full anatomical extent and complete exam findings are not established by these selected sections.",
+          "No independent dynamic or physical-dimension validation is supplied."
+        ]
+      },
+      "requirement_coverage": {},
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/",
+        "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4805616/#Fig3",
+        "asset_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4805616.1/PMC4805616.1.pdf?md5=ab52c62cd5849df4a5441be8e74bd994",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-09-30",
+          "evidence_path": "docs/appendix-source-review/acquisition-and-review.json",
+          "attribution": "\u00a9 The Author(s) 2016: Gerhard Mostbeck, E. Jane Adam, Michael Bachmann Nielsen, Michel Claudon, Dirk Clevert, Carlos Nicolau, Christiane Nyhsen, Catherine M. Owens. How to diagnose acute appendicitis: ultrasound first. Insights into Imaging 7:255\u2013263. DOI 10.1007/s13244-016-0469-6. CC BY 4.0. Complete Figure 3 rendered from the published PDF at its 150 dpi placement; original annotations and layout retained. Source: NLM/PMC Article Datasets, retrieved 30 September 2026. This snapshot may not reflect the latest NLM data. No endorsement implied.",
+          "evidence_sha256": "f56627d8d099af60517d42b97d6ee2a4635dfe2fd8134b421862b232ab5b1377"
+        }
+      },
+      "pixel_provenance": {
+        "source_pdf_sha256": "3c0ec1d9b95a79a9a43102490f563cc48783907a83a0ece67345898953c89c77",
+        "pdf_page": 6,
+        "render_dpi": 150,
+        "source_stream_preserved": false,
+        "highest_resolution_master_verified": false
+      },
+      "representation_selection": {
+        "panels": [
+          "b"
+        ],
+        "source_figure": "Complete published composite; only the explicitly selected modality panels may support bindings."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewer": "Codex original PDF, caption and annotation review",
+        "reviewed_at": "2026-09-30",
+        "sha256": "ede39db19d9e14185782cb6862b3a5c61feb0251e72321f6e9231b233423a73c",
+        "evidence_path": "docs/appendix-source-review/acquisition-and-review.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Selected modest-resolution sections do not establish complete high-fidelity structures."
+      }
+    }
+  ]
+}

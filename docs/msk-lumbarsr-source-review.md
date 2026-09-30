@@ -1,0 +1,7 @@
+# LumbarSR source screening — 30 September 2026
+
+LumbarSR is a potentially useful source for bone-surface and trabecular review: its authors describe paired clinical CT and 105 µm Micro-PCCT from 30 dry human lumbar teaching specimens. Clinical and demographic histories are unavailable. Registered clinical CT is resampled onto the reference grid; that grid spacing must not be mistaken for native clinical-CT resolution.
+
+The primary sources give conflicting dataset terms. [Zenodo record 19404387](https://zenodo.org/records/19404387) declares CC BY 4.0, while the [authors' repository at commit 72144cf](https://github.com/FrankZhangRp/LumbarSR-Challenge/tree/72144cfe5504d3595c8588d09b1458f07fda0805) states CC BY-NC-SA 4.0 for the dataset. The associated [article](https://doi.org/10.1038/s41597-026-07748-5) separately has CC BY-NC-ND 4.0 terms. Article licensing alone would not decide data rights, but the two direct dataset statements require reconciliation before commercial promotion.
+
+The [rights and scope record](msk-lumbarsr-source-review/rights-and-scope.json) pins the metadata hashes, repository commit, archive names and published checksums. Only public metadata and documentation were inspected; no dataset bodies, trained outputs or geometry were imported. Commercial use remains unresolved, and no clinical approval or structure binding is created. No message has been sent to the authors.

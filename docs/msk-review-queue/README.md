@@ -8,7 +8,7 @@ Changes must be made in the authoritative evidence ledger with actual reviewer i
 | Investigation | Verified | Unverified | Missing |
 |---|---:|---:|---:|
 | [Ankle fracture radiography](ra.ankle-fractures.md) | 0 | 0 | 330 |
-| [MRI ankle](ra.mri-ankle.md) | 0 | 15 | 501 |
+| [MRI ankle](ra.mri-ankle.md) | 0 | 19 | 497 |
 | [Arthritis imaging](ra.arthritis.md) | 0 | 1 | 80 |
 | [Bone tumour imaging](ra.bone-tumours.md) | 0 | 0 | 96 |
 | [Cartilage tumour imaging](ra.cartilage-tumours.md) | 0 | 0 | 117 |

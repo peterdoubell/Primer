@@ -1,6 +1,6 @@
 # Peroneus quartus MRI source candidate
 
-Reviewed 2026-09-30. This is a source acquisition and narrow proposal for the MRI-ankle module. It does not change the runtime, structure requirements or asset ledger, and it does not grant anatomical approval.
+Initial source acquisition reviewed 2026-09-30. The proposal below was subsequently integrated as partial PQ references. The current reader uses complete figures rendered from the original published PDF; see [the PDF source review](msk-accessory-pdf-source-review.md). The repository-image acquisition history below remains evidence of the earlier previews. No anatomical approval is granted.
 
 The original retrospective MRI study by Yavuz Yuksel, Tarkan Ergun and Ozkan Kose is [Diagnostics 15(18):2329 (2025)](https://doi.org/10.3390/diagnostics15182329). The [licensed article in PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC12468075/) and its original Europe PMC XML both explicitly state **CC BY 4.0**. Figure 2 has no separate excluded credit in its XML, caption or image. Its source anatomy is a variant example, not a normality claim for the entire ankle.
 

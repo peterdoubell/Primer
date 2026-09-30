@@ -1,0 +1,11 @@
+# Dedicated brain source candidates
+
+The official BodyParts3D 4.0 constituent tables identify dedicated right/left caudate, thalamus, putamen, globus pallidus and internal-capsule elements, plus corpus callosum, pituitary, midbrain, pons and medulla components. The current registered brain bundle does not expose these separately. They are candidate source additions, not substitutes for the unresolved fine anatomy or clinical approval.
+
+Twenty-three original OBJ members were acquired through bounded ranges from the archive already documented in `web/anatomy/bodyparts3d/ATTRIBUTION.md`. Every member matched its uncompressed length and ZIP CRC; source SHA-256 and stable archive ETag were recorded. No source coordinate, face, component or endpoint was modified. Acquisition and official metadata hashes are in `brain-source-candidate-review/acquisition.json` and `source-naming-review.json`.
+
+The source has 133,884 triangles across the acquired elements. Index-based edge counts initially found apparent openings in many objects. Exact coincident-position analysis resolves those openings, without editing the OBJ files. This distinguishes vertex seams from missing surface geometry; it does not independently establish anatomical correctness. Details: `brain-source-candidate-review/source-topology-audit.json`.
+
+Fifteen gross named groups were visually inspected in their original registered coordinates. Several structures, especially the thalami, remain geometrically coarse. The publisher describes the archive as 99% polygon-reduced. Neither the gross source name nor a closed surface proves fine nuclei, internal-capsule limb boundaries, callosal fibre anatomy or patient-specific morphology. No runtime model or requirement binding has been promoted at this stage.
+
+Source rights: BodyParts3D, © The Database Center for Life Science, CC BY 4.0, as stated by the acquired official `README_e.html`. Dataset [documentation](https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html), [licence evidence](https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/README_e.html). The adult male reference context and existing clinical-review limits remain applicable.

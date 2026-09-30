@@ -1,0 +1,1039 @@
+{
+  "schema_version": 1,
+  "clinical_validation_status": "draft_requires_specialist_review",
+  "scope": {
+    "catalog_investigation_ids": [
+      "ra.appendicitis"
+    ],
+    "whole_radiology_scope_complete": false
+  },
+  "investigations": [
+    {
+      "investigation_id": "ra.appendicitis",
+      "module_id": "rad.5.appendicitis",
+      "title": "Ultrasound and CT appendix",
+      "modality": "Ultrasound / CT",
+      "scope_type": "primary_organ_with_conditional_complications_and_mimics",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "appendix-source-0",
+          "title": "Radiology Assistant \u2014 Appendicitis and Mimics",
+          "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+          "review_status": "scope_sections_reviewed_2026-09-30"
+        },
+        {
+          "source_id": "appendix-source-1",
+          "title": "Radiology Assistant \u2014 Appendicitis - US findings",
+          "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+          "review_status": "scope_sections_reviewed_2026-09-30"
+        },
+        {
+          "source_id": "appendix-source-2",
+          "title": "Radiology Assistant \u2014 Appendicitis - Pitfalls in US and CT diagnosis",
+          "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis",
+          "review_status": "scope_sections_reviewed_2026-09-30"
+        }
+      ],
+      "source_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
+      "reporting_checklist": [
+        {
+          "index": 0,
+          "label": "Identification",
+          "detail": "State complete, partial or absent visualisation."
+        },
+        {
+          "index": 1,
+          "label": "Appendiceal wall",
+          "detail": "Assess calibre, compressibility, enhancement/flow and focal tip abnormality."
+        },
+        {
+          "index": 2,
+          "label": "Surrounding tissue",
+          "detail": "Look for fat inflammation, local fluid and caecal reaction."
+        },
+        {
+          "index": 3,
+          "label": "Complication",
+          "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+        },
+        {
+          "index": 4,
+          "label": "Mimics",
+          "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "APPENDIX IDENTIFICATION",
+          "body": "Location: [ ]. Visualisation: [complete / partial / not seen]. Tip included: [yes / no]."
+        },
+        {
+          "heading": "WALL AND LUMEN",
+          "body": "Diameter: [ ] mm. Compressibility: [ ]. Wall enhancement/flow: [ ]. Appendicolith: [ ]."
+        },
+        {
+          "heading": "PERIAPPENDICEAL CHANGE",
+          "body": "Fat inflammation: [ ]. Local fluid: [ ]. Caecal reaction: [ ]."
+        },
+        {
+          "heading": "COMPLICATIONS",
+          "body": "Wall defect/extraluminal gas: [ ]. Abscess site/size: [ ]. Phlegmon: [ ]. Obstruction: [ ]."
+        },
+        {
+          "heading": "ALTERNATIVE FINDINGS",
+          "body": "Terminal ileum/colon: [ ]. Epiploic fat: [ ]. Urinary tract: [ ]. Adnexa/pelvis: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "abdomen.appendix",
+          "name": "Appendix",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.appendix.base",
+              "name": "Caecal base"
+            },
+            {
+              "id": "abdomen.appendix.proximal_segment",
+              "name": "Proximal segment"
+            },
+            {
+              "id": "abdomen.appendix.middle_segment",
+              "name": "Middle segment"
+            },
+            {
+              "id": "abdomen.appendix.distal_segment",
+              "name": "Distal segment"
+            },
+            {
+              "id": "abdomen.appendix.tip",
+              "name": "Blind-ending tip"
+            },
+            {
+              "id": "abdomen.appendix.lumen",
+              "name": "Lumen"
+            },
+            {
+              "id": "abdomen.appendix.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "abdomen.appendix.layer_pattern",
+              "name": "Sonographic wall-layer pattern",
+              "modality_scope": [
+                "Ultrasound"
+              ]
+            },
+            {
+              "id": "abdomen.appendix.submucosa",
+              "name": "Sonographically visible submucosa",
+              "modality_scope": [
+                "Ultrasound"
+              ]
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Trace the complete acquired length and document unseen segments. Position variants require case-specific localization. Ultrasound wall layering is not inferred from routine CT.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Identification",
+              "detail": "State complete, partial or absent visualisation."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Appendiceal wall",
+              "detail": "Assess calibre, compressibility, enhancement/flow and focal tip abnormality."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_locator": "US findings > Layer structure; effective walkthrough steps Identify the appendix and Wall, lumen and appendicolith."
+        },
+        {
+          "id": "abdomen.caecum",
+          "name": "Caecum",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.caecum.pole",
+              "name": "Caecal pole"
+            },
+            {
+              "id": "abdomen.caecum.wall",
+              "name": "Caecal wall"
+            },
+            {
+              "id": "abdomen.caecum.appendiceal_junction",
+              "name": "Junction with appendix"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Within acquired coverage; retain the spatial relationship to the appendiceal base.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Identification",
+              "detail": "State complete, partial or absent visualisation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Surrounding tissue",
+              "detail": "Look for fat inflammation, local fluid and caecal reaction."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            0,
+            2,
+            4
+          ]
+        },
+        {
+          "id": "abdomen.terminal_ileum",
+          "name": "Terminal ileum",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.terminal_ileum.wall",
+              "name": "Terminal ileal wall"
+            },
+            {
+              "id": "abdomen.terminal_ileum.lumen",
+              "name": "Terminal ileal lumen"
+            },
+            {
+              "id": "abdomen.terminal_ileum.ileocaecal_junction",
+              "name": "Ileocaecal junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "When assessed for the documented alternative diagnoses; bowel outside the field is not normal by default.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "abdomen.right_colon",
+          "name": "Right colon",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.right_colon.wall",
+              "name": "Colonic wall"
+            },
+            {
+              "id": "abdomen.right_colon.diverticulum_if_present",
+              "name": "Diverticulum if present"
+            },
+            {
+              "id": "abdomen.right_colon.pericolonic_interface",
+              "name": "Pericolonic interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Within the assessed bowel segment; specify the involved site rather than borrowing one generic colonic model.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "abdomen.periappendiceal_tissues",
+          "name": "Periappendiceal tissues",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.periappendiceal_tissues.fat",
+              "name": "Periappendiceal fat"
+            },
+            {
+              "id": "abdomen.periappendiceal_tissues.fluid_space",
+              "name": "Local fluid space"
+            },
+            {
+              "id": "abdomen.periappendiceal_tissues.mesenteric_relationship",
+              "name": "Mesenteric relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Within acquired coverage; fluid or inflamed fat does not independently establish perforation.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Surrounding tissue",
+              "detail": "Look for fat inflammation, local fluid and caecal reaction."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Complication",
+              "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            2,
+            3
+          ]
+        },
+        {
+          "id": "abdomen.mesenteric_nodes",
+          "name": "Mesenteric nodes",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.mesenteric_nodes.individual_nodes",
+              "name": "Individual visible nodes"
+            },
+            {
+              "id": "abdomen.mesenteric_nodes.distribution",
+              "name": "Distribution relative to ileum and caecum"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Nodes are explicit in walkthrough findings; their presence does not exclude concurrent appendicitis.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "abdomen.epiploic_appendage",
+          "name": "Epiploic appendage",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.epiploic_appendage.fat_body",
+              "name": "Fat body"
+            },
+            {
+              "id": "abdomen.epiploic_appendage.colonic_attachment",
+              "name": "Relationship to colonic surface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "For the indicated focal fat lesion, with affected colonic site stated.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "abdomen.greater_omentum",
+          "name": "Greater omentum",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.greater_omentum.fat",
+              "name": "Omental fat"
+            },
+            {
+              "id": "abdomen.greater_omentum.bowel_relationship",
+              "name": "Relationship to adjacent bowel"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Conditional alternative diagnosis or postoperative hernia content; no blanket normality outside scanned coverage.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "abdomen.right_kidney_appendix_workup",
+          "name": "Right kidney in appendix workup",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.right_kidney_appendix_workup.parenchyma",
+              "name": "Visible renal parenchyma"
+            },
+            {
+              "id": "abdomen.right_kidney_appendix_workup.collecting_system",
+              "name": "Collecting system"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "When urinary alternatives are assessed and the kidney is covered; right-sided scope follows the current walkthrough.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "abdomen.right_ureter_appendix_workup",
+          "name": "Right ureter in appendix workup",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.right_ureter_appendix_workup.proximal",
+              "name": "Visible proximal ureter"
+            },
+            {
+              "id": "abdomen.right_ureter_appendix_workup.middle",
+              "name": "Visible middle ureter"
+            },
+            {
+              "id": "abdomen.right_ureter_appendix_workup.distal",
+              "name": "Visible distal ureter"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Trace only acquired/visualized portions; state any obscured or unexamined extent.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "pelvis.right_adnexa_appendix_workup",
+          "name": "Right adnexa in appendix workup",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "pelvis.right_adnexa_appendix_workup.ovary",
+              "name": "Ovary"
+            },
+            {
+              "id": "pelvis.right_adnexa_appendix_workup.tube_if_visible",
+              "name": "Tube when visible"
+            },
+            {
+              "id": "pelvis.right_adnexa_appendix_workup.surrounding_tissue",
+              "name": "Surrounding adnexal tissue"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "If present, relevant and assessed. A nonvisualized tube or ovary is not proof of normality; retain side and patient/developmental context.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "pelvis.left_adnexa_appendix_workup",
+          "name": "Left adnexa in appendix workup",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "pelvis.left_adnexa_appendix_workup.ovary",
+              "name": "Ovary"
+            },
+            {
+              "id": "pelvis.left_adnexa_appendix_workup.tube_if_visible",
+              "name": "Tube when visible"
+            },
+            {
+              "id": "pelvis.left_adnexa_appendix_workup.surrounding_tissue",
+              "name": "Surrounding adnexal tissue"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "If present, relevant and assessed. A nonvisualized tube or ovary is not proof of normality; retain side and patient/developmental context.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ]
+        },
+        {
+          "id": "abdomen.rectus_sheath_region",
+          "name": "Rectus sheath region",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.rectus_sheath_region.muscle",
+              "name": "Rectus abdominis muscle"
+            },
+            {
+              "id": "abdomen.rectus_sheath_region.sheath",
+              "name": "Rectus sheath"
+            },
+            {
+              "id": "abdomen.rectus_sheath_region.fascial_defect_if_present",
+              "name": "Fascial defect if present"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Conditional abdominal-wall mimic or postoperative concern from linked sources; guide reconciliation remains pending.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_locator": "Appendicitis and Mimics > Rectus sheath hematoma; conditional source extension awaiting guide reconciliation."
+        },
+        {
+          "id": "abdomen.appendicolith",
+          "name": "Appendicolith",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.appendicolith.focus",
+              "name": "Calcific focus"
+            },
+            {
+              "id": "abdomen.appendicolith.luminal_relationship",
+              "name": "Intraluminal or extraluminal relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "When present; location at base, middle or tip and luminal relationship must be supported by the case.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Appendiceal wall",
+              "detail": "Assess calibre, compressibility, enhancement/flow and focal tip abnormality."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Complication",
+              "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true,
+          "walkthrough_step_indices": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "abdomen.appendiceal_perforation",
+          "name": "Perforation findings",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.appendiceal_perforation.wall_defect",
+              "name": "Focal appendiceal wall defect"
+            },
+            {
+              "id": "abdomen.appendiceal_perforation.extra_luminal_gas",
+              "name": "Extraluminal gas"
+            },
+            {
+              "id": "abdomen.appendiceal_perforation.extra_luminal_appendicolith",
+              "name": "Extraluminal appendicolith when present"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "When demonstrated or suspected, with visible evidence and confidence stated. Normal anatomy cannot supply a perforation example.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Complication",
+              "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true,
+          "walkthrough_step_indices": [
+            3
+          ]
+        },
+        {
+          "id": "abdomen.appendiceal_collection",
+          "name": "Appendiceal-region collection",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.appendiceal_collection.fluid_component",
+              "name": "Fluid component"
+            },
+            {
+              "id": "abdomen.appendiceal_collection.wall_if_present",
+              "name": "Collection wall when present"
+            },
+            {
+              "id": "abdomen.appendiceal_collection.adjacent_structures",
+              "name": "Adjacent bowel and pelvic relationships"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Instantiate each actual collection and its extent; a phlegmon is not automatically a drainable fluid cavity.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Complication",
+              "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true,
+          "walkthrough_step_indices": [
+            3
+          ]
+        },
+        {
+          "id": "abdomen.appendiceal_phlegmon",
+          "name": "Appendiceal-region phlegmon",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.appendiceal_phlegmon.soft_tissue_mass",
+              "name": "Inflammatory soft-tissue mass"
+            },
+            {
+              "id": "abdomen.appendiceal_phlegmon.bowel_relationship",
+              "name": "Relationship to appendix and bowel"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "When present; retain the distinction from a fluid collection.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Complication",
+              "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true,
+          "walkthrough_step_indices": [
+            3
+          ]
+        },
+        {
+          "id": "abdomen.small_bowel_appendix_workup",
+          "name": "Small bowel in complication workup",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.small_bowel_appendix_workup.lumen",
+              "name": "Lumen and calibre"
+            },
+            {
+              "id": "abdomen.small_bowel_appendix_workup.wall",
+              "name": "Visible bowel wall"
+            },
+            {
+              "id": "abdomen.small_bowel_appendix_workup.transition_if_present",
+              "name": "Transition region when demonstrated"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "If obstruction is assessed, instantiate the affected segments and transition regions. A normal generic loop cannot prove absence of obstruction.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Complication",
+              "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            3
+          ]
+        },
+        {
+          "id": "abdomen.appendectomy_stump",
+          "name": "Post-appendectomy stump",
+          "tissue_class": "reportable_anatomy_or_pathologic_entity",
+          "required_parts": [
+            {
+              "id": "abdomen.appendectomy_stump.remnant",
+              "name": "Appendiceal remnant"
+            },
+            {
+              "id": "abdomen.appendectomy_stump.caecal_junction",
+              "name": "Remnant\u2013caecal junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT"
+          ],
+          "condition": "Only with relevant surgical history and acquired coverage. Linked-source postoperative scope requires explicit reporting-guide reconciliation.",
+          "requirement_basis": "effective_report_and_walkthrough_with_source_scope_review",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Identification",
+              "detail": "State complete, partial or absent visualisation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Complication",
+              "detail": "Assess wall defect, extraluminal gas, abscess and obstruction."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Mimics",
+              "detail": "Review terminal ileum, diverticula, epiploic fat, ureter and adnexa."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-and-mimics",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-us-findings",
+            "https://radiologyassistant.nl/abdomen/acute-abdomen/appendicitis-pitfalls-in-us-and-ct-diagnosis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": false,
+          "walkthrough_step_indices": [
+            0,
+            3,
+            4
+          ],
+          "source_locator": "Pitfalls in US and CT diagnosis > Late complications after appendectomy > Stump-appendicitis."
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "appendiceal location variants",
+            "each collection/affected bowel segment",
+            "additional urinary/adnexal sites as actually assessed",
+            "patient developmental and postoperative context"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "source_guide_reconciliation_pending",
+          "detail": "Linked sources also cover postoperative adhesions/hernias, rectus-sheath hematoma, upper-abdominal mimics and other differential contexts. Their full conditional anatomy and report-field integration remain unreviewed; this draft is not an exhaustive closed list."
+        },
+        {
+          "code": "layer_and_functional_evidence_boundary",
+          "detail": "Sonographic wall layers, graded-compression response and Doppler flow require modality-appropriate evidence. Static generic geometry does not prove dynamic compressibility, hyperemia, enhancement or tissue viability."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "compressibility",
+          "evidence": "Dynamic graded-compression ultrasound; not a static model."
+        },
+        {
+          "observation": "mural flow",
+          "evidence": "Appropriate Doppler acquisition and case context."
+        },
+        {
+          "observation": "wall enhancement",
+          "evidence": "Suitable contrast-enhanced CT acquisition and timing."
+        },
+        {
+          "observation": "measurements",
+          "evidence": "Calibrated acquired image planes; diagram dimensions are not patient measurements."
+        }
+      ]
+    }
+  ],
+  "additional_scope": []
+}
