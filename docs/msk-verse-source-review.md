@@ -282,3 +282,21 @@ pedicles, laminae, transverse/spinous and articular processes still require
 anatomical validation. Discs, ligaments, cartilage and neural structures are
 not supplied. No requirement was marked complete or removed on the strength
 of these conversion checks.
+
+## Reader integration — 30 September 2026
+
+The thoracolumbar reference now offers the preserved sub-verse521 T1–L5 CT-derived surfaces: 17 separately selectable whole-vertebra objects, 798,442 triangles, without changing their saved positions or topology. The MRI cord/dura reference and reporting orientation guide remain selectable. The CT and MRI cases are independent; no shared registration or combined anatomy is claimed. The 3D pane shows the selected source's accompanying image resources.
+
+A linked CT plane viewer supplies native crops around each vertebral label, with axial/sagittal/coronal slice selection, original-label overlays, window controls and physical voxel aspect ratios. All 17 embedded CT arrays and masks match the saved acquisition-derived crop audit hashes. The embedded data are unchanged; the executable script was separated into `ct-reference.js` to obey the reader's existing Content Security Policy. Hosted delivery uses the established gated redirect to public source media; runtime provenance validation retains the small mesh package and viewer files locally.
+
+Reader checks are recorded in `msk-verse-source-review/reader-browser-checks.json`: all 17 structure selections; independent MRI and guide switching; desktop/mobile layouts; 51 plane centres matching recorded scaled CT values; 102 first/last slice positions matching original crop bounds; window and overlay controls. Source validation does not establish independently calibrated HU, normality, pathology, accurate biological segmentation boundaries or complete reportable substructures. The source data and adaptations retain CC BY-SA 4.0 with attribution.
+
+All anatomical reviews remain pending. No requirement is marked verified because a labelled whole vertebra or matching CT crop is now accessible. The preserved T7 diagonal connection, T12 enclosed background boundary, isosurface helper approximations, unavailable discs/ligaments/neural anatomy, and case-specific limits remain explicit. This integration is local work following PR #58; it is not included in that already deployed release.
+
+### Selected-level source correspondence
+
+Selecting one VerSe vertebra now updates the CT link to its exact source level. The CT viewer accepts only levels present in the embedded source data; unknown values retain the default T1 view. Clearing the selection restores the general CT link. All 17 model/link/initial-CT-level pairs were checked through real browser controls and are recorded in `level-correspondence-browser-checks.json`. The catalog rejects a level map that differs from the registered source manifest. This adds source correspondence, without registering the separate MRI case or approving any anatomical boundary. Earlier browser records remain historical evidence for their recorded fingerprints.
+
+### Acquisition resolution disclosure
+
+An independent artifact-pair review found no changed geometry, wrong case pairing, reflection or crop loss, within the limits recorded in `independent-reader-fidelity-review-2026-09-30.json`. The source acquisition JSON records 1.5 mm slice thickness; the stored CT grid has 1.0 mm slice spacing. The local CT explorer, anatomy notes and evidence ledger now expose that difference without claiming that spacing establishes effective anatomical resolution. The added note was checked on mobile at 390 pixels without horizontal overflow; it does not change stored CT/mask values or source meshes.

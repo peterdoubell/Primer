@@ -80,7 +80,7 @@ def test_loader_rejects_ambiguous_ancillary_panel_metadata(monkeypatch, change):
     monkeypatch.setattr(radiology_catalog, '_read', altered)
     radiology_catalog._structure_atlases.cache_clear()
     try:
-        with pytest.raises(ValueError, match='Dissection and histology'):
+        with pytest.raises(ValueError, match='Ancillary panels need distinct'):
             radiology_catalog._structure_atlases()
     finally:
         radiology_catalog._structure_atlases.cache_clear()

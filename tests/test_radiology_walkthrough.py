@@ -17,6 +17,7 @@ from primer import radiology_catalog
 FLAGSHIPS = ('ra.ct-coronary', 'ra.mri-prostate')
 # Investigations whose backing module shows the wrong anatomy for the examination.
 CORRECTED = {
+    'ra.hip-arthroplasty': 'hip',
     'ra.mri-diabetic-foot': 'ankle', 'ra.paediatric-elbow-fractures': 'elbow',
     'ra.vascular-anomalies': 'aorta', 'ra.carotid-obstruction': 'neck',
     'ra.paediatric-neck-masses': 'neck', 'ra.paediatric-cystic-abdominal-masses': 'abdomen',

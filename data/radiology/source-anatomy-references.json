@@ -1,6 +1,48 @@
 {
   "ra.thoracolumbar-fractures": [
     {
+      "id": "verse521-bones",
+      "label": "CT-derived vertebrae \u00b7 T1\u2013L5",
+      "atlas": "verse521",
+      "family": "thoracolumbar-source",
+      "manifest_url": "/app/anatomy/verse521/manifest.json",
+      "manifest_sha256": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+      "initial_layer": "bone",
+      "initial_cropped": false,
+      "population_note": "Whole-vertebra source labels from one CT case, T1\u2013L5. Normality, pathology and separately reportable substructures remain unverified. This CT case is independent of the MRI cord/dura reference; their coordinates must not be combined.",
+      "source_volume": {
+        "id": "verse521-native-ct-planes",
+        "src": "/app/anatomy/verse521/ct-reference.html",
+        "sha256": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "source_viewer_sha256": "5e8f169915fd85d763e66ae9074c82ec84e5b8e0865753d04fc347c294200d31",
+        "level_by_part": {
+          "verse521-t1": "T1",
+          "verse521-t2": "T2",
+          "verse521-t3": "T3",
+          "verse521-t4": "T4",
+          "verse521-t5": "T5",
+          "verse521-t6": "T6",
+          "verse521-t7": "T7",
+          "verse521-t8": "T8",
+          "verse521-t9": "T9",
+          "verse521-t10": "T10",
+          "verse521-t11": "T11",
+          "verse521-t12": "T12",
+          "verse521-l1": "L1",
+          "verse521-l2": "L2",
+          "verse521-l3": "L3",
+          "verse521-l4": "L4",
+          "verse521-l5": "L5"
+        },
+        "script_sha256": "e287d4f77eaefa99a849848611ea45fb69f7617cb588d3f3bd59190177003958",
+        "title": "Inspect matching source CT planes \u00b7 T1\u2013L5",
+        "caption": "Stored CT sample spacing: 0.68 \u00d7 0.68 \u00d7 1.0 mm. Source acquisition slice thickness: 1.5 mm. Sample spacing does not establish effective anatomical resolution; fine endplates, cortices and facets remain unverified. Native CT crops spanning each supplied vertebral label and its margin. Select level, plane and slice; adjust the CT window and original-label overlay. These crops do not establish whole-examination or soft-tissue completeness.",
+        "attribution": "Sekuboyina et al. (2021), Liebl and Schinz et al. (2021), L\u00f6ffler et al. (2020). VerSe data, CC BY-SA 4.0. Adaptation: native CT crops, window display and original-label overlays; no source voxels resampled or edited.",
+        "source_url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      }
+    },
+    {
       "id": "liu-sub03-neural",
       "label": "MRI-derived cord and dural contours \u00b7 partial",
       "atlas": "liu-lumbosacral-sub03",

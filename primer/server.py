@@ -3651,13 +3651,17 @@ def healthz():
 # original app route still crosses the reader access gate before redirecting.
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
-    allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03"}
+    allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521"}
     if (os.environ.get("VERCEL") and atlas in allowed
-            and asset.endswith((".bin", ".bin.gz"))
+            and (asset.endswith((".bin", ".bin.gz")) or (atlas == "verse521" and asset == "ct-reference.html"))
             and all(part not in {"", ".", ".."} for part in asset.split("/"))
             and "\\" not in asset):
-        from urllib.parse import quote
-        return RedirectResponse("/source-media/anatomy/" + atlas + "/" + quote(asset, safe="/"), status_code=307)
+        from urllib.parse import quote, urlencode
+        target = "/source-media/anatomy/" + atlas + "/" + quote(asset, safe="/")
+        query = urlencode(request.query_params.multi_items())
+        if query:
+            target += "?" + query
+        return RedirectResponse(target, status_code=307)
     return await app.state.source_static.get_response("anatomy/" + atlas + "/" + asset, request.scope)
 
 

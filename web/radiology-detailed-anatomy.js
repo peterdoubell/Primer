@@ -8,10 +8,12 @@
     "malaya-ankle": "/app/anatomy/msk-mri-ankle/",
     "openknee-oks003": "/app/anatomy/openknee-oks003/",
     "cervical-bones": "/app/anatomy/msk-cervical/",
+    "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
   const RANGES = {
     cervical: [150, 157],
+    "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],
     elbow: [925, 1135],
@@ -763,6 +765,7 @@
             .map((p) => displayName(p.name))
             .join(" · ");
           root.dataset.highlight = focus.join(",");
+          root.dispatchEvent(new CustomEvent("anatomy-selection", { detail: { partIds: focus.slice() } }));
         }, nativeYUp, view, nativeRAS, { layer: initialLayer, cropped: initialCropped });
         const presets = anatomicalPresets(region.side);
         for (const [label, yaw, pitch] of presets)

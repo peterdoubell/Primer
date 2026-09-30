@@ -2331,10 +2331,23 @@ async function renderRadiologyDesk(page, nodeId) {
             initialCropped: source.initial_cropped, populationNote: source.population_note,
           }) : window.PrimerRadiologyReferenceModels?.render(ref.spatial_model);
           host.replaceChildren(model || el('p', { role: 'status' }, 'The anatomy reference could not load.'));
+          if (source?.source_image) host.append(sourceReferenceFigure(source.source_image));
+          if (source?.source_volume) {
+            const volume = source.source_volume;
+            const sourceLink = el('a', { href: volume.src, target: '_blank', rel: 'noopener noreferrer' }, volume.title);
+            model?.addEventListener('anatomy-selection', event => {
+              const ids = event.detail.partIds;
+              const level = ids.length === 1 ? volume.level_by_part?.[ids[0]] : null;
+              sourceLink.href = volume.src + (level ? '?level=' + encodeURIComponent(level) : '');
+              sourceLink.textContent = level ? 'Inspect matching source CT planes · ' + level : volume.title;
+            });
+            host.append(el('section', { class: 'rad-protocol' },
+              el('h3', {}, sourceLink),
+              el('p', {}, volume.caption), radiologySourceLink(volume.attribution, volume.source_url)));
+          }
         }
         reference.addEventListener('change', showReference);
         panel.append(el('label', {}, 'Anatomy reference ', reference), host);
-        referenceImages.forEach(asset => panel.append(sourceReferenceFigure(asset)));
         showReference();
         return;
       }
