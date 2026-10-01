@@ -1,0 +1,127 @@
+{
+  "case_id": "R01-001",
+  "source_doi": "10.7937/K9/TCIA.2017.7hs46erv",
+  "ct_series_instance_uid": "1.3.6.1.4.1.14519.5.2.1.4334.1501.312037286778380630549945195741",
+  "seg_series_instance_uid": "1.3.6.1.4.1.14519.5.2.1.4334.1501.208304249098874719086628767652",
+  "ct_archive_sha256": "9d83a34b6a0285a8ff9142d7a4166d4b3d22af347882de792db3b8a445399765",
+  "seg_archive_sha256": "8f6461c15468548fa98d8b3078145a3b0f7529697a274e3dfa4f39d02a58cdd1",
+  "complete_publisher_file_md5_verified": true,
+  "shape_zyx": [
+    304,
+    512,
+    512
+  ],
+  "spacing_zyx_mm": [
+    1,
+    0.693359375,
+    0.693359375
+  ],
+  "native_lps_origin": [
+    -182.1533203125,
+    -314.1533203125,
+    -305.0
+  ],
+  "native_iop": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+  ],
+  "matching_source_sops": 304,
+  "matching_native_planes": 304,
+  "max_plane_coordinate_difference_mm": 0.0,
+  "ct_rescale_slopes": [
+    1.0
+  ],
+  "ct_rescale_intercepts": [
+    -1024.0
+  ],
+  "ct_rescale_types": [
+    "not_reported"
+  ],
+  "convolution_kernels": [
+    "B45f"
+  ],
+  "contrast_bolus_agents": [
+    "not_reported"
+  ],
+  "contrast_phase_verified": false,
+  "source_annotation": {
+    "segment_label": "Heart",
+    "property_code": "T-32000",
+    "property_scheme": "SRT",
+    "property_meaning": "Heart",
+    "algorithm_type": "SEMIAUTOMATIC",
+    "algorithm_name": "ePAD2.0.1"
+  },
+  "positive_voxels": 2719,
+  "annotation_bbox_zyx_inclusive": [
+    [
+      231,
+      234,
+      113
+    ],
+    [
+      250,
+      254,
+      138
+    ]
+  ],
+  "section_indices_zyx": [
+    239,
+    244,
+    125
+  ],
+  "figures": [
+    {
+      "file": "r01-001-native-unmarked.png",
+      "sha256": "69f36dcb270dd17fd0d9aeda612a5380628453cb020f6f07195f35ecc32069fa",
+      "native_voxels_resampled": false,
+      "annotation_overlaid": false
+    },
+    {
+      "file": "r01-001-native-declared-seg.png",
+      "sha256": "ade346ba4d38b6b31d6ed50b65b8e469752a0e302597eca779391fa68a76cba0",
+      "native_voxels_resampled": false,
+      "annotation_overlaid": true
+    },
+    {
+      "file": "r01-001-native-unmarked-detail.png",
+      "sha256": "c238b3807be39129d5a7b8fe9e1f5299deba66bcddaeaa3588c85603fc09f3c2",
+      "native_voxels_resampled": false,
+      "annotation_overlaid": false,
+      "crop_ranges": [
+        [
+          97,
+          155,
+          218,
+          271
+        ],
+        [
+          97,
+          155,
+          215,
+          267
+        ],
+        [
+          218,
+          271,
+          215,
+          267
+        ]
+      ]
+    }
+  ],
+  "status": "held_source_semantic_identity_conflict",
+  "source_segmentation_values_changed": false,
+  "clinical_approval": false,
+  "runtime_bindings_added": false,
+  "limitations": [
+    "SEG explicitly labels/codes Heart; not automatically recoded as tumour.",
+    "AIM/clinical descriptions are separate source evidence; neither changes SEG metadata.",
+    "Exact grid/source consistency does not prove target identity, boundaries or clinical fidelity.",
+    "No verified phase, station map, invasive interface or complete staging coverage."
+  ]
+}
