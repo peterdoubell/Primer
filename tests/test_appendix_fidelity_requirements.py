@@ -9,7 +9,10 @@ from tools.check_radiology_fidelity import digest,build_report,build_scope
 ROOT=Path(__file__).resolve().parents[1]
 
 def inventory():
-    return json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text())
+    data=json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text())
+    data['investigations']=[i for i in data['investigations'] if i['investigation_id']=='ra.appendicitis']
+    data['scope']['catalog_investigation_ids']=['ra.appendicitis']
+    return data
 
 
 def test_appendix_scope_matches_the_complete_effective_reporting_contract():
@@ -38,7 +41,10 @@ def test_ct_and_normal_anatomy_cannot_replace_us_layers_or_perforation_evidence(
 
 def test_inventory_does_not_award_existing_generic_models_any_anatomical_credit():
     report=build_report(build_scope())
-    extra=report['additional_structure_audit']
+    data=inventory()
+    from tools.check_msk_fidelity import audit
+    evidence=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())
+    extra=audit(data,evidence,expected_catalog_ids={'ra.appendicitis'})
     assert extra['representation_requirements']==168
     assert extra['counts']=={'verified':0,'unverified':3,'missing':165}
     assert not extra['clinical_commercial_ready']

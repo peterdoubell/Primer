@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-30",
+  "updated_at": "2026-10-01",
   "status": "incomplete",
   "assets": [
     {
@@ -305,6 +305,477 @@
       "anatomical_review": {
         "status": "pending",
         "reason": "Selected modest-resolution sections do not establish complete high-fidelity structures."
+      }
+    },
+    {
+      "id": "reader-massp2-put-l",
+      "kind": "model",
+      "name": "Left Putamen",
+      "local_path": "web/anatomy/massp2-subcortex/massp2-put-l.bin.gz",
+      "sha256": "a041e72f51515d6da4afeefb3303393a06ea488fcc5bcdfc4fe2096f81621c01",
+      "regions": [
+        "brain"
+      ],
+      "investigation_ids": [
+        "ra.brain-anatomy"
+      ],
+      "structure_ids": [
+        "brain.left_lentiform.putamen"
+      ],
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "left",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "population_reference",
+        "extent": "complete"
+      },
+      "source": {
+        "url": "https://doi.org/10.21942/uva.27291579.v2",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-10-01",
+          "evidence_path": "docs/brain-massp-source-review/reader-rights-evidence.json",
+          "evidence_sha256": "578d883c386f5856881b8fb182b4c6e5c7a170d0ce73e72777856e87d622017e",
+          "attribution": "Bazin, Forstmann, Alkemade and Miletic; MASSP 2.0 lifespan atlas v2, CC BY 4.0. MRI comparison additionally credits Isherwood and AHEAD templates v3. Changes: shared tetrahedral interfaces, float32 transport, lighting normals and source-plane display overlays."
+        }
+      },
+      "requirement_coverage": {
+        "brain.left_lentiform.putamen": {
+          "extent": "partial",
+          "basis": "Complete source-labelled model geometry; clinically accurate full named anatomy and fine boundaries are not independently approved."
+        }
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "sha256": "a041e72f51515d6da4afeefb3303393a06ea488fcc5bcdfc4fe2096f81621c01",
+        "reviewed_at": "2026-10-01",
+        "evidence_path": "docs/brain-massp-source-review/reader-package.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Clinical boundary accuracy, source variation and derived subvoxel interfaces require anatomical review."
+      },
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a5d5782f5d1b8975ae4152826b120ee6b5b51a1affb8513dcffce267e69693a8",
+        "web/anatomy/massp2-subcortex/manifest.json": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a"
+      }
+    },
+    {
+      "id": "reader-massp2-put-r",
+      "kind": "model",
+      "name": "Right Putamen",
+      "local_path": "web/anatomy/massp2-subcortex/massp2-put-r.bin.gz",
+      "sha256": "a0a0ed84eb56d6ca23c97ec4406711a9254a216ca48b4ff4ecd741b5b31492e1",
+      "regions": [
+        "brain"
+      ],
+      "investigation_ids": [
+        "ra.brain-anatomy"
+      ],
+      "structure_ids": [
+        "brain.right_lentiform.putamen"
+      ],
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "right",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "population_reference",
+        "extent": "complete"
+      },
+      "source": {
+        "url": "https://doi.org/10.21942/uva.27291579.v2",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-10-01",
+          "evidence_path": "docs/brain-massp-source-review/reader-rights-evidence.json",
+          "evidence_sha256": "578d883c386f5856881b8fb182b4c6e5c7a170d0ce73e72777856e87d622017e",
+          "attribution": "Bazin, Forstmann, Alkemade and Miletic; MASSP 2.0 lifespan atlas v2, CC BY 4.0. MRI comparison additionally credits Isherwood and AHEAD templates v3. Changes: shared tetrahedral interfaces, float32 transport, lighting normals and source-plane display overlays."
+        }
+      },
+      "requirement_coverage": {
+        "brain.right_lentiform.putamen": {
+          "extent": "partial",
+          "basis": "Complete source-labelled model geometry; clinically accurate full named anatomy and fine boundaries are not independently approved."
+        }
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "sha256": "a0a0ed84eb56d6ca23c97ec4406711a9254a216ca48b4ff4ecd741b5b31492e1",
+        "reviewed_at": "2026-10-01",
+        "evidence_path": "docs/brain-massp-source-review/reader-package.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Clinical boundary accuracy, source variation and derived subvoxel interfaces require anatomical review."
+      },
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a5d5782f5d1b8975ae4152826b120ee6b5b51a1affb8513dcffce267e69693a8",
+        "web/anatomy/massp2-subcortex/manifest.json": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a"
+      }
+    },
+    {
+      "id": "reader-massp2-gpi-l",
+      "kind": "model",
+      "name": "Left Globus pallidus internal segment",
+      "local_path": "web/anatomy/massp2-subcortex/massp2-gpi-l.bin.gz",
+      "sha256": "5ebeaaadbbf848a500274459d9cbd1ebb36a1940abc524bc4e843a391630b1f7",
+      "regions": [
+        "brain"
+      ],
+      "investigation_ids": [
+        "ra.brain-anatomy"
+      ],
+      "structure_ids": [
+        "brain.left_lentiform.globus_pallidus_internal"
+      ],
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "left",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "population_reference",
+        "extent": "complete"
+      },
+      "source": {
+        "url": "https://doi.org/10.21942/uva.27291579.v2",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-10-01",
+          "evidence_path": "docs/brain-massp-source-review/reader-rights-evidence.json",
+          "evidence_sha256": "578d883c386f5856881b8fb182b4c6e5c7a170d0ce73e72777856e87d622017e",
+          "attribution": "Bazin, Forstmann, Alkemade and Miletic; MASSP 2.0 lifespan atlas v2, CC BY 4.0. MRI comparison additionally credits Isherwood and AHEAD templates v3. Changes: shared tetrahedral interfaces, float32 transport, lighting normals and source-plane display overlays."
+        }
+      },
+      "requirement_coverage": {
+        "brain.left_lentiform.globus_pallidus_internal": {
+          "extent": "partial",
+          "basis": "Complete source-labelled model geometry; clinically accurate full named anatomy and fine boundaries are not independently approved."
+        }
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "sha256": "5ebeaaadbbf848a500274459d9cbd1ebb36a1940abc524bc4e843a391630b1f7",
+        "reviewed_at": "2026-10-01",
+        "evidence_path": "docs/brain-massp-source-review/reader-package.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Clinical boundary accuracy, source variation and derived subvoxel interfaces require anatomical review."
+      },
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a5d5782f5d1b8975ae4152826b120ee6b5b51a1affb8513dcffce267e69693a8",
+        "web/anatomy/massp2-subcortex/manifest.json": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a"
+      }
+    },
+    {
+      "id": "reader-massp2-gpi-r",
+      "kind": "model",
+      "name": "Right Globus pallidus internal segment",
+      "local_path": "web/anatomy/massp2-subcortex/massp2-gpi-r.bin.gz",
+      "sha256": "bd1b82b16c95dab3202ac848580c6f0e19ae0dad629cf6ef3b4f850e33c988db",
+      "regions": [
+        "brain"
+      ],
+      "investigation_ids": [
+        "ra.brain-anatomy"
+      ],
+      "structure_ids": [
+        "brain.right_lentiform.globus_pallidus_internal"
+      ],
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "right",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "population_reference",
+        "extent": "complete"
+      },
+      "source": {
+        "url": "https://doi.org/10.21942/uva.27291579.v2",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-10-01",
+          "evidence_path": "docs/brain-massp-source-review/reader-rights-evidence.json",
+          "evidence_sha256": "578d883c386f5856881b8fb182b4c6e5c7a170d0ce73e72777856e87d622017e",
+          "attribution": "Bazin, Forstmann, Alkemade and Miletic; MASSP 2.0 lifespan atlas v2, CC BY 4.0. MRI comparison additionally credits Isherwood and AHEAD templates v3. Changes: shared tetrahedral interfaces, float32 transport, lighting normals and source-plane display overlays."
+        }
+      },
+      "requirement_coverage": {
+        "brain.right_lentiform.globus_pallidus_internal": {
+          "extent": "partial",
+          "basis": "Complete source-labelled model geometry; clinically accurate full named anatomy and fine boundaries are not independently approved."
+        }
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "sha256": "bd1b82b16c95dab3202ac848580c6f0e19ae0dad629cf6ef3b4f850e33c988db",
+        "reviewed_at": "2026-10-01",
+        "evidence_path": "docs/brain-massp-source-review/reader-package.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Clinical boundary accuracy, source variation and derived subvoxel interfaces require anatomical review."
+      },
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a5d5782f5d1b8975ae4152826b120ee6b5b51a1affb8513dcffce267e69693a8",
+        "web/anatomy/massp2-subcortex/manifest.json": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a"
+      }
+    },
+    {
+      "id": "reader-massp2-gpe-l",
+      "kind": "model",
+      "name": "Left Globus pallidus external segment",
+      "local_path": "web/anatomy/massp2-subcortex/massp2-gpe-l.bin.gz",
+      "sha256": "78fa8f8ea3e4ae91165311de533c76b98192cfaddfc7f7e37d2871f41261abed",
+      "regions": [
+        "brain"
+      ],
+      "investigation_ids": [
+        "ra.brain-anatomy"
+      ],
+      "structure_ids": [
+        "brain.left_lentiform.globus_pallidus_external"
+      ],
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "left",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "population_reference",
+        "extent": "complete"
+      },
+      "source": {
+        "url": "https://doi.org/10.21942/uva.27291579.v2",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-10-01",
+          "evidence_path": "docs/brain-massp-source-review/reader-rights-evidence.json",
+          "evidence_sha256": "578d883c386f5856881b8fb182b4c6e5c7a170d0ce73e72777856e87d622017e",
+          "attribution": "Bazin, Forstmann, Alkemade and Miletic; MASSP 2.0 lifespan atlas v2, CC BY 4.0. MRI comparison additionally credits Isherwood and AHEAD templates v3. Changes: shared tetrahedral interfaces, float32 transport, lighting normals and source-plane display overlays."
+        }
+      },
+      "requirement_coverage": {
+        "brain.left_lentiform.globus_pallidus_external": {
+          "extent": "partial",
+          "basis": "Complete source-labelled model geometry; clinically accurate full named anatomy and fine boundaries are not independently approved."
+        }
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "sha256": "78fa8f8ea3e4ae91165311de533c76b98192cfaddfc7f7e37d2871f41261abed",
+        "reviewed_at": "2026-10-01",
+        "evidence_path": "docs/brain-massp-source-review/reader-package.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Clinical boundary accuracy, source variation and derived subvoxel interfaces require anatomical review."
+      },
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a5d5782f5d1b8975ae4152826b120ee6b5b51a1affb8513dcffce267e69693a8",
+        "web/anatomy/massp2-subcortex/manifest.json": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a"
+      }
+    },
+    {
+      "id": "reader-massp2-gpe-r",
+      "kind": "model",
+      "name": "Right Globus pallidus external segment",
+      "local_path": "web/anatomy/massp2-subcortex/massp2-gpe-r.bin.gz",
+      "sha256": "782fc47ad2b108237f804146f627685998d718199362ba5de8d7011d0d714dbc",
+      "regions": [
+        "brain"
+      ],
+      "investigation_ids": [
+        "ra.brain-anatomy"
+      ],
+      "structure_ids": [
+        "brain.right_lentiform.globus_pallidus_external"
+      ],
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "right",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "population_reference",
+        "extent": "complete"
+      },
+      "source": {
+        "url": "https://doi.org/10.21942/uva.27291579.v2",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-10-01",
+          "evidence_path": "docs/brain-massp-source-review/reader-rights-evidence.json",
+          "evidence_sha256": "578d883c386f5856881b8fb182b4c6e5c7a170d0ce73e72777856e87d622017e",
+          "attribution": "Bazin, Forstmann, Alkemade and Miletic; MASSP 2.0 lifespan atlas v2, CC BY 4.0. MRI comparison additionally credits Isherwood and AHEAD templates v3. Changes: shared tetrahedral interfaces, float32 transport, lighting normals and source-plane display overlays."
+        }
+      },
+      "requirement_coverage": {
+        "brain.right_lentiform.globus_pallidus_external": {
+          "extent": "partial",
+          "basis": "Complete source-labelled model geometry; clinically accurate full named anatomy and fine boundaries are not independently approved."
+        }
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "sha256": "782fc47ad2b108237f804146f627685998d718199362ba5de8d7011d0d714dbc",
+        "reviewed_at": "2026-10-01",
+        "evidence_path": "docs/brain-massp-source-review/reader-package.json"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Clinical boundary accuracy, source variation and derived subvoxel interfaces require anatomical review."
+      },
+      "presentation_dependencies": {
+        "web/radiology-detailed-anatomy.js": "a5d5782f5d1b8975ae4152826b120ee6b5b51a1affb8513dcffce267e69693a8",
+        "web/anatomy/massp2-subcortex/manifest.json": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a"
+      }
+    },
+    {
+      "id": "reader-massp2-qmri-comparison",
+      "kind": "clinical_image",
+      "name": "Population qMRI and direct model sections",
+      "local_path": "web/reference-media/massp2-subcortex/joint-model-mri-comparison.png",
+      "sha256": "e110abee57d8ced9dc9fb5d6fe5bceb4e83653e885749ae1d7610d07651deee4",
+      "regions": [
+        "brain"
+      ],
+      "investigation_ids": [
+        "ra.brain-anatomy"
+      ],
+      "structure_ids": [],
+      "modality": "MRI",
+      "source": {
+        "url": "https://doi.org/10.21942/uva.19646364.v3",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-10-01",
+          "evidence_path": "docs/brain-massp-source-review/reader-rights-evidence.json",
+          "evidence_sha256": "578d883c386f5856881b8fb182b4c6e5c7a170d0ce73e72777856e87d622017e",
+          "attribution": "Bazin, Forstmann, Alkemade and Miletic; MASSP 2.0 lifespan atlas v2, CC BY 4.0. MRI comparison additionally credits Isherwood and AHEAD templates v3. Changes: shared tetrahedral interfaces, float32 transport, lighting normals and source-plane display overlays."
+        }
+      },
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "bilateral",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "population_reference",
+        "extent": "local"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Group template composite supplies selected source context, not clinically approved full anatomy or routine MRI appearances."
+      }
+    },
+    {
+      "id": "native-aeropath-case1-ct",
+      "kind": "clinical_image",
+      "name": "AeroPath case 1 \u00b7 native CT source sections",
+      "local_path": "web/reference-media/radiology-open/aeropath-case1-native-ct.png",
+      "sha256": "0a6d63439deb9f75a11acc5f1c4e1b6b2f206fe6a64fc3de0cfb250e0d93fe2b",
+      "regions": [
+        "thorax"
+      ],
+      "investigation_ids": [
+        "ra.ct-airways"
+      ],
+      "structure_ids": [
+        "airways.trachea.thoracic_lumen",
+        "airways.trachea.carina",
+        "airways.main_lobar_bronchi.right_main_lumen",
+        "airways.main_lobar_bronchi.left_main_lumen"
+      ],
+      "modality": "CT",
+      "source_context": {
+        "setting": "in_vivo",
+        "laterality": "bilateral",
+        "population": {
+          "life_stage": "adult"
+        },
+        "depicted_state": "source_case_pathology_cohort",
+        "extent": "local"
+      },
+      "source": {
+        "url": "https://doi.org/10.5281/zenodo.10069289",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "evidence_path": "docs/airway-source-review/aeropath-rights-evidence.json",
+          "evidence_sha256": "24467ec15060bddaa3bf25d5ae4c4a5e0101985a3f518c8a10b45fe580d5c76a",
+          "attribution": "St\u00f8verud, Bouget, Pedersen, Leira, Amundsen, Lang\u00f8 and Hofstad. AeroPath data, DOI 10.5281/zenodo.10069289, CC BY 4.0. Adaptation: selected native CT planes, grayscale window and axis labels. Original CT voxels unchanged; no annotation or derived model overlaid.",
+          "reviewed_at": "2026-10-01"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Selected unmarked CT context only. Complete named anatomy, individual pathology, source phase and dynamic/quantitative evidence remain unverified."
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "sha256": "0a6d63439deb9f75a11acc5f1c4e1b6b2f206fe6a64fc3de0cfb250e0d93fe2b",
+        "reviewed_at": "2026-10-01",
+        "evidence_path": "docs/airway-source-review/case-1-section-review.json"
+      },
+      "requirement_coverage": {
+        "airways.trachea.thoracic_lumen": {
+          "extent": "partial",
+          "basis": "Selected native central-airway sections only; whole named extent and clinical boundary accuracy not established."
+        },
+        "airways.trachea.carina": {
+          "extent": "partial",
+          "basis": "Selected native central-airway sections only; whole named extent and clinical boundary accuracy not established."
+        },
+        "airways.main_lobar_bronchi.right_main_lumen": {
+          "extent": "partial",
+          "basis": "Selected native central-airway sections only; whole named extent and clinical boundary accuracy not established."
+        },
+        "airways.main_lobar_bronchi.left_main_lumen": {
+          "extent": "partial",
+          "basis": "Selected native central-airway sections only; whole named extent and clinical boundary accuracy not established."
+        }
+      },
+      "presentation_dependencies": {
+        "web/reference-media/radiology-open/aeropath-case1-sections.provenance.json": "35358543048f6afe95589066d8bd7f84ba9fed479e1336e0836b028db61ce79f",
+        "web/app.js": "5d4f731b225990b637f20713594786f9e0d759d312b5f0425353398240f57cb5"
       }
     }
   ]

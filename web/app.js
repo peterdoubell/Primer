@@ -2163,7 +2163,8 @@ function renderMskAtlasFigures(items, { onExploreSource } = {}) {
   const atlas = el('section', { class: 'rad-structure-atlas', 'aria-label': 'Source anatomical atlas figures' },
     el('h3', {}, 'Source anatomical atlas'));
   for (const asset of items) {
-    const derived = asset.origin === 'source-derived';
+    const nativeVolume = asset.origin === 'native-volume-sections';
+    const derived = asset.origin === 'source-derived' || nativeVolume;
     const panel = asset.source_panel || '';
     const ancillary = asset.ancillary_panels || [];
     const modality = (asset.modality || 'Source anatomy') + (asset.contains_schematic_panels ? ' + schematic panels' : '')
@@ -2181,7 +2182,7 @@ function renderMskAtlasFigures(items, { onExploreSource } = {}) {
         el('p', { class: 'rad-image-credit' }, asset.limits),
         el('p', { class: 'rad-image-credit' }, asset.attribution),
         radiologySourceLink(derived ? 'Source dataset' : 'Source article', asset.source_url), ' · ',
-        radiologySourceLink(derived ? 'Source geometry' : 'Original figure', asset.figure_url), ' · ',
+        radiologySourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : 'Original figure', asset.figure_url), ' · ',
         radiologySourceLink(asset.license, asset.license_url)));
     if (derived && onExploreSource) figure.append(btn({ class: 'btn ghost small',
       onclick: () => onExploreSource(asset) }, 'Explore this source knee in 3D'));

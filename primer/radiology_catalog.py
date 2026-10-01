@@ -34,7 +34,7 @@ def _text(value, message):
     return value
 
 
-SOURCE_REFERENCE_ATLASES = {'liu-lumbosacral-sub03': 'lumbosacral-neural', 'verse521': 'thoracolumbar-source'}
+SOURCE_REFERENCE_ATLASES = {'liu-lumbosacral-sub03': 'lumbosacral-neural', 'verse521': 'thoracolumbar-source', 'massp2-subcortex': 'brain-subcortex', 'bodyparts3d': 'brain'}
 
 
 @lru_cache(maxsize=1)
@@ -68,9 +68,11 @@ def _source_anatomy_references():
                 raise ValueError('Source anatomy manifest changed')
             manifest = json.loads(raw)
             region = manifest.get('regions', {}).get(entry['family'])
-            if not region or not manifest.get('viewer_notes') or not manifest.get('license'):
+            legacy_brain = entry['atlas'] == 'bodyparts3d' and entry['family'] == 'brain'
+            if not region or (not legacy_brain and not manifest.get('viewer_notes')) or not manifest.get('license'):
                 raise ValueError('Source anatomy requires region, scope notes and attribution')
-            layers = {layer[0] for layer in region['layers']}
+            layers = ({part['layer'] for part in region['parts']} if legacy_brain
+                      else {layer[0] for layer in region['layers']})
             if entry['initial_layer'] not in layers:
                 raise ValueError('Source anatomy initial layer is unavailable')
             volume = entry.get('source_volume')
@@ -305,6 +307,55 @@ def _visuals():
     return merged
 
 
+def _validate_native_volume_figure(image, root):
+    """Validate packaged section provenance without approving clinical anatomy."""
+    if (image.get('kind') != 'clinical-image' or image.get('modality') != 'CT'
+            or not isinstance(image.get('figure_title'), str) or not image['figure_title'].strip()
+            or any(key in image for key in ('figure_number', 'source_panel'))):
+        raise ValueError('Native volume figure needs explicit CT section title')
+    derivation = image.get('derivation', {})
+    prefix = '/app/reference-media/radiology-open/'
+    url = derivation.get('evidence_url', '') if isinstance(derivation, dict) else ''
+    if not url.startswith(prefix) or '%' in url or '\\' in url:
+        raise ValueError('Native section provenance must be preserved locally')
+    path = (root / url.removeprefix(prefix)).resolve()
+    if not path.is_relative_to(root) or not path.is_file():
+        raise ValueError('Native section provenance leaves source folder')
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != derivation.get('evidence_sha256'):
+        raise ValueError('Native section provenance changed')
+    evidence = json.loads(raw)
+    source = evidence.get('source', {})
+    if (source.get('dataset_doi') != '10.5281/zenodo.10069289'
+            or source.get('data_license') != 'CC BY 4.0'
+            or source.get('mirror_repository') != 'andreped/AeroPath'
+            or not re.fullmatch(r'[0-9a-f]{40}', source.get('mirror_revision', ''))
+            or not re.fullmatch(r'[0-9a-f]{64}', source.get('ct_sha256', ''))
+            or source.get('per_file_sha256_verified') is not True):
+        raise ValueError('Native source identity or licence is unverified')
+    if (evidence.get('figure_sha256') != image['sha256']
+            or evidence.get('clinical_approval') is not False
+            or evidence.get('source_voxels_changed') is not False
+            or evidence.get('model_geometry_overlaid') is not False):
+        raise ValueError('Native figure scope or byte contract changed')
+    figure_path = root / image['src'].removeprefix(prefix)
+    pixels = figure_path.read_bytes()
+    if (len(pixels) < 24 or pixels[:8] != b'\x89PNG\r\n\x1a\n'
+            or struct.unpack('>II', pixels[16:24]) != (image['width'], image['height'])):
+        raise ValueError('Native section figure dimensions changed')
+    shape = evidence.get('source_shape')
+    planes = evidence.get('planes')
+    if (not isinstance(shape, list) or len(shape) != 3
+            or any(type(n) is not int or n <= 0 for n in shape)
+            or not isinstance(planes, list) or not planes):
+        raise ValueError('Native section source shape/planes are missing')
+    for plane in planes:
+        axis, index = plane.get('axis'), plane.get('index')
+        if (type(axis) is not int or axis not in (0, 1, 2) or type(index) is not int
+                or not 0 <= index < shape[axis] or plane.get('source_resampling') is not False):
+            raise ValueError('Native section plane is invalid or resampled')
+
+
 def _validate_source_derived_figure(image, root):
     """Bind a new teaching projection to its reviewed native mesh sources.
 
@@ -434,7 +485,9 @@ def _structure_atlases():
             if (image.get('license') not in reviewed_licenses
                     or image.get('license_url') != reviewed_licenses[image['license']]):
                 raise ValueError('MSK atlas figure needs a reviewed commercial-use license')
-            if image.get('origin') == 'source-derived':
+            if image.get('origin') == 'native-volume-sections':
+                _validate_native_volume_figure(image, root)
+            elif image.get('origin') == 'source-derived':
                 _validate_source_derived_figure(image, root)
             elif (image.get('origin') is not None or 'figure_title' in image or 'derivation' in image
                     or not ((type(image.get('figure_number')) is int and image['figure_number'] > 0)

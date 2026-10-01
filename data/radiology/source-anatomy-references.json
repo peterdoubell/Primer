@@ -66,5 +66,42 @@
         "id": "liu-sub03-cord-dura-mri-review"
       }
     }
+  ],
+  "ra.brain-anatomy": [
+    {
+      "id": "massp2-subcortical-reference",
+      "label": "Putamen and pallidal segments \u00b7 population reference",
+      "atlas": "massp2-subcortex",
+      "family": "brain-subcortex",
+      "manifest_url": "/app/anatomy/massp2-subcortex/manifest.json",
+      "manifest_sha256": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a",
+      "initial_layer": "subcortex",
+      "initial_cropped": false,
+      "population_note": "Partial adult population reference: bilateral putamen and internal/external pallidal segments only. Original MNI2009b coordinates; independent of BodyParts3D. Clinical boundary accuracy and fine lamina anatomy remain unverified.",
+      "source_image": {
+        "id": "massp2-joint-qmri-comparison",
+        "src": "/app/reference-media/massp2-subcortex/joint-model-mri-comparison.png",
+        "sha256": "e110abee57d8ced9dc9fb5d6fe5bceb4e83653e885749ae1d7610d07651deee4",
+        "width": 1938,
+        "height": 2553,
+        "title": "Source quantitative MRI and direct model sections",
+        "alt": "Native AHEAD group MRI in R1, R2-star and susceptibility contrasts, with direct joint-model section lines for bilateral putamen and pallidal segments.",
+        "caption": "Adult group templates, not individual clinical MRI. Twelve median panels: axial, coronal and bilateral sagittal source sections in three quantitative contrasts. Coloured lines intersect the exported joint models directly. Atlas: 97 adults; MRI templates: 105 adults. No fitted alignment or source resampling. Subvoxel interfaces are derived and clinical anatomical accuracy remains unverified.",
+        "attribution": "Bazin, Forstmann, Alkemade, Miletic and Isherwood. AHEAD qMRI templates v3 and MASSP 2.0 lifespan atlas v2, CC BY 4.0. Adaptation: native sections/crops, grayscale display windows and direct derived-model overlays; no stored MRI intensities or source labels edited.",
+        "source_url": "https://doi.org/10.21942/uva.19646364.v3",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "id": "existing-brain-context",
+      "label": "Whole-brain context \u00b7 BodyParts3D",
+      "atlas": "bodyparts3d",
+      "family": "brain",
+      "manifest_url": "/app/anatomy/bodyparts3d/manifest.json",
+      "manifest_sha256": "01ac96ea0d59c5c03a1dce23a44cfd0971860cea298be99c8905c2abe9a4a250",
+      "initial_layer": "bone",
+      "initial_cropped": false,
+      "population_note": "Existing adult male whole-hemisphere, cerebellar and ventricular reference. Gyri, capsule limbs and deep nuclei are not independently resolved. This source is separate from the MNI population reference; their coordinates must not be combined."
+    }
   ]
 }

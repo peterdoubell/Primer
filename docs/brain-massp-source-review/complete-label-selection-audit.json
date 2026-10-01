@@ -1,0 +1,115 @@
+{
+  "source_doi": "10.21942/uva.27291579.v2",
+  "all_probability_acquisition_sha256": "7f4ed7c416dfc7f22d37745b71c1b5e32eaa364b74f1310a38bfb748ad2783b3",
+  "native_grid_shape": [
+    394,
+    466,
+    378
+  ],
+  "native_affine": [
+    [
+      0.5,
+      -0.0,
+      -0.0,
+      -98.0
+    ],
+    [
+      -0.0,
+      -0.5,
+      -0.0,
+      98.5
+    ],
+    [
+      0.0,
+      0.0,
+      0.5,
+      -72.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "probability_maps_checked": 64,
+  "source_values_unchanged": true,
+  "records": [
+    {
+      "publisher_selection": "maxlabel",
+      "comparisons": [
+        {
+          "include_background": false,
+          "tie_rule": "lowest_label",
+          "disagreeing_voxels": 0,
+          "source_nonzero_voxels": 1266135,
+          "candidate_nonzero_voxels": 1266135,
+          "exact_voxel_match": true
+        },
+        {
+          "include_background": false,
+          "tie_rule": "highest_label",
+          "disagreeing_voxels": 4538,
+          "source_nonzero_voxels": 1266135,
+          "candidate_nonzero_voxels": 1266135,
+          "exact_voxel_match": false
+        },
+        {
+          "include_background": true,
+          "tie_rule": "lowest_label",
+          "disagreeing_voxels": 302508,
+          "source_nonzero_voxels": 1266135,
+          "candidate_nonzero_voxels": 963627,
+          "exact_voxel_match": false
+        },
+        {
+          "include_background": true,
+          "tie_rule": "highest_label",
+          "disagreeing_voxels": 302395,
+          "source_nonzero_voxels": 1266135,
+          "candidate_nonzero_voxels": 964492,
+          "exact_voxel_match": false
+        }
+      ]
+    },
+    {
+      "publisher_selection": "bestlabel",
+      "comparisons": [
+        {
+          "include_background": false,
+          "tie_rule": "lowest_label",
+          "disagreeing_voxels": 302508,
+          "source_nonzero_voxels": 963627,
+          "candidate_nonzero_voxels": 1266135,
+          "exact_voxel_match": false
+        },
+        {
+          "include_background": false,
+          "tie_rule": "highest_label",
+          "disagreeing_voxels": 303256,
+          "source_nonzero_voxels": 963627,
+          "candidate_nonzero_voxels": 1266135,
+          "exact_voxel_match": false
+        },
+        {
+          "include_background": true,
+          "tie_rule": "lowest_label",
+          "disagreeing_voxels": 0,
+          "source_nonzero_voxels": 963627,
+          "candidate_nonzero_voxels": 963627,
+          "exact_voxel_match": true
+        },
+        {
+          "include_background": true,
+          "tie_rule": "highest_label",
+          "disagreeing_voxels": 1613,
+          "source_nonzero_voxels": 963627,
+          "candidate_nonzero_voxels": 964492,
+          "exact_voxel_match": false
+        }
+      ]
+    }
+  ],
+  "clinical_approval": false,
+  "limits": "Empirical comparison of arithmetic selections with source volumes. This is not author confirmation of map semantics or proof of anatomical/clinical accuracy."
+}
