@@ -37,8 +37,15 @@ def audit_archive(path, expected_count, expected_dicom_bytes=None):
         total = sum(r['bytes'] for r in records)
         if expected_dicom_bytes is not None and total != expected_dicom_bytes:
             raise ValueError('Uncompressed DICOM bytes differ from series metadata')
-    raw = path.read_bytes()
-    return {'archive_bytes': len(raw), 'archive_sha256': hashlib.sha256(raw).hexdigest(),
+        # Fingerprint the same open archive that passed member verification.
+        # Reopening its path could read a replacement file after validation.
+        archive.fp.seek(0)
+        archive_hash = hashlib.sha256()
+        archive_bytes = 0
+        for chunk in iter(lambda: archive.fp.read(1024 * 1024), b''):
+            archive_hash.update(chunk)
+            archive_bytes += len(chunk)
+    return {'archive_bytes': archive_bytes, 'archive_sha256': archive_hash.hexdigest(),
             'archive_sha256_is_local_fingerprint': True, 'publisher_per_file_md5_verified': True,
             'zip_member_crc_verified': True, 'dicom_count': len(records), 'dicom_bytes': total,
             'members': records, 'clinical_approval': False}

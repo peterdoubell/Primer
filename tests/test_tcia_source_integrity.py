@@ -20,6 +20,7 @@ def make_archive(path, data=b'original-source', manifest=None):
 def test_complete_publisher_manifest_verifies_exact_source_bytes(tmp_path):
     result = audit_archive(make_archive(tmp_path / 'source.zip'), 1, len(b'original-source'))
     assert result['publisher_per_file_md5_verified']
+    assert result['archive_sha256'] == hashlib.sha256((tmp_path / 'source.zip').read_bytes()).hexdigest()
     assert result['members'][0]['sha256'] == hashlib.sha256(b'original-source').hexdigest()
     assert not result['clinical_approval']
 
