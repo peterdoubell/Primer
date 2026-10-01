@@ -1,0 +1,111 @@
+{
+  "case_id": "R01-001",
+  "source_doi": "10.7937/K9/TCIA.2017.7hs46erv",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0/",
+  "retrieved_at": "2026-10-01",
+  "collection_url": "https://www.cancerimagingarchive.net/collection/nsclc-radiogenomics/",
+  "api_series_metadata_sha256": "6b681decf150399d4f30e76cb0bd0713999afa80b0553d2bb0991f07e6ce8e01",
+  "clinical_csv_sha256": "0a1f7cdf02cef58450db17f116a3fb0ecfd4d737ca6843bb1939dbe421071476",
+  "aim_archive_sha256": "0e21665e687cc7900ea4e1e7fe596777642c558e3d5fcf8baf85945cc7fd0291",
+  "aim_case_xml_sha256": "55692d7446e154c9d8499e65d37d4564736f6ea84674e4e9fe42042e5d81de7f",
+  "source_pages": [
+    {
+      "file": "nsclc-radiogenomics.html",
+      "url": "https://www.cancerimagingarchive.net/collection/nsclc-radiogenomics/",
+      "sha256": "a93c54f72f46e4102fa24201cc4ae2279367bbb6cce0e52a2aa15432ebd913fe"
+    },
+    {
+      "file": "data-usage-policy.html",
+      "url": "https://www.cancerimagingarchive.net/data-usage-policies-and-restrictions/",
+      "sha256": "83cc45441a6a31f69b64ef1541f8cf1b9a48d2e71ad7e484e4151358c46c9a6c"
+    },
+    {
+      "file": "mediastinal-lymph-node-seg.html",
+      "url": "https://www.cancerimagingarchive.net/collection/mediastinal-lymph-node-seg/",
+      "sha256": "0f8b576bb080655be6866b10122e4d094a02abe92c86d93772e08afbfe957f1e"
+    }
+  ],
+  "clinical_case_metadata": {
+    "Case ID": "R01-001",
+    "Histology ": "Adenocarcinoma",
+    "%GG": "0%",
+    "Tumor Location (choice=RUL)": "Checked",
+    "Pathological T stage": "T1a",
+    "Pathological N stage": "N0",
+    "Pathological M stage": "M0",
+    "Pleural invasion (elastic, visceral, or parietal)": "No",
+    "Days between CT and surgery": "42"
+  },
+  "clinical_stage_edition_independently_verified": false,
+  "reassigned_tnm9": false,
+  "aim_case_metadata": {
+    "series_instance_uid": "1.3.6.1.4.1.14519.5.2.1.4334.1501.312037286778380630549945195741",
+    "sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.4334.1501.127726139955655322781833703496",
+    "two_dimensional_coordinates_as_stored": [
+      {
+        "coordinateIndex": "0",
+        "x": "121.82809224318659",
+        "y": "243.11949685534591"
+      },
+      {
+        "coordinateIndex": "1",
+        "x": "124.51153039832286",
+        "y": "247.9496855345912"
+      }
+    ],
+    "semantic_values": [
+      "Lung Template",
+      "upper lobe of right lung",
+      " lung mass",
+      "peripheral",
+      "solid",
+      "internal air bronchogram sign",
+      "spiculated",
+      "lobulated",
+      "complex",
+      "none",
+      "attachment to vessel",
+      "pleural retraction",
+      "vascular convergence",
+      "emphysema",
+      "non-solid",
+      "absent",
+      "absent",
+      "absent",
+      "present",
+      "centrilobular",
+      "upper predominant",
+      "both",
+      "not applicable",
+      "low severity (1-25%)",
+      "airway abnormality",
+      "bronchial wall thickening",
+      "airway ectasia",
+      "absent",
+      "NA"
+    ],
+    "series_matches_acquired_ct": true,
+    "coordinate_origin_convention_independently_verified": false
+  },
+  "seg_semantics": {
+    "segment_label": "Heart",
+    "property_code": "T-32000",
+    "property_scheme": "SRT",
+    "property_meaning": "Heart",
+    "algorithm_type": "SEMIAUTOMATIC",
+    "algorithm_name": "ePAD2.0.1"
+  },
+  "seg_identity_status": "held_pending_case_specific_semantic_reconciliation",
+  "source_issue_url": "https://discourse.canceridc.dev/t/mislabeled-segmentations-for-nsclc-radiogenomics/518",
+  "source_issue_summary": "IDC and TCIA staff acknowledged collection mislabelling in November 2023; current acquired case still codes Heart. Ticket access is restricted and was not attempted.",
+  "clinical_approval": false,
+  "runtime_binding_added": false,
+  "external_messages_sent": false,
+  "next_actions": [
+    "Reconcile case-specific SEG identity with original AIM/author source and independent anatomical review before model naming.",
+    "Review the entire lesion boundary through all source planes, preserving unresolved tissue/extent.",
+    "Acquire a separate appropriately licensed nodal CT/SEG case; do not merge its coordinates or diagnosis with R01-001."
+  ],
+  "source_issue_snapshot_sha256": "9616fbae7789b63e76e84123d86fcaaee70717ddb7e4c3e5fab5ebbcfd183320"
+}
