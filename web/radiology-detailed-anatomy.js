@@ -8,11 +8,13 @@
     "malaya-ankle": "/app/anatomy/msk-mri-ankle/",
     "openknee-oks003": "/app/anatomy/openknee-oks003/",
     "cervical-bones": "/app/anatomy/msk-cervical/",
+    "massp2-subcortex": "/app/anatomy/massp2-subcortex/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
   const RANGES = {
     cervical: [150, 157],
+    "brain-subcortex": [-25, 35],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],

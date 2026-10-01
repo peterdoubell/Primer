@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2ed949329a5cba417e26ccfbb907eb6f0b80edf7e90f37f3f5a26e37a1be9311",
+      "structure_inventory_sha256": "99834bc8eee89dbf2a69b2ebaebaa3a0be8eacfb4c807efa3423f248d6010d37",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19228,7 +19228,8 @@
                 "FMA3840"
               ],
               "look": "Non-contrast ECG-triggered images; confirm that each calcified focus is assigned to the correct vessel before accepting the total.",
-              "tip": "Agatston scoring is defined on the non-contrast acquisition; do not derive it from contrast-enhanced images."
+              "tip": "Agatston scoring is defined on the non-contrast acquisition; do not derive it from contrast-enhanced images.",
+              "anatomy_note": "Gross artery surfaces provide orientation only. They do not depict calcific foci or permit Agatston scoring; use the acquired non-contrast CT."
             },
             {
               "label": "Dominance and anatomy",
@@ -19238,7 +19239,7 @@
                 "CORONARY ORIGINS / COURSE"
               ],
               "normal": {
-                "CORONARY DOMINANCE": "Right-dominant coronary circulation; the PDA arises from the RCA.",
+                "CORONARY DOMINANCE": "Dominance: [right / left / co-dominant]. PDA origin: [ ].",
                 "CORONARY ORIGINS / COURSE": "Normal origins of the left main and right coronary arteries from the left and right coronary sinuses, with a normal proximal course. No myocardial bridge or fistula."
               },
               "findings": [
@@ -19249,7 +19250,7 @@
               ],
               "images": [
                 "ccta-img-1",
-                "ccta-img-5"
+                "ccta-img-4"
               ],
               "measurements": [],
               "landmark": "origins",
@@ -19259,7 +19260,8 @@
                 "FJ2723"
               ],
               "look": "Axial source images and volume rendering at the sinuses of Valsalva; follow each ostium and its proximal course relative to the aorta and pulmonary trunk; find which artery supplies the PDA.",
-              "tip": "Name an interarterial course between the aorta and pulmonary trunk explicitly, with any intramural segment or slit-like ostium."
+              "tip": "Name an interarterial course between the aorta and pulmonary trunk explicitly, with any intramural segment or slit-like ostium.",
+              "anatomy_note": "Only gross left/right coronary trunks, LAD, circumflex and an RCA-derived posterior branch are available. Individual ostia, sinus anatomy, branch origins and anomalous courses are not independently resolved. Determine patient dominance from the images; do not assume the example circulation."
             },
             {
               "label": "Stenosis by segment",
@@ -19279,8 +19281,7 @@
               "images": [
                 "ccta-img-2",
                 "ccta-img-3",
-                "ccta-img-4",
-                "ccta-img-7"
+                "ccta-img-4"
               ],
               "measurements": [
                 "Stenosis"
@@ -19294,7 +19295,8 @@
                 "FMA3840"
               ],
               "look": "Curved MPR along each vessel, then orthogonal cross-sections at the tightest point and at a normal reference segment; check the axial source images for artefact.",
-              "tip": "Blooming from dense calcification overestimates stenosis; grade on orthogonal cross-sections with a wide window."
+              "tip": "Blooming from dense calcification overestimates stenosis; grade on orthogonal cross-sections with a wide window.",
+              "anatomy_note": "Gross artery surfaces do not establish the lumen, reference diameter, individual branch segments, plaque or stenosis. Use acquired orthogonal CT lumen sections and document non-evaluable segments."
             },
             {
               "label": "Plaque and burden",
@@ -19312,7 +19314,9 @@
                 "Predominantly [calcified / non-calcified / partially calcified] plaque in __ segments.",
                 "Segment involvement score __ ([method]); overall plaque burden P__."
               ],
-              "images": [],
+              "images": [
+                "ccta-img-7"
+              ],
               "measurements": [
                 "Plaque burden"
               ],
@@ -19325,7 +19329,8 @@
                 "FMA3840"
               ],
               "look": "Cross-sections through each plaque for attenuation, remodelling and spotty calcification; count plaque-containing segments for SIS, or use the CAC score.",
-              "tip": "HRP needs at least two high-risk features within the same plaque."
+              "tip": "HRP needs at least two high-risk features within the same plaque.",
+              "anatomy_note": "No plaque geometry, calcific distribution or high-risk plaque morphology is represented in this atlas. Normal surface meshes cannot prove absence of plaque or its burden."
             },
             {
               "label": "Stents, grafts and physiology",
@@ -19344,6 +19349,7 @@
                 "CT-FFR __ measured 1\u20132 cm distal to the [segment] lesion; lowest distal value __ in [vessel]."
               ],
               "images": [
+                "ccta-img-5",
                 "ccta-img-8"
               ],
               "measurements": [
@@ -19357,7 +19363,8 @@
                 "FJ2723"
               ],
               "look": "Sharp-kernel reconstructions with a wide window for the stent lumen; follow each graft from origin through its body to the distal anastomosis and run-off.",
-              "tip": "Report the lesion-specific CT-FFR value 1\u20132 cm beyond the lesion, separately from the lowest distal value."
+              "tip": "Report the lesion-specific CT-FFR value 1\u20132 cm beyond the lesion, separately from the lowest distal value.",
+              "anatomy_note": "Stents, grafts, anastomoses and physiological measurements are not supplied by these meshes. The source aorta and coronary trunks are orientation context only."
             },
             {
               "label": "Cardiac and extracardiac findings",
@@ -19386,7 +19393,8 @@
                 "FJ2438",
                 "FJ3413"
               ],
-              "look": "A full field-of-view reconstruction, not only the cardiac field, in lung and soft-tissue windows."
+              "look": "A full field-of-view reconstruction, not only the cardiac field, in lung and soft-tissue windows.",
+              "anatomy_note": "Only gross ventricular/atrial wall and ascending-aorta context is highlighted. Valves, pericardial layers, coronary sinuses, lungs and other acquired extracardiac anatomy are not independently represented."
             },
             {
               "label": "CAD-RADS 2.0",
@@ -19412,7 +19420,8 @@
                 "FMA3840"
               ],
               "look": "Use the highest-grade stenosis from the segment review, the burden step and each applicable modifier (N, HRP, I, S, G, E).",
-              "tip": "The category follows the highest-grade stenosis; when reliable burden methods disagree, use the most severe."
+              "tip": "The category follows the highest-grade stenosis; when reliable burden methods disagree, use the most severe.",
+              "anatomy_note": "The atlas supplies anatomical orientation only. CAD-RADS, plaque burden, diagnostic quality and physiology must follow acquired evidence; a mesh selection cannot establish the classification."
             }
           ],
           "finish": {
@@ -19495,10 +19504,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "b71d4ea4c91a7c4bce346ad796cfae078f3207aa2bbe48c82439917d5a8d30d1",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "99834bc8eee89dbf2a69b2ebaebaa3a0be8eacfb4c807efa3423f248d6010d37",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -19555,7 +19564,7 @@
           },
           {
             "id": "ccta-img-5",
-            "label": "IMG 5 \u00b7 Anomaly, bridge, fistula, stent or graft",
+            "label": "IMG 5 \u00b7 Coronary stent example",
             "description": "Placeholder for the reconstruction that best demonstrates any additional coronary finding.",
             "src": "https://radiologyassistant.nl/assets/_stent.jpg",
             "width": 900,
@@ -19581,7 +19590,7 @@
           },
           {
             "id": "ccta-img-7",
-            "label": "IMG 7 \u00b7 Stenosis in cross-section",
+            "label": "IMG 7 \u00b7 Plaque morphology",
             "description": "Placeholder for orthogonal lumen images through the maximal narrowing and an adjacent reference segment.",
             "src": "https://radiologyassistant.nl/assets/10b-napkin.jpg",
             "width": 900,
@@ -23534,7 +23543,7 @@
                 "EXPIRATORY FINDINGS"
               ],
               "normal": {
-                "EXPIRATORY FINDINGS": "Expiratory images: no air trapping; no excessive central airway collapse."
+                "EXPIRATORY FINDINGS": "Expiration: [adequate / limited / not acquired]. Air trapping: [not assessed / none / distribution]. Dynamic central airway collapse: [not assessed / findings]."
               },
               "findings": [
                 "Lobular air trapping in the [ ].",
@@ -23663,10 +23672,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "28a1d990916a69dbfeb730ae9079efb4b2b01a2260b655f9d04eeb454be04419",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "99834bc8eee89dbf2a69b2ebaebaa3a0be8eacfb4c807efa3423f248d6010d37",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -23696,7 +23705,38 @@
             "reviewed_at": "2026-09-23"
           }
         ],
-        "structure_atlas": [],
+        "structure_atlas": [
+          {
+            "id": "native-aeropath-case1-ct",
+            "kind": "clinical-image",
+            "origin": "native-volume-sections",
+            "figure_title": "AeroPath case 1 \u00b7 native CT source sections",
+            "src": "/app/reference-media/radiology-open/aeropath-case1-native-ct.png",
+            "sha256": "0a6d63439deb9f75a11acc5f1c4e1b6b2f206fe6a64fc3de0cfb250e0d93fe2b",
+            "width": 2418,
+            "height": 981,
+            "source_url": "https://doi.org/10.5281/zenodo.10069289",
+            "figure_url": "https://doi.org/10.5281/zenodo.10069289",
+            "modality": "CT",
+            "image_state": "source_case_pathology_cohort",
+            "structures_visible": [
+              "Tracheal/main bronchial lumen: selected central context",
+              "Surrounding thoracic tissues: acquired CT context"
+            ],
+            "caption": "AeroPath case 1: native axial, coronal and sagittal CT sections. Source cohort underwent diagnostic tests for lung cancer; this case is not designated normal and no case-specific diagnosis is inferred. Original sampling 0.684 \u00d7 0.684 \u00d7 0.5 mm; display window \u22121000 to 400. These selected views provide central-airway context, not complete wall, lobar/segmental, quantitative or expiratory assessment.",
+            "alt": "AeroPath case 1: native axial, coronal and sagittal CT sections. Source cohort underwent diagnostic tests for lung cancer; this case is not designated normal and no case-specific diagnosis is inferred. Original sampling 0.684 \u00d7 0.684 \u00d7 0.5 mm; display window \u22121000 to 400. These selected views provide central-airway context, not complete wall, lobar/segmental, quantitative or expiratory assessment.",
+            "limits": "Selected planes from one pathological-cohort case. No source wall or segment labels, inferred diagnosis, dynamic acquisition or calibrated measurement validation. The derived airway surface remains held for topology review and is not supplied by this image.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "St\u00f8verud, Bouget, Pedersen, Leira, Amundsen, Lang\u00f8 and Hofstad. AeroPath data, DOI 10.5281/zenodo.10069289, CC BY 4.0. Adaptation: selected native CT planes, grayscale window and axis labels. Original CT voxels unchanged; no annotation or derived model overlaid.",
+            "rights_review": "Pinned publisher dataset and explicit author-mirror data licence checked; exact source file SHA-256 passed. Data use follows CC BY 4.0 rather than MIT code/card metadata.",
+            "rights_reviewed_on": "2026-10-01",
+            "derivation": {
+              "evidence_url": "/app/reference-media/radiology-open/aeropath-case1-sections.provenance.json",
+              "evidence_sha256": "35358543048f6afe95589066d8bd7f84ba9fed479e1336e0836b028db61ce79f"
+            }
+          }
+        ],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.airways",
@@ -48501,9 +48541,9 @@
         ]
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "99834bc8eee89dbf2a69b2ebaebaa3a0be8eacfb4c807efa3423f248d6010d37",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -48559,7 +48599,43 @@
           ],
           "reporting_aim": "Rotate to distinguish medial ACA, lateral MCA and posterior PCA cortical distributions."
         },
-        "source_anatomy_references": []
+        "source_anatomy_references": [
+          {
+            "id": "massp2-subcortical-reference",
+            "label": "Putamen and pallidal segments \u00b7 population reference",
+            "atlas": "massp2-subcortex",
+            "family": "brain-subcortex",
+            "manifest_url": "/app/anatomy/massp2-subcortex/manifest.json",
+            "manifest_sha256": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a",
+            "initial_layer": "subcortex",
+            "initial_cropped": false,
+            "population_note": "Partial adult population reference: bilateral putamen and internal/external pallidal segments only. Original MNI2009b coordinates; independent of BodyParts3D. Clinical boundary accuracy and fine lamina anatomy remain unverified.",
+            "source_image": {
+              "id": "massp2-joint-qmri-comparison",
+              "src": "/app/reference-media/massp2-subcortex/joint-model-mri-comparison.png",
+              "sha256": "e110abee57d8ced9dc9fb5d6fe5bceb4e83653e885749ae1d7610d07651deee4",
+              "width": 1938,
+              "height": 2553,
+              "title": "Source quantitative MRI and direct model sections",
+              "alt": "Native AHEAD group MRI in R1, R2-star and susceptibility contrasts, with direct joint-model section lines for bilateral putamen and pallidal segments.",
+              "caption": "Adult group templates, not individual clinical MRI. Twelve median panels: axial, coronal and bilateral sagittal source sections in three quantitative contrasts. Coloured lines intersect the exported joint models directly. Atlas: 97 adults; MRI templates: 105 adults. No fitted alignment or source resampling. Subvoxel interfaces are derived and clinical anatomical accuracy remains unverified.",
+              "attribution": "Bazin, Forstmann, Alkemade, Miletic and Isherwood. AHEAD qMRI templates v3 and MASSP 2.0 lifespan atlas v2, CC BY 4.0. Adaptation: native sections/crops, grayscale display windows and direct derived-model overlays; no stored MRI intensities or source labels edited.",
+              "source_url": "https://doi.org/10.21942/uva.19646364.v3",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/"
+            }
+          },
+          {
+            "id": "existing-brain-context",
+            "label": "Whole-brain context \u00b7 BodyParts3D",
+            "atlas": "bodyparts3d",
+            "family": "brain",
+            "manifest_url": "/app/anatomy/bodyparts3d/manifest.json",
+            "manifest_sha256": "01ac96ea0d59c5c03a1dce23a44cfd0971860cea298be99c8905c2abe9a4a250",
+            "initial_layer": "bone",
+            "initial_cropped": false,
+            "population_note": "Existing adult male whole-hemisphere, cerebellar and ventricular reference. Gyri, capsule limbs and deep nuclei are not independently resolved. This source is separate from the MNI population reference; their coordinates must not be combined."
+          }
+        ]
       },
       "clinical_approval": false
     },
@@ -91980,7 +92056,7 @@
             },
             {
               "id": "ccta-img-5",
-              "label": "IMG 5 \u00b7 Anomaly, bridge, fistula, stent or graft",
+              "label": "IMG 5 \u00b7 Coronary stent example",
               "description": "Placeholder for the reconstruction that best demonstrates any additional coronary finding.",
               "src": "https://radiologyassistant.nl/assets/_stent.jpg",
               "width": 900,
@@ -92006,7 +92082,7 @@
             },
             {
               "id": "ccta-img-7",
-              "label": "IMG 7 \u00b7 Stenosis in cross-section",
+              "label": "IMG 7 \u00b7 Plaque morphology",
               "description": "Placeholder for orthogonal lumen images through the maximal narrowing and an adjacent reference segment.",
               "src": "https://radiologyassistant.nl/assets/10b-napkin.jpg",
               "width": 900,
@@ -92612,7 +92688,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "e28e72cf28a47305265fb8b63fda9712d2b717e08226ff6f5042836b474a0079",
+      "module_contract_sha256": "2a868ffc087c5bcc6bbbc80d02a8d71e003ecb6d7c1b5525fdf80814f1171a49",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

@@ -24,7 +24,8 @@
             "FJ2723",
             "FMA3840"
           ],
-          "tip": "Agatston scoring is defined on the non-contrast acquisition; do not derive it from contrast-enhanced images."
+          "tip": "Agatston scoring is defined on the non-contrast acquisition; do not derive it from contrast-enhanced images.",
+          "anatomy_note": "Gross artery surfaces provide orientation only. They do not depict calcific foci or permit Agatston scoring; use the acquired non-contrast CT."
         },
         {
           "label": "Dominance and anatomy",
@@ -35,7 +36,7 @@
           ],
           "look": "Axial source images and volume rendering at the sinuses of Valsalva; follow each ostium and its proximal course relative to the aorta and pulmonary trunk; find which artery supplies the PDA.",
           "normal": {
-            "CORONARY DOMINANCE": "Right-dominant coronary circulation; the PDA arises from the RCA.",
+            "CORONARY DOMINANCE": "Dominance: [right / left / co-dominant]. PDA origin: [ ].",
             "CORONARY ORIGINS / COURSE": "Normal origins of the left main and right coronary arteries from the left and right coronary sinuses, with a normal proximal course. No myocardial bridge or fistula."
           },
           "findings": [
@@ -46,7 +47,7 @@
           ],
           "images": [
             "ccta-img-1",
-            "ccta-img-5"
+            "ccta-img-4"
           ],
           "landmark": "origins",
           "parts": [
@@ -54,7 +55,8 @@
             "FJ2737",
             "FJ2723"
           ],
-          "tip": "Name an interarterial course between the aorta and pulmonary trunk explicitly, with any intramural segment or slit-like ostium."
+          "tip": "Name an interarterial course between the aorta and pulmonary trunk explicitly, with any intramural segment or slit-like ostium.",
+          "anatomy_note": "Only gross left/right coronary trunks, LAD, circumflex and an RCA-derived posterior branch are available. Individual ostia, sinus anatomy, branch origins and anomalous courses are not independently resolved. Determine patient dominance from the images; do not assume the example circulation."
         },
         {
           "label": "Stenosis by segment",
@@ -75,8 +77,7 @@
           "images": [
             "ccta-img-2",
             "ccta-img-3",
-            "ccta-img-4",
-            "ccta-img-7"
+            "ccta-img-4"
           ],
           "measurements": [
             "Stenosis"
@@ -89,7 +90,8 @@
             "FJ2723",
             "FMA3840"
           ],
-          "tip": "Blooming from dense calcification overestimates stenosis; grade on orthogonal cross-sections with a wide window."
+          "tip": "Blooming from dense calcification overestimates stenosis; grade on orthogonal cross-sections with a wide window.",
+          "anatomy_note": "Gross artery surfaces do not establish the lumen, reference diameter, individual branch segments, plaque or stenosis. Use acquired orthogonal CT lumen sections and document non-evaluable segments."
         },
         {
           "label": "Plaque and burden",
@@ -119,7 +121,11 @@
             "FJ2723",
             "FMA3840"
           ],
-          "tip": "HRP needs at least two high-risk features within the same plaque."
+          "tip": "HRP needs at least two high-risk features within the same plaque.",
+          "anatomy_note": "No plaque geometry, calcific distribution or high-risk plaque morphology is represented in this atlas. Normal surface meshes cannot prove absence of plaque or its burden.",
+          "images": [
+            "ccta-img-7"
+          ]
         },
         {
           "label": "Stents, grafts and physiology",
@@ -139,6 +145,7 @@
             "CT-FFR __ measured 1–2 cm distal to the [segment] lesion; lowest distal value __ in [vessel]."
           ],
           "images": [
+            "ccta-img-5",
             "ccta-img-8"
           ],
           "measurements": [
@@ -151,7 +158,8 @@
             "FJ2631",
             "FJ2723"
           ],
-          "tip": "Report the lesion-specific CT-FFR value 1–2 cm beyond the lesion, separately from the lowest distal value."
+          "tip": "Report the lesion-specific CT-FFR value 1–2 cm beyond the lesion, separately from the lowest distal value.",
+          "anatomy_note": "Stents, grafts, anastomoses and physiological measurements are not supplied by these meshes. The source aorta and coronary trunks are orientation context only."
         },
         {
           "label": "Cardiac and extracardiac findings",
@@ -179,7 +187,8 @@
             "FJ2439",
             "FJ2438",
             "FJ3413"
-          ]
+          ],
+          "anatomy_note": "Only gross ventricular/atrial wall and ascending-aorta context is highlighted. Valves, pericardial layers, coronary sinuses, lungs and other acquired extracardiac anatomy are not independently represented."
         },
         {
           "label": "CAD-RADS 2.0",
@@ -201,7 +210,8 @@
             "FJ2723",
             "FMA3840"
           ],
-          "tip": "The category follows the highest-grade stenosis; when reliable burden methods disagree, use the most severe."
+          "tip": "The category follows the highest-grade stenosis; when reliable burden methods disagree, use the most severe.",
+          "anatomy_note": "The atlas supplies anatomical orientation only. CAD-RADS, plaque burden, diagnostic quality and physiology must follow acquired evidence; a mesh selection cannot establish the classification."
         }
       ]
     },
