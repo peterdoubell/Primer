@@ -6,7 +6,8 @@
       "ra.appendicitis",
       "ra.brain-anatomy",
       "ra.ct-coronary",
-      "ra.ct-airways"
+      "ra.ct-airways",
+      "ra.ct-lung-cancer"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -7857,6 +7858,3355 @@
         {
           "observation": "vascular patency/perfusion",
           "evidence": "Appropriate contrast or functional source acquisitions; anatomical territory diagrams are not measured supply."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ct-lung-cancer",
+      "module_id": "rad.4.lung-cancer",
+      "title": "CT lung cancer staging",
+      "modality": "CT",
+      "scope_type": "lung_primary_tnm9_anatomical_localisation_with_conditional_invasion_nodal_metastatic_and_treatment_scope",
+      "clinical_validation_status": "draft_requires_thoracic_radiologist_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "lung-cancer-source-0",
+          "title": "Radiology Assistant \u2014 Lung Adenocarcinoma",
+          "url": "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+          "review_status": "text_scope_reviewed_2026-10-01_source_case_and_reuse_review_pending"
+        },
+        {
+          "source_id": "lung-cancer-source-1",
+          "title": "Radiology Assistant \u2014 TNM classification 9\u1d57\u02b0 edition",
+          "url": "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+          "review_status": "text_scope_reviewed_2026-10-01_source_case_and_reuse_review_pending"
+        },
+        {
+          "source_id": "lung-cancer-source-2",
+          "title": "IASLC \u2014 Thoracic oncology staging cards, ninth edition",
+          "url": "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+          "review_status": "text_scope_reviewed_2026-10-01_source_case_and_reuse_review_pending"
+        },
+        {
+          "source_id": "lung-cancer-source-3",
+          "title": "Cystic Lung Cancer",
+          "url": "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer",
+          "review_status": "text_scope_reviewed_2026-10-01_source_case_and_reuse_review_pending"
+        }
+      ],
+      "source_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
+      "reporting_checklist": [
+        {
+          "index": 0,
+          "label": "Primary",
+          "detail": "Record site, total size and solid component for a part-solid lesion."
+        },
+        {
+          "index": 1,
+          "label": "T descriptors",
+          "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+        },
+        {
+          "index": 2,
+          "label": "Nodal map",
+          "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+        },
+        {
+          "index": 3,
+          "label": "Metastases",
+          "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+        },
+        {
+          "index": 4,
+          "label": "Confidence",
+          "detail": "Identify findings whose confirmation would change stage."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "PRIMARY",
+          "body": "Lobe/segment: [ ]. Total maximum diameter: [ ] mm. Solid component: [ ] mm. Morphology: [ ]."
+        },
+        {
+          "heading": "LOCAL EXTENT",
+          "body": "Airway/atelectasis: [ ]. Pleura/chest wall: [ ]. Mediastinum/great vessels: [ ]. Separate nodules and lobes: [ ]."
+        },
+        {
+          "heading": "REGIONAL NODES",
+          "body": "Stations: [ ]. Short axes: [ ] mm. N2 distribution: [none / one station / multiple stations]. Contralateral/supraclavicular: [ ]."
+        },
+        {
+          "heading": "DISTANT DISEASE",
+          "body": "Pleural/pericardial deposits: [ ]. Contralateral lung: [ ]. Extrathoracic sites: [ ]. Indeterminate lesions: [ ]."
+        },
+        {
+          "heading": "IMAGING STAGE",
+          "body": "TNM edition: [9]. Context: [c / yc]. T: [ ]; N: [ ]; M: [ ]. Stage-changing uncertainty and evidence needed: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "lung_cancer.lobe_rul",
+          "name": "Right upper lobe",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.lobe_rul.parenchymal_extent",
+              "name": "Lobar parenchymal extent"
+            },
+            {
+              "id": "lung_cancer.lobe_rul.fissural_interfaces",
+              "name": "Actual fissural interfaces"
+            },
+            {
+              "id": "lung_cancer.lobe_rul.hilar_bronchovascular_relationships",
+              "name": "Hilar bronchovascular relationships"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Acquired lobe, fissural completeness and displaced or resected anatomy must be case identified. Lingula remains within the left upper lobe.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.lobe_rml",
+          "name": "Right middle lobe",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.lobe_rml.parenchymal_extent",
+              "name": "Lobar parenchymal extent"
+            },
+            {
+              "id": "lung_cancer.lobe_rml.fissural_interfaces",
+              "name": "Actual fissural interfaces"
+            },
+            {
+              "id": "lung_cancer.lobe_rml.hilar_bronchovascular_relationships",
+              "name": "Hilar bronchovascular relationships"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Acquired lobe, fissural completeness and displaced or resected anatomy must be case identified. Lingula remains within the left upper lobe.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.lobe_rll",
+          "name": "Right lower lobe",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.lobe_rll.parenchymal_extent",
+              "name": "Lobar parenchymal extent"
+            },
+            {
+              "id": "lung_cancer.lobe_rll.fissural_interfaces",
+              "name": "Actual fissural interfaces"
+            },
+            {
+              "id": "lung_cancer.lobe_rll.hilar_bronchovascular_relationships",
+              "name": "Hilar bronchovascular relationships"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Acquired lobe, fissural completeness and displaced or resected anatomy must be case identified. Lingula remains within the left upper lobe.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.lobe_lul",
+          "name": "Left upper lobe including lingula",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.lobe_lul.parenchymal_extent",
+              "name": "Lobar parenchymal extent"
+            },
+            {
+              "id": "lung_cancer.lobe_lul.fissural_interfaces",
+              "name": "Actual fissural interfaces"
+            },
+            {
+              "id": "lung_cancer.lobe_lul.hilar_bronchovascular_relationships",
+              "name": "Hilar bronchovascular relationships"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Acquired lobe, fissural completeness and displaced or resected anatomy must be case identified. Lingula remains within the left upper lobe.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.lobe_lll",
+          "name": "Left lower lobe",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.lobe_lll.parenchymal_extent",
+              "name": "Lobar parenchymal extent"
+            },
+            {
+              "id": "lung_cancer.lobe_lll.fissural_interfaces",
+              "name": "Actual fissural interfaces"
+            },
+            {
+              "id": "lung_cancer.lobe_lll.hilar_bronchovascular_relationships",
+              "name": "Hilar bronchovascular relationships"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Acquired lobe, fissural completeness and displaced or resected anatomy must be case identified. Lingula remains within the left upper lobe.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.segment_localisation",
+          "name": "Tumour segment and subsegment localisation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.segment_localisation.bronchial_origin",
+              "name": "Named bronchial origin"
+            },
+            {
+              "id": "lung_cancer.segment_localisation.bronchial_course",
+              "name": "Segmental and relevant subsegmental course"
+            },
+            {
+              "id": "lung_cancer.segment_localisation.arterial_relationship",
+              "name": "Accompanying arterial relationship"
+            },
+            {
+              "id": "lung_cancer.segment_localisation.venous_relationship",
+              "name": "Intersegmental venous relationship"
+            },
+            {
+              "id": "lung_cancer.segment_localisation.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lung_cancer.segment_localisation.tumour_site",
+              "name": "Tumour position relative to actual territory"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each reported segment/subsegment and source naming variant. The separate airway inventory is a source lead, not automatic tumour-localisation coverage.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.primary",
+          "name": "Primary tumour boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.primary.entire_lesion",
+              "name": "Complete macroscopic lesion extent"
+            },
+            {
+              "id": "lung_cancer.primary.solid_component",
+              "name": "Solid component boundary"
+            },
+            {
+              "id": "lung_cancer.primary.ground_glass_component",
+              "name": "Ground-glass component boundary"
+            },
+            {
+              "id": "lung_cancer.primary.tumour_lung_interface",
+              "name": "Tumour and adjacent lung interface"
+            },
+            {
+              "id": "lung_cancer.primary.tumour_atelectasis_interface",
+              "name": "Tumour versus adjacent atelectatic lung interface"
+            },
+            {
+              "id": "lung_cancer.primary.maximal_extent_plane",
+              "name": "Acquired plane of maximal extent"
+            },
+            {
+              "id": "lung_cancer.primary.central_airway_relationship",
+              "name": "Central airway relationship"
+            },
+            {
+              "id": "lung_cancer.primary.satellite_relationship",
+              "name": "Separate lesion versus contiguous extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Every primary needs source/case identification, acquisition resolution and actual measurement planes. CT solid component is an imaging descriptor, not proof of microscopic invasion. Unseen or inseparable boundaries remain unresolved.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "lung_primary_tumour"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.subsolid",
+          "name": "Subsolid tumour",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.subsolid.ground_glass_extent",
+              "name": "Ground-glass extent"
+            },
+            {
+              "id": "lung_cancer.subsolid.solid_focus",
+              "name": "Solid focus"
+            },
+            {
+              "id": "lung_cancer.subsolid.multifocal_distribution",
+              "name": "Multifocal distribution"
+            },
+            {
+              "id": "lung_cancer.subsolid.lesion_interfaces",
+              "name": "Lesion interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional positive-case morphology. Do not infer histology, spread through airspaces or malignancy from a generic normal lung or CT appearance alone; longitudinal and pathological evidence remain separate.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "subsolid_lung_tumour"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.cystic",
+          "name": "Tumour associated with cystic airspace",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.cystic.airspace",
+              "name": "Airspace interior"
+            },
+            {
+              "id": "lung_cancer.cystic.wall",
+              "name": "Airspace wall"
+            },
+            {
+              "id": "lung_cancer.cystic.wall_nodule",
+              "name": "Wall-associated nodule"
+            },
+            {
+              "id": "lung_cancer.cystic.solid_component",
+              "name": "Solid component"
+            },
+            {
+              "id": "lung_cancer.cystic.septa",
+              "name": "Internal septa when present"
+            },
+            {
+              "id": "lung_cancer.cystic.adjacent_opacity",
+              "name": "Adjacent ground-glass or consolidation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional positive-case morphology. Do not infer histology, spread through airspaces or malignancy from a generic normal lung or CT appearance alone; longitudinal and pathological evidence remain separate.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_airspace_lung_tumour"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.pneumonic",
+          "name": "Pneumonic or consolidative tumour",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.pneumonic.consolidation",
+              "name": "Consolidative extent"
+            },
+            {
+              "id": "lung_cancer.pneumonic.air_bronchograms",
+              "name": "Air bronchogram relationships"
+            },
+            {
+              "id": "lung_cancer.pneumonic.ground_glass",
+              "name": "Associated ground-glass extent"
+            },
+            {
+              "id": "lung_cancer.pneumonic.nodular_spread",
+              "name": "Associated nodular distribution"
+            },
+            {
+              "id": "lung_cancer.pneumonic.lobar_distribution",
+              "name": "Lobar distribution"
+            },
+            {
+              "id": "lung_cancer.pneumonic.tumour_infection_interface",
+              "name": "Indeterminate tumour/infection interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional positive-case morphology. Do not infer histology, spread through airspaces or malignancy from a generic normal lung or CT appearance alone; longitudinal and pathological evidence remain separate.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pneumonic_lung_tumour"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.central",
+          "name": "Central or endobronchial tumour",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.central.luminal_component",
+              "name": "Intraluminal component"
+            },
+            {
+              "id": "lung_cancer.central.mural_extent",
+              "name": "Visible mural extent"
+            },
+            {
+              "id": "lung_cancer.central.extraluminal_extent",
+              "name": "Extraluminal extent"
+            },
+            {
+              "id": "lung_cancer.central.obstruction",
+              "name": "Obstruction level"
+            },
+            {
+              "id": "lung_cancer.central.downstream_lung",
+              "name": "Downstream lung change"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional positive-case morphology. Do not infer histology, spread through airspaces or malignancy from a generic normal lung or CT appearance alone; longitudinal and pathological evidence remain separate.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "central_lung_tumour"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.airway_pleural_landmarks",
+          "name": "Airway, pleural and chest-wall localisation landmarks",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.tracheal_lumen",
+              "name": "Tracheal lumen"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.tracheal_wall",
+              "name": "CT-visible tracheal wall"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.carina",
+              "name": "Carina"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.right_main_bronchus",
+              "name": "Right main bronchus"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.left_main_bronchus",
+              "name": "Left main bronchus"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.bronchus_intermedius",
+              "name": "Bronchus intermedius"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.lobar_bronchi",
+              "name": "Each acquired lobar bronchus"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.visceral_pleura",
+              "name": "Visceral pleural interface"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.parietal_pleura",
+              "name": "Parietal pleural interface"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.pleural_space",
+              "name": "Pleural space"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.extrapleural_tissues",
+              "name": "Extrapleural tissues"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.ribs",
+              "name": "Each relevant rib cortex and medulla"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.intercostal_tissues",
+              "name": "Relevant intercostal tissues"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.sternum",
+              "name": "Relevant sternal cortex and medulla"
+            },
+            {
+              "id": "lung_cancer.airway_pleural_landmarks.diaphragm",
+              "name": "Diaphragm and transdiaphragmatic interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Resolve the actual tumour interface and acquired named site. CT-visible interfaces do not establish histological pleural layers or invasion; simple contact is not an invasion example.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.mediastinal_landmarks",
+          "name": "Mediastinal, vascular and cardiac localisation landmarks",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.mediastinal_landmarks.mediastinal_fat",
+              "name": "Mediastinal fat and compartment interfaces"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.thymus",
+              "name": "Thymic tissue"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.esophageal_wall",
+              "name": "Esophageal wall"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.esophageal_lumen",
+              "name": "Esophageal lumen"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.pericardium",
+              "name": "Pericardial interface"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.heart",
+              "name": "Relevant chamber and myocardial interfaces"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.ascending_aorta",
+              "name": "Ascending aorta"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.aortic_arch",
+              "name": "Aortic arch"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.descending_aorta",
+              "name": "Descending thoracic aorta"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.superior_vena_cava",
+              "name": "Superior vena cava"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.inferior_vena_cava",
+              "name": "Imaged inferior vena cava"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.azygos_vein",
+              "name": "Azygos vein and arch"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.brachiocephalic_veins",
+              "name": "Right and left brachiocephalic veins"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.supra_aortic_arteries",
+              "name": "Each relevant supra-aortic artery"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.subclavian_arteries",
+              "name": "Relevant subclavian artery"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.subclavian_veins",
+              "name": "Relevant subclavian vein"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.intrapericardial_pulmonary_arteries",
+              "name": "Intrapericardial pulmonary arteries"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.intrapericardial_pulmonary_veins",
+              "name": "Intrapericardial pulmonary veins"
+            },
+            {
+              "id": "lung_cancer.mediastinal_landmarks.hilar_vessels",
+              "name": "Hilar vessels"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Every involved vessel/chamber/side needs separate source instantiation. Contrast phase, lumen visibility and tumour interface are case dependent. Whole-heart/aorta shells cannot supply individual vessel-wall invasion or patency.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.apical_neural_spinal",
+          "name": "Apical neural and spinal localisation landmarks",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.apical_neural_spinal.phrenic_nerve",
+              "name": "Phrenic nerve course"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.vagus_nerve",
+              "name": "Vagus nerve course"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.recurrent_laryngeal_nerve",
+              "name": "Recurrent laryngeal nerve course"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.stellate_ganglion",
+              "name": "Stellate ganglion location"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.thoracic_t1_root",
+              "name": "Thoracic T1 nerve root relationship"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.thoracic_t2_root",
+              "name": "Thoracic T2 nerve root relationship"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.cervical_roots",
+              "name": "Each relevant cervical nerve root"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.brachial_plexus_roots",
+              "name": "Brachial plexus roots"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.brachial_plexus_trunks",
+              "name": "Brachial plexus trunks"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.brachial_plexus_divisions",
+              "name": "Brachial plexus divisions"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.brachial_plexus_cords",
+              "name": "Brachial plexus cords"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.brachial_plexus_terminal_nerves",
+              "name": "Relevant terminal nerves"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.vertebral_body",
+              "name": "Relevant vertebral body"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.vertebral_lamina",
+              "name": "Relevant vertebral lamina"
+            },
+            {
+              "id": "lung_cancer.apical_neural_spinal.spinal_canal",
+              "name": "Relevant spinal canal"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional apical/invasive sites. CT may not resolve the neural structure directly; record that limitation and acquire appropriate complementary evidence rather than inventing a nerve boundary or declaring invasion.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.invasion",
+          "name": "Positive local invasion interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.invasion.visceral_pleura",
+              "name": "Tumour and visceral pleural interface"
+            },
+            {
+              "id": "lung_cancer.invasion.adjacent_lobe",
+              "name": "Contiguous adjacent-lobe interface"
+            },
+            {
+              "id": "lung_cancer.invasion.main_bronchus",
+              "name": "Tumour and main-bronchial interface"
+            },
+            {
+              "id": "lung_cancer.invasion.carina",
+              "name": "Tumour and carinal interface"
+            },
+            {
+              "id": "lung_cancer.invasion.trachea",
+              "name": "Tumour and tracheal interface"
+            },
+            {
+              "id": "lung_cancer.invasion.parietal_pleura",
+              "name": "Tumour and parietal pleural interface"
+            },
+            {
+              "id": "lung_cancer.invasion.chest_wall",
+              "name": "Tumour and chest-wall interface"
+            },
+            {
+              "id": "lung_cancer.invasion.pericardium",
+              "name": "Tumour and pericardial interface"
+            },
+            {
+              "id": "lung_cancer.invasion.azygos",
+              "name": "Tumour and azygos-vein interface"
+            },
+            {
+              "id": "lung_cancer.invasion.phrenic",
+              "name": "Tumour and phrenic-nerve relationship"
+            },
+            {
+              "id": "lung_cancer.invasion.thoracic_root_stellate",
+              "name": "Tumour and thoracic-root/stellate relationship",
+              "modality_scope": [
+                "CT",
+                "MRI"
+              ]
+            },
+            {
+              "id": "lung_cancer.invasion.mediastinum_thymus",
+              "name": "Tumour and mediastinal/thymic interface"
+            },
+            {
+              "id": "lung_cancer.invasion.heart",
+              "name": "Tumour and cardiac interface"
+            },
+            {
+              "id": "lung_cancer.invasion.great_vessel",
+              "name": "Tumour and individually named great-vessel interface"
+            },
+            {
+              "id": "lung_cancer.invasion.vagus_recurrent",
+              "name": "Tumour and vagal/recurrent-laryngeal relationship"
+            },
+            {
+              "id": "lung_cancer.invasion.esophagus",
+              "name": "Tumour and esophageal interface"
+            },
+            {
+              "id": "lung_cancer.invasion.diaphragm",
+              "name": "Tumour and diaphragmatic interface"
+            },
+            {
+              "id": "lung_cancer.invasion.spinal",
+              "name": "Tumour and vertebral/laminar/canal interface",
+              "modality_scope": [
+                "CT",
+                "MRI"
+              ]
+            },
+            {
+              "id": "lung_cancer.invasion.cervical_brachial",
+              "name": "Tumour and cervical-root/brachial-plexus relationship",
+              "modality_scope": [
+                "CT",
+                "MRI"
+              ]
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Separate actual positive cases for every claimed invasive site. Contact, loss of a fat plane or a schematic arrow cannot prove invasion. T-category distinctions need site-specific source and confirmation review.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "suspected_lung_tumour_invasion"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.separate_tumours",
+          "name": "Separate and multifocal pulmonary lesions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.separate_tumours.same_lobe",
+              "name": "Separate same-lobe lesion"
+            },
+            {
+              "id": "lung_cancer.separate_tumours.other_ipsilateral_lobe",
+              "name": "Separate lesion in another ipsilateral lobe"
+            },
+            {
+              "id": "lung_cancer.separate_tumours.contralateral_lobe",
+              "name": "Separate contralateral lesion"
+            },
+            {
+              "id": "lung_cancer.separate_tumours.synchronous_primary",
+              "name": "Independently assessed synchronous primary"
+            },
+            {
+              "id": "lung_cancer.separate_tumours.multifocal_lepidic",
+              "name": "Multifocal subsolid/lepidic-pattern distribution"
+            },
+            {
+              "id": "lung_cancer.separate_tumours.diffuse_pneumonic",
+              "name": "Diffuse pneumonic-pattern distribution"
+            },
+            {
+              "id": "lung_cancer.separate_tumours.intervening_parenchyma",
+              "name": "Intervening parenchymal relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Actual lesions and origin/relatedness are case-specific. A separate lung opacity is not automatically a metastasis; multiplicity rules must be reconciled with evidence of independent primaries.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "multiple_pulmonary_tumours"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_1r",
+          "name": "IASLC station 1R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_1r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_1r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_1r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_1r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_1l",
+          "name": "IASLC station 1L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_1l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_1l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_1l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_1l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_2r",
+          "name": "IASLC station 2R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_2r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_2r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_2r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_2r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_2l",
+          "name": "IASLC station 2L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_2l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_2l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_2l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_2l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_3a",
+          "name": "IASLC station 3A",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_3a.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_3a.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_3a.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_3a.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_3p",
+          "name": "IASLC station 3P",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_3p.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_3p.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_3p.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_3p.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_4r",
+          "name": "IASLC station 4R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_4r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_4r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_4r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_4r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_4l",
+          "name": "IASLC station 4L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_4l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_4l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_4l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_4l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_5",
+          "name": "IASLC station 5",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_5.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_5.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_5.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_5.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_6",
+          "name": "IASLC station 6",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_6.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_6.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_6.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_6.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_7",
+          "name": "IASLC station 7",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_7.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_7.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_7.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_7.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_8r",
+          "name": "IASLC station 8R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_8r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_8r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_8r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_8r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_8l",
+          "name": "IASLC station 8L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_8l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_8l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_8l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_8l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_9r",
+          "name": "IASLC station 9R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_9r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_9r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_9r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_9r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_9l",
+          "name": "IASLC station 9L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_9l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_9l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_9l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_9l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_10r",
+          "name": "IASLC station 10R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_10r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_10r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_10r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_10r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_10l",
+          "name": "IASLC station 10L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_10l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_10l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_10l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_10l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_11r",
+          "name": "IASLC station 11R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_11r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_11r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_11r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_11r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_11l",
+          "name": "IASLC station 11L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_11l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_11l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_11l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_11l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_12r",
+          "name": "IASLC station 12R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_12r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_12r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_12r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_12r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_12l",
+          "name": "IASLC station 12L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_12l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_12l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_12l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_12l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_13r",
+          "name": "IASLC station 13R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_13r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_13r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_13r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_13r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_13l",
+          "name": "IASLC station 13L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_13l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_13l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_13l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_13l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_14r",
+          "name": "IASLC station 14R",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_14r.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_14r.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_14r.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_14r.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_14l",
+          "name": "IASLC station 14L",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_14l.station_region",
+              "name": "Station region extent"
+            },
+            {
+              "id": "lung_cancer.station_14l.cranial_caudal_limits",
+              "name": "Actual cranial and caudal limits"
+            },
+            {
+              "id": "lung_cancer.station_14l.adjacent_anatomical_boundaries",
+              "name": "Adjacent anatomical boundaries"
+            },
+            {
+              "id": "lung_cancer.station_14l.node_localisation",
+              "name": "Node localisation within station"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Station regions are anatomical localisation spaces, not assumed tumour-positive nodes. Instantiate actual acquired boundaries, nodes, side and primary side. Station 3A has distinct right/left posterior boundary landmarks; station 7 is not automatically N3 when its centroid crosses a midline. N2a/N2b count stations, not nodes. Source page 10 supplies definitions.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.station_11_right_optional",
+          "name": "Optional right interlobar subdivisions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.station_11_right_optional.11s",
+              "name": "11s upper-lobar/intermediate bronchial relationship"
+            },
+            {
+              "id": "lung_cancer.station_11_right_optional.11i",
+              "name": "11i middle/lower-lobar bronchial relationship"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Optional right 11s/11i localisation retained where used. Do not impose these subdivisions on the left or count two subdivisions as an unreviewed extra-station rule.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.node_boundary_landmarks",
+          "name": "Nodal boundary landmarks",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.node_boundary_landmarks.cricoid",
+              "name": "Lower cricoid margin"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.clavicles",
+              "name": "Clavicular margins"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.manubrium",
+              "name": "Upper manubrial margin"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.tracheal_midline",
+              "name": "Tracheal midline for station 1"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.tracheal_left_border",
+              "name": "Left tracheal border for stations 2 and 4"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.innominate_trachea",
+              "name": "Brachiocephalic-vein/tracheal level"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.arch_upper_lower",
+              "name": "Aortic arch upper and lower margins"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.left_main_pa_upper",
+              "name": "Upper left main pulmonary-artery rim"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.azygos_lower",
+              "name": "Lower azygos-vein rim"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.ligamentum_arteriosum",
+              "name": "Ligamentum arteriosum relationship"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.carina",
+              "name": "Carinal level"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.left_lower_bronchus_upper",
+              "name": "Upper left lower-lobar bronchial border"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.intermedius_lower",
+              "name": "Lower bronchus-intermedius border"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.esophagus",
+              "name": "Esophageal relationship"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.pulmonary_ligaments",
+              "name": "Pulmonary ligaments"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.inferior_pulmonary_veins",
+              "name": "Inferior pulmonary veins"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.sternum_posterior",
+              "name": "Posterior sternal surface"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.svc_anterior",
+              "name": "Anterior superior-vena-caval boundary"
+            },
+            {
+              "id": "lung_cancer.node_boundary_landmarks.left_carotid",
+              "name": "Left carotid relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Preserve side-specific definitions; neither arbitrary geometric midline nor a mediastinal shell resolves the nodal map. Limited CT visibility of ligament/neural landmarks must remain explicit.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.suspicious_nodes",
+          "name": "Suspicious nodal disease",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.suspicious_nodes.individual_node_extent",
+              "name": "Each consequential node extent"
+            },
+            {
+              "id": "lung_cancer.suspicious_nodes.short_axis_plane",
+              "name": "Each node short-axis plane"
+            },
+            {
+              "id": "lung_cancer.suspicious_nodes.station_assignment",
+              "name": "Boundary-supported station assignment"
+            },
+            {
+              "id": "lung_cancer.suspicious_nodes.primary_laterality",
+              "name": "Primary-relative laterality"
+            },
+            {
+              "id": "lung_cancer.suspicious_nodes.single_station",
+              "name": "Single-station distribution"
+            },
+            {
+              "id": "lung_cancer.suspicious_nodes.multiple_stations",
+              "name": "Multiple-station distribution"
+            },
+            {
+              "id": "lung_cancer.suspicious_nodes.direct_extension",
+              "name": "Direct tumour-to-node extension"
+            },
+            {
+              "id": "lung_cancer.suspicious_nodes.nonregional_nodes",
+              "name": "Nonregional nodal sites"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Node size, morphology and PET avidity are suspicion evidence, not histological confirmation. Preserve station 1 bilateral N3 context and distinguish nonregional nodes. A normal station model cannot satisfy positive-node geometry.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "suspected_lung_cancer_nodal_disease"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.pleural_metastatic",
+          "name": "Pleural and pericardial metastatic findings",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.pleural_metastatic.pleural_deposits",
+              "name": "Each pleural deposit"
+            },
+            {
+              "id": "lung_cancer.pleural_metastatic.pleural_effusion",
+              "name": "Pleural fluid distribution"
+            },
+            {
+              "id": "lung_cancer.pleural_metastatic.pericardial_deposits",
+              "name": "Each pericardial deposit"
+            },
+            {
+              "id": "lung_cancer.pleural_metastatic.pericardial_effusion",
+              "name": "Pericardial fluid distribution"
+            },
+            {
+              "id": "lung_cancer.pleural_metastatic.pleural_pericardial_interfaces",
+              "name": "Deposit and host interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional suspicious/metastatic sites require actual acquired extent and diagnostic confidence. An effusion alone is not proven malignant. Chest CT does not cover brain or the whole skeleton; paired organs remain one organ system for multiplicity review.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "suspected_lung_cancer_metastatic_disease"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.adrenal_metastatic",
+          "name": "Adrenal lesions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.adrenal_metastatic.right_adrenal",
+              "name": "Right adrenal lesion and host interface"
+            },
+            {
+              "id": "lung_cancer.adrenal_metastatic.left_adrenal",
+              "name": "Left adrenal lesion and host interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional suspicious/metastatic sites require actual acquired extent and diagnostic confidence. An effusion alone is not proven malignant. Chest CT does not cover brain or the whole skeleton; paired organs remain one organ system for multiplicity review.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "suspected_lung_cancer_metastatic_disease"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.liver_metastatic",
+          "name": "Hepatic lesions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.liver_metastatic.lesion_extent",
+              "name": "Each hepatic lesion extent"
+            },
+            {
+              "id": "lung_cancer.liver_metastatic.hepatic_location",
+              "name": "Hepatic segment/site localisation"
+            },
+            {
+              "id": "lung_cancer.liver_metastatic.host_interface",
+              "name": "Lesion and hepatic interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional suspicious/metastatic sites require actual acquired extent and diagnostic confidence. An effusion alone is not proven malignant. Chest CT does not cover brain or the whole skeleton; paired organs remain one organ system for multiplicity review.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "suspected_lung_cancer_metastatic_disease"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.bone_metastatic",
+          "name": "Osseous lesions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.bone_metastatic.cortical_extent",
+              "name": "Cortical lesion extent"
+            },
+            {
+              "id": "lung_cancer.bone_metastatic.medullary_extent",
+              "name": "Medullary lesion extent"
+            },
+            {
+              "id": "lung_cancer.bone_metastatic.named_bone",
+              "name": "Each named acquired bone/site"
+            },
+            {
+              "id": "lung_cancer.bone_metastatic.soft_tissue_component",
+              "name": "Extraosseous component"
+            },
+            {
+              "id": "lung_cancer.bone_metastatic.canal_complication",
+              "name": "Canal or neural relationship when relevant"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional suspicious/metastatic sites require actual acquired extent and diagnostic confidence. An effusion alone is not proven malignant. Chest CT does not cover brain or the whole skeleton; paired organs remain one organ system for multiplicity review.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "suspected_lung_cancer_metastatic_disease"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.other_metastatic",
+          "name": "Other acquired metastatic sites",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.other_metastatic.brain",
+              "name": "Brain lesions on separately acquired appropriate examination",
+              "modality_scope": [
+                "CT",
+                "MRI"
+              ]
+            },
+            {
+              "id": "lung_cancer.other_metastatic.nonregional_nodes",
+              "name": "Nonregional nodal deposits"
+            },
+            {
+              "id": "lung_cancer.other_metastatic.skin_soft_tissue",
+              "name": "Skin or soft-tissue deposits"
+            },
+            {
+              "id": "lung_cancer.other_metastatic.other_organ",
+              "name": "Each other acquired named organ/system"
+            },
+            {
+              "id": "lung_cancer.other_metastatic.organ_interface",
+              "name": "Each lesion/host interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional suspicious/metastatic sites require actual acquired extent and diagnostic confidence. An effusion alone is not proven malignant. Chest CT does not cover brain or the whole skeleton; paired organs remain one organ system for multiplicity review.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "suspected_lung_cancer_metastatic_disease"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lung_cancer.post_treatment",
+          "name": "Post-treatment and residual anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lung_cancer.post_treatment.bronchial_stump",
+              "name": "Bronchial stump/anastomosis"
+            },
+            {
+              "id": "lung_cancer.post_treatment.residual_lobes",
+              "name": "Residual/reconfigured lobes"
+            },
+            {
+              "id": "lung_cancer.post_treatment.resection_bed",
+              "name": "Resection bed"
+            },
+            {
+              "id": "lung_cancer.post_treatment.radiation_change",
+              "name": "Radiation-field lung change"
+            },
+            {
+              "id": "lung_cancer.post_treatment.residual_recurrent_lesion",
+              "name": "Residual/recurrent lesion extent"
+            },
+            {
+              "id": "lung_cancer.post_treatment.altered_nodes",
+              "name": "Altered nodal sites"
+            },
+            {
+              "id": "lung_cancer.post_treatment.altered_pleura",
+              "name": "Altered pleural/pericardial anatomy"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Conditional treated cases: identify therapy and time point, compare actual prior acquisitions and use the appropriate clinical context/prefix. Pretreatment reference anatomy cannot stand in for altered anatomy.",
+          "requirement_basis": "effective_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary",
+              "detail": "Record site, total size and solid component for a part-solid lesion."
+            },
+            {
+              "checklist_index": 1,
+              "label": "T descriptors",
+              "detail": "Check invasion, separate tumour nodules and airway/atelectatic relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Nodal map",
+              "detail": "Name suspicious stations and laterality, separating single- from multiple-station N2 disease."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Metastases",
+              "detail": "Inspect pleura, contralateral lung, adrenals, liver and imaged bones."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Confidence",
+              "detail": "Identify findings whose confirmation would change stage."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/chest/lung-cancer/Lung-Adenocarcinoma",
+            "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1",
+            "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition",
+            "https://radiologyassistant.nl/chest/lung-cancer/cystic-lung-cancer"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every primary, solid component, separate lesion and actual affected segment/subsegment",
+            "Each named invasive interface, laterality and acquired structure",
+            "Every individual node, station boundary and station 3A side; optional right station 11 subdivisions where used",
+            "Every actual metastatic lesion, organ system and acquisition field of view",
+            "Every source/case morphology, developmental condition and treatment-related alteration"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "case_and_boundary_extent_pending",
+          "detail": "Named station and interface lists are a draft. Source/case meshes, actual node boundaries, vascular/neural extent and all imaged sites require expansion and specialist review."
+        },
+        {
+          "code": "station_boundary_source_reconciliation_pending",
+          "detail": "IASLC 9th-edition card page 10 is the current definition source. Older linked node-map prose contains a 3B typo and describes 3P differently; original labels and side/border distinctions require reconciliation before image/model binding."
+        },
+        {
+          "code": "ct_visibility_and_histology_pending",
+          "detail": "CT-visible component, nerve relationship, pleural contact, nodal size and effusion cannot establish microscopic invasion, histology, STAS or malignant involvement."
+        },
+        {
+          "code": "complete_staging_acquisitions_pending",
+          "detail": "PET-CT, brain imaging, tissue sampling and prior scans are separate evidence; chest/upper-abdominal coverage cannot exclude whole-body disease."
+        },
+        {
+          "code": "source_reuse_rights_pending",
+          "detail": "The IASLC card explicitly requires permission before reproducing its figures for distribution. Source review is not a commercial reuse grant; no card image is packaged."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "tumour and solid-component measurement",
+          "evidence": "Calibrated native planes, reconstruction and appropriate windows, with atelectasis excluded only when distinguishable."
+        },
+        {
+          "observation": "node short axis and station count",
+          "evidence": "Actual source planes, separate station definitions and primary laterality; a node count is not an N2 station count."
+        },
+        {
+          "observation": "invasion attribution",
+          "evidence": "Site-specific imaging confidence and confirmatory evidence when stage changing; contact geometry alone does not prove invasion."
+        },
+        {
+          "observation": "malignant pleural/pericardial disease",
+          "evidence": "Actual findings and diagnostic confirmation/context; fluid presence alone does not establish malignant effusion."
+        },
+        {
+          "observation": "M-category organ-system multiplicity",
+          "evidence": "Complete lesion/site evidence in acquired studies with uncertainty and unseen sites stated; paired organs and multiple bone sites require organ-system review."
+        },
+        {
+          "observation": "histology and microscopic invasive component",
+          "evidence": "Pathological evidence separate from CT appearance; CT solid component or illustrative histology is not patient proof."
+        },
+        {
+          "observation": "post-treatment assessment",
+          "evidence": "Known treatment/time point and actual matched prior studies; pretreatment c and post-treatment yc contexts kept distinct."
         }
       ]
     }
