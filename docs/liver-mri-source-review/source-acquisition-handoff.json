@@ -1,9 +1,9 @@
 {
   "observed_at": "2026-10-02",
   "exec_session_id": 94899,
-  "process_confirmed_live_by_tool": true,
-  "active_file": "/Users/peter/Documents/ChatGPT/Primer/.research/liver-hcc-mri-source/dicoms.zip.partial",
-  "active_file_bytes_at_observation": 1296039936,
+  "process_confirmed_live_by_tool": false,
+  "active_file": null,
+  "active_file_bytes_at_observation": null,
   "sequence": [
     "nifti_and_segms.zip",
     "dicoms.zip"
@@ -20,10 +20,11 @@
       "checksum": "md5:4382ae1301b68ab60c05de306a1e43ec"
     }
   ],
-  "completed": false,
-  "instruction": "Poll the existing session or inspect its writer; do not restart because this handoff file or observation is old. Only terminal completion and publisher MD5 checks establish acquisition success.",
+  "completed": true,
+  "instruction": "Acquisition completed with terminal exit 0; do not restart. Raw archives remain in ignored research storage.",
   "completed_archives": [
-    "nifti_and_segms.zip"
+    "nifti_and_segms.zip",
+    "dicoms.zip"
   ],
-  "stage": "Original DICOM archive download; corrected NIfTI/mask archive fully verified"
+  "stage": "Both archives complete and publisher MD5 verified"
 }
