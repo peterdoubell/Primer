@@ -428,6 +428,30 @@
         "visual_review_scope_missing_or_stale",
         "visual_review_missing_or_stale",
         "high_fidelity_unproven"
+      ],
+      "native-nih-med001-label1-ct": [
+        "no_verified_structure_binding",
+        "anatomical_review_scope_missing_or_stale",
+        "anatomical_review_missing_or_stale",
+        "visual_review_scope_missing_or_stale",
+        "visual_review_missing_or_stale",
+        "high_fidelity_unproven"
+      ],
+      "native-nih-med001-label2-ct": [
+        "no_verified_structure_binding",
+        "anatomical_review_scope_missing_or_stale",
+        "anatomical_review_missing_or_stale",
+        "visual_review_scope_missing_or_stale",
+        "visual_review_missing_or_stale",
+        "high_fidelity_unproven"
+      ],
+      "native-nih-med001-label3-ct": [
+        "no_verified_structure_binding",
+        "anatomical_review_scope_missing_or_stale",
+        "anatomical_review_missing_or_stale",
+        "visual_review_scope_missing_or_stale",
+        "visual_review_missing_or_stale",
+        "high_fidelity_unproven"
       ]
     },
     "runtime_reference_image_rights": {
@@ -691,7 +715,10 @@
       "reader-massp2-gpe-l": "99b4dc2ab6020ef651feebb61558d787ea512728c31c6cb7b956ceece84d5cf5",
       "reader-massp2-gpe-r": "16462565c29a9c29c59e0ead7061681e39d13d8132f1329d6d7a8abe6e22aeeb",
       "reader-massp2-qmri-comparison": "b9c3614eb0a8794d146097712529dc486ed55d6fb346f2c2c63630570d15d743",
-      "native-aeropath-case1-ct": "f3fee7374ecf545fd45d713c872312e7d767ce8001c0f21c507c4f0a32abed94"
+      "native-aeropath-case1-ct": "f3fee7374ecf545fd45d713c872312e7d767ce8001c0f21c507c4f0a32abed94",
+      "native-nih-med001-label1-ct": "1e80fc01c5d4aada77e1112da9c0ed07b2c1a836bd7d971535480359f7f6eece",
+      "native-nih-med001-label2-ct": "279762b62d64666d71c48c6471ef89d52088a3b6c7e71f72eca7a830d406dc80",
+      "native-nih-med001-label3-ct": "1f180112a85b7bccbe307688b9e9f48a5adf8769021380bd9ade590e9b91c4e0"
     },
     "requirements": [
       {
@@ -35709,8 +35736,8 @@
       "lesson:rad.5.wrist-hand"
     ],
     "counts": {
-      "images": 538,
-      "cleared": 95,
+      "images": 541,
+      "cleared": 98,
       "unverified": 443
     },
     "images": [
@@ -37947,6 +37974,72 @@
         ],
         "candidates": {
           "open-appendix-mostbeck-2016-fig3": []
+        },
+        "issues": []
+      },
+      {
+        "src": "/app/reference-media/radiology-open/nih-med001-label1-native-ct.png",
+        "uses": [
+          {
+            "surface": "reporting:ra.ct-mediastinum",
+            "collection": "structure_atlas",
+            "id": "native-nih-med001-label1-ct",
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "attribution": "Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey and Summers. TCIA CT Lymph Nodes, DOI 10.7937/K9/TCIA.2015.AQIIDCNM, CC BY 3.0. Manual masks: Seff et al., MICCAI 2015, DOI 10.1007/978-3-319-24571-3_7. Adaptation: native source CT sections, display windows and crops. Original voxels unchanged; no source mask or model overlaid.",
+            "caption": "Original manual source label 1: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred."
+          }
+        ],
+        "sha256": "913bb3600836ee1e431a9762194607091b73b0c373c7628db4590f4813e7c60a",
+        "status": "cleared",
+        "cleared_assets": [
+          "native-nih-med001-label1-ct"
+        ],
+        "candidates": {
+          "native-nih-med001-label1-ct": []
+        },
+        "issues": []
+      },
+      {
+        "src": "/app/reference-media/radiology-open/nih-med001-label2-native-ct.png",
+        "uses": [
+          {
+            "surface": "reporting:ra.ct-mediastinum",
+            "collection": "structure_atlas",
+            "id": "native-nih-med001-label2-ct",
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "attribution": "Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey and Summers. TCIA CT Lymph Nodes, DOI 10.7937/K9/TCIA.2015.AQIIDCNM, CC BY 3.0. Manual masks: Seff et al., MICCAI 2015, DOI 10.1007/978-3-319-24571-3_7. Adaptation: native source CT sections, display windows and crops. Original voxels unchanged; no source mask or model overlaid.",
+            "caption": "Original manual source label 2: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred. The source annotation occupies only one plane; this image does not provide complete 3D node coverage."
+          }
+        ],
+        "sha256": "ce1a514f03daabe75af53a1828abd651689c47780d95101f27582d7c4f5f2572",
+        "status": "cleared",
+        "cleared_assets": [
+          "native-nih-med001-label2-ct"
+        ],
+        "candidates": {
+          "native-nih-med001-label2-ct": []
+        },
+        "issues": []
+      },
+      {
+        "src": "/app/reference-media/radiology-open/nih-med001-label3-native-ct.png",
+        "uses": [
+          {
+            "surface": "reporting:ra.ct-mediastinum",
+            "collection": "structure_atlas",
+            "id": "native-nih-med001-label3-ct",
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "attribution": "Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey and Summers. TCIA CT Lymph Nodes, DOI 10.7937/K9/TCIA.2015.AQIIDCNM, CC BY 3.0. Manual masks: Seff et al., MICCAI 2015, DOI 10.1007/978-3-319-24571-3_7. Adaptation: native source CT sections, display windows and crops. Original voxels unchanged; no source mask or model overlaid.",
+            "caption": "Original manual source label 3: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred."
+          }
+        ],
+        "sha256": "260131ba37c7f9e8101c89c4747b7dccc12388b0705c1c7d2fbbc49c6d7ff4c9",
+        "status": "cleared",
+        "cleared_assets": [
+          "native-nih-med001-label3-ct"
+        ],
+        "candidates": {
+          "native-nih-med001-label3-ct": []
         },
         "issues": []
       },
