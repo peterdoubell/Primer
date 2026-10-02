@@ -128,3 +128,7 @@ The corrected LiverHccSeg NIfTI/mask archive completed full publisher verificati
 ### Release checkpoint: original liver MRI DICOM verified
 
 Both LiverHccSeg v1.1 archives passed publisher MD5. First-case original DICOM pixels and declared geometry match all four converted T1 phases; separate echo and thick-slab series remain unapproved. This supersedes earlier live-download checkpoints. MRI source review remains offline, both raters are retained, and no clinical/model coverage is granted. The pending release includes partial NIH CT reader references and corrected liver prompts, with all anatomical and source limitations retained.
+
+### Native liver MRI echo and sequence review
+
+On `codex/liver-mri-native-sequences`, 151 original DICOM objects were partitioned into source echoes, with 30 exact declared dual-echo geometry pairs. Acquired spacing remains distinct from thickness (dual echoes 8.75/7 mm; spin echoes approximately 8.4/7 mm), and the 50 mm slab remains a single plane. Source series 11 has conflicting description/sequence parameters and no pixel-identical plane with geometry-matched series 2, so it is retained unclassified. Three native review figures were inspected and eight geometry plus 23 liver checks passed. No MRI reader asset, mask transfer, model or clinical coverage is approved. These review additions are local after the PR #63 release; full all-radiology completion remains unproven.
