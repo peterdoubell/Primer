@@ -1,0 +1,52 @@
+{
+  "case_id": "TCGA-BC-A3KG",
+  "reviewed_at": "2026-10-02",
+  "source_inventory_sha256": "0daefd300866b1782668474033dc92f46b7e3868b3da1515e9627893c699e5ae",
+  "registered_to_original_index_transform": {
+    "matrix": [
+      [
+        -1,
+        0,
+        0,
+        255
+      ],
+      [
+        0,
+        -1,
+        0,
+        207
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "method": "Inverse original arterial affine multiplied by each registered derivative affine",
+    "registered_files": [
+      "art_pre.nii.gz",
+      "art_pv.nii.gz",
+      "art_del.nii.gz"
+    ],
+    "clinical_registration_accuracy_verified": false,
+    "source_arrays_reindexed_or_changed": false
+  },
+  "original_rater_masks_share_arterial_affine": true,
+  "source_sampling_mm": [
+    1.40625,
+    1.40625,
+    2.5
+  ],
+  "source_rater_review_sha256": "2df3b5b005b0026ecc9b18c92bba2d331a567a4dd1a8e8661b85a3a745ad3345",
+  "display_orientation_checked": "Radiological horizontal convention with explicit physical RAS axes; display-only column reversal.",
+  "source_rater_masks_merged_or_truth_selected": false,
+  "clinical_approval": false,
+  "original_dicom_verification_pending": true
+}

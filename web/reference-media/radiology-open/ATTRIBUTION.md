@@ -9,3 +9,9 @@ Figures 1–2 are ultrasound; Figure 3 retains US a and CT b as separate modalit
 ## AeroPath case 1 source CT
 
 Støverud, Bouget, Pedersen, Leira, Amundsen, Langø and Hofstad. AeroPath data, DOI 10.5281/zenodo.10069289, CC BY 4.0. Adaptation: selected native CT planes, grayscale window and axis labels. Original CT voxels unchanged; no annotation or derived model overlaid. See `aeropath-case1-sections.provenance.json` for exact source fingerprints, planes and display changes. Source diagnosis/age/phase and complete anatomy are not independently assigned. No 3D model approval implied.
+
+## NIH mediastinal CT source sections
+
+Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey and Summers. TCIA CT Lymph Nodes, DOI 10.7937/K9/TCIA.2015.AQIIDCNM, CC BY 3.0. Manual masks: Seff et al., MICCAI 2015, DOI 10.1007/978-3-319-24571-3_7. Adaptation: native source CT sections, display windows and crops. Original voxels unchanged; no source mask or model overlaid.
+
+Three original numeric source labels remain separate and unbound to stations/clinical requirements. Label 2 occupies one plane; source sampling is not proof of acquisition resolution. Original source and cross-format review: `docs/nih-nodal-source-review.md`.

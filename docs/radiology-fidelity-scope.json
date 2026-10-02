@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "163cc8283e7c82eb318345d23b023ac6912e60b9bf0aa4f0a29984750daf2c6b",
+      "structure_inventory_sha256": "138ace0edbc74b4d8b5ba3486746af3d38886fd5a8d8d3d58727bbc539769c48",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10653,7 +10653,7 @@
                 "BACKGROUND LIVER": "Normal liver morphology; no steatosis or cirrhosis."
               },
               "findings": [
-                "Cirrhotic morphology with signs of portal hypertension; LI-RADS applies to observations in this at-risk liver.",
+                "Cirrhotic morphology with signs of portal hypertension; verify LI-RADS eligibility and exclusions before applying it to observations.",
                 "Diffuse hepatic steatosis.",
                 "Known primary malignancy: [ ]."
               ],
@@ -10707,7 +10707,7 @@
                 "FMA14329"
               ],
               "look": "Use the hepatic veins (vertical) and portal vein bifurcation (horizontal) to name segments.",
-              "tip": "Small lesions too small to characterise are almost always benign in patients without a known malignancy."
+              "tip": "Clinical risk, prior malignancy, lesion features and acquired technique govern interpretation; small size alone cannot establish benignity."
             },
             {
               "label": "Enhancement",
@@ -10909,10 +10909,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "a0b5d49ace1e703738c7e7bfa1c0bfa2083780cf3593e455d36290774b77e3a5",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "138ace0edbc74b4d8b5ba3486746af3d38886fd5a8d8d3d58727bbc539769c48",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -11042,6 +11042,10 @@
             {
               "title": "Radiology Assistant \u2014 LI-RADS",
               "url": "https://radiologyassistant.nl/abdomen/liver/li-rads"
+            },
+            {
+              "title": "ACR \u2014 current LI-RADS releases and CT/MRI diagnostic v2018 core",
+              "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
             }
           ]
         },
@@ -11104,6 +11108,10 @@
               {
                 "title": "Radiology Assistant \u2014 LI-RADS",
                 "url": "https://radiologyassistant.nl/abdomen/liver/li-rads"
+              },
+              {
+                "title": "ACR \u2014 current LI-RADS releases and CT/MRI diagnostic v2018 core",
+                "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
               }
             ]
           }
@@ -11207,7 +11215,7 @@
                 "FJ2409",
                 "FMA15746"
               ],
-              "look": "Late arterial phase for APHE; portal venous or delayed phase for washout and capsule."
+              "look": "Use the acquired late arterial phase for non-rim APHE. Washout: portal venous or delayed phase with extracellular agents or gadobenate; portal venous only with gadoxetate. Transitional or hepatobiliary hypointensity is not washout. Enhancing capsule: assess separately on portal venous, delayed or transitional phases as applicable."
             },
             {
               "label": "LR-M and ancillary features",
@@ -11245,7 +11253,7 @@
               ],
               "normal": {},
               "findings": [
-                "LR-5: __ mm observation with non-rim APHE and [washout / capsule / threshold growth].",
+                "Observation __ mm: non-rim APHE [ ]; nonperipheral washout on eligible phase [ ]; enhancing capsule [ ]; growth [ ]. Category [ ] after applying the v2018 size/feature table and checking LR-M/TIV.",
                 "LR-TIV: enhancing tumour in the [right portal vein].",
                 "LR-3: intermediate probability of malignancy."
               ],
@@ -11322,10 +11330,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "59ac2e0de062df96441d2cef7e1e4f3a1853153a4e628ef328b280499be55973",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "138ace0edbc74b4d8b5ba3486746af3d38886fd5a8d8d3d58727bbc539769c48",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -19506,7 +19514,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "163cc8283e7c82eb318345d23b023ac6912e60b9bf0aa4f0a29984750daf2c6b",
+      "structure_inventory_sha256": "138ace0edbc74b4d8b5ba3486746af3d38886fd5a8d8d3d58727bbc539769c48",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -23674,7 +23682,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "163cc8283e7c82eb318345d23b023ac6912e60b9bf0aa4f0a29984750daf2c6b",
+      "structure_inventory_sha256": "138ace0edbc74b4d8b5ba3486746af3d38886fd5a8d8d3d58727bbc539769c48",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26308,7 +26316,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "163cc8283e7c82eb318345d23b023ac6912e60b9bf0aa4f0a29984750daf2c6b",
+      "structure_inventory_sha256": "138ace0edbc74b4d8b5ba3486746af3d38886fd5a8d8d3d58727bbc539769c48",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26702,9 +26710,9 @@
         ]
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "138ace0edbc74b4d8b5ba3486746af3d38886fd5a8d8d3d58727bbc539769c48",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -26721,7 +26729,95 @@
             "reviewed_at": "2026-09-23"
           }
         ],
-        "structure_atlas": [],
+        "structure_atlas": [
+          {
+            "id": "native-nih-med001-label1-ct",
+            "kind": "clinical-image",
+            "origin": "native-volume-sections",
+            "figure_title": "NIH MED_LYMPH_001 \u00b7 source label 1 CT sections",
+            "src": "/app/reference-media/radiology-open/nih-med001-label1-native-ct.png",
+            "sha256": "913bb3600836ee1e431a9762194607091b73b0c373c7628db4590f4813e7c60a",
+            "width": 1800,
+            "height": 1200,
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "figure_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "modality": "CT",
+            "image_state": "source_case_node_annotations",
+            "structures_visible": [
+              "Selected source-defined mediastinal node annotation context; actual station and full extent unverified"
+            ],
+            "caption": "Original manual source label 1: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred.",
+            "alt": "Original manual source label 1: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred.",
+            "limits": "Converted source CT from volumetric data, with preserved source coordinates and documented small serialization differences. No histological confirmation, station assignment, calibrated enhancement assessment, anatomical approval or model supplied.",
+            "license": "CC BY 3.0",
+            "license_url": "https://creativecommons.org/licenses/by/3.0/",
+            "attribution": "Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey and Summers. TCIA CT Lymph Nodes, DOI 10.7937/K9/TCIA.2015.AQIIDCNM, CC BY 3.0. Manual masks: Seff et al., MICCAI 2015, DOI 10.1007/978-3-319-24571-3_7. Adaptation: native source CT sections, display windows and crops. Original voxels unchanged; no source mask or model overlaid.",
+            "rights_review": "Original TCIA collection and per-series licences checked; publisher per-file MD5 verification and original NIfTI/SEG agreement preserved. Rights clearance does not establish anatomy.",
+            "rights_reviewed_on": "2026-10-02",
+            "derivation": {
+              "evidence_url": "/app/reference-media/radiology-open/nih-med001-label1-sections.provenance.json",
+              "evidence_sha256": "509dd71dbd04b266ac016580d06d4b0d712b9a377778c0e8868a78b5615f5014"
+            }
+          },
+          {
+            "id": "native-nih-med001-label2-ct",
+            "kind": "clinical-image",
+            "origin": "native-volume-sections",
+            "figure_title": "NIH MED_LYMPH_001 \u00b7 source label 2 CT sections",
+            "src": "/app/reference-media/radiology-open/nih-med001-label2-native-ct.png",
+            "sha256": "ce1a514f03daabe75af53a1828abd651689c47780d95101f27582d7c4f5f2572",
+            "width": 1800,
+            "height": 1200,
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "figure_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "modality": "CT",
+            "image_state": "source_case_node_annotations",
+            "structures_visible": [
+              "Selected source-defined mediastinal node annotation context; actual station and full extent unverified"
+            ],
+            "caption": "Original manual source label 2: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred. The source annotation occupies only one plane; this image does not provide complete 3D node coverage.",
+            "alt": "Original manual source label 2: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred. The source annotation occupies only one plane; this image does not provide complete 3D node coverage.",
+            "limits": "Converted source CT from volumetric data, with preserved source coordinates and documented small serialization differences. No histological confirmation, station assignment, calibrated enhancement assessment, anatomical approval or model supplied.",
+            "license": "CC BY 3.0",
+            "license_url": "https://creativecommons.org/licenses/by/3.0/",
+            "attribution": "Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey and Summers. TCIA CT Lymph Nodes, DOI 10.7937/K9/TCIA.2015.AQIIDCNM, CC BY 3.0. Manual masks: Seff et al., MICCAI 2015, DOI 10.1007/978-3-319-24571-3_7. Adaptation: native source CT sections, display windows and crops. Original voxels unchanged; no source mask or model overlaid.",
+            "rights_review": "Original TCIA collection and per-series licences checked; publisher per-file MD5 verification and original NIfTI/SEG agreement preserved. Rights clearance does not establish anatomy.",
+            "rights_reviewed_on": "2026-10-02",
+            "derivation": {
+              "evidence_url": "/app/reference-media/radiology-open/nih-med001-label2-sections.provenance.json",
+              "evidence_sha256": "3ac6dc9f45fd2ea1c28a3955fe00aaa8b75429241eb4dd481e3f29543e5bc359"
+            }
+          },
+          {
+            "id": "native-nih-med001-label3-ct",
+            "kind": "clinical-image",
+            "origin": "native-volume-sections",
+            "figure_title": "NIH MED_LYMPH_001 \u00b7 source label 3 CT sections",
+            "src": "/app/reference-media/radiology-open/nih-med001-label3-native-ct.png",
+            "sha256": "260131ba37c7f9e8101c89c4747b7dccc12388b0705c1c7d2fbbc49c6d7ff4c9",
+            "width": 1800,
+            "height": 1200,
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "figure_url": "https://doi.org/10.7937/K9/TCIA.2015.AQIIDCNM",
+            "modality": "CT",
+            "image_state": "source_case_node_annotations",
+            "structures_visible": [
+              "Selected source-defined mediastinal node annotation context; actual station and full extent unverified"
+            ],
+            "caption": "Original manual source label 3: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred.",
+            "alt": "Original manual source label 3: selected unmarked axial, coronal and sagittal CT context at two display windows. Supplied grid 0.854 \u00d7 0.854 \u00d7 1 mm; original scanner thickness, phase and diagnostic identity remain unverified. Mask label numbers are not nodal station IDs. No malignancy, benignity or complete nodal extent is inferred.",
+            "limits": "Converted source CT from volumetric data, with preserved source coordinates and documented small serialization differences. No histological confirmation, station assignment, calibrated enhancement assessment, anatomical approval or model supplied.",
+            "license": "CC BY 3.0",
+            "license_url": "https://creativecommons.org/licenses/by/3.0/",
+            "attribution": "Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey and Summers. TCIA CT Lymph Nodes, DOI 10.7937/K9/TCIA.2015.AQIIDCNM, CC BY 3.0. Manual masks: Seff et al., MICCAI 2015, DOI 10.1007/978-3-319-24571-3_7. Adaptation: native source CT sections, display windows and crops. Original voxels unchanged; no source mask or model overlaid.",
+            "rights_review": "Original TCIA collection and per-series licences checked; publisher per-file MD5 verification and original NIfTI/SEG agreement preserved. Rights clearance does not establish anatomy.",
+            "rights_reviewed_on": "2026-10-02",
+            "derivation": {
+              "evidence_url": "/app/reference-media/radiology-open/nih-med001-label3-sections.provenance.json",
+              "evidence_sha256": "08692de715c682337e6355a26af4356c21a533f23d7c8a0a746c5c3d84295dfd"
+            }
+          }
+        ],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.mediastinum",
@@ -48542,7 +48638,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "163cc8283e7c82eb318345d23b023ac6912e60b9bf0aa4f0a29984750daf2c6b",
+      "structure_inventory_sha256": "138ace0edbc74b4d8b5ba3486746af3d38886fd5a8d8d3d58727bbc539769c48",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [

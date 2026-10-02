@@ -326,12 +326,30 @@ def _validate_native_volume_figure(image, root):
         raise ValueError('Native section provenance changed')
     evidence = json.loads(raw)
     source = evidence.get('source', {})
-    if (source.get('dataset_doi') != '10.5281/zenodo.10069289'
-            or source.get('data_license') != 'CC BY 4.0'
-            or source.get('mirror_repository') != 'andreped/AeroPath'
-            or not re.fullmatch(r'[0-9a-f]{40}', source.get('mirror_revision', ''))
-            or not re.fullmatch(r'[0-9a-f]{64}', source.get('ct_sha256', ''))
-            or source.get('per_file_sha256_verified') is not True):
+    doi = source.get('dataset_doi')
+    if doi == '10.5281/zenodo.10069289':
+        verified_source = (source.get('data_license') == 'CC BY 4.0'
+            and source.get('mirror_repository') == 'andreped/AeroPath'
+            and re.fullmatch(r'[0-9a-f]{40}', source.get('mirror_revision', ''))
+            and re.fullmatch(r'[0-9a-f]{64}', source.get('ct_sha256', ''))
+            and source.get('per_file_sha256_verified') is True)
+    elif doi == '10.7937/K9/TCIA.2015.AQIIDCNM':
+        verified_source = (source.get('data_license') == 'CC BY 3.0'
+            and source.get('case_id') == 'MED_LYMPH_001'
+            and source.get('publisher_per_file_md5_verified') is True
+            and source.get('ct_dicom_files') == 666
+            and source.get('original_label_pixel_mismatches') == 0
+            and source.get('original_acquisition_resolution_verified') is False
+            and source.get('conversion_lineage') == 'Analyze/NIfTI to DICOM'
+            and evidence.get('source_shape') == [512, 512, 666]
+            and type(evidence.get('source_label')) is int
+            and evidence.get('source_label') in (1, 2, 3)
+            and evidence.get('annotation_geometry_overlaid') is False
+            and all(re.fullmatch(r'[0-9a-f]{64}', source.get(k, '')) for k in
+                    ('ct_archive_sha256', 'original_mask_sha256', 'native_review_sha256')))
+    else:
+        verified_source = False
+    if not verified_source or source.get('data_license') != image.get('license'):
         raise ValueError('Native source identity or licence is unverified')
     if (evidence.get('figure_sha256') != image['sha256']
             or evidence.get('clinical_approval') is not False
