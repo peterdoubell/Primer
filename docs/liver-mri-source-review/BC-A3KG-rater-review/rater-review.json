@@ -1,0 +1,78 @@
+{
+  "case_id": "TCGA-BC-A3KG",
+  "source_doi": "10.5281/zenodo.8179129",
+  "source_inventory_sha256": "0daefd300866b1782668474033dc92f46b7e3868b3da1515e9627893c699e5ae",
+  "source_arterial_sha256": "bdbc243de838831cd878e2f47d4b2c7262a8724780c3a86d79294d290c64c477",
+  "original_index_axes": [
+    "R",
+    "A",
+    "S"
+  ],
+  "source_review_indices_ijk": [
+    126,
+    115,
+    56
+  ],
+  "display_window_source_percentiles_2_98": [
+    0.0,
+    305.0
+  ],
+  "display_window_is_calibrated_measurement": false,
+  "rater_comparisons": [
+    {
+      "roi": "liver",
+      "rater1_voxels": 362161,
+      "rater2_voxels": 361525,
+      "overlap_voxels": 350932,
+      "rater1_only_voxels": 11229,
+      "rater2_only_voxels": 10593,
+      "dice_rater_agreement": 0.9698460381988874,
+      "rater_agreement_is_independent_anatomical_accuracy": false
+    },
+    {
+      "roi": "tumor1",
+      "rater1_voxels": 67428,
+      "rater2_voxels": 66105,
+      "overlap_voxels": 64024,
+      "rater1_only_voxels": 3404,
+      "rater2_only_voxels": 2081,
+      "dice_rater_agreement": 0.9589240112930886,
+      "rater_agreement_is_independent_anatomical_accuracy": false
+    }
+  ],
+  "source_rater_masks_changed": false,
+  "rater_boundaries_averaged": false,
+  "source_voxels_resampled": false,
+  "registered_derivatives_overlaid": false,
+  "display_convention": "Explicit radiological horizontal order with physical RAS axes; source arrays unchanged",
+  "figures": [
+    {
+      "file": "unmarked.png",
+      "sha256": "d0c79368a27a48c9ac01389bcf042ba448b1286ce05197348a66c821601e407b",
+      "rater_indices_overlaid": []
+    },
+    {
+      "file": "liver-raters.png",
+      "sha256": "5eaf3ffd6bb7f22f55c741459255c5dfb064ae39a60272ded2749984c4894661",
+      "rater_indices_overlaid": [
+        0,
+        1
+      ]
+    },
+    {
+      "file": "tumor-raters.png",
+      "sha256": "0ff75b70918704d240fe6ec750bf3ce0c0d63680c54867349d6232493cf7c23b",
+      "rater_indices_overlaid": [
+        2,
+        3
+      ]
+    }
+  ],
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "limits": [
+    "Difference counts quantify observer/source variability, not a reason to choose either rater as truth.",
+    "Selected sections do not establish complete boundary accuracy or sequence/eligibility/treatment scope.",
+    "A common arterial display window does not prove dynamic enhancement or washout."
+  ]
+}
