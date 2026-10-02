@@ -31,3 +31,23 @@ The largest native annotation component has Euler characteristic 1 under six-nei
 Fourteen new source-boundary figures include marked/unmarked local views for every component and lung/soft-tissue sheets for all thirty encoded planes, including three zero-label frames. Every positive source voxel is represented in the encoded-plane review. Component views, the complete soft-tissue contour sheet and all three candidate-site figures were inspected directly. Figure/source hashes and the precise extent of inspection are retained in the review manifests. This expands review evidence without declaring unseen or unlabelled anatomy negative.
 
 Twenty-five scientific checks passed, covering pinched-vertex detection despite closed edges, face orientation, disconnected-component semantics, continuous contacts, numerical native-position checks, source integrity and the complete cube lookup logic. Remaining clinical requirements include anatomical interpretation of source/derived topology, accurate node boundaries, named station landmarks, primary-side context, disease confirmation and full clinical coverage. No runtime binding or clinical fidelity credit was granted.
+
+## Native interpolation comparison, 2026-10-02
+
+The unchanged binary annotation has now been compared under four consistently conforming six-tetrahedron native-cell splits. The four cube body diagonals are selected by index reflections, then restored exactly to the original native coordinates and face orientation before applying the preserved SEG affine. Original source labels, voxel resolution and the marching-cubes baseline remain unchanged; no hole filling, pruning, smoothing or fitted registration is used.
+
+| Native-cell choice | Triangles | Combined surface Euler value | Combined handle count | Source-positive voxels retained | Voxel-centre FP/FN |
+|---|---:|---:|---:|---:|---:|
+| Original marching-cubes baseline | 19,074 | 0 | 5 | 9,423 | 0 / 0 |
+| Unreflected tetrahedral diagonal | 61,332 | 8 | 1 | 9,423 | 0 / 0 |
+| Z-reflected tetrahedral diagonal | 60,032 | 10 | 0 | 9,423 | 0 / 0 |
+| Y-reflected tetrahedral diagonal | 60,452 | 8 | 1 | 9,423 | 0 / 0 |
+| X-reflected tetrahedral diagonal | 62,616 | 8 | 1 | 9,423 | 0 / 0 |
+
+Every alternative contains five connected surface components, positive oriented volumes and no edge, vertex-link or face-orientation defects. Each independently passes all 439,280 native voxel-centre comparisons, including all 9,423 labelled voxels. Component numbering varies with construction order and is not reused as node identity. Continuous-contact checks have not yet been run on these alternatives.
+
+This is evidence of interpolation sensitivity, not a reason to select the zero-handle choice as anatomically correct. The six-tetrahedron construction adds a directional, piecewise-linear subvoxel assumption. Its added triangles do not measure finer anatomy. The original native sampling, source annotation limits, actual interslice boundary, nodal identity, station landmarks and disease confidence still govern clinical fidelity. All candidates remain unapproved and offline; the original baseline stays held.
+
+Direct native surface sections at three recorded source-topology sites are shown beside the unmarked original CT and original marching-cubes baseline. The revised comparison figure was inspected after fixing title spacing. It exposes local boundary differences without source resampling or a claim that a selected site explains a particular handle. Source and figure hashes are bound in `interpolation-study/case-0571-interpolation-figure-review.json`; the complete numerical comparison is in `case-0571-interpolation-comparison.json`.
+
+Fourteen scientific checks passed, including native index/face-orientation restoration and the exact single-source-voxel fixture under every diagonal, alongside the preserved joint-interface and topology checks. No reader media, clinical bindings or completeness credit were added. The full all-radiology objective remains unchanged and unproven. Further work should use this uncertainty to guide source-boundary/clinical review and finer native acquisitions, rather than choose an interpolation solely because it has simpler topology.

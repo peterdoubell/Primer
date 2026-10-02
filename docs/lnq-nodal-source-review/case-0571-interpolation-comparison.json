@@ -1,0 +1,639 @@
+{
+  "case_id": "case_0571",
+  "source_doi": "10.7937/QVAZ-JA09",
+  "source_annotation_sha256": "e70748189ab620215727214d726cdd95e242f8a17e765a708fc91c5c3bb4d715",
+  "source_native_review_sha256": "ba836ddb7497c340ff06be4c02d0894008187dbdad38edcd9b8ec4fe0f833151",
+  "native_seg_affine_zyx_to_ras": [
+    [
+      0.0,
+      0.0,
+      -0.833984,
+      229.399994
+    ],
+    [
+      0.0,
+      -0.833984,
+      0.0,
+      186.199997
+    ],
+    [
+      2.5,
+      0.0,
+      0.0,
+      -392.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "native_original_labels_changed": false,
+  "original_marching_cubes_baseline_replaced": false,
+  "source_voxels_resampled": false,
+  "method": "Binary one-hot source labels interpolated within a conforming six-tetrahedron Freudenthal split. Four different native-cell body diagonals are compared by index reflections restored exactly before the original SEG affine; no fitted registration.",
+  "records": [
+    {
+      "choice": "native-diagonal",
+      "reflected_index_axis": null,
+      "reflection_restored_to_original_indices": true,
+      "mesh_file": "native-diagonal.npz",
+      "mesh_sha256": "9c22c30f9295c1df22a7a03dcfbd19e3024c00f75cae689188fb58238c649750",
+      "triangles": 61332,
+      "vertices": 30674,
+      "topology": {
+        "vertices_checked": 30674,
+        "unused_vertices": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_closed_edge_orientation": 0,
+        "zero_area_triangles": 0,
+        "nonmanifold_vertex_count": 0,
+        "vertex_defects": [],
+        "mesh_components": [
+          {
+            "mesh_component": 1,
+            "vertices": 2024,
+            "triangles": 4044,
+            "edges": 6066,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 602.2124628615953,
+            "world_bounds_ras_mm": [
+              [
+                56.348314000000016,
+                -39.392675,
+                -235.75
+              ],
+              [
+                72.19400999999999,
+                -22.712994999999978,
+                -228.25
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 2,
+            "vertices": 13012,
+            "triangles": 26024,
+            "edges": 39036,
+            "euler_characteristic": 0,
+            "signed_volume_mm3": 8241.297840533747,
+            "world_bounds_ras_mm": [
+              [
+                -1.1965820000000065,
+                -59.40829099999999,
+                -235.75
+              ],
+              [
+                47.17448999999999,
+                -36.05673899999999,
+                -190.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 3,
+            "vertices": 8232,
+            "triangles": 16460,
+            "edges": 24690,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 3778.752792710819,
+            "world_bounds_ras_mm": [
+              [
+                -51.23562199999998,
+                -79.42390699999999,
+                -225.75
+              ],
+              [
+                -30.38602199999997,
+                -46.89853099999999,
+                -198.25
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 4,
+            "vertices": 3532,
+            "triangles": 7060,
+            "edges": 10590,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 1379.17666542759,
+            "world_bounds_ras_mm": [
+              [
+                42.170586000000014,
+                -40.226658999999984,
+                -208.25
+              ],
+              [
+                59.68424999999999,
+                -19.377059000000003,
+                -190.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 5,
+            "vertices": 3874,
+            "triangles": 7744,
+            "edges": 11616,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 2227.7224263800586,
+            "world_bounds_ras_mm": [
+              [
+                13.81513000000001,
+                -31.052834999999988,
+                -183.25
+              ],
+              [
+                29.660826000000014,
+                -11.87120299999998,
+                -160.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          }
+        ],
+        "exact_duplicate_vertex_positions": 0,
+        "topology_is_anatomical_accuracy": false
+      },
+      "voxel_audit": {
+        "compared_native_voxel_centres": 439280,
+        "all_source_positive_voxels_compared": 9423,
+        "false_positive": 0,
+        "false_negative": 0,
+        "exact_native_voxel_centre_match": true
+      },
+      "construction": {
+        "boundary_cells": 9518,
+        "mixed_target_tetrahedra": 46626,
+        "exact_native_index_lattice_denominator": 12
+      },
+      "source_components_removed": 0,
+      "clinical_approval": false,
+      "continuous_contacts_audited": false
+    },
+    {
+      "choice": "z-reflected-diagonal",
+      "reflected_index_axis": 0,
+      "reflection_restored_to_original_indices": true,
+      "mesh_file": "z-reflected-diagonal.npz",
+      "mesh_sha256": "5cbda5a9fc99b7fb46fb271a3ae8346707291d1aa2df3ed25c823ad77f01305b",
+      "triangles": 60032,
+      "vertices": 30026,
+      "topology": {
+        "vertices_checked": 30026,
+        "unused_vertices": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_closed_edge_orientation": 0,
+        "zero_area_triangles": 0,
+        "nonmanifold_vertex_count": 0,
+        "vertex_defects": [],
+        "mesh_components": [
+          {
+            "mesh_component": 1,
+            "vertices": 3938,
+            "triangles": 7872,
+            "edges": 11808,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 2228.0122302600103,
+            "world_bounds_ras_mm": [
+              [
+                13.81513000000001,
+                -31.052834999999988,
+                -183.25
+              ],
+              [
+                29.660826000000014,
+                -11.87120299999998,
+                -160.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 2,
+            "vertices": 3510,
+            "triangles": 7016,
+            "edges": 10524,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 1379.901175127857,
+            "world_bounds_ras_mm": [
+              [
+                42.170586000000014,
+                -40.226658999999984,
+                -208.25
+              ],
+              [
+                59.68424999999999,
+                -19.377059000000003,
+                -190.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 3,
+            "vertices": 12906,
+            "triangles": 25808,
+            "edges": 38712,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 8239.414115312504,
+            "world_bounds_ras_mm": [
+              [
+                -1.1965820000000065,
+                -59.40829099999999,
+                -235.75
+              ],
+              [
+                47.17448999999999,
+                -36.05673899999999,
+                -190.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 4,
+            "vertices": 7638,
+            "triangles": 15272,
+            "edges": 22908,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 3780.2018121117653,
+            "world_bounds_ras_mm": [
+              [
+                -51.23562199999998,
+                -79.42390699999999,
+                -225.75
+              ],
+              [
+                -30.38602199999997,
+                -46.89853099999999,
+                -198.25
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 5,
+            "vertices": 2034,
+            "triangles": 4064,
+            "edges": 6096,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 602.0675609214813,
+            "world_bounds_ras_mm": [
+              [
+                56.348314000000016,
+                -39.392675,
+                -235.75
+              ],
+              [
+                72.19400999999999,
+                -22.712994999999978,
+                -228.25
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          }
+        ],
+        "exact_duplicate_vertex_positions": 0,
+        "topology_is_anatomical_accuracy": false
+      },
+      "voxel_audit": {
+        "compared_native_voxel_centres": 439280,
+        "all_source_positive_voxels_compared": 9423,
+        "false_positive": 0,
+        "false_negative": 0,
+        "exact_native_voxel_centre_match": true
+      },
+      "construction": {
+        "boundary_cells": 9518,
+        "mixed_target_tetrahedra": 45658,
+        "exact_native_index_lattice_denominator": 12
+      },
+      "source_components_removed": 0,
+      "clinical_approval": false,
+      "continuous_contacts_audited": false
+    },
+    {
+      "choice": "y-reflected-diagonal",
+      "reflected_index_axis": 1,
+      "reflection_restored_to_original_indices": true,
+      "mesh_file": "y-reflected-diagonal.npz",
+      "mesh_sha256": "bb4f2b4e0a2759cacf6c311f9168c067bf9df8fe4325db43c99f3e94336a7414",
+      "triangles": 60452,
+      "vertices": 30234,
+      "topology": {
+        "vertices_checked": 30234,
+        "unused_vertices": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_closed_edge_orientation": 0,
+        "zero_area_triangles": 0,
+        "nonmanifold_vertex_count": 0,
+        "vertex_defects": [],
+        "mesh_components": [
+          {
+            "mesh_component": 1,
+            "vertices": 12884,
+            "triangles": 25768,
+            "edges": 38652,
+            "euler_characteristic": 0,
+            "signed_volume_mm3": 8239.414115312602,
+            "world_bounds_ras_mm": [
+              [
+                -1.1965820000000065,
+                -59.40829099999999,
+                -235.75
+              ],
+              [
+                47.17448999999999,
+                -36.05673899999999,
+                -190.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 2,
+            "vertices": 2006,
+            "triangles": 4008,
+            "edges": 6012,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 601.1981492814011,
+            "world_bounds_ras_mm": [
+              [
+                56.348314000000016,
+                -39.392675,
+                -235.75
+              ],
+              [
+                72.19400999999999,
+                -22.712994999999978,
+                -228.25
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 3,
+            "vertices": 8208,
+            "triangles": 16412,
+            "edges": 24618,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 3780.2018121108435,
+            "world_bounds_ras_mm": [
+              [
+                -51.23562199999998,
+                -79.42390699999999,
+                -225.75
+              ],
+              [
+                -30.38602199999997,
+                -46.89853099999999,
+                -198.25
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 4,
+            "vertices": 3408,
+            "triangles": 6812,
+            "edges": 10218,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 1380.6256848281967,
+            "world_bounds_ras_mm": [
+              [
+                42.170586000000014,
+                -40.226658999999984,
+                -208.25
+              ],
+              [
+                59.68424999999999,
+                -19.377059000000003,
+                -190.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 5,
+            "vertices": 3728,
+            "triangles": 7452,
+            "edges": 11178,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 2228.1571322000127,
+            "world_bounds_ras_mm": [
+              [
+                13.81513000000001,
+                -31.052834999999988,
+                -183.25
+              ],
+              [
+                29.660826000000014,
+                -11.87120299999998,
+                -160.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          }
+        ],
+        "exact_duplicate_vertex_positions": 0,
+        "topology_is_anatomical_accuracy": false
+      },
+      "voxel_audit": {
+        "compared_native_voxel_centres": 439280,
+        "all_source_positive_voxels_compared": 9423,
+        "false_positive": 0,
+        "false_negative": 0,
+        "exact_native_voxel_centre_match": true
+      },
+      "construction": {
+        "boundary_cells": 9518,
+        "mixed_target_tetrahedra": 45864,
+        "exact_native_index_lattice_denominator": 12
+      },
+      "source_components_removed": 0,
+      "clinical_approval": false,
+      "continuous_contacts_audited": false
+    },
+    {
+      "choice": "x-reflected-diagonal",
+      "reflected_index_axis": 2,
+      "reflection_restored_to_original_indices": true,
+      "mesh_file": "x-reflected-diagonal.npz",
+      "mesh_sha256": "cfd603d6d90013d63e976bfae4a2a1514c3f077385575ab8ec1097f6c2b9f2d2",
+      "triangles": 62616,
+      "vertices": 31316,
+      "topology": {
+        "vertices_checked": 31316,
+        "unused_vertices": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_closed_edge_orientation": 0,
+        "zero_area_triangles": 0,
+        "nonmanifold_vertex_count": 0,
+        "vertex_defects": [],
+        "mesh_components": [
+          {
+            "mesh_component": 1,
+            "vertices": 2114,
+            "triangles": 4224,
+            "edges": 6336,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 601.3430512213381,
+            "world_bounds_ras_mm": [
+              [
+                56.348314000000016,
+                -39.392675,
+                -235.75
+              ],
+              [
+                72.19400999999999,
+                -22.712994999999978,
+                -228.25
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 2,
+            "vertices": 14020,
+            "triangles": 28036,
+            "edges": 42054,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 8234.777253231136,
+            "world_bounds_ras_mm": [
+              [
+                -1.1965820000000065,
+                -59.40829099999999,
+                -235.75
+              ],
+              [
+                47.17448999999999,
+                -36.05673899999999,
+                -190.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 3,
+            "vertices": 7464,
+            "triangles": 14924,
+            "edges": 22386,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 3782.5202431524253,
+            "world_bounds_ras_mm": [
+              [
+                -51.23562199999998,
+                -79.42390699999999,
+                -225.75
+              ],
+              [
+                -30.38602199999997,
+                -46.89853099999999,
+                -198.25
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 4,
+            "vertices": 3764,
+            "triangles": 7528,
+            "edges": 11292,
+            "euler_characteristic": 0,
+            "signed_volume_mm3": 1378.741959607368,
+            "world_bounds_ras_mm": [
+              [
+                42.170586000000014,
+                -40.226658999999984,
+                -208.25
+              ],
+              [
+                59.68424999999999,
+                -19.377059000000003,
+                -190.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          },
+          {
+            "mesh_component": 5,
+            "vertices": 3954,
+            "triangles": 7904,
+            "edges": 11856,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 2228.1571322001196,
+            "world_bounds_ras_mm": [
+              [
+                13.81513000000001,
+                -31.052834999999988,
+                -183.25
+              ],
+              [
+                29.660826000000014,
+                -11.87120299999998,
+                -160.75
+              ]
+            ],
+            "independent_node_identity_verified": false,
+            "station_identity_verified": false
+          }
+        ],
+        "exact_duplicate_vertex_positions": 0,
+        "topology_is_anatomical_accuracy": false
+      },
+      "voxel_audit": {
+        "compared_native_voxel_centres": 439280,
+        "all_source_positive_voxels_compared": 9423,
+        "false_positive": 0,
+        "false_negative": 0,
+        "exact_native_voxel_centre_match": true
+      },
+      "construction": {
+        "boundary_cells": 9518,
+        "mixed_target_tetrahedra": 47462,
+        "exact_native_index_lattice_denominator": 12
+      },
+      "source_components_removed": 0,
+      "clinical_approval": false,
+      "continuous_contacts_audited": false
+    }
+  ],
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "status": "interpolation_sensitivity_study_requires_anatomical_review",
+  "limits": [
+    "Tetrahedral interpolation adds a directional subvoxel assumption; it is not measured anatomy.",
+    "Fewer handles or exact native voxel-centre agreement cannot select an anatomically correct surface.",
+    "Continuous contacts, field boundaries, individual-node identity and station context remain separate checks.",
+    "All source components are retained; no smoothing, decimation, label editing or source-derived hole filling."
+  ]
+}
