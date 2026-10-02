@@ -39,7 +39,6 @@
     "ra.mri-endometrial-cancer",
     "ra.mullerian-anomalies",
     "ra.ovarian-cysts",
-    "ra.renal-cysts-bosniak",
     "ra.ct-pancreatitis",
     "ra.ct-pancreatic-cancer",
     "ra.pancreatic-cysts",
@@ -230,7 +229,7 @@
     "rad.5.venous-csf",
     "rad.5.wrist-hand"
   ],
-  "known_representation_requirements": 11151,
+  "known_representation_requirements": 11640,
   "total_representation_requirements": null,
   "total_count_note": "Unknown until all investigations and curriculum surfaces are expanded; unknown requirements are not zero.",
   "msk_subaudit": {
@@ -300,12 +299,12 @@
   },
   "additional_structure_audit": {
     "clinical_commercial_ready": false,
-    "investigations": 9,
-    "representation_requirements": 5859,
+    "investigations": 10,
+    "representation_requirements": 6348,
     "counts": {
       "verified": 0,
       "unverified": 13,
-      "missing": 5846
+      "missing": 6335
     },
     "scope_gaps": [
       "ra.appendicitis: site expansion unverified",
@@ -365,6 +364,13 @@
       "ra.solid-renal-masses: source scope issue extension_and_spread_pending: classification missing or unknown",
       "ra.solid-renal-masses: source scope issue rights_native_sampling_and_boundary_pending: classification missing or unknown",
       "ra.solid-renal-masses: generic structure requires site-specific anatomy",
+      "ra.renal-cysts-bosniak: site expansion unverified",
+      "ra.renal-cysts-bosniak: source scope issue feature_instances_pending: classification missing or unknown",
+      "ra.renal-cysts-bosniak: source scope issue native_resolution_and_measurement_pending: classification missing or unknown",
+      "ra.renal-cysts-bosniak: source scope issue enhancement_phase_and_sequence_pending: classification missing or unknown",
+      "ra.renal-cysts-bosniak: source scope issue eligibility_and_exceptions_pending: classification missing or unknown",
+      "ra.renal-cysts-bosniak: source scope issue rights_and_clinical_boundary_review_pending: classification missing or unknown",
+      "ra.renal-cysts-bosniak: generic structure requires site-specific anatomy",
       "Reporting structure inventory requires clinical review"
     ],
     "asset_issues": {
@@ -868,6 +874,56 @@
         "kind": null,
         "status": null,
         "detail": "Source images, annotations and derivatives need independent rights, native geometry and anatomical review. No complete renal source is approved.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "index": 0,
+        "code": "feature_instances_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Prototype wall/septum/nodule entries require each actual source feature and full extent; parent shells are insufficient.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "index": 1,
+        "code": "native_resolution_and_measurement_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Clinical feature dimensions, perpendicular planes and source uncertainty must be independently demonstrated.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "index": 2,
+        "code": "enhancement_phase_and_sequence_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Actual paired technique and adequate source acquisition required; geometric models cannot verify enhancement or MRI patterns.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "index": 3,
+        "code": "eligibility_and_exceptions_pending",
+        "kind": null,
+        "status": null,
+        "detail": "General-population applicability, exclusions and correct-phase CT/MRI benign/IIF exceptions need review; solid masses and hereditary context are not silently treated as ordinary eligible cysts.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "index": 4,
+        "code": "rights_and_clinical_boundary_review_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Original imaging, annotation and derivative rights and anatomical validity remain unapproved; CPTAC malignant ROI is not reused as a verified Bosniak cyst.",
         "blocking": true,
         "reason": "classification_missing_or_unknown"
       }
@@ -53748,6 +53804,4407 @@
         "investigation_id": "ra.solid-renal-masses",
         "structure_id": "renal_mass.normal_pseudomass.phase_correspondence",
         "structure_name": "Actual normal-tissue phase correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.whole_extent",
+        "structure_name": "Acquired whole renal extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.whole_extent",
+        "structure_name": "Acquired whole renal extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.whole_extent",
+        "structure_name": "Acquired whole renal extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.cortex",
+        "structure_name": "Renal cortex",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.cortex",
+        "structure_name": "Renal cortex",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.cortex",
+        "structure_name": "Renal cortex",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.medulla",
+        "structure_name": "Acquired medullary regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.medulla",
+        "structure_name": "Acquired medullary regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.medulla",
+        "structure_name": "Acquired medullary regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.capsular_boundary",
+        "structure_name": "Renal capsular boundary",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.capsular_boundary",
+        "structure_name": "Renal capsular boundary",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.capsular_boundary",
+        "structure_name": "Renal capsular boundary",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.upper_pole",
+        "structure_name": "Upper pole",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.upper_pole",
+        "structure_name": "Upper pole",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.upper_pole",
+        "structure_name": "Upper pole",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.interpolar",
+        "structure_name": "Interpolar region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.interpolar",
+        "structure_name": "Interpolar region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.interpolar",
+        "structure_name": "Interpolar region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.lower_pole",
+        "structure_name": "Lower pole",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.lower_pole",
+        "structure_name": "Lower pole",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.lower_pole",
+        "structure_name": "Lower pole",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.renal_sinus",
+        "structure_name": "Renal sinus",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.renal_sinus",
+        "structure_name": "Renal sinus",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.renal_sinus",
+        "structure_name": "Renal sinus",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.hilum",
+        "structure_name": "Renal hilum",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.hilum",
+        "structure_name": "Renal hilum",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.hilum",
+        "structure_name": "Renal hilum",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.parenchymal_interface",
+        "structure_name": "Parenchyma-observation interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.parenchymal_interface",
+        "structure_name": "Parenchyma-observation interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.parenchymal_interface",
+        "structure_name": "Parenchyma-observation interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.collecting_interface",
+        "structure_name": "Collecting-system interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.collecting_interface",
+        "structure_name": "Collecting-system interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.collecting_interface",
+        "structure_name": "Collecting-system interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.vascular_interface",
+        "structure_name": "Acquired hilar/perfusion interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.vascular_interface",
+        "structure_name": "Acquired hilar/perfusion interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.right_kidney.vascular_interface",
+        "structure_name": "Acquired hilar/perfusion interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.whole_extent",
+        "structure_name": "Acquired whole renal extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.whole_extent",
+        "structure_name": "Acquired whole renal extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.whole_extent",
+        "structure_name": "Acquired whole renal extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.cortex",
+        "structure_name": "Renal cortex",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.cortex",
+        "structure_name": "Renal cortex",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.cortex",
+        "structure_name": "Renal cortex",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.medulla",
+        "structure_name": "Acquired medullary regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.medulla",
+        "structure_name": "Acquired medullary regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.medulla",
+        "structure_name": "Acquired medullary regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.capsular_boundary",
+        "structure_name": "Renal capsular boundary",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.capsular_boundary",
+        "structure_name": "Renal capsular boundary",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.capsular_boundary",
+        "structure_name": "Renal capsular boundary",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.upper_pole",
+        "structure_name": "Upper pole",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.upper_pole",
+        "structure_name": "Upper pole",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.upper_pole",
+        "structure_name": "Upper pole",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.interpolar",
+        "structure_name": "Interpolar region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.interpolar",
+        "structure_name": "Interpolar region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.interpolar",
+        "structure_name": "Interpolar region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.lower_pole",
+        "structure_name": "Lower pole",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.lower_pole",
+        "structure_name": "Lower pole",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.lower_pole",
+        "structure_name": "Lower pole",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.renal_sinus",
+        "structure_name": "Renal sinus",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.renal_sinus",
+        "structure_name": "Renal sinus",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.renal_sinus",
+        "structure_name": "Renal sinus",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.hilum",
+        "structure_name": "Renal hilum",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.hilum",
+        "structure_name": "Renal hilum",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.hilum",
+        "structure_name": "Renal hilum",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.parenchymal_interface",
+        "structure_name": "Parenchyma-observation interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.parenchymal_interface",
+        "structure_name": "Parenchyma-observation interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.parenchymal_interface",
+        "structure_name": "Parenchyma-observation interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.collecting_interface",
+        "structure_name": "Collecting-system interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.collecting_interface",
+        "structure_name": "Collecting-system interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.collecting_interface",
+        "structure_name": "Collecting-system interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.vascular_interface",
+        "structure_name": "Acquired hilar/perfusion interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.vascular_interface",
+        "structure_name": "Acquired hilar/perfusion interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.left_kidney.vascular_interface",
+        "structure_name": "Acquired hilar/perfusion interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.whole_margin",
+        "structure_name": "Complete source observation margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.whole_margin",
+        "structure_name": "Complete source observation margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.whole_margin",
+        "structure_name": "Complete source observation margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.renal_origin",
+        "structure_name": "Renal origin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.renal_origin",
+        "structure_name": "Renal origin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.renal_origin",
+        "structure_name": "Renal origin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.exophytic_extent",
+        "structure_name": "Actual exophytic extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.exophytic_extent",
+        "structure_name": "Actual exophytic extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.exophytic_extent",
+        "structure_name": "Actual exophytic extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.endophytic_extent",
+        "structure_name": "Actual endophytic extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.endophytic_extent",
+        "structure_name": "Actual endophytic extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.endophytic_extent",
+        "structure_name": "Actual endophytic extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.parenchymal_relation",
+        "structure_name": "Observation-parenchymal relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.parenchymal_relation",
+        "structure_name": "Observation-parenchymal relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.parenchymal_relation",
+        "structure_name": "Observation-parenchymal relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.collecting_relation",
+        "structure_name": "Observation-collecting relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.collecting_relation",
+        "structure_name": "Observation-collecting relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.collecting_relation",
+        "structure_name": "Observation-collecting relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.sinus_relation",
+        "structure_name": "Observation-sinus relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.sinus_relation",
+        "structure_name": "Observation-sinus relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.sinus_relation",
+        "structure_name": "Observation-sinus relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.orthogonal_measurement",
+        "structure_name": "Reproducible size measurement planes",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.orthogonal_measurement",
+        "structure_name": "Reproducible size measurement planes",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.orthogonal_measurement",
+        "structure_name": "Reproducible size measurement planes",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.matched_prior_margin",
+        "structure_name": "Matched prior observation margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.matched_prior_margin",
+        "structure_name": "Matched prior observation margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.matched_prior_margin",
+        "structure_name": "Matched prior observation margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.enhancing_tissue_fraction",
+        "structure_name": "Actual enhancing-tissue fraction regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.enhancing_tissue_fraction",
+        "structure_name": "Actual enhancing-tissue fraction regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.observation.enhancing_tissue_fraction",
+        "structure_name": "Actual enhancing-tissue fraction regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.simple_fluid",
+        "structure_name": "Homogeneous simple-fluid regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.simple_fluid",
+        "structure_name": "Homogeneous simple-fluid regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.simple_fluid",
+        "structure_name": "Homogeneous simple-fluid regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.haemorrhage",
+        "structure_name": "Actual haemorrhagic regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.haemorrhage",
+        "structure_name": "Actual haemorrhagic regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.haemorrhage",
+        "structure_name": "Actual haemorrhagic regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.proteinaceous",
+        "structure_name": "Actual proteinaceous regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.proteinaceous",
+        "structure_name": "Actual proteinaceous regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.proteinaceous",
+        "structure_name": "Actual proteinaceous regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.debris",
+        "structure_name": "Actual debris regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.debris",
+        "structure_name": "Actual debris regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.debris",
+        "structure_name": "Actual debris regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.fluid_levels",
+        "structure_name": "Acquired fluid-fluid level interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.fluid_levels",
+        "structure_name": "Acquired fluid-fluid level interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.fluid_levels",
+        "structure_name": "Acquired fluid-fluid level interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.heterogeneous_regions",
+        "structure_name": "Actual heterogeneous contents",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.heterogeneous_regions",
+        "structure_name": "Actual heterogeneous contents",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.heterogeneous_regions",
+        "structure_name": "Actual heterogeneous contents",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.solid_components",
+        "structure_name": "Actual solid components",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.solid_components",
+        "structure_name": "Actual solid components",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.solid_components",
+        "structure_name": "Actual solid components",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.calcification",
+        "structure_name": "Actual calcification regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.calcification",
+        "structure_name": "Actual calcification regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.calcification",
+        "structure_name": "Actual calcification regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.calcification_obscured_interface",
+        "structure_name": "Calcification-obscured enhancement interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.calcification_obscured_interface",
+        "structure_name": "Calcification-obscured enhancement interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.contents.calcification_obscured_interface",
+        "structure_name": "Calcification-obscured enhancement interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.inner_surface",
+        "structure_name": "Complete inner wall surface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.inner_surface",
+        "structure_name": "Complete inner wall surface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.inner_surface",
+        "structure_name": "Complete inner wall surface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.outer_surface",
+        "structure_name": "Complete outer wall surface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.outer_surface",
+        "structure_name": "Complete outer wall surface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.outer_surface",
+        "structure_name": "Complete outer wall surface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.anterior_region",
+        "structure_name": "Actual anterior wall region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.anterior_region",
+        "structure_name": "Actual anterior wall region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.anterior_region",
+        "structure_name": "Actual anterior wall region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.posterior_region",
+        "structure_name": "Actual posterior wall region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.posterior_region",
+        "structure_name": "Actual posterior wall region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.posterior_region",
+        "structure_name": "Actual posterior wall region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.medial_region",
+        "structure_name": "Actual medial wall region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.medial_region",
+        "structure_name": "Actual medial wall region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.medial_region",
+        "structure_name": "Actual medial wall region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.lateral_region",
+        "structure_name": "Actual lateral wall region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.lateral_region",
+        "structure_name": "Actual lateral wall region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.lateral_region",
+        "structure_name": "Actual lateral wall region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.superior_region",
+        "structure_name": "Actual superior wall region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.superior_region",
+        "structure_name": "Actual superior wall region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.superior_region",
+        "structure_name": "Actual superior wall region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.inferior_region",
+        "structure_name": "Actual inferior wall region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.inferior_region",
+        "structure_name": "Actual inferior wall region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.inferior_region",
+        "structure_name": "Actual inferior wall region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.thinnest_region",
+        "structure_name": "Actually resolved thin wall regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.thinnest_region",
+        "structure_name": "Actually resolved thin wall regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.thinnest_region",
+        "structure_name": "Actually resolved thin wall regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.maximal_thickness",
+        "structure_name": "Maximal relevant wall thickness region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.maximal_thickness",
+        "structure_name": "Maximal relevant wall thickness region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.maximal_thickness",
+        "structure_name": "Maximal relevant wall thickness region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.smooth_regions",
+        "structure_name": "Actual smooth wall regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.smooth_regions",
+        "structure_name": "Actual smooth wall regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.smooth_regions",
+        "structure_name": "Actual smooth wall regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.irregular_regions",
+        "structure_name": "Actual irregular wall regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.irregular_regions",
+        "structure_name": "Actual irregular wall regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.irregular_regions",
+        "structure_name": "Actual irregular wall regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.enhancing_regions",
+        "structure_name": "Verified enhancing wall regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.enhancing_regions",
+        "structure_name": "Verified enhancing wall regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.enhancing_regions",
+        "structure_name": "Verified enhancing wall regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.nonenhancing_regions",
+        "structure_name": "Adequately assessed nonenhancing wall regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.nonenhancing_regions",
+        "structure_name": "Adequately assessed nonenhancing wall regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.nonenhancing_regions",
+        "structure_name": "Adequately assessed nonenhancing wall regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.wall_contents_interface",
+        "structure_name": "Wall-contents interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.wall_contents_interface",
+        "structure_name": "Wall-contents interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.wall_contents_interface",
+        "structure_name": "Wall-contents interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.wall_host_interface",
+        "structure_name": "Wall-host tissue interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.wall_host_interface",
+        "structure_name": "Wall-host tissue interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.wall.wall_host_interface",
+        "structure_name": "Wall-host tissue interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.individual_extent",
+        "structure_name": "Entire individual septal course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.individual_extent",
+        "structure_name": "Entire individual septal course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.individual_extent",
+        "structure_name": "Entire individual septal course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.first_wall_attachment",
+        "structure_name": "Actual first surface attachment",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.first_wall_attachment",
+        "structure_name": "Actual first surface attachment",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.first_wall_attachment",
+        "structure_name": "Actual first surface attachment",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.second_wall_attachment",
+        "structure_name": "Actual second surface attachment",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.second_wall_attachment",
+        "structure_name": "Actual second surface attachment",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.second_wall_attachment",
+        "structure_name": "Actual second surface attachment",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.both_surfaces",
+        "structure_name": "Both septal surfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.both_surfaces",
+        "structure_name": "Both septal surfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.both_surfaces",
+        "structure_name": "Both septal surfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.branching_connections",
+        "structure_name": "Actual branching/junctions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.branching_connections",
+        "structure_name": "Actual branching/junctions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.branching_connections",
+        "structure_name": "Actual branching/junctions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.count_identity",
+        "structure_name": "Individual connected septum identity",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.count_identity",
+        "structure_name": "Individual connected septum identity",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.count_identity",
+        "structure_name": "Individual connected septum identity",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.maximal_thickness",
+        "structure_name": "Maximal relevant septal thickness",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.maximal_thickness",
+        "structure_name": "Maximal relevant septal thickness",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.maximal_thickness",
+        "structure_name": "Maximal relevant septal thickness",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.smooth_regions",
+        "structure_name": "Actual smooth septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.smooth_regions",
+        "structure_name": "Actual smooth septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.smooth_regions",
+        "structure_name": "Actual smooth septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.irregular_regions",
+        "structure_name": "Actual irregular septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.irregular_regions",
+        "structure_name": "Actual irregular septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.irregular_regions",
+        "structure_name": "Actual irregular septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.enhancing_regions",
+        "structure_name": "Verified enhancing septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.enhancing_regions",
+        "structure_name": "Verified enhancing septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.enhancing_regions",
+        "structure_name": "Verified enhancing septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.nonenhancing_regions",
+        "structure_name": "Adequately assessed nonenhancing septa",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.nonenhancing_regions",
+        "structure_name": "Adequately assessed nonenhancing septa",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.nonenhancing_regions",
+        "structure_name": "Adequately assessed nonenhancing septa",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.calcified_regions",
+        "structure_name": "Actual calcified septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.calcified_regions",
+        "structure_name": "Actual calcified septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.septa.calcified_regions",
+        "structure_name": "Actual calcified septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.complete_margin",
+        "structure_name": "Complete individual protrusion margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.complete_margin",
+        "structure_name": "Complete individual protrusion margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.complete_margin",
+        "structure_name": "Complete individual protrusion margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.attachment_base",
+        "structure_name": "Actual wall/septal attachment base",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.attachment_base",
+        "structure_name": "Actual wall/septal attachment base",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.attachment_base",
+        "structure_name": "Actual wall/septal attachment base",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.apex",
+        "structure_name": "Actual protrusion apex",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.apex",
+        "structure_name": "Actual protrusion apex",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.apex",
+        "structure_name": "Actual protrusion apex",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.acute_interface",
+        "structure_name": "Actual acute-angle attachment interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.acute_interface",
+        "structure_name": "Actual acute-angle attachment interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.acute_interface",
+        "structure_name": "Actual acute-angle attachment interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.obtuse_interface",
+        "structure_name": "Actual obtuse-angle attachment interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.obtuse_interface",
+        "structure_name": "Actual obtuse-angle attachment interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.obtuse_interface",
+        "structure_name": "Actual obtuse-angle attachment interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.perpendicular_size",
+        "structure_name": "Perpendicular protrusion size region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.perpendicular_size",
+        "structure_name": "Perpendicular protrusion size region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.perpendicular_size",
+        "structure_name": "Perpendicular protrusion size region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.enhancing_tissue",
+        "structure_name": "Verified enhancing protrusion tissue",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.enhancing_tissue",
+        "structure_name": "Verified enhancing protrusion tissue",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.enhancing_tissue",
+        "structure_name": "Verified enhancing protrusion tissue",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.wall_or_septum_host",
+        "structure_name": "Actual parent wall/septum",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.wall_or_septum_host",
+        "structure_name": "Actual parent wall/septum",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.wall_or_septum_host",
+        "structure_name": "Actual parent wall/septum",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.nonenhancing_mimic",
+        "structure_name": "Nonenhancing debris/partial-volume mimic",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.nonenhancing_mimic",
+        "structure_name": "Nonenhancing debris/partial-volume mimic",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.protrusions.nonenhancing_mimic",
+        "structure_name": "Nonenhancing debris/partial-volume mimic",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.precontrast_regions",
+        "structure_name": "Actual precontrast regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.precontrast_regions",
+        "structure_name": "Actual precontrast regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.precontrast_regions",
+        "structure_name": "Actual precontrast regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.postcontrast_regions",
+        "structure_name": "Actual postcontrast regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.postcontrast_regions",
+        "structure_name": "Actual postcontrast regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.postcontrast_regions",
+        "structure_name": "Actual postcontrast regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.matched_roi",
+        "structure_name": "Same-tissue pre/post ROI correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.matched_roi",
+        "structure_name": "Same-tissue pre/post ROI correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.matched_roi",
+        "structure_name": "Same-tissue pre/post ROI correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.visible_enhancement",
+        "structure_name": "Unequivocally visible enhancing regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.visible_enhancement",
+        "structure_name": "Unequivocally visible enhancing regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.visible_enhancement",
+        "structure_name": "Unequivocally visible enhancing regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.quantitative_enhancement",
+        "structure_name": "Reliably measured enhancing regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.quantitative_enhancement",
+        "structure_name": "Reliably measured enhancing regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.quantitative_enhancement",
+        "structure_name": "Reliably measured enhancing regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.reference_tissue",
+        "structure_name": "Acquired tissue/calibration reference",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.reference_tissue",
+        "structure_name": "Acquired tissue/calibration reference",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.reference_tissue",
+        "structure_name": "Acquired tissue/calibration reference",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.partial_volume_regions",
+        "structure_name": "Partial-volume affected regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.partial_volume_regions",
+        "structure_name": "Partial-volume affected regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.partial_volume_regions",
+        "structure_name": "Partial-volume affected regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.pseudoenhancement_regions",
+        "structure_name": "Source pseudoenhancement context",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.pseudoenhancement_regions",
+        "structure_name": "Source pseudoenhancement context",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.pseudoenhancement_regions",
+        "structure_name": "Source pseudoenhancement context",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.limited_regions",
+        "structure_name": "Unresolved/non-diagnostic feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.limited_regions",
+        "structure_name": "Unresolved/non-diagnostic feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.enhancement.limited_regions",
+        "structure_name": "Unresolved/non-diagnostic feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.precontrast",
+        "structure_name": "Original precontrast T1 regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.precontrast",
+        "structure_name": "Original precontrast T1 regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.precontrast",
+        "structure_name": "Original precontrast T1 regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.postcontrast",
+        "structure_name": "Original postcontrast T1 regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.postcontrast",
+        "structure_name": "Original postcontrast T1 regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.postcontrast",
+        "structure_name": "Original postcontrast T1 regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.subtraction",
+        "structure_name": "Actual matched subtraction regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.subtraction",
+        "structure_name": "Actual matched subtraction regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.subtraction",
+        "structure_name": "Actual matched subtraction regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.misregistration",
+        "structure_name": "Motion/misregistration regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.misregistration",
+        "structure_name": "Motion/misregistration regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.misregistration",
+        "structure_name": "Motion/misregistration regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.enhancing_components",
+        "structure_name": "Verified enhancing components",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.enhancing_components",
+        "structure_name": "Verified enhancing components",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_subtraction.enhancing_components",
+        "structure_name": "Verified enhancing components",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.unenhanced",
+        "structure_name": "Original unenhanced T1 regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.unenhanced",
+        "structure_name": "Original unenhanced T1 regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.unenhanced",
+        "structure_name": "Original unenhanced T1 regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.fat_saturated",
+        "structure_name": "Actually acquired fat-saturated T1 regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.fat_saturated",
+        "structure_name": "Actually acquired fat-saturated T1 regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.fat_saturated",
+        "structure_name": "Actually acquired fat-saturated T1 regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.homogeneous_signal",
+        "structure_name": "Actual homogeneous signal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.homogeneous_signal",
+        "structure_name": "Actual homogeneous signal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.homogeneous_signal",
+        "structure_name": "Actual homogeneous signal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.heterogeneous_signal",
+        "structure_name": "Actual heterogeneous signal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.heterogeneous_signal",
+        "structure_name": "Actual heterogeneous signal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.heterogeneous_signal",
+        "structure_name": "Actual heterogeneous signal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.parenchymal_reference",
+        "structure_name": "Original parenchymal signal reference",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.parenchymal_reference",
+        "structure_name": "Original parenchymal signal reference",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t1.parenchymal_reference",
+        "structure_name": "Original parenchymal signal reference",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.fluid_signal",
+        "structure_name": "Actual T2 fluid-signal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.fluid_signal",
+        "structure_name": "Actual T2 fluid-signal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.fluid_signal",
+        "structure_name": "Actual T2 fluid-signal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.homogeneity",
+        "structure_name": "Actual T2 homogeneity regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.homogeneity",
+        "structure_name": "Actual T2 homogeneity regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.homogeneity",
+        "structure_name": "Actual T2 homogeneity regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.reference",
+        "structure_name": "Acquired CSF-like signal reference",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.reference",
+        "structure_name": "Acquired CSF-like signal reference",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.reference",
+        "structure_name": "Acquired CSF-like signal reference",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.solid_region",
+        "structure_name": "Acquired nonfluid tissue regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.solid_region",
+        "structure_name": "Acquired nonfluid tissue regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_t2.solid_region",
+        "structure_name": "Acquired nonfluid tissue regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.wall",
+        "structure_name": "Actual \u22642 mm wall regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.wall",
+        "structure_name": "Actual \u22642 mm wall regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.wall",
+        "structure_name": "Actual \u22642 mm wall regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.septa",
+        "structure_name": "Actual \u22642 mm septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.septa",
+        "structure_name": "Actual \u22642 mm septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.septa",
+        "structure_name": "Actual \u22642 mm septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.surface_smoothness",
+        "structure_name": "Actual surface smoothness",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.surface_smoothness",
+        "structure_name": "Actual surface smoothness",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.surface_smoothness",
+        "structure_name": "Actual surface smoothness",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.measurement_plane",
+        "structure_name": "Orthogonal resolved measurement plane",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.measurement_plane",
+        "structure_name": "Orthogonal resolved measurement plane",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thin_feature.measurement_plane",
+        "structure_name": "Orthogonal resolved measurement plane",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.wall",
+        "structure_name": "Actual smooth 3 mm wall regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.wall",
+        "structure_name": "Actual smooth 3 mm wall regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.wall",
+        "structure_name": "Actual smooth 3 mm wall regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.septa",
+        "structure_name": "Actual smooth 3 mm septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.septa",
+        "structure_name": "Actual smooth 3 mm septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.septa",
+        "structure_name": "Actual smooth 3 mm septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.enhancement",
+        "structure_name": "Verified enhancement",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.enhancement",
+        "structure_name": "Verified enhancement",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.enhancement",
+        "structure_name": "Verified enhancement",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.measurement_uncertainty",
+        "structure_name": "Source dimensional uncertainty",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.measurement_uncertainty",
+        "structure_name": "Source dimensional uncertainty",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.minimal_thickening.measurement_uncertainty",
+        "structure_name": "Source dimensional uncertainty",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.wall",
+        "structure_name": "Actual \u22654 mm enhancing wall regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.wall",
+        "structure_name": "Actual \u22654 mm enhancing wall regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.wall",
+        "structure_name": "Actual \u22654 mm enhancing wall regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.septa",
+        "structure_name": "Actual \u22654 mm enhancing septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.septa",
+        "structure_name": "Actual \u22654 mm enhancing septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.septa",
+        "structure_name": "Actual \u22654 mm enhancing septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.irregular_obtuse",
+        "structure_name": "Actual enhancing obtuse protrusions \u22643 mm",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.irregular_obtuse",
+        "structure_name": "Actual enhancing obtuse protrusions \u22643 mm",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.irregular_obtuse",
+        "structure_name": "Actual enhancing obtuse protrusions \u22643 mm",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.measurement_plane",
+        "structure_name": "Actual perpendicular measurement plane",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.measurement_plane",
+        "structure_name": "Actual perpendicular measurement plane",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.thick_feature.measurement_plane",
+        "structure_name": "Actual perpendicular measurement plane",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_i.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_ii.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iif.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iii.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.whole_observation",
+        "structure_name": "Complete source observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.category_driving_feature",
+        "structure_name": "Actual category-driving feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.case_iv.competing_feature_regions",
+        "structure_name": "Acquired competing/highest-category feature regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_unenhanced_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_renal_protocol_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.whole_margin",
+        "structure_name": "Well-defined complete margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.homogeneity",
+        "structure_name": "Actual homogeneous tissue extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.attenuation_regions",
+        "structure_name": "Correct-phase attenuation reference regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.benign_portal_venous_ct.wall",
+        "structure_name": "Actual thin smooth wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.whole_margin",
+        "structure_name": "Complete eligible cystic mass margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.whole_margin",
+        "structure_name": "Complete eligible cystic mass margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.whole_margin",
+        "structure_name": "Complete eligible cystic mass margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.heterogeneous_regions",
+        "structure_name": "Actual heterogeneous unenhanced fat-saturated T1 regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.heterogeneous_regions",
+        "structure_name": "Actual heterogeneous unenhanced fat-saturated T1 regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.heterogeneous_regions",
+        "structure_name": "Actual heterogeneous unenhanced fat-saturated T1 regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.iii_iv_exclusion_regions",
+        "structure_name": "Acquired III/IV feature assessment regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.iii_iv_exclusion_regions",
+        "structure_name": "Acquired III/IV feature assessment regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.mri_iif_exception.iii_iv_exclusion_regions",
+        "structure_name": "Acquired III/IV feature assessment regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.necrotic_solid_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.infectious_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.whole_extent",
+        "structure_name": "Actual mimic extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.specific_component",
+        "structure_name": "Actual differentiating component",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.renal_interface",
+        "structure_name": "Mimic-renal tissue interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.vascular_mimic.surrounding_context",
+        "structure_name": "Actual acquired surrounding context",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_margin",
+        "structure_name": "Original prior observation margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_margin",
+        "structure_name": "Original prior observation margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_margin",
+        "structure_name": "Original prior observation margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_margin",
+        "structure_name": "Original current observation margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_margin",
+        "structure_name": "Original current observation margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_margin",
+        "structure_name": "Original current observation margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_wall_septa",
+        "structure_name": "Actual prior wall/septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_wall_septa",
+        "structure_name": "Actual prior wall/septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_wall_septa",
+        "structure_name": "Actual prior wall/septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_wall_septa",
+        "structure_name": "Actual current wall/septal regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_wall_septa",
+        "structure_name": "Actual current wall/septal regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_wall_septa",
+        "structure_name": "Actual current wall/septal regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_protrusions",
+        "structure_name": "Actual prior protrusion regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_protrusions",
+        "structure_name": "Actual prior protrusion regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.prior_protrusions",
+        "structure_name": "Actual prior protrusion regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_protrusions",
+        "structure_name": "Actual current protrusion regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_protrusions",
+        "structure_name": "Actual current protrusion regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.renal-cysts-bosniak",
+        "structure_id": "bosniak.longitudinal_features.current_protrusions",
+        "structure_name": "Actual current protrusion regions",
         "kind": "model",
         "status": "missing",
         "verified_assets": [],

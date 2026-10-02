@@ -11,7 +11,8 @@
       "ra.ct-mediastinum",
       "ra.liver-masses",
       "ra.liver-lirads",
-      "ra.solid-renal-masses"
+      "ra.solid-renal-masses",
+      "ra.renal-cysts-bosniak"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -21377,6 +21378,2041 @@
         {
           "observation": "histology_and_mimics",
           "evidence": "Source pathology and clinical context distinguish overlapping solid tumour patterns and normal/infectious/vascular mimics."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.renal-cysts-bosniak",
+      "module_id": "rad.4.kidney",
+      "title": "CT and MRI renal cysts — Bosniak",
+      "modality": "CT / MRI",
+      "scope_type": "bilateral_renal_localisation_with_per_observation_wall_septum_nodule_and_source_specific_enhancement",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "bosniak-source-0",
+          "title": "Radiology Assistant — Bosniak Classification 2019",
+          "url": "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+          "review_status": "v2019_scope_and_feature_definitions_reviewed_2026-10-02"
+        },
+        {
+          "source_id": "bosniak-source-1",
+          "title": "Silverman et al. — Bosniak Classification v2019 consensus",
+          "url": "https://pubs.rsna.org/doi/10.1148/radiol.2019182646",
+          "review_status": "v2019_scope_and_feature_definitions_reviewed_2026-10-02"
+        }
+      ],
+      "source_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
+      "reporting_checklist": [
+        {
+          "label": "Mass Location",
+          "detail": "Localise the cystic mass and compare prior size."
+        },
+        {
+          "label": "Contents And Enhancement",
+          "detail": "Assess fluid, haemorrhagic material and true enhancement."
+        },
+        {
+          "label": "Wall And Septa",
+          "detail": "Describe number, thickness, smoothness and enhancement."
+        },
+        {
+          "label": "Nodules",
+          "detail": "Characterise enhancing protrusions and their interface with the wall."
+        },
+        {
+          "label": "Category And Context",
+          "detail": "Give the applicable Bosniak category and the determining feature."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "MASS LOCATION",
+          "body": "Side/pole: [ ]. Size: [ ] mm. Prior/date: [ ]."
+        },
+        {
+          "heading": "CONTENTS AND ENHANCEMENT",
+          "body": "Contents: [ ]. CT comparison/subtraction: [ ]. Enhancement confidence: [ ]."
+        },
+        {
+          "heading": "WALL AND SEPTA",
+          "body": "Wall thickness/contour: [ ]. Septa number/thickness: [ ]. Enhancement: [ ]."
+        },
+        {
+          "heading": "NODULES",
+          "body": "Nodule site/size: [ ]. Acute/obtuse margin: [ ]. Enhancement: [ ]."
+        },
+        {
+          "heading": "CATEGORY AND CONTEXT",
+          "body": "Bosniak v2019: [ ]. Defining feature: [ ]. Technical limitation: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "bosniak.right_kidney",
+          "name": "Right acquired renal localisation anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.right_kidney.whole_extent",
+              "name": "Acquired whole renal extent"
+            },
+            {
+              "id": "bosniak.right_kidney.cortex",
+              "name": "Renal cortex"
+            },
+            {
+              "id": "bosniak.right_kidney.medulla",
+              "name": "Acquired medullary regions"
+            },
+            {
+              "id": "bosniak.right_kidney.capsular_boundary",
+              "name": "Renal capsular boundary"
+            },
+            {
+              "id": "bosniak.right_kidney.upper_pole",
+              "name": "Upper pole"
+            },
+            {
+              "id": "bosniak.right_kidney.interpolar",
+              "name": "Interpolar region"
+            },
+            {
+              "id": "bosniak.right_kidney.lower_pole",
+              "name": "Lower pole"
+            },
+            {
+              "id": "bosniak.right_kidney.renal_sinus",
+              "name": "Renal sinus"
+            },
+            {
+              "id": "bosniak.right_kidney.hilum",
+              "name": "Renal hilum"
+            },
+            {
+              "id": "bosniak.right_kidney.parenchymal_interface",
+              "name": "Parenchyma-observation interfaces"
+            },
+            {
+              "id": "bosniak.right_kidney.collecting_interface",
+              "name": "Collecting-system interfaces"
+            },
+            {
+              "id": "bosniak.right_kidney.vascular_interface",
+              "name": "Acquired hilar/perfusion interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired side, observation, feature region and anatomical variant. Gross organ/mass geometry cannot replace resolved wall/septal/nodule anatomy.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.left_kidney",
+          "name": "Left acquired renal localisation anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.left_kidney.whole_extent",
+              "name": "Acquired whole renal extent"
+            },
+            {
+              "id": "bosniak.left_kidney.cortex",
+              "name": "Renal cortex"
+            },
+            {
+              "id": "bosniak.left_kidney.medulla",
+              "name": "Acquired medullary regions"
+            },
+            {
+              "id": "bosniak.left_kidney.capsular_boundary",
+              "name": "Renal capsular boundary"
+            },
+            {
+              "id": "bosniak.left_kidney.upper_pole",
+              "name": "Upper pole"
+            },
+            {
+              "id": "bosniak.left_kidney.interpolar",
+              "name": "Interpolar region"
+            },
+            {
+              "id": "bosniak.left_kidney.lower_pole",
+              "name": "Lower pole"
+            },
+            {
+              "id": "bosniak.left_kidney.renal_sinus",
+              "name": "Renal sinus"
+            },
+            {
+              "id": "bosniak.left_kidney.hilum",
+              "name": "Renal hilum"
+            },
+            {
+              "id": "bosniak.left_kidney.parenchymal_interface",
+              "name": "Parenchyma-observation interfaces"
+            },
+            {
+              "id": "bosniak.left_kidney.collecting_interface",
+              "name": "Collecting-system interfaces"
+            },
+            {
+              "id": "bosniak.left_kidney.vascular_interface",
+              "name": "Acquired hilar/perfusion interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired side, observation, feature region and anatomical variant. Gross organ/mass geometry cannot replace resolved wall/septal/nodule anatomy.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.observation",
+          "name": "Every eligible actual cystic renal observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.observation.whole_margin",
+              "name": "Complete source observation margin"
+            },
+            {
+              "id": "bosniak.observation.renal_origin",
+              "name": "Renal origin"
+            },
+            {
+              "id": "bosniak.observation.exophytic_extent",
+              "name": "Actual exophytic extent"
+            },
+            {
+              "id": "bosniak.observation.endophytic_extent",
+              "name": "Actual endophytic extent"
+            },
+            {
+              "id": "bosniak.observation.parenchymal_relation",
+              "name": "Observation-parenchymal relation"
+            },
+            {
+              "id": "bosniak.observation.collecting_relation",
+              "name": "Observation-collecting relation"
+            },
+            {
+              "id": "bosniak.observation.sinus_relation",
+              "name": "Observation-sinus relation"
+            },
+            {
+              "id": "bosniak.observation.orthogonal_measurement",
+              "name": "Reproducible size measurement planes"
+            },
+            {
+              "id": "bosniak.observation.matched_prior_margin",
+              "name": "Matched prior observation margin"
+            },
+            {
+              "id": "bosniak.observation.enhancing_tissue_fraction",
+              "name": "Actual enhancing-tissue fraction regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Eligibility and actual acquired margins must be verified. Cystic versus necrotic solid mass and less-than-approximately-25%-enhancing-tissue context require source review; size alone is not a Bosniak category.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.contents",
+          "name": "Actual internal fluid and other contents",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.contents.simple_fluid",
+              "name": "Homogeneous simple-fluid regions"
+            },
+            {
+              "id": "bosniak.contents.haemorrhage",
+              "name": "Actual haemorrhagic regions"
+            },
+            {
+              "id": "bosniak.contents.proteinaceous",
+              "name": "Actual proteinaceous regions"
+            },
+            {
+              "id": "bosniak.contents.debris",
+              "name": "Actual debris regions"
+            },
+            {
+              "id": "bosniak.contents.fluid_levels",
+              "name": "Acquired fluid-fluid level interfaces"
+            },
+            {
+              "id": "bosniak.contents.heterogeneous_regions",
+              "name": "Actual heterogeneous contents"
+            },
+            {
+              "id": "bosniak.contents.solid_components",
+              "name": "Actual solid components"
+            },
+            {
+              "id": "bosniak.contents.calcification",
+              "name": "Actual calcification regions"
+            },
+            {
+              "id": "bosniak.contents.calcification_obscured_interface",
+              "name": "Calcification-obscured enhancement interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Source acquisition and state must independently establish each claimed component. CT attenuation, MRI signal, protein/blood labels and pathology are not interchangeable; calcification alone is not an automatic high category.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_contents"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.wall",
+          "name": "Complete actual cystic observation wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.wall.inner_surface",
+              "name": "Complete inner wall surface"
+            },
+            {
+              "id": "bosniak.wall.outer_surface",
+              "name": "Complete outer wall surface"
+            },
+            {
+              "id": "bosniak.wall.anterior_region",
+              "name": "Actual anterior wall region"
+            },
+            {
+              "id": "bosniak.wall.posterior_region",
+              "name": "Actual posterior wall region"
+            },
+            {
+              "id": "bosniak.wall.medial_region",
+              "name": "Actual medial wall region"
+            },
+            {
+              "id": "bosniak.wall.lateral_region",
+              "name": "Actual lateral wall region"
+            },
+            {
+              "id": "bosniak.wall.superior_region",
+              "name": "Actual superior wall region"
+            },
+            {
+              "id": "bosniak.wall.inferior_region",
+              "name": "Actual inferior wall region"
+            },
+            {
+              "id": "bosniak.wall.thinnest_region",
+              "name": "Actually resolved thin wall regions"
+            },
+            {
+              "id": "bosniak.wall.maximal_thickness",
+              "name": "Maximal relevant wall thickness region"
+            },
+            {
+              "id": "bosniak.wall.smooth_regions",
+              "name": "Actual smooth wall regions"
+            },
+            {
+              "id": "bosniak.wall.irregular_regions",
+              "name": "Actual irregular wall regions"
+            },
+            {
+              "id": "bosniak.wall.enhancing_regions",
+              "name": "Verified enhancing wall regions"
+            },
+            {
+              "id": "bosniak.wall.nonenhancing_regions",
+              "name": "Adequately assessed nonenhancing wall regions"
+            },
+            {
+              "id": "bosniak.wall.wall_contents_interface",
+              "name": "Wall-contents interfaces"
+            },
+            {
+              "id": "bosniak.wall.wall_host_interface",
+              "name": "Wall-host tissue interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Whole wall coverage and actual focal maxima are required. Native sampling, partial volume, acquired obliquity and measurement uncertainty must support thickness/contour distinctions; no assumed uniform shell or histological wall boundary.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_wall"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.septa",
+          "name": "Every actual source septum and its connections",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.septa.individual_extent",
+              "name": "Entire individual septal course"
+            },
+            {
+              "id": "bosniak.septa.first_wall_attachment",
+              "name": "Actual first surface attachment"
+            },
+            {
+              "id": "bosniak.septa.second_wall_attachment",
+              "name": "Actual second surface attachment"
+            },
+            {
+              "id": "bosniak.septa.both_surfaces",
+              "name": "Both septal surfaces"
+            },
+            {
+              "id": "bosniak.septa.branching_connections",
+              "name": "Actual branching/junctions"
+            },
+            {
+              "id": "bosniak.septa.count_identity",
+              "name": "Individual connected septum identity"
+            },
+            {
+              "id": "bosniak.septa.maximal_thickness",
+              "name": "Maximal relevant septal thickness"
+            },
+            {
+              "id": "bosniak.septa.smooth_regions",
+              "name": "Actual smooth septal regions"
+            },
+            {
+              "id": "bosniak.septa.irregular_regions",
+              "name": "Actual irregular septal regions"
+            },
+            {
+              "id": "bosniak.septa.enhancing_regions",
+              "name": "Verified enhancing septal regions"
+            },
+            {
+              "id": "bosniak.septa.nonenhancing_regions",
+              "name": "Adequately assessed nonenhancing septa"
+            },
+            {
+              "id": "bosniak.septa.calcified_regions",
+              "name": "Actual calcified septal regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Every actual septum needs explicit instance identity, entire course and attachments. Different cuts through one septum are not multiple septa. Nonenhancing thin septa cannot be counted as enhancing septa to assign IIF.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_septa"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.protrusions",
+          "name": "Every actual enhancing wall/septal protrusion",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.protrusions.complete_margin",
+              "name": "Complete individual protrusion margin"
+            },
+            {
+              "id": "bosniak.protrusions.attachment_base",
+              "name": "Actual wall/septal attachment base"
+            },
+            {
+              "id": "bosniak.protrusions.apex",
+              "name": "Actual protrusion apex"
+            },
+            {
+              "id": "bosniak.protrusions.acute_interface",
+              "name": "Actual acute-angle attachment interface"
+            },
+            {
+              "id": "bosniak.protrusions.obtuse_interface",
+              "name": "Actual obtuse-angle attachment interface"
+            },
+            {
+              "id": "bosniak.protrusions.perpendicular_size",
+              "name": "Perpendicular protrusion size region"
+            },
+            {
+              "id": "bosniak.protrusions.enhancing_tissue",
+              "name": "Verified enhancing protrusion tissue"
+            },
+            {
+              "id": "bosniak.protrusions.wall_or_septum_host",
+              "name": "Actual parent wall/septum"
+            },
+            {
+              "id": "bosniak.protrusions.nonenhancing_mimic",
+              "name": "Nonenhancing debris/partial-volume mimic"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Source size, enhancement and attachment interface must support nodule versus irregularity. Acute/obtuse interfaces and ≥4 mm versus ≤3 mm guideposts are not established by generic shapes or unresolved voxels.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_protrusion"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.enhancement",
+          "name": "Actual phase correspondence and enhancement evidence",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.enhancement.precontrast_regions",
+              "name": "Actual precontrast regions"
+            },
+            {
+              "id": "bosniak.enhancement.postcontrast_regions",
+              "name": "Actual postcontrast regions"
+            },
+            {
+              "id": "bosniak.enhancement.matched_roi",
+              "name": "Same-tissue pre/post ROI correspondence"
+            },
+            {
+              "id": "bosniak.enhancement.visible_enhancement",
+              "name": "Unequivocally visible enhancing regions"
+            },
+            {
+              "id": "bosniak.enhancement.quantitative_enhancement",
+              "name": "Reliably measured enhancing regions"
+            },
+            {
+              "id": "bosniak.enhancement.reference_tissue",
+              "name": "Acquired tissue/calibration reference"
+            },
+            {
+              "id": "bosniak.enhancement.partial_volume_regions",
+              "name": "Partial-volume affected regions"
+            },
+            {
+              "id": "bosniak.enhancement.pseudoenhancement_regions",
+              "name": "Source pseudoenhancement context"
+            },
+            {
+              "id": "bosniak.enhancement.limited_regions",
+              "name": "Unresolved/non-diagnostic feature regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Compare actual matched technique and tissue. Source calibration, phase adequacy, noise and partial volume remain required; failed measurement or absent contrast is not a normal negative finding.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_enhancement"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.mri_subtraction",
+          "name": "MRI subtraction and its source pairs",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.mri_subtraction.precontrast",
+              "name": "Original precontrast T1 regions"
+            },
+            {
+              "id": "bosniak.mri_subtraction.postcontrast",
+              "name": "Original postcontrast T1 regions"
+            },
+            {
+              "id": "bosniak.mri_subtraction.subtraction",
+              "name": "Actual matched subtraction regions"
+            },
+            {
+              "id": "bosniak.mri_subtraction.misregistration",
+              "name": "Motion/misregistration regions"
+            },
+            {
+              "id": "bosniak.mri_subtraction.enhancing_components",
+              "name": "Verified enhancing components"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Actual source MRI acquisition/parameters and tissue correspondence required. CT, a normal kidney atlas or a static shell cannot supply MRI signal or subtraction. Do not turn heterogeneous T1 signal into a solid-mass category without checking eligibility and III/IV features.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_mri_feature"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.mri_t1",
+          "name": "MRI T1 contents patterns",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.mri_t1.unenhanced",
+              "name": "Original unenhanced T1 regions"
+            },
+            {
+              "id": "bosniak.mri_t1.fat_saturated",
+              "name": "Actually acquired fat-saturated T1 regions"
+            },
+            {
+              "id": "bosniak.mri_t1.homogeneous_signal",
+              "name": "Actual homogeneous signal regions"
+            },
+            {
+              "id": "bosniak.mri_t1.heterogeneous_signal",
+              "name": "Actual heterogeneous signal regions"
+            },
+            {
+              "id": "bosniak.mri_t1.parenchymal_reference",
+              "name": "Original parenchymal signal reference"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Actual source MRI acquisition/parameters and tissue correspondence required. CT, a normal kidney atlas or a static shell cannot supply MRI signal or subtraction. Do not turn heterogeneous T1 signal into a solid-mass category without checking eligibility and III/IV features.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_mri_feature"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.mri_t2",
+          "name": "MRI T2 contents patterns",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.mri_t2.fluid_signal",
+              "name": "Actual T2 fluid-signal regions"
+            },
+            {
+              "id": "bosniak.mri_t2.homogeneity",
+              "name": "Actual T2 homogeneity regions"
+            },
+            {
+              "id": "bosniak.mri_t2.reference",
+              "name": "Acquired CSF-like signal reference"
+            },
+            {
+              "id": "bosniak.mri_t2.solid_region",
+              "name": "Acquired nonfluid tissue regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Actual source MRI acquisition/parameters and tissue correspondence required. CT, a normal kidney atlas or a static shell cannot supply MRI signal or subtraction. Do not turn heterogeneous T1 signal into a solid-mass category without checking eligibility and III/IV features.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_mri_feature"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.thin_feature",
+          "name": "Resolved thin smooth wall/septal morphology",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.thin_feature.wall",
+              "name": "Actual ≤2 mm wall regions"
+            },
+            {
+              "id": "bosniak.thin_feature.septa",
+              "name": "Actual ≤2 mm septal regions"
+            },
+            {
+              "id": "bosniak.thin_feature.surface_smoothness",
+              "name": "Actual surface smoothness"
+            },
+            {
+              "id": "bosniak.thin_feature.measurement_plane",
+              "name": "Orthogonal resolved measurement plane"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "These are conditional guidepost regions, not fixed artificial dimensions or claimed clinical truth. Actual resolved source morphology, enhancement and uncertainty are required; a model cannot manufacture unmeasured 1 mm differences.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_morphology"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.minimal_thickening",
+          "name": "Actual minimal thickening",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.minimal_thickening.wall",
+              "name": "Actual smooth 3 mm wall regions"
+            },
+            {
+              "id": "bosniak.minimal_thickening.septa",
+              "name": "Actual smooth 3 mm septal regions"
+            },
+            {
+              "id": "bosniak.minimal_thickening.enhancement",
+              "name": "Verified enhancement"
+            },
+            {
+              "id": "bosniak.minimal_thickening.measurement_uncertainty",
+              "name": "Source dimensional uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "These are conditional guidepost regions, not fixed artificial dimensions or claimed clinical truth. Actual resolved source morphology, enhancement and uncertainty are required; a model cannot manufacture unmeasured 1 mm differences.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_morphology"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.thick_feature",
+          "name": "Actual thick/irregular enhancing morphology",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.thick_feature.wall",
+              "name": "Actual ≥4 mm enhancing wall regions"
+            },
+            {
+              "id": "bosniak.thick_feature.septa",
+              "name": "Actual ≥4 mm enhancing septal regions"
+            },
+            {
+              "id": "bosniak.thick_feature.irregular_obtuse",
+              "name": "Actual enhancing obtuse protrusions ≤3 mm"
+            },
+            {
+              "id": "bosniak.thick_feature.measurement_plane",
+              "name": "Actual perpendicular measurement plane"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "These are conditional guidepost regions, not fixed artificial dimensions or claimed clinical truth. Actual resolved source morphology, enhancement and uncertainty are required; a model cannot manufacture unmeasured 1 mm differences.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_morphology"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.case_i",
+          "name": "Bosniak I source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.case_i.whole_observation",
+              "name": "Complete source observation"
+            },
+            {
+              "id": "bosniak.case_i.category_driving_feature",
+              "name": "Actual category-driving feature regions"
+            },
+            {
+              "id": "bosniak.case_i.competing_feature_regions",
+              "name": "Acquired competing/highest-category feature regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual eligible source case/category and full feature set require independent review. A label or a stylised wall/septum/nodule is not validation, histology or a management instruction.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "bosniak_case_i"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.case_ii",
+          "name": "Bosniak II source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.case_ii.whole_observation",
+              "name": "Complete source observation"
+            },
+            {
+              "id": "bosniak.case_ii.category_driving_feature",
+              "name": "Actual category-driving feature regions"
+            },
+            {
+              "id": "bosniak.case_ii.competing_feature_regions",
+              "name": "Acquired competing/highest-category feature regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual eligible source case/category and full feature set require independent review. A label or a stylised wall/septum/nodule is not validation, histology or a management instruction.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "bosniak_case_ii"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.case_iif",
+          "name": "Bosniak IIF source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.case_iif.whole_observation",
+              "name": "Complete source observation"
+            },
+            {
+              "id": "bosniak.case_iif.category_driving_feature",
+              "name": "Actual category-driving feature regions"
+            },
+            {
+              "id": "bosniak.case_iif.competing_feature_regions",
+              "name": "Acquired competing/highest-category feature regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual eligible source case/category and full feature set require independent review. A label or a stylised wall/septum/nodule is not validation, histology or a management instruction.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "bosniak_case_iif"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.case_iii",
+          "name": "Bosniak III source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.case_iii.whole_observation",
+              "name": "Complete source observation"
+            },
+            {
+              "id": "bosniak.case_iii.category_driving_feature",
+              "name": "Actual category-driving feature regions"
+            },
+            {
+              "id": "bosniak.case_iii.competing_feature_regions",
+              "name": "Acquired competing/highest-category feature regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual eligible source case/category and full feature set require independent review. A label or a stylised wall/septum/nodule is not validation, histology or a management instruction.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "bosniak_case_iii"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.case_iv",
+          "name": "Bosniak IV source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.case_iv.whole_observation",
+              "name": "Complete source observation"
+            },
+            {
+              "id": "bosniak.case_iv.category_driving_feature",
+              "name": "Actual category-driving feature regions"
+            },
+            {
+              "id": "bosniak.case_iv.competing_feature_regions",
+              "name": "Acquired competing/highest-category feature regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual eligible source case/category and full feature set require independent review. A label or a stylised wall/septum/nodule is not validation, histology or a management instruction.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall And Septa",
+              "detail": "Describe number, thickness, smoothness and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Nodules",
+              "detail": "Characterise enhancing protrusions and their interface with the wall."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "bosniak_case_iv"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.benign_unenhanced_ct",
+          "name": "Eligible homogeneous unenhanced CT patterns",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.benign_unenhanced_ct.whole_margin",
+              "name": "Well-defined complete margin"
+            },
+            {
+              "id": "bosniak.benign_unenhanced_ct.homogeneity",
+              "name": "Actual homogeneous tissue extent"
+            },
+            {
+              "id": "bosniak.benign_unenhanced_ct.attenuation_regions",
+              "name": "Correct-phase attenuation reference regions"
+            },
+            {
+              "id": "bosniak.benign_unenhanced_ct.wall",
+              "name": "Actual thin smooth wall"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Apply full source-defined v2019 benign exception criteria, including actual phase, homogeneity and morphology. A high postcontrast attenuation value is not substituted for ≥70 HU on unenhanced CT.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_ct_exception"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.benign_renal_protocol_ct",
+          "name": "Eligible homogeneous nonenhancing renal-protocol patterns",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.benign_renal_protocol_ct.whole_margin",
+              "name": "Well-defined complete margin"
+            },
+            {
+              "id": "bosniak.benign_renal_protocol_ct.homogeneity",
+              "name": "Actual homogeneous tissue extent"
+            },
+            {
+              "id": "bosniak.benign_renal_protocol_ct.attenuation_regions",
+              "name": "Correct-phase attenuation reference regions"
+            },
+            {
+              "id": "bosniak.benign_renal_protocol_ct.wall",
+              "name": "Actual thin smooth wall"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Apply full source-defined v2019 benign exception criteria, including actual phase, homogeneity and morphology. A high postcontrast attenuation value is not substituted for ≥70 HU on unenhanced CT.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_ct_exception"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.benign_portal_venous_ct",
+          "name": "Eligible homogeneous portal-venous patterns",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.benign_portal_venous_ct.whole_margin",
+              "name": "Well-defined complete margin"
+            },
+            {
+              "id": "bosniak.benign_portal_venous_ct.homogeneity",
+              "name": "Actual homogeneous tissue extent"
+            },
+            {
+              "id": "bosniak.benign_portal_venous_ct.attenuation_regions",
+              "name": "Correct-phase attenuation reference regions"
+            },
+            {
+              "id": "bosniak.benign_portal_venous_ct.wall",
+              "name": "Actual thin smooth wall"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Apply full source-defined v2019 benign exception criteria, including actual phase, homogeneity and morphology. A high postcontrast attenuation value is not substituted for ≥70 HU on unenhanced CT.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_ct_exception"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.mri_iif_exception",
+          "name": "Actual heterogeneous unenhanced fat-saturated T1 IIF pattern",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.mri_iif_exception.whole_margin",
+              "name": "Complete eligible cystic mass margin"
+            },
+            {
+              "id": "bosniak.mri_iif_exception.heterogeneous_regions",
+              "name": "Actual heterogeneous unenhanced fat-saturated T1 regions"
+            },
+            {
+              "id": "bosniak.mri_iif_exception.iii_iv_exclusion_regions",
+              "name": "Acquired III/IV feature assessment regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "This MRI-specific exception requires appropriate acquired sequences, eligibility and exclusion of III/IV features; it is not supplied by CT or enhancement alone.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_mri_iif"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.necrotic_solid_mimic",
+          "name": "Necrotic solid-mass mimic",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.necrotic_solid_mimic.whole_extent",
+              "name": "Actual mimic extent"
+            },
+            {
+              "id": "bosniak.necrotic_solid_mimic.specific_component",
+              "name": "Actual differentiating component"
+            },
+            {
+              "id": "bosniak.necrotic_solid_mimic.renal_interface",
+              "name": "Mimic-renal tissue interface"
+            },
+            {
+              "id": "bosniak.necrotic_solid_mimic.surrounding_context",
+              "name": "Actual acquired surrounding context"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "An actual source mimic and clinical/vascular/tissue context is required. A generic cystic cavity cannot prove the exclusions for Bosniak applicability.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_necrotic_solid_mimic"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.infectious_mimic",
+          "name": "Actual infectious/inflammatory mimic",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.infectious_mimic.whole_extent",
+              "name": "Actual mimic extent"
+            },
+            {
+              "id": "bosniak.infectious_mimic.specific_component",
+              "name": "Actual differentiating component"
+            },
+            {
+              "id": "bosniak.infectious_mimic.renal_interface",
+              "name": "Mimic-renal tissue interface"
+            },
+            {
+              "id": "bosniak.infectious_mimic.surrounding_context",
+              "name": "Actual acquired surrounding context"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "An actual source mimic and clinical/vascular/tissue context is required. A generic cystic cavity cannot prove the exclusions for Bosniak applicability.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_infectious_mimic"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.vascular_mimic",
+          "name": "Actual vascular mimic",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.vascular_mimic.whole_extent",
+              "name": "Actual mimic extent"
+            },
+            {
+              "id": "bosniak.vascular_mimic.specific_component",
+              "name": "Actual differentiating component"
+            },
+            {
+              "id": "bosniak.vascular_mimic.renal_interface",
+              "name": "Mimic-renal tissue interface"
+            },
+            {
+              "id": "bosniak.vascular_mimic.surrounding_context",
+              "name": "Actual acquired surrounding context"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "An actual source mimic and clinical/vascular/tissue context is required. A generic cystic cavity cannot prove the exclusions for Bosniak applicability.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Contents And Enhancement",
+              "detail": "Assess fluid, haemorrhagic material and true enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_vascular_mimic"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bosniak.longitudinal_features",
+          "name": "Actual prior and current feature correspondence",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bosniak.longitudinal_features.prior_margin",
+              "name": "Original prior observation margin"
+            },
+            {
+              "id": "bosniak.longitudinal_features.current_margin",
+              "name": "Original current observation margin"
+            },
+            {
+              "id": "bosniak.longitudinal_features.prior_wall_septa",
+              "name": "Actual prior wall/septal regions"
+            },
+            {
+              "id": "bosniak.longitudinal_features.current_wall_septa",
+              "name": "Actual current wall/septal regions"
+            },
+            {
+              "id": "bosniak.longitudinal_features.prior_protrusions",
+              "name": "Actual prior protrusion regions"
+            },
+            {
+              "id": "bosniak.longitudinal_features.current_protrusions",
+              "name": "Actual current protrusion regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual matched examinations/dates and morphology are required. Size change, stable size or unmatched images alone do not establish category progression or stability.",
+          "requirement_basis": "effective_bosniak_report_and_v2019_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Mass Location",
+              "detail": "Localise the cystic mass and compare prior size."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Category And Context",
+              "detail": "Give the applicable Bosniak category and the determining feature."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019",
+            "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "cystic_renal_longitudinal"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual eligible observation, wall region, septum and protrusion with whole acquired extent",
+            "Each source CT/MRI phase/sequence, measurement region and clinically relevant technical limitation",
+            "Every actual prior/current morphology change and source diagnostic context",
+            "Actual acquired renal and nearby structure/variant interfaces; do not borrow solid-mass or whole-body staging coverage"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "feature_instances_pending",
+          "detail": "Prototype wall/septum/nodule entries require each actual source feature and full extent; parent shells are insufficient."
+        },
+        {
+          "code": "native_resolution_and_measurement_pending",
+          "detail": "Clinical feature dimensions, perpendicular planes and source uncertainty must be independently demonstrated."
+        },
+        {
+          "code": "enhancement_phase_and_sequence_pending",
+          "detail": "Actual paired technique and adequate source acquisition required; geometric models cannot verify enhancement or MRI patterns."
+        },
+        {
+          "code": "eligibility_and_exceptions_pending",
+          "detail": "General-population applicability, exclusions and correct-phase CT/MRI benign/IIF exceptions need review; solid masses and hereditary context are not silently treated as ordinary eligible cysts."
+        },
+        {
+          "code": "rights_and_clinical_boundary_review_pending",
+          "detail": "Original imaging, annotation and derivative rights and anatomical validity remain unapproved; CPTAC malignant ROI is not reused as a verified Bosniak cyst."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "eligibility",
+          "evidence": "Actual cystic fraction, appropriate protocol, exclusions and clinical/hereditary context."
+        },
+        {
+          "observation": "feature_dimensions",
+          "evidence": "Resolved native sampling, perpendicular wall/septal/protrusion measurements, partial-volume/motion limits and uncertainty."
+        },
+        {
+          "observation": "septa_count",
+          "evidence": "Separate acquired connected septa with complete attachments; multiple cuts do not create multiple septa."
+        },
+        {
+          "observation": "enhancement",
+          "evidence": "Actual matched pre/post technique, visible or quantitative enhancement and appropriate artifact checks; non-diagnostic data stays limited."
+        },
+        {
+          "observation": "nodule_attachment",
+          "evidence": "Actual enhancing tissue, source convexity, acute/obtuse interface and perpendicular protrusion size."
+        },
+        {
+          "observation": "mri_exceptions",
+          "evidence": "Actual unenhanced T1/T2/fat-saturated sequences and adequate subtraction; CT cannot substitute."
+        },
+        {
+          "observation": "category",
+          "evidence": "Full v2019 highest-feature assessment and applicable exceptions; category is not pathology or automatic management."
+        },
+        {
+          "observation": "longitudinal_change",
+          "evidence": "Matched source dates/observation and actual morphology; stable size is not complete stable feature evidence."
         }
       ]
     }

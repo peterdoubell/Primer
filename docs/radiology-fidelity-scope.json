@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9731,7 +9731,7 @@
           "classification": {
             "name": "Bosniak cystic renal mass classification",
             "version": "v2019",
-            "applicability": "Cystic renal masses characterised with an appropriate CT/MRI protocol, after excluding infection, vascular causes and necrotic solid masses.",
+            "applicability": "Cystic renal masses in the general population characterised with an appropriate CT/MRI protocol, after excluding infection, inflammatory/vascular causes and necrotic solid masses; known hereditary RCC syndromes require individual specialist assessment.",
             "summary": "Classify from enhancing wall, septa and nodules using v2019 definitions; record the feature driving the category."
           },
           "criteria_table": {
@@ -9805,6 +9805,10 @@
             {
               "title": "Radiology Assistant \u2014 Bosniak Classification 2019",
               "url": "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019"
+            },
+            {
+              "title": "Silverman et al. \u2014 Bosniak Classification v2019 consensus",
+              "url": "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
             }
           ]
         },
@@ -9866,6 +9870,10 @@
               {
                 "title": "Radiology Assistant \u2014 Bosniak Classification 2019",
                 "url": "https://radiologyassistant.nl/abdomen/kidney/bozniak-2019"
+              },
+              {
+                "title": "Silverman et al. \u2014 Bosniak Classification v2019 consensus",
+                "url": "https://pubs.rsna.org/doi/10.1148/radiol.2019182646"
               }
             ]
           }
@@ -9916,8 +9924,9 @@
               "normal": {},
               "findings": [
                 "Homogeneous fluid attenuation (\u22129 to 20 HU), no enhancement.",
-                "Homogeneous hyperattenuating (\u226570 HU) non-enhancing lesion (Bosniak II).",
-                "Enhancement of [wall / septa] (increase __ HU)."
+                "Well-defined homogeneous mass \u226570 HU on unenhanced CT with a smooth thin wall (Bosniak II pattern when the full v2019 criteria are met).",
+                "Enhancement of [wall / septa] (increase __ HU).",
+                "Heterogeneously hyperintense cystic mass on unenhanced fat-suppressed T1 MRI (Bosniak IIF pattern if no III/IV feature is present)."
               ],
               "images": [],
               "measurements": [],
@@ -9926,8 +9935,8 @@
                 "FJ3147",
                 "FJ3145"
               ],
-              "look": "Unenhanced and nephrographic CT (enhancement is an increase of 20 HU or more) or MRI with subtraction.",
-              "tip": "Pseudoenhancement of small cysts on CT can mimic true enhancement; MRI subtraction helps."
+              "look": "Compare matched precontrast and postcontrast acquisitions: enhancement may be unequivocally visible or quantitatively confirmed (CT increase \u226520 HU; MRI signal increase \u226515% when reliably measurable with the same technique). Check subtraction for motion and misregistration.",
+              "tip": "Pseudoenhancement, partial volume and subtraction misregistration can mimic enhancement. A feature too small to measure and not clearly visibly enhancing is considered nonenhancing only on adequate source imaging; a non-diagnostic acquisition remains limited."
             },
             {
               "label": "Wall and septa",
@@ -9939,8 +9948,8 @@
               "findings": [
                 "Thin (\u22642 mm), smooth wall; no septa (Bosniak I).",
                 "1\u20133 thin enhancing septa (Bosniak II).",
-                "Minimally thickened (3 mm) smooth enhancing wall or \u22654 thin septa (Bosniak IIF).",
-                "Thick (\u22654 mm) or irregular enhancing wall or septa (Bosniak III)."
+                "Minimally thickened (3 mm) smooth enhancing wall or septum, or \u22654 thin (\u22642 mm) smooth enhancing septa (Bosniak IIF).",
+                "Thick (\u22654 mm) enhancing wall/septa, or irregular enhancing obtuse protrusions \u22643 mm (Bosniak III if no enhancing nodule)."
               ],
               "images": [
                 "kidney-image-2"
@@ -10045,10 +10054,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "a9be6fe6ccb706096185c5bb0ecde1c1453bc958950bf5e02215d1e833d5eb4a",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -10432,7 +10441,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10928,7 +10937,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11349,7 +11358,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19531,7 +19540,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -23699,7 +23708,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26333,7 +26342,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26728,7 +26737,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -48655,7 +48664,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2d52cd14c4aeecba8c2338cdda374ba6fa5012ec1a2839386ae2f184b1a72d00",
+      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
