@@ -8,7 +8,9 @@
       "ra.ct-coronary",
       "ra.ct-airways",
       "ra.ct-lung-cancer",
-      "ra.ct-mediastinum"
+      "ra.ct-mediastinum",
+      "ra.liver-masses",
+      "ra.liver-lirads"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -14471,6 +14473,4512 @@
         {
           "observation": "developmental or post-treatment comparison",
           "evidence": "Actual source age/treatment time point and prior studies; no adult/pretreatment substitution."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.liver-masses",
+      "module_id": "rad.4.liver",
+      "title": "CT and MRI liver masses",
+      "modality": "Multimodality",
+      "scope_type": "liver_anatomy_observation_and_conditional_phase_state_scope",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "liver_mass-source-0",
+          "title": "Radiology Assistant \u2014 Characterisation of liver masses",
+          "url": "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+          "review_status": "text_scope_reviewed_2026-10-02_source_cases_and_embedded_images_pending"
+        },
+        {
+          "source_id": "liver_mass-source-1",
+          "title": "Radiology Assistant \u2014 Common Liver Tumors",
+          "url": "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+          "review_status": "text_scope_reviewed_2026-10-02_source_cases_and_embedded_images_pending"
+        },
+        {
+          "source_id": "liver_mass-source-2",
+          "title": "Radiology Assistant \u2014 Incidentalomas in the liver",
+          "url": "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+          "review_status": "text_scope_reviewed_2026-10-02_source_cases_and_embedded_images_pending"
+        },
+        {
+          "source_id": "liver_mass-source-3",
+          "title": "Radiology Assistant \u2014 Liver - Segmental Anatomy",
+          "url": "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+          "review_status": "text_scope_reviewed_2026-10-02_source_cases_and_embedded_images_pending"
+        },
+        {
+          "source_id": "liver_mass-source-4",
+          "title": "ACR \u2014 current LI-RADS releases and CT/MRI diagnostic core",
+          "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+          "review_status": "text_scope_reviewed_2026-10-02_source_cases_and_embedded_images_pending"
+        }
+      ],
+      "source_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
+      "reporting_checklist": [
+        {
+          "index": 0,
+          "label": "Background Liver",
+          "detail": "Assess liver morphology, steatosis and clinical risk context."
+        },
+        {
+          "index": 1,
+          "label": "Lesion Map",
+          "detail": "Number lesions and localise them by Couinaud segment."
+        },
+        {
+          "index": 2,
+          "label": "Enhancement",
+          "detail": "Describe arterial and later-phase behaviour."
+        },
+        {
+          "index": 3,
+          "label": "Tissue Characteristics",
+          "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+        },
+        {
+          "index": 4,
+          "label": "Associated Findings",
+          "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "BACKGROUND LIVER",
+          "body": "Morphology/steatosis: [ ]. Relevant risk context: [ ]."
+        },
+        {
+          "heading": "LESION MAP",
+          "body": "Lesion ID/segment: [ ]. Size: [ ] mm. Number/distribution: [ ]."
+        },
+        {
+          "heading": "ENHANCEMENT",
+          "body": "Arterial pattern: [ ]. Portal/delayed pattern: [ ]. Phase limitations: [ ]."
+        },
+        {
+          "heading": "TISSUE CHARACTERISTICS",
+          "body": "T2/diffusion: [ ]. Fat/blood: [ ]. Hepatobiliary phase if obtained: [ ]."
+        },
+        {
+          "heading": "ASSOCIATED FINDINGS",
+          "body": "Ducts/vessels: [ ]. Nodes/other sites: [ ]. Prior change: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "liver_mass.whole_liver",
+          "name": "Whole acquired liver and host anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.whole_liver.parenchymal_extent",
+              "name": "Complete acquired parenchymal extent"
+            },
+            {
+              "id": "liver_mass.whole_liver.capsular_surface",
+              "name": "Actual capsular surface"
+            },
+            {
+              "id": "liver_mass.whole_liver.right_functional_liver",
+              "name": "Right functional liver"
+            },
+            {
+              "id": "liver_mass.whole_liver.left_functional_liver",
+              "name": "Left functional liver"
+            },
+            {
+              "id": "liver_mass.whole_liver.caudate",
+              "name": "Caudate region"
+            },
+            {
+              "id": "liver_mass.whole_liver.porta_hepatis",
+              "name": "Porta hepatis"
+            },
+            {
+              "id": "liver_mass.whole_liver.bare_area",
+              "name": "Bare-area relationship"
+            },
+            {
+              "id": "liver_mass.whole_liver.gallbladder_fossa",
+              "name": "Gallbladder fossa"
+            },
+            {
+              "id": "liver_mass.whole_liver.falciform_relationship",
+              "name": "Falciform/umbilical fissure relationships"
+            },
+            {
+              "id": "liver_mass.whole_liver.diaphragmatic_surface",
+              "name": "Diaphragmatic interface"
+            },
+            {
+              "id": "liver_mass.whole_liver.inferior_surface",
+              "name": "Inferior surface and acquired adjacent tissues"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual liver extent, side, variant and acquired field-of-view must be verified; a generic whole-organ surface does not resolve functional subdivisions, lesion or histological capsule.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Background Liver",
+              "detail": "Assess liver morphology, steatosis and clinical risk context."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_i",
+          "name": "Source-defined Couinaud I caudate",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_i.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_i.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_i.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_i.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_i.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_i.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_ii",
+          "name": "Source-defined Couinaud II left lateral superior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_ii.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_ii.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_ii.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_ii.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_ii.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_ii.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_iii",
+          "name": "Source-defined Couinaud III left lateral inferior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_iii.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_iii.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_iii.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_iii.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_iii.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_iii.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_iva",
+          "name": "Source-defined Couinaud IVa left medial superior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_iva.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_iva.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_iva.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_iva.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_iva.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_iva.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_ivb",
+          "name": "Source-defined Couinaud IVb left medial inferior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_ivb.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_ivb.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_ivb.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_ivb.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_ivb.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_ivb.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_v",
+          "name": "Source-defined Couinaud V right anterior inferior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_v.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_v.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_v.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_v.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_v.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_v.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_vi",
+          "name": "Source-defined Couinaud VI right posterior inferior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_vi.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_vi.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_vi.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_vi.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_vi.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_vi.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_vii",
+          "name": "Source-defined Couinaud VII right posterior superior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_vii.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_vii.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_vii.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_vii.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_vii.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_vii.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.segment_viii",
+          "name": "Source-defined Couinaud VIII right anterior superior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.segment_viii.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "liver_mass.segment_viii.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "liver_mass.segment_viii.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "liver_mass.segment_viii.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "liver_mass.segment_viii.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "liver_mass.segment_viii.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.portal_anatomy",
+          "name": "Portal venous anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.portal_anatomy.main_lumen",
+              "name": "Main portal lumen"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.main_wall_interface",
+              "name": "Main portal wall/interface"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.confluence",
+              "name": "Portal confluence"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.right_branch",
+              "name": "Right portal branch"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.left_branch",
+              "name": "Left portal branch"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.right_anterior",
+              "name": "Right anterior sector branch"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.right_posterior",
+              "name": "Right posterior sector branch"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.left_transverse",
+              "name": "Left transverse portion"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.left_umbilical",
+              "name": "Left umbilical portion"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.caudate_branches",
+              "name": "Actual caudate inflow branches"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.segmental_branches",
+              "name": "Every relevant actual segmental/subsegmental branch"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.splenic_vein",
+              "name": "Acquired splenic vein"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.smv",
+              "name": "Acquired superior mesenteric vein"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.branch_junctions",
+              "name": "Actual branch junctions"
+            },
+            {
+              "id": "liver_mass.portal_anatomy.variant_course",
+              "name": "Source-defined portal variants"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each acquired branch, vessel wall/lumen and variation. CT/MRI resolution and appropriate phase govern visibility; a main portal tube cannot cover each branch or prove patency.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Background Liver",
+              "detail": "Assess liver morphology, steatosis and clinical risk context."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.hepatic_venous_anatomy",
+          "name": "Hepatic venous outflow",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.right_hepatic_vein",
+              "name": "Right hepatic vein"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.middle_hepatic_vein",
+              "name": "Middle hepatic vein"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.left_hepatic_vein",
+              "name": "Left hepatic vein"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.common_trunk",
+              "name": "Actual common-trunk relationship"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.accessory_outflow",
+              "name": "Actual accessory/inferior right outflow"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.caudate_outflow",
+              "name": "Actual direct caudate outflow"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.ivc_lumen",
+              "name": "Acquired caval lumen"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.ivc_wall",
+              "name": "Caval wall/interface"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.hepatic_venous_junctions",
+              "name": "Hepatic vein/caval junctions"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.segmental_tributaries",
+              "name": "Each relevant venous tributary"
+            },
+            {
+              "id": "liver_mass.hepatic_venous_anatomy.outflow_variants",
+              "name": "Actual outflow variants"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "All relevant acquired tributaries, junctions and variants need source identity. A schematic hepatic-vein plane is not actual venous drainage or segment boundary measurement.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Background Liver",
+              "detail": "Assess liver morphology, steatosis and clinical risk context."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.arterial_anatomy",
+          "name": "Hepatic arterial anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.arterial_anatomy.common_hepatic",
+              "name": "Common hepatic artery"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.proper_hepatic",
+              "name": "Proper hepatic artery"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.right_hepatic",
+              "name": "Right hepatic artery"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.left_hepatic",
+              "name": "Left hepatic artery"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.gastroduodenal_relationship",
+              "name": "Gastroduodenal origin relationship"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.celiac_relationship",
+              "name": "Acquired celiac origin"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.sma_variant_origin",
+              "name": "Conditional superior mesenteric origin"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.left_gastric_variant_origin",
+              "name": "Conditional left gastric origin"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.segmental_branches",
+              "name": "Every relevant acquired segmental branch"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.accessory_replaced_branches",
+              "name": "Actual accessory/replaced branches"
+            },
+            {
+              "id": "liver_mass.arterial_anatomy.arterial_wall_lumen",
+              "name": "Visible arterial wall/lumen interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Source/case branching and actual acquired vessel interfaces remain explicit; do not infer a replaced artery or perfusion territory from a generic model.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Background Liver",
+              "detail": "Assess liver morphology, steatosis and clinical risk context."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.biliary_anatomy",
+          "name": "Biliary anatomy and continuity",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.biliary_anatomy.right_duct",
+              "name": "Right hepatic duct"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.left_duct",
+              "name": "Left hepatic duct"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.right_anterior_duct",
+              "name": "Right anterior sector duct"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.right_posterior_duct",
+              "name": "Right posterior sector duct"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.left_segmental_ducts",
+              "name": "Actual left segmental ducts"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.caudate_ducts",
+              "name": "Source-defined caudate ducts"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.duct_confluence",
+              "name": "Actual hepatic duct confluence"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.common_hepatic_duct",
+              "name": "Common hepatic duct"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.common_bile_duct",
+              "name": "Acquired common bile duct"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.cystic_duct_relationship",
+              "name": "Cystic duct relationship"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.gallbladder",
+              "name": "Acquired gallbladder"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.duct_wall_lumen",
+              "name": "Visible duct walls/lumens"
+            },
+            {
+              "id": "liver_mass.biliary_anatomy.variant_drainage",
+              "name": "Actual ductal drainage variants"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Each acquired/resolved duct and variant requires source review. Appropriate MRI/MRCP may resolve branches unseen on CT; microscopic ducts and default invented branching are not credited.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.adjacent_anatomy",
+          "name": "Acquired adjacent and extrahepatic structures",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.adjacent_anatomy.diaphragm",
+              "name": "Diaphragm"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.perihepatic_space",
+              "name": "Perihepatic spaces"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.peritoneal_surface",
+              "name": "Peritoneal surface relationships"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.spleen",
+              "name": "Acquired spleen"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.pancreas",
+              "name": "Acquired pancreas"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.kidney_adrenal",
+              "name": "Acquired kidney/adrenal interfaces"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.stomach_duodenum",
+              "name": "Acquired gastric/duodenal interfaces"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.regional_nodes",
+              "name": "Each acquired regional node"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.nonregional_nodes",
+              "name": "Each acquired nonregional node"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.lung_base",
+              "name": "Acquired lung bases"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.bones",
+              "name": "Each acquired relevant bone"
+            },
+            {
+              "id": "liver_mass.adjacent_anatomy.other_acquired_site",
+              "name": "Each other reported acquired site"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "These headings remain explicit site-expansion work. Acquired field-of-view does not exclude disease outside it; no generic upper-abdominal scene covers every imaged structure.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.observation_extent",
+          "name": "Every actual observation and lesion/host interface",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.observation_extent.whole_margin",
+              "name": "Complete acquired observation margin"
+            },
+            {
+              "id": "liver_mass.observation_extent.solid_margin",
+              "name": "Solid-component margin"
+            },
+            {
+              "id": "liver_mass.observation_extent.fluid_margin",
+              "name": "Fluid-component margin"
+            },
+            {
+              "id": "liver_mass.observation_extent.liver_interface",
+              "name": "Observation and host parenchymal interface"
+            },
+            {
+              "id": "liver_mass.observation_extent.capsular_interface",
+              "name": "Observation/capsular interface"
+            },
+            {
+              "id": "liver_mass.observation_extent.vascular_interface",
+              "name": "Observation/named-vessel interface"
+            },
+            {
+              "id": "liver_mass.observation_extent.biliary_interface",
+              "name": "Observation/duct interface"
+            },
+            {
+              "id": "liver_mass.observation_extent.segment_site",
+              "name": "Actual segment/site relationship"
+            },
+            {
+              "id": "liver_mass.observation_extent.multiplicity",
+              "name": "Each separate observation and distribution"
+            },
+            {
+              "id": "liver_mass.observation_extent.measurement_plane",
+              "name": "Actual eligible size plane"
+            },
+            {
+              "id": "liver_mass.observation_extent.prior_correspondence",
+              "name": "Matched prior observation extent"
+            },
+            {
+              "id": "liver_mass.observation_extent.perfusion_vs_mass_interface",
+              "name": "True mass versus adjacent perfusion alteration"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual observation, not only the dominant target from a dataset. A source category label, atlas region or adjacent perfusion change cannot establish the full margin or diagnosis.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.background_disease",
+          "name": "Actual background liver and portal-hypertension findings",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.background_disease.altered_contour",
+              "name": "Actual altered liver contour"
+            },
+            {
+              "id": "liver_mass.background_disease.nodular_surface",
+              "name": "Nodular surface regions"
+            },
+            {
+              "id": "liver_mass.background_disease.lobar_remodelling",
+              "name": "Actual lobar remodelling"
+            },
+            {
+              "id": "liver_mass.background_disease.caudate_remodelling",
+              "name": "Actual caudate remodelling"
+            },
+            {
+              "id": "liver_mass.background_disease.steatotic_regions",
+              "name": "Steatotic regions"
+            },
+            {
+              "id": "liver_mass.background_disease.fat_sparing",
+              "name": "Focal fat-sparing distribution"
+            },
+            {
+              "id": "liver_mass.background_disease.fat_deposition",
+              "name": "Focal fat-deposition distribution"
+            },
+            {
+              "id": "liver_mass.background_disease.fibrotic_regions",
+              "name": "Source-supported fibrosis pattern"
+            },
+            {
+              "id": "liver_mass.background_disease.regenerative_nodules",
+              "name": "Source-supported regenerative nodules"
+            },
+            {
+              "id": "liver_mass.background_disease.iron_distribution",
+              "name": "Source-supported iron distribution"
+            },
+            {
+              "id": "liver_mass.background_disease.collaterals",
+              "name": "Portal-systemic collateral pathways"
+            },
+            {
+              "id": "liver_mass.background_disease.ascites",
+              "name": "Acquired ascites"
+            },
+            {
+              "id": "liver_mass.background_disease.splenic_change",
+              "name": "Associated splenic findings"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Positive background findings need actual disease and modality context, not normal adult anatomy. Imaging morphology does not by itself establish etiology, risk eligibility or microscopic diagnosis.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Background Liver",
+              "detail": "Assess liver morphology, steatosis and clinical risk context."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "background_hepatic_disease"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.vascular_abnormality",
+          "name": "Vascular abnormalities and tumour-in-vein interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.vascular_abnormality.enhancing_venous_tissue",
+              "name": "Actual enhancing intraluminal soft tissue"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.portal_intraluminal_extent",
+              "name": "Portal intraluminal extent"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.hepatic_vein_intraluminal_extent",
+              "name": "Hepatic venous intraluminal extent"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.caval_intraluminal_extent",
+              "name": "Caval intraluminal extent"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.wall_relationship",
+              "name": "Actual involved wall/interface"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.lesion_continuity",
+              "name": "Observation-to-vein continuity"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.bland_thrombus",
+              "name": "Conditional bland thrombus extent"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.mixed_thrombus",
+              "name": "Conditional mixed thrombus regions"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.occluded_lumen",
+              "name": "Conditional occluded lumen"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.cavernous_transformation",
+              "name": "Conditional cavernous transformation"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.arterial_abnormality",
+              "name": "Conditional arterial abnormality"
+            },
+            {
+              "id": "liver_mass.vascular_abnormality.variant_host_course",
+              "name": "Actual variant vessel course"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Source phase/contrast and diagnostic evidence distinguish tumour from bland thrombus, flow phenomena or artefacts. A vessel mesh cannot establish enhancement, patency or tumour identity.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_vascular_abnormality"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.tissue_components",
+          "name": "Actual lesion tissue components",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.tissue_components.intralesional_fat",
+              "name": "Intralesional fat distribution"
+            },
+            {
+              "id": "liver_mass.tissue_components.intralesional_blood",
+              "name": "Intralesional blood products"
+            },
+            {
+              "id": "liver_mass.tissue_components.cystic_component",
+              "name": "Cystic component"
+            },
+            {
+              "id": "liver_mass.tissue_components.necrotic_component",
+              "name": "Suspected necrotic component"
+            },
+            {
+              "id": "liver_mass.tissue_components.calcification",
+              "name": "Acquired calcification"
+            },
+            {
+              "id": "liver_mass.tissue_components.fibrous_scar",
+              "name": "Source-supported scar region"
+            },
+            {
+              "id": "liver_mass.tissue_components.septations",
+              "name": "Internal septations"
+            },
+            {
+              "id": "liver_mass.tissue_components.mural_nodule",
+              "name": "Mural nodules"
+            },
+            {
+              "id": "liver_mass.tissue_components.capsule_region",
+              "name": "Actual peripheral capsule/interface"
+            },
+            {
+              "id": "liver_mass.tissue_components.infiltrative_extent",
+              "name": "Infiltrative extent"
+            },
+            {
+              "id": "liver_mass.tissue_components.targetoid_distribution",
+              "name": "Targetoid spatial distribution"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Each positive component requires source and appropriate sequence/phase evidence. A grayscale intensity or generic texture does not prove fat, hemorrhage, histology or microscopic capsule.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_observation_tissue_component"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.mri_observation_features",
+          "name": "MRI-specific observation features",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.mri_observation_features.t2_signal_regions",
+              "name": "Actual T2 signal regions"
+            },
+            {
+              "id": "liver_mass.mri_observation_features.t1_signal_regions",
+              "name": "Actual T1 signal regions"
+            },
+            {
+              "id": "liver_mass.mri_observation_features.in_opposed_phase_regions",
+              "name": "Matched in/opposed-phase regions"
+            },
+            {
+              "id": "liver_mass.mri_observation_features.dwi_signal_regions",
+              "name": "Actual DWI signal regions"
+            },
+            {
+              "id": "liver_mass.mri_observation_features.adc_regions",
+              "name": "Matched ADC regions"
+            },
+            {
+              "id": "liver_mass.mri_observation_features.hepatobiliary_signal_regions",
+              "name": "Actual hepatobiliary-phase signal regions"
+            },
+            {
+              "id": "liver_mass.mri_observation_features.subtraction_enhancement_regions",
+              "name": "Properly aligned subtraction-enhancement regions"
+            },
+            {
+              "id": "liver_mass.mri_observation_features.iron_sensitive_regions",
+              "name": "Acquired iron-sensitive signal regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Only actual appropriate MRI sequences and acquisition parameters can depict these requirements. CT or a static normal mesh cannot substitute for MRI signal, diffusion/ADC or hepatobiliary uptake.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_mri_observation_feature"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.general_enhancement",
+          "name": "General mass enhancement patterns",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.general_enhancement.arterial_region",
+              "name": "Actual arterial enhancing region"
+            },
+            {
+              "id": "liver_mass.general_enhancement.portal_region",
+              "name": "Actual portal-venous region"
+            },
+            {
+              "id": "liver_mass.general_enhancement.later_region",
+              "name": "Actual later-phase region"
+            },
+            {
+              "id": "liver_mass.general_enhancement.peripheral_nodules",
+              "name": "Peripheral discontinuous nodular enhancement"
+            },
+            {
+              "id": "liver_mass.general_enhancement.centripetal_extent",
+              "name": "Actual evolving centripetal pattern"
+            },
+            {
+              "id": "liver_mass.general_enhancement.blood_pool_match",
+              "name": "Source-phase blood-pool comparison"
+            },
+            {
+              "id": "liver_mass.general_enhancement.homogeneous_enhancement",
+              "name": "Homogeneous enhancing region"
+            },
+            {
+              "id": "liver_mass.general_enhancement.rim_enhancement",
+              "name": "Rim enhancing region"
+            },
+            {
+              "id": "liver_mass.general_enhancement.central_scar_enhancement",
+              "name": "Actual scar enhancement"
+            },
+            {
+              "id": "liver_mass.general_enhancement.transient_perfusion",
+              "name": "Adjacent transient perfusion change"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Same-observation correspondence and actual phase/agent are required. Characteristic pattern examples need complete case context and uncertainty; a generic fill-in animation does not prove pathology.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_mass_enhancement_pattern"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_hemangioma",
+          "name": "Conditional Hemangioma case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_hemangioma.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_hemangioma.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_hemangioma.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_hemangioma.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_hemangioma.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_hemangioma_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_fnh",
+          "name": "Conditional Focal nodular hyperplasia case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_fnh.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_fnh.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_fnh.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_fnh.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_fnh.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_fnh_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_adenoma",
+          "name": "Conditional Hepatic adenoma case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_adenoma.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_adenoma.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_adenoma.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_adenoma.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_adenoma.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_adenoma_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_hcc",
+          "name": "Conditional Hepatocellular carcinoma case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_hcc.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_hcc.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_hcc.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_hcc.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_hcc.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_hcc_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_fibrolamellar",
+          "name": "Conditional Fibrolamellar tumour case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_fibrolamellar.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_fibrolamellar.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_fibrolamellar.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_fibrolamellar.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_fibrolamellar.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_fibrolamellar_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_cholangiocarcinoma",
+          "name": "Conditional Cholangiocarcinoma case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_cholangiocarcinoma.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_cholangiocarcinoma.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_cholangiocarcinoma.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_cholangiocarcinoma.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_cholangiocarcinoma.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_cholangiocarcinoma_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_metastasis",
+          "name": "Conditional Metastatic lesion case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_metastasis.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_metastasis.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_metastasis.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_metastasis.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_metastasis.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_metastasis_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_abscess",
+          "name": "Conditional Abscess case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_abscess.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_abscess.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_abscess.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_abscess.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_abscess.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_abscess_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.case_cyst",
+          "name": "Conditional Cyst case anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.case_cyst.lesion_extent",
+              "name": "Actual lesion extent"
+            },
+            {
+              "id": "liver_mass.case_cyst.internal_regions",
+              "name": "Actual internal regions"
+            },
+            {
+              "id": "liver_mass.case_cyst.host_interface",
+              "name": "Actual host interface"
+            },
+            {
+              "id": "liver_mass.case_cyst.phase_correspondence",
+              "name": "Source-phase correspondence"
+            },
+            {
+              "id": "liver_mass.case_cyst.associated_extent",
+              "name": "Actual acquired associated extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Conditional source/case example requiring diagnostic context and accurate anatomy. A named pathology pattern is not proof of diagnosis in a new patient or complete coverage of all cases.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement",
+              "detail": "Describe arterial and later-phase behaviour."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Tissue Characteristics",
+              "detail": "Assess fluid, fat, haemorrhage and MRI signal where available."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_cyst_source_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "liver_mass.altered_and_variant_anatomy",
+          "name": "Developmental, variant and post-treatment anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "liver_mass.altered_and_variant_anatomy.developmental_extent",
+              "name": "Actual developmental anatomy"
+            },
+            {
+              "id": "liver_mass.altered_and_variant_anatomy.vascular_variant",
+              "name": "Actual vascular variant"
+            },
+            {
+              "id": "liver_mass.altered_and_variant_anatomy.biliary_variant",
+              "name": "Actual biliary variant"
+            },
+            {
+              "id": "liver_mass.altered_and_variant_anatomy.resection_bed",
+              "name": "Actual resection bed"
+            },
+            {
+              "id": "liver_mass.altered_and_variant_anatomy.residual_liver",
+              "name": "Residual/reconfigured liver"
+            },
+            {
+              "id": "liver_mass.altered_and_variant_anatomy.transplant_anastomosis",
+              "name": "Conditional transplant anastomoses"
+            },
+            {
+              "id": "liver_mass.altered_and_variant_anatomy.treatment_zone",
+              "name": "Conditional treatment zone"
+            },
+            {
+              "id": "liver_mass.altered_and_variant_anatomy.posttreatment_lesion",
+              "name": "Actual residual/recurrent lesion"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual age, anatomy, intervention and prior studies must be instantiated. Generic adult/pretreatment anatomy is not a substitute.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Background Liver",
+              "detail": "Assess liver morphology, steatosis and clinical risk context."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Lesion Map",
+              "detail": "Number lesions and localise them by Couinaud segment."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Findings",
+              "detail": "Review bile ducts, vessels and relevant extrahepatic disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/characterisation-of-liver-masses",
+            "https://radiologyassistant.nl/abdomen/liver/common-liver-tumors",
+            "https://radiologyassistant.nl/abdomen/liver/incidentalomas",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual observation, involved named branch/duct and acquired segment territory",
+            "All acquired phases/sequences, source contrast-agent/time correspondence and modality-specific visibility",
+            "Every relevant acquired extrahepatic site, variant, developmental state and altered anatomy",
+            "Actual risk eligibility, diagnostic confidence, source pathology and treatment context"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "segment_territory_and_branch_instantiation_pending",
+          "detail": "Common Couinaud entries are not patient-measured territories. Source-specific vessel/duct branches, variants and boundaries need expansion and anatomical review."
+        },
+        {
+          "code": "modality_phase_state_coverage_pending",
+          "detail": "Each claimed modality, phase, agent and sequence requires suitable acquired evidence. A permitted modality list is not proof of full modality/sequence coverage."
+        },
+        {
+          "code": "whole_observation_and_extrahepatic_scope_pending",
+          "detail": "Every lesion and all actual acquired extrahepatic sites need explicit coverage; a selected target or parent-organ surface cannot waive the rest."
+        },
+        {
+          "code": "eligibility_diagnosis_treatment_review_pending",
+          "detail": "Source examples and category labels do not prove this patient eligibility, histology or response. General masses, untreated diagnosis and treatment response remain separate."
+        },
+        {
+          "code": "rights_native_resolution_and_registration_pending",
+          "detail": "Original image/mask/registration rights, measured native sampling and cross-phase alignment need independent source review. Restricted AMPLIFAI annotations are not commercially cleared."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "segment localisation",
+          "evidence": "Actual branching/territory and acquired orthogonal planes; schematic hepatic/portal planes do not measure source segment boundaries."
+        },
+        {
+          "observation": "lesion size and growth",
+          "evidence": "Complete eligible observation margin and phase, matched prior acquisition/date, calibration and uncertainty; do not count adjacent perfusion change."
+        },
+        {
+          "observation": "arterial and later-phase enhancement",
+          "evidence": "Actual acquired phase/agent, adequacy and same-observation correspondence; unacquired or degraded phases remain unassessed."
+        },
+        {
+          "observation": "washout and capsule",
+          "evidence": "Apply current agent/phase definitions separately; gadoxetate transitional/hepatobiliary hypointensity is not diagnostic washout."
+        },
+        {
+          "observation": "MRI tissue and diffusion",
+          "evidence": "Appropriate source sequences, b-values/ADC, in/opposed-phase and source alignment; no CT substitution or static model proof."
+        },
+        {
+          "observation": "hepatobiliary uptake",
+          "evidence": "Actual agent, timing and source-phase adequacy; signal/background comparison rather than a fabricated uptake texture."
+        },
+        {
+          "observation": "tumour in vein and patency",
+          "evidence": "Appropriate acquired contrast/flow evidence, actual lumen soft tissue and uncertainty; vessel shape does not prove tumour or patency."
+        },
+        {
+          "observation": "eligibility histology and treatment",
+          "evidence": "Actual patient risk/age/exclusions, source diagnostic evidence and treatment context. General masses and diagnostic/treatment-response algorithms remain separate."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.liver-lirads",
+      "module_id": "rad.4.liver",
+      "title": "CT and MRI liver \u2014 LI-RADS",
+      "modality": "Multimodality",
+      "scope_type": "liver_anatomy_observation_and_conditional_phase_state_scope",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "lirads-source-0",
+          "title": "Radiology Assistant \u2014 LI-RADS",
+          "url": "https://radiologyassistant.nl/abdomen/liver/li-rads",
+          "review_status": "text_scope_reviewed_2026-10-02_source_cases_and_embedded_images_pending"
+        },
+        {
+          "source_id": "lirads-source-1",
+          "title": "ACR \u2014 current LI-RADS releases and CT/MRI diagnostic v2018 core",
+          "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+          "review_status": "text_scope_reviewed_2026-10-02_source_cases_and_embedded_images_pending"
+        },
+        {
+          "source_id": "lirads-source-2",
+          "title": "Radiology Assistant \u2014 Liver segmental anatomy",
+          "url": "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy",
+          "review_status": "text_scope_reviewed_2026-10-02_source_cases_and_embedded_images_pending"
+        }
+      ],
+      "source_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
+      "reporting_checklist": [
+        {
+          "index": 0,
+          "label": "Eligibility And Technique",
+          "detail": "Document at-risk context and phase adequacy."
+        },
+        {
+          "index": 1,
+          "label": "Observation Map",
+          "detail": "Identify each observation and its prior measurements."
+        },
+        {
+          "index": 2,
+          "label": "Major Features",
+          "detail": "Describe eligible major imaging features independently."
+        },
+        {
+          "index": 3,
+          "label": "Other Patterns",
+          "detail": "Assess features suggesting malignancy other than HCC and ancillary findings."
+        },
+        {
+          "index": 4,
+          "label": "Veins And Category",
+          "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "ELIGIBILITY AND TECHNIQUE",
+          "body": "Risk/eligibility: [ ]. Contrast agent/phases: [ ]. Treated lesion: [ ]."
+        },
+        {
+          "heading": "OBSERVATION MAP",
+          "body": "ID/segment: [ ]. Diameter: [ ] mm. Prior size/date: [ ]."
+        },
+        {
+          "heading": "MAJOR FEATURES",
+          "body": "Non-rim APHE: [ ]. Washout phase: [ ]. Capsule: [ ]. Growth: [ ]."
+        },
+        {
+          "heading": "OTHER PATTERNS",
+          "body": "Targetoid/LR-M features: [ ]. Ancillary features: [ ]."
+        },
+        {
+          "heading": "VEINS AND CATEGORY",
+          "body": "Tumour in vein: [ ]. Category: [ ]. Defining features/uncertainty: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "lirads.whole_liver",
+          "name": "Whole acquired liver and host anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.whole_liver.parenchymal_extent",
+              "name": "Complete acquired parenchymal extent"
+            },
+            {
+              "id": "lirads.whole_liver.capsular_surface",
+              "name": "Actual capsular surface"
+            },
+            {
+              "id": "lirads.whole_liver.right_functional_liver",
+              "name": "Right functional liver"
+            },
+            {
+              "id": "lirads.whole_liver.left_functional_liver",
+              "name": "Left functional liver"
+            },
+            {
+              "id": "lirads.whole_liver.caudate",
+              "name": "Caudate region"
+            },
+            {
+              "id": "lirads.whole_liver.porta_hepatis",
+              "name": "Porta hepatis"
+            },
+            {
+              "id": "lirads.whole_liver.bare_area",
+              "name": "Bare-area relationship"
+            },
+            {
+              "id": "lirads.whole_liver.gallbladder_fossa",
+              "name": "Gallbladder fossa"
+            },
+            {
+              "id": "lirads.whole_liver.falciform_relationship",
+              "name": "Falciform/umbilical fissure relationships"
+            },
+            {
+              "id": "lirads.whole_liver.diaphragmatic_surface",
+              "name": "Diaphragmatic interface"
+            },
+            {
+              "id": "lirads.whole_liver.inferior_surface",
+              "name": "Inferior surface and acquired adjacent tissues"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Actual liver extent, side, variant and acquired field-of-view must be verified; a generic whole-organ surface does not resolve functional subdivisions, lesion or histological capsule.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Eligibility And Technique",
+              "detail": "Document at-risk context and phase adequacy."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_i",
+          "name": "Source-defined Couinaud I caudate",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_i.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_i.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_i.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_i.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_i.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_i.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_ii",
+          "name": "Source-defined Couinaud II left lateral superior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_ii.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_ii.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_ii.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_ii.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_ii.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_ii.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_iii",
+          "name": "Source-defined Couinaud III left lateral inferior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_iii.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_iii.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_iii.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_iii.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_iii.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_iii.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_iva",
+          "name": "Source-defined Couinaud IVa left medial superior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_iva.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_iva.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_iva.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_iva.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_iva.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_iva.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_ivb",
+          "name": "Source-defined Couinaud IVb left medial inferior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_ivb.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_ivb.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_ivb.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_ivb.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_ivb.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_ivb.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_v",
+          "name": "Source-defined Couinaud V right anterior inferior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_v.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_v.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_v.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_v.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_v.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_v.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_vi",
+          "name": "Source-defined Couinaud VI right posterior inferior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_vi.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_vi.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_vi.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_vi.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_vi.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_vi.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_vii",
+          "name": "Source-defined Couinaud VII right posterior superior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_vii.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_vii.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_vii.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_vii.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_vii.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_vii.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.segment_viii",
+          "name": "Source-defined Couinaud VIII right anterior superior",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.segment_viii.parenchymal_territory",
+              "name": "Actual parenchymal territory"
+            },
+            {
+              "id": "lirads.segment_viii.portal_supply",
+              "name": "Actual portal inflow branches"
+            },
+            {
+              "id": "lirads.segment_viii.arterial_supply",
+              "name": "Actual arterial supply relationship"
+            },
+            {
+              "id": "lirads.segment_viii.biliary_drainage",
+              "name": "Actual biliary drainage relationship"
+            },
+            {
+              "id": "lirads.segment_viii.venous_boundaries",
+              "name": "Hepatic venous boundary relationships"
+            },
+            {
+              "id": "lirads.segment_viii.localisation_planes",
+              "name": "Source/case localisation planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "The common segment scheme is a localisation reference, not a measured universal territory. IVa/IVb remain subdivisions of IV. Branching, caudate supply/drainage and actual territory boundaries require source-specific instantiation; arbitrary atlas planes do not establish them.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.portal_anatomy",
+          "name": "Portal venous anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.portal_anatomy.main_lumen",
+              "name": "Main portal lumen"
+            },
+            {
+              "id": "lirads.portal_anatomy.main_wall_interface",
+              "name": "Main portal wall/interface"
+            },
+            {
+              "id": "lirads.portal_anatomy.confluence",
+              "name": "Portal confluence"
+            },
+            {
+              "id": "lirads.portal_anatomy.right_branch",
+              "name": "Right portal branch"
+            },
+            {
+              "id": "lirads.portal_anatomy.left_branch",
+              "name": "Left portal branch"
+            },
+            {
+              "id": "lirads.portal_anatomy.right_anterior",
+              "name": "Right anterior sector branch"
+            },
+            {
+              "id": "lirads.portal_anatomy.right_posterior",
+              "name": "Right posterior sector branch"
+            },
+            {
+              "id": "lirads.portal_anatomy.left_transverse",
+              "name": "Left transverse portion"
+            },
+            {
+              "id": "lirads.portal_anatomy.left_umbilical",
+              "name": "Left umbilical portion"
+            },
+            {
+              "id": "lirads.portal_anatomy.caudate_branches",
+              "name": "Actual caudate inflow branches"
+            },
+            {
+              "id": "lirads.portal_anatomy.segmental_branches",
+              "name": "Every relevant actual segmental/subsegmental branch"
+            },
+            {
+              "id": "lirads.portal_anatomy.splenic_vein",
+              "name": "Acquired splenic vein"
+            },
+            {
+              "id": "lirads.portal_anatomy.smv",
+              "name": "Acquired superior mesenteric vein"
+            },
+            {
+              "id": "lirads.portal_anatomy.branch_junctions",
+              "name": "Actual branch junctions"
+            },
+            {
+              "id": "lirads.portal_anatomy.variant_course",
+              "name": "Source-defined portal variants"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each acquired branch, vessel wall/lumen and variation. CT/MRI resolution and appropriate phase govern visibility; a main portal tube cannot cover each branch or prove patency.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Eligibility And Technique",
+              "detail": "Document at-risk context and phase adequacy."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.hepatic_venous_anatomy",
+          "name": "Hepatic venous outflow",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.hepatic_venous_anatomy.right_hepatic_vein",
+              "name": "Right hepatic vein"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.middle_hepatic_vein",
+              "name": "Middle hepatic vein"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.left_hepatic_vein",
+              "name": "Left hepatic vein"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.common_trunk",
+              "name": "Actual common-trunk relationship"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.accessory_outflow",
+              "name": "Actual accessory/inferior right outflow"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.caudate_outflow",
+              "name": "Actual direct caudate outflow"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.ivc_lumen",
+              "name": "Acquired caval lumen"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.ivc_wall",
+              "name": "Caval wall/interface"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.hepatic_venous_junctions",
+              "name": "Hepatic vein/caval junctions"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.segmental_tributaries",
+              "name": "Each relevant venous tributary"
+            },
+            {
+              "id": "lirads.hepatic_venous_anatomy.outflow_variants",
+              "name": "Actual outflow variants"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "All relevant acquired tributaries, junctions and variants need source identity. A schematic hepatic-vein plane is not actual venous drainage or segment boundary measurement.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Eligibility And Technique",
+              "detail": "Document at-risk context and phase adequacy."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.arterial_anatomy",
+          "name": "Hepatic arterial anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.arterial_anatomy.common_hepatic",
+              "name": "Common hepatic artery"
+            },
+            {
+              "id": "lirads.arterial_anatomy.proper_hepatic",
+              "name": "Proper hepatic artery"
+            },
+            {
+              "id": "lirads.arterial_anatomy.right_hepatic",
+              "name": "Right hepatic artery"
+            },
+            {
+              "id": "lirads.arterial_anatomy.left_hepatic",
+              "name": "Left hepatic artery"
+            },
+            {
+              "id": "lirads.arterial_anatomy.gastroduodenal_relationship",
+              "name": "Gastroduodenal origin relationship"
+            },
+            {
+              "id": "lirads.arterial_anatomy.celiac_relationship",
+              "name": "Acquired celiac origin"
+            },
+            {
+              "id": "lirads.arterial_anatomy.sma_variant_origin",
+              "name": "Conditional superior mesenteric origin"
+            },
+            {
+              "id": "lirads.arterial_anatomy.left_gastric_variant_origin",
+              "name": "Conditional left gastric origin"
+            },
+            {
+              "id": "lirads.arterial_anatomy.segmental_branches",
+              "name": "Every relevant acquired segmental branch"
+            },
+            {
+              "id": "lirads.arterial_anatomy.accessory_replaced_branches",
+              "name": "Actual accessory/replaced branches"
+            },
+            {
+              "id": "lirads.arterial_anatomy.arterial_wall_lumen",
+              "name": "Visible arterial wall/lumen interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Source/case branching and actual acquired vessel interfaces remain explicit; do not infer a replaced artery or perfusion territory from a generic model.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Eligibility And Technique",
+              "detail": "Document at-risk context and phase adequacy."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.biliary_anatomy",
+          "name": "Biliary anatomy and continuity",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.biliary_anatomy.right_duct",
+              "name": "Right hepatic duct"
+            },
+            {
+              "id": "lirads.biliary_anatomy.left_duct",
+              "name": "Left hepatic duct"
+            },
+            {
+              "id": "lirads.biliary_anatomy.right_anterior_duct",
+              "name": "Right anterior sector duct"
+            },
+            {
+              "id": "lirads.biliary_anatomy.right_posterior_duct",
+              "name": "Right posterior sector duct"
+            },
+            {
+              "id": "lirads.biliary_anatomy.left_segmental_ducts",
+              "name": "Actual left segmental ducts"
+            },
+            {
+              "id": "lirads.biliary_anatomy.caudate_ducts",
+              "name": "Source-defined caudate ducts"
+            },
+            {
+              "id": "lirads.biliary_anatomy.duct_confluence",
+              "name": "Actual hepatic duct confluence"
+            },
+            {
+              "id": "lirads.biliary_anatomy.common_hepatic_duct",
+              "name": "Common hepatic duct"
+            },
+            {
+              "id": "lirads.biliary_anatomy.common_bile_duct",
+              "name": "Acquired common bile duct"
+            },
+            {
+              "id": "lirads.biliary_anatomy.cystic_duct_relationship",
+              "name": "Cystic duct relationship"
+            },
+            {
+              "id": "lirads.biliary_anatomy.gallbladder",
+              "name": "Acquired gallbladder"
+            },
+            {
+              "id": "lirads.biliary_anatomy.duct_wall_lumen",
+              "name": "Visible duct walls/lumens"
+            },
+            {
+              "id": "lirads.biliary_anatomy.variant_drainage",
+              "name": "Actual ductal drainage variants"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Each acquired/resolved duct and variant requires source review. Appropriate MRI/MRCP may resolve branches unseen on CT; microscopic ducts and default invented branching are not credited.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.adjacent_anatomy",
+          "name": "Acquired adjacent and extrahepatic structures",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.adjacent_anatomy.diaphragm",
+              "name": "Diaphragm"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.perihepatic_space",
+              "name": "Perihepatic spaces"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.peritoneal_surface",
+              "name": "Peritoneal surface relationships"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.spleen",
+              "name": "Acquired spleen"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.pancreas",
+              "name": "Acquired pancreas"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.kidney_adrenal",
+              "name": "Acquired kidney/adrenal interfaces"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.stomach_duodenum",
+              "name": "Acquired gastric/duodenal interfaces"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.regional_nodes",
+              "name": "Each acquired regional node"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.nonregional_nodes",
+              "name": "Each acquired nonregional node"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.lung_base",
+              "name": "Acquired lung bases"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.bones",
+              "name": "Each acquired relevant bone"
+            },
+            {
+              "id": "lirads.adjacent_anatomy.other_acquired_site",
+              "name": "Each other reported acquired site"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "These headings remain explicit site-expansion work. Acquired field-of-view does not exclude disease outside it; no generic upper-abdominal scene covers every imaged structure.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.observation_extent",
+          "name": "Every actual observation and lesion/host interface",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.observation_extent.whole_margin",
+              "name": "Complete acquired observation margin"
+            },
+            {
+              "id": "lirads.observation_extent.solid_margin",
+              "name": "Solid-component margin"
+            },
+            {
+              "id": "lirads.observation_extent.fluid_margin",
+              "name": "Fluid-component margin"
+            },
+            {
+              "id": "lirads.observation_extent.liver_interface",
+              "name": "Observation and host parenchymal interface"
+            },
+            {
+              "id": "lirads.observation_extent.capsular_interface",
+              "name": "Observation/capsular interface"
+            },
+            {
+              "id": "lirads.observation_extent.vascular_interface",
+              "name": "Observation/named-vessel interface"
+            },
+            {
+              "id": "lirads.observation_extent.biliary_interface",
+              "name": "Observation/duct interface"
+            },
+            {
+              "id": "lirads.observation_extent.segment_site",
+              "name": "Actual segment/site relationship"
+            },
+            {
+              "id": "lirads.observation_extent.multiplicity",
+              "name": "Each separate observation and distribution"
+            },
+            {
+              "id": "lirads.observation_extent.measurement_plane",
+              "name": "Actual eligible size plane"
+            },
+            {
+              "id": "lirads.observation_extent.prior_correspondence",
+              "name": "Matched prior observation extent"
+            },
+            {
+              "id": "lirads.observation_extent.perfusion_vs_mass_interface",
+              "name": "True mass versus adjacent perfusion alteration"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual observation, not only the dominant target from a dataset. A source category label, atlas region or adjacent perfusion change cannot establish the full margin or diagnosis.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Major Features",
+              "detail": "Describe eligible major imaging features independently."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other Patterns",
+              "detail": "Assess features suggesting malignancy other than HCC and ancillary findings."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.background_disease",
+          "name": "Actual background liver and portal-hypertension findings",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.background_disease.altered_contour",
+              "name": "Actual altered liver contour"
+            },
+            {
+              "id": "lirads.background_disease.nodular_surface",
+              "name": "Nodular surface regions"
+            },
+            {
+              "id": "lirads.background_disease.lobar_remodelling",
+              "name": "Actual lobar remodelling"
+            },
+            {
+              "id": "lirads.background_disease.caudate_remodelling",
+              "name": "Actual caudate remodelling"
+            },
+            {
+              "id": "lirads.background_disease.steatotic_regions",
+              "name": "Steatotic regions"
+            },
+            {
+              "id": "lirads.background_disease.fat_sparing",
+              "name": "Focal fat-sparing distribution"
+            },
+            {
+              "id": "lirads.background_disease.fat_deposition",
+              "name": "Focal fat-deposition distribution"
+            },
+            {
+              "id": "lirads.background_disease.fibrotic_regions",
+              "name": "Source-supported fibrosis pattern"
+            },
+            {
+              "id": "lirads.background_disease.regenerative_nodules",
+              "name": "Source-supported regenerative nodules"
+            },
+            {
+              "id": "lirads.background_disease.iron_distribution",
+              "name": "Source-supported iron distribution"
+            },
+            {
+              "id": "lirads.background_disease.collaterals",
+              "name": "Portal-systemic collateral pathways"
+            },
+            {
+              "id": "lirads.background_disease.ascites",
+              "name": "Acquired ascites"
+            },
+            {
+              "id": "lirads.background_disease.splenic_change",
+              "name": "Associated splenic findings"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Positive background findings need actual disease and modality context, not normal adult anatomy. Imaging morphology does not by itself establish etiology, risk eligibility or microscopic diagnosis.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Eligibility And Technique",
+              "detail": "Document at-risk context and phase adequacy."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "background_hepatic_disease"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.vascular_abnormality",
+          "name": "Vascular abnormalities and tumour-in-vein interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.vascular_abnormality.enhancing_venous_tissue",
+              "name": "Actual enhancing intraluminal soft tissue"
+            },
+            {
+              "id": "lirads.vascular_abnormality.portal_intraluminal_extent",
+              "name": "Portal intraluminal extent"
+            },
+            {
+              "id": "lirads.vascular_abnormality.hepatic_vein_intraluminal_extent",
+              "name": "Hepatic venous intraluminal extent"
+            },
+            {
+              "id": "lirads.vascular_abnormality.caval_intraluminal_extent",
+              "name": "Caval intraluminal extent"
+            },
+            {
+              "id": "lirads.vascular_abnormality.wall_relationship",
+              "name": "Actual involved wall/interface"
+            },
+            {
+              "id": "lirads.vascular_abnormality.lesion_continuity",
+              "name": "Observation-to-vein continuity"
+            },
+            {
+              "id": "lirads.vascular_abnormality.bland_thrombus",
+              "name": "Conditional bland thrombus extent"
+            },
+            {
+              "id": "lirads.vascular_abnormality.mixed_thrombus",
+              "name": "Conditional mixed thrombus regions"
+            },
+            {
+              "id": "lirads.vascular_abnormality.occluded_lumen",
+              "name": "Conditional occluded lumen"
+            },
+            {
+              "id": "lirads.vascular_abnormality.cavernous_transformation",
+              "name": "Conditional cavernous transformation"
+            },
+            {
+              "id": "lirads.vascular_abnormality.arterial_abnormality",
+              "name": "Conditional arterial abnormality"
+            },
+            {
+              "id": "lirads.vascular_abnormality.variant_host_course",
+              "name": "Actual variant vessel course"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Source phase/contrast and diagnostic evidence distinguish tumour from bland thrombus, flow phenomena or artefacts. A vessel mesh cannot establish enhancement, patency or tumour identity.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_vascular_abnormality"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.tissue_components",
+          "name": "Actual lesion tissue components",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.tissue_components.intralesional_fat",
+              "name": "Intralesional fat distribution"
+            },
+            {
+              "id": "lirads.tissue_components.intralesional_blood",
+              "name": "Intralesional blood products"
+            },
+            {
+              "id": "lirads.tissue_components.cystic_component",
+              "name": "Cystic component"
+            },
+            {
+              "id": "lirads.tissue_components.necrotic_component",
+              "name": "Suspected necrotic component"
+            },
+            {
+              "id": "lirads.tissue_components.calcification",
+              "name": "Acquired calcification"
+            },
+            {
+              "id": "lirads.tissue_components.fibrous_scar",
+              "name": "Source-supported scar region"
+            },
+            {
+              "id": "lirads.tissue_components.septations",
+              "name": "Internal septations"
+            },
+            {
+              "id": "lirads.tissue_components.mural_nodule",
+              "name": "Mural nodules"
+            },
+            {
+              "id": "lirads.tissue_components.capsule_region",
+              "name": "Actual peripheral capsule/interface"
+            },
+            {
+              "id": "lirads.tissue_components.infiltrative_extent",
+              "name": "Infiltrative extent"
+            },
+            {
+              "id": "lirads.tissue_components.targetoid_distribution",
+              "name": "Targetoid spatial distribution"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Each positive component requires source and appropriate sequence/phase evidence. A grayscale intensity or generic texture does not prove fat, hemorrhage, histology or microscopic capsule.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Major Features",
+              "detail": "Describe eligible major imaging features independently."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other Patterns",
+              "detail": "Assess features suggesting malignancy other than HCC and ancillary findings."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_observation_tissue_component"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.mri_observation_features",
+          "name": "MRI-specific observation features",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.mri_observation_features.t2_signal_regions",
+              "name": "Actual T2 signal regions"
+            },
+            {
+              "id": "lirads.mri_observation_features.t1_signal_regions",
+              "name": "Actual T1 signal regions"
+            },
+            {
+              "id": "lirads.mri_observation_features.in_opposed_phase_regions",
+              "name": "Matched in/opposed-phase regions"
+            },
+            {
+              "id": "lirads.mri_observation_features.dwi_signal_regions",
+              "name": "Actual DWI signal regions"
+            },
+            {
+              "id": "lirads.mri_observation_features.adc_regions",
+              "name": "Matched ADC regions"
+            },
+            {
+              "id": "lirads.mri_observation_features.hepatobiliary_signal_regions",
+              "name": "Actual hepatobiliary-phase signal regions"
+            },
+            {
+              "id": "lirads.mri_observation_features.subtraction_enhancement_regions",
+              "name": "Properly aligned subtraction-enhancement regions"
+            },
+            {
+              "id": "lirads.mri_observation_features.iron_sensitive_regions",
+              "name": "Acquired iron-sensitive signal regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Only actual appropriate MRI sequences and acquisition parameters can depict these requirements. CT or a static normal mesh cannot substitute for MRI signal, diffusion/ADC or hepatobiliary uptake.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Other Patterns",
+              "detail": "Assess features suggesting malignancy other than HCC and ancillary findings."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "hepatic_mri_observation_feature"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.major_feature_regions",
+          "name": "Eligible LI-RADS major-feature regions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.major_feature_regions.nonrim_aphe",
+              "name": "Actual non-rim arterial hyperenhancing region"
+            },
+            {
+              "id": "lirads.major_feature_regions.nonperipheral_washout",
+              "name": "Actual eligible nonperipheral washout region"
+            },
+            {
+              "id": "lirads.major_feature_regions.enhancing_capsule",
+              "name": "Actual enhancing-capsule region"
+            },
+            {
+              "id": "lirads.major_feature_regions.whole_observation_size",
+              "name": "Actual complete observation-size margin"
+            },
+            {
+              "id": "lirads.major_feature_regions.threshold_growth_extent",
+              "name": "Matched prior/current mass extent for threshold growth"
+            },
+            {
+              "id": "lirads.major_feature_regions.background_comparison",
+              "name": "Actual background-liver comparator"
+            },
+            {
+              "id": "lirads.major_feature_regions.blood_pool_comparison",
+              "name": "Actual relevant blood-pool comparator"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Current diagnostic eligibility and acquisition/agent-specific feature rules must be verified. These are temporal/acquisition observations, not features proved by a static segmentation or generic animation.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Major Features",
+              "detail": "Describe eligible major imaging features independently."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "lirads_major_imaging_feature"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.lrm_and_ancillary",
+          "name": "LR-M and ancillary spatial feature examples",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.lrm_and_ancillary.rim_aphe",
+              "name": "Rim arterial hyperenhancing region"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.peripheral_washout",
+              "name": "Peripheral washout region"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.delayed_central_enhancement",
+              "name": "Delayed central enhancement region"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.targetoid_diffusion",
+              "name": "Targetoid diffusion regions",
+              "modality_scope": [
+                "MRI"
+              ]
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.targetoid_transitional_hbp",
+              "name": "Targetoid transitional/hepatobiliary pattern",
+              "modality_scope": [
+                "MRI"
+              ]
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.nodule_in_nodule",
+              "name": "Nested nodule extent"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.mosaic_architecture",
+              "name": "Mosaic spatial architecture"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.nonenhancing_capsule",
+              "name": "Nonenhancing capsule/interface"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.corona_enhancement",
+              "name": "Corona/periobservation enhancement"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.fat_in_mass",
+              "name": "Fat within mass"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.blood_in_mass",
+              "name": "Blood products within mass"
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.diffusion_restriction",
+              "name": "Matched restricted-diffusion regions",
+              "modality_scope": [
+                "MRI"
+              ]
+            },
+            {
+              "id": "lirads.lrm_and_ancillary.benignity_pattern",
+              "name": "Source-supported benignity-favouring feature regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate eligible source/case features and current definitions; a dataset illustration or one feature alone does not establish a category. MRI-only features require explicit sequence-specific source binding.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Other Patterns",
+              "detail": "Assess features suggesting malignancy other than HCC and ancillary findings."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "lirads_other_imaging_feature"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "lirads.treated_context",
+          "name": "Conditional treated observation and altered host anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "lirads.treated_context.treatment_zone",
+              "name": "Actual treatment zone"
+            },
+            {
+              "id": "lirads.treated_context.residual_enhancing_tissue",
+              "name": "Residual enhancing tissue"
+            },
+            {
+              "id": "lirads.treated_context.posttreatment_host_tissue",
+              "name": "Post-treatment host interfaces"
+            },
+            {
+              "id": "lirads.treated_context.radiation_field",
+              "name": "Conditional radiation field"
+            },
+            {
+              "id": "lirads.treated_context.embolization_material",
+              "name": "Conditional embolization material"
+            },
+            {
+              "id": "lirads.treated_context.resection_bed",
+              "name": "Conditional resection bed"
+            },
+            {
+              "id": "lirads.treated_context.new_untreated_observation",
+              "name": "Each new untreated observation distinct from treatment zone"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Diagnostic v2018 must not automatically grade treated tissue. Treatment type, time point and the separate appropriate current response algorithm require explicit review; no treated-source waiver is granted.",
+          "requirement_basis": "effective_liver_report_and_linked_anatomy_feature_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Eligibility And Technique",
+              "detail": "Document at-risk context and phase adequacy."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Observation Map",
+              "detail": "Identify each observation and its prior measurements."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Major Features",
+              "detail": "Describe eligible major imaging features independently."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other Patterns",
+              "detail": "Assess features suggesting malignancy other than HCC and ancillary findings."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Veins And Category",
+              "detail": "Assess tumour in vein separately and identify the category-driving evidence."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/liver/li-rads",
+            "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS",
+            "https://radiologyassistant.nl/abdomen/liver/segmental-anatomy"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "treated_hepatic_observation"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual observation, involved named branch/duct and acquired segment territory",
+            "All acquired phases/sequences, source contrast-agent/time correspondence and modality-specific visibility",
+            "Every relevant acquired extrahepatic site, variant, developmental state and altered anatomy",
+            "Actual risk eligibility, diagnostic confidence, source pathology and treatment context"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "segment_territory_and_branch_instantiation_pending",
+          "detail": "Common Couinaud entries are not patient-measured territories. Source-specific vessel/duct branches, variants and boundaries need expansion and anatomical review."
+        },
+        {
+          "code": "modality_phase_state_coverage_pending",
+          "detail": "Each claimed modality, phase, agent and sequence requires suitable acquired evidence. A permitted modality list is not proof of full modality/sequence coverage."
+        },
+        {
+          "code": "whole_observation_and_extrahepatic_scope_pending",
+          "detail": "Every lesion and all actual acquired extrahepatic sites need explicit coverage; a selected target or parent-organ surface cannot waive the rest."
+        },
+        {
+          "code": "eligibility_diagnosis_treatment_review_pending",
+          "detail": "Source examples and category labels do not prove this patient eligibility, histology or response. General masses, untreated diagnosis and treatment response remain separate."
+        },
+        {
+          "code": "rights_native_resolution_and_registration_pending",
+          "detail": "Original image/mask/registration rights, measured native sampling and cross-phase alignment need independent source review. Restricted AMPLIFAI annotations are not commercially cleared."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "segment localisation",
+          "evidence": "Actual branching/territory and acquired orthogonal planes; schematic hepatic/portal planes do not measure source segment boundaries."
+        },
+        {
+          "observation": "lesion size and growth",
+          "evidence": "Complete eligible observation margin and phase, matched prior acquisition/date, calibration and uncertainty; do not count adjacent perfusion change."
+        },
+        {
+          "observation": "arterial and later-phase enhancement",
+          "evidence": "Actual acquired phase/agent, adequacy and same-observation correspondence; unacquired or degraded phases remain unassessed."
+        },
+        {
+          "observation": "washout and capsule",
+          "evidence": "Apply current agent/phase definitions separately; gadoxetate transitional/hepatobiliary hypointensity is not diagnostic washout."
+        },
+        {
+          "observation": "MRI tissue and diffusion",
+          "evidence": "Appropriate source sequences, b-values/ADC, in/opposed-phase and source alignment; no CT substitution or static model proof."
+        },
+        {
+          "observation": "hepatobiliary uptake",
+          "evidence": "Actual agent, timing and source-phase adequacy; signal/background comparison rather than a fabricated uptake texture."
+        },
+        {
+          "observation": "tumour in vein and patency",
+          "evidence": "Appropriate acquired contrast/flow evidence, actual lumen soft tissue and uncertainty; vessel shape does not prove tumour or patency."
+        },
+        {
+          "observation": "eligibility histology and treatment",
+          "evidence": "Actual patient risk/age/exclusions, source diagnostic evidence and treatment context. General masses and diagnostic/treatment-response algorithms remain separate."
         }
       ]
     }
