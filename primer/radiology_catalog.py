@@ -347,6 +347,27 @@ def _validate_native_volume_figure(image, root):
             and evidence.get('annotation_geometry_overlaid') is False
             and all(re.fullmatch(r'[0-9a-f]{64}', source.get(k, '')) for k in
                     ('ct_archive_sha256', 'original_mask_sha256', 'native_review_sha256')))
+    elif doi == '10.7937/K9/TCIA.2018.OBLAMN27':
+        verified_source = (source.get('data_license') == 'CC BY 4.0'
+            and source.get('case_id') == 'C3N-03018'
+            and source.get('publisher_per_file_md5_verified') is True
+            and source.get('ct_dicom_files') == 850
+            and source.get('selected_acquisition_number') == 1
+            and source.get('selected_acquisition_dicom_files') == 417
+            and source.get('other_acquisition_dicom_files') == 433
+            and source.get('ct_archive_sha256') == 'a9ab6c3999aa6d852db6a420dbad6a396cb7d2d3abf0bc3af9df946cbf5bf339'
+            and source.get('original_geometry_review_sha256') == '8044c9ac249121d65f09fd7d9988f60c277b6ea30f680f9a4ccb276fb68e9144'
+            and source.get('source_selection_sha256') == '7bdd465bf39303a2b3bb471067ecd172febac79de40b8dfa9924708e9145f82b'
+            and evidence.get('source_shape') == [417, 512, 512]
+            and evidence.get('source_sampling_zyx_mm') == [0.625, 0.976562, 0.976562]
+            and evidence.get('source_slice_thickness_mm') == 0.625
+            and evidence.get('declared_spacing_between_slices_mm') == 2.5
+            and evidence.get('observed_interplane_step_mm') == 0.625
+            and evidence.get('source_acquisitions_interleaved_or_deduplicated') is False
+            and evidence.get('annotation_geometry_overlaid') is False
+            and all(evidence.get(key) is False for key in ('named_phase_verified',
+                'histological_diagnosis_verified', 'complete_renal_anatomy_verified',
+                'source_annotation_is_whole_kidney', 'source_volume_and_end_extent_reconciled')))
     else:
         verified_source = False
     if not verified_source or source.get('data_license') != image.get('license'):

@@ -476,6 +476,14 @@
         "visual_review_scope_missing_or_stale",
         "visual_review_missing_or_stale",
         "high_fidelity_unproven"
+      ],
+      "native-cptac-c3n03018-acq1-ct": [
+        "no_verified_structure_binding",
+        "anatomical_review_scope_missing_or_stale",
+        "anatomical_review_missing_or_stale",
+        "visual_review_scope_missing_or_stale",
+        "visual_review_missing_or_stale",
+        "high_fidelity_unproven"
       ]
     },
     "runtime_reference_image_rights": {
@@ -942,7 +950,8 @@
       "native-aeropath-case1-ct": "f3fee7374ecf545fd45d713c872312e7d767ce8001c0f21c507c4f0a32abed94",
       "native-nih-med001-label1-ct": "1e80fc01c5d4aada77e1112da9c0ed07b2c1a836bd7d971535480359f7f6eece",
       "native-nih-med001-label2-ct": "279762b62d64666d71c48c6471ef89d52088a3b6c7e71f72eca7a830d406dc80",
-      "native-nih-med001-label3-ct": "1f180112a85b7bccbe307688b9e9f48a5adf8769021380bd9ade590e9b91c4e0"
+      "native-nih-med001-label3-ct": "1f180112a85b7bccbe307688b9e9f48a5adf8769021380bd9ade590e9b91c4e0",
+      "native-cptac-c3n03018-acq1-ct": "430eb439bc8a7fb3848c050d5304b14c8550e54079627705c4f32a6627eff2b4"
     },
     "requirements": [
       {
@@ -58451,8 +58460,8 @@
       "lesson:rad.5.wrist-hand"
     ],
     "counts": {
-      "images": 541,
-      "cleared": 98,
+      "images": 542,
+      "cleared": 99,
       "unverified": 443
     },
     "images": [
@@ -60689,6 +60698,28 @@
         ],
         "candidates": {
           "open-appendix-mostbeck-2016-fig3": []
+        },
+        "issues": []
+      },
+      {
+        "src": "/app/reference-media/radiology-open/cptac-c3n03018-acq1-native-ct.png",
+        "uses": [
+          {
+            "surface": "reporting:ra.solid-renal-masses",
+            "collection": "structure_atlas",
+            "id": "native-cptac-c3n03018-acq1-ct",
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2018.OBLAMN27",
+            "attribution": "National Cancer Institute CPTAC. Original CPTAC-CCRCC imaging, DOI 10.7937/K9/TCIA.2018.OBLAMN27, CC BY 4.0. Annotation selection context: Rozenfeld and Jordan, CPTAC-CCRCC-Tumor-Annotations v2, DOI 10.7937/SKQ4-QX48, CC BY 4.0. Adaptation: selected native CT sections, physical-axis display windows and crops. No source contours or model overlaid; source voxels unchanged.",
+            "caption": "Unmarked axial, coronal and sagittal sections from original CPTAC case C3N-03018 CT acquisition 1, at two display windows. Source sampling 0.976562 \u00d7 0.976562 \u00d7 0.625 mm. The series contains two acquisitions; only acquisition 1 is shown. The original spacing tag states 2.5 mm, while actual positions step by 0.625 mm. Named contrast phase, histology, full observation boundaries and whole renal reporting anatomy remain unverified."
+          }
+        ],
+        "sha256": "c101c1e5e99e370db79578feaeebfea1197c5b0cddd1e1e25ca01d4b5f5edca5",
+        "status": "cleared",
+        "cleared_assets": [
+          "native-cptac-c3n03018-acq1-ct"
+        ],
+        "candidates": {
+          "native-cptac-c3n03018-acq1-ct": []
         },
         "issues": []
       },
