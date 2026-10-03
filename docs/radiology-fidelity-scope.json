@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10056,7 +10056,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10441,7 +10441,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10967,7 +10967,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11388,7 +11388,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11845,7 +11845,7 @@
       "modality": "CT",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-03",
           "protocol": [
             "Use pancreatic-protocol CT and multiplanar vessel review; record treatment status and prior imaging."
           ],
@@ -11914,6 +11914,14 @@
             {
               "title": "Radiology Assistant \u2014 Pancreatic Cancer - CT staging 2.0",
               "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1"
+            },
+            {
+              "title": "Al-Hawary et al. \u2014 SAR/APA pancreatic ductal adenocarcinoma reporting consensus",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/24354378/"
+            },
+            {
+              "title": "Cassinotto et al. \u2014 CT reassessment after neoadjuvant treatment",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/24960211/"
             }
           ]
         },
@@ -11975,6 +11983,14 @@
               {
                 "title": "Radiology Assistant \u2014 Pancreatic Cancer - CT staging 2.0",
                 "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1"
+              },
+              {
+                "title": "Al-Hawary et al. \u2014 SAR/APA pancreatic ductal adenocarcinoma reporting consensus",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/24354378/"
+              },
+              {
+                "title": "Cassinotto et al. \u2014 CT reassessment after neoadjuvant treatment",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/24960211/"
               }
             ]
           }
@@ -12036,8 +12052,8 @@
               ],
               "landmark": "vessels",
               "parts": [],
-              "look": "Arterial phase multiplanar reconstructions; contact of 180\u00b0 or less versus more than 180\u00b0.",
-              "tip": "Record arterial variants: a replaced right hepatic artery changes the operation."
+              "look": "Review adequate pancreatic-protocol contrast phases and planes perpendicular to each vessel; record the actual contact angle, length, contour and named arterial variants. Do not assign resectability from the 180\u00b0 descriptor alone.",
+              "tip": "Record variant artery origins, courses and tumour contact explicitly. Name the current resectability framework/version and treatment time point; imaging descriptors require multidisciplinary interpretation."
             },
             {
               "label": "Venous contact",
@@ -12061,7 +12077,8 @@
               ],
               "landmark": "vessels",
               "parts": [],
-              "look": "Portal venous phase; contact angle and length, and whether reconstruction is possible."
+              "look": "Review the portal venous phase and orthogonal vessel planes; record contact angle/length, contour, filling defect or occlusion, collateral routes and patent proximal/distal segments. Describe anatomy relevant to possible reconstruction; feasibility requires multidisciplinary surgical assessment.",
+              "tip": "After neoadjuvant treatment, persistent perivascular soft tissue or venous narrowing is not by itself proof of viable tumour or unresectability. Compare the actual prior examination and state uncertainty."
             },
             {
               "label": "Local extension",
@@ -12075,7 +12092,7 @@
               "findings": [
                 "Extension into the root of the mesentery.",
                 "Invasion of the duodenal wall.",
-                "Perineural infiltration along the [ ]."
+                "Infiltrating soft tissue along the [named perivascular/neural pathway], concerning for perineural spread; CT does not establish microscopic invasion."
               ],
               "images": [],
               "measurements": [],
@@ -12104,7 +12121,7 @@
               "landmark": "pancreas",
               "parts": [],
               "look": "Liver on portal venous phase; peritoneum and ascites; regional and distant nodes.",
-              "tip": "Resectability depends on vessels and metastases, not on tumour size."
+              "tip": "Resectability requires vessel, local-extension and metastatic review under a stated current framework and multidisciplinary judgement. Tumour size or contact angle alone is insufficient, especially after treatment."
             }
           ],
           "finish": {
@@ -12166,10 +12183,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "169cb18bebb9fa8934727d2e54a2b36359422cd2ac93afefbac938a7f935fa54",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -19570,7 +19587,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -23738,7 +23755,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26372,7 +26389,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26767,7 +26784,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -48694,7 +48711,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2239fce1fbe83edf7eb895b74f5c9664d74b19a8e4c13478da6d69d5244a0552",
+      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -109234,7 +109251,7 @@
             },
             {
               "step": "Then the veins",
-              "detail": "Superior mesenteric vein and portal vein \u2014 degrees of contact, and contour. Teardrop deformity, contour irregularity or thrombosis mean invasion whatever the arc."
+              "detail": "Describe SMV/PV contact angle, longitudinal extent, contour, filling defects and patent proximal/distal segments. Deformity or thrombosis raises concern for involvement but does not alone prove microscopic invasion or exclude a treatment-related change."
             },
             {
               "step": "Map the arterial variants",
@@ -109248,7 +109265,7 @@
           "measure": [
             {
               "what": "Circumferential vascular contact",
-              "how": "On the axial image at the point of maximal contact, read as an arc of the vessel circumference in 90\u00b0 increments.",
+              "how": "On reconstructions perpendicular to the vessel at maximal contact, document the circumferential arc and longitudinal extent; oblique axial cuts can misrepresent contact.",
               "cutoff": "\u2264 180\u00b0 \u00b7 > 180\u00b0 \u00b7 360\u00b0"
             },
             {
@@ -109268,30 +109285,30 @@
             }
           ],
           "classify": {
-            "name": "Resectability by vascular contact",
+            "name": "Resectability categories \u2014 framework-dependent anatomical overview",
             "columns": [
-              "Category",
-              "Criteria",
-              "Do"
+              "Category context",
+              "Anatomical assessment",
+              "Clinical interpretation"
             ],
             "rows": [
               [
-                "Resectable",
-                "No contact with the coeliac axis, SMA or common hepatic artery; and no SMV/PV contact, or \u2264 180\u00b0 venous contact without contour irregularity",
-                "Upfront surgery"
+                "Potentially resectable anatomical pattern",
+                "Assess absence of critical arterial involvement and the exact SMV/PV contact, contour and patency under the stated framework.",
+                "Report local/distant disease, diagnosis and treatment time point; operative suitability requires multidisciplinary review."
               ],
               [
-                "Borderline resectable",
-                "Arterial: \u2264 180\u00b0 contact with the SMA or coeliac axis, or CHA contact without extension to the coeliac axis or hepatic bifurcation. Venous: > 180\u00b0 SMV/PV contact, \u2264 180\u00b0 with contour irregularity, or short-segment occlusion with reconstructible vessel above and below",
-                "Neoadjuvant therapy then reassessment"
+                "Borderline anatomical pattern requiring framework review",
+                "Assess potentially addressable arterial/venous contact, tumour site, variants and source vessel segments that may permit reconstruction.",
+                "Use the named current guideline/version and complete clinical context; do not select treatment from contact angle alone."
               ],
               [
-                "Locally advanced / unresectable",
-                "> 180\u00b0 contact with the SMA or coeliac axis, aortic involvement, or unreconstructible SMV/PV occlusion",
-                "Non-surgical management"
+                "Locally advanced anatomical pattern requiring framework review",
+                "Assess extensive critical arterial/aortic involvement or venous occlusion considered unreconstructable under the stated framework.",
+                "Document all source findings and treatment context; persistent post-treatment contact alone does not establish viable tumour or preclude reassessment."
               ]
             ],
-            "note": "Morphology overrides arc: teardrop deformity of the vein, contour irregularity or thrombosis indicate invasion even where the contact is under 180\u00b0."
+            "note": "This is an anatomical overview, not a complete current NCCN/DPCG algorithm or treatment directive. Tumour-site-specific criteria, exact vessel/branch anatomy, distant disease, treatment status, biology and multidisciplinary assessment remain required. Venous morphology raises suspicion rather than proving invasion."
           },
           "modifiers": [
             {
@@ -109319,12 +109336,12 @@
               "meaning": "In IPMN, a malignancy indicator, alongside a solid node in the duct or a mass around the duct."
             }
           ],
-          "template": "TECHNIQUE\nPancreatic protocol CT: late arterial and portal venous phases, [water as neutral oral contrast], thin-section reformats.\n\nFINDINGS\nTumour: [head / uncinate / body / tail], [n] mm, [hypodense / isodense with secondary signs].\nDucts: main pancreatic duct [n] mm, common bile duct [n] mm \u2014 [double duct sign / interrupted duct / normal].\nArteries: coeliac axis [n]\u00b0 contact; common hepatic artery [n]\u00b0; superior mesenteric artery [n]\u00b0. Contour [normal / irregular].\nVeins: superior mesenteric vein [n]\u00b0; portal vein [n]\u00b0. Contour [normal / teardrop deformity / occluded / thrombosed].\nArterial variants: [none / replaced right hepatic artery from the SMA / other]. Coeliac stenosis: [absent / present].\nPerineural spread: [absent / present]. Mesentery and mesocolon: [ ].\nNodes: regional [ ]; extra-regional [ ].\nMetastases: liver [ ], peritoneum [ ], lungs [ ].\n\nIMPRESSION\n1. Pancreatic [head / body / tail] adenocarcinoma, [n] mm.\n2. Vascular summary: [artery/vein] [n]\u00b0 \u2014 [resectable / borderline resectable / locally advanced].\n3. [Arterial variant that changes the operation.]\n4. [Metastatic disease.]",
+          "template": "TECHNIQUE\nPancreatic protocol CT: late arterial and portal venous phases, [water as neutral oral contrast], thin-section reformats.\n\nFINDINGS\nTumour: [head / uncinate / body / tail], [n] mm, [hypodense / isodense with secondary signs].\nDucts: main pancreatic duct [n] mm, common bile duct [n] mm \u2014 [double duct sign / interrupted duct / normal].\nArteries: coeliac axis [n]\u00b0 contact; common hepatic artery [n]\u00b0; superior mesenteric artery [n]\u00b0. Contour [normal / irregular].\nVeins: superior mesenteric vein [n]\u00b0; portal vein [n]\u00b0. Contour [normal / teardrop deformity / occluded / thrombosed].\nArterial variants: [none / replaced right hepatic artery from the SMA / other]. Coeliac stenosis: [absent / present].\nPathway-region soft tissue concerning for perineural spread: [ ]. Microscopic invasion is not established by CT. Mesentery and mesocolon: [ ].\nNodes: regional [ ]; extra-regional [ ].\nMetastases: liver [ ], peritoneum [ ], lungs [ ].\n\nIMPRESSION\n1. Pancreatic [head / body / tail] mass, [n] mm, [suspicious for adenocarcinoma / known source diagnosis / differential].\n2. Vascular summary: [artery/vein] [n]\u00b0 with [length/contour/patency]. Framework/version and treatment time point: [ ]. Multidisciplinary resectability assessment: [ ].\n3. [Arterial variant that changes the operation.]\n4. [Metastatic disease.]",
           "pitfalls": [
-            "Reporting 'abutment' without degrees. The surgeon triages on the arc; abutment on its own does not distinguish resectable from borderline.",
+            "Using abutment without degrees, length and contour, or assigning resectability from an isolated contact angle without the framework, tumour site and full clinical context.",
             "Reading only the portal venous phase. The late arterial phase is where a small hypodense head tumour is conspicuous and where the arterial anatomy is legible.",
             "Missing a replaced right hepatic artery from the SMA. It runs straight through the operative field and must be named whether or not it is involved.",
-            "Calling a vein clear because the contact is under 180\u00b0. A teardrop deformity or contour irregularity is invasion at any arc.",
+            "Calling a vein uninvolved solely because contact is under 180\u00b0, or declaring microscopic invasion from deformity/thrombus alone. Describe source morphology and treatment-related uncertainty.",
             "Failing to chase a double duct sign or an interrupted duct when no mass is visible. Those signs are often the only evidence of a small carcinoma."
           ]
         },
@@ -109637,7 +109654,7 @@
             "src": "/app/illustrations/forest/radiology/rad-5-pancreas-tumour-800.webp",
             "srcset": "/app/illustrations/forest/radiology/rad-5-pancreas-tumour-800.webp 800w, /app/illustrations/forest/radiology/rad-5-pancreas-tumour-1600.webp 1600w",
             "alt": "A radiology reasoning diagram for Pancreatic Cancer Staging and Cystic Lesions linking Acquire protocol, Map contact, and Triage lesion.",
-            "caption": "Pancreatic lesion type and vessel contact determine resectability and sampling.",
+            "caption": "Pancreatic anatomy, treatment context and distant disease inform multidisciplinary assessment.",
             "long_description": {
               "title": "Pancreatic Cancer Staging and Cystic Lesions",
               "mode": "compare",
@@ -109650,7 +109667,7 @@
                 {
                   "heading": "Map contact",
                   "label": "Map contact",
-                  "detail": "Degree and contour of vessel involvement guide resectability."
+                  "detail": "Map vessel contact, contour and extent; no single finding decides resectability."
                 },
                 {
                   "heading": "Triage lesion",
@@ -109658,7 +109675,7 @@
                   "detail": "Cystic and hypervascular lesions follow different pathways."
                 }
               ],
-              "takeaway": "Pancreatic lesion type and vessel contact determine resectability and sampling."
+              "takeaway": "Pancreatic anatomy, treatment context and distant disease inform multidisciplinary assessment."
             },
             "width": 1600,
             "height": 1000
@@ -109701,7 +109718,7 @@
           },
           {
             "kind": "choice",
-            "prompt": "A pancreatic head adenocarcinoma abuts the superior mesenteric artery over about 90 degrees of its circumference, and encases the superior mesenteric vein over roughly 200 degrees with a narrowed but patent lumen and normal vein above and below the segment. There are no metastases. How do you report resectability?",
+            "prompt": "Before treatment, a pancreatic head adenocarcinoma contacts the SMA over about 90\u00b0 and the SMV over roughly 200\u00b0, with a narrowed patent lumen and no other local vascular involvement or distant metastases. The multidisciplinary team considers the proximal/distal vein technically suitable for reconstruction. Under an NCCN-style anatomical assessment at diagnosis, which category best describes these vascular findings?",
             "answer": "Borderline resectable: arterial contact is 180 degrees or less and the vein is reconstructible with normal vein above and below the segment",
             "choices": [
               "Locally advanced: venous contact beyond 180 degrees with luminal narrowing places the tumour past the limit of surgical reconstruction",
@@ -109709,7 +109726,7 @@
               "Borderline resectable: arterial contact is 180 degrees or less and the vein is reconstructible with normal vein above and below the segment",
               "Locally advanced: contact with the superior mesenteric artery of any degree at all excludes an operation and commits to chemotherapy"
             ],
-            "explain": "The categories that surgeons use turn on the degree of circumferential contact and on the shape of the vessel. Resectable means no arterial contact with the coeliac axis, superior mesenteric artery or common hepatic artery, and venous contact of 180 degrees or less without contour irregularity. Borderline resectable in a head or uncinate tumour includes superior mesenteric artery contact of 180 degrees or less, common hepatic artery contact that still permits reconstruction, venous contact above 180 degrees, or venous contact of 180 degrees or less with contour deformity or thrombus, provided there is suitable vein above and below for a graft. Locally advanced means superior mesenteric artery contact above 180 degrees, aortic involvement, or an unreconstructible venous occlusion. Report the numbers and the contour, and let the multidisciplinary team apply the label.",
+            "explain": "In this explicitly untreated head-tumour scenario, limited SMA contact and potentially reconstructible SMV involvement fit a borderline anatomical pattern under the stated framework. Report the actual angle, longitudinal extent, contour, variants and proximal/distal segments. This example is not a complete current guideline or an operative recommendation: tumour site, other local/distant disease, biology and treatment time point must be reviewed, and the multidisciplinary team determines the applicable classification and plan.",
             "ephemeral": false
           },
           {
@@ -109740,9 +109757,9 @@
           },
           {
             "kind": "numeric",
-            "prompt": "On axial CT the tumour abuts the superior mesenteric artery continuously from the 10 o'clock to the 2 o'clock position on the vessel circumference. Answer in degrees, to the nearest whole number: what is the circumferential contact?",
+            "prompt": "On a CT reformat perpendicular to the SMA, tumour contact extends continuously from the 10 o\u2019clock to the 2 o\u2019clock position on the vessel circumference. Answer in degrees, to the nearest whole number: what is the circumferential contact?",
             "answer": "120",
-            "explain": "Each hour on the clock face is 30 degrees, and 10 o'clock to 2 o'clock spans four hours, so the contact is 120 degrees. The number matters because 180 degrees is the dividing line in the consensus definitions used by NCCN and the Society of Abdominal Radiology: contact of 180 degrees or less with the superior mesenteric artery keeps a head tumour in the borderline resectable group, while contact above 180 degrees makes it locally advanced. Measure on the axial image where contact is greatest, and read the contact rather than the presence of fat stranding, which overcalls involvement after stenting or pancreatitis. Say the degree and the length of contact in your report; the word encasement without a number is not useful to the surgeon.",
+            "explain": "Each clock hour is 30\u00b0, so four hours of continuous contact span 120\u00b0. The perpendicular measurement plane matters: an oblique axial section can distort the apparent arc. Report the exact vessel, angle, longitudinal extent and contour. This numeric measurement alone does not establish histological invasion, complete resectability or treatment; apply the stated current framework to the full source anatomy and clinical/treatment context.",
             "ephemeral": false
           },
           {
@@ -109755,7 +109772,7 @@
               "contour",
               "length"
             ],
-            "explain": "Venous resection and reconstruction is routine in high-volume practice, so the surgeon does not want a yes or no; they want to know whether they can get a clamp on normal vein above and below, and how long a segment they must replace. Contact of 180 degrees or less with a preserved round contour is resectable disease. Contact above 180 degrees, or any contact that deforms the contour into a teardrop shape or narrows the lumen, is borderline as long as reconstruction is feasible. An occlusion with no usable vein at either end, or one that extends to the confluence and the first jejunal branches, is what makes the case locally advanced. Mention the splenic and portal confluence and the gastrocolic trunk explicitly.",
+            "explain": "Describe the actual circumferential contact, contour/filling defect or thrombosis, and longitudinal extent with patent proximal/distal segments. Include the confluence, relevant tributaries and collateral routes. These findings help a surgeon assess possible reconstruction but do not alone prove technical feasibility or microscopic invasion. A resectability category requires the current framework, tumour site, complete local/distant findings and treatment time point; persistent post-treatment tissue or narrowing may remain viability-uncertain.",
             "ephemeral": false
           },
           {
@@ -109839,7 +109856,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "224b05807334985f59f056fd0cf414f0e11a043f3d94fdda371a3bf9af8791fa",
+      "module_contract_sha256": "d89c1322c78b547a2af5b597c83ee2218af1a886564cc5faf724ef90058aac24",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

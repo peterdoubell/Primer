@@ -12,7 +12,8 @@
       "ra.liver-masses",
       "ra.liver-lirads",
       "ra.solid-renal-masses",
-      "ra.renal-cysts-bosniak"
+      "ra.renal-cysts-bosniak",
+      "ra.ct-pancreatic-cancer"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -23413,6 +23414,2511 @@
         {
           "observation": "longitudinal_change",
           "evidence": "Matched source dates/observation and actual morphology; stable size is not complete stable feature evidence."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ct-pancreatic-cancer",
+      "module_id": "rad.5.pancreas-tumour",
+      "title": "CT pancreatic cancer staging",
+      "modality": "CT with conditional acquired MRI adjuncts",
+      "scope_type": "pancreatic_tissue_duct_and_case_specific_vascular_local_and_metastatic_extent",
+      "clinical_validation_status": "draft_requires_pancreatic_radiologist_and_multidisciplinary_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "pancreatic-source-0",
+          "title": "Radiology Assistant — Pancreatic Cancer - CT staging 2.0",
+          "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+          "review_status": "reporting_and_treatment_context_sections_reviewed_2026-10-03"
+        },
+        {
+          "source_id": "pancreatic-source-1",
+          "title": "Al-Hawary et al. — SAR/APA pancreatic ductal adenocarcinoma reporting consensus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+          "review_status": "reporting_and_treatment_context_sections_reviewed_2026-10-03"
+        },
+        {
+          "source_id": "pancreatic-source-2",
+          "title": "Cassinotto et al. — CT reassessment after neoadjuvant treatment",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24960211/",
+          "review_status": "reporting_and_treatment_context_sections_reviewed_2026-10-03"
+        }
+      ],
+      "source_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
+      "reporting_checklist": [
+        {
+          "label": "Primary And Ducts",
+          "detail": "Localise the solid tumour and duct obstruction."
+        },
+        {
+          "label": "Arterial Contact",
+          "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+        },
+        {
+          "label": "Venous Contact",
+          "detail": "Assess portal/mesenteric venous contour and occlusion."
+        },
+        {
+          "label": "Local Extension",
+          "detail": "Inspect adjacent organs and regional structures."
+        },
+        {
+          "label": "Metastatic Disease",
+          "detail": "Assess liver, peritoneum and nodes."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "PRIMARY AND DUCTS",
+          "body": "Site/size: [ ]. Enhancement: [ ]. MPD/CBD: [ ]. Atrophy: [ ]."
+        },
+        {
+          "heading": "ARTERIAL CONTACT",
+          "body": "Artery/contact angle/length: [ ]. Narrowing: [ ]. Variant anatomy: [ ]."
+        },
+        {
+          "heading": "VENOUS CONTACT",
+          "body": "SMV/PV contact: [ ]. Contour/thrombus: [ ]. Patent segments: [ ]."
+        },
+        {
+          "heading": "LOCAL EXTENSION",
+          "body": "Duodenum/stomach/colon: [ ]. Mesocolon/retroperitoneum: [ ]."
+        },
+        {
+          "heading": "METASTATIC DISEASE",
+          "body": "Liver: [ ]. Peritoneum: [ ]. Nodal stations: [ ]. Other disease: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "pancreatic_ca.whole_pancreas",
+          "name": "Whole acquired pancreatic anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.whole_pancreas.parenchymal_extent",
+              "name": "Complete acquired parenchymal extent"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.head",
+              "name": "Pancreatic head"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.uncinate",
+              "name": "Uncinate process"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.neck",
+              "name": "Pancreatic neck"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.body",
+              "name": "Pancreatic body"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.tail",
+              "name": "Pancreatic tail"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.external_margin",
+              "name": "Actual external parenchymal margin"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.anterior_interface",
+              "name": "Anterior pancreatic interfaces"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.posterior_interface",
+              "name": "Posterior pancreatic interfaces"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.superior_interface",
+              "name": "Superior pancreatic interfaces"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.inferior_interface",
+              "name": "Inferior pancreatic interfaces"
+            },
+            {
+              "id": "pancreatic_ca.whole_pancreas.neck_confluence_relation",
+              "name": "Neck and venous-confluence relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.primary_observation",
+          "name": "Every actual solid pancreatic observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.primary_observation.whole_margin",
+              "name": "Complete source observation margin"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.site",
+              "name": "Actual source site and multifocality"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.parenchymal_interface",
+              "name": "Observation-parenchymal interface"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.hypovascular_regions",
+              "name": "Actual hypovascular regions"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.isoattenuating_regions",
+              "name": "Actual isoattenuating source regions"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.heterogeneity",
+              "name": "Actual internal heterogeneity"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.necrotic_regions",
+              "name": "Actual necrotic/cystic regions"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.measurement_margin",
+              "name": "Reproducible orthogonal measurement margin"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.duct_interface",
+              "name": "Observation-duct interface"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.vessel_interface",
+              "name": "Observation-vessel interface"
+            },
+            {
+              "id": "pancreatic_ca.primary_observation.surrounding_tissue_interface",
+              "name": "Observation-surrounding tissue interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Every actual observation and whole acquired margin require source review. Duct cut-off, attenuation or a label is not histology; do not include separate perivascular tissue in a measured primary margin without source justification.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_cancer_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.main_pancreatic_duct",
+          "name": "Acquired main pancreatic duct",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.tail_segment",
+              "name": "Acquired tail duct course"
+            },
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.body_segment",
+              "name": "Acquired body duct course"
+            },
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.neck_segment",
+              "name": "Acquired neck duct course"
+            },
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.head_segment",
+              "name": "Acquired head duct course"
+            },
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.luminal_boundary",
+              "name": "Actual duct lumen boundary"
+            },
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.upstream_calibre",
+              "name": "Actual upstream duct calibre regions"
+            },
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.downstream_segment",
+              "name": "Actual downstream duct course"
+            },
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.cutoff_interface",
+              "name": "Actual duct cut-off/observation interface"
+            },
+            {
+              "id": "pancreatic_ca.main_pancreatic_duct.variant_course",
+              "name": "Actual main-duct variant course"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.accessory_duct_and_outflow",
+          "name": "Actual accessory duct and pancreatic outflow anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.accessory_duct_and_outflow.accessory_duct",
+              "name": "Acquired accessory pancreatic duct"
+            },
+            {
+              "id": "pancreatic_ca.accessory_duct_and_outflow.duct_connections",
+              "name": "Actual duct connections"
+            },
+            {
+              "id": "pancreatic_ca.accessory_duct_and_outflow.major_papilla_relation",
+              "name": "Actual major papilla/ampullary relationship"
+            },
+            {
+              "id": "pancreatic_ca.accessory_duct_and_outflow.minor_papilla_relation",
+              "name": "Actual minor papilla relationship"
+            },
+            {
+              "id": "pancreatic_ca.accessory_duct_and_outflow.divisum_or_variant",
+              "name": "Actual divisum/variant outflow"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Only actual acquired and resolved source duct/outflow anatomy is credited; invisible accessory structures are not invented from a generic tube or atlas.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.biliary_outflow",
+          "name": "Acquired biliary/ampullary relationships",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.biliary_outflow.intrahepatic_dilation_regions",
+              "name": "Actual acquired intrahepatic duct dilation"
+            },
+            {
+              "id": "pancreatic_ca.biliary_outflow.common_hepatic_duct",
+              "name": "Acquired common hepatic duct"
+            },
+            {
+              "id": "pancreatic_ca.biliary_outflow.suprapancreatic_cbd",
+              "name": "Suprapancreatic common bile duct"
+            },
+            {
+              "id": "pancreatic_ca.biliary_outflow.intrapancreatic_cbd",
+              "name": "Intrapancreatic common bile duct"
+            },
+            {
+              "id": "pancreatic_ca.biliary_outflow.cbd_cutoff",
+              "name": "Actual biliary cut-off interface"
+            },
+            {
+              "id": "pancreatic_ca.biliary_outflow.ampullary_relation",
+              "name": "Ampullary/outflow relationship"
+            },
+            {
+              "id": "pancreatic_ca.biliary_outflow.gallbladder",
+              "name": "Acquired gallbladder context"
+            },
+            {
+              "id": "pancreatic_ca.biliary_outflow.biliary_stent_interfaces",
+              "name": "Actual biliary stent course/interfaces if present"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.upstream_parenchymal_change",
+          "name": "Actual upstream parenchymal/duct changes",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.upstream_parenchymal_change.atrophic_regions",
+              "name": "Actual upstream atrophic regions"
+            },
+            {
+              "id": "pancreatic_ca.upstream_parenchymal_change.preserved_regions",
+              "name": "Actual preserved parenchymal regions"
+            },
+            {
+              "id": "pancreatic_ca.upstream_parenchymal_change.dilated_duct_interface",
+              "name": "Dilated duct-parenchymal interface"
+            },
+            {
+              "id": "pancreatic_ca.upstream_parenchymal_change.obstructive_inflammation",
+              "name": "Actual obstructive inflammatory regions"
+            },
+            {
+              "id": "pancreatic_ca.upstream_parenchymal_change.prior_correspondence",
+              "name": "Original prior parenchymal/duct correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_obstructive_change"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.coeliac_axis",
+          "name": "Coeliac axis source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.coeliac_axis.origin",
+              "name": "Actual vessel origin"
+            },
+            {
+              "id": "pancreatic_ca.coeliac_axis.luminal_course",
+              "name": "Acquired vessel lumen/course"
+            },
+            {
+              "id": "pancreatic_ca.coeliac_axis.wall",
+              "name": "Actual vessel wall"
+            },
+            {
+              "id": "pancreatic_ca.coeliac_axis.branch_junctions",
+              "name": "Actual branch junctions"
+            },
+            {
+              "id": "pancreatic_ca.coeliac_axis.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.coeliac_axis.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.coeliac_axis.pancreatic_relation",
+              "name": "Actual pancreatic tissue relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.common_hepatic_artery",
+          "name": "Common hepatic artery source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.common_hepatic_artery.origin",
+              "name": "Actual vessel origin"
+            },
+            {
+              "id": "pancreatic_ca.common_hepatic_artery.luminal_course",
+              "name": "Acquired vessel lumen/course"
+            },
+            {
+              "id": "pancreatic_ca.common_hepatic_artery.wall",
+              "name": "Actual vessel wall"
+            },
+            {
+              "id": "pancreatic_ca.common_hepatic_artery.branch_junctions",
+              "name": "Actual branch junctions"
+            },
+            {
+              "id": "pancreatic_ca.common_hepatic_artery.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.common_hepatic_artery.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.common_hepatic_artery.pancreatic_relation",
+              "name": "Actual pancreatic tissue relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.proper_hepatic_artery",
+          "name": "Proper hepatic artery source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.proper_hepatic_artery.origin",
+              "name": "Actual vessel origin"
+            },
+            {
+              "id": "pancreatic_ca.proper_hepatic_artery.luminal_course",
+              "name": "Acquired vessel lumen/course"
+            },
+            {
+              "id": "pancreatic_ca.proper_hepatic_artery.wall",
+              "name": "Actual vessel wall"
+            },
+            {
+              "id": "pancreatic_ca.proper_hepatic_artery.branch_junctions",
+              "name": "Actual branch junctions"
+            },
+            {
+              "id": "pancreatic_ca.proper_hepatic_artery.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.proper_hepatic_artery.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.proper_hepatic_artery.pancreatic_relation",
+              "name": "Actual pancreatic tissue relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.sma",
+          "name": "Superior mesenteric artery source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.sma.origin",
+              "name": "Actual vessel origin"
+            },
+            {
+              "id": "pancreatic_ca.sma.luminal_course",
+              "name": "Acquired vessel lumen/course"
+            },
+            {
+              "id": "pancreatic_ca.sma.wall",
+              "name": "Actual vessel wall"
+            },
+            {
+              "id": "pancreatic_ca.sma.branch_junctions",
+              "name": "Actual branch junctions"
+            },
+            {
+              "id": "pancreatic_ca.sma.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.sma.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.sma.pancreatic_relation",
+              "name": "Actual pancreatic tissue relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.splenic_artery",
+          "name": "Splenic artery source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.splenic_artery.origin",
+              "name": "Actual vessel origin"
+            },
+            {
+              "id": "pancreatic_ca.splenic_artery.luminal_course",
+              "name": "Acquired vessel lumen/course"
+            },
+            {
+              "id": "pancreatic_ca.splenic_artery.wall",
+              "name": "Actual vessel wall"
+            },
+            {
+              "id": "pancreatic_ca.splenic_artery.branch_junctions",
+              "name": "Actual branch junctions"
+            },
+            {
+              "id": "pancreatic_ca.splenic_artery.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.splenic_artery.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.splenic_artery.pancreatic_relation",
+              "name": "Actual pancreatic tissue relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.gastroduodenal_artery",
+          "name": "Gastroduodenal artery source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.gastroduodenal_artery.origin",
+              "name": "Actual vessel origin"
+            },
+            {
+              "id": "pancreatic_ca.gastroduodenal_artery.luminal_course",
+              "name": "Acquired vessel lumen/course"
+            },
+            {
+              "id": "pancreatic_ca.gastroduodenal_artery.wall",
+              "name": "Actual vessel wall"
+            },
+            {
+              "id": "pancreatic_ca.gastroduodenal_artery.branch_junctions",
+              "name": "Actual branch junctions"
+            },
+            {
+              "id": "pancreatic_ca.gastroduodenal_artery.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.gastroduodenal_artery.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.gastroduodenal_artery.pancreatic_relation",
+              "name": "Actual pancreatic tissue relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.arterial_variants",
+          "name": "Every actual arterial variant and relevant collateral route",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.arterial_variants.replaced_right_hepatic",
+              "name": "Actual replaced right hepatic artery"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.accessory_right_hepatic",
+              "name": "Actual accessory right hepatic artery"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.replaced_left_hepatic",
+              "name": "Actual replaced left hepatic artery"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.accessory_left_hepatic",
+              "name": "Actual accessory left hepatic artery"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.common_hepatic_variant",
+              "name": "Actual common hepatic origin/course variant"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.coeliac_sma_variant",
+              "name": "Actual coeliac/SMA variant relationship"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.variant_tumour_interface",
+              "name": "Each actual variant artery-tumour interface"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.stenosis_regions",
+              "name": "Actual arterial stenosis regions"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.pancreaticoduodenal_arcades",
+              "name": "Acquired pancreaticoduodenal collateral arcades"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.jejunal_branches",
+              "name": "Actual acquired proximal jejunal arterial branches"
+            },
+            {
+              "id": "pancreatic_ca.arterial_variants.other_actual_branch",
+              "name": "Every other actual relevant branch/variant"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "This is an expansion index, not universal anatomy. Source branch origins/courses, relevant stenosis and collateral paths must be independently instantiated. Do not infer replaced/accessory status or collateral adequacy from normal atlas geometry.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.arterial_contact",
+          "name": "Each actual source arterial-contact region",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.arterial_contact.tumour_margin",
+              "name": "Contacting observation margin"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.vessel_outer_interface",
+              "name": "Actual outer vessel-contact interface"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.circumferential_sector",
+              "name": "Actual circumferential contact sector"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.centreline_reference",
+              "name": "Source vessel-centreline reference"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.orthogonal_plane",
+              "name": "Actual perpendicular vessel measurement plane"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.longitudinal_extent",
+              "name": "Actual longitudinal contact extent"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.luminal_narrowing",
+              "name": "Actual luminal narrowing region"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.contour_deformation",
+              "name": "Actual vessel contour deformation"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.proximal_patency",
+              "name": "Actual proximal patent region"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.distal_patency",
+              "name": "Actual distal patent region"
+            },
+            {
+              "id": "pancreatic_ca.arterial_contact.perivascular_tissue",
+              "name": "Actual perivascular tissue extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Measure actual source contact separately for every vessel/branch and treatment time point. Angle/shape alone is not pathological invasion or a universal resectability threshold; static normal vessels do not supply positive contact evidence.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_arterial_contact"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.portal_vein",
+          "name": "Portal vein source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.portal_vein.luminal_extent",
+              "name": "Acquired luminal extent"
+            },
+            {
+              "id": "pancreatic_ca.portal_vein.wall",
+              "name": "Actual venous wall"
+            },
+            {
+              "id": "pancreatic_ca.portal_vein.junctions",
+              "name": "Actual junctions/tributaries"
+            },
+            {
+              "id": "pancreatic_ca.portal_vein.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.portal_vein.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.portal_vein.pancreatic_relation",
+              "name": "Actual pancreatic relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.smv",
+          "name": "Superior mesenteric vein source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.smv.luminal_extent",
+              "name": "Acquired luminal extent"
+            },
+            {
+              "id": "pancreatic_ca.smv.wall",
+              "name": "Actual venous wall"
+            },
+            {
+              "id": "pancreatic_ca.smv.junctions",
+              "name": "Actual junctions/tributaries"
+            },
+            {
+              "id": "pancreatic_ca.smv.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.smv.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.smv.pancreatic_relation",
+              "name": "Actual pancreatic relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.splenic_vein",
+          "name": "Splenic vein source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.splenic_vein.luminal_extent",
+              "name": "Acquired luminal extent"
+            },
+            {
+              "id": "pancreatic_ca.splenic_vein.wall",
+              "name": "Actual venous wall"
+            },
+            {
+              "id": "pancreatic_ca.splenic_vein.junctions",
+              "name": "Actual junctions/tributaries"
+            },
+            {
+              "id": "pancreatic_ca.splenic_vein.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.splenic_vein.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.splenic_vein.pancreatic_relation",
+              "name": "Actual pancreatic relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.portomesenteric_confluence",
+          "name": "Portal-mesenteric-splenic confluence source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.portomesenteric_confluence.luminal_extent",
+              "name": "Acquired luminal extent"
+            },
+            {
+              "id": "pancreatic_ca.portomesenteric_confluence.wall",
+              "name": "Actual venous wall"
+            },
+            {
+              "id": "pancreatic_ca.portomesenteric_confluence.junctions",
+              "name": "Actual junctions/tributaries"
+            },
+            {
+              "id": "pancreatic_ca.portomesenteric_confluence.proximal_segment",
+              "name": "Acquired proximal segment"
+            },
+            {
+              "id": "pancreatic_ca.portomesenteric_confluence.distal_segment",
+              "name": "Acquired distal segment"
+            },
+            {
+              "id": "pancreatic_ca.portomesenteric_confluence.pancreatic_relation",
+              "name": "Actual pancreatic relationship"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.venous_tributaries",
+          "name": "Every actual relevant venous tributary or collateral",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.venous_tributaries.first_jejunal_vein",
+              "name": "Actual first jejunal venous course"
+            },
+            {
+              "id": "pancreatic_ca.venous_tributaries.proximal_jejunal_veins",
+              "name": "Other actual proximal jejunal tributaries"
+            },
+            {
+              "id": "pancreatic_ca.venous_tributaries.gastrocolic_trunk",
+              "name": "Actual gastrocolic venous trunk"
+            },
+            {
+              "id": "pancreatic_ca.venous_tributaries.middle_colic_vein",
+              "name": "Actual middle colic vein"
+            },
+            {
+              "id": "pancreatic_ca.venous_tributaries.right_gastroepiploic_vein",
+              "name": "Actual right gastroepiploic vein"
+            },
+            {
+              "id": "pancreatic_ca.venous_tributaries.imv_drainage",
+              "name": "Actual inferior mesenteric drainage relationship"
+            },
+            {
+              "id": "pancreatic_ca.venous_tributaries.collateral_routes",
+              "name": "Actual collateral venous routes"
+            },
+            {
+              "id": "pancreatic_ca.venous_tributaries.other_actual_tributary",
+              "name": "Every other acquired relevant tributary/variant"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.venous_contact",
+          "name": "Each actual venous-contact or occlusive region",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.venous_contact.observation_interface",
+              "name": "Actual observation-venous interface"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.contact_sector",
+              "name": "Actual circumferential venous contact sector"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.longitudinal_extent",
+              "name": "Actual longitudinal contact extent"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.contour_irregularity",
+              "name": "Actual contour-irregularity region"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.teardrop_region",
+              "name": "Actual teardrop/deformation region"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.narrowed_lumen",
+              "name": "Actual narrowed lumen"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.occluded_lumen",
+              "name": "Actual occluded lumen"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.filling_defect",
+              "name": "Actual filling-defect tissue"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.proximal_patency",
+              "name": "Actual proximal patent segment"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.distal_patency",
+              "name": "Actual distal patent segment"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.collateral_interfaces",
+              "name": "Actual collateral/interface context"
+            },
+            {
+              "id": "pancreatic_ca.venous_contact.tributary_contact",
+              "name": "Each involved tributary-contact region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Source opacification, motion and filling artifact need review. Contact, deformity, tumour/other thrombus and patency remain separate observations; reconstruction feasibility is not established by geometry alone.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_venous_contact"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.local_tissue_planes",
+          "name": "Actual local pancreatic extension interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.local_tissue_planes.duodenum",
+              "name": "Acquired duodenal wall interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.stomach",
+              "name": "Acquired gastric wall interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.colon",
+              "name": "Acquired colonic wall interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.jejunum",
+              "name": "Acquired proximal jejunal interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.transverse_mesocolon",
+              "name": "Actual transverse mesocolon interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.mesenteric_root",
+              "name": "Actual root-of-mesentery interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.retroperitoneum",
+              "name": "Actual retroperitoneal tissue planes"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.anterior_pararenal_space",
+              "name": "Actual anterior pararenal interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.splenic_hilum",
+              "name": "Actual splenic hilar interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.hepatic_hilum",
+              "name": "Acquired hepatic hilar interface"
+            },
+            {
+              "id": "pancreatic_ca.local_tissue_planes.adrenal_renal_interface",
+              "name": "Acquired adrenal/renal interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.local_extension",
+          "name": "Every actual local tumour extension region",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.local_extension.duodenal_tissue",
+              "name": "Actual duodenal extension region"
+            },
+            {
+              "id": "pancreatic_ca.local_extension.gastric_tissue",
+              "name": "Actual gastric extension region"
+            },
+            {
+              "id": "pancreatic_ca.local_extension.colonic_tissue",
+              "name": "Actual colonic extension region"
+            },
+            {
+              "id": "pancreatic_ca.local_extension.mesocolic_tissue",
+              "name": "Actual mesocolic extension region"
+            },
+            {
+              "id": "pancreatic_ca.local_extension.mesenteric_tissue",
+              "name": "Actual mesenteric extension region"
+            },
+            {
+              "id": "pancreatic_ca.local_extension.retroperitoneal_tissue",
+              "name": "Actual retroperitoneal extension region"
+            },
+            {
+              "id": "pancreatic_ca.local_extension.adjacent_organ_interface",
+              "name": "Every actual adjacent-organ extension interface"
+            },
+            {
+              "id": "pancreatic_ca.local_extension.preserved_planes",
+              "name": "Actually assessed preserved intervening planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Actual acquired tissue interfaces and confidence are required. Contact/stranding or intersecting atlas shapes do not establish invasion, resection margins or surgical eligibility.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_local_extension"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.neural_pathway_context",
+          "name": "Acquired perivascular/neural pathway context",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.neural_pathway_context.coeliac_plexus_region",
+              "name": "Acquired coeliac plexus region"
+            },
+            {
+              "id": "pancreatic_ca.neural_pathway_context.sma_plexus_region",
+              "name": "Acquired SMA plexus region"
+            },
+            {
+              "id": "pancreatic_ca.neural_pathway_context.cha_pathway",
+              "name": "Actual common-hepatic perivascular route"
+            },
+            {
+              "id": "pancreatic_ca.neural_pathway_context.head_to_sma_route",
+              "name": "Actual head-to-SMA tissue route"
+            },
+            {
+              "id": "pancreatic_ca.neural_pathway_context.head_to_coeliac_route",
+              "name": "Actual head-to-coeliac tissue route"
+            },
+            {
+              "id": "pancreatic_ca.neural_pathway_context.uncinate_mesenteric_route",
+              "name": "Actual uncinate/mesenteric tissue route"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Source CT depicts pathway-region soft tissue, not every microscopic nerve or histological perineural invasion. Named routes and source field-of-view need explicit instantiation.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.suspected_neural_spread",
+          "name": "Actual suspicious pathway-region soft tissue",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.suspected_neural_spread.source_tissue_extent",
+              "name": "Complete acquired infiltrating tissue extent"
+            },
+            {
+              "id": "pancreatic_ca.suspected_neural_spread.pancreatic_origin_interface",
+              "name": "Actual pancreatic-source interface"
+            },
+            {
+              "id": "pancreatic_ca.suspected_neural_spread.vascular_relationship",
+              "name": "Actual perivascular relationship"
+            },
+            {
+              "id": "pancreatic_ca.suspected_neural_spread.mesenteric_relation",
+              "name": "Actual mesenteric-route relationship"
+            },
+            {
+              "id": "pancreatic_ca.suspected_neural_spread.prior_treatment_correspondence",
+              "name": "Actual pre/post-treatment correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Radiological pattern and treatment context require review; microscopic invasion or viable tumour is not automatically assigned from CT/geometry.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_suspected_neural_spread"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.regional_nodes",
+          "name": "Every actual nodal observation and source station map",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.regional_nodes.anterior_head_region",
+              "name": "Acquired anterior pancreatic-head nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.posterior_head_region",
+              "name": "Acquired posterior pancreatic-head nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.sma_chain",
+              "name": "Acquired SMA-associated nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.common_hepatic_chain",
+              "name": "Acquired common-hepatic nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.coeliac_chain",
+              "name": "Acquired coeliac-associated nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.hepatoduodenal_region",
+              "name": "Acquired hepatoduodenal nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.splenic_artery_chain",
+              "name": "Acquired splenic-artery nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.splenic_hilum",
+              "name": "Acquired splenic hilar nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.pyloric_region",
+              "name": "Acquired pyloric nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.middle_colic_region",
+              "name": "Acquired middle-colic nodal region"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.individual_margin",
+              "name": "Each actual nodal observation margin"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.internal_morphology",
+              "name": "Actual internal nodal morphology"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.vascular_interface",
+              "name": "Actual node-vessel interface"
+            },
+            {
+              "id": "pancreatic_ca.regional_nodes.regional_status_source_map",
+              "name": "Source/edition/site-specific regional status map"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate actual named stations and tumour-site/edition-specific regional status. This regional anatomy index is not a closed staging-station list. Size, a source lymph-node label or sampled cases do not establish metastatic state.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_nodal_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.distant_nodes",
+          "name": "Actual acquired extraregional nodal observations",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.distant_nodes.paraaortic",
+              "name": "Acquired paraaortic nodal observations"
+            },
+            {
+              "id": "pancreatic_ca.distant_nodes.left_sma_context",
+              "name": "Actual left-of-SMA station context"
+            },
+            {
+              "id": "pancreatic_ca.distant_nodes.other_actual_station",
+              "name": "Every other acquired actual extraregional station"
+            },
+            {
+              "id": "pancreatic_ca.distant_nodes.individual_margin",
+              "name": "Each actual nodal margin"
+            },
+            {
+              "id": "pancreatic_ca.distant_nodes.source_station_mapping",
+              "name": "Source/edition/site-specific station mapping"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Actual source location, tumour site, current classification and diagnostic evidence are required. Do not call distant metastasis from size/location labels alone or from unacquired coverage.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_distant_nodal_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.hepatic_spread",
+          "name": "Every actual acquired hepatic observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.hepatic_spread.whole_margin",
+              "name": "Each complete acquired liver observation margin"
+            },
+            {
+              "id": "pancreatic_ca.hepatic_spread.subcapsular_relation",
+              "name": "Actual subcapsular/capsular relationship"
+            },
+            {
+              "id": "pancreatic_ca.hepatic_spread.parenchymal_relation",
+              "name": "Actual hepatic parenchymal relationship"
+            },
+            {
+              "id": "pancreatic_ca.hepatic_spread.portal_phase_regions",
+              "name": "Actual acquired portal-phase observation regions"
+            },
+            {
+              "id": "pancreatic_ca.hepatic_spread.other_phase_correspondence",
+              "name": "Actual matching other-phase regions"
+            },
+            {
+              "id": "pancreatic_ca.hepatic_spread.indeterminate_regions",
+              "name": "Actual unresolved small hepatic observations"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_hepatic_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.peritoneal_spread",
+          "name": "Every actual acquired peritoneal/omental observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.peritoneal_spread.individual_nodule",
+              "name": "Every acquired peritoneal nodule margin"
+            },
+            {
+              "id": "pancreatic_ca.peritoneal_spread.omental_regions",
+              "name": "Actual omental disease regions"
+            },
+            {
+              "id": "pancreatic_ca.peritoneal_spread.mesenteric_regions",
+              "name": "Actual mesenteric disease regions"
+            },
+            {
+              "id": "pancreatic_ca.peritoneal_spread.paracolic_regions",
+              "name": "Actual paracolic gutter observation regions"
+            },
+            {
+              "id": "pancreatic_ca.peritoneal_spread.pelvic_regions",
+              "name": "Acquired pelvic peritoneal observation regions"
+            },
+            {
+              "id": "pancreatic_ca.peritoneal_spread.ascitic_interfaces",
+              "name": "Actual ascitic/peritoneal interfaces"
+            },
+            {
+              "id": "pancreatic_ca.peritoneal_spread.visceral_serosal_interfaces",
+              "name": "Actual visceral/serosal observation interfaces"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired structure, branch, variant and observation. A gross parent-organ model cannot cover separate tissue/duct/vessel interfaces or unacquired anatomy.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_peritoneal_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.other_covered_spread",
+          "name": "Every actual acquired distant-site observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.other_covered_spread.lung",
+              "name": "Acquired pulmonary observations"
+            },
+            {
+              "id": "pancreatic_ca.other_covered_spread.pleura",
+              "name": "Acquired pleural observations"
+            },
+            {
+              "id": "pancreatic_ca.other_covered_spread.bone",
+              "name": "Acquired bone observations"
+            },
+            {
+              "id": "pancreatic_ca.other_covered_spread.other_organ",
+              "name": "Every other actual acquired organ observation"
+            },
+            {
+              "id": "pancreatic_ca.other_covered_spread.prior_correspondence",
+              "name": "Actual prior distant observation correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Actual source field-of-view and individual observations require review. A negative abdominal field cannot establish unacquired whole-body metastatic absence.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_other_distant_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.mri_adjunct",
+          "name": "Actual MRI adjunct evidence when obtained",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.mri_adjunct.t1_regions",
+              "name": "Actual matched T1 observation regions"
+            },
+            {
+              "id": "pancreatic_ca.mri_adjunct.t2_regions",
+              "name": "Actual T2 observation regions"
+            },
+            {
+              "id": "pancreatic_ca.mri_adjunct.dwi_regions",
+              "name": "Actually acquired DWI regions"
+            },
+            {
+              "id": "pancreatic_ca.mri_adjunct.adc_regions",
+              "name": "Actual matched ADC regions"
+            },
+            {
+              "id": "pancreatic_ca.mri_adjunct.duct_regions",
+              "name": "Actual MR duct-source regions"
+            },
+            {
+              "id": "pancreatic_ca.mri_adjunct.liver_regions",
+              "name": "Actual MRI hepatic observation regions"
+            },
+            {
+              "id": "pancreatic_ca.mri_adjunct.sequence_correspondence",
+              "name": "Actual source sequence/observation correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Only actually acquired adequate MRI can supply these adjunct requirements. CT or a static normal model cannot prove DWI/ADC, MR duct depiction, MRI liver findings or viable residual tumour.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_mri_adjunct"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.treated_context",
+          "name": "Every actual source post-treatment observation/interface",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.treated_context.residual_primary_region",
+              "name": "Actual residual primary observation region"
+            },
+            {
+              "id": "pancreatic_ca.treated_context.perivascular_region",
+              "name": "Actual residual perivascular soft-tissue region"
+            },
+            {
+              "id": "pancreatic_ca.treated_context.fibrosis_uncertain_region",
+              "name": "Actual source fibrosis/viability-uncertain region"
+            },
+            {
+              "id": "pancreatic_ca.treated_context.duct_change",
+              "name": "Actual post-treatment duct change"
+            },
+            {
+              "id": "pancreatic_ca.treated_context.arterial_contact_change",
+              "name": "Actual matched arterial-contact change"
+            },
+            {
+              "id": "pancreatic_ca.treated_context.venous_contact_change",
+              "name": "Actual matched venous-contact change"
+            },
+            {
+              "id": "pancreatic_ca.treated_context.new_local_region",
+              "name": "Actual new/progressive local region"
+            },
+            {
+              "id": "pancreatic_ca.treated_context.new_distant_region",
+              "name": "Actual new/progressive distant observation"
+            },
+            {
+              "id": "pancreatic_ca.treated_context.altered_anatomy",
+              "name": "Actual postoperative/altered anatomy if present"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Treatment type/time and matched prior source acquisition must be reviewed. Persistent contact or stenosis is not by itself viable tumour, histological response or automatic unresectability.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_treated_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.case_pdac",
+          "name": "Actual pancreatic ductal adenocarcinoma source case",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.case_pdac.whole_observation",
+              "name": "Complete actual source observation"
+            },
+            {
+              "id": "pancreatic_ca.case_pdac.feature_regions",
+              "name": "Actual differentiating feature regions"
+            },
+            {
+              "id": "pancreatic_ca.case_pdac.host_interfaces",
+              "name": "Actual host-tissue interfaces"
+            },
+            {
+              "id": "pancreatic_ca.case_pdac.source_context_regions",
+              "name": "Actual acquired clinical/treatment context"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Source diagnosis/differential and treatment status require independent review. PDAC appearance/resectability rules are not automatically transferred to other neoplasms or inflammatory mimics.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_case_pdac"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.case_other_neoplasm",
+          "name": "Actual other solid pancreatic neoplasm context",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.case_other_neoplasm.whole_observation",
+              "name": "Complete actual source observation"
+            },
+            {
+              "id": "pancreatic_ca.case_other_neoplasm.feature_regions",
+              "name": "Actual differentiating feature regions"
+            },
+            {
+              "id": "pancreatic_ca.case_other_neoplasm.host_interfaces",
+              "name": "Actual host-tissue interfaces"
+            },
+            {
+              "id": "pancreatic_ca.case_other_neoplasm.source_context_regions",
+              "name": "Actual acquired clinical/treatment context"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Source diagnosis/differential and treatment status require independent review. PDAC appearance/resectability rules are not automatically transferred to other neoplasms or inflammatory mimics.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_case_other_neoplasm"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatic_ca.case_inflammatory_mimic",
+          "name": "Actual inflammatory tumour-mimic context",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatic_ca.case_inflammatory_mimic.whole_observation",
+              "name": "Complete actual source observation"
+            },
+            {
+              "id": "pancreatic_ca.case_inflammatory_mimic.feature_regions",
+              "name": "Actual differentiating feature regions"
+            },
+            {
+              "id": "pancreatic_ca.case_inflammatory_mimic.host_interfaces",
+              "name": "Actual host-tissue interfaces"
+            },
+            {
+              "id": "pancreatic_ca.case_inflammatory_mimic.source_context_regions",
+              "name": "Actual acquired clinical/treatment context"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Source diagnosis/differential and treatment status require independent review. PDAC appearance/resectability rules are not automatically transferred to other neoplasms or inflammatory mimics.",
+          "requirement_basis": "effective_pancreatic_cancer_report_and_linked_staging_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary And Ducts",
+              "detail": "Localise the solid tumour and duct obstruction."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Arterial Contact",
+              "detail": "Describe contact with coeliac, hepatic and mesenteric arteries."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Venous Contact",
+              "detail": "Assess portal/mesenteric venous contour and occlusion."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Extension",
+              "detail": "Inspect adjacent organs and regional structures."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Metastatic Disease",
+              "detail": "Assess liver, peritoneum and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/pancreas-carcinoma-1",
+            "https://pubmed.ncbi.nlm.nih.gov/24354378/",
+            "https://pubmed.ncbi.nlm.nih.gov/24960211/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatic_case_inflammatory_mimic"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual observation, duct segment, artery/vein branch, variant and acquired contact/tissue region",
+            "Actual tumour-site/edition-specific nodal stations and every acquired distant observation",
+            "Actual original pancreatic/portal/other CT phases and any MRI adjunct sequence with native sampling and correspondence",
+            "Actual diagnosis/differential, treatment time point and prior/current source context"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "branch_and_observation_instances_pending",
+          "detail": "Source-specific branches, variants, observations and whole margins require explicit instances; prototype entries are not a complete patient anatomy list."
+        },
+        {
+          "code": "contact_measurement_and_phase_pending",
+          "detail": "Original calibrated orthogonal vessel planes, angle/length/contour and acquired phase adequacy remain unverified; normal atlas contact geometry cannot substitute."
+        },
+        {
+          "code": "framework_and_treatment_context_pending",
+          "detail": "Name the actual current resectability framework/version and time point; historical criteria or isolated angles do not prove operative suitability."
+        },
+        {
+          "code": "nodal_and_spread_mapping_pending",
+          "detail": "Regional status depends on source scheme/site/edition and actual diagnosis; unacquired coverage and source node size labels do not establish metastatic absence/presence."
+        },
+        {
+          "code": "neural_and_viability_inference_limited",
+          "detail": "CT pathway soft tissue is not microscopic perineural invasion; treated perivascular tissue may remain viability-uncertain."
+        },
+        {
+          "code": "rights_resolution_and_anatomy_pending",
+          "detail": "Every actual image/annotation/derived structure needs independent rights, original sampling and anatomical review; no new pancreatic source/model is approved."
+        },
+        {
+          "code": "broader_curriculum_topics_unreconciled",
+          "detail": "The shared lesson also contains pancreatic cyst/neuroendocrine content and quizzes that require separate source/criteria reconciliation. This CT staging inventory does not approve those topics, complete current NCCN/DPCG algorithms or the whole curriculum surface."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "primary_and_ducts",
+          "evidence": "Actual whole tumour/duct margins, source contrast phase, dimensions, cut-off and upstream parenchyma."
+        },
+        {
+          "observation": "arterial_contact",
+          "evidence": "Actual named vessel/variant, perpendicular plane, centreline, circumferential/longitudinal contact and contour; no generic threshold-based eligibility."
+        },
+        {
+          "observation": "venous_contact",
+          "evidence": "Actual source opacification, contour, filling defect/occlusion, collateral routes and proximal/distal patency; surgical feasibility remains multidisciplinary."
+        },
+        {
+          "observation": "local_and_neural_extent",
+          "evidence": "Actual acquired tissue planes/routes and diagnostic confidence; imaging appearance is not microscopic invasion."
+        },
+        {
+          "observation": "nodes_and_metastatic_sites",
+          "evidence": "Actual source observations and site/edition-specific station mapping; no histological inference from size alone."
+        },
+        {
+          "observation": "treated_response",
+          "evidence": "Treatment dates/type, matched original source examination and progression/viability uncertainty; persistent anatomy is not an automatic surgical exclusion."
+        },
+        {
+          "observation": "mri_adjunct",
+          "evidence": "Actually acquired MRI sequences, b-values/ADC and source correspondence, not CT or unmeasured static-model signal."
+        },
+        {
+          "observation": "resectability_context",
+          "evidence": "Actual current framework/version, patient diagnosis, treatment time point, local/distant extent and multidisciplinary interpretation; software geometry is not operative judgement."
         }
       ]
     }
