@@ -1,0 +1,541 @@
+{
+  "sources": [
+    {
+      "source": "kidney-female-right-v1.3",
+      "source_glb_sha256": "d80ee5a109a5cd5c90ca0770d1087e28786e2c545747cbae15a5ea22b4b0af86",
+      "inventory_sha256": "ae58db9c53ae87cfe363cdbbb152483760c4dd9dd427cef9ccdaa08ccf2257dd"
+    },
+    {
+      "source": "ureter-female-right-v1.2",
+      "source_glb_sha256": "5f800b7dfd8056054ee030fad32de4e648920fbf1bada134fb989b2cc66f4436",
+      "inventory_sha256": "7f6b8313a4f6e40931f57f499ce357b78ad4ab0c635c99205caad97f8470b9b9"
+    }
+  ],
+  "preparation": {
+    "original_source_triangles": 107454,
+    "numerically_testable_triangles": 107452,
+    "invalid_source_triangles": [
+      {
+        "source_part": "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "source_face_index": 23620,
+        "source_face_vertices_metres": [
+          [
+            -0.060543980449438095,
+            0.26451101899147034,
+            -0.08595971763134003
+          ],
+          [
+            -0.060543980449438095,
+            0.26451101899147034,
+            -0.08595971763134003
+          ],
+          [
+            -0.06051618978381157,
+            0.26458466053009033,
+            -0.08625038713216782
+          ]
+        ],
+        "cross_product_norm_mm2": 0.0,
+        "reason": "zero_or_numerically_degenerate_source_triangle"
+      },
+      {
+        "source_part": "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "source_face_index": 23624,
+        "source_face_vertices_metres": [
+          [
+            -0.060543980449438095,
+            0.26451101899147034,
+            -0.08595971763134003
+          ],
+          [
+            -0.060379285365343094,
+            0.2648658752441406,
+            -0.08588109165430069
+          ],
+          [
+            -0.060543980449438095,
+            0.26451101899147034,
+            -0.08595971763134003
+          ]
+        ],
+        "cross_product_norm_mm2": 0.0,
+        "reason": "zero_or_numerically_degenerate_source_triangle"
+      }
+    ],
+    "invalid_source_triangles_removed_from_model": false,
+    "source_positions_changed": false,
+    "exact_coordinate_indexing_is_analysis_only": true
+  },
+  "nonshared_or_overlapping_contact_categories": {
+    "between_source_parts": 27148,
+    "within_source_part": 48
+  },
+  "affected_source_part_pairs": [
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_hilum_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_kidney_capsule_R"
+      ],
+      "contact_pairs": 610
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_hilum_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R"
+      ],
+      "contact_pairs": 661
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_hilum_of_kidney_R",
+        "ureter-female-right-v1.2:VH_F_major_calyx_R_b"
+      ],
+      "contact_pairs": 105
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_hilum_of_kidney_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_e"
+      ],
+      "contact_pairs": 23
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_hilum_of_kidney_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_f"
+      ],
+      "contact_pairs": 47
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_hilum_of_kidney_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_g"
+      ],
+      "contact_pairs": 100
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_kidney_capsule_R",
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R"
+      ],
+      "contact_pairs": 3549
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R"
+      ],
+      "contact_pairs": 43
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_column_R"
+      ],
+      "contact_pairs": 2235
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_a"
+      ],
+      "contact_pairs": 535
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_b"
+      ],
+      "contact_pairs": 152
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_c"
+      ],
+      "contact_pairs": 445
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_d"
+      ],
+      "contact_pairs": 322
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_e"
+      ],
+      "contact_pairs": 450
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_f"
+      ],
+      "contact_pairs": 455
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_g"
+      ],
+      "contact_pairs": 382
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_h"
+      ],
+      "contact_pairs": 418
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_i"
+      ],
+      "contact_pairs": 367
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_outer_cortex_of_kidney_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_j"
+      ],
+      "contact_pairs": 532
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_column_R"
+      ],
+      "contact_pairs": 5
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_papilla_R_a"
+      ],
+      "contact_pairs": 67
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_papilla_R_b"
+      ],
+      "contact_pairs": 5
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_papilla_R_f"
+      ],
+      "contact_pairs": 40
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_papilla_R_g"
+      ],
+      "contact_pairs": 15
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_a"
+      ],
+      "contact_pairs": 1271
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_b"
+      ],
+      "contact_pairs": 780
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_c"
+      ],
+      "contact_pairs": 973
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_d"
+      ],
+      "contact_pairs": 1027
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_e"
+      ],
+      "contact_pairs": 1124
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_f"
+      ],
+      "contact_pairs": 989
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_g"
+      ],
+      "contact_pairs": 1501
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_h"
+      ],
+      "contact_pairs": 1138
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_i"
+      ],
+      "contact_pairs": 1085
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_j"
+      ],
+      "contact_pairs": 2077
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_major_calyx_R_a"
+      ],
+      "contact_pairs": 165
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_a"
+      ],
+      "contact_pairs": 299
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_b"
+      ],
+      "contact_pairs": 353
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_c"
+      ],
+      "contact_pairs": 198
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_d"
+      ],
+      "contact_pairs": 413
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_e"
+      ],
+      "contact_pairs": 64
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_f"
+      ],
+      "contact_pairs": 195
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_g"
+      ],
+      "contact_pairs": 243
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_h"
+      ],
+      "contact_pairs": 28
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_i"
+      ],
+      "contact_pairs": 249
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_column_R",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_j"
+      ],
+      "contact_pairs": 357
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_papilla_R_a",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_b"
+      ],
+      "contact_pairs": 87
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_papilla_R_b",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_a"
+      ],
+      "contact_pairs": 20
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_papilla_R_g",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_g"
+      ],
+      "contact_pairs": 28
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_papilla_R_i",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_h"
+      ],
+      "contact_pairs": 60
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_a",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_b"
+      ],
+      "contact_pairs": 57
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_b",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_a"
+      ],
+      "contact_pairs": 145
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_c",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_d"
+      ],
+      "contact_pairs": 34
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_d",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_c"
+      ],
+      "contact_pairs": 180
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_e",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_f"
+      ],
+      "contact_pairs": 70
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_f",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_e"
+      ],
+      "contact_pairs": 59
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_f",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_f"
+      ],
+      "contact_pairs": 36
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_g",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_g"
+      ],
+      "contact_pairs": 104
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_h",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_i"
+      ],
+      "contact_pairs": 17
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_i",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_h"
+      ],
+      "contact_pairs": 63
+    },
+    {
+      "parts": [
+        "kidney-female-right-v1.3:VH_F_renal_pyramid_R_j",
+        "ureter-female-right-v1.2:VH_F_minor_calyx_R_j"
+      ],
+      "contact_pairs": 115
+    },
+    {
+      "parts": [
+        "ureter-female-right-v1.2:VH_F_renal_pelvis_R",
+        "ureter-female-right-v1.2:VH_F_right_ureter"
+      ],
+      "contact_pairs": 29
+    }
+  ],
+  "standalone_duplicate_pelvis_excluded": true,
+  "all_nonduplicate_source_parts_included": true,
+  "source_meshes_edited_repaired_or_fitted": false,
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "status": "held_source_geometry_contacts_and_invalid_triangles_require_review",
+  "limits": [
+    "Exact-coordinate indexing permits numerical shared vertex/edge adjacency without welding or editing an exported source model.",
+    "All nondegenerate triangles enter conservative candidate and explicit numerical contact checks; original invalid triangle identities remain held, not deleted as a fix.",
+    "Non-shared/overlapping geometric contact is not a pathological finding, proof of anatomy or grounds to remove a tissue layer.",
+    "Metre-to-mm conversion and 1e-9 mm numerical tolerance do not establish acquisition-derived resolution or clinical anatomical accuracy.",
+    "Version/semantic provenance, complete structures, source interfaces and clinical review remain separate holds."
+  ],
+  "triangle_contact_audit": {
+    "triangles": 107452,
+    "conservative_aabb_candidate_pairs": 1089363,
+    "noncoplanar_shared_edge_pairs_resolved_geometrically": 161161,
+    "pairs_explicitly_intersection_tested": 928202,
+    "unexpected_contact_count": 27196,
+    "comparison_tolerance_mm": 1e-09
+  },
+  "complete_contact_evidence": {
+    "file": "complete-source-contact-review.json.gz",
+    "compressed_bytes": 1320948,
+    "compressed_sha256": "3a94155eae23b4a77b3120c11eeb76c00cbd67768580c82f4f07127044ef9e27",
+    "uncompressed_bytes": 20760762,
+    "uncompressed_sha256": "30012d8d1cbd5e9a37fa48d3bea942bf732b8606049ca4c9e1586e582f45b510",
+    "all_contact_records_retained": true
+  },
+  "source_face_hold_summary": [
+    {
+      "source_part": "kidney-female-right-v1.3:VH_F_renal_column_R",
+      "source_face_index": 23620
+    },
+    {
+      "source_part": "kidney-female-right-v1.3:VH_F_renal_column_R",
+      "source_face_index": 23624
+    }
+  ]
+}
