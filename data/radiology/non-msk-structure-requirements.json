@@ -24,7 +24,8 @@
       "ra.ultrasound-bile-duct-stones",
       "ra.ct-bowel-obstruction",
       "ra.ct-bowel-ischaemia",
-      "ra.ct-bowel-wall"
+      "ra.ct-bowel-wall",
+      "ra.ct-small-bowel-tumours"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -52805,6 +52806,3151 @@
         {
           "observation": "patency_and_viability",
           "evidence": "Adequately opacified covered vessels and full relevant wall/injury assessment with independent specialist context."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ct-small-bowel-tumours",
+      "module_id": "rad.5.gi-tumours-foreign-bodies",
+      "title": "CT small bowel tumours",
+      "scope_status": "expanded_draft_requires_independent_anatomical_and_clinical_review",
+      "modality_scope": [
+        "CT"
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant small-bowel tumours",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+          "reviewed_at": "2026-10-04"
+        },
+        {
+          "title": "Lee et al. small-bowel malignancies and mimics",
+          "url": "https://doi.org/10.3348/jksr.2021.0168",
+          "reviewed_at": "2026-10-04"
+        },
+        {
+          "title": "Brogna et al. CT/cross-sectional tumour review",
+          "url": "https://doi.org/10.3390/healthcare13091071",
+          "reviewed_at": "2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "2830ba81b30c733ce7b2e133a104eeccc52919a6603b0e4da75f56eeffc4dc67",
+      "reporting_checklist": [
+        {
+          "label": "Primary Site",
+          "detail": "Localise the lesion and identify multiplicity."
+        },
+        {
+          "label": "Morphology",
+          "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+        },
+        {
+          "label": "Luminal Effect",
+          "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+        },
+        {
+          "label": "Mesentery",
+          "detail": "Assess desmoplastic reaction and nodal disease."
+        },
+        {
+          "label": "Spread",
+          "detail": "Inspect adjacent structures, liver and peritoneum."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "PRIMARY SITE",
+          "body": "Assessment/coverage and distension: [adequate / limited / unassessed]. Actual lesion site, bowel versus adjacent origin, number and dimensions: [ ]. Unassessed regions: [ ]."
+        },
+        {
+          "heading": "MORPHOLOGY",
+          "body": "Growth pattern and actual wall/lumen components: [ ]. Enhancement assessment: [adequate actual contrast source / limited / unassessed]. Acquired phases/reference attenuation, low-attenuation regions and limits: [ ]."
+        },
+        {
+          "heading": "LUMINAL EFFECT",
+          "body": "Assessed lumen, transitions, upstream/downstream bowel and limits: [ ]. Obstruction/intussusception or other effects: [ ]."
+        },
+        {
+          "heading": "MESENTERY",
+          "body": "Assessed mesenteric/vascular/nodal regions and opacification: [ ]. Separate mass/retraction, vessel interfaces and node observations: [ ]. Limits: [ ]."
+        },
+        {
+          "heading": "SPREAD",
+          "body": "Spread survey: [adequate acquired phases/coverage / limited / unassessed]. Assessed local interfaces, liver/peritoneum and other covered sites: [ ]. Visible observations and unassessed extent: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "small_bowel_tumour.segment_duodenal_bulb",
+          "name": "Actual duodenal_bulb anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_duodenal_bulb.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenal_bulb.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenal_bulb.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenal_bulb.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenal_bulb.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenal_bulb.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_duodenum_second",
+          "name": "Actual duodenum_second anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_duodenum_second.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_second.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_second.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_second.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_second.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_second.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_duodenum_third",
+          "name": "Actual duodenum_third anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_duodenum_third.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_third.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_third.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_third.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_third.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_third.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_duodenum_fourth",
+          "name": "Actual duodenum_fourth anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_duodenum_fourth.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_fourth.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_fourth.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_fourth.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_fourth.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_duodenum_fourth.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_proximal_jejunum",
+          "name": "Actual proximal_jejunum anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_proximal_jejunum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_jejunum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_jejunum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_jejunum.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_middle_jejunum",
+          "name": "Actual middle_jejunum anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_middle_jejunum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_jejunum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_jejunum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_jejunum.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_distal_jejunum",
+          "name": "Actual distal_jejunum anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_distal_jejunum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_jejunum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_jejunum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_jejunum.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_proximal_ileum",
+          "name": "Actual proximal_ileum anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_proximal_ileum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_ileum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_ileum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_ileum.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_proximal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_middle_ileum",
+          "name": "Actual middle_ileum anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_middle_ileum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_ileum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_ileum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_ileum.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_middle_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_distal_ileum",
+          "name": "Actual distal_ileum anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_distal_ileum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_ileum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_ileum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_ileum.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_distal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_terminal_ileum",
+          "name": "Actual terminal_ileum anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_terminal_ileum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_terminal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_terminal_ileum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_terminal_ileum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_terminal_ileum.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_terminal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.segment_ileocaecal_interface",
+          "name": "Actual ileocaecal_interface anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.segment_ileocaecal_interface.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "small_bowel_tumour.segment_ileocaecal_interface.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "small_bowel_tumour.segment_ileocaecal_interface.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_ileocaecal_interface.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.segment_ileocaecal_interface.mesenteric_attachment",
+              "name": "mesenteric attachment"
+            },
+            {
+              "id": "small_bowel_tumour.segment_ileocaecal_interface.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.each_primary",
+          "name": "Every actual primary or candidate lesion",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.each_primary.complete_lesion",
+              "name": "complete lesion"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.orthogonal_dimension_sites",
+              "name": "orthogonal dimension sites"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.complete_involved_length",
+              "name": "complete involved length"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.circumferential_extent",
+              "name": "circumferential extent"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.bowel_origin_interface",
+              "name": "bowel origin interface"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.adjacent_origin_interface",
+              "name": "adjacent origin interface"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.endoluminal_component",
+              "name": "endoluminal component"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.mural_component",
+              "name": "mural component"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.exophytic_component",
+              "name": "exophytic component"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.outer_surface",
+              "name": "outer surface"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.pedicle_if_present",
+              "name": "pedicle if present"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.each_additional_lesion",
+              "name": "each additional lesion"
+            },
+            {
+              "id": "small_bowel_tumour.each_primary.unassessed_lesion_margin",
+              "name": "unassessed lesion margin"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.components",
+          "name": "Actual lesion contents and internal/host interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.components.solid_region",
+              "name": "solid region"
+            },
+            {
+              "id": "small_bowel_tumour.components.low_attenuation_region",
+              "name": "low attenuation region"
+            },
+            {
+              "id": "small_bowel_tumour.components.cystic_region_if_supported",
+              "name": "cystic region if supported"
+            },
+            {
+              "id": "small_bowel_tumour.components.haemorrhagic_region_if_supported",
+              "name": "haemorrhagic region if supported"
+            },
+            {
+              "id": "small_bowel_tumour.components.macroscopic_fat_if_present",
+              "name": "macroscopic fat if present"
+            },
+            {
+              "id": "small_bowel_tumour.components.calcification_if_present",
+              "name": "calcification if present"
+            },
+            {
+              "id": "small_bowel_tumour.components.ulcer_if_visible",
+              "name": "ulcer if visible"
+            },
+            {
+              "id": "small_bowel_tumour.components.intralesional_gas",
+              "name": "intralesional gas"
+            },
+            {
+              "id": "small_bowel_tumour.components.source_lumen_communication",
+              "name": "source lumen communication"
+            },
+            {
+              "id": "small_bowel_tumour.components.enhancing_region_if_assessable",
+              "name": "enhancing region if assessable"
+            },
+            {
+              "id": "small_bowel_tumour.components.reference_bowel",
+              "name": "reference bowel"
+            },
+            {
+              "id": "small_bowel_tumour.components.tumour_wall_interface",
+              "name": "tumour wall interface"
+            },
+            {
+              "id": "small_bowel_tumour.components.extramural_interface",
+              "name": "extramural interface"
+            },
+            {
+              "id": "small_bowel_tumour.components.each_internal_band_if_resolved",
+              "name": "each internal band if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.components.unassessed_internal_extent",
+              "name": "unassessed internal extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.growth_patterns",
+          "name": "Actual source-specific growth/overlap observations",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.growth_patterns.annular_narrowing",
+              "name": "annular narrowing"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.polypoid_lesion",
+              "name": "polypoid lesion"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.subepithelial_region",
+              "name": "subepithelial region"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.eccentric_wall",
+              "name": "eccentric wall"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.circumferential_wall",
+              "name": "circumferential wall"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.exophytic_origin",
+              "name": "exophytic origin"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.aneurysmal_lumen",
+              "name": "aneurysmal lumen"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.desmoplastic_context",
+              "name": "desmoplastic context"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.hyperenhancing_region_if_assessable",
+              "name": "hyperenhancing region if assessable"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.hypoenhancing_region_if_assessable",
+              "name": "hypoenhancing region if assessable"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.similarly_enhancing_small_lesion",
+              "name": "similarly enhancing small lesion"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.normal_reference_region",
+              "name": "normal reference region"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.benign_mimic_if_supported",
+              "name": "benign mimic if supported"
+            },
+            {
+              "id": "small_bowel_tumour.growth_patterns.unassessed_histological_boundary",
+              "name": "unassessed histological boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.luminal_effect",
+          "name": "Actual luminal/obstructive and intussusception context",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.luminal_effect.stenosis",
+              "name": "stenosis"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.proximal_transition",
+              "name": "proximal transition"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.distal_transition",
+              "name": "distal transition"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.upstream_dilatation",
+              "name": "upstream dilatation"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.distal_lumen",
+              "name": "distal lumen"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.complete_affected_loop",
+              "name": "complete affected loop"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.intussusceptum",
+              "name": "intussusceptum"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.intussuscipiens",
+              "name": "intussuscipiens"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.lead_point_if_supported",
+              "name": "lead point if supported"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.invaginated_mesentery",
+              "name": "invaginated mesentery"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.entrapped_vessels",
+              "name": "entrapped vessels"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.obstruction_cause_interface",
+              "name": "obstruction cause interface"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.closed_loop_if_present",
+              "name": "closed loop if present"
+            },
+            {
+              "id": "small_bowel_tumour.luminal_effect.unassessed_source_extent",
+              "name": "unassessed source extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.mesentery",
+          "name": "Actual mesenteric and nodal anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.mesentery.root",
+              "name": "root"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.each_actual_leaf",
+              "name": "each actual leaf"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.bowel_attachment",
+              "name": "bowel attachment"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.mesenteric_fat",
+              "name": "mesenteric fat"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.each_relevant_nodal_station",
+              "name": "each relevant nodal station"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.node_envelope",
+              "name": "node envelope"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.nodal_vessel_interface",
+              "name": "nodal vessel interface"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.perienteric_interface",
+              "name": "perienteric interface"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.omental_interface",
+              "name": "omental interface"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.retroperitoneal_interface",
+              "name": "retroperitoneal interface"
+            },
+            {
+              "id": "small_bowel_tumour.mesentery.peritoneal_interface",
+              "name": "peritoneal interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.mesenteric_lesion",
+          "name": "Every separate mesenteric/nodal observation",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.mass_core",
+              "name": "mass core"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.mass_margin",
+              "name": "mass margin"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.calcified_region",
+              "name": "calcified region"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.fibrotic_retraction_if_supported",
+              "name": "fibrotic retraction if supported"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.bowel_tethering_region",
+              "name": "bowel tethering region"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.solid_component",
+              "name": "solid component"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.low_attenuation_component",
+              "name": "low attenuation component"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.each_abnormal_node",
+              "name": "each abnormal node"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.nodal_proximal_extent",
+              "name": "nodal proximal extent"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.nodal_distal_extent",
+              "name": "nodal distal extent"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.source_vessel_contact",
+              "name": "source vessel contact"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.residual_vascular_lumen",
+              "name": "residual vascular lumen"
+            },
+            {
+              "id": "small_bowel_tumour.mesenteric_lesion.unassessed_local_extent",
+              "name": "unassessed local extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vessel_sma_and_actual_branches",
+          "name": "Actual sma_and_actual_branches anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vessel_sma_and_actual_branches.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_sma_and_actual_branches.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_sma_and_actual_branches.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_sma_and_actual_branches.branch_or_confluence",
+              "name": "branch or confluence"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_sma_and_actual_branches.bowel_supply_or_drainage_interface",
+              "name": "bowel supply or drainage interface"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_sma_and_actual_branches.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vessel_ima_if_relevant",
+          "name": "Actual ima_if_relevant anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vessel_ima_if_relevant.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_ima_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_ima_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_ima_if_relevant.branch_or_confluence",
+              "name": "branch or confluence"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_ima_if_relevant.bowel_supply_or_drainage_interface",
+              "name": "bowel supply or drainage interface"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_ima_if_relevant.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vessel_coeliac_if_relevant",
+          "name": "Actual coeliac_if_relevant anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vessel_coeliac_if_relevant.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_coeliac_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_coeliac_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_coeliac_if_relevant.branch_or_confluence",
+              "name": "branch or confluence"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_coeliac_if_relevant.bowel_supply_or_drainage_interface",
+              "name": "bowel supply or drainage interface"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_coeliac_if_relevant.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vessel_smv_and_actual_tributaries",
+          "name": "Actual smv_and_actual_tributaries anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vessel_smv_and_actual_tributaries.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_smv_and_actual_tributaries.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_smv_and_actual_tributaries.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_smv_and_actual_tributaries.branch_or_confluence",
+              "name": "branch or confluence"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_smv_and_actual_tributaries.bowel_supply_or_drainage_interface",
+              "name": "bowel supply or drainage interface"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_smv_and_actual_tributaries.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vessel_imv_if_relevant",
+          "name": "Actual imv_if_relevant anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vessel_imv_if_relevant.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_imv_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_imv_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_imv_if_relevant.branch_or_confluence",
+              "name": "branch or confluence"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_imv_if_relevant.bowel_supply_or_drainage_interface",
+              "name": "bowel supply or drainage interface"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_imv_if_relevant.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vessel_portal_splenic_confluence",
+          "name": "Actual portal_splenic_confluence anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vessel_portal_splenic_confluence.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_portal_splenic_confluence.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_portal_splenic_confluence.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_portal_splenic_confluence.branch_or_confluence",
+              "name": "branch or confluence"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_portal_splenic_confluence.bowel_supply_or_drainage_interface",
+              "name": "bowel supply or drainage interface"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_portal_splenic_confluence.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vessel_vasa_recta_if_resolved",
+          "name": "Actual vasa_recta_if_resolved anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vessel_vasa_recta_if_resolved.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_vasa_recta_if_resolved.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_vasa_recta_if_resolved.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_vasa_recta_if_resolved.branch_or_confluence",
+              "name": "branch or confluence"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_vasa_recta_if_resolved.bowel_supply_or_drainage_interface",
+              "name": "bowel supply or drainage interface"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_vasa_recta_if_resolved.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vessel_actual_collateral_pathway",
+          "name": "Actual actual_collateral_pathway anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vessel_actual_collateral_pathway.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_actual_collateral_pathway.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_actual_collateral_pathway.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_actual_collateral_pathway.branch_or_confluence",
+              "name": "branch or confluence"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_actual_collateral_pathway.bowel_supply_or_drainage_interface",
+              "name": "bowel supply or drainage interface"
+            },
+            {
+              "id": "small_bowel_tumour.vessel_actual_collateral_pathway.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.vascular_effect",
+          "name": "Each actual vascular abnormality and longitudinal margin",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.vascular_effect.arterial_contact",
+              "name": "arterial contact"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.venous_contact",
+              "name": "venous contact"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.encased_region",
+              "name": "encased region"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.narrowed_lumen",
+              "name": "narrowed lumen"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.residual_patent_lumen",
+              "name": "residual patent lumen"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.arterial_occlusion",
+              "name": "arterial occlusion"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.venous_thrombus",
+              "name": "venous thrombus"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.proximal_abnormality_margin",
+              "name": "proximal abnormality margin"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.distal_abnormality_margin",
+              "name": "distal abnormality margin"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.collateral_region_if_present",
+              "name": "collateral region if present"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.congested_bowel_interface",
+              "name": "congested bowel interface"
+            },
+            {
+              "id": "small_bowel_tumour.vascular_effect.unassessed_opacification_or_extent",
+              "name": "unassessed opacification or extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.host_pancreatic_head_if_relevant",
+          "name": "Actual pancreatic_head_if_relevant host interface",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.host_pancreatic_head_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "small_bowel_tumour.host_pancreatic_head_if_relevant.host_wall_or_surface_if_resolved",
+              "name": "host wall or surface if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.host_pancreatic_head_if_relevant.source_contact_plane",
+              "name": "source contact plane"
+            },
+            {
+              "id": "small_bowel_tumour.host_pancreatic_head_if_relevant.lesion_margin_at_interface",
+              "name": "lesion margin at interface"
+            },
+            {
+              "id": "small_bowel_tumour.host_pancreatic_head_if_relevant.unassessed_invasion_boundary",
+              "name": "unassessed invasion boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.host_biliary_ampullary_region_if_relevant",
+          "name": "Actual biliary_ampullary_region_if_relevant host interface",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.host_biliary_ampullary_region_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "small_bowel_tumour.host_biliary_ampullary_region_if_relevant.host_wall_or_surface_if_resolved",
+              "name": "host wall or surface if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.host_biliary_ampullary_region_if_relevant.source_contact_plane",
+              "name": "source contact plane"
+            },
+            {
+              "id": "small_bowel_tumour.host_biliary_ampullary_region_if_relevant.lesion_margin_at_interface",
+              "name": "lesion margin at interface"
+            },
+            {
+              "id": "small_bowel_tumour.host_biliary_ampullary_region_if_relevant.unassessed_invasion_boundary",
+              "name": "unassessed invasion boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.host_colon_if_relevant",
+          "name": "Actual colon_if_relevant host interface",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.host_colon_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "small_bowel_tumour.host_colon_if_relevant.host_wall_or_surface_if_resolved",
+              "name": "host wall or surface if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.host_colon_if_relevant.source_contact_plane",
+              "name": "source contact plane"
+            },
+            {
+              "id": "small_bowel_tumour.host_colon_if_relevant.lesion_margin_at_interface",
+              "name": "lesion margin at interface"
+            },
+            {
+              "id": "small_bowel_tumour.host_colon_if_relevant.unassessed_invasion_boundary",
+              "name": "unassessed invasion boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.host_stomach_if_relevant",
+          "name": "Actual stomach_if_relevant host interface",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.host_stomach_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "small_bowel_tumour.host_stomach_if_relevant.host_wall_or_surface_if_resolved",
+              "name": "host wall or surface if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.host_stomach_if_relevant.source_contact_plane",
+              "name": "source contact plane"
+            },
+            {
+              "id": "small_bowel_tumour.host_stomach_if_relevant.lesion_margin_at_interface",
+              "name": "lesion margin at interface"
+            },
+            {
+              "id": "small_bowel_tumour.host_stomach_if_relevant.unassessed_invasion_boundary",
+              "name": "unassessed invasion boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.host_adjacent_bowel_loop",
+          "name": "Actual adjacent_bowel_loop host interface",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.host_adjacent_bowel_loop.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "small_bowel_tumour.host_adjacent_bowel_loop.host_wall_or_surface_if_resolved",
+              "name": "host wall or surface if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.host_adjacent_bowel_loop.source_contact_plane",
+              "name": "source contact plane"
+            },
+            {
+              "id": "small_bowel_tumour.host_adjacent_bowel_loop.lesion_margin_at_interface",
+              "name": "lesion margin at interface"
+            },
+            {
+              "id": "small_bowel_tumour.host_adjacent_bowel_loop.unassessed_invasion_boundary",
+              "name": "unassessed invasion boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.host_abdominal_wall_if_relevant",
+          "name": "Actual abdominal_wall_if_relevant host interface",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.host_abdominal_wall_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "small_bowel_tumour.host_abdominal_wall_if_relevant.host_wall_or_surface_if_resolved",
+              "name": "host wall or surface if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.host_abdominal_wall_if_relevant.source_contact_plane",
+              "name": "source contact plane"
+            },
+            {
+              "id": "small_bowel_tumour.host_abdominal_wall_if_relevant.lesion_margin_at_interface",
+              "name": "lesion margin at interface"
+            },
+            {
+              "id": "small_bowel_tumour.host_abdominal_wall_if_relevant.unassessed_invasion_boundary",
+              "name": "unassessed invasion boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.host_retroperitoneal_host_if_relevant",
+          "name": "Actual retroperitoneal_host_if_relevant host interface",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.host_retroperitoneal_host_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "small_bowel_tumour.host_retroperitoneal_host_if_relevant.host_wall_or_surface_if_resolved",
+              "name": "host wall or surface if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.host_retroperitoneal_host_if_relevant.source_contact_plane",
+              "name": "source contact plane"
+            },
+            {
+              "id": "small_bowel_tumour.host_retroperitoneal_host_if_relevant.lesion_margin_at_interface",
+              "name": "lesion margin at interface"
+            },
+            {
+              "id": "small_bowel_tumour.host_retroperitoneal_host_if_relevant.unassessed_invasion_boundary",
+              "name": "unassessed invasion boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.hepatic_peritoneal",
+          "name": "Actual covered liver/peritoneal/omental anatomy",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.each_covered_hepatic_segment",
+              "name": "each covered hepatic segment"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.portal_regions_if_resolved",
+              "name": "portal regions if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.hepatic_arterial_regions_if_resolved",
+              "name": "hepatic arterial regions if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.liver_capsule",
+              "name": "liver capsule"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.subcapsular_interface",
+              "name": "subcapsular interface"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.perihepatic_peritoneum",
+              "name": "perihepatic peritoneum"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.paracolic_surface",
+              "name": "paracolic surface"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.pelvic_surface",
+              "name": "pelvic surface"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.omentum",
+              "name": "omentum"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.mesenteric_surface",
+              "name": "mesenteric surface"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.ascitic_space",
+              "name": "ascitic space"
+            },
+            {
+              "id": "small_bowel_tumour.hepatic_peritoneal.unassessed_source_field",
+              "name": "unassessed source field"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.spread_observations",
+          "name": "Every actual possible spread site/component",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.spread_observations.each_hepatic_lesion",
+              "name": "each hepatic lesion"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.hepatic_lesion_margin",
+              "name": "hepatic lesion margin"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.hepatic_lesion_internal_component",
+              "name": "hepatic lesion internal component"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.each_peritoneal_nodule",
+              "name": "each peritoneal nodule"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.peritoneal_nodule_surface",
+              "name": "peritoneal nodule surface"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.each_omental_deposit",
+              "name": "each omental deposit"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.each_mesenteric_deposit",
+              "name": "each mesenteric deposit"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.each_distant_node",
+              "name": "each distant node"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.other_covered_organ_lesion",
+              "name": "other covered organ lesion"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.source_liver_reference",
+              "name": "source liver reference"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.source_peritoneal_reference",
+              "name": "source peritoneal reference"
+            },
+            {
+              "id": "small_bowel_tumour.spread_observations.unassessed_occult_spread_limit",
+              "name": "unassessed occult spread limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.complications",
+          "name": "Each actual clinically relevant complication region",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.complications.wall_defect",
+              "name": "wall defect"
+            },
+            {
+              "id": "small_bowel_tumour.complications.free_gas",
+              "name": "free gas"
+            },
+            {
+              "id": "small_bowel_tumour.complications.contained_perforation",
+              "name": "contained perforation"
+            },
+            {
+              "id": "small_bowel_tumour.complications.fistula_if_visible",
+              "name": "fistula if visible"
+            },
+            {
+              "id": "small_bowel_tumour.complications.abscess_core",
+              "name": "abscess core"
+            },
+            {
+              "id": "small_bowel_tumour.complications.abscess_wall",
+              "name": "abscess wall"
+            },
+            {
+              "id": "small_bowel_tumour.complications.abscess_outer_interface",
+              "name": "abscess outer interface"
+            },
+            {
+              "id": "small_bowel_tumour.complications.active_extravasation_if_assessable",
+              "name": "active extravasation if assessable"
+            },
+            {
+              "id": "small_bowel_tumour.complications.intraluminal_blood_if_supported",
+              "name": "intraluminal blood if supported"
+            },
+            {
+              "id": "small_bowel_tumour.complications.ischaemic_wall_if_supported",
+              "name": "ischaemic wall if supported"
+            },
+            {
+              "id": "small_bowel_tumour.complications.threatened_closed_loop",
+              "name": "threatened closed loop"
+            },
+            {
+              "id": "small_bowel_tumour.complications.obstructed_region",
+              "name": "obstructed region"
+            },
+            {
+              "id": "small_bowel_tumour.complications.local_inflammatory_interface",
+              "name": "local inflammatory interface"
+            },
+            {
+              "id": "small_bowel_tumour.complications.unassessed_complication_extent",
+              "name": "unassessed complication extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.periampullary",
+          "name": "Conditional actual periampullary localisation and host effects",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.periampullary.duodenal_wall_at_origin",
+              "name": "duodenal wall at origin"
+            },
+            {
+              "id": "small_bowel_tumour.periampullary.ampullary_region_if_resolved",
+              "name": "ampullary region if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.periampullary.distal_bile_duct_if_resolved",
+              "name": "distal bile duct if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.periampullary.pancreatic_duct_if_resolved",
+              "name": "pancreatic duct if resolved"
+            },
+            {
+              "id": "small_bowel_tumour.periampullary.pancreatic_head_interface",
+              "name": "pancreatic head interface"
+            },
+            {
+              "id": "small_bowel_tumour.periampullary.actual_dilated_duct_extent",
+              "name": "actual dilated duct extent"
+            },
+            {
+              "id": "small_bowel_tumour.periampullary.adjacent_vascular_interface",
+              "name": "adjacent vascular interface"
+            },
+            {
+              "id": "small_bowel_tumour.periampullary.unassessed_primary_origin",
+              "name": "unassessed primary origin"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.posttreatment",
+          "name": "Actual postoperative or treatment observations",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.posttreatment.anastomotic_region",
+              "name": "anastomotic region"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.altered_bowel_course",
+              "name": "altered bowel course"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.source_resection_bed",
+              "name": "source resection bed"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.residual_candidate_tissue",
+              "name": "residual candidate tissue"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.recurrent_candidate_tissue",
+              "name": "recurrent candidate tissue"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.baseline_target",
+              "name": "baseline target"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.current_target",
+              "name": "current target"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.each_separate_treatment_site",
+              "name": "each separate treatment site"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.adjacent_collection_if_present",
+              "name": "adjacent collection if present"
+            },
+            {
+              "id": "small_bowel_tumour.posttreatment.unassessed_temporal_correspondence",
+              "name": "unassessed temporal correspondence"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.source_acquisition",
+          "name": "Actual detection/measurement/phase and field limits",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.source_acquisition.distended_reference_bowel",
+              "name": "distended reference bowel"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.collapsed_segment",
+              "name": "collapsed segment"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.small_inconspicuous_lesion_reference",
+              "name": "small inconspicuous lesion reference"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.source_baseline_lesion",
+              "name": "source baseline lesion"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.actual_arterial_lesion_if_acquired",
+              "name": "actual arterial lesion if acquired"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.actual_venous_lesion_if_acquired",
+              "name": "actual venous lesion if acquired"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.actual_delayed_source_if_acquired",
+              "name": "actual delayed source if acquired"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.matched_reference_region",
+              "name": "matched reference region"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.orthogonal_measurement_plane",
+              "name": "orthogonal measurement plane"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.positive_enteric_contrast_effect_if_present",
+              "name": "positive enteric contrast effect if present"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.motion_region",
+              "name": "motion region"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.field_end",
+              "name": "field end"
+            },
+            {
+              "id": "small_bowel_tumour.source_acquisition.independent_native_resolution_evidence",
+              "name": "independent native resolution evidence"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "small_bowel_tumour.positive_examples",
+          "name": "Source-specific lesion and mimic examples requiring independent context",
+          "tissue_class": "reportable_anatomy_or_lesion_interface",
+          "required_parts": [
+            {
+              "id": "small_bowel_tumour.positive_examples.adenocarcinoma_example",
+              "name": "adenocarcinoma example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.gist_example",
+              "name": "gist example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.neuroendocrine_example",
+              "name": "neuroendocrine example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.lymphoma_example",
+              "name": "lymphoma example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.benign_adenoma_example",
+              "name": "benign adenoma example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.benign_lipoma_example",
+              "name": "benign lipoma example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.inflammatory_mimic_example",
+              "name": "inflammatory mimic example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.adjacent_origin_mimic_example",
+              "name": "adjacent origin mimic example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.multifocal_lesion_example",
+              "name": "multifocal lesion example"
+            },
+            {
+              "id": "small_bowel_tumour.positive_examples.similarly_enhancing_small_lesion_example",
+              "name": "similarly enhancing small lesion example"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual lesion/component, complete covered bowel segment, vessel branch, nodal station, mesenteric/local interface and spread observation in the source case. Record distension, phase, spatial extent and source/population limits. Normal parent anatomy, schematic colours and selected sections cannot establish tumour histology, biological risk, complete vessel/wall interfaces, microscopic invasion, patency or complete staging. Conditional periampullary/postoperative/other-organ regions require actual source coverage and relevance.",
+          "requirement_basis": "effective_small_bowel_tumour_site_morphology_lumen_mesentery_and_spread_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Primary Site",
+              "detail": "Localise the lesion and identify multiplicity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe mural, polypoid or exophytic growth and enhancement."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Luminal Effect",
+              "detail": "Assess obstruction, intussusception and aneurysmal dilatation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery",
+              "detail": "Assess desmoplastic reaction and nodal disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Spread",
+              "detail": "Inspect adjacent structures, liver and peritoneum."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+            "https://doi.org/10.3348/jksr.2021.0168",
+            "https://doi.org/10.3390/healthcare13091071"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual lesion/component, bowel segment and separate primary/mesenteric/nodal/spread observation",
+            "Complete source branch and interface identities with actual distension, acquisition phases and spatial extent",
+            "Independent diagnostic/histological framework, source rights and anatomical/clinical review"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "actual_lesion_and_interface_instances_pending",
+          "detail": "Prototype groups require full case-specific site/component/branch instantiation and anatomical validation."
+        },
+        {
+          "code": "detection_and_phase_limits_pending",
+          "detail": "Unassessed or inadequately acquired bowel/liver/vascular regions cannot become negative tumour/spread/patency conclusions."
+        },
+        {
+          "code": "histology_grade_and_invasion_pending",
+          "detail": "Appearance, low attenuation, encasement or model colours do not establish histology, grade, microscopic invasion or operative suitability."
+        },
+        {
+          "code": "native_sources_and_rights_pending",
+          "detail": "Every source image, schematic and model needs appropriate rights, acquisition and fidelity evidence."
+        },
+        {
+          "code": "shared_lesson_framework_review_pending",
+          "detail": "Whole shared tumour/foreign-body lesson, quiz, staging and management content remain independently unreconciled."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "primary_origin",
+          "evidence": "Actual source bowel/adjacent-organ interfaces, distension and complete covered extent."
+        },
+        {
+          "observation": "enhancement",
+          "evidence": "Actual contrast phases and reference regions; similarly enhancing lesions may remain inconspicuous."
+        },
+        {
+          "observation": "growth_and_grade",
+          "evidence": "Observed morphology plus independent clinical/pathological context, not pattern-only histology or biological risk."
+        },
+        {
+          "observation": "vascular_and_local_extent",
+          "evidence": "Full actual vessel/host interfaces, opacification and abnormality margins; source contact is not microscopic invasion."
+        },
+        {
+          "observation": "spread",
+          "evidence": "Actual acquired liver/peritoneal and other covered-site survey with occult/unassessed limits retained."
         }
       ]
     }

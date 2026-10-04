@@ -840,9 +840,10 @@
   },
   "ra.ct-small-bowel-tumours": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Use thin-section multiplanar CT with appropriate bowel and intravenous contrast assessment; state distension limitations."
+        "Use thin-section multiplanar CT with appropriate bowel and intravenous contrast assessment; state distension limitations.",
+        "Record actual bowel coverage/distension, source acquisitions and contrast phases, lesion/reference attenuation and vascular opacification. Unavailable phases or unassessed bowel/spread sites remain unknown; routine CT can miss small or similarly enhancing lesions."
       ],
       "checklist": [
         {
@@ -870,48 +871,69 @@
         {
           "name": "Tumour dimensions",
           "method": "Record maximum orthogonal dimensions and involved bowel length.",
-          "pitfall": "Separate primary tumour from adjacent mesenteric mass."
+          "pitfall": "Separate primary tumour from adjacent mesenteric mass. Record each actual lesion/component, acquisition plane, bowel distension and assessment limits; do not combine separate primary, mesenteric or nodal observations."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Different tumours can share appearances; describe the growth pattern rather than asserting histology from CT alone."
+        "Different tumours can share appearances; describe the growth pattern rather than asserting histology from CT alone.",
+        "Small or similarly enhancing lesions may be missed on routine CT; a negative limited examination or parent bowel model does not exclude every tumour.",
+        "Growth/enhancement patterns overlap among GIST, adenocarcinoma, lymphoma, neuroendocrine tumours and benign mimics. Imaging cannot independently establish histology, mitotic/molecular grade or biological risk.",
+        "Describe actual vessel contact, residual lumen, source encasement and adjacent-organ interfaces; CT contact or a coloured model does not prove microscopic invasion or operative resectability.",
+        "Record the actual liver/peritoneal phases and field; absent visible deposits or enlarged nodes do not exclude small, occult or microscopic spread."
       ],
       "impression_prompts": [
         "Small bowel mass morphology, distribution and associated disease.",
         "State the dominant abnormality, relevant extent and examination limitations."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate suspected perforation, threatened bowel, clinically significant obstruction or active bleeding urgently in the relevant clinical context; record the finding, recipient and time."
+      ],
       "template_sections": [
         {
           "heading": "PRIMARY SITE",
-          "body": "Bowel segment: [ ]. Number: [ ]. Length/dimensions: [ ]."
+          "body": "Assessment/coverage and distension: [adequate / limited / unassessed]. Actual lesion site, bowel versus adjacent origin, number and dimensions: [ ]. Unassessed regions: [ ]."
         },
         {
           "heading": "MORPHOLOGY",
-          "body": "Growth pattern: [ ]. Enhancement: [ ]. Ulceration/necrosis: [ ]."
+          "body": "Growth pattern and actual wall/lumen components: [ ]. Enhancement assessment: [adequate actual contrast source / limited / unassessed]. Acquired phases/reference attenuation, low-attenuation regions and limits: [ ]."
         },
         {
           "heading": "LUMINAL EFFECT",
-          "body": "Lumen/upstream bowel: [ ]. Intussusception: [ ]."
+          "body": "Assessed lumen, transitions, upstream/downstream bowel and limits: [ ]. Obstruction/intussusception or other effects: [ ]."
         },
         {
           "heading": "MESENTERY",
-          "body": "Mesenteric mass/retraction: [ ]. Nodes: [ ]. Vessels: [ ]."
+          "body": "Assessed mesenteric/vascular/nodal regions and opacification: [ ]. Separate mass/retraction, vessel interfaces and node observations: [ ]. Limits: [ ]."
         },
         {
           "heading": "SPREAD",
-          "body": "Local extension: [ ]. Liver/peritoneum: [ ]. Other spread: [ ]."
+          "body": "Spread survey: [adequate acquired phases/coverage / limited / unassessed]. Assessed local interfaces, liver/peritoneum and other covered sites: [ ]. Visible observations and unassessed extent: [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Small Bowel Tumors",
           "url": "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors"
+        },
+        {
+          "title": "Lee et al. — Radiologic Review of Small Bowel Malignancies and Their Mimicking Lesions",
+          "url": "https://doi.org/10.3348/jksr.2021.0168"
+        },
+        {
+          "title": "Brogna et al. — Intestinal tumour CT and cross-sectional imaging review (2025)",
+          "url": "https://doi.org/10.3390/healthcare13091071"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Localise every actual lesion and distinguish bowel origin from adjacent organ or mesenteric origin.",
+      "Record lesion components, growth pattern, lumen effects and actual acquired enhancement sources.",
+      "Similar growth or enhancement patterns can occur in different tumours and benign mimics; CT does not establish histology or molecular grade.",
+      "State bowel distension, phase/coverage and source limitations, including sites not adequately assessed.",
+      "Review actual mesenteric vessels, nodes, liver, peritoneum and clinically important complications without inferring microscopic spread or complete staging from a schematic."
+    ]
   },
   "ra.gi-foreign-bodies": {
     "reporting": {

@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2517,7 +2517,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3876,7 +3876,7 @@
       },
       "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -4525,7 +4525,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5371,7 +5371,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6456,7 +6456,7 @@
       },
       "reporting_contract_sha256": "5e2553d4b2296031280b8ff52ecb45abe99d345c0d1443b334626cf463beaa22",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -7355,7 +7355,7 @@
       },
       "reporting_contract_sha256": "51afe1e42b4980b9410d9cde3df025ec185c91efcf1ed9f5a935c60d58bce8bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -8256,7 +8256,7 @@
       },
       "reporting_contract_sha256": "157a1fd76d9cd51e73683f63e8933edf810415a86770b53e11341939ffa5288d",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9544,9 +9544,10 @@
       "modality": "CT",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-04",
           "protocol": [
-            "Use thin-section multiplanar CT with appropriate bowel and intravenous contrast assessment; state distension limitations."
+            "Use thin-section multiplanar CT with appropriate bowel and intravenous contrast assessment; state distension limitations.",
+            "Record actual bowel coverage/distension, source acquisitions and contrast phases, lesion/reference attenuation and vascular opacification. Unavailable phases or unassessed bowel/spread sites remain unknown; routine CT can miss small or similarly enhancing lesions."
           ],
           "checklist": [
             {
@@ -9574,45 +9575,59 @@
             {
               "name": "Tumour dimensions",
               "method": "Record maximum orthogonal dimensions and involved bowel length.",
-              "pitfall": "Separate primary tumour from adjacent mesenteric mass."
+              "pitfall": "Separate primary tumour from adjacent mesenteric mass. Record each actual lesion/component, acquisition plane, bowel distension and assessment limits; do not combine separate primary, mesenteric or nodal observations."
             }
           ],
           "classification": null,
           "criteria_table": null,
           "pitfalls": [
-            "Different tumours can share appearances; describe the growth pattern rather than asserting histology from CT alone."
+            "Different tumours can share appearances; describe the growth pattern rather than asserting histology from CT alone.",
+            "Small or similarly enhancing lesions may be missed on routine CT; a negative limited examination or parent bowel model does not exclude every tumour.",
+            "Growth/enhancement patterns overlap among GIST, adenocarcinoma, lymphoma, neuroendocrine tumours and benign mimics. Imaging cannot independently establish histology, mitotic/molecular grade or biological risk.",
+            "Describe actual vessel contact, residual lumen, source encasement and adjacent-organ interfaces; CT contact or a coloured model does not prove microscopic invasion or operative resectability.",
+            "Record the actual liver/peritoneal phases and field; absent visible deposits or enlarged nodes do not exclude small, occult or microscopic spread."
           ],
           "impression_prompts": [
             "Small bowel mass morphology, distribution and associated disease.",
             "State the dominant abnormality, relevant extent and examination limitations."
           ],
-          "escalation": [],
+          "escalation": [
+            "Communicate suspected perforation, threatened bowel, clinically significant obstruction or active bleeding urgently in the relevant clinical context; record the finding, recipient and time."
+          ],
           "template_sections": [
             {
               "heading": "PRIMARY SITE",
-              "body": "Bowel segment: [ ]. Number: [ ]. Length/dimensions: [ ]."
+              "body": "Assessment/coverage and distension: [adequate / limited / unassessed]. Actual lesion site, bowel versus adjacent origin, number and dimensions: [ ]. Unassessed regions: [ ]."
             },
             {
               "heading": "MORPHOLOGY",
-              "body": "Growth pattern: [ ]. Enhancement: [ ]. Ulceration/necrosis: [ ]."
+              "body": "Growth pattern and actual wall/lumen components: [ ]. Enhancement assessment: [adequate actual contrast source / limited / unassessed]. Acquired phases/reference attenuation, low-attenuation regions and limits: [ ]."
             },
             {
               "heading": "LUMINAL EFFECT",
-              "body": "Lumen/upstream bowel: [ ]. Intussusception: [ ]."
+              "body": "Assessed lumen, transitions, upstream/downstream bowel and limits: [ ]. Obstruction/intussusception or other effects: [ ]."
             },
             {
               "heading": "MESENTERY",
-              "body": "Mesenteric mass/retraction: [ ]. Nodes: [ ]. Vessels: [ ]."
+              "body": "Assessed mesenteric/vascular/nodal regions and opacification: [ ]. Separate mass/retraction, vessel interfaces and node observations: [ ]. Limits: [ ]."
             },
             {
               "heading": "SPREAD",
-              "body": "Local extension: [ ]. Liver/peritoneum: [ ]. Other spread: [ ]."
+              "body": "Spread survey: [adequate acquired phases/coverage / limited / unassessed]. Assessed local interfaces, liver/peritoneum and other covered sites: [ ]. Visible observations and unassessed extent: [ ]."
             }
           ],
           "sources": [
             {
               "title": "Radiology Assistant \u2014 Small Bowel Tumors",
               "url": "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors"
+            },
+            {
+              "title": "Lee et al. \u2014 Radiologic Review of Small Bowel Malignancies and Their Mimicking Lesions",
+              "url": "https://doi.org/10.3348/jksr.2021.0168"
+            },
+            {
+              "title": "Brogna et al. \u2014 Intestinal tumour CT and cross-sectional imaging review (2025)",
+              "url": "https://doi.org/10.3390/healthcare13091071"
             }
           ]
         },
@@ -9632,7 +9647,7 @@
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Use thin-section multiplanar CT with appropriate bowel and intravenous contrast assessment; state distension limitations.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
+                "body": "Use thin-section multiplanar CT with appropriate bowel and intravenous contrast assessment; state distension limitations.\nRecord actual bowel coverage/distension, source acquisitions and contrast phases, lesion/reference attenuation and vascular opacification. Unavailable phases or unassessed bowel/spread sites remain unknown; routine CT can miss small or similarly enhancing lesions.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
@@ -9640,23 +9655,23 @@
               },
               {
                 "heading": "PRIMARY SITE",
-                "body": "Bowel segment: [ ]. Number: [ ]. Length/dimensions: [ ]."
+                "body": "Assessment/coverage and distension: [adequate / limited / unassessed]. Actual lesion site, bowel versus adjacent origin, number and dimensions: [ ]. Unassessed regions: [ ]."
               },
               {
                 "heading": "MORPHOLOGY",
-                "body": "Growth pattern: [ ]. Enhancement: [ ]. Ulceration/necrosis: [ ]."
+                "body": "Growth pattern and actual wall/lumen components: [ ]. Enhancement assessment: [adequate actual contrast source / limited / unassessed]. Acquired phases/reference attenuation, low-attenuation regions and limits: [ ]."
               },
               {
                 "heading": "LUMINAL EFFECT",
-                "body": "Lumen/upstream bowel: [ ]. Intussusception: [ ]."
+                "body": "Assessed lumen, transitions, upstream/downstream bowel and limits: [ ]. Obstruction/intussusception or other effects: [ ]."
               },
               {
                 "heading": "MESENTERY",
-                "body": "Mesenteric mass/retraction: [ ]. Nodes: [ ]. Vessels: [ ]."
+                "body": "Assessed mesenteric/vascular/nodal regions and opacification: [ ]. Separate mass/retraction, vessel interfaces and node observations: [ ]. Limits: [ ]."
               },
               {
                 "heading": "SPREAD",
-                "body": "Local extension: [ ]. Liver/peritoneum: [ ]. Other spread: [ ]."
+                "body": "Spread survey: [adequate acquired phases/coverage / limited / unassessed]. Assessed local interfaces, liver/peritoneum and other covered sites: [ ]. Visible observations and unassessed extent: [ ]."
               },
               {
                 "heading": "IMPRESSION",
@@ -9668,12 +9683,24 @@
               }
             ],
             "notes": [
-              "Different tumours can share appearances; describe the growth pattern rather than asserting histology from CT alone."
+              "Different tumours can share appearances; describe the growth pattern rather than asserting histology from CT alone.",
+              "Small or similarly enhancing lesions may be missed on routine CT; a negative limited examination or parent bowel model does not exclude every tumour.",
+              "Growth/enhancement patterns overlap among GIST, adenocarcinoma, lymphoma, neuroendocrine tumours and benign mimics. Imaging cannot independently establish histology, mitotic/molecular grade or biological risk.",
+              "Describe actual vessel contact, residual lumen, source encasement and adjacent-organ interfaces; CT contact or a coloured model does not prove microscopic invasion or operative resectability.",
+              "Record the actual liver/peritoneal phases and field; absent visible deposits or enlarged nodes do not exclude small, occult or microscopic spread."
             ],
             "sources": [
               {
                 "title": "Radiology Assistant \u2014 Small Bowel Tumors",
                 "url": "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors"
+              },
+              {
+                "title": "Lee et al. \u2014 Radiologic Review of Small Bowel Malignancies and Their Mimicking Lesions",
+                "url": "https://doi.org/10.3348/jksr.2021.0168"
+              },
+              {
+                "title": "Brogna et al. \u2014 Intestinal tumour CT and cross-sectional imaging review (2025)",
+                "url": "https://doi.org/10.3390/healthcare13091071"
               }
             ]
           }
@@ -9699,7 +9726,7 @@
                 "PRIMARY SITE"
               ],
               "normal": {
-                "PRIMARY SITE": "No small-bowel mass."
+                "PRIMARY SITE": "Primary-site assessment: [adequate bowel coverage/distension / limited / unassessed]. Assessed segments and findings: [ ]. Unassessed extent or small-lesion limitations: [ ]."
               },
               "findings": [
                 "Solitary mass in the [proximal jejunum], __ \u00d7 __ mm, involving __ cm of bowel.",
@@ -9717,23 +9744,23 @@
             },
             {
               "label": "Morphology and enhancement",
-              "detail": "Describe mural, polypoid or exophytic growth, enhancement and necrosis.",
+              "detail": "Describe actual mural, polypoid or exophytic growth, acquired enhancement and internal attenuation with source limits.",
               "sections": [
                 "MORPHOLOGY"
               ],
               "normal": {},
               "findings": [
-                "Short annular narrowing with shouldered margins (adenocarcinoma pattern).",
-                "Exophytic hyperenhancing mass with central necrosis (GIST pattern).",
-                "Circumferential wall thickening with aneurysmal dilatation of the lumen (lymphoma pattern).",
-                "Small hyperenhancing ileal nodule (neuroendocrine tumour pattern)."
+                "Short annular narrowing with shouldered margins at [ ]; source findings and differential context [ ].",
+                "Exophytic mass at [ ] with [observed enhancement / unassessed enhancement] and low-attenuation components [ ]; a GIST-like appearance is not histological or risk proof.",
+                "Circumferential thickening and aneurysmal luminal change at [ ]; lymphoma and other tumours/mimics can overlap.",
+                "Small ileal nodule at [ ]; enhancement on actual available phases [ ], neuroendocrine tumour and other possibilities require clinical/pathological context."
               ],
               "images": [],
               "measurements": [],
               "landmark": "smallbowel",
               "parts": [],
-              "look": "Arterial and portal venous phases; mass attenuation and relation to the wall.",
-              "tip": "Different tumours share appearances; describe the growth pattern rather than asserting a histology."
+              "look": "Review the actual acquired contrast phases, suitable reference bowel and origin/interface planes. Record unavailable phases and poor distension; a similarly enhancing lesion may be inconspicuous.",
+              "tip": "Report the observed pattern and differential context. CT alone does not establish histology, molecular/mitotic grade, GIST biological risk or complete invasion/resectability."
             },
             {
               "label": "Luminal effect",
@@ -9742,7 +9769,7 @@
                 "LUMINAL EFFECT"
               ],
               "normal": {
-                "LUMINAL EFFECT": "No obstruction or intussusception."
+                "LUMINAL EFFECT": "Luminal-effect assessment: [adequate coverage / limited / unassessed]. Assessed bowel/transition regions and findings: [ ]. Limits: [ ]."
               },
               "findings": [
                 "Partial obstruction with upstream dilatation to __ mm.",
@@ -9761,7 +9788,7 @@
                 "MESENTERY"
               ],
               "normal": {
-                "MESENTERY": "No mesenteric mass or enlarged nodes."
+                "MESENTERY": "Mesenteric/nodal/vascular assessment: [adequate actual coverage/opacification / limited / unassessed]. Assessed sites and separate observations: [ ]. Limits: [ ]."
               },
               "findings": [
                 "Spiculated calcified mesenteric mass with desmoplastic retraction (neuroendocrine tumour pattern).",
@@ -9782,17 +9809,17 @@
                 "SPREAD"
               ],
               "normal": {
-                "SPREAD": "No liver or peritoneal metastases."
+                "SPREAD": "Spread survey: [adequate acquired phases/coverage / limited / unassessed]. Assessed liver, peritoneum and local interfaces: [ ]. Visible findings and unassessed extent: [ ]."
               },
               "findings": [
-                "Hypervascular liver metastases.",
-                "Peritoneal deposits in the [ ]."
+                "Arterially hyperenhancing hepatic lesions where an adequate arterial source exists: [ ]. Characterisation and relation to the bowel lesion require context.",
+                "Peritoneal nodules or deposits in the [ ]; source appearance and extent [ ], clinical/pathological attribution [ ]."
               ],
               "images": [],
               "measurements": [],
               "landmark": "mesentery",
               "parts": [],
-              "look": "Liver in arterial and portal phases; peritoneal surfaces."
+              "look": "Inspect liver and peritoneal/local interfaces on the actual available phases and covered field. Record unacquired phases, unassessed surfaces and source limitations; invisible microscopic spread is not excluded."
             }
           ],
           "finish": {
@@ -9844,10 +9871,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "126a4dae06afee58552f589b3067b66e85e756665d3b82cac7a53c49293db79e",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "2830ba81b30c733ce7b2e133a104eeccc52919a6603b0e4da75f56eeffc4dc67",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -13219,7 +13246,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13604,7 +13631,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14130,7 +14157,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14551,7 +14578,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14966,7 +14993,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15885,7 +15912,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -16346,7 +16373,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -17293,7 +17320,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18099,7 +18126,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -24801,7 +24828,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -28969,7 +28996,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -31603,7 +31630,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -31998,7 +32025,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -53925,7 +53952,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "167e4c7d139bf7b70533de3953745fcec622024da02bf7c471bb4d861345871b",
+      "structure_inventory_sha256": "64bfc87cc6d24a718087e6647910c4dc96ee8cc2e59ebc8ff11ef745e24bdc66",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
