@@ -192,3 +192,7 @@ Rendered and inspected separate unmarked native CT sections from both audited C3
 ### 4 October 2026 — every pancreatic source contour and missing planes
 
 Preserved/rendered all 43/49 original pancreatic contours, measured bidirectional native-raster boundary error on every polygon, and displayed the two unannotated acquired venous CT planes (534/535) as unknown. See [complete contour atlas and measurements](cptac-pancreatic-contour-review.md). Equal-thickness annotated-centre slab arithmetic differs from recorded ROI volumes; endpoint definitions, volume semantics, phase/tracking and anatomical interpretation remain held. No interpolation, cap/repair, registration, 3D promotion or clinical representation credit is claimed.
+
+### 4 October 2026 — exact pancreatic 3D source outlines and DICOM gap semantics
+
+Exported all 8,249 original pancreatic contour vertices as exact DICOM decimal strings and compared all 24,747 components against fresh original-archive reads. Separate native 3D line views retain the contour gap without fitted faces or end caps. [Metadata and coordinate review](cptac-pancreatic-contour-geometry.md) confirms CSV/RT volume equality in cm³ and absence of source pixel-plane grid/slab/offset/derivation declarations. DICOM grid-specific negative-plane semantics do not resolve these files. Volume construction, clinical anatomy and lesion-surface approval remain held; no representation credit or runtime promotion is claimed.
