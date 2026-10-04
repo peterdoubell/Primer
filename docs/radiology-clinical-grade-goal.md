@@ -34,9 +34,9 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - Lung-cancer staging now has 281 draft requirements and 843 image/schematic/model obligations. Individual IASLC station regions, positive-node examples, invasion interfaces, tumour morphology and conditional metastatic/treatment sites remain distinct and unverified. See `lung-cancer-fidelity-scope-review.md`.
 - Mediastinal CT now has 326 draft targets and 978 representation obligations, including modern compartment boundaries, individual stations, named host anatomy and conditional positive mass/invasion sites. No representations are verified. See `mediastinum-fidelity-scope-review.md`.
 - General liver masses and liver LI-RADS now have separate draft inventories: 246/210 targets and 738/630 representation obligations. Actual segment/branch/duct anatomy, positive observations, MRI-only features and phase/eligibility/treatment requirements remain unverified. See `liver-fidelity-scope-review.md`.
-- The remaining 95 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
+- The remaining 94 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
-- The total all-radiology representation count is **unknown**. The 18,705 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
+- The total all-radiology representation count is **unknown**. The 19,617 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
 - The current static reference inventory contains 608 distinct resources. One hundred sixty-five have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
@@ -332,3 +332,8 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 4 October 2026 — complete original bowel-piece relationship checks
 
 [Bowel interface review](bodyparts-bowel-interface-review.md) preserves 7,865 numerical source contacts, separating 5,726 same-region from 2,139 different-region contacts without fusing a biological tree. All 1,770 pair-proximity records retain original vertices; all 132 intersecting pairs have positive vertex distances, so those distances cannot establish surface gaps. Every original affected face and point remains in category-separated native-coordinate views. Twenty-seven scientific checks passed. Correct joins, full wall/lumen extent and clinical continuity remain unverified; no model or coverage is promoted and the full goal remains active.
+
+
+### 2026-10-04 — Bowel ischaemia scope and phase limits
+
+[Bowel ischaemia review](bowel-ischaemia-fidelity-scope-review.md) adds 304 targets and 912 representation obligations. Arterial, venous and bowel-wall normal presets retain actual acquisition and assessment limitations, with baseline attenuation, positive injury and reperfusion evidence kept distinct. 152 focused checks and local API plus desktop/mobile reader verification passed. All new coverage remains missing; source acquisition, fine anatomy and clinical review remain pending. Known floor: 19,617 obligations, 94 unexpanded investigations and 106 unreconciled curriculum surfaces; full denominator and clinical readiness remain unestablished.
