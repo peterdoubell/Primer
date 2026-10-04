@@ -533,6 +533,7 @@ def _structure_atlases():
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
                 if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Clinical photograph'}
+                        or entry.get('kind') == image.get('modality')
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or len(panel) != 1
                                or panel not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' for panel in entry['panels'])
