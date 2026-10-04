@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 96 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 17,901 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 593 distinct resources. One hundred fifty have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 598 distinct resources. One hundred fifty-five have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -312,3 +312,7 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 4 October 2026 — common-bile-duct stone ultrasound scope
 
 [CBD stone ultrasound scope](cbd-stone-fidelity-scope-review.md) defines 187 duct/material/outlet/vessel/host/complication targets and 561 representation obligations. Normal presets no longer fabricate complete distal/papillary visibility or whole-duct clearance; actual field, subtype, dynamic/Doppler and clinical/laboratory context remain explicit. 152 focused checks and local API plus desktop/mobile normal-prefill verification passed. All new representations remain missing/unverified. Known floor: 17,901 obligations, 96 unexpanded investigations and 106 unreconciled curriculum surfaces; full denominator unknown. The original all-radiology scope remains intact and active.
+
+### 4 October 2026 — original CBD-stone ultrasound and MRI/CT counterparts
+
+[CBD-stone source review](cbd-stone-published-source-review.md) adds five complete CC BY 4.0 figures with exact original PDF JPEG preservation, distinct ultrasound/CT/MRI roles, neutral original-marker wording and correct source-author attribution. Initial-versus-later case findings and a MRCP panel/site wording uncertainty remain explicit; no dynamic or whole-duct clearance evidence is borrowed. Two noncommercial-grant candidates remain excluded. 159 focused checks, local API/served hash and desktop/mobile/full-size browser verification passed. Static rights inventory: 598 resources, 155 cleared and 443 unverified. All new anatomical bindings remain empty/pending and every full radiology requirement remains in scope.
