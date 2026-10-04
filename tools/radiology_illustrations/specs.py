@@ -265,9 +265,9 @@ _RECORDS: List[Dict[str, object]] = [
 
     # Abdomen and pelvis
     R("rad.5.pancreas-acute", "compare", "abdomen",
-      "Time and collection contents determine the correct acute-pancreatitis name and action.",
-      I("Classify severity", "Clinical course and organ failure frame what imaging must answer.", "pancreas-severity"),
-      I("Name by time", "Early fluid or necrosis evolves into walled collections later.", "pancreas-collection"),
+      "Collection content, wall maturity and clinical context guide acute-pancreatitis assessment.",
+      I("Clinical severity", "Organ failure, duration and local/systemic complications require clinical context.", "pancreas-severity"),
+      I("Assess collection", "Time, contents and actual wall maturity are assessed together.", "pancreas-collection"),
       I("Find complication", "Gas, haemorrhage and vascular injury change intervention.", "pancreas-complication")),
     R("rad.5.appendicitis", "flow", "abdomen",
       "A noncompressible inflamed appendix is interpreted with secondary signs and patient context.",
