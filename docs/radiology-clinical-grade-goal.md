@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 92 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 21,819 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 623 distinct resources. One hundred eighty have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 639 distinct resources. One hundred ninety-six have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -372,3 +372,8 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 2026-10-04 — Small-bowel tumour CT scope and detection limits
 
 [Small-bowel tumour scope](small-bowel-tumour-fidelity-scope-review.md) adds 329 draft targets/987 representation obligations for actual lesions, bowel/host anatomy, components, lumen effects, vessels, nodes and spread. Negative presets preserve coverage/distension/phase limits; pattern descriptions do not establish histology, grade, microscopic invasion or complete staging. 154 focused checks and local API plus desktop/mobile spread-prefill checks passed. All new coverage remains missing, with native source representations and independent anatomical/clinical validation pending. Full goal remains active: known floor 21,819 obligations, 92 unexpanded investigations and 106 unreconciled curriculum surfaces; total unknown. No new image/model approval or deployment is claimed.
+
+
+### 2026-10-04 — Original small-bowel tumour source figures
+
+[Tumour source review](small-bowel-tumour-published-source-review.md) adds sixteen complete CT-source figures to the local gallery/reporting steps: fourteen native-RGB/ICC PNGs and two original repository JPEGs. CT, MRI, PET/CT and operative panels remain distinct; reported repeated-case links are preserved without inventing identity from similar appearances. Corrected three PDF object assignments after direct visual review. 154 focused checks and exact API hashes plus desktop/mobile full-size checks passed. Rights inventory: 639 unique resources, 196 cleared and 443 unverified. No anatomical, clinical, native-acquisition or model approval is granted; known floor remains 21,819 obligations with 92 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. Full goal stays active; this packet is not deployed.
