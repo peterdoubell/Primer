@@ -188,3 +188,7 @@ Source case C3L-02112 now has two explicitly referenced current CPTAC-PDA CT ser
 ### 4 October 2026 — native pancreatic CT sections
 
 Rendered and inspected separate unmarked native CT sections from both audited C3L-02112 acquisitions, with original object/geometry binding and per-plane HU array provenance. See [native section review](cptac-pancreatic-native-sections.md). Source annotations serve only as independent location aids; no inter-acquisition registration, anatomical boundary approval, 3D promotion or representation credit is claimed. CSV/DICOM tracking and phase/histology limits remain held. Full radiology coverage remains incomplete.
+
+### 4 October 2026 — every pancreatic source contour and missing planes
+
+Preserved/rendered all 43/49 original pancreatic contours, measured bidirectional native-raster boundary error on every polygon, and displayed the two unannotated acquired venous CT planes (534/535) as unknown. See [complete contour atlas and measurements](cptac-pancreatic-contour-review.md). Equal-thickness annotated-centre slab arithmetic differs from recorded ROI volumes; endpoint definitions, volume semantics, phase/tracking and anatomical interpretation remain held. No interpolation, cap/repair, registration, 3D promotion or clinical representation credit is claimed.
