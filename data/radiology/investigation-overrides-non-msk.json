@@ -586,9 +586,10 @@
   },
   "ra.ct-bowel-wall": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Assess bowel in adequately distended segments and correlate wall morphology with enhancement, distribution and mesenteric findings."
+        "Assess bowel in adequately distended segments and correlate wall morphology with enhancement, distribution and mesenteric findings.",
+        "Record actual bowel coverage/distension, acquired unenhanced and contrast phases, wall visibility and vascular opacification. Unavailable or inadequately imaged wall/vascular regions remain unassessed; high baseline attenuation is not automatically enhancement."
       ],
       "checklist": [
         {
@@ -616,48 +617,69 @@
         {
           "name": "Wall thickness",
           "method": "Measure perpendicular to a well-seen, sufficiently distended wall.",
-          "pitfall": "Do not include luminal contents or adjacent fat."
+          "pitfall": "Do not include luminal contents or adjacent fat. State local distension, measurement site/plane and source limitations; chart mean thicknesses are not patient-specific diagnostic thresholds."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Collapsed bowel and incomplete enhancement timing can mimic pathological thickening."
+        "Collapsed bowel and incomplete enhancement timing can mimic pathological thickening.",
+        "Record measured length and the named source scheme rather than treating differing focal/segmental/diffuse cutoffs as universal diagnoses.",
+        "Symmetric regular thickening can occur in neoplasia, including focal adenocarcinoma and segmental small-bowel lymphoma; appearance alone does not establish benignity.",
+        "Stratified/target appearance is nonspecific, and observable CT bands do not independently verify every histological wall layer. Intramural fat does not by itself diagnose chronic inflammatory bowel disease.",
+        "Wall hyperattenuation must be distinguished from enhancement using actual source acquisitions when available; vessel patency cannot be assessed without adequate opacification/coverage."
       ],
       "impression_prompts": [
         "Pattern-based evaluation of thickened bowel and associated mesenteric findings.",
         "State the dominant abnormality, relevant extent and examination limitations."
       ],
-      "escalation": [],
+      "escalation": [
+        "Immediately communicate findings concerning for threatened bowel/ischaemia or perforation in the relevant clinical context; record the recipient and time."
+      ],
       "template_sections": [
         {
           "heading": "DISTRIBUTION",
-          "body": "Segments: [ ]. Distribution/length: [ ]."
+          "body": "Assessed segments/coverage and distension: [ ]. Involved sites and measured length: [ ]. Unassessed regions/limits: [ ]."
         },
         {
           "heading": "WALL MORPHOLOGY",
-          "body": "Thickness: [ ] mm. Symmetric/asymmetric: [ ]. Margins: [ ]."
+          "body": "Wall assessment: [adequate / limited / unassessed]. Site, thickness, plane and local distension: [ ]. Symmetry, margins and observable bands: [ ]."
         },
         {
           "heading": "ENHANCEMENT PATTERN",
-          "body": "Pattern: [ ]. Phase: [ ]. Layering: [ ]."
+          "body": "Enhancement assessment: [adequate actual contrast source / limited / unassessed]. Available phases and baseline attenuation: [ ]. Observed pattern/reference wall and limits: [ ]."
         },
         {
           "heading": "MESENTERY AND VESSELS",
-          "body": "Fat stranding: [ ]. Vessel patency/congestion: [ ]. Nodes: [ ]."
+          "body": "Assessed mesentery, vessels/opacification and nodes: [ ]. Findings: [ ]. Unassessed regions/limits: [ ]."
         },
         {
           "heading": "LUMEN AND COMPLICATIONS",
-          "body": "Narrowing/dilatation: [ ]. Abscess/free gas: [ ]. Additional lesions: [ ]."
+          "body": "Assessed lumen and coverage: [ ]. Narrowing/dilatation, transitions, collections/free gas and other findings: [ ]. Limitations: [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — CT-pattern of Bowel wall thickening",
           "url": "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern"
+        },
+        {
+          "title": "Fernandes et al. — Bowel wall thickening at CT: simplifying the diagnosis",
+          "url": "https://doi.org/10.1007/s13244-013-0308-y"
+        },
+        {
+          "title": "WSES 2022 acute mesenteric ischaemia guideline",
+          "url": "https://doi.org/10.1186/s13017-022-00443-x"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Record the actual involved segments, measured length, distension and assessment limits.",
+      "Interpret thickness, symmetry and attenuation together; source length schemes and chart means are not diagnostic cutoffs.",
+      "Symmetric thickening and target patterns do not independently exclude neoplasia or establish inflammatory, infectious or ischaemic causes.",
+      "Assess enhancement only on appropriate actually acquired contrast sources, with baseline attenuation when available.",
+      "Review the actual mesentery, vessels, lumen and complications; a schematic cannot supply whole-wall layers, vessel patency or viability."
+    ]
   },
   "ra.mri-crohn": {
     "reporting": {

@@ -23,7 +23,8 @@
       "ra.ultrasound-gallbladder",
       "ra.ultrasound-bile-duct-stones",
       "ra.ct-bowel-obstruction",
-      "ra.ct-bowel-ischaemia"
+      "ra.ct-bowel-ischaemia",
+      "ra.ct-bowel-wall"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -48775,6 +48776,4035 @@
         {
           "observation": "extent",
           "evidence": "Every actual vascular/segment injury and unassessed/unacquired region or source limit."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ct-bowel-wall",
+      "module_id": "rad.5.bowel-ischaemia",
+      "title": "CT bowel wall thickening",
+      "scope_status": "expanded_draft_requires_independent_anatomical_and_clinical_review",
+      "modality_scope": [
+        "CT"
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant bowel-wall CT patterns",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+          "reviewed_at": "2026-10-04"
+        },
+        {
+          "title": "Fernandes et al. CT bowel-wall review",
+          "url": "https://doi.org/10.1007/s13244-013-0308-y",
+          "reviewed_at": "2026-10-04"
+        },
+        {
+          "title": "WSES 2022 AMI guideline",
+          "url": "https://doi.org/10.1186/s13017-022-00443-x",
+          "reviewed_at": "2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "1bc53896f5536aba84c02e82be6529fca687d1c14ebc09192fdf0b01a5af582a",
+      "reporting_checklist": [
+        {
+          "label": "Distribution",
+          "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+        },
+        {
+          "label": "Wall Morphology",
+          "detail": "Describe symmetry, regularity and thickening."
+        },
+        {
+          "label": "Enhancement Pattern",
+          "detail": "Describe the actual mural enhancement pattern and available phase."
+        },
+        {
+          "label": "Mesentery And Vessels",
+          "detail": "Assess surrounding fat, vessels and nodes."
+        },
+        {
+          "label": "Lumen And Complications",
+          "detail": "Review luminal narrowing, upstream effect and collections."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "DISTRIBUTION",
+          "body": "Assessed segments/coverage and distension: [ ]. Involved sites and measured length: [ ]. Unassessed regions/limits: [ ]."
+        },
+        {
+          "heading": "WALL MORPHOLOGY",
+          "body": "Wall assessment: [adequate / limited / unassessed]. Site, thickness, plane and local distension: [ ]. Symmetry, margins and observable bands: [ ]."
+        },
+        {
+          "heading": "ENHANCEMENT PATTERN",
+          "body": "Enhancement assessment: [adequate actual contrast source / limited / unassessed]. Available phases and baseline attenuation: [ ]. Observed pattern/reference wall and limits: [ ]."
+        },
+        {
+          "heading": "MESENTERY AND VESSELS",
+          "body": "Assessed mesentery, vessels/opacification and nodes: [ ]. Findings: [ ]. Unassessed regions/limits: [ ]."
+        },
+        {
+          "heading": "LUMEN AND COMPLICATIONS",
+          "body": "Assessed lumen and coverage: [ ]. Narrowing/dilatation, transitions, collections/free gas and other findings: [ ]. Limitations: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "bowel_wall.segment_gastric_body_if_covered",
+          "name": "Actual gastric_body_if_covered extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_gastric_body_if_covered.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_body_if_covered.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_body_if_covered.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_body_if_covered.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_body_if_covered.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_body_if_covered.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_body_if_covered.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_gastric_antrum_if_covered",
+          "name": "Actual gastric_antrum_if_covered extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_gastric_antrum_if_covered.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_antrum_if_covered.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_antrum_if_covered.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_antrum_if_covered.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_antrum_if_covered.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_antrum_if_covered.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_gastric_antrum_if_covered.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_duodenal_bulb",
+          "name": "Actual duodenal_bulb extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_duodenal_bulb.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_duodenal_bulb.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_duodenal_bulb.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenal_bulb.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenal_bulb.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenal_bulb.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_duodenal_bulb.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_duodenum_second",
+          "name": "Actual duodenum_second extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_duodenum_second.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_second.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_second.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_second.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_second.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_second.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_second.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_duodenum_third",
+          "name": "Actual duodenum_third extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_duodenum_third.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_third.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_third.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_third.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_third.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_third.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_third.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_duodenum_fourth",
+          "name": "Actual duodenum_fourth extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_duodenum_fourth.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_fourth.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_fourth.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_fourth.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_fourth.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_fourth.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_duodenum_fourth.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_proximal_jejunum",
+          "name": "Actual proximal_jejunum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_proximal_jejunum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_jejunum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_jejunum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_jejunum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_jejunum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_middle_jejunum",
+          "name": "Actual middle_jejunum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_middle_jejunum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_middle_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_middle_jejunum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_middle_jejunum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_middle_jejunum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_middle_jejunum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_middle_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_distal_jejunum",
+          "name": "Actual distal_jejunum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_distal_jejunum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_distal_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_distal_jejunum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_distal_jejunum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_distal_jejunum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_distal_jejunum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_distal_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_proximal_ileum",
+          "name": "Actual proximal_ileum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_proximal_ileum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_ileum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_ileum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_ileum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_ileum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_proximal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_middle_ileum",
+          "name": "Actual middle_ileum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_middle_ileum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_middle_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_middle_ileum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_middle_ileum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_middle_ileum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_middle_ileum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_middle_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_distal_ileum",
+          "name": "Actual distal_ileum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_distal_ileum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_distal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_distal_ileum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_distal_ileum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_distal_ileum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_distal_ileum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_distal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_terminal_ileum",
+          "name": "Actual terminal_ileum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_terminal_ileum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_terminal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_terminal_ileum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_terminal_ileum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_terminal_ileum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_terminal_ileum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_terminal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_caecum",
+          "name": "Actual caecum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_caecum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_caecum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_caecum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_caecum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_caecum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_caecum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_caecum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_appendix_if_relevant",
+          "name": "Actual appendix_if_relevant extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_appendix_if_relevant.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_appendix_if_relevant.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_appendix_if_relevant.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_appendix_if_relevant.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_appendix_if_relevant.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_appendix_if_relevant.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_appendix_if_relevant.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_ascending_colon",
+          "name": "Actual ascending_colon extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_ascending_colon.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_ascending_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_ascending_colon.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_ascending_colon.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_ascending_colon.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_ascending_colon.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_ascending_colon.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_hepatic_flexure",
+          "name": "Actual hepatic_flexure extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_hepatic_flexure.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_hepatic_flexure.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_hepatic_flexure.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_hepatic_flexure.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_hepatic_flexure.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_hepatic_flexure.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_hepatic_flexure.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_transverse_colon",
+          "name": "Actual transverse_colon extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_transverse_colon.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_transverse_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_transverse_colon.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_transverse_colon.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_transverse_colon.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_transverse_colon.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_transverse_colon.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_splenic_flexure",
+          "name": "Actual splenic_flexure extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_splenic_flexure.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_splenic_flexure.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_splenic_flexure.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_splenic_flexure.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_splenic_flexure.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_splenic_flexure.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_splenic_flexure.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_descending_colon",
+          "name": "Actual descending_colon extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_descending_colon.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_descending_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_descending_colon.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_descending_colon.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_descending_colon.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_descending_colon.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_descending_colon.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_sigmoid_colon",
+          "name": "Actual sigmoid_colon extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_sigmoid_colon.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_sigmoid_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_sigmoid_colon.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_sigmoid_colon.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_sigmoid_colon.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_sigmoid_colon.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_sigmoid_colon.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_rectum",
+          "name": "Actual rectum extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_rectum.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_rectum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_rectum.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_rectum.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_rectum.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_rectum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_rectum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.segment_anal_region_if_covered",
+          "name": "Actual anal_region_if_covered extent and observable wall",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.segment_anal_region_if_covered.complete_source_extent",
+              "name": "complete source extent"
+            },
+            {
+              "id": "bowel_wall.segment_anal_region_if_covered.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_wall.segment_anal_region_if_covered.inner_wall_band_if_resolved",
+              "name": "inner wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_anal_region_if_covered.middle_wall_band_if_resolved",
+              "name": "middle wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_anal_region_if_covered.outer_wall_band_if_resolved",
+              "name": "outer wall band if resolved"
+            },
+            {
+              "id": "bowel_wall.segment_anal_region_if_covered.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "bowel_wall.segment_anal_region_if_covered.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.distribution",
+          "name": "Actual complete involved and reference distribution",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.distribution.each_involved_segment",
+              "name": "each involved segment"
+            },
+            {
+              "id": "bowel_wall.distribution.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "bowel_wall.distribution.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "bowel_wall.distribution.complete_measured_extent",
+              "name": "complete measured extent"
+            },
+            {
+              "id": "bowel_wall.distribution.intervening_reference_bowel",
+              "name": "intervening reference bowel"
+            },
+            {
+              "id": "bowel_wall.distribution.separate_skip_site",
+              "name": "separate skip site"
+            },
+            {
+              "id": "bowel_wall.distribution.contiguous_extension",
+              "name": "contiguous extension"
+            },
+            {
+              "id": "bowel_wall.distribution.circumferential_extent",
+              "name": "circumferential extent"
+            },
+            {
+              "id": "bowel_wall.distribution.normal_reference_region",
+              "name": "normal reference region"
+            },
+            {
+              "id": "bowel_wall.distribution.unassessed_segment_limit",
+              "name": "unassessed segment limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.morphology",
+          "name": "Each actual wall observation and measured site",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.morphology.thickened_wall",
+              "name": "thickened wall"
+            },
+            {
+              "id": "bowel_wall.morphology.maximum_thickness_site",
+              "name": "maximum thickness site"
+            },
+            {
+              "id": "bowel_wall.morphology.orthogonal_measurement_plane",
+              "name": "orthogonal measurement plane"
+            },
+            {
+              "id": "bowel_wall.morphology.symmetric_region",
+              "name": "symmetric region"
+            },
+            {
+              "id": "bowel_wall.morphology.eccentric_region",
+              "name": "eccentric region"
+            },
+            {
+              "id": "bowel_wall.morphology.irregular_margin",
+              "name": "irregular margin"
+            },
+            {
+              "id": "bowel_wall.morphology.shouldered_margin",
+              "name": "shouldered margin"
+            },
+            {
+              "id": "bowel_wall.morphology.tapered_margin",
+              "name": "tapered margin"
+            },
+            {
+              "id": "bowel_wall.morphology.intramural_component",
+              "name": "intramural component"
+            },
+            {
+              "id": "bowel_wall.morphology.outer_wall_interface",
+              "name": "outer wall interface"
+            },
+            {
+              "id": "bowel_wall.morphology.focal_mass_interface",
+              "name": "focal mass interface"
+            },
+            {
+              "id": "bowel_wall.morphology.unresolved_wall_band",
+              "name": "unresolved wall band"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.pattern_white_attenuation",
+          "name": "Actual white_attenuation source observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.pattern_white_attenuation.affected_region",
+              "name": "affected region"
+            },
+            {
+              "id": "bowel_wall.pattern_white_attenuation.proximal_extent",
+              "name": "proximal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_white_attenuation.distal_extent",
+              "name": "distal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_white_attenuation.complete_circumference",
+              "name": "complete circumference"
+            },
+            {
+              "id": "bowel_wall.pattern_white_attenuation.observable_wall_bands",
+              "name": "observable wall bands"
+            },
+            {
+              "id": "bowel_wall.pattern_white_attenuation.matched_reference_region",
+              "name": "matched reference region"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.pattern_grey_attenuation",
+          "name": "Actual grey_attenuation source observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.pattern_grey_attenuation.affected_region",
+              "name": "affected region"
+            },
+            {
+              "id": "bowel_wall.pattern_grey_attenuation.proximal_extent",
+              "name": "proximal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_grey_attenuation.distal_extent",
+              "name": "distal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_grey_attenuation.complete_circumference",
+              "name": "complete circumference"
+            },
+            {
+              "id": "bowel_wall.pattern_grey_attenuation.observable_wall_bands",
+              "name": "observable wall bands"
+            },
+            {
+              "id": "bowel_wall.pattern_grey_attenuation.matched_reference_region",
+              "name": "matched reference region"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.pattern_stratified_target",
+          "name": "Actual stratified_target source observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.pattern_stratified_target.affected_region",
+              "name": "affected region"
+            },
+            {
+              "id": "bowel_wall.pattern_stratified_target.proximal_extent",
+              "name": "proximal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_stratified_target.distal_extent",
+              "name": "distal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_stratified_target.complete_circumference",
+              "name": "complete circumference"
+            },
+            {
+              "id": "bowel_wall.pattern_stratified_target.observable_wall_bands",
+              "name": "observable wall bands"
+            },
+            {
+              "id": "bowel_wall.pattern_stratified_target.matched_reference_region",
+              "name": "matched reference region"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.pattern_intramural_fat",
+          "name": "Actual intramural_fat source observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.pattern_intramural_fat.affected_region",
+              "name": "affected region"
+            },
+            {
+              "id": "bowel_wall.pattern_intramural_fat.proximal_extent",
+              "name": "proximal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_intramural_fat.distal_extent",
+              "name": "distal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_intramural_fat.complete_circumference",
+              "name": "complete circumference"
+            },
+            {
+              "id": "bowel_wall.pattern_intramural_fat.observable_wall_bands",
+              "name": "observable wall bands"
+            },
+            {
+              "id": "bowel_wall.pattern_intramural_fat.matched_reference_region",
+              "name": "matched reference region"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance. An actual intramural-fat observation need not represent disease; require its source phenotype without assuming inflammatory bowel disease.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference",
+            "depicted_state": "intramural_fat_source_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.pattern_pneumatosis",
+          "name": "Actual pneumatosis source observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.pattern_pneumatosis.affected_region",
+              "name": "affected region"
+            },
+            {
+              "id": "bowel_wall.pattern_pneumatosis.proximal_extent",
+              "name": "proximal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_pneumatosis.distal_extent",
+              "name": "distal extent"
+            },
+            {
+              "id": "bowel_wall.pattern_pneumatosis.complete_circumference",
+              "name": "complete circumference"
+            },
+            {
+              "id": "bowel_wall.pattern_pneumatosis.observable_wall_bands",
+              "name": "observable wall bands"
+            },
+            {
+              "id": "bowel_wall.pattern_pneumatosis.matched_reference_region",
+              "name": "matched reference region"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.vessel_sma_and_actual_branches",
+          "name": "Actual sma_and_actual_branches anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.vessel_sma_and_actual_branches.complete_covered_course",
+              "name": "complete covered course"
+            },
+            {
+              "id": "bowel_wall.vessel_sma_and_actual_branches.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_sma_and_actual_branches.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_sma_and_actual_branches.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "bowel_wall.vessel_sma_and_actual_branches.bowel_interface",
+              "name": "bowel interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.vessel_ima_and_actual_branches",
+          "name": "Actual ima_and_actual_branches anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.vessel_ima_and_actual_branches.complete_covered_course",
+              "name": "complete covered course"
+            },
+            {
+              "id": "bowel_wall.vessel_ima_and_actual_branches.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_ima_and_actual_branches.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_ima_and_actual_branches.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "bowel_wall.vessel_ima_and_actual_branches.bowel_interface",
+              "name": "bowel interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.vessel_coeliac_if_relevant",
+          "name": "Actual coeliac_if_relevant anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.vessel_coeliac_if_relevant.complete_covered_course",
+              "name": "complete covered course"
+            },
+            {
+              "id": "bowel_wall.vessel_coeliac_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_coeliac_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_coeliac_if_relevant.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "bowel_wall.vessel_coeliac_if_relevant.bowel_interface",
+              "name": "bowel interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.vessel_smv_and_actual_tributaries",
+          "name": "Actual smv_and_actual_tributaries anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.vessel_smv_and_actual_tributaries.complete_covered_course",
+              "name": "complete covered course"
+            },
+            {
+              "id": "bowel_wall.vessel_smv_and_actual_tributaries.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_smv_and_actual_tributaries.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_smv_and_actual_tributaries.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "bowel_wall.vessel_smv_and_actual_tributaries.bowel_interface",
+              "name": "bowel interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.vessel_imv_and_actual_tributaries",
+          "name": "Actual imv_and_actual_tributaries anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.vessel_imv_and_actual_tributaries.complete_covered_course",
+              "name": "complete covered course"
+            },
+            {
+              "id": "bowel_wall.vessel_imv_and_actual_tributaries.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_imv_and_actual_tributaries.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_imv_and_actual_tributaries.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "bowel_wall.vessel_imv_and_actual_tributaries.bowel_interface",
+              "name": "bowel interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.vessel_portal_splenic_confluences",
+          "name": "Actual portal_splenic_confluences anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.vessel_portal_splenic_confluences.complete_covered_course",
+              "name": "complete covered course"
+            },
+            {
+              "id": "bowel_wall.vessel_portal_splenic_confluences.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_portal_splenic_confluences.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_portal_splenic_confluences.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "bowel_wall.vessel_portal_splenic_confluences.bowel_interface",
+              "name": "bowel interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.vessel_vasa_recta_if_resolved",
+          "name": "Actual vasa_recta_if_resolved anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.vessel_vasa_recta_if_resolved.complete_covered_course",
+              "name": "complete covered course"
+            },
+            {
+              "id": "bowel_wall.vessel_vasa_recta_if_resolved.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_vasa_recta_if_resolved.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_vasa_recta_if_resolved.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "bowel_wall.vessel_vasa_recta_if_resolved.bowel_interface",
+              "name": "bowel interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.vessel_arterial_arcades_if_resolved",
+          "name": "Actual arterial_arcades_if_resolved anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.vessel_arterial_arcades_if_resolved.complete_covered_course",
+              "name": "complete covered course"
+            },
+            {
+              "id": "bowel_wall.vessel_arterial_arcades_if_resolved.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_arterial_arcades_if_resolved.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_wall.vessel_arterial_arcades_if_resolved.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "bowel_wall.vessel_arterial_arcades_if_resolved.bowel_interface",
+              "name": "bowel interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.mesentery",
+          "name": "Actual mesenteric and peritoneal anatomy/interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.mesentery.mesenteric_root",
+              "name": "mesenteric root"
+            },
+            {
+              "id": "bowel_wall.mesentery.each_actual_leaf",
+              "name": "each actual leaf"
+            },
+            {
+              "id": "bowel_wall.mesentery.bowel_attachment",
+              "name": "bowel attachment"
+            },
+            {
+              "id": "bowel_wall.mesentery.mesenteric_fat",
+              "name": "mesenteric fat"
+            },
+            {
+              "id": "bowel_wall.mesentery.pericolic_fat",
+              "name": "pericolic fat"
+            },
+            {
+              "id": "bowel_wall.mesentery.perirectal_fat",
+              "name": "perirectal fat"
+            },
+            {
+              "id": "bowel_wall.mesentery.omental_interface",
+              "name": "omental interface"
+            },
+            {
+              "id": "bowel_wall.mesentery.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "bowel_wall.mesentery.actual_node_station",
+              "name": "actual node station"
+            },
+            {
+              "id": "bowel_wall.mesentery.each_node_envelope",
+              "name": "each node envelope"
+            },
+            {
+              "id": "bowel_wall.mesentery.adjacent_organ_interface",
+              "name": "adjacent organ interface"
+            },
+            {
+              "id": "bowel_wall.mesentery.interloop_space",
+              "name": "interloop space"
+            },
+            {
+              "id": "bowel_wall.mesentery.free_fluid_distribution",
+              "name": "free fluid distribution"
+            },
+            {
+              "id": "bowel_wall.mesentery.unassessed_mesenteric_limit",
+              "name": "unassessed mesenteric limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.lumen",
+          "name": "Actual luminal abnormality and upstream/downstream effects",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.lumen.narrowed_region",
+              "name": "narrowed region"
+            },
+            {
+              "id": "bowel_wall.lumen.stenosis_proximal_margin",
+              "name": "stenosis proximal margin"
+            },
+            {
+              "id": "bowel_wall.lumen.stenosis_distal_margin",
+              "name": "stenosis distal margin"
+            },
+            {
+              "id": "bowel_wall.lumen.complete_stenosis_extent",
+              "name": "complete stenosis extent"
+            },
+            {
+              "id": "bowel_wall.lumen.upstream_dilatation",
+              "name": "upstream dilatation"
+            },
+            {
+              "id": "bowel_wall.lumen.distal_lumen",
+              "name": "distal lumen"
+            },
+            {
+              "id": "bowel_wall.lumen.first_transition",
+              "name": "first transition"
+            },
+            {
+              "id": "bowel_wall.lumen.second_transition",
+              "name": "second transition"
+            },
+            {
+              "id": "bowel_wall.lumen.if_present_closed_loop",
+              "name": "if present closed loop"
+            },
+            {
+              "id": "bowel_wall.lumen.luminal_contents",
+              "name": "luminal contents"
+            },
+            {
+              "id": "bowel_wall.lumen.faeces_sign_region",
+              "name": "faeces sign region"
+            },
+            {
+              "id": "bowel_wall.lumen.intraluminal_lesion",
+              "name": "intraluminal lesion"
+            },
+            {
+              "id": "bowel_wall.lumen.adjacent_diverticular_orifice",
+              "name": "adjacent diverticular orifice"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.complications",
+          "name": "Each actual collection/perforation/injury site",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.complications.wall_defect",
+              "name": "wall defect"
+            },
+            {
+              "id": "bowel_wall.complications.contained_perforation",
+              "name": "contained perforation"
+            },
+            {
+              "id": "bowel_wall.complications.free_gas_distribution",
+              "name": "free gas distribution"
+            },
+            {
+              "id": "bowel_wall.complications.extraluminal_content",
+              "name": "extraluminal content"
+            },
+            {
+              "id": "bowel_wall.complications.abscess_core",
+              "name": "abscess core"
+            },
+            {
+              "id": "bowel_wall.complications.abscess_wall",
+              "name": "abscess wall"
+            },
+            {
+              "id": "bowel_wall.complications.abscess_outer_interface",
+              "name": "abscess outer interface"
+            },
+            {
+              "id": "bowel_wall.complications.fistula_tract_if_visible",
+              "name": "fistula tract if visible"
+            },
+            {
+              "id": "bowel_wall.complications.fistula_bowel_opening",
+              "name": "fistula bowel opening"
+            },
+            {
+              "id": "bowel_wall.complications.fistula_other_opening",
+              "name": "fistula other opening"
+            },
+            {
+              "id": "bowel_wall.complications.obstructing_interface",
+              "name": "obstructing interface"
+            },
+            {
+              "id": "bowel_wall.complications.intramural_gas",
+              "name": "intramural gas"
+            },
+            {
+              "id": "bowel_wall.complications.venous_gas",
+              "name": "venous gas"
+            },
+            {
+              "id": "bowel_wall.complications.portal_gas",
+              "name": "portal gas"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.inflammatory",
+          "name": "Actual inflammatory bowel observations and host interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.inflammatory.affected_wall",
+              "name": "affected wall"
+            },
+            {
+              "id": "bowel_wall.inflammatory.reference_wall",
+              "name": "reference wall"
+            },
+            {
+              "id": "bowel_wall.inflammatory.skip_region",
+              "name": "skip region"
+            },
+            {
+              "id": "bowel_wall.inflammatory.ileocaecal_interface",
+              "name": "ileocaecal interface"
+            },
+            {
+              "id": "bowel_wall.inflammatory.mesenteric_engorgement_if_supported",
+              "name": "mesenteric engorgement if supported"
+            },
+            {
+              "id": "bowel_wall.inflammatory.fibrofatty_region",
+              "name": "fibrofatty region"
+            },
+            {
+              "id": "bowel_wall.inflammatory.stricture",
+              "name": "stricture"
+            },
+            {
+              "id": "bowel_wall.inflammatory.ulcer_if_resolved",
+              "name": "ulcer if resolved"
+            },
+            {
+              "id": "bowel_wall.inflammatory.sinus_if_visible",
+              "name": "sinus if visible"
+            },
+            {
+              "id": "bowel_wall.inflammatory.fistula_if_visible",
+              "name": "fistula if visible"
+            },
+            {
+              "id": "bowel_wall.inflammatory.abscess_if_present",
+              "name": "abscess if present"
+            },
+            {
+              "id": "bowel_wall.inflammatory.complete_colonic_distribution",
+              "name": "complete colonic distribution"
+            },
+            {
+              "id": "bowel_wall.inflammatory.rectal_involvement",
+              "name": "rectal involvement"
+            },
+            {
+              "id": "bowel_wall.inflammatory.additional_small_bowel_site",
+              "name": "additional small bowel site"
+            },
+            {
+              "id": "bowel_wall.inflammatory.unassessed_inflammatory_extent",
+              "name": "unassessed inflammatory extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.infectious_immune",
+          "name": "Actual infectious/immune-context bowel observations",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.infectious_immune.affected_wall",
+              "name": "affected wall"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.complete_affected_extent",
+              "name": "complete affected extent"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.caecal_region",
+              "name": "caecal region"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.terminal_ileal_region",
+              "name": "terminal ileal region"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.colonic_region",
+              "name": "colonic region"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.rectal_region",
+              "name": "rectal region"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.observable_wall_bands",
+              "name": "observable wall bands"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.perienteric_inflammation",
+              "name": "perienteric inflammation"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.mesenteric_nodes",
+              "name": "mesenteric nodes"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.ascites",
+              "name": "ascites"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.pseudomembranous_pattern_if_supported",
+              "name": "pseudomembranous pattern if supported"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.immunosuppressed_bowel_site",
+              "name": "immunosuppressed bowel site"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.wall_disruption",
+              "name": "wall disruption"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.collection",
+              "name": "collection"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.gas_region",
+              "name": "gas region"
+            },
+            {
+              "id": "bowel_wall.infectious_immune.unassessed_source_limit",
+              "name": "unassessed source limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.neoplastic",
+          "name": "Each actual mass/host/spread observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.neoplastic.focal_mass",
+              "name": "focal mass"
+            },
+            {
+              "id": "bowel_wall.neoplastic.circumferential_mass",
+              "name": "circumferential mass"
+            },
+            {
+              "id": "bowel_wall.neoplastic.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "bowel_wall.neoplastic.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "bowel_wall.neoplastic.asymmetric_wall",
+              "name": "asymmetric wall"
+            },
+            {
+              "id": "bowel_wall.neoplastic.symmetric_wall_if_present",
+              "name": "symmetric wall if present"
+            },
+            {
+              "id": "bowel_wall.neoplastic.low_attenuation_component",
+              "name": "low attenuation component"
+            },
+            {
+              "id": "bowel_wall.neoplastic.inner_lumen_interface",
+              "name": "inner lumen interface"
+            },
+            {
+              "id": "bowel_wall.neoplastic.outer_wall_interface",
+              "name": "outer wall interface"
+            },
+            {
+              "id": "bowel_wall.neoplastic.adjacent_organ_interface",
+              "name": "adjacent organ interface"
+            },
+            {
+              "id": "bowel_wall.neoplastic.regional_node",
+              "name": "regional node"
+            },
+            {
+              "id": "bowel_wall.neoplastic.each_distant_observation",
+              "name": "each distant observation"
+            },
+            {
+              "id": "bowel_wall.neoplastic.complete_segmental_mass_extent",
+              "name": "complete segmental mass extent"
+            },
+            {
+              "id": "bowel_wall.neoplastic.unassessed_histological_boundary",
+              "name": "unassessed histological boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.extraenteric_inflammation",
+          "name": "Actual adjacent inflammatory focus and reactive wall interface",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.extraenteric_inflammation.diverticular_focus",
+              "name": "diverticular focus"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.affected_wall",
+              "name": "affected wall"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.pericolic_fat",
+              "name": "pericolic fat"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.appendiceal_focus",
+              "name": "appendiceal focus"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.caecal_interface",
+              "name": "caecal interface"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.epiploic_focus",
+              "name": "epiploic focus"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.omental_focus",
+              "name": "omental focus"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.adjacent_organ_inflammation",
+              "name": "adjacent organ inflammation"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.reactive_wall_region",
+              "name": "reactive wall region"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.collection",
+              "name": "collection"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.each_separate_focus",
+              "name": "each separate focus"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.complete_focus_extent",
+              "name": "complete focus extent"
+            },
+            {
+              "id": "bowel_wall.extraenteric_inflammation.unassessed_primary_cause",
+              "name": "unassessed primary cause"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.perfusion_injury",
+          "name": "Actual vascular/injury findings and source wall comparisons",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.perfusion_injury.arterial_occlusion",
+              "name": "arterial occlusion"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.venous_thrombus",
+              "name": "venous thrombus"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.vascular_proximal_margin",
+              "name": "vascular proximal margin"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.vascular_distal_margin",
+              "name": "vascular distal margin"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.low_enhancing_wall",
+              "name": "low enhancing wall"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.nonenhancing_wall_if_assessable",
+              "name": "nonenhancing wall if assessable"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.hyperattenuating_baseline_wall",
+              "name": "hyperattenuating baseline wall"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.hyperenhancing_wall_if_supported",
+              "name": "hyperenhancing wall if supported"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.paper_thin_region",
+              "name": "paper thin region"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.congested_region",
+              "name": "congested region"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.mesenteric_gas",
+              "name": "mesenteric gas"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.portal_gas",
+              "name": "portal gas"
+            },
+            {
+              "id": "bowel_wall.perfusion_injury.reperfusion_region_if_supported",
+              "name": "reperfusion region if supported"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.systemic_oedema",
+          "name": "Actual systemic/portal-pressure context and local wall observations",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.systemic_oedema.affected_wall",
+              "name": "affected wall"
+            },
+            {
+              "id": "bowel_wall.systemic_oedema.observable_low_attenuation_band",
+              "name": "observable low attenuation band"
+            },
+            {
+              "id": "bowel_wall.systemic_oedema.mesenteric_oedema",
+              "name": "mesenteric oedema"
+            },
+            {
+              "id": "bowel_wall.systemic_oedema.ascites",
+              "name": "ascites"
+            },
+            {
+              "id": "bowel_wall.systemic_oedema.collateral_if_visible",
+              "name": "collateral if visible"
+            },
+            {
+              "id": "bowel_wall.systemic_oedema.host_liver_interface",
+              "name": "host liver interface"
+            },
+            {
+              "id": "bowel_wall.systemic_oedema.reference_wall",
+              "name": "reference wall"
+            },
+            {
+              "id": "bowel_wall.systemic_oedema.unassessed_mechanism",
+              "name": "unassessed mechanism"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.posttreatment",
+          "name": "Actual postoperative/radiation/drug-related observations",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.posttreatment.anastomotic_region",
+              "name": "anastomotic region"
+            },
+            {
+              "id": "bowel_wall.posttreatment.suture_or_staple_if_present",
+              "name": "suture or staple if present"
+            },
+            {
+              "id": "bowel_wall.posttreatment.altered_bowel_course",
+              "name": "altered bowel course"
+            },
+            {
+              "id": "bowel_wall.posttreatment.stricture_if_present",
+              "name": "stricture if present"
+            },
+            {
+              "id": "bowel_wall.posttreatment.radiation_field_wall_if_supported",
+              "name": "radiation field wall if supported"
+            },
+            {
+              "id": "bowel_wall.posttreatment.intramural_fat_if_present",
+              "name": "intramural fat if present"
+            },
+            {
+              "id": "bowel_wall.posttreatment.adjacent_treatment_interface",
+              "name": "adjacent treatment interface"
+            },
+            {
+              "id": "bowel_wall.posttreatment.baseline_wall",
+              "name": "baseline wall"
+            },
+            {
+              "id": "bowel_wall.posttreatment.current_wall",
+              "name": "current wall"
+            },
+            {
+              "id": "bowel_wall.posttreatment.collection_if_present",
+              "name": "collection if present"
+            },
+            {
+              "id": "bowel_wall.posttreatment.unassessed_temporal_correspondence",
+              "name": "unassessed temporal correspondence"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.acquisition",
+          "name": "Actual source comparisons, wall measurement and adequacy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.acquisition.distended_reference_region",
+              "name": "distended reference region"
+            },
+            {
+              "id": "bowel_wall.acquisition.collapsed_region",
+              "name": "collapsed region"
+            },
+            {
+              "id": "bowel_wall.acquisition.orthogonal_measurement_site",
+              "name": "orthogonal measurement site"
+            },
+            {
+              "id": "bowel_wall.acquisition.unenhanced_affected_wall",
+              "name": "unenhanced affected wall"
+            },
+            {
+              "id": "bowel_wall.acquisition.contrast_affected_wall",
+              "name": "contrast affected wall"
+            },
+            {
+              "id": "bowel_wall.acquisition.acquired_phase_reference_wall",
+              "name": "acquired phase reference wall"
+            },
+            {
+              "id": "bowel_wall.acquisition.unresolved_band_limit",
+              "name": "unresolved band limit"
+            },
+            {
+              "id": "bowel_wall.acquisition.unassessed_vessel_opacification",
+              "name": "unassessed vessel opacification"
+            },
+            {
+              "id": "bowel_wall.acquisition.source_field_end",
+              "name": "source field end"
+            },
+            {
+              "id": "bowel_wall.acquisition.actual_plane_correspondence",
+              "name": "actual plane correspondence"
+            },
+            {
+              "id": "bowel_wall.acquisition.motion_region",
+              "name": "motion region"
+            },
+            {
+              "id": "bowel_wall.acquisition.positive_enteric_contrast_effect_if_present",
+              "name": "positive enteric contrast effect if present"
+            },
+            {
+              "id": "bowel_wall.acquisition.independent_native_resolution_evidence",
+              "name": "independent native resolution evidence"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_wall.positive_examples",
+          "name": "Independent source-specific patterns and diagnostic overlap",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_wall.positive_examples.symmetric_neoplastic_example",
+              "name": "symmetric neoplastic example",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_wall.positive_examples.segmental_lymphoma_example",
+              "name": "segmental lymphoma example",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_wall.positive_examples.inflammatory_target_example",
+              "name": "inflammatory target example",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_wall.positive_examples.vascular_target_example",
+              "name": "vascular target example",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_wall.positive_examples.haemorrhagic_baseline_example",
+              "name": "haemorrhagic baseline example",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_wall.positive_examples.non_ibd_fat_example",
+              "name": "non ibd fat example",
+              "context_requirements": {
+                "depicted_state": "intramural_fat_non_ibd_source_context"
+              }
+            },
+            {
+              "id": "bowel_wall.positive_examples.acute_perforation_example",
+              "name": "acute perforation example",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual source-covered segment, wall band/feature, lesion, vessel branch and interface with its distension, field, acquisition and spatial extent. Unresolved histological layers, absent phases and unassessed bowel remain unknown. Parent anatomy, schematic colours and selected sections cannot establish full wall/lumen anatomy, patency, perfusion, histology or diagnostic cause. Conditional gastric/appendiceal/anal and extra-bowel regions require actual coverage and clinical relevance.",
+          "requirement_basis": "effective_bowel_wall_distribution_morphology_attenuation_mesentery_lumen_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Identify the affected bowel and whether involvement is focal, segmental or diffuse."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Wall Morphology",
+              "detail": "Describe symmetry, regularity and thickening."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Enhancement Pattern",
+              "detail": "Describe the actual mural enhancement pattern and available phase."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mesentery And Vessels",
+              "detail": "Assess surrounding fat, vessels and nodes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Lumen And Complications",
+              "detail": "Review luminal narrowing, upstream effect and collections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern",
+            "https://doi.org/10.1007/s13244-013-0308-y",
+            "https://doi.org/10.1186/s13017-022-00443-x"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual covered segment, wall observation, lesion component, vessel branch, mesenteric/peritoneal and adjacent-organ interface",
+            "Source-specific distension, baseline/contrast phase, spatial extent, diagnosis/pathological state and population",
+            "Independent anatomical and clinical review; the patterns are not histological or complete perfusion proof"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "complete_case_and_wall_extent_pending",
+          "detail": "Draft segment/feature groups are not exhaustive actual patient-specific instances."
+        },
+        {
+          "code": "distension_acquisition_and_layers_pending",
+          "detail": "Missing phases, collapsed segments and unresolved wall bands remain limited/unassessed, not normal anatomy."
+        },
+        {
+          "code": "diagnostic_overlap_pending",
+          "detail": "Length schemes, thickness chart means, symmetry and target/fat patterns do not independently establish a specific cause or benignity."
+        },
+        {
+          "code": "native_sources_rights_and_anatomy_pending",
+          "detail": "Image, schematic and 3D candidates require source-specific resolution, rights and complete anatomical review."
+        },
+        {
+          "code": "shared_lesson_reconciliation_pending",
+          "detail": "Whole shared bowel-ischaemia lesson, quiz, imaging algorithms and treatment guidance remain independently unreconciled."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "thickness",
+          "evidence": "Actual measurement site, plane, local distension and observable wall margins."
+        },
+        {
+          "observation": "enhancement",
+          "evidence": "Actually acquired contrast/reference and baseline sources, with unresolved phases and field limits retained."
+        },
+        {
+          "observation": "extent",
+          "evidence": "Every involved and assessed intervening segment, lesion margin and conditional covered interface."
+        },
+        {
+          "observation": "pattern_and_cause",
+          "evidence": "Source observations plus clinical/endoscopic/pathological context; no diagnosis from source scheme or appearance alone."
+        },
+        {
+          "observation": "patency_and_viability",
+          "evidence": "Adequately opacified covered vessels and full relevant wall/injury assessment with independent specialist context."
         }
       ]
     }

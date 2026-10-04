@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2517,7 +2517,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3876,7 +3876,7 @@
       },
       "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -4525,7 +4525,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5371,7 +5371,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6438,7 +6438,7 @@
       },
       "reporting_contract_sha256": "189df6b9a3cb53d1e48e23af3cec936660e8cdfa75ac7dd20b3976230f656210",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6975,9 +6975,10 @@
       "modality": "CT",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-04",
           "protocol": [
-            "Assess bowel in adequately distended segments and correlate wall morphology with enhancement, distribution and mesenteric findings."
+            "Assess bowel in adequately distended segments and correlate wall morphology with enhancement, distribution and mesenteric findings.",
+            "Record actual bowel coverage/distension, acquired unenhanced and contrast phases, wall visibility and vascular opacification. Unavailable or inadequately imaged wall/vascular regions remain unassessed; high baseline attenuation is not automatically enhancement."
           ],
           "checklist": [
             {
@@ -7005,45 +7006,59 @@
             {
               "name": "Wall thickness",
               "method": "Measure perpendicular to a well-seen, sufficiently distended wall.",
-              "pitfall": "Do not include luminal contents or adjacent fat."
+              "pitfall": "Do not include luminal contents or adjacent fat. State local distension, measurement site/plane and source limitations; chart mean thicknesses are not patient-specific diagnostic thresholds."
             }
           ],
           "classification": null,
           "criteria_table": null,
           "pitfalls": [
-            "Collapsed bowel and incomplete enhancement timing can mimic pathological thickening."
+            "Collapsed bowel and incomplete enhancement timing can mimic pathological thickening.",
+            "Record measured length and the named source scheme rather than treating differing focal/segmental/diffuse cutoffs as universal diagnoses.",
+            "Symmetric regular thickening can occur in neoplasia, including focal adenocarcinoma and segmental small-bowel lymphoma; appearance alone does not establish benignity.",
+            "Stratified/target appearance is nonspecific, and observable CT bands do not independently verify every histological wall layer. Intramural fat does not by itself diagnose chronic inflammatory bowel disease.",
+            "Wall hyperattenuation must be distinguished from enhancement using actual source acquisitions when available; vessel patency cannot be assessed without adequate opacification/coverage."
           ],
           "impression_prompts": [
             "Pattern-based evaluation of thickened bowel and associated mesenteric findings.",
             "State the dominant abnormality, relevant extent and examination limitations."
           ],
-          "escalation": [],
+          "escalation": [
+            "Immediately communicate findings concerning for threatened bowel/ischaemia or perforation in the relevant clinical context; record the recipient and time."
+          ],
           "template_sections": [
             {
               "heading": "DISTRIBUTION",
-              "body": "Segments: [ ]. Distribution/length: [ ]."
+              "body": "Assessed segments/coverage and distension: [ ]. Involved sites and measured length: [ ]. Unassessed regions/limits: [ ]."
             },
             {
               "heading": "WALL MORPHOLOGY",
-              "body": "Thickness: [ ] mm. Symmetric/asymmetric: [ ]. Margins: [ ]."
+              "body": "Wall assessment: [adequate / limited / unassessed]. Site, thickness, plane and local distension: [ ]. Symmetry, margins and observable bands: [ ]."
             },
             {
               "heading": "ENHANCEMENT PATTERN",
-              "body": "Pattern: [ ]. Phase: [ ]. Layering: [ ]."
+              "body": "Enhancement assessment: [adequate actual contrast source / limited / unassessed]. Available phases and baseline attenuation: [ ]. Observed pattern/reference wall and limits: [ ]."
             },
             {
               "heading": "MESENTERY AND VESSELS",
-              "body": "Fat stranding: [ ]. Vessel patency/congestion: [ ]. Nodes: [ ]."
+              "body": "Assessed mesentery, vessels/opacification and nodes: [ ]. Findings: [ ]. Unassessed regions/limits: [ ]."
             },
             {
               "heading": "LUMEN AND COMPLICATIONS",
-              "body": "Narrowing/dilatation: [ ]. Abscess/free gas: [ ]. Additional lesions: [ ]."
+              "body": "Assessed lumen and coverage: [ ]. Narrowing/dilatation, transitions, collections/free gas and other findings: [ ]. Limitations: [ ]."
             }
           ],
           "sources": [
             {
               "title": "Radiology Assistant \u2014 CT-pattern of Bowel wall thickening",
               "url": "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern"
+            },
+            {
+              "title": "Fernandes et al. \u2014 Bowel wall thickening at CT: simplifying the diagnosis",
+              "url": "https://doi.org/10.1007/s13244-013-0308-y"
+            },
+            {
+              "title": "WSES 2022 acute mesenteric ischaemia guideline",
+              "url": "https://doi.org/10.1186/s13017-022-00443-x"
             }
           ]
         },
@@ -7063,7 +7078,7 @@
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Assess bowel in adequately distended segments and correlate wall morphology with enhancement, distribution and mesenteric findings.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
+                "body": "Assess bowel in adequately distended segments and correlate wall morphology with enhancement, distribution and mesenteric findings.\nRecord actual bowel coverage/distension, acquired unenhanced and contrast phases, wall visibility and vascular opacification. Unavailable or inadequately imaged wall/vascular regions remain unassessed; high baseline attenuation is not automatically enhancement.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
@@ -7071,23 +7086,23 @@
               },
               {
                 "heading": "DISTRIBUTION",
-                "body": "Segments: [ ]. Distribution/length: [ ]."
+                "body": "Assessed segments/coverage and distension: [ ]. Involved sites and measured length: [ ]. Unassessed regions/limits: [ ]."
               },
               {
                 "heading": "WALL MORPHOLOGY",
-                "body": "Thickness: [ ] mm. Symmetric/asymmetric: [ ]. Margins: [ ]."
+                "body": "Wall assessment: [adequate / limited / unassessed]. Site, thickness, plane and local distension: [ ]. Symmetry, margins and observable bands: [ ]."
               },
               {
                 "heading": "ENHANCEMENT PATTERN",
-                "body": "Pattern: [ ]. Phase: [ ]. Layering: [ ]."
+                "body": "Enhancement assessment: [adequate actual contrast source / limited / unassessed]. Available phases and baseline attenuation: [ ]. Observed pattern/reference wall and limits: [ ]."
               },
               {
                 "heading": "MESENTERY AND VESSELS",
-                "body": "Fat stranding: [ ]. Vessel patency/congestion: [ ]. Nodes: [ ]."
+                "body": "Assessed mesentery, vessels/opacification and nodes: [ ]. Findings: [ ]. Unassessed regions/limits: [ ]."
               },
               {
                 "heading": "LUMEN AND COMPLICATIONS",
-                "body": "Narrowing/dilatation: [ ]. Abscess/free gas: [ ]. Additional lesions: [ ]."
+                "body": "Assessed lumen and coverage: [ ]. Narrowing/dilatation, transitions, collections/free gas and other findings: [ ]. Limitations: [ ]."
               },
               {
                 "heading": "IMPRESSION",
@@ -7099,12 +7114,24 @@
               }
             ],
             "notes": [
-              "Collapsed bowel and incomplete enhancement timing can mimic pathological thickening."
+              "Collapsed bowel and incomplete enhancement timing can mimic pathological thickening.",
+              "Record measured length and the named source scheme rather than treating differing focal/segmental/diffuse cutoffs as universal diagnoses.",
+              "Symmetric regular thickening can occur in neoplasia, including focal adenocarcinoma and segmental small-bowel lymphoma; appearance alone does not establish benignity.",
+              "Stratified/target appearance is nonspecific, and observable CT bands do not independently verify every histological wall layer. Intramural fat does not by itself diagnose chronic inflammatory bowel disease.",
+              "Wall hyperattenuation must be distinguished from enhancement using actual source acquisitions when available; vessel patency cannot be assessed without adequate opacification/coverage."
             ],
             "sources": [
               {
                 "title": "Radiology Assistant \u2014 CT-pattern of Bowel wall thickening",
                 "url": "https://radiologyassistant.nl/abdomen/bowel/bowel-wall-thickening-ct-pattern"
+              },
+              {
+                "title": "Fernandes et al. \u2014 Bowel wall thickening at CT: simplifying the diagnosis",
+                "url": "https://doi.org/10.1007/s13244-013-0308-y"
+              },
+              {
+                "title": "WSES 2022 acute mesenteric ischaemia guideline",
+                "url": "https://doi.org/10.1186/s13017-022-00443-x"
               }
             ]
           }
@@ -7130,13 +7157,12 @@
                 "DISTRIBUTION"
               ],
               "normal": {
-                "DISTRIBUTION": "No bowel wall thickening."
+                "DISTRIBUTION": "Wall distribution assessment: [adequate / limited / unassessed]. Assessed bowel segments/distension: [ ]. Findings and unassessed extent: [ ]."
               },
               "findings": [
-                "Focal thickening (under 5 cm) of the [ ] with [shouldering / tapering] margins.",
-                "Focal thickening over 5\u201310 cm of the [ ].",
-                "Segmental thickening over 10\u201330 cm of the [ ].",
-                "Diffuse thickening of the [entire colon / colon and small bowel]."
+                "Thickening of the [ ] over a measured length of __ cm; local distension/coverage [ ], margins [ ].",
+                "Separate involved sites and intervening assessed bowel: [ ].",
+                "Focal/segmental/diffuse description under the named scheme [ ]; actual measured extent and limits [ ]."
               ],
               "images": [
                 "ra-ct-bowel-wall-source-1"
@@ -7145,7 +7171,7 @@
               "landmark": "smallbowel",
               "parts": [],
               "look": "Coronal reformats; follow the involved segment from start to end.",
-              "tip": "Focal under 5 cm with shouldered margins suggests adenocarcinoma; 5\u201310 cm suggests diverticulitis, Crohn disease or ischaemia; diffuse colonic involvement suggests ulcerative colitis."
+              "tip": "Record actual length and the named source scheme; length categories overlap across diseases and differ between teaching frameworks. A length band or diffuse colonic extent does not establish a specific diagnosis."
             },
             {
               "label": "Wall thickness and symmetry",
@@ -7155,8 +7181,8 @@
               ],
               "normal": {},
               "findings": [
-                "Symmetric, regular wall thickening of __ mm, favouring a benign process.",
-                "Asymmetric, irregular or lobulated wall thickening of __ mm, raising concern for tumour."
+                "Symmetric, regular wall thickening of __ mm at [ ]; distension/measurement limits [ ]. Neoplasia is not excluded by symmetry alone.",
+                "Asymmetric, irregular or lobulated thickening of __ mm at [ ]; inflammatory and neoplastic possibilities require the actual distribution, adjacent findings and clinical context."
               ],
               "images": [
                 "ra-ct-bowel-wall-source-2"
@@ -7167,7 +7193,7 @@
               "landmark": "smallbowel",
               "parts": [],
               "look": "Measure perpendicular to a distended wall; compare with adjacent loops.",
-              "tip": "Collapsed bowel looks thick; judge thickness only in a distended segment."
+              "tip": "Judge thickness in its actual distension and measurement context. Collapsed segments may limit assessment; regular/symmetric morphology and source chart averages do not establish a benign diagnosis."
             },
             {
               "label": "Attenuation pattern",
@@ -7177,10 +7203,10 @@
               ],
               "normal": {},
               "findings": [
-                "White pattern: avid mucosal enhancement (e.g., active inflammatory bowel disease or shock bowel).",
-                "Grey pattern: homogeneous enhancement (e.g., tumour or chronic Crohn disease).",
-                "Water target: enhancing mucosa and serosa with submucosal oedema.",
-                "Fat target: submucosal fat deposition (chronic inflammatory bowel disease)."
+                "White/high-attenuation pattern: [observed wall and suitable reference]; actual enhancement versus baseline high attenuation [assessed / limited / unassessed].",
+                "Grey attenuation: [observed mild/reduced wall enhancement relative to suitable source reference on the acquired phase]; this pattern is nonspecific.",
+                "Stratified/target appearance: [actually visible inner/outer bands and intervening attenuation]. Histological layer assignment and cause remain interpretation, not proof from the pattern.",
+                "Intramural fat/halo appearance at [ ]; this finding alone does not diagnose chronic inflammatory bowel disease."
               ],
               "images": [
                 "bowel-ischaemia-image-2"
@@ -7188,8 +7214,8 @@
               "measurements": [],
               "landmark": "smallbowel",
               "parts": [],
-              "look": "Portal venous phase; note the phase actually acquired.",
-              "tip": "The attenuation pattern narrows the differential; combine it with length and degree of thickening."
+              "look": "Review the actual acquired unenhanced/contrast phases and adequately imaged reference wall. Record missing phases, baseline attenuation and unresolved wall bands.",
+              "tip": "Combine observed attenuation with actual phases, distension, distribution, mesentery and clinical context. Model colours and a still image cannot establish perfusion, every histological wall layer or complete bowel viability."
             },
             {
               "label": "Mesentery and vessels",
@@ -7198,7 +7224,7 @@
                 "MESENTERY AND VESSELS"
               ],
               "normal": {
-                "MESENTERY AND VESSELS": "Mesentery unremarkable; vessels patent; no significant nodes."
+                "MESENTERY AND VESSELS": "Mesenteric/vascular assessment: [adequate actual opacification and coverage / limited / unassessed]. Assessed regions and nodes: [ ]. Findings and limits: [ ]."
               },
               "findings": [
                 "Engorged vasa recta (comb sign) and fibrofatty proliferation.",
@@ -7220,7 +7246,7 @@
                 "LUMEN AND COMPLICATIONS"
               ],
               "normal": {
-                "LUMEN AND COMPLICATIONS": "No narrowing, obstruction, collection or free gas."
+                "LUMEN AND COMPLICATIONS": "Lumen/complication assessment: [adequate coverage / limited / unassessed]. Assessed regions and findings: [ ]. Unassessed extent: [ ]."
               },
               "findings": [
                 "Luminal narrowing with upstream dilatation to __ mm.",
@@ -7295,10 +7321,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "2fb19f21c97c87a594a80055db32010a0c3f04185e76d8d6b6c69bb2ede26d52",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "1bc53896f5536aba84c02e82be6529fca687d1c14ebc09192fdf0b01a5af582a",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -7760,7 +7786,7 @@
       },
       "reporting_contract_sha256": "ff57c48e481cd3695d3c8f3071969f6c694bbe840f9c2be4aeebb47785e8cb10",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12723,7 +12749,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13108,7 +13134,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13634,7 +13660,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14055,7 +14081,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14470,7 +14496,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15389,7 +15415,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15850,7 +15876,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -16797,7 +16823,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -17603,7 +17629,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -24305,7 +24331,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -28473,7 +28499,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -31107,7 +31133,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -31502,7 +31528,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -53429,7 +53455,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "5fed101449c9e3c53bb90016d8c9b0b55546e9d6685650e01e6e0273df272a8c",
+      "structure_inventory_sha256": "93017912398e2acc3fa5dc339a2ac4cd762ffb6eb0832abb0c0ad0084b72e0b8",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
