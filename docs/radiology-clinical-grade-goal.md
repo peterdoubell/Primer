@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 94 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 19,617 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 608 distinct resources. One hundred sixty-five have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 613 distinct resources. One hundred seventy have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -337,3 +337,8 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 2026-10-04 — Bowel ischaemia scope and phase limits
 
 [Bowel ischaemia review](bowel-ischaemia-fidelity-scope-review.md) adds 304 targets and 912 representation obligations. Arterial, venous and bowel-wall normal presets retain actual acquisition and assessment limitations, with baseline attenuation, positive injury and reperfusion evidence kept distinct. 152 focused checks and local API plus desktop/mobile reader verification passed. All new coverage remains missing; source acquisition, fine anatomy and clinical review remain pending. Known floor: 19,617 obligations, 94 unexpanded investigations and 106 unreconciled curriculum surfaces; full denominator and clinical readiness remain unestablished.
+
+
+### 2026-10-04 — Original bowel-ischaemia source figures
+
+[Bowel-ischaemia source review](bowel-ischaemia-published-source-review.md) adds eight complete CT figures to the local reader: five new physical files and three reused, unchanged phase-comparison files. Original PDF JPEG streams and decoded samples are preserved, with source panel phase/projection claims, repeated cases and mucosal-versus-transmural pathology limits kept explicit. 153 focused checks and local API/image delivery plus desktop/mobile full-size viewing passed. Rights accounting now records 613 unique figure URLs (170 cleared, 443 unverified); no automatic anatomical, native-acquisition or model coverage is granted. Known floor remains 19,617 obligations, with 94 unexpanded investigations and 106 unreconciled curriculum surfaces. Full readiness remains unestablished; no new deployment is claimed.
