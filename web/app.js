@@ -2159,40 +2159,42 @@ async function reportingGuard(page, fn, {
   }
 }
 
+function sourceAtlasFigure(asset, { onExploreSource, createElement = el, sourceLink = radiologySourceLink } = {}) {
+  const nativeVolume = asset.origin === 'native-volume-sections';
+  const derived = asset.origin === 'source-derived' || nativeVolume;
+  const panel = asset.source_panel || '';
+  const ancillary = asset.ancillary_panels || [];
+  const modality = (asset.modality || 'Source anatomy') + (asset.contains_schematic_panels ? ' + schematic panels' : '')
+    + [...new Set(ancillary.map(item => item.kind.toLowerCase()))].map(kind => ' + ' + kind + ' panels').join('');
+  const figure = createElement('figure', { class: 'rad-anatomy-illustration' },
+    createElement('h4', {}, (derived ? asset.figure_title : 'Figure ' + asset.figure_number + panel) + ' · ' + modality),
+    createElement('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
+      loading: 'lazy', decoding: 'async', dataset: { fullSrc: asset.src, sourceFigure: 'true',
+        ...(asset.source_background === 'white' ? { paperBackground: 'white' } : {}) } }),
+    createElement('figcaption', {}, createElement('p', {}, asset.caption),
+      createElement('p', {}, createElement('strong', {}, asset.contains_schematic_panels ? 'Identified in imaging panels: ' : 'Identified in this figure: '), asset.structures_visible.join('; ') + '.'),
+      asset.schematic_structures_visible?.length ? createElement('p', {}, createElement('strong', {}, 'Identified in schematic panels: '),
+        asset.schematic_structures_visible.join('; ') + '.') : null,
+      ...ancillary.map(entry => createElement('p', {}, createElement('strong', {}, 'Identified in ' + entry.kind.toLowerCase()
+        + ' panels (' + entry.panels.join(', ') + '): '), entry.structures_visible.join('; ') + '. ', entry.limits)),
+      createElement('p', { class: 'rad-image-credit' }, asset.limits),
+      createElement('p', { class: 'rad-image-credit' }, asset.attribution),
+      sourceLink(derived ? 'Source dataset' : 'Source article', asset.source_url), ' · ',
+      sourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : 'Original figure', asset.figure_url), ' · ',
+      sourceLink(asset.license, asset.license_url)));
+  if (derived && onExploreSource) figure.append(btn({ class: 'btn ghost small',
+    onclick: () => onExploreSource(asset) }, 'Explore this source knee in 3D'));
+  if (asset.source_caption_full && asset.source_caption_full !== asset.caption) {
+    figure.append(createElement('details', { class: 'rad-source-caption' },
+      createElement('summary', {}, 'Complete source-figure caption'), createElement('p', {}, asset.source_caption_full)));
+  }
+  return figure;
+}
+
 function renderMskAtlasFigures(items, { onExploreSource } = {}) {
   const atlas = el('section', { class: 'rad-structure-atlas', 'aria-label': 'Source anatomical atlas figures' },
     el('h3', {}, 'Source anatomical atlas'));
-  for (const asset of items) {
-    const nativeVolume = asset.origin === 'native-volume-sections';
-    const derived = asset.origin === 'source-derived' || nativeVolume;
-    const panel = asset.source_panel || '';
-    const ancillary = asset.ancillary_panels || [];
-    const modality = (asset.modality || 'Source anatomy') + (asset.contains_schematic_panels ? ' + schematic panels' : '')
-      + [...new Set(ancillary.map(item => item.kind.toLowerCase()))].map(kind => ' + ' + kind + ' panels').join('');
-    const figure = el('figure', { class: 'rad-anatomy-illustration' },
-      el('h4', {}, (derived ? asset.figure_title : 'Figure ' + asset.figure_number + panel) + ' · ' + modality),
-      el('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
-        loading: 'lazy', decoding: 'async', dataset: { fullSrc: asset.src, sourceFigure: 'true',
-          ...(asset.source_background === 'white' ? { paperBackground: 'white' } : {}) } }),
-      el('figcaption', {}, el('p', {}, asset.caption),
-        el('p', {}, el('strong', {}, asset.contains_schematic_panels ? 'Identified in imaging panels: ' : 'Identified in this figure: '), asset.structures_visible.join('; ') + '.'),
-        asset.schematic_structures_visible?.length ? el('p', {}, el('strong', {}, 'Identified in schematic panels: '),
-          asset.schematic_structures_visible.join('; ') + '.') : null,
-        ...ancillary.map(entry => el('p', {}, el('strong', {}, 'Identified in ' + entry.kind.toLowerCase()
-          + ' panels (' + entry.panels.join(', ') + '): '), entry.structures_visible.join('; ') + '. ', entry.limits)),
-        el('p', { class: 'rad-image-credit' }, asset.limits),
-        el('p', { class: 'rad-image-credit' }, asset.attribution),
-        radiologySourceLink(derived ? 'Source dataset' : 'Source article', asset.source_url), ' · ',
-        radiologySourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : 'Original figure', asset.figure_url), ' · ',
-        radiologySourceLink(asset.license, asset.license_url)));
-    if (derived && onExploreSource) figure.append(btn({ class: 'btn ghost small',
-      onclick: () => onExploreSource(asset) }, 'Explore this source knee in 3D'));
-    if (asset.source_caption_full && asset.source_caption_full !== asset.caption) {
-      figure.append(el('details', { class: 'rad-source-caption' },
-        el('summary', {}, 'Complete source-figure caption'), el('p', {}, asset.source_caption_full)));
-    }
-    atlas.append(figure);
-  }
+  for (const asset of items) atlas.append(sourceAtlasFigure(asset, { onExploreSource }));
   attachPictureHandlers(atlas);
   return atlas;
 }
@@ -2545,7 +2547,12 @@ function walkthroughReport(title, sections, values) {
   })].filter(Boolean).join('\n\n');
 }
 
-function walkthroughFigure(item) {
+function walkthroughFigure(item, { sourceRenderer = sourceAtlasFigure } = {}) {
+  if (item.kind === 'clinical-image' || item.kind === 'schematic') {
+    const figure = sourceRenderer(item);
+    figure.classList.add('rad-walk-figure');
+    return figure;
+  }
   const kind = item.asset_role === 'video-cover' ? 'Video lecture cover'
     : { clinical: 'Clinical example', diagram: 'Teaching diagram', table: 'Reference table' }[item.image_type] || 'Teaching example';
   return el('figure', { class: 'rad-image-example rad-walk-figure' },
@@ -2568,7 +2575,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const originals = new Map(values);
   const normals = new Map();
   walk.steps.forEach(step => Object.entries(step.normal || {}).forEach(([heading, text]) => normals.set(heading, text)));
-  const figures = new Map(ref.key_images.filter(image => image.src).map(image => [image.id, image]));
+  const figures = new Map([...ref.key_images, ...(ref.structure_atlas || [])].filter(image => image.src).map(image => [image.id, image]));
   const measures = new Map(guide.measurements.map(row => [row.name, row]));
   const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(walk.spatial_model.family)) || {};
   const meshFamily = window.PrimerDetailedAnatomy?.supported(walk.spatial_model.family) ? walk.spatial_model.family : null;
@@ -2811,7 +2818,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     anatomyBox.hidden = mode !== 'anatomy';
     const landmarkName = landmarks[page.landmark] || page.landmark;
     if (mode === 'figures') {
-      figureBox.replaceChildren(...(shown.length ? shown.map(walkthroughFigure)
+      figureBox.replaceChildren(...(shown.length ? shown.map(item => walkthroughFigure(item))
         : [el('p', { class: 'rad-walk-hint' }, 'No figure is linked to this step. Use the 3D views, or the Images tab for the full gallery.')]));
       attachPictureHandlers(figureBox);
       visualNote.textContent = shown.length ? 'Published teaching examples, not one patient study. Open a figure to inspect it at full size.' : '';
@@ -3620,6 +3627,8 @@ function pictureCaptionText(caption) {
   return (caption.innerText || caption.textContent || '').trim();
 }
 
+const pictureHandlerHosts = new WeakSet();
+
 function attachPictureHandlers(art, {
   openPicture = openLightbox, createElement = el, baseURL = location.href,
 } = {}) {
@@ -3633,27 +3642,34 @@ function attachPictureHandlers(art, {
   };
   const pictureIn = (target, a) =>
     (target && target.tagName === 'IMG') ? target : (a ? a.querySelector('img') : null);
-  art.addEventListener('click', e => {
-    const a = e.target.closest ? e.target.closest('a') : null;
-    if (a && !dead(a)) return;
-    const img = pictureIn(e.target, a);
-    if (a) e.preventDefault();          // the ejection, stopped
-    if (img) openPicture(img, a || img);
-  });
-  art.addEventListener('keydown', e => {
-    if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
-    const a = e.target.closest ? e.target.closest('a') : null;
-    if (a && !dead(a)) return;
-    // Enter on an anchor already fires a click, so answering it here as well
-    // would open the picture twice. Space on an anchor scrolls instead of
-    // activating, and a bare <img> answers to neither key on its own, so both
-    // are needed everywhere except that one case.
-    if (a && a.hasAttribute('href') && e.key === 'Enter') return;
-    const img = pictureIn(e.target, a);
-    if (!img) return;
-    e.preventDefault();
-    openPicture(img, a || img);
-  });
+  // Dynamic reporting steps replace figures repeatedly. Bind host delegation
+  // once, and let the closest picture host own the event instead of opening
+  // another dialog through an outer gallery or reader host.
+  if (!pictureHandlerHosts.has(art)) {
+    pictureHandlerHosts.add(art);
+    art.addEventListener('click', e => {
+      const a = e.target.closest ? e.target.closest('a') : null;
+      if (a && !dead(a)) return;
+      const img = pictureIn(e.target, a);
+      if (a) e.preventDefault();          // the ejection, stopped
+      if (img) { e.stopPropagation(); openPicture(img, a || img); }
+    });
+    art.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+      const a = e.target.closest ? e.target.closest('a') : null;
+      if (a && !dead(a)) return;
+      // Enter on an anchor already fires a click, so answering it here as well
+      // would open the picture twice. Space on an anchor scrolls instead of
+      // activating, and a bare <img> answers to neither key on its own, so both
+      // are needed everywhere except that one case.
+      if (a && a.hasAttribute('href') && e.key === 'Enter') return;
+      const img = pictureIn(e.target, a);
+      if (!img) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openPicture(img, a || img);
+    });
+  }
   // A picture with no anchor around it is not a trap, but a five-year-old will
   // touch it just the same — and an <img> is not focusable, so without this it
   // would be reachable by finger and by nothing else.
@@ -6246,7 +6262,7 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard,
-    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport });
+    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
   // all — send them to the first page instead of the error card. This needs
