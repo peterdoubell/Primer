@@ -639,3 +639,21 @@ def test_prenatal_cdn_frames_preserve_local_bytes_manifest_and_query(monkeypatch
         assert redirected.headers['location'] == '/source-media/reference-media/prenatal-development/day-005.webp?v=original'
         assert client.get('/app/reference-media/prenatal-development/sequence.json', auth=('reader', 'secret')).status_code == 200
         assert client.get('/app/reference-media/prenatal-development/unknown.webp', auth=('reader', 'secret')).status_code == 404
+
+
+def test_hosted_bundle_excludes_only_cdn_meshes_and_offline_fidelity_files():
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    config = json.loads((root / 'vercel.json').read_text())
+    excluded = config['builds'][0]['config']['excludeFiles']
+    for atlas in ['liu-lumbosacral-sub03', 'verse521']:
+        assert atlas in excluded
+        assert atlas in config['builds'][1]['src']
+    assert 'web/reference-media/prenatal-development/day-*.webp' in excluded
+    assert any(b['src'] == 'web/reference-media/prenatal-development/day-*.webp' and b['use'] == '@vercel/static' for b in config['builds'])
+    rules = (root / '.vercelignore').read_text().splitlines()
+    for name in ['msk-asset-evidence.json', 'msk-structure-requirements.json', 'non-msk-structure-requirements.json', 'radiology-asset-evidence.json']:
+        assert 'data/radiology/' + name in rules
+    assert 'data/radiology/radiology-open-images.json' not in rules
+    assert 'data/radiology/source-anatomy-references.json' not in rules
