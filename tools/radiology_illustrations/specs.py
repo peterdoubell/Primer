@@ -310,7 +310,7 @@ _RECORDS: List[Dict[str, object]] = [
     R("rad.5.peritoneum", "map", "abdomen",
       "Peritoneal recesses explain where fluid, tumour and infection travel.",
       I("Follow spaces", "Gravity and mesenteric attachments channel disease spread.", "bowel"),
-      I("Read surfaces", "Nodules, cake-like omentum and ascites suggest carcinomatosis.", "lesion"),
+      I("Read surfaces", "Describe actual deposits and fluid; clinical context and differential remain necessary.", "lesion"),
       I("Check wall", "Hernia contents and threatened bowel determine urgency.", "obstruction")),
     R("rad.5.rectal-mr", "map", "abdomen",
       "MRI maps the tumour or fistula against the planes the surgeon must preserve.",

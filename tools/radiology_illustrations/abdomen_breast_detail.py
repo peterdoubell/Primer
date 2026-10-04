@@ -677,7 +677,7 @@ def _render_peritoneum(plate: RadiologyPlate,
         plate.text((left[0] + 112, y), label, size=20, bold=True,
                    fill=INK, anchor="lm")
     plate.text(((left[0] + left[2]) / 2, left[3] - 33),
-               "distribution supports inference", size=19,
+               "distribution + clinical context", size=19,
                bold=True, fill=INK_SOFT, anchor="mm")
 
     right = _panel(plate, (1175, 270, 1530, 735), "ABDOMINAL WALL", CORAL)

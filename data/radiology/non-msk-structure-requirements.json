@@ -15,7 +15,9 @@
       "ra.renal-cysts-bosniak",
       "ra.ct-pancreatic-cancer",
       "ra.ct-pancreatitis",
-      "ra.pancreatic-cysts"
+      "ra.pancreatic-cysts",
+      "ra.ct-peritoneum",
+      "ra.ct-peritoneal-carcinomatosis"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -30319,6 +30321,4214 @@
         {
           "observation": "conditional_modalities",
           "evidence": "Only actually acquired CT/MRI/MRCP or adjuncts can support modality-specific morphology/phase/functional claims."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ct-peritoneum",
+      "module_id": "rad.5.peritoneum",
+      "title": "Peritoneal and mesenteric CT compartments/pathology",
+      "modality": "CT with conditional actually acquired MRI adjuncts",
+      "scope_type": "complete_compartment_surface_deposit_and_interface_case_scope",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_and_multidisciplinary_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "peritoneum-source-0",
+          "title": "Radiology Assistant — Anatomy of Peritoneum and Mesentery",
+          "url": "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "peritoneum-source-1",
+          "title": "Radiology Assistant — Peritoneal Pathology",
+          "url": "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology",
+          "review_status": "scope_reviewed_2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
+      "reporting_checklist": [
+        {
+          "label": "Peritoneal Spaces",
+          "detail": "Localise fluid or lesions to named peritoneal compartments."
+        },
+        {
+          "label": "Omentum And Mesentery",
+          "detail": "Describe infiltration, masses and vessel relationships."
+        },
+        {
+          "label": "Bowel Relationships",
+          "detail": "Identify displacement, retraction and associated mural abnormalities."
+        },
+        {
+          "label": "Lesion Composition",
+          "detail": "Assess enhancement, fat, cystic change and calcification."
+        },
+        {
+          "label": "Associated Disease",
+          "detail": "Review retroperitoneum, organ findings and complications."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "PERITONEAL SPACES",
+          "body": "Compartments: [ ]. Fluid/loculation: [ ]."
+        },
+        {
+          "heading": "OMENTUM AND MESENTERY",
+          "body": "Omentum: [ ]. Mesenteric mass/fat: [ ]. Vessels: [ ]."
+        },
+        {
+          "heading": "BOWEL RELATIONSHIPS",
+          "body": "Displacement/retraction: [ ]. Bowel wall/lumen: [ ]."
+        },
+        {
+          "heading": "LESION COMPOSITION",
+          "body": "Composition: [ ]. Enhancement: [ ]. Calcification: [ ]."
+        },
+        {
+          "heading": "ASSOCIATED DISEASE",
+          "body": "Organs/retroperitoneum: [ ]. Nodes: [ ]. Obstruction/inflammatory complication: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "peritoneum.surfaces",
+          "name": "Every actual parietal and visceral surface",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.surfaces.anterior_parietal",
+              "name": "anterior parietal"
+            },
+            {
+              "id": "peritoneum.surfaces.posterior_parietal",
+              "name": "posterior parietal"
+            },
+            {
+              "id": "peritoneum.surfaces.right_lateral",
+              "name": "right lateral"
+            },
+            {
+              "id": "peritoneum.surfaces.left_lateral",
+              "name": "left lateral"
+            },
+            {
+              "id": "peritoneum.surfaces.right_diaphragmatic",
+              "name": "right diaphragmatic"
+            },
+            {
+              "id": "peritoneum.surfaces.left_diaphragmatic",
+              "name": "left diaphragmatic"
+            },
+            {
+              "id": "peritoneum.surfaces.hepatic_serosa",
+              "name": "hepatic serosa"
+            },
+            {
+              "id": "peritoneum.surfaces.splenic_serosa",
+              "name": "splenic serosa"
+            },
+            {
+              "id": "peritoneum.surfaces.gastric_serosa",
+              "name": "gastric serosa"
+            },
+            {
+              "id": "peritoneum.surfaces.bowel_serosa",
+              "name": "bowel serosa"
+            },
+            {
+              "id": "peritoneum.surfaces.pelvic_surfaces",
+              "name": "pelvic surfaces"
+            },
+            {
+              "id": "peritoneum.surfaces.each_source_surface_boundary",
+              "name": "each source surface boundary"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.spaces",
+          "name": "Whole acquired peritoneal compartment map",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.spaces.right_subphrenic",
+              "name": "right subphrenic"
+            },
+            {
+              "id": "peritoneum.spaces.left_subphrenic",
+              "name": "left subphrenic"
+            },
+            {
+              "id": "peritoneum.spaces.subhepatic",
+              "name": "subhepatic"
+            },
+            {
+              "id": "peritoneum.spaces.hepatorenal_recess",
+              "name": "hepatorenal recess"
+            },
+            {
+              "id": "peritoneum.spaces.greater_sac",
+              "name": "greater sac"
+            },
+            {
+              "id": "peritoneum.spaces.lesser_sac",
+              "name": "lesser sac"
+            },
+            {
+              "id": "peritoneum.spaces.lesser_sac_vestibule",
+              "name": "Lesser sac vestibule"
+            },
+            {
+              "id": "peritoneum.spaces.epiploic_foramen",
+              "name": "Epiploic foramen"
+            },
+            {
+              "id": "peritoneum.spaces.right_paracolic",
+              "name": "right paracolic"
+            },
+            {
+              "id": "peritoneum.spaces.left_paracolic",
+              "name": "left paracolic"
+            },
+            {
+              "id": "peritoneum.spaces.right_iliac",
+              "name": "right iliac"
+            },
+            {
+              "id": "peritoneum.spaces.left_iliac",
+              "name": "left iliac"
+            },
+            {
+              "id": "peritoneum.spaces.central_abdomen",
+              "name": "central abdomen"
+            },
+            {
+              "id": "peritoneum.spaces.rectouterine_if_present",
+              "name": "rectouterine if present"
+            },
+            {
+              "id": "peritoneum.spaces.rectovesical_if_present",
+              "name": "rectovesical if present"
+            },
+            {
+              "id": "peritoneum.spaces.vesicouterine_if_present",
+              "name": "vesicouterine if present"
+            },
+            {
+              "id": "peritoneum.spaces.mesenteric_recesses",
+              "name": "mesenteric recesses"
+            },
+            {
+              "id": "peritoneum.spaces.actual_compartment_connections",
+              "name": "actual compartment connections"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.ligaments",
+          "name": "Actual peritoneal folds and ligament interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.ligaments.falciform",
+              "name": "falciform"
+            },
+            {
+              "id": "peritoneum.ligaments.coronary",
+              "name": "coronary"
+            },
+            {
+              "id": "peritoneum.ligaments.right_triangular",
+              "name": "right triangular"
+            },
+            {
+              "id": "peritoneum.ligaments.left_triangular",
+              "name": "left triangular"
+            },
+            {
+              "id": "peritoneum.ligaments.gastrohepatic",
+              "name": "gastrohepatic"
+            },
+            {
+              "id": "peritoneum.ligaments.hepatoduodenal",
+              "name": "hepatoduodenal"
+            },
+            {
+              "id": "peritoneum.ligaments.gastrosplenic",
+              "name": "gastrosplenic"
+            },
+            {
+              "id": "peritoneum.ligaments.splenorenal",
+              "name": "splenorenal"
+            },
+            {
+              "id": "peritoneum.ligaments.gastrocolic",
+              "name": "gastrocolic"
+            },
+            {
+              "id": "peritoneum.ligaments.phrenicocolic",
+              "name": "phrenicocolic"
+            },
+            {
+              "id": "peritoneum.ligaments.source_fold_attachments",
+              "name": "source fold attachments"
+            },
+            {
+              "id": "peritoneum.ligaments.each_actual_fold_margin",
+              "name": "each actual fold margin"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.omentum",
+          "name": "Whole acquired greater and lesser omental anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.omentum.greater_omental_extent",
+              "name": "greater omental extent"
+            },
+            {
+              "id": "peritoneum.omentum.lesser_omental_extent",
+              "name": "lesser omental extent"
+            },
+            {
+              "id": "peritoneum.omentum.outer_margin",
+              "name": "outer margin"
+            },
+            {
+              "id": "peritoneum.omentum.gastric_attachment",
+              "name": "gastric attachment"
+            },
+            {
+              "id": "peritoneum.omentum.colonic_attachment",
+              "name": "colonic attachment"
+            },
+            {
+              "id": "peritoneum.omentum.tissue_plane",
+              "name": "tissue plane"
+            },
+            {
+              "id": "peritoneum.omentum.vessel_course",
+              "name": "vessel course"
+            },
+            {
+              "id": "peritoneum.omentum.source_internal_fat_regions",
+              "name": "source internal fat regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.mesentery",
+          "name": "Every actual mesenteric/mesocolic region",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.mesentery.small_bowel_root",
+              "name": "small bowel root"
+            },
+            {
+              "id": "peritoneum.mesentery.jejunal_mesentery",
+              "name": "jejunal mesentery"
+            },
+            {
+              "id": "peritoneum.mesentery.ileal_mesentery",
+              "name": "ileal mesentery"
+            },
+            {
+              "id": "peritoneum.mesentery.ileocaecal_attachment",
+              "name": "ileocaecal attachment"
+            },
+            {
+              "id": "peritoneum.mesentery.transverse_mesocolon",
+              "name": "transverse mesocolon"
+            },
+            {
+              "id": "peritoneum.mesentery.sigmoid_mesocolon",
+              "name": "sigmoid mesocolon"
+            },
+            {
+              "id": "peritoneum.mesentery.right_left_colonic_attachments",
+              "name": "right left colonic attachments"
+            },
+            {
+              "id": "peritoneum.mesentery.mesenteric_folds",
+              "name": "mesenteric folds"
+            },
+            {
+              "id": "peritoneum.mesentery.source_vessel_branches",
+              "name": "source vessel branches"
+            },
+            {
+              "id": "peritoneum.mesentery.each_source_fat_interface",
+              "name": "each source fat interface"
+            },
+            {
+              "id": "peritoneum.mesentery.bowel_attachment_planes",
+              "name": "bowel attachment planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.bowel",
+          "name": "Every acquired bowel segment and serosal relation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.bowel.stomach_wall",
+              "name": "stomach wall"
+            },
+            {
+              "id": "peritoneum.bowel.stomach_lumen",
+              "name": "stomach lumen"
+            },
+            {
+              "id": "peritoneum.bowel.duodenal_wall",
+              "name": "duodenal wall"
+            },
+            {
+              "id": "peritoneum.bowel.duodenal_lumen",
+              "name": "duodenal lumen"
+            },
+            {
+              "id": "peritoneum.bowel.jejunal_wall",
+              "name": "jejunal wall"
+            },
+            {
+              "id": "peritoneum.bowel.jejunal_lumen",
+              "name": "jejunal lumen"
+            },
+            {
+              "id": "peritoneum.bowel.ileal_wall",
+              "name": "ileal wall"
+            },
+            {
+              "id": "peritoneum.bowel.ileal_lumen",
+              "name": "ileal lumen"
+            },
+            {
+              "id": "peritoneum.bowel.caecal_wall",
+              "name": "caecal wall"
+            },
+            {
+              "id": "peritoneum.bowel.appendix_relation",
+              "name": "appendix relation"
+            },
+            {
+              "id": "peritoneum.bowel.colonic_wall",
+              "name": "colonic wall"
+            },
+            {
+              "id": "peritoneum.bowel.colonic_lumen",
+              "name": "colonic lumen"
+            },
+            {
+              "id": "peritoneum.bowel.sigmoid_wall",
+              "name": "sigmoid wall"
+            },
+            {
+              "id": "peritoneum.bowel.rectal_relation",
+              "name": "rectal relation"
+            },
+            {
+              "id": "peritoneum.bowel.serosal_margin",
+              "name": "serosal margin"
+            },
+            {
+              "id": "peritoneum.bowel.mesenteric_bowel_interface",
+              "name": "mesenteric bowel interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.fluid",
+          "name": "Every actual fluid/loculated observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.fluid.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "peritoneum.fluid.each_recess_distribution",
+              "name": "each recess distribution"
+            },
+            {
+              "id": "peritoneum.fluid.locule_extent",
+              "name": "locule extent"
+            },
+            {
+              "id": "peritoneum.fluid.interlocule_communication",
+              "name": "interlocule communication"
+            },
+            {
+              "id": "peritoneum.fluid.wall_or_confirmed_absence",
+              "name": "wall or confirmed absence"
+            },
+            {
+              "id": "peritoneum.fluid.bowel_mass_effect",
+              "name": "bowel mass effect"
+            },
+            {
+              "id": "peritoneum.fluid.source_attenuation_regions",
+              "name": "source attenuation regions"
+            },
+            {
+              "id": "peritoneum.fluid.gas_if_present",
+              "name": "gas if present"
+            },
+            {
+              "id": "peritoneum.fluid.tissue_fluid_interface",
+              "name": "tissue fluid interface"
+            },
+            {
+              "id": "peritoneum.fluid.source_prior_correspondence",
+              "name": "source prior correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_fluid_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.deposits",
+          "name": "Every actual peritoneal observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.deposits.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "peritoneum.deposits.nodular_regions",
+              "name": "nodular regions"
+            },
+            {
+              "id": "peritoneum.deposits.plaque_regions",
+              "name": "plaque regions"
+            },
+            {
+              "id": "peritoneum.deposits.confluent_regions",
+              "name": "confluent regions"
+            },
+            {
+              "id": "peritoneum.deposits.miliary_suspicion",
+              "name": "miliary suspicion"
+            },
+            {
+              "id": "peritoneum.deposits.surface_attachment",
+              "name": "surface attachment"
+            },
+            {
+              "id": "peritoneum.deposits.serosal_interface",
+              "name": "serosal interface"
+            },
+            {
+              "id": "peritoneum.deposits.fat_interface",
+              "name": "fat interface"
+            },
+            {
+              "id": "peritoneum.deposits.representative_measurement_margin",
+              "name": "representative measurement margin"
+            },
+            {
+              "id": "peritoneum.deposits.source_prior_correspondence",
+              "name": "source prior correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_deposit_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.omental_disease",
+          "name": "Actual omental disease extent",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.omental_disease.whole_infiltrated_margin",
+              "name": "whole infiltrated margin"
+            },
+            {
+              "id": "peritoneum.omental_disease.each_nodule",
+              "name": "each nodule"
+            },
+            {
+              "id": "peritoneum.omental_disease.plaque_extent",
+              "name": "plaque extent"
+            },
+            {
+              "id": "peritoneum.omental_disease.confluent_cake",
+              "name": "confluent cake"
+            },
+            {
+              "id": "peritoneum.omental_disease.internal_fat_regions",
+              "name": "internal fat regions"
+            },
+            {
+              "id": "peritoneum.omental_disease.bowel_relation",
+              "name": "bowel relation"
+            },
+            {
+              "id": "peritoneum.omental_disease.vessel_relation",
+              "name": "vessel relation"
+            },
+            {
+              "id": "peritoneum.omental_disease.source_enhancement",
+              "name": "source enhancement"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_omental_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.mesenteric_disease",
+          "name": "Actual mesenteric disease/interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.mesenteric_disease.whole_observation",
+              "name": "whole observation"
+            },
+            {
+              "id": "peritoneum.mesenteric_disease.fibrotic_retraction_regions",
+              "name": "fibrotic retraction regions"
+            },
+            {
+              "id": "peritoneum.mesenteric_disease.fatty_regions",
+              "name": "fatty regions"
+            },
+            {
+              "id": "peritoneum.mesenteric_disease.source_vessel_lumen",
+              "name": "source vessel lumen"
+            },
+            {
+              "id": "peritoneum.mesenteric_disease.source_vessel_wall",
+              "name": "source vessel wall"
+            },
+            {
+              "id": "peritoneum.mesenteric_disease.vessel_tissue_interfaces",
+              "name": "vessel tissue interfaces"
+            },
+            {
+              "id": "peritoneum.mesenteric_disease.bowel_tethering",
+              "name": "bowel tethering"
+            },
+            {
+              "id": "peritoneum.mesenteric_disease.interfaces_with_root",
+              "name": "interfaces with root"
+            },
+            {
+              "id": "peritoneum.mesenteric_disease.preserved_or_uncertain_regions",
+              "name": "preserved or uncertain regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_mesenteric_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.composition",
+          "name": "Actual source tissue components",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.composition.fat_regions",
+              "name": "fat regions"
+            },
+            {
+              "id": "peritoneum.composition.solid_regions",
+              "name": "solid regions"
+            },
+            {
+              "id": "peritoneum.composition.fluid_regions",
+              "name": "fluid regions"
+            },
+            {
+              "id": "peritoneum.composition.calcified_regions",
+              "name": "calcified regions"
+            },
+            {
+              "id": "peritoneum.composition.mucin_suspicion",
+              "name": "mucin suspicion"
+            },
+            {
+              "id": "peritoneum.composition.necrotic_regions",
+              "name": "necrotic regions"
+            },
+            {
+              "id": "peritoneum.composition.source_enhancing_regions",
+              "name": "source enhancing regions"
+            },
+            {
+              "id": "peritoneum.composition.uncertain_partial_volume_regions",
+              "name": "uncertain partial volume regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_composition_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.critical_sites",
+          "name": "Every acquired technically relevant site",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.critical_sites.porta_hepatis",
+              "name": "porta hepatis"
+            },
+            {
+              "id": "peritoneum.critical_sites.hepatoduodenal_ligament",
+              "name": "hepatoduodenal ligament"
+            },
+            {
+              "id": "peritoneum.critical_sites.bile_duct_interface",
+              "name": "bile duct interface"
+            },
+            {
+              "id": "peritoneum.critical_sites.portal_arterial_interface",
+              "name": "portal arterial interface"
+            },
+            {
+              "id": "peritoneum.critical_sites.lesser_sac",
+              "name": "lesser sac"
+            },
+            {
+              "id": "peritoneum.critical_sites.gastric_antrum",
+              "name": "gastric antrum"
+            },
+            {
+              "id": "peritoneum.critical_sites.right_diaphragm",
+              "name": "right diaphragm"
+            },
+            {
+              "id": "peritoneum.critical_sites.left_diaphragm",
+              "name": "left diaphragm"
+            },
+            {
+              "id": "peritoneum.critical_sites.pelvic_sidewall",
+              "name": "pelvic sidewall"
+            },
+            {
+              "id": "peritoneum.critical_sites.ureter_interface",
+              "name": "ureter interface"
+            },
+            {
+              "id": "peritoneum.critical_sites.psoas_interface",
+              "name": "psoas interface"
+            },
+            {
+              "id": "peritoneum.critical_sites.source_small_bowel_root",
+              "name": "source small bowel root"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.capsular_interface",
+          "name": "Actual organ-surface versus parenchymal relation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.capsular_interface.hepatic_capsule",
+              "name": "hepatic capsule"
+            },
+            {
+              "id": "peritoneum.capsular_interface.hepatic_parenchymal_interface",
+              "name": "hepatic parenchymal interface"
+            },
+            {
+              "id": "peritoneum.capsular_interface.splenic_capsule",
+              "name": "splenic capsule"
+            },
+            {
+              "id": "peritoneum.capsular_interface.splenic_parenchymal_interface",
+              "name": "splenic parenchymal interface"
+            },
+            {
+              "id": "peritoneum.capsular_interface.source_scalloping_regions",
+              "name": "source scalloping regions"
+            },
+            {
+              "id": "peritoneum.capsular_interface.source_organ_margin",
+              "name": "source organ margin"
+            },
+            {
+              "id": "peritoneum.capsular_interface.preserved_or_uncertain_plane",
+              "name": "preserved or uncertain plane"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_capsular_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.complications",
+          "name": "Every actual acquired complication",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.complications.obstruction_transition",
+              "name": "obstruction transition"
+            },
+            {
+              "id": "peritoneum.complications.narrowed_bowel_lumen",
+              "name": "narrowed bowel lumen"
+            },
+            {
+              "id": "peritoneum.complications.wall_perfusion_region",
+              "name": "wall perfusion region"
+            },
+            {
+              "id": "peritoneum.complications.perforation_suspicion",
+              "name": "perforation suspicion"
+            },
+            {
+              "id": "peritoneum.complications.source_free_gas",
+              "name": "source free gas"
+            },
+            {
+              "id": "peritoneum.complications.regions_of_inflammatory_change",
+              "name": "regions of inflammatory change"
+            },
+            {
+              "id": "peritoneum.complications.abscess_if_present",
+              "name": "abscess if present"
+            },
+            {
+              "id": "peritoneum.complications.fistula_if_present",
+              "name": "fistula if present"
+            },
+            {
+              "id": "peritoneum.complications.vascular_filling_defect",
+              "name": "vascular filling defect"
+            },
+            {
+              "id": "peritoneum.complications.ureter_obstruction",
+              "name": "ureter obstruction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_complication_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.associated",
+          "name": "Every acquired associated/other-spread site",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.associated.source_primary_observation",
+              "name": "source primary observation"
+            },
+            {
+              "id": "peritoneum.associated.liver_parenchymal_observation",
+              "name": "liver parenchymal observation"
+            },
+            {
+              "id": "peritoneum.associated.splenic_observation",
+              "name": "splenic observation"
+            },
+            {
+              "id": "peritoneum.associated.actual_nodal_station",
+              "name": "actual nodal station"
+            },
+            {
+              "id": "peritoneum.associated.each_nodal_margin",
+              "name": "each nodal margin"
+            },
+            {
+              "id": "peritoneum.associated.retroperitoneal_observation",
+              "name": "retroperitoneal observation"
+            },
+            {
+              "id": "peritoneum.associated.acquired_lung_base",
+              "name": "acquired lung base"
+            },
+            {
+              "id": "peritoneum.associated.acquired_pleural_region",
+              "name": "acquired pleural region"
+            },
+            {
+              "id": "peritoneum.associated.other_actual_organ",
+              "name": "other actual organ"
+            },
+            {
+              "id": "peritoneum.associated.altered_anatomy",
+              "name": "altered anatomy"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_associated_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.mri",
+          "name": "Actually acquired MRI adjunct regions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.mri.source_t1_region",
+              "name": "source t1 region"
+            },
+            {
+              "id": "peritoneum.mri.source_t2_region",
+              "name": "source t2 region"
+            },
+            {
+              "id": "peritoneum.mri.source_dwi_region",
+              "name": "source dwi region"
+            },
+            {
+              "id": "peritoneum.mri.source_adc_region",
+              "name": "source adc region"
+            },
+            {
+              "id": "peritoneum.mri.native_dynamic_enhancement",
+              "name": "native dynamic enhancement"
+            },
+            {
+              "id": "peritoneum.mri.sequence_correspondence",
+              "name": "sequence correspondence"
+            },
+            {
+              "id": "peritoneum.mri.actual_observation_correspondence",
+              "name": "actual observation correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.case_inflammatory",
+          "name": "Actual inflammatory differential source case",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.case_inflammatory.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "peritoneum.case_inflammatory.source_composition",
+              "name": "source composition"
+            },
+            {
+              "id": "peritoneum.case_inflammatory.source_surface_relation",
+              "name": "source surface relation"
+            },
+            {
+              "id": "peritoneum.case_inflammatory.source_bowel_vessel_relation",
+              "name": "source bowel vessel relation"
+            },
+            {
+              "id": "peritoneum.case_inflammatory.source_diagnostic_uncertainty",
+              "name": "source diagnostic uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_case_inflammatory"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.case_infective",
+          "name": "Actual infective differential source case",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.case_infective.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "peritoneum.case_infective.source_composition",
+              "name": "source composition"
+            },
+            {
+              "id": "peritoneum.case_infective.source_surface_relation",
+              "name": "source surface relation"
+            },
+            {
+              "id": "peritoneum.case_infective.source_bowel_vessel_relation",
+              "name": "source bowel vessel relation"
+            },
+            {
+              "id": "peritoneum.case_infective.source_diagnostic_uncertainty",
+              "name": "source diagnostic uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_case_infective"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.case_mucinous",
+          "name": "Actual mucinous differential source case",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.case_mucinous.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "peritoneum.case_mucinous.source_composition",
+              "name": "source composition"
+            },
+            {
+              "id": "peritoneum.case_mucinous.source_surface_relation",
+              "name": "source surface relation"
+            },
+            {
+              "id": "peritoneum.case_mucinous.source_bowel_vessel_relation",
+              "name": "source bowel vessel relation"
+            },
+            {
+              "id": "peritoneum.case_mucinous.source_diagnostic_uncertainty",
+              "name": "source diagnostic uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_case_mucinous"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.case_lymphatic_cystic",
+          "name": "Actual lymphatic_cystic differential source case",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.case_lymphatic_cystic.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "peritoneum.case_lymphatic_cystic.source_composition",
+              "name": "source composition"
+            },
+            {
+              "id": "peritoneum.case_lymphatic_cystic.source_surface_relation",
+              "name": "source surface relation"
+            },
+            {
+              "id": "peritoneum.case_lymphatic_cystic.source_bowel_vessel_relation",
+              "name": "source bowel vessel relation"
+            },
+            {
+              "id": "peritoneum.case_lymphatic_cystic.source_diagnostic_uncertainty",
+              "name": "source diagnostic uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_case_lymphatic_cystic"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.case_fatty",
+          "name": "Actual fatty differential source case",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.case_fatty.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "peritoneum.case_fatty.source_composition",
+              "name": "source composition"
+            },
+            {
+              "id": "peritoneum.case_fatty.source_surface_relation",
+              "name": "source surface relation"
+            },
+            {
+              "id": "peritoneum.case_fatty.source_bowel_vessel_relation",
+              "name": "source bowel vessel relation"
+            },
+            {
+              "id": "peritoneum.case_fatty.source_diagnostic_uncertainty",
+              "name": "source diagnostic uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_case_fatty"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.case_mesenteric_solid",
+          "name": "Actual mesenteric_solid differential source case",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.case_mesenteric_solid.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "peritoneum.case_mesenteric_solid.source_composition",
+              "name": "source composition"
+            },
+            {
+              "id": "peritoneum.case_mesenteric_solid.source_surface_relation",
+              "name": "source surface relation"
+            },
+            {
+              "id": "peritoneum.case_mesenteric_solid.source_bowel_vessel_relation",
+              "name": "source bowel vessel relation"
+            },
+            {
+              "id": "peritoneum.case_mesenteric_solid.source_diagnostic_uncertainty",
+              "name": "source diagnostic uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_case_mesenteric_solid"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneum.case_other_actual_mimic",
+          "name": "Actual other_actual_mimic differential source case",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneum.case_other_actual_mimic.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "peritoneum.case_other_actual_mimic.source_composition",
+              "name": "source composition"
+            },
+            {
+              "id": "peritoneum.case_other_actual_mimic.source_surface_relation",
+              "name": "source surface relation"
+            },
+            {
+              "id": "peritoneum.case_other_actual_mimic.source_bowel_vessel_relation",
+              "name": "source bowel vessel relation"
+            },
+            {
+              "id": "peritoneum.case_other_actual_mimic.source_diagnostic_uncertainty",
+              "name": "source diagnostic uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Peritoneal Spaces",
+              "detail": "Localise fluid or lesions to named peritoneal compartments."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum And Mesentery",
+              "detail": "Describe infiltration, masses and vessel relationships."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Relationships",
+              "detail": "Identify displacement, retraction and associated mural abnormalities."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lesion Composition",
+              "detail": "Assess enhancement, fat, cystic change and calcification."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Disease",
+              "detail": "Review retroperitoneum, organ findings and complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/anatomy-of-peritoneum-and-mesentery",
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-pathology"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneum_case_other_actual_mimic"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual surface/compartment/deposit and bowel/vessel/duct relation",
+            "Actual field coverage, source-specific PCI regions and unassessed areas",
+            "Actual diagnosis, primary type, treatment time point and prior/current correspondence"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "complete_case_anatomy_pending",
+          "detail": "Prototype entries are not exhaustive acquired region/observation instances."
+        },
+        {
+          "code": "microscopic_and_unacquired_scope_unknown",
+          "detail": "CT nonvisualization cannot establish absence of small deposits or unacquired disease."
+        },
+        {
+          "code": "pci_and_operability_not_geometry",
+          "detail": "CT-estimated PCI is not surgical PCI; suitability requires primary-specific framework and multidisciplinary assessment."
+        },
+        {
+          "code": "fluid_distribution_not_diagnosis",
+          "detail": "Ascites, scalloping or distribution do not establish histology or a unique biological cause."
+        },
+        {
+          "code": "shared_lesson_other_topics_pending",
+          "detail": "Shared hernia, abdominal-wall, drainage and differential management assertions require separate full review."
+        },
+        {
+          "code": "source_quality_rights_and_anatomy_pending",
+          "detail": "Every source image/model requires original sampling, actual phase, rights and independent fine anatomical review."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "localization",
+          "evidence": "Actual source compartment margins, connections and surface/bowel/vessel interfaces."
+        },
+        {
+          "observation": "composition",
+          "evidence": "Adequate original CT phases and source-specific tissue/debris/fat/calcification, not generic mesh colouring."
+        },
+        {
+          "observation": "diagnosis",
+          "evidence": "Actual primary/clinical/pathology context and differential; no histology from ascites or distribution."
+        },
+        {
+          "observation": "burden",
+          "evidence": "Source coverage, each actual deposit, individual regional scores if used and explicit unassessed/uncertain regions."
+        },
+        {
+          "observation": "operative_context",
+          "evidence": "Exact source extent, current primary-specific framework, treatment and specialist judgement; no universal CT-score-only verdict."
+        },
+        {
+          "observation": "conditional_mri",
+          "evidence": "Actually acquired MRI sequences and source correspondence; CT or static models cannot supply DWI/ADC signal."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ct-peritoneal-carcinomatosis",
+      "module_id": "rad.5.peritoneum",
+      "title": "Peritoneal metastatic disease and source-region assessment",
+      "modality": "CT with conditional actually acquired MRI adjuncts",
+      "scope_type": "complete_compartment_surface_deposit_and_interface_case_scope",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_and_multidisciplinary_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "peritoneal_carcinoma-source-0",
+          "title": "Radiology Assistant — Peritoneal Carcinomatosis",
+          "url": "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "peritoneal_carcinoma-source-1",
+          "title": "Evaluation of preoperative CT in estimating PCI (primary accuracy study)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "peritoneal_carcinoma-source-2",
+          "title": "Canadian colorectal peritoneal metastasis guidelines (2020; selection context)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "peritoneal_carcinoma-source-3",
+          "title": "Consensus guideline for colorectal peritoneal metastases (2025)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40558054/",
+          "review_status": "scope_reviewed_2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
+      "reporting_checklist": [
+        {
+          "label": "Distribution",
+          "detail": "Map deposits and fluid through upper abdomen and pelvis."
+        },
+        {
+          "label": "Omentum",
+          "detail": "Describe nodules, plaques and omental cake."
+        },
+        {
+          "label": "Small Bowel And Mesentery",
+          "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+        },
+        {
+          "label": "Surgically Relevant Sites",
+          "detail": "Inspect porta hepatis, lesser sac and other difficult sites."
+        },
+        {
+          "label": "Primary And Other Spread",
+          "detail": "Assess the primary malignancy and extraperitoneal disease."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "DISTRIBUTION",
+          "body": "Subphrenic/paracolic/pelvic sites: [ ]. Ascites: [ ]."
+        },
+        {
+          "heading": "OMENTUM",
+          "body": "Omental pattern/extent: [ ]. Dominant deposit: [ ]."
+        },
+        {
+          "heading": "SMALL BOWEL AND MESENTERY",
+          "body": "Small-bowel serosa: [ ]. Root/retraction: [ ]. Obstruction: [ ]."
+        },
+        {
+          "heading": "SURGICALLY RELEVANT SITES",
+          "body": "Porta hepatis/lesser sac: [ ]. Diaphragm: [ ]. Other critical sites: [ ]."
+        },
+        {
+          "heading": "PRIMARY AND OTHER SPREAD",
+          "body": "Primary: [ ]. Liver/parenchymal metastases: [ ]. Nodes/other spread: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "peritoneal_carcinoma.surfaces",
+          "name": "Every actual parietal and visceral surface",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.surfaces.anterior_parietal",
+              "name": "anterior parietal"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.posterior_parietal",
+              "name": "posterior parietal"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.right_lateral",
+              "name": "right lateral"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.left_lateral",
+              "name": "left lateral"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.right_diaphragmatic",
+              "name": "right diaphragmatic"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.left_diaphragmatic",
+              "name": "left diaphragmatic"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.hepatic_serosa",
+              "name": "hepatic serosa"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.splenic_serosa",
+              "name": "splenic serosa"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.gastric_serosa",
+              "name": "gastric serosa"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.bowel_serosa",
+              "name": "bowel serosa"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.pelvic_surfaces",
+              "name": "pelvic surfaces"
+            },
+            {
+              "id": "peritoneal_carcinoma.surfaces.each_source_surface_boundary",
+              "name": "each source surface boundary"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.spaces",
+          "name": "Whole acquired peritoneal compartment map",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.spaces.right_subphrenic",
+              "name": "right subphrenic"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.left_subphrenic",
+              "name": "left subphrenic"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.subhepatic",
+              "name": "subhepatic"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.hepatorenal_recess",
+              "name": "hepatorenal recess"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.greater_sac",
+              "name": "greater sac"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.lesser_sac",
+              "name": "lesser sac"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.lesser_sac_vestibule",
+              "name": "Lesser sac vestibule"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.epiploic_foramen",
+              "name": "Epiploic foramen"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.right_paracolic",
+              "name": "right paracolic"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.left_paracolic",
+              "name": "left paracolic"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.right_iliac",
+              "name": "right iliac"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.left_iliac",
+              "name": "left iliac"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.central_abdomen",
+              "name": "central abdomen"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.rectouterine_if_present",
+              "name": "rectouterine if present"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.rectovesical_if_present",
+              "name": "rectovesical if present"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.vesicouterine_if_present",
+              "name": "vesicouterine if present"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.mesenteric_recesses",
+              "name": "mesenteric recesses"
+            },
+            {
+              "id": "peritoneal_carcinoma.spaces.actual_compartment_connections",
+              "name": "actual compartment connections"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.ligaments",
+          "name": "Actual peritoneal folds and ligament interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.ligaments.falciform",
+              "name": "falciform"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.coronary",
+              "name": "coronary"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.right_triangular",
+              "name": "right triangular"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.left_triangular",
+              "name": "left triangular"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.gastrohepatic",
+              "name": "gastrohepatic"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.hepatoduodenal",
+              "name": "hepatoduodenal"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.gastrosplenic",
+              "name": "gastrosplenic"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.splenorenal",
+              "name": "splenorenal"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.gastrocolic",
+              "name": "gastrocolic"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.phrenicocolic",
+              "name": "phrenicocolic"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.source_fold_attachments",
+              "name": "source fold attachments"
+            },
+            {
+              "id": "peritoneal_carcinoma.ligaments.each_actual_fold_margin",
+              "name": "each actual fold margin"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Surgically Relevant Sites",
+              "detail": "Inspect porta hepatis, lesser sac and other difficult sites."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.omentum",
+          "name": "Whole acquired greater and lesser omental anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.omentum.greater_omental_extent",
+              "name": "greater omental extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.omentum.lesser_omental_extent",
+              "name": "lesser omental extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.omentum.outer_margin",
+              "name": "outer margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.omentum.gastric_attachment",
+              "name": "gastric attachment"
+            },
+            {
+              "id": "peritoneal_carcinoma.omentum.colonic_attachment",
+              "name": "colonic attachment"
+            },
+            {
+              "id": "peritoneal_carcinoma.omentum.tissue_plane",
+              "name": "tissue plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.omentum.vessel_course",
+              "name": "vessel course"
+            },
+            {
+              "id": "peritoneal_carcinoma.omentum.source_internal_fat_regions",
+              "name": "source internal fat regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Omentum",
+              "detail": "Describe nodules, plaques and omental cake."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.mesentery",
+          "name": "Every actual mesenteric/mesocolic region",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.mesentery.small_bowel_root",
+              "name": "small bowel root"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.jejunal_mesentery",
+              "name": "jejunal mesentery"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.ileal_mesentery",
+              "name": "ileal mesentery"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.ileocaecal_attachment",
+              "name": "ileocaecal attachment"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.transverse_mesocolon",
+              "name": "transverse mesocolon"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.sigmoid_mesocolon",
+              "name": "sigmoid mesocolon"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.right_left_colonic_attachments",
+              "name": "right left colonic attachments"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.mesenteric_folds",
+              "name": "mesenteric folds"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.source_vessel_branches",
+              "name": "source vessel branches"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.each_source_fat_interface",
+              "name": "each source fat interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesentery.bowel_attachment_planes",
+              "name": "bowel attachment planes"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.bowel",
+          "name": "Every acquired bowel segment and serosal relation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.bowel.stomach_wall",
+              "name": "stomach wall"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.stomach_lumen",
+              "name": "stomach lumen"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.duodenal_wall",
+              "name": "duodenal wall"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.duodenal_lumen",
+              "name": "duodenal lumen"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.jejunal_wall",
+              "name": "jejunal wall"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.jejunal_lumen",
+              "name": "jejunal lumen"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.ileal_wall",
+              "name": "ileal wall"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.ileal_lumen",
+              "name": "ileal lumen"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.caecal_wall",
+              "name": "caecal wall"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.appendix_relation",
+              "name": "appendix relation"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.colonic_wall",
+              "name": "colonic wall"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.colonic_lumen",
+              "name": "colonic lumen"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.sigmoid_wall",
+              "name": "sigmoid wall"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.rectal_relation",
+              "name": "rectal relation"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.serosal_margin",
+              "name": "serosal margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.bowel.mesenteric_bowel_interface",
+              "name": "mesenteric bowel interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.fluid",
+          "name": "Every actual fluid/loculated observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.fluid.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.each_recess_distribution",
+              "name": "each recess distribution"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.locule_extent",
+              "name": "locule extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.interlocule_communication",
+              "name": "interlocule communication"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.wall_or_confirmed_absence",
+              "name": "wall or confirmed absence"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.bowel_mass_effect",
+              "name": "bowel mass effect"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.source_attenuation_regions",
+              "name": "source attenuation regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.gas_if_present",
+              "name": "gas if present"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.tissue_fluid_interface",
+              "name": "tissue fluid interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.fluid.source_prior_correspondence",
+              "name": "source prior correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_fluid_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.deposits",
+          "name": "Every actual peritoneal observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.deposits.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.nodular_regions",
+              "name": "nodular regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.plaque_regions",
+              "name": "plaque regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.confluent_regions",
+              "name": "confluent regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.miliary_suspicion",
+              "name": "miliary suspicion"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.surface_attachment",
+              "name": "surface attachment"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.serosal_interface",
+              "name": "serosal interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.fat_interface",
+              "name": "fat interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.representative_measurement_margin",
+              "name": "representative measurement margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.deposits.source_prior_correspondence",
+              "name": "source prior correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum",
+              "detail": "Describe nodules, plaques and omental cake."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_deposit_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.omental_disease",
+          "name": "Actual omental disease extent",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.omental_disease.whole_infiltrated_margin",
+              "name": "whole infiltrated margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.omental_disease.each_nodule",
+              "name": "each nodule"
+            },
+            {
+              "id": "peritoneal_carcinoma.omental_disease.plaque_extent",
+              "name": "plaque extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.omental_disease.confluent_cake",
+              "name": "confluent cake"
+            },
+            {
+              "id": "peritoneal_carcinoma.omental_disease.internal_fat_regions",
+              "name": "internal fat regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.omental_disease.bowel_relation",
+              "name": "bowel relation"
+            },
+            {
+              "id": "peritoneal_carcinoma.omental_disease.vessel_relation",
+              "name": "vessel relation"
+            },
+            {
+              "id": "peritoneal_carcinoma.omental_disease.source_enhancement",
+              "name": "source enhancement"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Omentum",
+              "detail": "Describe nodules, plaques and omental cake."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_omental_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.mesenteric_disease",
+          "name": "Actual mesenteric disease/interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.whole_observation",
+              "name": "whole observation"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.fibrotic_retraction_regions",
+              "name": "fibrotic retraction regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.fatty_regions",
+              "name": "fatty regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.source_vessel_lumen",
+              "name": "source vessel lumen"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.source_vessel_wall",
+              "name": "source vessel wall"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.vessel_tissue_interfaces",
+              "name": "vessel tissue interfaces"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.bowel_tethering",
+              "name": "bowel tethering"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.interfaces_with_root",
+              "name": "interfaces with root"
+            },
+            {
+              "id": "peritoneal_carcinoma.mesenteric_disease.preserved_or_uncertain_regions",
+              "name": "preserved or uncertain regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_mesenteric_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.composition",
+          "name": "Actual source tissue components",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.composition.fat_regions",
+              "name": "fat regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.composition.solid_regions",
+              "name": "solid regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.composition.fluid_regions",
+              "name": "fluid regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.composition.calcified_regions",
+              "name": "calcified regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.composition.mucin_suspicion",
+              "name": "mucin suspicion"
+            },
+            {
+              "id": "peritoneal_carcinoma.composition.necrotic_regions",
+              "name": "necrotic regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.composition.source_enhancing_regions",
+              "name": "source enhancing regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.composition.uncertain_partial_volume_regions",
+              "name": "uncertain partial volume regions"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Omentum",
+              "detail": "Describe nodules, plaques and omental cake."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_composition_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.critical_sites",
+          "name": "Every acquired technically relevant site",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.critical_sites.porta_hepatis",
+              "name": "porta hepatis"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.hepatoduodenal_ligament",
+              "name": "hepatoduodenal ligament"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.bile_duct_interface",
+              "name": "bile duct interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.portal_arterial_interface",
+              "name": "portal arterial interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.lesser_sac",
+              "name": "lesser sac"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.gastric_antrum",
+              "name": "gastric antrum"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.right_diaphragm",
+              "name": "right diaphragm"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.left_diaphragm",
+              "name": "left diaphragm"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.pelvic_sidewall",
+              "name": "pelvic sidewall"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.ureter_interface",
+              "name": "ureter interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.psoas_interface",
+              "name": "psoas interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.critical_sites.source_small_bowel_root",
+              "name": "source small bowel root"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Surgically Relevant Sites",
+              "detail": "Inspect porta hepatis, lesser sac and other difficult sites."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.capsular_interface",
+          "name": "Actual organ-surface versus parenchymal relation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.capsular_interface.hepatic_capsule",
+              "name": "hepatic capsule"
+            },
+            {
+              "id": "peritoneal_carcinoma.capsular_interface.hepatic_parenchymal_interface",
+              "name": "hepatic parenchymal interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.capsular_interface.splenic_capsule",
+              "name": "splenic capsule"
+            },
+            {
+              "id": "peritoneal_carcinoma.capsular_interface.splenic_parenchymal_interface",
+              "name": "splenic parenchymal interface"
+            },
+            {
+              "id": "peritoneal_carcinoma.capsular_interface.source_scalloping_regions",
+              "name": "source scalloping regions"
+            },
+            {
+              "id": "peritoneal_carcinoma.capsular_interface.source_organ_margin",
+              "name": "source organ margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.capsular_interface.preserved_or_uncertain_plane",
+              "name": "preserved or uncertain plane"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Surgically Relevant Sites",
+              "detail": "Inspect porta hepatis, lesser sac and other difficult sites."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_capsular_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.complications",
+          "name": "Every actual acquired complication",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.complications.obstruction_transition",
+              "name": "obstruction transition"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.narrowed_bowel_lumen",
+              "name": "narrowed bowel lumen"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.wall_perfusion_region",
+              "name": "wall perfusion region"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.perforation_suspicion",
+              "name": "perforation suspicion"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.source_free_gas",
+              "name": "source free gas"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.regions_of_inflammatory_change",
+              "name": "regions of inflammatory change"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.abscess_if_present",
+              "name": "abscess if present"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.fistula_if_present",
+              "name": "fistula if present"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.vascular_filling_defect",
+              "name": "vascular filling defect"
+            },
+            {
+              "id": "peritoneal_carcinoma.complications.ureter_obstruction",
+              "name": "ureter obstruction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Surgically Relevant Sites",
+              "detail": "Inspect porta hepatis, lesser sac and other difficult sites."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_complication_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.associated",
+          "name": "Every acquired associated/other-spread site",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.associated.source_primary_observation",
+              "name": "source primary observation"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.liver_parenchymal_observation",
+              "name": "liver parenchymal observation"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.splenic_observation",
+              "name": "splenic observation"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.actual_nodal_station",
+              "name": "actual nodal station"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.each_nodal_margin",
+              "name": "each nodal margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.retroperitoneal_observation",
+              "name": "retroperitoneal observation"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.acquired_lung_base",
+              "name": "acquired lung base"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.acquired_pleural_region",
+              "name": "acquired pleural region"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.other_actual_organ",
+              "name": "other actual organ"
+            },
+            {
+              "id": "peritoneal_carcinoma.associated.altered_anatomy",
+              "name": "altered anatomy"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Primary And Other Spread",
+              "detail": "Assess the primary malignancy and extraperitoneal disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_associated_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.mri",
+          "name": "Actually acquired MRI adjunct regions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.mri.source_t1_region",
+              "name": "source t1 region"
+            },
+            {
+              "id": "peritoneal_carcinoma.mri.source_t2_region",
+              "name": "source t2 region"
+            },
+            {
+              "id": "peritoneal_carcinoma.mri.source_dwi_region",
+              "name": "source dwi region"
+            },
+            {
+              "id": "peritoneal_carcinoma.mri.source_adc_region",
+              "name": "source adc region"
+            },
+            {
+              "id": "peritoneal_carcinoma.mri.native_dynamic_enhancement",
+              "name": "native dynamic enhancement"
+            },
+            {
+              "id": "peritoneal_carcinoma.mri.sequence_correspondence",
+              "name": "sequence correspondence"
+            },
+            {
+              "id": "peritoneal_carcinoma.mri.actual_observation_correspondence",
+              "name": "actual observation correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Primary And Other Spread",
+              "detail": "Assess the primary malignancy and extraperitoneal disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_central",
+          "name": "Actual source PCI region central",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_central.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_central.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_central.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_central.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_central.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_central.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_right_upper",
+          "name": "Actual source PCI region right upper",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_right_upper.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_upper.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_upper.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_upper.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_upper.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_upper.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_epigastric",
+          "name": "Actual source PCI region epigastric",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_epigastric.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_epigastric.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_epigastric.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_epigastric.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_epigastric.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_epigastric.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_left_upper",
+          "name": "Actual source PCI region left upper",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_left_upper.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_upper.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_upper.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_upper.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_upper.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_upper.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_left_flank",
+          "name": "Actual source PCI region left flank",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_left_flank.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_flank.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_flank.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_flank.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_flank.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_flank.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_left_lower",
+          "name": "Actual source PCI region left lower",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_left_lower.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_lower.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_lower.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_lower.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_lower.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_left_lower.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_pelvis",
+          "name": "Actual source PCI region pelvis",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_pelvis.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_pelvis.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_pelvis.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_pelvis.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_pelvis.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_pelvis.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_right_lower",
+          "name": "Actual source PCI region right lower",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_right_lower.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_lower.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_lower.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_lower.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_lower.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_lower.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_right_flank",
+          "name": "Actual source PCI region right flank",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_right_flank.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_flank.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_flank.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_flank.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_flank.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_right_flank.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_upper_jejunum",
+          "name": "Actual source PCI region upper jejunum",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_upper_jejunum.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_jejunum.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_jejunum.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_jejunum.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_jejunum.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_jejunum.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_lower_jejunum",
+          "name": "Actual source PCI region lower jejunum",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_lower_jejunum.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_jejunum.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_jejunum.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_jejunum.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_jejunum.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_jejunum.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_upper_ileum",
+          "name": "Actual source PCI region upper ileum",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_upper_ileum.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_ileum.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_ileum.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_ileum.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_ileum.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_upper_ileum.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.pci_lower_ileum",
+          "name": "Actual source PCI region lower ileum",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.pci_lower_ileum.actual_region_extent",
+              "name": "actual region extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_ileum.largest_visible_deposit",
+              "name": "largest visible deposit"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_ileum.source_size_plane",
+              "name": "source size plane"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_ileum.confluent_extent",
+              "name": "confluent extent"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_ileum.uncertain_or_unassessed_region",
+              "name": "uncertain or unassessed region"
+            },
+            {
+              "id": "peritoneal_carcinoma.pci_lower_ileum.actual_bowel_serosal_relation",
+              "name": "actual bowel serosal relation"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Small Bowel And Mesentery",
+              "detail": "Identify serosal deposits, mesenteric-root disease and retraction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_pci_region_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "peritoneal_carcinoma.therapy",
+          "name": "Actual treated/recurrent peritoneal anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "peritoneal_carcinoma.therapy.residual_observation",
+              "name": "residual observation"
+            },
+            {
+              "id": "peritoneal_carcinoma.therapy.whole_recurrent_margin",
+              "name": "whole recurrent margin"
+            },
+            {
+              "id": "peritoneal_carcinoma.therapy.prior_current_source_correspondence",
+              "name": "prior current source correspondence"
+            },
+            {
+              "id": "peritoneal_carcinoma.therapy.postoperative_planes",
+              "name": "postoperative planes"
+            },
+            {
+              "id": "peritoneal_carcinoma.therapy.drain_stent_if_present",
+              "name": "drain stent if present"
+            },
+            {
+              "id": "peritoneal_carcinoma.therapy.treated_tissue_uncertainty",
+              "name": "treated tissue uncertainty"
+            },
+            {
+              "id": "peritoneal_carcinoma.therapy.actual_new_sites",
+              "name": "actual new sites"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired surface, compartment, vessel/duct branch, deposit and interface. A parent-organ mesh, distribution sketch or unacquired field cannot replace complete source anatomy or pathological extent.",
+          "requirement_basis": "effective_peritoneal_compartment_and_disease_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Distribution",
+              "detail": "Map deposits and fluid through upper abdomen and pelvis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Primary And Other Spread",
+              "detail": "Assess the primary malignancy and extraperitoneal disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis",
+            "https://pubmed.ncbi.nlm.nih.gov/22202284/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/",
+            "https://pubmed.ncbi.nlm.nih.gov/40558054/"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "peritoneal_carcinoma_treated_observation"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual surface/compartment/deposit and bowel/vessel/duct relation",
+            "Actual field coverage, source-specific PCI regions and unassessed areas",
+            "Actual diagnosis, primary type, treatment time point and prior/current correspondence"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "complete_case_anatomy_pending",
+          "detail": "Prototype entries are not exhaustive acquired region/observation instances."
+        },
+        {
+          "code": "microscopic_and_unacquired_scope_unknown",
+          "detail": "CT nonvisualization cannot establish absence of small deposits or unacquired disease."
+        },
+        {
+          "code": "pci_and_operability_not_geometry",
+          "detail": "CT-estimated PCI is not surgical PCI; suitability requires primary-specific framework and multidisciplinary assessment."
+        },
+        {
+          "code": "fluid_distribution_not_diagnosis",
+          "detail": "Ascites, scalloping or distribution do not establish histology or a unique biological cause."
+        },
+        {
+          "code": "shared_lesson_other_topics_pending",
+          "detail": "Shared hernia, abdominal-wall, drainage and differential management assertions require separate full review."
+        },
+        {
+          "code": "source_quality_rights_and_anatomy_pending",
+          "detail": "Every source image/model requires original sampling, actual phase, rights and independent fine anatomical review."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "localization",
+          "evidence": "Actual source compartment margins, connections and surface/bowel/vessel interfaces."
+        },
+        {
+          "observation": "composition",
+          "evidence": "Adequate original CT phases and source-specific tissue/debris/fat/calcification, not generic mesh colouring."
+        },
+        {
+          "observation": "diagnosis",
+          "evidence": "Actual primary/clinical/pathology context and differential; no histology from ascites or distribution."
+        },
+        {
+          "observation": "burden",
+          "evidence": "Source coverage, each actual deposit, individual regional scores if used and explicit unassessed/uncertain regions."
+        },
+        {
+          "observation": "operative_context",
+          "evidence": "Exact source extent, current primary-specific framework, treatment and specialist judgement; no universal CT-score-only verdict."
+        },
+        {
+          "observation": "conditional_mri",
+          "evidence": "Actually acquired MRI sequences and source correspondence; CT or static models cannot supply DWI/ADC signal."
         }
       ]
     }
