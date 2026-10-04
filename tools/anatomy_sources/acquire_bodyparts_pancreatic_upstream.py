@@ -30,10 +30,12 @@ class Rows(HTMLParser):
         if tag=='tr' and self.row:self.rows.append(self.row)
 
 
-def select(manifest,html):
+def select(manifest,html,targets=None):
+    targets=TARGETS if targets is None else targets
+    if not targets:raise ValueError('No source targets selected')
     if '# Data Version\t4.3' not in manifest or '# Objects set\t4.3' not in manifest:
         raise ValueError('Source manifest version is not 4.3')
-    groups={key:set() for key in TARGETS}
+    groups={key:set() for key in targets}
     for line in manifest.splitlines():
         fields=line.split('\t')
         if len(fields)==3 and fields[0] in groups:
@@ -65,14 +67,15 @@ def alternative_representations(html, selected):
     return result
 
 
-def acquire(root):
-    groups,mapping=select((root/'FMA2Obj-4.3.txt').read_text(),(root/'obj2FMA-4.3.html').read_text())
+def acquire(root,targets=None,filename='pancreatic-source-4.3'):
+    targets=TARGETS if targets is None else targets
+    groups,mapping=select((root/'FMA2Obj-4.3.txt').read_text(),(root/'obj2FMA-4.3.html').read_text(),targets)
     partof_mapping=alternative_representations((root/'obj2FMA-partof-4.3.html').read_text(),mapping)
     jar=http.cookiejar.CookieJar();opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
     headers={'User-Agent':'Mozilla/5.0','Referer':'https://lifesciencedb.jp/bp3d/?lng=en'}
     with opener.open(urllib.request.Request(headers['Referer'],headers=headers),timeout=40) as r:r.read()
     selected=sorted(mapping);params={'ids':json.dumps(selected),'rep_id':json.dumps([mapping[k]['representation_id'] for k in selected]),
-                                   'filename':'pancreatic-source-4.3','type':'art_file','all_downloads':'1','version':'4.3'}
+                                   'filename':filename,'type':'art_file','all_downloads':'1','version':'4.3'}
     path=root/'upstream-selected-4.3.zip'
     if not path.exists():
         request=urllib.request.Request('https://lifesciencedb.jp/bp3d/download.cgi',data=urllib.parse.urlencode(params).encode(),headers=headers)
@@ -107,7 +110,7 @@ def acquire(root):
                             'crc32':format(entry.CRC,'08x'),'vertices':sum(s.startswith(b'v ') for s in raw.splitlines()),
                             'faces':sum(s.startswith(b'f ') for s in raw.splitlines())})
     if seen!=set(mapping):raise ValueError('Archive omits selected versioned elements')
-    result={'upstream_url':'https://lifesciencedb.jp/bp3d/','version_manifest':'4.3','source_groups':groups,'target_labels':TARGETS,
+    result={'upstream_url':'https://lifesciencedb.jp/bp3d/','version_manifest':'4.3','source_groups':groups,'target_labels':targets,
             'objects':records,'unselected_archive_members_retained_in_original_zip':unselected,
             'archive_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'archive_crc_verified':True,
             'source_metadata_sha256':{name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in ['FMA2Obj-4.3.txt','obj2FMA-4.3.html','obj2FMA-partof-4.3.html','upstream-license.html']},

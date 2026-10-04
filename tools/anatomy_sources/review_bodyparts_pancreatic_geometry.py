@@ -58,7 +58,7 @@ def topology(v,f):
             'boundary_edges':int((counts==1).sum()),'nonmanifold_edges':int((counts>2).sum()),'components':components}
 
 
-def review(root,output):
+def review(root,output,expected_object_count=25):
     import numpy as np
     receipt_path=root/'upstream-acquisition.json';receipt=json.loads(receipt_path.read_text());records=[]
     for row in receipt['objects']:
@@ -93,7 +93,7 @@ def review(root,output):
         groups.append({'source_fma':code,'source_target_label':receipt['target_labels'][code],'element_ids':ids,
                        'source_triangle_count':sum(r['triangles'] for r in selected),'compound_fused_or_given_fine_structure_credit':False})
     result={'original_acquisition_sha256':hashlib.sha256(receipt_path.read_bytes()).hexdigest(),'records':records,'source_groups':groups,
-            'all_25_original_objects_inspected':len(records)==25,'source_coordinate_units':'millimetres as declared in original OBJ headers; no patient registration or fitted scale.',
+            'all_25_original_objects_inspected':len(records)==25,'all_expected_original_objects_inspected':len(records)==expected_object_count,'expected_original_object_count':expected_object_count,'source_coordinate_units':'millimetres as declared in original OBJ headers; no patient registration or fitted scale.',
             'source_meshes_merged_repaired_or_smoothed':False,'source_resolution_verified':False,'clinical_approval':False,'runtime_promoted':False,
             'limits':['Exact-position topology is a diagnostic analysis index, not a source weld or proof of anatomical identity.',
                       'Disconnected components are source geometry facts; no ducts, walls, lumina or named branch identities are assigned automatically.',
