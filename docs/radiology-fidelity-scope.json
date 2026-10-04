@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2517,7 +2517,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3876,7 +3876,7 @@
       },
       "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -4525,7 +4525,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5371,7 +5371,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6905,7 +6905,8 @@
         "reporting": {
           "protocol": [
             "Trace bowel through transition points on multiplanar CT; assess wall enhancement with available contrast phases.",
-            "Review prior surgery, hernia sites and malignancy context."
+            "Review prior surgery, hernia sites and malignancy context.",
+            "Record the actual unenhanced/contrast-enhanced acquisitions, phase timing, coverage and limitations. Enhancement cannot be assessed from an unenhanced study; a still frame or schematic loop cannot provide complete bowel continuity or mesenteric vascular anatomy."
           ],
           "checklist": [
             {
@@ -6944,7 +6945,10 @@
           "classification": null,
           "pitfalls": [
             "A closed loop can involve only a short segment without generalised dilatation.",
-            "Preserved enhancement does not exclude evolving strangulation."
+            "Preserved enhancement does not exclude evolving strangulation.",
+            "Adhesions may be suspected from context and exclusion of visible alternatives but are not proved simply by an unseen cause at a transition.",
+            "Pneumatosis, fluid, oedema or a whirl require complete anatomical and clinical context; no single sign supplies histological necrosis or a universal diagnosis.",
+            "The absence of suitable contrast/phase data must not become a normal-enhancement statement or proof of viability."
           ],
           "impression_prompts": [
             "State obstruction level, degree and likely cause.",
@@ -6984,31 +6988,35 @@
             {
               "title": "Radiology Assistant \u2014 Closed Loop Obstruction with video",
               "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video"
+            },
+            {
+              "title": "WSES Bologna ASBO guideline \u2014 2017 update, published 2018",
+              "url": "https://doi.org/10.1186/s13017-018-0185-2"
             }
           ],
-          "reviewed_at": "2026-09-23"
+          "reviewed_at": "2026-10-04"
         },
         "report_templates": [
           {
-            "id": "bowel-obstruction-report",
+            "id": "ra-ct-bowel-obstruction-report",
             "title": "CT SMALL BOWEL OBSTRUCTION",
-            "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+            "description": "Reporting fields for CT small bowel obstruction. Complete the relevant observations and remove unused alternatives.",
             "sections": [
               {
                 "heading": "INDICATION",
-                "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+                "body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ]."
               },
               {
                 "heading": "COMPARISON",
-                "body": "[None available / date and examination]. Relevant interval change: [ ]."
+                "body": "[None / examination and date]."
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Trace bowel through transition points on multiplanar CT; assess wall enhancement with available contrast phases.\nReview prior surgery, hernia sites and malignancy context.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+                "body": "Trace bowel through transition points on multiplanar CT; assess wall enhancement with available contrast phases.\nReview prior surgery, hernia sites and malignancy context.\nRecord the actual unenhanced/contrast-enhanced acquisitions, phase timing, coverage and limitations. Enhancement cannot be assessed from an unenhanced study; a still frame or schematic loop cannot provide complete bowel continuity or mesenteric vascular anatomy.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
-                "body": "[IMG 1: Transition point; series __ image __]\n[IMG 2: Second transition or closed loop; series __ image __]\n[IMG 3: Enhancement/vascular complication; series __ image __]"
+                "body": "[IMG 1: bowel calibre; series __ image __]\n[IMG 2: transition; series __ image __]\n[IMG 3: closed-loop features; series __ image __]"
               },
               {
                 "heading": "BOWEL CALIBRE",
@@ -7036,22 +7044,28 @@
               },
               {
                 "heading": "RECOMMENDATION AND COMMUNICATION",
-                "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+                "body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method]."
               }
             ],
             "notes": [
-              "Identify both transition points when a closed loop is suspected and assess ischaemic complications explicitly.",
               "A closed loop can involve only a short segment without generalised dilatation.",
-              "Preserved enhancement does not exclude evolving strangulation."
+              "Preserved enhancement does not exclude evolving strangulation.",
+              "Adhesions may be suspected from context and exclusion of visible alternatives but are not proved simply by an unseen cause at a transition.",
+              "Pneumatosis, fluid, oedema or a whirl require complete anatomical and clinical context; no single sign supplies histological necrosis or a universal diagnosis.",
+              "The absence of suitable contrast/phase data must not become a normal-enhancement statement or proof of viability."
             ],
             "sources": [
               {
-                "title": "Closed Loop in Small bowel obstruction",
+                "title": "Radiology Assistant \u2014 Closed Loop in Small bowel obstruction",
                 "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction"
               },
               {
-                "title": "Closed Loop Obstruction with video",
+                "title": "Radiology Assistant \u2014 Closed Loop Obstruction with video",
                 "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video"
+              },
+              {
+                "title": "WSES Bologna ASBO guideline \u2014 2017 update, published 2018",
+                "url": "https://doi.org/10.1186/s13017-018-0185-2"
               }
             ]
           }
@@ -7059,7 +7073,7 @@
         "walkthrough": {
           "reviewed_at": "2026-09-25",
           "complete": true,
-          "template_id": "bowel-obstruction-report",
+          "template_id": "ra-ct-bowel-obstruction-report",
           "start": {
             "sections": [
               "INDICATION",
@@ -7089,7 +7103,7 @@
               ],
               "landmark": "smallbowel",
               "parts": [],
-              "look": "Coronal reformats; small bowel over 25 mm and colon over 60 mm (caecum over 90 mm) are dilated."
+              "look": "Coronal reformats; small bowel over 25 mm and colon over 60 mm (caecum over 90 mm) are dilated. Calibre thresholds are descriptive; trace actual continuity, transitions and distal decompression rather than diagnosing mechanical obstruction from size alone."
             },
             {
               "label": "Transition point and cause",
@@ -7112,7 +7126,7 @@
               "landmark": "smallbowel",
               "parts": [],
               "look": "Follow dilated bowel to collapsed bowel on multiplanar images; the small-bowel faeces sign usually lies just proximal to the transition.",
-              "tip": "The small-bowel faeces sign helps locate the transition point."
+              "tip": "The small-bowel faeces sign helps locate the transition point. An unseen cause is not proof of an adhesive band; assess actual alternative causes and clinical/surgical context."
             },
             {
               "label": "Closed loop",
@@ -7144,7 +7158,7 @@
                 "WALL AND MESENTERY"
               ],
               "normal": {
-                "WALL AND MESENTERY": "Normal wall enhancement; no mesenteric oedema or free fluid."
+                "WALL AND MESENTERY": "Wall enhancement assessment: [adequate contrast/phase available / limited / not assessable on this study]; findings: [ ]. Mesenteric oedema/free fluid: [ ]. Viability limitations: [ ]."
               },
               "findings": [
                 "Reduced wall enhancement with mesenteric oedema and fluid, raising concern for strangulation.",
@@ -7156,8 +7170,8 @@
               "measurements": [],
               "landmark": "mesentery",
               "parts": [],
-              "look": "Compare wall enhancement of the obstructed loop with normal bowel; mesentery for oedema.",
-              "tip": "Preserved enhancement does not exclude evolving strangulation; mesenteric oedema and fluid are early signs."
+              "look": "On appropriate actually acquired contrast images, compare the affected wall with adequately imaged reference bowel and examine mesenteric vessels/soft tissue. Without suitable contrast, state enhancement is unassessed.",
+              "tip": "Preserved enhancement does not exclude evolving strangulation; mesenteric oedema and fluid are early signs. Normal-looking enhancement is not a clinical guarantee of viability, and unavailable enhancement is not normal."
             },
             {
               "label": "Complications and cause",
@@ -7242,10 +7256,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "403379cf2e05413995f3438b024ec86289d7517da102d83e723929faa0f63e0f",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "ff57c48e481cd3695d3c8f3071969f6c694bbe840f9c2be4aeebb47785e8cb10",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -11752,7 +11766,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12137,7 +12151,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12663,7 +12677,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13084,7 +13098,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13499,7 +13513,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14418,7 +14432,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14879,7 +14893,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15826,7 +15840,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -16632,7 +16646,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -23334,7 +23348,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -27502,7 +27516,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -30136,7 +30150,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -30531,7 +30545,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -52458,7 +52472,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_inventory_sha256": "4bb562dd7b8e978e537376df2f62c5c5af45ffd83eb319c860ec9b6576460d73",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [

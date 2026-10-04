@@ -21,7 +21,8 @@
       "ra.adrenal-lesions",
       "ra.biliary-duct-pathology",
       "ra.ultrasound-gallbladder",
-      "ra.ultrasound-bile-duct-stones"
+      "ra.ultrasound-bile-duct-stones",
+      "ra.ct-bowel-obstruction"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -43154,6 +43155,2599 @@
         {
           "observation": "postprocedural_change",
           "evidence": "Actual dated original anatomy/device/field evidence; pneumobilia does not prove stent or outlet patency."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ct-bowel-obstruction",
+      "module_id": "rad.5.bowel-obstruction",
+      "title": "CT obstruction bowel continuity, transitions, mesenteric supply and complication extent",
+      "modality": "CT with actually acquired contrast/phase conditions",
+      "scope_type": "complete_acquired_bowel_loop_transition_wall_vessel_and_cause_case_scope",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_and_surgical_specialist_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "bowel-obstruction-source-0",
+          "title": "Radiology Assistant — closed-loop SBO",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "bowel-obstruction-source-1",
+          "title": "Radiology Assistant — closed-loop video guide",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "bowel-obstruction-source-2",
+          "title": "WSES Bologna ASBO guideline 2017 update/2018 publication",
+          "url": "https://doi.org/10.1186/s13017-018-0185-2",
+          "review_status": "scope_reviewed_2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "ff57c48e481cd3695d3c8f3071969f6c694bbe840f9c2be4aeebb47785e8cb10",
+      "reporting_checklist": [
+        {
+          "label": "Level",
+          "detail": "Identify small versus large bowel and proximal/distal calibre change."
+        },
+        {
+          "label": "Transition",
+          "detail": "Find one or two transition points and describe the cause."
+        },
+        {
+          "label": "Closed loop",
+          "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+        },
+        {
+          "label": "Viability",
+          "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+        },
+        {
+          "label": "Complication",
+          "detail": "Search for perforation and an obstructing hernia or tumour."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "BOWEL CALIBRE",
+          "body": "Dilated bowel: [small / large / both]. Maximum: [ ] mm at [segment]. Distal decompression: [ ]."
+        },
+        {
+          "heading": "TRANSITION",
+          "body": "Transition site(s): [ ]. Cause: [adhesion suspected / hernia / mass / volvulus / other]."
+        },
+        {
+          "heading": "CLOSED-LOOP FEATURES",
+          "body": "Two transition points: [ ]. Loop configuration: [ ]. Mesenteric swirl/convergence: [ ]."
+        },
+        {
+          "heading": "WALL AND MESENTERY",
+          "body": "Enhancement: [ ]. Wall thickening/pneumatosis: [ ]. Mesenteric oedema/free fluid: [ ]."
+        },
+        {
+          "heading": "COMPLICATIONS",
+          "body": "Free gas: [ ]. Hernia contents/neck: [ ]. Obstructing mass: [ ]. Additional transition: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "bowel_obstruction.duodenum_D1",
+          "name": "Actual duodenum_D1 continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.duodenum_D1.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D1.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D1.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D1.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D1.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.duodenum_D2",
+          "name": "Actual duodenum_D2 continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.duodenum_D2.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D2.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D2.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D2.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D2.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.duodenum_D3",
+          "name": "Actual duodenum_D3 continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.duodenum_D3.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D3.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D3.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D3.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D3.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.duodenum_D4",
+          "name": "Actual duodenum_D4 continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.duodenum_D4.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D4.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D4.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D4.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.duodenum_D4.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.proximal_jejunum",
+          "name": "Actual proximal_jejunum continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.proximal_jejunum.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.proximal_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.proximal_jejunum.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.proximal_jejunum.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.proximal_jejunum.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.distal_jejunum",
+          "name": "Actual distal_jejunum continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.distal_jejunum.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.distal_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.distal_jejunum.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.distal_jejunum.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.distal_jejunum.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.proximal_ileum",
+          "name": "Actual proximal_ileum continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.proximal_ileum.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.proximal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.proximal_ileum.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.proximal_ileum.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.proximal_ileum.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.distal_ileum",
+          "name": "Actual distal_ileum continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.distal_ileum.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.distal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.distal_ileum.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.distal_ileum.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.distal_ileum.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.terminal_ileum",
+          "name": "Actual terminal_ileum continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.terminal_ileum.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.terminal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.terminal_ileum.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.terminal_ileum.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.terminal_ileum.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.ileocaecal_region",
+          "name": "Actual ileocaecal_region continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.ileocaecal_region.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.ileocaecal_region.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.ileocaecal_region.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.ileocaecal_region.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.ileocaecal_region.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.caecum",
+          "name": "Actual caecum continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.caecum.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.caecum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.caecum.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.caecum.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.caecum.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.ascending_colon",
+          "name": "Actual ascending_colon continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.ascending_colon.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.ascending_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.ascending_colon.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.ascending_colon.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.ascending_colon.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.hepatic_flexure",
+          "name": "Actual hepatic_flexure continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.hepatic_flexure.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.hepatic_flexure.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.hepatic_flexure.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.hepatic_flexure.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.hepatic_flexure.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.transverse_colon",
+          "name": "Actual transverse_colon continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.transverse_colon.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.transverse_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.transverse_colon.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.transverse_colon.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.transverse_colon.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.splenic_flexure",
+          "name": "Actual splenic_flexure continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.splenic_flexure.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.splenic_flexure.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.splenic_flexure.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.splenic_flexure.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.splenic_flexure.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.descending_colon",
+          "name": "Actual descending_colon continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.descending_colon.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.descending_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.descending_colon.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.descending_colon.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.descending_colon.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.sigmoid_colon",
+          "name": "Actual sigmoid_colon continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.sigmoid_colon.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.sigmoid_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.sigmoid_colon.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.sigmoid_colon.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.sigmoid_colon.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.rectum",
+          "name": "Actual rectum continuity and boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.rectum.complete_segment",
+              "name": "complete segment"
+            },
+            {
+              "id": "bowel_obstruction.rectum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "bowel_obstruction.rectum.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "bowel_obstruction.rectum.proximal_connection",
+              "name": "proximal connection"
+            },
+            {
+              "id": "bowel_obstruction.rectum.distal_connection",
+              "name": "distal connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.transitions",
+          "name": "Each actual transition and complete obstruction extent",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.transitions.first_transition",
+              "name": "first transition"
+            },
+            {
+              "id": "bowel_obstruction.transitions.second_transition",
+              "name": "second transition"
+            },
+            {
+              "id": "bowel_obstruction.transitions.additional_transition",
+              "name": "additional transition"
+            },
+            {
+              "id": "bowel_obstruction.transitions.proximal_shoulder",
+              "name": "proximal shoulder"
+            },
+            {
+              "id": "bowel_obstruction.transitions.distal_shoulder",
+              "name": "distal shoulder"
+            },
+            {
+              "id": "bowel_obstruction.transitions.beak_region",
+              "name": "beak region"
+            },
+            {
+              "id": "bowel_obstruction.transitions.mesenteric_convergence_point",
+              "name": "mesenteric convergence point"
+            },
+            {
+              "id": "bowel_obstruction.transitions.dilated_upstream_segment",
+              "name": "dilated upstream segment"
+            },
+            {
+              "id": "bowel_obstruction.transitions.decompressed_downstream_segment",
+              "name": "decompressed downstream segment"
+            },
+            {
+              "id": "bowel_obstruction.transitions.partial_obstruction_region",
+              "name": "partial obstruction region"
+            },
+            {
+              "id": "bowel_obstruction.transitions.complete_obstruction_region_if_supported",
+              "name": "complete obstruction region if supported"
+            },
+            {
+              "id": "bowel_obstruction.transitions.faeces_sign_region",
+              "name": "faeces sign region"
+            },
+            {
+              "id": "bowel_obstruction.transitions.source_transition_plane",
+              "name": "source transition plane"
+            },
+            {
+              "id": "bowel_obstruction.transitions.unassessed_continuity_limit",
+              "name": "unassessed continuity limit"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.closed_loop",
+          "name": "Actual closed-loop bowel and attachment geometry",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.closed_loop.complete_isolated_loop",
+              "name": "complete isolated loop"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.first_inflow_or_outflow_point",
+              "name": "first inflow or outflow point"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.second_inflow_or_outflow_point",
+              "name": "second inflow or outflow point"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.afferent_connection",
+              "name": "afferent connection"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.efferent_connection",
+              "name": "efferent connection"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.c_configuration",
+              "name": "c configuration"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.u_configuration",
+              "name": "u configuration"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.radial_loop_configuration",
+              "name": "radial loop configuration"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.mesenteric_pedicle",
+              "name": "mesenteric pedicle"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.loop_wall",
+              "name": "loop wall"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.loop_lumen",
+              "name": "loop lumen"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.interloop_fluid_region",
+              "name": "interloop fluid region"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.twisted_mesenteric_region",
+              "name": "twisted mesenteric region"
+            },
+            {
+              "id": "bowel_obstruction.closed_loop.connecting_mesenteric_leaf",
+              "name": "connecting mesenteric leaf"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.wall",
+          "name": "Actual wall tissue and enhancement regions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.wall.inner_mucosal_margin_if_resolved",
+              "name": "inner mucosal margin if resolved"
+            },
+            {
+              "id": "bowel_obstruction.wall.outer_serosal_margin_if_resolved",
+              "name": "outer serosal margin if resolved"
+            },
+            {
+              "id": "bowel_obstruction.wall.intermediate_wall_layer_if_resolved",
+              "name": "intermediate wall layer if resolved"
+            },
+            {
+              "id": "bowel_obstruction.wall.thickened_wall",
+              "name": "thickened wall"
+            },
+            {
+              "id": "bowel_obstruction.wall.thinned_wall",
+              "name": "thinned wall"
+            },
+            {
+              "id": "bowel_obstruction.wall.oedematous_wall",
+              "name": "oedematous wall"
+            },
+            {
+              "id": "bowel_obstruction.wall.hyperattenuating_unenhanced_region",
+              "name": "hyperattenuating unenhanced region"
+            },
+            {
+              "id": "bowel_obstruction.wall.hypoenhancing_region",
+              "name": "hypoenhancing region"
+            },
+            {
+              "id": "bowel_obstruction.wall.hyperenhancing_region",
+              "name": "hyperenhancing region"
+            },
+            {
+              "id": "bowel_obstruction.wall.nonenhancing_region_if_assessable",
+              "name": "nonenhancing region if assessable"
+            },
+            {
+              "id": "bowel_obstruction.wall.pneumatosis_region",
+              "name": "pneumatosis region"
+            },
+            {
+              "id": "bowel_obstruction.wall.normal_reference_wall",
+              "name": "normal reference wall"
+            },
+            {
+              "id": "bowel_obstruction.wall.source_phase_matched_wall",
+              "name": "source phase matched wall"
+            },
+            {
+              "id": "bowel_obstruction.wall.limited_or_unassessed_wall_region",
+              "name": "limited or unassessed wall region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.mesentery",
+          "name": "Actual mesentery and vascular/organ interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.mesentery.mesenteric_root",
+              "name": "mesenteric root"
+            },
+            {
+              "id": "bowel_obstruction.mesentery.each_actual_leaf",
+              "name": "each actual leaf"
+            },
+            {
+              "id": "bowel_obstruction.mesentery.bowel_mesenteric_attachment",
+              "name": "bowel mesenteric attachment"
+            },
+            {
+              "id": "bowel_obstruction.mesentery.omental_interface",
+              "name": "omental interface"
+            },
+            {
+              "id": "bowel_obstruction.mesentery.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "bowel_obstruction.mesentery.mesenteric_oedema_region",
+              "name": "mesenteric oedema region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.mesentery.mesenteric_fluid_region",
+              "name": "mesenteric fluid region"
+            },
+            {
+              "id": "bowel_obstruction.mesentery.mesenteric_haemorrhage_region",
+              "name": "mesenteric haemorrhage region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.mesentery.mesenteric_mass_interface",
+              "name": "mesenteric mass interface",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.mesentery.actual_twisted_pedicle",
+              "name": "actual twisted pedicle",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.mesentery.vessel_convergence_region",
+              "name": "vessel convergence region"
+            },
+            {
+              "id": "bowel_obstruction.mesentery.mesenteric_defect_if_visible",
+              "name": "mesenteric defect if visible"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.arterial",
+          "name": "Actual supplying arterial branches and source wall perfusion context",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.arterial.superior_mesenteric_artery",
+              "name": "superior mesenteric artery"
+            },
+            {
+              "id": "bowel_obstruction.arterial.main_jejunal_branches",
+              "name": "main jejunal branches"
+            },
+            {
+              "id": "bowel_obstruction.arterial.main_ileal_branches",
+              "name": "main ileal branches"
+            },
+            {
+              "id": "bowel_obstruction.arterial.arterial_arcades",
+              "name": "arterial arcades"
+            },
+            {
+              "id": "bowel_obstruction.arterial.vasa_recta",
+              "name": "vasa recta"
+            },
+            {
+              "id": "bowel_obstruction.arterial.ileocolic_branch",
+              "name": "ileocolic branch"
+            },
+            {
+              "id": "bowel_obstruction.arterial.right_colic_if_present",
+              "name": "right colic if present"
+            },
+            {
+              "id": "bowel_obstruction.arterial.middle_colic_branch",
+              "name": "middle colic branch"
+            },
+            {
+              "id": "bowel_obstruction.arterial.inferior_mesenteric_artery",
+              "name": "inferior mesenteric artery"
+            },
+            {
+              "id": "bowel_obstruction.arterial.left_colic_branch",
+              "name": "left colic branch"
+            },
+            {
+              "id": "bowel_obstruction.arterial.sigmoid_branches",
+              "name": "sigmoid branches"
+            },
+            {
+              "id": "bowel_obstruction.arterial.superior_rectal_branch",
+              "name": "superior rectal branch"
+            },
+            {
+              "id": "bowel_obstruction.arterial.actual_variant_branch",
+              "name": "actual variant branch"
+            },
+            {
+              "id": "bowel_obstruction.arterial.narrow_or_occluded_region_if_present",
+              "name": "narrow or occluded region if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.arterial.bowel_supply_interface",
+              "name": "bowel supply interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.venous",
+          "name": "Actual draining veins and abnormality extent",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.venous.superior_mesenteric_vein",
+              "name": "superior mesenteric vein"
+            },
+            {
+              "id": "bowel_obstruction.venous.jejunal_tributaries",
+              "name": "jejunal tributaries"
+            },
+            {
+              "id": "bowel_obstruction.venous.ileal_tributaries",
+              "name": "ileal tributaries"
+            },
+            {
+              "id": "bowel_obstruction.venous.ileocolic_tributary",
+              "name": "ileocolic tributary"
+            },
+            {
+              "id": "bowel_obstruction.venous.middle_colic_tributary",
+              "name": "middle colic tributary"
+            },
+            {
+              "id": "bowel_obstruction.venous.inferior_mesenteric_vein",
+              "name": "inferior mesenteric vein"
+            },
+            {
+              "id": "bowel_obstruction.venous.sigmoid_tributaries",
+              "name": "sigmoid tributaries"
+            },
+            {
+              "id": "bowel_obstruction.venous.portal_vein_confluence",
+              "name": "portal vein confluence"
+            },
+            {
+              "id": "bowel_obstruction.venous.mesenteric_venous_congestion_region",
+              "name": "mesenteric venous congestion region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.venous.compressed_venous_segment",
+              "name": "compressed venous segment",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.venous.thrombus_if_present",
+              "name": "thrombus if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.venous.mesenteric_venous_gas_if_present",
+              "name": "mesenteric venous gas if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.venous.portal_venous_gas_if_present",
+              "name": "portal venous gas if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.venous.bowel_drainage_interface",
+              "name": "bowel drainage interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.causes",
+          "name": "Each actual obstructing cause and complete interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.causes.suspected_adhesive_transition",
+              "name": "suspected adhesive transition"
+            },
+            {
+              "id": "bowel_obstruction.causes.visible_band_if_present",
+              "name": "visible band if present"
+            },
+            {
+              "id": "bowel_obstruction.causes.external_hernia_neck",
+              "name": "external hernia neck"
+            },
+            {
+              "id": "bowel_obstruction.causes.internal_hernia_defect",
+              "name": "internal hernia defect"
+            },
+            {
+              "id": "bowel_obstruction.causes.mass_complete_margin",
+              "name": "mass complete margin"
+            },
+            {
+              "id": "bowel_obstruction.causes.mural_stricture",
+              "name": "mural stricture"
+            },
+            {
+              "id": "bowel_obstruction.causes.intraluminal_lesion",
+              "name": "intraluminal lesion"
+            },
+            {
+              "id": "bowel_obstruction.causes.intussusception_lead_point",
+              "name": "intussusception lead point"
+            },
+            {
+              "id": "bowel_obstruction.causes.invaginated_bowel_component",
+              "name": "invaginated bowel component"
+            },
+            {
+              "id": "bowel_obstruction.causes.gallstone_if_present",
+              "name": "gallstone if present"
+            },
+            {
+              "id": "bowel_obstruction.causes.bezoar_if_present",
+              "name": "bezoar if present"
+            },
+            {
+              "id": "bowel_obstruction.causes.foreign_body_if_present",
+              "name": "foreign body if present"
+            },
+            {
+              "id": "bowel_obstruction.causes.inflammatory_stricture",
+              "name": "inflammatory stricture"
+            },
+            {
+              "id": "bowel_obstruction.causes.postoperative_anastomotic_narrowing",
+              "name": "postoperative anastomotic narrowing"
+            },
+            {
+              "id": "bowel_obstruction.causes.congenital_band_if_present",
+              "name": "congenital band if present"
+            },
+            {
+              "id": "bowel_obstruction.causes.extrinsic_mass_compression",
+              "name": "extrinsic mass compression"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.hernias",
+          "name": "Actual external/internal hernia geometry when encountered",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.hernias.inguinal_orifice",
+              "name": "inguinal orifice"
+            },
+            {
+              "id": "bowel_obstruction.hernias.femoral_orifice",
+              "name": "femoral orifice"
+            },
+            {
+              "id": "bowel_obstruction.hernias.incisional_defect",
+              "name": "incisional defect"
+            },
+            {
+              "id": "bowel_obstruction.hernias.umbilical_defect",
+              "name": "umbilical defect"
+            },
+            {
+              "id": "bowel_obstruction.hernias.paraduodenal_orifice",
+              "name": "paraduodenal orifice"
+            },
+            {
+              "id": "bowel_obstruction.hernias.transmesenteric_defect",
+              "name": "transmesenteric defect"
+            },
+            {
+              "id": "bowel_obstruction.hernias.postoperative_mesenteric_defect",
+              "name": "postoperative mesenteric defect"
+            },
+            {
+              "id": "bowel_obstruction.hernias.obturator_orifice",
+              "name": "obturator orifice"
+            },
+            {
+              "id": "bowel_obstruction.hernias.hernia_sac",
+              "name": "hernia sac"
+            },
+            {
+              "id": "bowel_obstruction.hernias.each_entrapped_loop",
+              "name": "each entrapped loop"
+            },
+            {
+              "id": "bowel_obstruction.hernias.entrapped_mesenteric_pedicle",
+              "name": "entrapped mesenteric pedicle"
+            },
+            {
+              "id": "bowel_obstruction.hernias.afferent_transition",
+              "name": "afferent transition"
+            },
+            {
+              "id": "bowel_obstruction.hernias.efferent_transition",
+              "name": "efferent transition"
+            },
+            {
+              "id": "bowel_obstruction.hernias.adjacent_vessel_landmark",
+              "name": "adjacent vessel landmark"
+            },
+            {
+              "id": "bowel_obstruction.hernias.compression_or_crowding_interface",
+              "name": "compression or crowding interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.volvulus",
+          "name": "Actual volvulus and distorted source relationships",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.volvulus.sigmoid_twist",
+              "name": "sigmoid twist"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.sigmoid_mesenteric_root",
+              "name": "sigmoid mesenteric root"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.sigmoid_proximal_beak",
+              "name": "sigmoid proximal beak"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.sigmoid_distal_beak",
+              "name": "sigmoid distal beak"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.caecal_displacement",
+              "name": "caecal displacement"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.caecal_twist",
+              "name": "caecal twist"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.ileocolic_pedicle",
+              "name": "ileocolic pedicle"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.caecal_bascule_if_present",
+              "name": "caecal bascule if present"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.small_bowel_twist",
+              "name": "small bowel twist"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.complete_affected_loop",
+              "name": "complete affected loop"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.compressed_vessel_region",
+              "name": "compressed vessel region"
+            },
+            {
+              "id": "bowel_obstruction.volvulus.downstream_collapsed_segment",
+              "name": "downstream collapsed segment"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.complications",
+          "name": "Actual suspected threatened/perforated bowel and acquired disease",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.complications.focal_wall_defect",
+              "name": "focal wall defect"
+            },
+            {
+              "id": "bowel_obstruction.complications.extraluminal_gas",
+              "name": "extraluminal gas"
+            },
+            {
+              "id": "bowel_obstruction.complications.free_intraperitoneal_gas",
+              "name": "free intraperitoneal gas"
+            },
+            {
+              "id": "bowel_obstruction.complications.contained_perforation_site",
+              "name": "contained perforation site"
+            },
+            {
+              "id": "bowel_obstruction.complications.extraluminal_content",
+              "name": "extraluminal content"
+            },
+            {
+              "id": "bowel_obstruction.complications.local_collection",
+              "name": "local collection"
+            },
+            {
+              "id": "bowel_obstruction.complications.each_abscess",
+              "name": "each abscess"
+            },
+            {
+              "id": "bowel_obstruction.complications.free_fluid_distribution",
+              "name": "free fluid distribution"
+            },
+            {
+              "id": "bowel_obstruction.complications.mesenteric_ischaemic_region_if_supported",
+              "name": "mesenteric ischaemic region if supported"
+            },
+            {
+              "id": "bowel_obstruction.complications.each_acquired_tumour_site",
+              "name": "each acquired tumour site"
+            },
+            {
+              "id": "bowel_obstruction.complications.adjacent_organ_invasion_interface_if_supported",
+              "name": "adjacent organ invasion interface if supported"
+            },
+            {
+              "id": "bowel_obstruction.complications.unassessed_disease_field",
+              "name": "unassessed disease field"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.postoperative",
+          "name": "Actual postoperative/device anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.postoperative.anastomotic_lumen",
+              "name": "anastomotic lumen"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.anastomotic_wall",
+              "name": "anastomotic wall"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.remnant_bowel",
+              "name": "remnant bowel"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.stump_margin",
+              "name": "stump margin"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.stoma",
+              "name": "stoma"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.orifice_to_stoma",
+              "name": "orifice to stoma"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.bypass_limb",
+              "name": "bypass limb"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.surgically_created_mesenteric_defect",
+              "name": "surgically created mesenteric defect",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "bowel_obstruction.postoperative.drain_tip",
+              "name": "drain tip"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.tube_tip_if_acquired",
+              "name": "tube tip if acquired"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.surgical_material_interface",
+              "name": "surgical material interface"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.baseline_preintervention_source",
+              "name": "baseline preintervention source"
+            },
+            {
+              "id": "bowel_obstruction.postoperative.current_postintervention_source",
+              "name": "current postintervention source"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.ct",
+          "name": "Actually acquired CT protocol and image evidence",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.ct.unenhanced_wall_source",
+              "name": "unenhanced wall source"
+            },
+            {
+              "id": "bowel_obstruction.ct.enhanced_wall_source",
+              "name": "enhanced wall source"
+            },
+            {
+              "id": "bowel_obstruction.ct.arterial_vessel_source_if_acquired",
+              "name": "arterial vessel source if acquired"
+            },
+            {
+              "id": "bowel_obstruction.ct.portal_venous_vessel_source",
+              "name": "portal venous vessel source"
+            },
+            {
+              "id": "bowel_obstruction.ct.delayed_source_if_acquired",
+              "name": "delayed source if acquired"
+            },
+            {
+              "id": "bowel_obstruction.ct.matched_reference_wall_source",
+              "name": "matched reference wall source"
+            },
+            {
+              "id": "bowel_obstruction.ct.multiplanar_transition_source",
+              "name": "multiplanar transition source"
+            },
+            {
+              "id": "bowel_obstruction.ct.full_loop_continuity_source",
+              "name": "full loop continuity source"
+            },
+            {
+              "id": "bowel_obstruction.ct.source_mesenteric_twist",
+              "name": "source mesenteric twist"
+            },
+            {
+              "id": "bowel_obstruction.ct.motion_or_partial_volume_limit",
+              "name": "motion or partial volume limit"
+            },
+            {
+              "id": "bowel_obstruction.ct.contrast_unavailable_limit",
+              "name": "contrast unavailable limit"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "bowel_obstruction.positive_examples",
+          "name": "Separate source obstruction/differential states",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "bowel_obstruction.positive_examples.adhesive_sbo_suspected_pattern",
+              "name": "adhesive sbo suspected pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.obstructing_external_hernia_pattern",
+              "name": "obstructing external hernia pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.internal_hernia_pattern",
+              "name": "internal hernia pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.short_closed_loop_pattern",
+              "name": "short closed loop pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.long_closed_loop_pattern",
+              "name": "long closed loop pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.small_bowel_volvulus_pattern",
+              "name": "small bowel volvulus pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.sigmoid_volvulus_pattern",
+              "name": "sigmoid volvulus pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.caecal_volvulus_pattern",
+              "name": "caecal volvulus pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.malignant_obstruction_pattern",
+              "name": "malignant obstruction pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.inflammatory_obstruction_pattern",
+              "name": "inflammatory obstruction pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.ileus_differential_pattern",
+              "name": "ileus differential pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.obstructing_intussusception_pattern",
+              "name": "obstructing intussusception pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.gallstone_ileus_pattern",
+              "name": "gallstone ileus pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.postoperative_obstruction_pattern",
+              "name": "postoperative obstruction pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.threatened_wall_pattern",
+              "name": "threatened wall pattern"
+            },
+            {
+              "id": "bowel_obstruction.positive_examples.perforated_obstruction_pattern",
+              "name": "perforated obstruction pattern"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual acquired bowel segment/loop, transition, wall component, mesenteric vessel/branch, hernia/lesion and host interface. Complete extent, native sampling, actual contrast/phase and clinical context must support the claim. Parent bowel envelopes, isolated sections and model colours cannot prove full continuity, closed-loop geometry, enhancement, viability or a clinical cause. Unassessed regions remain unknown.",
+          "requirement_basis": "effective_bowel_level_transition_closed_loop_viability_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Level",
+              "detail": "Identify small versus large bowel and proximal/distal calibre change."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Transition",
+              "detail": "Find one or two transition points and describe the cause."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Closed loop",
+              "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Viability",
+              "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complication",
+              "detail": "Search for perforation and an obstructing hernia or tumour."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction",
+            "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video",
+            "https://doi.org/10.1186/s13017-018-0185-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual bowel loop/segment, transition, vessel/branch, hernia/lesion and complication interface",
+            "Actual acquired field, original contrast phases, native sampling and temporal/postoperative context",
+            "Independent clinical viability/cause and surgical urgency assessment"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "complete_case_continuity_pending",
+          "detail": "Named prototypes are not exhaustive acquired loops/branches/defects or patient-specific connectivity."
+        },
+        {
+          "code": "enhancement_and_viability_not_geometry",
+          "detail": "Model colours or unavailable contrast cannot provide actual enhancement or clinical viability."
+        },
+        {
+          "code": "source_cause_not_inferred",
+          "detail": "An unseen transition cause or prior surgery does not prove a specific adhesive band."
+        },
+        {
+          "code": "framework_and_population_reconciliation_pending",
+          "detail": "ASBO guidance is not a universal management algorithm for every small/large bowel obstruction or postoperative setting."
+        },
+        {
+          "code": "source_quality_rights_and_anatomy_pending",
+          "detail": "Every source figure/model requires native sampling/phase, rights and independent complete anatomical review."
+        },
+        {
+          "code": "shared_lesson_clinical_review_pending",
+          "detail": "Wider closed-loop/volvulus/pathophysiology/management and quiz content need separate complete review."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "continuity",
+          "evidence": "Full original acquired bowel and both transition connections; a C/U sketch is not complete source topology."
+        },
+        {
+          "observation": "enhancement",
+          "evidence": "Actually acquired suitable contrast/phase and adequately imaged reference wall; unavailable enhancement stays unassessed."
+        },
+        {
+          "observation": "vascular_relationship",
+          "evidence": "Actual feeding/draining branches and twisted/compressed source interfaces, not parent vascular labels."
+        },
+        {
+          "observation": "cause",
+          "evidence": "Actual source lesion/band/defect or explicitly qualified inference with clinical/surgical context."
+        },
+        {
+          "observation": "viability_and_urgency",
+          "evidence": "Source anatomy plus clinical examination/physiology and specialist judgement; normal-looking enhancement is not a guarantee."
+        },
+        {
+          "observation": "extent",
+          "evidence": "Every actual affected loop/wall/mesentery/collection and unassessed field, not a selective single-frame claim."
         }
       ]
     }
