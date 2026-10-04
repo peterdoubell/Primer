@@ -27,8 +27,7 @@ def audit(root,output):
                               'Corresponding region cut edges do not prove histological boundaries, full organ solidity, patient registration or clinically approved topology.',
                               'Unmatched, multiple-owner, nonmanifold and degenerate source elements remain held for review rather than pruned or capped.'])
         (output/(key+'-boundary-review.json')).write_text(json.dumps(result,indent=2)+'\n')
-        print(sex,'boundary occurrences',result['source_boundary_edge_occurrences'],'shared pairs',result['exact_boundary_pair_edges'],
-              'unmatched',result['unmatched_boundary_edges'],'multiple',result['multiple_owner_boundary_edges'],flush=True)
+        print('Original anatomy boundary review complete.',flush=True)
 
 
 if __name__=='__main__':

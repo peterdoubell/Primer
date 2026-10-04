@@ -42,7 +42,7 @@ def acquire(output):
         receipts.append({'sex':sex,'version':'v1.3','source_doi':raw['ccf:doi']['@id'],'raw_model_license':raw['dct:license'],
                          'source_citation':raw['schema1:citation'],'source_description':raw['rdfs:comment'],
                          'source_reviewed_by':raw['schema1:reviewedBy'],'sources':sources,'clinical_approval':False,'runtime_promoted':False})
-        print(sex,[(r['name'],r['bytes']) for r in sources],flush=True)
+        print('Original anatomy source acquisition complete.',flush=True)
     (output/'acquisition.json').write_text(json.dumps(receipts,indent=2)+'\n')
 
 

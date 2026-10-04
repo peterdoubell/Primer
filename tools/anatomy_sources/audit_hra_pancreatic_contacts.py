@@ -25,7 +25,7 @@ def audit(root,output):
                 raise ValueError('Original primitive changed')
             parts.append({'id':r['node_name'],'vertices':vertices,'faces':indices.reshape(-1,3)})
         vertices,faces,identities,preparation=contact_arrays(parts)
-        print(sex,'testing',len(faces),'triangles; held invalid faces',len(preparation['invalid_source_triangles']),flush=True)
+        print('Testing original anatomy source triangles.',flush=True)
         contacts=inspect(vertices,faces);categories=Counter();part_pairs=Counter()
         for row in contacts['unexpected_contacts']:
             a,b=(identities[i] for i in row['face_indices']);row['original_source_faces']=[a,b]
@@ -53,7 +53,7 @@ def audit(root,output):
                         'candidate_pairs':contacts['conservative_aabb_candidate_pairs'],'explicitly_tested_pairs':contacts['pairs_explicitly_intersection_tested'],
                         'shared_edge_nonparallel_pairs':contacts['noncoplanar_shared_edge_pairs_resolved_geometrically'],
                         'contact_count':contacts['unexpected_contact_count'],'contact_categories':dict(categories),'affected_part_pairs':result['affected_source_part_pairs']})
-        print(sex,'complete; contacts',contacts['unexpected_contact_count'],'candidate pairs',contacts['conservative_aabb_candidate_pairs'],flush=True)
+        print('Complete anatomy contact evidence preserved.',flush=True)
     (output/'complete-contact-summary.json').write_text(json.dumps({'records':summary,'source_meshes_changed':False,'clinical_approval':False,'runtime_promoted':False},indent=2)+'\n')
 
 

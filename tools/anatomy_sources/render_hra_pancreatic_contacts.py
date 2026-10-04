@@ -61,7 +61,7 @@ def render(root,output):
                         'invalid_original_faces_displayed':len(invalid),'all_source_context_triangles':len(all_tri),
                         'source_coordinate_transform':'Declared metres to millimetres only; native glTF axes preserved.',
                         'source_positions_or_faces_edited':False})
-        print(sex,'mapped all contacts',row['contact_count'],'and invalid faces',len(invalid),flush=True)
+        print('Original anatomy contact locations rendered.',flush=True)
     (output/'held-contact-location-review.json').write_text(json.dumps({'figures':figures,'clinical_approval':False,'runtime_promoted':False,
             'limits':['Orthogonal model projections can overlap visually; every highlighted source identity and numerical 3D contact remains in the complete evidence.',
                       'Context opacity and held-face highlighting are display only, not source repairs, anatomical classifications or pathological findings.']},indent=2)+'\n')
