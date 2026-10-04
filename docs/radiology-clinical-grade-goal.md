@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 93 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 20,832 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 613 distinct resources. One hundred seventy have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 623 distinct resources. One hundred eighty have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -357,3 +357,8 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 2026-10-04 — Bowel-wall CT scope and assessment limits
 
 [Bowel-wall scope review](bowel-wall-fidelity-scope-review.md) defines 405 draft targets/1,215 representation obligations for actual covered segments, observable wall bands, patterns, vessels, mesentery, lumen and complications. Reader presets retain distension, actual contrast/baseline phases and opacification limits; source length schemes, symmetric morphology and target/fat patterns no longer act as universal diagnoses. Intramural-fat examples require the actual feature without assuming disease. 154 focused checks and local API plus desktop/mobile normal-prefill verification passed. All new coverage remains missing; native sources, clinical/anatomical review and shared-lesson reconciliation remain pending. Known floor: 20,832 obligations, 93 unexpanded investigations and 106 unreconciled curriculum surfaces; full total and readiness remain unproven. No new deployment is claimed.
+
+
+### 2026-10-04 — Original bowel-wall CT source packet
+
+[Bowel-wall source review](bowel-wall-published-source-review.md) adds ten complete CT figures with the original CC BY 2.0 grant retained: seven original JPEG streams and three lossless native-grayscale PNGs. Source diagnoses, paired planes, uncertain timing, pathological depth and fistula/whole-wall extent remain qualified; twelve separately credited adaptations remain pending source-specific reuse evidence. 159 focused checks and local API/source-hash plus desktop/mobile full-size viewing passed. Rights inventory: 623 unique resources, 180 cleared and 443 unverified. No automatic structure, acquisition, clinical or model approval is granted. Full radiology goal remains active: known floor 20,832 obligations, 93 unexpanded investigations and 106 unreconciled curriculum surfaces; total unknown. These changes remain local and are not deployed.
