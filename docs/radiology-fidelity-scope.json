@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2517,7 +2517,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3551,9 +3551,10 @@
       "modality": "Ultrasound",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-04",
           "protocol": [
-            "Trace the bile duct using positional changes and appropriate windows; document fasting status and whether the distal duct is seen."
+            "Trace the bile duct using positional changes and appropriate windows; document fasting status and whether the distal duct is seen.",
+            "Record actual proximal/mid/distal and outlet visibility, source windows/planes, position changes, Doppler use and limits. Distinguish transabdominal ultrasound from endoscopic or intraoperative sources; an examination subtype does not lend another its field or diagnostic performance."
           ],
           "checklist": [
             {
@@ -3587,7 +3588,11 @@
           "classification": null,
           "criteria_table": null,
           "pitfalls": [
-            "Duct calibre depends on context; a nonvisualised distal duct cannot be reported as stone-free."
+            "Duct calibre depends on context; a nonvisualised distal duct cannot be reported as stone-free.",
+            "A negative or limited ultrasound cannot establish clearance of unvisualised duct regions; persistent clinical suspicion requires appropriate specialist/risk-pathway assessment.",
+            "A dilated or nondilated duct does not uniquely establish or exclude a stone or active obstruction; integrate directly seen material, actual transition, prior surgery and clinical/biochemical context.",
+            "Apparent stone mobility, posterior shadowing and Doppler vessel discrimination require their actual source observations; a parent duct model or still frame cannot invent them.",
+            "Pancreatitis and cholangitis require clinical/laboratory integration. Morphology alone cannot establish their clinical diagnosis or severity."
           ],
           "impression_prompts": [
             "Bile duct assessment and direct and indirect evidence of stones.",
@@ -3620,6 +3625,14 @@
             {
               "title": "Radiology Assistant \u2014 Common Bile Duct Stones - Ultrasound",
               "url": "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg-2"
+            },
+            {
+              "title": "ASGE 2019 \u2014 evaluation and management of choledocholithiasis",
+              "url": "https://doi.org/10.1016/j.gie.2018.10.001"
+            },
+            {
+              "title": "TG18 \u2014 cholangitis diagnostic criteria and severity",
+              "url": "https://doi.org/10.1002/jhbp.512"
             }
           ]
         },
@@ -3639,7 +3652,7 @@
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Trace the bile duct using positional changes and appropriate windows; document fasting status and whether the distal duct is seen.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
+                "body": "Trace the bile duct using positional changes and appropriate windows; document fasting status and whether the distal duct is seen.\nRecord actual proximal/mid/distal and outlet visibility, source windows/planes, position changes, Doppler use and limits. Distinguish transabdominal ultrasound from endoscopic or intraoperative sources; an examination subtype does not lend another its field or diagnostic performance.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
@@ -3675,12 +3688,24 @@
               }
             ],
             "notes": [
-              "Duct calibre depends on context; a nonvisualised distal duct cannot be reported as stone-free."
+              "Duct calibre depends on context; a nonvisualised distal duct cannot be reported as stone-free.",
+              "A negative or limited ultrasound cannot establish clearance of unvisualised duct regions; persistent clinical suspicion requires appropriate specialist/risk-pathway assessment.",
+              "A dilated or nondilated duct does not uniquely establish or exclude a stone or active obstruction; integrate directly seen material, actual transition, prior surgery and clinical/biochemical context.",
+              "Apparent stone mobility, posterior shadowing and Doppler vessel discrimination require their actual source observations; a parent duct model or still frame cannot invent them.",
+              "Pancreatitis and cholangitis require clinical/laboratory integration. Morphology alone cannot establish their clinical diagnosis or severity."
             ],
             "sources": [
               {
                 "title": "Radiology Assistant \u2014 Common Bile Duct Stones - Ultrasound",
                 "url": "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg-2"
+              },
+              {
+                "title": "ASGE 2019 \u2014 evaluation and management of choledocholithiasis",
+                "url": "https://doi.org/10.1016/j.gie.2018.10.001"
+              },
+              {
+                "title": "TG18 \u2014 cholangitis diagnostic criteria and severity",
+                "url": "https://doi.org/10.1002/jhbp.512"
               }
             ]
           }
@@ -3706,7 +3731,7 @@
                 "DUCT VISIBILITY"
               ],
               "normal": {
-                "DUCT VISIBILITY": "Common bile duct visualised along its whole course to the papilla."
+                "DUCT VISIBILITY": "Directly visualised duct segments: [proximal / mid / distal]. Outlet/papilla seen: [ ]. Unassessed regions and limitations: [ ]."
               },
               "findings": [
                 "Proximal and mid common bile duct visualised; the distal duct is obscured by bowel gas.",
@@ -3726,7 +3751,7 @@
                 "DUCT CALIBRE"
               ],
               "normal": {
-                "DUCT CALIBRE": "Common bile duct __ mm (normal); no intrahepatic duct dilatation."
+                "DUCT CALIBRE": "CBD inner diameter: [ ] mm at [site]. Interpretation in clinical/postoperative context: [ ]. Intrahepatic duct assessment and coverage: [ ]."
               },
               "findings": [
                 "Dilated common bile duct __ mm with intrahepatic duct dilatation.",
@@ -3750,7 +3775,7 @@
                 "INTRADUCTAL CONTENTS"
               ],
               "normal": {
-                "INTRADUCTAL CONTENTS": "No intraductal stone or sludge."
+                "INTRADUCTAL CONTENTS": "No stone or sludge identified in the visualised duct regions. Unassessed segments and limits: [ ]; this does not establish whole-duct clearance."
               },
               "findings": [
                 "Echogenic __ mm stone with acoustic shadowing in the distal common bile duct.",
@@ -3762,7 +3787,8 @@
               "measurements": [],
               "landmark": "ducts",
               "parts": [],
-              "look": "Scan along the duct in longitudinal and transverse planes; change patient position to show mobility."
+              "look": "Scan along the duct in longitudinal and transverse planes; change patient position to show mobility. Record whether position changes and mobility were actually assessed, and use adequate Doppler when needed to distinguish vessels from ducts.",
+              "tip": "Positive source observations and negative-examination limits are separate. A limited ultrasound is not whole-duct clearance; use the actual clinical risk pathway when suspicion remains."
             },
             {
               "label": "Gallbladder",
@@ -3791,7 +3817,7 @@
                 "OBSTRUCTION AND COMPLICATIONS"
               ],
               "normal": {
-                "OBSTRUCTION AND COMPLICATIONS": "No biliary obstruction, pancreatitis or cholangitis features."
+                "OBSTRUCTION AND COMPLICATIONS": "Obstruction demonstrated in visualised regions: [ ]. Pancreatic/inflammatory findings and coverage: [ ]. Clinical/laboratory assessment for pancreatitis or cholangitis: [ ]."
               },
               "findings": [
                 "Obstruction at the level of the distal common bile duct by a stone.",
@@ -3802,7 +3828,8 @@
               "measurements": [],
               "landmark": "pancreas",
               "parts": [],
-              "look": "Pancreatic head and body; hepatic duct at the gallbladder neck; liver for abscess."
+              "look": "Pancreatic head and body; hepatic duct at the gallbladder neck; liver for abscess.",
+              "tip": "Ultrasound morphology supports anatomical assessment but does not establish or exclude clinical pancreatitis/cholangitis or grade organ dysfunction."
             }
           ],
           "finish": {
@@ -3847,10 +3874,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "c0a69fe78e5f730358713ed365f125a6654730fd2ac209847859e99292f606ba",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -4290,7 +4317,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5136,7 +5163,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11517,7 +11544,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11902,7 +11929,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12428,7 +12455,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12849,7 +12876,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13264,7 +13291,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14183,7 +14210,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14644,7 +14671,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15591,7 +15618,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -16397,7 +16424,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -23099,7 +23126,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -27267,7 +27294,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -29901,7 +29928,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -30296,7 +30323,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -52223,7 +52250,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f5baa7414a7406e300768d0dc05a5521ba8fe8185bac6795757c05006e92708c",
+      "structure_inventory_sha256": "10a0d56ed47f177fd94494faa57108e94c851998c9911eb5dcb12fc4d61fcf6b",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [

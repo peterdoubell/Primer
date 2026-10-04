@@ -20,7 +20,6 @@
     "ra.mri-anal-cancer",
     "ra.abdominal-wall-hernias",
     "ra.aortic-aneurysm-rupture",
-    "ra.ultrasound-bile-duct-stones",
     "ra.mri-bladder",
     "ra.ct-bowel-ischaemia",
     "ra.ct-bowel-wall",
@@ -221,7 +220,7 @@
     "rad.5.venous-csf",
     "rad.5.wrist-hand"
   ],
-  "known_representation_requirements": 17340,
+  "known_representation_requirements": 17901,
   "total_representation_requirements": null,
   "total_count_note": "Unknown until all investigations and curriculum surfaces are expanded; unknown requirements are not zero.",
   "msk_subaudit": {
@@ -291,12 +290,12 @@
   },
   "additional_structure_audit": {
     "clinical_commercial_ready": false,
-    "investigations": 18,
-    "representation_requirements": 12048,
+    "investigations": 19,
+    "representation_requirements": 12609,
     "counts": {
       "verified": 0,
       "unverified": 13,
-      "missing": 12035
+      "missing": 12596
     },
     "scope_gaps": [
       "ra.appendicitis: site expansion unverified",
@@ -429,6 +428,14 @@
       "ra.ultrasound-gallbladder: source scope issue source_quality_rights_and_anatomy_pending: classification missing or unknown",
       "ra.ultrasound-gallbladder: source scope issue shared_lesson_other_topics_pending: classification missing or unknown",
       "ra.ultrasound-gallbladder: generic structure requires site-specific anatomy",
+      "ra.ultrasound-bile-duct-stones: site expansion unverified",
+      "ra.ultrasound-bile-duct-stones: source scope issue complete_case_anatomy_pending: classification missing or unknown",
+      "ra.ultrasound-bile-duct-stones: source scope issue negative_scan_not_whole_duct_clearance: classification missing or unknown",
+      "ra.ultrasound-bile-duct-stones: source scope issue ultrasound_subtype_and_dynamic_evidence_pending: classification missing or unknown",
+      "ra.ultrasound-bile-duct-stones: source scope issue clinical_framework_reconciliation_pending: classification missing or unknown",
+      "ra.ultrasound-bile-duct-stones: source scope issue source_quality_rights_and_anatomy_pending: classification missing or unknown",
+      "ra.ultrasound-bile-duct-stones: source scope issue shared_lesson_review_still_incomplete: classification missing or unknown",
+      "ra.ultrasound-bile-duct-stones: generic structure requires site-specific anatomy",
       "Reporting structure inventory requires clinical review"
     ],
     "asset_issues": {
@@ -1961,6 +1968,66 @@
         "kind": null,
         "status": null,
         "detail": "The rest of the shared gallbladder/duct/stone lesson and management assertions remain under separate full review.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "index": 0,
+        "code": "complete_case_anatomy_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Prototypes are not exhaustive patient-specific branches, defects, variants or acquired complications.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "index": 1,
+        "code": "negative_scan_not_whole_duct_clearance",
+        "kind": null,
+        "status": null,
+        "detail": "Unvisualised regions, limited resolution and temporal passage cannot be equated with complete negative anatomy.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "index": 2,
+        "code": "ultrasound_subtype_and_dynamic_evidence_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Transabdominal, endoscopic and intraoperative source geometry/performance are distinct; stills cannot prove mobility or flow.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "index": 3,
+        "code": "clinical_framework_reconciliation_pending",
+        "kind": null,
+        "status": null,
+        "detail": "ASGE and TG18 require selected population and clinical/laboratory context; no diameter-only ERCP or imaging-only syndrome/severity verdict is introduced.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "index": 4,
+        "code": "source_quality_rights_and_anatomy_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Every source image/model needs native protocol/resolution, original rights and independent anatomical review.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "index": 5,
+        "code": "shared_lesson_review_still_incomplete",
+        "kind": null,
+        "status": null,
+        "detail": "Shared biliary/gallbladder/stone management and curriculum content still require full reconciliation.",
         "blocking": true,
         "reason": "classification_missing_or_unknown"
       }
@@ -110605,6 +110672,5055 @@
         "investigation_id": "ra.ultrasound-gallbladder",
         "structure_id": "gallbladder.mri.contrast_excretion_or_leak_source_if_acquired",
         "structure_name": "contrast excretion or leak source if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.common_hepatic.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.cystic_junction.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.supraduodenal_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.retroduodenal_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intrapancreatic_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.proximal_margin",
+        "structure_name": "proximal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.distal_margin",
+        "structure_name": "distal margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.complete_lumen",
+        "structure_name": "complete lumen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.inner_wall",
+        "structure_name": "inner wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.outer_wall_if_resolved",
+        "structure_name": "outer wall if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.intramural_common_bile.measured_calibre_region",
+        "structure_name": "measured calibre region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.hilar_confluence",
+        "structure_name": "hilar confluence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.hilar_confluence",
+        "structure_name": "hilar confluence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.hilar_confluence",
+        "structure_name": "hilar confluence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_hepatic_duct",
+        "structure_name": "right hepatic duct",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_hepatic_duct",
+        "structure_name": "right hepatic duct",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_hepatic_duct",
+        "structure_name": "right hepatic duct",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_hepatic_duct",
+        "structure_name": "left hepatic duct",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_hepatic_duct",
+        "structure_name": "left hepatic duct",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_hepatic_duct",
+        "structure_name": "left hepatic duct",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_anterior_branch",
+        "structure_name": "right anterior branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_anterior_branch",
+        "structure_name": "right anterior branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_anterior_branch",
+        "structure_name": "right anterior branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_posterior_branch",
+        "structure_name": "right posterior branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_posterior_branch",
+        "structure_name": "right posterior branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.right_posterior_branch",
+        "structure_name": "right posterior branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_medial_branch",
+        "structure_name": "left medial branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_medial_branch",
+        "structure_name": "left medial branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_medial_branch",
+        "structure_name": "left medial branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_lateral_branch",
+        "structure_name": "left lateral branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_lateral_branch",
+        "structure_name": "left lateral branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.left_lateral_branch",
+        "structure_name": "left lateral branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.caudate_branch",
+        "structure_name": "caudate branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.caudate_branch",
+        "structure_name": "caudate branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.caudate_branch",
+        "structure_name": "caudate branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.each_visible_segmental_branch",
+        "structure_name": "each visible segmental branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.each_visible_segmental_branch",
+        "structure_name": "each visible segmental branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.each_visible_segmental_branch",
+        "structure_name": "each visible segmental branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.each_visible_peripheral_branch",
+        "structure_name": "each visible peripheral branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.each_visible_peripheral_branch",
+        "structure_name": "each visible peripheral branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.each_visible_peripheral_branch",
+        "structure_name": "each visible peripheral branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.unvisualised_branch_limit",
+        "structure_name": "unvisualised branch limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.unvisualised_branch_limit",
+        "structure_name": "unvisualised branch limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.hilar_branches.unvisualised_branch_limit",
+        "structure_name": "unvisualised branch limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreaticobiliary_junction",
+        "structure_name": "pancreaticobiliary junction",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreaticobiliary_junction",
+        "structure_name": "pancreaticobiliary junction",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreaticobiliary_junction",
+        "structure_name": "pancreaticobiliary junction",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.ampullary_channel",
+        "structure_name": "ampullary channel",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.ampullary_channel",
+        "structure_name": "ampullary channel",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.ampullary_channel",
+        "structure_name": "ampullary channel",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.major_papilla_if_seen",
+        "structure_name": "major papilla if seen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.major_papilla_if_seen",
+        "structure_name": "major papilla if seen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.major_papilla_if_seen",
+        "structure_name": "major papilla if seen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.sphincter_region_if_resolved",
+        "structure_name": "sphincter region if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.sphincter_region_if_resolved",
+        "structure_name": "sphincter region if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.sphincter_region_if_resolved",
+        "structure_name": "sphincter region if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.duodenal_wall",
+        "structure_name": "duodenal wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.duodenal_wall",
+        "structure_name": "duodenal wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.duodenal_wall",
+        "structure_name": "duodenal wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreatic_head_interface",
+        "structure_name": "pancreatic head interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreatic_head_interface",
+        "structure_name": "pancreatic head interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreatic_head_interface",
+        "structure_name": "pancreatic head interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreatic_duct_source",
+        "structure_name": "pancreatic duct source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreatic_duct_source",
+        "structure_name": "pancreatic duct source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.pancreatic_duct_source",
+        "structure_name": "pancreatic duct source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.periampullary_diverticulum_if_present",
+        "structure_name": "periampullary diverticulum if present",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.periampullary_diverticulum_if_present",
+        "structure_name": "periampullary diverticulum if present",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.periampullary_diverticulum_if_present",
+        "structure_name": "periampullary diverticulum if present",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.distal_obstruction_margin",
+        "structure_name": "distal obstruction margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.distal_obstruction_margin",
+        "structure_name": "distal obstruction margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.outlet.distal_obstruction_margin",
+        "structure_name": "distal obstruction margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.each_stone",
+        "structure_name": "each stone",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.each_stone",
+        "structure_name": "each stone",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.each_stone",
+        "structure_name": "each stone",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.complete_stone_margin",
+        "structure_name": "complete stone margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.complete_stone_margin",
+        "structure_name": "complete stone margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.complete_stone_margin",
+        "structure_name": "complete stone margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.impacted_material_region",
+        "structure_name": "impacted material region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.impacted_material_region",
+        "structure_name": "impacted material region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.impacted_material_region",
+        "structure_name": "impacted material region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.sludge_region",
+        "structure_name": "sludge region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.sludge_region",
+        "structure_name": "sludge region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.sludge_region",
+        "structure_name": "sludge region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.debris_region",
+        "structure_name": "debris region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.debris_region",
+        "structure_name": "debris region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.debris_region",
+        "structure_name": "debris region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.blood_product_region",
+        "structure_name": "blood product region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.blood_product_region",
+        "structure_name": "blood product region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.blood_product_region",
+        "structure_name": "blood product region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.intraductal_air_region",
+        "structure_name": "intraductal air region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.intraductal_air_region",
+        "structure_name": "intraductal air region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.intraductal_air_region",
+        "structure_name": "intraductal air region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.cast_region",
+        "structure_name": "cast region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.cast_region",
+        "structure_name": "cast region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.cast_region",
+        "structure_name": "cast region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.soft_tissue_differential",
+        "structure_name": "soft tissue differential",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.soft_tissue_differential",
+        "structure_name": "soft tissue differential",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.soft_tissue_differential",
+        "structure_name": "soft tissue differential",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.lumen_material_interface",
+        "structure_name": "lumen material interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.lumen_material_interface",
+        "structure_name": "lumen material interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.lumen_material_interface",
+        "structure_name": "lumen material interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.posterior_shadow_source",
+        "structure_name": "posterior shadow source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.posterior_shadow_source",
+        "structure_name": "posterior shadow source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.posterior_shadow_source",
+        "structure_name": "posterior shadow source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.partial_shadow_or_nonshadowing_limit",
+        "structure_name": "partial shadow or nonshadowing limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.partial_shadow_or_nonshadowing_limit",
+        "structure_name": "partial shadow or nonshadowing limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.partial_shadow_or_nonshadowing_limit",
+        "structure_name": "partial shadow or nonshadowing limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.dependent_region",
+        "structure_name": "dependent region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.dependent_region",
+        "structure_name": "dependent region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.dependent_region",
+        "structure_name": "dependent region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.nondependent_region",
+        "structure_name": "nondependent region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.nondependent_region",
+        "structure_name": "nondependent region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.nondependent_region",
+        "structure_name": "nondependent region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.source_motion_comparison",
+        "structure_name": "source motion comparison",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.source_motion_comparison",
+        "structure_name": "source motion comparison",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.material.source_motion_comparison",
+        "structure_name": "source motion comparison",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.inner_to_inner_axis",
+        "structure_name": "inner to inner axis",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.inner_to_inner_axis",
+        "structure_name": "inner to inner axis",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.inner_to_inner_axis",
+        "structure_name": "inner to inner axis",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.perpendicular_plane",
+        "structure_name": "perpendicular plane",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.perpendicular_plane",
+        "structure_name": "perpendicular plane",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.perpendicular_plane",
+        "structure_name": "perpendicular plane",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.widest_visible_region",
+        "structure_name": "widest visible region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.widest_visible_region",
+        "structure_name": "widest visible region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.widest_visible_region",
+        "structure_name": "widest visible region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.proximal_taper_region",
+        "structure_name": "proximal taper region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.proximal_taper_region",
+        "structure_name": "proximal taper region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.proximal_taper_region",
+        "structure_name": "proximal taper region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.distal_taper_region",
+        "structure_name": "distal taper region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.distal_taper_region",
+        "structure_name": "distal taper region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.distal_taper_region",
+        "structure_name": "distal taper region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.upstream_calibre",
+        "structure_name": "upstream calibre",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.upstream_calibre",
+        "structure_name": "upstream calibre",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.upstream_calibre",
+        "structure_name": "upstream calibre",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.downstream_calibre",
+        "structure_name": "downstream calibre",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.downstream_calibre",
+        "structure_name": "downstream calibre",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.downstream_calibre",
+        "structure_name": "downstream calibre",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.baseline_comparable_region",
+        "structure_name": "baseline comparable region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.baseline_comparable_region",
+        "structure_name": "baseline comparable region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.baseline_comparable_region",
+        "structure_name": "baseline comparable region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.current_comparable_region",
+        "structure_name": "current comparable region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.current_comparable_region",
+        "structure_name": "current comparable region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.current_comparable_region",
+        "structure_name": "current comparable region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.unassessed_distal_region",
+        "structure_name": "unassessed distal region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.unassessed_distal_region",
+        "structure_name": "unassessed distal region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.measurement.unassessed_distal_region",
+        "structure_name": "unassessed distal region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.portal_vein",
+        "structure_name": "portal vein",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.portal_vein",
+        "structure_name": "portal vein",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.portal_vein",
+        "structure_name": "portal vein",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.main_portal_branch",
+        "structure_name": "main portal branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.main_portal_branch",
+        "structure_name": "main portal branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.main_portal_branch",
+        "structure_name": "main portal branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.right_portal_branch",
+        "structure_name": "right portal branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.right_portal_branch",
+        "structure_name": "right portal branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.right_portal_branch",
+        "structure_name": "right portal branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.left_portal_branch",
+        "structure_name": "left portal branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.left_portal_branch",
+        "structure_name": "left portal branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.left_portal_branch",
+        "structure_name": "left portal branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.hepatic_artery",
+        "structure_name": "hepatic artery",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.hepatic_artery",
+        "structure_name": "hepatic artery",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.hepatic_artery",
+        "structure_name": "hepatic artery",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.proper_hepatic_branch",
+        "structure_name": "proper hepatic branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.proper_hepatic_branch",
+        "structure_name": "proper hepatic branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.proper_hepatic_branch",
+        "structure_name": "proper hepatic branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.actual_arterial_variant",
+        "structure_name": "actual arterial variant",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.actual_arterial_variant",
+        "structure_name": "actual arterial variant",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.actual_arterial_variant",
+        "structure_name": "actual arterial variant",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.periductal_vessel",
+        "structure_name": "periductal vessel",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.periductal_vessel",
+        "structure_name": "periductal vessel",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.periductal_vessel",
+        "structure_name": "periductal vessel",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.doppler_reference_region",
+        "structure_name": "doppler reference region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.doppler_reference_region",
+        "structure_name": "doppler reference region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.doppler_reference_region",
+        "structure_name": "doppler reference region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.gallbladder_neck_vascular_interface",
+        "structure_name": "gallbladder neck vascular interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.gallbladder_neck_vascular_interface",
+        "structure_name": "gallbladder neck vascular interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.vessels.gallbladder_neck_vascular_interface",
+        "structure_name": "gallbladder neck vascular interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.fundus",
+        "structure_name": "fundus",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.fundus",
+        "structure_name": "fundus",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.fundus",
+        "structure_name": "fundus",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.body",
+        "structure_name": "body",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.body",
+        "structure_name": "body",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.body",
+        "structure_name": "body",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.infundibulum",
+        "structure_name": "infundibulum",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.infundibulum",
+        "structure_name": "infundibulum",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.infundibulum",
+        "structure_name": "infundibulum",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.neck",
+        "structure_name": "neck",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.neck",
+        "structure_name": "neck",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.neck",
+        "structure_name": "neck",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.cystic_duct_course",
+        "structure_name": "cystic duct course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.cystic_duct_course",
+        "structure_name": "cystic duct course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.cystic_duct_course",
+        "structure_name": "cystic duct course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.gallbladder_lumen",
+        "structure_name": "gallbladder lumen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.gallbladder_lumen",
+        "structure_name": "gallbladder lumen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.gallbladder_lumen",
+        "structure_name": "gallbladder lumen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.wall_layers_if_resolved",
+        "structure_name": "wall layers if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.wall_layers_if_resolved",
+        "structure_name": "wall layers if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.wall_layers_if_resolved",
+        "structure_name": "wall layers if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.each_source_stone",
+        "structure_name": "each source stone",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.each_source_stone",
+        "structure_name": "each source stone",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.each_source_stone",
+        "structure_name": "each source stone",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.impacted_neck_stone",
+        "structure_name": "impacted neck stone",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.impacted_neck_stone",
+        "structure_name": "impacted neck stone",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.impacted_neck_stone",
+        "structure_name": "impacted neck stone",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.cystic_duct_impaction_site",
+        "structure_name": "cystic duct impaction site",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.cystic_duct_impaction_site",
+        "structure_name": "cystic duct impaction site",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.cystic_duct_impaction_site",
+        "structure_name": "cystic duct impaction site",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.compression_of_common_hepatic_duct",
+        "structure_name": "compression of common hepatic duct",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.compression_of_common_hepatic_duct",
+        "structure_name": "compression of common hepatic duct",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.compression_of_common_hepatic_duct",
+        "structure_name": "compression of common hepatic duct",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.pericholecystic_region",
+        "structure_name": "pericholecystic region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.pericholecystic_region",
+        "structure_name": "pericholecystic region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.gallbladder.pericholecystic_region",
+        "structure_name": "pericholecystic region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.complete_transition_margin",
+        "structure_name": "complete transition margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.complete_transition_margin",
+        "structure_name": "complete transition margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.complete_transition_margin",
+        "structure_name": "complete transition margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.proximal_shouldering",
+        "structure_name": "proximal shouldering",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.proximal_shouldering",
+        "structure_name": "proximal shouldering",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.proximal_shouldering",
+        "structure_name": "proximal shouldering",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.distal_shouldering",
+        "structure_name": "distal shouldering",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.distal_shouldering",
+        "structure_name": "distal shouldering",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.distal_shouldering",
+        "structure_name": "distal shouldering",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.stricture_region",
+        "structure_name": "stricture region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.stricture_region",
+        "structure_name": "stricture region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.stricture_region",
+        "structure_name": "stricture region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.thickened_wall_region",
+        "structure_name": "thickened wall region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.thickened_wall_region",
+        "structure_name": "thickened wall region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.thickened_wall_region",
+        "structure_name": "thickened wall region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.enhancing_tissue_if_acquired",
+        "structure_name": "enhancing tissue if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.enhancing_tissue_if_acquired",
+        "structure_name": "enhancing tissue if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.enhancing_tissue_if_acquired",
+        "structure_name": "enhancing tissue if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.periductal_mass",
+        "structure_name": "periductal mass",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.periductal_mass",
+        "structure_name": "periductal mass",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.periductal_mass",
+        "structure_name": "periductal mass",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.extrinsic_mass_interface",
+        "structure_name": "extrinsic mass interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.extrinsic_mass_interface",
+        "structure_name": "extrinsic mass interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.extrinsic_mass_interface",
+        "structure_name": "extrinsic mass interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.impacted_stone_transition",
+        "structure_name": "impacted stone transition",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.impacted_stone_transition",
+        "structure_name": "impacted stone transition",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.impacted_stone_transition",
+        "structure_name": "impacted stone transition",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.decompressed_postpassage_region",
+        "structure_name": "decompressed postpassage region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.decompressed_postpassage_region",
+        "structure_name": "decompressed postpassage region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.transition.decompressed_postpassage_region",
+        "structure_name": "decompressed postpassage region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_head",
+        "structure_name": "pancreatic head",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_head",
+        "structure_name": "pancreatic head",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_head",
+        "structure_name": "pancreatic head",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_neck",
+        "structure_name": "pancreatic neck",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_neck",
+        "structure_name": "pancreatic neck",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_neck",
+        "structure_name": "pancreatic neck",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_body",
+        "structure_name": "pancreatic body",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_body",
+        "structure_name": "pancreatic body",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_body",
+        "structure_name": "pancreatic body",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_tail_if_acquired",
+        "structure_name": "pancreatic tail if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_tail_if_acquired",
+        "structure_name": "pancreatic tail if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.pancreatic_tail_if_acquired",
+        "structure_name": "pancreatic tail if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.main_pancreatic_duct",
+        "structure_name": "main pancreatic duct",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.main_pancreatic_duct",
+        "structure_name": "main pancreatic duct",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.main_pancreatic_duct",
+        "structure_name": "main pancreatic duct",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.ampullary_interface",
+        "structure_name": "ampullary interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.ampullary_interface",
+        "structure_name": "ampullary interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.ampullary_interface",
+        "structure_name": "ampullary interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.oedematous_region_if_present",
+        "structure_name": "oedematous region if present",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.oedematous_region_if_present",
+        "structure_name": "oedematous region if present",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.oedematous_region_if_present",
+        "structure_name": "oedematous region if present",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.peripancreatic_fluid_if_present",
+        "structure_name": "peripancreatic fluid if present",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.peripancreatic_fluid_if_present",
+        "structure_name": "peripancreatic fluid if present",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.peripancreatic_fluid_if_present",
+        "structure_name": "peripancreatic fluid if present",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.adjacent_vascular_interface",
+        "structure_name": "adjacent vascular interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.adjacent_vascular_interface",
+        "structure_name": "adjacent vascular interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.adjacent_vascular_interface",
+        "structure_name": "adjacent vascular interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.unvisualised_pancreatic_limit",
+        "structure_name": "unvisualised pancreatic limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.unvisualised_pancreatic_limit",
+        "structure_name": "unvisualised pancreatic limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.pancreatic.unvisualised_pancreatic_limit",
+        "structure_name": "unvisualised pancreatic limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.thickened_duct_wall",
+        "structure_name": "thickened duct wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.thickened_duct_wall",
+        "structure_name": "thickened duct wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.thickened_duct_wall",
+        "structure_name": "thickened duct wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.periductal_tissue_change",
+        "structure_name": "periductal tissue change",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.periductal_tissue_change",
+        "structure_name": "periductal tissue change",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.periductal_tissue_change",
+        "structure_name": "periductal tissue change",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.hepatic_perfusion_region_if_acquired",
+        "structure_name": "hepatic perfusion region if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.hepatic_perfusion_region_if_acquired",
+        "structure_name": "hepatic perfusion region if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.hepatic_perfusion_region_if_acquired",
+        "structure_name": "hepatic perfusion region if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.each_hepatic_abscess",
+        "structure_name": "each hepatic abscess",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.each_hepatic_abscess",
+        "structure_name": "each hepatic abscess",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.each_hepatic_abscess",
+        "structure_name": "each hepatic abscess",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.perihepatic_collection",
+        "structure_name": "perihepatic collection",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.perihepatic_collection",
+        "structure_name": "perihepatic collection",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.perihepatic_collection",
+        "structure_name": "perihepatic collection",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.biliary_leak_source_if_supported",
+        "structure_name": "biliary leak source if supported",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.biliary_leak_source_if_supported",
+        "structure_name": "biliary leak source if supported",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.biliary_leak_source_if_supported",
+        "structure_name": "biliary leak source if supported",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.biloma",
+        "structure_name": "biloma",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.biloma",
+        "structure_name": "biloma",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.biloma",
+        "structure_name": "biloma",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.pancreatic_collection_if_present",
+        "structure_name": "pancreatic collection if present",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.pancreatic_collection_if_present",
+        "structure_name": "pancreatic collection if present",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.pancreatic_collection_if_present",
+        "structure_name": "pancreatic collection if present",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.fistulous_communication_if_visible",
+        "structure_name": "fistulous communication if visible",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.fistulous_communication_if_visible",
+        "structure_name": "fistulous communication if visible",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.fistulous_communication_if_visible",
+        "structure_name": "fistulous communication if visible",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.acquired_node_if_present",
+        "structure_name": "acquired node if present",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.acquired_node_if_present",
+        "structure_name": "acquired node if present",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.infection_complications.acquired_node_if_present",
+        "structure_name": "acquired node if present",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.gallbladder_remnant",
+        "structure_name": "gallbladder remnant",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.gallbladder_remnant",
+        "structure_name": "gallbladder remnant",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.gallbladder_remnant",
+        "structure_name": "gallbladder remnant",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.cystic_duct_remnant",
+        "structure_name": "cystic duct remnant",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.cystic_duct_remnant",
+        "structure_name": "cystic duct remnant",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.cystic_duct_remnant",
+        "structure_name": "cystic duct remnant",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.biliary_anastomosis",
+        "structure_name": "biliary anastomosis",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.biliary_anastomosis",
+        "structure_name": "biliary anastomosis",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.biliary_anastomosis",
+        "structure_name": "biliary anastomosis",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.each_stent_proximal_end",
+        "structure_name": "each stent proximal end",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.each_stent_proximal_end",
+        "structure_name": "each stent proximal end",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.each_stent_proximal_end",
+        "structure_name": "each stent proximal end",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.each_stent_distal_end",
+        "structure_name": "each stent distal end",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.each_stent_distal_end",
+        "structure_name": "each stent distal end",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.each_stent_distal_end",
+        "structure_name": "each stent distal end",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.stent_lumen_if_resolved",
+        "structure_name": "stent lumen if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.stent_lumen_if_resolved",
+        "structure_name": "stent lumen if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.stent_lumen_if_resolved",
+        "structure_name": "stent lumen if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.drainage_tip",
+        "structure_name": "drainage tip",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.drainage_tip",
+        "structure_name": "drainage tip",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.drainage_tip",
+        "structure_name": "drainage tip",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.drainage_sideholes_if_resolved",
+        "structure_name": "drainage sideholes if resolved",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.drainage_sideholes_if_resolved",
+        "structure_name": "drainage sideholes if resolved",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.drainage_sideholes_if_resolved",
+        "structure_name": "drainage sideholes if resolved",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.catheter_duct_relation",
+        "structure_name": "catheter duct relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.catheter_duct_relation",
+        "structure_name": "catheter duct relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.catheter_duct_relation",
+        "structure_name": "catheter duct relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.post_sphincterotomy_outlet",
+        "structure_name": "post sphincterotomy outlet",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.post_sphincterotomy_outlet",
+        "structure_name": "post sphincterotomy outlet",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.post_sphincterotomy_outlet",
+        "structure_name": "post sphincterotomy outlet",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.source_pneumobilia",
+        "structure_name": "source pneumobilia",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.source_pneumobilia",
+        "structure_name": "source pneumobilia",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.source_pneumobilia",
+        "structure_name": "source pneumobilia",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.undrained_segment_limit",
+        "structure_name": "undrained segment limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.undrained_segment_limit",
+        "structure_name": "undrained segment limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.undrained_segment_limit",
+        "structure_name": "undrained segment limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.baseline_predrainage_source",
+        "structure_name": "baseline predrainage source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.baseline_predrainage_source",
+        "structure_name": "baseline predrainage source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.baseline_predrainage_source",
+        "structure_name": "baseline predrainage source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.current_postdrainage_source",
+        "structure_name": "current postdrainage source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.current_postdrainage_source",
+        "structure_name": "current postdrainage source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.postoperative.current_postdrainage_source",
+        "structure_name": "current postdrainage source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.longitudinal_duct_source",
+        "structure_name": "longitudinal duct source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.longitudinal_duct_source",
+        "structure_name": "longitudinal duct source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.longitudinal_duct_source",
+        "structure_name": "longitudinal duct source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.transverse_duct_source",
+        "structure_name": "transverse duct source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.transverse_duct_source",
+        "structure_name": "transverse duct source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.transverse_duct_source",
+        "structure_name": "transverse duct source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.subcostal_window_source",
+        "structure_name": "subcostal window source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.subcostal_window_source",
+        "structure_name": "subcostal window source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.subcostal_window_source",
+        "structure_name": "subcostal window source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.intercostal_window_source",
+        "structure_name": "intercostal window source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.intercostal_window_source",
+        "structure_name": "intercostal window source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.intercostal_window_source",
+        "structure_name": "intercostal window source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.positional_scan_source",
+        "structure_name": "positional scan source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.positional_scan_source",
+        "structure_name": "positional scan source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.positional_scan_source",
+        "structure_name": "positional scan source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.acoustic_shadow_source",
+        "structure_name": "acoustic shadow source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.acoustic_shadow_source",
+        "structure_name": "acoustic shadow source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.acoustic_shadow_source",
+        "structure_name": "acoustic shadow source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.reverberation_or_gas_source",
+        "structure_name": "reverberation or gas source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.reverberation_or_gas_source",
+        "structure_name": "reverberation or gas source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.reverberation_or_gas_source",
+        "structure_name": "reverberation or gas source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.vessel_doppler_source",
+        "structure_name": "vessel doppler source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.vessel_doppler_source",
+        "structure_name": "vessel doppler source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.vessel_doppler_source",
+        "structure_name": "vessel doppler source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.adjacent_bowel_gas_limit",
+        "structure_name": "adjacent bowel gas limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.adjacent_bowel_gas_limit",
+        "structure_name": "adjacent bowel gas limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.adjacent_bowel_gas_limit",
+        "structure_name": "adjacent bowel gas limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.source_gain_or_focus_limit",
+        "structure_name": "source gain or focus limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.source_gain_or_focus_limit",
+        "structure_name": "source gain or focus limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.source_gain_or_focus_limit",
+        "structure_name": "source gain or focus limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.near_field_or_partial_volume_limit",
+        "structure_name": "near field or partial volume limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.near_field_or_partial_volume_limit",
+        "structure_name": "near field or partial volume limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.near_field_or_partial_volume_limit",
+        "structure_name": "near field or partial volume limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.probe_pressure_or_tenderness_site_if_assessed",
+        "structure_name": "probe pressure or tenderness site if assessed",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.probe_pressure_or_tenderness_site_if_assessed",
+        "structure_name": "probe pressure or tenderness site if assessed",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ultrasound.probe_pressure_or_tenderness_site_if_assessed",
+        "structure_name": "probe pressure or tenderness site if assessed",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.proximal_duct_stone",
+        "structure_name": "proximal duct stone",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.proximal_duct_stone",
+        "structure_name": "proximal duct stone",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.proximal_duct_stone",
+        "structure_name": "proximal duct stone",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.distal_duct_stone",
+        "structure_name": "distal duct stone",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.distal_duct_stone",
+        "structure_name": "distal duct stone",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.distal_duct_stone",
+        "structure_name": "distal duct stone",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.multiple_duct_stones",
+        "structure_name": "multiple duct stones",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.multiple_duct_stones",
+        "structure_name": "multiple duct stones",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.multiple_duct_stones",
+        "structure_name": "multiple duct stones",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.nonshadowing_material",
+        "structure_name": "nonshadowing material",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.nonshadowing_material",
+        "structure_name": "nonshadowing material",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.nonshadowing_material",
+        "structure_name": "nonshadowing material",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.sludge_pattern",
+        "structure_name": "sludge pattern",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.sludge_pattern",
+        "structure_name": "sludge pattern",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.sludge_pattern",
+        "structure_name": "sludge pattern",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.residual_postpassage_dilatation",
+        "structure_name": "residual postpassage dilatation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.residual_postpassage_dilatation",
+        "structure_name": "residual postpassage dilatation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.residual_postpassage_dilatation",
+        "structure_name": "residual postpassage dilatation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.recurrent_stone_pattern",
+        "structure_name": "recurrent stone pattern",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.recurrent_stone_pattern",
+        "structure_name": "recurrent stone pattern",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.recurrent_stone_pattern",
+        "structure_name": "recurrent stone pattern",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.cystic_duct_compression_pattern",
+        "structure_name": "cystic duct compression pattern",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.cystic_duct_compression_pattern",
+        "structure_name": "cystic duct compression pattern",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.cystic_duct_compression_pattern",
+        "structure_name": "cystic duct compression pattern",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.postoperative_obstruction_pattern",
+        "structure_name": "postoperative obstruction pattern",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.postoperative_obstruction_pattern",
+        "structure_name": "postoperative obstruction pattern",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.postoperative_obstruction_pattern",
+        "structure_name": "postoperative obstruction pattern",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.inflammatory_stricture_mimic",
+        "structure_name": "inflammatory stricture mimic",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.inflammatory_stricture_mimic",
+        "structure_name": "inflammatory stricture mimic",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.inflammatory_stricture_mimic",
+        "structure_name": "inflammatory stricture mimic",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.ampullary_or_pancreatic_mass_mimic",
+        "structure_name": "ampullary or pancreatic mass mimic",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.ampullary_or_pancreatic_mass_mimic",
+        "structure_name": "ampullary or pancreatic mass mimic",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.ampullary_or_pancreatic_mass_mimic",
+        "structure_name": "ampullary or pancreatic mass mimic",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.pneumobilia_mimic",
+        "structure_name": "pneumobilia mimic",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.pneumobilia_mimic",
+        "structure_name": "pneumobilia mimic",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.pneumobilia_mimic",
+        "structure_name": "pneumobilia mimic",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.stone_with_clinical_infection_context",
+        "structure_name": "stone with clinical infection context",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.stone_with_clinical_infection_context",
+        "structure_name": "stone with clinical infection context",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.stone_with_clinical_infection_context",
+        "structure_name": "stone with clinical infection context",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.stone_with_clinical_pancreatitis_context",
+        "structure_name": "stone with clinical pancreatitis context",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.stone_with_clinical_pancreatitis_context",
+        "structure_name": "stone with clinical pancreatitis context",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.positive_examples.stone_with_clinical_pancreatitis_context",
+        "structure_name": "stone with clinical pancreatitis context",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.thin_source_duct_region",
+        "structure_name": "thin source duct region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.thin_source_duct_region",
+        "structure_name": "thin source duct region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.thin_source_duct_region",
+        "structure_name": "thin source duct region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.projection_duct_region",
+        "structure_name": "projection duct region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.projection_duct_region",
+        "structure_name": "projection duct region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.projection_duct_region",
+        "structure_name": "projection duct region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.motion_or_flow_void_limit",
+        "structure_name": "motion or flow void limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.motion_or_flow_void_limit",
+        "structure_name": "motion or flow void limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.motion_or_flow_void_limit",
+        "structure_name": "motion or flow void limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.material_source_region",
+        "structure_name": "material source region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.material_source_region",
+        "structure_name": "material source region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.material_source_region",
+        "structure_name": "material source region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_duct_communication",
+        "structure_name": "source duct communication",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_duct_communication",
+        "structure_name": "source duct communication",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_duct_communication",
+        "structure_name": "source duct communication",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_wall_signal_if_acquired",
+        "structure_name": "source wall signal if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_wall_signal_if_acquired",
+        "structure_name": "source wall signal if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_wall_signal_if_acquired",
+        "structure_name": "source wall signal if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_enhancement_if_acquired",
+        "structure_name": "source enhancement if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_enhancement_if_acquired",
+        "structure_name": "source enhancement if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.mri.source_enhancement_if_acquired",
+        "structure_name": "source enhancement if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.calcified_material_source",
+        "structure_name": "calcified material source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.calcified_material_source",
+        "structure_name": "calcified material source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.calcified_material_source",
+        "structure_name": "calcified material source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.noncalcified_material_limit",
+        "structure_name": "noncalcified material limit",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.noncalcified_material_limit",
+        "structure_name": "noncalcified material limit",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.noncalcified_material_limit",
+        "structure_name": "noncalcified material limit",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.source_duct_calibre",
+        "structure_name": "source duct calibre",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.source_duct_calibre",
+        "structure_name": "source duct calibre",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.source_duct_calibre",
+        "structure_name": "source duct calibre",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.source_wall_contrast_if_acquired",
+        "structure_name": "source wall contrast if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.source_wall_contrast_if_acquired",
+        "structure_name": "source wall contrast if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.source_wall_contrast_if_acquired",
+        "structure_name": "source wall contrast if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.pancreatic_region_source",
+        "structure_name": "pancreatic region source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.pancreatic_region_source",
+        "structure_name": "pancreatic region source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.pancreatic_region_source",
+        "structure_name": "pancreatic region source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.periductal_or_hepatic_complication_source",
+        "structure_name": "periductal or hepatic complication source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.periductal_or_hepatic_complication_source",
+        "structure_name": "periductal or hepatic complication source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.periductal_or_hepatic_complication_source",
+        "structure_name": "periductal or hepatic complication source",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.intraductal_air_source",
+        "structure_name": "intraductal air source",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.intraductal_air_source",
+        "structure_name": "intraductal air source",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.ultrasound-bile-duct-stones",
+        "structure_id": "cbd_stones.ct.intraductal_air_source",
+        "structure_name": "intraductal air source",
         "kind": "model",
         "status": "missing",
         "verified_assets": [],
