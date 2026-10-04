@@ -204,3 +204,7 @@ Added separate unmarked original arterial-labelled/venous-labelled CT composites
 ### 4 October 2026 — original HRA pancreatic gross regions
 
 Acquired original CC BY 4.0 female/male HRA pancreatic v1.3 models with five separate gross regions each. [Source mesh review](hra-pancreatic-source-review.md) preserves all 12,894/38,930 triangles, original metadata/crosswalks and four rendered views. Exact boundary comparison resolves every female boundary into opposing source-region pairs, while male body/neck retain 162 unmatched edges; female degenerate and both nonmanifold elements remain unchanged. Corrected the common inventory checker to use the actual FMA neck URI rather than inventing a UBERON-style URI. No patient CT fitting, repair, fine-structure coverage, clinical approval or runtime promotion is claimed. Continuous contacts and independent anatomical review remain required.
+
+### 4 October 2026 — complete HRA pancreatic triangle contacts
+
+[Complete source-contact review](hra-pancreatic-contact-review.md) checked all 12,886/38,930 testable female/male triangles with exact source identities. Female has 17 within-head contacts and eight separately held invalid faces; male has 33 body/neck and eight within-head contacts. Complete lossless evidence and location views retain every affected original face without repairs. All five gross regions remain unapproved; earlier boundary/nonmanifold findings and full reporting-anatomy/source accuracy/independent clinical review holds remain. No runtime promotion or fidelity credit is granted.
