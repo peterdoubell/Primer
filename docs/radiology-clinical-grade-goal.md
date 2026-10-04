@@ -252,3 +252,7 @@ Acquired original CC BY 4.0 female/male HRA pancreatic v1.3 models with five sep
 ### 4 October 2026 — original upstream peritoneal 3D candidates
 
 [Peritoneal source-model review](bodyparts-peritoneal-source-review.md) acquired four version-manifest 4.3 objects under mesentery/mesocolon/posterior-peritoneum labels and preserved all 79,516 source triangles. Fragment counts are 331/331/5/5; nearly matching mesocolon/posterior geometry has same-index whole-triangle displacement bound 0.010049876 mm without fitting. No label identity, complete extent, deduplication, clinical approval or runtime credit is inferred. Upstream ShareAlike terms and source bounds/roles remain separate/held. Eleven scientific checks passed. Continuous contacts and independent fine-anatomical review remain required within unchanged all-radiology scope.
+
+### 4 October 2026 — complete peritoneal source contact checks
+
+[Original peritoneal contact review](bodyparts-peritoneal-contact-review.md) preserves every contact point and source face identity for all four objects, testing all 79,516 original triangles separately in native millimetres. Counts are 2,205/2,204/216/216 beyond ordinary adjacency; nearly repeated candidates are not fused or summed as independent anatomy. Complete lossless evidence and location views retain all source geometry. Nineteen scientific regressions passed. Numerical completion does not approve biological roles, complete surfaces or runtime 3D credit; the full radiology goal remains incomplete.
