@@ -351,17 +351,17 @@ def _render_biliary(plate: RadiologyPlate,
     for y, width in ((322, 185), (357, 150), (392, 116)):
         plate.draw.arc((760 - width, y - 28, 760 + width, y + 28),
                        200, 340, fill=BLUE, width=4)
-    plate.text((760, 275), "upstream ducts dilate", size=21, bold=True,
+    plate.text((760, 275), "review upstream ducts", size=21, bold=True,
                fill=_text_tone(BLUE), anchor="mm")
 
     left = _panel(plate, (80, 255, 390, 735), "FIRST BRANCH", BLUE)
     _note(plate, (left[0] + 5, left[1] + 5, left[2] - 5, left[1] + 120),
-          "Ultrasound: stones, duct calibre, distension and focal tenderness.",
+          "Ultrasound: stones, ducts and distension. Assess tenderness separately.",
           size=21, bold=True)
     _arrow(plate, (390, 470), (490, 470), "US", BLUE)
     right = _panel(plate, (1125, 255, 1520, 735), "WALL THICKENING", CORAL)
     conditions = (("distension", "D"), ("stone", "S"),
-                  ("surrounding change", "P"), ("tenderness", "T"))
+                  ("surrounding change", "P"), ("assessed tenderness", "T"))
     for index, (label, code) in enumerate(conditions):
         y = right[1] + 25 + index * 67
         plate.draw.rectangle((right[0] + 12, y - 17,

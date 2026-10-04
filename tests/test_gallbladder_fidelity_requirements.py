@@ -48,5 +48,5 @@ def test_unassessed_tenderness_is_not_prefilled_as_a_negative_murphy_sign():
     assert 'Sonographic Murphy sign negative' not in str(step['normal'])
     assert 'Static images cannot prove tenderness response' in step['tip']
     assert 'diameter alone does not establish hydrops' in ref['walkthrough']['steps'][1]['look']
-    assert len(ref['reporting']['sources']) == 3
+    assert len(ref['reporting']['sources']) == 5
     assert any('histological layers' in p for p in ref['reporting']['pitfalls'])
