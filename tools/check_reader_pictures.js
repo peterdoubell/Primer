@@ -45,7 +45,7 @@ class Element {
   querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
   addEventListener(type, handler) { (this.listeners[type] ||= []).push(handler); }
   fire(type, extra = {}) {
-    const event = {target: this, prevented: false, preventDefault() { this.prevented = true; }, ...extra};
+    const event = {target: this, prevented: false, preventDefault() { this.prevented = true; }, propagationStopped: false, stopPropagation() { this.propagationStopped = true; }, ...extra};
     (this.listeners[type] || []).forEach(handler => handler(event));
     return event;
   }
@@ -165,3 +165,40 @@ context.attachPictureHandlers(atlas);
 assert.equal(atlasImage.getAttribute('aria-label'),
   'Open picture: Source caption.\nIdentified in this figure: ligament.\nOriginal authors, CC BY 4.0.',
   'Detached clinical atlas captions preserve paragraph boundaries');
+
+// The same source renderer is used in the gallery and reporting steps. A source
+// example must keep its licensing, limitations and white paper background there.
+const { walkthroughFigure, sourceAtlasFigure } = require('../web/app.js');
+const sourceRows = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '../data/radiology/radiology-open-images.json'), 'utf8'));
+const sourceAsset = sourceRows['ra.ct-bowel-wall'].find(a => a.figure_number === 20);
+assert.ok(sourceAsset);
+const sourceFigure = walkthroughFigure(sourceAsset, { sourceRenderer: asset => sourceAtlasFigure(asset, {
+  createElement: (tag, props, ...children) => { const node = el(tag, props, ...children); node.dataset = {...(props?.dataset || {})}; return node; },
+  sourceLink: (title, url) => el('a', {href: url}, title),
+}) });
+assert.ok(sourceFigure.classList.contains('rad-walk-figure'));
+const sourcePicture = sourceFigure.querySelector('img');
+assert.equal(sourcePicture.dataset.fullSrc, sourceAsset.src);
+assert.equal(sourcePicture.dataset.paperBackground, 'white');
+assert.equal(sourcePicture.getAttribute('width'), sourceAsset.width);
+assert.ok(sourceFigure.textContent.includes(sourceAsset.limits));
+assert.ok(sourceFigure.textContent.includes(sourceAsset.attribution));
+assert.ok(sourceFigure.textContent.includes('CC BY 2.0'));
+assert.ok(sourceFigure.querySelectorAll('a').some(a => a.getAttribute('href') === sourceAsset.figure_url));
+
+// Repainting the same source-step host must not stack picture dialogs. A nested
+// host also owns its click/keyboard event instead of opening via the outer host.
+const onceImage = el('img', {src: '/app/source-original.png', alt: 'Original source'});
+const onceHost = el('section', {}, el('figure', {}, onceImage));
+const onceOuter = el('article', {}, onceHost);
+context.attachPictureHandlers(onceHost);
+context.attachPictureHandlers(onceHost);
+context.attachPictureHandlers(onceOuter);
+const beforeRepeatedClick = opened.length;
+const onceClick = onceHost.fire('click', {target: onceImage});
+assert.equal(opened.length, beforeRepeatedClick + 1);
+assert.equal(onceClick.propagationStopped, true);
+const beforeRepeatedKey = opened.length;
+const onceKey = onceHost.fire('keydown', {target: onceImage, key: 'Enter'});
+assert.equal(opened.length, beforeRepeatedKey + 1);
+assert.equal(onceKey.propagationStopped, true);

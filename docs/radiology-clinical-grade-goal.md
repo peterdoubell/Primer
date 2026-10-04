@@ -34,10 +34,10 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - Lung-cancer staging now has 281 draft requirements and 843 image/schematic/model obligations. Individual IASLC station regions, positive-node examples, invasion interfaces, tumour morphology and conditional metastatic/treatment sites remain distinct and unverified. See `lung-cancer-fidelity-scope-review.md`.
 - Mediastinal CT now has 326 draft targets and 978 representation obligations, including modern compartment boundaries, individual stations, named host anatomy and conditional positive mass/invasion sites. No representations are verified. See `mediastinum-fidelity-scope-review.md`.
 - General liver masses and liver LI-RADS now have separate draft inventories: 246/210 targets and 738/630 representation obligations. Actual segment/branch/duct anatomy, positive observations, MRI-only features and phase/eligibility/treatment requirements remain unverified. See `liver-fidelity-scope-review.md`.
-- The remaining 94 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
+- The remaining 90 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
-- The total all-radiology representation count is **unknown**. The 19,617 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 608 distinct resources. One hundred sixty-five have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The total all-radiology representation count is **unknown**. The 23,916 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
+- The current static reference inventory contains 647 distinct resources. Two hundred four have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -337,3 +337,58 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 2026-10-04 — Bowel ischaemia scope and phase limits
 
 [Bowel ischaemia review](bowel-ischaemia-fidelity-scope-review.md) adds 304 targets and 912 representation obligations. Arterial, venous and bowel-wall normal presets retain actual acquisition and assessment limitations, with baseline attenuation, positive injury and reperfusion evidence kept distinct. 152 focused checks and local API plus desktop/mobile reader verification passed. All new coverage remains missing; source acquisition, fine anatomy and clinical review remain pending. Known floor: 19,617 obligations, 94 unexpanded investigations and 106 unreconciled curriculum surfaces; full denominator and clinical readiness remain unestablished.
+
+
+### 2026-10-04 — Original bowel-ischaemia source figures
+
+[Bowel-ischaemia source review](bowel-ischaemia-published-source-review.md) adds eight complete CT figures to the local reader: five new physical files and three reused, unchanged phase-comparison files. Original PDF JPEG streams and decoded samples are preserved, with source panel phase/projection claims, repeated cases and mucosal-versus-transmural pathology limits kept explicit. 153 focused checks and local API/image delivery plus desktop/mobile full-size viewing passed. Rights accounting now records 613 unique figure URLs (170 cleared, 443 unverified); no automatic anatomical, native-acquisition or model coverage is granted. Known floor remains 19,617 obligations, with 94 unexpanded investigations and 106 unreconciled curriculum surfaces. Full readiness remains unestablished; no new deployment is claimed.
+
+
+### 2026-10-04 — Original mesenteric vascular source candidates
+
+[Mesenteric source review](bodyparts-mesenteric-source-review.md) preserves 38 original objects/26,700 triangles from 33 versioned groups, retaining an absent requested branch, seven part-of representation returns, one twelve-edge boundary loop and disconnected marginal/superior rectal artery components. Complete per-object contact records account for 231,629 candidate pairs with no unexpected self-contacts. Fourteen source view sheets retain every triangle at two azimuths; no cap, fit, fusion or inferred lumen/patency is introduced. Cross-object connections, fine branches and independent anatomical/clinical review remain pending. 28 source/parser/boundary/scope checks passed; no runtime/model coverage or deployment is claimed. Full goal remains active: known floor 19,617 obligations, 94 unexpanded investigations, 106 unreconciled curriculum surfaces, total unknown.
+
+
+### 2026-10-04 — Complete mesenteric source-interface review
+
+[Mesenteric interface review](bodyparts-mesenteric-interface-review.md) retains all 703 source-object pair comparisons and 3,823 contacts across 78 pairs. Actual returned FMA labels remain distinct from shared requested parent groups: 177 same-label contacts, 3,646 different-label contacts and a separate 713-contact artery/vein category are preserved. Positive nearest-vertex separation in 77 affected pairs cannot be interpreted as a gap. Every affected face and 7,646 numerical points remain in original-context projections; seven same-label representation comparisons do not provide index correspondence or biological identity. 28 focused checks passed. No cap, repair, fit, pruning, junction/patency approval, runtime model coverage or deployment is claimed. Full radiology goal remains active, with known floor 19,617 obligations, 94 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown.
+
+
+### 2026-10-04 — Bowel-wall CT scope and assessment limits
+
+[Bowel-wall scope review](bowel-wall-fidelity-scope-review.md) defines 405 draft targets/1,215 representation obligations for actual covered segments, observable wall bands, patterns, vessels, mesentery, lumen and complications. Reader presets retain distension, actual contrast/baseline phases and opacification limits; source length schemes, symmetric morphology and target/fat patterns no longer act as universal diagnoses. Intramural-fat examples require the actual feature without assuming disease. 154 focused checks and local API plus desktop/mobile normal-prefill verification passed. All new coverage remains missing; native sources, clinical/anatomical review and shared-lesson reconciliation remain pending. Known floor: 20,832 obligations, 93 unexpanded investigations and 106 unreconciled curriculum surfaces; full total and readiness remain unproven. No new deployment is claimed.
+
+
+### 2026-10-04 — Original bowel-wall CT source packet
+
+[Bowel-wall source review](bowel-wall-published-source-review.md) adds ten complete CT figures with the original CC BY 2.0 grant retained: seven original JPEG streams and three lossless native-grayscale PNGs. Source diagnoses, paired planes, uncertain timing, pathological depth and fistula/whole-wall extent remain qualified; twelve separately credited adaptations remain pending source-specific reuse evidence. 159 focused checks and local API/source-hash plus desktop/mobile full-size viewing passed. Rights inventory: 623 unique resources, 180 cleared and 443 unverified. No automatic structure, acquisition, clinical or model approval is granted. Full radiology goal remains active: known floor 20,832 obligations, 93 unexpanded investigations and 106 unreconciled curriculum surfaces; total unknown. These changes remain local and are not deployed.
+
+
+### 2026-10-04 — Source figures integrated with bowel reporting steps
+
+[Bowel step integration](bowel-source-step-integration-review.md) links all 28 investigation-specific source figure registrations to relevant wall, ischaemia and obstruction steps, retaining exact pixels, credits, limits and full-size controls. The common validator/renderer supports each investigation’s own atlas and prevents foreign/ambiguous IDs; unassigned atlas figures remain in the gallery. Fixed stacked picture dialogs from nested/repeated host handlers. 157 focused checks, exact API/source hashes and desktop/mobile source/closure checks passed. No clinical/anatomical coverage is granted; known floor remains 20,832 obligations with 93 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. These changes are local and not deployed.
+
+
+### 2026-10-04 — Small-bowel tumour CT scope and detection limits
+
+[Small-bowel tumour scope](small-bowel-tumour-fidelity-scope-review.md) adds 329 draft targets/987 representation obligations for actual lesions, bowel/host anatomy, components, lumen effects, vessels, nodes and spread. Negative presets preserve coverage/distension/phase limits; pattern descriptions do not establish histology, grade, microscopic invasion or complete staging. 154 focused checks and local API plus desktop/mobile spread-prefill checks passed. All new coverage remains missing, with native source representations and independent anatomical/clinical validation pending. Full goal remains active: known floor 21,819 obligations, 92 unexpanded investigations and 106 unreconciled curriculum surfaces; total unknown. No new image/model approval or deployment is claimed.
+
+
+### 2026-10-04 — Original small-bowel tumour source figures
+
+[Tumour source review](small-bowel-tumour-published-source-review.md) adds sixteen complete CT-source figures to the local gallery/reporting steps: fourteen native-RGB/ICC PNGs and two original repository JPEGs. CT, MRI, PET/CT and operative panels remain distinct; reported repeated-case links are preserved without inventing identity from similar appearances. Corrected three PDF object assignments after direct visual review. 154 focused checks and exact API hashes plus desktop/mobile full-size checks passed. Rights inventory: 639 unique resources, 196 cleared and 443 unverified. No anatomical, clinical, native-acquisition or model approval is granted; known floor remains 21,819 obligations with 92 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. Full goal stays active; this packet is not deployed.
+
+
+### 2026-10-04 — GI foreign-body form, modality and injury scope
+
+[Foreign-body scope review](gi-foreign-body-fidelity-scope-review.md) defines 355 targets/1,065 obligations for actual objects/endpoints, host segments, wall/lumen/organ/vessel interfaces, local/remote injury and source comparisons. Radiographic projection and CT depth remain separate, and presets retain unassessed detection/injury/migration limits. Free-gas absence, opacity, schematic colour or projected proximity cannot provide complete exclusion, material or penetration proof. 152 focused checks and local API plus desktop/mobile injury-prefill checks passed. All new coverage remains missing; full goal stays active with known floor 22,884 obligations, 91 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. No new image/model approval or deployment is claimed.
+
+
+### 2026-10-04 — Original foreign-body CT and radiographic source packet
+
+[Foreign-body source review](gi-foreign-body-published-source-review.md) adds eight complete source figures to gallery/reporting steps: five CT and three radiographic figures with original JPEG streams and actual CC BY 3.0/4.0 grants retained. Caption/visible-plane discrepancy, site/caliper uncertainty, source-processed insets and separate coin/battery cases remain explicit; radiographic projection does not provide CT depth. 153 focused checks and exact API/source hashes plus desktop/mobile full-size checks passed. Rights inventory: 647 unique resources, 204 cleared and 443 unverified. No acquisition, anatomical/clinical or model approval is granted. Full goal stays active with known floor 22,884 obligations, 91 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. These changes are local and not deployed.
+
+
+### 2026-10-04 — Crohn MRI sequence, tract and comparison scope
+
+[Crohn MRI scope review](crohn-mri-fidelity-scope-review.md) adds 344 draft targets/1,032 obligations for actual bowel/wall regions, strictures, tracts/branches/endpoints, collections, mesentery/vessels, postoperative and covered pelvic anatomy, sequence sources and matched comparisons. Reader presets retain unacquired/limited features and unavailable prior data; isolated signal/diffusion does not quantify fibrosis or establish complete disease phenotype. 151 focused checks and local API plus desktop/mobile comparison-prefill checks passed. All new coverage remains missing; full goal stays active with known floor 23,916 obligations, 90 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. No new native image/model approval or deployment is claimed.

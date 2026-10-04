@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preserve original CBD-stone ultrasound and adjunct figures with explicit rights and independent PDF readback."""
+"""Preserve original bowel CT figures with explicit rights and independent PDF readback."""
 import argparse
 import hashlib
 import io
@@ -19,14 +19,14 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def acquire(root, output):
+def acquire(root, output, selection=None):
     from PIL import Image
     from pypdf import PdfReader
     from pypdf.generic import IndirectObject
     from tools.anatomy_sources.acquire_adrenal_published_figures import download_verified
     from tools.anatomy_sources.acquire_pancreatitis_vascular_figures import exact_license
     rows = []; articles = []
-    for pmc, selected in SELECTION.items():
+    for pmc, selected in (SELECTION if selection is None else selection).items():
         meta_path = root / (pmc + '.1.json'); meta = json.loads(meta_path.read_text())
         http = lambda u: u.replace('s3://pmc-oa-opendata/', 'https://pmc-oa-opendata.s3.amazonaws.com/')
         xml = download_verified(http(meta['xml_url']), root / (pmc + '.1.xml'))
@@ -91,7 +91,7 @@ def acquire(root, output):
     output.mkdir(parents=True, exist_ok=True)
     (output / 'original-source-review.json').write_text(json.dumps({'articles': articles, 'figures': rows, 'rights_holds': holds,
         'clinical_approval': False, 'runtime_promoted': False}, indent=2) + '\n')
-    print('Ten complete original bowel obstruction/ischemia figures verified.')
+    print(str(len(rows)) + ' complete original bowel CT figures verified.')
 
 
 if __name__ == '__main__':

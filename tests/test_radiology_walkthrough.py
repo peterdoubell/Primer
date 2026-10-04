@@ -67,8 +67,9 @@ def test_every_investigation_has_a_complete_authored_walkthrough(references):
             assert 1 <= len(step['findings']) <= 6, identifier
             assert set(step['normal']) <= set(step['sections']), identifier
         figures = {image['id'] for image in ref['key_images']}
+        available = figures | {image['id'] for image in ref.get('structure_atlas', [])}
         placed = set(walk['start']['images']).union(*(step['images'] for step in walk['steps']))
-        assert placed == figures, identifier
+        assert figures <= placed <= available, identifier
         measured = [name for step in walk['steps'] for name in step['measurements']]
         assert set(measured) == {row['name'] for row in ref['reporting']['measurements']}, identifier
 
@@ -220,3 +221,27 @@ def test_walkthrough_helpers_and_step_models_build(references):
     assert report == {'investigations': 137, 'corrected': len(CORRECTED),
                       'builds': report['builds'], 'status': 'passed'}
     assert report['builds'] >= 137
+
+
+def test_reviewed_source_figures_are_linked_to_bowel_steps_without_forcing_gallery_into_intro(references):
+    for key, count in [('ra.ct-bowel-wall', 10), ('ra.ct-bowel-ischaemia', 8), ('ra.ct-bowel-obstruction', 10)]:
+        ref = references[key]
+        atlas = {r['id'] for r in ref['structure_atlas']}
+        placed = {i for s in ref['walkthrough']['steps'] for i in s['images'] if i in atlas}
+        assert len(placed) == count and placed == atlas
+        assert not atlas.intersection(ref['walkthrough']['start']['images'])
+    for key, ref in references.items():
+        atlas = {r['id'] for r in ref.get('structure_atlas', [])}
+        assert not atlas.intersection(ref['walkthrough']['start']['images']), key
+
+
+def test_walkthrough_rejects_foreign_atlas_figures_and_ambiguous_collection_ids(monkeypatch, curriculum):
+    key = 'ra.ct-bowel-wall'
+    _mutated(monkeypatch, key, lambda e: e['steps'][0].update(images=['open-adrenal-pmc6349247-fig1']))
+    with pytest.raises(ValueError, match='unknown or repeated figure'):
+        radiology_catalog.detail(curriculum, radiology_catalog.resolve(key))
+    monkeypatch.undo()
+    ref = radiology_catalog.detail(curriculum, radiology_catalog.resolve(key))['radiology_reference']
+    ref['structure_atlas'][0]['id'] = ref['key_images'][0]['id']
+    with pytest.raises(ValueError, match='distinct across image collections'):
+        radiology_catalog._walkthrough(radiology_catalog.resolve(key), ref)

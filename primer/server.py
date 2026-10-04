@@ -3665,6 +3665,22 @@ async def source_mesh_delivery(atlas: str, asset: str, request: Request):
     return await app.state.source_static.get_response("anatomy/" + atlas + "/" + asset, request.scope)
 
 
+@app.api_route("/app/illustrations/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def lesson_illustration_delivery(asset: str, request: Request):
+    from .curriculum import LESSON_ILLUSTRATION_URLS
+    url = "/app/illustrations/" + asset
+    if url not in LESSON_ILLUSTRATION_URLS:
+        return JSONResponse({"detail": "Unknown lesson illustration"}, status_code=404)
+    if os.environ.get("VERCEL"):
+        from urllib.parse import quote, urlencode
+        target = "/source-media/illustrations/" + quote(asset, safe="/")
+        query = urlencode(request.query_params.multi_items())
+        if query:
+            target += "?" + query
+        return RedirectResponse(target, status_code=307)
+    return await app.state.source_static.get_response("illustrations/" + asset, request.scope)
+
+
 @app.api_route("/app/reference-media/prenatal-development/prenatal-development.gif", methods=["GET", "HEAD"], include_in_schema=False)
 async def prenatal_gif_delivery():
     if os.environ.get("VERCEL"):

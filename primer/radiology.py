@@ -7,6 +7,7 @@ Radiology Assistant. Original reporting worksheets remain usable offline.
 import copy
 import hashlib
 import json
+import os
 from datetime import date
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -120,6 +121,11 @@ def validate_image_source(url):
         relative = url[len(local_prefix):]
         if any(part in (".", "..", "") for part in relative.split("/")) or "%" in relative:
             raise ValueError("Invalid local radiology image")
+        if os.environ.get("VERCEL") and not (DATA.parents[1] / "web" / "illustrations").is_dir():
+            from .curriculum import LESSON_ILLUSTRATION_URLS
+            if url not in LESSON_ILLUSTRATION_URLS:
+                raise ValueError("Unknown hosted radiology illustration")
+            return
         root = DATA.parents[1] / "web" / "illustrations"
         path = (root / relative).resolve()
         if root.resolve() not in path.parents or path.suffix != ".webp" or not path.is_file():

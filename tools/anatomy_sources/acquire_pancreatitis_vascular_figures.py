@@ -20,7 +20,7 @@ def exact_license(permissions):
         urls += [v for k,v in element.attrib.items() if k.endswith('href')]
         if element.tag.endswith('license_ref') and element.text:urls.append(element.text.strip())
     found={url.replace('http://','https://').rstrip('/')+'/' for url in urls if 'creativecommons.org/licenses/' in url}
-    for name,url in [('CC BY 4.0','https://creativecommons.org/licenses/by/4.0/'),('CC BY 3.0','https://creativecommons.org/licenses/by/3.0/')]:
+    for name,url in [('CC BY 4.0','https://creativecommons.org/licenses/by/4.0/'),('CC BY 3.0','https://creativecommons.org/licenses/by/3.0/'),('CC BY 2.0','https://creativecommons.org/licenses/by/2.0/')]:
         if found=={url}:return name,url
     raise ValueError('Original source grant is missing, ambiguous or restricted')
 

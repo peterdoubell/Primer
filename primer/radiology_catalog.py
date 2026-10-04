@@ -194,7 +194,10 @@ def _walkthrough(item, ref):
         complete = False
     else:
         complete = True
-    images = [image['id'] for image in ref['key_images']]
+    key_images = [image['id'] for image in ref['key_images']]
+    images = key_images + [image['id'] for image in ref.get('structure_atlas', [])]
+    if len(images) != len(set(images)):
+        raise ValueError('Walkthrough figure IDs must be distinct across image collections: ' + item['id'])
     measures = [row['name'] for row in guide['measurements']]
     region = mesh_region(ref['spatial_model']['family'])
     allowed_parts = set(_mesh_regions()[region]) if region else set()
@@ -249,7 +252,7 @@ def _walkthrough(item, ref):
         raise ValueError('Every measurement needs a reporting step: ' + item['id'])
     return {'reviewed_at': _steps()['reviewed_at'].get(item['id'], guide['reviewed_at']),
             'complete': complete, 'template_id': template['id'],
-            'start': {'sections': headings[:first], 'images': [i for i in images if i not in used_images]},
+            'start': {'sections': headings[:first], 'images': [i for i in key_images if i not in used_images]},
             'steps': steps, 'finish': {'sections': headings[last + 1:]}}
 
 
@@ -521,7 +524,7 @@ def _structure_atlases():
         for image in images:
             if image['id'] in seen or image.get('kind') not in {'clinical-image', 'schematic'}:
                 raise ValueError('Invalid or duplicated MSK atlas figure')
-            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Schematic'}:
+            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
             if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
                 raise ValueError('MSK source panel needs an explicit publication panel identifier')

@@ -51,6 +51,7 @@ from typing import Dict, List, Optional
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CURRICULUM_DIR = os.path.join(ROOT, "data", "curriculum")
 ILLUSTRATION_ROOT = os.path.join(ROOT, "web", "illustrations")
+ILLUSTRATION_MANIFEST = os.path.join(ROOT, "data", "lesson-illustrations.json")
 
 
 def _webp_dimensions(path: str):
@@ -79,6 +80,26 @@ def _webp_dimensions(path: str):
 
 def _discover_lesson_illustrations():
     """Build URL metadata from the trusted static tree, never authored input."""
+    # Hosted illustration bytes are published by the static builder. CI checks
+    # this manifest against every original; clinical source images stay local.
+    if os.environ.get("VERCEL") and not os.path.isdir(ILLUSTRATION_ROOT):
+        with open(ILLUSTRATION_MANIFEST, encoding="utf-8") as manifest:
+            records = json.load(manifest)
+        if not isinstance(records, dict) or not records:
+            raise ValueError("Hosted lesson illustration manifest is empty")
+        images = {}
+        for url, record in records.items():
+            if (len(url) > 256 or not url.startswith("/app/illustrations/")
+                    or not url.endswith(("-800.webp", "-1600.webp"))
+                    or not re.fullmatch(r"[a-z0-9/-]+", url.removeprefix("/app/illustrations/").removesuffix(".webp"))
+                    or any(part in ("", ".", "..") for part in url.split("/")[1:])
+                    or not isinstance(record, dict)
+                    or set(record) != {"width", "height", "sha256"}
+                    or any(type(record.get(key)) is not int or record[key] <= 0 for key in ("width", "height"))
+                    or not re.fullmatch(r"[0-9a-f]{64}", record.get("sha256", ""))):
+                raise ValueError("Invalid hosted lesson illustration manifest entry")
+            images[url] = (record["width"], record["height"])
+        return images
     images = {}
     for directory, _, filenames in os.walk(ILLUSTRATION_ROOT):
         for filename in filenames:
