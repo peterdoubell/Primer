@@ -226,9 +226,10 @@
   },
   "ra.ultrasound-bile-duct-stones": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Trace the bile duct using positional changes and appropriate windows; document fasting status and whether the distal duct is seen."
+        "Trace the bile duct using positional changes and appropriate windows; document fasting status and whether the distal duct is seen.",
+        "Record actual proximal/mid/distal and outlet visibility, source windows/planes, position changes, Doppler use and limits. Distinguish transabdominal ultrasound from endoscopic or intraoperative sources; an examination subtype does not lend another its field or diagnostic performance."
       ],
       "checklist": [
         {
@@ -262,7 +263,11 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Duct calibre depends on context; a nonvisualised distal duct cannot be reported as stone-free."
+        "Duct calibre depends on context; a nonvisualised distal duct cannot be reported as stone-free.",
+        "A negative or limited ultrasound cannot establish clearance of unvisualised duct regions; persistent clinical suspicion requires appropriate specialist/risk-pathway assessment.",
+        "A dilated or nondilated duct does not uniquely establish or exclude a stone or active obstruction; integrate directly seen material, actual transition, prior surgery and clinical/biochemical context.",
+        "Apparent stone mobility, posterior shadowing and Doppler vessel discrimination require their actual source observations; a parent duct model or still frame cannot invent them.",
+        "Pancreatitis and cholangitis require clinical/laboratory integration. Morphology alone cannot establish their clinical diagnosis or severity."
       ],
       "impression_prompts": [
         "Bile duct assessment and direct and indirect evidence of stones.",
@@ -295,15 +300,24 @@
         {
           "title": "Radiology Assistant — Common Bile Duct Stones - Ultrasound",
           "url": "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg-2"
+        },
+        {
+          "title": "ASGE 2019 — evaluation and management of choledocholithiasis",
+          "url": "https://doi.org/10.1016/j.gie.2018.10.001"
+        },
+        {
+          "title": "TG18 — cholangitis diagnostic criteria and severity",
+          "url": "https://doi.org/10.1002/jhbp.512"
         }
       ]
     }
   },
   "ra.ultrasound-gallbladder": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Examine the gallbladder in multiple positions when feasible; correlate focal tenderness and record fasting or contraction."
+        "Examine the gallbladder in multiple positions when feasible; correlate focal tenderness and record fasting or contraction.",
+        "Record which regions were visualised, actual position changes, fasting/contraction, tenderness assessment and any analgesia or other limitation. Record whether Doppler and dynamic compression/mobility were performed; a still frame cannot provide those observations."
       ],
       "checklist": [
         {
@@ -337,7 +351,12 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Wall thickening alone is nonspecific, especially in a contracted gallbladder or systemic oedema."
+        "Wall thickening alone is nonspecific, especially in a contracted gallbladder or systemic oedema.",
+        "A sonographic Murphy sign is a directly assessed tenderness response, not an image feature. Do not prefill a negative result if it was not assessed or cannot be assessed reliably.",
+        "TG18 cholecystitis assessment combines local and systemic inflammatory findings with characteristic imaging; ultrasound alone does not establish the complete clinical diagnosis or severity.",
+        "A rounded or large gallbladder alone does not establish hydrops or ongoing obstruction; distension and shape require actual measurements, dynamic assessment where appropriate and clinical/timing context.",
+        "Apparent sonographic wall layers are not automatically separately resolved histological layers. A parent gallbladder envelope cannot supply wall thickness, intramural lesions or vascularity.",
+        "Characteristic intramural spaces and reverberation support adenomyomatosis, but a single comet-tail artefact does not exclude coexisting or mimicking malignancy; inspect complete wall/lesion and hepatic interfaces."
       ],
       "impression_prompts": [
         "Obstruction, inflammatory findings and causes of gallbladder wall thickening.",
@@ -376,15 +395,28 @@
         {
           "title": "Radiology Assistant — Gallbladder wall thickening",
           "url": "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening"
+        },
+        {
+          "title": "Tokyo Guidelines 2018 — diagnostic criteria and severity grading of acute cholecystitis",
+          "url": "https://doi.org/10.1002/jhbp.515"
+        },
+        {
+          "title": "Bonatti et al. — gallbladder adenomyomatosis imaging and pitfalls",
+          "url": "https://doi.org/10.1007/s13244-017-0544-7"
+        },
+        {
+          "title": "Riddell et al. — gallbladder polyps and adenomyomatosis",
+          "url": "https://doi.org/10.1259/bjr.20220115"
         }
       ]
     }
   },
   "ra.biliary-duct-pathology": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Specify ultrasound, CT or MRCP coverage; use duct-oriented images to establish the distribution and cause of biliary abnormality."
+        "Specify ultrasound, CT or MRCP coverage; use duct-oriented images to establish the distribution and cause of biliary abnormality.",
+        "Record actual CT contrast phases, MRI/MRCP source sequences, ultrasound visibility and pre-/post-drainage timing. Projection images alone cannot establish every duct/stricture boundary; record unassessed branches and instrument-related limitations."
       ],
       "checklist": [
         {
@@ -418,13 +450,19 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Duct dilatation is a finding, not a specific aetiology; correlate the transition and morphology."
+        "Duct dilatation is a finding, not a specific aetiology; correlate the transition and morphology.",
+        "Imaging supports the anatomical component of cholangitis assessment but cannot diagnose or exclude the clinical syndrome alone; systemic inflammation and cholestasis require clinical/laboratory evidence.",
+        "Stricture length, shouldering, beading and enhancement overlap between inflammatory and malignant disease; no length threshold or isolated negative brushing proves benignity.",
+        "Bismuth–Corlette describes hilar ductal distribution, not complete staging or a standalone operative verdict; actual duct variants, vessel interfaces, lobar change and acquired distant disease remain separate.",
+        "MRCP signal voids may represent stone, air, flow or other material; review source images and the actual clinical/instrumentation context rather than projection alone."
       ],
       "impression_prompts": [
         "Duct dilatation, strictures and congenital or acquired biliary disease.",
         "State the dominant abnormality, relevant extent and examination limitations."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate suspected infected obstruction urgently when clinical deterioration is reported; imaging grades neither sepsis nor organ dysfunction by morphology alone."
+      ],
       "template_sections": [
         {
           "heading": "DUCT DISTRIBUTION",
@@ -451,15 +489,24 @@
         {
           "title": "Radiology Assistant — Biliary duct pathology",
           "url": "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology"
+        },
+        {
+          "title": "BSG cholangiocarcinoma guideline (published 2023; Gut 2024)",
+          "url": "https://doi.org/10.1136/gutjnl-2023-330029"
+        },
+        {
+          "title": "Tokyo Guidelines 2018 — diagnostic criteria and severity grading of acute cholangitis",
+          "url": "https://doi.org/10.1002/jhbp.512"
         }
       ]
     }
   },
   "ra.ct-bowel-ischaemia": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Review arterial and venous information available on the CT; state limitations if mesenteric vessel or bowel enhancement assessment is incomplete."
+        "Review arterial and venous information available on the CT; state limitations if mesenteric vessel or bowel enhancement assessment is incomplete.",
+        "Record actual unenhanced, arterial and venous source acquisitions, vessel opacification, bowel coverage and assessment limits. Baseline high wall attenuation is not itself enhancement; unavailable phases cannot become normal vessel or enhancement statements."
       ],
       "checklist": [
         {
@@ -487,7 +534,10 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Pneumatosis is not by itself proof of irreversible bowel injury; interpret the entire vascular and clinical pattern."
+        "Pneumatosis is not by itself proof of irreversible bowel injury; interpret the entire vascular and clinical pattern.",
+        "Patent large arteries do not exclude non-occlusive ischaemia; assessed vessel extent and clinical/physiological context remain necessary.",
+        "Apparent enhancement on a high-attenuation wall must be interpreted with actual unenhanced/enhanced sources when available; a model colour cannot provide perfusion.",
+        "Absent enhancement or a paper-thin wall can be highly concerning without independently establishing every layer of histological necrosis or a complete clinical viability verdict."
       ],
       "impression_prompts": [
         "Vascular findings and bowel changes in suspected ischaemia.",
@@ -522,6 +572,14 @@
         {
           "title": "Radiology Assistant — Bowel Ischemia - Video Lectures",
           "url": "https://radiologyassistant.nl/abdomen/bowel/bowel-ischemia"
+        },
+        {
+          "title": "WSES 2022 acute mesenteric ischaemia guideline",
+          "url": "https://doi.org/10.1186/s13017-022-00443-x"
+        },
+        {
+          "title": "Nakamura et al. — CT findings and small-bowel ischaemia mechanisms",
+          "url": "https://doi.org/10.1007/s11604-022-01367-x"
         }
       ]
     }
@@ -5889,6 +5947,196 @@
         {
           "title": "AGA clinical guidance — Management of pancreatic necrosis",
           "url": "https://gastro.org/clinical-guidance/management-of-pancreatic-necrosis/"
+        }
+      ],
+      "reviewed_at": "2026-10-04"
+    }
+  },
+  "ra.adrenal-lesions": {
+    "reporting": {
+      "protocol": [
+        "Review prior studies and distinguish a true incidentaloma from an oncology or endocrine investigation.",
+        "Record actual noncontrast and contrast acquisitions/times, CT ROI representativeness, paired in-/opposed-phase MRI quality and any prior-study comparability. Do not apply incidentaloma pathways to oncology or endocrine presentations without their separate clinical context."
+      ],
+      "checklist": [
+        {
+          "label": "Context",
+          "detail": "Record known cancer, symptoms and prior size."
+        },
+        {
+          "label": "Morphology",
+          "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+        },
+        {
+          "label": "Lipid",
+          "detail": "Measure unenhanced attenuation or paired chemical-shift signal."
+        },
+        {
+          "label": "Behaviour",
+          "detail": "Compare growth using consistent planes and review local invasion."
+        },
+        {
+          "label": "Integration",
+          "detail": "Separate imaging characterisation from biochemical function."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Unenhanced attenuation",
+          "method": "For a homogeneous lesion, use a representative unenhanced ROI covering most of the lesion (ESE/ENSAT Table 4 specifies at least 75%) without surrounding-tissue contamination. Record heterogeneity; do not select a reassuring component to classify the entire heterogeneous mass.",
+          "pitfall": "A postcontrast HU value cannot be used as an unenhanced lipid criterion."
+        },
+        {
+          "name": "Growth",
+          "method": "Report absolute mm change and percentage using dated comparable studies.",
+          "pitfall": "Different planes and partial volume may produce apparent growth."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Hormonal activity cannot be excluded by benign imaging morphology.",
+        "Washout overlap occurs in non-adenomas; do not diagnose an adenoma from washout alone in a discordant lesion.",
+        "A low-attenuation homogeneous adrenal lesion can be benign without proving adenoma histology; a nonenhancing cyst and a fat-predominant myelolipoma require their own composition assessment.",
+        "Small foci of macroscopic fat do not uniquely establish myelolipoma, and chemical-shift signal loss is not a universal adenoma or nonfunctioning-lesion diagnosis.",
+        "Keep ESE/ENSAT 2023 recommendations separate from the Seow 2025 proposed pathway adopted by the updated source; record the framework and its incidentaloma/endocrine eligibility.",
+        "Before considering biopsy, exclude phaeochromocytoma, confirm imaging remains indeterminate and confirm histology would change management. Suspected adrenocortical carcinoma needs expert assessment rather than routine biopsy."
+      ],
+      "impression_prompts": [
+        "State whether imaging demonstrates a benign lipid-rich lesion or remains indeterminate.",
+        "Describe growth, heterogeneity or invasion that changes concern.",
+        "Relate any recommendation to the incidental, oncologic or endocrine context."
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "CLINICAL CONTEXT",
+          "body": "Discovery: [incidental / oncology / endocrine workup]. Known malignancy: [ ]. Prior study/date: [ ]."
+        },
+        {
+          "heading": "MORPHOLOGY",
+          "body": "Side: [ ]. Maximum diameter: [ ] mm. Homogeneity: [ ]. Fat/haemorrhage/necrosis: [ ]."
+        },
+        {
+          "heading": "LIPID CHARACTERISATION",
+          "body": "Unenhanced attenuation: [ ] HU, ROI [ ]. Chemical-shift loss: [present / absent / not performed]."
+        },
+        {
+          "heading": "ADDITIONAL CHARACTERISATION",
+          "body": "Contrast phases/timing if used: [ ]. Washout values/method if obtained: [ ]. Discordant features: [ ]."
+        },
+        {
+          "heading": "CHANGE AND EXTENT",
+          "body": "Prior/current dimensions: [ ]. Growth: [ ] mm / [ ]%. Local invasion/nodes: [ ]. Contralateral adrenal: [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant — Characterization of Adrenal lesions - Update",
+          "url": "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1"
+        },
+        {
+          "title": "ESE/ENSAT adrenal incidentaloma guideline (2023)",
+          "url": "https://doi.org/10.1093/ejendo/lvad066"
+        },
+        {
+          "title": "Seow et al. (2025) — proposed true-incidentaloma pathway and washout evidence review",
+          "url": "https://doi.org/10.1186/s13244-025-02015-4"
+        }
+      ],
+      "reviewed_at": "2026-10-04"
+    }
+  },
+  "ra.ct-bowel-obstruction": {
+    "reporting": {
+      "protocol": [
+        "Trace bowel through transition points on multiplanar CT; assess wall enhancement with available contrast phases.",
+        "Review prior surgery, hernia sites and malignancy context.",
+        "Record the actual unenhanced/contrast-enhanced acquisitions, phase timing, coverage and limitations. Enhancement cannot be assessed from an unenhanced study; a still frame or schematic loop cannot provide complete bowel continuity or mesenteric vascular anatomy."
+      ],
+      "checklist": [
+        {
+          "label": "Level",
+          "detail": "Identify small versus large bowel and proximal/distal calibre change."
+        },
+        {
+          "label": "Transition",
+          "detail": "Find one or two transition points and describe the cause."
+        },
+        {
+          "label": "Closed loop",
+          "detail": "Look for a C/U configuration, converging vessels and mesenteric twist."
+        },
+        {
+          "label": "Viability",
+          "detail": "Assess enhancement, wall thickness, fluid and pneumatosis."
+        },
+        {
+          "label": "Complication",
+          "detail": "Search for perforation and an obstructing hernia or tumour."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Calibre",
+          "method": "Measure maximum bowel diameter and name the segment.",
+          "pitfall": "Diameter alone does not distinguish ileus from mechanical obstruction."
+        },
+        {
+          "name": "Transition/lesion",
+          "method": "Record level, lesion length and separate transition points.",
+          "pitfall": "A subtle second point may establish a closed loop."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "A closed loop can involve only a short segment without generalised dilatation.",
+        "Preserved enhancement does not exclude evolving strangulation.",
+        "Adhesions may be suspected from context and exclusion of visible alternatives but are not proved simply by an unseen cause at a transition.",
+        "Pneumatosis, fluid, oedema or a whirl require complete anatomical and clinical context; no single sign supplies histological necrosis or a universal diagnosis.",
+        "The absence of suitable contrast/phase data must not become a normal-enhancement statement or proof of viability."
+      ],
+      "impression_prompts": [
+        "State obstruction level, degree and likely cause.",
+        "Explicitly report whether a closed loop is present or suspected.",
+        "Describe ischaemic or perforation features."
+      ],
+      "escalation": [
+        "Communicate suspected closed-loop obstruction, strangulation or perforation immediately."
+      ],
+      "template_sections": [
+        {
+          "heading": "BOWEL CALIBRE",
+          "body": "Dilated bowel: [small / large / both]. Maximum: [ ] mm at [segment]. Distal decompression: [ ]."
+        },
+        {
+          "heading": "TRANSITION",
+          "body": "Transition site(s): [ ]. Cause: [adhesion suspected / hernia / mass / volvulus / other]."
+        },
+        {
+          "heading": "CLOSED-LOOP FEATURES",
+          "body": "Two transition points: [ ]. Loop configuration: [ ]. Mesenteric swirl/convergence: [ ]."
+        },
+        {
+          "heading": "WALL AND MESENTERY",
+          "body": "Enhancement: [ ]. Wall thickening/pneumatosis: [ ]. Mesenteric oedema/free fluid: [ ]."
+        },
+        {
+          "heading": "COMPLICATIONS",
+          "body": "Free gas: [ ]. Hernia contents/neck: [ ]. Obstructing mass: [ ]. Additional transition: [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant — Closed Loop in Small bowel obstruction",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-in-small-bowel-obstruction"
+        },
+        {
+          "title": "Radiology Assistant — Closed Loop Obstruction with video",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/closed-loop-obstruction-with-video"
+        },
+        {
+          "title": "WSES Bologna ASBO guideline — 2017 update, published 2018",
+          "url": "https://doi.org/10.1186/s13017-018-0185-2"
         }
       ],
       "reviewed_at": "2026-10-04"

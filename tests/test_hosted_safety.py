@@ -577,6 +577,7 @@ def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
         '/app/anatomy/verse521/verse521-t1.bin.gz',
         '/app/anatomy/verse521/ct-reference.html',
         '/app/reference-media/prenatal-development/prenatal-development.gif',
+        '/app/reference-media/prenatal-development/day-005.webp',
     ]
     with TestClient(srv.app, follow_redirects=False) as client:
         for path in paths:
@@ -620,3 +621,39 @@ def test_hosted_source_ct_redirect_preserves_encoded_selection(monkeypatch, meth
     assert target.path == '/source-media/anatomy/verse521/ct-reference.html'
     assert parse_qsl(target.query) == parse_qsl(query)
     assert '\r' not in location and '\n' not in location
+
+
+def test_prenatal_cdn_frames_preserve_local_bytes_manifest_and_query(monkeypatch):
+    from pathlib import Path
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, 'secret')
+    path = '/app/reference-media/prenatal-development/day-005.webp'
+    with TestClient(srv.app, follow_redirects=False) as client:
+        monkeypatch.delenv('VERCEL', raising=False)
+        local = client.get(path, auth=('reader', 'secret'))
+        assert local.status_code == 200
+        assert local.content == (Path(srv.WEB_DIR) / 'reference-media/prenatal-development/day-005.webp').read_bytes()
+        monkeypatch.setenv('VERCEL', '1')
+        redirected = client.get(path + '?v=original', auth=('reader', 'secret'))
+        assert redirected.status_code == 307
+        assert redirected.headers['location'] == '/source-media/reference-media/prenatal-development/day-005.webp?v=original'
+        assert client.get('/app/reference-media/prenatal-development/sequence.json', auth=('reader', 'secret')).status_code == 200
+        assert client.get('/app/reference-media/prenatal-development/unknown.webp', auth=('reader', 'secret')).status_code == 404
+
+
+def test_hosted_bundle_excludes_only_cdn_meshes_and_offline_fidelity_files():
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    config = json.loads((root / 'vercel.json').read_text())
+    excluded = config['builds'][0]['config']['excludeFiles']
+    for atlas in ['liu-lumbosacral-sub03', 'verse521']:
+        assert atlas in excluded
+        assert atlas in config['builds'][1]['src']
+    assert 'web/reference-media/prenatal-development/day-*.webp' in excluded
+    assert any(b['src'] == 'web/reference-media/prenatal-development/day-*.webp' and b['use'] == '@vercel/static' for b in config['builds'])
+    rules = (root / '.vercelignore').read_text().splitlines()
+    for name in ['msk-asset-evidence.json', 'msk-structure-requirements.json', 'non-msk-structure-requirements.json', 'radiology-asset-evidence.json']:
+        assert 'data/radiology/' + name in rules
+    assert 'data/radiology/radiology-open-images.json' not in rules
+    assert 'data/radiology/source-anatomy-references.json' not in rules

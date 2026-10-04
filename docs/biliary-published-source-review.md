@@ -1,0 +1,24 @@
+# Original biliary MRCP and ductal-pattern figures
+
+Six complete published figures are now attached to the local biliary duct reader. They come from [Ozkaya et al., 2026](https://doi.org/10.1007/s00261-026-05405-4) and [Chenin et al., 2022](https://doi.org/10.1186/s13244-022-01242-3), with original XML CC BY 4.0 grants and selected figure credits checked separately. Publisher MD5 checks pass for original XML, PDF and every repository figure. Source permissions, captions, object/page identities, authors and exact source fingerprints are preserved in the [original source proof](biliary-published-source-review/original-source-review.json).
+
+Five figures retain the original PDF DCT/JPEG stream byte-for-byte, checked independently against extracted bytes. The normal MRCP figure is an indexed-colour PDF image: its full original indices and palette were independently decoded and compared sample-for-sample with the lossless PNG. Its 1500×991 pixels are retained without invented panel labels. No figure was cropped, resampled, redrawn, smoothed or colour-corrected. Published resolution is not native acquired master resolution or display calibration.
+
+| Original source | Figure | Selected image role | Explicit limits |
+| --- | --- | --- | --- |
+| PMC13476307 | 1 | Single unlettered normal MRCP duct projection | No fabricated A panel; not all branches/walls or calibrated 3D anatomy |
+| PMC13476307 | 5 | MRI A/B, study-specific Type D and medial cystic-duct variants | Separate variant examples, not one patient tree or universal classification |
+| PMC13476307 | 6 | MRI A/B, vascular-compression and pancreas-divisum examples | Separate examples, no dynamic-function or same-patient assumption |
+| PMC9287528 | 9 | MRI/MRCP B/D, with separate ultrasound A and CT C | Hamartoma/noncommunication source context; other modalities cannot supply MRI features |
+| PMC9287528 | 10 | MRI A–C, Caroli source pattern | Sequence/panel correspondence remains unverified; no independent fibrosis/histological diagnosis |
+| PMC9287528 | 12 | MRI A/B, central-dot and portal-hypertension source context | No complete duct communications, vessel branches or functional drainage proof |
+
+Direct visual review of Figure 10 raised a caption/layout correspondence concern: the caption assigns B to portal-phase T1 and C to MRCP, while the displayed B resembles a duct projection. This is an inspection inference, not a corrected sequence identity. The original pixels/caption are preserved and the reader discloses the uncertainty; no panel is relabelled or credited for a precise sequence-dependent feature.
+
+Rights holds are retained for three other candidates. PMC3292642 original XML supplies copyright without an explicit reusable licence; this is unresolved clearance, not a claim that no licence exists elsewhere. PMC9116710 supplies a conditional pandemic-duration research grant, which does not establish current commercial redistribution for Primer. PMC11419767 supplies CC BY-NC-ND 4.0. Their figures remain outside runtime. The 2026 paper's Figures 2–4 are separately credited adaptations and are also excluded pending their own rights review.
+
+[Packaging evidence](biliary-published-source-review/packaged-source-images.json) binds all six runtime files to the original streams/pixels. Attribution and rights evidence hashes are present, but every structure binding and coverage map remains empty with anatomical review pending. Source descriptions of normal anatomy/variants are explicitly typed and cannot stand for positive stone or tumour evidence. No source case count, whole duct volume, complete branching/wall geometry, clinical syndrome or approved 3D model is inferred from publication figures.
+
+All six complete layouts were inspected together in a contact sheet. Local API delivery and every served file SHA-256 matched the preserved source files. Desktop 1440×1000 and mobile 390×844 reader checks loaded all six at original dimensions with no page errors or page overflow; full-size viewing of the normal MRCP figure retained 1500×991 pixels. Desktop, mobile fit view and full-size presentation were directly inspected. The owned browser and local server were closed after verification. 181 focused source/scope/catalogue/reporting checks passed.
+
+For reproduction, acquire the original PMC *.1 metadata/XML/PDF snapshots under the ignored source root, extract with `pdfimages -png -j`, then run `tools/anatomy_sources/acquire_biliary_published_figures.py` with `--source-root` and `--output`, followed by the packaging tool. Acquisition needs Pillow and pypdf. Raw snapshots remain outside version control/runtime. Every fine duct/branch/lesion/vascular requirement, original modality/phase evidence and independent specialist approval remains necessary within the full radiology goal. No production deployment or complete clinical/commercial readiness is claimed.

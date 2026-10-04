@@ -499,7 +499,7 @@
           "normal": "Normal adrenal glands without a focal lesion.",
           "findings": [
             "[Right / left] adrenal nodule __ mm, homogeneous and well defined.",
-            "Myelolipoma: adrenal lesion with macroscopic fat.",
+            "Fat-predominant adrenal lesion, compatible with myelolipoma; soft-tissue components and discordant features: [ ].",
             "Heterogeneous adrenal mass __ mm with necrosis and calcification.",
             "Adrenal cyst with a thin wall and fluid attenuation."
           ],
@@ -507,11 +507,8 @@
             "adrenal-image-1"
           ],
           "landmark": "adrenals",
-          "parts": [
-            "FJ3147",
-            "FJ3145"
-          ],
-          "tip": "Macroscopic fat in an adrenal mass is diagnostic of myelolipoma."
+          "parts": [],
+          "tip": "Predominant macroscopic fat and confirmed adrenal origin support myelolipoma. Small fat foci can occur in other tumours; assess the complete mass, soft-tissue components and discordant features. Current 3D context has no source adrenal-gland mesh; kidney meshes cannot represent gland or lesion morphology."
         },
         {
           "label": "Lipid characterisation",
@@ -519,9 +516,9 @@
           "sections": [
             "LIPID CHARACTERISATION"
           ],
-          "look": "Unenhanced CT with a large ROI over at least half of the lesion avoiding edges; in- and opposed-phase MRI.",
+          "look": "True unenhanced CT, representative ROI over most of a homogeneous lesion without outside-tissue contamination, and actual matched in-/opposed-phase MRI if obtained. Heterogeneity limits whole-lesion classification.",
           "findings": [
-            "Unenhanced attenuation __ HU (10 HU or less), diagnostic of a lipid-rich adenoma.",
+            "Homogeneous lesion measuring __ HU on true unenhanced CT (10 HU or less), with benign imaging features; endocrine function assessed separately.",
             "Signal loss on opposed-phase MRI, compatible with an adenoma.",
             "Unenhanced attenuation __ HU; lipid-poor lesion, indeterminate."
           ],
@@ -533,7 +530,7 @@
             "Unenhanced attenuation"
           ],
           "landmark": "adrenals",
-          "tip": "An unenhanced attenuation of 10 HU or less indicates a lipid-rich adenoma; no further imaging is needed for that lesion."
+          "tip": "ESE/ENSAT 2023 requires homogeneity and true unenhanced attenuation of 10 HU or less for no further imaging, independently of size. Imaging does not settle hormonal function or uniquely prove adenoma histology."
         },
         {
           "label": "Contrast behaviour and discordant features",
@@ -541,7 +538,7 @@
           "sections": [
             "ADDITIONAL CHARACTERISATION"
           ],
-          "look": "Portal venous and 15-minute delayed phases if acquired; absolute washout 60% or more and relative washout 40% or more favour adenoma.",
+          "look": "Record actual acquisition times and matched ROIs if a washout study exists. Historical absolute 60%/relative 40% thresholds have overlap and do not prove adenoma. ESE/ENSAT Table 4 lists cautious relative >58% evidence; the Seow 2025 proposal recommends abandoning washout for true incidentalomas.",
           "findings": [
             "Absolute washout __% and relative washout __% on a dedicated adrenal protocol.",
             "Washout values favour adenoma but the lesion is heterogeneous; discordant features remain.",
@@ -551,7 +548,7 @@
             "adrenal-image-2"
           ],
           "landmark": "adrenals",
-          "tip": "Washout overlaps between adenomas and other lesions; do not rely on it when morphology is atypical."
+          "tip": "Identify the selected framework and clinical population. Do not use a reassuring washout or focal chemical-shift loss to classify a heterogeneous mass as benign; imaging cannot exclude phaeochromocytoma."
         },
         {
           "label": "Growth and local extent",
@@ -560,7 +557,7 @@
             "CHANGE AND EXTENT"
           ],
           "look": "Same plane and window as the prior study; renal vein and IVC; the contralateral adrenal.",
-          "normal": "Stable size compared with [date]; no local invasion; contralateral adrenal normal.",
+          "normal": "No local invasion identified; contralateral adrenal without a focal lesion. Prior comparison: [date / unavailable]; interval change: [ ].",
           "findings": [
             "Growth from __ mm to __ mm since [date] (__ mm, __%).",
             "Invasion of the [IVC / renal vein / kidney], raising concern for adrenocortical carcinoma.",
@@ -573,13 +570,8 @@
             "Growth"
           ],
           "landmark": "adrenals",
-          "parts": [
-            "FJ3147",
-            "FJ3145",
-            "FJ2038",
-            "FJ2046"
-          ],
-          "tip": "A lesion larger than 4 cm, heterogeneous or growing raises concern for malignancy."
+          "parts": [],
+          "tip": "Record size, homogeneity, true unenhanced attenuation and clinical context together. For an indeterminate lesion under ESE/ENSAT follow-up, significant growth requires more than 20% AND at least 5 mm in maximum diameter over 6–12 months. The source model does not depict adrenal/renal venous thrombus or tumour invasion; renal arteries cannot stand for veins."
         }
       ]
     },
@@ -682,7 +674,7 @@
             "DUCT VISIBILITY"
           ],
           "look": "Subcostal and intercostal windows, patient in left posterior oblique or upright position to move duodenal gas; follow the duct to the pancreatic head.",
-          "normal": "Common bile duct visualised along its whole course to the papilla.",
+          "normal": "Directly visualised duct segments: [proximal / mid / distal]. Outlet/papilla seen: [ ]. Unassessed regions and limitations: [ ].",
           "findings": [
             "Proximal and mid common bile duct visualised; the distal duct is obscured by bowel gas.",
             "Distal duct seen to the pancreatic head."
@@ -697,7 +689,7 @@
             "DUCT CALIBRE"
           ],
           "look": "Measure inner wall to inner wall, perpendicular to the duct, at its widest visible point; look for parallel-channel sign in the liver.",
-          "normal": "Common bile duct __ mm (normal); no intrahepatic duct dilatation.",
+          "normal": "CBD inner diameter: [ ] mm at [site]. Interpretation in clinical/postoperative context: [ ]. Intrahepatic duct assessment and coverage: [ ].",
           "findings": [
             "Dilated common bile duct __ mm with intrahepatic duct dilatation.",
             "Common bile duct __ mm after cholecystectomy, without intrahepatic dilatation."
@@ -717,8 +709,8 @@
           "sections": [
             "INTRADUCTAL CONTENTS"
           ],
-          "look": "Scan along the duct in longitudinal and transverse planes; change patient position to show mobility.",
-          "normal": "No intraductal stone or sludge.",
+          "look": "Scan along the duct in longitudinal and transverse planes; change patient position to show mobility. Record whether position changes and mobility were actually assessed, and use adequate Doppler when needed to distinguish vessels from ducts.",
+          "normal": "No stone or sludge identified in the visualised duct regions. Unassessed segments and limits: [ ]; this does not establish whole-duct clearance.",
           "findings": [
             "Echogenic __ mm stone with acoustic shadowing in the distal common bile duct.",
             "Intraductal sludge without shadowing."
@@ -726,7 +718,8 @@
           "images": [
             "biliary-image-3"
           ],
-          "landmark": "ducts"
+          "landmark": "ducts",
+          "tip": "Positive source observations and negative-examination limits are separate. A limited ultrasound is not whole-duct clearance; use the actual clinical risk pathway when suspicion remains."
         },
         {
           "label": "Gallbladder",
@@ -750,13 +743,14 @@
             "OBSTRUCTION AND COMPLICATIONS"
           ],
           "look": "Pancreatic head and body; hepatic duct at the gallbladder neck; liver for abscess.",
-          "normal": "No biliary obstruction, pancreatitis or cholangitis features.",
+          "normal": "Obstruction demonstrated in visualised regions: [ ]. Pancreatic/inflammatory findings and coverage: [ ]. Clinical/laboratory assessment for pancreatitis or cholangitis: [ ].",
           "findings": [
             "Obstruction at the level of the distal common bile duct by a stone.",
             "Enlarged hypoechoic pancreas, compatible with biliary pancreatitis.",
             "Stone impacted in the cystic duct compressing the common hepatic duct (Mirizzi syndrome)."
           ],
-          "landmark": "pancreas"
+          "landmark": "pancreas",
+          "tip": "Ultrasound morphology supports anatomical assessment but does not establish or exclude clinical pancreatitis/cholangitis or grade organ dysfunction."
         }
       ]
     },
@@ -769,7 +763,7 @@
             "CONTENTS AND NECK"
           ],
           "look": "Supine and left lateral decubitus scanning; follow the gallbladder into the neck and cystic duct.",
-          "normal": "No gallstones or sludge.",
+          "normal": "No stones or sludge identified in the visualised gallbladder. Neck/cystic-duct visibility and examination limits: [ ].",
           "findings": [
             "Multiple mobile gallstones, largest __ mm.",
             "Stone impacted in the gallbladder neck, not moving with position change.",
@@ -779,7 +773,7 @@
             "biliary-image-1"
           ],
           "landmark": "gallbladder",
-          "tip": "An impacted neck stone does not move when the patient turns; this is the key to obstruction."
+          "tip": "Immobile neck material may support impaction only after actual position-change assessment. Slow movement, incomplete neck/cystic-duct visibility and clinical/timing context can limit interpretation."
         },
         {
           "label": "Distension",
@@ -787,7 +781,7 @@
           "sections": [
             "DISTENSION"
           ],
-          "look": "Transverse diameter and shape: a rounded gallbladder is distended.",
+          "look": "Measure long and short axes and record shape, fasting/contraction and timing. If feasible, assess actual compressibility; a rounded contour or diameter alone does not establish hydrops.",
           "normal": "Gallbladder not distended.",
           "findings": [
             "Distended, rounded gallbladder (transverse diameter __ mm), compatible with hydrops."
@@ -820,14 +814,15 @@
             "LOCAL INFLAMMATION"
           ],
           "look": "Probe pressure directly over the gallbladder; pericholecystic fat and fluid.",
-          "normal": "Sonographic Murphy sign negative; no pericholecystic fluid.",
+          "normal": "Sonographic Murphy sign: [positive / negative / not assessed or unreliable]. Pericholecystic fluid: [ ]. Clinical/systemic inflammatory context: [ ].",
           "findings": [
-            "Positive sonographic Murphy sign with pericholecystic fluid: acute cholecystitis.",
+            "Positive sonographic Murphy sign with pericholecystic fluid: findings support acute cholecystitis when integrated with the clinical and laboratory context.",
             "Intraluminal membranes and irregular wall: gangrenous cholecystitis.",
             "Gas in the gallbladder wall: emphysematous cholecystitis.",
             "Focal wall defect with pericholecystic collection: perforation."
           ],
-          "landmark": "gallbladder"
+          "landmark": "gallbladder",
+          "tip": "Static images cannot prove tenderness response. Document whether and how it was assessed; TG18 diagnosis includes local/systemic inflammatory evidence plus imaging, and severity is not assigned from morphology alone."
         },
         {
           "label": "Bile ducts and systemic context",
@@ -853,7 +848,7 @@
           "sections": [
             "DUCT DISTRIBUTION"
           ],
-          "look": "MRCP maximum-intensity projections and source images; CT or ultrasound duct-oriented images.",
+          "look": "MRCP maximum-intensity projections and source images; CT or ultrasound duct-oriented images. Confirm branches and filling defects on actual source sections; describe unassessed anatomy and projection/partial-volume limitations.",
           "normal": "No intrahepatic or extrahepatic bile duct dilatation.",
           "findings": [
             "Diffuse intrahepatic and extrahepatic duct dilatation to the level of [ ].",
@@ -884,7 +879,7 @@
             "Stricture and duct dimensions"
           ],
           "landmark": "ducts",
-          "tip": "The central dot sign — portal radicles within dilated ducts — is characteristic of Caroli disease."
+          "tip": "The central dot sign — portal radicles within dilated ducts — is characteristic of Caroli disease. Neither stricture length nor one imaging sign proves the entire clinical diagnosis; acquired anatomy and alternative causes remain relevant."
         },
         {
           "label": "Obstructing cause",
@@ -900,7 +895,7 @@
             "Extrinsic compression by [ ]."
           ],
           "landmark": "ducts",
-          "tip": "Duct dilatation is a finding, not a diagnosis; the transition and its morphology point to the cause."
+          "tip": "Duct dilatation is a finding, not a diagnosis; the transition and its morphology point to the cause. Hilar ductal classification is anatomical distribution, not a standalone resectability decision."
         },
         {
           "label": "Liver and vessels",
@@ -924,13 +919,14 @@
             "CONTEXT AND COMPLICATIONS"
           ],
           "look": "Surgical anatomy, stents and drains; periductal enhancement and liver abscesses.",
-          "normal": "No stent or prior biliary surgery; no cholangitis or abscess.",
+          "normal": "No imaging evidence of biliary abscess. Visible stents/drains and postoperative anatomy: [ ]. Clinical/laboratory assessment for cholangitis: [ ]; imaging alone cannot exclude it.",
           "findings": [
             "Biliary stent in situ with pneumobilia.",
             "Periductal enhancement and liver abscesses, compatible with cholangitis.",
             "Enlarged hepatoduodenal ligament nodes."
           ],
-          "landmark": "ducts"
+          "landmark": "ducts",
+          "tip": "Correlate suspected infected obstruction with systemic inflammation and cholestasis. Document device position and actual drainage anatomy; imaging alone does not establish infection or device patency."
         }
       ]
     },
@@ -1035,7 +1031,7 @@
             "ARTERIES"
           ],
           "look": "Arterial phase axial and sagittal reformats along the SMA; emboli lodge a few centimetres beyond the origin.",
-          "normal": "Coeliac trunk, SMA and IMA patent.",
+          "normal": "Arterial assessment: [adequate arterial data / limited / not assessable]. Visualised coeliac/SMA/IMA regions and branches: [ ]. Patency/abnormalities: [ ].",
           "findings": [
             "Abrupt occlusion of the SMA __ cm beyond its origin, compatible with embolism.",
             "Thrombotic occlusion at the SMA origin on a background of atherosclerosis.",
@@ -1054,7 +1050,7 @@
             "VEINS"
           ],
           "look": "Portal venous phase; mesenteric venous arcades and mesenteric oedema.",
-          "normal": "SMV and portal vein patent.",
+          "normal": "Venous assessment/opacification: [adequate / limited / not assessable]. Visualised SMV/portal regions and tributaries: [ ]. Findings: [ ].",
           "findings": [
             "Thrombus in the SMV extending into the portal vein, with mesenteric congestion.",
             "Mesenteric venous engorgement without thrombus."
@@ -1067,8 +1063,8 @@
           "sections": [
             "BOWEL ENHANCEMENT"
           ],
-          "look": "Portal venous phase in soft-tissue window with narrow width; compare adjacent loops.",
-          "normal": "Normal enhancement of the bowel wall.",
+          "look": "Compare actual contrast phases, source baseline attenuation if available and adequately imaged reference bowel. Record absent/limited phases and affected field rather than assuming enhancement or perfusion.",
+          "normal": "Wall enhancement assessment: [adequate actual contrast/phase available / limited / unassessed]. Affected/reference regions and findings: [ ]. Baseline attenuation and comparison limits: [ ].",
           "findings": [
             "Reduced/absent enhancement of a __ cm segment of [jejunum / ileum / colon].",
             "Hyperenhancing, thickened bowel wall (reperfusion or venous congestion).",
@@ -1078,7 +1074,7 @@
             "ra-ct-bowel-ischaemia-source-2"
           ],
           "landmark": "smallbowel",
-          "tip": "Absent wall enhancement is the most specific sign of ischaemia; compare with adjacent normal loops on the same phase."
+          "tip": "Reduced or absent enhancement on suitable actual source images is concerning; compare adequately imaged reference wall and baseline attenuation. Unavailable enhancement is unassessed, and source colours or a still frame cannot establish complete clinical viability."
         },
         {
           "label": "Wall, calibre and mesentery",
@@ -1219,7 +1215,7 @@
           "sections": [
             "BOWEL CALIBRE"
           ],
-          "look": "Coronal reformats; small bowel over 25 mm and colon over 60 mm (caecum over 90 mm) are dilated.",
+          "look": "Coronal reformats; small bowel over 25 mm and colon over 60 mm (caecum over 90 mm) are dilated. Calibre thresholds are descriptive; trace actual continuity, transitions and distal decompression rather than diagnosing mechanical obstruction from size alone.",
           "normal": "No dilated bowel.",
           "findings": [
             "Dilated small bowel to __ mm with collapsed distal ileum and colon: small-bowel obstruction.",
@@ -1249,7 +1245,7 @@
             "Transition/lesion"
           ],
           "landmark": "smallbowel",
-          "tip": "The small-bowel faeces sign helps locate the transition point."
+          "tip": "The small-bowel faeces sign helps locate the transition point. An unseen cause is not proof of an adhesive band; assess actual alternative causes and clinical/surgical context."
         },
         {
           "label": "Closed loop",
@@ -1276,8 +1272,8 @@
           "sections": [
             "WALL AND MESENTERY"
           ],
-          "look": "Compare wall enhancement of the obstructed loop with normal bowel; mesentery for oedema.",
-          "normal": "Normal wall enhancement; no mesenteric oedema or free fluid.",
+          "look": "On appropriate actually acquired contrast images, compare the affected wall with adequately imaged reference bowel and examine mesenteric vessels/soft tissue. Without suitable contrast, state enhancement is unassessed.",
+          "normal": "Wall enhancement assessment: [adequate contrast/phase available / limited / not assessable on this study]; findings: [ ]. Mesenteric oedema/free fluid: [ ]. Viability limitations: [ ].",
           "findings": [
             "Reduced wall enhancement with mesenteric oedema and fluid, raising concern for strangulation.",
             "Pneumatosis of the obstructed loop."
@@ -1286,7 +1282,7 @@
             "bowel-obstruction-image-3"
           ],
           "landmark": "mesentery",
-          "tip": "Preserved enhancement does not exclude evolving strangulation; mesenteric oedema and fluid are early signs."
+          "tip": "Preserved enhancement does not exclude evolving strangulation; mesenteric oedema and fluid are early signs. Normal-looking enhancement is not a clinical guarantee of viability, and unavailable enhancement is not normal."
         },
         {
           "label": "Complications and cause",

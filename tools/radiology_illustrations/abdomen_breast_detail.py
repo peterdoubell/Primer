@@ -351,17 +351,17 @@ def _render_biliary(plate: RadiologyPlate,
     for y, width in ((322, 185), (357, 150), (392, 116)):
         plate.draw.arc((760 - width, y - 28, 760 + width, y + 28),
                        200, 340, fill=BLUE, width=4)
-    plate.text((760, 275), "upstream ducts dilate", size=21, bold=True,
+    plate.text((760, 275), "review upstream ducts", size=21, bold=True,
                fill=_text_tone(BLUE), anchor="mm")
 
     left = _panel(plate, (80, 255, 390, 735), "FIRST BRANCH", BLUE)
     _note(plate, (left[0] + 5, left[1] + 5, left[2] - 5, left[1] + 120),
-          "Ultrasound: stones, duct calibre, distension and focal tenderness.",
+          "Ultrasound: stones, ducts and distension. Assess tenderness separately.",
           size=21, bold=True)
     _arrow(plate, (390, 470), (490, 470), "US", BLUE)
     right = _panel(plate, (1125, 255, 1520, 735), "WALL THICKENING", CORAL)
     conditions = (("distension", "D"), ("stone", "S"),
-                  ("surrounding change", "P"), ("tenderness", "T"))
+                  ("surrounding change", "P"), ("assessed tenderness", "T"))
     for index, (label, code) in enumerate(conditions):
         y = right[1] + 25 + index * 67
         plate.draw.rectangle((right[0] + 12, y - 17,
@@ -965,7 +965,7 @@ def _render_adrenal(plate: RadiologyPlate,
          "HOMOGENEOUS + <=10 HU", GREEN, size=19)
     _note(plate, (inner[0] + 8, inner[1] + 350,
                   inner[2] - 8, inner[3]),
-          "Supports a benign lipid-rich adrenal mass in the applicable setting.",
+          "Supports benign imaging features; endocrine function is separate.",
           size=20, bold=True)
 
     inner = _panel(plate, boxes[1], "CHEMICAL SHIFT MRI", TEAL)
@@ -984,10 +984,10 @@ def _render_adrenal(plate: RadiologyPlate,
            label_at=(inner[2] - 120, inner[1] + 195))
     _note(plate, (inner[0] + 8, inner[1] + 335,
                   inner[2] - 8, inner[3]),
-          "Signal drop demonstrates intracellular lipid; absence is not a diagnosis.",
+          "Matched signal loss supports lipid; it does not uniquely prove adenoma.",
           size=20, bold=True)
 
-    inner = _panel(plate, boxes[2], "WASHOUT: SELECTED CASES", CORAL)
+    inner = _panel(plate, boxes[2], "KINETICS / FRAMEWORK", CORAL)
     graph = (inner[0] + 35, inner[1] + 65, inner[2] - 35, inner[1] + 285)
     plate.arrow((graph[0], graph[3]), (graph[2], graph[3]),
                 fill=INK_SOFT, width=4, head=13)
@@ -1005,7 +1005,7 @@ def _render_adrenal(plate: RadiologyPlate,
                fill=INK_SOFT, anchor="mm")
     _note(plate, (inner[0] + 8, inner[1] + 340,
                   inner[2] - 8, inner[3]),
-          "Kinetics help selected indeterminate lesions; they do not settle every diagnosis.",
+          "Actual timing and framework matter; washout alone is not a diagnosis.",
           size=20, bold=True)
 
 
