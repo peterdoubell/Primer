@@ -524,7 +524,7 @@ def _structure_atlases():
         for image in images:
             if image['id'] in seen or image.get('kind') not in {'clinical-image', 'schematic'}:
                 raise ValueError('Invalid or duplicated MSK atlas figure')
-            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Schematic'}:
+            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
             if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
                 raise ValueError('MSK source panel needs an explicit publication panel identifier')

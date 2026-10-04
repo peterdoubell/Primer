@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 91 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 22,884 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 639 distinct resources. One hundred ninety-six have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 647 distinct resources. Two hundred four have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -382,3 +382,8 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 2026-10-04 — GI foreign-body form, modality and injury scope
 
 [Foreign-body scope review](gi-foreign-body-fidelity-scope-review.md) defines 355 targets/1,065 obligations for actual objects/endpoints, host segments, wall/lumen/organ/vessel interfaces, local/remote injury and source comparisons. Radiographic projection and CT depth remain separate, and presets retain unassessed detection/injury/migration limits. Free-gas absence, opacity, schematic colour or projected proximity cannot provide complete exclusion, material or penetration proof. 152 focused checks and local API plus desktop/mobile injury-prefill checks passed. All new coverage remains missing; full goal stays active with known floor 22,884 obligations, 91 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. No new image/model approval or deployment is claimed.
+
+
+### 2026-10-04 — Original foreign-body CT and radiographic source packet
+
+[Foreign-body source review](gi-foreign-body-published-source-review.md) adds eight complete source figures to gallery/reporting steps: five CT and three radiographic figures with original JPEG streams and actual CC BY 3.0/4.0 grants retained. Caption/visible-plane discrepancy, site/caliper uncertainty, source-processed insets and separate coin/battery cases remain explicit; radiographic projection does not provide CT depth. 153 focused checks and exact API/source hashes plus desktop/mobile full-size checks passed. Rights inventory: 647 unique resources, 204 cleared and 443 unverified. No acquisition, anatomical/clinical or model approval is granted. Full goal stays active with known floor 22,884 obligations, 91 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. These changes are local and not deployed.
