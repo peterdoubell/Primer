@@ -19,7 +19,8 @@
       "ra.ct-peritoneum",
       "ra.ct-peritoneal-carcinomatosis",
       "ra.adrenal-lesions",
-      "ra.biliary-duct-pathology"
+      "ra.biliary-duct-pathology",
+      "ra.ultrasound-gallbladder"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -39419,6 +39420,1993 @@
         {
           "observation": "drainage",
           "evidence": "Actual device/anastomotic geometry plus appropriate independent clinical/procedural patency or leakage evidence."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ultrasound-gallbladder",
+      "module_id": "rad.5.biliary",
+      "title": "Gallbladder ultrasound regions, walls, outlet, dynamic observations and complications",
+      "modality": "Ultrasound with conditional actually acquired CT/MRI adjuncts",
+      "scope_type": "complete_acquired_gallbladder_wall_material_interface_and_complication_case_scope",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_and_clinical_specialist_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "gallbladder-source-0",
+          "title": "Radiology Assistant — obstruction",
+          "url": "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "gallbladder-source-1",
+          "title": "Radiology Assistant — wall thickening",
+          "url": "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "gallbladder-source-2",
+          "title": "TG18 acute cholecystitis diagnostic criteria",
+          "url": "https://doi.org/10.1002/jhbp.515",
+          "review_status": "scope_reviewed_2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "bb81aaaab98804e411414e6e09c8e9a6cbca171d480b718dc4982ba826ec0a15",
+      "reporting_checklist": [
+        {
+          "label": "Contents And Neck",
+          "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+        },
+        {
+          "label": "Distension",
+          "detail": "Assess gallbladder size and configuration."
+        },
+        {
+          "label": "Wall",
+          "detail": "Describe focal or diffuse thickening, layers and vascularity."
+        },
+        {
+          "label": "Local Inflammation",
+          "detail": "Check focal tenderness, adjacent fluid and inflammatory change."
+        },
+        {
+          "label": "Ducts And Context",
+          "detail": "Review biliary dilatation and systemic causes of wall thickening."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "CONTENTS AND NECK",
+          "body": "Stones/sludge: [ ]. Mobility: [ ]. Impacted neck stone: [ ]."
+        },
+        {
+          "heading": "DISTENSION",
+          "body": "Distension: [ ]. Shape: [ ]."
+        },
+        {
+          "heading": "WALL",
+          "body": "Wall thickness: [ ] mm. Pattern/layers: [ ]. Doppler: [ ]."
+        },
+        {
+          "heading": "LOCAL INFLAMMATION",
+          "body": "Sonographic Murphy sign: [ ]. Pericholecystic fluid/fat: [ ]."
+        },
+        {
+          "heading": "DUCTS AND CONTEXT",
+          "body": "CBD: [ ] mm. Intrahepatic ducts: [ ]. Ascites/systemic oedema: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "gallbladder.fundus",
+          "name": "Complete source fundus and its interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.fundus.complete_region",
+              "name": "complete region"
+            },
+            {
+              "id": "gallbladder.fundus.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gallbladder.fundus.inner_wall_margin",
+              "name": "inner wall margin"
+            },
+            {
+              "id": "gallbladder.fundus.outer_wall_margin",
+              "name": "outer wall margin"
+            },
+            {
+              "id": "gallbladder.fundus.adjacent_interface",
+              "name": "adjacent interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.body",
+          "name": "Complete source body and its interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.body.complete_region",
+              "name": "complete region"
+            },
+            {
+              "id": "gallbladder.body.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gallbladder.body.inner_wall_margin",
+              "name": "inner wall margin"
+            },
+            {
+              "id": "gallbladder.body.outer_wall_margin",
+              "name": "outer wall margin"
+            },
+            {
+              "id": "gallbladder.body.adjacent_interface",
+              "name": "adjacent interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.infundibulum",
+          "name": "Complete source infundibulum and its interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.infundibulum.complete_region",
+              "name": "complete region"
+            },
+            {
+              "id": "gallbladder.infundibulum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gallbladder.infundibulum.inner_wall_margin",
+              "name": "inner wall margin"
+            },
+            {
+              "id": "gallbladder.infundibulum.outer_wall_margin",
+              "name": "outer wall margin"
+            },
+            {
+              "id": "gallbladder.infundibulum.adjacent_interface",
+              "name": "adjacent interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.neck",
+          "name": "Complete source neck and its interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.neck.complete_region",
+              "name": "complete region"
+            },
+            {
+              "id": "gallbladder.neck.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gallbladder.neck.inner_wall_margin",
+              "name": "inner wall margin"
+            },
+            {
+              "id": "gallbladder.neck.outer_wall_margin",
+              "name": "outer wall margin"
+            },
+            {
+              "id": "gallbladder.neck.adjacent_interface",
+              "name": "adjacent interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.cystic_duct",
+          "name": "Complete source cystic_duct and its interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.cystic_duct.complete_region",
+              "name": "complete region"
+            },
+            {
+              "id": "gallbladder.cystic_duct.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gallbladder.cystic_duct.inner_wall_margin",
+              "name": "inner wall margin"
+            },
+            {
+              "id": "gallbladder.cystic_duct.outer_wall_margin",
+              "name": "outer wall margin"
+            },
+            {
+              "id": "gallbladder.cystic_duct.adjacent_interface",
+              "name": "adjacent interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.whole",
+          "name": "Whole acquired gallbladder extent and geometry",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.whole.complete_surface",
+              "name": "complete surface"
+            },
+            {
+              "id": "gallbladder.whole.long_axis",
+              "name": "long axis"
+            },
+            {
+              "id": "gallbladder.whole.short_axis",
+              "name": "short axis"
+            },
+            {
+              "id": "gallbladder.whole.anterior_wall",
+              "name": "anterior wall"
+            },
+            {
+              "id": "gallbladder.whole.posterior_wall",
+              "name": "posterior wall"
+            },
+            {
+              "id": "gallbladder.whole.hepatic_surface",
+              "name": "hepatic surface"
+            },
+            {
+              "id": "gallbladder.whole.free_peritoneal_surface",
+              "name": "free peritoneal surface"
+            },
+            {
+              "id": "gallbladder.whole.neck_outlet",
+              "name": "neck outlet"
+            },
+            {
+              "id": "gallbladder.whole.unvisualised_boundary",
+              "name": "unvisualised boundary"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.wall_layers",
+          "name": "Actual wall layers and distinguishable tissue",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.wall_layers.inner_echogenic_layer",
+              "name": "inner echogenic layer"
+            },
+            {
+              "id": "gallbladder.wall_layers.outer_echogenic_layer",
+              "name": "outer echogenic layer"
+            },
+            {
+              "id": "gallbladder.wall_layers.hypoechoic_intermediate_layer",
+              "name": "hypoechoic intermediate layer"
+            },
+            {
+              "id": "gallbladder.wall_layers.mucosa_if_resolved",
+              "name": "mucosa if resolved"
+            },
+            {
+              "id": "gallbladder.wall_layers.muscular_layer_if_resolved",
+              "name": "muscular layer if resolved"
+            },
+            {
+              "id": "gallbladder.wall_layers.perimuscular_tissue_if_resolved",
+              "name": "perimuscular tissue if resolved"
+            },
+            {
+              "id": "gallbladder.wall_layers.serosal_surface_if_present",
+              "name": "serosal surface if present"
+            },
+            {
+              "id": "gallbladder.wall_layers.hepatic_attachment_margin",
+              "name": "hepatic attachment margin"
+            },
+            {
+              "id": "gallbladder.wall_layers.each_thickened_segment",
+              "name": "each thickened segment",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.wall_layers.intramural_cystic_space",
+              "name": "intramural cystic space",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.wall_layers.intramural_echogenic_focus",
+              "name": "intramural echogenic focus",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.wall_layers.wall_layer_disruption",
+              "name": "wall layer disruption",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.neck_outlet",
+          "name": "Actual neck/cystic-duct obstruction and anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.neck_outlet.hartmann_pouch",
+              "name": "hartmann pouch"
+            },
+            {
+              "id": "gallbladder.neck_outlet.cystic_duct_origin",
+              "name": "cystic duct origin"
+            },
+            {
+              "id": "gallbladder.neck_outlet.cystic_duct_course",
+              "name": "cystic duct course"
+            },
+            {
+              "id": "gallbladder.neck_outlet.cystic_duct_common_duct_junction",
+              "name": "cystic duct common duct junction"
+            },
+            {
+              "id": "gallbladder.neck_outlet.cystic_duct_fold_if_resolved",
+              "name": "cystic duct fold if resolved"
+            },
+            {
+              "id": "gallbladder.neck_outlet.impacted_material_margin",
+              "name": "impacted material margin",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.neck_outlet.upstream_lumen",
+              "name": "upstream lumen"
+            },
+            {
+              "id": "gallbladder.neck_outlet.distal_outlet",
+              "name": "distal outlet"
+            },
+            {
+              "id": "gallbladder.neck_outlet.interface_to_common_hepatic_duct",
+              "name": "interface to common hepatic duct"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.contents",
+          "name": "Each actual luminal material/lesion",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.contents.each_stone",
+              "name": "each stone"
+            },
+            {
+              "id": "gallbladder.contents.complete_stone_margin",
+              "name": "complete stone margin"
+            },
+            {
+              "id": "gallbladder.contents.acoustic_shadow_region",
+              "name": "acoustic shadow region"
+            },
+            {
+              "id": "gallbladder.contents.dependent_sludge",
+              "name": "dependent sludge"
+            },
+            {
+              "id": "gallbladder.contents.nondependent_material",
+              "name": "nondependent material"
+            },
+            {
+              "id": "gallbladder.contents.adherent_material",
+              "name": "adherent material"
+            },
+            {
+              "id": "gallbladder.contents.tumefactive_sludge",
+              "name": "tumefactive sludge"
+            },
+            {
+              "id": "gallbladder.contents.blood_product_region",
+              "name": "blood product region"
+            },
+            {
+              "id": "gallbladder.contents.intraluminal_membrane",
+              "name": "intraluminal membrane"
+            },
+            {
+              "id": "gallbladder.contents.intraluminal_gas",
+              "name": "intraluminal gas"
+            },
+            {
+              "id": "gallbladder.contents.fluid_debris_level",
+              "name": "fluid debris level"
+            },
+            {
+              "id": "gallbladder.contents.polypoid_component",
+              "name": "polypoid component"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.lesion",
+          "name": "Each actual mural/polypoid lesion",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.lesion.complete_lesion_margin",
+              "name": "complete lesion margin"
+            },
+            {
+              "id": "gallbladder.lesion.lesion_wall_attachment",
+              "name": "lesion wall attachment"
+            },
+            {
+              "id": "gallbladder.lesion.stalk_if_present",
+              "name": "stalk if present"
+            },
+            {
+              "id": "gallbladder.lesion.broad_base",
+              "name": "broad base"
+            },
+            {
+              "id": "gallbladder.lesion.solid_component",
+              "name": "solid component"
+            },
+            {
+              "id": "gallbladder.lesion.cystic_component",
+              "name": "cystic component"
+            },
+            {
+              "id": "gallbladder.lesion.intramural_sinus_region",
+              "name": "intramural sinus region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.lesion.comet_tail_source_region",
+              "name": "comet tail source region"
+            },
+            {
+              "id": "gallbladder.lesion.calcified_component",
+              "name": "calcified component"
+            },
+            {
+              "id": "gallbladder.lesion.enhancing_component_if_acquired",
+              "name": "enhancing component if acquired"
+            },
+            {
+              "id": "gallbladder.lesion.each_focal_thickening",
+              "name": "each focal thickening"
+            },
+            {
+              "id": "gallbladder.lesion.diffuse_thickening_region",
+              "name": "diffuse thickening region"
+            },
+            {
+              "id": "gallbladder.lesion.irregular_margin",
+              "name": "irregular margin"
+            },
+            {
+              "id": "gallbladder.lesion.lesion_liver_interface",
+              "name": "lesion liver interface"
+            },
+            {
+              "id": "gallbladder.lesion.interrupted_wall_layer",
+              "name": "interrupted wall layer"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.distension",
+          "name": "Actual distension and temporal geometry",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.distension.baseline_whole_lumen",
+              "name": "baseline whole lumen"
+            },
+            {
+              "id": "gallbladder.distension.current_whole_lumen",
+              "name": "current whole lumen"
+            },
+            {
+              "id": "gallbladder.distension.measured_long_axis",
+              "name": "measured long axis"
+            },
+            {
+              "id": "gallbladder.distension.measured_short_axis",
+              "name": "measured short axis"
+            },
+            {
+              "id": "gallbladder.distension.neck_obstruction_site",
+              "name": "neck obstruction site"
+            },
+            {
+              "id": "gallbladder.distension.contracted_region",
+              "name": "contracted region"
+            },
+            {
+              "id": "gallbladder.distension.distended_region",
+              "name": "distended region"
+            },
+            {
+              "id": "gallbladder.distension.compressed_source_region",
+              "name": "compressed source region"
+            },
+            {
+              "id": "gallbladder.distension.noncompressed_source_region",
+              "name": "noncompressed source region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.vascular",
+          "name": "Actual vessels and flow sites",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.vascular.cystic_artery_if_visible",
+              "name": "cystic artery if visible"
+            },
+            {
+              "id": "gallbladder.vascular.arterial_branch_if_visible",
+              "name": "arterial branch if visible"
+            },
+            {
+              "id": "gallbladder.vascular.wall_flow_sampling_region",
+              "name": "wall flow sampling region"
+            },
+            {
+              "id": "gallbladder.vascular.pericholecystic_vessel",
+              "name": "pericholecystic vessel"
+            },
+            {
+              "id": "gallbladder.vascular.hepatic_arterial_interface",
+              "name": "hepatic arterial interface"
+            },
+            {
+              "id": "gallbladder.vascular.portal_venous_interface",
+              "name": "portal venous interface"
+            },
+            {
+              "id": "gallbladder.vascular.hilar_vascular_interface",
+              "name": "hilar vascular interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.local",
+          "name": "Actual inflammatory/collection interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.local.pericholecystic_fluid",
+              "name": "pericholecystic fluid"
+            },
+            {
+              "id": "gallbladder.local.complete_collection_margin",
+              "name": "complete collection margin"
+            },
+            {
+              "id": "gallbladder.local.pericholecystic_fat",
+              "name": "pericholecystic fat"
+            },
+            {
+              "id": "gallbladder.local.gallbladder_fossa",
+              "name": "gallbladder fossa"
+            },
+            {
+              "id": "gallbladder.local.hepatic_bed",
+              "name": "hepatic bed"
+            },
+            {
+              "id": "gallbladder.local.hepatic_hyperaemia_source",
+              "name": "hepatic hyperaemia source"
+            },
+            {
+              "id": "gallbladder.local.wall_oedema_region",
+              "name": "wall oedema region"
+            },
+            {
+              "id": "gallbladder.local.subserosal_oedema_if_resolved",
+              "name": "subserosal oedema if resolved"
+            },
+            {
+              "id": "gallbladder.local.regional_reactive_tissue",
+              "name": "regional reactive tissue"
+            },
+            {
+              "id": "gallbladder.local.focal_tenderness_probe_site",
+              "name": "focal tenderness probe site"
+            },
+            {
+              "id": "gallbladder.local.control_probe_site",
+              "name": "control probe site"
+            },
+            {
+              "id": "gallbladder.local.adjacent_fluid_interface",
+              "name": "adjacent fluid interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Local Inflammation",
+              "detail": "Check focal tenderness, adjacent fluid and inflammatory change."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.complications",
+          "name": "Each actual suspected complicated disease component",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.complications.wall_defect",
+              "name": "wall defect"
+            },
+            {
+              "id": "gallbladder.complications.perforation_site",
+              "name": "perforation site"
+            },
+            {
+              "id": "gallbladder.complications.intraluminal_membrane",
+              "name": "intraluminal membrane"
+            },
+            {
+              "id": "gallbladder.complications.necrotic_wall_region",
+              "name": "necrotic wall region"
+            },
+            {
+              "id": "gallbladder.complications.absent_flow_region_if_assessed",
+              "name": "absent flow region if assessed"
+            },
+            {
+              "id": "gallbladder.complications.intramural_gas",
+              "name": "intramural gas",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.complications.pericholecystic_gas",
+              "name": "pericholecystic gas"
+            },
+            {
+              "id": "gallbladder.complications.intraluminal_gas",
+              "name": "intraluminal gas"
+            },
+            {
+              "id": "gallbladder.complications.differential_adjacent_bowel_gas",
+              "name": "differential adjacent bowel gas"
+            },
+            {
+              "id": "gallbladder.complications.pericholecystic_abscess",
+              "name": "pericholecystic abscess"
+            },
+            {
+              "id": "gallbladder.complications.hepatic_abscess",
+              "name": "hepatic abscess"
+            },
+            {
+              "id": "gallbladder.complications.bile_leak_site_if_supported",
+              "name": "bile leak site if supported"
+            },
+            {
+              "id": "gallbladder.complications.biloma",
+              "name": "biloma"
+            },
+            {
+              "id": "gallbladder.complications.complete_fistulous_tract_if_visible",
+              "name": "complete fistulous tract if visible"
+            },
+            {
+              "id": "gallbladder.complications.fistula_to_duodenum",
+              "name": "fistula to duodenum"
+            },
+            {
+              "id": "gallbladder.complications.fistula_to_colon",
+              "name": "fistula to colon"
+            },
+            {
+              "id": "gallbladder.complications.ectopic_bowel_stone",
+              "name": "ectopic bowel stone"
+            },
+            {
+              "id": "gallbladder.complications.bowel_transition_site",
+              "name": "bowel transition site"
+            },
+            {
+              "id": "gallbladder.complications.gastric_outlet_stone",
+              "name": "gastric outlet stone"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Inflammation",
+              "detail": "Check focal tenderness, adjacent fluid and inflammatory change."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.ducts",
+          "name": "Actual acquired ductal distribution",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.ducts.common_hepatic_duct",
+              "name": "common hepatic duct"
+            },
+            {
+              "id": "gallbladder.ducts.cystic_junction",
+              "name": "cystic junction"
+            },
+            {
+              "id": "gallbladder.ducts.common_bile_duct_visible_segment",
+              "name": "common bile duct visible segment"
+            },
+            {
+              "id": "gallbladder.ducts.distal_common_bile_duct_if_seen",
+              "name": "distal common bile duct if seen"
+            },
+            {
+              "id": "gallbladder.ducts.right_hepatic_duct",
+              "name": "right hepatic duct"
+            },
+            {
+              "id": "gallbladder.ducts.left_hepatic_duct",
+              "name": "left hepatic duct"
+            },
+            {
+              "id": "gallbladder.ducts.visible_intrahepatic_branches",
+              "name": "visible intrahepatic branches"
+            },
+            {
+              "id": "gallbladder.ducts.each_duct_filling_defect",
+              "name": "each duct filling defect",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.ducts.obstruction_transition",
+              "name": "obstruction transition"
+            },
+            {
+              "id": "gallbladder.ducts.upstream_calibre",
+              "name": "upstream calibre"
+            },
+            {
+              "id": "gallbladder.ducts.measured_duct_wall",
+              "name": "measured duct wall"
+            },
+            {
+              "id": "gallbladder.ducts.intraductal_air_if_present",
+              "name": "intraductal air if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.host",
+          "name": "Actual host anatomy and systemic context",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.host.adjacent_hepatic_parenchyma",
+              "name": "adjacent hepatic parenchyma"
+            },
+            {
+              "id": "gallbladder.host.hepatic_capsular_interface",
+              "name": "hepatic capsular interface"
+            },
+            {
+              "id": "gallbladder.host.peritoneal_surface",
+              "name": "peritoneal surface"
+            },
+            {
+              "id": "gallbladder.host.duodenal_interface",
+              "name": "duodenal interface"
+            },
+            {
+              "id": "gallbladder.host.colonic_interface",
+              "name": "colonic interface"
+            },
+            {
+              "id": "gallbladder.host.pancreatic_region_if_acquired",
+              "name": "pancreatic region if acquired"
+            },
+            {
+              "id": "gallbladder.host.portal_hypertension_source_if_present",
+              "name": "portal hypertension source if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.host.ascites_region",
+              "name": "ascites region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.host.right_pleural_fluid_if_acquired",
+              "name": "right pleural fluid if acquired",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.host.pericholecystic_node",
+              "name": "pericholecystic node"
+            },
+            {
+              "id": "gallbladder.host.other_acquired_node",
+              "name": "other acquired node"
+            },
+            {
+              "id": "gallbladder.host.adjacent_organ_lesion_if_present",
+              "name": "adjacent organ lesion if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Local Inflammation",
+              "detail": "Check focal tenderness, adjacent fluid and inflammatory change."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.variants",
+          "name": "Actual region/configuration variants if encountered",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.variants.phrygian_cap_fold",
+              "name": "phrygian cap fold"
+            },
+            {
+              "id": "gallbladder.variants.septated_region",
+              "name": "septated region"
+            },
+            {
+              "id": "gallbladder.variants.duplicated_gallbladder_region",
+              "name": "duplicated gallbladder region"
+            },
+            {
+              "id": "gallbladder.variants.accessory_lumen",
+              "name": "accessory lumen"
+            },
+            {
+              "id": "gallbladder.variants.variant_neck_course",
+              "name": "variant neck course"
+            },
+            {
+              "id": "gallbladder.variants.variant_cystic_insertion",
+              "name": "variant cystic insertion"
+            },
+            {
+              "id": "gallbladder.variants.ectopic_location",
+              "name": "ectopic location"
+            },
+            {
+              "id": "gallbladder.variants.unassessed_variant_extent",
+              "name": "unassessed variant extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.postoperative",
+          "name": "Actual postoperative or device anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.postoperative.gallbladder_remnant",
+              "name": "gallbladder remnant"
+            },
+            {
+              "id": "gallbladder.postoperative.remnant_cystic_duct",
+              "name": "remnant cystic duct"
+            },
+            {
+              "id": "gallbladder.postoperative.anastomotic_interface",
+              "name": "anastomotic interface"
+            },
+            {
+              "id": "gallbladder.postoperative.cholecystostomy_tip",
+              "name": "cholecystostomy tip"
+            },
+            {
+              "id": "gallbladder.postoperative.drainage_sidehole_if_resolved",
+              "name": "drainage sidehole if resolved"
+            },
+            {
+              "id": "gallbladder.postoperative.catheter_wall_relation",
+              "name": "catheter wall relation"
+            },
+            {
+              "id": "gallbladder.postoperative.postoperative_collection",
+              "name": "postoperative collection",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.postoperative.clip_or_surgical_material_source",
+              "name": "clip or surgical material source"
+            },
+            {
+              "id": "gallbladder.postoperative.baseline_preintervention_source",
+              "name": "baseline preintervention source"
+            },
+            {
+              "id": "gallbladder.postoperative.current_postintervention_source",
+              "name": "current postintervention source"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.positive_examples",
+          "name": "Separate acquired pathology patterns",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.positive_examples.calculous_cholecystitis_pattern",
+              "name": "calculous cholecystitis pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.acalculous_cholecystitis_pattern",
+              "name": "acalculous cholecystitis pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.chronic_cholecystitis_pattern",
+              "name": "chronic cholecystitis pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.xanthogranulomatous_pattern",
+              "name": "xanthogranulomatous pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.adenomyomatosis_pattern",
+              "name": "adenomyomatosis pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.polypoid_pattern",
+              "name": "polypoid pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.suspicious_carcinoma_pattern",
+              "name": "suspicious carcinoma pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.calcified_wall_pattern",
+              "name": "calcified wall pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.haemorrhagic_pattern",
+              "name": "haemorrhagic pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.gangrenous_pattern",
+              "name": "gangrenous pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.emphysematous_pattern",
+              "name": "emphysematous pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.perforation_pattern",
+              "name": "perforation pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.transient_obstructive_pattern",
+              "name": "transient obstructive pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.secondary_oedema_pattern",
+              "name": "secondary oedema pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.systemic_ascites_pattern",
+              "name": "systemic ascites pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.fistula_pattern",
+              "name": "fistula pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.gallstone_ileus_pattern",
+              "name": "gallstone ileus pattern"
+            },
+            {
+              "id": "gallbladder.positive_examples.bouveret_pattern",
+              "name": "bouveret pattern"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Inflammation",
+              "detail": "Check focal tenderness, adjacent fluid and inflammatory change."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.ultrasound",
+          "name": "Actual ultrasound evidence and artifact boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.ultrasound.anterior_wall_measurement_source",
+              "name": "anterior wall measurement source"
+            },
+            {
+              "id": "gallbladder.ultrasound.perpendicular_measurement_plane",
+              "name": "perpendicular measurement plane"
+            },
+            {
+              "id": "gallbladder.ultrasound.layer_detail_source",
+              "name": "layer detail source"
+            },
+            {
+              "id": "gallbladder.ultrasound.shadow_source",
+              "name": "shadow source"
+            },
+            {
+              "id": "gallbladder.ultrasound.reverberation_source",
+              "name": "reverberation source"
+            },
+            {
+              "id": "gallbladder.ultrasound.dirty_shadow_source",
+              "name": "dirty shadow source"
+            },
+            {
+              "id": "gallbladder.ultrasound.comet_tail_source",
+              "name": "comet tail source"
+            },
+            {
+              "id": "gallbladder.ultrasound.doppler_wall_region",
+              "name": "doppler wall region"
+            },
+            {
+              "id": "gallbladder.ultrasound.doppler_vessel_reference",
+              "name": "doppler vessel reference"
+            },
+            {
+              "id": "gallbladder.ultrasound.focal_pressure_site",
+              "name": "focal pressure site"
+            },
+            {
+              "id": "gallbladder.ultrasound.positional_material_source",
+              "name": "positional material source"
+            },
+            {
+              "id": "gallbladder.ultrasound.compressed_contour_source",
+              "name": "compressed contour source"
+            },
+            {
+              "id": "gallbladder.ultrasound.unvisualised_neck_limit",
+              "name": "unvisualised neck limit"
+            },
+            {
+              "id": "gallbladder.ultrasound.partial_volume_or_gain_limit",
+              "name": "partial volume or gain limit"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Distension",
+              "detail": "Assess gallbladder size and configuration."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Inflammation",
+              "detail": "Check focal tenderness, adjacent fluid and inflammatory change."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.ct",
+          "name": "Actual CT adjunct if acquired",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.ct.unenhanced_calcification_source",
+              "name": "unenhanced calcification source"
+            },
+            {
+              "id": "gallbladder.ct.unenhanced_blood_region",
+              "name": "unenhanced blood region"
+            },
+            {
+              "id": "gallbladder.ct.contrast_wall_source",
+              "name": "contrast wall source"
+            },
+            {
+              "id": "gallbladder.ct.hepatic_interface_source",
+              "name": "hepatic interface source"
+            },
+            {
+              "id": "gallbladder.ct.intramural_gas_source",
+              "name": "intramural gas source",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "gallbladder.ct.pericholecystic_fluid_source",
+              "name": "pericholecystic fluid source"
+            },
+            {
+              "id": "gallbladder.ct.fistula_region_source",
+              "name": "fistula region source"
+            },
+            {
+              "id": "gallbladder.ct.ectopic_stone_source",
+              "name": "ectopic stone source"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Inflammation",
+              "detail": "Check focal tenderness, adjacent fluid and inflammatory change."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gallbladder.mri",
+          "name": "Actual MRI adjunct if acquired",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "gallbladder.mri.source_t2_region",
+              "name": "source t2 region"
+            },
+            {
+              "id": "gallbladder.mri.source_t1_region",
+              "name": "source t1 region"
+            },
+            {
+              "id": "gallbladder.mri.haemorrhage_signal_region",
+              "name": "haemorrhage signal region"
+            },
+            {
+              "id": "gallbladder.mri.mrcp_neck_source",
+              "name": "mrcp neck source"
+            },
+            {
+              "id": "gallbladder.mri.mrcp_cystic_connection_source",
+              "name": "mrcp cystic connection source"
+            },
+            {
+              "id": "gallbladder.mri.matched_enhancement_region",
+              "name": "matched enhancement region"
+            },
+            {
+              "id": "gallbladder.mri.source_dwi_if_acquired",
+              "name": "source dwi if acquired"
+            },
+            {
+              "id": "gallbladder.mri.adc_if_acquired",
+              "name": "adc if acquired"
+            },
+            {
+              "id": "gallbladder.mri.contrast_excretion_or_leak_source_if_acquired",
+              "name": "contrast excretion or leak source if acquired"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual region, wall/tissue component, material/lesion, duct/vessel interface and complication on the acquired field and correct temporal/clinical context. Whole source extent and adequate resolution must support the claim. A parent envelope, still image or model colour cannot supply wall layers, mobility, compressibility, tenderness, Doppler flow or clinical disease severity.",
+          "requirement_basis": "effective_gallbladder_contents_neck_wall_inflammation_and_context_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Contents And Neck",
+              "detail": "Assess mobility of stones or sludge and the gallbladder neck."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Wall",
+              "detail": "Describe focal or diffuse thickening, layers and vascularity."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Local Inflammation",
+              "detail": "Check focal tenderness, adjacent fluid and inflammatory change."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Ducts And Context",
+              "detail": "Review biliary dilatation and systemic causes of wall thickening."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/lk-jg",
+            "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening",
+            "https://doi.org/10.1002/jhbp.515"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual region, wall layer/lesion, material, duct/vessel interface, acquired complication and device",
+            "Actual scan coverage, resolution, modality, positions, temporal and clinical context",
+            "Dynamic tenderness/mobility/compressibility and flow need their own actual evidence"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "complete_case_anatomy_pending",
+          "detail": "Prototype targets do not establish exhaustive patient-specific wall, material, variant and complication extent."
+        },
+        {
+          "code": "dynamic_observations_not_still_frames",
+          "detail": "Static images and source envelopes cannot establish mobility, compression response, tenderness or clinical functionality."
+        },
+        {
+          "code": "wall_layers_and_histology_unverified",
+          "detail": "Sonographic layers are not automatically resolved histological layers; source resolution and exact tissue mapping require review."
+        },
+        {
+          "code": "clinical_framework_reconciliation_pending",
+          "detail": "Imaging patterns do not replace TG18 local/systemic evidence, organ dysfunction or individualized clinical management."
+        },
+        {
+          "code": "source_quality_rights_and_anatomy_pending",
+          "detail": "Every source image/model needs native acquisition evidence, original rights and independent anatomical/clinical review."
+        },
+        {
+          "code": "shared_lesson_other_topics_pending",
+          "detail": "The rest of the shared gallbladder/duct/stone lesson and management assertions remain under separate full review."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "mobility",
+          "evidence": "Actual position-change assessment or appropriate temporal sequence, with slow movement and incomplete visibility limits."
+        },
+        {
+          "observation": "compressibility",
+          "evidence": "Actual before/during compression observation; a round still-frame contour cannot prove hydrops."
+        },
+        {
+          "observation": "tenderness",
+          "evidence": "Direct documented probe-site/control-site response with assessability and clinical limitations."
+        },
+        {
+          "observation": "vascularity",
+          "evidence": "Actual Doppler acquisition/settings and adequately resolved wall/vessel sites, not model colours."
+        },
+        {
+          "observation": "diagnosis_and_severity",
+          "evidence": "TG18 clinical/systemic evidence and relevant organ dysfunction, not wall thickness or images alone."
+        },
+        {
+          "observation": "complication_extent",
+          "evidence": "Original wall/collection/gas/fistula geometry and clinical/source correspondence, not parent-envelope inference."
         }
       ]
     }

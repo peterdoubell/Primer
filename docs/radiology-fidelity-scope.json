@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2517,7 +2517,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3905,9 +3905,10 @@
       "modality": "Ultrasound",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-04",
           "protocol": [
-            "Examine the gallbladder in multiple positions when feasible; correlate focal tenderness and record fasting or contraction."
+            "Examine the gallbladder in multiple positions when feasible; correlate focal tenderness and record fasting or contraction.",
+            "Record which regions were visualised, actual position changes, fasting/contraction, tenderness assessment and any analgesia or other limitation. Record whether Doppler and dynamic compression/mobility were performed; a still frame cannot provide those observations."
           ],
           "checklist": [
             {
@@ -3941,7 +3942,11 @@
           "classification": null,
           "criteria_table": null,
           "pitfalls": [
-            "Wall thickening alone is nonspecific, especially in a contracted gallbladder or systemic oedema."
+            "Wall thickening alone is nonspecific, especially in a contracted gallbladder or systemic oedema.",
+            "A sonographic Murphy sign is a directly assessed tenderness response, not an image feature. Do not prefill a negative result if it was not assessed or cannot be assessed reliably.",
+            "TG18 cholecystitis assessment combines local and systemic inflammatory findings with characteristic imaging; ultrasound alone does not establish the complete clinical diagnosis or severity.",
+            "A rounded or large gallbladder alone does not establish hydrops or ongoing obstruction; distension and shape require actual measurements, dynamic assessment where appropriate and clinical/timing context.",
+            "Apparent sonographic wall layers are not automatically separately resolved histological layers. A parent gallbladder envelope cannot supply wall thickness, intramural lesions or vascularity."
           ],
           "impression_prompts": [
             "Obstruction, inflammatory findings and causes of gallbladder wall thickening.",
@@ -3980,6 +3985,10 @@
             {
               "title": "Radiology Assistant \u2014 Gallbladder wall thickening",
               "url": "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening"
+            },
+            {
+              "title": "Tokyo Guidelines 2018 \u2014 diagnostic criteria and severity grading of acute cholecystitis",
+              "url": "https://doi.org/10.1002/jhbp.515"
             }
           ]
         },
@@ -3999,7 +4008,7 @@
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Examine the gallbladder in multiple positions when feasible; correlate focal tenderness and record fasting or contraction.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
+                "body": "Examine the gallbladder in multiple positions when feasible; correlate focal tenderness and record fasting or contraction.\nRecord which regions were visualised, actual position changes, fasting/contraction, tenderness assessment and any analgesia or other limitation. Record whether Doppler and dynamic compression/mobility were performed; a still frame cannot provide those observations.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
@@ -4035,7 +4044,11 @@
               }
             ],
             "notes": [
-              "Wall thickening alone is nonspecific, especially in a contracted gallbladder or systemic oedema."
+              "Wall thickening alone is nonspecific, especially in a contracted gallbladder or systemic oedema.",
+              "A sonographic Murphy sign is a directly assessed tenderness response, not an image feature. Do not prefill a negative result if it was not assessed or cannot be assessed reliably.",
+              "TG18 cholecystitis assessment combines local and systemic inflammatory findings with characteristic imaging; ultrasound alone does not establish the complete clinical diagnosis or severity.",
+              "A rounded or large gallbladder alone does not establish hydrops or ongoing obstruction; distension and shape require actual measurements, dynamic assessment where appropriate and clinical/timing context.",
+              "Apparent sonographic wall layers are not automatically separately resolved histological layers. A parent gallbladder envelope cannot supply wall thickness, intramural lesions or vascularity."
             ],
             "sources": [
               {
@@ -4045,6 +4058,10 @@
               {
                 "title": "Radiology Assistant \u2014 Gallbladder wall thickening",
                 "url": "https://radiologyassistant.nl/abdomen/biliary-system/gallbladder-wall-thickening"
+              },
+              {
+                "title": "Tokyo Guidelines 2018 \u2014 diagnostic criteria and severity grading of acute cholecystitis",
+                "url": "https://doi.org/10.1002/jhbp.515"
               }
             ]
           }
@@ -4070,7 +4087,7 @@
                 "CONTENTS AND NECK"
               ],
               "normal": {
-                "CONTENTS AND NECK": "No gallstones or sludge."
+                "CONTENTS AND NECK": "No stones or sludge identified in the visualised gallbladder. Neck/cystic-duct visibility and examination limits: [ ]."
               },
               "findings": [
                 "Multiple mobile gallstones, largest __ mm.",
@@ -4084,7 +4101,7 @@
               "landmark": "gallbladder",
               "parts": [],
               "look": "Supine and left lateral decubitus scanning; follow the gallbladder into the neck and cystic duct.",
-              "tip": "An impacted neck stone does not move when the patient turns; this is the key to obstruction."
+              "tip": "Immobile neck material may support impaction only after actual position-change assessment. Slow movement, incomplete neck/cystic-duct visibility and clinical/timing context can limit interpretation."
             },
             {
               "label": "Distension",
@@ -4102,7 +4119,7 @@
               "measurements": [],
               "landmark": "gallbladder",
               "parts": [],
-              "look": "Transverse diameter and shape: a rounded gallbladder is distended."
+              "look": "Measure long and short axes and record shape, fasting/contraction and timing. If feasible, assess actual compressibility; a rounded contour or diameter alone does not establish hydrops."
             },
             {
               "label": "Wall",
@@ -4134,10 +4151,10 @@
                 "LOCAL INFLAMMATION"
               ],
               "normal": {
-                "LOCAL INFLAMMATION": "Sonographic Murphy sign negative; no pericholecystic fluid."
+                "LOCAL INFLAMMATION": "Sonographic Murphy sign: [positive / negative / not assessed or unreliable]. Pericholecystic fluid: [ ]. Clinical/systemic inflammatory context: [ ]."
               },
               "findings": [
-                "Positive sonographic Murphy sign with pericholecystic fluid: acute cholecystitis.",
+                "Positive sonographic Murphy sign with pericholecystic fluid: findings support acute cholecystitis when integrated with the clinical and laboratory context.",
                 "Intraluminal membranes and irregular wall: gangrenous cholecystitis.",
                 "Gas in the gallbladder wall: emphysematous cholecystitis.",
                 "Focal wall defect with pericholecystic collection: perforation."
@@ -4146,7 +4163,8 @@
               "measurements": [],
               "landmark": "gallbladder",
               "parts": [],
-              "look": "Probe pressure directly over the gallbladder; pericholecystic fat and fluid."
+              "look": "Probe pressure directly over the gallbladder; pericholecystic fat and fluid.",
+              "tip": "Static images cannot prove tenderness response. Document whether and how it was assessed; TG18 diagnosis includes local/systemic inflammatory evidence plus imaging, and severity is not assigned from morphology alone."
             },
             {
               "label": "Bile ducts and systemic context",
@@ -4252,10 +4270,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "951959ef5c7829f5a5dbc6de252ac21f50f910829f468b3374029e598f161b8a",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "bb81aaaab98804e411414e6e09c8e9a6cbca171d480b718dc4982ba826ec0a15",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -4629,7 +4647,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11010,7 +11028,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11395,7 +11413,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11921,7 +11939,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12342,7 +12360,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12757,7 +12775,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13676,7 +13694,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14137,7 +14155,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15084,7 +15102,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15890,7 +15908,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -22592,7 +22610,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26760,7 +26778,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -29394,7 +29412,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -29789,7 +29807,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -51716,7 +51734,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7bf373abeefbb4d0b3f2569a110c14b311a92aad1b4f98128ad578f6cf8c812a",
+      "structure_inventory_sha256": "b906e44a84d8d01e6f18321316e69d9b1cd936e801ade0106318eb9459d83170",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
