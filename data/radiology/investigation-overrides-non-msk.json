@@ -683,9 +683,10 @@
   },
   "ra.mri-crohn": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Record oral distension and motion; correlate T2, diffusion and contrast-enhanced enterography sequences when acquired."
+        "Record oral distension and motion; correlate T2, diffusion and contrast-enhanced enterography sequences when acquired.",
+        "Record actual T2/fat-suppressed, diffusion/ADC, pre/post-contrast and cine or repeated acquisitions, distension, motion and field. Unacquired or limited sequence-dependent features remain unassessed; CT, Doppler, model colours and selected still frames cannot supply MRI signal, diffusion or motility."
       ],
       "checklist": [
         {
@@ -720,7 +721,12 @@
       "criteria_table": null,
       "pitfalls": [
         "Poor distension may mimic disease.",
-        "Inflammation and fibrosis can coexist; diffusion alone does not quantify activity."
+        "Inflammation and fibrosis can coexist; diffusion alone does not quantify activity.",
+        "Describe the predominant observed phenotype and any mixed inflammatory/chronic features; low T2 signal or homogeneous enhancement does not independently quantify fibrosis or exclude superimposed inflammation.",
+        "DWI appearance requires actual diffusion and ADC/source context; diffusion alone does not establish activity, histological fibrosis or a malignant diagnosis.",
+        "Fixed narrowing requires actual persistence/temporal or repeated-source evidence; one poorly distended still frame cannot prove a fixed stricture.",
+        "A partial tract, covered pelvis or source colour does not establish every fistula endpoint or a complete dedicated perianal assessment.",
+        "Interval response requires matched source sites, comparable acquisition/distension and actual prior data; missing comparison cannot become no change or remission."
       ],
       "impression_prompts": [
         "Small bowel activity, strictures and penetrating complications.",
@@ -732,32 +738,47 @@
       "template_sections": [
         {
           "heading": "BOWEL MAP",
-          "body": "Segments: [ ]. Length: [ ] cm. Distension: [ ]. Anastomoses: [ ]."
+          "body": "Map assessment/coverage and distension: [adequate / limited / unassessed]. Assessed segments, involvement/skip sites, length and anastomoses: [ ]. Unassessed regions: [ ]."
         },
         {
           "heading": "MURAL ACTIVITY",
-          "body": "Thickness: [ ] mm. Oedema/ulcers: [ ]. Enhancement: [ ]. Diffusion: [ ]."
+          "body": "Actual acquired sequences and assessment limits: [ ]. Observed thickness/T2 wall and perimural signal, ulcers/bands if resolved: [ ]. Enhancement: [assessed / limited / unassessed], findings [ ]. DWI/ADC: [assessed / limited / unassessed], findings [ ]. Predominant/mixed features and interpretation limits: [ ]."
         },
         {
           "heading": "STRICTURES",
-          "body": "Site/length: [ ]. Narrowing: [ ]. Upstream calibre: [ ] mm."
+          "body": "Narrowing assessment: [adequate / limited / unassessed]. Actual site/length, wall, persistence evidence and upstream calibre: [ ]. Distension/temporal limits and certainty: [ ]."
         },
         {
           "heading": "PENETRATING DISEASE",
-          "body": "Sinus/fistula endpoints: [ ]. Abscess location/size: [ ]."
+          "body": "Penetrating-disease assessment: [adequate / limited / unassessed]. Each tract/course and actually resolved endpoints: [ ]. Collections/location/size and host interfaces: [ ]. Unassessed tract or pelvic extent: [ ]."
         },
         {
           "heading": "MESENTERY AND COMPARISON",
-          "body": "Comb sign/fat change: [ ]. Nodes: [ ]. Extraintestinal findings: [ ]. Interval change: [ ]."
+          "body": "Assessed mesentery/nodes and covered extraintestinal sites: [ ]. Observations: [ ]. Comparison: [adequate matched source / limited / unavailable]. Prior date/sites, observed changes and limits: [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Crohn's disease - role of MRI",
           "url": "https://radiologyassistant.nl/abdomen/bowel/crohn-s-disease"
+        },
+        {
+          "title": "ESGAR ESR Essentials 2025 — Luminal Crohn MRI/IUS assessment",
+          "url": "https://doi.org/10.1007/s00330-025-11620-2"
+        },
+        {
+          "title": "ECCO–ESGAR–ESP–IBUS 2025 Part 2 — Scores and technical principles",
+          "url": "https://doi.org/10.1093/ecco-jcc/jjaf107"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Map actual assessed segments, distension, disease sites and postoperative anatomy with source limits.",
+      "Describe each acquired sequence and the observed mural/extramural features; unacquired enhancement, diffusion or motility remains unassessed.",
+      "Inflammatory and chronic features can coexist; MRI appearance alone does not quantify histological fibrosis or assign biological activity from one sign.",
+      "Record every narrowing, persistence evidence, upstream effect, tract endpoint and collection separately.",
+      "Assess interval change only with reliable prior/source correspondence; routine enterography does not replace a complete dedicated perianal examination."
+    ]
   },
   "ra.ultrasound-ibd": {
     "reporting": {
