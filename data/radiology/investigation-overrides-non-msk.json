@@ -382,9 +382,10 @@
   },
   "ra.biliary-duct-pathology": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Specify ultrasound, CT or MRCP coverage; use duct-oriented images to establish the distribution and cause of biliary abnormality."
+        "Specify ultrasound, CT or MRCP coverage; use duct-oriented images to establish the distribution and cause of biliary abnormality.",
+        "Record actual CT contrast phases, MRI/MRCP source sequences, ultrasound visibility and pre-/post-drainage timing. Projection images alone cannot establish every duct/stricture boundary; record unassessed branches and instrument-related limitations."
       ],
       "checklist": [
         {
@@ -418,13 +419,19 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Duct dilatation is a finding, not a specific aetiology; correlate the transition and morphology."
+        "Duct dilatation is a finding, not a specific aetiology; correlate the transition and morphology.",
+        "Imaging supports the anatomical component of cholangitis assessment but cannot diagnose or exclude the clinical syndrome alone; systemic inflammation and cholestasis require clinical/laboratory evidence.",
+        "Stricture length, shouldering, beading and enhancement overlap between inflammatory and malignant disease; no length threshold or isolated negative brushing proves benignity.",
+        "Bismuth–Corlette describes hilar ductal distribution, not complete staging or a standalone operative verdict; actual duct variants, vessel interfaces, lobar change and acquired distant disease remain separate.",
+        "MRCP signal voids may represent stone, air, flow or other material; review source images and the actual clinical/instrumentation context rather than projection alone."
       ],
       "impression_prompts": [
         "Duct dilatation, strictures and congenital or acquired biliary disease.",
         "State the dominant abnormality, relevant extent and examination limitations."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate suspected infected obstruction urgently when clinical deterioration is reported; imaging grades neither sepsis nor organ dysfunction by morphology alone."
+      ],
       "template_sections": [
         {
           "heading": "DUCT DISTRIBUTION",
@@ -451,6 +458,14 @@
         {
           "title": "Radiology Assistant — Biliary duct pathology",
           "url": "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology"
+        },
+        {
+          "title": "BSG cholangiocarcinoma guideline (published 2023; Gut 2024)",
+          "url": "https://doi.org/10.1136/gutjnl-2023-330029"
+        },
+        {
+          "title": "Tokyo Guidelines 2018 — diagnostic criteria and severity grading of acute cholangitis",
+          "url": "https://doi.org/10.1002/jhbp.512"
         }
       ]
     }

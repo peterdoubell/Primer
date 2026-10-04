@@ -18,7 +18,8 @@
       "ra.pancreatic-cysts",
       "ra.ct-peritoneum",
       "ra.ct-peritoneal-carcinomatosis",
-      "ra.adrenal-lesions"
+      "ra.adrenal-lesions",
+      "ra.biliary-duct-pathology"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -36340,6 +36341,3084 @@
         {
           "observation": "extent",
           "evidence": "Complete actual venous/organ margins and acquired regional/distant field; unacquired disease is unknown."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.biliary-duct-pathology",
+      "module_id": "rad.5.biliary",
+      "title": "Biliary duct distribution, morphology, obstruction and acquired complication extent",
+      "modality": "Ultrasound/CT/MRI with conditional actual contrast cholangiography",
+      "scope_type": "complete_acquired_duct_tree_lesion_vascular_interface_and_postoperative_case_scope",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_and_hepatobiliary_specialist_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "biliary-source-0",
+          "title": "Radiology Assistant — biliary duct pathology",
+          "url": "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "biliary-source-1",
+          "title": "BSG cholangiocarcinoma guideline",
+          "url": "https://doi.org/10.1136/gutjnl-2023-330029",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "biliary-source-2",
+          "title": "TG18 cholangitis diagnosis and severity",
+          "url": "https://doi.org/10.1002/jhbp.512",
+          "review_status": "scope_reviewed_2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
+      "reporting_checklist": [
+        {
+          "label": "Duct Distribution",
+          "detail": "Map intrahepatic and extrahepatic abnormalities."
+        },
+        {
+          "label": "Duct Morphology",
+          "detail": "Characterise strictures, beading and cystic dilatation."
+        },
+        {
+          "label": "Obstructing Cause",
+          "detail": "Identify intraductal material, mural lesion or external compression."
+        },
+        {
+          "label": "Liver And Vessels",
+          "detail": "Assess lobar change, enhancement and vascular relationships."
+        },
+        {
+          "label": "Context And Complications",
+          "detail": "Record prior surgery and associated infection or drainage devices."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "DUCT DISTRIBUTION",
+          "body": "Affected ducts: [ ]. Focal/diffuse dilatation: [ ]."
+        },
+        {
+          "heading": "DUCT MORPHOLOGY",
+          "body": "Stricture site/length: [ ]. Beading: [ ]. Cystic morphology: [ ]."
+        },
+        {
+          "heading": "OBSTRUCTING CAUSE",
+          "body": "Stone/material: [ ]. Wall/mass: [ ]. Extrinsic cause: [ ]."
+        },
+        {
+          "heading": "LIVER AND VESSELS",
+          "body": "Lobar atrophy: [ ]. Liver lesions: [ ]. Vascular involvement: [ ]."
+        },
+        {
+          "heading": "CONTEXT AND COMPLICATIONS",
+          "body": "Surgical anatomy/stents: [ ]. Cholangitis/abscess features: [ ]. Nodes: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "biliary.segment_caudate_I",
+          "name": "Actual caudate_I biliary branches",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.segment_caudate_I.segmental_origin",
+              "name": "segmental origin"
+            },
+            {
+              "id": "biliary.segment_caudate_I.complete_branch_tree",
+              "name": "complete branch tree"
+            },
+            {
+              "id": "biliary.segment_caudate_I.each_subsegmental_branch",
+              "name": "each subsegmental branch"
+            },
+            {
+              "id": "biliary.segment_caudate_I.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "biliary.segment_caudate_I.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.segment_caudate_I.peripheral_endpoints",
+              "name": "peripheral endpoints"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.segment_left_lateral_II",
+          "name": "Actual left_lateral_II biliary branches",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.segment_left_lateral_II.segmental_origin",
+              "name": "segmental origin"
+            },
+            {
+              "id": "biliary.segment_left_lateral_II.complete_branch_tree",
+              "name": "complete branch tree"
+            },
+            {
+              "id": "biliary.segment_left_lateral_II.each_subsegmental_branch",
+              "name": "each subsegmental branch"
+            },
+            {
+              "id": "biliary.segment_left_lateral_II.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "biliary.segment_left_lateral_II.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.segment_left_lateral_II.peripheral_endpoints",
+              "name": "peripheral endpoints"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.segment_left_lateral_III",
+          "name": "Actual left_lateral_III biliary branches",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.segment_left_lateral_III.segmental_origin",
+              "name": "segmental origin"
+            },
+            {
+              "id": "biliary.segment_left_lateral_III.complete_branch_tree",
+              "name": "complete branch tree"
+            },
+            {
+              "id": "biliary.segment_left_lateral_III.each_subsegmental_branch",
+              "name": "each subsegmental branch"
+            },
+            {
+              "id": "biliary.segment_left_lateral_III.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "biliary.segment_left_lateral_III.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.segment_left_lateral_III.peripheral_endpoints",
+              "name": "peripheral endpoints"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.segment_left_medial_IV",
+          "name": "Actual left_medial_IV biliary branches",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.segment_left_medial_IV.segmental_origin",
+              "name": "segmental origin"
+            },
+            {
+              "id": "biliary.segment_left_medial_IV.complete_branch_tree",
+              "name": "complete branch tree"
+            },
+            {
+              "id": "biliary.segment_left_medial_IV.each_subsegmental_branch",
+              "name": "each subsegmental branch"
+            },
+            {
+              "id": "biliary.segment_left_medial_IV.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "biliary.segment_left_medial_IV.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.segment_left_medial_IV.peripheral_endpoints",
+              "name": "peripheral endpoints"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.segment_right_anterior_V",
+          "name": "Actual right_anterior_V biliary branches",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.segment_right_anterior_V.segmental_origin",
+              "name": "segmental origin"
+            },
+            {
+              "id": "biliary.segment_right_anterior_V.complete_branch_tree",
+              "name": "complete branch tree"
+            },
+            {
+              "id": "biliary.segment_right_anterior_V.each_subsegmental_branch",
+              "name": "each subsegmental branch"
+            },
+            {
+              "id": "biliary.segment_right_anterior_V.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "biliary.segment_right_anterior_V.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.segment_right_anterior_V.peripheral_endpoints",
+              "name": "peripheral endpoints"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.segment_right_posterior_VI",
+          "name": "Actual right_posterior_VI biliary branches",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.segment_right_posterior_VI.segmental_origin",
+              "name": "segmental origin"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VI.complete_branch_tree",
+              "name": "complete branch tree"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VI.each_subsegmental_branch",
+              "name": "each subsegmental branch"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VI.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VI.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VI.peripheral_endpoints",
+              "name": "peripheral endpoints"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.segment_right_posterior_VII",
+          "name": "Actual right_posterior_VII biliary branches",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.segment_right_posterior_VII.segmental_origin",
+              "name": "segmental origin"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VII.complete_branch_tree",
+              "name": "complete branch tree"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VII.each_subsegmental_branch",
+              "name": "each subsegmental branch"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VII.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VII.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.segment_right_posterior_VII.peripheral_endpoints",
+              "name": "peripheral endpoints"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.segment_right_anterior_VIII",
+          "name": "Actual right_anterior_VIII biliary branches",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.segment_right_anterior_VIII.segmental_origin",
+              "name": "segmental origin"
+            },
+            {
+              "id": "biliary.segment_right_anterior_VIII.complete_branch_tree",
+              "name": "complete branch tree"
+            },
+            {
+              "id": "biliary.segment_right_anterior_VIII.each_subsegmental_branch",
+              "name": "each subsegmental branch"
+            },
+            {
+              "id": "biliary.segment_right_anterior_VIII.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "biliary.segment_right_anterior_VIII.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.segment_right_anterior_VIII.peripheral_endpoints",
+              "name": "peripheral endpoints"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_right_hepatic",
+          "name": "Complete right_hepatic source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_right_hepatic.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_right_hepatic.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_right_hepatic.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_right_hepatic.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_right_hepatic.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_left_hepatic",
+          "name": "Complete left_hepatic source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_left_hepatic.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_left_hepatic.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_left_hepatic.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_left_hepatic.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_left_hepatic.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_right_anterior_sectoral",
+          "name": "Complete right_anterior_sectoral source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_right_anterior_sectoral.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_right_anterior_sectoral.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_right_anterior_sectoral.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_right_anterior_sectoral.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_right_anterior_sectoral.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_right_posterior_sectoral",
+          "name": "Complete right_posterior_sectoral source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_right_posterior_sectoral.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_right_posterior_sectoral.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_right_posterior_sectoral.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_right_posterior_sectoral.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_right_posterior_sectoral.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_left_medial_branch",
+          "name": "Complete left_medial_branch source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_left_medial_branch.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_left_medial_branch.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_left_medial_branch.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_left_medial_branch.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_left_medial_branch.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_left_lateral_branch",
+          "name": "Complete left_lateral_branch source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_left_lateral_branch.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_left_lateral_branch.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_left_lateral_branch.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_left_lateral_branch.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_left_lateral_branch.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_hilar_confluence",
+          "name": "Complete hilar_confluence source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_hilar_confluence.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_hilar_confluence.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_hilar_confluence.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_hilar_confluence.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_hilar_confluence.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_common_hepatic",
+          "name": "Complete common_hepatic source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_common_hepatic.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_common_hepatic.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_common_hepatic.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_common_hepatic.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_common_hepatic.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_supraduodenal_common_bile",
+          "name": "Complete supraduodenal_common_bile source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_supraduodenal_common_bile.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_supraduodenal_common_bile.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_supraduodenal_common_bile.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_supraduodenal_common_bile.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_supraduodenal_common_bile.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_retroduodenal_common_bile",
+          "name": "Complete retroduodenal_common_bile source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_retroduodenal_common_bile.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_retroduodenal_common_bile.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_retroduodenal_common_bile.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_retroduodenal_common_bile.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_retroduodenal_common_bile.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_intrapancreatic_common_bile",
+          "name": "Complete intrapancreatic_common_bile source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_intrapancreatic_common_bile.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_intrapancreatic_common_bile.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_intrapancreatic_common_bile.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_intrapancreatic_common_bile.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_intrapancreatic_common_bile.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_intramural_common_bile",
+          "name": "Complete intramural_common_bile source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_intramural_common_bile.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_intramural_common_bile.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_intramural_common_bile.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_intramural_common_bile.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_intramural_common_bile.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.duct_cystic_duct",
+          "name": "Complete cystic_duct source anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.duct_cystic_duct.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "biliary.duct_cystic_duct.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "biliary.duct_cystic_duct.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "biliary.duct_cystic_duct.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.duct_cystic_duct.actual_branch_junction",
+              "name": "actual branch junction"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.variants",
+          "name": "Actual biliary variants and communications",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.variants.hilar_trifurcation",
+              "name": "hilar trifurcation"
+            },
+            {
+              "id": "biliary.variants.right_posterior_to_left_duct",
+              "name": "right posterior to left duct"
+            },
+            {
+              "id": "biliary.variants.right_posterior_low_insertion",
+              "name": "right posterior low insertion"
+            },
+            {
+              "id": "biliary.variants.accessory_hepatic_duct",
+              "name": "accessory hepatic duct"
+            },
+            {
+              "id": "biliary.variants.aberrant_hepatic_duct",
+              "name": "aberrant hepatic duct"
+            },
+            {
+              "id": "biliary.variants.caudate_drainage_variants",
+              "name": "caudate drainage variants"
+            },
+            {
+              "id": "biliary.variants.cystic_low_insertion",
+              "name": "cystic low insertion"
+            },
+            {
+              "id": "biliary.variants.cystic_parallel_course",
+              "name": "cystic parallel course"
+            },
+            {
+              "id": "biliary.variants.cystic_medial_insertion",
+              "name": "cystic medial insertion"
+            },
+            {
+              "id": "biliary.variants.long_common_channel",
+              "name": "long common channel"
+            },
+            {
+              "id": "biliary.variants.pancreaticobiliary_junction",
+              "name": "pancreaticobiliary junction"
+            },
+            {
+              "id": "biliary.variants.actual_other_variant",
+              "name": "actual other variant"
+            },
+            {
+              "id": "biliary.variants.actual_segment_drainage_connection",
+              "name": "actual segment drainage connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Context And Complications",
+              "detail": "Record prior surgery and associated infection or drainage devices."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.ampullary",
+          "name": "Distal outlet and pancreatic/duodenal interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.ampullary.distal_bile_duct",
+              "name": "distal bile duct"
+            },
+            {
+              "id": "biliary.ampullary.pancreatic_duct_junction",
+              "name": "pancreatic duct junction"
+            },
+            {
+              "id": "biliary.ampullary.ampullary_channel",
+              "name": "ampullary channel"
+            },
+            {
+              "id": "biliary.ampullary.major_papilla",
+              "name": "major papilla"
+            },
+            {
+              "id": "biliary.ampullary.duodenal_wall",
+              "name": "duodenal wall"
+            },
+            {
+              "id": "biliary.ampullary.sphincter_region_if_resolved",
+              "name": "sphincter region if resolved"
+            },
+            {
+              "id": "biliary.ampullary.periampullary_diverticulum",
+              "name": "periampullary diverticulum"
+            },
+            {
+              "id": "biliary.ampullary.pancreatic_head_interface",
+              "name": "pancreatic head interface"
+            },
+            {
+              "id": "biliary.ampullary.pancreatic_duct_source",
+              "name": "pancreatic duct source"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.strictures",
+          "name": "Each actual stricture and its complete boundaries",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.strictures.proximal_shoulder",
+              "name": "proximal shoulder"
+            },
+            {
+              "id": "biliary.strictures.distal_shoulder",
+              "name": "distal shoulder"
+            },
+            {
+              "id": "biliary.strictures.longitudinal_extent",
+              "name": "longitudinal extent"
+            },
+            {
+              "id": "biliary.strictures.narrowest_lumen",
+              "name": "narrowest lumen"
+            },
+            {
+              "id": "biliary.strictures.upstream_calibre",
+              "name": "upstream calibre"
+            },
+            {
+              "id": "biliary.strictures.downstream_calibre",
+              "name": "downstream calibre"
+            },
+            {
+              "id": "biliary.strictures.eccentric_wall",
+              "name": "eccentric wall"
+            },
+            {
+              "id": "biliary.strictures.thickened_wall",
+              "name": "thickened wall"
+            },
+            {
+              "id": "biliary.strictures.enhancement_region",
+              "name": "enhancement region"
+            },
+            {
+              "id": "biliary.strictures.periductal_tissue",
+              "name": "periductal tissue"
+            },
+            {
+              "id": "biliary.strictures.multifocal_distribution",
+              "name": "multifocal distribution"
+            },
+            {
+              "id": "biliary.strictures.intervening_normal_duct",
+              "name": "intervening normal duct"
+            },
+            {
+              "id": "biliary.strictures.pruning_region",
+              "name": "pruning region"
+            },
+            {
+              "id": "biliary.strictures.unassessed_branch",
+              "name": "unassessed branch"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.material",
+          "name": "Each actual intraductal filling defect/material",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.material.complete_filling_defect",
+              "name": "complete filling defect"
+            },
+            {
+              "id": "biliary.material.each_stone",
+              "name": "each stone"
+            },
+            {
+              "id": "biliary.material.sludge_region",
+              "name": "sludge region"
+            },
+            {
+              "id": "biliary.material.debris_region",
+              "name": "debris region"
+            },
+            {
+              "id": "biliary.material.blood_product_region",
+              "name": "blood product region"
+            },
+            {
+              "id": "biliary.material.air_region",
+              "name": "air region"
+            },
+            {
+              "id": "biliary.material.cast_region",
+              "name": "cast region"
+            },
+            {
+              "id": "biliary.material.intraductal_soft_tissue",
+              "name": "intraductal soft tissue"
+            },
+            {
+              "id": "biliary.material.papillary_component",
+              "name": "papillary component"
+            },
+            {
+              "id": "biliary.material.intraductal_mucin_if_supported",
+              "name": "intraductal mucin if supported"
+            },
+            {
+              "id": "biliary.material.source_material_lumen_interface",
+              "name": "source material lumen interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Context And Complications",
+              "detail": "Record prior surgery and associated infection or drainage devices."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.cystic",
+          "name": "Actual cystic ductal pattern and host relations",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.cystic.fusiform_extrahepatic_region",
+              "name": "fusiform extrahepatic region"
+            },
+            {
+              "id": "biliary.cystic.saccular_extrahepatic_region",
+              "name": "saccular extrahepatic region"
+            },
+            {
+              "id": "biliary.cystic.diverticular_communication",
+              "name": "diverticular communication"
+            },
+            {
+              "id": "biliary.cystic.intraduodenal_cystic_region",
+              "name": "intraduodenal cystic region"
+            },
+            {
+              "id": "biliary.cystic.intrahepatic_saccular_region",
+              "name": "intrahepatic saccular region"
+            },
+            {
+              "id": "biliary.cystic.mixed_intra_extrahepatic_region",
+              "name": "mixed intra extrahepatic region"
+            },
+            {
+              "id": "biliary.cystic.central_portal_radicle",
+              "name": "central portal radicle"
+            },
+            {
+              "id": "biliary.cystic.cystic_duct_communication",
+              "name": "cystic duct communication"
+            },
+            {
+              "id": "biliary.cystic.communicating_intrahepatic_cysts",
+              "name": "communicating intrahepatic cysts"
+            },
+            {
+              "id": "biliary.cystic.noncommunicating_cyst_differential",
+              "name": "noncommunicating cyst differential"
+            },
+            {
+              "id": "biliary.cystic.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "biliary.cystic.septum_if_present",
+              "name": "septum if present"
+            },
+            {
+              "id": "biliary.cystic.enhancing_nodule_if_present",
+              "name": "enhancing nodule if present"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.tumour",
+          "name": "Each actual suspicious ductal/adjacent tumour component",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.tumour.intrahepatic_mass",
+              "name": "intrahepatic mass"
+            },
+            {
+              "id": "biliary.tumour.complete_mass_margin",
+              "name": "complete mass margin"
+            },
+            {
+              "id": "biliary.tumour.periductal_infiltrating_region",
+              "name": "periductal infiltrating region"
+            },
+            {
+              "id": "biliary.tumour.intraductal_growth_region",
+              "name": "intraductal growth region"
+            },
+            {
+              "id": "biliary.tumour.perihilar_longitudinal_extent",
+              "name": "perihilar longitudinal extent"
+            },
+            {
+              "id": "biliary.tumour.right_secondary_duct_extension",
+              "name": "right secondary duct extension"
+            },
+            {
+              "id": "biliary.tumour.left_secondary_duct_extension",
+              "name": "left secondary duct extension"
+            },
+            {
+              "id": "biliary.tumour.distal_duct_extension",
+              "name": "distal duct extension"
+            },
+            {
+              "id": "biliary.tumour.lobar_parenchymal_extension",
+              "name": "lobar parenchymal extension"
+            },
+            {
+              "id": "biliary.tumour.capsular_retraction",
+              "name": "capsular retraction"
+            },
+            {
+              "id": "biliary.tumour.viable_enhancing_tissue",
+              "name": "viable enhancing tissue"
+            },
+            {
+              "id": "biliary.tumour.necrotic_region",
+              "name": "necrotic region"
+            },
+            {
+              "id": "biliary.tumour.pancreatic_mass_interface",
+              "name": "pancreatic mass interface"
+            },
+            {
+              "id": "biliary.tumour.gallbladder_mass_interface",
+              "name": "gallbladder mass interface"
+            },
+            {
+              "id": "biliary.tumour.external_nodal_compression",
+              "name": "external nodal compression"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Liver And Vessels",
+              "detail": "Assess lobar change, enhancement and vascular relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.right_vascular",
+          "name": "Actual right hilar vascular anatomy and interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.right_vascular.portal_vein",
+              "name": "portal vein"
+            },
+            {
+              "id": "biliary.right_vascular.main_portal_interface",
+              "name": "main portal interface"
+            },
+            {
+              "id": "biliary.right_vascular.portal_sectoral_branches",
+              "name": "portal sectoral branches"
+            },
+            {
+              "id": "biliary.right_vascular.hepatic_artery",
+              "name": "hepatic artery"
+            },
+            {
+              "id": "biliary.right_vascular.actual_arterial_variant",
+              "name": "actual arterial variant"
+            },
+            {
+              "id": "biliary.right_vascular.arterial_sectoral_branches",
+              "name": "arterial sectoral branches"
+            },
+            {
+              "id": "biliary.right_vascular.lesion_contact_margin",
+              "name": "lesion contact margin",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.right_vascular.narrowing_region",
+              "name": "narrowing region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.right_vascular.occluded_region",
+              "name": "occluded region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.right_vascular.patent_remaining_lumen",
+              "name": "patent remaining lumen"
+            },
+            {
+              "id": "biliary.right_vascular.tumour_thrombus_if_present",
+              "name": "tumour thrombus if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.right_vascular.bland_thrombus_if_present",
+              "name": "bland thrombus if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Liver And Vessels",
+              "detail": "Assess lobar change, enhancement and vascular relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.left_vascular",
+          "name": "Actual left hilar vascular anatomy and interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.left_vascular.portal_vein",
+              "name": "portal vein"
+            },
+            {
+              "id": "biliary.left_vascular.main_portal_interface",
+              "name": "main portal interface"
+            },
+            {
+              "id": "biliary.left_vascular.portal_sectoral_branches",
+              "name": "portal sectoral branches"
+            },
+            {
+              "id": "biliary.left_vascular.hepatic_artery",
+              "name": "hepatic artery"
+            },
+            {
+              "id": "biliary.left_vascular.actual_arterial_variant",
+              "name": "actual arterial variant"
+            },
+            {
+              "id": "biliary.left_vascular.arterial_sectoral_branches",
+              "name": "arterial sectoral branches"
+            },
+            {
+              "id": "biliary.left_vascular.lesion_contact_margin",
+              "name": "lesion contact margin",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.left_vascular.narrowing_region",
+              "name": "narrowing region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.left_vascular.occluded_region",
+              "name": "occluded region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.left_vascular.patent_remaining_lumen",
+              "name": "patent remaining lumen"
+            },
+            {
+              "id": "biliary.left_vascular.tumour_thrombus_if_present",
+              "name": "tumour thrombus if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.left_vascular.bland_thrombus_if_present",
+              "name": "bland thrombus if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Liver And Vessels",
+              "detail": "Assess lobar change, enhancement and vascular relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.hepatic",
+          "name": "Whole acquired liver morphology and related observations",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.hepatic.right_lobar_volume",
+              "name": "right lobar volume"
+            },
+            {
+              "id": "biliary.hepatic.left_lobar_volume",
+              "name": "left lobar volume"
+            },
+            {
+              "id": "biliary.hepatic.caudate_volume",
+              "name": "caudate volume"
+            },
+            {
+              "id": "biliary.hepatic.each_actual_segment_margin",
+              "name": "each actual segment margin"
+            },
+            {
+              "id": "biliary.hepatic.lobar_atrophy",
+              "name": "lobar atrophy"
+            },
+            {
+              "id": "biliary.hepatic.contralateral_hypertrophy",
+              "name": "contralateral hypertrophy"
+            },
+            {
+              "id": "biliary.hepatic.crowded_duct_region",
+              "name": "crowded duct region"
+            },
+            {
+              "id": "biliary.hepatic.fibrosis_pattern",
+              "name": "fibrosis pattern"
+            },
+            {
+              "id": "biliary.hepatic.portal_hypertension_findings",
+              "name": "portal hypertension findings"
+            },
+            {
+              "id": "biliary.hepatic.each_acquired_liver_lesion",
+              "name": "each acquired liver lesion"
+            },
+            {
+              "id": "biliary.hepatic.each_acquired_abscess",
+              "name": "each acquired abscess"
+            },
+            {
+              "id": "biliary.hepatic.perfusion_change_region",
+              "name": "perfusion change region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Liver And Vessels",
+              "detail": "Assess lobar change, enhancement and vascular relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Context And Complications",
+              "detail": "Record prior surgery and associated infection or drainage devices."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.adjacent",
+          "name": "Actual host anatomy and other acquired disease sites",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.adjacent.gallbladder_lumen",
+              "name": "gallbladder lumen"
+            },
+            {
+              "id": "biliary.adjacent.gallbladder_wall",
+              "name": "gallbladder wall"
+            },
+            {
+              "id": "biliary.adjacent.cystic_duct_gallbladder_neck",
+              "name": "cystic duct gallbladder neck"
+            },
+            {
+              "id": "biliary.adjacent.pancreatic_head",
+              "name": "pancreatic head"
+            },
+            {
+              "id": "biliary.adjacent.pancreatic_body_tail",
+              "name": "pancreatic body tail"
+            },
+            {
+              "id": "biliary.adjacent.duodenal_margin",
+              "name": "duodenal margin"
+            },
+            {
+              "id": "biliary.adjacent.hepatoduodenal_ligament",
+              "name": "hepatoduodenal ligament"
+            },
+            {
+              "id": "biliary.adjacent.hilar_node",
+              "name": "hilar node"
+            },
+            {
+              "id": "biliary.adjacent.peripancreatic_node",
+              "name": "peripancreatic node"
+            },
+            {
+              "id": "biliary.adjacent.each_other_acquired_node",
+              "name": "each other acquired node"
+            },
+            {
+              "id": "biliary.adjacent.peritoneal_deposit_if_present",
+              "name": "peritoneal deposit if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.adjacent.distant_acquired_site_if_present",
+              "name": "distant acquired site if present",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.adjacent.renal_cystic_association_if_present",
+              "name": "renal cystic association if present"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Liver And Vessels",
+              "detail": "Assess lobar change, enhancement and vascular relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Context And Complications",
+              "detail": "Record prior surgery and associated infection or drainage devices."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.postoperative",
+          "name": "Actual postoperative/drainage anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.postoperative.duct_resection_margin",
+              "name": "duct resection margin"
+            },
+            {
+              "id": "biliary.postoperative.biliary_anastomosis",
+              "name": "biliary anastomosis"
+            },
+            {
+              "id": "biliary.postoperative.jejunal_limb",
+              "name": "jejunal limb"
+            },
+            {
+              "id": "biliary.postoperative.hepaticojejunostomy_connection",
+              "name": "hepaticojejunostomy connection"
+            },
+            {
+              "id": "biliary.postoperative.choledochojejunostomy_connection",
+              "name": "choledochojejunostomy connection"
+            },
+            {
+              "id": "biliary.postoperative.transplanted_duct_connection",
+              "name": "transplanted duct connection"
+            },
+            {
+              "id": "biliary.postoperative.each_stent_proximal_end",
+              "name": "each stent proximal end"
+            },
+            {
+              "id": "biliary.postoperative.each_stent_distal_end",
+              "name": "each stent distal end"
+            },
+            {
+              "id": "biliary.postoperative.stent_lumen",
+              "name": "stent lumen"
+            },
+            {
+              "id": "biliary.postoperative.drainage_catheter_tip",
+              "name": "drainage catheter tip"
+            },
+            {
+              "id": "biliary.postoperative.drainage_sideholes_if_resolved",
+              "name": "drainage sideholes if resolved"
+            },
+            {
+              "id": "biliary.postoperative.catheter_duct_relation",
+              "name": "catheter duct relation"
+            },
+            {
+              "id": "biliary.postoperative.excluded_undrained_segment",
+              "name": "excluded undrained segment",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.postoperative.biloma_region",
+              "name": "biloma region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.postoperative.leakage_source_if_supported",
+              "name": "leakage source if supported",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.postoperative.pneumobilia_region",
+              "name": "pneumobilia region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "biliary.postoperative.baseline_predrainage_duct",
+              "name": "baseline predrainage duct"
+            },
+            {
+              "id": "biliary.postoperative.current_postdrainage_duct",
+              "name": "current postdrainage duct"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Context And Complications",
+              "detail": "Record prior surgery and associated infection or drainage devices."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.positive_examples",
+          "name": "Distinct source disease examples and differential context",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.positive_examples.caroli_pattern",
+              "name": "caroli pattern"
+            },
+            {
+              "id": "biliary.positive_examples.choledochal_cyst_pattern",
+              "name": "choledochal cyst pattern"
+            },
+            {
+              "id": "biliary.positive_examples.recurrent_pyogenic_pattern",
+              "name": "recurrent pyogenic pattern"
+            },
+            {
+              "id": "biliary.positive_examples.primary_sclerosing_pattern",
+              "name": "primary sclerosing pattern"
+            },
+            {
+              "id": "biliary.positive_examples.secondary_sclerosing_pattern",
+              "name": "secondary sclerosing pattern"
+            },
+            {
+              "id": "biliary.positive_examples.ischemic_duct_injury",
+              "name": "ischemic duct injury"
+            },
+            {
+              "id": "biliary.positive_examples.postoperative_stricture",
+              "name": "postoperative stricture"
+            },
+            {
+              "id": "biliary.positive_examples.igg4_related_pattern",
+              "name": "igg4 related pattern"
+            },
+            {
+              "id": "biliary.positive_examples.infectious_cholangiopathy",
+              "name": "infectious cholangiopathy"
+            },
+            {
+              "id": "biliary.positive_examples.intraductal_stone",
+              "name": "intraductal stone"
+            },
+            {
+              "id": "biliary.positive_examples.malignant_hilar_pattern",
+              "name": "malignant hilar pattern"
+            },
+            {
+              "id": "biliary.positive_examples.intrahepatic_cholangiocarcinoma_pattern",
+              "name": "intrahepatic cholangiocarcinoma pattern"
+            },
+            {
+              "id": "biliary.positive_examples.distal_malignant_pattern",
+              "name": "distal malignant pattern"
+            },
+            {
+              "id": "biliary.positive_examples.inflammatory_mimic",
+              "name": "inflammatory mimic"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound",
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Context And Complications",
+              "detail": "Record prior surgery and associated infection or drainage devices."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.mri",
+          "name": "Actually acquired MRI/MRCP source evidence",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.mri.thin_source_duct_sections",
+              "name": "thin source duct sections"
+            },
+            {
+              "id": "biliary.mri.thick_projection_duct_region",
+              "name": "thick projection duct region"
+            },
+            {
+              "id": "biliary.mri.projection_overlap_region",
+              "name": "projection overlap region"
+            },
+            {
+              "id": "biliary.mri.flow_void_region",
+              "name": "flow void region"
+            },
+            {
+              "id": "biliary.mri.source_stone_or_air_differential",
+              "name": "source stone or air differential"
+            },
+            {
+              "id": "biliary.mri.matched_t1_region",
+              "name": "matched t1 region"
+            },
+            {
+              "id": "biliary.mri.matched_t2_region",
+              "name": "matched t2 region"
+            },
+            {
+              "id": "biliary.mri.source_dwi_if_acquired",
+              "name": "source dwi if acquired"
+            },
+            {
+              "id": "biliary.mri.adc_if_acquired",
+              "name": "adc if acquired"
+            },
+            {
+              "id": "biliary.mri.enhancing_wall_source",
+              "name": "enhancing wall source"
+            },
+            {
+              "id": "biliary.mri.delayed_enhancement_source",
+              "name": "delayed enhancement source"
+            },
+            {
+              "id": "biliary.mri.contrast_excretion_source_if_acquired",
+              "name": "contrast excretion source if acquired"
+            },
+            {
+              "id": "biliary.mri.motion_or_signal_limit",
+              "name": "motion or signal limit"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Liver And Vessels",
+              "detail": "Assess lobar change, enhancement and vascular relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.ultrasound",
+          "name": "Actually acquired ultrasound evidence",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.ultrasound.visible_common_duct_segment",
+              "name": "visible common duct segment"
+            },
+            {
+              "id": "biliary.ultrasound.unseen_distal_duct_limit",
+              "name": "unseen distal duct limit"
+            },
+            {
+              "id": "biliary.ultrasound.duct_wall_source",
+              "name": "duct wall source"
+            },
+            {
+              "id": "biliary.ultrasound.filling_defect_source",
+              "name": "filling defect source"
+            },
+            {
+              "id": "biliary.ultrasound.acoustic_shadow_if_present",
+              "name": "acoustic shadow if present"
+            },
+            {
+              "id": "biliary.ultrasound.doppler_vessel_discrimination",
+              "name": "doppler vessel discrimination"
+            },
+            {
+              "id": "biliary.ultrasound.source_gallbladder_relation",
+              "name": "source gallbladder relation"
+            },
+            {
+              "id": "biliary.ultrasound.dynamic_observation_if_acquired",
+              "name": "dynamic observation if acquired"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.ct",
+          "name": "Actually acquired CT evidence",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.ct.unenhanced_material_region",
+              "name": "unenhanced material region"
+            },
+            {
+              "id": "biliary.ct.enhancing_duct_wall_source",
+              "name": "enhancing duct wall source"
+            },
+            {
+              "id": "biliary.ct.arterial_vascular_interface",
+              "name": "arterial vascular interface"
+            },
+            {
+              "id": "biliary.ct.portal_vascular_interface",
+              "name": "portal vascular interface"
+            },
+            {
+              "id": "biliary.ct.delayed_tumour_source",
+              "name": "delayed tumour source"
+            },
+            {
+              "id": "biliary.ct.source_air_region",
+              "name": "source air region"
+            },
+            {
+              "id": "biliary.ct.source_calcified_stone_region",
+              "name": "source calcified stone region"
+            },
+            {
+              "id": "biliary.ct.noncalcified_defect_limit",
+              "name": "noncalcified defect limit"
+            },
+            {
+              "id": "biliary.ct.perfusion_change_source",
+              "name": "perfusion change source"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Liver And Vessels",
+              "detail": "Assess lobar change, enhancement and vascular relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Context And Complications",
+              "detail": "Record prior surgery and associated infection or drainage devices."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "biliary.cholangiography",
+          "name": "Actual contrast cholangiographic source if obtained",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "biliary.cholangiography.opacified_branch",
+              "name": "opacified branch"
+            },
+            {
+              "id": "biliary.cholangiography.proximal_stricture_margin",
+              "name": "proximal stricture margin"
+            },
+            {
+              "id": "biliary.cholangiography.distal_stricture_margin",
+              "name": "distal stricture margin"
+            },
+            {
+              "id": "biliary.cholangiography.unopacified_branch_limit",
+              "name": "unopacified branch limit"
+            },
+            {
+              "id": "biliary.cholangiography.intraductal_filling_defect",
+              "name": "intraductal filling defect"
+            },
+            {
+              "id": "biliary.cholangiography.catheter_or_scope_relation",
+              "name": "catheter or scope relation"
+            },
+            {
+              "id": "biliary.cholangiography.contrast_extravasation_if_present",
+              "name": "contrast extravasation if present"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Radiography"
+          ],
+          "condition": "Instantiate each actual duct branch, variant, lesion, interface, device and acquired disease site in its correct segment/side and time point. Source sampling and actual phases/sequences must resolve the claimed anatomy; unvisualized or unacquired branches remain unknown. Parent duct/gland models and projection drawings cannot supply full walls, lumina, pathology or dynamic/clinical findings.",
+          "requirement_basis": "effective_biliary_distribution_morphology_obstruction_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Duct Distribution",
+              "detail": "Map intrahepatic and extrahepatic abnormalities."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Duct Morphology",
+              "detail": "Characterise strictures, beading and cystic dilatation."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Obstructing Cause",
+              "detail": "Identify intraductal material, mural lesion or external compression."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Context And Complications",
+              "detail": "Record prior surgery and associated infection or drainage devices."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/biliary-system/biliary-duct-pathology",
+            "https://doi.org/10.1136/gutjnl-2023-330029",
+            "https://doi.org/10.1002/jhbp.512"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual duct branch/variant, stricture, filling defect, vessel interface, acquired disease site and device",
+            "Actual source projection, field, original sampling, phase/sequence and temporal/drainage context",
+            "Histology, endocrine/clinical function and procedural suitability remain independently evidenced"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "complete_case_branching_pending",
+          "detail": "Named prototypes are not exhaustive patient-specific branches, variants or observations."
+        },
+        {
+          "code": "framework_and_source_reconciliation_pending",
+          "detail": "Older source surgical, diagnostic length and congenital classification statements require full current specialist reconciliation."
+        },
+        {
+          "code": "histology_and_infection_not_geometry",
+          "detail": "Static morphology does not establish malignant histology, infection diagnosis, organ dysfunction or device patency."
+        },
+        {
+          "code": "unvisualized_not_negative",
+          "detail": "Peripheral branches, small duct disease and unacquired regions cannot be excluded by projection or limited field."
+        },
+        {
+          "code": "source_quality_rights_and_anatomy_pending",
+          "detail": "Every image/model needs native source resolution, modality, original reuse evidence and independent fine anatomical review."
+        },
+        {
+          "code": "shared_lesson_and_other_investigations_pending",
+          "detail": "Gallbladder wall, acute cholecystitis, stones and related management/quiz content require separate complete scope and clinical review."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "distribution",
+          "evidence": "Source-confirmed segmental branching/communications with actual variant and unassessed-region evidence."
+        },
+        {
+          "observation": "material",
+          "evidence": "Original source sections and adequate modality evidence; no universal stone diagnosis from a static MRCP void."
+        },
+        {
+          "observation": "enhancement",
+          "evidence": "Actual contrast phases/sequences with matched tissue, not colours on a model."
+        },
+        {
+          "observation": "infection_and_severity",
+          "evidence": "TG18 clinical/laboratory and organ dysfunction evidence, not imaging morphology alone."
+        },
+        {
+          "observation": "extent_and_operability",
+          "evidence": "Actual duct/vessel/lobar/distant extent and current specialist framework; no Bismuth-only operative verdict."
+        },
+        {
+          "observation": "drainage",
+          "evidence": "Actual device/anastomotic geometry plus appropriate independent clinical/procedural patency or leakage evidence."
         }
       ]
     }
