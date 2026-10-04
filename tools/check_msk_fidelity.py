@@ -19,7 +19,7 @@ from tools.msk_runtime_rights import audit_reference_image_rights, reference_ima
 KINDS = ("clinical_image", "schematic", "model")
 REVIEW_FIELDS = ("anatomical_review", "visual_review")
 REVIEW_SCOPE_VERSION = 1
-IMAGE_MODALITIES = frozenset(('MRI', 'MR arthrography', 'CT', 'CT arthrography',
+IMAGE_MODALITIES = frozenset(('PET-CT', 'MRI', 'MR arthrography', 'CT', 'CT arthrography',
                              'Ultrasound', 'Radiography'))
 NORMAL_REFERENCE_STATES = frozenset(('normal_anatomy', 'normal_anatomical_reference',
                                      'normal_variant'))
