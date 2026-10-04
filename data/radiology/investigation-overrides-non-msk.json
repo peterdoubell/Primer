@@ -937,9 +937,10 @@
   },
   "ra.gi-foreign-bodies": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
-        "Use the actual radiograph or CT coverage to localise the object; inspect CT multiplanar images for subtle sharp material."
+        "Use the actual radiograph or CT coverage to localise the object; inspect CT multiplanar images for subtle sharp material.",
+        "Record actual modality, projection/planes, coverage, object visibility, source slice/window limitations and contrast availability. Radiographic overlap, magnification, CT partial volume and source artefacts can limit object number, extent and wall/vessel relationships; unassessed regions remain unknown."
       ],
       "checklist": [
         {
@@ -963,48 +964,75 @@
           "detail": "Trace proximity to vessels and organ penetration."
         }
       ],
-      "measurements": [],
+      "measurements": [
+        {
+          "name": "Object dimensions",
+          "method": "Measure each actual source-visible object extent and relevant cross-sectional dimensions on suitable source planes, recording modality, calibration and complete-end visibility.",
+          "pitfall": "Projection/magnification, partial volume, metal or motion artefacts and an unseen endpoint limit measurement; a model ruler cannot provide patient-specific object size."
+        }
+      ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Small sharp objects can perforate without extensive free gas; absence of a radiopaque object does not exclude ingestion."
+        "Small sharp objects can perforate without extensive free gas; absence of a radiopaque object does not exclude ingestion.",
+        "Object composition and total number cannot be established from radiopacity, CT attenuation or a schematic alone; radiographic overlap can conceal additional objects.",
+        "Absent free gas does not exclude a contained or early perforation. State local wall, inflammatory and collection assessment limits.",
+        "A projected tip near a vessel or organ does not prove contact or penetration; use the actual source planes, opacification and interface visibility.",
+        "Migration requires reliable source comparison; differences in projection, coverage or bowel position cannot be treated as proven movement.",
+        "The cited ESGE 2016 framework concerns adults and upper-GI management; its timing/threshold rules are not universal paediatric or lower-GI instructions."
       ],
       "impression_prompts": [
         "Localisation of sharp foreign bodies and related complications.",
         "State the dominant abnormality, relevant extent and examination limitations."
       ],
       "escalation": [
-        "Communicate a perforating sharp object or threatened adjacent vessel promptly."
+        "Communicate a perforating sharp object or threatened adjacent vessel promptly.",
+        "Escalate suspected oesophageal sharp-object or battery impaction, magnet-related injury, obstruction or other high-risk findings promptly in the appropriate age/location-specific clinical framework; document uncertainty and communication."
       ],
       "template_sections": [
         {
           "heading": "OBJECT",
-          "body": "Number/type appearance: [ ]. Radiopacity: [ ]. Dimensions: [ ]."
+          "body": "Object assessment: [adequate source coverage / limited / unassessed]. Each visible object, number/overlap limits, shape, ends and dimensions/calibration: [ ]. Radiographic visibility or CT attenuation: [ ]. Material certainty and unassessed extent: [ ]."
         },
         {
           "heading": "LOCATION",
-          "body": "Segment/site: [ ]. Intraluminal/transmural/extraluminal: [ ]."
+          "body": "Actually assessed segment/site and source planes: [ ]. Object orientation and intraluminal/wall/extraluminal relationships: [ ]. Interface/endpoint visibility and limits: [ ]."
         },
         {
           "heading": "BOWEL EFFECT",
-          "body": "Wall reaction: [ ]. Obstruction: [ ]."
+          "body": "Assessed wall/lumen and coverage: [ ]. Wall reaction, transitions/upstream effect and other findings: [ ]. Limitations: [ ]."
         },
         {
           "heading": "PERFORATION AND COLLECTION",
-          "body": "Extraluminal gas: [ ]. Stranding: [ ]. Collection: [ ]."
+          "body": "Local injury/collection assessment: [adequate / limited / unassessed]. Wall defect, extraluminal gas/content, inflammation and collection observations: [ ]. Unassessed extent: [ ]."
         },
         {
           "heading": "MIGRATION AND ADJACENT ORGANS",
-          "body": "Adjacent structures involved: [ ]. Migration since prior: [ ]."
+          "body": "Assessed adjacent organs/vessels and actual opacification: [ ]. Source contact/penetration observations: [ ]. Prior/source correspondence and migration: [assessed / limited / unassessed], findings [ ]. Limits: [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Sharp foreign bodies in GI tract",
           "url": "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract"
+        },
+        {
+          "title": "Kuzmich et al. — Poorly conspicuous ingested foreign bodies and GI perforation",
+          "url": "https://doi.org/10.1259/bjr.20150086"
+        },
+        {
+          "title": "ESGE 2016 — Upper-GI foreign bodies in adults",
+          "url": "https://doi.org/10.1055/s-0042-100456"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Describe each actual object and its complete source-visible shape, ends, orientation and dimensions with acquisition limits.",
+      "Separate radiographic projection/radiopacity from CT attenuation, wall relationships and opacification.",
+      "A negative or incomplete examination does not exclude every poorly conspicuous object or a contained injury.",
+      "Report actual wall, lumen, inflammatory, collection and adjacent-organ/vessel findings; free-gas absence does not independently exclude perforation.",
+      "Assess migration only with reliable source correspondence; imaging appearance does not independently establish material, full injury depth or a safe clinical course."
+    ]
   },
   "ra.ultrasound-acute-gynaecology": {
     "reporting": {

@@ -25,7 +25,8 @@
       "ra.ct-bowel-obstruction",
       "ra.ct-bowel-ischaemia",
       "ra.ct-bowel-wall",
-      "ra.ct-small-bowel-tumours"
+      "ra.ct-small-bowel-tumours",
+      "ra.gi-foreign-bodies"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -55951,6 +55952,3515 @@
         {
           "observation": "spread",
           "evidence": "Actual acquired liver/peritoneal and other covered-site survey with occult/unassessed limits retained."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.gi-foreign-bodies",
+      "module_id": "rad.5.gi-tumours-foreign-bodies",
+      "title": "GI tract foreign bodies",
+      "scope_status": "expanded_draft_requires_independent_anatomical_and_clinical_review",
+      "modality_scope": [
+        "CT",
+        "Radiography"
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant sharp GI foreign bodies",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+          "reviewed_at": "2026-10-04"
+        },
+        {
+          "title": "Kuzmich et al. subtle foreign-body perforation",
+          "url": "https://doi.org/10.1259/bjr.20150086",
+          "reviewed_at": "2026-10-04"
+        },
+        {
+          "title": "ESGE 2016 upper-GI foreign bodies in adults",
+          "url": "https://doi.org/10.1055/s-0042-100456",
+          "reviewed_at": "2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "1fcdf5a029dc98bed0e6d443b02802c5302f6076e449af1db5d9aa44182e4324",
+      "reporting_checklist": [
+        {
+          "label": "Object",
+          "detail": "Describe number, shape and visibility."
+        },
+        {
+          "label": "Location",
+          "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+        },
+        {
+          "label": "Bowel Effect",
+          "detail": "Assess wall thickening and obstruction."
+        },
+        {
+          "label": "Perforation And Collection",
+          "detail": "Look for local gas, inflammatory change and abscess."
+        },
+        {
+          "label": "Migration And Adjacent Organs",
+          "detail": "Trace proximity to vessels and organ penetration."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "OBJECT",
+          "body": "Object assessment: [adequate source coverage / limited / unassessed]. Each visible object, number/overlap limits, shape, ends and dimensions/calibration: [ ]. Radiographic visibility or CT attenuation: [ ]. Material certainty and unassessed extent: [ ]."
+        },
+        {
+          "heading": "LOCATION",
+          "body": "Actually assessed segment/site and source planes: [ ]. Object orientation and intraluminal/wall/extraluminal relationships: [ ]. Interface/endpoint visibility and limits: [ ]."
+        },
+        {
+          "heading": "BOWEL EFFECT",
+          "body": "Assessed wall/lumen and coverage: [ ]. Wall reaction, transitions/upstream effect and other findings: [ ]. Limitations: [ ]."
+        },
+        {
+          "heading": "PERFORATION AND COLLECTION",
+          "body": "Local injury/collection assessment: [adequate / limited / unassessed]. Wall defect, extraluminal gas/content, inflammation and collection observations: [ ]. Unassessed extent: [ ]."
+        },
+        {
+          "heading": "MIGRATION AND ADJACENT ORGANS",
+          "body": "Assessed adjacent organs/vessels and actual opacification: [ ]. Source contact/penetration observations: [ ]. Prior/source correspondence and migration: [assessed / limited / unassessed], findings [ ]. Limits: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "gi_foreign_body.segment_hypopharynx_if_covered",
+          "name": "Actual hypopharynx_if_covered host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_hypopharynx_if_covered.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_hypopharynx_if_covered.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_hypopharynx_if_covered.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_hypopharynx_if_covered.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_hypopharynx_if_covered.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_cervical_oesophagus_if_covered",
+          "name": "Actual cervical_oesophagus_if_covered host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_cervical_oesophagus_if_covered.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_cervical_oesophagus_if_covered.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_cervical_oesophagus_if_covered.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_cervical_oesophagus_if_covered.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_cervical_oesophagus_if_covered.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_thoracic_oesophagus_if_covered",
+          "name": "Actual thoracic_oesophagus_if_covered host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_thoracic_oesophagus_if_covered.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_thoracic_oesophagus_if_covered.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_thoracic_oesophagus_if_covered.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_thoracic_oesophagus_if_covered.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_thoracic_oesophagus_if_covered.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_distal_oesophagus",
+          "name": "Actual distal_oesophagus host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_distal_oesophagus.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_distal_oesophagus.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_distal_oesophagus.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_distal_oesophagus.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_distal_oesophagus.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_gastric_cardia",
+          "name": "Actual gastric_cardia host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_gastric_cardia.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_cardia.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_cardia.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_cardia.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_cardia.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_gastric_body",
+          "name": "Actual gastric_body host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_gastric_body.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_body.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_body.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_body.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_body.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_gastric_antrum_pylorus",
+          "name": "Actual gastric_antrum_pylorus host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_gastric_antrum_pylorus.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_antrum_pylorus.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_antrum_pylorus.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_antrum_pylorus.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_gastric_antrum_pylorus.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_duodenal_bulb",
+          "name": "Actual duodenal_bulb host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_duodenal_bulb.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenal_bulb.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenal_bulb.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenal_bulb.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenal_bulb.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_duodenum_second",
+          "name": "Actual duodenum_second host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_duodenum_second.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_second.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_second.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_second.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_second.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_duodenum_third",
+          "name": "Actual duodenum_third host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_duodenum_third.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_third.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_third.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_third.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_third.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_duodenum_fourth",
+          "name": "Actual duodenum_fourth host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_duodenum_fourth.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_fourth.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_fourth.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_fourth.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenum_fourth.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_duodenojejunal_junction",
+          "name": "Actual duodenojejunal_junction host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_duodenojejunal_junction.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenojejunal_junction.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenojejunal_junction.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenojejunal_junction.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_duodenojejunal_junction.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_jejunum",
+          "name": "Actual jejunum host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_jejunum.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_jejunum.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_jejunum.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_jejunum.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_ileum",
+          "name": "Actual ileum host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_ileum.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_ileum.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_ileum.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_ileum.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_terminal_ileum",
+          "name": "Actual terminal_ileum host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_terminal_ileum.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_terminal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_terminal_ileum.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_terminal_ileum.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_terminal_ileum.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_ileocaecal_valve",
+          "name": "Actual ileocaecal_valve host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_ileocaecal_valve.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_ileocaecal_valve.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_ileocaecal_valve.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_ileocaecal_valve.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_ileocaecal_valve.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_caecum_appendix_if_relevant",
+          "name": "Actual caecum_appendix_if_relevant host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_caecum_appendix_if_relevant.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_caecum_appendix_if_relevant.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_caecum_appendix_if_relevant.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_caecum_appendix_if_relevant.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_caecum_appendix_if_relevant.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_ascending_colon",
+          "name": "Actual ascending_colon host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_ascending_colon.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_ascending_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_ascending_colon.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_ascending_colon.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_ascending_colon.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_transverse_colon",
+          "name": "Actual transverse_colon host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_transverse_colon.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_transverse_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_transverse_colon.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_transverse_colon.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_transverse_colon.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_descending_colon",
+          "name": "Actual descending_colon host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_descending_colon.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_descending_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_descending_colon.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_descending_colon.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_descending_colon.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_sigmoid_colon",
+          "name": "Actual sigmoid_colon host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_sigmoid_colon.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_sigmoid_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_sigmoid_colon.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_sigmoid_colon.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_sigmoid_colon.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_rectosigmoid_junction",
+          "name": "Actual rectosigmoid_junction host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_rectosigmoid_junction.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_rectosigmoid_junction.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_rectosigmoid_junction.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_rectosigmoid_junction.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_rectosigmoid_junction.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_rectum",
+          "name": "Actual rectum host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_rectum.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_rectum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_rectum.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_rectum.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_rectum.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.segment_anastomotic_region_if_present",
+          "name": "Actual anastomotic_region_if_present host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.segment_anastomotic_region_if_present.covered_source_extent",
+              "name": "covered source extent"
+            },
+            {
+              "id": "gi_foreign_body.segment_anastomotic_region_if_present.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "gi_foreign_body.segment_anastomotic_region_if_present.inner_wall_if_resolved",
+              "name": "inner wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_anastomotic_region_if_present.outer_wall_if_resolved",
+              "name": "outer wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.segment_anastomotic_region_if_present.attachment_or_adjacent_interface",
+              "name": "attachment or adjacent interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.each_object",
+          "name": "Every actual source-visible object and complete physical form",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.each_object.complete_body",
+              "name": "complete body"
+            },
+            {
+              "id": "gi_foreign_body.each_object.first_end",
+              "name": "first end"
+            },
+            {
+              "id": "gi_foreign_body.each_object.second_end",
+              "name": "second end"
+            },
+            {
+              "id": "gi_foreign_body.each_object.each_sharp_tip",
+              "name": "each sharp tip"
+            },
+            {
+              "id": "gi_foreign_body.each_object.each_edge",
+              "name": "each edge"
+            },
+            {
+              "id": "gi_foreign_body.each_object.curved_region",
+              "name": "curved region"
+            },
+            {
+              "id": "gi_foreign_body.each_object.fractured_region",
+              "name": "fractured region"
+            },
+            {
+              "id": "gi_foreign_body.each_object.component_join_if_present",
+              "name": "component join if present"
+            },
+            {
+              "id": "gi_foreign_body.each_object.longest_extent",
+              "name": "longest extent"
+            },
+            {
+              "id": "gi_foreign_body.each_object.cross_sectional_extent",
+              "name": "cross sectional extent"
+            },
+            {
+              "id": "gi_foreign_body.each_object.surface_boundary",
+              "name": "surface boundary"
+            },
+            {
+              "id": "gi_foreign_body.each_object.orientation_relative_to_wall",
+              "name": "orientation relative to wall"
+            },
+            {
+              "id": "gi_foreign_body.each_object.each_separate_object",
+              "name": "each separate object"
+            },
+            {
+              "id": "gi_foreign_body.each_object.overlap_limit",
+              "name": "overlap limit"
+            },
+            {
+              "id": "gi_foreign_body.each_object.unseen_endpoint_limit",
+              "name": "unseen endpoint limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "Radiography"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Object",
+              "detail": "Describe number, shape and visibility."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.object_class_context",
+          "name": "Actual object-feature examples and independent material context",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.object_class_context.bone_like_linear_feature",
+              "name": "bone like linear feature"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.wood_like_feature",
+              "name": "wood like feature"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.denture_components",
+              "name": "denture components"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.metal_like_feature",
+              "name": "metal like feature"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.plastic_like_feature",
+              "name": "plastic like feature"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.blister_pack_like_feature",
+              "name": "blister pack like feature"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.multiple_object_example",
+              "name": "multiple object example"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.magnet_like_feature",
+              "name": "magnet like feature"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.battery_like_feature",
+              "name": "battery like feature"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.blunt_long_object_feature",
+              "name": "blunt long object feature"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.object_vs_calcification_reference",
+              "name": "object vs calcification reference"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.object_vs_vessel_reference",
+              "name": "object vs vessel reference"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.object_vs_enteric_content_reference",
+              "name": "object vs enteric content reference"
+            },
+            {
+              "id": "gi_foreign_body.object_class_context.source_material_uncertainty",
+              "name": "source material uncertainty"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "Radiography"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Object",
+              "detail": "Describe number, shape and visibility."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.localisation",
+          "name": "Actual object position and host-wall interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.localisation.intraluminal_region",
+              "name": "intraluminal region"
+            },
+            {
+              "id": "gi_foreign_body.localisation.wall_impaction_region",
+              "name": "wall impaction region"
+            },
+            {
+              "id": "gi_foreign_body.localisation.traversed_wall_region",
+              "name": "traversed wall region"
+            },
+            {
+              "id": "gi_foreign_body.localisation.extraluminal_region",
+              "name": "extraluminal region"
+            },
+            {
+              "id": "gi_foreign_body.localisation.first_tip_interface",
+              "name": "first tip interface"
+            },
+            {
+              "id": "gi_foreign_body.localisation.second_tip_interface",
+              "name": "second tip interface"
+            },
+            {
+              "id": "gi_foreign_body.localisation.each_additional_tip_interface",
+              "name": "each additional tip interface"
+            },
+            {
+              "id": "gi_foreign_body.localisation.source_long_axis_plane",
+              "name": "source long axis plane"
+            },
+            {
+              "id": "gi_foreign_body.localisation.source_cross_axis_plane",
+              "name": "source cross axis plane"
+            },
+            {
+              "id": "gi_foreign_body.localisation.complete_object_host_relation",
+              "name": "complete object host relation"
+            },
+            {
+              "id": "gi_foreign_body.localisation.unassessed_wall_or_endpoint_limit",
+              "name": "unassessed wall or endpoint limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.wall_lumen_effect",
+          "name": "Each actual wall/lumen effect and complete local extent",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.thickened_wall",
+              "name": "thickened wall"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.focal_defect",
+              "name": "focal defect"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.luminal_narrowing",
+              "name": "luminal narrowing"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.proximal_transition",
+              "name": "proximal transition"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.distal_transition",
+              "name": "distal transition"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.upstream_dilatation",
+              "name": "upstream dilatation"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.downstream_lumen",
+              "name": "downstream lumen"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.wall_haemorrhage_if_supported",
+              "name": "wall haemorrhage if supported"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.mucosal_injury_if_resolved",
+              "name": "mucosal injury if resolved"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.threatened_wall_if_supported",
+              "name": "threatened wall if supported"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.obstructed_loop",
+              "name": "obstructed loop"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.source_reference_wall",
+              "name": "source reference wall"
+            },
+            {
+              "id": "gi_foreign_body.wall_lumen_effect.unassessed_injury_depth",
+              "name": "unassessed injury depth"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.perforation",
+          "name": "Each actual penetrating/perforation observation",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.perforation.visible_wall_discontinuity",
+              "name": "visible wall discontinuity"
+            },
+            {
+              "id": "gi_foreign_body.perforation.object_crossing_region",
+              "name": "object crossing region"
+            },
+            {
+              "id": "gi_foreign_body.perforation.first_extraluminal_tip",
+              "name": "first extraluminal tip"
+            },
+            {
+              "id": "gi_foreign_body.perforation.additional_extraluminal_tip",
+              "name": "additional extraluminal tip"
+            },
+            {
+              "id": "gi_foreign_body.perforation.localized_free_gas",
+              "name": "localized free gas"
+            },
+            {
+              "id": "gi_foreign_body.perforation.wider_free_gas_distribution",
+              "name": "wider free gas distribution"
+            },
+            {
+              "id": "gi_foreign_body.perforation.extraluminal_content",
+              "name": "extraluminal content"
+            },
+            {
+              "id": "gi_foreign_body.perforation.contained_injury_interface",
+              "name": "contained injury interface"
+            },
+            {
+              "id": "gi_foreign_body.perforation.local_inflammatory_region",
+              "name": "local inflammatory region"
+            },
+            {
+              "id": "gi_foreign_body.perforation.remote_inflammatory_region",
+              "name": "remote inflammatory region"
+            },
+            {
+              "id": "gi_foreign_body.perforation.fistula_if_visible",
+              "name": "fistula if visible"
+            },
+            {
+              "id": "gi_foreign_body.perforation.unassessed_source_extent",
+              "name": "unassessed source extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.collection",
+          "name": "Every actual collection and object/tissue interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.collection.collection_core",
+              "name": "collection core"
+            },
+            {
+              "id": "gi_foreign_body.collection.wall_or_rim_if_resolved",
+              "name": "wall or rim if resolved"
+            },
+            {
+              "id": "gi_foreign_body.collection.inner_collection_interface",
+              "name": "inner collection interface"
+            },
+            {
+              "id": "gi_foreign_body.collection.outer_collection_interface",
+              "name": "outer collection interface"
+            },
+            {
+              "id": "gi_foreign_body.collection.intralesional_gas",
+              "name": "intralesional gas"
+            },
+            {
+              "id": "gi_foreign_body.collection.object_in_collection_interface",
+              "name": "object in collection interface"
+            },
+            {
+              "id": "gi_foreign_body.collection.host_organ_interface",
+              "name": "host organ interface"
+            },
+            {
+              "id": "gi_foreign_body.collection.mesenteric_interface",
+              "name": "mesenteric interface"
+            },
+            {
+              "id": "gi_foreign_body.collection.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "gi_foreign_body.collection.retroperitoneal_interface",
+              "name": "retroperitoneal interface"
+            },
+            {
+              "id": "gi_foreign_body.collection.each_additional_collection",
+              "name": "each additional collection"
+            },
+            {
+              "id": "gi_foreign_body.collection.complete_covered_extent",
+              "name": "complete covered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.mesentery_peritoneum",
+          "name": "Actual surrounding host anatomy",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.mesenteric_root",
+              "name": "mesenteric root"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.each_actual_leaf",
+              "name": "each actual leaf"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.bowel_attachment",
+              "name": "bowel attachment"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.perienteric_fat",
+              "name": "perienteric fat"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.pericolic_fat",
+              "name": "pericolic fat"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.omental_region",
+              "name": "omental region"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.peritoneal_surface",
+              "name": "peritoneal surface"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.interloop_space",
+              "name": "interloop space"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.retroperitoneal_space",
+              "name": "retroperitoneal space"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.each_relevant_node_region",
+              "name": "each relevant node region"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.free_fluid_space",
+              "name": "free fluid space"
+            },
+            {
+              "id": "gi_foreign_body.mesentery_peritoneum.unassessed_host_limit",
+              "name": "unassessed host limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_liver",
+          "name": "Actual liver organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_liver.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_liver.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_liver.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_liver.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_liver.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_pancreas",
+          "name": "Actual pancreas organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_pancreas.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_pancreas.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_pancreas.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_pancreas.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_pancreas.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_spleen",
+          "name": "Actual spleen organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_spleen.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_spleen.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_spleen.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_spleen.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_spleen.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_kidney_if_relevant",
+          "name": "Actual kidney_if_relevant organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_kidney_if_relevant.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_kidney_if_relevant.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_kidney_if_relevant.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_kidney_if_relevant.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_kidney_if_relevant.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_psoas_if_relevant",
+          "name": "Actual psoas_if_relevant organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_psoas_if_relevant.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_psoas_if_relevant.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_psoas_if_relevant.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_psoas_if_relevant.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_psoas_if_relevant.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_bladder_if_relevant",
+          "name": "Actual bladder_if_relevant organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_bladder_if_relevant.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_bladder_if_relevant.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_bladder_if_relevant.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_bladder_if_relevant.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_bladder_if_relevant.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_adjacent_bowel_loop",
+          "name": "Actual adjacent_bowel_loop organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_adjacent_bowel_loop.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_adjacent_bowel_loop.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_adjacent_bowel_loop.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_adjacent_bowel_loop.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_adjacent_bowel_loop.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_abdominal_wall_if_relevant",
+          "name": "Actual abdominal_wall_if_relevant organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_abdominal_wall_if_relevant.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_abdominal_wall_if_relevant.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_abdominal_wall_if_relevant.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_abdominal_wall_if_relevant.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_abdominal_wall_if_relevant.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.host_mediastinal_host_if_covered",
+          "name": "Actual mediastinal_host_if_covered organ/interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.host_mediastinal_host_if_covered.covered_host_region",
+              "name": "covered host region"
+            },
+            {
+              "id": "gi_foreign_body.host_mediastinal_host_if_covered.organ_wall_or_capsule_if_resolved",
+              "name": "organ wall or capsule if resolved"
+            },
+            {
+              "id": "gi_foreign_body.host_mediastinal_host_if_covered.source_object_interface",
+              "name": "source object interface"
+            },
+            {
+              "id": "gi_foreign_body.host_mediastinal_host_if_covered.suspected_injured_region_if_present",
+              "name": "suspected injured region if present"
+            },
+            {
+              "id": "gi_foreign_body.host_mediastinal_host_if_covered.unassessed_penetration_boundary",
+              "name": "unassessed penetration boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.vessel_aorta_if_relevant",
+          "name": "Actual aorta_if_relevant relation",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.vessel_aorta_if_relevant.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "gi_foreign_body.vessel_aorta_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_aorta_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_aorta_if_relevant.nearest_object_tip_interface",
+              "name": "nearest object tip interface"
+            },
+            {
+              "id": "gi_foreign_body.vessel_aorta_if_relevant.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "gi_foreign_body.vessel_aorta_if_relevant.unassessed_opacification_or_contact",
+              "name": "unassessed opacification or contact"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.vessel_sma_and_actual_branches_if_relevant",
+          "name": "Actual sma_and_actual_branches_if_relevant relation",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.vessel_sma_and_actual_branches_if_relevant.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "gi_foreign_body.vessel_sma_and_actual_branches_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_sma_and_actual_branches_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_sma_and_actual_branches_if_relevant.nearest_object_tip_interface",
+              "name": "nearest object tip interface"
+            },
+            {
+              "id": "gi_foreign_body.vessel_sma_and_actual_branches_if_relevant.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "gi_foreign_body.vessel_sma_and_actual_branches_if_relevant.unassessed_opacification_or_contact",
+              "name": "unassessed opacification or contact"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.vessel_smv_and_actual_tributaries_if_relevant",
+          "name": "Actual smv_and_actual_tributaries_if_relevant relation",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.vessel_smv_and_actual_tributaries_if_relevant.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "gi_foreign_body.vessel_smv_and_actual_tributaries_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_smv_and_actual_tributaries_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_smv_and_actual_tributaries_if_relevant.nearest_object_tip_interface",
+              "name": "nearest object tip interface"
+            },
+            {
+              "id": "gi_foreign_body.vessel_smv_and_actual_tributaries_if_relevant.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "gi_foreign_body.vessel_smv_and_actual_tributaries_if_relevant.unassessed_opacification_or_contact",
+              "name": "unassessed opacification or contact"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.vessel_portal_hepatic_vessels_if_relevant",
+          "name": "Actual portal_hepatic_vessels_if_relevant relation",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.vessel_portal_hepatic_vessels_if_relevant.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "gi_foreign_body.vessel_portal_hepatic_vessels_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_portal_hepatic_vessels_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_portal_hepatic_vessels_if_relevant.nearest_object_tip_interface",
+              "name": "nearest object tip interface"
+            },
+            {
+              "id": "gi_foreign_body.vessel_portal_hepatic_vessels_if_relevant.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "gi_foreign_body.vessel_portal_hepatic_vessels_if_relevant.unassessed_opacification_or_contact",
+              "name": "unassessed opacification or contact"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.vessel_iliac_vessels_if_relevant",
+          "name": "Actual iliac_vessels_if_relevant relation",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.vessel_iliac_vessels_if_relevant.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "gi_foreign_body.vessel_iliac_vessels_if_relevant.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_iliac_vessels_if_relevant.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_iliac_vessels_if_relevant.nearest_object_tip_interface",
+              "name": "nearest object tip interface"
+            },
+            {
+              "id": "gi_foreign_body.vessel_iliac_vessels_if_relevant.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "gi_foreign_body.vessel_iliac_vessels_if_relevant.unassessed_opacification_or_contact",
+              "name": "unassessed opacification or contact"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.vessel_other_actual_vessel",
+          "name": "Actual other_actual_vessel relation",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.vessel_other_actual_vessel.covered_source_course",
+              "name": "covered source course"
+            },
+            {
+              "id": "gi_foreign_body.vessel_other_actual_vessel.lumen_if_resolved",
+              "name": "lumen if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_other_actual_vessel.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vessel_other_actual_vessel.nearest_object_tip_interface",
+              "name": "nearest object tip interface"
+            },
+            {
+              "id": "gi_foreign_body.vessel_other_actual_vessel.actual_branch_or_confluence",
+              "name": "actual branch or confluence"
+            },
+            {
+              "id": "gi_foreign_body.vessel_other_actual_vessel.unassessed_opacification_or_contact",
+              "name": "unassessed opacification or contact"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.vascular_injury",
+          "name": "Each actual vascular injury or threatened interface",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.vascular_injury.object_wall_contact_if_resolved",
+              "name": "object wall contact if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.traversed_vessel_wall_if_resolved",
+              "name": "traversed vessel wall if resolved"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.intraluminal_object_if_supported",
+              "name": "intraluminal object if supported"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.residual_lumen",
+              "name": "residual lumen"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.thrombus_if_supported",
+              "name": "thrombus if supported"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.occluded_region_if_supported",
+              "name": "occluded region if supported"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.active_extravasation_if_assessable",
+              "name": "active extravasation if assessable"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.pseudoaneurysm_if_supported",
+              "name": "pseudoaneurysm if supported"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.perivascular_haemorrhage",
+              "name": "perivascular haemorrhage"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "gi_foreign_body.vascular_injury.unassessed_injury_extent",
+              "name": "unassessed injury extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.migration",
+          "name": "Actual source-specific chronology and object identity",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.migration.baseline_object",
+              "name": "baseline object"
+            },
+            {
+              "id": "gi_foreign_body.migration.current_object",
+              "name": "current object"
+            },
+            {
+              "id": "gi_foreign_body.migration.baseline_first_tip",
+              "name": "baseline first tip"
+            },
+            {
+              "id": "gi_foreign_body.migration.current_first_tip",
+              "name": "current first tip"
+            },
+            {
+              "id": "gi_foreign_body.migration.baseline_second_tip",
+              "name": "baseline second tip"
+            },
+            {
+              "id": "gi_foreign_body.migration.current_second_tip",
+              "name": "current second tip"
+            },
+            {
+              "id": "gi_foreign_body.migration.baseline_host_interface",
+              "name": "baseline host interface"
+            },
+            {
+              "id": "gi_foreign_body.migration.current_host_interface",
+              "name": "current host interface"
+            },
+            {
+              "id": "gi_foreign_body.migration.each_intervening_observation",
+              "name": "each intervening observation"
+            },
+            {
+              "id": "gi_foreign_body.migration.unassessed_source_correspondence",
+              "name": "unassessed source correspondence"
+            },
+            {
+              "id": "gi_foreign_body.migration.each_separate_object_identity",
+              "name": "each separate object identity"
+            },
+            {
+              "id": "gi_foreign_body.migration.unassessed_prior_field",
+              "name": "unassessed prior field"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "Radiography"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.radiographic_source",
+          "name": "Actual radiographic visibility/projection evidence",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.radiographic_source.object_projection",
+              "name": "object projection"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.first_endpoint_projection",
+              "name": "first endpoint projection"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.second_endpoint_projection",
+              "name": "second endpoint projection"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.overlapping_objects",
+              "name": "overlapping objects"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.projection_specific_reference",
+              "name": "projection specific reference"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.complete_exposed_field",
+              "name": "complete exposed field"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.orientation_change_limit",
+              "name": "orientation change limit"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.magnification_or_calibration_limit",
+              "name": "magnification or calibration limit"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.opaque_vs_nonvisible_source",
+              "name": "opaque vs nonvisible source"
+            },
+            {
+              "id": "gi_foreign_body.radiographic_source.unassessed_depth_relationship",
+              "name": "unassessed depth relationship"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Radiography"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Object",
+              "detail": "Describe number, shape and visibility."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.ct_source",
+          "name": "Actual CT source/window/plane and contrast evidence",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.ct_source.source_object_long_axis",
+              "name": "source object long axis"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.source_object_cross_axis",
+              "name": "source object cross axis"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.bone_window_reference",
+              "name": "bone window reference"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.soft_tissue_window_reference",
+              "name": "soft tissue window reference"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.lung_window_gas_reference",
+              "name": "lung window gas reference"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.baseline_attenuation_if_acquired",
+              "name": "baseline attenuation if acquired"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.actual_contrast_source_if_acquired",
+              "name": "actual contrast source if acquired"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.partial_volume_region",
+              "name": "partial volume region"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.metal_artefact_region",
+              "name": "metal artefact region"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.motion_region",
+              "name": "motion region"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.positive_enteric_contrast_effect_if_present",
+              "name": "positive enteric contrast effect if present"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.field_end",
+              "name": "field end"
+            },
+            {
+              "id": "gi_foreign_body.ct_source.independent_native_resolution_evidence",
+              "name": "independent native resolution evidence"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Object",
+              "detail": "Describe number, shape and visibility."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.high_risk_context",
+          "name": "Actual high-risk source-specific observations",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.high_risk_context.oesophageal_impaction_if_present",
+              "name": "oesophageal impaction if present"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.sharp_tip_at_wall",
+              "name": "sharp tip at wall"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.battery_feature_if_supported",
+              "name": "battery feature if supported"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.multiple_magnets_if_supported",
+              "name": "multiple magnets if supported"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.magnet_metal_relationship_if_supported",
+              "name": "magnet metal relationship if supported"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.object_at_narrowing",
+              "name": "object at narrowing"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.long_object_configuration",
+              "name": "long object configuration"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.clinically_significant_obstruction",
+              "name": "clinically significant obstruction"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.local_injury_at_high_risk_object",
+              "name": "local injury at high risk object"
+            },
+            {
+              "id": "gi_foreign_body.high_risk_context.unassessed_material_or_number",
+              "name": "unassessed material or number"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "Radiography"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Object",
+              "detail": "Describe number, shape and visibility."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "gi_foreign_body.positive_examples",
+          "name": "Source-specific object and complication examples",
+          "tissue_class": "reportable_anatomy_object_or_injury_interface",
+          "required_parts": [
+            {
+              "id": "gi_foreign_body.positive_examples.poorly_visible_object_example",
+              "name": "poorly visible object example"
+            },
+            {
+              "id": "gi_foreign_body.positive_examples.contained_perforation_without_free_gas_example",
+              "name": "contained perforation without free gas example"
+            },
+            {
+              "id": "gi_foreign_body.positive_examples.object_vessel_mimic_example",
+              "name": "object vessel mimic example"
+            },
+            {
+              "id": "gi_foreign_body.positive_examples.projection_overlap_example",
+              "name": "projection overlap example"
+            },
+            {
+              "id": "gi_foreign_body.positive_examples.organ_migration_example",
+              "name": "organ migration example"
+            },
+            {
+              "id": "gi_foreign_body.positive_examples.remote_collection_example",
+              "name": "remote collection example"
+            },
+            {
+              "id": "gi_foreign_body.positive_examples.multiple_object_example",
+              "name": "multiple object example"
+            },
+            {
+              "id": "gi_foreign_body.positive_examples.independently_measured_complete_object_example",
+              "name": "independently measured complete object example"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "Radiography"
+          ],
+          "condition": "Instantiate every actual object, endpoint, complete covered GI segment, wall/lumen/organ/vessel interface, injury site and source comparison with actual projection/planes, calibration, opacification, field and population. Radiographic projection cannot supply CT tissue relationships; schematic colours cannot provide material identity, injury depth, patency or proven migration. Conditional upper-GI, thoracic, postoperative and other-organ regions require actual coverage/relevance.",
+          "requirement_basis": "effective_foreign_object_location_bowel_injury_collection_migration_and_adjacent_structure_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Object",
+              "detail": "Describe number, shape and visibility."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Location",
+              "detail": "Identify the gastrointestinal segment and precise relationship to its wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Bowel Effect",
+              "detail": "Assess wall thickening and obstruction."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Perforation And Collection",
+              "detail": "Look for local gas, inflammatory change and abscess."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Migration And Adjacent Organs",
+              "detail": "Trace proximity to vessels and organ penetration."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/sharp-foreign-bodies-in-gi-tract",
+            "https://doi.org/10.1259/bjr.20150086",
+            "https://doi.org/10.1055/s-0042-100456"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual object, component, endpoint, host segment and injury/collection/organ/vessel interface",
+            "Distinct actual radiographic projection and CT source planes/windows/calibration",
+            "Case-specific age, object/material uncertainty, longitudinal correspondence and independent clinical/anatomical review"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "object_and_interface_instances_pending",
+          "detail": "Draft groups require every actual endpoint/object/component/site to be instantiated and reviewed."
+        },
+        {
+          "code": "modality_and_visibility_limits_pending",
+          "detail": "Radiographic projection, a negative limited examination or parent anatomy cannot supply CT depth, material or complete object extent."
+        },
+        {
+          "code": "injury_and_migration_pending",
+          "detail": "Free-gas absence, projected proximity and different field/projection do not independently exclude injury or establish penetration/migration."
+        },
+        {
+          "code": "population_framework_pending",
+          "detail": "Adult upper-GI guidance is source-qualified; paediatric/lower-GI and broader treatment algorithms remain separate review work."
+        },
+        {
+          "code": "native_sources_and_rights_pending",
+          "detail": "Every image, schematic/model and clinical source/context requires appropriate provenance, rights and full fidelity validation."
+        },
+        {
+          "code": "shared_lesson_review_pending",
+          "detail": "Whole shared tumour/foreign-body lesson and quiz/management content remain unreconciled."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "object_form",
+          "evidence": "Each actual complete source-visible object and endpoints, calibrated dimensions and source visibility limits."
+        },
+        {
+          "observation": "tissue_relation",
+          "evidence": "Actual CT wall/organ/vessel planes and opacification; a projection does not prove depth or penetration."
+        },
+        {
+          "observation": "injury",
+          "evidence": "Full relevant local/remote wall, gas, inflammatory and collection assessment with source limits."
+        },
+        {
+          "observation": "migration",
+          "evidence": "Reliable identity and source correspondence, not projection or coverage differences."
+        },
+        {
+          "observation": "clinical_urgency",
+          "evidence": "Actual age, location, object/material/number and complications under the applicable independent clinical framework."
         }
       ]
     }
