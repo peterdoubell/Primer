@@ -1,0 +1,30 @@
+# Original HRA pancreatic reference geometry
+
+Acquired and inspected the original female and male HRA pancreas **v1.3** models and their own metadata/crosswalk distributions. Each contains five separate gross source regions: head, neck, body, tail and uncinate process. The female source node spelling `VH_F_ucinate_process1` is retained verbatim; its crosswalk and embedded label identify the uncinate process. These curated reference models are not registered to the C3L-02112 CT acquisitions and do not supply patient-specific tumour boundaries, ducts, vessel lumina/walls, neural pathways or disease examples.
+
+Model rights are checked on the **raw-data dataset**, separately from the graph-data licence. Female model DOI [10.48539/HBM866.PNNZ.328](https://doi.org/10.48539/HBM866.PNNZ.328) and male model DOI [10.48539/HBM396.QWWJ.639](https://doi.org/10.48539/HBM396.QWWJ.639) identify CC BY 4.0 and cite Kristen Browne and Heidi Schlehlein, 2024. Their source descriptions identify Visible Human reference data and state that v1.3 reduced the neck region and made body/tail regions more equal in length. These source-defined divisions are preserved, not reassigned to fit clinical lesion locations. HRA raw model permission is not substituted for permission to redistribute underlying acquired Visible Human images.
+
+Versioned HTTPS metadata identifies the exact GLB and crosswalk distributions. Source GLBs, metadata and crosswalks are fingerprinted in [acquisition receipts](hra-pancreatic-source-review/acquisition.json). Fingerprints are local SHA-256 values, **not publisher checksums**. Both original model files remain in ignored research storage. Metadata and crosswalk copies are preserved with the review; no raw clinical image archive is acquired or republished here.
+
+All scene nodes, five meshes per model, original Float32 position accessors and original triangle index accessors were inspected. Static source transforms/dynamic or unsupported geometry are rejected rather than ignored. Indexed seams are distinguished from analysis-only exact-position edge counts; analysis grouping does not weld or rewrite the source model.
+
+| Source | Original triangles | Exact-position boundary occurrences | Exact opposing shared edge pairs | Unmatched edges | Exact-position nonmanifold edges | Zero-area triangles |
+|---|---:|---:|---:|---:|---:|---:|
+| Female v1.3 | 12,894 | 576 | 288 | 0 | 8 | 8 |
+| Male v1.3 | 38,930 | 662 | 250 | 162 | 12 | 0 |
+
+Every female boundary occurrence has an exact opposing edge partner in another source region. This resolves those particular open edges as coincident region cuts, without fusing parts or proving anatomical accuracy, solid topology or lack of self-contact. The original female head retains eight zero-area triangles and eight exact-position nonmanifold edges.
+
+The male body has a 106-edge unmatched simple boundary cycle and the neck has a 56-edge unmatched simple boundary cycle. They do not have exact corresponding cut edges in the other regions. No tolerance matching, snapping, bridge, cap, smoothing or pruning is used to hide the mismatch. The male head also retains 12 exact-position nonmanifold edges. Shared pairs at body/tail, head/neck and head/uncinate have opposing direction; that local fact is not proof of a complete closed organ or patient-specific anatomy.
+
+The common inventory checker previously formatted every ontology ID as a UBERON URI. The pancreatic neck instead uses `FMA:14517`, whose actual embedded URI is `http://purl.org/sig/ont/fma/fma14517`. The checker now handles these two explicit namespaces separately and rejects unsupported ones. Crosswalk labels and embedded identifiers match for all ten source mesh nodes. This is source metadata correspondence, not independent anatomical approval; the existing unrelated renal label specialization remains unchanged.
+
+Four source-review figures show all five regions together and individually from two camera azimuths. All original triangles, including degenerate ones, are submitted without repairs. Source base colours are retained with review lighting. A documented rigid display-axis rotation makes glTF Y vertical in the plot; physical metre axes and differing panel scales are visible. No anatomical anterior/posterior orientation or CT registration is asserted. The female/male azimuth-35 figures were directly inspected for all region panels, labels, axes and readable layout on 4 October 2026. The figure appearance does not replace mesh contact or independent clinical review.
+
+- [Female source view, azimuth 35](hra-pancreatic-source-review/pancreas-female-v1.3-azimuth35.png) and [azimuth 215](hra-pancreatic-source-review/pancreas-female-v1.3-azimuth215.png)
+- [Male source view, azimuth 35](hra-pancreatic-source-review/pancreas-male-v1.3-azimuth35.png) and [azimuth 215](hra-pancreatic-source-review/pancreas-male-v1.3-azimuth215.png)
+- [Female primitive inventory](hra-pancreatic-source-review/pancreas-female-v1.3-original-primitives.json) and [complete boundary comparison](hra-pancreatic-source-review/pancreas-female-v1.3-boundary-review.json)
+- [Male primitive inventory](hra-pancreatic-source-review/pancreas-male-v1.3-original-primitives.json) and [complete boundary comparison](hra-pancreatic-source-review/pancreas-male-v1.3-boundary-review.json)
+- [Rendering provenance](hra-pancreatic-source-review/source-figure-review.json)
+
+Eighteen scientific acquisition/namespace/primitive/boundary regression checks passed. They preserve raw-model grant separation, reject unrelated version distributions, bind all actual source counts/fingerprints and retain both source defects and unapproved status. Continuous triangle self/inter-region contacts, original acquisition-derived boundary accuracy, independent anatomical review and runtime suitability remain to be assessed. No representation credit or runtime promotion is granted. The complete all-radiology objective remains active; these five gross regions cannot substitute for the full pancreatic reporting inventory.
