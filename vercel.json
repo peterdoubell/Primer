@@ -5,7 +5,7 @@
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "excludeFiles": "{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif}"
+        "excludeFiles": "{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp}"
       }
     },
     {
@@ -14,6 +14,10 @@
     },
     {
       "src": "web/reference-media/prenatal-development/prenatal-development.gif",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "web/reference-media/prenatal-development/day-*.webp",
       "use": "@vercel/static"
     },
     {

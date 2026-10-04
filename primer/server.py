@@ -3672,6 +3672,20 @@ async def prenatal_gif_delivery():
     return FileResponse(os.path.join(WEB_DIR, "reference-media/prenatal-development/prenatal-development.gif"), media_type="image/gif")
 
 
+@app.api_route("/app/reference-media/prenatal-development/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def prenatal_frame_delivery(asset: str, request: Request):
+    # The original lossless frames join the GIF on the CDN. The app URL still
+    # crosses the same reader access gate, and the manifest stays in Python.
+    if os.environ.get("VERCEL") and re.fullmatch(r"day-[0-9]{3}\.webp", asset):
+        from urllib.parse import urlencode
+        target = "/source-media/reference-media/prenatal-development/" + asset
+        query = urlencode(request.query_params.multi_items())
+        if query:
+            target += "?" + query
+        return RedirectResponse(target, status_code=307)
+    return await app.state.source_static.get_response("reference-media/prenatal-development/" + asset, request.scope)
+
+
 class _CachedStatic(StaticFiles):
     """Fingerprinted assets may be cached hard; everything else revalidates."""
 
