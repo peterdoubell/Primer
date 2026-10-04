@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 95 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 18,705 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 598 distinct resources. One hundred fifty-five have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 608 distinct resources. One hundred sixty-five have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -320,3 +320,7 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 4 October 2026 — bowel-obstruction continuity and viability scope
 
 [Bowel-obstruction scope review](bowel-obstruction-fidelity-scope-review.md) defines 268 actual segment/loop/transition/wall/mesenteric/vessel/hernia/complication targets and 804 representation obligations. The normal preset no longer invents wall enhancement without acquired suitable contrast/phase; complete source continuity, cause qualification and clinical viability remain explicit. A stale cached contract was caught and refreshed from a clean process. 152 focused checks plus local API and desktop/mobile normal-prefill verification passed. All new representations remain missing/unverified. Known floor: 18,705 obligations, 95 unexpanded investigations and 106 unreconciled curriculum surfaces; final denominator unknown. No clinical/model approval or narrowed scope is claimed.
+
+### 4 October 2026 — original obstruction and enhancement CT examples
+
+[Bowel-obstruction source review](bowel-obstruction-published-source-review.md) integrates ten complete CC BY 4.0 CT figures with exact PDF JPEG preservation, closed-loop/hernia/mesenteric/gas examples and paired unenhanced/enhanced source comparisons. Same-patient views, a repeated source plane and NOMI-versus-mechanical-obstruction context remain explicit; no viability/histology or complete loop/branch proof is borrowed. 188 focused checks, local API/hash and desktop/mobile/full-size verification passed. All new anatomical bindings remain empty/pending. Static rights inventory: 608 resources, 165 cleared and 443 unverified; full fidelity remains unproven and the complete goal stays active.
