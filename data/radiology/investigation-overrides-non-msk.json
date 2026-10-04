@@ -5893,5 +5893,99 @@
       ],
       "reviewed_at": "2026-10-04"
     }
+  },
+  "ra.adrenal-lesions": {
+    "reporting": {
+      "protocol": [
+        "Review prior studies and distinguish a true incidentaloma from an oncology or endocrine investigation.",
+        "Record actual noncontrast and contrast acquisitions/times, CT ROI representativeness, paired in-/opposed-phase MRI quality and any prior-study comparability. Do not apply incidentaloma pathways to oncology or endocrine presentations without their separate clinical context."
+      ],
+      "checklist": [
+        {
+          "label": "Context",
+          "detail": "Record known cancer, symptoms and prior size."
+        },
+        {
+          "label": "Morphology",
+          "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+        },
+        {
+          "label": "Lipid",
+          "detail": "Measure unenhanced attenuation or paired chemical-shift signal."
+        },
+        {
+          "label": "Behaviour",
+          "detail": "Compare growth using consistent planes and review local invasion."
+        },
+        {
+          "label": "Integration",
+          "detail": "Separate imaging characterisation from biochemical function."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Unenhanced attenuation",
+          "method": "For a homogeneous lesion, use a representative unenhanced ROI covering most of the lesion (ESE/ENSAT Table 4 specifies at least 75%) without surrounding-tissue contamination. Record heterogeneity; do not select a reassuring component to classify the entire heterogeneous mass.",
+          "pitfall": "A postcontrast HU value cannot be used as an unenhanced lipid criterion."
+        },
+        {
+          "name": "Growth",
+          "method": "Report absolute mm change and percentage using dated comparable studies.",
+          "pitfall": "Different planes and partial volume may produce apparent growth."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Hormonal activity cannot be excluded by benign imaging morphology.",
+        "Washout overlap occurs in non-adenomas; do not diagnose an adenoma from washout alone in a discordant lesion.",
+        "A low-attenuation homogeneous adrenal lesion can be benign without proving adenoma histology; a nonenhancing cyst and a fat-predominant myelolipoma require their own composition assessment.",
+        "Small foci of macroscopic fat do not uniquely establish myelolipoma, and chemical-shift signal loss is not a universal adenoma or nonfunctioning-lesion diagnosis.",
+        "Keep ESE/ENSAT 2023 recommendations separate from the Seow 2025 proposed pathway adopted by the updated source; record the framework and its incidentaloma/endocrine eligibility.",
+        "Before considering biopsy, exclude phaeochromocytoma, confirm imaging remains indeterminate and confirm histology would change management. Suspected adrenocortical carcinoma needs expert assessment rather than routine biopsy."
+      ],
+      "impression_prompts": [
+        "State whether imaging demonstrates a benign lipid-rich lesion or remains indeterminate.",
+        "Describe growth, heterogeneity or invasion that changes concern.",
+        "Relate any recommendation to the incidental, oncologic or endocrine context."
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "CLINICAL CONTEXT",
+          "body": "Discovery: [incidental / oncology / endocrine workup]. Known malignancy: [ ]. Prior study/date: [ ]."
+        },
+        {
+          "heading": "MORPHOLOGY",
+          "body": "Side: [ ]. Maximum diameter: [ ] mm. Homogeneity: [ ]. Fat/haemorrhage/necrosis: [ ]."
+        },
+        {
+          "heading": "LIPID CHARACTERISATION",
+          "body": "Unenhanced attenuation: [ ] HU, ROI [ ]. Chemical-shift loss: [present / absent / not performed]."
+        },
+        {
+          "heading": "ADDITIONAL CHARACTERISATION",
+          "body": "Contrast phases/timing if used: [ ]. Washout values/method if obtained: [ ]. Discordant features: [ ]."
+        },
+        {
+          "heading": "CHANGE AND EXTENT",
+          "body": "Prior/current dimensions: [ ]. Growth: [ ] mm / [ ]%. Local invasion/nodes: [ ]. Contralateral adrenal: [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant — Characterization of Adrenal lesions - Update",
+          "url": "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1"
+        },
+        {
+          "title": "ESE/ENSAT adrenal incidentaloma guideline (2023)",
+          "url": "https://doi.org/10.1093/ejendo/lvad066"
+        },
+        {
+          "title": "Seow et al. (2025) — proposed true-incidentaloma pathway and washout evidence review",
+          "url": "https://doi.org/10.1186/s13244-025-02015-4"
+        }
+      ],
+      "reviewed_at": "2026-10-04"
+    }
   }
 }

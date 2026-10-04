@@ -965,7 +965,7 @@ def _render_adrenal(plate: RadiologyPlate,
          "HOMOGENEOUS + <=10 HU", GREEN, size=19)
     _note(plate, (inner[0] + 8, inner[1] + 350,
                   inner[2] - 8, inner[3]),
-          "Supports a benign lipid-rich adrenal mass in the applicable setting.",
+          "Supports benign imaging features; endocrine function is separate.",
           size=20, bold=True)
 
     inner = _panel(plate, boxes[1], "CHEMICAL SHIFT MRI", TEAL)
@@ -984,10 +984,10 @@ def _render_adrenal(plate: RadiologyPlate,
            label_at=(inner[2] - 120, inner[1] + 195))
     _note(plate, (inner[0] + 8, inner[1] + 335,
                   inner[2] - 8, inner[3]),
-          "Signal drop demonstrates intracellular lipid; absence is not a diagnosis.",
+          "Matched signal loss supports lipid; it does not uniquely prove adenoma.",
           size=20, bold=True)
 
-    inner = _panel(plate, boxes[2], "WASHOUT: SELECTED CASES", CORAL)
+    inner = _panel(plate, boxes[2], "KINETICS / FRAMEWORK", CORAL)
     graph = (inner[0] + 35, inner[1] + 65, inner[2] - 35, inner[1] + 285)
     plate.arrow((graph[0], graph[3]), (graph[2], graph[3]),
                 fill=INK_SOFT, width=4, head=13)
@@ -1005,7 +1005,7 @@ def _render_adrenal(plate: RadiologyPlate,
                fill=INK_SOFT, anchor="mm")
     _note(plate, (inner[0] + 8, inner[1] + 340,
                   inner[2] - 8, inner[3]),
-          "Kinetics help selected indeterminate lesions; they do not settle every diagnosis.",
+          "Actual timing and framework matter; washout alone is not a diagnosis.",
           size=20, bold=True)
 
 

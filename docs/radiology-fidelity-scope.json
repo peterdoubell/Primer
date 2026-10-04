@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2173,7 +2173,7 @@
         "reporting": {
           "protocol": [
             "Review prior studies and distinguish a true incidentaloma from an oncology or endocrine investigation.",
-            "Use unenhanced CT or chemical-shift MRI for lipid characterisation; interpret any washout only with its actual protocol and context."
+            "Record actual noncontrast and contrast acquisitions/times, CT ROI representativeness, paired in-/opposed-phase MRI quality and any prior-study comparability. Do not apply incidentaloma pathways to oncology or endocrine presentations without their separate clinical context."
           ],
           "checklist": [
             {
@@ -2200,7 +2200,7 @@
           "measurements": [
             {
               "name": "Unenhanced attenuation",
-              "method": "Place a large representative ROI avoiding edges, necrosis and calcification.",
+              "method": "For a homogeneous lesion, use a representative unenhanced ROI covering most of the lesion (ESE/ENSAT Table 4 specifies at least 75%) without surrounding-tissue contamination. Record heterogeneity; do not select a reassuring component to classify the entire heterogeneous mass.",
               "pitfall": "A postcontrast HU value cannot be used as an unenhanced lipid criterion."
             },
             {
@@ -2212,7 +2212,11 @@
           "classification": null,
           "pitfalls": [
             "Hormonal activity cannot be excluded by benign imaging morphology.",
-            "Washout overlap occurs in non-adenomas; do not diagnose an adenoma from washout alone in a discordant lesion."
+            "Washout overlap occurs in non-adenomas; do not diagnose an adenoma from washout alone in a discordant lesion.",
+            "A low-attenuation homogeneous adrenal lesion can be benign without proving adenoma histology; a nonenhancing cyst and a fat-predominant myelolipoma require their own composition assessment.",
+            "Small foci of macroscopic fat do not uniquely establish myelolipoma, and chemical-shift signal loss is not a universal adenoma or nonfunctioning-lesion diagnosis.",
+            "Keep ESE/ENSAT 2023 recommendations separate from the Seow 2025 proposed pathway adopted by the updated source; record the framework and its incidentaloma/endocrine eligibility.",
+            "Before considering biopsy, exclude phaeochromocytoma, confirm imaging remains indeterminate and confirm histology would change management. Suspected adrenocortical carcinoma needs expert assessment rather than routine biopsy."
           ],
           "impression_prompts": [
             "State whether imaging demonstrates a benign lipid-rich lesion or remains indeterminate.",
@@ -2250,31 +2254,35 @@
             {
               "title": "ESE/ENSAT adrenal incidentaloma guideline (2023)",
               "url": "https://doi.org/10.1093/ejendo/lvad066"
+            },
+            {
+              "title": "Seow et al. (2025) \u2014 proposed true-incidentaloma pathway and washout evidence review",
+              "url": "https://doi.org/10.1186/s13244-025-02015-4"
             }
           ],
-          "reviewed_at": "2026-09-23"
+          "reviewed_at": "2026-10-04"
         },
         "report_templates": [
           {
-            "id": "adrenal-report",
+            "id": "ra-adrenal-lesions-report",
             "title": "CT AND MRI ADRENAL LESIONS",
-            "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+            "description": "Reporting fields for CT and MRI adrenal lesions. Complete the relevant observations and remove unused alternatives.",
             "sections": [
               {
                 "heading": "INDICATION",
-                "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+                "body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ]."
               },
               {
                 "heading": "COMPARISON",
-                "body": "[None available / date and examination]. Relevant interval change: [ ]."
+                "body": "[None / examination and date]."
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Review prior studies and distinguish a true incidentaloma from an oncology or endocrine investigation.\nUse unenhanced CT or chemical-shift MRI for lipid characterisation; interpret any washout only with its actual protocol and context.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+                "body": "Review prior studies and distinguish a true incidentaloma from an oncology or endocrine investigation.\nRecord actual noncontrast and contrast acquisitions/times, CT ROI representativeness, paired in-/opposed-phase MRI quality and any prior-study comparability. Do not apply incidentaloma pathways to oncology or endocrine presentations without their separate clinical context.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
-                "body": "[IMG 1: Unenhanced ROI; series __ image __]\n[IMG 2: Matched delayed ROI or opposed-phase image; series __ image __]\n[IMG 3: Prior comparison or local extension; series __ image __]"
+                "body": "[IMG 1: clinical context; series __ image __]\n[IMG 2: morphology; series __ image __]\n[IMG 3: lipid characterisation; series __ image __]"
               },
               {
                 "heading": "CLINICAL CONTEXT",
@@ -2302,22 +2310,29 @@
               },
               {
                 "heading": "RECOMMENDATION AND COMMUNICATION",
-                "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+                "body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method]."
               }
             ],
             "notes": [
-              "Use adrenal characterisation criteria only with the appropriate protocol; endocrine assessment is a separate clinical question.",
               "Hormonal activity cannot be excluded by benign imaging morphology.",
-              "Washout overlap occurs in non-adenomas; do not diagnose an adenoma from washout alone in a discordant lesion."
+              "Washout overlap occurs in non-adenomas; do not diagnose an adenoma from washout alone in a discordant lesion.",
+              "A low-attenuation homogeneous adrenal lesion can be benign without proving adenoma histology; a nonenhancing cyst and a fat-predominant myelolipoma require their own composition assessment.",
+              "Small foci of macroscopic fat do not uniquely establish myelolipoma, and chemical-shift signal loss is not a universal adenoma or nonfunctioning-lesion diagnosis.",
+              "Keep ESE/ENSAT 2023 recommendations separate from the Seow 2025 proposed pathway adopted by the updated source; record the framework and its incidentaloma/endocrine eligibility.",
+              "Before considering biopsy, exclude phaeochromocytoma, confirm imaging remains indeterminate and confirm histology would change management. Suspected adrenocortical carcinoma needs expert assessment rather than routine biopsy."
             ],
             "sources": [
               {
-                "title": "Characterization of Adrenal lesions - Update",
+                "title": "Radiology Assistant \u2014 Characterization of Adrenal lesions - Update",
                 "url": "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1"
               },
               {
                 "title": "ESE/ENSAT adrenal incidentaloma guideline (2023)",
                 "url": "https://doi.org/10.1093/ejendo/lvad066"
+              },
+              {
+                "title": "Seow et al. (2025) \u2014 proposed true-incidentaloma pathway and washout evidence review",
+                "url": "https://doi.org/10.1186/s13244-025-02015-4"
               }
             ]
           }
@@ -2325,7 +2340,7 @@
         "walkthrough": {
           "reviewed_at": "2026-09-25",
           "complete": true,
-          "template_id": "adrenal-report",
+          "template_id": "ra-adrenal-lesions-report",
           "start": {
             "sections": [
               "INDICATION",
@@ -2366,7 +2381,7 @@
               },
               "findings": [
                 "[Right / left] adrenal nodule __ mm, homogeneous and well defined.",
-                "Myelolipoma: adrenal lesion with macroscopic fat.",
+                "Fat-predominant adrenal lesion, compatible with myelolipoma; soft-tissue components and discordant features: [ ].",
                 "Heterogeneous adrenal mass __ mm with necrosis and calcification.",
                 "Adrenal cyst with a thin wall and fluid attenuation."
               ],
@@ -2375,12 +2390,9 @@
               ],
               "measurements": [],
               "landmark": "adrenals",
-              "parts": [
-                "FJ3147",
-                "FJ3145"
-              ],
+              "parts": [],
               "look": "Axial and coronal images of both adrenals.",
-              "tip": "Macroscopic fat in an adrenal mass is diagnostic of myelolipoma."
+              "tip": "Predominant macroscopic fat and confirmed adrenal origin support myelolipoma. Small fat foci can occur in other tumours; assess the complete mass, soft-tissue components and discordant features. Current 3D context has no source adrenal-gland mesh; kidney meshes cannot represent gland or lesion morphology."
             },
             {
               "label": "Lipid characterisation",
@@ -2390,7 +2402,7 @@
               ],
               "normal": {},
               "findings": [
-                "Unenhanced attenuation __ HU (10 HU or less), diagnostic of a lipid-rich adenoma.",
+                "Homogeneous lesion measuring __ HU on true unenhanced CT (10 HU or less), with benign imaging features; endocrine function assessed separately.",
                 "Signal loss on opposed-phase MRI, compatible with an adenoma.",
                 "Unenhanced attenuation __ HU; lipid-poor lesion, indeterminate."
               ],
@@ -2403,8 +2415,8 @@
               ],
               "landmark": "adrenals",
               "parts": [],
-              "look": "Unenhanced CT with a large ROI over at least half of the lesion avoiding edges; in- and opposed-phase MRI.",
-              "tip": "An unenhanced attenuation of 10 HU or less indicates a lipid-rich adenoma; no further imaging is needed for that lesion."
+              "look": "True unenhanced CT, representative ROI over most of a homogeneous lesion without outside-tissue contamination, and actual matched in-/opposed-phase MRI if obtained. Heterogeneity limits whole-lesion classification.",
+              "tip": "ESE/ENSAT 2023 requires homogeneity and true unenhanced attenuation of 10 HU or less for no further imaging, independently of size. Imaging does not settle hormonal function or uniquely prove adenoma histology."
             },
             {
               "label": "Contrast behaviour and discordant features",
@@ -2424,8 +2436,8 @@
               "measurements": [],
               "landmark": "adrenals",
               "parts": [],
-              "look": "Portal venous and 15-minute delayed phases if acquired; absolute washout 60% or more and relative washout 40% or more favour adenoma.",
-              "tip": "Washout overlaps between adenomas and other lesions; do not rely on it when morphology is atypical."
+              "look": "Record actual acquisition times and matched ROIs if a washout study exists. Historical absolute 60%/relative 40% thresholds have overlap and do not prove adenoma. ESE/ENSAT Table 4 lists cautious relative >58% evidence; the Seow 2025 proposal recommends abandoning washout for true incidentalomas.",
+              "tip": "Identify the selected framework and clinical population. Do not use a reassuring washout or focal chemical-shift loss to classify a heterogeneous mass as benign; imaging cannot exclude phaeochromocytoma."
             },
             {
               "label": "Growth and local extent",
@@ -2434,7 +2446,7 @@
                 "CHANGE AND EXTENT"
               ],
               "normal": {
-                "CHANGE AND EXTENT": "Stable size compared with [date]; no local invasion; contralateral adrenal normal."
+                "CHANGE AND EXTENT": "No local invasion identified; contralateral adrenal without a focal lesion. Prior comparison: [date / unavailable]; interval change: [ ]."
               },
               "findings": [
                 "Growth from __ mm to __ mm since [date] (__ mm, __%).",
@@ -2448,14 +2460,9 @@
                 "Growth"
               ],
               "landmark": "adrenals",
-              "parts": [
-                "FJ3147",
-                "FJ3145",
-                "FJ2038",
-                "FJ2046"
-              ],
+              "parts": [],
               "look": "Same plane and window as the prior study; renal vein and IVC; the contralateral adrenal.",
-              "tip": "A lesion larger than 4 cm, heterogeneous or growing raises concern for malignancy."
+              "tip": "Record size, homogeneity, true unenhanced attenuation and clinical context together. For an indeterminate lesion under ESE/ENSAT follow-up, significant growth requires more than 20% AND at least 5 mm in maximum diameter over 6\u201312 months. The source model does not depict adrenal/renal venous thrombus or tumour invasion; renal arteries cannot stand for veins."
             }
           ],
           "finish": {
@@ -2467,13 +2474,13 @@
           "spatial_model": {
             "id": "radiology-model-rad.5.adrenal",
             "title": "Adrenal Lesion Characterisation \u00b7 3D landmarks",
-            "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Localise the suprarenal glands relative to kidneys and midline great vessels.",
+            "instructions": "Drag to rotate the schematic positional context. Adrenal shapes are conceptual; no source adrenal gland, lesion, wall layer or venous thrombus geometry is present. Use actual CT/MRI for reported morphology and extent.",
             "scenario": "radiology-reference:rad.5.adrenal",
             "family": "renal",
             "focus": [
               "adrenals"
             ],
-            "reporting_aim": "Localise the suprarenal glands relative to kidneys and midline great vessels."
+            "reporting_aim": "Explore schematic suprarenal position relative to kidneys; obtain source anatomy and actual lesion/venous extent from adequate CT/MRI."
           }
         },
         "reading": [
@@ -2508,10 +2515,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "2fa173fdcfc054e5563f0a4d5d59aff8b7cf76050f2a91e151182d68830f2e32",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -2559,13 +2566,13 @@
         "spatial_model": {
           "id": "radiology-model-rad.5.adrenal",
           "title": "CT and MRI adrenal lesions \u00b7 spatial orientation",
-          "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Localise the suprarenal glands relative to kidneys and midline great vessels.",
+          "instructions": "Drag to rotate the schematic positional context. Adrenal shapes are conceptual; no source adrenal gland, lesion, wall layer or venous thrombus geometry is present. Use actual CT/MRI for reported morphology and extent.",
           "scenario": "radiology-reference:rad.5.adrenal",
           "family": "renal",
           "focus": [
             "adrenals"
           ],
-          "reporting_aim": "Localise the suprarenal glands relative to kidneys and midline great vessels."
+          "reporting_aim": "Explore schematic suprarenal position relative to kidneys; obtain source anatomy and actual lesion/venous extent from adequate CT/MRI."
         },
         "source_anatomy_references": []
       },
@@ -10056,7 +10063,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10441,7 +10448,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10967,7 +10974,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11388,7 +11395,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11803,7 +11810,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12722,7 +12729,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13183,7 +13190,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14130,7 +14137,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14936,7 +14943,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -21638,7 +21645,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -25806,7 +25813,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -28440,7 +28447,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -28835,7 +28842,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -50762,7 +50769,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_inventory_sha256": "233883dd6204582698750d5543f0b76c8aa47c10e7c2ecdbce24e13e978e2b9a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -79694,7 +79701,7 @@
       ],
       "has_reporting_reference": true,
       "module_contract": {
-        "goal": "Take an adrenal lesion from incidental finding to a firm answer using attenuation, chemical shift and washout, and state clearly which questions imaging cannot settle.",
+        "goal": "Characterise an adrenal lesion using its actual anatomy, composition and acquired CT/MRI findings; separate imaging uncertainty, endocrine function and framework-specific management.",
         "learning_outcomes": null,
         "lesson": null,
         "reference": {
@@ -79706,62 +79713,62 @@
           "approach": [
             {
               "step": "Confirm it is adrenal",
-              "detail": "Check the lesion moves with the adrenal limb, not the kidney, on all planes."
+              "detail": "Confirm adrenal origin on multiplanar imaging: identify residual gland limbs, displacement and organ interfaces; exclude a renal, pancreatic, splenic, vascular or retroperitoneal mimic. Static planes do not show motion."
             },
             {
               "step": "Read the unenhanced density",
-              "detail": "This single number does most of the work. Measure a region of interest over the solid, non-cystic, non-haemorrhagic part of the lesion."
+              "detail": "For a homogeneous lesion, use a representative unenhanced ROI covering most of the lesion (ESE/ENSAT Table 4 specifies at least 75%) without surrounding-tissue contamination. Record heterogeneity; do not select a reassuring component to classify the entire heterogeneous mass."
             },
             {
               "step": "Apply the density thresholds",
-              "detail": "\u226410 HU is a lipid-rich adenoma. 11-20 HU in a lesion \u22644 cm can be considered benign. Above 20 HU, density alone does not settle it."
+              "detail": "ESE/ENSAT 2023: a homogeneous mass with true unenhanced attenuation \u226410 HU needs no further imaging, but endocrine assessment is separate. Homogeneous 11\u201320 HU and <4 cm without significant hormone excess: additional imaging or 12-month noncontrast CT/MRI. Seow 2025 proposes a different \u226420 HU/<4 cm true-incidentaloma pathway; do not blend the frameworks or extend it to oncology/endocrine presentations."
             },
             {
               "step": "Use chemical shift MRI for indeterminate lesions",
-              "detail": "Look for diffuse or heterogeneous signal drop on opposed-phase images, indicating microscopic fat and adenoma."
+              "detail": "Compare actual matched in-phase and opposed-phase MRI and check motion, field strength and acquisition details. Signal loss supports intracellular lipid; it is not a universal adenoma diagnosis and heterogeneous masses cannot be classified from a reassuring component."
             },
             {
               "step": "Reserve washout CT for genuinely indeterminate lesions",
-              "detail": "Do not use it as a routine step \u2014 the source is explicit that washout CT has no role in the routine workup of adrenal incidentalomas."
+              "detail": "Washout is not a definitive diagnosis. Historical 60% absolute/40% relative criteria overlap with phaeochromocytoma and other tumours. ESE/ENSAT 2023 allows selected additional imaging with weak washout evidence; Seow 2025 proposes no washout for true incidentalomas. State the actual protocol, framework and endocrine/oncology context."
             },
             {
               "step": "Weigh size and growth",
-              "detail": "Lesions above 4 cm, and especially above 6 cm, are worrisome. Growth of \u22655 mm over 6-12 months is significant."
+              "detail": "Assess size together with homogeneity, unenhanced attenuation, invasion and context. ESE/ENSAT 2023 follow-up of indeterminate masses uses >20% AND \u22655 mm growth in maximum diameter over 6\u201312 months; size alone is not a universal malignant diagnosis or surgery instruction."
             },
             {
               "step": "State what imaging cannot answer",
-              "detail": "Density and washout characterise lipid content, not malignant potential outright \u2014 say so explicitly when the picture is mixed."
+              "detail": "Imaging characterises anatomy and composition but cannot establish hormonal function or every histological diagnosis. State uncertainty, framework and specialist discussion where appropriate. Biopsy needs exclusion of phaeochromocytoma, unresolved imaging and a result that would alter management."
             }
           ],
           "measure": [
             {
               "what": "Unenhanced CT density (lipid-rich adenoma)",
-              "how": "Region of interest over the solid portion of the lesion on the non-contrast series.",
-              "cutoff": "\u2264 10 HU"
+              "how": "For a homogeneous lesion, use a representative unenhanced ROI covering most of the lesion (ESE/ENSAT Table 4 specifies at least 75%) without surrounding-tissue contamination. Record heterogeneity; do not select a reassuring component to classify the entire heterogeneous mass.",
+              "cutoff": "Homogeneous mass, true unenhanced \u226410 HU: benign imaging features under ESE/ENSAT 2023; not unique adenoma histology or endocrine clearance."
             },
             {
-              "what": "Unenhanced CT density (lipid-poor adenoma)",
-              "how": "Same technique, in a lesion 4 cm or smaller.",
-              "cutoff": "11-20 HU, \u2264 4 cm, can be considered benign"
+              "what": "Homogeneous indeterminate attenuation",
+              "how": "True unenhanced CT; record whole-lesion homogeneity, size and clinical/endocrine context.",
+              "cutoff": "ESE/ENSAT 2023: 11\u201320 HU and <4 cm, without significant hormone excess, suggests additional imaging or 12-month CT/MRI. Seow 2025 proposes a distinct true-incidentaloma pathway."
             },
             {
               "what": "Absolute washout",
               "how": "(Enhanced HU - delayed HU) / (Enhanced HU - unenhanced HU) x 100.",
-              "cutoff": "\u2265 60% consistent with adenoma"
+              "cutoff": "Historical \u226560%; overlapping tumour patterns prevent a standalone adenoma diagnosis."
             },
             {
               "what": "Relative washout",
               "how": "(Enhanced HU - delayed HU) / Enhanced HU x 100, used when no unenhanced phase is available.",
-              "cutoff": "\u2265 40% consistent with adenoma"
+              "cutoff": "Historical \u226540%; ESE/ENSAT Table 4 lists >58% with weak evidence and caution. No standalone diagnosis."
             },
             {
               "what": "Size and interval growth",
               "how": "Longest diameter on the plane that best shows the lesion, compared with any prior study.",
-              "cutoff": "> 4 cm (especially > 6 cm) is worrisome \u00b7 significant growth \u2265 5 mm over 6-12 months"
+              "cutoff": "ESE/ENSAT indeterminate-lesion follow-up: >20% AND \u22655 mm over 6\u201312 months. Size, attenuation, homogeneity and clinical context assessed together."
             }
           ],
           "classify": {
-            "name": "Adrenal lesion characterisation by unenhanced CT density",
+            "name": "ESE/ENSAT 2023 imaging categories \u2014 endocrine and clinical context remain separate",
             "columns": [
               "Unenhanced density",
               "Interpretation",
@@ -79769,39 +79776,40 @@
             ],
             "rows": [
               [
-                "\u2264 10 HU",
-                "Lipid-rich adenoma",
-                "No further work-up needed"
+                "Homogeneous, true unenhanced \u226410 HU",
+                "Benign imaging features, independent of size",
+                "No further adrenal imaging; endocrine function assessed separately"
               ],
               [
-                "11-20 HU, lesion \u2264 4 cm",
-                "Lipid-poor adenoma, can be considered benign",
-                "No further work-up needed in the appropriate context"
+                "Homogeneous 11\u201320 HU, <4 cm",
+                "Usually benign; not conclusively lipid-poor adenoma from attenuation alone",
+                "Without significant hormone excess, additional imaging or interval CT/MRI at 12 months"
               ],
               [
-                "21-30 HU",
-                "Indeterminate",
-                "Chemical shift MRI is sometimes useful"
+                "\u22654 cm AND (heterogeneous OR >20 HU)",
+                "Higher concern; not histological proof",
+                "Expert multidisciplinary assessment, staging and individualized management"
               ],
               [
-                "> 30 HU",
-                "Indeterminate to suspicious",
-                "Consider clinical context, size, growth; washout CT only if genuinely indeterminate"
+                "Other indeterminate combinations",
+                "Context-dependent uncertainty",
+                "Expert discussion and additional imaging selected for the actual clinical question"
               ]
             ],
-            "note": "These thresholds characterise lipid content, not malignant potential outright \u2014 size, growth and clinical context still matter."
+            "note": "The Seow 2025 \u226420 HU/<4 cm true-incidentaloma proposal is distinct from ESE/ENSAT 2023; do not apply its eligibility or follow-up rules silently to cancer staging or suspected adrenal disease."
           },
           "pitfalls": [
-            "Measuring the ROI over a cystic or haemorrhagic part of the lesion \u2014 this drags the density measurement and invalidates the threshold.",
-            "Reflexively ordering a washout CT protocol. The source states plainly that washout CT has no role in the routine workup of adrenal incidentalomas.",
-            "Treating chemical shift signal drop as quantitative. The finding is qualitative \u2014 diffuse or heterogeneous signal loss on opposed-phase \u2014 not a numeric cutoff.",
-            "Ignoring growth because the density looks benign. A lesion enlarging by \u22655 mm over 6-12 months needs reassessment even with a reassuring density.",
-            "Stopping at 'indeterminate' without stating what would resolve it \u2014 say whether chemical shift MRI, follow-up, or biopsy is the next step."
+            "Hormonal activity cannot be excluded by benign imaging morphology.",
+            "Washout overlap occurs in non-adenomas; do not diagnose an adenoma from washout alone in a discordant lesion.",
+            "A low-attenuation homogeneous adrenal lesion can be benign without proving adenoma histology; a nonenhancing cyst and a fat-predominant myelolipoma require their own composition assessment.",
+            "Small foci of macroscopic fat do not uniquely establish myelolipoma, and chemical-shift signal loss is not a universal adenoma or nonfunctioning-lesion diagnosis.",
+            "Keep ESE/ENSAT 2023 recommendations separate from the Seow 2025 proposed pathway adopted by the updated source; record the framework and its incidentaloma/endocrine eligibility.",
+            "Before considering biopsy, exclude phaeochromocytoma, confirm imaging remains indeterminate and confirm histology would change management. Suspected adrenocortical carcinoma needs expert assessment rather than routine biopsy."
           ],
-          "template": "TECHNIQUE\n[CT abdomen \u2014 non-contrast [\u00b1 portal venous \u00b1 15-minute delayed] / chemical shift MRI with in-phase and opposed-phase sequences]. Comparison: [date / none].\n\nFINDINGS\nSide: [right / left / bilateral]. Confirmed adrenal \u2014 the lesion moves with the adrenal limb, not the kidney, on all planes: [yes / no].\nSize: [n] x [n] x [n] mm. Prior [n] mm on [date]; interval change [n] mm.\nMorphology: [homogeneous / heterogeneous], [round and well-defined / irregular], necrosis [ ], calcification [ ], macroscopic fat [ ].\nUnenhanced density: [n] HU, ROI placed over the solid, non-cystic, non-haemorrhagic portion.\nChemical shift MRI (if performed): [no signal drop / diffuse or heterogeneous signal drop on opposed phase, indicating microscopic fat].\nWashout CT (only if genuinely indeterminate): unenhanced [n] HU, enhanced [n] HU, delayed [n] HU. Absolute washout [n]% (adenoma \u2265 60%). Relative washout [n]% (adenoma \u2265 40%).\nContralateral adrenal, and the rest of the study including any known primary: [ ].\n\nIMPRESSION\n1. [Left / right] adrenal lesion, [n] mm, unenhanced density [n] HU.\n2. [\u2264 10 HU \u2014 lipid-rich adenoma, no further work-up / 11\u201320 HU in a lesion \u2264 4 cm \u2014 lipid-poor adenoma, can be considered benign in the appropriate context / 21\u201330 HU \u2014 indeterminate, chemical shift MRI sometimes useful / > 30 HU \u2014 indeterminate to suspicious].\n3. Size and growth: [> 4 cm, especially > 6 cm, is worrisome; growth \u2265 5 mm over 6\u201312 months is significant].\n4. Density and washout characterise lipid content, not malignant potential outright. [State what remains unanswered and recommend: clinical and biochemical correlation, chemical shift MRI, interval CT, or MDT discussion.]"
+          "template": "TECHNIQUE\nActual CT/MRI acquisitions, contrast times, coverage and quality: [ ]. Framework and clinical context: [ ]. Comparison: [date / unavailable].\n\nFINDINGS\nAdrenal origin and residual limbs: [ ]. Side and each lesion: [ ]. Size in consistent planes: [ ] mm. Homogeneity and whole-margin assessment: [ ]. Solid, cystic, necrotic, haemorrhagic, calcified and macroscopic-fat components: [ ].\nTrue unenhanced ROI coverage and attenuation: [ ]. Matched in-/opposed-phase MRI if obtained: [ ]; limits/discordant regions: [ ]. Actual contrast phases and any washout formula/values: [ ]; not a standalone diagnosis.\nPrior/current dimensions and dated interval: [ ]. Change: [ ] mm / [ ]%. Local organ interfaces, renal/adrenal veins and IVC: [ ]. Nodes and other acquired disease: [ ]. Contralateral adrenal: [ ].\n\nIMPRESSION\n1. Anatomical origin, composition and degree of imaging certainty: [ ].\n2. Framework-specific interpretation and contextual recommendation: [ ]; endocrine function is separate.\n3. Growth, invasion or other discordant findings: [ ]. ESE/ENSAT indeterminate follow-up growth threshold is >20% AND \u22655 mm, not either criterion alone.\n4. If biopsy is contemplated: phaeochromocytoma excluded, imaging indeterminate and histology would change management: [ ]. Specialist assessment for suspected adrenocortical carcinoma."
         },
         "radiology_reference": {
-          "overview": "Take an adrenal lesion from incidental finding to a firm answer using attenuation, chemical shift and washout, and state clearly which questions imaging cannot settle.",
+          "overview": "Characterise an adrenal lesion using its actual anatomy, composition and acquired CT/MRI findings; separate imaging uncertainty, endocrine function and framework-specific management.",
           "learning_points": [
             "Low attenuation can establish a lipid-rich adenoma.",
             "Signal loss reveals intracellular lipid.",
@@ -80043,13 +80051,13 @@
           "spatial_model": {
             "id": "radiology-model-rad.5.adrenal",
             "title": "Adrenal Lesion Characterisation \u00b7 3D landmarks",
-            "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Localise the suprarenal glands relative to kidneys and midline great vessels.",
+            "instructions": "Drag to rotate the schematic positional context. Adrenal shapes are conceptual; no source adrenal gland, lesion, wall layer or venous thrombus geometry is present. Use actual CT/MRI for reported morphology and extent.",
             "scenario": "radiology-reference:rad.5.adrenal",
             "family": "renal",
             "focus": [
               "adrenals"
             ],
-            "reporting_aim": "Localise the suprarenal glands relative to kidneys and midline great vessels."
+            "reporting_aim": "Explore schematic suprarenal position relative to kidneys; obtain source anatomy and actual lesion/venous extent from adequate CT/MRI."
           }
         },
         "visual_spec": null,
@@ -80068,17 +80076,17 @@
                 {
                   "heading": "Unenhanced CT",
                   "label": "Unenhanced CT",
-                  "detail": "Low attenuation can establish a lipid-rich adenoma."
+                  "detail": "Homogeneity and true unenhanced attenuation support benign imaging features."
                 },
                 {
                   "heading": "Chemical shift",
                   "label": "Chemical shift",
-                  "detail": "Signal loss reveals intracellular lipid."
+                  "detail": "Matched source images support intracellular lipid; function remains separate."
                 },
                 {
                   "heading": "Washout / limits",
                   "label": "Washout / limits",
-                  "detail": "Kinetics help selected lesions but cannot settle every diagnosis."
+                  "detail": "Actual timing, clinical context and framework limit interpretation."
                 }
               ],
               "takeaway": "Attenuation, signal loss and washout answer different adrenal lesion questions."
@@ -80091,7 +80099,7 @@
             "kind": "model",
             "renderer": "radiology-anatomy",
             "title": "Adrenal Lesion Characterisation \u00b7 3D landmarks",
-            "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Localise the suprarenal glands relative to kidneys and midline great vessels.",
+            "instructions": "Drag to rotate the schematic positional context. Adrenal shapes are conceptual; no source adrenal gland, lesion, wall layer or venous thrombus geometry is present. Use actual CT/MRI for reported morphology and extent.",
             "props": {
               "node_id": "rad.5.adrenal",
               "family": "renal"
@@ -80118,27 +80126,27 @@
           {
             "kind": "choice",
             "prompt": "A 2.4 cm right adrenal nodule is homogeneous and measures 26 HU on the unenhanced series. The patient is normotensive, has no known malignancy, and the nodule was found on a CT for abdominal pain. What is the most useful next imaging step?",
-            "answer": "A dedicated adrenal washout CT, or chemical shift MRI, to look for a lipid-poor adenoma",
+            "answer": "Endocrine assessment and an individualized additional imaging plan, such as chemical-shift MRI, with the selected framework stated",
             "choices": [
-              "A dedicated adrenal washout CT, or chemical shift MRI, to look for a lipid-poor adenoma",
+              "Endocrine assessment and an individualized additional imaging plan, such as chemical-shift MRI, with the selected framework stated",
               "A repeat unenhanced CT in twelve months, since attenuation just above 10 HU can be watched",
               "FDG PET-CT, since attenuation above 10 HU makes a cortical carcinoma the leading diagnosis",
               "Percutaneous biopsy, the usual next test once an adrenal nodule measures more than 10 HU"
             ],
-            "explain": "About a third of adenomas are lipid-poor, so an unenhanced value above 10 HU leaves the commonest diagnosis firmly on the table and simply means the cheapest test has failed. Two routes remain. A dedicated washout CT adds a portal venous phase and a fifteen minute delayed phase, and an adenoma will have given up its contrast quickly. Chemical shift MRI looks for signal loss on the opposed-phase images from intracytoplasmic lipid, using the spleen as the reference tissue rather than the liver, which may be steatotic. Broadly, the higher the unenhanced attenuation, the less likely chemical shift imaging is to show any drop, so a very dense nodule is better served by washout or by a different question altogether. Biopsy comes late, and never before a phaeochromocytoma has been excluded.",
+            "explain": "A homogeneous 26 HU lesion is indeterminate by unenhanced attenuation. ESE/ENSAT 2023 supports expert discussion and additional imaging chosen for the question and local expertise. The Seow 2025 proposal questions washout for true incidentalomas. Neither framework makes historical washout thresholds a definitive adenoma diagnosis, and endocrine function remains a separate assessment.",
             "ephemeral": false
           },
           {
             "kind": "choice",
-            "prompt": "A 5 cm right adrenal mass contains a large region measuring minus 45 HU, with strands of soft tissue running through it. There is no calcification, no invasion of adjacent structures and no symptom attributable to it. What do you report?",
-            "answer": "A myelolipoma: macroscopic fat is diagnostic, and an asymptomatic lesion needs no adrenal follow-up imaging",
+            "prompt": "A 5 cm right mass is confirmed to arise from the adrenal and is predominantly macroscopic fat (minus 45 HU), with small strands of soft tissue. There is no calcification, invasion or symptom attributable to it. What does the imaging support, and what remains separate?",
+            "answer": "A fat-predominant adrenal lesion compatible with myelolipoma; assess discordant components and clinical/endocrine context separately",
             "choices": [
-              "A myelolipoma: macroscopic fat is diagnostic, and an asymptomatic lesion needs no adrenal follow-up imaging",
+              "A fat-predominant adrenal lesion compatible with myelolipoma; assess discordant components and clinical/endocrine context separately",
               "A lipid-rich adenoma: the negative attenuation reflects the intracytoplasmic lipid these tumours contain",
               "An adrenal liposarcoma: fat within an adrenal mass of this size should be presumed malignant until proved",
               "A retroperitoneal teratoma: fat-containing adrenal lesions arise from germ cell rests displaced in development"
             ],
-            "explain": "Macroscopic fat, meaning attenuation well below zero and typically in the region of minus 30 to minus 100 HU, together with interspersed myeloid soft tissue, is diagnostic of a myelolipoma. These are benign, hormonally silent and need no characterisation beyond the CT that found them. Do not confuse macroscopic fat with the intracytoplasmic lipid of an adenoma, which sits the lesion in the 0 to 10 HU range rather than deeply negative, and which is detected by chemical shift imaging rather than by a fat measurement. Large myelolipomas can haemorrhage spontaneously, and surgery is considered when a lesion is big or symptomatic rather than on imaging appearance alone. A final caution: adrenal collision tumours exist, so if part of the mass is solid, heterogeneous and enhancing, report that component on its own terms.",
+            "explain": "Confirmed adrenal origin and predominant macroscopic fat support myelolipoma. Small fat foci alone are not diagnostic: other adrenal or retroperitoneal tumours may contain fat. Whole-lesion soft tissue, haemorrhage, mass effect and clinical context affect assessment; no blanket endocrine or management clearance follows from fat alone.",
             "ephemeral": false
           },
           {
@@ -80157,14 +80165,14 @@
           {
             "kind": "choice",
             "prompt": "A 7 cm left adrenal mass is heterogeneous with central necrosis and a few flecks of calcification, enhances avidly and irregularly, and a tongue of enhancing tissue extends into the left renal vein. The patient has no known primary malignancy. What follows?",
-            "answer": "Refer for surgical resection after endocrine assessment, since this behaves as an adrenocortical carcinoma",
+            "answer": "Urgent expert multidisciplinary assessment, endocrine work-up and staging for a suspicious adrenal mass with venous extension",
             "choices": [
-              "Refer for surgical resection after endocrine assessment, since this behaves as an adrenocortical carcinoma",
+              "Urgent expert multidisciplinary assessment, endocrine work-up and staging for a suspicious adrenal mass with venous extension",
               "Arrange a washout study, because a high washout figure would settle matters and spare an operation",
               "Arrange interval imaging at six months, since heterogeneity by itself is not enough to act on here",
               "Arrange image-guided biopsy first, since histology should precede any discussion of adrenal surgery"
             ],
-            "explain": "Size, heterogeneity, necrosis, calcification and venous invasion together describe an adrenocortical carcinoma, and the treatment is complete resection by a surgeon who does this often, since capsular rupture worsens outcome. Size alone carries weight: the risk of malignancy rises steeply above 4 cm, and that threshold is what pushes an otherwise indeterminate incidentaloma towards resection. Washout would be actively misleading, because adrenocortical carcinomas and hypervascular metastases can wash out above the adenoma thresholds. Biopsy is discouraged when a primary cortical carcinoma is suspected, both because of tract seeding and because it rarely changes the plan. What must happen first is biochemistry, since about half of these tumours secrete cortisol or androgens, and an unrecognised cortisol excess sets the patient up for postoperative adrenal crisis.",
+            "explain": "A large heterogeneous mass with enhancing venous extension is suspicious, including for adrenocortical carcinoma, but imaging is not histological proof. Expert staging and endocrine assessment guide management and surgical planning. Routine biopsy is not the default for suspected adrenocortical carcinoma.",
             "ephemeral": false
           },
           {
@@ -80184,14 +80192,14 @@
             "kind": "numeric",
             "prompt": "On a dedicated adrenal CT, a nodule measures 12 HU on the unenhanced series, 78 HU at 60 seconds and 32 HU at 15 minutes. Calculate the absolute percentage washout and state it as a percentage to one decimal place.",
             "answer": "69.7",
-            "explain": "Absolute percentage washout is the enhanced value minus the delayed value, divided by the enhanced value minus the unenhanced value, times one hundred. Here that is 78 minus 32, over 78 minus 12, which is 46 over 66, or 69.7 per cent. A value of 60 per cent or more indicates an adenoma, and this nodule is one, even though its unenhanced attenuation of 12 HU put it above the 10 HU cut-off and made it lipid-poor. Two quality checks before you trust the arithmetic. The lesion must actually enhance, and 66 HU of enhancement is comfortably enough; where enhancement is under about 20 HU the denominator is so small that the percentage becomes unstable. And the delayed phase must be at fifteen minutes, because the published threshold was derived at that delay.",
+            "explain": "Absolute washout is (78\u221232)/(78\u221212)\u00d7100 = 69.7%. This arithmetic does not diagnose adenoma. Record matched ROIs and actual acquisition timing; historical cutoffs overlap with phaeochromocytoma and other tumours, and apply only in an explicitly selected clinical framework.",
             "ephemeral": false
           },
           {
             "kind": "numeric",
             "prompt": "An adrenal study was performed without an unenhanced series. The nodule measures 64 HU at 60 seconds and 30 HU at 15 minutes. Calculate the relative percentage washout and state it as a percentage to one decimal place.",
             "answer": "53.1",
-            "explain": "Relative percentage washout is the enhanced value minus the delayed value, divided by the enhanced value alone, times one hundred: 64 minus 30, over 64, giving 53.1 per cent. The threshold is 40 per cent or more for an adenoma, so this nodule qualifies. The relative formula exists precisely for the situation described, where somebody scanned a patient with contrast and the adrenal question arose afterwards, and it lets you salvage the study by adding only a delayed acquisition. It is a little less specific than the absolute calculation, because without the unenhanced value you cannot know how much of the enhanced attenuation was there before contrast, and you also lose the chance that the lesion would simply have measured 10 HU or less and needed nothing more. Where you have the choice, scan unenhanced first.",
+            "explain": "Relative washout is (64\u221230)/64\u00d7100 = 53.1%. Without a true unenhanced acquisition, absolute washout and unenhanced lipid criteria cannot be calculated. Historical relative 40% and the cautious ESE/ENSAT >58% evidence are different criteria; neither is a standalone histological diagnosis.",
             "ephemeral": false
           },
           {
@@ -80211,7 +80219,7 @@
               "crisis",
               "alpha"
             ],
-            "explain": "The imaging appearances of phaeochromocytoma are not reliable enough to exclude it. It is often bright on T2, but far from always; it enhances avidly and can be cystic or necrotic when large; and, awkwardly, some phaeochromocytomas wash out above 60 per cent and look exactly like adenomas. So the exclusion is biochemical, with plasma free metanephrines or a 24-hour urinary collection, before any needle or any operation. If positive, the patient is alpha blocked first, with a beta blocker added only afterwards to avoid unopposed alpha stimulation. Two further points worth carrying: the old rule of tens is obsolete, since a third or more of these tumours are associated with germline mutations such as SDHx, VHL, RET and NF1, so genetic referral follows; and functional imaging with MIBG or DOTATATE is used to look for multifocal or metastatic disease.",
+            "explain": "Before biopsy, establish that the lesion is hormonally inactive (especially exclude phaeochromocytoma), remains indeterminate on imaging and that histology would alter clinical management. Specialist planning is required; suspected adrenocortical carcinoma is not a routine biopsy indication.",
             "ephemeral": false
           },
           {
@@ -80224,7 +80232,7 @@
               "enhancement",
               "biochemistry"
             ],
-            "explain": "Washout is a good test applied to the right population, which is a homogeneous nodule of indeterminate unenhanced attenuation in someone without an obvious hypervascular primary. It fails at both ends of the vascularity spectrum. Highly vascular lesions take up and shed contrast briskly, so phaeochromocytoma, some adrenocortical carcinomas and metastases from clear cell renal and hepatocellular carcinoma can post adenoma-like figures. Lesions that scarcely enhance, including haematoma and cysts, give a tiny denominator, and a few Hounsfield units of noise then swing the answer by tens of per cent, so a general rule is to distrust the calculation when enhancement is under about 20 HU. The other structural limits are lesions above 4 cm, where the question is malignancy rather than adenoma, and any delayed phase not acquired at fifteen minutes.",
+            "explain": "Hypervascular tumours may show adenoma-like washout. Small enhancement denominators amplify measurement noise, and heterogeneous masses must not be classified from one reassuring component. Actual timing and matched ROIs are essential; follow the selected clinical framework rather than an automatic washout threshold. Unenhanced composition, MRI, endocrine assessment, specialist review or contextual follow-up may answer different parts of the question.",
             "ephemeral": false
           },
           {
@@ -80242,20 +80250,20 @@
           },
           {
             "kind": "order",
-            "prompt": "Arrange the three acquisitions of a dedicated adrenal washout CT protocol in the order they are obtained during the study.",
+            "prompt": "For the specified historical dedicated washout protocol using a 15-minute delay, arrange its three acquisitions. This is protocol recall, not a recommendation to perform routine incidentaloma washout CT.",
             "items": [
               "unenhanced",
               "portal-venous-60-seconds",
               "delayed-15-minutes"
             ],
             "answer": "unenhanced portal-venous-60-seconds delayed-15-minutes",
-            "explain": "The unenhanced series comes first for two reasons: it supplies the baseline value that the absolute washout formula needs, and it can end the study on the spot, because a homogeneous nodule measuring 10 HU or less is already a lipid-rich adenoma and there is no reason to give contrast at all. Building that stopping rule into the protocol spares the patient two further acquisitions. The enhanced phase is acquired at around 60 to 75 seconds, and the delayed phase at 15 minutes. That fifteen minute delay is not arbitrary: the 60 per cent absolute and 40 per cent relative thresholds were derived at it, so acquiring the delay at ten minutes and applying the same numbers will systematically under-call adenomas. Keep the region of interest identical in size and position across all three phases.",
+            "explain": "This specified protocol uses unenhanced, approximately 60\u201375-second enhanced and 15-minute delayed acquisitions. Preserve actual timing and matched ROIs. Other delay protocols exist; thresholds cannot be transferred without validation. ESE/ENSAT notes timing evidence is uncertain, while Seow 2025 proposes abandoning washout in true incidentalomas.",
             "ephemeral": false
           }
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "97fffe29cb68ce75b2988565609129ccb53c66493f24b93cc4b47a1187193124",
+      "module_contract_sha256": "95673de58f6240f028a797a96ab7b50ccb4c11c0099183e4b4f9e54698e85977",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

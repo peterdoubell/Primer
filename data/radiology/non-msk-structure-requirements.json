@@ -17,7 +17,8 @@
       "ra.ct-pancreatitis",
       "ra.pancreatic-cysts",
       "ra.ct-peritoneum",
-      "ra.ct-peritoneal-carcinomatosis"
+      "ra.ct-peritoneal-carcinomatosis",
+      "ra.adrenal-lesions"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -34529,6 +34530,1816 @@
         {
           "observation": "conditional_mri",
           "evidence": "Actually acquired MRI sequences and source correspondence; CT or static models cannot supply DWI/ADC signal."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.adrenal-lesions",
+      "module_id": "rad.5.adrenal",
+      "title": "Adrenal CT/MRI anatomy, lesion composition and complete acquired extent",
+      "modality": "CT/MRI with conditional actually acquired PET-CT adjuncts",
+      "scope_type": "complete_gland_lesion_component_and_vascular_organ_interface_case_scope",
+      "clinical_validation_status": "draft_requires_abdominal_radiologist_and_endocrine_multidisciplinary_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "adrenal-source-0",
+          "title": "Radiology Assistant — adrenal update",
+          "url": "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "adrenal-source-1",
+          "title": "ESE/ENSAT 2023 guideline",
+          "url": "https://doi.org/10.1093/ejendo/lvad066",
+          "review_status": "scope_reviewed_2026-10-04"
+        },
+        {
+          "source_id": "adrenal-source-2",
+          "title": "Seow 2025 proposed incidentaloma pathway",
+          "url": "https://doi.org/10.1186/s13244-025-02015-4",
+          "review_status": "scope_reviewed_2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
+      "reporting_checklist": [
+        {
+          "label": "Context",
+          "detail": "Record known cancer, symptoms and prior size."
+        },
+        {
+          "label": "Morphology",
+          "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+        },
+        {
+          "label": "Lipid",
+          "detail": "Measure unenhanced attenuation or paired chemical-shift signal."
+        },
+        {
+          "label": "Behaviour",
+          "detail": "Compare growth using consistent planes and review local invasion."
+        },
+        {
+          "label": "Integration",
+          "detail": "Separate imaging characterisation from biochemical function."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "CLINICAL CONTEXT",
+          "body": "Discovery: [incidental / oncology / endocrine workup]. Known malignancy: [ ]. Prior study/date: [ ]."
+        },
+        {
+          "heading": "MORPHOLOGY",
+          "body": "Side: [ ]. Maximum diameter: [ ] mm. Homogeneity: [ ]. Fat/haemorrhage/necrosis: [ ]."
+        },
+        {
+          "heading": "LIPID CHARACTERISATION",
+          "body": "Unenhanced attenuation: [ ] HU, ROI [ ]. Chemical-shift loss: [present / absent / not performed]."
+        },
+        {
+          "heading": "ADDITIONAL CHARACTERISATION",
+          "body": "Contrast phases/timing if used: [ ]. Washout values/method if obtained: [ ]. Discordant features: [ ]."
+        },
+        {
+          "heading": "CHANGE AND EXTENT",
+          "body": "Prior/current dimensions: [ ]. Growth: [ ] mm / [ ]%. Local invasion/nodes: [ ]. Contralateral adrenal: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "adrenal.right_gland",
+          "name": "Right complete gland and distinguishable compartments",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.right_gland.complete_gland",
+              "name": "complete gland"
+            },
+            {
+              "id": "adrenal.right_gland.body",
+              "name": "body"
+            },
+            {
+              "id": "adrenal.right_gland.medial_limb",
+              "name": "medial limb"
+            },
+            {
+              "id": "adrenal.right_gland.lateral_limb",
+              "name": "lateral limb"
+            },
+            {
+              "id": "adrenal.right_gland.complete_surface",
+              "name": "complete surface"
+            },
+            {
+              "id": "adrenal.right_gland.complete_boundary",
+              "name": "complete boundary"
+            },
+            {
+              "id": "adrenal.right_gland.capsule_if_resolved",
+              "name": "capsule if resolved"
+            },
+            {
+              "id": "adrenal.right_gland.cortex_if_resolved",
+              "name": "cortex if resolved"
+            },
+            {
+              "id": "adrenal.right_gland.medulla_if_resolved",
+              "name": "medulla if resolved"
+            },
+            {
+              "id": "adrenal.right_gland.residual_gland_compressed_by_mass",
+              "name": "residual gland compressed by mass"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.right_arteries",
+          "name": "Right actual adrenal arterial supply",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.right_arteries.superior_suprarenal_branches",
+              "name": "superior suprarenal branches"
+            },
+            {
+              "id": "adrenal.right_arteries.middle_suprarenal_branches",
+              "name": "middle suprarenal branches"
+            },
+            {
+              "id": "adrenal.right_arteries.inferior_suprarenal_branches",
+              "name": "inferior suprarenal branches"
+            },
+            {
+              "id": "adrenal.right_arteries.inferior_phrenic_parent",
+              "name": "inferior phrenic parent"
+            },
+            {
+              "id": "adrenal.right_arteries.aortic_origin",
+              "name": "aortic origin"
+            },
+            {
+              "id": "adrenal.right_arteries.renal_arterial_origin",
+              "name": "renal arterial origin"
+            },
+            {
+              "id": "adrenal.right_arteries.actual_accessory_branch",
+              "name": "actual accessory branch"
+            },
+            {
+              "id": "adrenal.right_arteries.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "adrenal.right_arteries.vessel_wall_if_resolved",
+              "name": "vessel wall if resolved"
+            },
+            {
+              "id": "adrenal.right_arteries.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.right_veins",
+          "name": "Right actual adrenal venous drainage and tumour extension",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.right_veins.central_adrenal_vein",
+              "name": "central adrenal vein"
+            },
+            {
+              "id": "adrenal.right_veins.tributaries",
+              "name": "tributaries"
+            },
+            {
+              "id": "adrenal.right_veins.actual_variant_connection",
+              "name": "actual variant connection"
+            },
+            {
+              "id": "adrenal.right_veins.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "adrenal.right_veins.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "adrenal.right_veins.renal_vein_interface",
+              "name": "renal vein interface"
+            },
+            {
+              "id": "adrenal.right_veins.ivc_interface",
+              "name": "ivc interface"
+            },
+            {
+              "id": "adrenal.right_veins.enhancing_thrombus_boundary",
+              "name": "enhancing thrombus boundary",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "adrenal.right_veins.bland_thrombus_boundary",
+              "name": "bland thrombus boundary",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "adrenal.right_veins.patent_residual_lumen",
+              "name": "patent residual lumen"
+            },
+            {
+              "id": "adrenal.right_veins.proximal_extent",
+              "name": "proximal extent"
+            },
+            {
+              "id": "adrenal.right_veins.distal_extent",
+              "name": "distal extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.right_origin_interfaces",
+          "name": "Right adrenal origin, surrounding anatomy and actual interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.right_origin_interfaces.renal_upper_pole",
+              "name": "renal upper pole"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.renal_capsule",
+              "name": "renal capsule"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.perirenal_fat",
+              "name": "perirenal fat"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.renal_fascia",
+              "name": "renal fascia"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.diaphragm_crus",
+              "name": "diaphragm crus"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.retroperitoneal_fat",
+              "name": "retroperitoneal fat"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.paravertebral_margin",
+              "name": "paravertebral margin"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.aortic_interface",
+              "name": "aortic interface"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.ivc_interface",
+              "name": "ivc interface"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.residual_gland_limbs",
+              "name": "residual gland limbs"
+            },
+            {
+              "id": "adrenal.right_origin_interfaces.complete_lesion_organ_margin",
+              "name": "complete lesion organ margin"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.left_gland",
+          "name": "Left complete gland and distinguishable compartments",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.left_gland.complete_gland",
+              "name": "complete gland"
+            },
+            {
+              "id": "adrenal.left_gland.body",
+              "name": "body"
+            },
+            {
+              "id": "adrenal.left_gland.medial_limb",
+              "name": "medial limb"
+            },
+            {
+              "id": "adrenal.left_gland.lateral_limb",
+              "name": "lateral limb"
+            },
+            {
+              "id": "adrenal.left_gland.complete_surface",
+              "name": "complete surface"
+            },
+            {
+              "id": "adrenal.left_gland.complete_boundary",
+              "name": "complete boundary"
+            },
+            {
+              "id": "adrenal.left_gland.capsule_if_resolved",
+              "name": "capsule if resolved"
+            },
+            {
+              "id": "adrenal.left_gland.cortex_if_resolved",
+              "name": "cortex if resolved"
+            },
+            {
+              "id": "adrenal.left_gland.medulla_if_resolved",
+              "name": "medulla if resolved"
+            },
+            {
+              "id": "adrenal.left_gland.residual_gland_compressed_by_mass",
+              "name": "residual gland compressed by mass"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.left_arteries",
+          "name": "Left actual adrenal arterial supply",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.left_arteries.superior_suprarenal_branches",
+              "name": "superior suprarenal branches"
+            },
+            {
+              "id": "adrenal.left_arteries.middle_suprarenal_branches",
+              "name": "middle suprarenal branches"
+            },
+            {
+              "id": "adrenal.left_arteries.inferior_suprarenal_branches",
+              "name": "inferior suprarenal branches"
+            },
+            {
+              "id": "adrenal.left_arteries.inferior_phrenic_parent",
+              "name": "inferior phrenic parent"
+            },
+            {
+              "id": "adrenal.left_arteries.aortic_origin",
+              "name": "aortic origin"
+            },
+            {
+              "id": "adrenal.left_arteries.renal_arterial_origin",
+              "name": "renal arterial origin"
+            },
+            {
+              "id": "adrenal.left_arteries.actual_accessory_branch",
+              "name": "actual accessory branch"
+            },
+            {
+              "id": "adrenal.left_arteries.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "adrenal.left_arteries.vessel_wall_if_resolved",
+              "name": "vessel wall if resolved"
+            },
+            {
+              "id": "adrenal.left_arteries.lesion_interface",
+              "name": "lesion interface"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.left_veins",
+          "name": "Left actual adrenal venous drainage and tumour extension",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.left_veins.central_adrenal_vein",
+              "name": "central adrenal vein"
+            },
+            {
+              "id": "adrenal.left_veins.tributaries",
+              "name": "tributaries"
+            },
+            {
+              "id": "adrenal.left_veins.actual_variant_connection",
+              "name": "actual variant connection"
+            },
+            {
+              "id": "adrenal.left_veins.complete_lumen",
+              "name": "complete lumen"
+            },
+            {
+              "id": "adrenal.left_veins.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "adrenal.left_veins.renal_vein_interface",
+              "name": "renal vein interface"
+            },
+            {
+              "id": "adrenal.left_veins.ivc_interface",
+              "name": "ivc interface"
+            },
+            {
+              "id": "adrenal.left_veins.enhancing_thrombus_boundary",
+              "name": "enhancing thrombus boundary",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "adrenal.left_veins.bland_thrombus_boundary",
+              "name": "bland thrombus boundary",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "adrenal.left_veins.patent_residual_lumen",
+              "name": "patent residual lumen"
+            },
+            {
+              "id": "adrenal.left_veins.proximal_extent",
+              "name": "proximal extent"
+            },
+            {
+              "id": "adrenal.left_veins.distal_extent",
+              "name": "distal extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.left_origin_interfaces",
+          "name": "Left adrenal origin, surrounding anatomy and actual interfaces",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.left_origin_interfaces.renal_upper_pole",
+              "name": "renal upper pole"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.renal_capsule",
+              "name": "renal capsule"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.perirenal_fat",
+              "name": "perirenal fat"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.renal_fascia",
+              "name": "renal fascia"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.diaphragm_crus",
+              "name": "diaphragm crus"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.retroperitoneal_fat",
+              "name": "retroperitoneal fat"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.paravertebral_margin",
+              "name": "paravertebral margin"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.aortic_interface",
+              "name": "aortic interface"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.ivc_interface",
+              "name": "ivc interface"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.residual_gland_limbs",
+              "name": "residual gland limbs"
+            },
+            {
+              "id": "adrenal.left_origin_interfaces.complete_lesion_organ_margin",
+              "name": "complete lesion organ margin"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.right_relations",
+          "name": "Right-sided additional surrounding structures",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.right_relations.hepatic_margin",
+              "name": "hepatic margin"
+            },
+            {
+              "id": "adrenal.right_relations.bare_area_duodenal_relation",
+              "name": "bare area duodenal relation"
+            },
+            {
+              "id": "adrenal.right_relations.posterior_ivc_margin",
+              "name": "posterior ivc margin"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.left_relations",
+          "name": "Left-sided additional surrounding structures",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.left_relations.pancreatic_body_tail_margin",
+              "name": "pancreatic body tail margin"
+            },
+            {
+              "id": "adrenal.left_relations.splenic_margin",
+              "name": "splenic margin"
+            },
+            {
+              "id": "adrenal.left_relations.splenic_vessel_relation",
+              "name": "splenic vessel relation"
+            },
+            {
+              "id": "adrenal.left_relations.gastric_posterior_margin",
+              "name": "gastric posterior margin"
+            },
+            {
+              "id": "adrenal.left_relations.left_renal_vein",
+              "name": "left renal vein"
+            },
+            {
+              "id": "adrenal.left_relations.inferior_phrenic_venous_connection",
+              "name": "inferior phrenic venous connection"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.lesion",
+          "name": "Each actual lesion and measurable full extent",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.lesion.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "adrenal.lesion.complete_volume",
+              "name": "complete volume"
+            },
+            {
+              "id": "adrenal.lesion.long_axis",
+              "name": "long axis"
+            },
+            {
+              "id": "adrenal.lesion.orthogonal_short_axes",
+              "name": "orthogonal short axes"
+            },
+            {
+              "id": "adrenal.lesion.matching_prior_axis",
+              "name": "matching prior axis"
+            },
+            {
+              "id": "adrenal.lesion.solid_component",
+              "name": "solid component"
+            },
+            {
+              "id": "adrenal.lesion.cystic_component",
+              "name": "cystic component"
+            },
+            {
+              "id": "adrenal.lesion.necrotic_component",
+              "name": "necrotic component"
+            },
+            {
+              "id": "adrenal.lesion.haemorrhagic_component",
+              "name": "haemorrhagic component"
+            },
+            {
+              "id": "adrenal.lesion.macroscopic_fat_component",
+              "name": "macroscopic fat component"
+            },
+            {
+              "id": "adrenal.lesion.calcified_component",
+              "name": "calcified component"
+            },
+            {
+              "id": "adrenal.lesion.enhancing_nodule",
+              "name": "enhancing nodule"
+            },
+            {
+              "id": "adrenal.lesion.enhancing_septum",
+              "name": "enhancing septum"
+            },
+            {
+              "id": "adrenal.lesion.wall",
+              "name": "wall"
+            },
+            {
+              "id": "adrenal.lesion.smooth_margin",
+              "name": "smooth margin"
+            },
+            {
+              "id": "adrenal.lesion.irregular_margin",
+              "name": "irregular margin"
+            },
+            {
+              "id": "adrenal.lesion.residual_adrenal_connection",
+              "name": "residual adrenal connection"
+            },
+            {
+              "id": "adrenal.lesion.intralesional_vessel",
+              "name": "intralesional vessel"
+            },
+            {
+              "id": "adrenal.lesion.heterogeneous_region",
+              "name": "heterogeneous region"
+            },
+            {
+              "id": "adrenal.lesion.uncertain_margin",
+              "name": "uncertain margin"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Lipid",
+              "detail": "Measure unenhanced attenuation or paired chemical-shift signal."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Behaviour",
+              "detail": "Compare growth using consistent planes and review local invasion."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.ct",
+          "name": "Actual CT composition and sampled contrast behaviour",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.ct.true_unenhanced_source_roi",
+              "name": "true unenhanced source roi"
+            },
+            {
+              "id": "adrenal.ct.whole_lesion_homogeneity",
+              "name": "whole lesion homogeneity"
+            },
+            {
+              "id": "adrenal.ct.surrounding_tissue_exclusion",
+              "name": "surrounding tissue exclusion"
+            },
+            {
+              "id": "adrenal.ct.low_attenuation_region",
+              "name": "low attenuation region"
+            },
+            {
+              "id": "adrenal.ct.macroscopic_fat_region",
+              "name": "macroscopic fat region"
+            },
+            {
+              "id": "adrenal.ct.haemorrhage_region",
+              "name": "haemorrhage region"
+            },
+            {
+              "id": "adrenal.ct.calcification_region",
+              "name": "calcification region"
+            },
+            {
+              "id": "adrenal.ct.enhancing_solid_region",
+              "name": "enhancing solid region"
+            },
+            {
+              "id": "adrenal.ct.cystic_nonenhancing_region",
+              "name": "cystic nonenhancing region"
+            },
+            {
+              "id": "adrenal.ct.necrotic_nonenhancing_region",
+              "name": "necrotic nonenhancing region"
+            },
+            {
+              "id": "adrenal.ct.acquired_enhanced_roi",
+              "name": "acquired enhanced roi"
+            },
+            {
+              "id": "adrenal.ct.acquired_delayed_roi",
+              "name": "acquired delayed roi"
+            },
+            {
+              "id": "adrenal.ct.phase_matched_region",
+              "name": "phase matched region"
+            },
+            {
+              "id": "adrenal.ct.motion_misregistration_region",
+              "name": "motion misregistration region"
+            },
+            {
+              "id": "adrenal.ct.partial_volume_margin",
+              "name": "partial volume margin"
+            },
+            {
+              "id": "adrenal.ct.source_timing_uncertainty",
+              "name": "source timing uncertainty"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Lipid",
+              "detail": "Measure unenhanced attenuation or paired chemical-shift signal."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Behaviour",
+              "detail": "Compare growth using consistent planes and review local invasion."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.mri",
+          "name": "Actually acquired MRI composition and limits",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.mri.in_phase_source_region",
+              "name": "in phase source region"
+            },
+            {
+              "id": "adrenal.mri.opposed_phase_matching_region",
+              "name": "opposed phase matching region"
+            },
+            {
+              "id": "adrenal.mri.diffuse_signal_loss",
+              "name": "diffuse signal loss"
+            },
+            {
+              "id": "adrenal.mri.focal_signal_loss",
+              "name": "focal signal loss"
+            },
+            {
+              "id": "adrenal.mri.non_suppressing_region",
+              "name": "non suppressing region"
+            },
+            {
+              "id": "adrenal.mri.fat_suppressed_source_region",
+              "name": "fat suppressed source region"
+            },
+            {
+              "id": "adrenal.mri.t1_hyperintense_region",
+              "name": "t1 hyperintense region"
+            },
+            {
+              "id": "adrenal.mri.t2_hyperintense_region",
+              "name": "t2 hyperintense region"
+            },
+            {
+              "id": "adrenal.mri.solid_enhancing_region",
+              "name": "solid enhancing region"
+            },
+            {
+              "id": "adrenal.mri.subtraction_region_if_acquired",
+              "name": "subtraction region if acquired"
+            },
+            {
+              "id": "adrenal.mri.diffusion_region_if_acquired",
+              "name": "diffusion region if acquired"
+            },
+            {
+              "id": "adrenal.mri.adc_region_if_acquired",
+              "name": "adc region if acquired"
+            },
+            {
+              "id": "adrenal.mri.motion_misregistration_region",
+              "name": "motion misregistration region"
+            },
+            {
+              "id": "adrenal.mri.susceptibility_or_partial_volume_margin",
+              "name": "susceptibility or partial volume margin"
+            },
+            {
+              "id": "adrenal.mri.fluid_region",
+              "name": "fluid region"
+            },
+            {
+              "id": "adrenal.mri.haemorrhage_region",
+              "name": "haemorrhage region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Lipid",
+              "detail": "Measure unenhanced attenuation or paired chemical-shift signal."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Behaviour",
+              "detail": "Compare growth using consistent planes and review local invasion."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.positive_examples",
+          "name": "Distinct actual lesion/differential examples",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.positive_examples.lipid_rich_adenoma",
+              "name": "lipid rich adenoma"
+            },
+            {
+              "id": "adrenal.positive_examples.lipid_poor_adenoma",
+              "name": "lipid poor adenoma"
+            },
+            {
+              "id": "adrenal.positive_examples.fat_predominant_myelolipoma",
+              "name": "fat predominant myelolipoma"
+            },
+            {
+              "id": "adrenal.positive_examples.fat_containing_discordant_tumour",
+              "name": "fat containing discordant tumour"
+            },
+            {
+              "id": "adrenal.positive_examples.simple_cyst",
+              "name": "simple cyst"
+            },
+            {
+              "id": "adrenal.positive_examples.complex_cyst",
+              "name": "complex cyst"
+            },
+            {
+              "id": "adrenal.positive_examples.acute_haematoma",
+              "name": "acute haematoma"
+            },
+            {
+              "id": "adrenal.positive_examples.evolving_haematoma",
+              "name": "evolving haematoma"
+            },
+            {
+              "id": "adrenal.positive_examples.underlying_haemorrhagic_tumour",
+              "name": "underlying haemorrhagic tumour"
+            },
+            {
+              "id": "adrenal.positive_examples.phaeochromocytoma",
+              "name": "phaeochromocytoma"
+            },
+            {
+              "id": "adrenal.positive_examples.necrotic_adrenocortical_carcinoma",
+              "name": "necrotic adrenocortical carcinoma"
+            },
+            {
+              "id": "adrenal.positive_examples.adrenal_metastasis",
+              "name": "adrenal metastasis"
+            },
+            {
+              "id": "adrenal.positive_examples.hypervascular_metastasis",
+              "name": "hypervascular metastasis"
+            },
+            {
+              "id": "adrenal.positive_examples.lymphoma",
+              "name": "lymphoma"
+            },
+            {
+              "id": "adrenal.positive_examples.infection_or_granulomatous_disease",
+              "name": "infection or granulomatous disease"
+            },
+            {
+              "id": "adrenal.positive_examples.diffuse_hyperplasia",
+              "name": "diffuse hyperplasia"
+            },
+            {
+              "id": "adrenal.positive_examples.nodular_hyperplasia",
+              "name": "nodular hyperplasia"
+            },
+            {
+              "id": "adrenal.positive_examples.bilateral_distinct_lesions",
+              "name": "bilateral distinct lesions"
+            },
+            {
+              "id": "adrenal.positive_examples.bilateral_same_pattern",
+              "name": "bilateral same pattern"
+            },
+            {
+              "id": "adrenal.positive_examples.calcification_without_mass",
+              "name": "calcification without mass"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Context",
+              "detail": "Record known cancer, symptoms and prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Lipid",
+              "detail": "Measure unenhanced attenuation or paired chemical-shift signal."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Behaviour",
+              "detail": "Compare growth using consistent planes and review local invasion."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.extent",
+          "name": "Each actual suspicious local and distant disease site",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.extent.lesion_renal_interface",
+              "name": "lesion renal interface"
+            },
+            {
+              "id": "adrenal.extent.renal_parenchymal_extension",
+              "name": "renal parenchymal extension"
+            },
+            {
+              "id": "adrenal.extent.hepatic_interface",
+              "name": "hepatic interface"
+            },
+            {
+              "id": "adrenal.extent.hepatic_extension",
+              "name": "hepatic extension"
+            },
+            {
+              "id": "adrenal.extent.pancreatic_interface",
+              "name": "pancreatic interface"
+            },
+            {
+              "id": "adrenal.extent.pancreatic_extension",
+              "name": "pancreatic extension"
+            },
+            {
+              "id": "adrenal.extent.diaphragmatic_interface",
+              "name": "diaphragmatic interface"
+            },
+            {
+              "id": "adrenal.extent.diaphragmatic_extension",
+              "name": "diaphragmatic extension"
+            },
+            {
+              "id": "adrenal.extent.retroperitoneal_extension",
+              "name": "retroperitoneal extension"
+            },
+            {
+              "id": "adrenal.extent.renal_vein_tumour_thrombus",
+              "name": "renal vein tumour thrombus"
+            },
+            {
+              "id": "adrenal.extent.ivc_tumour_thrombus",
+              "name": "ivc tumour thrombus"
+            },
+            {
+              "id": "adrenal.extent.thrombus_cranial_margin",
+              "name": "thrombus cranial margin"
+            },
+            {
+              "id": "adrenal.extent.thrombus_caudal_margin",
+              "name": "thrombus caudal margin"
+            },
+            {
+              "id": "adrenal.extent.contralateral_adrenal_lesion",
+              "name": "contralateral adrenal lesion"
+            },
+            {
+              "id": "adrenal.extent.each_regional_node",
+              "name": "each regional node"
+            },
+            {
+              "id": "adrenal.extent.each_distant_node",
+              "name": "each distant node"
+            },
+            {
+              "id": "adrenal.extent.each_acquired_hepatic_deposit",
+              "name": "each acquired hepatic deposit"
+            },
+            {
+              "id": "adrenal.extent.each_acquired_lung_deposit",
+              "name": "each acquired lung deposit"
+            },
+            {
+              "id": "adrenal.extent.each_acquired_bone_deposit",
+              "name": "each acquired bone deposit"
+            },
+            {
+              "id": "adrenal.extent.each_other_acquired_deposit",
+              "name": "each other acquired deposit"
+            },
+            {
+              "id": "adrenal.extent.lesion_vessel_contact_without_proved_invasion",
+              "name": "lesion vessel contact without proved invasion"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.bilateral",
+          "name": "Whole bilateral assessment and actual diffuse/nodular pattern",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.bilateral.right_complete_gland",
+              "name": "right complete gland"
+            },
+            {
+              "id": "adrenal.bilateral.left_complete_gland",
+              "name": "left complete gland"
+            },
+            {
+              "id": "adrenal.bilateral.right_limb_thickening",
+              "name": "right limb thickening"
+            },
+            {
+              "id": "adrenal.bilateral.left_limb_thickening",
+              "name": "left limb thickening"
+            },
+            {
+              "id": "adrenal.bilateral.right_nodule_distribution",
+              "name": "right nodule distribution"
+            },
+            {
+              "id": "adrenal.bilateral.left_nodule_distribution",
+              "name": "left nodule distribution"
+            },
+            {
+              "id": "adrenal.bilateral.preserved_adreniform_shape",
+              "name": "preserved adreniform shape"
+            },
+            {
+              "id": "adrenal.bilateral.distorted_adreniform_shape",
+              "name": "distorted adreniform shape"
+            },
+            {
+              "id": "adrenal.bilateral.bilateral_haemorrhage",
+              "name": "bilateral haemorrhage"
+            },
+            {
+              "id": "adrenal.bilateral.bilateral_infiltration",
+              "name": "bilateral infiltration"
+            },
+            {
+              "id": "adrenal.bilateral.right_calcification_distribution",
+              "name": "right calcification distribution"
+            },
+            {
+              "id": "adrenal.bilateral.left_calcification_distribution",
+              "name": "left calcification distribution"
+            },
+            {
+              "id": "adrenal.bilateral.each_discordant_lesion",
+              "name": "each discordant lesion"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Context",
+              "detail": "Record known cancer, symptoms and prior size."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.comparison",
+          "name": "Dated source-corresponding lesion change and uncertainty",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.comparison.baseline_complete_lesion",
+              "name": "baseline complete lesion"
+            },
+            {
+              "id": "adrenal.comparison.current_complete_lesion",
+              "name": "current complete lesion"
+            },
+            {
+              "id": "adrenal.comparison.baseline_matched_axis",
+              "name": "baseline matched axis"
+            },
+            {
+              "id": "adrenal.comparison.current_matched_axis",
+              "name": "current matched axis"
+            },
+            {
+              "id": "adrenal.comparison.each_new_lesion",
+              "name": "each new lesion"
+            },
+            {
+              "id": "adrenal.comparison.each_resolved_lesion",
+              "name": "each resolved lesion"
+            },
+            {
+              "id": "adrenal.comparison.residual_haematoma_region",
+              "name": "residual haematoma region"
+            },
+            {
+              "id": "adrenal.comparison.underlying_mass_region",
+              "name": "underlying mass region"
+            },
+            {
+              "id": "adrenal.comparison.prior_field_gap",
+              "name": "prior field gap"
+            },
+            {
+              "id": "adrenal.comparison.current_field_gap",
+              "name": "current field gap"
+            },
+            {
+              "id": "adrenal.comparison.interstudy_plane_difference",
+              "name": "interstudy plane difference"
+            },
+            {
+              "id": "adrenal.comparison.interstudy_protocol_difference",
+              "name": "interstudy protocol difference"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.mimics",
+          "name": "Actual nonadrenal origin/differential interfaces when encountered",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.mimics.renal_exophytic_mass",
+              "name": "renal exophytic mass"
+            },
+            {
+              "id": "adrenal.mimics.pancreas_tail_mass",
+              "name": "pancreas tail mass"
+            },
+            {
+              "id": "adrenal.mimics.splenic_mass",
+              "name": "splenic mass"
+            },
+            {
+              "id": "adrenal.mimics.retroperitoneal_fat_tumour",
+              "name": "retroperitoneal fat tumour"
+            },
+            {
+              "id": "adrenal.mimics.accessory_spleen",
+              "name": "accessory spleen"
+            },
+            {
+              "id": "adrenal.mimics.vascular_lesion",
+              "name": "vascular lesion"
+            },
+            {
+              "id": "adrenal.mimics.displaced_normal_adrenal",
+              "name": "displaced normal adrenal"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe side, size, homogeneity, necrosis, haemorrhage and fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "adrenal.pet",
+          "name": "Actual FDG source and comparison anatomy if obtained",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "adrenal.pet.adrenal_uptake_region",
+              "name": "adrenal uptake region"
+            },
+            {
+              "id": "adrenal.pet.liver_reference_region",
+              "name": "liver reference region"
+            },
+            {
+              "id": "adrenal.pet.each_acquired_other_uptake_site",
+              "name": "each acquired other uptake site"
+            },
+            {
+              "id": "adrenal.pet.ct_correspondence_region",
+              "name": "ct correspondence region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "PET-CT"
+          ],
+          "condition": "Instantiate every actual acquired gland/limb, lesion/component, vessel/branch and organ interface on its correct side. Complete extent, native sampling and actual protocol must be supported; microscopic compartments, unacquired phases and endocrine function cannot be inferred from a parent model or static image.",
+          "requirement_basis": "effective_adrenal_origin_composition_extent_and_source_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Context",
+              "detail": "Record known cancer, symptoms and prior size."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Behaviour",
+              "detail": "Compare growth using consistent planes and review local invasion."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Integration",
+              "detail": "Separate imaging characterisation from biochemical function."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/adrenals/lesion-characterization-1",
+            "https://doi.org/10.1093/ejendo/lvad066",
+            "https://doi.org/10.1186/s13244-025-02015-4"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual gland/limb, lesion/component, arterial branch, venous pathway, organ interface and acquired disease site",
+            "Actual field, modality/phase/sequence, specimen age/stage, laterality and temporal comparison",
+            "Separate normal anatomy, positive pathology, endocrine function and framework eligibility"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "source_guide_and_framework_reconciliation_pending",
+          "detail": "The 2025 proposal and ESE/ENSAT 2023 guideline retain distinct populations, imaging recommendations and threshold evidence."
+        },
+        {
+          "code": "complete_case_anatomy_pending",
+          "detail": "Prototype targets are not exhaustive case-specific lesion/branch/variant instances; acquired field and fine structures need independent review."
+        },
+        {
+          "code": "microscopic_compartments_not_routine_ct",
+          "detail": "Capsule/cortex/medulla and vessel walls require actual adequate source evidence; routine gland segmentation cannot prove their fine boundaries."
+        },
+        {
+          "code": "function_not_imaging",
+          "detail": "Hormonal production or adrenal insufficiency cannot be established from normal gland geometry, fat or washout alone."
+        },
+        {
+          "code": "positive_diagnosis_and_origin_unverified",
+          "detail": "Normal gland models cannot stand for positive tumour, haemorrhage, fat-containing mimics or invasion."
+        },
+        {
+          "code": "source_quality_rights_and_anatomy_pending",
+          "detail": "Every figure/model needs native sampling, actual sequences/phases, original rights and independent anatomical validation."
+        },
+        {
+          "code": "shared_lesson_review_incomplete",
+          "detail": "Aldosteronism lateralization, ACTH investigation, acute haemorrhage management and broader endocrine/genetic claims need their own complete primary-source review."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "characterisation",
+          "evidence": "Original whole-lesion composition and true noncontrast/matched MRI data, without a reassuring focal component standing for heterogeneity."
+        },
+        {
+          "observation": "washout",
+          "evidence": "Actual acquisition times, matched ROIs and selected framework/population; percentages do not prove diagnosis."
+        },
+        {
+          "observation": "growth",
+          "evidence": "Dated comparable maximum axes with both absolute and percentage change; no fabricated prior stability."
+        },
+        {
+          "observation": "endocrine_function",
+          "evidence": "Independent clinical/biochemical evidence, not anatomy or imaging kinetics."
+        },
+        {
+          "observation": "biopsy",
+          "evidence": "Endocrine exclusion, unresolved imaging and management-changing histology, with specialist review."
+        },
+        {
+          "observation": "extent",
+          "evidence": "Complete actual venous/organ margins and acquired regional/distant field; unacquired disease is unknown."
         }
       ]
     }

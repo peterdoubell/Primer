@@ -34,10 +34,10 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - Lung-cancer staging now has 281 draft requirements and 843 image/schematic/model obligations. Individual IASLC station regions, positive-node examples, invasion interfaces, tumour morphology and conditional metastatic/treatment sites remain distinct and unverified. See `lung-cancer-fidelity-scope-review.md`.
 - Mediastinal CT now has 326 draft targets and 978 representation obligations, including modern compartment boundaries, individual stations, named host anatomy and conditional positive mass/invasion sites. No representations are verified. See `mediastinum-fidelity-scope-review.md`.
 - General liver masses and liver LI-RADS now have separate draft inventories: 246/210 targets and 738/630 representation obligations. Actual segment/branch/duct anatomy, positive observations, MRI-only features and phase/eligibility/treatment requirements remain unverified. See `liver-fidelity-scope-review.md`.
-- The remaining 107 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
+- The remaining 99 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
-- The total all-radiology representation count is **unknown**. The 10,509 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 541 distinct resources. Ninety-eight have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The total all-radiology representation count is **unknown**. The 15,762 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
+- The current static reference inventory contains 568 distinct resources. One hundred twenty-five have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -45,7 +45,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 
 The `--require-complete` gate fails while the goal is unproven. UI flags such as a complete walkthrough, model availability, an image count or passing software tests cannot substitute for structure-level coverage and actual anatomical/clinical evidence. This initial all-radiology audit does not implement the still-missing non-MSK clinical approval work.
 
-Current evidence: `docs/radiology-fidelity-audit-2026-10-02.json`. Update the scope snapshot whenever reporting or visual contracts change, without treating regeneration as approval. The native MSK CT work remains relevant to the broader objective. Its complete original archive and voxel-preserving export have now passed integrity checks; segmentation and anatomical review remain unfinished.
+Current evidence: `docs/radiology-fidelity-audit-2026-10-04.json`. Update the scope snapshot whenever reporting or visual contracts change, without treating regeneration as approval. The native MSK CT work remains relevant to the broader objective. Its complete original archive and voxel-preserving export have now passed integrity checks; segmentation and anatomical review remain unfinished.
 
 The first three non-MSK source figures are now present in the appendix reader, with licensed original-source provenance, preserved panels and three explicitly partial image candidates. No static frame supplies compression evidence, and the mixed US/CT composite has no CT structure binding pending localization review. See `appendix-source-review.md`. These source figures were deployed in PR #60; complete anatomical and clinical validation is unfinished.
 
@@ -256,3 +256,11 @@ Acquired original CC BY 4.0 female/male HRA pancreatic v1.3 models with five sep
 ### 4 October 2026 — complete peritoneal source contact checks
 
 [Original peritoneal contact review](bodyparts-peritoneal-contact-review.md) preserves every contact point and source face identity for all four objects, testing all 79,516 original triangles separately in native millimetres. Counts are 2,205/2,204/216/216 beyond ordinary adjacency; nearly repeated candidates are not fused or summed as independent anatomy. Complete lossless evidence and location views retain all source geometry. Nineteen scientific regressions passed. Numerical completion does not approve biological roles, complete surfaces or runtime 3D credit; the full radiology goal remains incomplete.
+
+### 4 October 2026 — release #66 and adrenal scope
+
+PR #66 merged as `0006bc46` and production deployment `dpl_EK33CkxLWgQy8GdR2Lf4zrus5RE1` was READY with the public alias and exact commit verified. Python 3.9/3.12 CI each passed 34,016 tests; local tracked suite passed 34,017. Health/sign-in returned 200, protected module APIs returned expected unauthenticated 401 and initial error logs were empty. Authenticated production reader access was not verified. This release did not promote held models or establish clinical readiness.
+
+[Adrenal scope review](adrenal-fidelity-scope-review.md) now preserves 224 explicit gland/limb/component/vessel/interface targets and 672 representation obligations. Source-specific imaging frameworks, whole-lesion homogeneity, endocrine boundaries, historical washout limits, conjunctive growth criteria and biopsy context are clarified in the local lesson/reader/schematic. All new coverage remains unverified/missing; original acquired image/model evidence and independent specialist review remain required. Known all-radiology floor: 15,762 obligations, with 99 unexpanded investigations and 106 unreconciled curriculum surfaces; full total unknown.
+
+Adrenal verification passed 163 focused tests, bank/illustration/model/navigation checks and local reader/lesson API assertions. Manifest inspection also found the old adrenal walkthrough highlighted kidneys and renal arteries; those selections are cleared and the model retains explicit conceptual positional context only. The full completion gate still fails.

@@ -499,7 +499,7 @@
           "normal": "Normal adrenal glands without a focal lesion.",
           "findings": [
             "[Right / left] adrenal nodule __ mm, homogeneous and well defined.",
-            "Myelolipoma: adrenal lesion with macroscopic fat.",
+            "Fat-predominant adrenal lesion, compatible with myelolipoma; soft-tissue components and discordant features: [ ].",
             "Heterogeneous adrenal mass __ mm with necrosis and calcification.",
             "Adrenal cyst with a thin wall and fluid attenuation."
           ],
@@ -507,11 +507,8 @@
             "adrenal-image-1"
           ],
           "landmark": "adrenals",
-          "parts": [
-            "FJ3147",
-            "FJ3145"
-          ],
-          "tip": "Macroscopic fat in an adrenal mass is diagnostic of myelolipoma."
+          "parts": [],
+          "tip": "Predominant macroscopic fat and confirmed adrenal origin support myelolipoma. Small fat foci can occur in other tumours; assess the complete mass, soft-tissue components and discordant features. Current 3D context has no source adrenal-gland mesh; kidney meshes cannot represent gland or lesion morphology."
         },
         {
           "label": "Lipid characterisation",
@@ -519,9 +516,9 @@
           "sections": [
             "LIPID CHARACTERISATION"
           ],
-          "look": "Unenhanced CT with a large ROI over at least half of the lesion avoiding edges; in- and opposed-phase MRI.",
+          "look": "True unenhanced CT, representative ROI over most of a homogeneous lesion without outside-tissue contamination, and actual matched in-/opposed-phase MRI if obtained. Heterogeneity limits whole-lesion classification.",
           "findings": [
-            "Unenhanced attenuation __ HU (10 HU or less), diagnostic of a lipid-rich adenoma.",
+            "Homogeneous lesion measuring __ HU on true unenhanced CT (10 HU or less), with benign imaging features; endocrine function assessed separately.",
             "Signal loss on opposed-phase MRI, compatible with an adenoma.",
             "Unenhanced attenuation __ HU; lipid-poor lesion, indeterminate."
           ],
@@ -533,7 +530,7 @@
             "Unenhanced attenuation"
           ],
           "landmark": "adrenals",
-          "tip": "An unenhanced attenuation of 10 HU or less indicates a lipid-rich adenoma; no further imaging is needed for that lesion."
+          "tip": "ESE/ENSAT 2023 requires homogeneity and true unenhanced attenuation of 10 HU or less for no further imaging, independently of size. Imaging does not settle hormonal function or uniquely prove adenoma histology."
         },
         {
           "label": "Contrast behaviour and discordant features",
@@ -541,7 +538,7 @@
           "sections": [
             "ADDITIONAL CHARACTERISATION"
           ],
-          "look": "Portal venous and 15-minute delayed phases if acquired; absolute washout 60% or more and relative washout 40% or more favour adenoma.",
+          "look": "Record actual acquisition times and matched ROIs if a washout study exists. Historical absolute 60%/relative 40% thresholds have overlap and do not prove adenoma. ESE/ENSAT Table 4 lists cautious relative >58% evidence; the Seow 2025 proposal recommends abandoning washout for true incidentalomas.",
           "findings": [
             "Absolute washout __% and relative washout __% on a dedicated adrenal protocol.",
             "Washout values favour adenoma but the lesion is heterogeneous; discordant features remain.",
@@ -551,7 +548,7 @@
             "adrenal-image-2"
           ],
           "landmark": "adrenals",
-          "tip": "Washout overlaps between adenomas and other lesions; do not rely on it when morphology is atypical."
+          "tip": "Identify the selected framework and clinical population. Do not use a reassuring washout or focal chemical-shift loss to classify a heterogeneous mass as benign; imaging cannot exclude phaeochromocytoma."
         },
         {
           "label": "Growth and local extent",
@@ -560,7 +557,7 @@
             "CHANGE AND EXTENT"
           ],
           "look": "Same plane and window as the prior study; renal vein and IVC; the contralateral adrenal.",
-          "normal": "Stable size compared with [date]; no local invasion; contralateral adrenal normal.",
+          "normal": "No local invasion identified; contralateral adrenal without a focal lesion. Prior comparison: [date / unavailable]; interval change: [ ].",
           "findings": [
             "Growth from __ mm to __ mm since [date] (__ mm, __%).",
             "Invasion of the [IVC / renal vein / kidney], raising concern for adrenocortical carcinoma.",
@@ -573,13 +570,8 @@
             "Growth"
           ],
           "landmark": "adrenals",
-          "parts": [
-            "FJ3147",
-            "FJ3145",
-            "FJ2038",
-            "FJ2046"
-          ],
-          "tip": "A lesion larger than 4 cm, heterogeneous or growing raises concern for malignancy."
+          "parts": [],
+          "tip": "Record size, homogeneity, true unenhanced attenuation and clinical context together. For an indeterminate lesion under ESE/ENSAT follow-up, significant growth requires more than 20% AND at least 5 mm in maximum diameter over 6–12 months. The source model does not depict adrenal/renal venous thrombus or tumour invasion; renal arteries cannot stand for veins."
         }
       ]
     },
