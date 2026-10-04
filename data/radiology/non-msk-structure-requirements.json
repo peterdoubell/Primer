@@ -13,7 +13,8 @@
       "ra.liver-lirads",
       "ra.solid-renal-masses",
       "ra.renal-cysts-bosniak",
-      "ra.ct-pancreatic-cancer"
+      "ra.ct-pancreatic-cancer",
+      "ra.ct-pancreatitis"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -25919,6 +25920,2294 @@
         {
           "observation": "resectability_context",
           "evidence": "Actual current framework/version, patient diagnosis, treatment time point, local/distant extent and multidisciplinary interpretation; software geometry is not operative judgement."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ct-pancreatitis",
+      "module_id": "rad.5.pancreas-acute",
+      "title": "Acute pancreatitis CT and conditional MRI/ultrasound adjuncts",
+      "modality": "CT with conditional actually acquired MRI / Ultrasound",
+      "scope_type": "pancreatic_peripancreatic_ductal_collection_vascular_bowel_and_intervention_extent",
+      "clinical_validation_status": "draft_requires_pancreatic_radiologist_and_multidisciplinary_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "sources": [
+        {
+          "source_id": "pancreatitis-source-0",
+          "title": "Radiology Assistant — Acute Pancreatitis",
+          "url": "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis",
+          "review_status": "scope_reviewed_2026-10-04"
+        }
+      ],
+      "source_contract_sha256": "f0b0692dfe006387a96ae74df9ef12539886033a0c8ccce2bc76365afb601604",
+      "reporting_checklist": [
+        {
+          "label": "Pancreas",
+          "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+        },
+        {
+          "label": "Collections",
+          "detail": "Describe location, content, encapsulation and time from onset."
+        },
+        {
+          "label": "Vessels",
+          "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+        },
+        {
+          "label": "Duct and cause",
+          "detail": "Review biliary obstruction, stones and duct disruption clues."
+        },
+        {
+          "label": "Other organs",
+          "detail": "Assess bowel, ascites, pleura and distant complications."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "PANCREATIC MORPHOLOGY",
+          "body": "Onset: [date / unknown]. Enhancement: [preserved / reduced / absent]. Necrosis distribution/extent: [ ]."
+        },
+        {
+          "heading": "COLLECTIONS",
+          "body": "Site: [ ]. Size: [ ] mm. Content: [fluid only / necrotic debris / uncertain]. Wall: [absent / developing / mature]. Gas: [ ]."
+        },
+        {
+          "heading": "VASCULAR COMPLICATIONS",
+          "body": "Splenic/portal/SMV patency: [ ]. Pseudoaneurysm: [ ]. Active bleeding: [ ]."
+        },
+        {
+          "heading": "DUCTAL AND BILIARY FINDINGS",
+          "body": "Main duct: [ ]. Disruption concern: [ ]. Gallstones/CBD obstruction: [ ]."
+        },
+        {
+          "heading": "EXTRAPANCREATIC EFFECTS",
+          "body": "Bowel involvement: [ ]. Ascites/pleura: [ ]. Obstruction/fistula: [ ]. Collection terminology and supporting features: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "pancreatitis.whole_pancreas",
+          "name": "Complete acquired pancreatic anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.whole_pancreas.parenchymal_extent",
+              "name": "parenchymal extent"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.head",
+              "name": "head"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.uncinate",
+              "name": "uncinate"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.neck",
+              "name": "neck"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.body",
+              "name": "body"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.tail",
+              "name": "tail"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.external_margin",
+              "name": "external margin"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.anterior_interface",
+              "name": "anterior interface"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.posterior_interface",
+              "name": "posterior interface"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.superior_interface",
+              "name": "superior interface"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.inferior_interface",
+              "name": "inferior interface"
+            },
+            {
+              "id": "pancreatitis.whole_pancreas.neck_venous_confluence",
+              "name": "neck venous confluence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Pancreas",
+              "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Duct and cause",
+              "detail": "Review biliary obstruction, stones and duct disruption clues."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.enhancement",
+          "name": "Actual source enhancement and oedematous regions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.enhancement.each_enhancing_region",
+              "name": "each enhancing region"
+            },
+            {
+              "id": "pancreatitis.enhancement.each_reduced_region",
+              "name": "each reduced region"
+            },
+            {
+              "id": "pancreatitis.enhancement.each_non_enhancing_region",
+              "name": "each non enhancing region"
+            },
+            {
+              "id": "pancreatitis.enhancement.viable_necrotic_interface",
+              "name": "viable necrotic interface"
+            },
+            {
+              "id": "pancreatitis.enhancement.source_phase_correspondence",
+              "name": "source phase correspondence"
+            },
+            {
+              "id": "pancreatitis.enhancement.prior_interval_regions",
+              "name": "prior interval regions"
+            },
+            {
+              "id": "pancreatitis.enhancement.oedematous_extent",
+              "name": "oedematous extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Pancreas",
+              "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_enhancement_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.necrosis",
+          "name": "Actual pancreatic and extrapancreatic necrosis",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.necrosis.pancreatic_necrotic_extent",
+              "name": "pancreatic necrotic extent"
+            },
+            {
+              "id": "pancreatitis.necrosis.viable_gland_margin",
+              "name": "viable gland margin"
+            },
+            {
+              "id": "pancreatitis.necrosis.peripancreatic_fat_necrosis",
+              "name": "peripancreatic fat necrosis"
+            },
+            {
+              "id": "pancreatitis.necrosis.necrotic_debris_regions",
+              "name": "necrotic debris regions"
+            },
+            {
+              "id": "pancreatitis.necrosis.liquid_regions",
+              "name": "liquid regions"
+            },
+            {
+              "id": "pancreatitis.necrosis.uncertain_early_regions",
+              "name": "uncertain early regions"
+            },
+            {
+              "id": "pancreatitis.necrosis.source_measurement_margin",
+              "name": "source measurement margin"
+            },
+            {
+              "id": "pancreatitis.necrosis.gland_preserved_extrapancreatic_necrosis",
+              "name": "gland preserved extrapancreatic necrosis"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Pancreas",
+              "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_necrosis"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.spaces",
+          "name": "Every acquired peripancreatic spread compartment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.spaces.lesser_sac",
+              "name": "lesser sac"
+            },
+            {
+              "id": "pancreatitis.spaces.anterior_pararenal",
+              "name": "anterior pararenal"
+            },
+            {
+              "id": "pancreatitis.spaces.right_retromesenteric",
+              "name": "right retromesenteric"
+            },
+            {
+              "id": "pancreatitis.spaces.left_retromesenteric",
+              "name": "left retromesenteric"
+            },
+            {
+              "id": "pancreatitis.spaces.interfascial_planes",
+              "name": "interfascial planes"
+            },
+            {
+              "id": "pancreatitis.spaces.transverse_mesocolon",
+              "name": "transverse mesocolon"
+            },
+            {
+              "id": "pancreatitis.spaces.small_bowel_mesenteric_root",
+              "name": "small bowel mesenteric root"
+            },
+            {
+              "id": "pancreatitis.spaces.right_paracolic",
+              "name": "right paracolic"
+            },
+            {
+              "id": "pancreatitis.spaces.left_paracolic",
+              "name": "left paracolic"
+            },
+            {
+              "id": "pancreatitis.spaces.pelvis_peritoneum",
+              "name": "pelvis peritoneum"
+            },
+            {
+              "id": "pancreatitis.spaces.retroperitoneal_extensions",
+              "name": "retroperitoneal extensions"
+            },
+            {
+              "id": "pancreatitis.spaces.subphrenic_regions",
+              "name": "subphrenic regions"
+            },
+            {
+              "id": "pancreatitis.spaces.each_actual_compartment_interface",
+              "name": "each actual compartment interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Pancreas",
+              "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Other organs",
+              "detail": "Assess bowel, ascites, pleura and distant complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.collection",
+          "name": "Every actual collection with complete extent",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.collection.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "pancreatitis.collection.location",
+              "name": "location"
+            },
+            {
+              "id": "pancreatitis.collection.three_dimensional_measurement_boundaries",
+              "name": "three dimensional measurement boundaries"
+            },
+            {
+              "id": "pancreatitis.collection.locules",
+              "name": "locules"
+            },
+            {
+              "id": "pancreatitis.collection.septa",
+              "name": "septa"
+            },
+            {
+              "id": "pancreatitis.collection.intercollection_connections",
+              "name": "intercollection connections"
+            },
+            {
+              "id": "pancreatitis.collection.liquid_content",
+              "name": "liquid content"
+            },
+            {
+              "id": "pancreatitis.collection.solid_debris",
+              "name": "solid debris"
+            },
+            {
+              "id": "pancreatitis.collection.fat_debris",
+              "name": "fat debris"
+            },
+            {
+              "id": "pancreatitis.collection.wall_extent",
+              "name": "wall extent"
+            },
+            {
+              "id": "pancreatitis.collection.complete_wall_regions",
+              "name": "complete wall regions"
+            },
+            {
+              "id": "pancreatitis.collection.incomplete_wall_regions",
+              "name": "incomplete wall regions"
+            },
+            {
+              "id": "pancreatitis.collection.wall_adjacent_tissue_relation",
+              "name": "wall adjacent tissue relation"
+            },
+            {
+              "id": "pancreatitis.collection.gas_regions",
+              "name": "gas regions"
+            },
+            {
+              "id": "pancreatitis.collection.source_timepoint_prior_correspondence",
+              "name": "source timepoint prior correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_collection"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.apfc",
+          "name": "Actual apfc source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.apfc.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "pancreatitis.apfc.fluid_regions",
+              "name": "fluid regions"
+            },
+            {
+              "id": "pancreatitis.apfc.debris_or_confirmed_absence",
+              "name": "debris or confirmed absence"
+            },
+            {
+              "id": "pancreatitis.apfc.actual_wall_or_absence",
+              "name": "actual wall or absence"
+            },
+            {
+              "id": "pancreatitis.apfc.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "pancreatitis.apfc.whole_acquired_extent",
+              "name": "whole acquired extent"
+            },
+            {
+              "id": "pancreatitis.apfc.source_onset_morphology_correspondence",
+              "name": "source onset morphology correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_apfc"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.anc",
+          "name": "Actual anc source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.anc.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "pancreatitis.anc.fluid_regions",
+              "name": "fluid regions"
+            },
+            {
+              "id": "pancreatitis.anc.debris_or_confirmed_absence",
+              "name": "debris or confirmed absence"
+            },
+            {
+              "id": "pancreatitis.anc.actual_wall_or_absence",
+              "name": "actual wall or absence"
+            },
+            {
+              "id": "pancreatitis.anc.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "pancreatitis.anc.whole_acquired_extent",
+              "name": "whole acquired extent"
+            },
+            {
+              "id": "pancreatitis.anc.source_onset_morphology_correspondence",
+              "name": "source onset morphology correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_anc"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.pseudocyst",
+          "name": "Actual pseudocyst source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.pseudocyst.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "pancreatitis.pseudocyst.fluid_regions",
+              "name": "fluid regions"
+            },
+            {
+              "id": "pancreatitis.pseudocyst.debris_or_confirmed_absence",
+              "name": "debris or confirmed absence"
+            },
+            {
+              "id": "pancreatitis.pseudocyst.actual_wall_or_absence",
+              "name": "actual wall or absence"
+            },
+            {
+              "id": "pancreatitis.pseudocyst.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "pancreatitis.pseudocyst.whole_acquired_extent",
+              "name": "whole acquired extent"
+            },
+            {
+              "id": "pancreatitis.pseudocyst.source_onset_morphology_correspondence",
+              "name": "source onset morphology correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_pseudocyst"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.walled_off_necrosis",
+          "name": "Actual walled off necrosis source example",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.walled_off_necrosis.complete_observation",
+              "name": "complete observation"
+            },
+            {
+              "id": "pancreatitis.walled_off_necrosis.fluid_regions",
+              "name": "fluid regions"
+            },
+            {
+              "id": "pancreatitis.walled_off_necrosis.debris_or_confirmed_absence",
+              "name": "debris or confirmed absence"
+            },
+            {
+              "id": "pancreatitis.walled_off_necrosis.actual_wall_or_absence",
+              "name": "actual wall or absence"
+            },
+            {
+              "id": "pancreatitis.walled_off_necrosis.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "pancreatitis.walled_off_necrosis.whole_acquired_extent",
+              "name": "whole acquired extent"
+            },
+            {
+              "id": "pancreatitis.walled_off_necrosis.source_onset_morphology_correspondence",
+              "name": "source onset morphology correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_walled_off_necrosis"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.infection_context",
+          "name": "Actual infection-suspicious and alternative gas context",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.infection_context.gas_locules",
+              "name": "gas locules"
+            },
+            {
+              "id": "pancreatitis.infection_context.source_collection_margin",
+              "name": "source collection margin"
+            },
+            {
+              "id": "pancreatitis.infection_context.adjacent_bowel_interface",
+              "name": "adjacent bowel interface"
+            },
+            {
+              "id": "pancreatitis.infection_context.possible_fistula_path",
+              "name": "possible fistula path"
+            },
+            {
+              "id": "pancreatitis.infection_context.intervention_course",
+              "name": "intervention course"
+            },
+            {
+              "id": "pancreatitis.infection_context.stent_or_drain_interface",
+              "name": "stent or drain interface"
+            },
+            {
+              "id": "pancreatitis.infection_context.sampling_region",
+              "name": "sampling region"
+            },
+            {
+              "id": "pancreatitis.infection_context.clinical_source_correspondence",
+              "name": "clinical source correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Other organs",
+              "detail": "Assess bowel, ascites, pleura and distant complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_infection_suspicion"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.splenic_vein",
+          "name": "Every acquired splenic vein segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.splenic_vein.whole_course",
+              "name": "whole course"
+            },
+            {
+              "id": "pancreatitis.splenic_vein.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "pancreatitis.splenic_vein.wall",
+              "name": "wall"
+            },
+            {
+              "id": "pancreatitis.splenic_vein.source_opacified_region",
+              "name": "source opacified region"
+            },
+            {
+              "id": "pancreatitis.splenic_vein.filling_defect_region",
+              "name": "filling defect region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.splenic_vein.narrowed_or_occluded_segment",
+              "name": "narrowed or occluded segment",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.splenic_vein.upstream_downstream_patency",
+              "name": "upstream downstream patency"
+            },
+            {
+              "id": "pancreatitis.splenic_vein.collateral_connection",
+              "name": "collateral connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.portal_vein",
+          "name": "Every acquired portal vein segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.portal_vein.whole_course",
+              "name": "whole course"
+            },
+            {
+              "id": "pancreatitis.portal_vein.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "pancreatitis.portal_vein.wall",
+              "name": "wall"
+            },
+            {
+              "id": "pancreatitis.portal_vein.source_opacified_region",
+              "name": "source opacified region"
+            },
+            {
+              "id": "pancreatitis.portal_vein.filling_defect_region",
+              "name": "filling defect region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.portal_vein.narrowed_or_occluded_segment",
+              "name": "narrowed or occluded segment",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.portal_vein.upstream_downstream_patency",
+              "name": "upstream downstream patency"
+            },
+            {
+              "id": "pancreatitis.portal_vein.collateral_connection",
+              "name": "collateral connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.superior_mesenteric_vein",
+          "name": "Every acquired superior mesenteric vein segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.superior_mesenteric_vein.whole_course",
+              "name": "whole course"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_vein.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_vein.wall",
+              "name": "wall"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_vein.source_opacified_region",
+              "name": "source opacified region"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_vein.filling_defect_region",
+              "name": "filling defect region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_vein.narrowed_or_occluded_segment",
+              "name": "narrowed or occluded segment",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_vein.upstream_downstream_patency",
+              "name": "upstream downstream patency"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_vein.collateral_connection",
+              "name": "collateral connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.venous_confluence",
+          "name": "Every acquired venous confluence segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.venous_confluence.whole_course",
+              "name": "whole course"
+            },
+            {
+              "id": "pancreatitis.venous_confluence.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "pancreatitis.venous_confluence.wall",
+              "name": "wall"
+            },
+            {
+              "id": "pancreatitis.venous_confluence.source_opacified_region",
+              "name": "source opacified region"
+            },
+            {
+              "id": "pancreatitis.venous_confluence.filling_defect_region",
+              "name": "filling defect region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.venous_confluence.narrowed_or_occluded_segment",
+              "name": "narrowed or occluded segment",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.venous_confluence.upstream_downstream_patency",
+              "name": "upstream downstream patency"
+            },
+            {
+              "id": "pancreatitis.venous_confluence.collateral_connection",
+              "name": "collateral connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.actual_tributary",
+          "name": "Every acquired actual tributary segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.actual_tributary.whole_course",
+              "name": "whole course"
+            },
+            {
+              "id": "pancreatitis.actual_tributary.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "pancreatitis.actual_tributary.wall",
+              "name": "wall"
+            },
+            {
+              "id": "pancreatitis.actual_tributary.source_opacified_region",
+              "name": "source opacified region"
+            },
+            {
+              "id": "pancreatitis.actual_tributary.filling_defect_region",
+              "name": "filling defect region",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.actual_tributary.narrowed_or_occluded_segment",
+              "name": "narrowed or occluded segment",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.actual_tributary.upstream_downstream_patency",
+              "name": "upstream downstream patency"
+            },
+            {
+              "id": "pancreatitis.actual_tributary.collateral_connection",
+              "name": "collateral connection"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.collaterals",
+          "name": "Actual collateral routes and gastric variceal anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.collaterals.short_gastric",
+              "name": "short gastric"
+            },
+            {
+              "id": "pancreatitis.collaterals.gastroepiploic",
+              "name": "gastroepiploic"
+            },
+            {
+              "id": "pancreatitis.collaterals.fundal_varices",
+              "name": "fundal varices"
+            },
+            {
+              "id": "pancreatitis.collaterals.other_actual_collateral",
+              "name": "other actual collateral"
+            },
+            {
+              "id": "pancreatitis.collaterals.each_source_venous_connection",
+              "name": "each source venous connection"
+            },
+            {
+              "id": "pancreatitis.collaterals.splenic_outflow_context",
+              "name": "splenic outflow context"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_collateral_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.splenic_artery",
+          "name": "Every acquired splenic artery segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.splenic_artery.actual_course",
+              "name": "actual course"
+            },
+            {
+              "id": "pancreatitis.splenic_artery.source_lumen",
+              "name": "source lumen"
+            },
+            {
+              "id": "pancreatitis.splenic_artery.source_wall",
+              "name": "source wall"
+            },
+            {
+              "id": "pancreatitis.splenic_artery.actual_branch_origin",
+              "name": "actual branch origin"
+            },
+            {
+              "id": "pancreatitis.splenic_artery.tissue_collection_interface",
+              "name": "tissue collection interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.gastroduodenal_artery",
+          "name": "Every acquired gastroduodenal artery segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.gastroduodenal_artery.actual_course",
+              "name": "actual course"
+            },
+            {
+              "id": "pancreatitis.gastroduodenal_artery.source_lumen",
+              "name": "source lumen"
+            },
+            {
+              "id": "pancreatitis.gastroduodenal_artery.source_wall",
+              "name": "source wall"
+            },
+            {
+              "id": "pancreatitis.gastroduodenal_artery.actual_branch_origin",
+              "name": "actual branch origin"
+            },
+            {
+              "id": "pancreatitis.gastroduodenal_artery.tissue_collection_interface",
+              "name": "tissue collection interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.pancreaticoduodenal_artery",
+          "name": "Every acquired pancreaticoduodenal artery segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.pancreaticoduodenal_artery.actual_course",
+              "name": "actual course"
+            },
+            {
+              "id": "pancreatitis.pancreaticoduodenal_artery.source_lumen",
+              "name": "source lumen"
+            },
+            {
+              "id": "pancreatitis.pancreaticoduodenal_artery.source_wall",
+              "name": "source wall"
+            },
+            {
+              "id": "pancreatitis.pancreaticoduodenal_artery.actual_branch_origin",
+              "name": "actual branch origin"
+            },
+            {
+              "id": "pancreatitis.pancreaticoduodenal_artery.tissue_collection_interface",
+              "name": "tissue collection interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.coeliac_trunk",
+          "name": "Every acquired coeliac trunk segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.coeliac_trunk.actual_course",
+              "name": "actual course"
+            },
+            {
+              "id": "pancreatitis.coeliac_trunk.source_lumen",
+              "name": "source lumen"
+            },
+            {
+              "id": "pancreatitis.coeliac_trunk.source_wall",
+              "name": "source wall"
+            },
+            {
+              "id": "pancreatitis.coeliac_trunk.actual_branch_origin",
+              "name": "actual branch origin"
+            },
+            {
+              "id": "pancreatitis.coeliac_trunk.tissue_collection_interface",
+              "name": "tissue collection interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.hepatic_artery",
+          "name": "Every acquired hepatic artery segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.hepatic_artery.actual_course",
+              "name": "actual course"
+            },
+            {
+              "id": "pancreatitis.hepatic_artery.source_lumen",
+              "name": "source lumen"
+            },
+            {
+              "id": "pancreatitis.hepatic_artery.source_wall",
+              "name": "source wall"
+            },
+            {
+              "id": "pancreatitis.hepatic_artery.actual_branch_origin",
+              "name": "actual branch origin"
+            },
+            {
+              "id": "pancreatitis.hepatic_artery.tissue_collection_interface",
+              "name": "tissue collection interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.superior_mesenteric_artery",
+          "name": "Every acquired superior mesenteric artery segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.superior_mesenteric_artery.actual_course",
+              "name": "actual course"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_artery.source_lumen",
+              "name": "source lumen"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_artery.source_wall",
+              "name": "source wall"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_artery.actual_branch_origin",
+              "name": "actual branch origin"
+            },
+            {
+              "id": "pancreatitis.superior_mesenteric_artery.tissue_collection_interface",
+              "name": "tissue collection interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.actual_other_artery",
+          "name": "Every acquired actual other artery segment",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.actual_other_artery.actual_course",
+              "name": "actual course"
+            },
+            {
+              "id": "pancreatitis.actual_other_artery.source_lumen",
+              "name": "source lumen"
+            },
+            {
+              "id": "pancreatitis.actual_other_artery.source_wall",
+              "name": "source wall"
+            },
+            {
+              "id": "pancreatitis.actual_other_artery.actual_branch_origin",
+              "name": "actual branch origin"
+            },
+            {
+              "id": "pancreatitis.actual_other_artery.tissue_collection_interface",
+              "name": "tissue collection interface"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.pseudoaneurysm",
+          "name": "Every actual pseudoaneurysm",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.pseudoaneurysm.sac_margin",
+              "name": "sac margin"
+            },
+            {
+              "id": "pancreatitis.pseudoaneurysm.arterial_neck",
+              "name": "arterial neck"
+            },
+            {
+              "id": "pancreatitis.pseudoaneurysm.source_parent_vessel",
+              "name": "source parent vessel"
+            },
+            {
+              "id": "pancreatitis.pseudoaneurysm.opacified_sac",
+              "name": "opacified sac"
+            },
+            {
+              "id": "pancreatitis.pseudoaneurysm.thrombus_regions",
+              "name": "thrombus regions"
+            },
+            {
+              "id": "pancreatitis.pseudoaneurysm.adjacent_collection_interface",
+              "name": "adjacent collection interface"
+            },
+            {
+              "id": "pancreatitis.pseudoaneurysm.source_phase_correspondence",
+              "name": "source phase correspondence"
+            },
+            {
+              "id": "pancreatitis.pseudoaneurysm.surrounding_haematoma",
+              "name": "surrounding haematoma"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_pseudoaneurysm"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.bleeding",
+          "name": "Actual haemorrhage or active extravasation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.bleeding.haematoma_margin",
+              "name": "haematoma margin"
+            },
+            {
+              "id": "pancreatitis.bleeding.high_attenuation_regions",
+              "name": "high attenuation regions"
+            },
+            {
+              "id": "pancreatitis.bleeding.arterial_phase_focus",
+              "name": "arterial phase focus"
+            },
+            {
+              "id": "pancreatitis.bleeding.delayed_spread_region",
+              "name": "delayed spread region"
+            },
+            {
+              "id": "pancreatitis.bleeding.vessel_origin",
+              "name": "vessel origin"
+            },
+            {
+              "id": "pancreatitis.bleeding.tissue_collection_relation",
+              "name": "tissue collection relation"
+            },
+            {
+              "id": "pancreatitis.bleeding.covered_bleeding_extent",
+              "name": "covered bleeding extent"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_haemorrhage"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.ducts",
+          "name": "Acquired main/accessory duct and outflow anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.ducts.tail_course",
+              "name": "tail course"
+            },
+            {
+              "id": "pancreatitis.ducts.body_course",
+              "name": "body course"
+            },
+            {
+              "id": "pancreatitis.ducts.neck_course",
+              "name": "neck course"
+            },
+            {
+              "id": "pancreatitis.ducts.head_course",
+              "name": "head course"
+            },
+            {
+              "id": "pancreatitis.ducts.source_lumen",
+              "name": "source lumen"
+            },
+            {
+              "id": "pancreatitis.ducts.source_wall",
+              "name": "source wall"
+            },
+            {
+              "id": "pancreatitis.ducts.upstream_downstream_calibre",
+              "name": "upstream downstream calibre"
+            },
+            {
+              "id": "pancreatitis.ducts.accessory_course",
+              "name": "accessory course"
+            },
+            {
+              "id": "pancreatitis.ducts.actual_duct_connections",
+              "name": "actual duct connections"
+            },
+            {
+              "id": "pancreatitis.ducts.ampullary_outflow",
+              "name": "ampullary outflow"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Duct and cause",
+              "detail": "Review biliary obstruction, stones and duct disruption clues."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.disruption",
+          "name": "Actual duct disruption or disconnection clues",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.disruption.duct_cutoff",
+              "name": "duct cutoff"
+            },
+            {
+              "id": "pancreatitis.disruption.necrotic_bridge",
+              "name": "necrotic bridge"
+            },
+            {
+              "id": "pancreatitis.disruption.source_viable_upstream_gland",
+              "name": "source viable upstream gland"
+            },
+            {
+              "id": "pancreatitis.disruption.downstream_duct",
+              "name": "downstream duct"
+            },
+            {
+              "id": "pancreatitis.disruption.source_leak_path",
+              "name": "source leak path"
+            },
+            {
+              "id": "pancreatitis.disruption.collection_connection",
+              "name": "collection connection"
+            },
+            {
+              "id": "pancreatitis.disruption.persistent_collection_interface",
+              "name": "persistent collection interface"
+            },
+            {
+              "id": "pancreatitis.disruption.actual_mr_or_endoscopic_correspondence",
+              "name": "actual mr or endoscopic correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Pancreas",
+              "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Duct and cause",
+              "detail": "Review biliary obstruction, stones and duct disruption clues."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_duct_disruption_suspicion"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.biliary",
+          "name": "Acquired biliary cause and obstruction anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.biliary.gallbladder",
+              "name": "gallbladder"
+            },
+            {
+              "id": "pancreatitis.biliary.gallstones_or_sludge",
+              "name": "gallstones or sludge",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.biliary.source_cystic_duct",
+              "name": "source cystic duct"
+            },
+            {
+              "id": "pancreatitis.biliary.common_hepatic_duct",
+              "name": "common hepatic duct"
+            },
+            {
+              "id": "pancreatitis.biliary.suprapancreatic_cbd",
+              "name": "suprapancreatic cbd"
+            },
+            {
+              "id": "pancreatitis.biliary.intrapancreatic_cbd",
+              "name": "intrapancreatic cbd"
+            },
+            {
+              "id": "pancreatitis.biliary.actual_duct_stone",
+              "name": "actual duct stone",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.biliary.upstream_dilated_regions",
+              "name": "upstream dilated regions"
+            },
+            {
+              "id": "pancreatitis.biliary.ampullary_region",
+              "name": "ampullary region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Duct and cause",
+              "detail": "Review biliary obstruction, stones and duct disruption clues."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.bowel",
+          "name": "Each actual adjacent bowel observation",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.bowel.duodenal_wall",
+              "name": "duodenal wall"
+            },
+            {
+              "id": "pancreatitis.bowel.duodenal_lumen",
+              "name": "duodenal lumen"
+            },
+            {
+              "id": "pancreatitis.bowel.gastric_wall",
+              "name": "gastric wall"
+            },
+            {
+              "id": "pancreatitis.bowel.gastric_lumen",
+              "name": "gastric lumen"
+            },
+            {
+              "id": "pancreatitis.bowel.colonic_wall",
+              "name": "colonic wall"
+            },
+            {
+              "id": "pancreatitis.bowel.colonic_lumen",
+              "name": "colonic lumen"
+            },
+            {
+              "id": "pancreatitis.bowel.small_bowel_wall",
+              "name": "small bowel wall"
+            },
+            {
+              "id": "pancreatitis.bowel.small_bowel_lumen",
+              "name": "small bowel lumen"
+            },
+            {
+              "id": "pancreatitis.bowel.source_perfusion_region",
+              "name": "source perfusion region"
+            },
+            {
+              "id": "pancreatitis.bowel.compression_interface",
+              "name": "compression interface"
+            },
+            {
+              "id": "pancreatitis.bowel.possible_fistula_course",
+              "name": "possible fistula course"
+            },
+            {
+              "id": "pancreatitis.bowel.perforation_or_free_gas_region",
+              "name": "perforation or free gas region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Other organs",
+              "detail": "Assess bowel, ascites, pleura and distant complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_bowel_observation"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.other_effects",
+          "name": "Every acquired distant or serosal effect",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.other_effects.ascitic_regions",
+              "name": "ascitic regions"
+            },
+            {
+              "id": "pancreatitis.other_effects.pleural_fluid_regions",
+              "name": "pleural fluid regions"
+            },
+            {
+              "id": "pancreatitis.other_effects.lung_base_regions",
+              "name": "lung base regions"
+            },
+            {
+              "id": "pancreatitis.other_effects.renal_perirenal_regions",
+              "name": "renal perirenal regions"
+            },
+            {
+              "id": "pancreatitis.other_effects.splenic_perisplenic_regions",
+              "name": "splenic perisplenic regions"
+            },
+            {
+              "id": "pancreatitis.other_effects.hepatic_perihepatic_regions",
+              "name": "hepatic perihepatic regions"
+            },
+            {
+              "id": "pancreatitis.other_effects.covered_other_organ_interface",
+              "name": "covered other organ interface"
+            },
+            {
+              "id": "pancreatitis.other_effects.actual_obstructed_region",
+              "name": "actual obstructed region"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Other organs",
+              "detail": "Assess bowel, ascites, pleura and distant complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_extrapancreatic_effect"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.mri",
+          "name": "Actually acquired MRI adjunct features",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.mri.t2_fluid_regions",
+              "name": "t2 fluid regions"
+            },
+            {
+              "id": "pancreatitis.mri.t1_haemorrhagic_regions",
+              "name": "t1 haemorrhagic regions",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.mri.debris_regions",
+              "name": "debris regions",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.mri.mr_duct_course",
+              "name": "mr duct course"
+            },
+            {
+              "id": "pancreatitis.mri.source_duct_disruption_regions",
+              "name": "source duct disruption regions"
+            },
+            {
+              "id": "pancreatitis.mri.source_dynamic_enhancement_regions",
+              "name": "source dynamic enhancement regions"
+            },
+            {
+              "id": "pancreatitis.mri.sequence_correspondence",
+              "name": "sequence correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Pancreas",
+              "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Duct and cause",
+              "detail": "Review biliary obstruction, stones and duct disruption clues."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.ultrasound",
+          "name": "Actually acquired biliary ultrasound regions",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.ultrasound.gallbladder_lumen",
+              "name": "gallbladder lumen"
+            },
+            {
+              "id": "pancreatitis.ultrasound.stones_or_sludge",
+              "name": "stones or sludge",
+              "context_requirements": {
+                "purpose": "pathology_example"
+              }
+            },
+            {
+              "id": "pancreatitis.ultrasound.wall_regions",
+              "name": "wall regions"
+            },
+            {
+              "id": "pancreatitis.ultrasound.intrahepatic_ducts",
+              "name": "intrahepatic ducts"
+            },
+            {
+              "id": "pancreatitis.ultrasound.extrahepatic_ducts",
+              "name": "extrahepatic ducts"
+            },
+            {
+              "id": "pancreatitis.ultrasound.distal_duct_if_visible",
+              "name": "distal duct if visible"
+            },
+            {
+              "id": "pancreatitis.ultrasound.source_acoustic_limits",
+              "name": "source acoustic limits"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Duct and cause",
+              "detail": "Review biliary obstruction, stones and duct disruption clues."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "pancreatitis.intervention",
+          "name": "Actual intervention and altered anatomy",
+          "tissue_class": "reportable_anatomy_or_pathological_entity",
+          "required_parts": [
+            {
+              "id": "pancreatitis.intervention.drain_course",
+              "name": "drain course"
+            },
+            {
+              "id": "pancreatitis.intervention.drain_tip",
+              "name": "drain tip"
+            },
+            {
+              "id": "pancreatitis.intervention.stent_course",
+              "name": "stent course"
+            },
+            {
+              "id": "pancreatitis.intervention.cavity_connection",
+              "name": "cavity connection"
+            },
+            {
+              "id": "pancreatitis.intervention.bowel_stomach_interface",
+              "name": "bowel stomach interface"
+            },
+            {
+              "id": "pancreatitis.intervention.residual_collection",
+              "name": "residual collection"
+            },
+            {
+              "id": "pancreatitis.intervention.new_or_unresolved_regions",
+              "name": "new or unresolved regions"
+            },
+            {
+              "id": "pancreatitis.intervention.surgical_anatomy",
+              "name": "surgical anatomy"
+            },
+            {
+              "id": "pancreatitis.intervention.instrumented_gas_regions",
+              "name": "instrumented gas regions"
+            },
+            {
+              "id": "pancreatitis.intervention.source_pre_post_correspondence",
+              "name": "source pre post correspondence"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual acquired case region, compartment, collection and vessel/duct segment. Parent-organ or normal atlas geometry cannot replace case-specific pathological extent, wall/debris or unacquired phase/sequence evidence.",
+          "requirement_basis": "effective_acute_pancreatitis_reporting_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Collections",
+              "detail": "Describe location, content, encapsulation and time from onset."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Vessels",
+              "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Duct and cause",
+              "detail": "Review biliary obstruction, stones and duct disruption clues."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Other organs",
+              "detail": "Assess bowel, ascites, pleura and distant complications."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example",
+            "depicted_state": "pancreatitis_intervention_context"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual collection, compartment extension, duct/vessel segment and anatomical variant",
+            "Actual adequate acquired contrast phases and conditional MRI/ultrasound evidence",
+            "Actual symptom onset, interventions, clinical severity records and prior examination correspondence"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "case_instances_pending",
+          "detail": "Prototype targets are not an exhaustive patient-specific collection/branch list."
+        },
+        {
+          "code": "phase_time_and_wall_pending",
+          "detail": "Original onset, adequate phase, complete wall/content and early uncertainty need independent source review."
+        },
+        {
+          "code": "clinical_severity_not_geometry",
+          "detail": "Modified Marshall measurements, qualifying organ failure duration and systemic/local complications cannot be inferred from model shape or CT score."
+        },
+        {
+          "code": "infection_and_intervention_context",
+          "detail": "Gas, fever, instruments and fistula possibilities need context; anatomy alone does not establish infection or a mandatory treatment."
+        },
+        {
+          "code": "fine_anatomy_and_rights_pending",
+          "detail": "Duct/vessel walls and lumina, original source resolution/rights and independent anatomy review remain unapproved."
+        },
+        {
+          "code": "whole_curriculum_pending",
+          "detail": "Broader management, clinical severity and intervention quiz assertions require complete separate reconciliation; this inventory does not certify them."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "enhancement_necrosis",
+          "evidence": "Adequate source phase, onset interval, whole acquired extent and explicit early uncertainty."
+        },
+        {
+          "observation": "collection_classification",
+          "evidence": "Actual content, complete/incomplete wall and source onset; no automatic calendar switch."
+        },
+        {
+          "observation": "clinical_severity",
+          "evidence": "Qualifying clinical organ measurements/duration and complications; no anatomical or CT score substitution."
+        },
+        {
+          "observation": "infection",
+          "evidence": "Actual clinical/instrumentation/fistula context; source gas is not stand-alone microbiology."
+        },
+        {
+          "observation": "duct_disruption",
+          "evidence": "Actual source duct and viable-gland correspondence with modality-specific confirmation if needed."
+        },
+        {
+          "observation": "vascular_complications",
+          "evidence": "Adequate source arterial/venous phases and actual lumen/wall/bleeding regions; static normal models cannot depict thrombosis or perfusion."
+        },
+        {
+          "observation": "intervention",
+          "evidence": "Source symptoms, urgency, source anatomy and specialist assessment; no route/timing decision from geometry alone."
         }
       ]
     }
