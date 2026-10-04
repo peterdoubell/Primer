@@ -39,7 +39,6 @@
     "ra.mri-endometrial-cancer",
     "ra.mullerian-anomalies",
     "ra.ovarian-cysts",
-    "ra.pancreatic-cysts",
     "ra.ct-peritoneum",
     "ra.ct-peritoneal-carcinomatosis",
     "ra.mri-prostate",
@@ -227,7 +226,7 @@
     "rad.5.venous-csf",
     "rad.5.wrist-hand"
   ],
-  "known_representation_requirements": 13173,
+  "known_representation_requirements": 13722,
   "total_representation_requirements": null,
   "total_count_note": "Unknown until all investigations and curriculum surfaces are expanded; unknown requirements are not zero.",
   "msk_subaudit": {
@@ -297,12 +296,12 @@
   },
   "additional_structure_audit": {
     "clinical_commercial_ready": false,
-    "investigations": 12,
-    "representation_requirements": 7881,
+    "investigations": 13,
+    "representation_requirements": 8430,
     "counts": {
       "verified": 0,
       "unverified": 13,
-      "missing": 7868
+      "missing": 8417
     },
     "scope_gaps": [
       "ra.appendicitis: site expansion unverified",
@@ -386,6 +385,14 @@
       "ra.ct-pancreatitis: source scope issue fine_anatomy_and_rights_pending: classification missing or unknown",
       "ra.ct-pancreatitis: source scope issue whole_curriculum_pending: classification missing or unknown",
       "ra.ct-pancreatitis: generic structure requires site-specific anatomy",
+      "ra.pancreatic-cysts: site expansion unverified",
+      "ra.pancreatic-cysts: source scope issue actual_case_instances_pending: classification missing or unknown",
+      "ra.pancreatic-cysts: source scope issue enhancement_and_communication_pending: classification missing or unknown",
+      "ra.pancreatic-cysts: source scope issue framework_scope_pending: classification missing or unknown",
+      "ra.pancreatic-cysts: source scope issue histology_and_eligibility_not_geometry: classification missing or unknown",
+      "ra.pancreatic-cysts: source scope issue shared_curriculum_review_pending: classification missing or unknown",
+      "ra.pancreatic-cysts: source scope issue source_rights_and_anatomy_pending: classification missing or unknown",
+      "ra.pancreatic-cysts: generic structure requires site-specific anatomy",
       "Reporting structure inventory requires clinical review"
     ],
     "asset_issues": {
@@ -1175,6 +1182,66 @@
         "detail": "Broader management, clinical severity and intervention quiz assertions require complete separate reconciliation; this inventory does not certify them.",
         "blocking": true,
         "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "index": 0,
+        "code": "actual_case_instances_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Prototype entries require actual lesion/branch/region instances and complete acquired extent.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "index": 1,
+        "code": "enhancement_and_communication_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Subtraction quality, native source images, motion/partial volume and duct junctions need independent review.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "index": 2,
+        "code": "framework_scope_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Kyoto criteria apply to presumed IPMN and differ from Fukuoka/European/other protocols; this descriptor overview is not a full current management algorithm.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "index": 3,
+        "code": "histology_and_eligibility_not_geometry",
+        "kind": null,
+        "status": null,
+        "detail": "Morphology, duct calibre and cyst type do not establish histological malignancy or automatic operative suitability.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "index": 4,
+        "code": "shared_curriculum_review_pending",
+        "kind": null,
+        "status": null,
+        "detail": "The shared solid/cystic pancreatic lesson has remaining clinical/management assertions requiring complete reconciliation.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "index": 5,
+        "code": "source_rights_and_anatomy_pending",
+        "kind": null,
+        "status": null,
+        "detail": "Every actual source image, model and case state requires version-specific rights, original sampling and independent anatomy review.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
       }
     ],
     "review_scope_sha256": {
@@ -1193,18 +1260,18 @@
       "native-nih-med001-label2-ct": "279762b62d64666d71c48c6471ef89d52088a3b6c7e71f72eca7a830d406dc80",
       "native-nih-med001-label3-ct": "1f180112a85b7bccbe307688b9e9f48a5adf8769021380bd9ade590e9b91c4e0",
       "native-cptac-c3n03018-acq1-ct": "430eb439bc8a7fb3848c050d5304b14c8550e54079627705c4f32a6627eff2b4",
-      "native-cptac-c3l02112-arterial-labelled-ct": "dbcd026e4f828a197b68c5cc15ad1674ca2c470f9b5dacbb4302c1de312b673f",
-      "native-cptac-c3l02112-venous-labelled-ct": "267157f1688e99d47d8ee8396534df394ba9abfadbe3c8ae6af95d92cb367326",
-      "open-pancreatitis-sureka-2015-fig1": "31592cfce3e36a700a078266d2981356dcffb87e304be9cefd4c3d129b2f89e1",
-      "open-pancreatitis-sureka-2015-fig3": "bfe176805d0b0f05176c222e5798dfc4ee79ad47f63548dd80124e93a0a2f07f",
-      "open-pancreatitis-sureka-2015-fig4": "963b83396f313d96409b15a517dd94b73211c1f7d59111729d2823c1247ffe8c",
-      "open-pancreatitis-sureka-2015-fig5": "df5ee8e29011901aab86cdc47cc6d1b8976d5a444fd2adc1db4978a39d4cff8f",
-      "open-pancreatitis-sureka-2015-fig6": "103f3dbde35386c4a76350db9910582daf49d704f4860b2cb5759ad71dbd40ef",
-      "open-pancreatitis-sureka-2015-fig7": "a5fc043e115e56dd52bfa16d3770a3e88d21a4ba137fffa9e48c9213caa99227",
-      "open-pancreatitis-sureka-2015-fig8": "82bef9fe3fd059ebb44c271c505b6958f87778915df329df336c5a4c50f00c52",
-      "open-pancreatitis-vascular-pmc12490646-f2": "2accee7be30401e89a743a7e09e9298834f1b4a84eaecc28fd424937b415cdb6",
-      "open-pancreatitis-vascular-pmc9870600-fig5": "fef36529b379510cce8dfd7f099c49b9e084c709bb01f423a351846da3b76b98",
-      "open-pancreatitis-vascular-pmc12358223-fig2": "755c07ec91022af7d9991d2186c92054f4e1866cf63493657d80a130d332863a"
+      "native-cptac-c3l02112-arterial-labelled-ct": "d0b1c9dc581db138454fc9bf073de7cd372ec4a83e6e5cf61821f7f9ef050d45",
+      "native-cptac-c3l02112-venous-labelled-ct": "14fc5d2f3b4db4ca599d3096ac1525c96a96e26477340a88112cf5f211d1f97d",
+      "open-pancreatitis-sureka-2015-fig1": "f8d53487a9b174852dba1aa733bf8aac5304e458303819b4b8c77d896a3e183b",
+      "open-pancreatitis-sureka-2015-fig3": "a90a6ef277cc27bb282ad3c17e21fa55c662b49db4d0c493f2ef13802c4e6b65",
+      "open-pancreatitis-sureka-2015-fig4": "820aa4865cebe023008ab74ebb1d95adeed2a60bfeb08cd27fa79da0d53d896a",
+      "open-pancreatitis-sureka-2015-fig5": "903d8ed489245f9af217bb7e5a57c4afc5fe4281d07f07d28c6feec92dea4d1a",
+      "open-pancreatitis-sureka-2015-fig6": "04d2a0496239e8154042e7fdc802ec98b981dff9f22c7849f73b760f2a835c4a",
+      "open-pancreatitis-sureka-2015-fig7": "d1b23e30ceb5fc64e2c95898e7247cfcb74e4ff0441153472a2582c91564e80d",
+      "open-pancreatitis-sureka-2015-fig8": "d0fc35d33408b4f9becfa1114cc6e6e3197f04d92434d83c2c69079404eb2536",
+      "open-pancreatitis-vascular-pmc12490646-f2": "808276b533a690302a9d15295e38dc047538144fa637073ec2d4f42720d5c663",
+      "open-pancreatitis-vascular-pmc9870600-fig5": "f67dd035979f5374ecdf8a59068662ed5b6c5a82028480c64261f85c99cce371",
+      "open-pancreatitis-vascular-pmc12358223-fig2": "617b44cbf7dbce32d77354c4dcde0da5e9b47dfe3f8d6e81296e59dd6ceafc0c"
     },
     "requirements": [
       {
@@ -72263,6 +72330,4947 @@
       {
         "investigation_id": "ra.ct-pancreatitis",
         "structure_id": "pancreatitis.intervention.source_pre_post_correspondence",
+        "structure_name": "source pre post correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.head",
+        "structure_name": "head",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.head",
+        "structure_name": "head",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.head",
+        "structure_name": "head",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.uncinate",
+        "structure_name": "uncinate",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.uncinate",
+        "structure_name": "uncinate",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.uncinate",
+        "structure_name": "uncinate",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.neck",
+        "structure_name": "neck",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.neck",
+        "structure_name": "neck",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.neck",
+        "structure_name": "neck",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.body",
+        "structure_name": "body",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.body",
+        "structure_name": "body",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.body",
+        "structure_name": "body",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.tail",
+        "structure_name": "tail",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.tail",
+        "structure_name": "tail",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.tail",
+        "structure_name": "tail",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.whole_parenchymal_extent",
+        "structure_name": "whole parenchymal extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.whole_parenchymal_extent",
+        "structure_name": "whole parenchymal extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.whole_parenchymal_extent",
+        "structure_name": "whole parenchymal extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.anterior_margin",
+        "structure_name": "anterior margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.anterior_margin",
+        "structure_name": "anterior margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.anterior_margin",
+        "structure_name": "anterior margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.posterior_margin",
+        "structure_name": "posterior margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.posterior_margin",
+        "structure_name": "posterior margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.posterior_margin",
+        "structure_name": "posterior margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.cyst_host_interface",
+        "structure_name": "cyst host interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.cyst_host_interface",
+        "structure_name": "cyst host interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.cyst_host_interface",
+        "structure_name": "cyst host interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.upstream_downstream_parenchyma",
+        "structure_name": "upstream downstream parenchyma",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.upstream_downstream_parenchyma",
+        "structure_name": "upstream downstream parenchyma",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.pancreas.upstream_downstream_parenchyma",
+        "structure_name": "upstream downstream parenchyma",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.whole_margin",
+        "structure_name": "whole margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.whole_margin",
+        "structure_name": "whole margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.whole_margin",
+        "structure_name": "whole margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.source_site",
+        "structure_name": "source site",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.source_site",
+        "structure_name": "source site",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.source_site",
+        "structure_name": "source site",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.individual_lesion_number",
+        "structure_name": "individual lesion number",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.individual_lesion_number",
+        "structure_name": "individual lesion number",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.individual_lesion_number",
+        "structure_name": "individual lesion number",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.maximal_dimensions",
+        "structure_name": "maximal dimensions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.maximal_dimensions",
+        "structure_name": "maximal dimensions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.maximal_dimensions",
+        "structure_name": "maximal dimensions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.matching_measurement_plane",
+        "structure_name": "matching measurement plane",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.matching_measurement_plane",
+        "structure_name": "matching measurement plane",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.matching_measurement_plane",
+        "structure_name": "matching measurement plane",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.multifocal_distribution",
+        "structure_name": "multifocal distribution",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.multifocal_distribution",
+        "structure_name": "multifocal distribution",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.multifocal_distribution",
+        "structure_name": "multifocal distribution",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.locule_extent",
+        "structure_name": "locule extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.locule_extent",
+        "structure_name": "locule extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.locule_extent",
+        "structure_name": "locule extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.adjacent_parenchymal_interface",
+        "structure_name": "adjacent parenchymal interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.adjacent_parenchymal_interface",
+        "structure_name": "adjacent parenchymal interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.adjacent_parenchymal_interface",
+        "structure_name": "adjacent parenchymal interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.adjacent_organ_interface",
+        "structure_name": "adjacent organ interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.adjacent_organ_interface",
+        "structure_name": "adjacent organ interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.adjacent_organ_interface",
+        "structure_name": "adjacent organ interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.source_prior_correspondence",
+        "structure_name": "source prior correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.source_prior_correspondence",
+        "structure_name": "source prior correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.observation.source_prior_correspondence",
+        "structure_name": "source prior correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.simple_fluid",
+        "structure_name": "simple fluid",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.simple_fluid",
+        "structure_name": "simple fluid",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.simple_fluid",
+        "structure_name": "simple fluid",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.proteinaceous_regions",
+        "structure_name": "proteinaceous regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.proteinaceous_regions",
+        "structure_name": "proteinaceous regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.proteinaceous_regions",
+        "structure_name": "proteinaceous regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.haemorrhagic_regions",
+        "structure_name": "haemorrhagic regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.haemorrhagic_regions",
+        "structure_name": "haemorrhagic regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.haemorrhagic_regions",
+        "structure_name": "haemorrhagic regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.solid_debris",
+        "structure_name": "solid debris",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.solid_debris",
+        "structure_name": "solid debris",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.solid_debris",
+        "structure_name": "solid debris",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.mucin_uncertain_regions",
+        "structure_name": "mucin uncertain regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.mucin_uncertain_regions",
+        "structure_name": "mucin uncertain regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.mucin_uncertain_regions",
+        "structure_name": "mucin uncertain regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.gas_if_present",
+        "structure_name": "gas if present",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.gas_if_present",
+        "structure_name": "gas if present",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.gas_if_present",
+        "structure_name": "gas if present",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.fluid_tissue_interfaces",
+        "structure_name": "fluid tissue interfaces",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.fluid_tissue_interfaces",
+        "structure_name": "fluid tissue interfaces",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.fluid_tissue_interfaces",
+        "structure_name": "fluid tissue interfaces",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.source_sequence_correspondence",
+        "structure_name": "source sequence correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.source_sequence_correspondence",
+        "structure_name": "source sequence correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.content.source_sequence_correspondence",
+        "structure_name": "source sequence correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.outer_boundary",
+        "structure_name": "outer boundary",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.outer_boundary",
+        "structure_name": "outer boundary",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.outer_boundary",
+        "structure_name": "outer boundary",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.inner_boundary",
+        "structure_name": "inner boundary",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.inner_boundary",
+        "structure_name": "inner boundary",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.inner_boundary",
+        "structure_name": "inner boundary",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.uniform_regions",
+        "structure_name": "uniform regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.uniform_regions",
+        "structure_name": "uniform regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.uniform_regions",
+        "structure_name": "uniform regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.thickened_regions",
+        "structure_name": "thickened regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.thickened_regions",
+        "structure_name": "thickened regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.thickened_regions",
+        "structure_name": "thickened regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.irregular_regions",
+        "structure_name": "irregular regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.irregular_regions",
+        "structure_name": "irregular regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.irregular_regions",
+        "structure_name": "irregular regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.enhancing_regions",
+        "structure_name": "enhancing regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.enhancing_regions",
+        "structure_name": "enhancing regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.enhancing_regions",
+        "structure_name": "enhancing regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.actual_wall_nodule_interface",
+        "structure_name": "actual wall nodule interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.actual_wall_nodule_interface",
+        "structure_name": "actual wall nodule interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.actual_wall_nodule_interface",
+        "structure_name": "actual wall nodule interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.interrupted_or_uncertain_regions",
+        "structure_name": "interrupted or uncertain regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.interrupted_or_uncertain_regions",
+        "structure_name": "interrupted or uncertain regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.wall.interrupted_or_uncertain_regions",
+        "structure_name": "interrupted or uncertain regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.septal_extent",
+        "structure_name": "septal extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.septal_extent",
+        "structure_name": "septal extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.septal_extent",
+        "structure_name": "septal extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.thickness_regions",
+        "structure_name": "thickness regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.thickness_regions",
+        "structure_name": "thickness regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.thickness_regions",
+        "structure_name": "thickness regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.enhancing_regions",
+        "structure_name": "enhancing regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.enhancing_regions",
+        "structure_name": "enhancing regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.enhancing_regions",
+        "structure_name": "enhancing regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.septal_junctions",
+        "structure_name": "septal junctions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.septal_junctions",
+        "structure_name": "septal junctions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.septal_junctions",
+        "structure_name": "septal junctions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.each_locule_boundary",
+        "structure_name": "each locule boundary",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.each_locule_boundary",
+        "structure_name": "each locule boundary",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.each_locule_boundary",
+        "structure_name": "each locule boundary",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.uncertain_partial_volume_region",
+        "structure_name": "uncertain partial volume region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.uncertain_partial_volume_region",
+        "structure_name": "uncertain partial volume region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.septa.uncertain_partial_volume_region",
+        "structure_name": "uncertain partial volume region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.complete_nodule_margin",
+        "structure_name": "complete nodule margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.complete_nodule_margin",
+        "structure_name": "complete nodule margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.complete_nodule_margin",
+        "structure_name": "complete nodule margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.wall_attachment",
+        "structure_name": "wall attachment",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.wall_attachment",
+        "structure_name": "wall attachment",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.wall_attachment",
+        "structure_name": "wall attachment",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.height_measurement_plane",
+        "structure_name": "height measurement plane",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.height_measurement_plane",
+        "structure_name": "height measurement plane",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.height_measurement_plane",
+        "structure_name": "height measurement plane",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.width_measurement_plane",
+        "structure_name": "width measurement plane",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.width_measurement_plane",
+        "structure_name": "width measurement plane",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.width_measurement_plane",
+        "structure_name": "width measurement plane",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.source_enhancing_tissue",
+        "structure_name": "source enhancing tissue",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.source_enhancing_tissue",
+        "structure_name": "source enhancing tissue",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.source_enhancing_tissue",
+        "structure_name": "source enhancing tissue",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.nonenhancing_regions",
+        "structure_name": "nonenhancing regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.nonenhancing_regions",
+        "structure_name": "nonenhancing regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.nonenhancing_regions",
+        "structure_name": "nonenhancing regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.debris_differential",
+        "structure_name": "debris differential",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.debris_differential",
+        "structure_name": "debris differential",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.debris_differential",
+        "structure_name": "debris differential",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.source_pre_post_correspondence",
+        "structure_name": "source pre post correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.source_pre_post_correspondence",
+        "structure_name": "source pre post correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.source_pre_post_correspondence",
+        "structure_name": "source pre post correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.subtraction_artifact_check",
+        "structure_name": "subtraction artifact check",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.subtraction_artifact_check",
+        "structure_name": "subtraction artifact check",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mural_nodule.subtraction_artifact_check",
+        "structure_name": "subtraction artifact check",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.whole_margin",
+        "structure_name": "whole margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.whole_margin",
+        "structure_name": "whole margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.whole_margin",
+        "structure_name": "whole margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.source_enhancement_regions",
+        "structure_name": "source enhancement regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.source_enhancement_regions",
+        "structure_name": "source enhancement regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.source_enhancement_regions",
+        "structure_name": "source enhancement regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.viable_tissue_interface",
+        "structure_name": "viable tissue interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.viable_tissue_interface",
+        "structure_name": "viable tissue interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.viable_tissue_interface",
+        "structure_name": "viable tissue interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.cystic_interface",
+        "structure_name": "cystic interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.cystic_interface",
+        "structure_name": "cystic interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.cystic_interface",
+        "structure_name": "cystic interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.adjacent_pancreatic_mass_relation",
+        "structure_name": "adjacent pancreatic mass relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.adjacent_pancreatic_mass_relation",
+        "structure_name": "adjacent pancreatic mass relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.adjacent_pancreatic_mass_relation",
+        "structure_name": "adjacent pancreatic mass relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.orthogonal_measurement_margin",
+        "structure_name": "orthogonal measurement margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.orthogonal_measurement_margin",
+        "structure_name": "orthogonal measurement margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.solid.orthogonal_measurement_margin",
+        "structure_name": "orthogonal measurement margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.central_scar",
+        "structure_name": "central scar",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.central_scar",
+        "structure_name": "central scar",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.central_scar",
+        "structure_name": "central scar",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.regions_of_central_calcification",
+        "structure_name": "regions of central calcification",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.regions_of_central_calcification",
+        "structure_name": "regions of central calcification",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.regions_of_central_calcification",
+        "structure_name": "regions of central calcification",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.peripheral_wall_calcification",
+        "structure_name": "peripheral wall calcification",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.peripheral_wall_calcification",
+        "structure_name": "peripheral wall calcification",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.peripheral_wall_calcification",
+        "structure_name": "peripheral wall calcification",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.septal_calcification",
+        "structure_name": "septal calcification",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.septal_calcification",
+        "structure_name": "septal calcification",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.septal_calcification",
+        "structure_name": "septal calcification",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.source_ct_confirmation",
+        "structure_name": "source ct confirmation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.source_ct_confirmation",
+        "structure_name": "source ct confirmation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.source_ct_confirmation",
+        "structure_name": "source ct confirmation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.adjacent_tissue_interface",
+        "structure_name": "adjacent tissue interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.adjacent_tissue_interface",
+        "structure_name": "adjacent tissue interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.scar_calcification.adjacent_tissue_interface",
+        "structure_name": "adjacent tissue interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.tail_course",
+        "structure_name": "tail course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.tail_course",
+        "structure_name": "tail course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.tail_course",
+        "structure_name": "tail course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.body_course",
+        "structure_name": "body course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.body_course",
+        "structure_name": "body course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.body_course",
+        "structure_name": "body course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.neck_course",
+        "structure_name": "neck course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.neck_course",
+        "structure_name": "neck course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.neck_course",
+        "structure_name": "neck course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.head_course",
+        "structure_name": "head course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.head_course",
+        "structure_name": "head course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.head_course",
+        "structure_name": "head course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.source_lumen",
+        "structure_name": "source lumen",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.source_lumen",
+        "structure_name": "source lumen",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.source_lumen",
+        "structure_name": "source lumen",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.source_wall",
+        "structure_name": "source wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.source_wall",
+        "structure_name": "source wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.source_wall",
+        "structure_name": "source wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.maximal_calibre_plane",
+        "structure_name": "maximal calibre plane",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.maximal_calibre_plane",
+        "structure_name": "maximal calibre plane",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.maximal_calibre_plane",
+        "structure_name": "maximal calibre plane",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.narrowed_or_obstructed_region",
+        "structure_name": "narrowed or obstructed region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.narrowed_or_obstructed_region",
+        "structure_name": "narrowed or obstructed region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.narrowed_or_obstructed_region",
+        "structure_name": "narrowed or obstructed region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.abrupt_change",
+        "structure_name": "abrupt change",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.abrupt_change",
+        "structure_name": "abrupt change",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.abrupt_change",
+        "structure_name": "abrupt change",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.upstream_downstream_regions",
+        "structure_name": "upstream downstream regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.upstream_downstream_regions",
+        "structure_name": "upstream downstream regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.upstream_downstream_regions",
+        "structure_name": "upstream downstream regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.variant_course",
+        "structure_name": "variant course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.variant_course",
+        "structure_name": "variant course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.main_duct.variant_course",
+        "structure_name": "variant course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.actual_branch_origin",
+        "structure_name": "actual branch origin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.actual_branch_origin",
+        "structure_name": "actual branch origin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.actual_branch_origin",
+        "structure_name": "actual branch origin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.each_branch_course",
+        "structure_name": "each branch course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.each_branch_course",
+        "structure_name": "each branch course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.each_branch_course",
+        "structure_name": "each branch course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.cystic_branch_extent",
+        "structure_name": "cystic branch extent",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.cystic_branch_extent",
+        "structure_name": "cystic branch extent",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.cystic_branch_extent",
+        "structure_name": "cystic branch extent",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.accessory_duct",
+        "structure_name": "accessory duct",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.accessory_duct",
+        "structure_name": "accessory duct",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.accessory_duct",
+        "structure_name": "accessory duct",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.major_papilla_relation",
+        "structure_name": "major papilla relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.major_papilla_relation",
+        "structure_name": "major papilla relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.major_papilla_relation",
+        "structure_name": "major papilla relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.minor_papilla_relation",
+        "structure_name": "minor papilla relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.minor_papilla_relation",
+        "structure_name": "minor papilla relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.minor_papilla_relation",
+        "structure_name": "minor papilla relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.variant_connections",
+        "structure_name": "variant connections",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.variant_connections",
+        "structure_name": "variant connections",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.side_branches.variant_connections",
+        "structure_name": "variant connections",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.whole_connection_course",
+        "structure_name": "whole connection course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.whole_connection_course",
+        "structure_name": "whole connection course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.whole_connection_course",
+        "structure_name": "whole connection course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.connection_margin",
+        "structure_name": "connection margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.connection_margin",
+        "structure_name": "connection margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.connection_margin",
+        "structure_name": "connection margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.thin_source_plane",
+        "structure_name": "thin source plane",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.thin_source_plane",
+        "structure_name": "thin source plane",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.thin_source_plane",
+        "structure_name": "thin source plane",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.thick_slab_projection_context",
+        "structure_name": "thick slab projection context",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.thick_slab_projection_context",
+        "structure_name": "thick slab projection context",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.thick_slab_projection_context",
+        "structure_name": "thick slab projection context",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.actual_duct_junction",
+        "structure_name": "actual duct junction",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.actual_duct_junction",
+        "structure_name": "actual duct junction",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.actual_duct_junction",
+        "structure_name": "actual duct junction",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.uncertain_or_nonvisualized_interface",
+        "structure_name": "uncertain or nonvisualized interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.uncertain_or_nonvisualized_interface",
+        "structure_name": "uncertain or nonvisualized interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.communication.uncertain_or_nonvisualized_interface",
+        "structure_name": "uncertain or nonvisualized interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.atrophic_regions",
+        "structure_name": "atrophic regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.atrophic_regions",
+        "structure_name": "atrophic regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.atrophic_regions",
+        "structure_name": "atrophic regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.obstructed_gland_regions",
+        "structure_name": "obstructed gland regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.obstructed_gland_regions",
+        "structure_name": "obstructed gland regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.obstructed_gland_regions",
+        "structure_name": "obstructed gland regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.inflammatory_regions",
+        "structure_name": "inflammatory regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.inflammatory_regions",
+        "structure_name": "inflammatory regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.inflammatory_regions",
+        "structure_name": "inflammatory regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.viable_gland_regions",
+        "structure_name": "viable gland regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.viable_gland_regions",
+        "structure_name": "viable gland regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.viable_gland_regions",
+        "structure_name": "viable gland regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.other_solid_observation",
+        "structure_name": "other solid observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.other_solid_observation",
+        "structure_name": "other solid observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.other_solid_observation",
+        "structure_name": "other solid observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.other_cystic_observation",
+        "structure_name": "other cystic observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.other_cystic_observation",
+        "structure_name": "other cystic observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.other_cystic_observation",
+        "structure_name": "other cystic observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.source_prior_correspondence",
+        "structure_name": "source prior correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.source_prior_correspondence",
+        "structure_name": "source prior correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.parenchymal_context.source_prior_correspondence",
+        "structure_name": "source prior correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.gallbladder",
+        "structure_name": "gallbladder",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.gallbladder",
+        "structure_name": "gallbladder",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.gallbladder",
+        "structure_name": "gallbladder",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.common_hepatic_duct",
+        "structure_name": "common hepatic duct",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.common_hepatic_duct",
+        "structure_name": "common hepatic duct",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.common_hepatic_duct",
+        "structure_name": "common hepatic duct",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.suprapancreatic_cbd",
+        "structure_name": "suprapancreatic cbd",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.suprapancreatic_cbd",
+        "structure_name": "suprapancreatic cbd",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.suprapancreatic_cbd",
+        "structure_name": "suprapancreatic cbd",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.intrapancreatic_cbd",
+        "structure_name": "intrapancreatic cbd",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.intrapancreatic_cbd",
+        "structure_name": "intrapancreatic cbd",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.intrapancreatic_cbd",
+        "structure_name": "intrapancreatic cbd",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.upstream_dilated_regions",
+        "structure_name": "upstream dilated regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.upstream_dilated_regions",
+        "structure_name": "upstream dilated regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.upstream_dilated_regions",
+        "structure_name": "upstream dilated regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.actual_obstruction_interface",
+        "structure_name": "actual obstruction interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.actual_obstruction_interface",
+        "structure_name": "actual obstruction interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.actual_obstruction_interface",
+        "structure_name": "actual obstruction interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.ampullary_relation",
+        "structure_name": "ampullary relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.ampullary_relation",
+        "structure_name": "ampullary relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.biliary_context.ampullary_relation",
+        "structure_name": "ampullary relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.portal_vein",
+        "structure_name": "portal vein",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.portal_vein",
+        "structure_name": "portal vein",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.portal_vein",
+        "structure_name": "portal vein",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.smv",
+        "structure_name": "smv",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.smv",
+        "structure_name": "smv",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.smv",
+        "structure_name": "smv",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.splenic_vein",
+        "structure_name": "splenic vein",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.splenic_vein",
+        "structure_name": "splenic vein",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.splenic_vein",
+        "structure_name": "splenic vein",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.venous_confluence",
+        "structure_name": "venous confluence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.venous_confluence",
+        "structure_name": "venous confluence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.venous_confluence",
+        "structure_name": "venous confluence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.splenic_artery",
+        "structure_name": "splenic artery",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.splenic_artery",
+        "structure_name": "splenic artery",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.splenic_artery",
+        "structure_name": "splenic artery",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.hepatic_artery",
+        "structure_name": "hepatic artery",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.hepatic_artery",
+        "structure_name": "hepatic artery",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.hepatic_artery",
+        "structure_name": "hepatic artery",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.coeliac_axis",
+        "structure_name": "coeliac axis",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.coeliac_axis",
+        "structure_name": "coeliac axis",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.coeliac_axis",
+        "structure_name": "coeliac axis",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.other_actual_branch",
+        "structure_name": "other actual branch",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.other_actual_branch",
+        "structure_name": "other actual branch",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.other_actual_branch",
+        "structure_name": "other actual branch",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.source_lumen_wall",
+        "structure_name": "source lumen wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.source_lumen_wall",
+        "structure_name": "source lumen wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.source_lumen_wall",
+        "structure_name": "source lumen wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.tissue_contact_interface",
+        "structure_name": "tissue contact interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.tissue_contact_interface",
+        "structure_name": "tissue contact interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.vascular_context.tissue_contact_interface",
+        "structure_name": "tissue contact interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.stomach_wall",
+        "structure_name": "stomach wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.stomach_wall",
+        "structure_name": "stomach wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.stomach_wall",
+        "structure_name": "stomach wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.duodenal_wall",
+        "structure_name": "duodenal wall",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.duodenal_wall",
+        "structure_name": "duodenal wall",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.duodenal_wall",
+        "structure_name": "duodenal wall",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.splenic_interface",
+        "structure_name": "splenic interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.splenic_interface",
+        "structure_name": "splenic interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.splenic_interface",
+        "structure_name": "splenic interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.hepatic_interface",
+        "structure_name": "hepatic interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.hepatic_interface",
+        "structure_name": "hepatic interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.hepatic_interface",
+        "structure_name": "hepatic interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.retroperitoneal_interface",
+        "structure_name": "retroperitoneal interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.retroperitoneal_interface",
+        "structure_name": "retroperitoneal interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.retroperitoneal_interface",
+        "structure_name": "retroperitoneal interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.peritoneal_interface",
+        "structure_name": "peritoneal interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.peritoneal_interface",
+        "structure_name": "peritoneal interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.peritoneal_interface",
+        "structure_name": "peritoneal interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.bowel_interface",
+        "structure_name": "bowel interface",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.bowel_interface",
+        "structure_name": "bowel interface",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.bowel_interface",
+        "structure_name": "bowel interface",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.source_mass_effect_region",
+        "structure_name": "source mass effect region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.source_mass_effect_region",
+        "structure_name": "source mass effect region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.adjacent_context.source_mass_effect_region",
+        "structure_name": "source mass effect region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.t2_fluid_regions",
+        "structure_name": "t2 fluid regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.t2_fluid_regions",
+        "structure_name": "t2 fluid regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.t2_fluid_regions",
+        "structure_name": "t2 fluid regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.t1_haemorrhage_regions",
+        "structure_name": "t1 haemorrhage regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.t1_haemorrhage_regions",
+        "structure_name": "t1 haemorrhage regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.t1_haemorrhage_regions",
+        "structure_name": "t1 haemorrhage regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.source_dynamic_enhancement",
+        "structure_name": "source dynamic enhancement",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.source_dynamic_enhancement",
+        "structure_name": "source dynamic enhancement",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.source_dynamic_enhancement",
+        "structure_name": "source dynamic enhancement",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.subtraction_quality_region",
+        "structure_name": "subtraction quality region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.subtraction_quality_region",
+        "structure_name": "subtraction quality region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.subtraction_quality_region",
+        "structure_name": "subtraction quality region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.thin_mrcp_source_duct",
+        "structure_name": "thin mrcp source duct",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.thin_mrcp_source_duct",
+        "structure_name": "thin mrcp source duct",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.thin_mrcp_source_duct",
+        "structure_name": "thin mrcp source duct",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.thick_slab_correspondence",
+        "structure_name": "thick slab correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.thick_slab_correspondence",
+        "structure_name": "thick slab correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.thick_slab_correspondence",
+        "structure_name": "thick slab correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.dwi_if_acquired",
+        "structure_name": "dwi if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.dwi_if_acquired",
+        "structure_name": "dwi if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.dwi_if_acquired",
+        "structure_name": "dwi if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.adc_if_acquired",
+        "structure_name": "adc if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.adc_if_acquired",
+        "structure_name": "adc if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.adc_if_acquired",
+        "structure_name": "adc if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.native_sequence_correspondence",
+        "structure_name": "native sequence correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.native_sequence_correspondence",
+        "structure_name": "native sequence correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.mri.native_sequence_correspondence",
+        "structure_name": "native sequence correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.native_calcification_regions",
+        "structure_name": "native calcification regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.native_calcification_regions",
+        "structure_name": "native calcification regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.native_calcification_regions",
+        "structure_name": "native calcification regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.precontrast_if_acquired",
+        "structure_name": "precontrast if acquired",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.precontrast_if_acquired",
+        "structure_name": "precontrast if acquired",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.precontrast_if_acquired",
+        "structure_name": "precontrast if acquired",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.adequate_postcontrast_regions",
+        "structure_name": "adequate postcontrast regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.adequate_postcontrast_regions",
+        "structure_name": "adequate postcontrast regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.adequate_postcontrast_regions",
+        "structure_name": "adequate postcontrast regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.source_enhancing_component",
+        "structure_name": "source enhancing component",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.source_enhancing_component",
+        "structure_name": "source enhancing component",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.source_enhancing_component",
+        "structure_name": "source enhancing component",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.uncertain_partial_volume_region",
+        "structure_name": "uncertain partial volume region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.uncertain_partial_volume_region",
+        "structure_name": "uncertain partial volume region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.uncertain_partial_volume_region",
+        "structure_name": "uncertain partial volume region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.native_phase_correspondence",
+        "structure_name": "native phase correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.native_phase_correspondence",
+        "structure_name": "native phase correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.ct.native_phase_correspondence",
+        "structure_name": "native phase correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_bd_ipmn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_md_or_mixed_ipmn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_mcn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.presumed_scn.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.inflammatory_collection_mimic.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.cystic_solid_neoplasm_mimic.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.complete_observation",
+        "structure_name": "complete observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.morphology_regions",
+        "structure_name": "morphology regions",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.actual_duct_relation",
+        "structure_name": "actual duct relation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.source_nodule_or_debris",
+        "structure_name": "source nodule or debris",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.region_of_diagnostic_uncertainty",
+        "structure_name": "region of diagnostic uncertainty",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.other_actual_cyst_differential.clinical_pathology_correspondence",
+        "structure_name": "clinical pathology correspondence",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.stent_course",
+        "structure_name": "stent course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.stent_course",
+        "structure_name": "stent course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.stent_course",
+        "structure_name": "stent course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.drain_course",
+        "structure_name": "drain course",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.drain_course",
+        "structure_name": "drain course",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.drain_course",
+        "structure_name": "drain course",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.operative_margin",
+        "structure_name": "operative margin",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.operative_margin",
+        "structure_name": "operative margin",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.operative_margin",
+        "structure_name": "operative margin",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.residual_observation",
+        "structure_name": "residual observation",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.residual_observation",
+        "structure_name": "residual observation",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.residual_observation",
+        "structure_name": "residual observation",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.actual_recurrent_region",
+        "structure_name": "actual recurrent region",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.actual_recurrent_region",
+        "structure_name": "actual recurrent region",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.actual_recurrent_region",
+        "structure_name": "actual recurrent region",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.gas_or_fistula_context",
+        "structure_name": "gas or fistula context",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.gas_or_fistula_context",
+        "structure_name": "gas or fistula context",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.gas_or_fistula_context",
+        "structure_name": "gas or fistula context",
+        "kind": "model",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.source_pre_post_correspondence",
+        "structure_name": "source pre post correspondence",
+        "kind": "clinical_image",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.source_pre_post_correspondence",
+        "structure_name": "source pre post correspondence",
+        "kind": "schematic",
+        "status": "missing",
+        "verified_assets": [],
+        "candidates": {}
+      },
+      {
+        "investigation_id": "ra.pancreatic-cysts",
+        "structure_id": "pancreatic_cyst.altered_context.source_pre_post_correspondence",
         "structure_name": "source pre post correspondence",
         "kind": "model",
         "status": "missing",

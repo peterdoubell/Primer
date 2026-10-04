@@ -18151,9 +18151,9 @@
         },
         {
           "kind": "numeric",
-          "prompt": "A 62-year-old has an incidental branch-duct IPMN. MRI shows a 3.4 cm cyst in the uncinate process, a main pancreatic duct of 6 mm, a thickened enhancing cyst wall, no mural nodule, no lymphadenopathy, a normal bilirubin and a normal CA 19-9. Count the worrisome features present under the international consensus (Fukuoka) criteria. Answer as a whole number.",
+          "prompt": "A 62-year-old has an incidental branch-duct IPMN. MRI shows a 3.4 cm cyst in the uncinate process, a main pancreatic duct of 6 mm, a thickened enhancing cyst wall, no mural nodule, no lymphadenopathy, a normal bilirubin and a normal CA 19-9. Count the worrisome features present under the 2017 international consensus (Fukuoka) criteria. Answer as a whole number.",
           "answer": "3",
-          "explain": "The three are the cyst measuring 3 cm or more, a main pancreatic duct of 5 to 9 mm, and a thickened or enhancing cyst wall. The other worrisome features in the international consensus criteria (2017 revision, carried into the 2024 Kyoto update) are an enhancing mural nodule under 5 mm, an abrupt change in duct calibre with distal parenchymal atrophy, lymphadenopathy, a raised serum CA 19-9, a growth rate of 5 mm or more over two years, and acute pancreatitis attributable to the cyst. They are distinct from the high-risk stigmata, which are obstructive jaundice with a cystic head lesion, an enhancing mural nodule of 5 mm or more, and a main duct of 10 mm or more. Worrisome features send the patient to endoscopic ultrasound; high-risk stigmata send fit patients to the surgeon."
+          "explain": "Under the stated Fukuoka 2017 framework, the three findings are cyst size at least 3 cm, main duct 5 to under 10 mm, and thickened/enhancing wall. Report each finding. Do not present this as the complete Kyoto 2024 criteria set or as a stand-alone surgical decision."
         },
         {
           "kind": "choice",
@@ -18212,26 +18212,26 @@
         {
           "kind": "choice",
           "prompt": "A 71-year-old woman has an incidental 4 cm pancreatic body lesion made of many small cysts each under 2 cm, with a central stellate scar containing calcification, no communication with the main pancreatic duct and no mural nodule. She is asymptomatic. What should you advise?",
-          "answer": "The features are those of a serous cystadenoma, which is benign; advise no resection and no surveillance while she stays asymptomatic",
+          "answer": "A serous cystic neoplasm pattern is favoured; avoid automatic resection and base further assessment/follow-up on diagnostic confidence, symptoms and the named guideline.",
           "choices": [
             "The features indicate a mucinous cystic neoplasm; advise distal pancreatectomy given the malignant potential of every mucinous lesion",
             "The features indicate a branch-duct IPMN; advise endoscopic ultrasound and then annual MRI surveillance, given a size above the 3 cm threshold",
             "The features suggest a walled-off collection after silent pancreatitis; advise a repeat scan at three months to confirm resolution",
-            "The features are those of a serous cystadenoma, which is benign; advise no resection and no surveillance while she stays asymptomatic"
+            "A serous cystic neoplasm pattern is favoured; avoid automatic resection and base further assessment/follow-up on diagnostic confidence, symptoms and the named guideline."
           ],
-          "explain": "The microcystic honeycomb with a central scar, sometimes with a sunburst calcification, is characteristic of serous cystadenoma, a lesion of older women with negligible malignant potential; the cyst fluid has low CEA and low amylase. Resection is for symptoms from mass effect, not for the diagnosis. The lesion to separate it from is the mucinous cystic neoplasm: also usually in the body or tail of a woman but typically in the fifth decade, unilocular or with few large locules, a thick wall with peripheral eggshell calcification, ovarian-type stroma histologically, and no ductal communication; it carries malignant potential and is resected in fit patients. Where the appearances are equivocal, especially the oligocystic variant of serous cystadenoma, endoscopic ultrasound with fluid analysis decides."
+          "explain": "The honeycomb/central-scar pattern favours a serous cystic neoplasm, but morphology is not histology. A confident diagnosis and symptoms matter; different named guidelines use different follow-up approaches. An equivocal or macrocystic lesion requires appropriate further assessment rather than a blanket benign/no-follow-up label."
         },
         {
           "kind": "short",
           "prompt": "Give the features on cross-sectional imaging that let you separate a mucinous cystic neoplasm from a branch-duct IPMN, and say why the distinction changes what you recommend.",
-          "answer": "A mucinous cystic neoplasm sits in the body or tail, has a thick wall sometimes with peripheral calcification, and does not communicate with the pancreatic duct; a branch-duct IPMN does communicate with the duct and favours the head and uncinate, so it can be surveilled while a mucinous cystic neoplasm is generally resected.",
+          "answer": "Duct communication favours branch-duct IPMN in the appropriate setting; a body/tail macrocystic lesion without demonstrated communication may favour MCN. Neither imaging pattern alone establishes histology. Recommend assessment under a named guideline using size, nodules, symptoms and patient fitness, rather than automatic resection of every presumed MCN.",
           "keywords": [
             "duct",
             "communicate",
             "tail",
             "wall"
           ],
-          "explain": "Ductal communication is the single most useful sign and is best shown on heavily T2-weighted MRCP, where a branch-duct IPMN is a grape-like cluster joined to the main duct by a visible stalk. A mucinous cystic neoplasm is a closed cyst with its own thick, sometimes calcified wall, characteristically in the body or tail of a woman in middle age. The consequence is practical: a small branch-duct IPMN without worrisome features goes into surveillance, whereas a mucinous cystic neoplasm in a fit patient is usually resected because malignant transformation is a real risk and distal pancreatectomy is curative. The trap is calling a unilocular mucinous cystic neoplasm a pseudocyst on the strength of a vague history of abdominal pain."
+          "explain": "Assess actual MRCP duct communication, cyst architecture, wall/nodule enhancement and clinical context. Absence of visible communication may reflect limited imaging. European 2018 guidance permits surveillance of selected presumed MCN below 40 mm without symptoms or suspicious mural nodules; type alone is not an operative directive."
         },
         {
           "kind": "order",
@@ -18415,11 +18415,11 @@
           },
           {
             "code": "Main pancreatic duct > 3 mm",
-            "meaning": "Duct dilatation, one of the features favouring neoplasm over pseudocyst in a cystic lesion."
+            "meaning": "Report actual duct calibre and clinical context; dilatation alone does not distinguish cystic neoplasm from inflammatory or obstructive causes."
           },
           {
-            "code": "Main pancreatic duct > 8 mm",
-            "meaning": "In IPMN, a malignancy indicator, alongside a solid node in the duct or a mass around the duct."
+            "code": "IPMN duct diameter — named framework",
+            "meaning": "For presumed IPMN under Kyoto 2024, main duct 5 to under 10 mm is a worrisome feature and at least 10 mm is a high-risk stigma. Assess obstruction, other criteria and clinical context; calibre alone does not prove malignancy or surgical suitability."
           }
         ],
         "template": "TECHNIQUE\nPancreatic protocol CT: late arterial and portal venous phases, [water as neutral oral contrast], thin-section reformats.\n\nFINDINGS\nTumour: [head / uncinate / body / tail], [n] mm, [hypodense / isodense with secondary signs].\nDucts: main pancreatic duct [n] mm, common bile duct [n] mm — [double duct sign / interrupted duct / normal].\nArteries: coeliac axis [n]° contact; common hepatic artery [n]°; superior mesenteric artery [n]°. Contour [normal / irregular].\nVeins: superior mesenteric vein [n]°; portal vein [n]°. Contour [normal / teardrop deformity / occluded / thrombosed].\nArterial variants: [none / replaced right hepatic artery from the SMA / other]. Coeliac stenosis: [absent / present].\nPathway-region soft tissue concerning for perineural spread: [ ]. Microscopic invasion is not established by CT. Mesentery and mesocolon: [ ].\nNodes: regional [ ]; extra-regional [ ].\nMetastases: liver [ ], peritoneum [ ], lungs [ ].\n\nIMPRESSION\n1. Pancreatic [head / body / tail] mass, [n] mm, [suspicious for adenocarcinoma / known source diagnosis / differential].\n2. Vascular summary: [artery/vein] [n]° with [length/contour/patency]. Framework/version and treatment time point: [ ]. Multidisciplinary resectability assessment: [ ].\n3. [Arterial variant that changes the operation.]\n4. [Metastatic disease.]",

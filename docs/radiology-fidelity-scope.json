@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10056,7 +10056,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10441,7 +10441,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10967,7 +10967,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11388,7 +11388,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11490,7 +11490,9 @@
           },
           "pitfalls": [
             "Use collection names according to content and maturity, not time alone.",
-            "Imaging morphology does not establish clinical organ-failure severity."
+            "Imaging morphology does not establish clinical organ-failure severity.",
+            "Fluid-responsive hypotension alone is insufficient to establish qualifying modified Marshall organ failure.",
+            "Do not infer infection from gas without reviewing instrumentation and enteric fistula context."
           ],
           "impression_prompts": [
             "State interstitial oedematous versus necrotising morphology.",
@@ -11526,31 +11528,43 @@
             {
               "title": "Radiology Assistant \u2014 Acute Pancreatitis",
               "url": "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+            },
+            {
+              "title": "Banks et al. Revised Atlanta classification (2012 revision; published 2013)",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/23100216/"
+            },
+            {
+              "title": "Clinical practice guideline: management of acute pancreatitis (2016; severity definitions)",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4814287/"
+            },
+            {
+              "title": "AGA clinical guidance \u2014 Management of pancreatic necrosis",
+              "url": "https://gastro.org/clinical-guidance/management-of-pancreatic-necrosis/"
             }
           ],
-          "reviewed_at": "2026-09-23"
+          "reviewed_at": "2026-10-04"
         },
         "report_templates": [
           {
-            "id": "pancreas-acute-report",
+            "id": "ra-ct-pancreatitis-report",
             "title": "CT ACUTE PANCREATITIS",
-            "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+            "description": "Reporting fields for CT acute pancreatitis. Complete the relevant observations and remove unused alternatives.",
             "sections": [
               {
                 "heading": "INDICATION",
-                "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+                "body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ]."
               },
               {
                 "heading": "COMPARISON",
-                "body": "[None available / date and examination]. Relevant interval change: [ ]."
+                "body": "[None / examination and date]."
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Record symptom onset and the reason for CT/MRI; early imaging can underestimate necrosis.\nReview enhancement, collections, vessels and adjacent bowel; select additional phases for a specific complication.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+                "body": "Record symptom onset and the reason for CT/MRI; early imaging can underestimate necrosis.\nReview enhancement, collections, vessels and adjacent bowel; select additional phases for a specific complication.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
-                "body": "[IMG 1: Pancreatic enhancement; series __ image __]\n[IMG 2: Collection wall and solid debris; series __ image __]\n[IMG 3: Vascular or ductal complication; series __ image __]"
+                "body": "[IMG 1: pancreatic morphology; series __ image __]\n[IMG 2: collections; series __ image __]\n[IMG 3: vascular complications; series __ image __]"
               },
               {
                 "heading": "PANCREATIC MORPHOLOGY",
@@ -11578,18 +11592,31 @@
               },
               {
                 "heading": "RECOMMENDATION AND COMMUNICATION",
-                "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+                "body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method]."
               }
             ],
             "notes": [
-              "Collection terminology depends on content and time; gas raises concern for infection but needs clinical correlation.",
               "Use collection names according to content and maturity, not time alone.",
-              "Imaging morphology does not establish clinical organ-failure severity."
+              "Imaging morphology does not establish clinical organ-failure severity.",
+              "Fluid-responsive hypotension alone is insufficient to establish qualifying modified Marshall organ failure.",
+              "Do not infer infection from gas without reviewing instrumentation and enteric fistula context."
             ],
             "sources": [
               {
-                "title": "Acute Pancreatitis",
+                "title": "Radiology Assistant \u2014 Acute Pancreatitis",
                 "url": "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+              },
+              {
+                "title": "Banks et al. Revised Atlanta classification (2012 revision; published 2013)",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/23100216/"
+              },
+              {
+                "title": "Clinical practice guideline: management of acute pancreatitis (2016; severity definitions)",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4814287/"
+              },
+              {
+                "title": "AGA clinical guidance \u2014 Management of pancreatic necrosis",
+                "url": "https://gastro.org/clinical-guidance/management-of-pancreatic-necrosis/"
               }
             ]
           }
@@ -11597,7 +11624,7 @@
         "walkthrough": {
           "reviewed_at": "2026-09-25",
           "complete": true,
-          "template_id": "pancreas-acute-report",
+          "template_id": "ra-ct-pancreatitis-report",
           "start": {
             "sections": [
               "INDICATION",
@@ -11774,9 +11801,9 @@
           }
         ]
       },
-      "reporting_contract_sha256": "f0b0692dfe006387a96ae74df9ef12539886033a0c8ccce2bc76365afb601604",
+      "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12695,7 +12722,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12823,7 +12850,7 @@
       "modality": "Multimodality",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-04",
           "protocol": [
             "Review CT or MRI/MRCP for cyst morphology and duct communication; compare prior examinations."
           ],
@@ -12856,10 +12883,18 @@
               "pitfall": "Apparent nodule size can include adjacent wall or nonenhancing debris."
             }
           ],
-          "classification": null,
+          "classification": {
+            "name": "IPMN risk assessment \u2014 framework-qualified descriptors",
+            "version": "Kyoto 2024",
+            "applicability": "Presumed IPMN; not a universal algorithm for all pancreatic cysts or proof of histological malignancy.",
+            "summary": "For presumed IPMN, assess actual nodule/solid-component enhancement and exact duct calibre under the named framework. Imaging risk findings require clinical/cytological context and specialist assessment; this overview is not the complete guideline."
+          },
           "criteria_table": null,
           "pitfalls": [
-            "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging."
+            "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging.",
+            "Duct communication alone does not establish IPMN; inflammatory collections may also communicate.",
+            "Presumed cyst type alone does not mandate resection; distinguish framework-specific assessment and complete clinical suitability.",
+            "Subtraction artifact, debris and wall partial volume can mimic a nodule; adequate source enhancement evidence is required."
           ],
           "impression_prompts": [
             "Cyst morphology, duct communication and differential diagnosis.",
@@ -12892,6 +12927,14 @@
             {
               "title": "Radiology Assistant \u2014 Pancreatic cystic Lesions",
               "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-cystic-lesions"
+            },
+            {
+              "title": "International evidence-based Kyoto IPMN guidelines (2024)",
+              "url": "https://doi.org/10.1016/j.pan.2023.12.009"
+            },
+            {
+              "title": "European evidence-based pancreatic cystic neoplasm guidelines (2018)",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5890653/"
             }
           ]
         },
@@ -12947,12 +12990,23 @@
               }
             ],
             "notes": [
-              "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging."
+              "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging.",
+              "Duct communication alone does not establish IPMN; inflammatory collections may also communicate.",
+              "Presumed cyst type alone does not mandate resection; distinguish framework-specific assessment and complete clinical suitability.",
+              "Subtraction artifact, debris and wall partial volume can mimic a nodule; adequate source enhancement evidence is required."
             ],
             "sources": [
               {
                 "title": "Radiology Assistant \u2014 Pancreatic cystic Lesions",
                 "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-cystic-lesions"
+              },
+              {
+                "title": "International evidence-based Kyoto IPMN guidelines (2024)",
+                "url": "https://doi.org/10.1016/j.pan.2023.12.009"
+              },
+              {
+                "title": "European evidence-based pancreatic cystic neoplasm guidelines (2018)",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5890653/"
               }
             ]
           }
@@ -13021,7 +13075,7 @@
                 "ENHANCING COMPONENTS": "No mural nodule or solid component."
               },
               "findings": [
-                "Enhancing mural nodule __ mm (high-risk stigma if 5 mm or larger).",
+                "Enhancing mural nodule __ mm; for presumed IPMN under Kyoto 2024, at least 5 mm is a high-risk stigma. State the actual enhancement evidence and framework.",
                 "Non-enhancing dependent debris.",
                 "Thickened, enhancing cyst wall."
               ],
@@ -13033,8 +13087,8 @@
               ],
               "landmark": "pancreas",
               "parts": [],
-              "look": "Post-contrast subtraction images; debris is dependent and does not enhance.",
-              "tip": "Dependent debris moves with position and does not enhance; a mural nodule enhances."
+              "look": "Use actually acquired pre/post-contrast source images and adequate subtraction; distinguish a real enhancing tissue component from debris, partial volume and subtraction/motion artifact.",
+              "tip": "Neither dependent location nor a single image proves debris or nodule enhancement. Report source-phase/sequence adequacy and uncertainty; no automatic treatment decision follows from this descriptor alone."
             },
             {
               "label": "Pancreatic duct",
@@ -13046,8 +13100,8 @@
                 "DUCTS": "No communication with the main pancreatic duct; main duct normal."
               },
               "findings": [
-                "Communication with the main pancreatic duct (branch-duct IPMN).",
-                "Main pancreatic duct __ mm (worrisome feature at 5\u20139 mm; high-risk stigma at 10 mm or more).",
+                "Cyst communication with the pancreatic duct; branch-duct IPMN is a possibility in the appropriate context, not a diagnosis from communication alone.",
+                "Main pancreatic duct __ mm; for presumed IPMN under Kyoto 2024, 5 to under 10 mm is worrisome and at least 10 mm is high-risk. Assess other causes and the complete framework.",
                 "Abrupt change in duct calibre with distal atrophy."
               ],
               "images": [],
@@ -13127,10 +13181,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "654e3e7d0383fd9cad31030c531c788330247e3b322d0767f419e442323363f0",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -20156,7 +20210,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -24324,7 +24378,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26958,7 +27012,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -27353,7 +27407,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -49280,7 +49334,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "88fba4f7e0441eb3339969228f32ba596df2e197a8dde7dbbceff732db59e63e",
+      "structure_inventory_sha256": "39e7c183e71bc1ef0ce98714d291702759e19a7a272fe6cb0b17ce7835016c1e",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -109904,11 +109958,11 @@
             },
             {
               "code": "Main pancreatic duct > 3 mm",
-              "meaning": "Duct dilatation, one of the features favouring neoplasm over pseudocyst in a cystic lesion."
+              "meaning": "Report actual duct calibre and clinical context; dilatation alone does not distinguish cystic neoplasm from inflammatory or obstructive causes."
             },
             {
-              "code": "Main pancreatic duct > 8 mm",
-              "meaning": "In IPMN, a malignancy indicator, alongside a solid node in the duct or a mass around the duct."
+              "code": "IPMN duct diameter \u2014 named framework",
+              "meaning": "For presumed IPMN under Kyoto 2024, main duct 5 to under 10 mm is a worrisome feature and at least 10 mm is a high-risk stigma. Assess obstruction, other criteria and clinical context; calibre alone does not prove malignancy or surgical suitability."
             }
           ],
           "template": "TECHNIQUE\nPancreatic protocol CT: late arterial and portal venous phases, [water as neutral oral contrast], thin-section reformats.\n\nFINDINGS\nTumour: [head / uncinate / body / tail], [n] mm, [hypodense / isodense with secondary signs].\nDucts: main pancreatic duct [n] mm, common bile duct [n] mm \u2014 [double duct sign / interrupted duct / normal].\nArteries: coeliac axis [n]\u00b0 contact; common hepatic artery [n]\u00b0; superior mesenteric artery [n]\u00b0. Contour [normal / irregular].\nVeins: superior mesenteric vein [n]\u00b0; portal vein [n]\u00b0. Contour [normal / teardrop deformity / occluded / thrombosed].\nArterial variants: [none / replaced right hepatic artery from the SMA / other]. Coeliac stenosis: [absent / present].\nPathway-region soft tissue concerning for perineural spread: [ ]. Microscopic invasion is not established by CT. Mesentery and mesocolon: [ ].\nNodes: regional [ ]; extra-regional [ ].\nMetastases: liver [ ], peritoneum [ ], lungs [ ].\n\nIMPRESSION\n1. Pancreatic [head / body / tail] mass, [n] mm, [suspicious for adenocarcinoma / known source diagnosis / differential].\n2. Vascular summary: [artery/vein] [n]\u00b0 with [length/contour/patency]. Framework/version and treatment time point: [ ]. Multidisciplinary resectability assessment: [ ].\n3. [Arterial variant that changes the operation.]\n4. [Metastatic disease.]",
@@ -110286,9 +110340,9 @@
           },
           {
             "kind": "numeric",
-            "prompt": "A 62-year-old has an incidental branch-duct IPMN. MRI shows a 3.4 cm cyst in the uncinate process, a main pancreatic duct of 6 mm, a thickened enhancing cyst wall, no mural nodule, no lymphadenopathy, a normal bilirubin and a normal CA 19-9. Count the worrisome features present under the international consensus (Fukuoka) criteria. Answer as a whole number.",
+            "prompt": "A 62-year-old has an incidental branch-duct IPMN. MRI shows a 3.4 cm cyst in the uncinate process, a main pancreatic duct of 6 mm, a thickened enhancing cyst wall, no mural nodule, no lymphadenopathy, a normal bilirubin and a normal CA 19-9. Count the worrisome features present under the 2017 international consensus (Fukuoka) criteria. Answer as a whole number.",
             "answer": "3",
-            "explain": "The three are the cyst measuring 3 cm or more, a main pancreatic duct of 5 to 9 mm, and a thickened or enhancing cyst wall. The other worrisome features in the international consensus criteria (2017 revision, carried into the 2024 Kyoto update) are an enhancing mural nodule under 5 mm, an abrupt change in duct calibre with distal parenchymal atrophy, lymphadenopathy, a raised serum CA 19-9, a growth rate of 5 mm or more over two years, and acute pancreatitis attributable to the cyst. They are distinct from the high-risk stigmata, which are obstructive jaundice with a cystic head lesion, an enhancing mural nodule of 5 mm or more, and a main duct of 10 mm or more. Worrisome features send the patient to endoscopic ultrasound; high-risk stigmata send fit patients to the surgeon.",
+            "explain": "Under the stated Fukuoka 2017 framework, the three findings are cyst size at least 3 cm, main duct 5 to under 10 mm, and thickened/enhancing wall. Report each finding. Do not present this as the complete Kyoto 2024 criteria set or as a stand-alone surgical decision.",
             "ephemeral": false
           },
           {
@@ -110353,27 +110407,27 @@
           {
             "kind": "choice",
             "prompt": "A 71-year-old woman has an incidental 4 cm pancreatic body lesion made of many small cysts each under 2 cm, with a central stellate scar containing calcification, no communication with the main pancreatic duct and no mural nodule. She is asymptomatic. What should you advise?",
-            "answer": "The features are those of a serous cystadenoma, which is benign; advise no resection and no surveillance while she stays asymptomatic",
+            "answer": "A serous cystic neoplasm pattern is favoured; avoid automatic resection and base further assessment/follow-up on diagnostic confidence, symptoms and the named guideline.",
             "choices": [
               "The features indicate a mucinous cystic neoplasm; advise distal pancreatectomy given the malignant potential of every mucinous lesion",
               "The features indicate a branch-duct IPMN; advise endoscopic ultrasound and then annual MRI surveillance, given a size above the 3 cm threshold",
               "The features suggest a walled-off collection after silent pancreatitis; advise a repeat scan at three months to confirm resolution",
-              "The features are those of a serous cystadenoma, which is benign; advise no resection and no surveillance while she stays asymptomatic"
+              "A serous cystic neoplasm pattern is favoured; avoid automatic resection and base further assessment/follow-up on diagnostic confidence, symptoms and the named guideline."
             ],
-            "explain": "The microcystic honeycomb with a central scar, sometimes with a sunburst calcification, is characteristic of serous cystadenoma, a lesion of older women with negligible malignant potential; the cyst fluid has low CEA and low amylase. Resection is for symptoms from mass effect, not for the diagnosis. The lesion to separate it from is the mucinous cystic neoplasm: also usually in the body or tail of a woman but typically in the fifth decade, unilocular or with few large locules, a thick wall with peripheral eggshell calcification, ovarian-type stroma histologically, and no ductal communication; it carries malignant potential and is resected in fit patients. Where the appearances are equivocal, especially the oligocystic variant of serous cystadenoma, endoscopic ultrasound with fluid analysis decides.",
+            "explain": "The honeycomb/central-scar pattern favours a serous cystic neoplasm, but morphology is not histology. A confident diagnosis and symptoms matter; different named guidelines use different follow-up approaches. An equivocal or macrocystic lesion requires appropriate further assessment rather than a blanket benign/no-follow-up label.",
             "ephemeral": false
           },
           {
             "kind": "short",
             "prompt": "Give the features on cross-sectional imaging that let you separate a mucinous cystic neoplasm from a branch-duct IPMN, and say why the distinction changes what you recommend.",
-            "answer": "A mucinous cystic neoplasm sits in the body or tail, has a thick wall sometimes with peripheral calcification, and does not communicate with the pancreatic duct; a branch-duct IPMN does communicate with the duct and favours the head and uncinate, so it can be surveilled while a mucinous cystic neoplasm is generally resected.",
+            "answer": "Duct communication favours branch-duct IPMN in the appropriate setting; a body/tail macrocystic lesion without demonstrated communication may favour MCN. Neither imaging pattern alone establishes histology. Recommend assessment under a named guideline using size, nodules, symptoms and patient fitness, rather than automatic resection of every presumed MCN.",
             "keywords": [
               "duct",
               "communicate",
               "tail",
               "wall"
             ],
-            "explain": "Ductal communication is the single most useful sign and is best shown on heavily T2-weighted MRCP, where a branch-duct IPMN is a grape-like cluster joined to the main duct by a visible stalk. A mucinous cystic neoplasm is a closed cyst with its own thick, sometimes calcified wall, characteristically in the body or tail of a woman in middle age. The consequence is practical: a small branch-duct IPMN without worrisome features goes into surveillance, whereas a mucinous cystic neoplasm in a fit patient is usually resected because malignant transformation is a real risk and distal pancreatectomy is curative. The trap is calling a unilocular mucinous cystic neoplasm a pseudocyst on the strength of a vague history of abdominal pain.",
+            "explain": "Assess actual MRCP duct communication, cyst architecture, wall/nodule enhancement and clinical context. Absence of visible communication may reflect limited imaging. European 2018 guidance permits surveillance of selected presumed MCN below 40 mm without symptoms or suspicious mural nodules; type alone is not an operative directive.",
             "ephemeral": false
           },
           {
@@ -110431,7 +110485,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "d89c1322c78b547a2af5b597c83ee2218af1a886564cc5faf724ef90058aac24",
+      "module_contract_sha256": "35f0365fd0505616a787676f3e184dd92e391a4c1296cb68ee6ca8e21f644c80",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
