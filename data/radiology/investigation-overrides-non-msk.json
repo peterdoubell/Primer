@@ -1744,7 +1744,7 @@
   },
   "ra.pancreatic-cysts": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
         "Review CT or MRI/MRCP for cyst morphology and duct communication; compare prior examinations."
       ],
@@ -1777,10 +1777,18 @@
           "pitfall": "Apparent nodule size can include adjacent wall or nonenhancing debris."
         }
       ],
-      "classification": null,
+      "classification": {
+        "name": "IPMN risk assessment — framework-qualified descriptors",
+        "version": "Kyoto 2024",
+        "applicability": "Presumed IPMN; not a universal algorithm for all pancreatic cysts or proof of histological malignancy.",
+        "summary": "For presumed IPMN, assess actual nodule/solid-component enhancement and exact duct calibre under the named framework. Imaging risk findings require clinical/cytological context and specialist assessment; this overview is not the complete guideline."
+      },
       "criteria_table": null,
       "pitfalls": [
-        "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging."
+        "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging.",
+        "Duct communication alone does not establish IPMN; inflammatory collections may also communicate.",
+        "Presumed cyst type alone does not mandate resection; distinguish framework-specific assessment and complete clinical suitability.",
+        "Subtraction artifact, debris and wall partial volume can mimic a nodule; adequate source enhancement evidence is required."
       ],
       "impression_prompts": [
         "Cyst morphology, duct communication and differential diagnosis.",
@@ -1813,13 +1821,21 @@
         {
           "title": "Radiology Assistant — Pancreatic cystic Lesions",
           "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-cystic-lesions"
+        },
+        {
+          "title": "International evidence-based Kyoto IPMN guidelines (2024)",
+          "url": "https://doi.org/10.1016/j.pan.2023.12.009"
+        },
+        {
+          "title": "European evidence-based pancreatic cystic neoplasm guidelines (2018)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5890653/"
         }
       ]
     }
   },
   "ra.ct-peritoneum": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
         "Review multiplanar contrast-enhanced abdominal CT with attention to peritoneal spaces and mesenteric relationships."
       ],
@@ -1855,7 +1871,8 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Peritoneal distribution aids localisation but does not by itself establish histology."
+        "Peritoneal distribution aids localisation but does not by itself establish histology.",
+        "Ascites and distribution alone do not establish metastatic histology; source context and alternative diagnoses remain necessary."
       ],
       "impression_prompts": [
         "Peritoneal spaces, mesenteric anatomy and patterns of disease.",
@@ -1898,7 +1915,7 @@
   },
   "ra.ct-peritoneal-carcinomatosis": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-04",
       "protocol": [
         "Review contrast CT by peritoneal compartment and compare treatment baseline where available."
       ],
@@ -1934,7 +1951,9 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "CT can underestimate small serosal or mesenteric deposits; absence of a visible implant does not exclude microscopic disease."
+        "CT can underestimate small serosal or mesenteric deposits; absence of a visible implant does not exclude microscopic disease.",
+        "Ascites and distribution alone do not establish metastatic histology; source context and alternative diagnoses remain necessary.",
+        "Distinguish CT-estimated from surgical PCI, preserve regional contributions/coverage and do not infer operative suitability from a universal cutoff."
       ],
       "impression_prompts": [
         "Distribution of peritoneal disease and surgically relevant sites.",
@@ -1967,6 +1986,18 @@
         {
           "title": "Radiology Assistant — Peritoneal Carcinomatosis",
           "url": "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis"
+        },
+        {
+          "title": "Evaluation of preoperative CT in estimating PCI (primary accuracy study)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22202284/"
+        },
+        {
+          "title": "Canadian colorectal peritoneal metastasis guidelines (2020; selection context)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/"
+        },
+        {
+          "title": "Consensus guideline for colorectal peritoneal metastases (2025)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40558054/"
         }
       ]
     }
@@ -5758,6 +5789,109 @@
         }
       ],
       "reviewed_at": "2026-09-25"
+    }
+  },
+  "ra.ct-pancreatitis": {
+    "reporting": {
+      "protocol": [
+        "Record symptom onset and the reason for CT/MRI; early imaging can underestimate necrosis.",
+        "Review enhancement, collections, vessels and adjacent bowel; select additional phases for a specific complication."
+      ],
+      "checklist": [
+        {
+          "label": "Pancreas",
+          "detail": "Distinguish interstitial oedema from non-enhancing necrotic tissue."
+        },
+        {
+          "label": "Collections",
+          "detail": "Describe location, content, encapsulation and time from onset."
+        },
+        {
+          "label": "Vessels",
+          "detail": "Search for venous thrombosis, pseudoaneurysm and bleeding."
+        },
+        {
+          "label": "Duct and cause",
+          "detail": "Review biliary obstruction, stones and duct disruption clues."
+        },
+        {
+          "label": "Other organs",
+          "detail": "Assess bowel, ascites, pleura and distant complications."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Necrosis extent",
+          "method": "Estimate the affected pancreatic portion and describe extrapancreatic necrosis separately.",
+          "pitfall": "Early or poorly timed CT can falsely suggest preserved or reduced perfusion."
+        },
+        {
+          "name": "Collection size",
+          "method": "Measure three dimensions and describe solid debris/wall maturity.",
+          "pitfall": "Size alone does not distinguish pseudocyst from walled-off necrosis."
+        }
+      ],
+      "classification": {
+        "name": "Revised Atlanta morphology",
+        "version": "2012 revision",
+        "applicability": "Acute pancreatitis and its local complications; clinical severity requires organ-failure information.",
+        "summary": "Describe interstitial oedematous or necrotising pancreatitis; distinguish acute fluid/necrotic collections from mature pseudocyst or walled-off necrosis."
+      },
+      "pitfalls": [
+        "Use collection names according to content and maturity, not time alone.",
+        "Imaging morphology does not establish clinical organ-failure severity.",
+        "Fluid-responsive hypotension alone is insufficient to establish qualifying modified Marshall organ failure.",
+        "Do not infer infection from gas without reviewing instrumentation and enteric fistula context."
+      ],
+      "impression_prompts": [
+        "State interstitial oedematous versus necrotising morphology.",
+        "Name and localise collections with their content and maturity.",
+        "Report vascular, ductal or bowel complications."
+      ],
+      "escalation": [
+        "Communicate active haemorrhage, pseudoaneurysm, bowel ischaemia or a suspected infected necrotic complication promptly."
+      ],
+      "template_sections": [
+        {
+          "heading": "PANCREATIC MORPHOLOGY",
+          "body": "Onset: [date / unknown]. Enhancement: [preserved / reduced / absent]. Necrosis distribution/extent: [ ]."
+        },
+        {
+          "heading": "COLLECTIONS",
+          "body": "Site: [ ]. Size: [ ] mm. Content: [fluid only / necrotic debris / uncertain]. Wall: [absent / developing / mature]. Gas: [ ]."
+        },
+        {
+          "heading": "VASCULAR COMPLICATIONS",
+          "body": "Splenic/portal/SMV patency: [ ]. Pseudoaneurysm: [ ]. Active bleeding: [ ]."
+        },
+        {
+          "heading": "DUCTAL AND BILIARY FINDINGS",
+          "body": "Main duct: [ ]. Disruption concern: [ ]. Gallstones/CBD obstruction: [ ]."
+        },
+        {
+          "heading": "EXTRAPANCREATIC EFFECTS",
+          "body": "Bowel involvement: [ ]. Ascites/pleura: [ ]. Obstruction/fistula: [ ]. Collection terminology and supporting features: [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant — Acute Pancreatitis",
+          "url": "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+        },
+        {
+          "title": "Banks et al. Revised Atlanta classification (2012 revision; published 2013)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23100216/"
+        },
+        {
+          "title": "Clinical practice guideline: management of acute pancreatitis (2016; severity definitions)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4814287/"
+        },
+        {
+          "title": "AGA clinical guidance — Management of pancreatic necrosis",
+          "url": "https://gastro.org/clinical-guidance/management-of-pancreatic-necrosis/"
+        }
+      ],
+      "reviewed_at": "2026-10-04"
     }
   }
 }

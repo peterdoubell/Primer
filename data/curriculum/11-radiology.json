@@ -15974,15 +15974,15 @@
       "quiz": [
         {
           "kind": "choice",
-          "prompt": "A 48-year-old man is scanned on day 6 of severe alcohol-related pancreatitis. Contrast-enhanced CT shows the pancreatic body failing to enhance over roughly 40% of the gland, and a heterogeneous collection containing both fluid and fat density tracking into the lesser sac, with no discernible wall. How should this be reported, and what follows from it?",
-          "answer": "An acute necrotic collection; it is heterogeneous and unencapsulated, so intervention waits unless infection forces the issue",
+          "prompt": "A 48-year-old man is scanned on day 6 of acute alcohol-associated pancreatitis. Contrast-enhanced CT shows the pancreatic body failing to enhance over roughly 40% of the gland, and a heterogeneous collection containing both fluid and fat density tracking into the lesser sac, with no discernible wall. How should this be reported, and what follows from it?",
+          "answer": "An acute necrotic collection; describe its immature wall and extent, with intervention decisions requiring multidisciplinary assessment",
           "choices": [
             "An acute peripancreatic fluid collection; homogeneous fluid without necrosis, and most of these resolve with supportive care alone",
             "A pancreatic pseudocyst; a mature wall has formed around simple fluid, so an endoscopic cyst-gastrostomy can be planned now",
-            "An acute necrotic collection; it is heterogeneous and unencapsulated, so intervention waits unless infection forces the issue",
+            "An acute necrotic collection; describe its immature wall and extent, with intervention decisions requiring multidisciplinary assessment",
             "Walled-off necrosis; the necrosis has matured inside a defined capsule, so transmural necrosectomy can be undertaken safely"
           ],
-          "explain": "The revised Atlanta classification (2012) sorts collections on two axes: does the collection contain necrotic debris, and is it older than four weeks. Heterogeneous content with fat density plus a non-enhancing gland means necrosis, and day 6 is inside the four-week window, so this is an acute necrotic collection. An acute peripancreatic fluid collection is the same age but arises in interstitial oedematous pancreatitis and is homogeneous fluid only. Pseudocyst and walled-off necrosis are the mature, encapsulated counterparts after four weeks. The distinction is not pedantry: a collection without a wall drains badly and tends to leave a persistent fistula, so unless there is infection or obstruction, the discipline is to wait for encapsulation before intervening."
+          "explain": "Necrotic content and incomplete encapsulation in this early episode support an acute necrotic collection. Imaging describes the anatomy and maturity; symptoms, infection, complications and clinical stability determine intervention needs. A fixed wait based only on the calendar is insufficient."
         },
         {
           "kind": "numeric",
@@ -16004,21 +16004,27 @@
         },
         {
           "kind": "choice",
-          "prompt": "A woman with gallstone pancreatitis becomes hypotensive on the evening of admission and needs 3 litres of fluid; her blood pressure and creatinine are normal again by the following afternoon, some 30 hours after the dysfunction began. She has a peripancreatic collection on day 5. How should the episode be graded, and what does that imply?",
-          "answer": "Moderately severe: the organ failure was transient, resolving within 48 hours, and mortality is far lower than with persistent failure",
+          "prompt": "A woman with gallstone pancreatitis has hypotension that responds to fluids and resolves within 30 hours. No qualifying respiratory or renal organ failure is documented. CT on day 5 shows a peripancreatic collection. How should the episode be graded from the stated findings?",
+          "answer": "Moderately severe because a local complication is present without documented persistent organ failure",
           "choices": [
             "Severe: any documented organ dysfunction defines severe disease, whatever the duration, because it marks a systemic inflammatory response",
-            "Moderately severe: the organ failure was transient, resolving within 48 hours, and mortality is far lower than with persistent failure",
+            "Moderately severe because a local complication is present without documented persistent organ failure",
             "Mild: dysfunction that corrects with fluid does not count as organ failure, and a collection on its own does not raise the grade",
             "Severe: the peripancreatic collection is a local complication and it upgrades the episode independently of the organ failure course"
           ],
-          "explain": "The revised Atlanta classification (2012) has three severity grades. Mild means no organ failure and no local or systemic complications. Moderately severe means transient organ failure that resolves within 48 hours, or a local complication such as a collection, or exacerbation of comorbid disease. Severe means persistent organ failure lasting beyond 48 hours. Organ failure itself is defined by a modified Marshall score of 2 or more in the respiratory, renal or cardiovascular system, so a blood pressure that responds to fluid is still counted while it lasts; the discriminator is duration, not whether it responded. This matters because persistent organ failure, especially when combined with infected necrosis, is where the mortality sits, and it is the trigger for critical care escalation and transfer to a pancreatic unit."
+          "explain": "The collection is a local complication and supports moderately severe acute pancreatitis without documented persistent organ failure. Fluid-responsive hypotension alone does not establish modified Marshall organ failure; qualifying clinical measurements and duration must be assessed. CT morphology cannot supply missing clinical severity data."
         },
         {
-          "kind": "numeric",
-          "prompt": "Symptoms began on day 0. A CT on day 26 shows a necrotic collection with a partially formed, incomplete wall. How many further days must elapse before the revised Atlanta terminology permits the report to say walled-off necrosis? Answer in days, as a whole number.",
-          "answer": "2",
-          "explain": "The revised Atlanta classification (2012) sets the boundary at four weeks from symptom onset, which is day 28, so from day 26 there are two days to go. Two cautions. First, the clock starts at symptom onset, not at admission or at the first scan, and patients often present late; take the history rather than the ward round date. Second, four weeks is necessary but not sufficient: walled-off necrosis also requires a mature, well-defined enhancing wall completely encircling the heterogeneous content. A day-40 collection with an incomplete rind is still best described as an evolving acute necrotic collection. Getting this right is what tells the endoscopist whether a lumen-apposing metal stent has something to seat against."
+          "kind": "choice",
+          "prompt": "Symptoms began on day 0. CT on day 26 shows a necrotic collection with an incomplete wall. What should the report say about maturity?",
+          "answer": "Describe the incomplete encapsulation; reaching day 28 alone will not establish walled-off necrosis.",
+          "choices": [
+            "Describe the incomplete encapsulation; reaching day 28 alone will not establish walled-off necrosis.",
+            "Call walled-off necrosis now because any visible wall is sufficient.",
+            "Wait exactly two days and call walled-off necrosis without reassessing the wall.",
+            "Call a pseudocyst because a partially formed wall excludes necrotic debris."
+          ],
+          "explain": "Document onset, necrotic content and actual encapsulation. Calendar age alone cannot establish a mature enclosing wall. Collection classification and intervention planning require the observed morphology and clinical context."
         },
         {
           "kind": "short",
@@ -16047,14 +16053,14 @@
         {
           "kind": "choice",
           "prompt": "A patient with a large walled-off necrosis at week 5 has new fever and rising inflammatory markers. CT shows several small gas locules within the collection. There has been no drain, no endoscopy and no gastrointestinal instrumentation. What do you conclude and recommend?",
-          "answer": "Gas here indicates infected necrosis; recommend sampling and culture-directed antibiotics with a planned drainage pathway",
+          "answer": "Strong concern for infected necrosis; prompt multidisciplinary review, with instrumentation and possible enteric fistula considered",
           "choices": [
             "Gas is expected within maturing necrosis; recommend supportive care alone, with a repeat scan in a fortnight to reassess the collection",
             "Gas indicates a fistula to the stomach or duodenum; recommend an urgent water-soluble contrast study before anything else",
             "Gas mandates immediate open necrosectomy; recommend theatre today because delay in this setting is what drives mortality",
-            "Gas here indicates infected necrosis; recommend sampling and culture-directed antibiotics with a planned drainage pathway"
+            "Strong concern for infected necrosis; prompt multidisciplinary review, with instrumentation and possible enteric fistula considered"
           ],
-          "explain": "In an untouched collection, extraluminal gas is the one CT finding that is close to specific for infection. Everything else, including size, wall thickness and the patient's temperature, is suggestive at best, which is why fine-needle aspiration is still used where the picture is ambiguous. Two caveats keep you honest: a drain, a transmural stent or recent endoscopy puts gas in a collection innocently, and a spontaneous fistula to the gut can do the same, so the history matters more than the pixels. Sterile necrosis does not need antibiotics, and prophylactic antibiotics in necrotising pancreatitis have not been shown to help. Infection changes the plan to drainage, but it does not by itself mean an operation today."
+          "explain": "Gas with clinical deterioration raises strong concern for infection, while instrumentation and enteric fistula can also introduce gas. Prompt specialist assessment is appropriate. Routine CT-guided needle aspiration is unnecessary in most cases; sampling and drainage decisions depend on clinical uncertainty and the planned management pathway."
         },
         {
           "kind": "order",
@@ -16111,21 +16117,21 @@
           "kind": "illustration",
           "src": "/app/illustrations/forest/radiology/rad-5-pancreas-acute-800.webp",
           "srcset": "/app/illustrations/forest/radiology/rad-5-pancreas-acute-800.webp 800w, /app/illustrations/forest/radiology/rad-5-pancreas-acute-1600.webp 1600w",
-          "alt": "A radiology reasoning diagram for Acute Pancreatitis: Revised Atlanta and its Complications linking Classify severity, Name by time, and Find complication.",
-          "caption": "Time and collection contents determine the correct acute-pancreatitis name and action.",
+          "alt": "A radiology reasoning diagram for Acute Pancreatitis: Revised Atlanta and its Complications linking Clinical severity, Assess collection, and Find complication.",
+          "caption": "Collection content, wall maturity and clinical context guide acute-pancreatitis assessment.",
           "long_description": {
             "title": "Acute Pancreatitis: Revised Atlanta and its Complications",
             "mode": "compare",
             "items": [
               {
-                "heading": "Classify severity",
-                "label": "Classify severity",
-                "detail": "Clinical course and organ failure frame what imaging must answer."
+                "heading": "Clinical severity",
+                "label": "Clinical severity",
+                "detail": "Organ failure, duration and local/systemic complications require clinical context."
               },
               {
-                "heading": "Name by time",
-                "label": "Name by time",
-                "detail": "Early fluid or necrosis evolves into walled collections later."
+                "heading": "Assess collection",
+                "label": "Assess collection",
+                "detail": "Time, contents and actual wall maturity are assessed together."
               },
               {
                 "heading": "Find complication",
@@ -16133,7 +16139,7 @@
                 "detail": "Gas, haemorrhage and vascular injury change intervention."
               }
             ],
-            "takeaway": "Time and collection contents determine the correct acute-pancreatitis name and action."
+            "takeaway": "Collection content, wall maturity and clinical context guide acute-pancreatitis assessment."
           },
           "width": 1600,
           "height": 1000
@@ -16148,11 +16154,11 @@
         "approach": [
           {
             "step": "Decide the morphological type first",
-            "detail": "Interstitial oedematous pancreatitis enhances normally throughout with mild surrounding fatty infiltration. Necrotising pancreatitis has non-enhancing parenchyma."
+            "detail": "Assess adequately acquired enhancement and pancreatic or peripancreatic necrosis; preserved gland enhancement does not exclude extrapancreatic necrosis."
           },
           {
             "step": "Date the episode",
-            "detail": "Everything downstream hangs on whether you are before or after four weeks from onset. Get the date of onset, not the date of admission."
+            "detail": "Record symptom onset alongside content and actual encapsulation. Calendar age alone does not establish collection maturity."
           },
           {
             "step": "Name each collection",
@@ -16160,7 +16166,7 @@
           },
           {
             "step": "Look for gas and for infection",
-            "detail": "Gas within a collection in a patient who has had no intervention points to infected necrosis."
+            "detail": "Collection gas raises concern for infection; also review interventions and possible enteric fistula."
           },
           {
             "step": "Check the vessels",
@@ -16168,13 +16174,13 @@
           },
           {
             "step": "Grade the severity against the clinical course",
-            "detail": "Severity is defined by organ failure and its duration, not by how bad the CT looks."
+            "detail": "Clinical severity uses qualifying organ failure, its duration and local/systemic complications; CT morphology alone is insufficient."
           }
         ],
         "measure": [
           {
             "what": "Time from onset",
-            "how": "First day of pain, not the day of the scan. It separates the acute collections from the encapsulated ones.",
+            "how": "Use symptom onset, not admission. The interval informs classification but does not replace observed wall/content.",
             "cutoff": "4 weeks"
           },
           {
@@ -16185,7 +16191,7 @@
           {
             "what": "Organ failure duration",
             "how": "From the clinical record, not the images.",
-            "cutoff": "Transient < 48 h · Persistent > 48 h"
+            "cutoff": "Transient: resolves within 48 h · Persistent: lasts beyond 48 h"
           }
         ],
         "classify": {
@@ -16202,12 +16208,12 @@
               "APFC — acute peripancreatic fluid collection",
               "< 4 weeks",
               "Fluid only",
-              "Not or partially encapsulated",
+              "No definable wall",
               "Interstitial oedematous pancreatitis"
             ],
             [
               "Pseudocyst",
-              "> 4 weeks",
+              "Usually after about 4 weeks",
               "Fluid only",
               "Fully encapsulated",
               "Interstitial oedematous pancreatitis"
@@ -16221,13 +16227,13 @@
             ],
             [
               "WON — walled-off necrosis",
-              "> 4 weeks",
+              "Usually after about 4 weeks",
               "Fluid and necrotic material",
               "Fully encapsulated",
               "Necrotising pancreatitis"
             ]
           ],
-          "note": "A pseudocyst requires four or more weeks to develop. Calling a collection a pseudocyst in week one is the commonest error in this classification."
+          "note": "The interval is typical evolution, not an automatic day-28 switch. Describe content and actual wall maturity; uncertain features remain explicit."
         },
         "modifiers": [
           {
@@ -16246,8 +16252,8 @@
         "template": "TECHNIQUE\nContrast-enhanced CT of the abdomen, portal venous phase. Day [n] from onset of symptoms.\n\nFINDINGS\nType: [interstitial oedematous / necrotising] pancreatitis.\nParenchymal non-enhancement: [absent / present — head / body / tail, approximate extent].\nCollections: [none / APFC / pseudocyst / ANC / WON] — site [ ], size [n] × [n] × [n] mm, [fluid only / fluid and necrotic debris], [not / partially / fully] encapsulated.\nGas within a collection: [absent / present — no prior intervention].\nVascular: splenic vein [patent / thrombosed]; portal and SMV [ ]; pseudoaneurysm [absent / present — vessel].\nBiliary: [ ]. Bowel: [ ].\n\nIMPRESSION\n1. [Interstitial oedematous / necrotising] pancreatitis, day [n].\n2. [Collection named by the revised Atlanta terminology, with site and size.]\n3. [Gas / vascular complication and what it implies.]",
         "pitfalls": [
           "Scanning too early. In the first days a necrotic gland can still enhance, and the extent of necrosis is under-read.",
-          "Calling every well-defined collection a pseudocyst. Before four weeks it is an APFC or an acute necrotic collection, and an ANC containing debris is not a pseudocyst at any age.",
-          "Reporting severity from the images. Severity in the revised Atlanta system is organ failure and its duration; your CT describes morphology and complications.",
+          "Classifying collection maturity by calendar age alone. Describe debris and complete versus incomplete encapsulation.",
+          "Assigning clinical severity from CT alone. Assess qualifying clinical organ failure/duration and local/systemic complications.",
           "Missing a pseudoaneurysm because only a portal venous phase was acquired. If there is unexplained haemorrhage, ask for arterial phase.",
           "Ignoring splenic vein thrombosis. It is the route to left-sided portal hypertension and gastric varices."
         ]
@@ -18145,9 +18151,9 @@
         },
         {
           "kind": "numeric",
-          "prompt": "A 62-year-old has an incidental branch-duct IPMN. MRI shows a 3.4 cm cyst in the uncinate process, a main pancreatic duct of 6 mm, a thickened enhancing cyst wall, no mural nodule, no lymphadenopathy, a normal bilirubin and a normal CA 19-9. Count the worrisome features present under the international consensus (Fukuoka) criteria. Answer as a whole number.",
+          "prompt": "A 62-year-old has an incidental branch-duct IPMN. MRI shows a 3.4 cm cyst in the uncinate process, a main pancreatic duct of 6 mm, a thickened enhancing cyst wall, no mural nodule, no lymphadenopathy, a normal bilirubin and a normal CA 19-9. Count the worrisome features present under the 2017 international consensus (Fukuoka) criteria. Answer as a whole number.",
           "answer": "3",
-          "explain": "The three are the cyst measuring 3 cm or more, a main pancreatic duct of 5 to 9 mm, and a thickened or enhancing cyst wall. The other worrisome features in the international consensus criteria (2017 revision, carried into the 2024 Kyoto update) are an enhancing mural nodule under 5 mm, an abrupt change in duct calibre with distal parenchymal atrophy, lymphadenopathy, a raised serum CA 19-9, a growth rate of 5 mm or more over two years, and acute pancreatitis attributable to the cyst. They are distinct from the high-risk stigmata, which are obstructive jaundice with a cystic head lesion, an enhancing mural nodule of 5 mm or more, and a main duct of 10 mm or more. Worrisome features send the patient to endoscopic ultrasound; high-risk stigmata send fit patients to the surgeon."
+          "explain": "Under the stated Fukuoka 2017 framework, the three findings are cyst size at least 3 cm, main duct 5 to under 10 mm, and thickened/enhancing wall. Report each finding. Do not present this as the complete Kyoto 2024 criteria set or as a stand-alone surgical decision."
         },
         {
           "kind": "choice",
@@ -18206,26 +18212,26 @@
         {
           "kind": "choice",
           "prompt": "A 71-year-old woman has an incidental 4 cm pancreatic body lesion made of many small cysts each under 2 cm, with a central stellate scar containing calcification, no communication with the main pancreatic duct and no mural nodule. She is asymptomatic. What should you advise?",
-          "answer": "The features are those of a serous cystadenoma, which is benign; advise no resection and no surveillance while she stays asymptomatic",
+          "answer": "A serous cystic neoplasm pattern is favoured; avoid automatic resection and base further assessment/follow-up on diagnostic confidence, symptoms and the named guideline.",
           "choices": [
             "The features indicate a mucinous cystic neoplasm; advise distal pancreatectomy given the malignant potential of every mucinous lesion",
             "The features indicate a branch-duct IPMN; advise endoscopic ultrasound and then annual MRI surveillance, given a size above the 3 cm threshold",
             "The features suggest a walled-off collection after silent pancreatitis; advise a repeat scan at three months to confirm resolution",
-            "The features are those of a serous cystadenoma, which is benign; advise no resection and no surveillance while she stays asymptomatic"
+            "A serous cystic neoplasm pattern is favoured; avoid automatic resection and base further assessment/follow-up on diagnostic confidence, symptoms and the named guideline."
           ],
-          "explain": "The microcystic honeycomb with a central scar, sometimes with a sunburst calcification, is characteristic of serous cystadenoma, a lesion of older women with negligible malignant potential; the cyst fluid has low CEA and low amylase. Resection is for symptoms from mass effect, not for the diagnosis. The lesion to separate it from is the mucinous cystic neoplasm: also usually in the body or tail of a woman but typically in the fifth decade, unilocular or with few large locules, a thick wall with peripheral eggshell calcification, ovarian-type stroma histologically, and no ductal communication; it carries malignant potential and is resected in fit patients. Where the appearances are equivocal, especially the oligocystic variant of serous cystadenoma, endoscopic ultrasound with fluid analysis decides."
+          "explain": "The honeycomb/central-scar pattern favours a serous cystic neoplasm, but morphology is not histology. A confident diagnosis and symptoms matter; different named guidelines use different follow-up approaches. An equivocal or macrocystic lesion requires appropriate further assessment rather than a blanket benign/no-follow-up label."
         },
         {
           "kind": "short",
           "prompt": "Give the features on cross-sectional imaging that let you separate a mucinous cystic neoplasm from a branch-duct IPMN, and say why the distinction changes what you recommend.",
-          "answer": "A mucinous cystic neoplasm sits in the body or tail, has a thick wall sometimes with peripheral calcification, and does not communicate with the pancreatic duct; a branch-duct IPMN does communicate with the duct and favours the head and uncinate, so it can be surveilled while a mucinous cystic neoplasm is generally resected.",
+          "answer": "Duct communication favours branch-duct IPMN in the appropriate setting; a body/tail macrocystic lesion without demonstrated communication may favour MCN. Neither imaging pattern alone establishes histology. Recommend assessment under a named guideline using size, nodules, symptoms and patient fitness, rather than automatic resection of every presumed MCN.",
           "keywords": [
             "duct",
             "communicate",
             "tail",
             "wall"
           ],
-          "explain": "Ductal communication is the single most useful sign and is best shown on heavily T2-weighted MRCP, where a branch-duct IPMN is a grape-like cluster joined to the main duct by a visible stalk. A mucinous cystic neoplasm is a closed cyst with its own thick, sometimes calcified wall, characteristically in the body or tail of a woman in middle age. The consequence is practical: a small branch-duct IPMN without worrisome features goes into surveillance, whereas a mucinous cystic neoplasm in a fit patient is usually resected because malignant transformation is a real risk and distal pancreatectomy is curative. The trap is calling a unilocular mucinous cystic neoplasm a pseudocyst on the strength of a vague history of abdominal pain."
+          "explain": "Assess actual MRCP duct communication, cyst architecture, wall/nodule enhancement and clinical context. Absence of visible communication may reflect limited imaging. European 2018 guidance permits surveillance of selected presumed MCN below 40 mm without symptoms or suspicious mural nodules; type alone is not an operative directive."
         },
         {
           "kind": "order",
@@ -18409,11 +18415,11 @@
           },
           {
             "code": "Main pancreatic duct > 3 mm",
-            "meaning": "Duct dilatation, one of the features favouring neoplasm over pseudocyst in a cystic lesion."
+            "meaning": "Report actual duct calibre and clinical context; dilatation alone does not distinguish cystic neoplasm from inflammatory or obstructive causes."
           },
           {
-            "code": "Main pancreatic duct > 8 mm",
-            "meaning": "In IPMN, a malignancy indicator, alongside a solid node in the duct or a mass around the duct."
+            "code": "IPMN duct diameter — named framework",
+            "meaning": "For presumed IPMN under Kyoto 2024, main duct 5 to under 10 mm is a worrisome feature and at least 10 mm is a high-risk stigma. Assess obstruction, other criteria and clinical context; calibre alone does not prove malignancy or surgical suitability."
           }
         ],
         "template": "TECHNIQUE\nPancreatic protocol CT: late arterial and portal venous phases, [water as neutral oral contrast], thin-section reformats.\n\nFINDINGS\nTumour: [head / uncinate / body / tail], [n] mm, [hypodense / isodense with secondary signs].\nDucts: main pancreatic duct [n] mm, common bile duct [n] mm — [double duct sign / interrupted duct / normal].\nArteries: coeliac axis [n]° contact; common hepatic artery [n]°; superior mesenteric artery [n]°. Contour [normal / irregular].\nVeins: superior mesenteric vein [n]°; portal vein [n]°. Contour [normal / teardrop deformity / occluded / thrombosed].\nArterial variants: [none / replaced right hepatic artery from the SMA / other]. Coeliac stenosis: [absent / present].\nPathway-region soft tissue concerning for perineural spread: [ ]. Microscopic invasion is not established by CT. Mesentery and mesocolon: [ ].\nNodes: regional [ ]; extra-regional [ ].\nMetastases: liver [ ], peritoneum [ ], lungs [ ].\n\nIMPRESSION\n1. Pancreatic [head / body / tail] mass, [n] mm, [suspicious for adenocarcinoma / known source diagnosis / differential].\n2. Vascular summary: [artery/vein] [n]° with [length/contour/patency]. Framework/version and treatment time point: [ ]. Multidisciplinary resectability assessment: [ ].\n3. [Arterial variant that changes the operation.]\n4. [Metastatic disease.]",
@@ -18499,7 +18505,7 @@
             "The omental cake, which is removed at omentectomy and rarely alters the plan",
             "That CT overstates disease burden, so the index will fall at the laparotomy"
           ],
-          "explain": "Survival after cytoreduction depends more than anything on whether the resection can be complete, so the report should be organised around the findings that make completeness unlikely. Diffuse small bowel serosal disease is the classic one, because the surgeon cannot strip every loop and still leave a functioning gut; retraction at the mesenteric root, encasement of the superior mesenteric vessels, and disease at the hepatoduodenal ligament or porta hepatis carry the same weight. Ascites is common and by itself decides little. The omental cake is real disease but is resected as a block. The fourth option inverts the truth that matters most in this setting: CT underestimates peritoneal burden, especially miliary deposits, which is why diffusion-weighted MRI and staging laparoscopy are used when the decision is close."
+          "explain": "Small-bowel serosal and mesenteric-root disease are important technical findings to communicate, together with exact extent, vessel relations and obstruction. They may limit complete cytoreduction but do not make imaging alone an operative verdict. CT can miss small deposits; primary-specific specialist assessment and additional evaluation when appropriate remain necessary."
         },
         {
           "kind": "choice",
@@ -18618,7 +18624,7 @@
               {
                 "heading": "Read surfaces",
                 "label": "Read surfaces",
-                "detail": "Nodules, cake-like omentum and ascites suggest carcinomatosis."
+                "detail": "Describe actual deposits and fluid; clinical context and differential remain necessary."
               },
               {
                 "heading": "Check wall",
@@ -18661,11 +18667,11 @@
           },
           {
             "step": "Treat ascites as a finding, not a background",
-            "detail": "Peritoneal nodules produce the fluid. In a cancer patient, new ascites may be the first manifestation of carcinomatosis."
+            "detail": "Ascites is nonspecific. Review fluid distribution, actual visible implants and alternative causes; new ascites alone does not establish peritoneal metastasis."
           },
           {
             "step": "Score it if cytoreduction is on the table",
-            "detail": "The Peritoneal Cancer Index divides the abdomen into 13 regions, each scored 0–3 by lesion size, maximum 39."
+            "detail": "If requested, report a CT-estimated PCI with each regional contribution and limitations. Imaging burden is not surgical PCI or a stand-alone eligibility decision."
           }
         ],
         "measure": [
@@ -18675,9 +18681,9 @@
             "cutoff": "Maximum 39"
           },
           {
-            "what": "PCI threshold for surgery",
-            "how": "Applied in colorectal carcinomatosis when cytoreductive surgery is being considered.",
-            "cutoff": "> 20 usually contraindicates extensive cytoreduction"
+            "what": "PCI interpretation and operative context",
+            "how": "State imaging versus surgical assessment, regional burden, primary diagnosis, treatment context and limitations. Selection for cytoreduction requires the applicable framework and multidisciplinary assessment.",
+            "cutoff": "No universal CT-score-only operative cutoff"
           }
         ],
         "classify": {
@@ -18720,13 +18726,13 @@
             ]
           ]
         },
-        "template": "TECHNIQUE\nContrast-enhanced CT of the abdomen and pelvis, portal venous phase, with coronal and sagittal reformats.\n\nFINDINGS\nAscites: [absent / present — volume, distribution].\nOmentum: [normal / nodular / heterogeneous / omental cake — size and extent].\nPeritoneal surfaces: parietal [ ], visceral [ ].\nDiaphragmatic surfaces (coronal and sagittal): [ ].\nRight paracolic gutter [ ]. Left paracolic gutter [ ]. Morison's pouch [ ].\nPouch of Douglas / rectovesical pouch [ ].\nMesenteric folds: small bowel mesentery [ ], sigmoid mesentery root [ ], ileocaecal region [ ].\nBowel: [free / serosal deposits / obstruction at (site)].\nPeritoneal Cancer Index (if requested): [n] of 39.\n\nIMPRESSION\n1. Peritoneal carcinomatosis, [extent], primary [known / suspected].\n2. [Sites relevant to cytoreduction: small bowel mesentery, porta hepatis, diaphragm.]\n3. [PCI n — above / below the threshold at which extensive cytoreduction is usually contraindicated.]",
+        "template": "TECHNIQUE\nContrast-enhanced CT of the abdomen and pelvis, portal venous phase, with coronal and sagittal reformats.\n\nFINDINGS\nAscites: [absent / present — volume, distribution].\nOmentum: [normal / nodular / heterogeneous / omental cake — size and extent].\nPeritoneal surfaces: parietal [ ], visceral [ ].\nDiaphragmatic surfaces (coronal and sagittal): [ ].\nRight paracolic gutter [ ]. Left paracolic gutter [ ]. Morison's pouch [ ].\nPouch of Douglas / rectovesical pouch [ ].\nMesenteric folds: small bowel mesentery [ ], sigmoid mesentery root [ ], ileocaecal region [ ].\nBowel: [free / serosal deposits / obstruction at (site)].\nCT-estimated Peritoneal Cancer Index (if requested): [n] of 39. Regional contributions and limitations: [ ].\n\nIMPRESSION\n1. [Findings concerning for peritoneal metastases / known source diagnosis / differential], [extent]. Source primary diagnosis/context: [ ].\n2. [Sites relevant to cytoreduction: small bowel mesentery, porta hepatis, diaphragm.]\n3. [CT-estimated PCI and regions/limitations if requested]. Cytoreduction suitability requires primary-specific multidisciplinary assessment; no automatic score-only decision.",
         "pitfalls": [
           "Reading axial images only. Diaphragmatic deposits are usually underestimated or overlooked without coronal and sagittal reformats.",
-          "Treating ascites as an incidental. The nodules produce the fluid; new ascites in a cancer patient may be the only sign of carcinomatosis.",
+          "Treating ascites as proof of metastases or a unique effect of nodules. Review actual visible deposits, clinical context and alternative fluid causes.",
           "Skipping the watershed areas. The ileocaecal region, the sigmoid mesenteric root and the pouch of Douglas are where disease pools and where it is missed.",
           "Searching organ by organ. Peritoneal disease follows the fluid pathway — up the right paracolic gutter, which is deeper than the left, to the subphrenic space.",
-          "Giving a PCI without stating which regions carried the score. The number decides whether cytoreduction proceeds; the surgeon needs to see where it came from."
+          "Giving a CT-estimated PCI without regional contributions and limitations, or allowing the number alone to determine operative suitability."
         ]
       }
     },

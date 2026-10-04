@@ -230,7 +230,7 @@ def _breast_outline(plate: RadiologyPlate, center: Point,
 def _render_pancreas_acute(plate: RadiologyPlate,
                            item: Mapping[str, object]) -> None:
     _ = item
-    _tag(plate, (800, 205), "ATLANTA COLLECTION NAMES: TIME + CONTENT", PLUM)
+    _tag(plate, (800, 205), "ATLANTA COLLECTION NAMES: TIME + CONTENT + WALL", PLUM)
     # Two-by-two matrix prevents every collection being called a pseudocyst.
     x_edges = (320, 820, 1450)
     y_edges = (285, 495, 705)
@@ -265,7 +265,7 @@ def _render_pancreas_acute(plate: RadiologyPlate,
                                  fill=hex_rgba(GOLD_LIGHT, 170),
                                  outline=GOLD, width=3)
     plate.text((800, 770),
-               "severity: organ failure course | complication: gas, bleeding, vessel injury",
+               "clinical severity: organ failure/duration + complications | imaging: content + wall",
                size=21, bold=True, fill=_text_tone(GOLD), anchor="mm")
 
 
@@ -677,7 +677,7 @@ def _render_peritoneum(plate: RadiologyPlate,
         plate.text((left[0] + 112, y), label, size=20, bold=True,
                    fill=INK, anchor="lm")
     plate.text(((left[0] + left[2]) / 2, left[3] - 33),
-               "distribution supports inference", size=19,
+               "distribution + clinical context", size=19,
                bold=True, fill=INK_SOFT, anchor="mm")
 
     right = _panel(plate, (1175, 270, 1530, 735), "ABDOMINAL WALL", CORAL)

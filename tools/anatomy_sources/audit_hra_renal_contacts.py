@@ -8,9 +8,11 @@ import json
 from pathlib import Path
 
 
-def contact_arrays(parts):
+def contact_arrays(parts, source_units='metres'):
     """Prepare an analysis index only; retain every original source face and invalid-face identity."""
     import numpy as np
+    scales={'metres':1000, 'millimetres':1}
+    if source_units not in scales:raise ValueError('Unreviewed source coordinate units')
     vertices=[];faces=[];owners=[];face_ids=[];offset=0
     for part in parts:
         v=np.asarray(part['vertices']);f=np.asarray(part['faces'])
@@ -18,9 +20,9 @@ def contact_arrays(parts):
         vertices.append(v);faces.append(f.astype(np.int64)+offset);owners.extend([part['id']]*len(f));face_ids.extend(range(len(f)));offset+=len(v)
     full_vertices=np.concatenate(vertices);full_faces=np.concatenate(faces)
     positions,inverse=np.unique(full_vertices,axis=0,return_inverse=True);indexed=inverse[full_faces]
-    # Metres to millimetres is the declared format unit conversion, never a registration or fitted scale.
-    mm=positions.astype(float)*1000;tri=mm[indexed];length=np.linalg.norm(np.cross(tri[:,1]-tri[:,0],tri[:,2]-tri[:,0]),axis=1)
-    usable=length>1e-18;invalid=[{'source_part':owners[i],'source_face_index':int(face_ids[i]),'source_face_vertices_metres':full_vertices[full_faces[i]].tolist(),
+    # Only a declared unit conversion is allowed; native millimetres retain their values.
+    mm=positions.astype(float)*scales[source_units];tri=mm[indexed];length=np.linalg.norm(np.cross(tri[:,1]-tri[:,0],tri[:,2]-tri[:,0]),axis=1)
+    usable=length>1e-18;invalid=[{'source_part':owners[i],'source_face_index':int(face_ids[i]),'source_face_vertices_'+source_units:full_vertices[full_faces[i]].tolist(),
                                'cross_product_norm_mm2':float(length[i]),'reason':'zero_or_numerically_degenerate_source_triangle'} for i in np.flatnonzero(~usable)]
     identities=[{'source_part':owners[i],'source_face_index':int(face_ids[i])} for i in np.flatnonzero(usable)]
     return mm,indexed[usable],identities,{'original_source_triangles':len(full_faces),'numerically_testable_triangles':int(usable.sum()),

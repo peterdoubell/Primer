@@ -5,6 +5,7 @@ import csv
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 import struct
 
@@ -41,6 +42,14 @@ def accessor(document,binary,index):
     return result
 
 
+def ontology_uri(identifier):
+    if re.fullmatch(r'UBERON:[0-9]{7}', identifier):
+        return 'http://purl.obolibrary.org/obo/' + identifier.replace(':', '_')
+    if re.fullmatch(r'FMA:[0-9]+', identifier):
+        return 'http://purl.org/sig/ont/fma/fma' + identifier.split(':')[1]
+    raise ValueError('Unreviewed source ontology namespace')
+
+
 def inspect(path,crosswalk_path):
     import numpy as np
     document,binary=read_glb(path.read_bytes());crosswalk=list(csv.DictReader(crosswalk_path.open()))
@@ -63,7 +72,7 @@ def inspect(path,crosswalk_path):
             if 'mesh' in node:raise ValueError('Source mesh node is absent from crosswalk')
             unmapped_groups.append({'node_index':index,'node_name':name,'anatomical_identity_assigned':False});continue
         extras=node.get('extras',{})
-        semantic_match=(extras.get('label')==c['label'] and extras.get('representation_of')=='http://purl.obolibrary.org/obo/'+c['OntologyID'].replace(':','_'))
+        semantic_match=(extras.get('label')==c['label'] and extras.get('representation_of')==ontology_uri(c['OntologyID']))
         if 'mesh' not in node:continue
         mesh=document['meshes'][node['mesh']]
         for part,primitive in enumerate(mesh['primitives']):

@@ -265,9 +265,9 @@ _RECORDS: List[Dict[str, object]] = [
 
     # Abdomen and pelvis
     R("rad.5.pancreas-acute", "compare", "abdomen",
-      "Time and collection contents determine the correct acute-pancreatitis name and action.",
-      I("Classify severity", "Clinical course and organ failure frame what imaging must answer.", "pancreas-severity"),
-      I("Name by time", "Early fluid or necrosis evolves into walled collections later.", "pancreas-collection"),
+      "Collection content, wall maturity and clinical context guide acute-pancreatitis assessment.",
+      I("Clinical severity", "Organ failure, duration and local/systemic complications require clinical context.", "pancreas-severity"),
+      I("Assess collection", "Time, contents and actual wall maturity are assessed together.", "pancreas-collection"),
       I("Find complication", "Gas, haemorrhage and vascular injury change intervention.", "pancreas-complication")),
     R("rad.5.appendicitis", "flow", "abdomen",
       "A noncompressible inflamed appendix is interpreted with secondary signs and patient context.",
@@ -310,7 +310,7 @@ _RECORDS: List[Dict[str, object]] = [
     R("rad.5.peritoneum", "map", "abdomen",
       "Peritoneal recesses explain where fluid, tumour and infection travel.",
       I("Follow spaces", "Gravity and mesenteric attachments channel disease spread.", "bowel"),
-      I("Read surfaces", "Nodules, cake-like omentum and ascites suggest carcinomatosis.", "lesion"),
+      I("Read surfaces", "Describe actual deposits and fluid; clinical context and differential remain necessary.", "lesion"),
       I("Check wall", "Hernia contents and threatened bowel determine urgency.", "obstruction")),
     R("rad.5.rectal-mr", "map", "abdomen",
       "MRI maps the tumour or fistula against the planes the surgeon must preserve.",

@@ -184,3 +184,75 @@ The pancreatic CT staging investigation now has 253 draft targets (759 represent
 ### Original paired pancreatic CT/RTSTRUCT acquisition
 
 Source case C3L-02112 now has two explicitly referenced current CPTAC-PDA CT series and separate v2 RTSTRUCTs, acquired under selected-series CC BY 4.0 metadata. Publisher MD5/CRC checks passed 1,078 original CT objects and two annotations. Native grids are 0.703125 × 0.703125 × 0.625 mm, with descending source instance order and preserved negative spacing tags; all 43/49 contours have exact original CT plane/reference/extent correspondence. Recorded acquisition times differ by 42.740384 seconds, but missing injection timing/agent metadata prevents a phase-adequacy grant. CSV and DICOM tracking UIDs differ despite internal agreement across source roles, and both are retained rather than relabelled. Source/geometry, timing, treatment/diagnosis and anatomical review remain distinct holds. No reader image, surface or requirement coverage is approved; full all-radiology scope remains unchanged.
+
+### 4 October 2026 — native pancreatic CT sections
+
+Rendered and inspected separate unmarked native CT sections from both audited C3L-02112 acquisitions, with original object/geometry binding and per-plane HU array provenance. See [native section review](cptac-pancreatic-native-sections.md). Source annotations serve only as independent location aids; no inter-acquisition registration, anatomical boundary approval, 3D promotion or representation credit is claimed. CSV/DICOM tracking and phase/histology limits remain held. Full radiology coverage remains incomplete.
+
+### 4 October 2026 — every pancreatic source contour and missing planes
+
+Preserved/rendered all 43/49 original pancreatic contours, measured bidirectional native-raster boundary error on every polygon, and displayed the two unannotated acquired venous CT planes (534/535) as unknown. See [complete contour atlas and measurements](cptac-pancreatic-contour-review.md). Equal-thickness annotated-centre slab arithmetic differs from recorded ROI volumes; endpoint definitions, volume semantics, phase/tracking and anatomical interpretation remain held. No interpolation, cap/repair, registration, 3D promotion or clinical representation credit is claimed.
+
+### 4 October 2026 — exact pancreatic 3D source outlines and DICOM gap semantics
+
+Exported all 8,249 original pancreatic contour vertices as exact DICOM decimal strings and compared all 24,747 components against fresh original-archive reads. Separate native 3D line views retain the contour gap without fitted faces or end caps. [Metadata and coordinate review](cptac-pancreatic-contour-geometry.md) confirms CSV/RT volume equality in cm³ and absence of source pixel-plane grid/slab/offset/derivation declarations. DICOM grid-specific negative-plane semantics do not resolve these files. Volume construction, clinical anatomy and lesion-surface approval remain held; no representation credit or runtime promotion is claimed.
+
+### 4 October 2026 — pancreatic source CT references in the reader
+
+Added separate unmarked original arterial-labelled/venous-labelled CT composites to the pancreatic staging lesson, with visible phase/tracking/gap/end/volume limitations, attribution and pinned local provenance. [Reader review](cptac-pancreatic-reader-review.md) records local desktop/mobile/API checks. Source structure IDs and representation credit remain empty; anatomy review is pending. Only unmarked CT references enter runtime; raw archives, source contours and 3D derivatives remain offline. Full all-radiology fidelity remains incomplete.
+
+### 4 October 2026 — original HRA pancreatic gross regions
+
+Acquired original CC BY 4.0 female/male HRA pancreatic v1.3 models with five separate gross regions each. [Source mesh review](hra-pancreatic-source-review.md) preserves all 12,894/38,930 triangles, original metadata/crosswalks and four rendered views. Exact boundary comparison resolves every female boundary into opposing source-region pairs, while male body/neck retain 162 unmatched edges; female degenerate and both nonmanifold elements remain unchanged. Corrected the common inventory checker to use the actual FMA neck URI rather than inventing a UBERON-style URI. No patient CT fitting, repair, fine-structure coverage, clinical approval or runtime promotion is claimed. Continuous contacts and independent anatomical review remain required.
+
+### 4 October 2026 — complete HRA pancreatic triangle contacts
+
+[Complete source-contact review](hra-pancreatic-contact-review.md) checked all 12,886/38,930 testable female/male triangles with exact source identities. Female has 17 within-head contacts and eight separately held invalid faces; male has 33 body/neck and eight within-head contacts. Complete lossless evidence and location views retain every affected original face without repairs. All five gross regions remain unapproved; earlier boundary/nonmanifold findings and full reporting-anatomy/source accuracy/independent clinical review holds remain. No runtime promotion or fidelity credit is granted.
+
+### 4 October 2026 — original upstream pancreatic duct/vessel packet
+
+[Upstream acquisition review](bodyparts-pancreatic-upstream-review.md) preserves 25 version-4.3-manifest-selected original elements, including pancreatic duct tree, parenchyma, hepatic duct and vessel constituents, with 26,488 source face records. All original ZIP CRC/object headers are checked; ten IS-A/request versus returned PART-OF representation differences are reconciled against actual original lookup rows without overwriting identities. Separate upstream CC BY-SA 2.1 Japan terms are retained; v4.0 CC BY 4.0 and 99%-reduced geometry are not substituted as this packet's grant or quality. Resolution, reduction rate, topology, completeness and anatomical accuracy remain unverified; raw ZIP/OBJ and complete source tables stay ignored/offline. No runtime promotion or fidelity credit is granted.
+
+### 4 October 2026 — original upstream duct/vessel geometry and complete source views
+
+[Original geometry review](bodyparts-pancreatic-geometry-review.md) inspected all 25 source OBJ elements and 26,488 triangles, preserving normal/index seams, a 12-edge posterior-cecal boundary, five marginal-colic components and 13 declared-versus-actual bounds discrepancies. Duct-tree exact-position analysis is connected/closed without modifying 484 exported-index components. Two complete source atlases and separate duct/parenchyma contexts retain all original geometry and upstream ShareAlike attribution. No fusion, repair, source resolution/clinical accuracy claim, runtime promotion or fidelity credit is granted. Continuous contacts, source-quality evidence and independent fine-anatomical review remain required within the full all-radiology objective.
+
+### 4 October 2026 — all upstream duct/vessel contacts in separate parenchymal contexts
+
+[Complete contact review](bodyparts-pancreatic-contact-review.md) checked all 22,216/21,598 source triangles in separate FJ1895/FJ2629 contexts, preserving native millimetres and all original face identities. No within-element contacts were detected beyond ordinary adjacency; 2,943/2,871 cross-element contacts remain unclassified biological/source interfaces. All 1,606 non-parenchymal contacts match exactly between contexts, and 45/46 duct/parenchyma surface crossings are mapped separately without invasion/containment claims. Complete lossless evidence and attributed location views are saved. Source quality, biological accuracy/containment, fine reporting anatomy and independent review remain held; no repair, fusion, runtime promotion or fidelity credit is granted.
+
+### 4 October 2026 — acute pancreatitis requirements and teaching corrections
+
+[Acute pancreatitis scope review](pancreatitis-fidelity-scope-review.md) adds 258 targets/774 representation obligations across pancreatic/peripancreatic tissues, collections, ducts, vessels, bowel, conditional modalities and interventions. Corrected fixed-calendar wall maturity, unsupported fluid-responsive organ-failure inference, automatic intervention waiting and routine aspiration shortcuts while preserving source clinical uncertainty. Broader management/lesson reconciliation remains explicitly pending. All-radiology known floor is now 13,173 with 103 investigations unexpanded and 106 curriculum surfaces unreconciled; full total/readiness remain unknown/unestablished. No new imaging/model approval or fidelity credit is claimed.
+
+### 4 October 2026 — licensed clinical pancreatitis examples and corrected reasoning plate
+
+[Published source/reader review](pancreatitis-published-source-review.md) adds seven complete CC BY 4.0 CT/MRI/mixed clinical figures with explicit modality/time-point/gas-stent-fistula context. Original media/XML publisher MD5 is checked; larger Figures 5/7 are preserved from verified PDF DCT streams and independently compared byte-for-byte. No pixel alterations, raw-volume claims, structure bindings or clinical approval are granted. Corrected the stale owned time/content/name/action diagram to retain actual wall and clinical severity context; regenerated/inspected its two sizes. Local desktop/mobile/API checks and 103 tests passed. Full anatomical/model/clinical review and all-radiology coverage remain incomplete.
+
+### 4 October 2026 — original vascular complication CT examples
+
+[Source/reader vascular review](pancreatitis-vascular-source-review.md) adds three original published CT examples for reported GDA pseudoaneurysm and proximal portal filling defect. Source body/legend timing-context discrepancy, recurrent-pancreatitis context and actual XML CC BY 3.0/4.0 grants remain explicit; active extravasation, full vessel anatomy and treatment are not inferred. Publisher MD5/source hashes, 89 tests and local desktop/mobile/API checks passed. No pixel edits, source structure credit, model reconstruction, anatomical approval or production deployment is claimed. Full all-radiology fidelity remains incomplete.
+
+### 4 October 2026 — pancreatic cyst fine scope, risk context and source loading
+
+[Cyst scope review](pancreatic-cyst-fidelity-scope-review.md) adds 183 targets/549 obligations for cyst walls/septa/nodules, contents, actual ducts/communications, host interfaces, conditional modalities and presumed-type cases. Replaced a bare >8 mm malignancy indicator with named IPMN framework context, separated Fukuoka 2017 from Kyoto 2024, qualified communication/enhancement and removed type-only operative/follow-up shortcuts. Fixed the earlier flat acute-pancreatitis override whose primary sources were ignored; live API/browser now deliver the intended references. 120 tests and bank/illustration checks passed. Whole shared lesson review and actual visual/model/anatomical coverage remain pending; known all-radiology floor is 13,722 with 102 investigations unexpanded and 106 curriculum surfaces unreconciled. No new clinical fidelity credit or production deployment is claimed.
+
+### 4 October 2026 — larger original cyst/nodule source figures
+
+[Published cyst-source review](pancreatic-cyst-published-source-review.md) adds seven complete CC BY 4.0 architecture/duct/nodule examples using original 1961/1500 px PDF JPEGs rather than smaller repository previews. Every encoded stream was independently compared byte-for-byte with its PDF object. MRI panels remain separate from CT/PET-CT/EUS/histology, and enhancing low-grade versus high-grade source context is not an MRI-derived malignancy claim. Book-credited Figure 2 is excluded; no native volume, calibrated colour, complete anatomy, model reconstruction or structure credit is claimed. 236 checks and local desktop/mobile/API verification passed. Full visual/model/clinical coverage remains incomplete.
+
+### 4 October 2026 — peritoneal compartments, disease regions and interpretation
+
+[Peritoneal scope review](peritoneal-fidelity-scope-review.md) expands anatomy/pathology and metastatic investigations to 203/253 targets (609/759 obligations), including distinct vestibule/foramen and all 13 source PCI regions. Corrected CT-score-only operative interpretation, ascites/histology inference and automatic metastatic report impression; current primary-source links are delivered. Owned route plate retains clinical context and remains nonanatomical reasoning aid. 123 checks and live local API/browser verification passed. Shared hernia/wall/drainage review and actual imaging/model/clinical approval remain pending; known all-radiology floor is 15,090 with 100 investigations unexpanded and 106 curriculum surfaces unreconciled. No new coverage or deployment is claimed.
+
+### 4 October 2026 — original CT/operative peritoneal composites
+
+[Published peritoneal-source review](peritoneal-published-source-review.md) adds seven complete CC BY 4.0 CT/operative examples to both relevant references, preserving larger original 1594/1595 px PDF JPEG streams and matching each encoded object byte-for-byte. CT-enteroclysis/routine CT and separate operative/specimen photographs remain explicit; no microscopic/histological or eligibility claims are borrowed into CT. Fourteen attachment identities share seven physical figures, not independent observations. 230 checks and local desktop/mobile/API verification passed. No complete anatomy, new structure coverage, 3D reconstruction, clinical approval or production deployment is claimed; full all-radiology scope remains incomplete.
+
+### 4 October 2026 — original upstream peritoneal 3D candidates
+
+[Peritoneal source-model review](bodyparts-peritoneal-source-review.md) acquired four version-manifest 4.3 objects under mesentery/mesocolon/posterior-peritoneum labels and preserved all 79,516 source triangles. Fragment counts are 331/331/5/5; nearly matching mesocolon/posterior geometry has same-index whole-triangle displacement bound 0.010049876 mm without fitting. No label identity, complete extent, deduplication, clinical approval or runtime credit is inferred. Upstream ShareAlike terms and source bounds/roles remain separate/held. Eleven scientific checks passed. Continuous contacts and independent fine-anatomical review remain required within unchanged all-radiology scope.
+
+### 4 October 2026 — complete peritoneal source contact checks
+
+[Original peritoneal contact review](bodyparts-peritoneal-contact-review.md) preserves every contact point and source face identity for all four objects, testing all 79,516 original triangles separately in native millimetres. Counts are 2,205/2,204/216/216 beyond ordinary adjacency; nearly repeated candidates are not fused or summed as independent anatomy. Complete lossless evidence and location views retain all source geometry. Nineteen scientific regressions passed. Numerical completion does not approve biological roles, complete surfaces or runtime 3D credit; the full radiology goal remains incomplete.

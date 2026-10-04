@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10056,7 +10056,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10441,7 +10441,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10967,7 +10967,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11388,7 +11388,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11490,7 +11490,9 @@
           },
           "pitfalls": [
             "Use collection names according to content and maturity, not time alone.",
-            "Imaging morphology does not establish clinical organ-failure severity."
+            "Imaging morphology does not establish clinical organ-failure severity.",
+            "Fluid-responsive hypotension alone is insufficient to establish qualifying modified Marshall organ failure.",
+            "Do not infer infection from gas without reviewing instrumentation and enteric fistula context."
           ],
           "impression_prompts": [
             "State interstitial oedematous versus necrotising morphology.",
@@ -11526,31 +11528,43 @@
             {
               "title": "Radiology Assistant \u2014 Acute Pancreatitis",
               "url": "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+            },
+            {
+              "title": "Banks et al. Revised Atlanta classification (2012 revision; published 2013)",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/23100216/"
+            },
+            {
+              "title": "Clinical practice guideline: management of acute pancreatitis (2016; severity definitions)",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4814287/"
+            },
+            {
+              "title": "AGA clinical guidance \u2014 Management of pancreatic necrosis",
+              "url": "https://gastro.org/clinical-guidance/management-of-pancreatic-necrosis/"
             }
           ],
-          "reviewed_at": "2026-09-23"
+          "reviewed_at": "2026-10-04"
         },
         "report_templates": [
           {
-            "id": "pancreas-acute-report",
+            "id": "ra-ct-pancreatitis-report",
             "title": "CT ACUTE PANCREATITIS",
-            "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+            "description": "Reporting fields for CT acute pancreatitis. Complete the relevant observations and remove unused alternatives.",
             "sections": [
               {
                 "heading": "INDICATION",
-                "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+                "body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ]."
               },
               {
                 "heading": "COMPARISON",
-                "body": "[None available / date and examination]. Relevant interval change: [ ]."
+                "body": "[None / examination and date]."
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Record symptom onset and the reason for CT/MRI; early imaging can underestimate necrosis.\nReview enhancement, collections, vessels and adjacent bowel; select additional phases for a specific complication.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+                "body": "Record symptom onset and the reason for CT/MRI; early imaging can underestimate necrosis.\nReview enhancement, collections, vessels and adjacent bowel; select additional phases for a specific complication.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
-                "body": "[IMG 1: Pancreatic enhancement; series __ image __]\n[IMG 2: Collection wall and solid debris; series __ image __]\n[IMG 3: Vascular or ductal complication; series __ image __]"
+                "body": "[IMG 1: pancreatic morphology; series __ image __]\n[IMG 2: collections; series __ image __]\n[IMG 3: vascular complications; series __ image __]"
               },
               {
                 "heading": "PANCREATIC MORPHOLOGY",
@@ -11578,18 +11592,31 @@
               },
               {
                 "heading": "RECOMMENDATION AND COMMUNICATION",
-                "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+                "body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method]."
               }
             ],
             "notes": [
-              "Collection terminology depends on content and time; gas raises concern for infection but needs clinical correlation.",
               "Use collection names according to content and maturity, not time alone.",
-              "Imaging morphology does not establish clinical organ-failure severity."
+              "Imaging morphology does not establish clinical organ-failure severity.",
+              "Fluid-responsive hypotension alone is insufficient to establish qualifying modified Marshall organ failure.",
+              "Do not infer infection from gas without reviewing instrumentation and enteric fistula context."
             ],
             "sources": [
               {
-                "title": "Acute Pancreatitis",
+                "title": "Radiology Assistant \u2014 Acute Pancreatitis",
                 "url": "https://radiologyassistant.nl/abdomen/pancreas/acute-pancreatitis"
+              },
+              {
+                "title": "Banks et al. Revised Atlanta classification (2012 revision; published 2013)",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/23100216/"
+              },
+              {
+                "title": "Clinical practice guideline: management of acute pancreatitis (2016; severity definitions)",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4814287/"
+              },
+              {
+                "title": "AGA clinical guidance \u2014 Management of pancreatic necrosis",
+                "url": "https://gastro.org/clinical-guidance/management-of-pancreatic-necrosis/"
               }
             ]
           }
@@ -11597,7 +11624,7 @@
         "walkthrough": {
           "reviewed_at": "2026-09-25",
           "complete": true,
-          "template_id": "pancreas-acute-report",
+          "template_id": "ra-ct-pancreatitis-report",
           "start": {
             "sections": [
               "INDICATION",
@@ -11646,7 +11673,7 @@
                 "Acute peripancreatic fluid collection in the [lesser sac], __ mm, fluid only, no wall.",
                 "Acute necrotic collection __ mm with non-liquid debris.",
                 "Walled-off necrosis __ mm with a mature enhancing wall.",
-                "Gas within the collection, suspicious for infected necrosis."
+                "Gas within the collection raises concern for infection; correlate with instrumentation and possible enteric fistula."
               ],
               "images": [
                 "pancreas-acute-image-2"
@@ -11656,8 +11683,8 @@
               ],
               "landmark": "pancreas",
               "parts": [],
-              "look": "Revised Atlanta: APFC and pseudocyst (fluid only) versus ANC and walled-off necrosis (debris), before and after 4 weeks.",
-              "tip": "Name collections by content and maturity: fluid-only versus necrotic, before versus after four weeks."
+              "look": "Assess each actual collection: fluid/debris, location, complete or incomplete encapsulation and symptom-onset interval. Do not classify maturity from calendar age alone.",
+              "tip": "A collection does not automatically become walled-off necrosis on day 28; describe the observed wall and necrotic content. Uncertain content or onset remains explicit."
             },
             {
               "label": "Vascular complications",
@@ -11691,7 +11718,7 @@
                 "DUCTAL AND BILIARY FINDINGS": "Main pancreatic duct normal; no gallstones or bile duct dilatation."
               },
               "findings": [
-                "Gallstones with a dilated common bile duct: biliary pancreatitis.",
+                "Gallstones and bile duct dilatation raise concern for a biliary cause or retained obstruction; assess the actual duct and clinical context.",
                 "Necrosis across the pancreatic neck with viable upstream gland, raising concern for disconnected duct."
               ],
               "images": [],
@@ -11774,10 +11801,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "73bf5374e5f14768dbf7a61f43ceb771b17f1f2f24ce2486084e20794176de1b",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -11820,7 +11847,517 @@
             "reviewed_at": "2026-09-23"
           }
         ],
-        "structure_atlas": [],
+        "structure_atlas": [
+          {
+            "id": "open-pancreatitis-sureka-2015-fig1",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-sureka-2015-fig1.jpg",
+            "width": 760,
+            "height": 551,
+            "sha256": "8b1bdd7f6a1db37b530644b02722a40d834ab564d27a8fda868bd27f4d0cde98",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/#gov036-F1",
+            "figure_number": 1,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4760067.1/gov036f1p.jpg?md5=5dc2028a230ea59f892369a63a4d8ee4",
+            "caption": "Source-labelled interstitial oedematous pancreatitis: local CT tail enlargement and peripancreatic stranding.",
+            "alt": "Source-labelled interstitial oedematous pancreatitis: local CT tail enlargement and peripancreatic stranding.",
+            "modality": "CT",
+            "clinical_panels": [
+              "whole"
+            ],
+            "image_state": "pancreatitis_interstitial_source_case",
+            "structures_visible": [
+              "Source-described local observation; complete reporting anatomy and specific boundaries not approved"
+            ],
+            "limits": "Published selected sections only: no original DICOM volume, calibrated full anatomy, validated source phase timing, histology, complete wall/debris extent or patient-specific 3D reconstruction. Original panel labels and source arrows are preserved; their presence does not grant independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2015. Published by Oxford University Press and the Digestive Science Publishing Co. Limited. Binit Sureka, Kalpana Bansal, Yashwant Patidar, Ankur Arora. Imaging lexicon for acute pancreatitis: 2012 Atlanta Classification revisited. DOI 10.1093/gastro/gov036. CC BY 4.0. Complete Figure 1 preserved without image alteration. Source: NLM/PMC Article Datasets, original article/media snapshot; this snapshot may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original CC BY 4.0 article XML and complete source captions checked; no figure-specific excluded credit found.",
+            "acquisition": "Original repository figure JPEG, preserved byte-for-byte",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "adult"
+              },
+              "depicted_state": "pancreatitis_interstitial_source_case",
+              "extent": "local",
+              "selected_panels": [
+                "whole"
+              ],
+              "panel_types": {
+                "whole": "CT"
+              },
+              "panel_states": {
+                "whole": "pancreatitis_interstitial_source_case"
+              }
+            }
+          },
+          {
+            "id": "open-pancreatitis-sureka-2015-fig3",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-sureka-2015-fig3.jpg",
+            "width": 705,
+            "height": 319,
+            "sha256": "3ecafa89fd08434ecced1fcb5a7985004f8629db436f16d6a3e3de111123fdae",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/#gov036-F3",
+            "figure_number": 3,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4760067.1/gov036f3p.jpg?md5=0a4a8d3e9b7b6e15b3a0873794697d9d",
+            "caption": "Source-labelled acute peripancreatic fluid collection on CT, with preserved gland enhancement and unencapsulated fluid in adjacent spaces.",
+            "alt": "Source-labelled acute peripancreatic fluid collection on CT, with preserved gland enhancement and unencapsulated fluid in adjacent spaces.",
+            "modality": "CT",
+            "clinical_panels": [
+              "a",
+              "b"
+            ],
+            "image_state": "pancreatitis_apfc",
+            "structures_visible": [
+              "Source-described local observation; complete reporting anatomy and specific boundaries not approved"
+            ],
+            "limits": "Published selected sections only: no original DICOM volume, calibrated full anatomy, validated source phase timing, histology, complete wall/debris extent or patient-specific 3D reconstruction. Original panel labels and source arrows are preserved; their presence does not grant independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2015. Published by Oxford University Press and the Digestive Science Publishing Co. Limited. Binit Sureka, Kalpana Bansal, Yashwant Patidar, Ankur Arora. Imaging lexicon for acute pancreatitis: 2012 Atlanta Classification revisited. DOI 10.1093/gastro/gov036. CC BY 4.0. Complete Figure 3 preserved without image alteration. Source: NLM/PMC Article Datasets, original article/media snapshot; this snapshot may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original CC BY 4.0 article XML and complete source captions checked; no figure-specific excluded credit found.",
+            "acquisition": "Original repository figure JPEG, preserved byte-for-byte",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "adult"
+              },
+              "depicted_state": "pancreatitis_apfc",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "CT"
+              },
+              "panel_states": {
+                "a": "pancreatitis_apfc",
+                "b": "pancreatitis_apfc"
+              }
+            }
+          },
+          {
+            "id": "open-pancreatitis-sureka-2015-fig4",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-sureka-2015-fig4.jpg",
+            "width": 800,
+            "height": 362,
+            "sha256": "a7586e39ec831d449612b40ce44caa2c41fca1c7d5d2d5861f4e11e0fee7543c",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/#gov036-F4",
+            "figure_number": 4,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4760067.1/gov036f4p.jpg?md5=9cb8ac605a25686de02cd4b31148bdf1",
+            "caption": "Source-labelled pseudocyst on MRI with MRCP duct findings; this figure supplies MRI context, not CT duct visibility.",
+            "alt": "Source-labelled pseudocyst on MRI with MRCP duct findings; this figure supplies MRI context, not CT duct visibility.",
+            "modality": "MRI",
+            "clinical_panels": [
+              "a",
+              "b"
+            ],
+            "image_state": "pancreatitis_pseudocyst_mri",
+            "structures_visible": [
+              "Source-described local observation; complete reporting anatomy and specific boundaries not approved"
+            ],
+            "limits": "Published selected sections only: no original DICOM volume, calibrated full anatomy, validated source phase timing, histology, complete wall/debris extent or patient-specific 3D reconstruction. Original panel labels and source arrows are preserved; their presence does not grant independent anatomical approval. Source MRI/MRCP sequence and duct-communication descriptions are author claims; no CT, DWI/ADC or complete duct-wall coverage is supplied.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2015. Published by Oxford University Press and the Digestive Science Publishing Co. Limited. Binit Sureka, Kalpana Bansal, Yashwant Patidar, Ankur Arora. Imaging lexicon for acute pancreatitis: 2012 Atlanta Classification revisited. DOI 10.1093/gastro/gov036. CC BY 4.0. Complete Figure 4 preserved without image alteration. Source: NLM/PMC Article Datasets, original article/media snapshot; this snapshot may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original CC BY 4.0 article XML and complete source captions checked; no figure-specific excluded credit found.",
+            "acquisition": "Original repository figure JPEG, preserved byte-for-byte",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "adult"
+              },
+              "depicted_state": "pancreatitis_pseudocyst_mri",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b"
+              ],
+              "panel_types": {
+                "a": "MRI",
+                "b": "MRI"
+              },
+              "panel_states": {
+                "a": "pancreatitis_pseudocyst_mri",
+                "b": "pancreatitis_pseudocyst_mri"
+              }
+            }
+          },
+          {
+            "id": "open-pancreatitis-sureka-2015-fig5",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-sureka-2015-fig5.jpg",
+            "width": 951,
+            "height": 497,
+            "sha256": "b9018239efb17fdfc9db19540b486f71cb2ec810b56bd8b0c1878eebdef9b17b",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/#gov036-F5",
+            "figure_number": 5,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4760067.1/PMC4760067.1.pdf?md5=b194d9ea259f4ad46ac7a4deee06fff6",
+            "caption": "Serial source case: A and D ultrasound; B, C and E CT; F MRI. Early CT collection morphology and later wall/debris appearances remain separate time points.",
+            "alt": "Serial source case: A and D ultrasound; B, C and E CT; F MRI. Early CT collection morphology and later wall/debris appearances remain separate time points.",
+            "modality": "CT",
+            "clinical_panels": [
+              "b",
+              "c",
+              "e"
+            ],
+            "image_state": "pancreatitis_serial_collection_context",
+            "structures_visible": [
+              "Source-described local observation; complete reporting anatomy and specific boundaries not approved"
+            ],
+            "limits": "Published selected sections only: no original DICOM volume, calibrated full anatomy, validated source phase timing, histology, complete wall/debris extent or patient-specific 3D reconstruction. Original panel labels and source arrows are preserved; their presence does not grant independent anatomical approval. Mixed source modalities/time points cannot be borrowed for selected CT panels; source MRI sequence descriptions are not independently verified.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2015. Published by Oxford University Press and the Digestive Science Publishing Co. Limited. Binit Sureka, Kalpana Bansal, Yashwant Patidar, Ankur Arora. Imaging lexicon for acute pancreatitis: 2012 Atlanta Classification revisited. DOI 10.1093/gastro/gov036. CC BY 4.0. Complete Figure 5 preserved without image alteration. Source: NLM/PMC Article Datasets, original article/media snapshot; this snapshot may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original CC BY 4.0 article XML and complete source captions checked; no figure-specific excluded credit found.",
+            "acquisition": "Original complete figure JPEG stream extracted losslessly from MD5-verified publication PDF by pdfimages -j",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "adult"
+              },
+              "depicted_state": "pancreatitis_serial_collection_context",
+              "extent": "local",
+              "selected_panels": [
+                "b",
+                "c",
+                "e"
+              ],
+              "panel_types": {
+                "a": "Ultrasound",
+                "b": "CT",
+                "c": "CT",
+                "d": "Ultrasound",
+                "e": "CT",
+                "f": "MRI"
+              },
+              "panel_states": {
+                "a": "pancreatitis_serial_collection_context",
+                "b": "pancreatitis_serial_collection_context",
+                "c": "pancreatitis_serial_collection_context",
+                "d": "pancreatitis_serial_collection_context",
+                "e": "pancreatitis_serial_collection_context",
+                "f": "pancreatitis_serial_collection_context"
+              }
+            },
+            "ancillary_panels": [
+              {
+                "kind": "Ultrasound",
+                "panels": [
+                  "a",
+                  "d"
+                ],
+                "structures_visible": [
+                  "Source Ultrasound collection context"
+                ],
+                "limits": "Ancillary source modality only; cannot supply CT visibility, temporal matching or independently verified sequence features."
+              },
+              {
+                "kind": "MRI",
+                "panels": [
+                  "f"
+                ],
+                "structures_visible": [
+                  "Source MRI collection context"
+                ],
+                "limits": "Ancillary source modality only; cannot supply CT visibility, temporal matching or independently verified sequence features."
+              }
+            ]
+          },
+          {
+            "id": "open-pancreatitis-sureka-2015-fig6",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-sureka-2015-fig6.jpg",
+            "width": 756,
+            "height": 624,
+            "sha256": "dbec043a89811d847e310dd8af238c91cbe4328d6ee311181889f34c9e37a0a8",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/#gov036-F6",
+            "figure_number": 6,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4760067.1/gov036f6p.jpg?md5=f0cfa1a61f1cf13e7cc98b99a20280a2",
+            "caption": "Source-labelled walled-off necrosis on CT, with a defined enhancing wall and heterogeneous internal content.",
+            "alt": "Source-labelled walled-off necrosis on CT, with a defined enhancing wall and heterogeneous internal content.",
+            "modality": "CT",
+            "clinical_panels": [
+              "whole"
+            ],
+            "image_state": "pancreatitis_walled_off_necrosis",
+            "structures_visible": [
+              "Source-described local observation; complete reporting anatomy and specific boundaries not approved"
+            ],
+            "limits": "Published selected sections only: no original DICOM volume, calibrated full anatomy, validated source phase timing, histology, complete wall/debris extent or patient-specific 3D reconstruction. Original panel labels and source arrows are preserved; their presence does not grant independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2015. Published by Oxford University Press and the Digestive Science Publishing Co. Limited. Binit Sureka, Kalpana Bansal, Yashwant Patidar, Ankur Arora. Imaging lexicon for acute pancreatitis: 2012 Atlanta Classification revisited. DOI 10.1093/gastro/gov036. CC BY 4.0. Complete Figure 6 preserved without image alteration. Source: NLM/PMC Article Datasets, original article/media snapshot; this snapshot may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original CC BY 4.0 article XML and complete source captions checked; no figure-specific excluded credit found.",
+            "acquisition": "Original repository figure JPEG, preserved byte-for-byte",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "adult"
+              },
+              "depicted_state": "pancreatitis_walled_off_necrosis",
+              "extent": "local",
+              "selected_panels": [
+                "whole"
+              ],
+              "panel_types": {
+                "whole": "CT"
+              },
+              "panel_states": {
+                "whole": "pancreatitis_walled_off_necrosis"
+              }
+            }
+          },
+          {
+            "id": "open-pancreatitis-sureka-2015-fig7",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-sureka-2015-fig7.jpg",
+            "width": 1001,
+            "height": 252,
+            "sha256": "f5dd863308985e4e8c0eb8f9f3f5305d1e1da19d11adce75dc0e1ce89882b1c8",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/#gov036-F7",
+            "figure_number": 7,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4760067.1/PMC4760067.1.pdf?md5=b194d9ea259f4ad46ac7a4deee06fff6",
+            "caption": "Source walled-off necrosis across ultrasound A, CT B and MRI C. Only panel B is the selected CT example; the other modalities remain explicit adjuncts.",
+            "alt": "Source walled-off necrosis across ultrasound A, CT B and MRI C. Only panel B is the selected CT example; the other modalities remain explicit adjuncts.",
+            "modality": "CT",
+            "clinical_panels": [
+              "b"
+            ],
+            "image_state": "pancreatitis_multimodality_won",
+            "structures_visible": [
+              "Source-described local observation; complete reporting anatomy and specific boundaries not approved"
+            ],
+            "limits": "Published selected sections only: no original DICOM volume, calibrated full anatomy, validated source phase timing, histology, complete wall/debris extent or patient-specific 3D reconstruction. Original panel labels and source arrows are preserved; their presence does not grant independent anatomical approval. Mixed source modalities/time points cannot be borrowed for selected CT panels; source MRI sequence descriptions are not independently verified.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2015. Published by Oxford University Press and the Digestive Science Publishing Co. Limited. Binit Sureka, Kalpana Bansal, Yashwant Patidar, Ankur Arora. Imaging lexicon for acute pancreatitis: 2012 Atlanta Classification revisited. DOI 10.1093/gastro/gov036. CC BY 4.0. Complete Figure 7 preserved without image alteration. Source: NLM/PMC Article Datasets, original article/media snapshot; this snapshot may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original CC BY 4.0 article XML and complete source captions checked; no figure-specific excluded credit found.",
+            "acquisition": "Original complete figure JPEG stream extracted losslessly from MD5-verified publication PDF by pdfimages -j",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "adult"
+              },
+              "depicted_state": "pancreatitis_multimodality_won",
+              "extent": "local",
+              "selected_panels": [
+                "b"
+              ],
+              "panel_types": {
+                "a": "Ultrasound",
+                "b": "CT",
+                "c": "MRI"
+              },
+              "panel_states": {
+                "a": "pancreatitis_multimodality_won",
+                "b": "pancreatitis_multimodality_won",
+                "c": "pancreatitis_multimodality_won"
+              }
+            },
+            "ancillary_panels": [
+              {
+                "kind": "Ultrasound",
+                "panels": [
+                  "a"
+                ],
+                "structures_visible": [
+                  "Source Ultrasound collection context"
+                ],
+                "limits": "Ancillary source modality only; cannot supply CT visibility, temporal matching or independently verified sequence features."
+              },
+              {
+                "kind": "MRI",
+                "panels": [
+                  "c"
+                ],
+                "structures_visible": [
+                  "Source MRI collection context"
+                ],
+                "limits": "Ancillary source modality only; cannot supply CT visibility, temporal matching or independently verified sequence features."
+              }
+            ]
+          },
+          {
+            "id": "open-pancreatitis-sureka-2015-fig8",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-sureka-2015-fig8.jpg",
+            "width": 797,
+            "height": 304,
+            "sha256": "f29e8b88d60533c1bac509efa977ec270f53a173f89f6182df887e401c4895a8",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4760067/#gov036-F8",
+            "figure_number": 8,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4760067.1/gov036f8p.jpg?md5=e7e3dd4dc1ed1f4a1241043bf3a0ed7d",
+            "caption": "Source walled-off necrosis with gas, a biliary stent and duodenal communication on CT. The gas is not labelled as microbiologically proved infection.",
+            "alt": "Source walled-off necrosis with gas, a biliary stent and duodenal communication on CT. The gas is not labelled as microbiologically proved infection.",
+            "modality": "CT",
+            "clinical_panels": [
+              "a",
+              "b"
+            ],
+            "image_state": "pancreatitis_won_stent_fistula_context",
+            "structures_visible": [
+              "Source-described local observation; complete reporting anatomy and specific boundaries not approved"
+            ],
+            "limits": "Published selected sections only: no original DICOM volume, calibrated full anatomy, validated source phase timing, histology, complete wall/debris extent or patient-specific 3D reconstruction. Original panel labels and source arrows are preserved; their presence does not grant independent anatomical approval. Biliary instrumentation and enteric communication remain explicit alternatives/context for collection gas; infection is not proved by this image alone.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2015. Published by Oxford University Press and the Digestive Science Publishing Co. Limited. Binit Sureka, Kalpana Bansal, Yashwant Patidar, Ankur Arora. Imaging lexicon for acute pancreatitis: 2012 Atlanta Classification revisited. DOI 10.1093/gastro/gov036. CC BY 4.0. Complete Figure 8 preserved without image alteration. Source: NLM/PMC Article Datasets, original article/media snapshot; this snapshot may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original CC BY 4.0 article XML and complete source captions checked; no figure-specific excluded credit found.",
+            "acquisition": "Original repository figure JPEG, preserved byte-for-byte",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "adult"
+              },
+              "depicted_state": "pancreatitis_won_stent_fistula_context",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "CT"
+              },
+              "panel_states": {
+                "a": "pancreatitis_won_stent_fistula_context",
+                "b": "pancreatitis_won_stent_fistula_context"
+              }
+            }
+          },
+          {
+            "id": "open-pancreatitis-vascular-pmc12490646-f2",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-vascular-pmc12490646-f2.jpg",
+            "width": 646,
+            "height": 364,
+            "sha256": "05620e5c09a038cbc8180c2c9be47e070f6ffcd326aa2c6bed07730e1201e234",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12490646/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12490646/#F2",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12490646.1/ac9-12-e01838-g002.jpg?md5=b9fa4fbb930d73108eaf21995ad7da2b",
+            "figure_number": 2,
+            "modality": "CT",
+            "image_state": "pancreatitis_gda_pseudoaneurysm_source_context",
+            "caption": "Source coronal CT appearance of a reported gastroduodenal pseudoaneurysm. The article body calls this CTA; the figure caption calls it angiographic imaging during an intervention. That source context discrepancy remains unresolved.",
+            "alt": "Source coronal CT appearance of a reported gastroduodenal pseudoaneurysm. The article body calls this CTA; the figure caption calls it angiographic imaging during an intervention. That source context discrepancy remains unresolved.",
+            "limits": "Original published local section, not a calibrated DICOM series, whole vascular volume, dynamic bleeding study or patient-specific 3D model. Source labels/arrows remain author claims; independent anatomical review is pending. The article describes bleeding, but this selected still does not independently verify active extravasation or acquisition timing. It is not imported as catheter angiography or used to infer a treatment decision.",
+            "structures_visible": [
+              "Source-described local vascular observation; full boundaries and anatomical accuracy not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 2025 The Author(s). Published by Wolters Kluwer Health, Inc. on behalf of The American College of Gastroenterology. Abraham Carboo, Mohammad Ramadan, Patrick Kwaah, Pia Dogbey. Gastroduodenal Artery Pseudoaneurysm, A Rare Cause of Gastrointestinal Bleeding Complicating Pancreatitis. DOI 10.14309/crj.0000000000001838. CC BY 4.0. Original complete F2 preserved without image alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML version-specific grant and complete selected caption checked; source pixels matched published MD5.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatitis_gda_pseudoaneurysm_source_context",
+              "extent": "local"
+            },
+            "source_modality_caption_body_discrepancy": true
+          },
+          {
+            "id": "open-pancreatitis-vascular-pmc9870600-fig5",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-vascular-pmc9870600-fig5.jpg",
+            "width": 750,
+            "height": 422,
+            "sha256": "c72dca9ea5e075ba92ff3475e7607e8823021b13ef65f6f1a010c8f56f5b1c68",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9870600/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9870600/#FIG5",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9870600.1/cureus-0014-00000032872-i05.jpg?md5=6620512e6c2692a3dbf1fc5e245bab88",
+            "figure_number": 5,
+            "modality": "CT",
+            "image_state": "recurrent_pancreatitis_pseudoaneurysm_source_context",
+            "caption": "Recurrent-pancreatitis source case: contrast CT shows an enhancing focus within a large lesion near the gastroduodenal artery region, described by the authors as a pseudoaneurysm.",
+            "alt": "Recurrent-pancreatitis source case: contrast CT shows an enhancing focus within a large lesion near the gastroduodenal artery region, described by the authors as a pseudoaneurysm.",
+            "limits": "Original published local section, not a calibrated DICOM series, whole vascular volume, dynamic bleeding study or patient-specific 3D model. Source labels/arrows remain author claims; independent anatomical review is pending. The source recurrent context is preserved; an acute-only episode, complete arterial neck, wall/lumen extent and specific contrast phase are not established by this figure.",
+            "structures_visible": [
+              "Source-described local vascular observation; full boundaries and anatomical accuracy not approved"
+            ],
+            "license": "CC BY 3.0",
+            "license_url": "https://creativecommons.org/licenses/by/3.0/",
+            "attribution": "Copyright \u00a9 2022, Shelar et al. Alexander Muacevic, John R Adler, Sheetal S Shelar, Rajasbala Dhande, Vadlamudi Nagendra, Manasa Suryadevara, Neha Shetty. Giant Abdominal Pseudoaneurysm Secondary to Recurrent Pancreatitis: Imaging and Endovascular Intervention. DOI 10.7759/cureus.32872. CC BY 3.0. Original complete FIG5 preserved without image alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML version-specific grant and complete selected caption checked; source pixels matched published MD5.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "recurrent_pancreatitis_pseudoaneurysm_source_context",
+              "extent": "local"
+            },
+            "source_modality_caption_body_discrepancy": false
+          },
+          {
+            "id": "open-pancreatitis-vascular-pmc12358223-fig2",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatitis-vascular-pmc12358223-fig2.jpg",
+            "width": 750,
+            "height": 683,
+            "sha256": "b0ab777582e237c6e5714ee52aac3067800f1af3c3adfe11344d1771c54cd154",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12358223/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12358223/#FIG2",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12358223.1/cureus-0017-00000088259-i02.jpg?md5=e226ef0edfbb5595c367b40372e97dba",
+            "figure_number": 2,
+            "modality": "CT",
+            "image_state": "pancreatitis_portal_vein_thrombus_source_context",
+            "caption": "Source CT example of a reported nonocclusive proximal portal-vein filling defect following pancreatitis, marked by the original white arrow.",
+            "alt": "Source CT example of a reported nonocclusive proximal portal-vein filling defect following pancreatitis, marked by the original white arrow.",
+            "limits": "Original published local section, not a calibrated DICOM series, whole vascular volume, dynamic bleeding study or patient-specific 3D model. Source labels/arrows remain author claims; independent anatomical review is pending. The selected section does not establish complete portal/SMV/splenic-vein extent, calibrated thrombus burden or a treatment recommendation.",
+            "structures_visible": [
+              "Source-described local vascular observation; full boundaries and anatomical accuracy not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Copyright \u00a9 2025, Parekh et al. Alexander Muacevic, John R Adler, Sneh Parekh, Ty J Merry, Vanshika Tripathi, Pramod Reddy. Silent Obstruction: A Novel Complication of Portal Vein Thrombosis After Pancreatitis. DOI 10.7759/cureus.88259. CC BY 4.0. Original complete FIG2 preserved without image alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML version-specific grant and complete selected caption checked; source pixels matched published MD5.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatitis_portal_vein_thrombus_source_context",
+              "extent": "local"
+            },
+            "source_modality_caption_body_discrepancy": false
+          }
+        ],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.pancreas-acute",
@@ -12185,7 +12722,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12229,7 +12766,66 @@
             "reviewed_at": "2026-09-23"
           }
         ],
-        "structure_atlas": [],
+        "structure_atlas": [
+          {
+            "id": "native-cptac-c3l02112-arterial-labelled-ct",
+            "kind": "clinical-image",
+            "origin": "native-volume-sections",
+            "figure_title": "CPTAC C3L-02112 \u00b7 arterial-labelled original CT sections",
+            "src": "/app/reference-media/radiology-open/cptac-c3l02112-arterial-labelled-native-ct.png",
+            "sha256": "72944d497eec17d5aabd93beb5060decb402e16b4be12e0c61dd271898eaf665",
+            "width": 1800,
+            "height": 1200,
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2018.SC20FO18",
+            "figure_url": "https://doi.org/10.7937/K9/TCIA.2018.SC20FO18",
+            "modality": "CT",
+            "image_state": "source_case_pancreatic_annotation_context",
+            "structures_visible": [
+              "Selected original pancreatic target context; individual structure boundaries and diagnosis not approved"
+            ],
+            "caption": "Selected unmarked axial, coronal and sagittal native CT sections from CPTAC case C3L-02112, arterial-labelled acquisition, in two display windows. Source sampling 0.703125 \u00d7 0.703125 \u00d7 0.625 mm. Each acquisition uses its own source annotation only to select the review region; the views are not registered or matched between acquisitions. The original spacing tag and instance order descend by \u22120.625 mm; analysis indices increase by actual physical position. Series labels do not verify contrast-phase adequacy. Histology and anatomical boundaries remain unapproved.",
+            "alt": "Selected unmarked axial, coronal and sagittal native CT sections from CPTAC case C3L-02112, arterial-labelled acquisition, in two display windows. Source sampling 0.703125 \u00d7 0.703125 \u00d7 0.625 mm. Each acquisition uses its own source annotation only to select the review region; the views are not registered or matched between acquisitions. The original spacing tag and instance order descend by \u22120.625 mm; analysis indices increase by actual physical position. Series labels do not verify contrast-phase adequacy. Histology and anatomical boundaries remain unapproved.",
+            "limits": "The annotation is a selected target, not whole pancreas. CSV/RTSTRUCT tracking UIDs differ. The venous-labelled annotation leaves two acquired CT planes unannotated; their ROI state is unresolved. Original ROI-volume construction and positive contour endpoints remain unresolved. These selected unmarked sections do not establish ducts, vessel contact/invasion, neural spread, complete staging or resectability; no annotation or 3D model is overlaid.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "National Cancer Institute CPTAC. Original CPTAC-PDA imaging v15, DOI 10.7937/K9/TCIA.2018.SC20FO18, CC BY 4.0. Annotation location context: Rozenfeld and Jordan, CPTAC-PDA-Tumor-Annotations v2, DOI 10.7937/BW9V-BX61, CC BY 4.0. Adaptation: selected native CT sections with physical axes, crops and display windows. No source contour/model overlay or source voxel resampling.",
+            "rights_review": "Original image and annotation source grants checked separately with selected-series metadata and per-file MD5/CRC; rights do not approve anatomy.",
+            "rights_reviewed_on": "2026-10-03",
+            "derivation": {
+              "evidence_url": "/app/reference-media/radiology-open/cptac-c3l02112-arterial-labelled-sections.provenance.json",
+              "evidence_sha256": "c1bb802819716b534c04ca86fb889c60b58f4642f6d5368e5282050020b80397"
+            }
+          },
+          {
+            "id": "native-cptac-c3l02112-venous-labelled-ct",
+            "kind": "clinical-image",
+            "origin": "native-volume-sections",
+            "figure_title": "CPTAC C3L-02112 \u00b7 venous-labelled original CT sections",
+            "src": "/app/reference-media/radiology-open/cptac-c3l02112-venous-labelled-native-ct.png",
+            "sha256": "f3bd2576f9d422b0fe8cd0f95247edf9d14f61e93a324652875d82a0320b61fe",
+            "width": 1800,
+            "height": 1200,
+            "source_url": "https://doi.org/10.7937/K9/TCIA.2018.SC20FO18",
+            "figure_url": "https://doi.org/10.7937/K9/TCIA.2018.SC20FO18",
+            "modality": "CT",
+            "image_state": "source_case_pancreatic_annotation_context",
+            "structures_visible": [
+              "Selected original pancreatic target context; individual structure boundaries and diagnosis not approved"
+            ],
+            "caption": "Selected unmarked axial, coronal and sagittal native CT sections from CPTAC case C3L-02112, venous-labelled acquisition, in two display windows. Source sampling 0.703125 \u00d7 0.703125 \u00d7 0.625 mm. Each acquisition uses its own source annotation only to select the review region; the views are not registered or matched between acquisitions. The original spacing tag and instance order descend by \u22120.625 mm; analysis indices increase by actual physical position. Series labels do not verify contrast-phase adequacy. Histology and anatomical boundaries remain unapproved.",
+            "alt": "Selected unmarked axial, coronal and sagittal native CT sections from CPTAC case C3L-02112, venous-labelled acquisition, in two display windows. Source sampling 0.703125 \u00d7 0.703125 \u00d7 0.625 mm. Each acquisition uses its own source annotation only to select the review region; the views are not registered or matched between acquisitions. The original spacing tag and instance order descend by \u22120.625 mm; analysis indices increase by actual physical position. Series labels do not verify contrast-phase adequacy. Histology and anatomical boundaries remain unapproved.",
+            "limits": "The annotation is a selected target, not whole pancreas. CSV/RTSTRUCT tracking UIDs differ. The venous-labelled annotation leaves two acquired CT planes unannotated; their ROI state is unresolved. Original ROI-volume construction and positive contour endpoints remain unresolved. These selected unmarked sections do not establish ducts, vessel contact/invasion, neural spread, complete staging or resectability; no annotation or 3D model is overlaid.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "National Cancer Institute CPTAC. Original CPTAC-PDA imaging v15, DOI 10.7937/K9/TCIA.2018.SC20FO18, CC BY 4.0. Annotation location context: Rozenfeld and Jordan, CPTAC-PDA-Tumor-Annotations v2, DOI 10.7937/BW9V-BX61, CC BY 4.0. Adaptation: selected native CT sections with physical axes, crops and display windows. No source contour/model overlay or source voxel resampling.",
+            "rights_review": "Original image and annotation source grants checked separately with selected-series metadata and per-file MD5/CRC; rights do not approve anatomy.",
+            "rights_reviewed_on": "2026-10-03",
+            "derivation": {
+              "evidence_url": "/app/reference-media/radiology-open/cptac-c3l02112-venous-labelled-sections.provenance.json",
+              "evidence_sha256": "2bf9f3113251d0efa7a9a6eacd1b73633a14871091a71cc949dc0ae5990f4774"
+            }
+          }
+        ],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.pancreas-tumour",
@@ -12254,7 +12850,7 @@
       "modality": "Multimodality",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-04",
           "protocol": [
             "Review CT or MRI/MRCP for cyst morphology and duct communication; compare prior examinations."
           ],
@@ -12287,10 +12883,18 @@
               "pitfall": "Apparent nodule size can include adjacent wall or nonenhancing debris."
             }
           ],
-          "classification": null,
+          "classification": {
+            "name": "IPMN risk assessment \u2014 framework-qualified descriptors",
+            "version": "Kyoto 2024",
+            "applicability": "Presumed IPMN; not a universal algorithm for all pancreatic cysts or proof of histological malignancy.",
+            "summary": "For presumed IPMN, assess actual nodule/solid-component enhancement and exact duct calibre under the named framework. Imaging risk findings require clinical/cytological context and specialist assessment; this overview is not the complete guideline."
+          },
           "criteria_table": null,
           "pitfalls": [
-            "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging."
+            "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging.",
+            "Duct communication alone does not establish IPMN; inflammatory collections may also communicate.",
+            "Presumed cyst type alone does not mandate resection; distinguish framework-specific assessment and complete clinical suitability.",
+            "Subtraction artifact, debris and wall partial volume can mimic a nodule; adequate source enhancement evidence is required."
           ],
           "impression_prompts": [
             "Cyst morphology, duct communication and differential diagnosis.",
@@ -12323,6 +12927,14 @@
             {
               "title": "Radiology Assistant \u2014 Pancreatic cystic Lesions",
               "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-cystic-lesions"
+            },
+            {
+              "title": "International evidence-based Kyoto IPMN guidelines (2024)",
+              "url": "https://doi.org/10.1016/j.pan.2023.12.009"
+            },
+            {
+              "title": "European evidence-based pancreatic cystic neoplasm guidelines (2018)",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5890653/"
             }
           ]
         },
@@ -12378,12 +12990,23 @@
               }
             ],
             "notes": [
-              "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging."
+              "A pseudocyst diagnosis needs a compatible clinical context; cyst classification is separate from solid pancreatic cancer staging.",
+              "Duct communication alone does not establish IPMN; inflammatory collections may also communicate.",
+              "Presumed cyst type alone does not mandate resection; distinguish framework-specific assessment and complete clinical suitability.",
+              "Subtraction artifact, debris and wall partial volume can mimic a nodule; adequate source enhancement evidence is required."
             ],
             "sources": [
               {
                 "title": "Radiology Assistant \u2014 Pancreatic cystic Lesions",
                 "url": "https://radiologyassistant.nl/abdomen/pancreas/pancreas-cystic-lesions"
+              },
+              {
+                "title": "International evidence-based Kyoto IPMN guidelines (2024)",
+                "url": "https://doi.org/10.1016/j.pan.2023.12.009"
+              },
+              {
+                "title": "European evidence-based pancreatic cystic neoplasm guidelines (2018)",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5890653/"
               }
             ]
           }
@@ -12452,7 +13075,7 @@
                 "ENHANCING COMPONENTS": "No mural nodule or solid component."
               },
               "findings": [
-                "Enhancing mural nodule __ mm (high-risk stigma if 5 mm or larger).",
+                "Enhancing mural nodule __ mm; for presumed IPMN under Kyoto 2024, at least 5 mm is a high-risk stigma. State the actual enhancement evidence and framework.",
                 "Non-enhancing dependent debris.",
                 "Thickened, enhancing cyst wall."
               ],
@@ -12464,8 +13087,8 @@
               ],
               "landmark": "pancreas",
               "parts": [],
-              "look": "Post-contrast subtraction images; debris is dependent and does not enhance.",
-              "tip": "Dependent debris moves with position and does not enhance; a mural nodule enhances."
+              "look": "Use actually acquired pre/post-contrast source images and adequate subtraction; distinguish a real enhancing tissue component from debris, partial volume and subtraction/motion artifact.",
+              "tip": "Neither dependent location nor a single image proves debris or nodule enhancement. Report source-phase/sequence adequacy and uncertainty; no automatic treatment decision follows from this descriptor alone."
             },
             {
               "label": "Pancreatic duct",
@@ -12477,8 +13100,8 @@
                 "DUCTS": "No communication with the main pancreatic duct; main duct normal."
               },
               "findings": [
-                "Communication with the main pancreatic duct (branch-duct IPMN).",
-                "Main pancreatic duct __ mm (worrisome feature at 5\u20139 mm; high-risk stigma at 10 mm or more).",
+                "Cyst communication with the pancreatic duct; branch-duct IPMN is a possibility in the appropriate context, not a diagnosis from communication alone.",
+                "Main pancreatic duct __ mm; for presumed IPMN under Kyoto 2024, 5 to under 10 mm is worrisome and at least 10 mm is high-risk. Assess other causes and the complete framework.",
                 "Abrupt change in duct calibre with distal atrophy."
               ],
               "images": [],
@@ -12558,10 +13181,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "654e3e7d0383fd9cad31030c531c788330247e3b322d0767f419e442323363f0",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -12591,7 +13214,563 @@
             "height": 352
           }
         ],
-        "structure_atlas": [],
+        "structure_atlas": [
+          {
+            "id": "open-pancreatic-cyst-pmc8355307-fig4",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatic-cyst-pmc8355307-fig4.jpg",
+            "width": 1961,
+            "height": 1685,
+            "sha256": "de56e49ac0dedc068b33d5fbe975ed63fd378b2ae381d6907b36a27df70abda1",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8355307/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8355307/#Fig4",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8355307.1/PMC8355307.1.pdf?md5=a13071a9ae0ee88cbe7567a075e50402",
+            "figure_number": 4,
+            "modality": "MRI",
+            "clinical_panels": [
+              "b",
+              "c",
+              "d"
+            ],
+            "image_state": "pancreatic_cyst_source_pmc8355307_fig4",
+            "caption": "Source serous microcystic/honeycomb example: CT A and MRI B\u2013D retain architecture and MRCP context.",
+            "alt": "Source serous microcystic/honeycomb example: CT A and MRI B\u2013D retain architecture and MRCP context.",
+            "limits": "Original complete published figure; no calibrated native DICOM volume, independently verified phase/sequence timing, full cyst/duct/wall/nodule extent or patient-specific 3D reconstruction. Source sequence/pathology labels remain author claims. CT, PET-CT, EUS and histology cannot lend features or histological grade to selected MRI panels. Original colours/annotations are preserved in encoded JPEG streams; independent colour calibration is unverified.",
+            "structures_visible": [
+              "Source-described local cyst/duct/nodule observation; complete anatomical extent and diagnostic grade not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Giovanni Morana, Pierluigi Ciet, Silvia Venturini. Cystic pancreatic lesions: MR imaging findings and management. DOI 10.1186/s13244-021-01060-z. CC BY 4.0. Original complete Fig4 JPEG preserved from the MD5-verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected figure credits reviewed; separately credited book figure excluded.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatic_cyst_source_pmc8355307_fig4",
+              "extent": "local",
+              "selected_panels": [
+                "b",
+                "c",
+                "d"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "MRI",
+                "c": "MRI",
+                "d": "MRI"
+              },
+              "panel_states": {
+                "a": "pancreatic_cyst_source_pmc8355307_fig4",
+                "b": "pancreatic_cyst_source_pmc8355307_fig4",
+                "c": "pancreatic_cyst_source_pmc8355307_fig4",
+                "d": "pancreatic_cyst_source_pmc8355307_fig4"
+              }
+            },
+            "ancillary_panels": [
+              {
+                "kind": "CT",
+                "panels": [
+                  "a"
+                ],
+                "structures_visible": [
+                  "Source CT context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              }
+            ]
+          },
+          {
+            "id": "open-pancreatic-cyst-pmc8355307-fig9",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatic-cyst-pmc8355307-fig9.jpg",
+            "width": 1961,
+            "height": 1392,
+            "sha256": "57c47c438643b2aac6e92da21e87af5178852ed41f6be67ceb5fc72663693dce",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8355307/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8355307/#Fig9",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8355307.1/PMC8355307.1.pdf?md5=a13071a9ae0ee88cbe7567a075e50402",
+            "figure_number": 9,
+            "modality": "MRI",
+            "clinical_panels": [
+              "c",
+              "d"
+            ],
+            "image_state": "pancreatic_cyst_source_pmc8355307_fig9",
+            "caption": "Source multilocular mucinous-cyst example: CT A/B and MRI C/D show architecture and internal material described by the authors.",
+            "alt": "Source multilocular mucinous-cyst example: CT A/B and MRI C/D show architecture and internal material described by the authors.",
+            "limits": "Original complete published figure; no calibrated native DICOM volume, independently verified phase/sequence timing, full cyst/duct/wall/nodule extent or patient-specific 3D reconstruction. Source sequence/pathology labels remain author claims. CT, PET-CT, EUS and histology cannot lend features or histological grade to selected MRI panels. Original colours/annotations are preserved in encoded JPEG streams; independent colour calibration is unverified.",
+            "structures_visible": [
+              "Source-described local cyst/duct/nodule observation; complete anatomical extent and diagnostic grade not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Giovanni Morana, Pierluigi Ciet, Silvia Venturini. Cystic pancreatic lesions: MR imaging findings and management. DOI 10.1186/s13244-021-01060-z. CC BY 4.0. Original complete Fig9 JPEG preserved from the MD5-verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected figure credits reviewed; separately credited book figure excluded.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatic_cyst_source_pmc8355307_fig9",
+              "extent": "local",
+              "selected_panels": [
+                "c",
+                "d"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "CT",
+                "c": "MRI",
+                "d": "MRI"
+              },
+              "panel_states": {
+                "a": "pancreatic_cyst_source_pmc8355307_fig9",
+                "b": "pancreatic_cyst_source_pmc8355307_fig9",
+                "c": "pancreatic_cyst_source_pmc8355307_fig9",
+                "d": "pancreatic_cyst_source_pmc8355307_fig9"
+              }
+            },
+            "ancillary_panels": [
+              {
+                "kind": "CT",
+                "panels": [
+                  "a",
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source CT context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              }
+            ]
+          },
+          {
+            "id": "open-pancreatic-cyst-pmc8355307-fig13",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatic-cyst-pmc8355307-fig13.jpg",
+            "width": 1961,
+            "height": 618,
+            "sha256": "f11b352d8025a13d9354f42d35a6d955943ab28b2615b5b53123771889f436fd",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8355307/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8355307/#Fig13",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8355307.1/PMC8355307.1.pdf?md5=a13071a9ae0ee88cbe7567a075e50402",
+            "figure_number": 13,
+            "modality": "MRI",
+            "clinical_panels": [
+              "a",
+              "b"
+            ],
+            "image_state": "pancreatic_cyst_source_pmc8355307_fig13",
+            "caption": "Source main-duct IPMN example: MRI/MRCP A/B and CT C retain duct and host-gland context; original images are not a complete calibrated duct volume.",
+            "alt": "Source main-duct IPMN example: MRI/MRCP A/B and CT C retain duct and host-gland context; original images are not a complete calibrated duct volume.",
+            "limits": "Original complete published figure; no calibrated native DICOM volume, independently verified phase/sequence timing, full cyst/duct/wall/nodule extent or patient-specific 3D reconstruction. Source sequence/pathology labels remain author claims. CT, PET-CT, EUS and histology cannot lend features or histological grade to selected MRI panels. Original colours/annotations are preserved in encoded JPEG streams; independent colour calibration is unverified.",
+            "structures_visible": [
+              "Source-described local cyst/duct/nodule observation; complete anatomical extent and diagnostic grade not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Giovanni Morana, Pierluigi Ciet, Silvia Venturini. Cystic pancreatic lesions: MR imaging findings and management. DOI 10.1186/s13244-021-01060-z. CC BY 4.0. Original complete Fig13 JPEG preserved from the MD5-verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected figure credits reviewed; separately credited book figure excluded.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatic_cyst_source_pmc8355307_fig13",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b"
+              ],
+              "panel_types": {
+                "a": "MRI",
+                "b": "MRI",
+                "c": "CT"
+              },
+              "panel_states": {
+                "a": "pancreatic_cyst_source_pmc8355307_fig13",
+                "b": "pancreatic_cyst_source_pmc8355307_fig13",
+                "c": "pancreatic_cyst_source_pmc8355307_fig13"
+              }
+            },
+            "ancillary_panels": [
+              {
+                "kind": "CT",
+                "panels": [
+                  "c"
+                ],
+                "structures_visible": [
+                  "Source CT context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              }
+            ]
+          },
+          {
+            "id": "open-pancreatic-cyst-pmc8355307-fig18",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatic-cyst-pmc8355307-fig18.jpg",
+            "width": 1961,
+            "height": 623,
+            "sha256": "3348e1f25d33edbe84498f752e9b906eead4340dcf53f60f8a616616bb03bc51",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8355307/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8355307/#Fig18",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8355307.1/PMC8355307.1.pdf?md5=a13071a9ae0ee88cbe7567a075e50402",
+            "figure_number": 18,
+            "modality": "MRI",
+            "clinical_panels": [
+              "a",
+              "b"
+            ],
+            "image_state": "pancreatic_cyst_source_pmc8355307_fig18",
+            "caption": "Source multifocal branch-duct IPMN example on MRCP A/B. Projection/source correspondence and complete communication geometry remain unapproved.",
+            "alt": "Source multifocal branch-duct IPMN example on MRCP A/B. Projection/source correspondence and complete communication geometry remain unapproved.",
+            "limits": "Original complete published figure; no calibrated native DICOM volume, independently verified phase/sequence timing, full cyst/duct/wall/nodule extent or patient-specific 3D reconstruction. Source sequence/pathology labels remain author claims. CT, PET-CT, EUS and histology cannot lend features or histological grade to selected MRI panels. Original colours/annotations are preserved in encoded JPEG streams; independent colour calibration is unverified.",
+            "structures_visible": [
+              "Source-described local cyst/duct/nodule observation; complete anatomical extent and diagnostic grade not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Giovanni Morana, Pierluigi Ciet, Silvia Venturini. Cystic pancreatic lesions: MR imaging findings and management. DOI 10.1186/s13244-021-01060-z. CC BY 4.0. Original complete Fig18 JPEG preserved from the MD5-verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected figure credits reviewed; separately credited book figure excluded.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatic_cyst_source_pmc8355307_fig18",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b"
+              ],
+              "panel_types": {
+                "a": "MRI",
+                "b": "MRI"
+              },
+              "panel_states": {
+                "a": "pancreatic_cyst_source_pmc8355307_fig18",
+                "b": "pancreatic_cyst_source_pmc8355307_fig18"
+              }
+            }
+          },
+          {
+            "id": "open-pancreatic-cyst-pmc13315461-fig3",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatic-cyst-pmc13315461-fig3.jpg",
+            "width": 1500,
+            "height": 706,
+            "sha256": "e6ce15359a24eb64a03e158c59370819b8f60086172126311b9efcf1b0c2bb11",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13315461/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13315461/#Fig3",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13315461.1/PMC13315461.1.pdf?md5=58227635ec4a4e9fd49acc3c559b62a2",
+            "figure_number": 3,
+            "modality": "MRI",
+            "clinical_panels": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f"
+            ],
+            "image_state": "pancreatic_cyst_source_pmc13315461_fig3",
+            "caption": "Source non-enhancing nodular component/mucin-plug context. MRI A\u2013F is selected; PET-CT G and EUS H remain distinct adjuncts.",
+            "alt": "Source non-enhancing nodular component/mucin-plug context. MRI A\u2013F is selected; PET-CT G and EUS H remain distinct adjuncts.",
+            "limits": "Original complete published figure; no calibrated native DICOM volume, independently verified phase/sequence timing, full cyst/duct/wall/nodule extent or patient-specific 3D reconstruction. Source sequence/pathology labels remain author claims. CT, PET-CT, EUS and histology cannot lend features or histological grade to selected MRI panels. Original colours/annotations are preserved in encoded JPEG streams; independent colour calibration is unverified.",
+            "structures_visible": [
+              "Source-described local cyst/duct/nodule observation; complete anatomical extent and diagnostic grade not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2026 Hideyuki Fukui, Atsushi Nakamoto, Hiromitsu Onishi, Takashi Ota, Yasunari Fukuda, Toru Honda, Sakiko Ueno, Feier Ding, Masahiro Umezu, Daisaku Yamada, Hidetoshi Eguchi, Noriyuki Tomiyama. Non-contrast MRI features of mucin plugs and mural nodules in pancreatic cystic lesions. DOI 10.1007/s11604-026-01975-x. CC BY 4.0. Original complete Fig3 JPEG preserved from the MD5-verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected figure credits reviewed; separately credited book figure excluded.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatic_cyst_source_pmc13315461_fig3",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "f"
+              ],
+              "panel_types": {
+                "a": "MRI",
+                "b": "MRI",
+                "c": "MRI",
+                "d": "MRI",
+                "e": "MRI",
+                "f": "MRI",
+                "g": "PET-CT",
+                "h": "Ultrasound"
+              },
+              "panel_states": {
+                "a": "pancreatic_cyst_source_pmc13315461_fig3",
+                "b": "pancreatic_cyst_source_pmc13315461_fig3",
+                "c": "pancreatic_cyst_source_pmc13315461_fig3",
+                "d": "pancreatic_cyst_source_pmc13315461_fig3",
+                "e": "pancreatic_cyst_source_pmc13315461_fig3",
+                "f": "pancreatic_cyst_source_pmc13315461_fig3",
+                "g": "pancreatic_cyst_source_pmc13315461_fig3",
+                "h": "pancreatic_cyst_source_pmc13315461_fig3"
+              }
+            },
+            "ancillary_panels": [
+              {
+                "kind": "PET-CT",
+                "panels": [
+                  "g"
+                ],
+                "structures_visible": [
+                  "Source PET-CT context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              },
+              {
+                "kind": "Ultrasound",
+                "panels": [
+                  "h"
+                ],
+                "structures_visible": [
+                  "Source endoscopic ultrasound context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              }
+            ]
+          },
+          {
+            "id": "open-pancreatic-cyst-pmc13315461-fig4",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatic-cyst-pmc13315461-fig4.jpg",
+            "width": 1500,
+            "height": 569,
+            "sha256": "5627debed79af70e867eefed343db6421b2d76b413b8d11e85e5107849775fbe",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13315461/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13315461/#Fig4",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13315461.1/PMC13315461.1.pdf?md5=58227635ec4a4e9fd49acc3c559b62a2",
+            "figure_number": 4,
+            "modality": "MRI",
+            "clinical_panels": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f"
+            ],
+            "image_state": "pancreatic_cyst_source_pmc13315461_fig4",
+            "caption": "Source enhancing mural-nodule case with low-grade IPMN described on histology I/J. MRI A\u2013F, PET-CT G and EUS H stay separate; enhancement alone does not establish malignant grade.",
+            "alt": "Source enhancing mural-nodule case with low-grade IPMN described on histology I/J. MRI A\u2013F, PET-CT G and EUS H stay separate; enhancement alone does not establish malignant grade.",
+            "limits": "Original complete published figure; no calibrated native DICOM volume, independently verified phase/sequence timing, full cyst/duct/wall/nodule extent or patient-specific 3D reconstruction. Source sequence/pathology labels remain author claims. CT, PET-CT, EUS and histology cannot lend features or histological grade to selected MRI panels. Original colours/annotations are preserved in encoded JPEG streams; independent colour calibration is unverified.",
+            "structures_visible": [
+              "Source-described local cyst/duct/nodule observation; complete anatomical extent and diagnostic grade not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2026 Hideyuki Fukui, Atsushi Nakamoto, Hiromitsu Onishi, Takashi Ota, Yasunari Fukuda, Toru Honda, Sakiko Ueno, Feier Ding, Masahiro Umezu, Daisaku Yamada, Hidetoshi Eguchi, Noriyuki Tomiyama. Non-contrast MRI features of mucin plugs and mural nodules in pancreatic cystic lesions. DOI 10.1007/s11604-026-01975-x. CC BY 4.0. Original complete Fig4 JPEG preserved from the MD5-verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected figure credits reviewed; separately credited book figure excluded.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatic_cyst_source_pmc13315461_fig4",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "f"
+              ],
+              "panel_types": {
+                "a": "MRI",
+                "b": "MRI",
+                "c": "MRI",
+                "d": "MRI",
+                "e": "MRI",
+                "f": "MRI",
+                "g": "PET-CT",
+                "h": "Ultrasound",
+                "i": "Histology",
+                "j": "Histology"
+              },
+              "panel_states": {
+                "a": "pancreatic_cyst_source_pmc13315461_fig4",
+                "b": "pancreatic_cyst_source_pmc13315461_fig4",
+                "c": "pancreatic_cyst_source_pmc13315461_fig4",
+                "d": "pancreatic_cyst_source_pmc13315461_fig4",
+                "e": "pancreatic_cyst_source_pmc13315461_fig4",
+                "f": "pancreatic_cyst_source_pmc13315461_fig4",
+                "g": "pancreatic_cyst_source_pmc13315461_fig4",
+                "h": "pancreatic_cyst_source_pmc13315461_fig4",
+                "i": "pancreatic_cyst_source_pmc13315461_fig4",
+                "j": "pancreatic_cyst_source_pmc13315461_fig4"
+              }
+            },
+            "ancillary_panels": [
+              {
+                "kind": "PET-CT",
+                "panels": [
+                  "g"
+                ],
+                "structures_visible": [
+                  "Source PET-CT context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              },
+              {
+                "kind": "Ultrasound",
+                "panels": [
+                  "h"
+                ],
+                "structures_visible": [
+                  "Source endoscopic ultrasound context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              },
+              {
+                "kind": "Histology",
+                "panels": [
+                  "i",
+                  "j"
+                ],
+                "structures_visible": [
+                  "Source Histology context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              }
+            ]
+          },
+          {
+            "id": "open-pancreatic-cyst-pmc13315461-fig5",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/pancreatic-cyst-pmc13315461-fig5.jpg",
+            "width": 1500,
+            "height": 568,
+            "sha256": "86c498d6b44d1adf25166e4bc4b25c8d7c7155faf470d80ba17f444274fa21db",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13315461/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13315461/#Fig5",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13315461.1/PMC13315461.1.pdf?md5=58227635ec4a4e9fd49acc3c559b62a2",
+            "figure_number": 5,
+            "modality": "MRI",
+            "clinical_panels": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f"
+            ],
+            "image_state": "pancreatic_cyst_source_pmc13315461_fig5",
+            "caption": "Source enhancing mural-nodule case with high-grade IPMN described on histology I/J. MRI A\u2013F cannot independently establish histological grade; PET-CT G and EUS H remain distinct adjuncts.",
+            "alt": "Source enhancing mural-nodule case with high-grade IPMN described on histology I/J. MRI A\u2013F cannot independently establish histological grade; PET-CT G and EUS H remain distinct adjuncts.",
+            "limits": "Original complete published figure; no calibrated native DICOM volume, independently verified phase/sequence timing, full cyst/duct/wall/nodule extent or patient-specific 3D reconstruction. Source sequence/pathology labels remain author claims. CT, PET-CT, EUS and histology cannot lend features or histological grade to selected MRI panels. Original colours/annotations are preserved in encoded JPEG streams; independent colour calibration is unverified.",
+            "structures_visible": [
+              "Source-described local cyst/duct/nodule observation; complete anatomical extent and diagnostic grade not approved"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2026 Hideyuki Fukui, Atsushi Nakamoto, Hiromitsu Onishi, Takashi Ota, Yasunari Fukuda, Toru Honda, Sakiko Ueno, Feier Ding, Masahiro Umezu, Daisaku Yamada, Hidetoshi Eguchi, Noriyuki Tomiyama. Non-contrast MRI features of mucin plugs and mural nodules in pancreatic cystic lesions. DOI 10.1007/s11604-026-01975-x. CC BY 4.0. Original complete Fig5 JPEG preserved from the MD5-verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected figure credits reviewed; separately credited book figure excluded.",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "pancreatic_cyst_source_pmc13315461_fig5",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "f"
+              ],
+              "panel_types": {
+                "a": "MRI",
+                "b": "MRI",
+                "c": "MRI",
+                "d": "MRI",
+                "e": "MRI",
+                "f": "MRI",
+                "g": "PET-CT",
+                "h": "Ultrasound",
+                "i": "Histology",
+                "j": "Histology"
+              },
+              "panel_states": {
+                "a": "pancreatic_cyst_source_pmc13315461_fig5",
+                "b": "pancreatic_cyst_source_pmc13315461_fig5",
+                "c": "pancreatic_cyst_source_pmc13315461_fig5",
+                "d": "pancreatic_cyst_source_pmc13315461_fig5",
+                "e": "pancreatic_cyst_source_pmc13315461_fig5",
+                "f": "pancreatic_cyst_source_pmc13315461_fig5",
+                "g": "pancreatic_cyst_source_pmc13315461_fig5",
+                "h": "pancreatic_cyst_source_pmc13315461_fig5",
+                "i": "pancreatic_cyst_source_pmc13315461_fig5",
+                "j": "pancreatic_cyst_source_pmc13315461_fig5"
+              }
+            },
+            "ancillary_panels": [
+              {
+                "kind": "PET-CT",
+                "panels": [
+                  "g"
+                ],
+                "structures_visible": [
+                  "Source PET-CT context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              },
+              {
+                "kind": "Ultrasound",
+                "panels": [
+                  "h"
+                ],
+                "structures_visible": [
+                  "Source endoscopic ultrasound context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              },
+              {
+                "kind": "Histology",
+                "panels": [
+                  "i",
+                  "j"
+                ],
+                "structures_visible": [
+                  "Source Histology context"
+                ],
+                "limits": "Separate source modality/pathology context only; cannot supply selected MRI features or independently verified case/grade correspondence."
+              }
+            ]
+          }
+        ],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.pancreas-tumour",
@@ -12616,7 +13795,7 @@
       "modality": "CT",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-04",
           "protocol": [
             "Review multiplanar contrast-enhanced abdominal CT with attention to peritoneal spaces and mesenteric relationships."
           ],
@@ -12652,7 +13831,8 @@
           "classification": null,
           "criteria_table": null,
           "pitfalls": [
-            "Peritoneal distribution aids localisation but does not by itself establish histology."
+            "Peritoneal distribution aids localisation but does not by itself establish histology.",
+            "Ascites and distribution alone do not establish metastatic histology; source context and alternative diagnoses remain necessary."
           ],
           "impression_prompts": [
             "Peritoneal spaces, mesenteric anatomy and patterns of disease.",
@@ -12744,7 +13924,8 @@
               }
             ],
             "notes": [
-              "Peritoneal distribution aids localisation but does not by itself establish histology."
+              "Peritoneal distribution aids localisation but does not by itself establish histology.",
+              "Ascites and distribution alone do not establish metastatic histology; source context and alternative diagnoses remain necessary."
             ],
             "sources": [
               {
@@ -12947,10 +14128,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "791657f61696c0c627a4d1d2614fa5e23f323ca2d56dfc8bd1a1b992f4c02769",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -12980,7 +14161,428 @@
             "height": 404
           }
         ],
-        "structure_atlas": [],
+        "structure_atlas": [
+          {
+            "id": "open-peritoneal-anatomy-pmc8589944-fig3",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig3.jpg",
+            "width": 1594,
+            "height": 963,
+            "sha256": "fc3bf2371d6b23f64aca59d6233bd55fba0ceed20eb33daea3a7fd3094a91a6b",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig3",
+            "figure_number": 3,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig3",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig3",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig3",
+                "b": "peritoneal_source_case_fig3"
+              }
+            },
+            "caption": "Source hepatoduodenal-ligament and hepatorenal-recess observations on CT A, with an operative view B retained separately.",
+            "alt": "Source hepatoduodenal-ligament and hepatorenal-recess observations on CT A, with an operative view B retained separately.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 3 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-anatomy-pmc8589944-fig4",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig4.jpg",
+            "width": 1595,
+            "height": 515,
+            "sha256": "9ecb461a595ba25e5176a3de9ad81cd6319ac0cf3d08b48d506292cc26c515d9",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig4",
+            "figure_number": 4,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig4",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig4",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig4",
+                "b": "peritoneal_source_case_fig4"
+              }
+            },
+            "caption": "Source pelvic/pouch-of-Douglas mass on CT A with a separate operative view B; the image pair is not calibrated 3D geometry.",
+            "alt": "Source pelvic/pouch-of-Douglas mass on CT A with a separate operative view B; the image pair is not calibrated 3D geometry.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 4 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-anatomy-pmc8589944-fig8",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig8.jpg",
+            "width": 1595,
+            "height": 747,
+            "sha256": "8def0fb6c769678da74de0fd9072f90fffae90ebba4de443a0802acfad691289",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig8",
+            "figure_number": 8,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig8",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig8",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig8",
+                "b": "peritoneal_source_case_fig8"
+              }
+            },
+            "caption": "Source omental-cake appearance on CT A and corresponding operative omental involvement B; complete source extent remains unapproved.",
+            "alt": "Source omental-cake appearance on CT A and corresponding operative omental involvement B; complete source extent remains unapproved.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 8 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-anatomy-pmc8589944-fig9",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig9.jpg",
+            "width": 1595,
+            "height": 579,
+            "sha256": "1b61a98780f32b58f8b6ce95367df9556a39cb1d23bdef1bd19109cfd1cfa94d",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig9",
+            "figure_number": 9,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig9",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig9",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig9",
+                "b": "peritoneal_source_case_fig9"
+              }
+            },
+            "caption": "Source CT-enteroclysis bowel-serosal/loop changes A with operative deposits B. A routine CT cannot borrow the enteroclysis protocol or surgical visibility.",
+            "alt": "Source CT-enteroclysis bowel-serosal/loop changes A with operative deposits B. A routine CT cannot borrow the enteroclysis protocol or surgical visibility.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 9 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-anatomy-pmc8589944-fig11",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig11.jpg",
+            "width": 1595,
+            "height": 798,
+            "sha256": "349dfbee444a31da14b5777317a4b03fcb3dfcc22a921a27bf2f8b0aec12e8ae",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig11",
+            "figure_number": 11,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig11",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig11",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig11",
+                "b": "peritoneal_source_case_fig11"
+              }
+            },
+            "caption": "Source mesenteric fat change on CT-enteroclysis A, paired with small implants described at surgery B. CT appearance alone does not establish microscopic implants.",
+            "alt": "Source mesenteric fat change on CT-enteroclysis A, paired with small implants described at surgery B. CT appearance alone does not establish microscopic implants.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 11 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-anatomy-pmc8589944-fig15",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig15.jpg",
+            "width": 1594,
+            "height": 704,
+            "sha256": "f597b60eda43049cb4879ccc1b9cc871856ef83a0335112c9344f1eedca9e068",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig15",
+            "figure_number": 15,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig15",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig15",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig15",
+                "b": "peritoneal_source_case_fig15"
+              }
+            },
+            "caption": "Source distorted/retracted mesentery and bowel-wall changes on CT A, with operative involvement B; this does not independently decide cytoreduction suitability.",
+            "alt": "Source distorted/retracted mesentery and bowel-wall changes on CT A, with operative involvement B; this does not independently decide cytoreduction suitability.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 15 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-anatomy-pmc8589944-fig16",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig16.jpg",
+            "width": 1594,
+            "height": 591,
+            "sha256": "5c3995f6d965bc6f1e52f5f56935210c649f52fd226e230f31fe1b92ce98976c",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig16",
+            "figure_number": 16,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig16",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig16",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig16",
+                "b": "peritoneal_source_case_fig16"
+              }
+            },
+            "caption": "Source mucinous/gelatinous peritoneal material and organ-surface scalloping on CT A, with operative material B. CT distribution alone is not histological proof.",
+            "alt": "Source mucinous/gelatinous peritoneal material and organ-surface scalloping on CT A, with operative material B. CT distribution alone is not histological proof.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 16 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          }
+        ],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.peritoneum",
@@ -13005,7 +14607,7 @@
       "modality": "CT",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-04",
           "protocol": [
             "Review contrast CT by peritoneal compartment and compare treatment baseline where available."
           ],
@@ -13041,7 +14643,9 @@
           "classification": null,
           "criteria_table": null,
           "pitfalls": [
-            "CT can underestimate small serosal or mesenteric deposits; absence of a visible implant does not exclude microscopic disease."
+            "CT can underestimate small serosal or mesenteric deposits; absence of a visible implant does not exclude microscopic disease.",
+            "Ascites and distribution alone do not establish metastatic histology; source context and alternative diagnoses remain necessary.",
+            "Distinguish CT-estimated from surgical PCI, preserve regional contributions/coverage and do not infer operative suitability from a universal cutoff."
           ],
           "impression_prompts": [
             "Distribution of peritoneal disease and surgically relevant sites.",
@@ -13074,6 +14678,18 @@
             {
               "title": "Radiology Assistant \u2014 Peritoneal Carcinomatosis",
               "url": "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis"
+            },
+            {
+              "title": "Evaluation of preoperative CT in estimating PCI (primary accuracy study)",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/22202284/"
+            },
+            {
+              "title": "Canadian colorectal peritoneal metastasis guidelines (2020; selection context)",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/"
+            },
+            {
+              "title": "Consensus guideline for colorectal peritoneal metastases (2025)",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40558054/"
             }
           ]
         },
@@ -13129,12 +14745,26 @@
               }
             ],
             "notes": [
-              "CT can underestimate small serosal or mesenteric deposits; absence of a visible implant does not exclude microscopic disease."
+              "CT can underestimate small serosal or mesenteric deposits; absence of a visible implant does not exclude microscopic disease.",
+              "Ascites and distribution alone do not establish metastatic histology; source context and alternative diagnoses remain necessary.",
+              "Distinguish CT-estimated from surgical PCI, preserve regional contributions/coverage and do not infer operative suitability from a universal cutoff."
             ],
             "sources": [
               {
                 "title": "Radiology Assistant \u2014 Peritoneal Carcinomatosis",
                 "url": "https://radiologyassistant.nl/abdomen/peritoneum/peritoneal-carcinomatosis"
+              },
+              {
+                "title": "Evaluation of preoperative CT in estimating PCI (primary accuracy study)",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/22202284/"
+              },
+              {
+                "title": "Canadian colorectal peritoneal metastasis guidelines (2020; selection context)",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7755452/"
+              },
+              {
+                "title": "Consensus guideline for colorectal peritoneal metastases (2025)",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40558054/"
               }
             ]
           }
@@ -13175,7 +14805,7 @@
               "landmark": "spaces",
               "parts": [],
               "look": "Check the typical sites: pouch of Douglas, right subphrenic space, ileocaecal region, sigmoid mesocolon and paracolic gutters.",
-              "tip": "Deposits follow the flow of ascites: look where fluid pools and is absorbed."
+              "tip": "Map actual acquired surfaces and deposits; fluid distribution is a search aid, not proof of metastases. Ascites alone is nonspecific."
             },
             {
               "label": "Omentum",
@@ -13237,7 +14867,7 @@
               "landmark": "spaces",
               "parts": [],
               "look": "Porta hepatis, hepatoduodenal ligament, lesser sac, diaphragmatic surfaces and liver capsule.",
-              "tip": "Disease at the porta hepatis or small-bowel mesentery root can preclude complete cytoreduction."
+              "tip": "Describe precise porta-hepatis/root involvement and source uncertainty. Technical feasibility and complete cytoreduction require primary-specific multidisciplinary assessment."
             },
             {
               "label": "Primary and other spread",
@@ -13249,14 +14879,14 @@
               "findings": [
                 "Primary tumour in the [ ].",
                 "Liver parenchymal metastases.",
-                "Peritoneal cancer index estimate: __ (13 regions, 0\u20133 each)."
+                "CT-estimated peritoneal cancer index: __ (13 regions, 0\u20133 each); state each regional contribution, source coverage and limitations."
               ],
               "images": [],
               "measurements": [],
               "landmark": "solid",
               "parts": [],
               "look": "The likely primary organ, liver parenchyma, nodes and lungs in the field.",
-              "tip": "CT underestimates small serosal and mesenteric deposits."
+              "tip": "CT can miss small serosal/mesenteric deposits. Imaging PCI is not operative PCI and does not independently determine resectability."
             }
           ],
           "finish": {
@@ -13304,10 +14934,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "077d1e1fb08a7d3509483129927010a97157b57d87bb794b8d080192c358ce8d",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -13337,7 +14967,428 @@
             "reviewed_at": "2026-09-23"
           }
         ],
-        "structure_atlas": [],
+        "structure_atlas": [
+          {
+            "id": "open-peritoneal-metastatic-pmc8589944-fig3",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig3.jpg",
+            "width": 1594,
+            "height": 963,
+            "sha256": "fc3bf2371d6b23f64aca59d6233bd55fba0ceed20eb33daea3a7fd3094a91a6b",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig3",
+            "figure_number": 3,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig3",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig3",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig3",
+                "b": "peritoneal_source_case_fig3"
+              }
+            },
+            "caption": "Source hepatoduodenal-ligament and hepatorenal-recess observations on CT A, with an operative view B retained separately.",
+            "alt": "Source hepatoduodenal-ligament and hepatorenal-recess observations on CT A, with an operative view B retained separately.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 3 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-metastatic-pmc8589944-fig4",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig4.jpg",
+            "width": 1595,
+            "height": 515,
+            "sha256": "9ecb461a595ba25e5176a3de9ad81cd6319ac0cf3d08b48d506292cc26c515d9",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig4",
+            "figure_number": 4,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig4",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig4",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig4",
+                "b": "peritoneal_source_case_fig4"
+              }
+            },
+            "caption": "Source pelvic/pouch-of-Douglas mass on CT A with a separate operative view B; the image pair is not calibrated 3D geometry.",
+            "alt": "Source pelvic/pouch-of-Douglas mass on CT A with a separate operative view B; the image pair is not calibrated 3D geometry.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 4 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-metastatic-pmc8589944-fig8",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig8.jpg",
+            "width": 1595,
+            "height": 747,
+            "sha256": "8def0fb6c769678da74de0fd9072f90fffae90ebba4de443a0802acfad691289",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig8",
+            "figure_number": 8,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig8",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig8",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig8",
+                "b": "peritoneal_source_case_fig8"
+              }
+            },
+            "caption": "Source omental-cake appearance on CT A and corresponding operative omental involvement B; complete source extent remains unapproved.",
+            "alt": "Source omental-cake appearance on CT A and corresponding operative omental involvement B; complete source extent remains unapproved.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 8 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-metastatic-pmc8589944-fig9",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig9.jpg",
+            "width": 1595,
+            "height": 579,
+            "sha256": "1b61a98780f32b58f8b6ce95367df9556a39cb1d23bdef1bd19109cfd1cfa94d",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig9",
+            "figure_number": 9,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig9",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig9",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig9",
+                "b": "peritoneal_source_case_fig9"
+              }
+            },
+            "caption": "Source CT-enteroclysis bowel-serosal/loop changes A with operative deposits B. A routine CT cannot borrow the enteroclysis protocol or surgical visibility.",
+            "alt": "Source CT-enteroclysis bowel-serosal/loop changes A with operative deposits B. A routine CT cannot borrow the enteroclysis protocol or surgical visibility.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 9 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-metastatic-pmc8589944-fig11",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig11.jpg",
+            "width": 1595,
+            "height": 798,
+            "sha256": "349dfbee444a31da14b5777317a4b03fcb3dfcc22a921a27bf2f8b0aec12e8ae",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig11",
+            "figure_number": 11,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig11",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig11",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig11",
+                "b": "peritoneal_source_case_fig11"
+              }
+            },
+            "caption": "Source mesenteric fat change on CT-enteroclysis A, paired with small implants described at surgery B. CT appearance alone does not establish microscopic implants.",
+            "alt": "Source mesenteric fat change on CT-enteroclysis A, paired with small implants described at surgery B. CT appearance alone does not establish microscopic implants.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 11 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-metastatic-pmc8589944-fig15",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig15.jpg",
+            "width": 1594,
+            "height": 704,
+            "sha256": "f597b60eda43049cb4879ccc1b9cc871856ef83a0335112c9344f1eedca9e068",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig15",
+            "figure_number": 15,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig15",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig15",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig15",
+                "b": "peritoneal_source_case_fig15"
+              }
+            },
+            "caption": "Source distorted/retracted mesentery and bowel-wall changes on CT A, with operative involvement B; this does not independently decide cytoreduction suitability.",
+            "alt": "Source distorted/retracted mesentery and bowel-wall changes on CT A, with operative involvement B; this does not independently decide cytoreduction suitability.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 15 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          },
+          {
+            "id": "open-peritoneal-metastatic-pmc8589944-fig16",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/peritoneal-pmc8589944-fig16.jpg",
+            "width": 1594,
+            "height": 591,
+            "sha256": "5c3995f6d965bc6f1e52f5f56935210c649f52fd226e230f31fe1b92ce98976c",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8589944/#Fig16",
+            "figure_number": 16,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8589944.1/PMC8589944.1.pdf?md5=b3720090ffb57fe8a12608a0d762116f",
+            "modality": "CT",
+            "clinical_panels": [
+              "a"
+            ],
+            "image_state": "peritoneal_source_case_fig16",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "peritoneal_source_case_fig16",
+              "extent": "local",
+              "selected_panels": [
+                "a"
+              ],
+              "panel_types": {
+                "a": "CT",
+                "b": "Clinical photograph"
+              },
+              "panel_states": {
+                "a": "peritoneal_source_case_fig16",
+                "b": "peritoneal_source_case_fig16"
+              }
+            },
+            "caption": "Source mucinous/gelatinous peritoneal material and organ-surface scalloping on CT A, with operative material B. CT distribution alone is not histological proof.",
+            "alt": "Source mucinous/gelatinous peritoneal material and organ-surface scalloping on CT A, with operative material B. CT distribution alone is not histological proof.",
+            "structures_visible": [
+              "Source-described local peritoneal/omental/mesenteric observation; full reporting anatomy not approved"
+            ],
+            "ancillary_panels": [
+              {
+                "kind": "Clinical photograph",
+                "panels": [
+                  "b"
+                ],
+                "structures_visible": [
+                  "Source operative/specimen context"
+                ],
+                "limits": "Separate clinical photograph, not CT; no calibrated anatomy, histology or independent registered spatial correspondence is inferred."
+              }
+            ],
+            "limits": "Original selected CT section only: no calibrated native DICOM volume, independently verified full surfaces/implant boundaries, actual source-phase timing or patient-specific 3D reconstruction. Operative/specimen photograph B is separate clinical context and cannot supply CT features, histology or operative eligibility. Source arrows/labels and operative correspondence are author descriptions, not independent anatomical approval.",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2021 Panagiota Berta Panagiotopoulou, Nikos Courcoutsakis, Apostolos Tentes, Panos Prassopoulos. CT imaging of peritoneal carcinomatosis with surgical correlation: a pictorial review. DOI 10.1186/s13244-021-01110-6. CC BY 4.0. Original complete Figure 16 JPEG retained from verified publication PDF without pixel alteration. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "rights_reviewed_on": "2026-10-04",
+            "rights_review": "Original XML CC BY 4.0 grant and selected captions checked; original media/PDF MD5 and complete encoded stream readback verified."
+          }
+        ],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.peritoneum",
@@ -19587,7 +21638,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -23755,7 +25806,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26389,7 +28440,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -26784,7 +28835,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -48711,7 +50762,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3837cb4967ef6463344907b56bfa5df8419b69f2cf739cb686993a5de75ca379",
+      "structure_inventory_sha256": "2282e3c0d272bfc2833340482e971fba29454849dc883547553f17406663c5d4",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -108656,11 +110707,11 @@
           "approach": [
             {
               "step": "Decide the morphological type first",
-              "detail": "Interstitial oedematous pancreatitis enhances normally throughout with mild surrounding fatty infiltration. Necrotising pancreatitis has non-enhancing parenchyma."
+              "detail": "Assess adequately acquired enhancement and pancreatic or peripancreatic necrosis; preserved gland enhancement does not exclude extrapancreatic necrosis."
             },
             {
               "step": "Date the episode",
-              "detail": "Everything downstream hangs on whether you are before or after four weeks from onset. Get the date of onset, not the date of admission."
+              "detail": "Record symptom onset alongside content and actual encapsulation. Calendar age alone does not establish collection maturity."
             },
             {
               "step": "Name each collection",
@@ -108668,7 +110719,7 @@
             },
             {
               "step": "Look for gas and for infection",
-              "detail": "Gas within a collection in a patient who has had no intervention points to infected necrosis."
+              "detail": "Collection gas raises concern for infection; also review interventions and possible enteric fistula."
             },
             {
               "step": "Check the vessels",
@@ -108676,13 +110727,13 @@
             },
             {
               "step": "Grade the severity against the clinical course",
-              "detail": "Severity is defined by organ failure and its duration, not by how bad the CT looks."
+              "detail": "Clinical severity uses qualifying organ failure, its duration and local/systemic complications; CT morphology alone is insufficient."
             }
           ],
           "measure": [
             {
               "what": "Time from onset",
-              "how": "First day of pain, not the day of the scan. It separates the acute collections from the encapsulated ones.",
+              "how": "Use symptom onset, not admission. The interval informs classification but does not replace observed wall/content.",
               "cutoff": "4 weeks"
             },
             {
@@ -108693,7 +110744,7 @@
             {
               "what": "Organ failure duration",
               "how": "From the clinical record, not the images.",
-              "cutoff": "Transient < 48 h \u00b7 Persistent > 48 h"
+              "cutoff": "Transient: resolves within 48 h \u00b7 Persistent: lasts beyond 48 h"
             }
           ],
           "classify": {
@@ -108710,12 +110761,12 @@
                 "APFC \u2014 acute peripancreatic fluid collection",
                 "< 4 weeks",
                 "Fluid only",
-                "Not or partially encapsulated",
+                "No definable wall",
                 "Interstitial oedematous pancreatitis"
               ],
               [
                 "Pseudocyst",
-                "> 4 weeks",
+                "Usually after about 4 weeks",
                 "Fluid only",
                 "Fully encapsulated",
                 "Interstitial oedematous pancreatitis"
@@ -108729,13 +110780,13 @@
               ],
               [
                 "WON \u2014 walled-off necrosis",
-                "> 4 weeks",
+                "Usually after about 4 weeks",
                 "Fluid and necrotic material",
                 "Fully encapsulated",
                 "Necrotising pancreatitis"
               ]
             ],
-            "note": "A pseudocyst requires four or more weeks to develop. Calling a collection a pseudocyst in week one is the commonest error in this classification."
+            "note": "The interval is typical evolution, not an automatic day-28 switch. Describe content and actual wall maturity; uncertain features remain explicit."
           },
           "modifiers": [
             {
@@ -108754,8 +110805,8 @@
           "template": "TECHNIQUE\nContrast-enhanced CT of the abdomen, portal venous phase. Day [n] from onset of symptoms.\n\nFINDINGS\nType: [interstitial oedematous / necrotising] pancreatitis.\nParenchymal non-enhancement: [absent / present \u2014 head / body / tail, approximate extent].\nCollections: [none / APFC / pseudocyst / ANC / WON] \u2014 site [ ], size [n] \u00d7 [n] \u00d7 [n] mm, [fluid only / fluid and necrotic debris], [not / partially / fully] encapsulated.\nGas within a collection: [absent / present \u2014 no prior intervention].\nVascular: splenic vein [patent / thrombosed]; portal and SMV [ ]; pseudoaneurysm [absent / present \u2014 vessel].\nBiliary: [ ]. Bowel: [ ].\n\nIMPRESSION\n1. [Interstitial oedematous / necrotising] pancreatitis, day [n].\n2. [Collection named by the revised Atlanta terminology, with site and size.]\n3. [Gas / vascular complication and what it implies.]",
           "pitfalls": [
             "Scanning too early. In the first days a necrotic gland can still enhance, and the extent of necrosis is under-read.",
-            "Calling every well-defined collection a pseudocyst. Before four weeks it is an APFC or an acute necrotic collection, and an ANC containing debris is not a pseudocyst at any age.",
-            "Reporting severity from the images. Severity in the revised Atlanta system is organ failure and its duration; your CT describes morphology and complications.",
+            "Classifying collection maturity by calendar age alone. Describe debris and complete versus incomplete encapsulation.",
+            "Assigning clinical severity from CT alone. Assess qualifying clinical organ failure/duration and local/systemic complications.",
             "Missing a pseudoaneurysm because only a portal venous phase was acquired. If there is unexplained haemorrhage, ask for arterial phase.",
             "Ignoring splenic vein thrombosis. It is the route to left-sided portal hypertension and gastric varices."
           ]
@@ -109021,21 +111072,21 @@
             "kind": "illustration",
             "src": "/app/illustrations/forest/radiology/rad-5-pancreas-acute-800.webp",
             "srcset": "/app/illustrations/forest/radiology/rad-5-pancreas-acute-800.webp 800w, /app/illustrations/forest/radiology/rad-5-pancreas-acute-1600.webp 1600w",
-            "alt": "A radiology reasoning diagram for Acute Pancreatitis: Revised Atlanta and its Complications linking Classify severity, Name by time, and Find complication.",
-            "caption": "Time and collection contents determine the correct acute-pancreatitis name and action.",
+            "alt": "A radiology reasoning diagram for Acute Pancreatitis: Revised Atlanta and its Complications linking Clinical severity, Assess collection, and Find complication.",
+            "caption": "Collection content, wall maturity and clinical context guide acute-pancreatitis assessment.",
             "long_description": {
               "title": "Acute Pancreatitis: Revised Atlanta and its Complications",
               "mode": "compare",
               "items": [
                 {
-                  "heading": "Classify severity",
-                  "label": "Classify severity",
-                  "detail": "Clinical course and organ failure frame what imaging must answer."
+                  "heading": "Clinical severity",
+                  "label": "Clinical severity",
+                  "detail": "Organ failure, duration and local/systemic complications require clinical context."
                 },
                 {
-                  "heading": "Name by time",
-                  "label": "Name by time",
-                  "detail": "Early fluid or necrosis evolves into walled collections later."
+                  "heading": "Assess collection",
+                  "label": "Assess collection",
+                  "detail": "Time, contents and actual wall maturity are assessed together."
                 },
                 {
                   "heading": "Find complication",
@@ -109043,7 +111094,7 @@
                   "detail": "Gas, haemorrhage and vascular injury change intervention."
                 }
               ],
-              "takeaway": "Time and collection contents determine the correct acute-pancreatitis name and action."
+              "takeaway": "Collection content, wall maturity and clinical context guide acute-pancreatitis assessment."
             },
             "width": 1600,
             "height": 1000
@@ -109066,15 +111117,15 @@
         "quiz": [
           {
             "kind": "choice",
-            "prompt": "A 48-year-old man is scanned on day 6 of severe alcohol-related pancreatitis. Contrast-enhanced CT shows the pancreatic body failing to enhance over roughly 40% of the gland, and a heterogeneous collection containing both fluid and fat density tracking into the lesser sac, with no discernible wall. How should this be reported, and what follows from it?",
-            "answer": "An acute necrotic collection; it is heterogeneous and unencapsulated, so intervention waits unless infection forces the issue",
+            "prompt": "A 48-year-old man is scanned on day 6 of acute alcohol-associated pancreatitis. Contrast-enhanced CT shows the pancreatic body failing to enhance over roughly 40% of the gland, and a heterogeneous collection containing both fluid and fat density tracking into the lesser sac, with no discernible wall. How should this be reported, and what follows from it?",
+            "answer": "An acute necrotic collection; describe its immature wall and extent, with intervention decisions requiring multidisciplinary assessment",
             "choices": [
               "An acute peripancreatic fluid collection; homogeneous fluid without necrosis, and most of these resolve with supportive care alone",
               "A pancreatic pseudocyst; a mature wall has formed around simple fluid, so an endoscopic cyst-gastrostomy can be planned now",
-              "An acute necrotic collection; it is heterogeneous and unencapsulated, so intervention waits unless infection forces the issue",
+              "An acute necrotic collection; describe its immature wall and extent, with intervention decisions requiring multidisciplinary assessment",
               "Walled-off necrosis; the necrosis has matured inside a defined capsule, so transmural necrosectomy can be undertaken safely"
             ],
-            "explain": "The revised Atlanta classification (2012) sorts collections on two axes: does the collection contain necrotic debris, and is it older than four weeks. Heterogeneous content with fat density plus a non-enhancing gland means necrosis, and day 6 is inside the four-week window, so this is an acute necrotic collection. An acute peripancreatic fluid collection is the same age but arises in interstitial oedematous pancreatitis and is homogeneous fluid only. Pseudocyst and walled-off necrosis are the mature, encapsulated counterparts after four weeks. The distinction is not pedantry: a collection without a wall drains badly and tends to leave a persistent fistula, so unless there is infection or obstruction, the discipline is to wait for encapsulation before intervening.",
+            "explain": "Necrotic content and incomplete encapsulation in this early episode support an acute necrotic collection. Imaging describes the anatomy and maturity; symptoms, infection, complications and clinical stability determine intervention needs. A fixed wait based only on the calendar is insufficient.",
             "ephemeral": false
           },
           {
@@ -109099,22 +111150,28 @@
           },
           {
             "kind": "choice",
-            "prompt": "A woman with gallstone pancreatitis becomes hypotensive on the evening of admission and needs 3 litres of fluid; her blood pressure and creatinine are normal again by the following afternoon, some 30 hours after the dysfunction began. She has a peripancreatic collection on day 5. How should the episode be graded, and what does that imply?",
-            "answer": "Moderately severe: the organ failure was transient, resolving within 48 hours, and mortality is far lower than with persistent failure",
+            "prompt": "A woman with gallstone pancreatitis has hypotension that responds to fluids and resolves within 30 hours. No qualifying respiratory or renal organ failure is documented. CT on day 5 shows a peripancreatic collection. How should the episode be graded from the stated findings?",
+            "answer": "Moderately severe because a local complication is present without documented persistent organ failure",
             "choices": [
               "Severe: any documented organ dysfunction defines severe disease, whatever the duration, because it marks a systemic inflammatory response",
-              "Moderately severe: the organ failure was transient, resolving within 48 hours, and mortality is far lower than with persistent failure",
+              "Moderately severe because a local complication is present without documented persistent organ failure",
               "Mild: dysfunction that corrects with fluid does not count as organ failure, and a collection on its own does not raise the grade",
               "Severe: the peripancreatic collection is a local complication and it upgrades the episode independently of the organ failure course"
             ],
-            "explain": "The revised Atlanta classification (2012) has three severity grades. Mild means no organ failure and no local or systemic complications. Moderately severe means transient organ failure that resolves within 48 hours, or a local complication such as a collection, or exacerbation of comorbid disease. Severe means persistent organ failure lasting beyond 48 hours. Organ failure itself is defined by a modified Marshall score of 2 or more in the respiratory, renal or cardiovascular system, so a blood pressure that responds to fluid is still counted while it lasts; the discriminator is duration, not whether it responded. This matters because persistent organ failure, especially when combined with infected necrosis, is where the mortality sits, and it is the trigger for critical care escalation and transfer to a pancreatic unit.",
+            "explain": "The collection is a local complication and supports moderately severe acute pancreatitis without documented persistent organ failure. Fluid-responsive hypotension alone does not establish modified Marshall organ failure; qualifying clinical measurements and duration must be assessed. CT morphology cannot supply missing clinical severity data.",
             "ephemeral": false
           },
           {
-            "kind": "numeric",
-            "prompt": "Symptoms began on day 0. A CT on day 26 shows a necrotic collection with a partially formed, incomplete wall. How many further days must elapse before the revised Atlanta terminology permits the report to say walled-off necrosis? Answer in days, as a whole number.",
-            "answer": "2",
-            "explain": "The revised Atlanta classification (2012) sets the boundary at four weeks from symptom onset, which is day 28, so from day 26 there are two days to go. Two cautions. First, the clock starts at symptom onset, not at admission or at the first scan, and patients often present late; take the history rather than the ward round date. Second, four weeks is necessary but not sufficient: walled-off necrosis also requires a mature, well-defined enhancing wall completely encircling the heterogeneous content. A day-40 collection with an incomplete rind is still best described as an evolving acute necrotic collection. Getting this right is what tells the endoscopist whether a lumen-apposing metal stent has something to seat against.",
+            "kind": "choice",
+            "prompt": "Symptoms began on day 0. CT on day 26 shows a necrotic collection with an incomplete wall. What should the report say about maturity?",
+            "answer": "Describe the incomplete encapsulation; reaching day 28 alone will not establish walled-off necrosis.",
+            "choices": [
+              "Describe the incomplete encapsulation; reaching day 28 alone will not establish walled-off necrosis.",
+              "Call walled-off necrosis now because any visible wall is sufficient.",
+              "Wait exactly two days and call walled-off necrosis without reassessing the wall.",
+              "Call a pseudocyst because a partially formed wall excludes necrotic debris."
+            ],
+            "explain": "Document onset, necrotic content and actual encapsulation. Calendar age alone cannot establish a mature enclosing wall. Collection classification and intervention planning require the observed morphology and clinical context.",
             "ephemeral": false
           },
           {
@@ -109146,14 +111203,14 @@
           {
             "kind": "choice",
             "prompt": "A patient with a large walled-off necrosis at week 5 has new fever and rising inflammatory markers. CT shows several small gas locules within the collection. There has been no drain, no endoscopy and no gastrointestinal instrumentation. What do you conclude and recommend?",
-            "answer": "Gas here indicates infected necrosis; recommend sampling and culture-directed antibiotics with a planned drainage pathway",
+            "answer": "Strong concern for infected necrosis; prompt multidisciplinary review, with instrumentation and possible enteric fistula considered",
             "choices": [
               "Gas is expected within maturing necrosis; recommend supportive care alone, with a repeat scan in a fortnight to reassess the collection",
               "Gas indicates a fistula to the stomach or duodenum; recommend an urgent water-soluble contrast study before anything else",
               "Gas mandates immediate open necrosectomy; recommend theatre today because delay in this setting is what drives mortality",
-              "Gas here indicates infected necrosis; recommend sampling and culture-directed antibiotics with a planned drainage pathway"
+              "Strong concern for infected necrosis; prompt multidisciplinary review, with instrumentation and possible enteric fistula considered"
             ],
-            "explain": "In an untouched collection, extraluminal gas is the one CT finding that is close to specific for infection. Everything else, including size, wall thickness and the patient's temperature, is suggestive at best, which is why fine-needle aspiration is still used where the picture is ambiguous. Two caveats keep you honest: a drain, a transmural stent or recent endoscopy puts gas in a collection innocently, and a spontaneous fistula to the gut can do the same, so the history matters more than the pixels. Sterile necrosis does not need antibiotics, and prophylactic antibiotics in necrotising pancreatitis have not been shown to help. Infection changes the plan to drainage, but it does not by itself mean an operation today.",
+            "explain": "Gas with clinical deterioration raises strong concern for infection, while instrumentation and enteric fistula can also introduce gas. Prompt specialist assessment is appropriate. Routine CT-guided needle aspiration is unnecessary in most cases; sampling and drainage decisions depend on clinical uncertainty and the planned management pathway.",
             "ephemeral": false
           },
           {
@@ -109211,7 +111268,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "884470c50e1a09cd3b69f39990b5983b327acdcdb2abb2496eb9880d596e0c23",
+      "module_contract_sha256": "f2b2d27a9ec7017540b61b67a961f412c646300e4b32baa60de71b520bb9b1f7",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
@@ -109329,11 +111386,11 @@
             },
             {
               "code": "Main pancreatic duct > 3 mm",
-              "meaning": "Duct dilatation, one of the features favouring neoplasm over pseudocyst in a cystic lesion."
+              "meaning": "Report actual duct calibre and clinical context; dilatation alone does not distinguish cystic neoplasm from inflammatory or obstructive causes."
             },
             {
-              "code": "Main pancreatic duct > 8 mm",
-              "meaning": "In IPMN, a malignancy indicator, alongside a solid node in the duct or a mass around the duct."
+              "code": "IPMN duct diameter \u2014 named framework",
+              "meaning": "For presumed IPMN under Kyoto 2024, main duct 5 to under 10 mm is a worrisome feature and at least 10 mm is a high-risk stigma. Assess obstruction, other criteria and clinical context; calibre alone does not prove malignancy or surgical suitability."
             }
           ],
           "template": "TECHNIQUE\nPancreatic protocol CT: late arterial and portal venous phases, [water as neutral oral contrast], thin-section reformats.\n\nFINDINGS\nTumour: [head / uncinate / body / tail], [n] mm, [hypodense / isodense with secondary signs].\nDucts: main pancreatic duct [n] mm, common bile duct [n] mm \u2014 [double duct sign / interrupted duct / normal].\nArteries: coeliac axis [n]\u00b0 contact; common hepatic artery [n]\u00b0; superior mesenteric artery [n]\u00b0. Contour [normal / irregular].\nVeins: superior mesenteric vein [n]\u00b0; portal vein [n]\u00b0. Contour [normal / teardrop deformity / occluded / thrombosed].\nArterial variants: [none / replaced right hepatic artery from the SMA / other]. Coeliac stenosis: [absent / present].\nPathway-region soft tissue concerning for perineural spread: [ ]. Microscopic invasion is not established by CT. Mesentery and mesocolon: [ ].\nNodes: regional [ ]; extra-regional [ ].\nMetastases: liver [ ], peritoneum [ ], lungs [ ].\n\nIMPRESSION\n1. Pancreatic [head / body / tail] mass, [n] mm, [suspicious for adenocarcinoma / known source diagnosis / differential].\n2. Vascular summary: [artery/vein] [n]\u00b0 with [length/contour/patency]. Framework/version and treatment time point: [ ]. Multidisciplinary resectability assessment: [ ].\n3. [Arterial variant that changes the operation.]\n4. [Metastatic disease.]",
@@ -109711,9 +111768,9 @@
           },
           {
             "kind": "numeric",
-            "prompt": "A 62-year-old has an incidental branch-duct IPMN. MRI shows a 3.4 cm cyst in the uncinate process, a main pancreatic duct of 6 mm, a thickened enhancing cyst wall, no mural nodule, no lymphadenopathy, a normal bilirubin and a normal CA 19-9. Count the worrisome features present under the international consensus (Fukuoka) criteria. Answer as a whole number.",
+            "prompt": "A 62-year-old has an incidental branch-duct IPMN. MRI shows a 3.4 cm cyst in the uncinate process, a main pancreatic duct of 6 mm, a thickened enhancing cyst wall, no mural nodule, no lymphadenopathy, a normal bilirubin and a normal CA 19-9. Count the worrisome features present under the 2017 international consensus (Fukuoka) criteria. Answer as a whole number.",
             "answer": "3",
-            "explain": "The three are the cyst measuring 3 cm or more, a main pancreatic duct of 5 to 9 mm, and a thickened or enhancing cyst wall. The other worrisome features in the international consensus criteria (2017 revision, carried into the 2024 Kyoto update) are an enhancing mural nodule under 5 mm, an abrupt change in duct calibre with distal parenchymal atrophy, lymphadenopathy, a raised serum CA 19-9, a growth rate of 5 mm or more over two years, and acute pancreatitis attributable to the cyst. They are distinct from the high-risk stigmata, which are obstructive jaundice with a cystic head lesion, an enhancing mural nodule of 5 mm or more, and a main duct of 10 mm or more. Worrisome features send the patient to endoscopic ultrasound; high-risk stigmata send fit patients to the surgeon.",
+            "explain": "Under the stated Fukuoka 2017 framework, the three findings are cyst size at least 3 cm, main duct 5 to under 10 mm, and thickened/enhancing wall. Report each finding. Do not present this as the complete Kyoto 2024 criteria set or as a stand-alone surgical decision.",
             "ephemeral": false
           },
           {
@@ -109778,27 +111835,27 @@
           {
             "kind": "choice",
             "prompt": "A 71-year-old woman has an incidental 4 cm pancreatic body lesion made of many small cysts each under 2 cm, with a central stellate scar containing calcification, no communication with the main pancreatic duct and no mural nodule. She is asymptomatic. What should you advise?",
-            "answer": "The features are those of a serous cystadenoma, which is benign; advise no resection and no surveillance while she stays asymptomatic",
+            "answer": "A serous cystic neoplasm pattern is favoured; avoid automatic resection and base further assessment/follow-up on diagnostic confidence, symptoms and the named guideline.",
             "choices": [
               "The features indicate a mucinous cystic neoplasm; advise distal pancreatectomy given the malignant potential of every mucinous lesion",
               "The features indicate a branch-duct IPMN; advise endoscopic ultrasound and then annual MRI surveillance, given a size above the 3 cm threshold",
               "The features suggest a walled-off collection after silent pancreatitis; advise a repeat scan at three months to confirm resolution",
-              "The features are those of a serous cystadenoma, which is benign; advise no resection and no surveillance while she stays asymptomatic"
+              "A serous cystic neoplasm pattern is favoured; avoid automatic resection and base further assessment/follow-up on diagnostic confidence, symptoms and the named guideline."
             ],
-            "explain": "The microcystic honeycomb with a central scar, sometimes with a sunburst calcification, is characteristic of serous cystadenoma, a lesion of older women with negligible malignant potential; the cyst fluid has low CEA and low amylase. Resection is for symptoms from mass effect, not for the diagnosis. The lesion to separate it from is the mucinous cystic neoplasm: also usually in the body or tail of a woman but typically in the fifth decade, unilocular or with few large locules, a thick wall with peripheral eggshell calcification, ovarian-type stroma histologically, and no ductal communication; it carries malignant potential and is resected in fit patients. Where the appearances are equivocal, especially the oligocystic variant of serous cystadenoma, endoscopic ultrasound with fluid analysis decides.",
+            "explain": "The honeycomb/central-scar pattern favours a serous cystic neoplasm, but morphology is not histology. A confident diagnosis and symptoms matter; different named guidelines use different follow-up approaches. An equivocal or macrocystic lesion requires appropriate further assessment rather than a blanket benign/no-follow-up label.",
             "ephemeral": false
           },
           {
             "kind": "short",
             "prompt": "Give the features on cross-sectional imaging that let you separate a mucinous cystic neoplasm from a branch-duct IPMN, and say why the distinction changes what you recommend.",
-            "answer": "A mucinous cystic neoplasm sits in the body or tail, has a thick wall sometimes with peripheral calcification, and does not communicate with the pancreatic duct; a branch-duct IPMN does communicate with the duct and favours the head and uncinate, so it can be surveilled while a mucinous cystic neoplasm is generally resected.",
+            "answer": "Duct communication favours branch-duct IPMN in the appropriate setting; a body/tail macrocystic lesion without demonstrated communication may favour MCN. Neither imaging pattern alone establishes histology. Recommend assessment under a named guideline using size, nodules, symptoms and patient fitness, rather than automatic resection of every presumed MCN.",
             "keywords": [
               "duct",
               "communicate",
               "tail",
               "wall"
             ],
-            "explain": "Ductal communication is the single most useful sign and is best shown on heavily T2-weighted MRCP, where a branch-duct IPMN is a grape-like cluster joined to the main duct by a visible stalk. A mucinous cystic neoplasm is a closed cyst with its own thick, sometimes calcified wall, characteristically in the body or tail of a woman in middle age. The consequence is practical: a small branch-duct IPMN without worrisome features goes into surveillance, whereas a mucinous cystic neoplasm in a fit patient is usually resected because malignant transformation is a real risk and distal pancreatectomy is curative. The trap is calling a unilocular mucinous cystic neoplasm a pseudocyst on the strength of a vague history of abdominal pain.",
+            "explain": "Assess actual MRCP duct communication, cyst architecture, wall/nodule enhancement and clinical context. Absence of visible communication may reflect limited imaging. European 2018 guidance permits surveillance of selected presumed MCN below 40 mm without symptoms or suspicious mural nodules; type alone is not an operative directive.",
             "ephemeral": false
           },
           {
@@ -109856,7 +111913,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "d89c1322c78b547a2af5b597c83ee2218af1a886564cc5faf724ef90058aac24",
+      "module_contract_sha256": "35f0365fd0505616a787676f3e184dd92e391a4c1296cb68ee6ca8e21f644c80",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
@@ -111501,11 +113558,11 @@
             },
             {
               "step": "Treat ascites as a finding, not a background",
-              "detail": "Peritoneal nodules produce the fluid. In a cancer patient, new ascites may be the first manifestation of carcinomatosis."
+              "detail": "Ascites is nonspecific. Review fluid distribution, actual visible implants and alternative causes; new ascites alone does not establish peritoneal metastasis."
             },
             {
               "step": "Score it if cytoreduction is on the table",
-              "detail": "The Peritoneal Cancer Index divides the abdomen into 13 regions, each scored 0\u20133 by lesion size, maximum 39."
+              "detail": "If requested, report a CT-estimated PCI with each regional contribution and limitations. Imaging burden is not surgical PCI or a stand-alone eligibility decision."
             }
           ],
           "measure": [
@@ -111515,9 +113572,9 @@
               "cutoff": "Maximum 39"
             },
             {
-              "what": "PCI threshold for surgery",
-              "how": "Applied in colorectal carcinomatosis when cytoreductive surgery is being considered.",
-              "cutoff": "> 20 usually contraindicates extensive cytoreduction"
+              "what": "PCI interpretation and operative context",
+              "how": "State imaging versus surgical assessment, regional burden, primary diagnosis, treatment context and limitations. Selection for cytoreduction requires the applicable framework and multidisciplinary assessment.",
+              "cutoff": "No universal CT-score-only operative cutoff"
             }
           ],
           "classify": {
@@ -111560,13 +113617,13 @@
               ]
             ]
           },
-          "template": "TECHNIQUE\nContrast-enhanced CT of the abdomen and pelvis, portal venous phase, with coronal and sagittal reformats.\n\nFINDINGS\nAscites: [absent / present \u2014 volume, distribution].\nOmentum: [normal / nodular / heterogeneous / omental cake \u2014 size and extent].\nPeritoneal surfaces: parietal [ ], visceral [ ].\nDiaphragmatic surfaces (coronal and sagittal): [ ].\nRight paracolic gutter [ ]. Left paracolic gutter [ ]. Morison's pouch [ ].\nPouch of Douglas / rectovesical pouch [ ].\nMesenteric folds: small bowel mesentery [ ], sigmoid mesentery root [ ], ileocaecal region [ ].\nBowel: [free / serosal deposits / obstruction at (site)].\nPeritoneal Cancer Index (if requested): [n] of 39.\n\nIMPRESSION\n1. Peritoneal carcinomatosis, [extent], primary [known / suspected].\n2. [Sites relevant to cytoreduction: small bowel mesentery, porta hepatis, diaphragm.]\n3. [PCI n \u2014 above / below the threshold at which extensive cytoreduction is usually contraindicated.]",
+          "template": "TECHNIQUE\nContrast-enhanced CT of the abdomen and pelvis, portal venous phase, with coronal and sagittal reformats.\n\nFINDINGS\nAscites: [absent / present \u2014 volume, distribution].\nOmentum: [normal / nodular / heterogeneous / omental cake \u2014 size and extent].\nPeritoneal surfaces: parietal [ ], visceral [ ].\nDiaphragmatic surfaces (coronal and sagittal): [ ].\nRight paracolic gutter [ ]. Left paracolic gutter [ ]. Morison's pouch [ ].\nPouch of Douglas / rectovesical pouch [ ].\nMesenteric folds: small bowel mesentery [ ], sigmoid mesentery root [ ], ileocaecal region [ ].\nBowel: [free / serosal deposits / obstruction at (site)].\nCT-estimated Peritoneal Cancer Index (if requested): [n] of 39. Regional contributions and limitations: [ ].\n\nIMPRESSION\n1. [Findings concerning for peritoneal metastases / known source diagnosis / differential], [extent]. Source primary diagnosis/context: [ ].\n2. [Sites relevant to cytoreduction: small bowel mesentery, porta hepatis, diaphragm.]\n3. [CT-estimated PCI and regions/limitations if requested]. Cytoreduction suitability requires primary-specific multidisciplinary assessment; no automatic score-only decision.",
           "pitfalls": [
             "Reading axial images only. Diaphragmatic deposits are usually underestimated or overlooked without coronal and sagittal reformats.",
-            "Treating ascites as an incidental. The nodules produce the fluid; new ascites in a cancer patient may be the only sign of carcinomatosis.",
+            "Treating ascites as proof of metastases or a unique effect of nodules. Review actual visible deposits, clinical context and alternative fluid causes.",
             "Skipping the watershed areas. The ileocaecal region, the sigmoid mesenteric root and the pouch of Douglas are where disease pools and where it is missed.",
             "Searching organ by organ. Peritoneal disease follows the fluid pathway \u2014 up the right paracolic gutter, which is deeper than the left, to the subphrenic space.",
-            "Giving a PCI without stating which regions carried the score. The number decides whether cytoreduction proceeds; the surgeon needs to see where it came from."
+            "Giving a CT-estimated PCI without regional contributions and limitations, or allowing the number alone to determine operative suitability."
           ]
         },
         "radiology_reference": {
@@ -111937,7 +113994,7 @@
                 {
                   "heading": "Read surfaces",
                   "label": "Read surfaces",
-                  "detail": "Nodules, cake-like omentum and ascites suggest carcinomatosis."
+                  "detail": "Describe actual deposits and fluid; clinical context and differential remain necessary."
                 },
                 {
                   "heading": "Check wall",
@@ -112022,7 +114079,7 @@
               "The omental cake, which is removed at omentectomy and rarely alters the plan",
               "That CT overstates disease burden, so the index will fall at the laparotomy"
             ],
-            "explain": "Survival after cytoreduction depends more than anything on whether the resection can be complete, so the report should be organised around the findings that make completeness unlikely. Diffuse small bowel serosal disease is the classic one, because the surgeon cannot strip every loop and still leave a functioning gut; retraction at the mesenteric root, encasement of the superior mesenteric vessels, and disease at the hepatoduodenal ligament or porta hepatis carry the same weight. Ascites is common and by itself decides little. The omental cake is real disease but is resected as a block. The fourth option inverts the truth that matters most in this setting: CT underestimates peritoneal burden, especially miliary deposits, which is why diffusion-weighted MRI and staging laparoscopy are used when the decision is close.",
+            "explain": "Small-bowel serosal and mesenteric-root disease are important technical findings to communicate, together with exact extent, vessel relations and obstruction. They may limit complete cytoreduction but do not make imaging alone an operative verdict. CT can miss small deposits; primary-specific specialist assessment and additional evaluation when appropriate remain necessary.",
             "ephemeral": false
           },
           {
@@ -112132,7 +114189,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "6d7b7507b1d40447896d3e656012c4cededf79c80a8cb47a9722fcd741e79846",
+      "module_contract_sha256": "65f28a21a7360ec741f686d9a227159f115043eab2097a970d2638e23510e870",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
