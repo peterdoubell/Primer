@@ -347,6 +347,46 @@ def _validate_native_volume_figure(image, root):
             and evidence.get('annotation_geometry_overlaid') is False
             and all(re.fullmatch(r'[0-9a-f]{64}', source.get(k, '')) for k in
                     ('ct_archive_sha256', 'original_mask_sha256', 'native_review_sha256')))
+    elif doi == '10.7937/K9/TCIA.2018.SC20FO18':
+        pancreatic_sources = {
+            'arterial-labelled': (365, 1, '114104.584535',
+                'e228860b6eecf4c8ea8912112285832b380598d20c9c05ea7949772ff7df3b6c',
+                'caed65d16998a757267c661db41afb7788e15197a0645bb8c51921bec4b374b5', [154, 245, 201]),
+            'venous-labelled': (713, 2, '114147.324919',
+                '1c262fc56cb4b8d763ad28d3275a12db46f5ed4da6dabe937e629f5582b6891c',
+                'bf751cd33c964ab7ca146f186171272760d3d70657f70aae717627b3f7ef6f28', [511, 243, 199]),
+        }
+        role = source.get('source_role')
+        expected = pancreatic_sources.get(role) if isinstance(role, str) else None
+        verified_source = (expected is not None
+            and image.get('id') == 'native-cptac-c3l02112-' + role + '-ct'
+            and source.get('data_license') == 'CC BY 4.0'
+            and source.get('case_id') == 'C3L-02112'
+            and source.get('annotation_doi') == '10.7937/BW9V-BX61'
+            and source.get('publisher_per_file_md5_verified') is True
+            and source.get('ct_dicom_files') == expected[0]
+            and source.get('selected_acquisition_number') == expected[1]
+            and source.get('source_acquisition_time') == expected[2]
+            and source.get('ct_archive_sha256') == expected[3]
+            and source.get('annotation_archive_sha256') == expected[4]
+            and source.get('source_selection_sha256') == '17ee2ba3d4e227ca5ce588ed54eecd3c887840474397731c8d6e64b053332442'
+            and source.get('original_geometry_review_sha256') == 'ce923ffa19f53a83692c6c87299b65df1839d0784c7f1d4bc27b3252f49d5e63'
+            and source.get('native_section_review_sha256') == '63eb7b9635d908347535df547aba94f0f18a11f944b4f1521e9d0bf33c50b15d'
+            and evidence.get('source_shape') == [expected[0], 512, 512]
+            and evidence.get('source_sampling_zyx_mm') == [.625, .703125, .703125]
+            and evidence.get('source_slice_thickness_mm') == .625
+            and evidence.get('declared_spacing_between_slices_mm') == -.625
+            and evidence.get('observed_interplane_step_mm') == .625
+            and evidence.get('original_instance_order_signed_steps_mm') == [-.625, -.625]
+            and isinstance(evidence.get('planes'), list)
+            and all(isinstance(p, dict) for p in evidence['planes'])
+            and [(p.get('axis'), p.get('index')) for p in evidence['planes']] == list(enumerate(expected[5]))
+            and evidence.get('annotation_is_location_aid_only') is True
+            and evidence.get('runtime_reference_only') is True
+            and all(evidence.get(key) is False for key in ('source_acquisitions_interleaved_or_deduplicated',
+                'cross_acquisition_registration', 'annotation_geometry_overlaid', 'named_phase_verified',
+                'histological_diagnosis_verified', 'complete_pancreatic_anatomy_verified',
+                'source_annotation_is_whole_pancreas', 'tracking_identity_reconciled', 'source_volume_and_end_extent_reconciled')))
     elif doi == '10.7937/K9/TCIA.2018.OBLAMN27':
         verified_source = (source.get('data_license') == 'CC BY 4.0'
             and source.get('case_id') == 'C3N-03018'

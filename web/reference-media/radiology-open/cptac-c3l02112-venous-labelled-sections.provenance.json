@@ -1,0 +1,126 @@
+{
+  "source": {
+    "dataset_doi": "10.7937/K9/TCIA.2018.SC20FO18",
+    "annotation_doi": "10.7937/BW9V-BX61",
+    "data_license": "CC BY 4.0",
+    "case_id": "C3L-02112",
+    "source_role": "venous-labelled",
+    "ct_dicom_files": 713,
+    "selected_acquisition_number": 2,
+    "source_acquisition_time": "114147.324919",
+    "ct_archive_sha256": "1c262fc56cb4b8d763ad28d3275a12db46f5ed4da6dabe937e629f5582b6891c",
+    "annotation_archive_sha256": "bf751cd33c964ab7ca146f186171272760d3d70657f70aae717627b3f7ef6f28",
+    "publisher_per_file_md5_verified": true,
+    "source_selection_sha256": "17ee2ba3d4e227ca5ce588ed54eecd3c887840474397731c8d6e64b053332442",
+    "original_geometry_review_sha256": "ce923ffa19f53a83692c6c87299b65df1839d0784c7f1d4bc27b3252f49d5e63",
+    "native_section_review_sha256": "63eb7b9635d908347535df547aba94f0f18a11f944b4f1521e9d0bf33c50b15d"
+  },
+  "figure_sha256": "f3bd2576f9d422b0fe8cd0f95247edf9d14f61e93a324652875d82a0320b61fe",
+  "source_shape": [
+    713,
+    512,
+    512
+  ],
+  "source_sampling_zyx_mm": [
+    0.625,
+    0.703125,
+    0.703125
+  ],
+  "source_slice_thickness_mm": 0.625,
+  "declared_spacing_between_slices_mm": -0.625,
+  "observed_interplane_step_mm": 0.625,
+  "original_instance_order_signed_steps_mm": [
+    -0.625,
+    -0.625
+  ],
+  "planes": [
+    {
+      "axis": 0,
+      "index": 511,
+      "source_resampling": false,
+      "selected_hu_shape": [
+        132,
+        121
+      ],
+      "selected_hu_float64_le_sha256": "8cae00cbdf311c48047d2776861a280059c3149bc61d75e3b653b2a7a155adfa",
+      "display_extent_ras_mm": [
+        82.6171875,
+        -2.4609375,
+        -36.9140625,
+        55.8984375
+      ],
+      "display_origin": "upper"
+    },
+    {
+      "axis": 1,
+      "index": 243,
+      "source_resampling": false,
+      "selected_hu_shape": [
+        131,
+        121
+      ],
+      "selected_hu_float64_le_sha256": "cfda32796d93cc31797c6ce89ad0272184cd79ad1277f7fd55099b692c470d55",
+      "display_extent_ras_mm": [
+        82.6171875,
+        -2.4609375,
+        -241.5625,
+        -159.6875
+      ],
+      "display_origin": "lower"
+    },
+    {
+      "axis": 2,
+      "index": 199,
+      "source_resampling": false,
+      "selected_hu_shape": [
+        131,
+        132
+      ],
+      "selected_hu_float64_le_sha256": "17a3370910d8bd870f6c65e17cccbd6a702099255175c5ff7c4ddddbc0b2edbe",
+      "display_extent_ras_mm": [
+        55.8984375,
+        -36.9140625,
+        -241.5625,
+        -159.6875
+      ],
+      "display_origin": "lower"
+    }
+  ],
+  "axial_source_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.1078.3273.354465603310093789486344344762",
+  "crop_start_zyx": [
+    446,
+    177,
+    139
+  ],
+  "crop_stop_exclusive_zyx": [
+    577,
+    309,
+    260
+  ],
+  "display_hu_windows": [
+    [
+      -160,
+      240
+    ],
+    [
+      -600,
+      1000
+    ]
+  ],
+  "source_rescale_applied_per_object": true,
+  "annotation_is_location_aid_only": true,
+  "source_voxels_changed": false,
+  "source_acquisitions_interleaved_or_deduplicated": false,
+  "cross_acquisition_registration": false,
+  "annotation_geometry_overlaid": false,
+  "model_geometry_overlaid": false,
+  "named_phase_verified": false,
+  "histological_diagnosis_verified": false,
+  "complete_pancreatic_anatomy_verified": false,
+  "source_annotation_is_whole_pancreas": false,
+  "tracking_identity_reconciled": false,
+  "source_volume_and_end_extent_reconciled": false,
+  "clinical_approval": false,
+  "runtime_reference_only": true,
+  "selection_basis": "Each own annotation bounding-box midpoint and 25 mm physical margin, clipped to acquired extent; not measured anatomical centre or full organ coverage."
+}

@@ -196,3 +196,7 @@ Preserved/rendered all 43/49 original pancreatic contours, measured bidirectiona
 ### 4 October 2026 — exact pancreatic 3D source outlines and DICOM gap semantics
 
 Exported all 8,249 original pancreatic contour vertices as exact DICOM decimal strings and compared all 24,747 components against fresh original-archive reads. Separate native 3D line views retain the contour gap without fitted faces or end caps. [Metadata and coordinate review](cptac-pancreatic-contour-geometry.md) confirms CSV/RT volume equality in cm³ and absence of source pixel-plane grid/slab/offset/derivation declarations. DICOM grid-specific negative-plane semantics do not resolve these files. Volume construction, clinical anatomy and lesion-surface approval remain held; no representation credit or runtime promotion is claimed.
+
+### 4 October 2026 — pancreatic source CT references in the reader
+
+Added separate unmarked original arterial-labelled/venous-labelled CT composites to the pancreatic staging lesson, with visible phase/tracking/gap/end/volume limitations, attribution and pinned local provenance. [Reader review](cptac-pancreatic-reader-review.md) records local desktop/mobile/API checks. Source structure IDs and representation credit remain empty; anatomy review is pending. Only unmarked CT references enter runtime; raw archives, source contours and 3D derivatives remain offline. Full all-radiology fidelity remains incomplete.
