@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 97 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 17,340 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 584 distinct resources. One hundred forty-one have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 593 distinct resources. One hundred fifty have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -296,3 +296,7 @@ Adrenal verification passed 163 focused tests, bank/illustration/model/navigatio
 ### 4 October 2026 — original gallbladder wall/complication image packet
 
 [Gallbladder published-source review](gallbladder-published-source-review.md) preserves nine complete CC BY 4.0 ultrasound/CT/radiographic examples with publisher checksum and independent PDF colour/pixel readback. The perforation composite retains original RGB and a nonopaque soft mask in lossless RGBA, so bare JPEG extraction is not substituted for its complete presentation. Actual modality and unlettered-position roles are preserved; Doppler twinkling and CEUS stills do not supply dynamic flow, tenderness or full-phase evidence. Eleven focused checks passed. The full packet remains offline for source-background and mixed-panel reader integration; no smaller subset, model or clinical coverage is promoted. The all-radiology goal remains active and incomplete.
+
+### 4 October 2026 — complete gallbladder source packet in the local reader
+
+All nine [gallbladder source figures](gallbladder-published-source-review.md) now appear in the local reader, retaining source RGB/alpha samples and explicitly distinct ultrasound, CT and radiographic roles. Unlettered views use validated positional identifiers; source-paper white is preserved in gallery and full-size modal without colour filters or pixel edits. 196 focused checks and local API/hash plus desktop/mobile/full-size verification passed. All anatomical bindings remain empty/pending, so this does not approve the 660 gallbladder obligations or any model. Static reference rights inventory: 593 resources, 150 cleared and 443 unverified; full clinical fidelity remains unproven. The complete all-radiology scope remains active.

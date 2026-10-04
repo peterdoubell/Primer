@@ -529,18 +529,33 @@ def _structure_atlases():
                 if image['contains_schematic_panels'] is not True or not image.get('schematic_structures_visible'):
                     raise ValueError('Mixed MSK figures need separate schematic coverage')
             ancillary = image.get('ancillary_panels', [])
+            position_panels = image.get('panel_identifier_scheme') == 'position_unlettered'
+            if position_panels:
+                context = image.get('source_context', {})
+                types = context.get('panel_types', {}) if isinstance(context, dict) else {}
+                if (not isinstance(context, dict) or not isinstance(types, dict)
+                        or context.get('panel_identifier_scheme') != 'position_unlettered'
+                        or set(types) != {'left', 'middle', 'right'}
+                        or not image.get('clinical_panels')
+                        or any(types.get(p) != image['modality'] for p in image.get('clinical_panels', []))):
+                    raise ValueError('Unlettered positions need explicit source modality roles')
+            if image.get('source_background') not in (None, 'white'):
+                raise ValueError('Source background must use the reviewed paper colour')
             if not isinstance(ancillary, list):
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
                 if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Clinical photograph'}
                         or entry.get('kind') == image.get('modality')
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
-                        or any(not isinstance(panel, str) or len(panel) != 1
-                               or panel not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' for panel in entry['panels'])
+                        or any(not isinstance(panel, str) or
+                               (panel not in {'left', 'middle', 'right'} if position_panels else
+                                len(panel) != 1 or panel not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+                               for panel in entry['panels'])
                         or not isinstance(entry.get('structures_visible'), list) or not entry['structures_visible']
                         or any(not isinstance(name, str) or not name.strip() for name in entry['structures_visible'])
                         or not isinstance(entry.get('limits'), str)
-                        or not entry['limits'].strip()):
+                        or not entry['limits'].strip()
+                        or (position_panels and any(types.get(p) != entry.get('kind') for p in entry['panels']))):
                     raise ValueError('Ancillary panels need distinct types, observations and limits')
             seen.add(image['id'])
             prefix = next((p for p in ('/app/reference-media/msk-open/', '/app/reference-media/radiology-open/')

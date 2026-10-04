@@ -2172,7 +2172,8 @@ function renderMskAtlasFigures(items, { onExploreSource } = {}) {
     const figure = el('figure', { class: 'rad-anatomy-illustration' },
       el('h4', {}, (derived ? asset.figure_title : 'Figure ' + asset.figure_number + panel) + ' · ' + modality),
       el('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
-        loading: 'lazy', decoding: 'async', dataset: { fullSrc: asset.src, sourceFigure: 'true' } }),
+        loading: 'lazy', decoding: 'async', dataset: { fullSrc: asset.src, sourceFigure: 'true',
+          ...(asset.source_background === 'white' ? { paperBackground: 'white' } : {}) } }),
       el('figcaption', {}, el('p', {}, asset.caption),
         el('p', {}, el('strong', {}, asset.contains_schematic_panels ? 'Identified in imaging panels: ' : 'Identified in this figure: '), asset.structures_visible.join('; ') + '.'),
         asset.schematic_structures_visible?.length ? el('p', {}, el('strong', {}, 'Identified in schematic panels: '),
@@ -3762,6 +3763,7 @@ function openLightbox(img, opener) {
       const big = el('img', { src: fullSource,
         alt: img.getAttribute('alt') || caption || '' });
       if (img.dataset.sourceFigure === 'true') big.dataset.sourceFigure = 'true';
+      if (img.dataset.paperBackground === 'white') big.dataset.paperBackground = 'white';
       const inversionSource = img.closest('.skin-invert, .skin-invert-image');
       for (const marker of ['skin-invert', 'skin-invert-image']) {
         if (inversionSource && inversionSource.classList.contains(marker)) big.classList.add(marker);
