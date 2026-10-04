@@ -89,7 +89,9 @@ def _discover_lesson_illustrations():
             raise ValueError("Hosted lesson illustration manifest is empty")
         images = {}
         for url, record in records.items():
-            if (not re.fullmatch(r"/app/illustrations/[a-z0-9/-]+-(?:800|1600)\.webp", url)
+            if (len(url) > 256 or not url.startswith("/app/illustrations/")
+                    or not url.endswith(("-800.webp", "-1600.webp"))
+                    or not re.fullmatch(r"[a-z0-9/-]+", url.removeprefix("/app/illustrations/").removesuffix(".webp"))
                     or any(part in ("", ".", "..") for part in url.split("/")[1:])
                     or not isinstance(record, dict)
                     or set(record) != {"width", "height", "sha256"}
