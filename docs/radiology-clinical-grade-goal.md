@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 86 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 30,234 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 668 distinct resources. Two hundred twenty-five have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 671 distinct resources. Two hundred twenty-eight have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -457,3 +457,8 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 2026-10-05 — Abdominal-wall hernia fine anatomy and measurement scope
 
 [Hernia scope review](wall-hernia-fidelity-scope-review.md) defines 337 targets/1,011 obligations for wall layers, bilateral muscle/sheath/landmark, defect/sac/content, repair/mesh/fixation and complication/volume sources. Presets retain diastasis coexistence, unassessed reducibility/viability, nonvisualised mesh and actual volumetric method/denominator. HSV/ACV and HSV/(HSV+ACV) remain distinct; no guessed visceral percentage, universal threshold or guaranteed outcome is introduced. 114 focused checks and API plus desktop/mobile presets passed. All new coverage remains missing and shared lesson/management/clinical review remains pending. Full goal stays active: known floor 30,234 obligations, 86 unexpanded investigations, 106 unreconciled curriculum surfaces, total unknown. No image/model approval is granted; these changes are local and not deployed.
+
+
+### 2026-10-05 — Original hernia rest/Valsalva CT source comparisons
+
+[Hernia source review](hernia-valsalva-published-source-review.md) adds three complete original grayscale JPEGs to wall defect, map/content and muscle steps. Lower-case artwork labels, original magnifications, noncontrast Valsalva protocol and month-separated source comparisons remain explicit. Diastasis is not assigned true-defect geometry; source measurements and protocol/registration/dynamic/viability claims remain unapproved. 111 focused checks and API hashes plus desktop/mobile gallery/full-size/closure checks passed. Rights inventory: 671 resources, 228 cleared, 443 unverified. No automatic clinical/anatomy/model coverage is granted. Full goal stays active: known floor 30,234 obligations, 86 unexpanded investigations, 106 unreconciled curriculum surfaces and unknown total. These changes remain local and not deployed.
