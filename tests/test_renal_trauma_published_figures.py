@@ -11,7 +11,7 @@ REVIEW = ROOT / 'docs/renal-trauma-published-source-review'
 
 
 def source_rows():
-    return {r['figure_number']: r for r in detail(Curriculum(), resolve('ra.ct-abdominal-trauma'))['radiology_reference']['structure_atlas']}
+    return {r['figure_number']: r for r in detail(Curriculum(), resolve('ra.ct-abdominal-trauma'))['radiology_reference']['structure_atlas'] if r['id'].startswith('open-renal-trauma-')}
 
 
 def test_eleven_original_figures_keep_gray_jpegs_and_two_native_rgb_icc_pngs():
@@ -73,7 +73,7 @@ def test_distinct_patients_phases_interventions_and_historical_grades_stay_expli
 
 def test_reader_links_preserve_pending_native_anatomical_and_model_review():
     ref = detail(Curriculum(), resolve('ra.ct-abdominal-trauma'))['radiology_reference']
-    assert {i for s in ref['walkthrough']['steps'] for i in s['images'] if i.startswith('open-renal-trauma-')} == {r['id'] for r in ref['structure_atlas']}
+    assert {i for s in ref['walkthrough']['steps'] for i in s['images'] if i.startswith('open-renal-trauma-')} == {r['id'] for r in ref['structure_atlas'] if r['id'].startswith('open-renal-trauma-')}
     assets = [r for r in json.loads((ROOT / 'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith('open-renal-trauma-')]
     assert len(assets) == 11
     for row in assets:
