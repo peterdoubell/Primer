@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -664,7 +664,8 @@
         "reporting": {
           "protocol": [
             "Review trauma mechanism, haemodynamic context and the phases actually acquired.",
-            "Use arterial/venous comparison for vascular injury and appropriate delayed evaluation for suspected urinary leakage."
+            "Use arterial/venous comparison for vascular injury and appropriate delayed evaluation for suspected urinary leakage.",
+            "Record actual contrast route, phases/timing, opacification, source coverage, motion/metal artefact and trauma/intervention timing. Unacquired arterial/excretory phases and absent or inadequate retrograde CT cystography remain unassessed; one phase or a parent model cannot supply temporal bleeding, ductal continuity, perfusion or complete trajectory."
           ],
           "checklist": [
             {
@@ -702,13 +703,19 @@
           ],
           "classification": {
             "name": "AAST organ injury scales",
-            "version": "Organ-specific revision; state the year used",
+            "version": "Actual organ-specific scale and revision year; do not apply one year across organs",
             "applicability": "Traumatic injury to the organ covered by the selected scale.",
-            "summary": "Assign grade from the complete organ-specific anatomic and vascular findings; CT grade does not alone determine treatment."
+            "summary": "Describe the observed injury and unresolved extent first. Apply only the actual named organ-specific scale/revision supported by available source findings; grade remains limited or unassigned when its required evidence is unavailable. CT grade alone does not determine treatment."
           },
           "pitfalls": [
             "A negative early CT does not exclude all bowel or pancreatic duct injury.",
-            "Routine excretory contrast in the bladder is not equivalent to a properly performed CT cystogram."
+            "Routine excretory contrast in the bladder is not equivalent to a properly performed CT cystogram.",
+            "An early or limited CT cannot exclude every bowel, mesenteric, pancreatic duct or associated injury; retain injury timing, unavailable phases and unresolved interfaces.",
+            "Observed phase change must use actual corresponding anatomy, acquisition timing and blood-pool context. Absent growth or a single focal contrast appearance does not independently establish a contained vascular lesion or exclude active bleeding.",
+            "CT enhancement changes require actual acquired comparison and physiological context; a source colour or normal parent organ cannot establish perfusion, viability or infarction extent.",
+            "Free gas/fluid and a suspected tract require source-supported location and clinical interpretation; absent gas does not exclude contained or evolving injury, and dense clot does not independently prove its source.",
+            "A source-visible injury track, projected object or skin wound does not establish the full penetrating trajectory or every organ crossed; retain unresolved entry/exit and interfaces.",
+            "AAST revisions are organ-specific. The official resource lists renal 2025 and pancreatic 2024 revisions as well as the earlier 2018 spleen/liver/kidney revision; a generic 2018 label cannot supply every current scale. Numeric grade criteria require the actual applicable source and complete observations."
           ],
           "impression_prompts": [
             "Lead with active bleeding and immediately consequential injury.",
@@ -721,74 +728,90 @@
           "template_sections": [
             {
               "heading": "SOLID ORGANS",
-              "body": "Liver/spleen/kidneys/pancreas: [injury and location]. Laceration depth: [ ] cm. Devascularisation: [ ]."
+              "body": "Each actual organ and assessed coverage: [ ]. Injury region/margins, depth/haematoma extent and host interfaces: [ ]. Enhancement/devascularisation assessment: [adequate acquired source / limited / unassessed], observations and unresolved duct/hilar extent [ ]."
             },
             {
               "heading": "VASCULAR INJURY",
-              "body": "Active extravasation: [ ]. Pseudoaneurysm/AV fistula: [ ]. Hilar/major vessel injury: [ ]."
+              "body": "Vascular/bleeding assessment: [adequate actual phases / limited / unassessed]. Source phase/timing, vessel/branch and observed contrast change: [ ]. Lesion/bleeding extent and unresolved wall/hilar interfaces: [ ]."
             },
             {
               "heading": "HAEMORRHAGE",
-              "body": "Haemoperitoneum distribution: [ ]. Retroperitoneal haematoma: [ ]. Sentinel clot/site: [ ]."
+              "body": "Haemorrhage assessment: [adequate actual coverage / limited / unassessed]. Observed fluid/clot/haematoma regions, extent and possible source: [ ]. Unresolved compartment or source limits: [ ]."
             },
             {
               "heading": "BOWEL AND URINARY TRACT",
-              "body": "Bowel/mesentery: [ ]. Free gas: [ ]. Collecting-system leak: [ ]. Bladder assessment/protocol: [ ]."
+              "body": "Bowel/mesenteric assessment: [adequate actual source / limited / unassessed], observed sites/features and unresolved extent [ ]. Collecting-system assessment/excretory source: [assessed / limited / unassessed], observations [ ]. Bladder: actual retrograde cystography and distension [adequate / limited / not performed], observations/limits [ ]."
             },
             {
               "heading": "ASSOCIATED INJURY AND GRADE",
-              "body": "Diaphragm/bones/trajectory: [ ]. AAST organ-specific scale/year: [ ]. Grade/evidence: [ ]. Incomplete assessment: [ ]."
+              "body": "Actually covered diaphragm, vessels, bones and source-visible penetrating trajectory: [ ]. Observed injury/interfaces and unresolved field/track extent: [ ]. AAST organ/scale/revision year: [ ], observed criterion evidence [ ], grade [assigned / limited / unassigned]."
             }
           ],
           "sources": [
             {
               "title": "Radiology Assistant \u2014 CT in Abdominal Trauma",
               "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/ct-in-trauma"
+            },
+            {
+              "title": "AAST official organ-specific revision resources",
+              "url": "https://www.aast.org/resources/trauma-tools/organ-injury-scale.html"
+            },
+            {
+              "title": "WSES 2022 blunt and penetrating bowel injury",
+              "url": "https://doi.org/10.1186/s13017-022-00418-y"
+            },
+            {
+              "title": "WSES-AAST 2019 duodeno-pancreatic/biliary trauma",
+              "url": "https://doi.org/10.1186/s13017-019-0278-6"
+            },
+            {
+              "title": "EAU urological trauma \u2014 Actual retrograde cystography and urinary source limits",
+              "url": "https://uroweb.org/guidelines/urological-trauma/chapter/urogenital-trauma-guidelines"
             }
           ],
-          "reviewed_at": "2026-09-23"
+          "reviewed_at": "2026-10-05"
         },
         "report_templates": [
           {
-            "id": "abdominal-trauma-report",
+            "id": "ra-ct-abdominal-trauma-report",
             "title": "CT ABDOMINAL TRAUMA",
-            "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+            "description": "Reporting fields for CT abdominal trauma. Complete the relevant observations and remove unused alternatives.",
             "sections": [
               {
                 "heading": "INDICATION",
-                "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+                "body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ]."
               },
               {
                 "heading": "COMPARISON",
-                "body": "[None available / date and examination]. Relevant interval change: [ ]."
+                "body": "[None / examination and date]."
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Review trauma mechanism, haemodynamic context and the phases actually acquired.\nUse arterial/venous comparison for vascular injury and appropriate delayed evaluation for suspected urinary leakage.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+                "body": "Review trauma mechanism, haemodynamic context and the phases actually acquired.\nUse arterial/venous comparison for vascular injury and appropriate delayed evaluation for suspected urinary leakage.\nRecord actual contrast route, phases/timing, opacification, source coverage, motion/metal artefact and trauma/intervention timing. Unacquired arterial/excretory phases and absent or inadequate retrograde CT cystography remain unassessed; one phase or a parent model cannot supply temporal bleeding, ductal continuity, perfusion or complete trajectory.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
-                "body": "[IMG 1: Most consequential organ injury; series __ image __]\n[IMG 2: Arterial bleeding focus; series __ image __]\n[IMG 3: Delayed phase or associated injury; series __ image __]"
+                "body": "[IMG 1: solid organs; series __ image __]\n[IMG 2: vascular injury; series __ image __]\n[IMG 3: haemorrhage; series __ image __]"
               },
               {
                 "heading": "SOLID ORGANS",
-                "body": "Liver/spleen/kidneys/pancreas: [injury and location]. Laceration depth: [ ] cm. Devascularisation: [ ]."
+                "body": "Each actual organ and assessed coverage: [ ]. Injury region/margins, depth/haematoma extent and host interfaces: [ ]. Enhancement/devascularisation assessment: [adequate acquired source / limited / unassessed], observations and unresolved duct/hilar extent [ ]."
               },
               {
                 "heading": "VASCULAR INJURY",
-                "body": "Active extravasation: [ ]. Pseudoaneurysm/AV fistula: [ ]. Hilar/major vessel injury: [ ]."
+                "body": "Vascular/bleeding assessment: [adequate actual phases / limited / unassessed]. Source phase/timing, vessel/branch and observed contrast change: [ ]. Lesion/bleeding extent and unresolved wall/hilar interfaces: [ ]."
               },
               {
                 "heading": "HAEMORRHAGE",
-                "body": "Haemoperitoneum distribution: [ ]. Retroperitoneal haematoma: [ ]. Sentinel clot/site: [ ]."
+                "body": "Haemorrhage assessment: [adequate actual coverage / limited / unassessed]. Observed fluid/clot/haematoma regions, extent and possible source: [ ]. Unresolved compartment or source limits: [ ]."
               },
               {
                 "heading": "BOWEL AND URINARY TRACT",
-                "body": "Bowel/mesentery: [ ]. Free gas: [ ]. Collecting-system leak: [ ]. Bladder assessment/protocol: [ ]."
+                "body": "Bowel/mesenteric assessment: [adequate actual source / limited / unassessed], observed sites/features and unresolved extent [ ]. Collecting-system assessment/excretory source: [assessed / limited / unassessed], observations [ ]. Bladder: actual retrograde cystography and distension [adequate / limited / not performed], observations/limits [ ]."
               },
               {
                 "heading": "ASSOCIATED INJURY AND GRADE",
-                "body": "Diaphragm/bones/trajectory: [ ]. AAST organ-specific scale/year: [ ]. Grade/evidence: [ ]. Incomplete assessment: [ ]."
+                "body": "Actually covered diaphragm, vessels, bones and source-visible penetrating trajectory: [ ]. Observed injury/interfaces and unresolved field/track extent: [ ]. AAST organ/scale/revision year: [ ], observed criterion evidence [ ], grade [assigned / limited / unassigned]."
               },
               {
                 "heading": "IMPRESSION",
@@ -796,18 +819,39 @@
               },
               {
                 "heading": "RECOMMENDATION AND COMMUNICATION",
-                "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+                "body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method]."
               }
             ],
             "notes": [
-              "Name the grading system/version and describe active vascular findings independently of the grade.",
               "A negative early CT does not exclude all bowel or pancreatic duct injury.",
-              "Routine excretory contrast in the bladder is not equivalent to a properly performed CT cystogram."
+              "Routine excretory contrast in the bladder is not equivalent to a properly performed CT cystogram.",
+              "An early or limited CT cannot exclude every bowel, mesenteric, pancreatic duct or associated injury; retain injury timing, unavailable phases and unresolved interfaces.",
+              "Observed phase change must use actual corresponding anatomy, acquisition timing and blood-pool context. Absent growth or a single focal contrast appearance does not independently establish a contained vascular lesion or exclude active bleeding.",
+              "CT enhancement changes require actual acquired comparison and physiological context; a source colour or normal parent organ cannot establish perfusion, viability or infarction extent.",
+              "Free gas/fluid and a suspected tract require source-supported location and clinical interpretation; absent gas does not exclude contained or evolving injury, and dense clot does not independently prove its source.",
+              "A source-visible injury track, projected object or skin wound does not establish the full penetrating trajectory or every organ crossed; retain unresolved entry/exit and interfaces.",
+              "AAST revisions are organ-specific. The official resource lists renal 2025 and pancreatic 2024 revisions as well as the earlier 2018 spleen/liver/kidney revision; a generic 2018 label cannot supply every current scale. Numeric grade criteria require the actual applicable source and complete observations."
             ],
             "sources": [
               {
-                "title": "CT in Abdominal Trauma",
+                "title": "Radiology Assistant \u2014 CT in Abdominal Trauma",
                 "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/ct-in-trauma"
+              },
+              {
+                "title": "AAST official organ-specific revision resources",
+                "url": "https://www.aast.org/resources/trauma-tools/organ-injury-scale.html"
+              },
+              {
+                "title": "WSES 2022 blunt and penetrating bowel injury",
+                "url": "https://doi.org/10.1186/s13017-022-00418-y"
+              },
+              {
+                "title": "WSES-AAST 2019 duodeno-pancreatic/biliary trauma",
+                "url": "https://doi.org/10.1186/s13017-019-0278-6"
+              },
+              {
+                "title": "EAU urological trauma \u2014 Actual retrograde cystography and urinary source limits",
+                "url": "https://uroweb.org/guidelines/urological-trauma/chapter/urogenital-trauma-guidelines"
               }
             ]
           }
@@ -815,7 +859,7 @@
         "walkthrough": {
           "reviewed_at": "2026-09-25",
           "complete": true,
-          "template_id": "abdominal-trauma-report",
+          "template_id": "ra-ct-abdominal-trauma-report",
           "start": {
             "sections": [
               "INDICATION",
@@ -833,7 +877,7 @@
                 "SOLID ORGANS"
               ],
               "normal": {
-                "SOLID ORGANS": "Liver, spleen, kidneys, adrenals and pancreas intact."
+                "SOLID ORGANS": "Solid-organ assessment: [adequate actual coverage/phases / limited / unassessed]. Each assessed organ/site, observations and unresolved duct/hilar extent: [ ]."
               },
               "findings": [
                 "Splenic laceration __ cm deep with subcapsular haematoma covering about __% of the surface.",
@@ -849,7 +893,7 @@
               ],
               "landmark": "solid",
               "parts": [],
-              "look": "Portal venous phase organ by organ; arterial phase for vascular injury; excretory phase for the kidneys when acquired.",
+              "look": "Review each actually covered organ and acquired phase, source timing and artefacts. Record unresolved pancreatic duct, renal collecting-system and hilar interfaces; an early/limited CT cannot become intact organ/duct anatomy.",
               "tip": "Describe the injury features first; the grade follows from them."
             },
             {
@@ -859,7 +903,7 @@
                 "VASCULAR INJURY"
               ],
               "normal": {
-                "VASCULAR INJURY": "No active extravasation, pseudoaneurysm or major vascular injury."
+                "VASCULAR INJURY": "Vascular/bleeding assessment: [adequate acquired phases / limited / unassessed]. Actual source phase/timing, observed vessels/contrast change and limits: [ ]."
               },
               "findings": [
                 "Active arterial extravasation from the [ ] enlarging on the portal venous phase.",
@@ -874,8 +918,8 @@
               ],
               "landmark": "vessels",
               "parts": [],
-              "look": "Compare arterial and portal venous phases: active bleeding grows and changes shape; a pseudoaneurysm keeps its shape and follows the blood pool.",
-              "tip": "Active extravasation changes shape and increases in size between phases; a pseudoaneurysm does not."
+              "look": "Compare actual corresponding source sites and acquired phases with timing and blood-pool context; record missing phases and uncertain vascular/bleeding extent.",
+              "tip": "Phase-change patterns support interpretation in context. A single phase, absent apparent growth or schematic colour cannot independently establish lesion containment, complete bleeding exclusion or tissue viability."
             },
             {
               "label": "Haemoperitoneum and haematoma",
@@ -884,7 +928,7 @@
                 "HAEMORRHAGE"
               ],
               "normal": {
-                "HAEMORRHAGE": "No haemoperitoneum or retroperitoneal haematoma."
+                "HAEMORRHAGE": "Haemorrhage assessment: [adequate actual field / limited / unassessed]. Assessed compartments, observed fluid/clot and unresolved extent/source: [ ]."
               },
               "findings": [
                 "Haemoperitoneum in the [ ], with a sentinel clot adjacent to the [spleen / liver / mesentery].",
@@ -896,7 +940,7 @@
               "landmark": "spaces",
               "parts": [],
               "look": "Perihepatic, perisplenic, paracolic and pelvic spaces; the densest clot is usually next to the bleeding organ.",
-              "tip": "Free fluid without a solid-organ injury in a male trauma patient should raise suspicion of bowel or mesenteric injury."
+              "tip": "Fluid/clot patterns require source and clinical context. A dense adjacent clot suggests a possible source but does not independently establish every injured organ or exclude other bleeding."
             },
             {
               "label": "Bowel, mesentery and urinary tract",
@@ -905,7 +949,7 @@
                 "BOWEL AND URINARY TRACT"
               ],
               "normal": {
-                "BOWEL AND URINARY TRACT": "No bowel or mesenteric injury; no free gas; no urinary extravasation."
+                "BOWEL AND URINARY TRACT": "Bowel/mesenteric assessment: [adequate source / limited / unassessed], observations/unresolved extent [ ]. Collecting-system/excretory assessment: [assessed / limited / unassessed]. Retrograde bladder cystography: [adequate actual study / limited / not performed], observations/limits [ ]."
               },
               "findings": [
                 "Focal bowel wall defect with extraluminal gas at the [ ], compatible with perforation.",
@@ -919,7 +963,7 @@
               "measurements": [],
               "landmark": "bowel",
               "parts": [],
-              "look": "Bowel loops and mesentery in lung and soft-tissue windows; excretory phase for the collecting system; CT cystography for bladder injury.",
+              "look": "Review actual bowel/mesenteric source and acquired urinary phases. Record early injury, missing excretory data and absent/inadequate retrograde cystography; retain uncertain wall, duct and leak endpoints.",
               "tip": "Routine excretory contrast in the bladder is not equivalent to a properly performed CT cystogram."
             },
             {
@@ -929,19 +973,19 @@
                 "ASSOCIATED INJURY AND GRADE"
               ],
               "normal": {
-                "ASSOCIATED INJURY AND GRADE": "Diaphragm intact; no aortic, pelvic or spinal injury in the field of view."
+                "ASSOCIATED INJURY AND GRADE": "Associated-injury assessment: [adequate covered source / limited / unassessed]. Assessed diaphragm/vessel/bone/trajectory regions, findings and unresolved extent: [ ]. Grade: [actual supported organ-specific scale/revision / limited / unassigned]."
               },
               "findings": [
                 "Left hemidiaphragm rupture with herniation of the [stomach / colon] (collar sign).",
-                "AAST [organ] injury grade [ ] (2018 revision) based on [features].",
+                "AAST [organ] injury grade [ ] using [actual organ-specific scale/revision year], based on observed [features], with missing criterion evidence/limitations [ ].",
                 "Associated fractures: [ ]."
               ],
               "images": [],
               "measurements": [],
               "landmark": "solid",
               "parts": [],
-              "look": "Coronal and sagittal reformats for the diaphragm (collar and dependent-viscera signs); bone windows; trajectory for penetrating injury.",
-              "tip": "State the AAST revision used; grades from different years are not interchangeable."
+              "look": "Review actually covered diaphragm, vascular and skeletal source planes. Trace only source-visible entry/exit, course and organ interfaces; record unassessed trajectory or field. Apply the actual organ-specific grading revision with source-supported criteria.",
+              "tip": "AAST scale revisions differ by organ: identify the actual scale/year and unresolved criterion evidence. Do not default every organ to the 2018 revision or infer full grading anatomy from a schematic."
             }
           ],
           "finish": {
@@ -993,10 +1037,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "ef6c9ed217fa3346994b9e2c55cd47b6e4f32122733891a416f1778eb5dd3c15",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "9d903cd24af4e33493c99bee679a6c5a6e89e42c62c08a4920e7121cbc030381",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -2517,7 +2561,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3876,7 +3920,7 @@
       },
       "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -4525,7 +4569,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5371,7 +5415,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6456,7 +6500,7 @@
       },
       "reporting_contract_sha256": "5e2553d4b2296031280b8ff52ecb45abe99d345c0d1443b334626cf463beaa22",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -7355,7 +7399,7 @@
       },
       "reporting_contract_sha256": "51afe1e42b4980b9410d9cde3df025ec185c91efcf1ed9f5a935c60d58bce8bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -8256,7 +8300,7 @@
       },
       "reporting_contract_sha256": "157a1fd76d9cd51e73683f63e8933edf810415a86770b53e11341939ffa5288d",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9129,7 +9173,7 @@
       },
       "reporting_contract_sha256": "b9c6e28550ad5ea535af5d890dd506fe41e613a16ebce0a74013366fad0294cd",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9995,7 +10039,7 @@
       },
       "reporting_contract_sha256": "10ba145d2740780d7999bf96467d0e7a0f6651f63afc61094da04794c57a63f7",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10735,7 +10779,7 @@
       },
       "reporting_contract_sha256": "116b5af41de5f9b16a39206a18a71c0aaaa81d0814a4639683ca20164f6eb4bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12127,7 +12171,7 @@
       },
       "reporting_contract_sha256": "01ea478d05690a040c5c45211a98b70e9fb938bcf0a500f21295cb4331587776",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15535,7 +15579,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15920,7 +15964,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -16446,7 +16490,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -16867,7 +16911,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -17282,7 +17326,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18201,7 +18245,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18662,7 +18706,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19609,7 +19653,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -20415,7 +20459,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -27117,7 +27161,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -31285,7 +31329,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -33919,7 +33963,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -34314,7 +34358,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -56241,7 +56285,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "7215ed77b908470afc9ce213ad50f8d780695310dbd1858c5ea6fc5bd806cd55",
+      "structure_inventory_sha256": "cb044c1df6b7bac53ee7ac7e88494f5021db13a66d6aa9a0559830cb5083e61a",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [

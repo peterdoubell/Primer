@@ -6254,5 +6254,124 @@
       ],
       "reviewed_at": "2026-10-04"
     }
+  },
+  "ra.ct-abdominal-trauma": {
+    "reporting": {
+      "protocol": [
+        "Review trauma mechanism, haemodynamic context and the phases actually acquired.",
+        "Use arterial/venous comparison for vascular injury and appropriate delayed evaluation for suspected urinary leakage.",
+        "Record actual contrast route, phases/timing, opacification, source coverage, motion/metal artefact and trauma/intervention timing. Unacquired arterial/excretory phases and absent or inadequate retrograde CT cystography remain unassessed; one phase or a parent model cannot supply temporal bleeding, ductal continuity, perfusion or complete trajectory."
+      ],
+      "checklist": [
+        {
+          "label": "Solid organs",
+          "detail": "Map laceration, haematoma, devascularisation and hilar injury."
+        },
+        {
+          "label": "Bleeding",
+          "detail": "Distinguish active extravasation from contained pseudoaneurysm using phase change."
+        },
+        {
+          "label": "Bowel/mesentery",
+          "detail": "Look for wall defect, reduced enhancement, free gas and mesenteric injury."
+        },
+        {
+          "label": "Urinary tract",
+          "detail": "Assess renal collecting system and bladder within protocol limits."
+        },
+        {
+          "label": "Associated injury",
+          "detail": "Review diaphragm, vessels, bones and penetrating trajectory."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Organ injury",
+          "method": "Measure laceration depth and haematoma extent using organ-specific grading definitions.",
+          "pitfall": "One depth threshold cannot be reused across organs."
+        },
+        {
+          "name": "Haemorrhage",
+          "method": "Record site and extent; compare focal contrast across phases.",
+          "pitfall": "Single-phase imaging may not distinguish active bleeding from a vascular lesion."
+        }
+      ],
+      "classification": {
+        "name": "AAST organ injury scales",
+        "version": "Actual organ-specific scale and revision year; do not apply one year across organs",
+        "applicability": "Traumatic injury to the organ covered by the selected scale.",
+        "summary": "Describe the observed injury and unresolved extent first. Apply only the actual named organ-specific scale/revision supported by available source findings; grade remains limited or unassigned when its required evidence is unavailable. CT grade alone does not determine treatment."
+      },
+      "pitfalls": [
+        "A negative early CT does not exclude all bowel or pancreatic duct injury.",
+        "Routine excretory contrast in the bladder is not equivalent to a properly performed CT cystogram.",
+        "An early or limited CT cannot exclude every bowel, mesenteric, pancreatic duct or associated injury; retain injury timing, unavailable phases and unresolved interfaces.",
+        "Observed phase change must use actual corresponding anatomy, acquisition timing and blood-pool context. Absent growth or a single focal contrast appearance does not independently establish a contained vascular lesion or exclude active bleeding.",
+        "CT enhancement changes require actual acquired comparison and physiological context; a source colour or normal parent organ cannot establish perfusion, viability or infarction extent.",
+        "Free gas/fluid and a suspected tract require source-supported location and clinical interpretation; absent gas does not exclude contained or evolving injury, and dense clot does not independently prove its source.",
+        "A source-visible injury track, projected object or skin wound does not establish the full penetrating trajectory or every organ crossed; retain unresolved entry/exit and interfaces.",
+        "AAST revisions are organ-specific. The official resource lists renal 2025 and pancreatic 2024 revisions as well as the earlier 2018 spleen/liver/kidney revision; a generic 2018 label cannot supply every current scale. Numeric grade criteria require the actual applicable source and complete observations."
+      ],
+      "impression_prompts": [
+        "Lead with active bleeding and immediately consequential injury.",
+        "Describe organ injury features before any named grade.",
+        "State urinary/bowel assessment limits and associated injuries."
+      ],
+      "escalation": [
+        "Immediately communicate active haemorrhage, major vascular injury, hollow-viscus injury or urinary tract disruption."
+      ],
+      "template_sections": [
+        {
+          "heading": "SOLID ORGANS",
+          "body": "Each actual organ and assessed coverage: [ ]. Injury region/margins, depth/haematoma extent and host interfaces: [ ]. Enhancement/devascularisation assessment: [adequate acquired source / limited / unassessed], observations and unresolved duct/hilar extent [ ]."
+        },
+        {
+          "heading": "VASCULAR INJURY",
+          "body": "Vascular/bleeding assessment: [adequate actual phases / limited / unassessed]. Source phase/timing, vessel/branch and observed contrast change: [ ]. Lesion/bleeding extent and unresolved wall/hilar interfaces: [ ]."
+        },
+        {
+          "heading": "HAEMORRHAGE",
+          "body": "Haemorrhage assessment: [adequate actual coverage / limited / unassessed]. Observed fluid/clot/haematoma regions, extent and possible source: [ ]. Unresolved compartment or source limits: [ ]."
+        },
+        {
+          "heading": "BOWEL AND URINARY TRACT",
+          "body": "Bowel/mesenteric assessment: [adequate actual source / limited / unassessed], observed sites/features and unresolved extent [ ]. Collecting-system assessment/excretory source: [assessed / limited / unassessed], observations [ ]. Bladder: actual retrograde cystography and distension [adequate / limited / not performed], observations/limits [ ]."
+        },
+        {
+          "heading": "ASSOCIATED INJURY AND GRADE",
+          "body": "Actually covered diaphragm, vessels, bones and source-visible penetrating trajectory: [ ]. Observed injury/interfaces and unresolved field/track extent: [ ]. AAST organ/scale/revision year: [ ], observed criterion evidence [ ], grade [assigned / limited / unassigned]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant — CT in Abdominal Trauma",
+          "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/ct-in-trauma"
+        },
+        {
+          "title": "AAST official organ-specific revision resources",
+          "url": "https://www.aast.org/resources/trauma-tools/organ-injury-scale.html"
+        },
+        {
+          "title": "WSES 2022 blunt and penetrating bowel injury",
+          "url": "https://doi.org/10.1186/s13017-022-00418-y"
+        },
+        {
+          "title": "WSES-AAST 2019 duodeno-pancreatic/biliary trauma",
+          "url": "https://doi.org/10.1186/s13017-019-0278-6"
+        },
+        {
+          "title": "EAU urological trauma — Actual retrograde cystography and urinary source limits",
+          "url": "https://uroweb.org/guidelines/urological-trauma/chapter/urogenital-trauma-guidelines"
+        }
+      ],
+      "reviewed_at": "2026-10-05"
+    },
+    "learning_points": [
+      "Map every actual organ/segment and injury interface, preserving phase, timing and field limits.",
+      "Use actual phase correspondence to describe bleeding/vascular observations without inferring missing temporal or viability evidence.",
+      "Retain early bowel, mesenteric and pancreatic-duct uncertainty; negative gas or a limited scan is not complete exclusion.",
+      "Separate excretory collecting-system assessment from actual retrograde bladder cystography.",
+      "Describe observations before applying an actual organ-specific grade/revision; partial tracks and parent anatomy do not complete injury maps."
+    ]
   }
 }
