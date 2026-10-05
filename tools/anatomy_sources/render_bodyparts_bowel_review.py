@@ -32,7 +32,7 @@ def render(root, output):
         selected = [p for p in parts if p[0]['id'] in group['element_ids']]
         for azimuth in [35, 215]:
             columns=min(3,len(selected)); rows=(len(selected)+columns-1)//columns
-            fig = plt.figure(figsize=(14 if columns==3 else 8, max(5,4.6*rows)))
+            fig = plt.figure(figsize=(14 if columns>=2 else 8, max(5,4.6*rows)))
             panels = []
             for slot, (r, v, f) in enumerate(selected, 1):
                 ax = fig.add_subplot(rows, columns, slot, projection='3d')
@@ -53,7 +53,7 @@ def render(root, output):
                 panels.append({'element_id': r['id'], 'original_triangle_count': len(f), 'exact_position_components': count,
                     'source_bounds_mm': [lo.tolist(), hi.tolist()], 'source_positions_or_faces_changed': False})
             fig.suptitle(group['source_target_label']+' | version-manifest 4.3\nEvery original triangle; panel scales differ; no repair, fusion, registration or clinical approval', fontsize=11)
-            fig.subplots_adjust(left=.05, right=.95, bottom=.18 if len(selected)==1 else .06, top=.73 if len(selected)==1 else .85, hspace=.38, wspace=.18)
+            fig.subplots_adjust(left=.05, right=.95, bottom=.18 if rows==1 else .06, top=.73 if rows==1 else .85, hspace=.38, wspace=.18)
             fig.text(.5, .015, 'BodyParts3D © 2008 DBCLS | CC BY-SA 2.1 Japan | adaptation: review lighting and original-source views', ha='center', fontsize=9)
             file = output / (group['source_fma']+'-original-source-azimuth' + str(azimuth) + '.png')
             fig.savefig(file, dpi=110); plt.close(fig)

@@ -4,7 +4,7 @@ import argparse,gzip,hashlib,json
 from pathlib import Path
 
 
-def audit(root,output):
+def audit(root,output,expected_object_count=60):
     from tools.anatomy_sources.review_bodyparts_pancreatic_geometry import read_obj
     from tools.anatomy_sources.audit_hra_renal_contacts import contact_arrays
     from tools.anatomy_sources.audit_massp_surface_intersections import inspect
@@ -39,6 +39,7 @@ def audit(root,output):
         print(r['id'],'finished; contacts',contacts['unexpected_contact_count'],'candidate pairs',contacts['conservative_aabb_candidate_pairs'],flush=True)
         # This progress record is updated only after a complete, losslessly preserved object result.
         (output/'complete-self-contact-summary.json').write_text(json.dumps({'records':summary,'all_sixty_original_objects_complete':len(summary)==60,
+            'expected_original_object_count':expected_object_count,'all_expected_original_objects_complete':len(summary)==expected_object_count,
             'source_geometry_changed':False,'clinical_approval':False,'runtime_promoted':False},indent=2)+'\n')
 
 
