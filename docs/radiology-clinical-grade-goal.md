@@ -37,7 +37,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 - The remaining 90 investigations require anatomical expansion into their reportable structures and substructures, including relevant site, laterality, developmental stage, modality, field-of-view and pathological-state conditions.
 - All curriculum surfaces require explicit reconciliation with their own content and any linked investigations. Foundational/protocol lessons need a documented determination of applicable anatomical and technical requirements; they are not silently waived.
 - The total all-radiology representation count is **unknown**. The 23,916 currently known obligations are a floor, not a complete denominator; requirements outside the expanded inventories are not zero.
-- The current static reference inventory contains 647 distinct resources. Two hundred four have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
+- The current static reference inventory contains 652 distinct resources. Two hundred nine have matching reviewed rights evidence; 443 are not cleared by this inventory. This does not mean every uncleared resource is necessarily unlicensed. Lesson media, procedural renderers, schematics and model geometry still require their own explicit provenance and fidelity review.
 
 ## Verification
 
@@ -45,7 +45,7 @@ There are also 106 radiology curriculum nodes: 96 have reporting references and 
 
 The `--require-complete` gate fails while the goal is unproven. UI flags such as a complete walkthrough, model availability, an image count or passing software tests cannot substitute for structure-level coverage and actual anatomical/clinical evidence. This initial all-radiology audit does not implement the still-missing non-MSK clinical approval work.
 
-Current evidence: `docs/radiology-fidelity-audit-2026-10-04.json`. Update the scope snapshot whenever reporting or visual contracts change, without treating regeneration as approval. The native MSK CT work remains relevant to the broader objective. Its complete original archive and voxel-preserving export have now passed integrity checks; segmentation and anatomical review remain unfinished.
+Current evidence: `docs/radiology-fidelity-audit-2026-10-05.json`. Update the scope snapshot whenever reporting or visual contracts change, without treating regeneration as approval. The native MSK CT work remains relevant to the broader objective. Its complete original archive and voxel-preserving export have now passed integrity checks; segmentation and anatomical review remain unfinished.
 
 The first three non-MSK source figures are now present in the appendix reader, with licensed original-source provenance, preserved panels and three explicitly partial image candidates. No static frame supplies compression evidence, and the mixed US/CT composite has no CT structure binding pending localization review. See `appendix-source-review.md`. These source figures were deployed in PR #60; complete anatomical and clinical validation is unfinished.
 
@@ -392,3 +392,8 @@ All nine [gallbladder source figures](gallbladder-published-source-review.md) no
 ### 2026-10-04 — Crohn MRI sequence, tract and comparison scope
 
 [Crohn MRI scope review](crohn-mri-fidelity-scope-review.md) adds 344 draft targets/1,032 obligations for actual bowel/wall regions, strictures, tracts/branches/endpoints, collections, mesentery/vessels, postoperative and covered pelvic anatomy, sequence sources and matched comparisons. Reader presets retain unacquired/limited features and unavailable prior data; isolated signal/diffusion does not quantify fibrosis or establish complete disease phenotype. 151 focused checks and local API plus desktop/mobile comparison-prefill checks passed. All new coverage remains missing; full goal stays active with known floor 23,916 obligations, 90 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. No new native image/model approval or deployment is claimed.
+
+
+### 2026-10-05 — Original Crohn MRI source figures
+
+[Crohn MRI source review](crohn-mri-published-source-review.md) adds five complete native PDF JPEG figures to gallery/reporting steps. Source MRI sequences remain distinct from CT/ultrasound, different patients, six-month follow-up and two-month-later CT. Missing ADC and unshown fat-suppressed sequences, unknown CT-panel timing and unverified registration/tract extent remain explicit. 112 focused tests and exact API hashes plus desktop/mobile full-size/closure checks passed. Rights inventory: 652 unique resources, 209 cleared and 443 unverified. No native acquisition, anatomical/clinical or 3D coverage is granted. Full goal remains active: known floor 23,916 obligations, 90 unexpanded investigations, 106 unreconciled curriculum surfaces, total unknown. These additions remain local and are not deployed. The preceding source release was merged as PR #68 and production was verified at c5bae66b84720163e7a8e20d02240926f79fe952; this does not approve clinical coverage.
