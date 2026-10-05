@@ -48,3 +48,29 @@ def test_local_lossless_export_matches_every_plane_and_source_probe():
     for frame in m['frames']:assert hashlib.sha256(volume[frame['index']].tobytes()).hexdigest()==frame['hu_plane_sha256']
     for probe in m['probes']:
         x,y,z=probe['index_xyz'];assert int(volume[z,y,x])==probe['hu']
+
+
+def test_every_gpu_voxel_and_plane_is_verified_against_preserved_source():
+    m=json.loads(PROVENANCE.read_text())
+    receipt=json.loads((PROVENANCE.parent/'full-gpu-readback.json').read_text())
+    assert receipt['allGPUVoxelsVerified'] and receipt['gpuVoxelsVerified']==417*512*512
+    assert receipt['uncompressedSha256']==m['uncompressed_sha256']
+    assert len(receipt['gpuPlanes'])==417
+    assert receipt['gpuPlanes']==[{'index':r['index'],'sha256':r['hu_plane_sha256']} for r in m['frames']]
+    viewer=ROOT/'tools/anatomy_sources/viewers/renal-volume/viewer.js'
+    assert hashlib.sha256(viewer.read_bytes()).hexdigest()==receipt['viewer_sha256']
+    checks=ROOT/'tools/anatomy_sources/viewers/renal-volume/gpu-cell-checks.js'
+    assert hashlib.sha256(checks.read_bytes()).hexdigest()==receipt['gpu_cell_check_script_sha256']
+    assert len(receipt['cellChecks'])==6 and all(r['passed'] for r in receipt['cellChecks'])
+    graze=next(r for r in receipt['cellChecks'] if r['name']=='grazing high cell')
+    assert graze['maximumHU']==2000
+    assert not receipt['clinical_approval'] and not receipt['model_coverage_granted']
+
+
+def test_cell_traversal_regressions_cover_missed_peak_reversal_ties_and_anisotropy():
+    import shutil,subprocess
+    node=shutil.which('node')
+    if not node:pytest.skip('Node is unavailable for the independent analytic traversal checks')
+    result=subprocess.run([node,str(ROOT/'tools/check_renal_volume_traversal.js')],capture_output=True,text=True)
+    assert result.returncode==0,result.stderr
+    assert 'grazing cells and anisotropy' in result.stdout
