@@ -1,0 +1,154 @@
+{
+  "file": "complete-independent-wall-contacts.json.gz",
+  "compressed_sha256": "514543fe097c943de507eb38ff6a0697c851e899a35301e91e8d2abc1a60313b",
+  "uncompressed_sha256": "2add049c239812e0618c7164b5281450269be1e2468717f9ec11343f6110585f",
+  "source_models": [
+    {
+      "source_part": "135",
+      "source_name": "right external oblique muscle",
+      "source_vtk_sha256": "a3a04bb57966b2be5e7cd57d95202c4c4fe7367e2a454c1e0bf17ae4bf4eca33",
+      "native_strip_count": 10429,
+      "triangles": 51384
+    },
+    {
+      "source_part": "136",
+      "source_name": "right internal oblique muscle",
+      "source_vtk_sha256": "a1e35e8f13e8e08b0ec9a27d39ce83b0ce1b3620c78437e8f3b12d7b3f69933d",
+      "native_strip_count": 5188,
+      "triangles": 25904
+    },
+    {
+      "source_part": "235",
+      "source_name": "left external oblique muscle",
+      "source_vtk_sha256": "32b90372b6e9ca0a35ed764011f4cf789a4d9f47238afa4f18de5cbc135f0fdc",
+      "native_strip_count": 9242,
+      "triangles": 45552
+    },
+    {
+      "source_part": "236",
+      "source_name": "left internal oblique muscle",
+      "source_vtk_sha256": "234fa0b58c42dfe72ae09cbb4cf9aba3619b2fa7c9a680febca1ec5415bad7f3",
+      "native_strip_count": 5351,
+      "triangles": 26208
+    },
+    {
+      "source_part": "32",
+      "source_name": "rectus abdominis muscle",
+      "source_vtk_sha256": "884b71423f2476e487edf7705d2f513d18d3964aa699defec2ad30f482c95e82",
+      "native_strip_count": 14225,
+      "triangles": 75564
+    }
+  ],
+  "all_five_original_models_compared": true,
+  "source_triangles": 224612,
+  "testable_triangles": 224612,
+  "invalid_triangles": 0,
+  "candidate_pairs": 1617564,
+  "explicitly_tested_pairs": 1280646,
+  "analytically_resolved_shared_edge_pairs": 336918,
+  "contact_count": 19748,
+  "within_model_contacts": 24,
+  "between_model_contacts": 19724,
+  "within_models": [
+    {
+      "label_value": "135",
+      "source_name": "right external oblique muscle",
+      "contact_count": 6
+    },
+    {
+      "label_value": "136",
+      "source_name": "right internal oblique muscle",
+      "contact_count": 3
+    },
+    {
+      "label_value": "235",
+      "source_name": "left external oblique muscle",
+      "contact_count": 12
+    },
+    {
+      "label_value": "236",
+      "source_name": "left internal oblique muscle",
+      "contact_count": 0
+    },
+    {
+      "label_value": "32",
+      "source_name": "rectus abdominis muscle",
+      "contact_count": 3
+    }
+  ],
+  "pairs": [
+    {
+      "label_values": [
+        "135",
+        "136"
+      ],
+      "contact_count": 10248
+    },
+    {
+      "label_values": [
+        "135",
+        "235"
+      ],
+      "contact_count": 0
+    },
+    {
+      "label_values": [
+        "135",
+        "236"
+      ],
+      "contact_count": 0
+    },
+    {
+      "label_values": [
+        "135",
+        "32"
+      ],
+      "contact_count": 123
+    },
+    {
+      "label_values": [
+        "136",
+        "235"
+      ],
+      "contact_count": 0
+    },
+    {
+      "label_values": [
+        "136",
+        "236"
+      ],
+      "contact_count": 0
+    },
+    {
+      "label_values": [
+        "136",
+        "32"
+      ],
+      "contact_count": 0
+    },
+    {
+      "label_values": [
+        "235",
+        "236"
+      ],
+      "contact_count": 9265
+    },
+    {
+      "label_values": [
+        "235",
+        "32"
+      ],
+      "contact_count": 88
+    },
+    {
+      "label_values": [
+        "236",
+        "32"
+      ],
+      "contact_count": 0
+    }
+  ],
+  "source_geometry_changed": false,
+  "clinical_approval": false,
+  "runtime_promoted": false
+}
