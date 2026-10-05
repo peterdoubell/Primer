@@ -53,7 +53,7 @@ def render(root, output):
                 panels.append({'element_id': r['id'], 'original_triangle_count': len(f), 'exact_position_components': count,
                     'source_bounds_mm': [lo.tolist(), hi.tolist()], 'source_positions_or_faces_changed': False})
             fig.suptitle(group['source_target_label']+' | version-manifest 4.3\nEvery original triangle; panel scales differ; no repair, fusion, registration or clinical approval', fontsize=11)
-            fig.subplots_adjust(left=.05, right=.95, bottom=.18 if rows==1 else .06, top=.73 if rows==1 else .85, hspace=.38, wspace=.18)
+            fig.subplots_adjust(left=.05, right=.95, bottom=.18 if rows==1 else .14, top=.73 if rows==1 else .85, hspace=.38, wspace=.18)
             fig.text(.5, .015, 'BodyParts3D © 2008 DBCLS | CC BY-SA 2.1 Japan | adaptation: review lighting and original-source views', ha='center', fontsize=9)
             file = output / (group['source_fma']+'-original-source-azimuth' + str(azimuth) + '.png')
             fig.savefig(file, dpi=110); plt.close(fig)
