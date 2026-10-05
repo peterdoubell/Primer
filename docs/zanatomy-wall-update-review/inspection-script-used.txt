@@ -8,6 +8,7 @@ import gzip
 import hashlib
 import json
 from pathlib import Path
+import sys
 
 STEMS=['Rectus abdominis muscle','External abdominal oblique muscle','Internal abdominal oblique muscle',
        'Transversus abdominis muscle','Pyramidalis muscle','Investing abdominal fascia','Inguinal ligament']
@@ -20,9 +21,7 @@ def mesh_record(mesh):
         'materials':[m.name if m else None for m in mesh.materials]}
 
 
-def main():
-    # Fixed ignored destination: command-line paths cannot redirect source exports.
-    output=Path(__file__).resolve().parents[2]/'.research/zanatomy-wall-update/native-wall'
+def main(output):
     output.mkdir(parents=True,exist_ok=True)
     rows=[];depsgraph=bpy.context.evaluated_depsgraph_get()
     for name in TARGETS:
@@ -52,4 +51,5 @@ def main():
 
 
 if __name__=='__main__':
-    main()
+    args=sys.argv[sys.argv.index('--')+1:]
+    main(Path(args[0]))

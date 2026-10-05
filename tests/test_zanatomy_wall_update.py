@@ -21,7 +21,7 @@ def test_pinned_current_archive_reader_and_blocked_script_are_explicit():
     assert r['runtime_checksum_verified'] and r['reader_version']=='4.2.23 LTS'
     assert r['runtime_dmg_sha256']=='8b6bc5fafd4773e94bb863ca19ba1c9a54d096eecbbc4375eae7dbc3b49fab40'
     assert r['file_autoexec_failure'] and "Text 'z-anatomy.py'" in r['file_autoexec_failure_message']
-    assert r['inspection_script_sha256']==hashlib.sha256((ROOT/'tools/anatomy_sources/inspect_zanatomy_wall_blend.py').read_bytes()).hexdigest()
+    assert r['inspection_script_sha256']==hashlib.sha256((REVIEW/'inspection-script-used.txt').read_bytes()).hexdigest()
 
 
 def test_all_original_wall_mesh_values_and_evaluated_outputs_match_older_source():
