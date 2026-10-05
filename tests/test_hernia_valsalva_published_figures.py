@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1];REVIEW=ROOT/'docs/hernia-valsalva-publi
 
 
 def rows():
-    return {r['figure_number']:r for r in detail(Curriculum(),resolve('ra.abdominal-wall-hernias'))['radiology_reference']['structure_atlas']}
+    return {r['figure_number']:r for r in detail(Curriculum(),resolve('ra.abdominal-wall-hernias'))['radiology_reference']['structure_atlas'] if r['id'].startswith('open-hernia-valsalva-')}
 
 
 def test_three_original_gray_jpegs_retain_streams_pixels_actual_lowercase_panels_and_grant():
@@ -46,7 +46,7 @@ def test_diastasis_does_not_become_true_defect_or_calibrated_volume_geometry():
     assert 'not independently calibrated geometry' in r['caption']
     assert 'does not automatically supply a true fascial hernia defect' in r['caption']
     ref=detail(Curriculum(),resolve('ra.abdominal-wall-hernias'))['radiology_reference']
-    assert {i for s in ref['walkthrough']['steps'] for i in s['images'] if i.startswith('open-hernia-valsalva-')}=={r['id'] for r in ref['structure_atlas']}
+    assert {i for s in ref['walkthrough']['steps'] for i in s['images'] if i.startswith('open-hernia-valsalva-')}=={r['id'] for r in ref['structure_atlas'] if r['id'].startswith('open-hernia-valsalva-')}
     assets=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith('open-hernia-valsalva-')]
     assert len(assets)==3
     for a in assets:
