@@ -18,13 +18,13 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def acquire(root, output, selection=None, panel_roles=None, modality='CT'):
+def acquire(root, output, selection=None, panel_roles=None, modality='CT', pmcid='PMC11449955', extraction_prefix='hernia-pdf', allow_icc_without_alternate=False):
     from PIL import Image
     from pypdf import PdfReader
     from pypdf.generic import IndirectObject
     from tools.anatomy_sources.acquire_adrenal_published_figures import download_verified
     from tools.anatomy_sources.acquire_pancreatitis_vascular_figures import exact_license
-    pmc = 'PMC11449955'
+    pmc = pmcid
     metadata = root / (pmc + '.1.json')
     meta = json.loads(metadata.read_text())
     http = lambda u: u.replace('s3://pmc-oa-opendata/', 'https://pmc-oa-opendata.s3.amazonaws.com/')
@@ -46,7 +46,7 @@ def acquire(root, output, selection=None, panel_roles=None, modality='CT'):
                'copyright': permissions.findtext('copyright-statement'), 'publisher_xml_pdf_md5_verified': True,
                'authors': [' '.join([n.findtext('given-names', ''), n.findtext('surname', '')])
                            for n in tree.findall('.//article-meta/contrib-group/contrib[@contrib-type="author"]/name')]}
-    subprocess.run(['pdfimages', '-j', str(pdf_path), str(root / 'hernia-pdf')], check=True)
+    subprocess.run(['pdfimages', '-j', str(pdf_path), str(root / extraction_prefix)], check=True)
     reader = PdfReader(pdf_path)
     rows = []
     selected = SELECTION if selection is None else selection
@@ -69,7 +69,7 @@ def acquire(root, output, selection=None, panel_roles=None, modality='CT'):
                 or obj['/BitsPerComponent'] != 8 or obj.get('/SMask') is not None
                 or obj.get('/Decode') not in (None, [0, 1, 0, 1, 0, 1])):
             raise ValueError('Original PDF placement or sample interpretation differs')
-        prefix = root / ('hernia-pdf-' + f'{index:03d}')
+        prefix = root / (extraction_prefix+'-' + f'{index:03d}')
         if str(obj['/Filter']) != '/DCTDecode':
             raise ValueError('Unreviewed source filter')
         space = obj['/ColorSpace']; icc = None
@@ -77,7 +77,9 @@ def acquire(root, output, selection=None, panel_roles=None, modality='CT'):
             mode = 'L'
         elif isinstance(space, list) and str(space[0]) == '/ICCBased':
             profile = space[1].get_object()
-            if profile['/N'] != 3 or str(profile.get('/Alternate')) != '/DeviceRGB':
+            alternate=profile.get('/Alternate')
+            missing_alternate_verified=allow_icc_without_alternate and alternate is None and profile.get_data()[16:20]==b'RGB '
+            if profile['/N'] != 3 or not (str(alternate)=='/DeviceRGB' or missing_alternate_verified):
                 raise ValueError('Unreviewed original colour profile')
             icc = profile.get_data(); mode = 'RGB'
         else:
@@ -111,6 +113,7 @@ def acquire(root, output, selection=None, panel_roles=None, modality='CT'):
                      'acquisition': method, 'sha256': sha(raw),
                      'width': width, 'height': height, 'pixel_mode': mode, 'decoded_pixel_sha256': sha(pixels),
                      'original_encoded_stream_or_decoded_pixel_readback_verified': True,
+                     **({'source_icc_missing_alternate_rgb_signature_verified':missing_alternate_verified} if allow_icc_without_alternate and icc else {}),
                      'source_pixels_changed': False, 'original_dct_stream_sha256': sha(encoded), 'source_icc_profile_sha256': sha(icc) if icc else None, 'source_icc_profile_bytes': len(icc) if icc else 0, 'clinical_approval': False, 'display_color_calibration_verified': False})
     output.mkdir(parents=True, exist_ok=True)
     (output / 'original-source-review.json').write_text(json.dumps({'articles': [article], 'figures': rows,

@@ -1859,6 +1859,22 @@
         "visual_review_scope_missing_or_stale",
         "visual_review_missing_or_stale",
         "high_fidelity_unproven"
+      ],
+      "open-wall-dynamic-pmc13045036-fig2": [
+        "no_verified_structure_binding",
+        "anatomical_review_scope_missing_or_stale",
+        "anatomical_review_missing_or_stale",
+        "visual_review_scope_missing_or_stale",
+        "visual_review_missing_or_stale",
+        "high_fidelity_unproven"
+      ],
+      "open-wall-dynamic-pmc13045036-fig3": [
+        "no_verified_structure_binding",
+        "anatomical_review_scope_missing_or_stale",
+        "anatomical_review_missing_or_stale",
+        "visual_review_scope_missing_or_stale",
+        "visual_review_missing_or_stale",
+        "high_fidelity_unproven"
       ]
     },
     "runtime_reference_image_rights": {
@@ -3648,9 +3664,11 @@
       "open-acute-abdomen-ref-cbd-stone-pmc12017295-fig1": "50c2637379f0e9765da26e128df7602e2e0c351409a9549a560945ec3e359f88",
       "open-acute-abdomen-ref-cbd-stone-pmc12463306-fig1": "0cf4d42db458b347b8a4aedbb17653d4ed623a784c7bd83491eb53dfca39ad6b",
       "open-acute-abdomen-ref-cbd-stone-pmc12463306-fig3": "721badce79967e0422a38a547ff6633f7decfd527407a0012707d37365c398d0",
-      "open-hernia-valsalva-pmc11449955-fig2": "3568b5598edcd91f655aa70b359eb86603d55fbd07c295efd32aa468fef5d768",
-      "open-hernia-valsalva-pmc11449955-fig3": "b2c044875d24fed233adb0dfc540b284375c6032378bba456897e7bc7c09906c",
-      "open-hernia-valsalva-pmc11449955-fig4": "dfa92ca66772651c4f6dfad48472696ce5020ebd8fd0b1d5bbaabc43b96ab5b2"
+      "open-hernia-valsalva-pmc11449955-fig2": "4fcb42552daa93dcd1e622a301c0783c46afa539c5b5959e07e7cbb31b692a22",
+      "open-hernia-valsalva-pmc11449955-fig3": "1382f946b7248f42f2374f1738ba78cb9d85c4895f61b319fa16617914e9714b",
+      "open-hernia-valsalva-pmc11449955-fig4": "bd6de650bbf87ecb8fc67d515343c0350130e2ec3f7aacdd72ed8fbb1d3500ff",
+      "open-wall-dynamic-pmc13045036-fig2": "3258c70adefaa1ea0cf88ab2c30a4057a03eed6520670315392c8b41600a2d84",
+      "open-wall-dynamic-pmc13045036-fig3": "472384e3de0dae91fcea0dcd4b628b0a24f386f389f64cb792a2003f16b90489"
     },
     "requirements": [
       {
@@ -228509,8 +228527,8 @@
       "lesson:rad.5.wrist-hand"
     ],
     "counts": {
-      "images": 671,
-      "cleared": 228,
+      "images": 673,
+      "cleared": 230,
       "unverified": 443
     },
     "images": [
@@ -233923,6 +233941,50 @@
         ],
         "candidates": {
           "open-ultrasound-ibd-pmc12634764-fig5": []
+        },
+        "issues": []
+      },
+      {
+        "src": "/app/reference-media/radiology-open/wall-dynamic-pmc13045036-fig2.png",
+        "uses": [
+          {
+            "surface": "reporting:ra.abdominal-wall-hernias",
+            "collection": "structure_atlas",
+            "id": "open-wall-dynamic-pmc13045036-fig2",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13045036/",
+            "attribution": "\u00a9 The Author(s) 2026 Niamh Belton, Victoria Joppin, Aonghus Lawlor, Catherine Masson, Thierry Bege, David Bendahan, Kathleen M. Curran. DyABD: the abdominal muscle segmentation in dynamic MRI benchmark. DOI 10.1186/s12880-026-02204-7. CC BY 4.0. Complete original Figure 2 preserved from the verified publication PDF without changing image samples. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "caption": "Original MRI annotation workflow: A shows an axial image within a 2D-plus-time stack, B the source manual muscle-group annotations, C/E human-review stages, and D propagated annotations. The stack axis t is time, not spatial depth. Right/left rectus and grouped lateral-muscle colours are original source labels; lateral masks do not separate external/internal oblique or transversus, and annotation workflow is not independent anatomical approval."
+          }
+        ],
+        "sha256": "f7cf93177ab52ef71cf53be33ba6b6a9632036e5e821e4593faf6160d24ef283",
+        "status": "cleared",
+        "cleared_assets": [
+          "open-wall-dynamic-pmc13045036-fig2"
+        ],
+        "candidates": {
+          "open-wall-dynamic-pmc13045036-fig2": []
+        },
+        "issues": []
+      },
+      {
+        "src": "/app/reference-media/radiology-open/wall-dynamic-pmc13045036-fig3.png",
+        "uses": [
+          {
+            "surface": "reporting:ra.abdominal-wall-hernias",
+            "collection": "structure_atlas",
+            "id": "open-wall-dynamic-pmc13045036-fig3",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13045036/",
+            "attribution": "\u00a9 The Author(s) 2026 Niamh Belton, Victoria Joppin, Aonghus Lawlor, Catherine Masson, Thierry Bege, David Bendahan, Kathleen M. Curran. DyABD: the abdominal muscle segmentation in dynamic MRI benchmark. DOI 10.1186/s12880-026-02204-7. CC BY 4.0. Complete original Figure 3 preserved from the verified publication PDF without changing image samples. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "caption": "Original paired preoperative a and postoperative b dynamic MRI examples. Patient A is shown breathing, B coughing and C performing Valsalva, each at beginning, middle and end of a source cycle. Original overlays mark right lateral muscle lime green, right rectus dark green, left rectus grey and left lateral muscle purple; original red arrows locate source-described hernias. These 18 snapshots do not supply continuous cine, spatial 3D depth, calibrated defect/mesh geometry, independent registration or proof of surgical success."
+          }
+        ],
+        "sha256": "34e2ab7f1f5fdf44657e2cb1966efe37d72e8b04216e336a7f85d1230c966356",
+        "status": "cleared",
+        "cleared_assets": [
+          "open-wall-dynamic-pmc13045036-fig3"
+        ],
+        "candidates": {
+          "open-wall-dynamic-pmc13045036-fig3": []
         },
         "issues": []
       },
