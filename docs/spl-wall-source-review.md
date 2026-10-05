@@ -1,0 +1,25 @@
+# Independent SPL CT-derived abdominal-wall candidates
+
+The [SPL Abdominal Atlas](https://www.openanatomy.org/atlas-pages/atlas-spl-abdomen.html), by Florin Talos, Marianna Jakab and Ron Kikinis, supplies an independent CT/label/model source for assessing alternatives to the held Z-Anatomy surfaces. The selected original files contain right/left external oblique, right/left internal oblique and one combined rectus label. They are candidates, not approved replacements or complete wall anatomy.
+
+The original archive is 34,861,066 bytes, SHA-256 `1cf85dbc820767b7c3095790ff38ae150a085af713061a2f0e950e355e4dc7c8`; ZIP CRC and exact selected-file hashes were verified. Both delivered NRRD files have identical native 256×256×113 LPS grids, spacing approximately 0.9375×0.9375×1.5 and identical origins/directions. Every delivered voxel is retained: 7,405,568 short-integer values in each grid. Highest-resolution acquired masters, HU calibration, contrast phase and patient metadata remain unverified. No presumed HU offset or resampling is introduced.
+
+The original atlas JSON explicitly declares the label map authoritative and the derived display models non-authoritative. All five label values and model paths are reconciled to those original selectors. There are 200,313 selected labelled voxels. The VTK files use original binary big-endian float32 positions/normals and int32 triangle-strip connectivity. All original arrays/strips are conserved; alternating strip expansion provides 224,612 analysis triangles with no zero-area triangles. Source model coordinates correspond numerically to the native grid after the declared RAS/LPS basis conversion; every delivered mesh vertex lies within that grid. This is not independent clinical registration or proof of model/label boundary accuracy.
+
+| Source label | Positions | Analysis strip triangles | Label voxels |
+| --- | --- | --- | --- |
+| 135, right external oblique | 26,115 | 51,384 | 41,929 |
+| 136, right internal oblique | 13,118 | 25,904 | 24,295 |
+| 235, left external oblique | 23,002 | 45,552 | 37,906 |
+| 236, left internal oblique | 13,228 | 26,208 | 23,593 |
+| 32, combined rectus | 38,187 | 75,564 | 72,590 |
+
+Indexed boundary/component counts reflect duplicated point records. Exact-position analysis removes those index seams diagnostically, without welding or changing the original data: all five have zero exact-position boundary edges. Right internal oblique and combined rectus have two exact-position components; the other three have one. These source facts are not automatic anatomical identities or proof of clinically valid closed surfaces. Self-intersections, inter-layer contacts and model-to-authoritative-label correspondence remain pending.
+
+Five inspected sheets show every original strip triangle in two source-coordinate views and an unchanged native CT/label plane. The source-value display window [900,1400], label colour and projection are derived review choices; no HU claim or clinical orientation label is introduced. The CT panel uses native I/J/K indices and nearest display sampling. Plane hashes and selected-label voxel counts preserve exact source identity. No source vertices, normals, connectivity or voxels are edited.
+
+The atlas has no separately named transversus, rectus sheath, Scarpa/Camper fascia or semilunar landmark in the bounded structure query. The combined rectus annotation is not split into guessed patient sides. Its delivered field of view cannot supply complete muscle course, every fascial/aponeurotic interface, pathological defect/sac/content, mesh/fixation or dynamic hernia assessment. Different source frames are not fitted to the held artist models or published MRI cases. These gaps retain the full reporting objective.
+
+The source applies the [3D Slicer License Part B](https://www.openanatomy.org/atlas-pages/slicer-license.html) to the atlas data. It grants use/derivative/display/distribution rights subject to the full terms, notice preservation, modification marking, third-party rights and no implied endorsement. It also expressly describes the source as research software/data and does not recommend or advise clinical application; commercialization is at the user’s risk. The required prefaced Part B notice is retained in `required-part-b-notice.txt`, alongside the original atlas licence reference. Rights do not constitute clinical approval. Original archive/volumes/VTKs remain in ignored staging; no runtime promotion or coverage credit is granted.
+
+Reproduce with `python -m tools.anatomy_sources.review_spl_wall_source --archive .research/wall-independent-sources/spl-abdomen-2016-09.zip --output docs/spl-wall-source-review`, then `python -m tools.anatomy_sources.render_spl_wall_source --archive .research/wall-independent-sources/spl-abdomen-2016-09.zip --output docs/spl-wall-source-review`. Tests cover complete voxel conservation, native strip order, original normal/position/connectivity hashes, model/label authority, topology limits and all review figures. The all-radiology goal remains active and incomplete; these new candidates are offline and not deployed.
