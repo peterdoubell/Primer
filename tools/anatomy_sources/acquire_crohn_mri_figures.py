@@ -8,6 +8,7 @@ from pathlib import Path
 import subprocess
 import urllib.parse
 import xml.etree.ElementTree as ET
+import zlib
 
 SELECTION = {1: (5, 14, 65), 2: (6, 15, 85), 3: (7, 16, 97), 4: (8, 17, 109), 6: (9, 19, 116)}
 PANELS = {1: {'a': 'Ultrasound', 'b': 'Ultrasound', **dict.fromkeys('cde', 'MRI')},
@@ -21,7 +22,7 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def acquire(root, output):
+def acquire(root, output, selection=None, panel_roles=None, modality='MRI'):
     from PIL import Image
     from pypdf import PdfReader
     from pypdf.generic import IndirectObject
@@ -52,7 +53,9 @@ def acquire(root, output):
     subprocess.run(['pdfimages', '-j', str(pdf_path), str(root / 'crohn-pdf')], check=True)
     reader = PdfReader(pdf_path)
     rows = []
-    for number, (page, index, oid) in SELECTION.items():
+    selected = SELECTION if selection is None else selection
+    roles = PANELS if panel_roles is None else panel_roles
+    for number, (page, index, oid) in selected.items():
         figure = tree.find('.//fig[@id="Fig' + str(number) + '"]')
         caption = ' '.join(figure.find('caption').itertext())
         if figure.find('attrib') is not None or figure.find('permissions') is not None or any(
@@ -67,33 +70,53 @@ def acquire(root, output):
             repository_dimensions = list(image.size)
         obj = reader.get_object(IndirectObject(oid, 0, reader))
         if (oid not in {r.idnum for r in reader.pages[page - 1]['/Resources']['/XObject'].values()}
-                or str(obj['/Filter']) != '/DCTDecode' or str(obj['/ColorSpace']) != '/DeviceRGB'
                 or obj['/BitsPerComponent'] != 8 or obj.get('/SMask') is not None
                 or obj.get('/Decode') not in (None, [0, 1, 0, 1, 0, 1])):
             raise ValueError('Original PDF placement or sample interpretation differs')
-        path = root / ('crohn-pdf-' + f'{index:03d}' + '.jpg')
-        raw = path.read_bytes()
-        if raw != obj._data:
-            raise ValueError('Independent encoded JPEG stream readback differs')
+        prefix = root / ('crohn-pdf-' + f'{index:03d}')
+        if str(obj['/Filter']) == '/DCTDecode' and str(obj['/ColorSpace']) == '/DeviceRGB':
+            path = prefix.with_suffix('.jpg')
+            raw = path.read_bytes()
+            if raw != obj._data:
+                raise ValueError('Independent encoded JPEG stream readback differs')
+            mode, method = 'RGB', 'original_pdf_dct_stream_byte_identical'
+        elif (str(obj['/Filter']) == '/FlateDecode' and str(obj['/ColorSpace']) == '/DeviceGray'
+              and obj.get('/DecodeParms') is None and obj.get('/Decode') is None):
+            samples = zlib.decompress(obj._data)
+            if samples != obj.get_data() or len(samples) != obj['/Width'] * obj['/Height']:
+                raise ValueError('Independent grayscale source readback differs')
+            with Image.open(prefix.with_suffix('.ppm')) as independent:
+                independent.load()
+                channels = independent.split()
+                if (independent.mode != 'RGB' or len(channels) != 3
+                        or any(channel.tobytes() != samples for channel in channels)):
+                    raise ValueError('Poppler grayscale samples differ')
+            path = prefix.with_suffix('.png')
+            Image.frombytes('L', (obj['/Width'], obj['/Height']), samples).save(path)
+            raw = path.read_bytes()
+            mode, method = 'L', 'lossless_png_original_pdf_gray_samples_exact'
+        else:
+            raise ValueError('Unreviewed source filter or colour interpretation')
         with Image.open(path) as image:
             image.load()
-            if image.mode != 'RGB' or list(image.size) != [obj['/Width'], obj['/Height']]:
+            if (image.mode != mode or list(image.size) != [obj['/Width'], obj['/Height']]
+                    or (mode == 'L' and image.tobytes() != samples)):
                 raise ValueError('Original JPEG dimensions/sample mode differs')
             pixels = image.tobytes()
             width, height = image.size
         rows.append({'pmcid': pmc, 'figure_number': number, 'source_figure_id': figure.get('id'),
-                     'source_caption': caption, 'source_panel_types': PANELS[number], 'source_modality': 'MRI',
+                     'source_caption': caption, 'source_panel_types': roles[number], 'source_modality': modality,
                      'source_media_url': http(urls[0]), 'publisher_media_md5_verified': True,
                      'repository_media_sha256': sha(media), 'repository_dimensions': repository_dimensions,
                      'pdf_page': page, 'pdf_image_index': index, 'pdf_object_id': oid, 'extracted_file': path.name,
-                     'acquisition': 'original_pdf_dct_stream_byte_identical', 'sha256': sha(raw),
-                     'width': width, 'height': height, 'pixel_mode': 'RGB', 'decoded_pixel_sha256': sha(pixels),
+                     'acquisition': method, 'sha256': sha(raw),
+                     'width': width, 'height': height, 'pixel_mode': mode, 'decoded_pixel_sha256': sha(pixels),
                      'original_encoded_stream_or_decoded_pixel_readback_verified': True,
                      'source_pixels_changed': False, 'clinical_approval': False, 'display_color_calibration_verified': False})
     output.mkdir(parents=True, exist_ok=True)
     (output / 'original-source-review.json').write_text(json.dumps({'articles': [article], 'figures': rows,
         'clinical_approval': False, 'runtime_promoted': False}, indent=2) + '\n')
-    print('Five complete original MRI-bearing figures verified.')
+    print(str(len(rows)) + ' complete original ' + modality + '-bearing figures verified.')
 
 
 if __name__ == '__main__':

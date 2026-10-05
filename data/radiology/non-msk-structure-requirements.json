@@ -27,7 +27,8 @@
       "ra.ct-bowel-wall",
       "ra.ct-small-bowel-tumours",
       "ra.gi-foreign-bodies",
-      "ra.mri-crohn"
+      "ra.mri-crohn",
+      "ra.ultrasound-ibd"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -62780,6 +62781,3175 @@
         {
           "observation": "phenotype",
           "evidence": "Integrated observed predominant/mixed features and independent clinical interpretation; no standalone fibrosis fraction or automatic remission."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.ultrasound-ibd",
+      "module_id": "rad.5.ibd",
+      "title": "Ultrasound inflammatory bowel disease",
+      "scope_status": "expanded_draft_requires_independent_anatomical_and_clinical_review",
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant Crohn ultrasound",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+          "reviewed_at": "2026-10-05"
+        },
+        {
+          "title": "Radiology Assistant IBD mimics ultrasound",
+          "url": "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+          "reviewed_at": "2026-10-05"
+        },
+        {
+          "title": "ESGAR ESR Essentials 2025",
+          "url": "https://doi.org/10.1007/s00330-025-11620-2",
+          "reviewed_at": "2026-10-05"
+        }
+      ],
+      "source_contract_sha256": "10ba145d2740780d7999bf96467d0e7a0f6651f63afc61094da04794c57a63f7",
+      "reporting_checklist": [
+        {
+          "label": "Coverage",
+          "detail": "Identify ileum, colon and any symptomatic segment examined."
+        },
+        {
+          "label": "Bowel Wall",
+          "detail": "Assess thickness, layering and compressibility."
+        },
+        {
+          "label": "Activity",
+          "detail": "Review vascularity, ulceration and surrounding mesenteric fat."
+        },
+        {
+          "label": "Lumen And Complications",
+          "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+        },
+        {
+          "label": "Mimics And Comparison",
+          "detail": "Check appendiceal, infectious, diverticular and other focal mimics."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "COVERAGE",
+          "body": "Coverage assessment: [adequate / limited / unassessed]. Actual examined segments, landmarks, postoperative sites and inaccessible extent: [ ]. Source settings/distension/compression limits: [ ]."
+        },
+        {
+          "heading": "BOWEL WALL",
+          "body": "Actual site, wall thickness/caliper plane and visible sonographic bands: [ ]. Compression: [assessed real time / limited / unassessed], observations [ ]. Unresolved bands and histological interpretation limits: [ ]."
+        },
+        {
+          "heading": "ACTIVITY",
+          "body": "Doppler: [adequate acquired settings / limited / unassessed], mural/perimural observations [ ]. Source-visible ulcer/interface and fat changes: [ ]. Mixed phenotype and cause/fibrosis interpretation limits: [ ]."
+        },
+        {
+          "heading": "LUMEN AND COMPLICATIONS",
+          "body": "Motion/persistence evidence: [actual real-time or repeated source / limited / unassessed]. Each narrowing, upstream/downstream lumen, source-visible tract/branch/endpoints and collection: [ ]. Inaccessible or unresolved extent: [ ]."
+        },
+        {
+          "heading": "MIMICS AND COMPARISON",
+          "body": "Actually assessed appendix/diverticula/other mimic sites and nodes: [ ]. Observed findings and differential limits: [ ]. Comparison: [adequate matched source / limited / unavailable], dates/sites, observed changes and limits [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "ius_ibd.segment_duodenal_bulb_if_accessible",
+          "name": "Actual duodenal_bulb_if_accessible sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_duodenal_bulb_if_accessible.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_duodenum_second_if_accessible",
+          "name": "Actual duodenum_second_if_accessible sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_second_if_accessible.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_duodenum_third_if_accessible",
+          "name": "Actual duodenum_third_if_accessible sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_third_if_accessible.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_duodenum_fourth_if_accessible",
+          "name": "Actual duodenum_fourth_if_accessible sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_duodenum_fourth_if_accessible.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_proximal_jejunum",
+          "name": "Actual proximal_jejunum sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_middle_jejunum",
+          "name": "Actual middle_jejunum sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_middle_jejunum.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_middle_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_middle_jejunum.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_jejunum.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_jejunum.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_jejunum.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_jejunum.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_jejunum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_middle_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_distal_jejunum",
+          "name": "Actual distal_jejunum sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_distal_jejunum.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_distal_jejunum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_distal_jejunum.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_jejunum.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_jejunum.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_jejunum.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_jejunum.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_jejunum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_distal_jejunum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_proximal_ileum",
+          "name": "Actual proximal_ileum sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_proximal_ileum.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_ileum.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_ileum.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_ileum.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_ileum.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_ileum.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_ileum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_proximal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_middle_ileum",
+          "name": "Actual middle_ileum sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_middle_ileum.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_middle_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_middle_ileum.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_ileum.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_ileum.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_ileum.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_ileum.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_middle_ileum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_middle_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_distal_ileum",
+          "name": "Actual distal_ileum sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_distal_ileum.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_distal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_distal_ileum.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_ileum.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_ileum.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_ileum.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_ileum.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_distal_ileum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_distal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_terminal_ileum",
+          "name": "Actual terminal_ileum sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_terminal_ileum.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_terminal_ileum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_terminal_ileum.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_terminal_ileum.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_terminal_ileum.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_terminal_ileum.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_terminal_ileum.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_terminal_ileum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_terminal_ileum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_ileocaecal_valve",
+          "name": "Actual ileocaecal_valve sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_ileocaecal_valve.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_caecum",
+          "name": "Actual caecum sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_caecum.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_caecum.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_caecum.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_caecum.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_caecum.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_caecum.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_caecum.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_caecum.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_caecum.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_ascending_colon",
+          "name": "Actual ascending_colon sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_ascending_colon.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_ascending_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_ascending_colon.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ascending_colon.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ascending_colon.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ascending_colon.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ascending_colon.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_ascending_colon.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_ascending_colon.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_hepatic_flexure",
+          "name": "Actual hepatic_flexure sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_hepatic_flexure.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_transverse_colon",
+          "name": "Actual transverse_colon sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_transverse_colon.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_transverse_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_transverse_colon.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_transverse_colon.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_transverse_colon.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_transverse_colon.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_transverse_colon.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_transverse_colon.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_transverse_colon.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_splenic_flexure",
+          "name": "Actual splenic_flexure sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_splenic_flexure.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_splenic_flexure.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_splenic_flexure.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_splenic_flexure.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_splenic_flexure.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_splenic_flexure.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_splenic_flexure.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_splenic_flexure.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_splenic_flexure.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_descending_colon",
+          "name": "Actual descending_colon sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_descending_colon.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_descending_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_descending_colon.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_descending_colon.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_descending_colon.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_descending_colon.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_descending_colon.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_descending_colon.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_descending_colon.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_sigmoid_colon",
+          "name": "Actual sigmoid_colon sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_sigmoid_colon.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.segment_rectum_if_accessible",
+          "name": "Actual rectum_if_accessible sonographic anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.complete_assessed_extent",
+              "name": "complete assessed extent"
+            },
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.lumen",
+              "name": "lumen"
+            },
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.first_acoustic_band_if_resolved",
+              "name": "first acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.second_acoustic_band_if_resolved",
+              "name": "second acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.third_acoustic_band_if_resolved",
+              "name": "third acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.fourth_acoustic_band_if_resolved",
+              "name": "fourth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.fifth_acoustic_band_if_resolved",
+              "name": "fifth acoustic band if resolved"
+            },
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.mesenteric_border",
+              "name": "mesenteric border"
+            },
+            {
+              "id": "ius_ibd.segment_rectum_if_accessible.antimesenteric_border",
+              "name": "antimesenteric border"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.distribution",
+          "name": "Every actual affected and reference site",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.distribution.involved_region",
+              "name": "involved region"
+            },
+            {
+              "id": "ius_ibd.distribution.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "ius_ibd.distribution.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "ius_ibd.distribution.full_measured_length",
+              "name": "full measured length"
+            },
+            {
+              "id": "ius_ibd.distribution.each_skip_site",
+              "name": "each skip site"
+            },
+            {
+              "id": "ius_ibd.distribution.intervening_reference_bowel",
+              "name": "intervening reference bowel"
+            },
+            {
+              "id": "ius_ibd.distribution.each_additional_site",
+              "name": "each additional site"
+            },
+            {
+              "id": "ius_ibd.distribution.inaccessible_segment_limit",
+              "name": "inaccessible segment limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.mural_findings",
+          "name": "Actual wall observations and interfaces",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.mural_findings.thickened_wall",
+              "name": "thickened wall"
+            },
+            {
+              "id": "ius_ibd.mural_findings.perpendicular_caliper_site",
+              "name": "perpendicular caliper site"
+            },
+            {
+              "id": "ius_ibd.mural_findings.each_resolved_acoustic_band",
+              "name": "each resolved acoustic band"
+            },
+            {
+              "id": "ius_ibd.mural_findings.lost_stratification_region",
+              "name": "lost stratification region"
+            },
+            {
+              "id": "ius_ibd.mural_findings.hypoechoic_region",
+              "name": "hypoechoic region"
+            },
+            {
+              "id": "ius_ibd.mural_findings.hyperechoic_region",
+              "name": "hyperechoic region"
+            },
+            {
+              "id": "ius_ibd.mural_findings.source_visible_ulcer_interface",
+              "name": "source visible ulcer interface"
+            },
+            {
+              "id": "ius_ibd.mural_findings.ulcer_depth_if_resolved",
+              "name": "ulcer depth if resolved"
+            },
+            {
+              "id": "ius_ibd.mural_findings.reference_wall",
+              "name": "reference wall"
+            },
+            {
+              "id": "ius_ibd.mural_findings.contraction_source",
+              "name": "contraction source"
+            },
+            {
+              "id": "ius_ibd.mural_findings.compression_source",
+              "name": "compression source"
+            },
+            {
+              "id": "ius_ibd.mural_findings.obliquity_limit",
+              "name": "obliquity limit"
+            },
+            {
+              "id": "ius_ibd.mural_findings.unresolved_band_or_histology_limit",
+              "name": "unresolved band or histology limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Activity",
+              "detail": "Review vascularity, ulceration and surrounding mesenteric fat."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.doppler",
+          "name": "Actual Doppler source observations",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.doppler.mural_signal_region",
+              "name": "mural signal region"
+            },
+            {
+              "id": "ius_ibd.doppler.perimural_signal_region",
+              "name": "perimural signal region"
+            },
+            {
+              "id": "ius_ibd.doppler.mesenteric_vessel_source",
+              "name": "mesenteric vessel source"
+            },
+            {
+              "id": "ius_ibd.doppler.reference_region",
+              "name": "reference region"
+            },
+            {
+              "id": "ius_ibd.doppler.acquired_colour_or_power_source",
+              "name": "acquired colour or power source"
+            },
+            {
+              "id": "ius_ibd.doppler.settings_scale_gain_source",
+              "name": "settings scale gain source"
+            },
+            {
+              "id": "ius_ibd.doppler.source_motion_or_flash_artefact",
+              "name": "source motion or flash artefact"
+            },
+            {
+              "id": "ius_ibd.doppler.source_blooming_artefact",
+              "name": "source blooming artefact"
+            },
+            {
+              "id": "ius_ibd.doppler.unassessed_flow_limit",
+              "name": "unassessed flow limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Activity",
+              "detail": "Review vascularity, ulceration and surrounding mesenteric fat."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.dynamics",
+          "name": "Actual real-time/repeated source observations",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.dynamics.source_visible_wall_movement",
+              "name": "source visible wall movement"
+            },
+            {
+              "id": "ius_ibd.dynamics.peristaltic_wave",
+              "name": "peristaltic wave"
+            },
+            {
+              "id": "ius_ibd.dynamics.lumen_content_movement",
+              "name": "lumen content movement"
+            },
+            {
+              "id": "ius_ibd.dynamics.compression_before_site",
+              "name": "compression before site"
+            },
+            {
+              "id": "ius_ibd.dynamics.compression_after_same_site",
+              "name": "compression after same site"
+            },
+            {
+              "id": "ius_ibd.dynamics.repeated_narrowing_site",
+              "name": "repeated narrowing site"
+            },
+            {
+              "id": "ius_ibd.dynamics.repeated_reference_site",
+              "name": "repeated reference site"
+            },
+            {
+              "id": "ius_ibd.dynamics.motion_source_timepoints",
+              "name": "motion source timepoints"
+            },
+            {
+              "id": "ius_ibd.dynamics.unassessed_fixedness_limit",
+              "name": "unassessed fixedness limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.narrowing",
+          "name": "Every actual narrowing and upstream/downstream interface",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.narrowing.narrowed_lumen",
+              "name": "narrowed lumen"
+            },
+            {
+              "id": "ius_ibd.narrowing.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "ius_ibd.narrowing.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "ius_ibd.narrowing.source_measured_length",
+              "name": "source measured length"
+            },
+            {
+              "id": "ius_ibd.narrowing.wall_at_narrowing",
+              "name": "wall at narrowing"
+            },
+            {
+              "id": "ius_ibd.narrowing.upstream_dilatation",
+              "name": "upstream dilatation"
+            },
+            {
+              "id": "ius_ibd.narrowing.downstream_lumen",
+              "name": "downstream lumen"
+            },
+            {
+              "id": "ius_ibd.narrowing.actual_persistence_source",
+              "name": "actual persistence source"
+            },
+            {
+              "id": "ius_ibd.narrowing.cause_interface_if_resolved",
+              "name": "cause interface if resolved"
+            },
+            {
+              "id": "ius_ibd.narrowing.unresolved_length_or_fixedness_limit",
+              "name": "unresolved length or fixedness limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.tracts",
+          "name": "Every actual tract branch and endpoint",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.tracts.full_source_visible_course",
+              "name": "full source visible course"
+            },
+            {
+              "id": "ius_ibd.tracts.first_bowel_opening",
+              "name": "first bowel opening"
+            },
+            {
+              "id": "ius_ibd.tracts.second_bowel_or_host_opening",
+              "name": "second bowel or host opening"
+            },
+            {
+              "id": "ius_ibd.tracts.each_actual_branch",
+              "name": "each actual branch"
+            },
+            {
+              "id": "ius_ibd.tracts.blind_endpoint_if_supported",
+              "name": "blind endpoint if supported"
+            },
+            {
+              "id": "ius_ibd.tracts.tract_core",
+              "name": "tract core"
+            },
+            {
+              "id": "ius_ibd.tracts.tract_wall_if_resolved",
+              "name": "tract wall if resolved"
+            },
+            {
+              "id": "ius_ibd.tracts.outer_host_interface",
+              "name": "outer host interface"
+            },
+            {
+              "id": "ius_ibd.tracts.mesenteric_course",
+              "name": "mesenteric course"
+            },
+            {
+              "id": "ius_ibd.tracts.bowel_wall_interface",
+              "name": "bowel wall interface"
+            },
+            {
+              "id": "ius_ibd.tracts.unresolved_endpoint_limit",
+              "name": "unresolved endpoint limit"
+            },
+            {
+              "id": "ius_ibd.tracts.inaccessible_tract_limit",
+              "name": "inaccessible tract limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.collections",
+          "name": "Every actual collection and host interface",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.collections.core",
+              "name": "core"
+            },
+            {
+              "id": "ius_ibd.collections.fluid_region",
+              "name": "fluid region"
+            },
+            {
+              "id": "ius_ibd.collections.echogenic_debris_if_present",
+              "name": "echogenic debris if present"
+            },
+            {
+              "id": "ius_ibd.collections.gas_artefact_if_present",
+              "name": "gas artefact if present"
+            },
+            {
+              "id": "ius_ibd.collections.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "ius_ibd.collections.source_visible_vascular_region",
+              "name": "source visible vascular region"
+            },
+            {
+              "id": "ius_ibd.collections.outer_wall_interface",
+              "name": "outer wall interface"
+            },
+            {
+              "id": "ius_ibd.collections.bowel_interface",
+              "name": "bowel interface"
+            },
+            {
+              "id": "ius_ibd.collections.mesenteric_interface",
+              "name": "mesenteric interface"
+            },
+            {
+              "id": "ius_ibd.collections.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "ius_ibd.collections.host_organ_interface",
+              "name": "host organ interface"
+            },
+            {
+              "id": "ius_ibd.collections.orthogonal_dimensions",
+              "name": "orthogonal dimensions"
+            },
+            {
+              "id": "ius_ibd.collections.full_source_extent",
+              "name": "full source extent"
+            },
+            {
+              "id": "ius_ibd.collections.unresolved_drainage_or_depth_limit",
+              "name": "unresolved drainage or depth limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.mesentery",
+          "name": "Actual assessed mesentery and nodes",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.mesentery.bowel_attachment",
+              "name": "bowel attachment"
+            },
+            {
+              "id": "ius_ibd.mesentery.perienteric_fat_envelope",
+              "name": "perienteric fat envelope"
+            },
+            {
+              "id": "ius_ibd.mesentery.each_source_leaf",
+              "name": "each source leaf"
+            },
+            {
+              "id": "ius_ibd.mesentery.root_if_accessible",
+              "name": "root if accessible"
+            },
+            {
+              "id": "ius_ibd.mesentery.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "ius_ibd.mesentery.nodal_cortex_if_resolved",
+              "name": "nodal cortex if resolved"
+            },
+            {
+              "id": "ius_ibd.mesentery.nodal_hilum_if_resolved",
+              "name": "nodal hilum if resolved"
+            },
+            {
+              "id": "ius_ibd.mesentery.node_envelope",
+              "name": "node envelope"
+            },
+            {
+              "id": "ius_ibd.mesentery.nodal_vascular_interface",
+              "name": "nodal vascular interface"
+            },
+            {
+              "id": "ius_ibd.mesentery.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "ius_ibd.mesentery.interloop_space",
+              "name": "interloop space"
+            },
+            {
+              "id": "ius_ibd.mesentery.free_fluid_distribution",
+              "name": "free fluid distribution"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Activity",
+              "detail": "Review vascularity, ulceration and surrounding mesenteric fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Mimics And Comparison",
+              "detail": "Check appendiceal, infectious, diverticular and other focal mimics."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.mesenteric_findings",
+          "name": "Actual perienteric changes",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.mesenteric_findings.echogenic_fat_region",
+              "name": "echogenic fat region"
+            },
+            {
+              "id": "ius_ibd.mesenteric_findings.mixed_echogenic_region",
+              "name": "mixed echogenic region"
+            },
+            {
+              "id": "ius_ibd.mesenteric_findings.fat_wrapping_if_supported",
+              "name": "fat wrapping if supported"
+            },
+            {
+              "id": "ius_ibd.mesenteric_findings.tethered_bowel_interface",
+              "name": "tethered bowel interface"
+            },
+            {
+              "id": "ius_ibd.mesenteric_findings.actual_abnormal_node",
+              "name": "actual abnormal node"
+            },
+            {
+              "id": "ius_ibd.mesenteric_findings.free_fluid_site",
+              "name": "free fluid site"
+            },
+            {
+              "id": "ius_ibd.mesenteric_findings.source_visible_collection",
+              "name": "source visible collection"
+            },
+            {
+              "id": "ius_ibd.mesenteric_findings.inaccessible_fat_or_vascular_extent",
+              "name": "inaccessible fat or vascular extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Activity",
+              "detail": "Review vascularity, ulceration and surrounding mesenteric fat."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Mimics And Comparison",
+              "detail": "Check appendiceal, infectious, diverticular and other focal mimics."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.host_adjacent_bowel_loop",
+          "name": "Actual adjacent_bowel_loop interface",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.host_adjacent_bowel_loop.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "ius_ibd.host_adjacent_bowel_loop.host_wall_if_resolved",
+              "name": "host wall if resolved"
+            },
+            {
+              "id": "ius_ibd.host_adjacent_bowel_loop.bowel_contact",
+              "name": "bowel contact"
+            },
+            {
+              "id": "ius_ibd.host_adjacent_bowel_loop.tract_or_collection_contact",
+              "name": "tract or collection contact"
+            },
+            {
+              "id": "ius_ibd.host_adjacent_bowel_loop.unresolved_host_extent",
+              "name": "unresolved host extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.host_bladder_if_relevant",
+          "name": "Actual bladder_if_relevant interface",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.host_bladder_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "ius_ibd.host_bladder_if_relevant.host_wall_if_resolved",
+              "name": "host wall if resolved"
+            },
+            {
+              "id": "ius_ibd.host_bladder_if_relevant.bowel_contact",
+              "name": "bowel contact"
+            },
+            {
+              "id": "ius_ibd.host_bladder_if_relevant.tract_or_collection_contact",
+              "name": "tract or collection contact"
+            },
+            {
+              "id": "ius_ibd.host_bladder_if_relevant.unresolved_host_extent",
+              "name": "unresolved host extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.host_abdominal_wall_if_relevant",
+          "name": "Actual abdominal_wall_if_relevant interface",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.host_abdominal_wall_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "ius_ibd.host_abdominal_wall_if_relevant.host_wall_if_resolved",
+              "name": "host wall if resolved"
+            },
+            {
+              "id": "ius_ibd.host_abdominal_wall_if_relevant.bowel_contact",
+              "name": "bowel contact"
+            },
+            {
+              "id": "ius_ibd.host_abdominal_wall_if_relevant.tract_or_collection_contact",
+              "name": "tract or collection contact"
+            },
+            {
+              "id": "ius_ibd.host_abdominal_wall_if_relevant.unresolved_host_extent",
+              "name": "unresolved host extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.host_psoas_if_relevant",
+          "name": "Actual psoas_if_relevant interface",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.host_psoas_if_relevant.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "ius_ibd.host_psoas_if_relevant.host_wall_if_resolved",
+              "name": "host wall if resolved"
+            },
+            {
+              "id": "ius_ibd.host_psoas_if_relevant.bowel_contact",
+              "name": "bowel contact"
+            },
+            {
+              "id": "ius_ibd.host_psoas_if_relevant.tract_or_collection_contact",
+              "name": "tract or collection contact"
+            },
+            {
+              "id": "ius_ibd.host_psoas_if_relevant.unresolved_host_extent",
+              "name": "unresolved host extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.host_other_actual_organ",
+          "name": "Actual other_actual_organ interface",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.host_other_actual_organ.covered_host_tissue",
+              "name": "covered host tissue"
+            },
+            {
+              "id": "ius_ibd.host_other_actual_organ.host_wall_if_resolved",
+              "name": "host wall if resolved"
+            },
+            {
+              "id": "ius_ibd.host_other_actual_organ.bowel_contact",
+              "name": "bowel contact"
+            },
+            {
+              "id": "ius_ibd.host_other_actual_organ.tract_or_collection_contact",
+              "name": "tract or collection contact"
+            },
+            {
+              "id": "ius_ibd.host_other_actual_organ.unresolved_host_extent",
+              "name": "unresolved host extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.postoperative",
+          "name": "Actual postoperative anatomy",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.postoperative.resection_margins",
+              "name": "resection margins"
+            },
+            {
+              "id": "ius_ibd.postoperative.anastomotic_site",
+              "name": "anastomotic site"
+            },
+            {
+              "id": "ius_ibd.postoperative.neoterminal_ileum",
+              "name": "neoterminal ileum"
+            },
+            {
+              "id": "ius_ibd.postoperative.afferent_limb",
+              "name": "afferent limb"
+            },
+            {
+              "id": "ius_ibd.postoperative.efferent_limb",
+              "name": "efferent limb"
+            },
+            {
+              "id": "ius_ibd.postoperative.pouch_if_present",
+              "name": "pouch if present"
+            },
+            {
+              "id": "ius_ibd.postoperative.staple_or_suture_interface_if_resolved",
+              "name": "staple or suture interface if resolved"
+            },
+            {
+              "id": "ius_ibd.postoperative.postoperative_collection",
+              "name": "postoperative collection"
+            },
+            {
+              "id": "ius_ibd.postoperative.actual_stoma_if_present",
+              "name": "actual stoma if present"
+            },
+            {
+              "id": "ius_ibd.postoperative.altered_mesenteric_interface",
+              "name": "altered mesenteric interface"
+            },
+            {
+              "id": "ius_ibd.postoperative.unresolved_postoperative_extent",
+              "name": "unresolved postoperative extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.mimics",
+          "name": "Each actual source-supported mimic site",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.mimics.appendix_if_assessed",
+              "name": "appendix if assessed"
+            },
+            {
+              "id": "ius_ibd.mimics.appendiceal_wall_or_tip_if_resolved",
+              "name": "appendiceal wall or tip if resolved"
+            },
+            {
+              "id": "ius_ibd.mimics.caecal_interface",
+              "name": "caecal interface"
+            },
+            {
+              "id": "ius_ibd.mimics.diverticular_neck_if_resolved",
+              "name": "diverticular neck if resolved"
+            },
+            {
+              "id": "ius_ibd.mimics.diverticular_wall_if_resolved",
+              "name": "diverticular wall if resolved"
+            },
+            {
+              "id": "ius_ibd.mimics.adjacent_colonic_wall",
+              "name": "adjacent colonic wall"
+            },
+            {
+              "id": "ius_ibd.mimics.focal_inflammatory_fat",
+              "name": "focal inflammatory fat"
+            },
+            {
+              "id": "ius_ibd.mimics.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "ius_ibd.mimics.source_infectious_pattern_site",
+              "name": "source infectious pattern site"
+            },
+            {
+              "id": "ius_ibd.mimics.source_neoplastic_pattern_site",
+              "name": "source neoplastic pattern site"
+            },
+            {
+              "id": "ius_ibd.mimics.other_actual_mimic_site",
+              "name": "other actual mimic site"
+            },
+            {
+              "id": "ius_ibd.mimics.unresolved_cause_limit",
+              "name": "unresolved cause limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics And Comparison",
+              "detail": "Check appendiceal, infectious, diverticular and other focal mimics."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.comparison",
+          "name": "Actual prior/current correspondence",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.comparison.prior_same_segment",
+              "name": "prior same segment"
+            },
+            {
+              "id": "ius_ibd.comparison.current_same_segment",
+              "name": "current same segment"
+            },
+            {
+              "id": "ius_ibd.comparison.matched_caliper_site",
+              "name": "matched caliper site"
+            },
+            {
+              "id": "ius_ibd.comparison.matched_doppler_site",
+              "name": "matched doppler site"
+            },
+            {
+              "id": "ius_ibd.comparison.source_dates",
+              "name": "source dates"
+            },
+            {
+              "id": "ius_ibd.comparison.technique_and_compression_correspondence",
+              "name": "technique and compression correspondence"
+            },
+            {
+              "id": "ius_ibd.comparison.matched_complication_site",
+              "name": "matched complication site"
+            },
+            {
+              "id": "ius_ibd.comparison.uncertainty_or_unavailable_prior_limit",
+              "name": "uncertainty or unavailable prior limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Mimics And Comparison",
+              "detail": "Check appendiceal, infectious, diverticular and other focal mimics."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.acquisition",
+          "name": "Actual source field and technical evidence",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.acquisition.probe_and_frequency_source",
+              "name": "probe and frequency source"
+            },
+            {
+              "id": "ius_ibd.acquisition.depth_and_focus_source",
+              "name": "depth and focus source"
+            },
+            {
+              "id": "ius_ibd.acquisition.B_mode_plane_source",
+              "name": "B mode plane source"
+            },
+            {
+              "id": "ius_ibd.acquisition.doppler_settings_source",
+              "name": "doppler settings source"
+            },
+            {
+              "id": "ius_ibd.acquisition.actual_cine_or_repeated_source",
+              "name": "actual cine or repeated source"
+            },
+            {
+              "id": "ius_ibd.acquisition.distension_source",
+              "name": "distension source"
+            },
+            {
+              "id": "ius_ibd.acquisition.compression_and_tolerance_source",
+              "name": "compression and tolerance source"
+            },
+            {
+              "id": "ius_ibd.acquisition.gas_shadow_limit",
+              "name": "gas shadow limit"
+            },
+            {
+              "id": "ius_ibd.acquisition.deep_pelvic_limit",
+              "name": "deep pelvic limit"
+            },
+            {
+              "id": "ius_ibd.acquisition.partial_field_limit",
+              "name": "partial field limit"
+            },
+            {
+              "id": "ius_ibd.acquisition.population_and_site_context",
+              "name": "population and site context"
+            },
+            {
+              "id": "ius_ibd.acquisition.unresolved_sequence_or_dynamic_limit",
+              "name": "unresolved sequence or dynamic limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Activity",
+              "detail": "Review vascularity, ulceration and surrounding mesenteric fat."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Mimics And Comparison",
+              "detail": "Check appendiceal, infectious, diverticular and other focal mimics."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.positive_examples",
+          "name": "Actual pathological source examples",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.positive_examples.active_wall_example",
+              "name": "active wall example"
+            },
+            {
+              "id": "ius_ibd.positive_examples.penetrating_tract_example",
+              "name": "penetrating tract example"
+            },
+            {
+              "id": "ius_ibd.positive_examples.collection_example",
+              "name": "collection example"
+            },
+            {
+              "id": "ius_ibd.positive_examples.narrowing_with_upstream_effect_example",
+              "name": "narrowing with upstream effect example"
+            },
+            {
+              "id": "ius_ibd.positive_examples.abnormal_perienteric_fat_example",
+              "name": "abnormal perienteric fat example"
+            },
+            {
+              "id": "ius_ibd.positive_examples.postoperative_disease_example",
+              "name": "postoperative disease example"
+            },
+            {
+              "id": "ius_ibd.positive_examples.actual_mimic_example",
+              "name": "actual mimic example"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Activity",
+              "detail": "Review vascularity, ulceration and surrounding mesenteric fat."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Mimics And Comparison",
+              "detail": "Check appendiceal, infectious, diverticular and other focal mimics."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "ius_ibd.technical_examples",
+          "name": "Actual observed technical limitations",
+          "tissue_class": "reportable_sonographic_bowel_or_complication_interface",
+          "required_parts": [
+            {
+              "id": "ius_ibd.technical_examples.poor_distension_example",
+              "name": "poor distension example"
+            },
+            {
+              "id": "ius_ibd.technical_examples.compression_or_obliquity_example",
+              "name": "compression or obliquity example"
+            },
+            {
+              "id": "ius_ibd.technical_examples.inaccessible_gas_or_depth_example",
+              "name": "inaccessible gas or depth example"
+            },
+            {
+              "id": "ius_ibd.technical_examples.inadequate_doppler_example",
+              "name": "inadequate doppler example"
+            },
+            {
+              "id": "ius_ibd.technical_examples.missing_dynamic_source_example",
+              "name": "missing dynamic source example"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "Ultrasound"
+          ],
+          "condition": "Instantiate every actual assessed bowel segment, sonographic band/caliper, dynamic observation, Doppler source, narrowing, tract/branch/endpoint, collection, host/mimic site and comparison. Conditional deep/pelvic or other-organ sites require actual coverage/relevance. Retain inaccessible/unresolved extent and actual settings, plane, compression/distension, cine/repeated-source and population. Sonographic acoustic bands do not independently supply histological layers; CT/MRI, parent models, static figures or source colour do not supply unacquired ultrasound dynamics/perfusion, biological cause, fibrosis fraction or complete anatomy.",
+          "requirement_basis": "effective_ius_coverage_wall_activity_lumen_complication_mimic_and_comparison_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Coverage",
+              "detail": "Identify ileum, colon and any symptomatic segment examined."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Bowel Wall",
+              "detail": "Assess thickness, layering and compressibility."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Activity",
+              "detail": "Review vascularity, ulceration and surrounding mesenteric fat."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Lumen And Complications",
+              "detail": "Assess peristalsis, stenosis, dilatation and penetrating disease."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bowel/ultrasound-in-crohns-disease",
+            "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease",
+            "https://doi.org/10.1007/s00330-025-11620-2"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference",
+            "require_pathology": false,
+            "depicted_states": [
+              "actual_ius_technical_limitation"
+            ]
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual bowel segment, band/caliper, narrowing, tract branch/endpoint, collection and host/mimic interface",
+            "Actual Doppler acquisition/settings and real-time compression/motion/persistence evidence",
+            "Independent source, anatomical, phenotype and clinical review; all inaccessible fields retained"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "complete_source_instances_pending",
+          "detail": "Every actual region and tract/interface needs explicit source instantiation."
+        },
+        {
+          "code": "sonographic_band_histology_pending",
+          "detail": "Acoustic bands do not independently establish every histological layer or pathological depth."
+        },
+        {
+          "code": "dynamic_and_doppler_sources_pending",
+          "detail": "Real-time/repeated source and Doppler settings are needed; static images and colours cannot supply dynamics/perfusion."
+        },
+        {
+          "code": "diagnosis_and_fibrosis_pending",
+          "detail": "Observed patterns do not independently establish pathogen, full histology, quantified fibrosis or complete remission."
+        },
+        {
+          "code": "field_and_endpoint_pending",
+          "detail": "Inaccessible/deep/pelvic extent and unresolved endpoints cannot become complete exclusions."
+        },
+        {
+          "code": "native_sources_models_and_review_pending",
+          "detail": "Images, schematics, models and independent specialist validation remain required."
+        },
+        {
+          "code": "shared_curriculum_pending",
+          "detail": "Shared IBD lesson, scoring and management content remains unreconciled."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "wall_bands",
+          "evidence": "Actual B-mode source plane/caliper and resolved acoustic interfaces with pressure/obliquity limits."
+        },
+        {
+          "observation": "doppler",
+          "evidence": "Actual acquired settings, mural/perimural source and technical/artefact assessment."
+        },
+        {
+          "observation": "dynamics",
+          "evidence": "Real-time/cine/repeated sources for motion, compressibility and persistence."
+        },
+        {
+          "observation": "tract_extent",
+          "evidence": "Every source-visible course, branch and endpoint with unresolved extent retained."
+        },
+        {
+          "observation": "comparison",
+          "evidence": "Actual matched sites, dates, technique and compression/Doppler context."
         }
       ]
     }

@@ -782,9 +782,10 @@
   },
   "ra.ultrasound-ibd": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-05",
       "protocol": [
-        "Use graded compression and targeted Doppler to survey bowel systematically; record visualised segments and inaccessible areas."
+        "Use graded compression and targeted Doppler to survey bowel systematically; record visualised segments and inaccessible areas.",
+        "Record actual probe, depth/focus, bowel distension, compression tolerance, B-mode and colour/power Doppler acquisition/settings and motion or cine evidence. Retain inaccessible segments, gas/deep pelvic limits and postoperative anatomy. Unacquired or inadequate Doppler, motion and compression observations remain unassessed; CT/MRI and static model colours do not supply ultrasound features."
       ],
       "checklist": [
         {
@@ -818,33 +819,41 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Bowel wall thickening is not specific for inflammatory bowel disease, and an incomplete survey cannot exclude remote disease."
+        "Bowel wall thickening is not specific for inflammatory bowel disease, and an incomplete survey cannot exclude remote disease.",
+        "Sonographic bands are acoustic interfaces and do not independently identify every histological layer; lost stratification alone is not proof of transmural inflammation or a specific cause.",
+        "Absent Doppler colour without adequate settings, source acquisition and technical assessment does not establish absent perfusion, absent activity or tissue viability.",
+        "Peristalsis, compressibility and persistent narrowing require actual real-time or repeated-source evidence; a still image cannot supply dynamic findings.",
+        "A source-visible partial tract, inaccessible pelvis or local collection cannot establish all endpoints or exclude remote penetrating disease; routine transabdominal IUS is not a complete dedicated perianal examination.",
+        "Bowel thickening, ulcers, nodes and fat changes can overlap between inflammatory, infectious and other causes; ultrasound alone does not identify the pathogen, quantify fibrosis or establish complete remission.",
+        "Comparison requires actual prior data, corresponding segment and comparable technique/compression/Doppler; missing comparison is not no interval change."
       ],
       "impression_prompts": [
         "Bowel inflammation and mimics on focused gastrointestinal ultrasound.",
         "State the dominant abnormality, relevant extent and examination limitations."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate suspected obstruction, abscess or perforation urgently in the relevant clinical context; technically limited or incomplete ultrasound requires appropriate further assessment rather than a blanket exclusion."
+      ],
       "template_sections": [
         {
           "heading": "COVERAGE",
-          "body": "Segments seen: [ ]. Segments limited: [ ]."
+          "body": "Coverage assessment: [adequate / limited / unassessed]. Actual examined segments, landmarks, postoperative sites and inaccessible extent: [ ]. Source settings/distension/compression limits: [ ]."
         },
         {
           "heading": "BOWEL WALL",
-          "body": "Site/thickness: [ ]/[ ] mm. Layers: [ ]. Compressibility: [ ]."
+          "body": "Actual site, wall thickness/caliper plane and visible sonographic bands: [ ]. Compression: [assessed real time / limited / unassessed], observations [ ]. Unresolved bands and histological interpretation limits: [ ]."
         },
         {
           "heading": "ACTIVITY",
-          "body": "Doppler hyperaemia: [ ]. Ulcers: [ ]. Fat echogenicity: [ ]."
+          "body": "Doppler: [adequate acquired settings / limited / unassessed], mural/perimural observations [ ]. Source-visible ulcer/interface and fat changes: [ ]. Mixed phenotype and cause/fibrosis interpretation limits: [ ]."
         },
         {
           "heading": "LUMEN AND COMPLICATIONS",
-          "body": "Peristalsis/narrowing: [ ]. Upstream calibre: [ ]. Fistula/collection: [ ]."
+          "body": "Motion/persistence evidence: [actual real-time or repeated source / limited / unassessed]. Each narrowing, upstream/downstream lumen, source-visible tract/branch/endpoints and collection: [ ]. Inaccessible or unresolved extent: [ ]."
         },
         {
           "heading": "MIMICS AND COMPARISON",
-          "body": "Alternative cause: [ ]. Nodes: [ ]. Comparison: [ ]."
+          "body": "Actually assessed appendix/diverticula/other mimic sites and nodes: [ ]. Observed findings and differential limits: [ ]. Comparison: [adequate matched source / limited / unavailable], dates/sites, observed changes and limits [ ]."
         }
       ],
       "sources": [
@@ -855,9 +864,20 @@
         {
           "title": "Radiology Assistant — US of Mimics of Inflammatory Bowel Disease",
           "url": "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease"
+        },
+        {
+          "title": "ESGAR ESR Essentials 2025 — Luminal Crohn MRI/IUS assessment",
+          "url": "https://doi.org/10.1007/s00330-025-11620-2"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Map actual visualised bowel and postoperative sites with inaccessible extent retained.",
+      "Describe observed sonographic bands, thickness and surrounding tissue without assigning histology from a lost layer.",
+      "Record actual Doppler settings/acquisition and compression/motion evidence; static images cannot supply dynamic observations.",
+      "Trace each source-visible narrowing, tract, endpoint and collection with uncertainty and inaccessible interfaces retained.",
+      "Compare actual corresponding sites and acquisitions; imaging patterns alone do not establish an infectious cause, complete remission or quantified fibrosis."
+    ]
   },
   "ra.ct-small-bowel-tumours": {
     "reporting": {
