@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -1062,7 +1062,7 @@
       },
       "reporting_contract_sha256": "f223abd46a1cc47e60ae3b825211a4c97129a636d405583e40ecff39a0505662",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2092,9 +2092,10 @@
       "modality": "Multimodality",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-05",
           "protocol": [
-            "State the actual modality, clinical location of pain and contrast or ultrasound coverage; tailor the search to the supplied acute presentation."
+            "State the actual modality, clinical location of pain and contrast or ultrasound coverage; tailor the search to the supplied acute presentation.",
+            "Record actual CT/US/MRI or supplied radiographic source, coverage, contrast route/phases/sequences, distension, motion/gas/metal limits and patient/postoperative context. Ultrasound compression, tenderness/Murphy, motion and Doppler require actual assessment; CT attenuation/enhancement and MRI signal/diffusion require their acquired sources. Missing examinations/features remain unassessed rather than inferred from another modality or a parent model."
           ],
           "checklist": [
             {
@@ -2122,7 +2123,14 @@
           "classification": null,
           "criteria_table": null,
           "pitfalls": [
-            "A negative examination with incomplete visualisation does not exclude disease in the unseen region."
+            "A negative examination with incomplete visualisation does not exclude disease in the unseen region.",
+            "Pain location helps organise the search but does not independently prove the responsible organ or exclude alternative, remote or evolving pathology.",
+            "A nonvisualised appendix is not automatically a normal appendix; retain actual modality/adequacy, secondary observations and unresolved appendiceal extent.",
+            "Compression, sonographic Murphy/tenderness, peristalsis and Doppler are not supplied by a static CT/MRI image or source colour; absent or inadequate acquisition remains unassessed.",
+            "Wall thickening, adjacent fat change, fluid and nodes overlap between causes; these patterns alone do not identify a pathogen, histological diagnosis, full disease extent or tissue viability.",
+            "A negative plain radiograph does not exclude fluid-filled obstruction or every acute abdominal process; projection is not resolved soft-tissue wall/organ anatomy.",
+            "Unacquired contrast phases, sequences, limited ultrasound windows or incomplete pelvic coverage cannot supply a complete vascular, organ, urinary or adnexal exclusion.",
+            "Apply guidance in its actual patient/scenario scope. The ACR nonlocalised-pain topic primarily addresses adult nonpregnant patients; pregnancy, paediatric, postoperative and localised-pain questions require their applicable source and clinical context."
           ],
           "impression_prompts": [
             "An imaging approach to common causes of acute abdominal pain.",
@@ -2134,29 +2142,33 @@
           "template_sections": [
             {
               "heading": "PAIN LOCALISATION",
-              "body": "Pain location: [ ]. Matching abnormality: [ ]."
+              "body": "Clinical pain site/context: [ ]. Actual source modality and coverage: [adequate / limited / unassessed]. Observed corresponding and alternative findings, unassessed regions and certainty: [ ]."
             },
             {
               "heading": "BOWEL AND APPENDIX",
-              "body": "Appendix: [ ]. Bowel inflammation/obstruction: [ ]."
+              "body": "Appendix visualisation: [seen / partly seen / not seen / not assessed], actual source findings/limits [ ]. Bowel/diverticular/transition assessment: [adequate / limited / unassessed], each actual site, wall/lumen and complication extent [ ]. Ultrasound dynamics/Doppler or contrast-dependent observations: actual acquired source [ ] or unassessed [ ]."
             },
             {
               "heading": "SOLID ORGANS",
-              "body": "Hepatobiliary findings: [ ]. Pancreas/spleen: [ ]."
+              "body": "Actual hepatobiliary/pancreatic/splenic assessment: [adequate / limited / unassessed], source regions/features [ ]. Ultrasound tenderness/Murphy/compression: [actually assessed / limited / unassessed]. Contrast/sequence-dependent observations and unresolved extent: [ ]."
             },
             {
               "heading": "URINARY AND PELVIC STRUCTURES",
-              "body": "Hydronephrosis/stone: [ ]. Pelvic abnormality: [ ]."
+              "body": "Urinary assessment: [adequate actual source / limited / unassessed], drainage/stone and source coverage [ ]. Relevant pelvic organs and actual assessment: [ ], findings and inaccessible/unassessed extent [ ]. Modality/contrast/Doppler limits: [ ]."
             },
             {
               "heading": "PERITONEUM AND VESSELS",
-              "body": "Free gas/fluid: [ ]. Collection: [ ]. Aorta/mesenteric vessels: [ ]."
+              "body": "Peritoneal/vascular assessment: [adequate actual source / limited / unassessed]. Actual fluid/gas/collection sites, resolved wall/host extent, vessels and source phases/flow observations: [ ]. Unresolved cause, perforation/perfusion or field limits: [ ]."
             }
           ],
           "sources": [
             {
               "title": "Radiology Assistant \u2014 Practical approach to Acute Abdomen",
               "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/practical-approach-to-acute-abdomen"
+            },
+            {
+              "title": "ACR Acute Nonlocalized Abdominal Pain \u2014 Actual scenario/applicability and modality limits",
+              "url": "https://acsearch.acr.org/docs/69467/Narrative/"
             }
           ]
         },
@@ -2176,7 +2188,7 @@
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "State the actual modality, clinical location of pain and contrast or ultrasound coverage; tailor the search to the supplied acute presentation.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
+                "body": "State the actual modality, clinical location of pain and contrast or ultrasound coverage; tailor the search to the supplied acute presentation.\nRecord actual CT/US/MRI or supplied radiographic source, coverage, contrast route/phases/sequences, distension, motion/gas/metal limits and patient/postoperative context. Ultrasound compression, tenderness/Murphy, motion and Doppler require actual assessment; CT attenuation/enhancement and MRI signal/diffusion require their acquired sources. Missing examinations/features remain unassessed rather than inferred from another modality or a parent model.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
@@ -2184,23 +2196,23 @@
               },
               {
                 "heading": "PAIN LOCALISATION",
-                "body": "Pain location: [ ]. Matching abnormality: [ ]."
+                "body": "Clinical pain site/context: [ ]. Actual source modality and coverage: [adequate / limited / unassessed]. Observed corresponding and alternative findings, unassessed regions and certainty: [ ]."
               },
               {
                 "heading": "BOWEL AND APPENDIX",
-                "body": "Appendix: [ ]. Bowel inflammation/obstruction: [ ]."
+                "body": "Appendix visualisation: [seen / partly seen / not seen / not assessed], actual source findings/limits [ ]. Bowel/diverticular/transition assessment: [adequate / limited / unassessed], each actual site, wall/lumen and complication extent [ ]. Ultrasound dynamics/Doppler or contrast-dependent observations: actual acquired source [ ] or unassessed [ ]."
               },
               {
                 "heading": "SOLID ORGANS",
-                "body": "Hepatobiliary findings: [ ]. Pancreas/spleen: [ ]."
+                "body": "Actual hepatobiliary/pancreatic/splenic assessment: [adequate / limited / unassessed], source regions/features [ ]. Ultrasound tenderness/Murphy/compression: [actually assessed / limited / unassessed]. Contrast/sequence-dependent observations and unresolved extent: [ ]."
               },
               {
                 "heading": "URINARY AND PELVIC STRUCTURES",
-                "body": "Hydronephrosis/stone: [ ]. Pelvic abnormality: [ ]."
+                "body": "Urinary assessment: [adequate actual source / limited / unassessed], drainage/stone and source coverage [ ]. Relevant pelvic organs and actual assessment: [ ], findings and inaccessible/unassessed extent [ ]. Modality/contrast/Doppler limits: [ ]."
               },
               {
                 "heading": "PERITONEUM AND VESSELS",
-                "body": "Free gas/fluid: [ ]. Collection: [ ]. Aorta/mesenteric vessels: [ ]."
+                "body": "Peritoneal/vascular assessment: [adequate actual source / limited / unassessed]. Actual fluid/gas/collection sites, resolved wall/host extent, vessels and source phases/flow observations: [ ]. Unresolved cause, perforation/perfusion or field limits: [ ]."
               },
               {
                 "heading": "IMPRESSION",
@@ -2212,12 +2224,23 @@
               }
             ],
             "notes": [
-              "A negative examination with incomplete visualisation does not exclude disease in the unseen region."
+              "A negative examination with incomplete visualisation does not exclude disease in the unseen region.",
+              "Pain location helps organise the search but does not independently prove the responsible organ or exclude alternative, remote or evolving pathology.",
+              "A nonvisualised appendix is not automatically a normal appendix; retain actual modality/adequacy, secondary observations and unresolved appendiceal extent.",
+              "Compression, sonographic Murphy/tenderness, peristalsis and Doppler are not supplied by a static CT/MRI image or source colour; absent or inadequate acquisition remains unassessed.",
+              "Wall thickening, adjacent fat change, fluid and nodes overlap between causes; these patterns alone do not identify a pathogen, histological diagnosis, full disease extent or tissue viability.",
+              "A negative plain radiograph does not exclude fluid-filled obstruction or every acute abdominal process; projection is not resolved soft-tissue wall/organ anatomy.",
+              "Unacquired contrast phases, sequences, limited ultrasound windows or incomplete pelvic coverage cannot supply a complete vascular, organ, urinary or adnexal exclusion.",
+              "Apply guidance in its actual patient/scenario scope. The ACR nonlocalised-pain topic primarily addresses adult nonpregnant patients; pregnancy, paediatric, postoperative and localised-pain questions require their applicable source and clinical context."
             ],
             "sources": [
               {
                 "title": "Radiology Assistant \u2014 Practical approach to Acute Abdomen",
                 "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/practical-approach-to-acute-abdomen"
+              },
+              {
+                "title": "ACR Acute Nonlocalized Abdominal Pain \u2014 Actual scenario/applicability and modality limits",
+                "url": "https://acsearch.acr.org/docs/69467/Narrative/"
               }
             ]
           }
@@ -2238,23 +2261,23 @@
           "steps": [
             {
               "label": "Pain localisation",
-              "detail": "Correlate the symptomatic quadrant with the imaging and confirm or exclude its most common cause first.",
+              "detail": "Correlate the symptomatic site with the actual examination, retaining source coverage and alternative-cause limits.",
               "sections": [
                 "PAIN LOCALISATION"
               ],
               "normal": {
-                "PAIN LOCALISATION": "No abnormality at the site of pain."
+                "PAIN LOCALISATION": "Pain-site assessment: [adequate actual modality/coverage / limited / unassessed]. Source regions, observations and unassessed or alternative extent: [ ]."
               },
               "findings": [
                 "Findings at the site of maximal pain in the [ ] quadrant: [ ].",
-                "Pain site [ ]; no matching abnormality \u2014 see alternative findings below."
+                "Pain site [ ]; actual corresponding assessment [adequate / limited / unassessed], observed findings/alternative sites and limits [ ]."
               ],
               "images": [],
               "measurements": [],
               "landmark": "spaces",
               "parts": [],
-              "look": "Start where it hurts: right lower quadrant for appendicitis, left lower quadrant for diverticulitis, right upper quadrant for cholecystitis.",
-              "tip": "Confirm or exclude the most common disease for the pain location before surveying for general signs."
+              "look": "Start with the clinical pain site and assess actually covered related structures; record source modality, patient context and unassessed regions. Continue the source-supported survey rather than treating one quadrant as proof of a single cause.",
+              "tip": "Location organises assessment; a limited or negative local examination does not independently exclude every acute or remote cause."
             },
             {
               "label": "Bowel and appendix",
@@ -2263,13 +2286,13 @@
                 "BOWEL AND APPENDIX"
               ],
               "normal": {
-                "BOWEL AND APPENDIX": "Normal appendix; no bowel wall thickening, diverticulitis or obstruction."
+                "BOWEL AND APPENDIX": "Appendix: [seen / partly seen / not seen / not assessed], actual observations/limits [ ]. Bowel assessment: [adequate actual source / limited / unassessed], sites and findings [ ]."
               },
               "findings": [
-                "Acute appendicitis: non-compressible appendix __ mm with surrounding inflamed fat.",
+                "Source-visible appendiceal findings at [ ] with actual modality [CT / ultrasound / MRI]. Measured diameter __ mm, wall and surrounding observations [ ]; ultrasound compression only if actually assessed [ ], interpretation/extent limits [ ].",
                 "Sigmoid diverticulitis with an inflamed diverticulum and pericolic fat stranding [with / without] a pericolic abscess.",
                 "Small-bowel obstruction with a transition point at [ ].",
-                "Infectious ileocaecitis: thickened terminal ileum and caecum with enlarged nodes."
+                "Observed terminal-ileal/caecal wall and nodal findings [ ]; possible causes and clinical/microbiological correlation [ ]. The source pattern alone does not establish infection or pathogen."
               ],
               "images": [
                 "ra-acute-abdomen-source-1",
@@ -2278,8 +2301,8 @@
               "measurements": [],
               "landmark": "bowel",
               "parts": [],
-              "look": "Appendix, colon with diverticula, small bowel calibre and wall; look for inflamed fat as a pointer.",
-              "tip": "Inflamed fat is the best pointer to the site of disease on both ultrasound and CT."
+              "look": "Review actual appendix extent, bowel/diverticular wall, lumen/transition and source complications. Nonvisualisation is not automatically normal; record ultrasound dynamic/Doppler or contrast-dependent findings only from their actual source.",
+              "tip": "Adjacent fat and wall changes can localise an abnormality but remain nonspecific; retain unresolved origin, cause and complete wall/complication extent."
             },
             {
               "label": "Solid organs",
@@ -2288,18 +2311,18 @@
                 "SOLID ORGANS"
               ],
               "normal": {
-                "SOLID ORGANS": "Liver, gallbladder, bile ducts, pancreas and spleen unremarkable."
+                "SOLID ORGANS": "Solid-organ assessment: [adequate actual source/coverage / limited / unassessed]. Assessed hepatobiliary, pancreatic/splenic regions, observed findings and unassessed extent: [ ]."
               },
               "findings": [
-                "Acute cholecystitis: distended gallbladder with wall thickening, an impacted stone and a positive sonographic Murphy sign.",
-                "Acute pancreatitis with peripancreatic fat stranding.",
+                "Actual gallbladder source findings: distension/wall [ ], calculus or other lumen/neck observations [ ], adjacent changes [ ]. Sonographic Murphy/tenderness/compression only if actually assessed [ ]; cause and extent limits [ ].",
+                "Source pancreatic/peripancreatic observations [ ], actual phase/sequence and covered extent [ ]; interpretation requires integrated clinical/source context.",
                 "Dilated common bile duct __ mm."
               ],
               "images": [],
               "measurements": [],
               "landmark": "solid",
               "parts": [],
-              "look": "Right upper quadrant organs and pancreas; correlate with focal tenderness."
+              "look": "Review actually covered organ and duct interfaces. Record actual ultrasound tenderness/compression/Doppler and acquired contrast/sequence-dependent observations; absent sources remain unassessed."
             },
             {
               "label": "Urinary tract and pelvis",
@@ -2308,7 +2331,7 @@
                 "URINARY AND PELVIC STRUCTURES"
               ],
               "normal": {
-                "URINARY AND PELVIC STRUCTURES": "No hydronephrosis or urinary stone; pelvic structures unremarkable."
+                "URINARY AND PELVIC STRUCTURES": "Urinary assessment: [adequate actual source / limited / unassessed], covered sites/drainage and stone observations [ ]. Relevant pelvic organ assessment [adequate / limited / unassessed], source findings and inaccessible extent [ ]."
               },
               "findings": [
                 "Right [ ] hydronephrosis with a __ mm stone at the [ureterovesical junction].",
@@ -2319,7 +2342,7 @@
               "measurements": [],
               "landmark": "solid",
               "parts": [],
-              "look": "Kidneys and ureters for hydronephrosis and stone; adnexa and pelvic structures."
+              "look": "Trace actually covered kidneys/ureters and relevant pelvic source anatomy. Retain incomplete stone/drainage, adnexal/other pelvic field and acquisition/flow limits; one modality cannot complete unavailable observations from another."
             },
             {
               "label": "Peritoneum and vessels",
@@ -2328,7 +2351,7 @@
                 "PERITONEUM AND VESSELS"
               ],
               "normal": {
-                "PERITONEUM AND VESSELS": "No free gas, ascites or collection; aorta and mesenteric vessels unremarkable."
+                "PERITONEUM AND VESSELS": "Peritoneal/vascular assessment: [adequate actual source / limited / unassessed]. Covered regions, observed gas/fluid/collection and vascular features: [ ]. Unassessed source phases/flow or injury/viability extent: [ ]."
               },
               "findings": [
                 "Free intraperitoneal gas, compatible with perforation of a hollow viscus [likely source: ].",
@@ -2339,8 +2362,8 @@
               "measurements": [],
               "landmark": "vessels",
               "parts": [],
-              "look": "Lung windows for free gas; dependent spaces for fluid; aorta and mesenteric vessels.",
-              "tip": "Free gas in the upper abdomen anterior to the liver is best seen with lung windows."
+              "look": "Review actual source gas/fluid/collection compartments and acquired vascular phase or Doppler/flow evidence. CT windows, radiographic projection and ultrasound artefacts remain distinct; absent sources cannot complete vessel or perforation assessment.",
+              "tip": "Source gas/fluid or perfusion-related appearances need technical and clinical context; an incomplete study, absent gas or source colour cannot establish complete exclusion or viability."
             }
           ],
           "finish": {
@@ -2395,10 +2418,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "3acb38cb5f9420c9f0ce42f3d68772f156f9f9c87e75019f1403117aaed58fa9",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "4d2bb17362e9f7297fb549a404670181fb2c12059a538a17581e76d21ca74f1c",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -3545,7 +3568,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -4904,7 +4927,7 @@
       },
       "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5553,7 +5576,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6399,7 +6422,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -7484,7 +7507,7 @@
       },
       "reporting_contract_sha256": "5e2553d4b2296031280b8ff52ecb45abe99d345c0d1443b334626cf463beaa22",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -8383,7 +8406,7 @@
       },
       "reporting_contract_sha256": "51afe1e42b4980b9410d9cde3df025ec185c91efcf1ed9f5a935c60d58bce8bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9284,7 +9307,7 @@
       },
       "reporting_contract_sha256": "157a1fd76d9cd51e73683f63e8933edf810415a86770b53e11341939ffa5288d",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10157,7 +10180,7 @@
       },
       "reporting_contract_sha256": "b9c6e28550ad5ea535af5d890dd506fe41e613a16ebce0a74013366fad0294cd",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11023,7 +11046,7 @@
       },
       "reporting_contract_sha256": "10ba145d2740780d7999bf96467d0e7a0f6651f63afc61094da04794c57a63f7",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11763,7 +11786,7 @@
       },
       "reporting_contract_sha256": "116b5af41de5f9b16a39206a18a71c0aaaa81d0814a4639683ca20164f6eb4bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13155,7 +13178,7 @@
       },
       "reporting_contract_sha256": "01ea478d05690a040c5c45211a98b70e9fb938bcf0a500f21295cb4331587776",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -16563,7 +16586,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -16948,7 +16971,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -17474,7 +17497,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -17895,7 +17918,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18310,7 +18333,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19229,7 +19252,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19690,7 +19713,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -20637,7 +20660,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -21443,7 +21466,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -28145,7 +28168,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -32313,7 +32336,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -34947,7 +34970,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -35342,7 +35365,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -57269,7 +57292,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "fb704cc2648b7152433abc33075224a7df63f2d84e81c7e2bf894c175c60c89d",
+      "structure_inventory_sha256": "82974e02ca17a10bc53321b1086e473e3713f22d158ca2802b63c8550f4d008c",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [

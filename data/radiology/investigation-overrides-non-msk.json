@@ -1,9 +1,10 @@
 {
   "ra.acute-abdomen": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-05",
       "protocol": [
-        "State the actual modality, clinical location of pain and contrast or ultrasound coverage; tailor the search to the supplied acute presentation."
+        "State the actual modality, clinical location of pain and contrast or ultrasound coverage; tailor the search to the supplied acute presentation.",
+        "Record actual CT/US/MRI or supplied radiographic source, coverage, contrast route/phases/sequences, distension, motion/gas/metal limits and patient/postoperative context. Ultrasound compression, tenderness/Murphy, motion and Doppler require actual assessment; CT attenuation/enhancement and MRI signal/diffusion require their acquired sources. Missing examinations/features remain unassessed rather than inferred from another modality or a parent model."
       ],
       "checklist": [
         {
@@ -31,7 +32,14 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "A negative examination with incomplete visualisation does not exclude disease in the unseen region."
+        "A negative examination with incomplete visualisation does not exclude disease in the unseen region.",
+        "Pain location helps organise the search but does not independently prove the responsible organ or exclude alternative, remote or evolving pathology.",
+        "A nonvisualised appendix is not automatically a normal appendix; retain actual modality/adequacy, secondary observations and unresolved appendiceal extent.",
+        "Compression, sonographic Murphy/tenderness, peristalsis and Doppler are not supplied by a static CT/MRI image or source colour; absent or inadequate acquisition remains unassessed.",
+        "Wall thickening, adjacent fat change, fluid and nodes overlap between causes; these patterns alone do not identify a pathogen, histological diagnosis, full disease extent or tissue viability.",
+        "A negative plain radiograph does not exclude fluid-filled obstruction or every acute abdominal process; projection is not resolved soft-tissue wall/organ anatomy.",
+        "Unacquired contrast phases, sequences, limited ultrasound windows or incomplete pelvic coverage cannot supply a complete vascular, organ, urinary or adnexal exclusion.",
+        "Apply guidance in its actual patient/scenario scope. The ACR nonlocalised-pain topic primarily addresses adult nonpregnant patients; pregnancy, paediatric, postoperative and localised-pain questions require their applicable source and clinical context."
       ],
       "impression_prompts": [
         "An imaging approach to common causes of acute abdominal pain.",
@@ -43,32 +51,43 @@
       "template_sections": [
         {
           "heading": "PAIN LOCALISATION",
-          "body": "Pain location: [ ]. Matching abnormality: [ ]."
+          "body": "Clinical pain site/context: [ ]. Actual source modality and coverage: [adequate / limited / unassessed]. Observed corresponding and alternative findings, unassessed regions and certainty: [ ]."
         },
         {
           "heading": "BOWEL AND APPENDIX",
-          "body": "Appendix: [ ]. Bowel inflammation/obstruction: [ ]."
+          "body": "Appendix visualisation: [seen / partly seen / not seen / not assessed], actual source findings/limits [ ]. Bowel/diverticular/transition assessment: [adequate / limited / unassessed], each actual site, wall/lumen and complication extent [ ]. Ultrasound dynamics/Doppler or contrast-dependent observations: actual acquired source [ ] or unassessed [ ]."
         },
         {
           "heading": "SOLID ORGANS",
-          "body": "Hepatobiliary findings: [ ]. Pancreas/spleen: [ ]."
+          "body": "Actual hepatobiliary/pancreatic/splenic assessment: [adequate / limited / unassessed], source regions/features [ ]. Ultrasound tenderness/Murphy/compression: [actually assessed / limited / unassessed]. Contrast/sequence-dependent observations and unresolved extent: [ ]."
         },
         {
           "heading": "URINARY AND PELVIC STRUCTURES",
-          "body": "Hydronephrosis/stone: [ ]. Pelvic abnormality: [ ]."
+          "body": "Urinary assessment: [adequate actual source / limited / unassessed], drainage/stone and source coverage [ ]. Relevant pelvic organs and actual assessment: [ ], findings and inaccessible/unassessed extent [ ]. Modality/contrast/Doppler limits: [ ]."
         },
         {
           "heading": "PERITONEUM AND VESSELS",
-          "body": "Free gas/fluid: [ ]. Collection: [ ]. Aorta/mesenteric vessels: [ ]."
+          "body": "Peritoneal/vascular assessment: [adequate actual source / limited / unassessed]. Actual fluid/gas/collection sites, resolved wall/host extent, vessels and source phases/flow observations: [ ]. Unresolved cause, perforation/perfusion or field limits: [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Practical approach to Acute Abdomen",
           "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/practical-approach-to-acute-abdomen"
+        },
+        {
+          "title": "ACR Acute Nonlocalized Abdominal Pain — Actual scenario/applicability and modality limits",
+          "url": "https://acsearch.acr.org/docs/69467/Narrative/"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Map the actual symptomatic and imaged regions; location directs assessment but does not establish a single cause.",
+      "Record actual modality, field, source phases/sequences and ultrasound dynamic/Doppler observations; do not borrow features between modalities.",
+      "Retain nonvisualised appendix, inaccessible bowel, missing enhancement or dynamic sources and unresolved complication extent.",
+      "Describe actually assessed hepatobiliary, pancreatic/splenic, urinary and relevant pelvic findings before assigning a cause.",
+      "A limited examination, plain film, isolated fat/wall pattern or source colour cannot exclude every acute process or establish perfusion/viability."
+    ]
   },
   "ra.abdominal-wall-hernias": {
     "reporting": {
