@@ -1,9 +1,10 @@
 {
   "ra.acute-abdomen": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-05",
       "protocol": [
-        "State the actual modality, clinical location of pain and contrast or ultrasound coverage; tailor the search to the supplied acute presentation."
+        "State the actual modality, clinical location of pain and contrast or ultrasound coverage; tailor the search to the supplied acute presentation.",
+        "Record actual CT/US/MRI or supplied radiographic source, coverage, contrast route/phases/sequences, distension, motion/gas/metal limits and patient/postoperative context. Ultrasound compression, tenderness/Murphy, motion and Doppler require actual assessment; CT attenuation/enhancement and MRI signal/diffusion require their acquired sources. Missing examinations/features remain unassessed rather than inferred from another modality or a parent model."
       ],
       "checklist": [
         {
@@ -31,7 +32,14 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "A negative examination with incomplete visualisation does not exclude disease in the unseen region."
+        "A negative examination with incomplete visualisation does not exclude disease in the unseen region.",
+        "Pain location helps organise the search but does not independently prove the responsible organ or exclude alternative, remote or evolving pathology.",
+        "A nonvisualised appendix is not automatically a normal appendix; retain actual modality/adequacy, secondary observations and unresolved appendiceal extent.",
+        "Compression, sonographic Murphy/tenderness, peristalsis and Doppler are not supplied by a static CT/MRI image or source colour; absent or inadequate acquisition remains unassessed.",
+        "Wall thickening, adjacent fat change, fluid and nodes overlap between causes; these patterns alone do not identify a pathogen, histological diagnosis, full disease extent or tissue viability.",
+        "A negative plain radiograph does not exclude fluid-filled obstruction or every acute abdominal process; projection is not resolved soft-tissue wall/organ anatomy.",
+        "Unacquired contrast phases, sequences, limited ultrasound windows or incomplete pelvic coverage cannot supply a complete vascular, organ, urinary or adnexal exclusion.",
+        "Apply guidance in its actual patient/scenario scope. The ACR nonlocalised-pain topic primarily addresses adult nonpregnant patients; pregnancy, paediatric, postoperative and localised-pain questions require their applicable source and clinical context."
       ],
       "impression_prompts": [
         "An imaging approach to common causes of acute abdominal pain.",
@@ -43,38 +51,50 @@
       "template_sections": [
         {
           "heading": "PAIN LOCALISATION",
-          "body": "Pain location: [ ]. Matching abnormality: [ ]."
+          "body": "Clinical pain site/context: [ ]. Actual source modality and coverage: [adequate / limited / unassessed]. Observed corresponding and alternative findings, unassessed regions and certainty: [ ]."
         },
         {
           "heading": "BOWEL AND APPENDIX",
-          "body": "Appendix: [ ]. Bowel inflammation/obstruction: [ ]."
+          "body": "Appendix visualisation: [seen / partly seen / not seen / not assessed], actual source findings/limits [ ]. Bowel/diverticular/transition assessment: [adequate / limited / unassessed], each actual site, wall/lumen and complication extent [ ]. Ultrasound dynamics/Doppler or contrast-dependent observations: actual acquired source [ ] or unassessed [ ]."
         },
         {
           "heading": "SOLID ORGANS",
-          "body": "Hepatobiliary findings: [ ]. Pancreas/spleen: [ ]."
+          "body": "Actual hepatobiliary/pancreatic/splenic assessment: [adequate / limited / unassessed], source regions/features [ ]. Ultrasound tenderness/Murphy/compression: [actually assessed / limited / unassessed]. Contrast/sequence-dependent observations and unresolved extent: [ ]."
         },
         {
           "heading": "URINARY AND PELVIC STRUCTURES",
-          "body": "Hydronephrosis/stone: [ ]. Pelvic abnormality: [ ]."
+          "body": "Urinary assessment: [adequate actual source / limited / unassessed], drainage/stone and source coverage [ ]. Relevant pelvic organs and actual assessment: [ ], findings and inaccessible/unassessed extent [ ]. Modality/contrast/Doppler limits: [ ]."
         },
         {
           "heading": "PERITONEUM AND VESSELS",
-          "body": "Free gas/fluid: [ ]. Collection: [ ]. Aorta/mesenteric vessels: [ ]."
+          "body": "Peritoneal/vascular assessment: [adequate actual source / limited / unassessed]. Actual fluid/gas/collection sites, resolved wall/host extent, vessels and source phases/flow observations: [ ]. Unresolved cause, perforation/perfusion or field limits: [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Practical approach to Acute Abdomen",
           "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/practical-approach-to-acute-abdomen"
+        },
+        {
+          "title": "ACR Acute Nonlocalized Abdominal Pain — Actual scenario/applicability and modality limits",
+          "url": "https://acsearch.acr.org/docs/69467/Narrative/"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Map the actual symptomatic and imaged regions; location directs assessment but does not establish a single cause.",
+      "Record actual modality, field, source phases/sequences and ultrasound dynamic/Doppler observations; do not borrow features between modalities.",
+      "Retain nonvisualised appendix, inaccessible bowel, missing enhancement or dynamic sources and unresolved complication extent.",
+      "Describe actually assessed hepatobiliary, pancreatic/splenic, urinary and relevant pelvic findings before assigning a cause.",
+      "A limited examination, plain film, isolated fat/wall pattern or source colour cannot exclude every acute process or establish perfusion/viability."
+    ]
   },
   "ra.abdominal-wall-hernias": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-05",
       "protocol": [
-        "Use multiplanar CT to define the abdominal wall defect, its contents and surgical relationships; document prior repair."
+        "Use multiplanar CT to define the abdominal wall defect, its contents and surgical relationships; document prior repair.",
+        "Record actually acquired CT field, contrast/phase, posture, strain/Valsalva if performed, source planes, motion/metal limits and prior repair. Actual clinical/dynamic reducibility or supplemental US/MRI findings remain separate sources; static CT and model colours cannot supply unavailable dynamics, perfusion or full wall/mesh anatomy."
       ],
       "checklist": [
         {
@@ -103,12 +123,24 @@
           "name": "Defect dimensions",
           "method": "Measure the fascial aperture in orthogonal planes; name the level.",
           "pitfall": "Do not substitute sac diameter for defect width."
+        },
+        {
+          "name": "Source compartment volumes",
+          "method": "If measured, report actual HSV and residual ACV, acquisition/posture, segmentation or approximation method, boundaries and explicitly chosen denominator.",
+          "pitfall": "HSV/ACV and HSV/(HSV+ACV) are different measures; a sac diameter or guessed proportion is not validated volumetry."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "A wide sac and a narrow fascial neck are different measurements."
+        "A wide sac and a narrow fascial neck are different measurements.",
+        "Rectus diastasis may coexist with a true hernia; record each source-supported finding rather than using one label to exclude the other.",
+        "Static sac/content appearance does not independently establish reducibility or clinical incarceration; source-visible obstruction/vascular concerns and actual examination evidence remain separate.",
+        "Apparent bowel angulation or contact does not independently identify every adhesion or a specific band; retain unresolved contents, course and host interfaces.",
+        "Loss-of-domain definitions and denominators differ: specify hernia sac volume (HSV), residual abdominal cavity volume (ACV), actual method/source and HSV/ACV versus HSV/(HSV+ACV). A vague percentage of visceral volume or unvalidated sketch is not a measured ratio.",
+        "Measured aperture/sac/muscle ratios support planning but do not independently predict closure, compliance, pressure, respiratory tolerance or a guaranteed operative result.",
+        "Mesh material/plane and operative history may not be fully visible on CT; not visualised is not automatically absent. Fluid/gas near a repair does not independently establish microbiological infection.",
+        "Absent or inadequate contrast/dynamic sources cannot provide full enhancement, viability, reducibility or complication exclusion. Retain unresolved endpoints and source posture/field differences."
       ],
       "impression_prompts": [
         "Hernia anatomy, defect dimensions and complications for surgical planning.",
@@ -120,32 +152,47 @@
       "template_sections": [
         {
           "heading": "DEFECT TYPE",
-          "body": "Type: [primary / incisional / other]. Prior repair: [ ]. Diastasis: [ ]."
+          "body": "Defect/diastasis assessment: [adequate actual source / limited / unassessed]. Actual type, prior repair and separate diastasis/coexistent defect findings: [ ]."
         },
         {
           "heading": "DEFECT MAP",
-          "body": "Site/number: [ ]. Transverse/longitudinal dimensions: [ ]/[ ] mm."
+          "body": "Every actual defect/site and source-resolved fascial margins: [ ]. Aperture transverse/longitudinal dimensions and actual plane/posture: [ ]. Sac dimensions separately: [ ]. Unresolved extent/measurement limits: [ ]."
         },
         {
           "heading": "CONTENTS",
-          "body": "Sac contents: [ ]. Bowel transition: [ ]."
+          "body": "Actual source-visible sac contents and entry/exit/transition interfaces: [ ]. Reducibility: [actual clinical/dynamic evidence / limited / unassessed]. Volumetry if performed: HSV [ ], residual ACV [ ], method/acquisition/boundaries [ ], ratio/denominator [ ]. Unresolved course/cause or volume limits: [ ]."
         },
         {
           "heading": "MUSCULAR RELATIONSHIPS",
-          "body": "Rectus width/atrophy: [ ]. Mesh: [ ]. Scarring: [ ]."
+          "body": "Actually resolved right/left muscle and fascial planes, source measurements/atrophy findings: [ ]. Repair/mesh: [seen / not clearly seen / unassessed], actual history, plane/fixation/scar and limits [ ]."
         },
         {
           "heading": "COMPLICATIONS",
-          "body": "Enhancement: [ ]. Sac fluid/stranding: [ ]. Obstruction/strangulation concern: [ ]."
+          "body": "Complication assessment: [adequate acquired source / limited / unassessed]. Actual bowel/mesenteric, enhancement/phase, sac fluid/gas/inflammation and tract/host findings: [ ]. Clinical/dynamic incarceration evidence and unresolved viability/extent: [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Abdominal wall hernias",
           "url": "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias"
+        },
+        {
+          "title": "EHS 2023 midline incisional hernia guidelines — Actual imaging/planning scope",
+          "url": "https://doi.org/10.1093/bjs/znad284"
+        },
+        {
+          "title": "Loss of domain systematic review — Noninterchangeable volume definitions",
+          "url": "https://doi.org/10.1007/s00268-018-4783-7"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Map every actual fascial defect and source-resolved wall/sac/content interface with field and posture limits.",
+      "Distinguish rectus diastasis from an actual defect while retaining possible coexistence.",
+      "Measure aperture, sac and muscle features separately at actual source planes; record the chosen volumetric method and denominator.",
+      "Retain prior repair/mesh uncertainty and the actually visible fixation, scar and muscle interfaces.",
+      "Static CT cannot establish reducibility, every adhesion, tissue viability or complete complication exclusion; retain actual phase/dynamic/clinical evidence."
+    ]
   },
   "ra.aortic-aneurysm-rupture": {
     "reporting": {
@@ -782,9 +829,10 @@
   },
   "ra.ultrasound-ibd": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-05",
       "protocol": [
-        "Use graded compression and targeted Doppler to survey bowel systematically; record visualised segments and inaccessible areas."
+        "Use graded compression and targeted Doppler to survey bowel systematically; record visualised segments and inaccessible areas.",
+        "Record actual probe, depth/focus, bowel distension, compression tolerance, B-mode and colour/power Doppler acquisition/settings and motion or cine evidence. Retain inaccessible segments, gas/deep pelvic limits and postoperative anatomy. Unacquired or inadequate Doppler, motion and compression observations remain unassessed; CT/MRI and static model colours do not supply ultrasound features."
       ],
       "checklist": [
         {
@@ -818,33 +866,41 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Bowel wall thickening is not specific for inflammatory bowel disease, and an incomplete survey cannot exclude remote disease."
+        "Bowel wall thickening is not specific for inflammatory bowel disease, and an incomplete survey cannot exclude remote disease.",
+        "Sonographic bands are acoustic interfaces and do not independently identify every histological layer; lost stratification alone is not proof of transmural inflammation or a specific cause.",
+        "Absent Doppler colour without adequate settings, source acquisition and technical assessment does not establish absent perfusion, absent activity or tissue viability.",
+        "Peristalsis, compressibility and persistent narrowing require actual real-time or repeated-source evidence; a still image cannot supply dynamic findings.",
+        "A source-visible partial tract, inaccessible pelvis or local collection cannot establish all endpoints or exclude remote penetrating disease; routine transabdominal IUS is not a complete dedicated perianal examination.",
+        "Bowel thickening, ulcers, nodes and fat changes can overlap between inflammatory, infectious and other causes; ultrasound alone does not identify the pathogen, quantify fibrosis or establish complete remission.",
+        "Comparison requires actual prior data, corresponding segment and comparable technique/compression/Doppler; missing comparison is not no interval change."
       ],
       "impression_prompts": [
         "Bowel inflammation and mimics on focused gastrointestinal ultrasound.",
         "State the dominant abnormality, relevant extent and examination limitations."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate suspected obstruction, abscess or perforation urgently in the relevant clinical context; technically limited or incomplete ultrasound requires appropriate further assessment rather than a blanket exclusion."
+      ],
       "template_sections": [
         {
           "heading": "COVERAGE",
-          "body": "Segments seen: [ ]. Segments limited: [ ]."
+          "body": "Coverage assessment: [adequate / limited / unassessed]. Actual examined segments, landmarks, postoperative sites and inaccessible extent: [ ]. Source settings/distension/compression limits: [ ]."
         },
         {
           "heading": "BOWEL WALL",
-          "body": "Site/thickness: [ ]/[ ] mm. Layers: [ ]. Compressibility: [ ]."
+          "body": "Actual site, wall thickness/caliper plane and visible sonographic bands: [ ]. Compression: [assessed real time / limited / unassessed], observations [ ]. Unresolved bands and histological interpretation limits: [ ]."
         },
         {
           "heading": "ACTIVITY",
-          "body": "Doppler hyperaemia: [ ]. Ulcers: [ ]. Fat echogenicity: [ ]."
+          "body": "Doppler: [adequate acquired settings / limited / unassessed], mural/perimural observations [ ]. Source-visible ulcer/interface and fat changes: [ ]. Mixed phenotype and cause/fibrosis interpretation limits: [ ]."
         },
         {
           "heading": "LUMEN AND COMPLICATIONS",
-          "body": "Peristalsis/narrowing: [ ]. Upstream calibre: [ ]. Fistula/collection: [ ]."
+          "body": "Motion/persistence evidence: [actual real-time or repeated source / limited / unassessed]. Each narrowing, upstream/downstream lumen, source-visible tract/branch/endpoints and collection: [ ]. Inaccessible or unresolved extent: [ ]."
         },
         {
           "heading": "MIMICS AND COMPARISON",
-          "body": "Alternative cause: [ ]. Nodes: [ ]. Comparison: [ ]."
+          "body": "Actually assessed appendix/diverticula/other mimic sites and nodes: [ ]. Observed findings and differential limits: [ ]. Comparison: [adequate matched source / limited / unavailable], dates/sites, observed changes and limits [ ]."
         }
       ],
       "sources": [
@@ -855,9 +911,20 @@
         {
           "title": "Radiology Assistant — US of Mimics of Inflammatory Bowel Disease",
           "url": "https://radiologyassistant.nl/abdomen/bowel/us-of-mimics-of-inflammatory-bowel-disease"
+        },
+        {
+          "title": "ESGAR ESR Essentials 2025 — Luminal Crohn MRI/IUS assessment",
+          "url": "https://doi.org/10.1007/s00330-025-11620-2"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Map actual visualised bowel and postoperative sites with inaccessible extent retained.",
+      "Describe observed sonographic bands, thickness and surrounding tissue without assigning histology from a lost layer.",
+      "Record actual Doppler settings/acquisition and compression/motion evidence; static images cannot supply dynamic observations.",
+      "Trace each source-visible narrowing, tract, endpoint and collection with uncertainty and inaccessible interfaces retained.",
+      "Compare actual corresponding sites and acquisitions; imaging patterns alone do not establish an infectious cause, complete remission or quantified fibrosis."
+    ]
   },
   "ra.ct-small-bowel-tumours": {
     "reporting": {
@@ -6234,5 +6301,124 @@
       ],
       "reviewed_at": "2026-10-04"
     }
+  },
+  "ra.ct-abdominal-trauma": {
+    "reporting": {
+      "protocol": [
+        "Review trauma mechanism, haemodynamic context and the phases actually acquired.",
+        "Use arterial/venous comparison for vascular injury and appropriate delayed evaluation for suspected urinary leakage.",
+        "Record actual contrast route, phases/timing, opacification, source coverage, motion/metal artefact and trauma/intervention timing. Unacquired arterial/excretory phases and absent or inadequate retrograde CT cystography remain unassessed; one phase or a parent model cannot supply temporal bleeding, ductal continuity, perfusion or complete trajectory."
+      ],
+      "checklist": [
+        {
+          "label": "Solid organs",
+          "detail": "Map laceration, haematoma, devascularisation and hilar injury."
+        },
+        {
+          "label": "Bleeding",
+          "detail": "Distinguish active extravasation from contained pseudoaneurysm using phase change."
+        },
+        {
+          "label": "Bowel/mesentery",
+          "detail": "Look for wall defect, reduced enhancement, free gas and mesenteric injury."
+        },
+        {
+          "label": "Urinary tract",
+          "detail": "Assess renal collecting system and bladder within protocol limits."
+        },
+        {
+          "label": "Associated injury",
+          "detail": "Review diaphragm, vessels, bones and penetrating trajectory."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Organ injury",
+          "method": "Measure laceration depth and haematoma extent using organ-specific grading definitions.",
+          "pitfall": "One depth threshold cannot be reused across organs."
+        },
+        {
+          "name": "Haemorrhage",
+          "method": "Record site and extent; compare focal contrast across phases.",
+          "pitfall": "Single-phase imaging may not distinguish active bleeding from a vascular lesion."
+        }
+      ],
+      "classification": {
+        "name": "AAST organ injury scales",
+        "version": "Actual organ-specific scale and revision year; do not apply one year across organs",
+        "applicability": "Traumatic injury to the organ covered by the selected scale.",
+        "summary": "Describe the observed injury and unresolved extent first. Apply only the actual named organ-specific scale/revision supported by available source findings; grade remains limited or unassigned when its required evidence is unavailable. CT grade alone does not determine treatment."
+      },
+      "pitfalls": [
+        "A negative early CT does not exclude all bowel or pancreatic duct injury.",
+        "Routine excretory contrast in the bladder is not equivalent to a properly performed CT cystogram.",
+        "An early or limited CT cannot exclude every bowel, mesenteric, pancreatic duct or associated injury; retain injury timing, unavailable phases and unresolved interfaces.",
+        "Observed phase change must use actual corresponding anatomy, acquisition timing and blood-pool context. Absent growth or a single focal contrast appearance does not independently establish a contained vascular lesion or exclude active bleeding.",
+        "CT enhancement changes require actual acquired comparison and physiological context; a source colour or normal parent organ cannot establish perfusion, viability or infarction extent.",
+        "Free gas/fluid and a suspected tract require source-supported location and clinical interpretation; absent gas does not exclude contained or evolving injury, and dense clot does not independently prove its source.",
+        "A source-visible injury track, projected object or skin wound does not establish the full penetrating trajectory or every organ crossed; retain unresolved entry/exit and interfaces.",
+        "AAST revisions are organ-specific. The official resource lists renal 2025 and pancreatic 2024 revisions as well as the earlier 2018 spleen/liver/kidney revision; a generic 2018 label cannot supply every current scale. Numeric grade criteria require the actual applicable source and complete observations."
+      ],
+      "impression_prompts": [
+        "Lead with active bleeding and immediately consequential injury.",
+        "Describe organ injury features before any named grade.",
+        "State urinary/bowel assessment limits and associated injuries."
+      ],
+      "escalation": [
+        "Immediately communicate active haemorrhage, major vascular injury, hollow-viscus injury or urinary tract disruption."
+      ],
+      "template_sections": [
+        {
+          "heading": "SOLID ORGANS",
+          "body": "Each actual organ and assessed coverage: [ ]. Injury region/margins, depth/haematoma extent and host interfaces: [ ]. Enhancement/devascularisation assessment: [adequate acquired source / limited / unassessed], observations and unresolved duct/hilar extent [ ]."
+        },
+        {
+          "heading": "VASCULAR INJURY",
+          "body": "Vascular/bleeding assessment: [adequate actual phases / limited / unassessed]. Source phase/timing, vessel/branch and observed contrast change: [ ]. Lesion/bleeding extent and unresolved wall/hilar interfaces: [ ]."
+        },
+        {
+          "heading": "HAEMORRHAGE",
+          "body": "Haemorrhage assessment: [adequate actual coverage / limited / unassessed]. Observed fluid/clot/haematoma regions, extent and possible source: [ ]. Unresolved compartment or source limits: [ ]."
+        },
+        {
+          "heading": "BOWEL AND URINARY TRACT",
+          "body": "Bowel/mesenteric assessment: [adequate actual source / limited / unassessed], observed sites/features and unresolved extent [ ]. Collecting-system assessment/excretory source: [assessed / limited / unassessed], observations [ ]. Bladder: actual retrograde cystography and distension [adequate / limited / not performed], observations/limits [ ]."
+        },
+        {
+          "heading": "ASSOCIATED INJURY AND GRADE",
+          "body": "Actually covered diaphragm, vessels, bones and source-visible penetrating trajectory: [ ]. Observed injury/interfaces and unresolved field/track extent: [ ]. AAST organ/scale/revision year: [ ], observed criterion evidence [ ], grade [assigned / limited / unassigned]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant — CT in Abdominal Trauma",
+          "url": "https://radiologyassistant.nl/abdomen/acute-abdomen/ct-in-trauma"
+        },
+        {
+          "title": "AAST official organ-specific revision resources",
+          "url": "https://www.aast.org/resources/trauma-tools/organ-injury-scale.html"
+        },
+        {
+          "title": "WSES 2022 blunt and penetrating bowel injury",
+          "url": "https://doi.org/10.1186/s13017-022-00418-y"
+        },
+        {
+          "title": "WSES-AAST 2019 duodeno-pancreatic/biliary trauma",
+          "url": "https://doi.org/10.1186/s13017-019-0278-6"
+        },
+        {
+          "title": "EAU urological trauma — Actual retrograde cystography and urinary source limits",
+          "url": "https://uroweb.org/guidelines/urological-trauma/chapter/urogenital-trauma-guidelines"
+        }
+      ],
+      "reviewed_at": "2026-10-05"
+    },
+    "learning_points": [
+      "Map every actual organ/segment and injury interface, preserving phase, timing and field limits.",
+      "Use actual phase correspondence to describe bleeding/vascular observations without inferring missing temporal or viability evidence.",
+      "Retain early bowel, mesenteric and pancreatic-duct uncertainty; negative gas or a limited scan is not complete exclusion.",
+      "Separate excretory collecting-system assessment from actual retrograde bladder cystography.",
+      "Describe observations before applying an actual organ-specific grade/revision; partial tracks and parent anatomy do not complete injury maps."
+    ]
   }
 }
