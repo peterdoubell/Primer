@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -1062,7 +1062,7 @@
       },
       "reporting_contract_sha256": "f223abd46a1cc47e60ae3b825211a4c97129a636d405583e40ecff39a0505662",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2433,7 +2433,7 @@
       },
       "reporting_contract_sha256": "776461314d34341a810219ff75408474bff96d40b41d1976c7dd2fc12a70f30a",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3555,9 +3555,10 @@
       "modality": "CT",
       "reporting_contract": {
         "reporting": {
-          "reviewed_at": "2026-09-23",
+          "reviewed_at": "2026-10-05",
           "protocol": [
-            "Use multiplanar CT to define the abdominal wall defect, its contents and surgical relationships; document prior repair."
+            "Use multiplanar CT to define the abdominal wall defect, its contents and surgical relationships; document prior repair.",
+            "Record actually acquired CT field, contrast/phase, posture, strain/Valsalva if performed, source planes, motion/metal limits and prior repair. Actual clinical/dynamic reducibility or supplemental US/MRI findings remain separate sources; static CT and model colours cannot supply unavailable dynamics, perfusion or full wall/mesh anatomy."
           ],
           "checklist": [
             {
@@ -3586,12 +3587,24 @@
               "name": "Defect dimensions",
               "method": "Measure the fascial aperture in orthogonal planes; name the level.",
               "pitfall": "Do not substitute sac diameter for defect width."
+            },
+            {
+              "name": "Source compartment volumes",
+              "method": "If measured, report actual HSV and residual ACV, acquisition/posture, segmentation or approximation method, boundaries and explicitly chosen denominator.",
+              "pitfall": "HSV/ACV and HSV/(HSV+ACV) are different measures; a sac diameter or guessed proportion is not validated volumetry."
             }
           ],
           "classification": null,
           "criteria_table": null,
           "pitfalls": [
-            "A wide sac and a narrow fascial neck are different measurements."
+            "A wide sac and a narrow fascial neck are different measurements.",
+            "Rectus diastasis may coexist with a true hernia; record each source-supported finding rather than using one label to exclude the other.",
+            "Static sac/content appearance does not independently establish reducibility or clinical incarceration; source-visible obstruction/vascular concerns and actual examination evidence remain separate.",
+            "Apparent bowel angulation or contact does not independently identify every adhesion or a specific band; retain unresolved contents, course and host interfaces.",
+            "Loss-of-domain definitions and denominators differ: specify hernia sac volume (HSV), residual abdominal cavity volume (ACV), actual method/source and HSV/ACV versus HSV/(HSV+ACV). A vague percentage of visceral volume or unvalidated sketch is not a measured ratio.",
+            "Measured aperture/sac/muscle ratios support planning but do not independently predict closure, compliance, pressure, respiratory tolerance or a guaranteed operative result.",
+            "Mesh material/plane and operative history may not be fully visible on CT; not visualised is not automatically absent. Fluid/gas near a repair does not independently establish microbiological infection.",
+            "Absent or inadequate contrast/dynamic sources cannot provide full enhancement, viability, reducibility or complication exclusion. Retain unresolved endpoints and source posture/field differences."
           ],
           "impression_prompts": [
             "Hernia anatomy, defect dimensions and complications for surgical planning.",
@@ -3603,29 +3616,37 @@
           "template_sections": [
             {
               "heading": "DEFECT TYPE",
-              "body": "Type: [primary / incisional / other]. Prior repair: [ ]. Diastasis: [ ]."
+              "body": "Defect/diastasis assessment: [adequate actual source / limited / unassessed]. Actual type, prior repair and separate diastasis/coexistent defect findings: [ ]."
             },
             {
               "heading": "DEFECT MAP",
-              "body": "Site/number: [ ]. Transverse/longitudinal dimensions: [ ]/[ ] mm."
+              "body": "Every actual defect/site and source-resolved fascial margins: [ ]. Aperture transverse/longitudinal dimensions and actual plane/posture: [ ]. Sac dimensions separately: [ ]. Unresolved extent/measurement limits: [ ]."
             },
             {
               "heading": "CONTENTS",
-              "body": "Sac contents: [ ]. Bowel transition: [ ]."
+              "body": "Actual source-visible sac contents and entry/exit/transition interfaces: [ ]. Reducibility: [actual clinical/dynamic evidence / limited / unassessed]. Volumetry if performed: HSV [ ], residual ACV [ ], method/acquisition/boundaries [ ], ratio/denominator [ ]. Unresolved course/cause or volume limits: [ ]."
             },
             {
               "heading": "MUSCULAR RELATIONSHIPS",
-              "body": "Rectus width/atrophy: [ ]. Mesh: [ ]. Scarring: [ ]."
+              "body": "Actually resolved right/left muscle and fascial planes, source measurements/atrophy findings: [ ]. Repair/mesh: [seen / not clearly seen / unassessed], actual history, plane/fixation/scar and limits [ ]."
             },
             {
               "heading": "COMPLICATIONS",
-              "body": "Enhancement: [ ]. Sac fluid/stranding: [ ]. Obstruction/strangulation concern: [ ]."
+              "body": "Complication assessment: [adequate acquired source / limited / unassessed]. Actual bowel/mesenteric, enhancement/phase, sac fluid/gas/inflammation and tract/host findings: [ ]. Clinical/dynamic incarceration evidence and unresolved viability/extent: [ ]."
             }
           ],
           "sources": [
             {
               "title": "Radiology Assistant \u2014 Abdominal wall hernias",
               "url": "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias"
+            },
+            {
+              "title": "EHS 2023 midline incisional hernia guidelines \u2014 Actual imaging/planning scope",
+              "url": "https://doi.org/10.1093/bjs/znad284"
+            },
+            {
+              "title": "Loss of domain systematic review \u2014 Noninterchangeable volume definitions",
+              "url": "https://doi.org/10.1007/s00268-018-4783-7"
             }
           ]
         },
@@ -3645,7 +3666,7 @@
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Use multiplanar CT to define the abdominal wall defect, its contents and surgical relationships; document prior repair.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
+                "body": "Use multiplanar CT to define the abdominal wall defect, its contents and surgical relationships; document prior repair.\nRecord actually acquired CT field, contrast/phase, posture, strain/Valsalva if performed, source planes, motion/metal limits and prior repair. Actual clinical/dynamic reducibility or supplemental US/MRI findings remain separate sources; static CT and model colours cannot supply unavailable dynamics, perfusion or full wall/mesh anatomy.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
@@ -3653,23 +3674,23 @@
               },
               {
                 "heading": "DEFECT TYPE",
-                "body": "Type: [primary / incisional / other]. Prior repair: [ ]. Diastasis: [ ]."
+                "body": "Defect/diastasis assessment: [adequate actual source / limited / unassessed]. Actual type, prior repair and separate diastasis/coexistent defect findings: [ ]."
               },
               {
                 "heading": "DEFECT MAP",
-                "body": "Site/number: [ ]. Transverse/longitudinal dimensions: [ ]/[ ] mm."
+                "body": "Every actual defect/site and source-resolved fascial margins: [ ]. Aperture transverse/longitudinal dimensions and actual plane/posture: [ ]. Sac dimensions separately: [ ]. Unresolved extent/measurement limits: [ ]."
               },
               {
                 "heading": "CONTENTS",
-                "body": "Sac contents: [ ]. Bowel transition: [ ]."
+                "body": "Actual source-visible sac contents and entry/exit/transition interfaces: [ ]. Reducibility: [actual clinical/dynamic evidence / limited / unassessed]. Volumetry if performed: HSV [ ], residual ACV [ ], method/acquisition/boundaries [ ], ratio/denominator [ ]. Unresolved course/cause or volume limits: [ ]."
               },
               {
                 "heading": "MUSCULAR RELATIONSHIPS",
-                "body": "Rectus width/atrophy: [ ]. Mesh: [ ]. Scarring: [ ]."
+                "body": "Actually resolved right/left muscle and fascial planes, source measurements/atrophy findings: [ ]. Repair/mesh: [seen / not clearly seen / unassessed], actual history, plane/fixation/scar and limits [ ]."
               },
               {
                 "heading": "COMPLICATIONS",
-                "body": "Enhancement: [ ]. Sac fluid/stranding: [ ]. Obstruction/strangulation concern: [ ]."
+                "body": "Complication assessment: [adequate acquired source / limited / unassessed]. Actual bowel/mesenteric, enhancement/phase, sac fluid/gas/inflammation and tract/host findings: [ ]. Clinical/dynamic incarceration evidence and unresolved viability/extent: [ ]."
               },
               {
                 "heading": "IMPRESSION",
@@ -3681,12 +3702,27 @@
               }
             ],
             "notes": [
-              "A wide sac and a narrow fascial neck are different measurements."
+              "A wide sac and a narrow fascial neck are different measurements.",
+              "Rectus diastasis may coexist with a true hernia; record each source-supported finding rather than using one label to exclude the other.",
+              "Static sac/content appearance does not independently establish reducibility or clinical incarceration; source-visible obstruction/vascular concerns and actual examination evidence remain separate.",
+              "Apparent bowel angulation or contact does not independently identify every adhesion or a specific band; retain unresolved contents, course and host interfaces.",
+              "Loss-of-domain definitions and denominators differ: specify hernia sac volume (HSV), residual abdominal cavity volume (ACV), actual method/source and HSV/ACV versus HSV/(HSV+ACV). A vague percentage of visceral volume or unvalidated sketch is not a measured ratio.",
+              "Measured aperture/sac/muscle ratios support planning but do not independently predict closure, compliance, pressure, respiratory tolerance or a guaranteed operative result.",
+              "Mesh material/plane and operative history may not be fully visible on CT; not visualised is not automatically absent. Fluid/gas near a repair does not independently establish microbiological infection.",
+              "Absent or inadequate contrast/dynamic sources cannot provide full enhancement, viability, reducibility or complication exclusion. Retain unresolved endpoints and source posture/field differences."
             ],
             "sources": [
               {
                 "title": "Radiology Assistant \u2014 Abdominal wall hernias",
                 "url": "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias"
+              },
+              {
+                "title": "EHS 2023 midline incisional hernia guidelines \u2014 Actual imaging/planning scope",
+                "url": "https://doi.org/10.1093/bjs/znad284"
+              },
+              {
+                "title": "Loss of domain systematic review \u2014 Noninterchangeable volume definitions",
+                "url": "https://doi.org/10.1007/s00268-018-4783-7"
               }
             ]
           }
@@ -3712,7 +3748,7 @@
                 "DEFECT TYPE"
               ],
               "normal": {
-                "DEFECT TYPE": "No abdominal wall hernia or rectus diastasis."
+                "DEFECT TYPE": "Defect/diastasis assessment: [adequate actual coverage/posture / limited / unassessed]. Assessed regions and source findings, including possible coexistence: [ ]."
               },
               "findings": [
                 "Primary [umbilical / epigastric / Spigelian / lumbar] hernia.",
@@ -3724,7 +3760,7 @@
               "landmark": "spaces",
               "parts": [],
               "look": "Axial and sagittal CT through the midline and prior incisions; note mesh and scars.",
-              "tip": "Rectus diastasis is widening of the linea alba without a fascial defect; it is not a hernia."
+              "tip": "Diastasis and a fascial defect are separate findings and can coexist. Describe the actual source anatomy and unresolved extent; one label does not exclude the other."
             },
             {
               "label": "Defect location and size",
@@ -3732,11 +3768,13 @@
               "sections": [
                 "DEFECT MAP"
               ],
-              "normal": {},
+              "normal": {
+                "DEFECT MAP": "Defect-map assessment: [adequate actual source / limited / unassessed]. Each site, source margins, aperture dimensions/planes and limits: [ ]."
+              },
               "findings": [
                 "Midline defect __ mm wide (transverse) and __ mm long (craniocaudal), [supra-/peri-/infraumbilical].",
                 "Multiple defects: [locations and sizes].",
-                "Rectus-to-defect ratio [ ] (combined rectus width divided by defect width)."
+                "Actual source rectus widths right [ ] / left [ ] and aperture width [ ] at the stated plane/posture [ ]; reported ratio/method [ ] and measurement/planning limits [ ]."
               ],
               "images": [
                 "peritoneum-image-3"
@@ -3755,20 +3793,24 @@
               "sections": [
                 "CONTENTS"
               ],
-              "normal": {},
+              "normal": {
+                "CONTENTS": "Content assessment: [adequate source / limited / unassessed]. Actual contents and resolved entry/exit/transition interfaces [ ]. Reducibility: [actual clinical/dynamic evidence / limited / unassessed]. Volumetry: [actual method/source / not performed], boundaries/denominator/limits [ ]."
+              },
               "findings": [
                 "Sac contains [fat / small bowel / transverse colon / omentum].",
-                "Loss of domain: about __% of the visceral volume lies within the hernia sac.",
+                "Source compartment volumes if measured: HSV [ ] and residual ACV [ ], source/posture and method [ ]; selected ratio [HSV/ACV / HSV/(HSV+ACV)] with boundary/calibration limits [ ]. This is not a guaranteed closure or physiological-tolerance prediction.",
                 "Transition to collapsed bowel at the hernia neck."
               ],
               "images": [
                 "peritoneum-image-3"
               ],
-              "measurements": [],
+              "measurements": [
+                "Source compartment volumes"
+              ],
               "landmark": "bowel",
               "parts": [],
-              "look": "Follow bowel loops into and out of the sac; estimate the proportion of viscera outside the abdominal cavity.",
-              "tip": "Loss of domain affects whether the contents can be reduced and how the repair is planned."
+              "look": "Trace only actual source-visible contents and entry/exit/transition interfaces. Record unresolved adhesional cause. Use actual complete source/method for compartment volumes and retain unavailable clinical/dynamic reducibility.",
+              "tip": "A static content image or ratio does not independently establish reducibility, wall compliance, pressure tolerance or operative closure. Name the actual volumetric method and denominator."
             },
             {
               "label": "Abdominal wall muscles and mesh",
@@ -3777,18 +3819,18 @@
                 "MUSCULAR RELATIONSHIPS"
               ],
               "normal": {
-                "MUSCULAR RELATIONSHIPS": "Rectus and lateral abdominal wall muscles of normal bulk; no mesh."
+                "MUSCULAR RELATIONSHIPS": "Wall/repair assessment: [adequate actual planes / limited / unassessed]. Assessed muscle/fascial regions and findings [ ]. Mesh: [seen / not clearly seen / unassessed], source/operative-history limits [ ]."
               },
               "findings": [
                 "Rectus width [right __ mm / left __ mm]; lateral muscle atrophy [ ].",
                 "Previous [onlay / sublay / intraperitoneal] mesh with recurrence at its [edge].",
-                "Mesh infection: fluid and gas along the mesh."
+                "Observed repair-region fluid/gas or inflammatory change at [ ], with source timing, clinical/microbiological context and unresolved cause [ ]."
               ],
               "images": [],
               "measurements": [],
               "landmark": "spaces",
               "parts": [],
-              "look": "Axial images of the rectus muscles and the external oblique, internal oblique and transversus layers."
+              "look": "Review actually resolved bilateral rectus, oblique/transversus and fascial planes, actual repair/fixation/scar and available operative history. Do not infer absent mesh from nonvisualisation."
             },
             {
               "label": "Complications",
@@ -3797,10 +3839,10 @@
                 "COMPLICATIONS"
               ],
               "normal": {
-                "COMPLICATIONS": "No incarceration, obstruction or strangulation."
+                "COMPLICATIONS": "Complication assessment: [adequate actual acquired source / limited / unassessed]. Observed bowel/mesenteric, source enhancement and sac/tract findings: [ ]. Clinical/dynamic incarceration evidence and unresolved viability or extent: [ ]."
               },
               "findings": [
-                "Incarcerated small bowel with upstream obstruction.",
+                "Source-visible herniated bowel and upstream obstruction at [ ], with actual clinical/dynamic incarceration/reducibility assessment [ ] or unassessed [ ].",
                 "Reduced wall enhancement, sac fluid and mesenteric stranding, raising concern for strangulation.",
                 "Enteroatmospheric fistula at [ ]."
               ],
@@ -3808,8 +3850,8 @@
               "measurements": [],
               "landmark": "bowel",
               "parts": [],
-              "look": "Bowel within the sac: wall thickening and enhancement compared with other loops; fluid and stranding in the sac.",
-              "tip": "Fluid in the sac with mesenteric stranding and poorly enhancing bowel suggests strangulation."
+              "look": "Review actual sac bowel/mesentery, acquired contrast phase/reference and source fluid/gas/tract interfaces; retain missing enhancement, dynamics, endpoints and full injury extent.",
+              "tip": "Source patterns can raise concern for complications but do not independently prove all tissue viability or complete exclusion. Escalate concerning findings in clinical context."
             }
           ],
           "finish": {
@@ -3866,10 +3908,10 @@
           }
         ]
       },
-      "reporting_contract_sha256": "e35e8c301dc2c5d35757adb2355d48e08243376c5cc9b9233b6af58b300f02f4",
-      "structure_inventory": null,
-      "structure_inventory_sha256": null,
-      "structure_expansion_status": "required_not_yet_expanded",
+      "reporting_contract_sha256": "2da8a208c526988bdb7e66fc6cb1d2ea0d3bd3306b94c80ee7cc5b5ef3c8542a",
+      "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
+      "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
           {
@@ -4257,7 +4299,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5616,7 +5658,7 @@
       },
       "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6265,7 +6307,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -7111,7 +7153,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -8196,7 +8238,7 @@
       },
       "reporting_contract_sha256": "5e2553d4b2296031280b8ff52ecb45abe99d345c0d1443b334626cf463beaa22",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9095,7 +9137,7 @@
       },
       "reporting_contract_sha256": "51afe1e42b4980b9410d9cde3df025ec185c91efcf1ed9f5a935c60d58bce8bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9996,7 +10038,7 @@
       },
       "reporting_contract_sha256": "157a1fd76d9cd51e73683f63e8933edf810415a86770b53e11341939ffa5288d",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10869,7 +10911,7 @@
       },
       "reporting_contract_sha256": "b9c6e28550ad5ea535af5d890dd506fe41e613a16ebce0a74013366fad0294cd",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11735,7 +11777,7 @@
       },
       "reporting_contract_sha256": "10ba145d2740780d7999bf96467d0e7a0f6651f63afc61094da04794c57a63f7",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12475,7 +12517,7 @@
       },
       "reporting_contract_sha256": "116b5af41de5f9b16a39206a18a71c0aaaa81d0814a4639683ca20164f6eb4bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13867,7 +13909,7 @@
       },
       "reporting_contract_sha256": "01ea478d05690a040c5c45211a98b70e9fb938bcf0a500f21295cb4331587776",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -17275,7 +17317,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -17660,7 +17702,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18186,7 +18228,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18607,7 +18649,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19022,7 +19064,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19941,7 +19983,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -20402,7 +20444,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -21349,7 +21391,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -22155,7 +22197,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -28857,7 +28899,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -33025,7 +33067,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -35659,7 +35701,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -36054,7 +36096,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -57981,7 +58023,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "f76b743a61f5ac8914146a18292b0f6f30ad342294aa71e59b2bf012e40be829",
+      "structure_inventory_sha256": "d8e62fed1407c0af3dc0ff11823031581aec363368824e3086cbef08df096628",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [

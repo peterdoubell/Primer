@@ -91,9 +91,10 @@
   },
   "ra.abdominal-wall-hernias": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-05",
       "protocol": [
-        "Use multiplanar CT to define the abdominal wall defect, its contents and surgical relationships; document prior repair."
+        "Use multiplanar CT to define the abdominal wall defect, its contents and surgical relationships; document prior repair.",
+        "Record actually acquired CT field, contrast/phase, posture, strain/Valsalva if performed, source planes, motion/metal limits and prior repair. Actual clinical/dynamic reducibility or supplemental US/MRI findings remain separate sources; static CT and model colours cannot supply unavailable dynamics, perfusion or full wall/mesh anatomy."
       ],
       "checklist": [
         {
@@ -122,12 +123,24 @@
           "name": "Defect dimensions",
           "method": "Measure the fascial aperture in orthogonal planes; name the level.",
           "pitfall": "Do not substitute sac diameter for defect width."
+        },
+        {
+          "name": "Source compartment volumes",
+          "method": "If measured, report actual HSV and residual ACV, acquisition/posture, segmentation or approximation method, boundaries and explicitly chosen denominator.",
+          "pitfall": "HSV/ACV and HSV/(HSV+ACV) are different measures; a sac diameter or guessed proportion is not validated volumetry."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "A wide sac and a narrow fascial neck are different measurements."
+        "A wide sac and a narrow fascial neck are different measurements.",
+        "Rectus diastasis may coexist with a true hernia; record each source-supported finding rather than using one label to exclude the other.",
+        "Static sac/content appearance does not independently establish reducibility or clinical incarceration; source-visible obstruction/vascular concerns and actual examination evidence remain separate.",
+        "Apparent bowel angulation or contact does not independently identify every adhesion or a specific band; retain unresolved contents, course and host interfaces.",
+        "Loss-of-domain definitions and denominators differ: specify hernia sac volume (HSV), residual abdominal cavity volume (ACV), actual method/source and HSV/ACV versus HSV/(HSV+ACV). A vague percentage of visceral volume or unvalidated sketch is not a measured ratio.",
+        "Measured aperture/sac/muscle ratios support planning but do not independently predict closure, compliance, pressure, respiratory tolerance or a guaranteed operative result.",
+        "Mesh material/plane and operative history may not be fully visible on CT; not visualised is not automatically absent. Fluid/gas near a repair does not independently establish microbiological infection.",
+        "Absent or inadequate contrast/dynamic sources cannot provide full enhancement, viability, reducibility or complication exclusion. Retain unresolved endpoints and source posture/field differences."
       ],
       "impression_prompts": [
         "Hernia anatomy, defect dimensions and complications for surgical planning.",
@@ -139,32 +152,47 @@
       "template_sections": [
         {
           "heading": "DEFECT TYPE",
-          "body": "Type: [primary / incisional / other]. Prior repair: [ ]. Diastasis: [ ]."
+          "body": "Defect/diastasis assessment: [adequate actual source / limited / unassessed]. Actual type, prior repair and separate diastasis/coexistent defect findings: [ ]."
         },
         {
           "heading": "DEFECT MAP",
-          "body": "Site/number: [ ]. Transverse/longitudinal dimensions: [ ]/[ ] mm."
+          "body": "Every actual defect/site and source-resolved fascial margins: [ ]. Aperture transverse/longitudinal dimensions and actual plane/posture: [ ]. Sac dimensions separately: [ ]. Unresolved extent/measurement limits: [ ]."
         },
         {
           "heading": "CONTENTS",
-          "body": "Sac contents: [ ]. Bowel transition: [ ]."
+          "body": "Actual source-visible sac contents and entry/exit/transition interfaces: [ ]. Reducibility: [actual clinical/dynamic evidence / limited / unassessed]. Volumetry if performed: HSV [ ], residual ACV [ ], method/acquisition/boundaries [ ], ratio/denominator [ ]. Unresolved course/cause or volume limits: [ ]."
         },
         {
           "heading": "MUSCULAR RELATIONSHIPS",
-          "body": "Rectus width/atrophy: [ ]. Mesh: [ ]. Scarring: [ ]."
+          "body": "Actually resolved right/left muscle and fascial planes, source measurements/atrophy findings: [ ]. Repair/mesh: [seen / not clearly seen / unassessed], actual history, plane/fixation/scar and limits [ ]."
         },
         {
           "heading": "COMPLICATIONS",
-          "body": "Enhancement: [ ]. Sac fluid/stranding: [ ]. Obstruction/strangulation concern: [ ]."
+          "body": "Complication assessment: [adequate acquired source / limited / unassessed]. Actual bowel/mesenteric, enhancement/phase, sac fluid/gas/inflammation and tract/host findings: [ ]. Clinical/dynamic incarceration evidence and unresolved viability/extent: [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Abdominal wall hernias",
           "url": "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias"
+        },
+        {
+          "title": "EHS 2023 midline incisional hernia guidelines — Actual imaging/planning scope",
+          "url": "https://doi.org/10.1093/bjs/znad284"
+        },
+        {
+          "title": "Loss of domain systematic review — Noninterchangeable volume definitions",
+          "url": "https://doi.org/10.1007/s00268-018-4783-7"
         }
       ]
-    }
+    },
+    "learning_points": [
+      "Map every actual fascial defect and source-resolved wall/sac/content interface with field and posture limits.",
+      "Distinguish rectus diastasis from an actual defect while retaining possible coexistence.",
+      "Measure aperture, sac and muscle features separately at actual source planes; record the chosen volumetric method and denominator.",
+      "Retain prior repair/mesh uncertainty and the actually visible fixation, scar and muscle interfaces.",
+      "Static CT cannot establish reducibility, every adhesion, tissue viability or complete complication exclusion; retain actual phase/dynamic/clinical evidence."
+    ]
   },
   "ra.aortic-aneurysm-rupture": {
     "reporting": {

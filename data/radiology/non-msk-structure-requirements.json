@@ -30,7 +30,8 @@
       "ra.mri-crohn",
       "ra.ultrasound-ibd",
       "ra.ct-abdominal-trauma",
-      "ra.acute-abdomen"
+      "ra.acute-abdomen",
+      "ra.abdominal-wall-hernias"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -79092,6 +79093,2980 @@
         {
           "observation": "complications",
           "evidence": "Complete source-visible wall/host, transition, vessel and collection interfaces with unresolved extent retained."
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.abdominal-wall-hernias",
+      "module_id": "rad.5.peritoneum",
+      "title": "CT abdominal wall hernias",
+      "scope_status": "expanded_draft_requires_independent_anatomical_and_clinical_review",
+      "modality_scope": [
+        "CT"
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant wall hernias",
+          "url": "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+          "reviewed_at": "2026-10-05"
+        },
+        {
+          "title": "EHS 2023 midline incisional hernia",
+          "url": "https://doi.org/10.1093/bjs/znad284",
+          "reviewed_at": "2026-10-05"
+        },
+        {
+          "title": "Loss of domain definitions systematic review",
+          "url": "https://doi.org/10.1007/s00268-018-4783-7",
+          "reviewed_at": "2026-10-05"
+        }
+      ],
+      "source_contract_sha256": "2da8a208c526988bdb7e66fc6cb1d2ea0d3bd3306b94c80ee7cc5b5ef3c8542a",
+      "reporting_checklist": [
+        {
+          "label": "Defect Type",
+          "detail": "Distinguish primary and incisional defects from rectus diastasis."
+        },
+        {
+          "label": "Defect Map",
+          "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+        },
+        {
+          "label": "Contents",
+          "detail": "Identify herniated structures and adhesional or obstructive effects."
+        },
+        {
+          "label": "Muscular Relationships",
+          "detail": "Assess rectus muscles and the available abdominal wall for repair."
+        },
+        {
+          "label": "Complications",
+          "detail": "Assess bowel enhancement, sac fluid and inflammatory change."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "DEFECT TYPE",
+          "body": "Defect/diastasis assessment: [adequate actual source / limited / unassessed]. Actual type, prior repair and separate diastasis/coexistent defect findings: [ ]."
+        },
+        {
+          "heading": "DEFECT MAP",
+          "body": "Every actual defect/site and source-resolved fascial margins: [ ]. Aperture transverse/longitudinal dimensions and actual plane/posture: [ ]. Sac dimensions separately: [ ]. Unresolved extent/measurement limits: [ ]."
+        },
+        {
+          "heading": "CONTENTS",
+          "body": "Actual source-visible sac contents and entry/exit/transition interfaces: [ ]. Reducibility: [actual clinical/dynamic evidence / limited / unassessed]. Volumetry if performed: HSV [ ], residual ACV [ ], method/acquisition/boundaries [ ], ratio/denominator [ ]. Unresolved course/cause or volume limits: [ ]."
+        },
+        {
+          "heading": "MUSCULAR RELATIONSHIPS",
+          "body": "Actually resolved right/left muscle and fascial planes, source measurements/atrophy findings: [ ]. Repair/mesh: [seen / not clearly seen / unassessed], actual history, plane/fixation/scar and limits [ ]."
+        },
+        {
+          "heading": "COMPLICATIONS",
+          "body": "Complication assessment: [adequate acquired source / limited / unassessed]. Actual bowel/mesenteric, enhancement/phase, sac fluid/gas/inflammation and tract/host findings: [ ]. Clinical/dynamic incarceration evidence and unresolved viability/extent: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "wall_hernia.region_epigastric",
+          "name": "Actual epigastric source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_epigastric.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_epigastric.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_epigastric.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_epigastric.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_epigastric.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_epigastric.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_epigastric.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_epigastric.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_epigastric.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_supraumbilical",
+          "name": "Actual supraumbilical source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_supraumbilical.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_supraumbilical.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_supraumbilical.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_supraumbilical.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_supraumbilical.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_supraumbilical.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_supraumbilical.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_supraumbilical.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_supraumbilical.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_umbilical",
+          "name": "Actual umbilical source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_umbilical.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_umbilical.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_umbilical.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_umbilical.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_umbilical.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_umbilical.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_umbilical.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_umbilical.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_umbilical.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_infraumbilical",
+          "name": "Actual infraumbilical source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_infraumbilical.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_infraumbilical.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_infraumbilical.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_infraumbilical.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_infraumbilical.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_infraumbilical.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_infraumbilical.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_infraumbilical.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_infraumbilical.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_suprapubic",
+          "name": "Actual suprapubic source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_suprapubic.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_suprapubic.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_suprapubic.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_suprapubic.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_suprapubic.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_suprapubic.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_suprapubic.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_suprapubic.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_suprapubic.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_right_lateral",
+          "name": "Actual right_lateral source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_right_lateral.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_right_lateral.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_right_lateral.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_right_lateral.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_right_lateral.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_right_lateral.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_right_lateral.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_right_lateral.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_right_lateral.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_left_lateral",
+          "name": "Actual left_lateral source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_left_lateral.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_left_lateral.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_left_lateral.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_left_lateral.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_left_lateral.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_left_lateral.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_left_lateral.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_left_lateral.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_left_lateral.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_right_spigelian",
+          "name": "Actual right_spigelian source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_right_spigelian.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_right_spigelian.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_right_spigelian.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_right_spigelian.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_right_spigelian.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_right_spigelian.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_right_spigelian.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_right_spigelian.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_right_spigelian.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_left_spigelian",
+          "name": "Actual left_spigelian source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_left_spigelian.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_left_spigelian.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_left_spigelian.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_left_spigelian.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_left_spigelian.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_left_spigelian.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_left_spigelian.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_left_spigelian.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_left_spigelian.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_right_lumbar_if_relevant",
+          "name": "Actual right_lumbar_if_relevant source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_right_lumbar_if_relevant.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_left_lumbar_if_relevant",
+          "name": "Actual left_lumbar_if_relevant source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_left_lumbar_if_relevant.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_right_groin_if_relevant",
+          "name": "Actual right_groin_if_relevant source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_right_groin_if_relevant.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_left_groin_if_relevant",
+          "name": "Actual left_groin_if_relevant source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_left_groin_if_relevant.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_each_actual_incision",
+          "name": "Actual each_actual_incision source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_each_actual_incision.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_incision.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_incision.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_incision.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_incision.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_incision.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_incision.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_incision.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_incision.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_each_actual_stoma",
+          "name": "Actual each_actual_stoma source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_each_actual_stoma.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_stoma.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_stoma.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_stoma.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_stoma.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_stoma.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_stoma.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_stoma.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_stoma.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.region_each_actual_port_site",
+          "name": "Actual each_actual_port_site source wall",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.region_each_actual_port_site.covered_skin",
+              "name": "covered skin"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_port_site.subcutaneous_tissue",
+              "name": "subcutaneous tissue"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_port_site.superficial_fascial_region",
+              "name": "superficial fascial region"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_port_site.musculoaponeurotic_layer",
+              "name": "musculoaponeurotic layer"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_port_site.deep_fascial_region_if_resolved",
+              "name": "deep fascial region if resolved"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_port_site.extraperitoneal_fat",
+              "name": "extraperitoneal fat"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_port_site.peritoneal_interface",
+              "name": "peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_port_site.local_bowel_or_organ_interface",
+              "name": "local bowel or organ interface"
+            },
+            {
+              "id": "wall_hernia.region_each_actual_port_site.unresolved_layer_or_field_limit",
+              "name": "unresolved layer or field limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.right_rectus",
+          "name": "Actual right rectus source anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.right_rectus.covered_muscle_extent",
+              "name": "covered muscle extent"
+            },
+            {
+              "id": "wall_hernia.right_rectus.medial_border",
+              "name": "medial border"
+            },
+            {
+              "id": "wall_hernia.right_rectus.lateral_border",
+              "name": "lateral border"
+            },
+            {
+              "id": "wall_hernia.right_rectus.thickness_or_width_site",
+              "name": "thickness or width site"
+            },
+            {
+              "id": "wall_hernia.right_rectus.aponeurotic_interface",
+              "name": "aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.right_rectus.adjacent_muscle_or_fascial_interface",
+              "name": "adjacent muscle or fascial interface"
+            },
+            {
+              "id": "wall_hernia.right_rectus.each_source_atrophic_or_altered_region_if_present",
+              "name": "each source atrophic or altered region if present"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.right_external_oblique",
+          "name": "Actual right external_oblique source anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.right_external_oblique.covered_muscle_extent",
+              "name": "covered muscle extent"
+            },
+            {
+              "id": "wall_hernia.right_external_oblique.medial_border",
+              "name": "medial border"
+            },
+            {
+              "id": "wall_hernia.right_external_oblique.lateral_border",
+              "name": "lateral border"
+            },
+            {
+              "id": "wall_hernia.right_external_oblique.thickness_or_width_site",
+              "name": "thickness or width site"
+            },
+            {
+              "id": "wall_hernia.right_external_oblique.aponeurotic_interface",
+              "name": "aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.right_external_oblique.adjacent_muscle_or_fascial_interface",
+              "name": "adjacent muscle or fascial interface"
+            },
+            {
+              "id": "wall_hernia.right_external_oblique.each_source_atrophic_or_altered_region_if_present",
+              "name": "each source atrophic or altered region if present"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.right_internal_oblique",
+          "name": "Actual right internal_oblique source anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.right_internal_oblique.covered_muscle_extent",
+              "name": "covered muscle extent"
+            },
+            {
+              "id": "wall_hernia.right_internal_oblique.medial_border",
+              "name": "medial border"
+            },
+            {
+              "id": "wall_hernia.right_internal_oblique.lateral_border",
+              "name": "lateral border"
+            },
+            {
+              "id": "wall_hernia.right_internal_oblique.thickness_or_width_site",
+              "name": "thickness or width site"
+            },
+            {
+              "id": "wall_hernia.right_internal_oblique.aponeurotic_interface",
+              "name": "aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.right_internal_oblique.adjacent_muscle_or_fascial_interface",
+              "name": "adjacent muscle or fascial interface"
+            },
+            {
+              "id": "wall_hernia.right_internal_oblique.each_source_atrophic_or_altered_region_if_present",
+              "name": "each source atrophic or altered region if present"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.right_transversus",
+          "name": "Actual right transversus source anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.right_transversus.covered_muscle_extent",
+              "name": "covered muscle extent"
+            },
+            {
+              "id": "wall_hernia.right_transversus.medial_border",
+              "name": "medial border"
+            },
+            {
+              "id": "wall_hernia.right_transversus.lateral_border",
+              "name": "lateral border"
+            },
+            {
+              "id": "wall_hernia.right_transversus.thickness_or_width_site",
+              "name": "thickness or width site"
+            },
+            {
+              "id": "wall_hernia.right_transversus.aponeurotic_interface",
+              "name": "aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.right_transversus.adjacent_muscle_or_fascial_interface",
+              "name": "adjacent muscle or fascial interface"
+            },
+            {
+              "id": "wall_hernia.right_transversus.each_source_atrophic_or_altered_region_if_present",
+              "name": "each source atrophic or altered region if present"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.right_rectus_sheath",
+          "name": "Actual right source rectus sheath",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.right_rectus_sheath.anterior_sheath",
+              "name": "anterior sheath"
+            },
+            {
+              "id": "wall_hernia.right_rectus_sheath.posterior_sheath_where_present",
+              "name": "posterior sheath where present"
+            },
+            {
+              "id": "wall_hernia.right_rectus_sheath.arcuate_line_region_if_resolved",
+              "name": "arcuate line region if resolved"
+            },
+            {
+              "id": "wall_hernia.right_rectus_sheath.above_arcuate_interface",
+              "name": "above arcuate interface"
+            },
+            {
+              "id": "wall_hernia.right_rectus_sheath.below_arcuate_interface",
+              "name": "below arcuate interface"
+            },
+            {
+              "id": "wall_hernia.right_rectus_sheath.muscle_contact",
+              "name": "muscle contact"
+            },
+            {
+              "id": "wall_hernia.right_rectus_sheath.linea_alba_contact",
+              "name": "linea alba contact"
+            },
+            {
+              "id": "wall_hernia.right_rectus_sheath.local_scar_interface",
+              "name": "local scar interface"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.left_rectus",
+          "name": "Actual left rectus source anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.left_rectus.covered_muscle_extent",
+              "name": "covered muscle extent"
+            },
+            {
+              "id": "wall_hernia.left_rectus.medial_border",
+              "name": "medial border"
+            },
+            {
+              "id": "wall_hernia.left_rectus.lateral_border",
+              "name": "lateral border"
+            },
+            {
+              "id": "wall_hernia.left_rectus.thickness_or_width_site",
+              "name": "thickness or width site"
+            },
+            {
+              "id": "wall_hernia.left_rectus.aponeurotic_interface",
+              "name": "aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.left_rectus.adjacent_muscle_or_fascial_interface",
+              "name": "adjacent muscle or fascial interface"
+            },
+            {
+              "id": "wall_hernia.left_rectus.each_source_atrophic_or_altered_region_if_present",
+              "name": "each source atrophic or altered region if present"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.left_external_oblique",
+          "name": "Actual left external_oblique source anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.left_external_oblique.covered_muscle_extent",
+              "name": "covered muscle extent"
+            },
+            {
+              "id": "wall_hernia.left_external_oblique.medial_border",
+              "name": "medial border"
+            },
+            {
+              "id": "wall_hernia.left_external_oblique.lateral_border",
+              "name": "lateral border"
+            },
+            {
+              "id": "wall_hernia.left_external_oblique.thickness_or_width_site",
+              "name": "thickness or width site"
+            },
+            {
+              "id": "wall_hernia.left_external_oblique.aponeurotic_interface",
+              "name": "aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.left_external_oblique.adjacent_muscle_or_fascial_interface",
+              "name": "adjacent muscle or fascial interface"
+            },
+            {
+              "id": "wall_hernia.left_external_oblique.each_source_atrophic_or_altered_region_if_present",
+              "name": "each source atrophic or altered region if present"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.left_internal_oblique",
+          "name": "Actual left internal_oblique source anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.left_internal_oblique.covered_muscle_extent",
+              "name": "covered muscle extent"
+            },
+            {
+              "id": "wall_hernia.left_internal_oblique.medial_border",
+              "name": "medial border"
+            },
+            {
+              "id": "wall_hernia.left_internal_oblique.lateral_border",
+              "name": "lateral border"
+            },
+            {
+              "id": "wall_hernia.left_internal_oblique.thickness_or_width_site",
+              "name": "thickness or width site"
+            },
+            {
+              "id": "wall_hernia.left_internal_oblique.aponeurotic_interface",
+              "name": "aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.left_internal_oblique.adjacent_muscle_or_fascial_interface",
+              "name": "adjacent muscle or fascial interface"
+            },
+            {
+              "id": "wall_hernia.left_internal_oblique.each_source_atrophic_or_altered_region_if_present",
+              "name": "each source atrophic or altered region if present"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.left_transversus",
+          "name": "Actual left transversus source anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.left_transversus.covered_muscle_extent",
+              "name": "covered muscle extent"
+            },
+            {
+              "id": "wall_hernia.left_transversus.medial_border",
+              "name": "medial border"
+            },
+            {
+              "id": "wall_hernia.left_transversus.lateral_border",
+              "name": "lateral border"
+            },
+            {
+              "id": "wall_hernia.left_transversus.thickness_or_width_site",
+              "name": "thickness or width site"
+            },
+            {
+              "id": "wall_hernia.left_transversus.aponeurotic_interface",
+              "name": "aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.left_transversus.adjacent_muscle_or_fascial_interface",
+              "name": "adjacent muscle or fascial interface"
+            },
+            {
+              "id": "wall_hernia.left_transversus.each_source_atrophic_or_altered_region_if_present",
+              "name": "each source atrophic or altered region if present"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.left_rectus_sheath",
+          "name": "Actual left source rectus sheath",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.left_rectus_sheath.anterior_sheath",
+              "name": "anterior sheath"
+            },
+            {
+              "id": "wall_hernia.left_rectus_sheath.posterior_sheath_where_present",
+              "name": "posterior sheath where present"
+            },
+            {
+              "id": "wall_hernia.left_rectus_sheath.arcuate_line_region_if_resolved",
+              "name": "arcuate line region if resolved"
+            },
+            {
+              "id": "wall_hernia.left_rectus_sheath.above_arcuate_interface",
+              "name": "above arcuate interface"
+            },
+            {
+              "id": "wall_hernia.left_rectus_sheath.below_arcuate_interface",
+              "name": "below arcuate interface"
+            },
+            {
+              "id": "wall_hernia.left_rectus_sheath.muscle_contact",
+              "name": "muscle contact"
+            },
+            {
+              "id": "wall_hernia.left_rectus_sheath.linea_alba_contact",
+              "name": "linea alba contact"
+            },
+            {
+              "id": "wall_hernia.left_rectus_sheath.local_scar_interface",
+              "name": "local scar interface"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.midline_landmarks",
+          "name": "Actual source landmarks and diastasis anatomy",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.midline_landmarks.linea_alba",
+              "name": "linea alba"
+            },
+            {
+              "id": "wall_hernia.midline_landmarks.umbilical_interface",
+              "name": "umbilical interface"
+            },
+            {
+              "id": "wall_hernia.midline_landmarks.costal_margin_if_covered",
+              "name": "costal margin if covered"
+            },
+            {
+              "id": "wall_hernia.midline_landmarks.xiphoid_if_covered",
+              "name": "xiphoid if covered"
+            },
+            {
+              "id": "wall_hernia.midline_landmarks.pubic_interface_if_covered",
+              "name": "pubic interface if covered"
+            },
+            {
+              "id": "wall_hernia.midline_landmarks.actual_interrectus_measurement_site",
+              "name": "actual interrectus measurement site"
+            },
+            {
+              "id": "wall_hernia.midline_landmarks.diastatic_segment_if_present",
+              "name": "diastatic segment if present"
+            },
+            {
+              "id": "wall_hernia.midline_landmarks.unresolved_margins_or_coexistence",
+              "name": "unresolved margins or coexistence"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.defects",
+          "name": "Every actual fascial defect and site",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.defects.each_defect_origin",
+              "name": "each defect origin"
+            },
+            {
+              "id": "wall_hernia.defects.proximal_margin",
+              "name": "proximal margin"
+            },
+            {
+              "id": "wall_hernia.defects.distal_margin",
+              "name": "distal margin"
+            },
+            {
+              "id": "wall_hernia.defects.right_margin",
+              "name": "right margin"
+            },
+            {
+              "id": "wall_hernia.defects.left_margin",
+              "name": "left margin"
+            },
+            {
+              "id": "wall_hernia.defects.complete_source_aperture",
+              "name": "complete source aperture"
+            },
+            {
+              "id": "wall_hernia.defects.fascial_plane",
+              "name": "fascial plane"
+            },
+            {
+              "id": "wall_hernia.defects.source_transverse_caliper_site",
+              "name": "source transverse caliper site"
+            },
+            {
+              "id": "wall_hernia.defects.source_longitudinal_caliper_site",
+              "name": "source longitudinal caliper site"
+            },
+            {
+              "id": "wall_hernia.defects.surrounding_aponeurotic_interface",
+              "name": "surrounding aponeurotic interface"
+            },
+            {
+              "id": "wall_hernia.defects.interdefect_bridge_if_present",
+              "name": "interdefect bridge if present"
+            },
+            {
+              "id": "wall_hernia.defects.each_additional_defect",
+              "name": "each additional defect"
+            },
+            {
+              "id": "wall_hernia.defects.unresolved_edge_or_full_extent_limit",
+              "name": "unresolved edge or full extent limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.sac",
+          "name": "Every actual sac, neck and host relationship",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.sac.source_sac_wall_if_resolved",
+              "name": "source sac wall if resolved"
+            },
+            {
+              "id": "wall_hernia.sac.inner_sac_region",
+              "name": "inner sac region"
+            },
+            {
+              "id": "wall_hernia.sac.outer_peritoneal_interface",
+              "name": "outer peritoneal interface"
+            },
+            {
+              "id": "wall_hernia.sac.neck_if_resolved",
+              "name": "neck if resolved"
+            },
+            {
+              "id": "wall_hernia.sac.complete_source_sac_extent",
+              "name": "complete source sac extent"
+            },
+            {
+              "id": "wall_hernia.sac.actual_contents_region",
+              "name": "actual contents region"
+            },
+            {
+              "id": "wall_hernia.sac.abdominal_cavity_communication",
+              "name": "abdominal cavity communication"
+            },
+            {
+              "id": "wall_hernia.sac.subcutaneous_interface",
+              "name": "subcutaneous interface"
+            },
+            {
+              "id": "wall_hernia.sac.skin_interface",
+              "name": "skin interface"
+            },
+            {
+              "id": "wall_hernia.sac.source_sac_caliper_site",
+              "name": "source sac caliper site"
+            },
+            {
+              "id": "wall_hernia.sac.unresolved_sac_or_neck_limit",
+              "name": "unresolved sac or neck limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Contents",
+              "detail": "Identify herniated structures and adhesional or obstructive effects."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.contents",
+          "name": "Every source-visible herniated structure and connection",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.contents.each_actual_bowel_segment",
+              "name": "each actual bowel segment"
+            },
+            {
+              "id": "wall_hernia.contents.entry_limb",
+              "name": "entry limb"
+            },
+            {
+              "id": "wall_hernia.contents.exit_limb",
+              "name": "exit limb"
+            },
+            {
+              "id": "wall_hernia.contents.actual_transition_site",
+              "name": "actual transition site"
+            },
+            {
+              "id": "wall_hernia.contents.upstream_lumen",
+              "name": "upstream lumen"
+            },
+            {
+              "id": "wall_hernia.contents.downstream_lumen",
+              "name": "downstream lumen"
+            },
+            {
+              "id": "wall_hernia.contents.bowel_wall_interface",
+              "name": "bowel wall interface"
+            },
+            {
+              "id": "wall_hernia.contents.mesenteric_leaf_if_resolved",
+              "name": "mesenteric leaf if resolved"
+            },
+            {
+              "id": "wall_hernia.contents.vessel_or_pedicle_if_resolved",
+              "name": "vessel or pedicle if resolved"
+            },
+            {
+              "id": "wall_hernia.contents.fat_or_omentum_region",
+              "name": "fat or omentum region"
+            },
+            {
+              "id": "wall_hernia.contents.each_other_source_content",
+              "name": "each other source content"
+            },
+            {
+              "id": "wall_hernia.contents.contents_sac_contact",
+              "name": "contents sac contact"
+            },
+            {
+              "id": "wall_hernia.contents.source_visible_tethering_if_present",
+              "name": "source visible tethering if present"
+            },
+            {
+              "id": "wall_hernia.contents.unresolved_adhesion_or_connection_limit",
+              "name": "unresolved adhesion or connection limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Contents",
+              "detail": "Identify herniated structures and adhesional or obstructive effects."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complications",
+              "detail": "Assess bowel enhancement, sac fluid and inflammatory change."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.volumetry",
+          "name": "Actual source compartments and method evidence",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.volumetry.complete_source_HSV_boundary",
+              "name": "complete source HSV boundary"
+            },
+            {
+              "id": "wall_hernia.volumetry.complete_source_residual_ACV_boundary",
+              "name": "complete source residual ACV boundary"
+            },
+            {
+              "id": "wall_hernia.volumetry.neck_or_compartment_separation",
+              "name": "neck or compartment separation"
+            },
+            {
+              "id": "wall_hernia.volumetry.source_stack_extent",
+              "name": "source stack extent"
+            },
+            {
+              "id": "wall_hernia.volumetry.segmentation_or_approximation_method",
+              "name": "segmentation or approximation method"
+            },
+            {
+              "id": "wall_hernia.volumetry.actual_HSV_result",
+              "name": "actual HSV result"
+            },
+            {
+              "id": "wall_hernia.volumetry.actual_ACV_result",
+              "name": "actual ACV result"
+            },
+            {
+              "id": "wall_hernia.volumetry.explicitly_named_denominator",
+              "name": "explicitly named denominator"
+            },
+            {
+              "id": "wall_hernia.volumetry.source_calibration_or_boundary_limit",
+              "name": "source calibration or boundary limit"
+            },
+            {
+              "id": "wall_hernia.volumetry.posture_and_strain_context",
+              "name": "posture and strain context"
+            },
+            {
+              "id": "wall_hernia.volumetry.unresolved_volume_or_compliance_limit",
+              "name": "unresolved volume or compliance limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Contents",
+              "detail": "Identify herniated structures and adhesional or obstructive effects."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.repair",
+          "name": "Actual prior repair, mesh and scar interfaces",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.repair.source_visible_mesh_region",
+              "name": "source visible mesh region"
+            },
+            {
+              "id": "wall_hernia.repair.source_mesh_plane_if_resolved",
+              "name": "source mesh plane if resolved"
+            },
+            {
+              "id": "wall_hernia.repair.each_actual_fixation_site",
+              "name": "each actual fixation site"
+            },
+            {
+              "id": "wall_hernia.repair.mesh_edge_if_resolved",
+              "name": "mesh edge if resolved"
+            },
+            {
+              "id": "wall_hernia.repair.muscle_or_fascial_contact",
+              "name": "muscle or fascial contact"
+            },
+            {
+              "id": "wall_hernia.repair.peritoneal_contact",
+              "name": "peritoneal contact"
+            },
+            {
+              "id": "wall_hernia.repair.bowel_contact",
+              "name": "bowel contact"
+            },
+            {
+              "id": "wall_hernia.repair.source_scar_region",
+              "name": "source scar region"
+            },
+            {
+              "id": "wall_hernia.repair.operative_site_if_known",
+              "name": "operative site if known"
+            },
+            {
+              "id": "wall_hernia.repair.recurrent_defect_if_present",
+              "name": "recurrent defect if present"
+            },
+            {
+              "id": "wall_hernia.repair.nonvisualised_mesh_limit",
+              "name": "nonvisualised mesh limit"
+            },
+            {
+              "id": "wall_hernia.repair.unresolved_material_or_repair_extent",
+              "name": "unresolved material or repair extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complications",
+              "detail": "Assess bowel enhancement, sac fluid and inflammatory change."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.collections",
+          "name": "Every actual postoperative/hernial collection",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.collections.core",
+              "name": "core"
+            },
+            {
+              "id": "wall_hernia.collections.fluid_or_debris_region",
+              "name": "fluid or debris region"
+            },
+            {
+              "id": "wall_hernia.collections.gas_if_supported",
+              "name": "gas if supported"
+            },
+            {
+              "id": "wall_hernia.collections.wall_if_resolved",
+              "name": "wall if resolved"
+            },
+            {
+              "id": "wall_hernia.collections.source_visible_extent",
+              "name": "source visible extent"
+            },
+            {
+              "id": "wall_hernia.collections.mesh_or_fixation_interface",
+              "name": "mesh or fixation interface"
+            },
+            {
+              "id": "wall_hernia.collections.bowel_interface",
+              "name": "bowel interface"
+            },
+            {
+              "id": "wall_hernia.collections.fascial_interface",
+              "name": "fascial interface"
+            },
+            {
+              "id": "wall_hernia.collections.skin_interface",
+              "name": "skin interface"
+            },
+            {
+              "id": "wall_hernia.collections.source_orthogonal_dimensions",
+              "name": "source orthogonal dimensions"
+            },
+            {
+              "id": "wall_hernia.collections.unresolved_drainage_or_infection_limit",
+              "name": "unresolved drainage or infection limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complications",
+              "detail": "Assess bowel enhancement, sac fluid and inflammatory change."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.complications",
+          "name": "Every actual source-supported complication site",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.complications.abnormal_bowel_wall",
+              "name": "abnormal bowel wall"
+            },
+            {
+              "id": "wall_hernia.complications.reference_bowel_wall",
+              "name": "reference bowel wall"
+            },
+            {
+              "id": "wall_hernia.complications.source_enhancement_region",
+              "name": "source enhancement region"
+            },
+            {
+              "id": "wall_hernia.complications.actual_comparison_phase_if_acquired",
+              "name": "actual comparison phase if acquired"
+            },
+            {
+              "id": "wall_hernia.complications.reduced_enhancement_if_supported",
+              "name": "reduced enhancement if supported"
+            },
+            {
+              "id": "wall_hernia.complications.source_mesenteric_inflammation",
+              "name": "source mesenteric inflammation"
+            },
+            {
+              "id": "wall_hernia.complications.sac_fluid_if_present",
+              "name": "sac fluid if present"
+            },
+            {
+              "id": "wall_hernia.complications.source_gas_if_present",
+              "name": "source gas if present"
+            },
+            {
+              "id": "wall_hernia.complications.actual_obstruction_site",
+              "name": "actual obstruction site"
+            },
+            {
+              "id": "wall_hernia.complications.source_visible_perforation_if_supported",
+              "name": "source visible perforation if supported"
+            },
+            {
+              "id": "wall_hernia.complications.actual_tract_if_present",
+              "name": "actual tract if present"
+            },
+            {
+              "id": "wall_hernia.complications.each_resolved_tract_endpoint",
+              "name": "each resolved tract endpoint"
+            },
+            {
+              "id": "wall_hernia.complications.host_or_mesh_contact",
+              "name": "host or mesh contact"
+            },
+            {
+              "id": "wall_hernia.complications.unresolved_viability_or_extent_limit",
+              "name": "unresolved viability or extent limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Complications",
+              "detail": "Assess bowel enhancement, sac fluid and inflammatory change."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.measurements",
+          "name": "Actual muscle/aperture ratio sources",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.measurements.right_rectus_width_site",
+              "name": "right rectus width site"
+            },
+            {
+              "id": "wall_hernia.measurements.left_rectus_width_site",
+              "name": "left rectus width site"
+            },
+            {
+              "id": "wall_hernia.measurements.source_aperture_width_site",
+              "name": "source aperture width site"
+            },
+            {
+              "id": "wall_hernia.measurements.same_plane_and_posture_correspondence",
+              "name": "same plane and posture correspondence"
+            },
+            {
+              "id": "wall_hernia.measurements.declared_ratio_definition",
+              "name": "declared ratio definition"
+            },
+            {
+              "id": "wall_hernia.measurements.actual_source_calibration",
+              "name": "actual source calibration"
+            },
+            {
+              "id": "wall_hernia.measurements.unassessed_or_unavailable_ratio_limit",
+              "name": "unassessed or unavailable ratio limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.acquisition",
+          "name": "Actual examination/context and unresolved dynamics",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.acquisition.source_CT_field",
+              "name": "source CT field"
+            },
+            {
+              "id": "wall_hernia.acquisition.source_phase_and_contrast_source",
+              "name": "source phase and contrast source"
+            },
+            {
+              "id": "wall_hernia.acquisition.source_plane_identity",
+              "name": "source plane identity"
+            },
+            {
+              "id": "wall_hernia.acquisition.actual_posture",
+              "name": "actual posture"
+            },
+            {
+              "id": "wall_hernia.acquisition.actual_strain_or_Valsalva_source_if_performed",
+              "name": "actual strain or Valsalva source if performed"
+            },
+            {
+              "id": "wall_hernia.acquisition.motion_or_metal_artefact",
+              "name": "motion or metal artefact"
+            },
+            {
+              "id": "wall_hernia.acquisition.source_caliper_plane",
+              "name": "source caliper plane"
+            },
+            {
+              "id": "wall_hernia.acquisition.prior_repair_context",
+              "name": "prior repair context"
+            },
+            {
+              "id": "wall_hernia.acquisition.source_clinical_reducibility_if_available",
+              "name": "source clinical reducibility if available"
+            },
+            {
+              "id": "wall_hernia.acquisition.complementary_dynamic_source_if_available",
+              "name": "complementary dynamic source if available"
+            },
+            {
+              "id": "wall_hernia.acquisition.unavailable_dynamic_or_perfusion_limit",
+              "name": "unavailable dynamic or perfusion limit"
+            },
+            {
+              "id": "wall_hernia.acquisition.source_population_and_developmental_context",
+              "name": "source population and developmental context"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Contents",
+              "detail": "Identify herniated structures and adhesional or obstructive effects."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Complications",
+              "detail": "Assess bowel enhancement, sac fluid and inflammatory change."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        },
+        {
+          "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant",
+          "name": "Actual semilunar/groin source landmarks where assessed and relevant",
+          "tissue_class": "reportable_abdominal_wall_hernia_or_repair_interface",
+          "required_parts": [
+            {
+              "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant.right_linea_semilunaris_if_resolved",
+              "name": "right linea semilunaris if resolved"
+            },
+            {
+              "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant.left_linea_semilunaris_if_resolved",
+              "name": "left linea semilunaris if resolved"
+            },
+            {
+              "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant.right_inguinal_ligament_if_relevant",
+              "name": "right inguinal ligament if relevant"
+            },
+            {
+              "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant.left_inguinal_ligament_if_relevant",
+              "name": "left inguinal ligament if relevant"
+            },
+            {
+              "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant.right_inferior_epigastric_interface_if_resolved",
+              "name": "right inferior epigastric interface if resolved"
+            },
+            {
+              "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant.left_inferior_epigastric_interface_if_resolved",
+              "name": "left inferior epigastric interface if resolved"
+            },
+            {
+              "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant.each_actual_landmark_source_border",
+              "name": "each actual landmark source border"
+            },
+            {
+              "id": "wall_hernia.semilunar_and_groin_landmarks_if_relevant.unresolved_groin_or_spigelian_extent",
+              "name": "unresolved groin or spigelian extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual defect, wall layer/margin, sac, entry/exit/content/mesenteric/vascular interface, muscle/repair/fixation region, collection/tract and measurement compartment. Retain source CT phase, posture/strain, plane, coverage, actual patient/prior repair and technical limits. Conditional groin/lumbar/stoma and host structures require actual relevance/field. Parent models, static stills, source colour or nonvisualisation cannot supply unavailable reducibility, adhesion identity, enhancement/perfusion, viability, infection or complete operative/physiological predictions. Every source-specific site requires independent anatomical/clinical review.",
+          "requirement_basis": "effective_defect_type_map_contents_muscle_repair_and_complication_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Defect Type",
+              "detail": "Distinguish primary and incisional defects from rectus diastasis."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Defect Map",
+              "detail": "Identify every defect and its position relative to the umbilicus and abdominal wall."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Muscular Relationships",
+              "detail": "Assess rectus muscles and the available abdominal wall for repair."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/abdomen-1/abdominal-wall-hernias",
+            "https://doi.org/10.1093/bjs/znad284",
+            "https://doi.org/10.1007/s00268-018-4783-7"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true
+        }
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual defect margin, neck, sac/content and host interface",
+            "Actual bilateral muscle/sheath, repair/mesh/fixation/scar and source compartment boundaries",
+            "Actual volumetric method/denominator and source phase/posture/dynamic evidence",
+            "Independent source-specific anatomical and clinical review"
+          ]
+        }
+      ],
+      "source_scope_issues": [
+        {
+          "code": "complete_source_instances_pending",
+          "detail": "Draft targets need actual case-specific defects, contents and full host interfaces."
+        },
+        {
+          "code": "dynamic_and_adhesion_evidence_pending",
+          "detail": "Static CT cannot establish reducibility, every adhesion or physiological tolerance."
+        },
+        {
+          "code": "volume_method_pending",
+          "detail": "Loss-of-domain terms need actual source volumes, boundaries and explicitly named denominator/method."
+        },
+        {
+          "code": "repair_visibility_pending",
+          "detail": "Unseen mesh/repair features cannot become absent; full operative/material context remains necessary."
+        },
+        {
+          "code": "phase_viability_and_infection_pending",
+          "detail": "Source appearance/colour or absent phases cannot establish every vascular/viability or infection conclusion."
+        },
+        {
+          "code": "native_models_and_review_pending",
+          "detail": "Complete clinical images/schematics/3D and independent specialist review remain required."
+        },
+        {
+          "code": "shared_curriculum_pending",
+          "detail": "Whole shared peritoneum/mesentery/wall lesson, quiz/scoring and surgical/management guidance remains unreconciled."
+        }
+      ],
+      "functional_evidence_requirements": [
+        {
+          "observation": "defect_measurement",
+          "evidence": "Actual resolved fascial margins, source planes/posture and calibration; sac and neck separate."
+        },
+        {
+          "observation": "reducibility",
+          "evidence": "Actual clinical/dynamic source; unavailable assessment retained."
+        },
+        {
+          "observation": "volume_ratio",
+          "evidence": "Source HSV/residual ACV, segmentation/approximation bounds, method and named denominator."
+        },
+        {
+          "observation": "repair",
+          "evidence": "Actual visible mesh/fixation/scar with operative and nonvisualisation limits."
+        },
+        {
+          "observation": "complications",
+          "evidence": "Actual contrast/reference, bowel/mesenteric/tract source and unresolved viability/extent."
         }
       ]
     }
