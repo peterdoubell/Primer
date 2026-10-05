@@ -20,6 +20,15 @@ def test_complete_original_stream_and_resource_mapping_are_conserved():
     assert len(r['top_level_blocks'])==181 and len(r['modifier_chains'])==96 and len(r['model_nodes'])==47
     assert set(i['resource_name'] for i in r['model_nodes'])==set(r['extension_mesh_resources'])
     assert len({i['name'] for i in r['model_nodes']})==47
+    assert parsed['file_header']==r['file_header']
+    assert r['file_header']['units_to_metres']==.001 and r['file_header']['profile_bits']==10
+    assert r['file_header']['declaration_size']==88 and r['file_header']['major_version']==256
+    assert not r['file_header']['geometry_scaled_or_converted']
+    assert r['extension_declarations']==parsed['extension_declarations']
+    extension=r['extension_declarations'][0]
+    assert extension['name']=='RHAdobeMeshResource' and extension['declaration_type']=='0x100'
+    assert extension['identifier']=='96a804a6-3fb9-43c5-b2df-2a31b5569340'
+    assert extension['vendor']=='Right Hemisphere Adobe Systems' and extension['information']=='version 1.0'
     for name in ['Internal anal sphincter ','External anal sphincter','Mesorectum','Anal intermuscular septum','Vaginal wall','Perineal body']:
         assert name in {i['name'] for i in r['model_nodes']}
     assert all(any(i['type']=='0x100' for i in c['modifiers']) for c in r['modifier_chains'] if c['chain_type']==1)

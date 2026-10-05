@@ -9,6 +9,8 @@ import json
 from pathlib import Path
 import struct
 import subprocess
+import math
+import uuid
 import xml.etree.ElementTree as ET
 
 
@@ -40,8 +42,17 @@ def string(raw,pos,stop):
 
 
 def inventory(raw):
-    top=blocks(raw);chains=[];nodes=[]
+    top=blocks(raw);chains=[];nodes=[];extensions=[]
     if top[0]['type']!='0x443355':raise ValueError('Not a U3D stream')
+    h=top[0];pos=h['data_start'];major,minor,profile,declarations,file_size,encoding=struct.unpack_from('<hhIIQI',raw,pos)
+    expected=32 if profile&8 else 24
+    if h['data_bytes']!=expected or file_size!=len(raw) or encoding!=106:raise ValueError('Header size, stream length or string encoding differs')
+    units=struct.unpack_from('<d',raw,pos+24)[0] if profile&8 else None
+    if units is not None and (not math.isfinite(units) or units<=0):raise ValueError('Invalid declared unit scale')
+    if declarations not in {b['offset'] for b in top}|{len(raw)}:raise ValueError('Declaration section boundary differs')
+    header={'major_version':major,'minor_version':minor,'profile_bits':profile,'declaration_size':declarations,
+            'file_size':file_size,'character_encoding':encoding,'units_to_metres':units,
+            'geometry_scaled_or_converted':False,'version_accepted_by_geometry_decoder':False}
     for b in top:
         if b['type']!='0xffffff14':continue
         name,pos=string(raw,b['data_start'],b['data_end'])
@@ -56,6 +67,19 @@ def inventory(raw):
         if len(nested)!=count:raise ValueError('Modifier count differs')
         chains.append({'name':name,'chain_type':kind,'attributes':attrs,'block_offset':b['offset'],'modifiers':nested})
         for child in nested:
+            if child['type']=='0xffffff16':
+                ext,pos=string(raw,child['data_start'],child['data_end'])
+                modifier_type=struct.unpack_from('<I',raw,pos)[0];pos+=4
+                identifier=str(uuid.UUID(bytes_le=raw[pos:pos+16]));pos+=16
+                declaration_type,count=struct.unpack_from('<II',raw,pos);pos+=8
+                continuation_types=list(struct.unpack_from('<'+'I'*count,raw,pos));pos+=4*count
+                vendor,pos=string(raw,pos,child['data_end']);url_count=struct.unpack_from('<I',raw,pos)[0];pos+=4;urls=[]
+                for _ in range(url_count):value,pos=string(raw,pos,child['data_end']);urls.append(value)
+                info,pos=string(raw,pos,child['data_end'])
+                if pos!=child['data_end']:raise ValueError('Unaccounted extension declaration bytes')
+                extensions.append({'name':ext,'modifier_type':modifier_type,'identifier':identifier,'declaration_type':hex(declaration_type),
+                                   'continuation_types':continuation_types,'vendor':vendor,'information_urls':urls,'information':info,
+                                   'source_block_sha256':child['sha256'],'geometry_decoded':False})
             if child['type']!='0xffffff22':continue
             node,pos=string(raw,child['data_start'],child['data_end'])
             count=struct.unpack_from('<I',raw,pos)[0];pos+=4;parents=[]
@@ -69,7 +93,7 @@ def inventory(raw):
             visibility=struct.unpack_from('<I',raw,pos)[0]
             if node!=name:raise ValueError('Node and chain names differ')
             nodes.append({'name':node,'resource_name':resource,'parents':parents,'visibility':visibility,'source_block_sha256':child['sha256']})
-    return {'top_level_blocks':top,'block_type_counts':dict(Counter(b['type'] for b in top)),
+    return {'file_header':header,'extension_declarations':extensions,'top_level_blocks':top,'block_type_counts':dict(Counter(b['type'] for b in top)),
             'modifier_chains':chains,'model_nodes':nodes,'decoded_geometry':False,
             'extension_mesh_resources':[c['name'] for c in chains if c['chain_type']==1],
             'source_bytes_changed':False,'patient_axis_units_or_registration_verified':False}

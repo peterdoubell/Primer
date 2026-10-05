@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -1062,7 +1062,7 @@
       },
       "reporting_contract_sha256": "f223abd46a1cc47e60ae3b825211a4c97129a636d405583e40ecff39a0505662",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2433,7 +2433,7 @@
       },
       "reporting_contract_sha256": "776461314d34341a810219ff75408474bff96d40b41d1976c7dd2fc12a70f30a",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3343,7 +3343,8 @@
                 "Tumour extends cranially into the lower rectum __ cm above the anorectal junction."
               ],
               "images": [
-                "anal-cancer-image-1"
+                "anal-cancer-image-1",
+                "open-anal-mri-pmc10784345-fig2"
               ],
               "measurements": [
                 "Tumour dimension"
@@ -3484,9 +3485,9 @@
           }
         ]
       },
-      "reporting_contract_sha256": "50564d4cd812397c8f5e7f62bf2eb74a870669721f3ceb63e43ce5869519e0ee",
+      "reporting_contract_sha256": "283092562e4bbef8f40fda0a09c1ddcea5f87461d95cf96d415fb7941caf51af",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3530,7 +3531,95 @@
             "reviewed_at": "2026-09-23"
           }
         ],
-        "structure_atlas": [],
+        "structure_atlas": [
+          {
+            "id": "open-anal-mri-pmc10784345-fig2",
+            "kind": "clinical-image",
+            "src": "/app/reference-media/radiology-open/anal-mri-pmc10784345-fig2.png",
+            "width": 1016,
+            "height": 875,
+            "sha256": "44d3e3a0dd7be03cd0e7b554b2fbac851eac43d01d4c5106dada590ec1fa1b16",
+            "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10784345/",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10784345/#Fig2",
+            "figure_number": 2,
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10784345.1/PMC10784345.1.pdf?md5=0dd940ac91a94d1316c6536c6861210b",
+            "modality": "MRI",
+            "clinical_panels": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "image_state": "anal_cancer_mri_source_pmc10784345_fig2",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "depicted_state": "anal_cancer_mri_source_pmc10784345_fig2",
+              "extent": "local",
+              "selected_panels": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ],
+              "panel_types": {
+                "a": "MRI",
+                "b": "MRI",
+                "c": "MRI",
+                "d": "MRI"
+              },
+              "panel_states": {
+                "a": "anal_cancer_mri_source_pmc10784345_fig2",
+                "b": "anal_cancer_mri_source_pmc10784345_fig2",
+                "c": "anal_cancer_mri_source_pmc10784345_fig2",
+                "d": "anal_cancer_mri_source_pmc10784345_fig2"
+              },
+              "panel_sequences": {
+                "a": "axial T2",
+                "b": "axial T2",
+                "c": "axial T2",
+                "d": "axial T2"
+              },
+              "separate_patient_pairs": [
+                [
+                  "a",
+                  "b"
+                ],
+                [
+                  "c",
+                  "d"
+                ]
+              ],
+              "panel_timepoints": {
+                "a": "baseline",
+                "b": "week_2",
+                "c": "baseline",
+                "d": "week_2"
+              },
+              "panel_identifiers_from_caption": true,
+              "independent_timepoint_registration_verified": false,
+              "full_volumetric_series_or_masks_included": false,
+              "response_or_recurrence_prediction_verified": false,
+              "full_sphincter_or_organ_invasion_map_verified": false,
+              "spatial_3d_tumour_derived": false
+            },
+            "caption": "Four original axial T2 snapshots from two different anal-cancer patient examples, each at baseline and week 2. Original contours and arrows are preserved. These local views do not independently validate volumetric response or predict recurrence.",
+            "alt": "Four original axial T2 snapshots from two different anal-cancer patient examples, each at baseline and week 2. Original contours and arrows are preserved. These local views do not independently validate volumetric response or predict recurrence.",
+            "limits": "Two separate source patients, with baseline/week-2 views in each pair; no geometry is transferred between pairs. Complete clinical series, volumetric masks, independent timepoint registration, calibrated greatest tumour dimension and pathological confirmation are not supplied by these snapshots. No DWI/ADC, definitive viability, complete sphincter/organ invasion map, nodal staging, systemic staging or spatial 3D tumour reconstruction is inferred. Published PDF samples/ICC are preserved; highest-resolution acquired masters and independent anatomical validation remain unverified.",
+            "structures_visible": [
+              "Source-local tumour contours and surrounding anal/pelvic context in axial T2 snapshots"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "\u00a9 The Author(s) 2023 Bettina A. Hanekamp, Ellen Viktil, Kathinka S. Sl\u00f8rdahl, Johann Baptist Dormagen, Nils E. Kl\u00f8w, Eirik Malinen, Cathrine Brunborg, Marianne G. Guren, Anselm Schulz. Magnetic resonance imaging of anal cancer: tumor characteristics and early prediction of treatment outcome. DOI 10.1007/s00066-023-02114-5. CC BY 4.0. Complete original Figure 2 preserved from the verified publication PDF without sample changes. NLM/PMC Article Dataset snapshot; may not reflect latest NLM data. No endorsement implied.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-05",
+            "rights_review": "Original XML grant and complete caption checked for separate credits; repository checksums and PDF sample/profile readback verified."
+          }
+        ],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.anal-cancer",
@@ -3924,7 +4013,7 @@
       },
       "reporting_contract_sha256": "86c0703d4456b3adce5211f61f20b18edc565224ebdfb095380b386312e14371",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -4718,7 +4807,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6077,7 +6166,7 @@
       },
       "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -6726,7 +6815,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -7572,7 +7661,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -8657,7 +8746,7 @@
       },
       "reporting_contract_sha256": "5e2553d4b2296031280b8ff52ecb45abe99d345c0d1443b334626cf463beaa22",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9556,7 +9645,7 @@
       },
       "reporting_contract_sha256": "51afe1e42b4980b9410d9cde3df025ec185c91efcf1ed9f5a935c60d58bce8bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10457,7 +10546,7 @@
       },
       "reporting_contract_sha256": "157a1fd76d9cd51e73683f63e8933edf810415a86770b53e11341939ffa5288d",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11330,7 +11419,7 @@
       },
       "reporting_contract_sha256": "b9c6e28550ad5ea535af5d890dd506fe41e613a16ebce0a74013366fad0294cd",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12196,7 +12285,7 @@
       },
       "reporting_contract_sha256": "10ba145d2740780d7999bf96467d0e7a0f6651f63afc61094da04794c57a63f7",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12936,7 +13025,7 @@
       },
       "reporting_contract_sha256": "116b5af41de5f9b16a39206a18a71c0aaaa81d0814a4639683ca20164f6eb4bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14328,7 +14417,7 @@
       },
       "reporting_contract_sha256": "01ea478d05690a040c5c45211a98b70e9fb938bcf0a500f21295cb4331587776",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -17736,7 +17825,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18121,7 +18210,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18647,7 +18736,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19068,7 +19157,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19483,7 +19572,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -20402,7 +20491,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -20863,7 +20952,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -21810,7 +21899,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -22616,7 +22705,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -29318,7 +29407,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -33486,7 +33575,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -36120,7 +36209,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -36515,7 +36604,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -58442,7 +58531,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "1c429cb20d08dee1df61841669d4e2f3941ba1f4e7b3fcde77700caf7ce0db8c",
+      "structure_inventory_sha256": "30b7cb2e21f05af05feb3e9dbcaae42424bf3d0d017b46da271eba16e4a27f81",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
